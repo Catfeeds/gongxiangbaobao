@@ -1,0 +1,121 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<view class="container">
+  <view class="page-order-detail">
+
+    <view class="fx-panel">
+      <view class="fx-panel__body">
+        <view class="fx-block fx-block--order-status border">
+          <label class="status">{{ currentOrder.status_title }}</label>
+          <view class="summary">
+            <view class="notice" wx:if="{{ currentOrder.status == 1 }}">
+              超过30分钟未支付订单将自动取消
+            </view>
+            <view class="action">
+              <fx-button name="取消订单" type="default" round="true" data-rid="{{ currentOrder.rid }}" bindtap="handleCancelOrder" wx:if="{{ currentOrder.status == 1 }}"></fx-button>
+              <fx-button name="微信支付" type="primary" round="true" data-rid="{{ currentOrder.rid }}" bindtap="handlePayOrder" wx:if="{{ currentOrder.status == 1 }}" class="btn-pay"></fx-button>
+              <fx-button name="确认收货" type="primary" round="true" data-rid="{{ currentOrder.rid }}" bindtap="handleSignOrder" wx:if="{{ currentOrder.status == 5 }}" class="btn-pay"></fx-button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="fx-panel">
+      <view class="fx-panel__body">
+        <view class="fx-block border">
+          <label class="name">订单编号</label>
+          <label class="indicator">
+            {{ currentOrder.rid }}
+          </label>
+        </view>
+        <view class="fx-block border">
+          <label class="name">下单时间</label>
+          <label class="indicator">
+            {{ currentOrder.created_at }}
+          </label>
+        </view>
+        <view class="fx-block border" wx:if="{{ currentOrder.received_at }}">
+          <label class="name">收货时间</label>
+          <label class="indicator">
+            {{ currentOrder.received_at }}
+          </label>
+        </view>
+      </view>
+    </view>
+
+    <!--买家地址-->
+    <view class="fx-panel">
+      <view class="fx-panel__body">
+        <view class="fx-address">
+          <view class="content">
+            <label class="icon">
+              <i class="fx-icon-location"></i>
+            </label>
+            <view class="info">
+              <text class="title">{{ currentOrder.buyer_name }} {{ currentOrder.buyer_phone }}</text>
+              <text class="summary">{{ currentOrder.buyer_province}}{{ currentOrder.buyer_city }}{{ currentOrder.buyer_town }}{{ currentOrder.buyer_area }} {{ currentOrder.buyer_address }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--订单商品-->
+    <view class="fx-panel">
+      <view class="fx-panel__body">
+
+        <view class="fx-order__item" wx:for="{{ currentOrder.items }}" wx:key="{{ item.rid }}">
+          <view class="fx-order__image">
+            <image src="{{ item.cover }}" mode="widthFix" class="image" />
+          </view>
+          <view class="fx-order__content">
+            <label class="title">{{ item.product_name }}</label>
+            <label class="mode">{{ item.mode }}</label>
+            <label class="price">￥ {{ item.deal_price }}</label>
+          </view>
+          <view class="fx-order__quantity">
+            x {{ item.quantity }}
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+    <!--订单金额-->
+    <view class="fx-panel">
+      <view class="fx-panel__body">
+
+        <view class="fx-block border">
+          <label class="name">商品金额</label>
+          <label class="price">
+            ￥{{ currentOrder.total_amount }}
+          </label>
+        </view>
+
+        <view class="fx-block border">
+          <label class="name">邮费</label>
+          <label class="price">
+            ￥{{ currentOrder.freight }}
+          </label>
+        </view>
+
+        <view class="fx-block border">
+          <label class="name">优惠券</label>
+          <label class="price">
+            -￥{{ currentOrder.discount_amount }}
+          </label>
+        </view>
+
+        <view class="fx-block border">
+          <label class="name">总金额</label>
+          <label class="price">
+            ￥{{ currentOrder.pay_amount }}
+          </label>
+        </view>
+
+
+      </view>
+    </view>
+
+  </view>
+</view>

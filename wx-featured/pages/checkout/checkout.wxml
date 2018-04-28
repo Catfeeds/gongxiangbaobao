@@ -1,0 +1,125 @@
+<view class="container">
+  <view class="page-checkout">
+    <view class="order-address">
+      <view class="fx-address" wx:if="{{ selectedAddress }}">
+        <view class="content">
+          <label class="icon">
+            <i class="fx-icon-location"></i>
+          </label>
+          <view class="info">
+            <text class="title">{{ selectedAddress.first_name }} {{ selectedAddress.mobile }}</text>
+            <text class="summary">{{ selectedAddress.province}}{{ selectedAddress.city }}{{ selectedAddress.town }}{{ selectedAddress.area }} {{ selectedAddress.street_address }}</text>
+          </view>
+        </view>
+        <view class="action">
+          <view class="buttons">
+            <label class="edit" bindtap="handleEditAddress">
+              <i class="fx-icon-edit"></i> 编辑
+            </label>
+            <label class="delete" bindtap="handleChooseAddress">
+              <i class="fx-icon-delete"></i> 重选
+            </label>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="fx-panel order-products">
+      <view class="fx-panel__body">
+        <fx-order-product wx:for="{{ products }}" wx:key="{{ item.rid }}" total-count="{{ totalCount }}" index="{{ index }}" product="{{ item }}">
+        </fx-order-product>
+      </view>
+    </view>
+
+    <view class="fx-panel">
+      <view class="fx-panel__title border">
+        <picker class="express-date" bindchange="handleChangeTime" value="{{ index }}" range="{{ timedata }}">
+          <view class="picker">
+            送货
+            <text>{{ timedata[timeIndex] }}</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="order-remark">
+      <label class="name">备注</label>
+      <textarea class="content" placeholder-class="content-placeholder" maxlength="50" auto-height="true" placeholder="如有特殊需求请备注说明（50字以内）" cursor-spacing="40" bindblur="handleRemarkInput" />
+    </view>
+
+    <view class="fx-block coupon">
+      <label class="name">优惠券
+        <text class="tips" wx:if="{{ couponLabel }}">（{{ couponLabel }}）</text>
+      </label>
+      <label class="indicator" bindtap="showCouponModal">
+        <text class="xname" wx:if="{{ usedCoupon.amount }}">￥{{ usedCoupon.amount }}</text>
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
+
+    <view class="order-check-panel">
+      <view class="fx-panel">
+        <view class="fx-panel__title border">
+          <text class="title">支付方式</text>
+          <label class="indicator">
+            <i class="fx-icon-wechat-pay-colour"></i> 微信支付
+          </label>
+        </view>
+
+        <view class="fx-block border">
+          <label class="name">商品金额</label>
+          <label class="indicator">￥{{ productAmount }}</label>
+        </view>
+
+        <view class="fx-block border">
+          <label class="name">运费</label>
+          <label class="indicator">+￥{{ freight }}</label>
+        </view>
+
+        <view class="fx-block border">
+          <label class="name">优惠</label>
+          <label class="indicator">-￥{{ discountAmount }}</label>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="page-cart__checkout fixed-bottom">
+      <label class="total-amount">
+        合计：¥{{ totalAmount }}
+      </label>
+      <fx-button class="btn-checkout" size="large" type="primary" name="微信支付" bind:tapEvent="handleCheckout">
+      </fx-button>
+    </view>
+
+
+    <!--优惠券-->
+    <view class="cover-bg" hidden="{{ !seeCouponModal }}" bindtap="hideCouponModal"></view>
+    <view class="fx-coupon-modal" hidden="{{ !seeCouponModal }}">
+      <view class="fx-coupon__list" wx:if="{{ availableCoupons.length }}">
+        <view class="fx-coupon" wx:for="{{ availableCoupons }}" wx:for-item="coupon" wx:key="{{ coupon.code }}">
+          <view class="fx-coupon__amount">
+            <label class="currency">￥</label>
+            <text class="amount">{{ coupon.amount }}</text>
+          </view>
+          <view class="fx-coupon__info">
+            <text class="rule">{{ coupon.name }}</text>
+            <text class="expired" wx:if="{{ coupon.start_date }}">
+            有效期：{{ coupon.start_date }}<text wx:if="{{ coupon.end_date }}"> - {{ coupon.end_date }}</text>
+            </text>
+          </view>
+          <view class="fx-coupon__action" data-code="{{ coupon.code }}" bindtap="handleChooseCoupon">
+            <label class="status {{ coupon.checked ? 'checked': '' }}">
+              <i class="fx-icon-check-mark"></i>
+            </label>
+          </view>
+        </view>
+      </view>
+      <view class="fx-coupon__empty" wx:else>
+        您暂无可用优惠券
+      </view>
+    </view>
+
+  </view>
+
+</view>

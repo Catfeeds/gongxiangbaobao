@@ -1,0 +1,12 @@
+/* components/FxBrand/FxBrand.wxss */
+.fx-brand {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.fx-brand__image {
+  flex: 1;
+}
+.fx-brand__image .cover {
+  width: 100%;
+}

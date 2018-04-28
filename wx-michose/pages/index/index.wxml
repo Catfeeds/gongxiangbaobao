@@ -1,0 +1,75 @@
+<!--index.wxml-->
+<view class="container">
+  <fx-search 
+    id="index-searcher" 
+    holderText="搜索" 
+    isAbsolute="{{ search_position }}" 
+    bind:tapEvent="bindClickSearch">
+  </fx-search>
+  <view class="swiper-wrapper">
+    <swiper indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" interval="{{ interval }}" duration="{{ duration }}" class="fx-swiper" bindchange="handleSwiperChange">
+      <block wx:for="{{ indexSlides }}" wx:key="{{ item.rid }}">
+        <swiper-item>
+          <image src="{{ item.image }}" mode="widthFix" class="slide-image" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="handleSlideTap" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">  
+      <text class="dot-idx">{{ swiperCurrent }}</text> / <text class="dot-all">{{ indexSlideCount }}</text> 
+    </view>
+  </view>
+
+  <!--优惠券-->
+  <scroll-view class="block-bonus" scroll-left="0" scroll-x="true" wx:if="{{ couponList.length }}">
+    <view 
+      wx:for="{{ couponList }}"
+      wx:key="{{ item.code }}"
+      class="fx-bonus" 
+      data-rid="{{ item.code }}" 
+      bindtap="handleGrantCoupon">
+      <view class="fx-bonus__info {{ item.received ? 'received' : '' }}">
+        <text class="amount">{{ item.amount }}</text><label class="currency">￥</label>
+      </view>
+    </view>
+    
+  </scroll-view>
+
+  <!--品牌专区-->
+  <scroll-view class="selected-brands" scroll-left="50" scroll-x="true">
+    <fx-brand wx:for="{{ selectedBrands }}" wx:key="{{ item.rid }}" bind:viewBrand="bindBrandTap" brand="{{ item }}" class="brand-item">
+    </fx-brand>
+  </scroll-view>
+  
+  <view class="fx-panel">
+    <view class="fx-panel__title">
+      <view class="two-lang-title">
+        <label class="en-title">EVENT TOPIC</label>
+        <label class="zh-title">专题活动</label>
+      </view>
+    </view>
+    <view class="fx-panel__body">
+      <view class="fx-topic">
+        <view class="fx-topic__item" wx:for="{{ eventTopics }}" wx:key="{{ item.rid }}">
+          <image src="{{ item.image }}" mode="widthFix" class="cover" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="handleSlideTap" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!--最新产品-->
+  <view class="fx-panel">
+    <view class="fx-panel__title">
+      <view class="two-lang-title">
+        <label class="en-title">NEW ARRIVEL</label>
+        <label class="zh-title">新品到货</label>
+      </view>
+    </view>
+    <view class="fx-panel__body">
+      <view class="product-list--sticked">
+        <fx-product wx:for="{{ newestProducts }}" wx:key="{{ item.rid }}" bind:viewProduct="bindProductTap" product="{{ item }}" class="product-item">
+        </fx-product>
+      </view>
+    </view>
+  </view>
+
+</view>

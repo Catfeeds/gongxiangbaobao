@@ -1,0 +1,31 @@
+/* pages/search/search.wxss */
+.search-box {
+  font-size: 28rpx;
+  padding: 20rpx 32rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #E6E6E6;
+}
+.search-suggest {
+  font-size: 28rpx;
+}
+.word-group {
+  padding-top: 20rpx;
+  padding-left: 12rpx;
+  padding-bottom: 40rpx;
+}
+.word-group .word {
+  margin-right: 20rpx;
+  border: 1px solid #E6E6E6;
+  padding: 8rpx 30rpx;
+  border-radius: 4rpx;
+}
+.product-list--search {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 20rpx;
+  justify-content: space-between;
+}
+.product-list--search .product-item {
+  flex: 0 0 48%;
+  margin-bottom: 32rpx;
+}

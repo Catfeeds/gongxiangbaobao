@@ -1,0 +1,152 @@
+<view class="container">
+  <view class="page-product__cover">
+    <swiper indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" interval="{{ interval }}" duration="{{ duration }}" class="fx-swiper">
+      <block wx:for="{{ productContent.images }}" wx:key="{{ item.id }}">
+        <swiper-item>
+          <image src="{{ item.view_url }}" mode="widthFix" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="page-product__header">
+    <label class="name">{{ product.name }}</label>
+    <label class="features">{{ product.features }}</label>
+
+    <view class="sale-price" wx:if="{{ product.sale_price }}">
+      ￥{{ product.sale_price }}
+      <text class="price" wx:if="{{ product.price }}">￥{{ product.price }}</text>
+      <label class="wxacode" data-rid="{{ product.rid }}" bindtap="handleGenPoster">
+        <i class="fx-icon-link"></i> 推广海报
+      </label>
+    </view>
+    <view class="sale-price" wx:else>
+      ￥{{ product.price }}
+      <label class="wxacode" data-rid="{{ product.rid }}" bindtap="handleGenPoster">
+        <i class="fx-icon-link"></i> 推广海报
+      </label>
+    </view>
+
+  </view>
+
+  <view class="page-product__choose">
+    <view class="fx-block">
+      <label class="title">已选择:</label>
+      <label class="summary">{{ choosedSkuText }}</label>
+      <label class="indicator" bindtap="showSkuModal">
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
+  </view>
+
+  <view class="fx-link-group fx-m20">
+    <label class="tab-link active" >
+      图文详情
+    </label>
+  </view>
+
+  <view class="page-product__content">
+    <view class="product-content">
+      <block wx:for="{{ productContent.content }}" wx:key="{{ item.rid }}">
+        <text wx:if="{{ item.type == 'text' }}" class="txt">{{ item.content }}</text>
+        <image wx:if="{{ item.type == 'image' }}" src="{{ item.content }}" mode="widthFix" class="cover"></image>
+      </block>
+    </view>
+  </view>
+
+  <view class="page-product__footer">
+    <label class="btn collect {{ favorited ? 'favorited' : '' }}" bindtap="handleFavorite">
+      <i class="fx-icon-like"></i>
+      <text class="text">收藏</text>
+    </label>
+    <label class="btn cart fx-badge" bindtap="handleCartTap">
+      <text class="fx-badge__content is-fixed" wx:if="{{ cartTotalCount }}"></text>
+      <i class="fx-icon-cart"></i>
+      <text class="text">购物车</text>
+    </label>
+    <label class="btn join-cart" bindtap="showSkuModal" data-type="cart">
+      加入购物车
+    </label>
+    <label class="btn quick-buy" bindtap="showSkuModal" data-type="buy">
+      马上购买
+    </label>
+  </view>
+
+  <view class="cover-bg" hidden="{{ !seeSkuModal }}" bindtap="hideSkuModal"></view>
+  <view class="fx-sku-box" hidden="{{ !seeSkuModal }}">
+    <label class="close" bindtap="hideSkuModal">
+      <i class="fx-icon-close-error"></i>
+    </label>
+    <view class="sku-header">
+      <image src="{{ choosed.cover }}" class="sku-image" />
+      <text class="price" wx:if="{{ choosed.sale_price > 0 }}">￥{{ choosed.sale_price }}</text>
+      <text class="price" wx:else>￥{{ choosed.price }}</text>
+      <text class="stock">库存：{{ choosed.stock_count }} 个</text>
+    </view>
+
+    <view class="block" wx:if="{{ hasMode }}">
+      <label class="block-title">规格</label>
+      <view class="sku-group">
+        <label wx:for="{{ skus.modes }}" wx:for-index="idx" wx:for-item="mode" wx:key="{{ mode.rid }}" class="option {{ activeModeIdx == idx ? 'active': '' }} {{ !mode.valid ? 'disabled': '' }}" bindtap="handleChooseMode" data-idx="{{ idx }}" data-valid="{{ mode.valid }}">
+          {{ mode.name }}
+        </label>
+      </view>
+    </view>
+
+    <view class="block" wx:if="{{ hasColor }}">
+      <label class="block-title">颜色</label>
+      <view class="sku-group">
+        <label wx:for="{{ skus.colors }}" wx:for-index="idx" wx:for-item="color" wx:key="{{ color.rid }}" class="option {{ activeColorIdx == idx ? 'active': ''  }} {{ !color.valid ? 'disabled': '' }}" bindtap="handleChooseColor" data-idx="{{ idx }}" data-valid="{{ color.valid }}">
+          {{ color.name }}
+        </label>
+      </view>
+    </view>
+
+    <view class="block quantity">
+      <label class="block-title">数量</label>
+      <view class="quantity-input">
+        <fx-input-number value="{{ quantity }}" bind:inputNumber="handleChangeQuantity" data-rid="{{ rid }}">
+        </fx-input-number>
+      </view>
+    </view>
+
+    <view class="sku-footer">
+
+      <view class="btn-group" wx:if="{{ hasBuyWay }}">
+        <label class="confirm cart" bindtap="handleAddCart" wx:if="{{ buyWay == 'cart' }}">
+          确定
+        </label>
+        <label class="confirm" bindtap="handleQuickBuy" wx:if="{{ buyWay == 'buy' }}">
+          确定
+        </label>
+      </view>
+
+      <view class="choose-submit" wx:if="{{ !hasBuyWay }}">
+        <label class="confirm" bindtap="handleAddCart">
+          加入购物车
+        </label>
+        <label class="confirm" bindtap="handleQuickBuy">
+          马上购买
+        </label>
+      </view>
+    </view>
+
+
+  </view>
+
+  <view class="cover-bg" hidden="{{ !seePosterModal }}" bindtap="hidePosterModal"></view>
+  <view class="fx-poster" hidden="{{ !seePosterModal }}">
+    <view class="fx-poster-image">
+      <image src="{{ posterImage }}" mode="widthFix" wx:if="{{ posterImage }}" class="cover" />
+      <view class="loading" wx:else>
+        <i class="fx-icon-time"></i>
+        <label class="tips">图片生成中...</label>
+      </view>
+    </view>
+    <view class="fx-poster-action">
+      <label class="tips">保存至相册可分享给朋友</label>
+      <fx-button name="{{ posterBtnText }}" type="primary" round="true"  bindtap="handleSavePoster" class="btn-save" isFluid="true"></fx-button>
+    </view>
+  </view>
+
+</view>

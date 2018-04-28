@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "购物车",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton",
+    "fx-input-number": "/components/FxInputNumber/FxInputNumber"
+  }
+}

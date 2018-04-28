@@ -1,0 +1,5 @@
+<!--pages/components/FxSearch/FxSearch.wxml-->
+<view class="{{ isAbsolute ? 'fx-search fx-search--absolute' : 'fx-search' }}" bindtap="handleTapEvent">
+    <icon type="search" size="12" class="fx-search__icon" />
+    <input type="text" class="fx-search__input" placeholder="{{ holderText }}" placeholder-class="fx-search__ph" confirm-type="search" bindconfirm="handleSearchEvent" />
+  </view>

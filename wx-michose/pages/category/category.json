@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "米选好物·发现",
+  "usingComponents": {
+    "fx-search": "/components/FxSearch/FxSearch",
+    "fx-brand": "/components/FxBrand/FxBrand"
+  }
+}

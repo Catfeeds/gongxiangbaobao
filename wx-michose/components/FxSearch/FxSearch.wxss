@@ -1,0 +1,32 @@
+/* pages/components/FxSearch/FxSearch.wxss */
+.fx-search {
+  position: relative;
+  border-radius: 35rpx;
+  background: #ededed;
+  color: #666666;
+  font-size: 28rpx;
+}
+.fx-search--absolute {
+  background: #c1c1c1;
+  position: absolute;
+  top: 20rpx;
+  left: 32rpx;
+  right: 32rpx;
+  z-index: 9;
+  opacity: 0.5;
+}
+.fx-search__icon {
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+  z-index: 9;
+  width: 100%;
+  line-height: 70rpx;
+  height: 70rpx;
+  text-align: center;
+}
+.fx-search__input {
+  padding: 0rpx 0rpx 0rpx 25rpx;
+  line-height: 70rpx;
+  height: 70rpx;
+}

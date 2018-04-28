@@ -1,0 +1,45 @@
+<!--pages/user/user.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+    </block>
+  </view>
+
+  <view class="fx-panel">
+    <view class="fx-panel__title">
+      <label class="title">我的订单</label>
+      <navigator url="../order/order" hover-class="link-hover" class="more">
+        全部订单 <i class="fx-icon-nothing-right"></i>
+      </navigator>
+    </view>
+    <view class="fx-panel__body">
+      <view class="fx-list">
+        <view class="fx-list__item" wx:for="{{ order_items }}" wx:key="{{ item.rid }}" bindtap="handleViewOrder" data-status="{{ item.status }}">
+          <i class="fx-icon-{{ item.icon }}"></i>
+          <text class="name">{{ item.name }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="fx-panel">
+    <view class="fx-panel__title">
+      <label class="title">我的服务</label>
+    </view>
+    <view class="fx-panel__body">
+      <view class="fx-list d-row">
+        <view class="fx-list__item" wx:for="{{ service_items }}" wx:key="{{ item.rid }}" data-rid="{{ item.rid }}" bindtap="handViewService" >
+          <i class="fx-icon-{{ item.icon }} {{ item.color }}"></i>
+          <text class="name">{{ item.name }}</text>
+        </view>
+        <button open-type="contact" class="fx-list__item customer-service">
+          <i class="fx-icon-customer-service"></i>
+          <text class="name">客服中心</text>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

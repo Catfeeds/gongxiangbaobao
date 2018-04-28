@@ -1,0 +1,4 @@
+<!--components/FxButton/FxButton.wxml-->
+<label class="{{ classes }}" bindtap="handleViewTap">
+  {{ name }}
+</label>

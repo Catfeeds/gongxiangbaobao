@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单结算",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton",
+    "fx-order-product": "/components/FxOrderProduct/FxOrderProduct"
+  }
+}

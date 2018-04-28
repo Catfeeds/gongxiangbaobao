@@ -1,0 +1,5 @@
+<view class="fx-product" data-rid="{{ product.rid }}" data-title="{{ product.name }}" bindtap="viewTap">
+  <view class="fx-product__image">
+    <image src="{{ loaded ? product.cover : '../../images/default-180.png' }}" mode="widthFix" class="cover" bindload="imageLoad"></image>
+  </view>
+</view>

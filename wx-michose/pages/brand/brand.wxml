@@ -1,0 +1,16 @@
+<!--pages/brand/brand.wxml-->
+<view class="container">
+  <view class="brand-banner">
+    <image src="{{ brand.banner }}" mode="widthFix" class="banner" wx:if="{{ brand.banner }}"></image>
+  </view>  
+  <view class="brand-info">
+    <text class="name">{{ brand.name }}</text>
+    <text class="features">{{ brand.features }}</text>
+  </view>
+
+  <view class="page-list__products by-brand">
+    <fx-product wx:for="{{ products }}" wx:key="{{ item.rid }}" bind:viewProduct="handleProductTap" product="{{ item }}" class="product-item">
+    </fx-product>
+  </view>
+
+</view>

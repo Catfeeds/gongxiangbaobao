@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "精选",
+  "usingComponents": {
+    "fx-search": "/components/FxSearch/FxSearch",
+    "fx-product": "/components/FxProduct/FxProduct",
+    "fx-brand": "/components/FxBrand/FxBrand"
+  }
+}

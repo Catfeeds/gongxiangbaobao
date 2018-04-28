@@ -1,0 +1,129 @@
+/* components/FxPromo/FxPromo.wxss */
+/* 首页01 首页05 */
+.fx-category__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  font-size: 28rpx;
+  background: #FFFFFF;
+  box-shadow: 0 0 10rpx 0 rgba(0,0,0,0.05);
+  border-radius: 10rpx;
+}
+.fx-category__image {
+  flex: 1;
+  font-size: 0;
+}
+.fx-category__image .cover {
+  width: 100%;
+  /*border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;*/
+}
+.fx-category__item .name {
+  height: 40rpx;
+  line-height: 40rpx;
+  flex: 1;
+  /*padding: 20rpx 20rpx 0;*/
+  border-top: 2rpx solid #E6E6E6;
+  max-width: 305rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fx-category__price {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
+  padding: 0 20rpx 24rpx;
+}
+.fx-category__price .sale-price {
+  font-size: 34rpx;
+  color: #8C5A50;
+}
+.fx-category__price .price {
+  color: #999999;
+  text-decoration: line-through;
+  margin-left: 10rpx;
+  font-size: 24rpx;
+}
+/* 首页02 */
+/*.fx-category__item {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20r;
+  font-size: 28rpx;
+  background: #FFFFFF;
+  box-shadow: 0 0 10rpx 0 rgba(0,0,0,0.05);
+  border-radius: 10rpx;
+  padding: 30rpx;
+  align-items: stretch;
+}
+.fx-category__image {
+  width: 200rpx;
+  font-size: 0;
+  border: 2rpx solid #E6E6E6;
+  position: relative;
+  overflow: hidden;
+}
+.fx-category__title_icon{
+  width: 300rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  transform: rotate(-45deg);
+  font-size: 26rpx;
+  color: #8C5A50;
+  background-image: linear-gradient(-225deg, #F7E9CF 4%, #FAF0DE 48%, #F7E9CF 96%);
+  border: 2rpx solid #F2DAAD;
+  text-align: center;
+  position: absolute;
+  top: 8rpx;
+  left: -118rpx;
+}
+.fx-category__image .cover {
+  width: 100%;
+}
+.fx-category__content{
+  flex: 1;
+  margin-left: 16rpx;
+  position: relative;
+}
+.fx-category__content .name {
+  font-size: 34rpx;
+  color: #222222;
+  line-height: 40rpx;
+}
+.fx-category__content .price_content{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.fx-category__content .price_content .price{
+  font-size: 34rpx;
+  color: #8C5A50;
+  line-height: 56rpx;
+}
+.fx-category__btn{
+  display: inline-block;
+  float: right;
+  background: #8C5A50;
+  border-radius: 29rpx;
+  width: 170rpx;
+  height: 56rpx;
+  font-size: 26rpx;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 56rpx;
+}*/
+/* 首页05 */
+.fx-category__image .cover {
+  width: 100%;
+  border: none;
+}
+.fx-category__item .name {
+  height: 40rpx;
+  line-height: 40rpx;
+  flex: 1;
+  padding-top: 20rpx;
+  margin: 0 20rpx 0;
+}

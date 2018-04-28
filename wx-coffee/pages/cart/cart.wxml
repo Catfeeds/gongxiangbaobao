@@ -1,0 +1,79 @@
+<view class="container">
+  
+  <view class="page-cart__list" wx:if="{{ cartList.length }}">
+
+    <view class="fx-cart-item" wx:for="{{ cartList }}" wx:key="{{ item.rid }}">
+      <view class="fx-cart-item__body">
+        <view class="checkbox" bindtap="handleCheckEvent" data-rid="{{ item.rid }}">
+          <i class="fx-icon-check-mark active" wx:if="{{ item.checked }}"></i>
+          <i class="fx-icon-circle" wx:else></i>
+        </view>
+        <view class="cover">
+          <image src="{{ item.product.cover }}" mode="widthFix" class="image" />
+        </view>
+        <view class="content">
+          <text class="name">{{ item.product.product_name }}</text>
+          <text class="mode">{{ item.product.mode }}</text>
+
+          <view class="box-bottom">
+            <text class="sale-price" wx:if="{{ item.product.sale_price > 0 }}">￥{{ item.product.sale_price }}</text>
+            <text class="sale-price" wx:else>￥{{ item.product.price }}</text>
+
+            <fx-input-number class="quantity" value="{{ item.quantity }}" bind:inputNumber="handleChangeQuantity" data-rid="{{ item.rid }}">
+            </fx-input-number>
+          </view>
+        </view>
+        <view class="actions">
+          <label class="close" data-rid="{{ item.rid }}" bindtap="handleRemoveEvent">
+            <i class="fx-icon-close-error"></i>
+          </label>
+        </view>
+      </view>
+    </view>
+    <!--fx-cart-item-->
+
+    <view class="page-cart__checkout fixed-bottom">
+      <label class="checkbox {{ checked_all ? 'active' : '' }}" bindtap="handleAllCheckEvent">
+        <i class="fx-icon-check-mark" wx:if="{{ checked_all }}"></i>
+        <i class="fx-icon-circle" wx:else></i>
+        全选
+      </label>
+      <label class="total-amount">
+        合计：¥{{ totalAmount }}
+      </label>
+      <label class="btn-checkout" bindtap="handleCheckout">去结算</label>
+    </view>
+  </view>
+
+  <view class="page-cart__empty" wx:else>
+    <image src="./../../images/cart-empty@3x.png" mode="widthFix" class="image" />
+    <text class="tips">
+      空空如也~
+    </text>
+    <fx-button name="去首页看看" type="primary" bind:tapEvent="handleGoChoose">
+    </fx-button>
+
+        <!-- 推荐 -->
+        <view class='product-box'>
+    <view class='six-product '>
+      <view class='five-info-text five-product six-product'>
+        店家推荐
+        <view class='five-more-goods'>更多</view>
+      </view>
+
+      <view class='six-goods-list'>
+        <view class='six-product-marbottom' wx:for="{{ newestProducts }}" wx:key="{{ item.rid }}" wx:for-item="item">
+          <fx-goods-list label="rotate"></fx-goods-list>
+        </view>
+
+
+      </view>
+
+    </view>
+</view>
+
+
+
+  </view>
+
+</view>

@@ -1,0 +1,18 @@
+/* components/FxProduct/FxProduct.wxss */
+.fx-product {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+}
+.fx-product__image {
+  flex: 1;
+  margin: 0rpx;
+  padding: 0rpx;
+  height: 204rpx;
+}
+.fx-product__image .cover {
+  width: 100%;
+  display: inline-block;
+  border-bottom: 4rpx solid #2b3b4a;
+}

@@ -1,0 +1,39 @@
+/* pages/brand/brand.wxss */
+.brand-banner .banner {
+  width: 100%;
+  height: 410rpx;
+  display: block;
+}
+.brand-info {
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 4rpx solid #2b3b4a;
+}
+.brand-info .name {
+  background: #b51515;
+  height: 150rpx;
+  width: 150rpx;
+  flex: 1;
+  margin-top: -75rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-self: center;
+  border-radius: 300rpx;
+  text-align: center;
+  line-height: 150rpx;
+  border: 1rpx solid #c4bab9;
+  color: #ffffff;
+  font-size: 500;
+  text-transform: uppercase;
+}
+.brand-info .features {
+  color: #666;
+  margin: 32rpx 16rpx;
+}
+.page-list__products.by-brand {
+  margin-top: 16rpx;
+}

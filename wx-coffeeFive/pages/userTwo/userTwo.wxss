@@ -1,0 +1,6 @@
+/* pages/userTwo/userTwo.wxss */
+@import "../userOne/userOne.wxss";
+
+.Two-bg{
+  background-color: white;
+}

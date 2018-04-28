@@ -1,0 +1,49 @@
+/* pages/category/category.wxss */
+.category-nav {
+  background: #ffffff;
+  border-right: 1rpx solid rgba(204, 204, 204, 0.5);
+  flex: 0 0 200rpx;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+}
+.category-nav .category-item {
+  border-left: 4px solid transparent;
+  padding-left: 32rpx;
+  margin: 32rpx 0;
+  flex: 1;
+}
+.category-nav .category-item.active,
+.category-nav .category-item--active {
+  border-left-color: #be8917;
+  color: #be8917;
+}
+.category-main {
+  flex: 1;
+  background: #ffffff;
+}
+.category-main .category-children {
+  display: flex;
+  font-size: 28rpx;
+  flex-flow: row wrap;
+  padding: 32rpx 20rpx;
+}
+.category-main .category-children .child-category-item {
+  flex: 0 0 27.3333%;
+  margin-bottom: 32rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3%;
+}
+.category-main .category-children .child-category-item .image {
+  margin-bottom: 10rpx;
+}
+.category-main .category-children .child-category-item .image .cover {
+  width: 100%;
+}
+.category-main .category-children .child-category-item .name {
+  align-self: center;
+}
+.category-main .category-children .child-category-item:last-child {
+ justify-content: flex-start;
+}

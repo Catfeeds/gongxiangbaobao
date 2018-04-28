@@ -1,0 +1,7 @@
+<!--pages/components/FxSearch/FxSearch.wxml-->
+<view class="{{ isAbsolute ? 'fx-search fx-search--absolute' : 'fx-search' }}" bindtap="handleTapEvent">
+    <view class="fx-search__icon" wx:if="{{ !focus }}">
+      <icon type="search" size="12" color="#666666" /> {{ holderText }}
+    </view>
+    <input type="text" class="fx-search__input" confirm-type="search" bindconfirm="handleSearchEvent" focus="{{ focus }}" />
+  </view>

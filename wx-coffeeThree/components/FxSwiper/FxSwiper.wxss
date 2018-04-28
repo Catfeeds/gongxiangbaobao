@@ -1,0 +1,12 @@
+
+/* components/FxSwiper/FxSwiper.wxss */
+.fx-swiper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.fx-swiper .slide-image {
+  width: 100%;
+  height: 100%;
+}

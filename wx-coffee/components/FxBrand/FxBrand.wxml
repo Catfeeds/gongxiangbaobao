@@ -1,0 +1,7 @@
+<!--components/FxBrand/FxBrand.wxml-->
+<view class="fx-brand" data-rid="{{ brand.rid }}" data-title="{{ brand.name }}" bindtap="viewTap">
+  <view class="fx-brand__image">
+    <image src="{{ brand.logo }}" mode="widthFix" class="cover" ></image>
+  </view>
+  <text class="fx-brand__name">{{ brand.name }}</text>
+</view>

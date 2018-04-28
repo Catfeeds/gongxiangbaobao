@@ -1,0 +1,12 @@
+<!--pages/aboutus/aboutus.wxml-->
+<view class="container">
+  <view class="company-banner" wx:if="{{ company.banner }}">
+    <image src="{{ company.banner }}" mode="widthFix" class="banner"></image>
+  </view>
+  <view class="company-instro">
+    <label class="name">{{ company.name }}</label>
+    <text class="description">
+      {{ company.description }}
+    </text>
+  </view>
+</view>

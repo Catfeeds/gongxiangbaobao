@@ -1,0 +1,26 @@
+.fx-input-number {
+  display: flex;
+  color: #c8c8c8;
+  font-size: 28rpx;
+  text-align: center;
+  border: 1rpx solid #c8c8c8;
+}
+.fx-input-number .minus,
+.fx-input-number .add {
+  flex: 0 0 56rpx;
+  color: #666666;
+}
+.fx-input-number .minus {
+  border-right: 1rpx solid #c8c8c8;
+}
+.fx-input-number .add {
+  border-left: 1rpx solid #c8c8c8;
+}
+.fx-input-number .minus.disabled,
+.fx-input-number .add.disabled {
+  color: #d5d5d5;
+}
+.fx-input-number .input-area {
+  flex: 1;
+  color: #666666;
+}

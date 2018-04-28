@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="fx-wishlist" wx:for="{{ wishlist }}" wx:key="{{ item.rid }}" data-rid="{{ item.rid }}" data-title="{{ item.name }}" bindtap="handleViewProduct">
+    <view class="fx-wishlist__cover">
+      <image src="{{ item.cover }}" mode="widthFix" class="image" />
+    </view>
+    <view class="fx-wishlist__info">
+      <text class="name">{{ item.name }}</text>
+      <view class="fx-product__price" wx:if="{{ item.sale_price > 0 }}">
+        <text class="sale-price">￥{{ item.sale_price }}</text>
+        <text class="price">￥{{ item.price }}</text>
+      </view>
+      <view class="fx-product__price" wx:else>
+        <text class="sale-price">￥{{ item.price }}</text>
+      </view>
+    </view>
+    <view class="fx-wishlist__action">
+      <label class="close" data-rid="{{ item.rid }}" bindtap="handleRemoveFavorite">
+          <i class="fx-icon-close-error"></i>
+      </label>
+    </view>
+  </view>
+</view>

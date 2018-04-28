@@ -1,0 +1,51 @@
+.page-bonus__nav {
+  background: #fff;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 16rpx;
+}
+.page-bonus__nav .item {
+  line-height: 80rpx;
+  color: #959595;
+  font-weight: 400;
+}
+.page-bonus__nav .item.active {
+  color: #ff3a31;
+  border-bottom: 4rpx solid #ff3a31;
+}
+.page-bonus__list {
+  font-size: 28rpx;
+  /* margin: 16rpx 16rpx 150rpx; */
+}
+.fx-bonus {
+  margin-bottom: 16rpx;
+  padding: 20rpx;
+  align-items: center;
+}
+.fx-bonus .money {
+  margin-left: 15rpx;
+  flex: 0 0 90rpx;
+  color: #ff3a31;
+}
+.fx-bonus .currency {
+  font-size: 28rpx;
+}
+.fx-bonus .amount {
+  font-size: 48rpx;
+  line-height: 100rpx;
+}
+.fx-bonus .fx-bonus__info {
+  flex: 1;
+  font-size: 22rpx;
+  margin-left: 20rpx;
+  text-align: left;
+}
+.fx-bonus__info .rule {
+  color: #222;
+  line-height: 60rpx;
+  font-size: 32rpx;
+}
+.fx-bonus__info .expired {
+  color: #6b6b6b;
+}

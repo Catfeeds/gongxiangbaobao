@@ -1,0 +1,100 @@
+/* pages/userFour/userFour.wxss */
+.caffea-box{
+  height: 400rpx;
+  width: 750rpx;
+  overflow: hidden;
+}
+.caffea-box>image{
+  width: 100%;
+  height: 520rpx;
+}
+.four-middle-user-info{
+  position: absolute;
+  left: 50%;
+  top:140rpx;
+  transform: translate(-50%);
+  height: 400rpx;
+  width: 690rpx;
+  border-radius: 10rpx  10rpx 10rpx 10rpx/ 10rpx 10rpx 10rpx 10rpx;
+  background-color: white;  
+  display: flex;
+  flex-direction: column;
+
+}
+.four-middle-user-info>view{
+  height: 200rpx;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+.userinfo-nickname {
+  font-size: 34rpx;
+  color: RGB(34,34,34);
+}
+.three-user-id{
+  font-size: 24rpx;
+  color: #666666;
+  margin-top: 20rpx;
+}
+
+.four-middle-user-info-top{
+  border-bottom: 2rpx solid RGB(230,230,230);
+}
+.userinfo{
+  position: absolute;
+  top:-60rpx;
+  left: 50%;
+  transform: translate(-50%);
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-btn{
+  height: 90rpx;
+  border-top: 2rpx solid RGB(230,230,230);
+  line-height: 90rpx;
+  padding:0 66rpx;
+  font-size: 30rpx;
+  color: #222222;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.middle-order-coupon image{
+  width: 69rpx;
+  height: 57rpx;
+}
+.middle-order-coupon{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.middle-order-coupon>view,
+.middle-order-coupon>view>navigator
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28rpx;
+  color: #222222;
+}
+.bottom-function{
+  margin-top: 170rpx;
+}
+button{
+  border:none !important;
+  font-size: 30rpx;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+button::after {
+  border: none;
+}

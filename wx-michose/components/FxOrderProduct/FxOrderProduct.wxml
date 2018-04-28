@@ -1,0 +1,16 @@
+<view class="fx-order-product {{ index + 1 != totalCount ? 'border' : '' }}">
+  <view class="cover">
+    <image src="{{ product.product.cover }}" mode="widthFix" class="image" />
+  </view>
+  <view class="content">
+    <text class="name">{{ product.product.product_name }}</text>
+    <text class="mode">{{ product.product.mode }} x{{ product.quantity }}</text>
+    <view class="fx-product__price" wx:if="{{ product.product.sale_price > 0 }}">
+      <text class="sale-price">￥{{ product.product.sale_price }}</text>
+      <text class="price">￥{{ product.product.price }}</text>
+    </view>
+    <view class="fx-product__price" wx:else>
+      <text class="sale-price">￥{{ product.product.price }}</text>
+    </view>
+  </view>
+</view>

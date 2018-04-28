@@ -1,0 +1,33 @@
+/* pages/orderDetail/orderDetail.wxss */
+.page-order-detail {
+  font-size: 28rpx;
+}
+.fx-block--order-status {
+  justify-content: flex-start;
+  align-items: center;
+}
+.fx-block--order-status .status {
+  flex: 0 0 150rpx;
+}
+.fx-block.border {
+  font-size: 28rpx;
+  border-bottom: 1rpx solid rgba(204 ,204, 204, 0.15);
+  margin: 0 16rpx;
+}
+.fx-block--order-status .summary {
+  flex: 1;
+}
+.fx-block--order-status .notice {
+  color: #f56c6c;
+}
+.fx-block--order-status .action {
+  margin-top: 0rpx; 
+}
+.fx-block--order-status .btn-pay {
+  margin-left: 32rpx;
+}
+.fx-order__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

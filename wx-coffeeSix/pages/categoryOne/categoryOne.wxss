@@ -1,0 +1,40 @@
+/* pages/categoryOne/categoryOne.wxss */
+
+.goods-name-list-category{
+  height:90rpx;
+  border-top: 2rpx solid RGB(217,217,217);
+  border-bottom: 2rpx solid RGB(217,217,217);
+  background-color: white;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: auto;
+  color: #666666;
+}
+.goods-name-list-category::-webkit-scrollbar{
+  display: none;
+}
+.goods-name-list-category>view{
+  padding: 0 30rpx;
+  white-space: nowrap;
+}
+.textcolor{
+  color: #8C5A50;
+  border-bottom: 2rpx solid #8C5A50;
+}
+.category-item{
+  height: 90rpx;
+  line-height: 90rpx;
+  box-sizing: border-box;
+}
+.one-categry-goodsinfo{
+  padding:30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.one-categry-goodsinfo>fx-goods-list{
+  margin-bottom: 20rpx;
+}

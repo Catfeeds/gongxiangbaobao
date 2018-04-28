@@ -1,0 +1,33 @@
+<!--pages/category/category.wxml-->
+<view class="container">
+  <view class="find-search">
+    <fx-search id="index-searcher" holderText="搜索" isAbsolute="{{ search_position }}" bind:tapEvent="bindClickSearch">
+  </fx-search>
+  </view>
+  <view class="find-main">
+    <scroll-view scroll-y="true" class="category-nav">
+      <view 
+        wx:for="{{ topCategories }}" 
+        wx:key="{{ item.id }}" 
+        class="category-item {{ cid == item.id ? 'active' : '' }}" 
+        data-rid="{{ item.id }}"
+        bindtap="handleChangeCategory">
+        {{ item.name }}
+      </view>
+    </scroll-view>
+
+    <view class="category-main">
+
+      <view class="category-children">
+        <view class="child-category-item" wx:for="{{ childrenCategories }}" wx:key="{{ item.id }}" bindtap="handleClickCategory" data-rid="{{ item.id }}" data-name="{{ item.name }}">
+          <view class="image">
+            <image src="{{ item.cover }}" mode="widthFix" class="cover" ></image>
+          </view>
+          <text class="name">{{ item.name }}</text>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+</view>

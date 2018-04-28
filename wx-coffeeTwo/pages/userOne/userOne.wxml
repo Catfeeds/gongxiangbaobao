@@ -1,0 +1,60 @@
+<!--pages/userOne/userOne.wxml 我的第一版-->
+
+<template name="my-info-template">
+
+  <view class='container'>
+    <view class='Two-bg'>
+      <image src='../../images/{{bgimage}}' class='user-photo-bgc '>
+        <view class='user-info-box'>
+          <button class='user-photo' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+          <image wx:else bindtap="bindViewTap" src="{{ userInfo.avatarUrl }}" background-size="cover" class='user-photo'></image>
+
+          <view class='user-name-text'>{{ userInfo.nickName }}</view>
+          <view class='user-id'>ID:{{ userInfo.language}}</view>
+        </view>
+      </image>
+    </view>
+    <!-- 底部信息 -->
+    <view class='middle-info'>
+
+      <view class='title-out-box' data-rid="s001" bindtap="handViewService">
+        <view class='title-photo'>
+          <image src='../../images/icon-coupon-hl@3x.png'></image>
+        </view>
+        <view>我的优惠券</view>
+      </view>
+
+      <navigator url='../order/order'>
+        <view class='title-out-box'>
+          <view class='title-photo'>
+            <image src='../../images/icon-order-hl@3x.png'></image>
+          </view>
+          <view>我的订单</view>
+        </view>
+      </navigator>
+
+      <view class='title-out-box' data-rid="s003" bindtap="handViewService">
+        <view class='title-photo'>
+          <image src='../../images/address-hl@3x.png'></image>
+        </view>
+        <view>地址管理</view>
+      </view>
+    </view>
+    <navigator url='../news/news'>
+      <view class='bottom-btn'>
+        <view>消息</view>
+        <view class=' my-iocn fx-icon-nothing-right'></view>
+      </view>
+    </navigator>
+    <view class='bottom-btn'>
+      <button open-type="contact">联系客服</button>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+    </view>
+    <view class='bottom-btn last-btn' data-rid="s006" bindtap="handViewService">
+      <view>关于我们</view>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+    </view>
+  </view>
+</template>
+
+<template is="my-info-template" data="{{hasUserInfo:hasUserInfo,canIUse:canIUse,userInfo:userInfo,bgimage:'BG01@3x.png'}}" />

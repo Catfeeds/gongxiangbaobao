@@ -1,0 +1,96 @@
+/* pages/category/category.wxss */
+.find-search {
+  padding: 10rpx 32rpx 16rpx;
+  border-bottom: 4rpx solid #2b3b4a;
+  background: #ffffff;
+}
+.find-main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+.category-nav {
+  background: #ffffff;
+  border-right: 1rpx solid #999999;
+  flex: 0 0 200rpx;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+}
+.category-nav .category-item {
+  border-left: 4px solid transparent;
+  padding-left: 32rpx;
+  margin: 32rpx 0;
+  flex: 1;
+  color: #000000;
+}
+.category-nav .category-item.active,
+.category-nav .category-item--active {
+  border-left-color: #000000;
+  color: #000000;
+  font-weight: 500;
+}
+
+.category-main {
+  flex: 1;
+  background: #ffffff;
+}
+.category-advertise {
+  height: 200rpx;
+  padding: 32rpx 20rpx 0rpx;
+}
+.category-advertise .cover {
+  width: 100%;
+  height: 200rpx;
+}
+.category-title {
+  font-size: 28rpx;
+  text-align: center;
+  margin-top: 32rpx;
+  display: block;
+  position: relative;
+}
+.category-title label:before, 
+.category-title label:after {
+  content: '';                 /*CSS伪类用法*/
+  position: absolute;         /*定位背景横线的位置*/
+  top: 52%;
+  background: #999999;       /*宽和高做出来的背景横线*/
+  width: 9%;
+  height: 2rpx;
+}
+/* 调整背景横线的左右距离 */
+.category-title label:before {
+  left: 25%;        
+}
+.category-title label:after {
+  right: 25%;
+}
+.category-main .category-children {
+  display: flex;
+  font-size: 24rpx;
+  flex-flow: row wrap;
+  padding: 32rpx 20rpx;
+}
+.category-main .category-children .child-category-item {
+  flex: 0 0 27.3333%;
+  margin-bottom: 32rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3%;
+}
+.category-main .category-children .child-category-item .image {
+  margin-bottom: 10rpx;
+}
+.category-main .category-children .child-category-item .image .cover {
+  width: 100%;
+  height: 100rpx;
+  border-radius: 100rpx;
+  border: 1rpx solid #e2e2e2;
+}
+.category-main .category-children .child-category-item .name {
+  align-self: center;
+}
+.category-main .category-children .child-category-item:last-child {
+ justify-content: flex-start;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "发现",
+  "usingComponents": {
+    "fx-search": "/components/FxSearch/FxSearch",
+    "fx-brand": "/components/FxBrand/FxBrand"
+  }
+}

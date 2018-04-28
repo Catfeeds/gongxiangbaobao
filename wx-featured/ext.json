@@ -1,0 +1,25 @@
+{
+  "extEnable": true,
+  "extAppid": "wxa8e1ba8def269b67",
+  "directCommit": false,
+  "ext": {
+    "name": "小灵兽",
+    "authAppid": "wxa8e1ba8def269b67",
+    "storeId": 0,
+    "attr": {
+      "users": [
+        "purpen"
+      ]
+    },
+    "api": {
+      "host": "https://wx.taihuoniao.com/api",
+      "version": "v1.0",
+      "appKey": "nGSqc3WEZJl2wHzfICFN",
+      "appSecret": "640c953007fc765f8b9ff0ec9a485f8ac2a961cf"
+    }
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

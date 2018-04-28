@@ -1,0 +1,84 @@
+/* pages/address/address.wxss */
+.page-address {
+  display: flex;
+  flex: 1;
+  height: 100vh;
+}
+.page-address--empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+	text-align: center;
+	color: #999;
+	font-size: 28rpx;
+  margin-top: 200rpx;
+}
+.page-address--empty .image {
+	width: 145rpx;
+	height: 145rpx;
+	margin: 0rpx auto 30rpx;
+}
+.page-address__addfix {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+	width: 100%;
+	border-top: 2rpx solid #e1e1e1;
+	font-size: 28rpx;
+	text-align: center;
+	line-height: 80rpx; 
+	background: #fff;
+  color: #FE696E;
+}
+.page-address--weixin {
+  border-bottom: 1rpx solid rgba(204 ,204, 204, 0.15);
+}
+
+.page-address__list {
+	padding-bottom: 88rpx;
+  flex: 1;
+}
+
+.fx-address__form {
+	padding: 0rpx;
+  font-size: 28rpx;
+  height: 100vh;
+}
+.fx-address__form .section {
+	margin-bottom: 20rpx;
+}
+.fx-address__form .section input,
+.fx-address__form .section picker {
+	padding: 20rpx 30rpx;
+	background-color: #fff;
+	text-align: left;
+	line-height: 1.4rem;
+}
+.fx-address__form .defalut {
+	background: #fff;
+	padding: 20rpx 30rpx;
+	text-align: right;
+  margin-bottom: 60rpx;
+}
+.fx-address__form .defalut .label {
+	float: left;
+	line-height: 64rpx;
+}
+.fx-address__form .form-buttons {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.fx-address__form .form-buttons .btn {
+  background: #fff;
+  flex: 0 0 50%;
+	height: 88rpx;
+	line-height: 88rpx;
+  text-align: center;
+}
+.fx-address__form .form-buttons .btn.submit {
+  background: #FE696E;
+	color: #fff;
+}
