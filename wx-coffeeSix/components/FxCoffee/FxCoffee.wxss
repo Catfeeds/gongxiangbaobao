@@ -1,0 +1,110 @@
+/* components/FxCoffee/FxCoffee.wxss */
+
+ .rander-coffee{
+  height: 140rpx;
+  background-color: #8C5A50;
+  padding-left: 70rpx;
+  padding-right: 70rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+} 
+.rander-coffee-l>image{
+  height: 170rpx;
+  width: 170rpx;
+}
+.coffe-text{
+  height: 100%;
+  font-size: 28rpx;
+  color: #F7E9CF ;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.rander-coffee-l{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.goods-list{
+  height: 50rpx;
+  width: 140rpx;
+  background-color: #F7E9CF;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 50rpx;
+  color: #8C5A50 ;
+  position: absolute;
+  right: 70rpx;
+}
+
+.goods-info-box{
+  padding: 20rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: RGB(248,248,248);
+  /* justify-content: space-around; */
+
+  
+}
+.goods-info-photo-text{
+  position: relative;
+  height: 400rpx;
+    width: 335rpx;
+    margin: 10rpx;
+    border-radius: 20rpx;
+    text-align: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.coffee-goods-photo{
+  height: 220rpx;
+  width: 220rpx;
+
+
+}
+.old_price{
+  text-decoration:line-through;
+  font-size: 24rpx;
+  color: #999999;
+}
+.line{
+  width: 100%;
+  border-bottom: 2rpx solid RGB(230,230,230);
+}
+.coffee-name{
+  font-size: 34rpx;
+  color: #222222;
+  margin: 10rpx 0;
+}
+.new-price{
+  height: 34rpx;
+  color: #8C5A50;
+
+}
+.new-recommend{
+  font-size: 24rpx;
+  color: #8C5A50 ;
+  width: 80rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 0rpx;
+  right: 30rpx;
+}
+.new-recommend-text{
+  position: absolute;
+  top:10%;
+  left: 50%;
+  margin-left: -24rpx;
+}
+.goods-name-price{
+  height: 130rpx;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,29 @@
+/* pages/news/news.wxss */
+
+.bottom-btn{
+  height: 130rpx;
+  border-top: 2rpx solid RGB(230,230,230);
+  padding:0 66rpx;
+  font-size: 30rpx;
+  color: #222222;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.news-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.news-info>view:nth-child(2){
+  font-size:  28rpx;
+  color: #666666;
+}
+.last-btn{
+  border-bottom:  2rpx solid RGB(230,230,230);
+}
+.margintop{
+  margin-top: 30rpx;
+}

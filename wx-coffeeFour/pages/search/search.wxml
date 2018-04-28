@@ -1,0 +1,43 @@
+<view class="container">
+  <view class='search-box'>
+    <fx-search
+      focus="{{ focus }}"
+      placeholder="搜索"
+      isAbsolute="{{ searchPosition }}"
+      bind:searchEvent="handleStartSearch"
+    >
+    </fx-search>
+    <view class='cancel-btn' catchtap='cancel_search'>取消</view>
+  </view>
+
+  <view class="search-suggest" wx:if="{{ searchHistory.length }}">
+    <view class="fx-panel">
+      <view class="fx-panel__title">
+        <label class="title">搜索历史</label>
+      </view>
+      <view class="fx-panel__body">
+        <view class="word-group">
+           <label class="word" 
+            wx:for="{{ searchHistory }}" 
+            wx:key="*this"
+            bindtap="handleQuickSearch"
+            data-query="{{ item.query_word }}">
+            {{ item.query_word }}
+           </label>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!--搜索结果-->
+  <view class="product-list--search">
+    <fx-product 
+      wx:for="{{ productList }}" 
+      wx:key="{{ item.rid }}" 
+      bind:viewProduct="handleProductTap" 
+      product="{{ item }}" 
+      class="product-item">
+    </fx-product>
+  </view>
+
+</view>

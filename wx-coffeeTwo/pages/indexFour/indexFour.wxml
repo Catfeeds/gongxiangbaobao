@@ -1,0 +1,66 @@
+<!--pages/indexFour/indexFour.wxml 首页4-->
+<!-- 轮播图 -->
+<view class="container">
+  <view class='two-swiper-box'>
+    <fx-swiper swiperInfo='{{indexSlides}}'></fx-swiper>
+    <view class='four-search-out-box'>
+      <fx-search id="index-searcher" holderText="搜索宝贝" isAbsolute="{{ search_position }}" bind:tapEvent="bindClickSearch">
+      </fx-search>
+    </view>
+  </view>
+
+  <!-- 产品类别 -->
+  <view>
+    <fx-goodsNameList ispages="four"></fx-goodsNameList>
+  </view>
+
+  <!-- 优惠券 -->
+  <view class='three-coupon-box'>
+    <fx-coupon-middle></fx-coupon-middle>
+  </view>
+
+  <!-- 活动 -->
+  <view>
+    <view  class="four-coffee-photo-box">
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image class="four-coffee-photo"  src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      活动
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+    </view>
+
+    <view class='three-produck-goods-list'>
+      <view class="three-produck-photo" wx:for="{{ newestProducts }}" wx:key="{{ item.rid }}" wx:for-item="item">
+        <fx-promo wx:key="{{ item.rid }}" bind:viewProduct="handleSlideTap" product="{{ item }}">
+        </fx-promo>
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐 -->
+  <view>
+    <view class="four-coffee-photo-box">
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      推荐
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+      <image  class="four-coffee-photo" src='../../images/CoffeeBean@2x.png'></image>
+    </view>
+
+    <view class='three-produck-goods-list'>
+
+      <view class='three-produck-photo'>
+        <fx-goods-listmax></fx-goods-listmax>
+      </view>
+      <view class='three-produck-photo'>
+        <fx-goods-listmax></fx-goods-listmax>
+      </view>
+    </view>
+  </view>
+
+
+</view>

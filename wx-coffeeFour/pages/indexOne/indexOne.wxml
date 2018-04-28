@@ -1,0 +1,165 @@
+<!--pages/indexOne/indexOne.wxml-->
+<!-- 1版本s -->
+<view class="container">
+  <!-- 优惠价s -->
+  <fx-coupon-max></fx-coupon-max>
+
+  <!-- 轮播图 -->
+  <!-- <swiper indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" interval="{{ interval }}" duration="{{ duration }}" class="fx-swiper">
+    <block wx:for="{{ indexSlides }}" wx:key="{{ item.rid }}">
+      <swiper-item>
+        <image src="{{ item.image }}" class="slide-image" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="handleSlideTap" />
+      </swiper-item>
+    </block> -->
+  <!-- 搜索 -->
+  <!-- <view class='one-search-out-box'>
+      <fx-search id="index-searcher" holderText="搜索宝贝" isAbsolute="{{ search_position }}" bind:tapEvent="bindClickSearch">
+      </fx-search>
+    </view>
+  </swiper> -->
+
+  <view class='two-swiper-box'>
+    <fx-swiper swiperInfo='{{indexSlides}}'></fx-swiper>
+    <view class='one-search-out-box'>
+      <fx-search id="index-searcher" holderText="搜索宝贝" isAbsolute="{{ search_position }}" bind:tapEvent="bindClickSearch">
+      </fx-search>
+    </view>
+  </view>
+
+  <!-- 活动 -->
+
+  <view class="one-fx-panel__promo">
+    <view class="one-promo-products" scroll-left="50" scroll-y="true">
+      <fx-promo-mini wx:for="{{ newestProducts }}" wx:key="{{ item.rid }}" bind:viewProduct="handleSlideTap" product="{{ item }}">
+      </fx-promo-mini>
+    </view>
+  </view>
+
+  <!-- 产品详情 意式咖啡-->
+  <view class='goods-name-info-list'>
+    <!-- 意式咖啡 -->
+    <view class='rander-coffee'>
+      <view class='rander-coffee-l'>
+        <image src='../../images/espresso@2x.png'></image>
+        <view class='coffe-text'>
+          <view>意式咖啡</view>
+          <view>ESPRESSO</view>
+        </view>
+      </view>
+      <view class='goods-list'>
+        更多产品
+      </view>
+    </view>
+    <view class='goods-info-box page-one-style'>
+      <fx-goods-list wx:for="{{ newestProducts }}" wx:key="{{ item.rid }}" bind:viewProduct="bindProductTap" product="{{ item }}"></fx-goods-list>
+    </view>
+  </view>
+  <!-- 精品咖啡 -->
+  <view class='goods-name-info-list'>
+    <view class='rander-coffee'>
+      <view class='rander-coffee-l'>
+        <image src='../../images/specialty_coffee@3x1.png'></image>
+        <view class='coffe-text'>
+          <view>精品咖啡</view>
+          <view>SPECIALTY COFFEE</view>
+        </view>
+      </view>
+      <view class='goods-list'>
+        更多产品
+      </view>
+    </view>
+    <view class='goods-info-box' wx:if="{{}}">
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+    </view>
+  </view>
+
+  <!-- 鲜榨果汁 -->
+  <view class='goods-name-info-list'>
+    <view class='rander-coffee'>
+      <view class='rander-coffee-l'>
+        <image src='../../images/Artboard@3x.png'></image>
+        <view class='coffe-text'>
+          <view>鲜榨果汁</view>
+          <view>FRESH FRUIT JUICES</view>
+        </view>
+      </view>
+      <view class='goods-list'>
+        更多产品
+      </view>
+    </view>
+    <view class='goods-info-box' wx:if="{{}}">
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+    </view>
+  </view>
+
+  <!-- 茶 -->
+  <view class='goods-name-info-list'>
+    <view class='rander-coffee'>
+      <view class='rander-coffee-l'>
+        <image src='../../images/tea@3x1.png'></image>
+        <view class='coffe-text'>
+          <view>茶</view>
+          <view>TEA</view>
+        </view>
+      </view>
+      <view class='goods-list'>
+        更多产品
+      </view>
+    </view>
+    <view class='goods-info-box' wx:if="{{}}">
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+    </view>
+  </view>
+
+  <!-- 冰冰乐 -->
+  <view class='goods-name-info-list'>
+    <view class='rander-coffee'>
+      <view class='rander-coffee-l'>
+        <image src='../../images/frappuccino@3xone.png'></image>
+        <view class='coffe-text'>
+          <view>冰冰乐</view>
+          <view>FRAPPUCCINO</view>
+        </view>
+      </view>
+      <view class='goods-list'>
+        更多产品
+      </view>
+    </view>
+    <view class='goods-info-box' wx:if="{{}}">
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+    </view>
+  </view>
+
+  <!-- 时尚轻食 -->
+  <view class='goods-name-info-list'>
+    <view class='rander-coffee'>
+      <view class='rander-coffee-l'>
+        <image src='../../images/light_meals@3xone.png'></image>
+        <view class='coffe-text'>
+          <view>时尚轻食</view>
+          <view>LIGHT MEALS</view>
+        </view>
+      </view>
+      <view class='goods-list'>
+        更多产品
+      </view>
+    </view>
+    <view class='goods-info-box' wx:if="{{}}">
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+      <fx-goods-list></fx-goods-list>
+    </view>
+  </view>
+
+</view>
+
+
+<!-- 1e -->

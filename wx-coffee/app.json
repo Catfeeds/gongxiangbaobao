@@ -1,0 +1,81 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/userTwo/userTwo",
+    "pages/indexTwo/indexTwo",
+    "pages/userOne/userOne",
+    "pages/indexOne/indexOne",
+    "pages/userSix/userSix",
+    "pages/userFive/userFive",
+    "pages/userFour/userFour",
+    "pages/userThree/userThree",
+    "pages/categoryThree/categoryThree",
+    "pages/categoryOne/categoryOne",
+    "pages/category/category",
+    "pages/checkout/checkout",
+    "pages/indexSix/indexSix",
+    "pages/indexFive/indexFive",
+    "pages/indexFour/indexFour",
+    "pages/indexThree/indexThree",
+    "pages/list/list",
+    "pages/brand/brand",
+    "pages/product/product",
+    "pages/coupon/coupon",
+    "pages/cart/cart",
+    "pages/payment/payment",
+    "pages/order/order",
+    "pages/address/address",
+    "pages/orderDetail/orderDetail",
+    "pages/user/user",
+    "pages/search/search",
+    "pages/quickbuy/quickbuy",
+    "pages/wishlist/wishlist",
+    "pages/aboutus/aboutus",
+    "pages/authorize/authorize",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "white",
+    "navigationBarBackgroundColor": "#8C5A50",
+    "navigationBarTitleText": "D3IN",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F7E9CF",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "精选",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-hl.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "发现",
+        "iconPath": "images/classify.png",
+        "selectedIconPath": "images/classify-hl.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "images/cart.png",
+        "selectedIconPath": "images/cart-hl.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my-hl.png"
+      }
+    ],
+    "color": "#F7E9CF",
+    "selectedColor": "#F7E9CF",
+    "backgroundColor": "#8C5A50"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

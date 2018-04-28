@@ -1,0 +1,25 @@
+.company-banner .banner {
+  width: 100%;
+  flex: 0 0 200rpx;
+}
+.company-instro {
+  flex: 1;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 32rpx 16rpx;
+}
+.company-instro .head_img {
+  width: 180rpx;
+  height: 180rpx;
+}
+.company-instro .name {
+  font-size: 32rpx;
+  margin-top: 50rpx;
+}
+.company-instro .description {
+  color: #666;
+}

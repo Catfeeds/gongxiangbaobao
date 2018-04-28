@@ -1,0 +1,110 @@
+/* pages/cart/cart.js.wxss */
+.page-cart__empty {
+  flex: 1;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100rpx;
+}
+.page-cart__empty .image {
+  width: 200rpx;
+}
+.page-cart__empty .tips {
+  margin-bottom: 32rpx;
+  color: #666666;
+}
+.fx-cart-item {
+  font-size: 28rpx;
+  background: #fff;
+  height: 180rpx;
+  margin-bottom: 20rpx;
+}
+.fx-cart-item__body {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 32rpx;
+}
+.fx-cart-item__body .checkbox {
+  flex: 0 0 auto;
+  font-weight: 500;
+}
+.fx-cart-item__body .checkbox .active {
+  color: #8C5A50;
+}
+.fx-cart-item__body .cover {
+  flex: 0 0 120rpx;
+  margin-left: 20rpx;
+}
+.fx-cart-item__body .image {
+  width: 100%;
+  height: 100rpx;
+  border: 1rpx solid #d5d5d5;
+}
+.fx-cart-item__body .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+  line-height: 50rpx;
+}
+.fx-cart-item__body .content .mode {
+  color: #666666;
+  font-size: 24rpx;
+}
+.fx-cart-item__body .content .box-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+.fx-cart-item__body .content .sale-price {
+  color: #8C5A50;
+}
+.fx-cart-item__body .content .quantity {
+  width: 180rpx;
+}
+.fx-cart-item__body .actions {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  text-align: right;
+  color: #666666;
+}
+.six-product{
+  background-color: RGB(250,250,250);
+}
+.five-info-text{
+  height: 100rpx;
+  padding:0 30rpx;
+  font-size: 34rpx;
+  color: #666666;
+  line-height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.six-goods-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.six-product-marbottom{
+  margin-bottom: 20rpx;
+}
+.five-more-goods{
+  width: 120rpx;
+  height: 40rpx;
+  border:2rpx solid #8C5A50;
+  border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx;
+  font-size: 26rpx;
+  color: #8C5A50;
+  line-height: 40rpx;
+  text-align: center;
+}
+.five-product{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+.product-box{
+  padding: 30rpx;
+}

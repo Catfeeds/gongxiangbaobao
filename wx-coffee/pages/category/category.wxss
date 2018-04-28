@@ -1,0 +1,25 @@
+/* pages/category/category.wxss */
+.category-nav {
+  background: #FAFAFA;
+  flex: 0 0 200rpx;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+}
+.category-nav .category-item {
+  color: #666666;
+  padding-left: 32rpx;
+  padding: 24rpx 0 24rpx 24rpx;
+  flex: 1;
+  margin-right: -2rpx;
+}
+.category-nav .category-item.active,
+.category-nav .category-item--active {
+  color: #222222;
+  background: #ffffff;
+}
+.category-main {
+  flex: 1;
+  background: #ffffff;
+  padding: 32rpx;
+}

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "fx-product": "/components/FxProduct/FxProduct"
+  }
+}

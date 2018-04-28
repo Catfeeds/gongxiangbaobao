@@ -1,0 +1,31 @@
+<!--components/FxGoodsNameList/FxGoodsNameList.wxml 4页面轮播图下面的产品类别列表-->
+<view class='four-goods-list-title'>
+
+  <view class='four-goods-list-photo-text'>
+    <image src='{{ispages=="four"?"../../images/espresso@3x.png":"../../images/espresso@2x5.png"}}'></image>
+    <view>意式咖啡</view>
+  </view>
+  <view class='four-goods-list-photo-text'>
+    <image src='{{ispages=="four"?"../../images/specialty_coffee@3x.png":"../../images/specialty_coffee@2x5.png"}}'></image>
+    <view>精品咖啡</view>
+  </view>
+  <view class='four-goods-list-photo-text'>
+    <image src='{{ispages=="four"?"../../images/fresh_fruit_juices@3x.png":"../../images/fresh_fruit_juices@2x5.png"}}'></image>
+    <view>鲜榨果汁</view>
+  </view>
+  <view class='four-goods-list-photo-text'>
+    <image src='{{ispages=="four"?"../../images/tea@3x.png":"../../images/tea@2x5.png"}}'></image>
+    <view>茶</view>
+  </view>
+  <view class='four-goods-list-photo-text'>
+    <image src='{{ispages=="four"?"../../images/frappuccino@3x.png":"../../images/frappuccino@2x5.png"}}'></image>
+    <view>冰冰乐</view>
+  </view>
+  <view class='four-goods-list-photo-text'>
+    <image src='{{ispages=="four"?"../../images/light_meals@3x.png":"../../images/light_meals@2x5.png"}}'></image>
+    <view>时尚轻食</view>
+  </view>
+
+
+
+</view>

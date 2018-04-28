@@ -1,0 +1,64 @@
+/* pages/indexFive/indexFive.wxss */
+@import "../index/index.wxss";
+.four-search-out-box{
+  position: absolute;
+  bottom: 0rpx;
+ margin: 30rpx;
+ width: 690rpx;
+}
+.five-info-text{
+  height: 100rpx;
+  padding:0 30rpx;
+  font-size: 34rpx;
+  color: #666666;
+  line-height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.three-produck-goods-list{
+ padding: 30rpx;
+ border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx;
+ background-color: white;
+}
+.three-produck-photo{
+  border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx !important;
+  margin-bottom: 30rpx;
+  margin-right: 6rpx;
+}
+
+.five-product{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+.five-more-goods{
+  width: 120rpx;
+  height: 40rpx;
+  border:2rpx solid #8C5A50;
+  border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx;
+  font-size: 26rpx;
+  color: #8C5A50;
+  line-height: 40rpx;
+  text-align: center;
+}
+.five-product-goods-list{
+  display:flex;
+  flex-direction: row;
+  overflow: auto;
+}
+.five-product-goods-list::-webkit-scrollbar {
+    display: none;
+}
+
+.five-hot-shop{
+ 
+}
+
+.goods-info-photo-text{
+   border-radius: none !important; 
+}
+fx-goods-list{
+    border-radius: none !important; 
+}

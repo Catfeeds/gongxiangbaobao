@@ -1,0 +1,10 @@
+<!--components/FxPromoMini/FxPromoMini.wxml 活动页面 小的-->
+
+
+  <view class="one-fx-promo__image"  data-rid="{{ product.rid }}" data-title="{{ product.name }}" data-type="{{ product.type }}" bindtap="viewTap">
+    <!-- <image src="{{ product.cover }}" mode="widthFix" class="cover" ></image> -->
+    <image src="{{ product.cover }}" class="cover"></image>
+    <view class="one-fx-promo__title">
+      活动
+    </view>
+  </view>

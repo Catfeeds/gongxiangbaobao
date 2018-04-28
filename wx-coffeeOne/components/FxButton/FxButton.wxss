@@ -1,0 +1,45 @@
+/* components/FxButton/FxButton.wxss */
+.fx-btn {
+  padding: 10rpx 32rpx;
+  font-size: 28rpx;
+  color: #444444;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 30rpx;
+}
+.fx-btn--fluid {
+  margin: 0 auto;
+  display: block;
+}
+.fx-btn--round {
+  border-radius: 4rpx;
+}
+/* color */
+.fx-btn--default {
+  background: #d5d5d5;
+}
+.fx-btn--primary {
+  background: #8C5A50;
+  color: #F7E9CF;
+}
+.fx-btn--success {
+  background: #5ECC37;
+  color: #ffffff;
+}
+.fx-btn--warning {
+  background: #f56c6c;
+  color: #ffffff;
+}
+.fx-btn--wechat {
+  background: #1aad19;
+  color: #ffffff;
+}
+/* size */
+.fx-btn--mini {
+  padding: 6rpx 24rpx;
+  font-size: 24rpx;
+}
+.fx-btn--large {
+  padding: 18rpx 60rpx;
+  font-size: 30rpx;
+}
