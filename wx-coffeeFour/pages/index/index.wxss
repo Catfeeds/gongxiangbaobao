@@ -1,3 +1,4 @@
+/* pages/indexFour/indexFour.wxss */
 /**index.wxss**/
 
 .fx-swiper {
@@ -391,4 +392,29 @@
 }
 .three-goods-teilt-name{
   
+}
+/* 本 */
+.four-search-out-box{
+  position: absolute;
+  bottom: 0rpx;
+ margin: 30rpx;
+ width: 690rpx;
+}
+.three-produck-goods-list{
+ margin: 30rpx;
+ border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx;
+}
+.three-produck-photo{
+  border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx !important;
+  margin-bottom: 30rpx;
+}
+.four-coffee-photo{
+  width: 16rpx;
+  height: 20rpx;
+  margin: 0 16rpx;
+}
+.four-coffee-photo-box{
+  font-size: 34rpx;
+  color: #8C5A50;
+  text-align: center;
 }

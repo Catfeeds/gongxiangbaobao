@@ -1,23 +1,10 @@
 {
   "pages": [
-    "pages/indexFour/indexFour",
-    "pages/indexOne/indexOne",
-    "pages/news/news",
     "pages/index/index",
-    "pages/userTwo/userTwo",
-    "pages/indexTwo/indexTwo",
-    "pages/userOne/userOne",
-    "pages/userSix/userSix",
-    "pages/userFive/userFive",
-    "pages/userFour/userFour",
-    "pages/userThree/userThree",
-    "pages/categoryThree/categoryThree",
-    "pages/categoryOne/categoryOne",
+    "pages/news/news",
+    "pages/user/user",
     "pages/category/category",
     "pages/checkout/checkout",
-    "pages/indexSix/indexSix",
-    "pages/indexFive/indexFive",
-    "pages/indexThree/indexThree",
     "pages/list/list",
     "pages/brand/brand",
     "pages/product/product",
@@ -27,7 +14,6 @@
     "pages/order/order",
     "pages/address/address",
     "pages/orderDetail/orderDetail",
-    "pages/user/user",
     "pages/search/search",
     "pages/quickbuy/quickbuy",
     "pages/wishlist/wishlist",
@@ -47,13 +33,13 @@
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/indexFour/indexFour",
+        "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-hl.png"
       },
       {
-        "pagePath": "pages/categoryOne/categoryOne",
+        "pagePath": "pages/category/category",
         "text": "分类",
         "iconPath": "images/classify.png",
         "selectedIconPath": "images/classify-hl.png"
@@ -65,7 +51,7 @@
         "selectedIconPath": "images/cart-hl.png"
       },
       {
-        "pagePath": "pages/userFour/userFour",
+        "pagePath": "pages/user/user",
         "text": "个人中心",
         "iconPath": "images/my.png",
         "selectedIconPath": "images/my-hl.png"

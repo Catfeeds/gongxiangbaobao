@@ -12,12 +12,12 @@ Page({
    */
   data: {
     order_items: [
-      { rid:'r001', name: '待付款', status: 1, icon: 'wait-pay' },
+      { rid: 'r001', name: '待付款', status: 1, icon: 'wait-pay' },
       { rid: 'r002', name: '待发货', status: 5, icon: 'wait-send' },
       { rid: 'r003', name: '待收货', status: 10, icon: 'wait-confirm' },
       { rid: 'r004', name: '售后服务', status: 15, icon: 'after-market' }
     ],
-    service_items: [
+    service_items_top: [
       { rid: 's001', name: '优惠券', icon: 'red-packets', color: 'fx-primary' },
       { rid: 's002', name: '收藏', icon: 'like' },
       { rid: 's003', name: '地址', icon: 'address' },
@@ -60,7 +60,7 @@ Page({
     }
   },
   // 查看订单列表
-  handleViewOrder (e) {
+  handleViewOrder(e) {
     const status = e.currentTarget.dataset.status;
     wx.navigateTo({
       url: '../order/order?status=' + status,
@@ -68,7 +68,7 @@ Page({
   },
 
   // 查看服务
-  handViewService (e) {
+  handViewService(e) {
     const rid = e.currentTarget.dataset.rid;
     let _url = '';
     if (rid == 's003') { // 地址
@@ -80,13 +80,13 @@ Page({
     } else if (rid == 's006') {  // 关于我们
       _url = '../aboutus/aboutus'
     }
-    
+
     wx.navigateTo({
       url: _url,
     })
   },
 
-  getUserInfo (e) {
+  getUserInfo(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
@@ -98,48 +98,48 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

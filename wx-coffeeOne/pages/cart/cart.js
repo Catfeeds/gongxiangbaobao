@@ -215,7 +215,7 @@ Page({
    */
   handleGoChoose () {
     wx.switchTab({
-      url: '../indexOne/indexOne'
+      url: '../index/index'
     })
   },
 

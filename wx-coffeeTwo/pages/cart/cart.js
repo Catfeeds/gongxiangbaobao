@@ -209,14 +209,13 @@ Page({
     // 重新小计
     this.recalculateSubtotal()
   },
-
   /**
    * 去挑选商品
    */
   handleGoChoose () {
     console.log(234)
     wx.switchTab({
-      url: '../indexTwo/indexTwo'
+      url: '../index/index'
     })
   },
 

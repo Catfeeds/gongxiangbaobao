@@ -22,7 +22,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad (options) {
+  onLoad(options) {
     // 获取一级分类
     this.getTopCategories()
   },
@@ -30,7 +30,7 @@ Page({
   /**
    * 获取一级分类
    */
-  getTopCategories () {
+  getTopCategories() {
     const that = this;
     const params = {
       per_page: 50
@@ -55,7 +55,7 @@ Page({
   /**
    * 获取某分类下的商品
    */
-  getCategoryProducts (_cid) {
+  getCategoryProducts(_cid) {
     const that = this
     const params = {
       cid: this.data.cid,
@@ -84,10 +84,10 @@ Page({
         } else {
           _products = res.data.products
         }
+        console.log(_products, 22)
         that.setData({
           products: _products
         })
-        
       }
     })
   },
@@ -101,7 +101,7 @@ Page({
   /**
    * 获取子分类
    */
-  getChildCategories (pid=0) {
+  getChildCategories(pid = 0) {
     const that = this
     const params = {
       pid: pid,
@@ -119,7 +119,7 @@ Page({
   /**
    * 切换分类
    */
-  handleChangeCategory (e) {
+  handleChangeCategory(e) {
     let rid = e.currentTarget.dataset.rid
     this.setData({
       cid: rid
@@ -130,7 +130,7 @@ Page({
   /**
    * 点击某个分类
    */
-  handleClickCategory (e) {
+  handleClickCategory(e) {
     let rid = e.currentTarget.dataset.rid
     let name = e.currentTarget.dataset.name
     wx.navigateTo({
@@ -142,35 +142,35 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
@@ -190,6 +190,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

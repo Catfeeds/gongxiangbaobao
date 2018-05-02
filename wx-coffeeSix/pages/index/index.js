@@ -126,9 +126,9 @@ Page({
     })
   },
 
- /**
-   * 开始渲染数据
-   */
+  /**
+    * 开始渲染数据
+    */
   onLoad: function () {
     // 获取幻灯列表
     this.getIndexSlides()

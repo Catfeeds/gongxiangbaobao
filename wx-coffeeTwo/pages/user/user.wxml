@@ -1,46 +1,61 @@
-<!--pages/user/user.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-    </block>
-  </view>
 
-  <view class="fx-panel">
-    <view class="fx-panel__title">
-      <label class="title">我的订单</label>
-      <navigator url="../order/order" hover-class="link-hover" class="more">
-        全部订单
-        <i class="fx-icon-nothing-right"></i>
+
+<template name="my-info-template">
+
+  <view class='container'>
+    <view class='Two-bg'>
+      <image src='../../images/{{bgimage}}' class='user-photo-bgc '>
+        <view class='user-info-box'>
+          <button class='user-photo' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+          <image wx:else bindtap="bindViewTap" src="{{ userInfo.avatarUrl }}" background-size="cover" class='user-photo'></image>
+
+          <view class='user-name-text'>{{ userInfo.nickName }}</view>
+          <view class='user-id'>ID:{{ userInfo.language}}</view>
+        </view>
+      </image>
+    </view>
+    <!-- 底部信息 -->
+    <view class='middle-info'>
+
+      <view class='title-out-box' data-rid="s001" bindtap="handViewService">
+        <view class='title-photo'>
+          <image src='../../images/icon-coupon-hl@3x.png'></image>
+        </view>
+        <view>我的优惠券</view>
+      </view>
+
+      <navigator url='../order/order' hover-class="noen">
+        <view class='title-out-box'>
+          <view class='title-photo'>
+            <image src='../../images/icon-order-hl@3x.png'></image>
+          </view>
+          <view>我的订单</view>
+        </view>
       </navigator>
-    </view>
-    <view class="fx-panel__body">
-      <view class="fx-list">
-        <view class="fx-list__item" wx:for="{{ order_items }}" wx:key="{{ item.rid }}" bindtap="handleViewOrder" data-status="{{ item.status }}">
-          <i class="fx-icon-{{ item.icon }}"></i>
-          <text class="name">{{ item.name }}</text>
-        </view>
-      </view>
-    </view>
-  </view>
 
-  <view class="fx-panel">
-    <view class="fx-panel__title">
-      <label class="title">我的服务</label>
-    </view>
-    <view class="fx-panel__body">
-      <view class="fx-list d-row">
-        <view class="fx-list__item" wx:for="{{ service_items }}" wx:key="{{ item.rid }}" data-rid="{{ item.rid }}" bindtap="handViewService">
-          <i class="fx-icon-{{ item.icon }} {{ item.color }}"></i>
-          <text class="name {{ item.color }}">{{ item.name }}</text>
+      <view class='title-out-box' data-rid="s003" bindtap="handViewService">
+        <view class='title-photo'>
+          <image src='../../images/address-hl@3x.png'></image>
         </view>
-        <button open-type="contact" class="fx-list__item customer-service">
-          <i class="fx-icon-customer-service"></i>
-          <text class="name">客服中心</text>
-        </button>
+        <view>地址管理</view>
       </view>
     </view>
+    <navigator url='../news/news' hover-class="none">
+      <view class='bottom-btn'>
+        <view>消息</view>
+        <view class=' my-iocn fx-icon-nothing-right'></view>
+      </view>
+    </navigator>
+    <view class='bottom-btn'>
+      <button open-type="contact">联系客服</button>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+    </view>
+    <view class='bottom-btn last-btn' data-rid="s006" bindtap="handViewService">
+      <view>关于我们</view>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+    </view>
   </view>
-</view>
+</template>
+
+<template is="my-info-template" data="{{hasUserInfo:hasUserInfo,canIUse:canIUse,userInfo:userInfo,bgimage:'BG02@3x.png'}}"/>
+

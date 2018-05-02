@@ -1,4 +1,0 @@
-
-<import src="../userOne/userOne.wxml"/>
-
-<template is="my-info-template" data="{{hasUserInfo:hasUserInfo,canIUse:canIUse,userInfo:userInfo,bgimage:'BG02@3x.png'}}"/>

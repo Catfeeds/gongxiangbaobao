@@ -1,9 +1,0 @@
-/* pages/indexOne/indexOne.wxss */
-@import "../index/index.wxss";
-.page-one-style{
-   justify-content: space-between; 
-   padding: 30rpx;
-}
-.page-one-style>fx-goods-list{
-  margin-bottom: 20rpx;
-}

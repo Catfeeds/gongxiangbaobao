@@ -121,7 +121,6 @@ Page({
         })
       }
     })
-     
   },
   
   /**
@@ -215,7 +214,7 @@ Page({
    */
   handleGoChoose () {
     wx.switchTab({
-      url: '../indexFive/indexFive'
+      url: '../index/index'
     })
   },
 
