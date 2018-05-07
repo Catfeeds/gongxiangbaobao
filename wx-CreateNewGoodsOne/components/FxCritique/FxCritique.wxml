@@ -1,0 +1,65 @@
+<!--components/FxCritique/FxCritique.wxml 商品评论-->
+<view class='critique-box'>
+  <!-- 第一次评论 -->
+
+  <view class='one-critique'>
+    <!-- toubu -->
+    <view class='one-critique-top'>
+      <!-- l -->
+      <view class='one-critique-top-l'>
+        <image src='../../images/index-photo/digital@2x.png'></image>
+        <view >
+          <view class='one-critique-top-l-text'>卡其色</view>
+          <view class='one-critique-top-l-time'>2016.12.23</view>
+        </view>
+      </view>
+      <!-- r -->
+      <view class='one-critique-top-r'>
+        <image src='../../images/star01@2x.png'></image>
+        <image src='../../images/star01@2x.png'></image>
+        <image src='../../images/star01@2x.png'></image>
+        <image src='../../images/star01@2x.png'></image>
+        <image src='../../images/star01@2x.png'></image>
+      </view>
+    </view>
+    <!-- zhongbu -->
+    <view class='user-critique-text'>
+    产品刚刚收到，看外观感觉不错，做工精细，质感好，还没有使用，等用一段时间会追加评论。
+    </view>
+    <!-- dibu -->
+    <view class='user-critique-photo'>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+    </view>
+  </view>
+
+
+  <!-- 追加评论 -->
+    <view class='one-critique Two-critique'>
+    <!-- toubu -->
+    <view class='one-critique-top'>
+      <!-- l -->
+      <view class='one-critique-top-l'>
+          追加评论
+      </view>
+      <!-- r -->
+      <view class='one-critique-top-r'>
+          2016.12.29
+      </view>
+    </view>
+    <!-- zhongbu -->
+    <view class='user-critique-text'>
+    产品刚刚收到，看外观感觉不错，做工精细，质感好，还没有使用，等用一段时间会追加评论。
+    </view>
+    <!-- dibu -->
+    <view class='user-critique-photo'>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+      <image src='../../images/index-photo/digital@2x.png'></image>
+    </view>
+  </view>
+
+</view>

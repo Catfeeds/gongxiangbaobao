@@ -1,0 +1,12 @@
+
+/* pages/news/news.wxss */
+.none-page{
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+.none-page image{
+  height: 420rpx;
+  width: 420rpx;
+  margin-top: 25%;
+}

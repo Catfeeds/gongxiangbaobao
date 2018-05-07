@@ -1,0 +1,124 @@
+/**index.wxss**/
+
+.fx-swiper {
+  display: flex;
+  height: 540rpx;
+  width: 100%;
+}
+
+.fx-swiper .slide-image {
+  width: 100%;
+}
+
+.catgotryList-box {
+  display: flex;
+  flex-direction: row;
+  height: 375rpx;
+  flex-wrap: wrap;
+}
+
+.every-catgotryList-box {
+  width: 187rpx;
+  height: 187rpx;
+}
+
+/* //新用户的福利 */
+
+.new-goods-coupon-box {
+  font-size: 34rpx;
+  margin: 30rpx;
+}
+.new-goods-coupon-text{
+  margin-bottom:  20rpx;
+}
+.for-coupon-box{
+  height: 164rpx;
+  width: 340rpx;
+ 
+}
+.coupon-photo-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.nwe-goods-sell{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 34rpx;
+}
+.right-icon{
+   font-size: 24rpx;
+  color: #999999 ;
+}
+.new-goods-box{
+  overflow: auto;
+}
+.new-goods-box>view{
+  width: 200rpx;
+  margin-right: 20rpx;
+ 
+}
+.photo-title-catgory{
+  height: 250rpx;
+  position: relative;
+  overflow: hidden;
+}
+.photo-title-catgory-info{
+    height: 187rpx;
+    width: 187rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%); */
+    margin-left: -93rpx;
+    margin-top: -93rpx;
+}
+.porduct-photo-list image{
+  height: 200rpx;
+  width: 200rpx;
+  margin: 10rpx;
+}
+.porduct-photo-list{
+  width: 730rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  background-color: white;
+  overflow: auto;
+  white-space: nowrap;
+}
+.goods-catgory-box-bottom{
+  margin-bottom: 90rpx;
+}
+.goods-catgory-box-marbot{
+  padding-bottom: 15rpx;
+}
+.middle-round{
+  position: absolute;
+  height: 110rpx;
+  width: 110rpx;
+  border:2rpx solid #989A9B;
+  top: 15%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translateX(-50%)
+}
+.triangle{
+  width: 30rpx;
+  height: 30rpx;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  bottom: -15rpx;
+  margin-left: -15rpx;
+  transform: rotate(45deg);
+}
+.goods-list-photo-text{
+  height: 300rpx;
+  width: 200rpx;
+}
+.fx-product__image {
+   height: 200rpx;
+  width: 200rpx; 
+}

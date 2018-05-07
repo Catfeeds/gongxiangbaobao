@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "购物车",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "white",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton",
+    "fx-input-number": "/components/FxInputNumber/FxInputNumber"
+  }
+}

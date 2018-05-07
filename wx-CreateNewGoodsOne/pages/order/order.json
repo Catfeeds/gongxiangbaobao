@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的订单",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton",
+    "fx-orderProductStatus":"/components/FxOrderProductStatus/FxOrderProductStatus"
+  }
+}

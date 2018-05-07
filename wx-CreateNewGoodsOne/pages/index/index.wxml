@@ -1,0 +1,74 @@
+<!--index.wxml-->
+<view class="container">
+  <swiper indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" interval="{{ interval }}" duration="{{ duration }}" class="fx-swiper">
+    <block wx:for="{{ indexSlides }}" wx:key="{{ item.rid }}">
+      <swiper-item>
+        <image src="{{ item.image }}" mode="widthFix" class="slide-image" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="handleSlideTap" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 分类列表 -->
+  <view class='catgotryList-box'>
+    <view class='every-catgotryList-box' wx:key="{{index}}" wx:for="{{catgotyList}}" wx:for-item="item">
+      <fx-categoryList porduck="{{item}}"></fx-categoryList>
+    </view>
+  </view>
+
+  <!-- 新用户福利 -->
+  <view class='new-goods-coupon-box'>
+    <view class='new-goods-coupon-text'>新用户福利</view>
+    <view class='coupon-photo-box'>
+      <view class='for-coupon-box' wx:for="{{couponListImportant}}" wx:for-item="item" wx:key="{{item.id}}">
+        <fx-coupon></fx-coupon>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新品发布 -->
+  <view class='new-goods-coupon-box'>
+    <view class='new-goods-coupon-text nwe-goods-sell'>
+      <view>新品发布</view>
+      <view class='right-icon'>
+        更多
+        <i class='fx-icon-nothing-right right-icon'></i>
+      </view>
+    </view>
+    <view class='coupon-photo-box new-goods-box '>
+      <view wx:for="{{newestProducts }}" wx:key="{{ item.rid}}">
+        <fx-product bind:viewProduct="bindProductTap" product="{{ item }}"></fx-product>
+      </view>
+    </view>
+  </view>
+
+  <!-- 店家推荐 -->
+  <view class='new-goods-coupon-box'>
+    <view class='new-goods-coupon-text nwe-goods-sell'>
+      <view>店家推荐</view>
+      <view class='right-icon'>
+        更多
+        <i class='fx-icon-nothing-right right-icon'></i>
+      </view>
+    </view>
+    <view class='coupon-photo-box new-goods-box '>
+      <view wx:for="{{newestProducts }}" wx:key="{{ item.rid}}">
+        <fx-product bind:viewProduct="bindProductTap" product="{{ item }}"></fx-product>
+      </view>
+    </view>
+  </view>
+  <!-- 分类以及产品 -->
+  <view class='goods-catgory-box-marbot  {{index==catgory_bg.length-1?"goods-catgory-box-bottom":" "}}' wx:for="{{catgory_bg}}" wx:key="{{item.rid}}">
+    <!-- 带有背景图片的标题-->
+    <image src='{{item.bg_img}}' class='photo-title-catgory'>
+      <view class='photo-title-catgory-info'>
+        <fx-categoryList porduck="{{item}}"></fx-categoryList>
+      </view>
+      <view class='middle-round'></view>
+      <view class='triangle'></view>
+    </image>
+    <!-- 下面的产品图片 -->
+    <view class='porduct-photo-list' wx:if="{{index==0}}">
+      <image wx:for="{{newestProducts}}" mode="widthFix" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="bindProductTap" wx:key="{{item.rid}}" src='{{item.cover}}'></image>
+    </view>
+  </view>
+</view>

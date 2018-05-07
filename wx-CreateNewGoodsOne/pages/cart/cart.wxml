@@ -1,0 +1,60 @@
+<view class="container">
+  
+  <view class="page-cart__list" wx:if="{{ cartList.length }}">
+
+    <view class="fx-cart-item" wx:for="{{ cartList }}" wx:key="{{ item.rid }}">
+      <view class="fx-cart-item__body">
+        <view class="checkbox" bindtap="handleCheckEvent" data-rid="{{ item.rid }}">
+          <i class="fx-icon-check-mark active" wx:if="{{ item.checked }}"></i>
+          <i class="fx-icon-circle" wx:else></i>
+        </view>
+        <view class="cover">
+          <image src="{{ item.product.cover }}" mode="widthFix" class="image" />
+        </view>
+        <view class="content">
+          <text class="name">{{ item.product.product_name }}</text>
+          <text class="mode">{{ item.product.model }}</text>
+
+          <view class="box-bottom">
+            <text class="sale-price" wx:if="{{ item.product.sale_price > 0 }}">￥{{ item.product.sale_price }}</text>
+            <text class="sale-price" wx:else>￥{{ item.product.price }}</text>
+
+            <fx-input-number class="quantity" value="{{ item.quantity }}" bind:inputNumber="handleChangeQuantity" data-rid="{{ item.rid }}">
+            </fx-input-number>
+          </view>
+        </view>
+        <view class="actions">
+          <label class="close" data-rid="{{ item.rid }}" bindtap="handleRemoveEvent">
+            <i class="fx-icon-close-error"></i>
+          </label>
+        </view>
+      </view>
+    </view>
+    <!--fx-cart-item-->
+
+    <view class="page-cart__checkout fixed-bottom">
+      <view class="checkbox {{ checked_all ? 'active' : '' }}" bindtap="handleAllCheckEvent">
+        <i class="fx-icon-check-mark" wx:if="{{ checked_all }}"></i>
+        <i class="fx-icon-circle" wx:else></i>
+        全选
+      </view>
+      <label class="total-amount Theme-color">
+        合计：¥{{ totalAmount }}
+      </label>
+      <fx-button 
+        class="btn-checkout"
+        size="large"
+        type="primary" 
+        name="去结算"
+        bind:tapEvent="handleCheckout">
+      </fx-button>
+    </view>
+  </view>
+
+  <view class="page-cart__empty" wx:else>
+    <text class="tips">您的购物车没有商品,快去挑选吧</text>
+    <fx-button name="去挑选" type="primary" bind:tapEvent="handleGoChoose">
+    </fx-button>
+  </view>
+
+</view>

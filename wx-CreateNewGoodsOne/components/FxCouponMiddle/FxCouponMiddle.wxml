@@ -1,0 +1,18 @@
+<!-- 优惠券中等大小2种模板用components/FxCouponMiddle/FxCouponMiddle.wxml-->
+<view class='max-coupon-box {{product.status==2||product.status==3?"max-coupon-overdue":""}}'>
+  <view class='max-coupon-l'>
+    <view class='max-coupon-number'>￥{{product.coupon.amount}}
+      <text class='coupon-condition'>{{product.coupon.text}}</text> </view>
+    <view class='max-coupon-time'>使用期限：111-111-111至000-000-000</view>
+  </view>
+
+  <!-- 可以使用的 -->
+  <view class='max-coupon-r'>
+    <view>{{product.coupon.name}}</view>
+
+  </view>
+
+  <!-- 已经过期的的 -->
+
+
+</view>

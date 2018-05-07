@@ -1,0 +1,25 @@
+{
+  "extEnable": true,
+  "extAppid": "wx11363b7f6fe26ac8",
+  "directCommit": false,
+  "ext": {
+    "name": "D3IN",
+    "authAppid": "wx11363b7f6fe26ac8",
+    "storeId": 0,
+    "attr": {
+      "users": [
+        "purpen"
+      ]
+    },
+    "api": {
+      "host": "https://wx.taihuoniao.com/api",
+      "version": "v1.0",
+      "appKey": "G8IHjw1lBYDM76fxJtKe",
+      "appSecret": "aa0533900e3d8b024c11e722874231b54019b14a"
+    }
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

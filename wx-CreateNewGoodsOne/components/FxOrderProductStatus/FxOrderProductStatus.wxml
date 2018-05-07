@@ -1,0 +1,11 @@
+<!--components/FxOrderProductStatus/FxOrderProductStatus.wxml 我的订单-里面的产品图-->
+<view class='order-product-status-outBox'>
+    <image class='goods-phouo'></image>
+    <view>
+          <view class='goods-name'>Nut 智能寻物防丢贴片 </view>
+          <view class='goods-color-number'>颜色：白色</view>
+          <view class='goods-color-number'>数量：20个</view>
+          <view class='goods-price'>￥69.00</view>
+    </view>
+
+</view>

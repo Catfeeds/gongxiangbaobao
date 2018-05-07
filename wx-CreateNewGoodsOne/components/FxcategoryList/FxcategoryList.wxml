@@ -1,0 +1,7 @@
+<!--components/FxcategoryList/FxcategoryList.wxml 产品类分类列表-->
+<view class='catgory-box'>
+  <view class='catgory-top-photo'>
+    <image src='{{porduck.img}}' class='catgory-photo'></image>
+  </view>
+  <view>{{porduck.name}}</view>
+</view>
