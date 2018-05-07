@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/orderDetail/orderDetail",
+    "pages/product_logistics/product_logistics",
     "pages/index/index",
+    "pages/mycritique/mycritique",
+    "pages/orderDetail/orderDetail",
     "pages/user/user",
     "pages/category/category",
     "pages/list/list",
@@ -21,6 +23,7 @@
     "pages/logs/logs",
     "pages/news/news",
     "pages/critique/critique"
+    
   ],
   "window": {
     "backgroundTextStyle": "dark",

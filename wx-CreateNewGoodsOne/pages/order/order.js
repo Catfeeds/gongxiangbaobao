@@ -158,6 +158,13 @@ Page({
     })
   },
 
+  //跳转到评价的页面
+  critiquePageTap(){
+      wx.navigateTo({
+        url: '../mycritique/mycritique',
+      })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

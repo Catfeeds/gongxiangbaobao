@@ -1,0 +1,153 @@
+/* pages/product_logistics/product_logistics.wxss */
+
+.top-product-info {
+  height: 240rpx;
+  border-top: 2rpx solid #e6e6e6;
+  border-bottom: 2rpx solid #e6e6e6;
+  margin-top: 30rpx;
+  padding: 20rpx 30rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.went-crotique-produck {
+  height: 180rpx;
+  width: 180rpx;
+  border: 2rpx solid #e6e6e6;
+}
+
+.r-critique-text-photo {
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 20rpx;
+  height: 100%;
+  flex: 1;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: row;
+  font-size: 30rpx;
+  justify-content: space-between;
+}
+
+.middle-info {
+  padding: 30rpx;
+  background-color: white;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  border-top: 2rpx solid #e6e6e6;
+}
+.goods-location{
+  font-size: 28rpx;
+  color: #666666;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+.prompt-icon{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  vertical-align: bottom;
+}
+.prompt-icon image{
+  height: 60rpx;
+  width: 60rpx;
+}
+.cart-prompt{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%)
+}
+.red-round{
+  position: absolute;
+  height: 10rpx;
+  width: 10rpx;
+  border-radius: 50%;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%,50%);
+  border: 6rpx solid pink;
+}
+.middle-line{
+  flex: 1;
+  border-bottom: 2rpx dashed #FF6464;
+}
+.bottom-info{
+  background-color: white;
+}
+.bottom-info-top-lin{
+  margin: 0 40rpx;
+   border-top: 2rpx solid #e6e6e6;
+   padding: 30rpx 0;
+}
+.bottom-item-info{
+  display: flex;
+  flex-direction: row;
+}
+.timeT{
+  font-size: 24rpx;
+  color: #666666 ;
+}
+.timeB{
+  font-size: 36rpx;
+  color: #666666 ;
+}
+.diangong{
+position: absolute;
+}
+.dian{
+  height: 12rpx;
+  width: 12rpx;
+  
+  top: 10%;
+  right: -6rpx;
+  background-color: #C8C8C8;
+  border-radius: 50%;
+}
+.leftTime{
+  position: relative;
+  flex: 1;
+}
+.left-line{
+  border-right: 2rpx solid #C8C8C8 ;
+}
+
+.right-function{
+  flex: 3;
+  margin-left: 40rpx;
+}
+.reddian{
+  height: 30rpx;
+  width: 30rpx;
+  background-color: pink;
+  border-radius: 50%;
+  top: 0;
+  right: -15rpx;
+}
+.reddianxin{
+  position: absolute;
+  height: 20rpx;
+  width: 20rpx;
+  background-color: #FF6464;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%)
+}
+.huidian{
+    height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+   border: 2rpx solid red;
+  top: 0;
+  right: -15rpx;
+
+}

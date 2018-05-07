@@ -144,3 +144,6 @@
 .clear-payment-btn-border{
   border: 1rpx solid #FF6464 !important;
 }
+.green-text{
+  color: green;
+}

@@ -44,7 +44,7 @@
         <view class='non-payment-padding Theme-color'>未付款</view>
         <view>2017-1-1</view>
       </view>
-      <view class='non-payment-text-r'>
+      <view class='non-payment-text-r' catchtap='orderDetailTap'>
         <view class='non-payment-padding'>查看订单详情</view>
         <view class='fx-icon-nothing-right'></view>
       </view>
@@ -78,7 +78,7 @@
         <view class='non-payment-padding Theme-color'>等发货</view>
         <view>2017-1-1</view>
       </view>
-      <view class='non-payment-text-r'>
+      <view class='non-payment-text-r' catchtap='orderDetailTap'>
         <view class='non-payment-padding'>查看订单详情</view>
         <view class='fx-icon-nothing-right'></view>
       </view>
@@ -110,7 +110,7 @@
         <view class='non-payment-padding Theme-color'>待收货</view>
         <view>2017-1-1</view>
       </view>
-      <view class='non-payment-text-r'>
+      <view class='non-payment-text-r' catchtap='orderDetailTap'>
         <view class='non-payment-padding'>查看订单详情</view>
         <view class='fx-icon-nothing-right'></view>
       </view>
@@ -167,12 +167,51 @@
       <view class='clear-payment-btn '>
         <view class='clear-payment-btn-border Theme-color'>
           <text>查看物流</text> </view>
-        <view class='clear-payment-btn-border Theme-color'>
+        <view class='clear-payment-btn-border Theme-color' catchtap='critiquePageTap'>
           <text>立即评价</text> </view>
       </view>
     </view>
   </view>
 
+    <!-- 追加评价 -->
+  <view class='all-order' wx:if="{{currentStatus== 20||currentStatus== 0}}">
+    <view class='box-non-payment'>
+      <view class='non-payment-text-l'>
+        <view class='non-payment-padding  green-text' >已完成
+        </view>
+        <view>2017-1-1</view>
+      </view>
+      <view class='non-payment-text-r' catchtap='orderDetailTap'>
+        <view class='non-payment-padding'>查看订单详情</view>
+        <view class='fx-icon-nothing-right'></view>
+      </view>
+    </view>
+
+    <view class='all-order-item'>
+      <fx-orderProductStatus></fx-orderProductStatus>
+    </view>
+    <view class='all-order-item'>
+      <fx-orderProductStatus></fx-orderProductStatus>
+    </view>
+
+    <view class='payment-clear-box'>
+      <view>
+        <view>共40件商品 合计:¥
+          <text class='Theme-color'>175</text> (含运费¥6.00)</view>
+      </view>
+      <view class='clear-payment-btn '>
+        <view class='clear-payment-btn-border '>
+          <text>删除订单</text> </view>
+        <view class='clear-payment-btn-border Theme-color' catchtap='critiquePageTap'>
+          <text>追加评论</text> </view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+<!-- 您还没有选购过商品 -->
   <view class="page-order__empty" hidden="{{ orderList.length ? true : false }}">
     <view class="all-status" wx:if="{{ !currentStatus }}">
       <view class="tips">您的选购过商品,快去挑选吧</view>

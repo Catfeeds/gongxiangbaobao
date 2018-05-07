@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "评价",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "white",
+    "usingComponents": {
+      "fx-search": "/components/FxSearch/FxSearch",
+      "fx-product": "/components/FxProduct/FxProduct",
+      "fx-brand": "/components/FxBrand/FxBrand",
+      "fx-categoryList": "/components/FxcategoryList/FxcategoryList",
+      "fx-coupon": "/components/FxCoupon/FxCoupon"
+    }
+
+}

@@ -1,0 +1,87 @@
+<!--pages/mycritique/mycritique.wxml 我的评价 追加品论-->
+<view class='container'>
+  <!-- 新的评论 -->
+  <view wx:if="{{}}">
+    <view class='top-product-info'>
+      <image class='went-crotique-produck'></image>
+      <view class='r-critique-text-photo'>
+        <view>Nut 智能寻物防丢贴片 </view>
+        <view>产品是否与描述相符</view>
+        <view class='product-list'>
+          <view>
+            <image src='{{starNumber>=1?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="1" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=2?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="2" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=3?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="3" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=4?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="4" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=5?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="5" catchtap='changeStarNumberTap'></image>
+          </view>
+          <view class='Theme-color'>{{starNumber==1?"差":""}}{{starNumber
+            <=3&&starNumber>1?"一般":""}}{{starNumber
+              <=5&&starNumber>3?"较好":""}}</view>
+        </view>
+      </view>
+    </view>
+    <!-- 请填写评论 -->
+    <view class='middle-critique-text'>
+      <textarea value='请填写评论'></textarea>
+    </view>
+    <!-- 图片评论 -->
+    <view class='bottom-photo'>
+      <view>
+        <image src='../../images/camera@2x.png'></image>
+        <image src='../../images/camera@2x.png'></image>
+      </view>
+      <view class='time'>2018.12.23</view>
+    </view>
+  </view>
+
+  <!-- 追加品论 -->
+  <view>
+    <view class='top-product-info'>
+      <image class='went-crotique-produck'></image>
+      <view class='r-critique-text-photo'>
+        <view>Nut 智能寻物防丢贴片 </view>
+        <view class='Theme-color'>已评论</view>
+        <view class='product-list'>
+          <view>
+            <image src='{{starNumber>=1?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="1" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=2?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="2" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=3?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="3" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=4?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="4" catchtap='changeStarNumberTap'></image>
+            <image src='{{starNumber>=5?"../../images/star01@2x.png":"../../images/star02@2x.png"}}' data-star="5" catchtap='changeStarNumberTap'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 追加评论 -->
+    <view class='bottom-photo'>
+      <view class='old-critique'>
+        出现这个问题的原因是：因为对input换行的执念太深，导致走了很多弯路，不过在这个过程中也学到了一些，如果是工期很赶的话，就不能这样干了，要先明确需求（需求理解一定要全面到位），尽快找到合适的解决方案，不要执念太深
+      </view>
+      <view>
+        <image src='../../images/camera@2x.png'></image>
+        <image src='../../images/camera@2x.png'></image>
+      </view>
+      <view class='time'>2018.12.23</view>
+    </view>
+     <!-- 追加评论文字 -->
+     <view class='add-critique-text'>追加评论</view>
+
+
+    <!-- 请填写评论 -->
+    <view class='middle-critique-text'>
+      <textarea value='请填写评论'></textarea>
+    </view>
+
+    <!-- 图片评论 -->
+
+    <view class='bottom-photo'>
+      <view>
+        <image src='../../images/camera@2x.png'></image>
+        <image src='../../images/camera@2x.png'></image>
+      </view>
+      <view class='time'>2018.12.23</view>
+    </view>
+  </view>
+</view>
