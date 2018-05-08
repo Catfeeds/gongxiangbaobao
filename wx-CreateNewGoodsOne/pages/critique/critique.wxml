@@ -10,13 +10,11 @@
     catchtap='handleStatus'
     data-rid="{{item.rid}}"  
     >{{item.name}}</view>
-
 </view>
 
 <view>
     <fx-critique></fx-critique>
 </view>
-
 
 </view>
 

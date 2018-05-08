@@ -272,6 +272,12 @@ Page({
       }
     })
   },
+  //全局搜索
+  bindClickSearch() {
+    wx.navigateTo({
+      url: '../search/search',
+    })
+  },
 
   /**
    * 精选品牌
@@ -291,3 +297,4 @@ Page({
     })
   }
 })
+

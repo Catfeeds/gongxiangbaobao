@@ -6,6 +6,10 @@
         <image src="{{ item.image }}" mode="widthFix" class="slide-image" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="handleSlideTap" />
       </swiper-item>
     </block>
+       <view class='one-search-out-box'>
+      <fx-search id="index-searcher" holderText="搜索宝贝" isAbsolute="{{ search_position }}" bind:tapEvent="bindClickSearch">
+      </fx-search>
+    </view>
   </swiper>
 
   <!-- 分类列表 -->

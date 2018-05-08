@@ -2,11 +2,11 @@
   <view class="fx-product__image">
     <image src="{{product.cover }}" mode="widthFix" class="cover" bindload="imageLoad"></image>
   </view>
-
-  <text class="name">{{ product.name }}</text>
-
-  <view class="fx-product__price">
-    <text class="sale-price Theme-color">￥{{ product.price }}</text>
-    <view class='fx-icon-nothing-plus'></view>
+  <view class='bg-w'>
+    <text class="name">{{ product.name }}</text>
+    <view class="fx-product__price">
+      <text class="sale-price Theme-color">￥{{ product.price }}</text>
+      <view class='fx-icon-nothing-plus'></view>
+    </view>
   </view>
 </view>

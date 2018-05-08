@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/product_logistics/product_logistics",
     "pages/index/index",
+    "pages/paymentResult/paymentResult",
+    "pages/checkout/checkout",
+    "pages/product_logistics/product_logistics",
     "pages/mycritique/mycritique",
     "pages/orderDetail/orderDetail",
     "pages/user/user",
@@ -11,7 +13,6 @@
     "pages/product/product",
     "pages/coupon/coupon",
     "pages/cart/cart",
-    "pages/checkout/checkout",
     "pages/order/order",
     "pages/payment/payment",
     "pages/address/address",
@@ -22,7 +23,8 @@
     "pages/authorize/authorize",
     "pages/logs/logs",
     "pages/news/news",
-    "pages/critique/critique"
+    "pages/critique/critique",
+    "pages/receipt/receipt"
     
   ],
   "window": {

@@ -91,6 +91,7 @@
 .bottom-item-info{
   display: flex;
   flex-direction: row;
+  height: 130rpx;
 }
 .timeT{
   font-size: 24rpx;
@@ -146,8 +147,32 @@ position: absolute;
     height: 30rpx;
   width: 30rpx;
   border-radius: 50%;
-   border: 2rpx solid red;
+   border: 2rpx solid #C8C8C8;
   top: 0;
   right: -15rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.huidian::after{
+  content: " ";
+  height: 12rpx;
+  width: 12rpx;
+  background-color: #C8C8C8;
+  border-radius: 50%;
+}
+.goods-current-location{
+  font-size: 34rpx;
 
+}
+.right-function{
+  color: #666666;
+}
+.name{
+  font-size: 28rpx;
+}
+.logistics-number{
+  display: flex;
+  flex-direction: row;
+  font-size: 30rpx;
 }

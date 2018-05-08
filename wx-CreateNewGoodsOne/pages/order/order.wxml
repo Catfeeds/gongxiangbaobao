@@ -129,7 +129,7 @@
           <text class='Theme-color'>175</text> (含运费¥6.00)</view>
       </view>
       <view class='clear-payment-btn '>
-        <view class='clear-payment-btn-border Theme-color' catchtap='goods_location'>
+        <view class='clear-payment-btn-border Theme-color' catchtap='goodslocation'>
           <text>查看物流</text>
         </view>
         <view class='clear-payment-btn-border Theme-color'>
@@ -165,19 +165,21 @@
           <text class='Theme-color'>175</text> (含运费¥6.00)</view>
       </view>
       <view class='clear-payment-btn '>
-        <view class='clear-payment-btn-border Theme-color'>
-          <text>查看物流</text> </view>
+        <view class='clear-payment-btn-border Theme-color' catchtap='goodslocation'>
+          <text>查看物流</text>
+        </view>
         <view class='clear-payment-btn-border Theme-color' catchtap='critiquePageTap'>
-          <text>立即评价</text> </view>
+          <text>立即评价</text>
+        </view>
       </view>
     </view>
   </view>
 
-    <!-- 追加评价 -->
+  <!-- 追加评价 -->
   <view class='all-order' wx:if="{{currentStatus== 20||currentStatus== 0}}">
     <view class='box-non-payment'>
       <view class='non-payment-text-l'>
-        <view class='non-payment-padding  green-text' >已完成
+        <view class='non-payment-padding  green-text'>已完成
         </view>
         <view>2017-1-1</view>
       </view>
@@ -211,7 +213,7 @@
 
 
 
-<!-- 您还没有选购过商品 -->
+  <!-- 您还没有选购过商品 -->
   <view class="page-order__empty" hidden="{{ orderList.length ? true : false }}">
     <view class="all-status" wx:if="{{ !currentStatus }}">
       <view class="tips">您的选购过商品,快去挑选吧</view>

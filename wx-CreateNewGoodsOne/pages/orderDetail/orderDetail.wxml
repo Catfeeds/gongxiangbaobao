@@ -17,7 +17,7 @@
     <view class='Theme-color'>已签收，收件人是家人签收</view>
     <view class='receive-name'>
       <view>派件人员：郭晓</view>
-      <navigator class='examineGoodsLocation'>
+      <navigator class='examineGoodsLocation' url='../product_logistics/product_logistics'>
         <view>查看物流详情</view>
         <view class='fx-icon-nothing-right left-go'></view>
       </navigator>

@@ -15,9 +15,9 @@ Page({
     products: [],
     timeIndex: 0,
     timedata: [
+      '周六、周日',  
+      '周一至周五',
       '任意时间', 
-      '周一到周五工作日', 
-      '周六、周日'
     ],
     remark: '',
     // 优惠码
@@ -194,6 +194,10 @@ Page({
    * 提交并支付订单
    */
   handleCheckout (e) {
+    wx.navigateTo({
+      url: '../paymentResult/paymentResult',
+    })
+    
     const that = this
     // 添加自定义扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
@@ -281,6 +285,11 @@ Page({
       url: '../address/address?prev_ref=orderCheckout',
     })
   },
+  receiptTap(){
+    wx.navigateTo({
+      url: '../receipt/receipt',
+    })
+  },
 
   /**
    * 输入备注
@@ -295,6 +304,7 @@ Page({
    * 选择送货时间
    */
   handleChangeTime (e) {
+    console.log(e.detail.value)
     this.setData({
       timeIndex: e.detail.value
     })

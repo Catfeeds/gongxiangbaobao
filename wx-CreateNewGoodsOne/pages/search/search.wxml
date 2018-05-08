@@ -8,7 +8,13 @@
     </fx-search>
   </view>
 
-  <view class="search-suggest" wx:if="{{ searchHistory.length }}">
+    <view class="category-main">
+    <view class="category-children" wx:for="{{ childrenCategories }}" wx:key="{{ item.id }}" >
+      <fx-product bind:viewProduct="handleClickCategory" product="{{item}}" data-rid="{{ item.id }}" data-name="{{ item.name }}"></fx-product>
+    </view>
+  </view>
+
+  <!-- <view class="search-suggest" wx:if="{{ searchHistory.length }}">
     <view class="fx-panel">
       <view class="fx-panel__title">
         <label class="title">搜索历史</label>
@@ -25,16 +31,23 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!--推荐产品-->
-  <view class="fx-panel">
+  <!-- <view class="fx-panel">
     <view class="fx-panel__body">
       <view class="product-list--search">
         <fx-product wx:for="{{ productList }}" wx:key="{{ item.rid }}" bind:viewProduct="handleProductTap" product="{{ item }}" class="product-item">
         </fx-product>
       </view>
     </view>
+  </view> -->
+
+  <!-- 没有搜索到产品 -->
+
+  <view class='none-goods-box'>
+      <image class='none-goods' src='../../images/none-page/search-empty@2x.png'></image>
+      <view>没有找到您要的产品哦～</view>
   </view>
 
 </view>

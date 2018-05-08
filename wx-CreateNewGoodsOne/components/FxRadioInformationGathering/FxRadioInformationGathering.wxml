@@ -1,0 +1,11 @@
+<!--components/FxRadioInformationGathering /FxRadioInformationGathering.wxml-->
+    <view class='recevive-goods-time'>
+      <view class='recevive-goods-time-toptext none-line'>{{name}}</view>
+      <view class='none-line'>
+        <radio-group class="radio-group checked-box-size" bindchange="radioChange">
+          <label class="radio" wx:for="{{info}}">
+            <radio size="mini" value="{{item}}" color="#FF6464" checked="{{item.checked}}" />{{item}}
+          </label>
+        </radio-group>
+      </view>
+    </view>

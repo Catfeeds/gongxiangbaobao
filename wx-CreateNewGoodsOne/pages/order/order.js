@@ -164,6 +164,12 @@ Page({
         url: '../mycritique/mycritique',
       })
   },
+  //查看物流
+  goodslocation(){
+    wx.navigateTo({
+      url: '../product_logistics/product_logistics'
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -122,3 +122,9 @@
    height: 200rpx;
   width: 200rpx; 
 }
+.one-search-out-box {
+  position: absolute;
+  width: 690rpx;
+  padding: 30rpx;
+  top: 0rpx;
+}

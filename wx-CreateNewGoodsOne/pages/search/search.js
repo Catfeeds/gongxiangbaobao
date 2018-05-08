@@ -11,6 +11,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    childrenCategories: [{
+      cover: "https://kg.erp.taihuoniao.com/static/img/default-logo-180x180.png", description: "", id: 14, name:"萌奇",price:68},
+
+    { cover: "https://kg.erp.taihuoniao.com/static/img/default-logo-180x180.png", description: "", id: 15, name:"萌奇",price:68},
+
+    { cover: "https://kg.erp.taihuoniao.com/static/img/default-logo-180x180.png", description: "", id: 16, name: "萌奇", price: 68},
+
+    { cover: "https://kg.erp.taihuoniao.com/static/img/default-logo-180x180.png", description: "", id: 20, name: "萌奇", price: 68},
+
+    ],
     searchPosition: false,
     // 查询词
     query: '',
@@ -33,18 +43,18 @@ Page({
   /**
    * 开始搜索
    */
-  handleStartSearch (e) {
+  handleStartSearch(e) {
     this.setData({
       query: e.detail.query
     })
-    
+
     this.getSearchList(e.detail.query)
   },
 
   /**
    * 获取搜索结果
    */
-  getSearchList (qk) {
+  getSearchList(qk) {
     let that = this
     let params = {
       page: this.data.page,
@@ -80,7 +90,7 @@ Page({
   /**
    * 获取搜索历史
    */
-  getSearchHistory () {
+  getSearchHistory() {
     let that = this
 
     http.fxGet(api.search_history, {}, function (res) {
@@ -95,7 +105,7 @@ Page({
   /**
    * 快速搜索
    */
-  handleQuickSearch (e) {
+  handleQuickSearch(e) {
     let query = e.currentTarget.dataset.query
     this.setData({
       query: query
@@ -106,7 +116,7 @@ Page({
   /**
    * 查看产品
    */
-  handleProductTap (e) {
+  handleProductTap(e) {
     wx.navigateTo({
       url: './../product/product?rid=' + e.detail.rid + '&title=' + e.detail.title
     })
@@ -116,35 +126,35 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
@@ -164,6 +174,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

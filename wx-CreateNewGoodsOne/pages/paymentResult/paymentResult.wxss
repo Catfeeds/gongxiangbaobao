@@ -1,0 +1,59 @@
+/* pages/paymentResult/paymentResult.wxss */
+.container{
+  font-size: 30rpx;
+}
+.top-icon{
+  height: 260rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.top-icon-text-photo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top-icon-text-photo view{
+  margin-top: 30rpx;
+}
+.user-name,
+.payment-info>view {
+border-bottom: 1px solid rgba(204,204,204,0.49);
+height: 88rpx;
+padding: 0 30rpx;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+font-size: 30rpx;
+}
+.bg-white{
+  background-color: white;
+}
+.explain-text{
+  color: #666666;
+}
+.receive-user{
+   height: 200rpx !important; 
+  padding: 15rpx 30rpx;
+  line-height: 66rpx;
+  border-bottom: 1px solid rgba(204,204,204,0.49);
+}
+.btn{
+  margin-top: 30rpx;
+  padding: 0 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.btn>view{
+  height: 60rpx;
+  width: 256rpx;
+  border-radius: 30rpx;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

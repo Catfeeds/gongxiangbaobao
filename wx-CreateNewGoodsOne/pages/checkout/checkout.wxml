@@ -1,11 +1,9 @@
 <view class="container">
   <view class="page-checkout">
+    <!-- 地址 -->
     <view class="order-address">
-      <view class="fx-address" wx:if="{{ selectedAddress }}">
-        <view class="content">
-          <label class="icon">
-            <i class="fx-icon-location"></i>
-          </label>
+      <view class="fx-address address-top" wx:if="{{ selectedAddress }}">
+        <view class="content border-none">
           <view class="info">
             <text class="title">{{ selectedAddress.first_name }} {{ selectedAddress.mobile }}</text>
             <text class="summary">{{ selectedAddress.full_address }}</text>
@@ -13,72 +11,78 @@
         </view>
         <view class="action">
           <view class="buttons">
-            <label class="edit" bindtap="handleEditAddress">
-              <i class="fx-icon-edit"></i> 编辑
-            </label>
-            <label class="delete" bindtap="handleChooseAddress">
-              <i class="fx-icon-delete"></i> 重选
+            <label class="delete Theme-color" bindtap="handleChooseAddress">
+              更换地址
             </label>
           </view>
         </view>
+      </view>
+      <!-- 没有地址 -->
+      <view class='none-address' bindtap="handleChooseAddress">
+        <view class='none-address-l'>
+          <view class='fx-icon-nothing-plus Theme-bg-color'></view>
+          <view>添加收货地址</view>
+        </view>
+        <view class='fx-icon-nothing-right'></view>
       </view>
     </view>
 
     <view class="fx-panel order-products">
       <view class="fx-panel__body">
-        <fx-order-product wx:for="{{ products }}" wx:key="{{ item.rid }}" total-count="{{ totalCount }}" index="{{ index }}" product="{{ item }}">
-        </fx-order-product>
+        <fx-orderProductStatus></fx-orderProductStatus>
+      </view>
+      <view class="fx-panel__body">
+        <fx-orderProductStatus></fx-orderProductStatus>
+      </view>
+    </view>
+    <view>
+      <!-- 发票 -->
+      <view class="fx-block coupon" catchtap='receiptTap'>
+        <label class="name">发票
+        </label>
+        <label class="indicator">
+          <text>不开发票</text>
+          <i class="fx-icon-nothing-right"></i>
+        </label>
+      </view>
+
+      <!-- 优惠券 -->
+      <view class="fx-block coupon">
+        <label class="name">优惠券
+        </label>
+        <label class="indicator" bindtap="showCouponModal">
+          <text class="xname">省￥30.00</text>
+          <i class="fx-icon-nothing-right"></i>
+        </label>
       </view>
     </view>
 
-    <view class="fx-panel">
-      <view class="fx-panel__title border">
-        <picker class="express-date" bindchange="handleChangeTime" value="{{ index }}" range="{{ timedata }}">
-          <view class="picker">
-            送货
-            <text>{{ timedata[timeIndex] }}</text>
-          </view>
-        </picker>
-      </view>
-    </view>
-
+    <!-- 收货时间 -->
+    <view class='receive-time'>
+ <fx-informationGathering info="{{timedata}}" name="收货时间"></fx-informationGathering> 
+ </view>
+    <!-- 备注 -->
     <view class="order-remark">
       <label class="name">备注</label>
       <textarea class="content" placeholder-class="content-placeholder" maxlength="50" auto-height="true" placeholder="如有特殊需求请备注说明（50字以内）" cursor-spacing="40" bindblur="handleRemarkInput" />
     </view>
 
-    <view class="fx-block coupon">
-      <label class="name">优惠券
-        <text class="tips" wx:if="{{ couponLabel }}">（{{ couponLabel }}）</text>
-      </label>
-      <label class="indicator" bindtap="showCouponModal">
-        <text class="xname" wx:if="{{ usedCoupon.amount }}">￥{{ usedCoupon.amount }}</text>
-        <i class="fx-icon-nothing-right"></i>
-      </label>
-    </view>
-
     <view class="order-check-panel">
       <view class="fx-panel">
-        <view class="fx-panel__title border">
-          <text class="title">支付方式</text>
-          <label class="indicator">
-            <i class="fx-icon-wechat-pay-colour"></i> 微信支付
-          </label>
-        </view>
 
         <view class="fx-block border">
           <label class="name">商品金额</label>
           <label class="indicator">￥{{ productAmount }}</label>
         </view>
-
         <view class="fx-block border">
           <label class="name">运费</label>
-          <label class="indicator">+￥{{ freight }}</label>
+          <label class="indicator">￥{{ freight }}</label>
         </view>
-
         <view class="fx-block border">
           <label class="name">优惠</label>
-          <label class="indicator">-￥{{ discountAmount }}</label>
+          <label class="indicator Theme-color">￥{{ discountAmount }}</label>
+        </view>
+        <view class="fx-panel__title border shim">
         </view>
 
       </view>
@@ -88,7 +92,7 @@
       <label class="total-amount">
         合计：¥{{ totalAmount }}
       </label>
-      <fx-button class="btn-checkout" size="large" type="primary" name="微信支付" bind:tapEvent="handleCheckout">
+      <fx-button class="btn-checkout" size="large" type="primary" name="提交订单" bind:tapEvent="handleCheckout">
       </fx-button>
     </view>
 
@@ -119,7 +123,6 @@
         您暂无可用优惠券
       </view>
     </view>
-
   </view>
 
 </view>

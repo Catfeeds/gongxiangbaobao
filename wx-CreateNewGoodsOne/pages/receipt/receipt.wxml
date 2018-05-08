@@ -1,0 +1,30 @@
+<!--pages/receipt/receipt.wxml 发票页面-->
+<view class='container flex-c'>
+  <!-- 是否开发票 -->
+  <view class='receipt-margin'>
+    <fx-informationGathering name="是否开发票" info="{{is_have}}"></fx-informationGathering>
+  </view>
+  <!-- 发票类型 -->
+  <view class='receipt-margin'>
+    <fx-informationGathering name="发票类型" info="{{receipt_catgory}}"></fx-informationGathering>
+  </view>
+  <!-- 发票抬头 -->
+  <view class='receipt-margin'>
+    <view>
+      <fx-informationGathering name="发票抬头" info="{{receipt_name}}"></fx-informationGathering>
+    </view>
+    <view class='text-information-gather'>
+      <textarea placeholder='请填写单位名称'></textarea>
+    </view>
+    <view class='text-information-gather'>
+      <textarea placeholder='请填写纳税人识别号'></textarea>
+    </view>
+  </view>
+<!-- 发票内容 -->
+  <view class='receipt-margin'>
+    <view class='receipt-text'>发票内容：办工用品</view>
+  </view>
+
+
+<view class='btn Theme-bg-color'>确认</view>
+</view>

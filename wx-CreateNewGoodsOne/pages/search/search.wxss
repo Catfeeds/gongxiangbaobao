@@ -3,29 +3,38 @@
   font-size: 28rpx;
   padding: 20rpx 32rpx;
   background: #fff;
-  border-bottom: 1rpx solid #E6E6E6;
+  border-top: 1rpx solid #E6E6E6;
 }
-.search-suggest {
-  font-size: 28rpx;
+
+.catgory-item{
+  height: 170rpx;
+  width: 170rpx;
+  display: inline-block;
 }
-.word-group {
-  padding-top: 20rpx;
-  padding-left: 12rpx;
-  padding-bottom: 40rpx;
-}
-.word-group .word {
-  margin-right: 20rpx;
-  border: 1px solid #E6E6E6;
-  padding: 8rpx 30rpx;
-  border-radius: 4rpx;
-}
-.product-list--search {
+.category-main {
+  margin: 30rpx;
   display: flex;
-  flex-flow: row wrap;
-  margin-top: 20rpx;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
-.product-list--search .product-item {
-  flex: 0 0 48%;
-  margin-bottom: 32rpx;
+.category-main .category-children {
+  height: 460rpx;
+  width: 335rpx;
+}
+.fx-product__image{
+  height: 335rpx;
+  width: 335rpx;
+}
+.catgory-is-row-top{
+  height: 170rpx;
+  overflow: auto;
+  white-space: nowrap;
+  background-color: white;
+}
+.none-goods{
+  width: 100%;
+}
+.none-goods-box{
+  text-align: center;
 }
