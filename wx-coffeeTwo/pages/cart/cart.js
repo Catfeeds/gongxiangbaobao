@@ -209,11 +209,18 @@ Page({
     // 重新小计
     this.recalculateSubtotal()
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
   /**
    * 去挑选商品
    */
   handleGoChoose () {
+<<<<<<< HEAD
+=======
+    console.log(234)
+>>>>>>> origin/zhaogaoshang
     wx.switchTab({
       url: '../index/index'
     })

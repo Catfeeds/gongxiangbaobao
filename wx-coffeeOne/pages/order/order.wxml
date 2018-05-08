@@ -54,12 +54,20 @@
 
   <view class="page-order__empty" hidden="{{ orderList.length ? true : false }}">
     <view class="all-status" wx:if="{{ !currentStatus }}">
+<<<<<<< HEAD
       <view class="tips">您的选购过商品,快去挑选吧</view>
+=======
+      <view class="tips">您没有选购过商品,快去挑选吧</view>
+>>>>>>> origin/zhaogaoshang
       <fx-button name="去挑选" type="primary" bind:tapEvent="handleGoChoose">
       </fx-button>
     </view>
     <view class="empty-status" wx:else>
+<<<<<<< HEAD
       <image src="./../../images/order-empty@2x.png" mode="widthFix" class="image" />
+=======
+      <image src="../../images/cart-empty@3x.png" mode="widthFix" class="image" />
+>>>>>>> origin/zhaogaoshang
       <text class="tips">目前没有{{ statusTitle }}订单哦</text>
     </view>
   </view>

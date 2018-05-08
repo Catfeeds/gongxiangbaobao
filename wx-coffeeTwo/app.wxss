@@ -9,6 +9,9 @@
   background: #f9f9f9;
   color: #444444;
 }
+  .important-color{
+    color: #8C5A50 !important;
+  }
 .container.is-row {
   flex-direction: row;
 }

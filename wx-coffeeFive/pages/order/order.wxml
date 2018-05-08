@@ -5,23 +5,35 @@
       <label data-status="{{ item.status }}" class="item {{ currentStatus == item.status ? 'active' : '' }}" bindtap="handleStatus">{{ item.title }}</label>
     </block>
   </view>
+<<<<<<< HEAD
 
   <view class="page-order__list" hidden="{{ orderList.length ? false : true }}">
 
     <view class="fx-order" wx:for="{{ orderList }}" wx:for-index="idx" wx:for-item="order" wx:key="{{ order.rid }}" bindtap="handleViewOrder" data-rid="{{ order.rid }}">
       <view class="fx-order__head">
 
+=======
+  <view class="page-order__list" hidden="{{ orderList.length ? false : true }}">
+    <view class="fx-order" wx:for="{{ orderList }}" wx:for-index="idx" wx:for-item="order" wx:key="{{ order.rid }}" bindtap="handleViewOrder" data-rid="{{ order.rid }}">
+      <view class="fx-order__head">
+>>>>>>> origin/zhaogaoshang
         <label class="date fx-order__head-text">
           未付款
           <label class='fx-order__head-time'>
             {{ order.created_at }}
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
           </label>
         </label>
         <!-- <label class="status">{{ order.status_title }}</label> -->
         <label class="status">查看订单详情 ></label>
       </view>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
       <view class="fx-order__body">
         <view class="fx-order__item" wx:for="{{ order.items }}" wx:key="{{ item.rid }}">
           <view class="fx-order__image">
@@ -40,8 +52,11 @@
       </view>
       <view class="fx-order__foot">
         <label class="total-info">总计：￥{{ order.pay_amount }} (包配送费包装费￥7.00)</label>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/zhaogaoshang
         <view class='order-is-payment'>
           <view>取消订单</view>
           <navigator url='../checkout/checkout'>
@@ -51,7 +66,10 @@
       </view>
     </view>
   </view>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
   <view class="page-order__empty" hidden="{{ orderList.length ? true : false }}">
     <view class="all-status" wx:if="{{ !currentStatus }}">
       <view class="tips">您的选购过商品,快去挑选吧</view>
@@ -59,7 +77,11 @@
       </fx-button>
     </view>
     <view class="empty-status" wx:else>
+<<<<<<< HEAD
       <image src="./../../images/order-empty@2x.png" mode="widthFix" class="image" />
+=======
+      <image src="./../../images/cart-empty@3x.png" mode="widthFix" class="image" />
+>>>>>>> origin/zhaogaoshang
       <text class="tips">目前没有{{ statusTitle }}订单哦</text>
     </view>
   </view>

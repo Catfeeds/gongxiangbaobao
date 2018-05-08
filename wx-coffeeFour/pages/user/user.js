@@ -12,7 +12,11 @@ Page({
    */
   data: {
     order_items: [
+<<<<<<< HEAD
       { rid:'r001', name: '待付款', status: 1, icon: 'wait-pay' },
+=======
+      { rid: 'r001', name: '待付款', status: 1, icon: 'wait-pay' },
+>>>>>>> origin/zhaogaoshang
       { rid: 'r002', name: '待发货', status: 5, icon: 'wait-send' },
       { rid: 'r003', name: '待收货', status: 10, icon: 'wait-confirm' },
       { rid: 'r004', name: '售后服务', status: 15, icon: 'after-market' }
@@ -60,7 +64,11 @@ Page({
     }
   },
   // 查看订单列表
+<<<<<<< HEAD
   handleViewOrder (e) {
+=======
+  handleViewOrder(e) {
+>>>>>>> origin/zhaogaoshang
     const status = e.currentTarget.dataset.status;
     wx.navigateTo({
       url: '../order/order?status=' + status,
@@ -68,7 +76,11 @@ Page({
   },
 
   // 查看服务
+<<<<<<< HEAD
   handViewService (e) {
+=======
+  handViewService(e) {
+>>>>>>> origin/zhaogaoshang
     const rid = e.currentTarget.dataset.rid;
     let _url = '';
     if (rid == 's003') { // 地址
@@ -80,13 +92,21 @@ Page({
     } else if (rid == 's006') {  // 关于我们
       _url = '../aboutus/aboutus'
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/zhaogaoshang
     wx.navigateTo({
       url: _url,
     })
   },
 
+<<<<<<< HEAD
   getUserInfo (e) {
+=======
+  getUserInfo(e) {
+>>>>>>> origin/zhaogaoshang
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
@@ -98,48 +118,76 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   }
 })

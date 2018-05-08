@@ -1,9 +1,16 @@
 {
+<<<<<<< HEAD
   "navigationBarTitleText": "精选",
+=======
+  "navigationBarTitleText": "首页",
+  "navigationBarBackgroundColor": "white",
+  "navigationBarTextStyle": "black",
+>>>>>>> origin/zhaogaoshang
   "usingComponents": {
     "fx-search": "/components/FxSearch/FxSearch",
     "fx-product": "/components/FxProduct/FxProduct",
     "fx-brand": "/components/FxBrand/FxBrand",
+<<<<<<< HEAD
     "fx-coupon-max":"/components/FxcouponMax/FxcouponMax",
     "fx-coffee":"/components/FxCoffee/FxCoffee",
     "fx-goods-list": "/components/FxGoodsList/FxGoodsList",
@@ -13,5 +20,16 @@
     "fx-coupon-middle":"/components/FxCouponMiddle/FxCouponMiddle",
     "fx-goods-listmax":"/components/FxGoodsLidtMax/FxGoodsLidtMax"
 
+=======
+    "fx-coupon-max": "/components/FxcouponMax/FxcouponMax",
+    "fx-coffee": "/components/FxCoffee/FxCoffee",
+    "fx-goods-list": "/components/FxGoodsList/FxGoodsList",
+    "fx-promo": "/components/FxPromo/FxPromo",
+    "fx-promo-mini": "/components/FxPromoMini/FxPromoMini",
+    "fx-swiper": "/components/FxSwiper/FxSwiper",
+    "fx-coupon-middle": "/components/FxCouponMiddle/FxCouponMiddle",
+    "fx-goods-listmax": "/components/FxGoodsLidtMax/FxGoodsLidtMax",
+    "fx-goodsNameList": "/components/FxGoodsNameList/FxGoodsNameList"
+>>>>>>> origin/zhaogaoshang
   }
 }

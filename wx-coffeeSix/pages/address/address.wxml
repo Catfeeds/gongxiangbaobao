@@ -5,9 +5,13 @@
       <image src="https://p4.taihuoniao.com/images/wechat/address.png" class="image" />
       <text>完善收货地址，您的好货才能快速送达哦～</text>
     </view>
+<<<<<<< HEAD
 
     <view class="page-address__list" hidden="{{ isEmpty }}">
 
+=======
+    <view class="page-address__list" hidden="{{ isEmpty }}">
+>>>>>>> origin/zhaogaoshang
       <view class="fx-address fx-address-line" wx:for="{{ addressList }}" wx:key="{{ item.rid }}">
         <view class="content" bindtap="handleChooseAddress" data-rid="{{ item.rid }}">
           <!-- <label class="icon">
@@ -36,6 +40,7 @@
           </view>
         </view>
       </view>
+<<<<<<< HEAD
 
       <!-- 添加新地址 -->
       <button class='addLocation' bindtap="handleNewAddress">+ 添加新地址</button>
@@ -50,6 +55,19 @@
         <i class="fx-icon-address"></i> 添加新地址
       </view>
     </view> -->
+=======
+      <!-- 添加新地址 -->
+      <!-- <button class='addLocation' bindtap="handleNewAddress">+ 添加新地址</button> -->
+    </view> 
+     <view class="page-address__addfix important-color" >
+      <view class="page-address--weixin important-color" bindtap="handleWxAddress">
+        使用微信地址
+      </view>
+      <view class="page-address--custom important-color" bindtap="handleNewAddress">
+        <i class="fx-icon-address important-color"></i> 添加新地址
+      </view>
+    </view> 
+>>>>>>> origin/zhaogaoshang
   </view>
     
 

@@ -126,9 +126,15 @@ Page({
     })
   },
 
+<<<<<<< HEAD
  /**
    * 开始渲染数据
    */
+=======
+  /**
+    * 开始渲染数据
+    */
+>>>>>>> origin/zhaogaoshang
   onLoad: function () {
     // 获取幻灯列表
     this.getIndexSlides()

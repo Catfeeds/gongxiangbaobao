@@ -9,6 +9,12 @@
   background: #f9f9f9;
   color: #444444;
 }
+<<<<<<< HEAD
+=======
+  .important-color{
+    color: #8C5A50 !important;
+  }
+>>>>>>> origin/zhaogaoshang
 .container.is-row {
   flex-direction: row;
 }

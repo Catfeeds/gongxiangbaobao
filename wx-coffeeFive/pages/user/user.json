@@ -1,3 +1,9 @@
 {
+<<<<<<< HEAD
   "navigationBarTitleText": "我的"
+=======
+  "navigationBarTitleText": "个人中心",
+  "navigationBarBackgroundColor": "white",
+  "navigationBarTextStyle": "black"
+>>>>>>> origin/zhaogaoshang
 }

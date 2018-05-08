@@ -22,7 +22,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+<<<<<<< HEAD
   onLoad (options) {
+=======
+  onLoad(options) {
+>>>>>>> origin/zhaogaoshang
     // 获取一级分类
     this.getTopCategories()
   },
@@ -30,7 +34,11 @@ Page({
   /**
    * 获取一级分类
    */
+<<<<<<< HEAD
   getTopCategories () {
+=======
+  getTopCategories() {
+>>>>>>> origin/zhaogaoshang
     const that = this;
     const params = {
       per_page: 50
@@ -55,7 +63,11 @@ Page({
   /**
    * 获取某分类下的商品
    */
+<<<<<<< HEAD
   getCategoryProducts (_cid) {
+=======
+  getCategoryProducts(_cid) {
+>>>>>>> origin/zhaogaoshang
     const that = this
     const params = {
       cid: this.data.cid,
@@ -84,10 +96,17 @@ Page({
         } else {
           _products = res.data.products
         }
+<<<<<<< HEAD
         that.setData({
           products: _products
         })
         
+=======
+        console.log(_products, 22)
+        that.setData({
+          products: _products
+        })
+>>>>>>> origin/zhaogaoshang
       }
     })
   },
@@ -101,7 +120,11 @@ Page({
   /**
    * 获取子分类
    */
+<<<<<<< HEAD
   getChildCategories (pid=0) {
+=======
+  getChildCategories(pid = 0) {
+>>>>>>> origin/zhaogaoshang
     const that = this
     const params = {
       pid: pid,
@@ -119,7 +142,11 @@ Page({
   /**
    * 切换分类
    */
+<<<<<<< HEAD
   handleChangeCategory (e) {
+=======
+  handleChangeCategory(e) {
+>>>>>>> origin/zhaogaoshang
     let rid = e.currentTarget.dataset.rid
     this.setData({
       cid: rid
@@ -130,7 +157,11 @@ Page({
   /**
    * 点击某个分类
    */
+<<<<<<< HEAD
   handleClickCategory (e) {
+=======
+  handleClickCategory(e) {
+>>>>>>> origin/zhaogaoshang
     let rid = e.currentTarget.dataset.rid
     let name = e.currentTarget.dataset.name
     wx.navigateTo({
@@ -149,28 +180,44 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+<<<<<<< HEAD
   
+=======
+    
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   },
 
   /**
@@ -190,6 +237,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/zhaogaoshang
   }
 })

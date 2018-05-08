@@ -68,13 +68,11 @@ App({
     // 调用login获取code
     wx.login({
       success: function (res) {
-        console.log(res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         const code = res.code;
         // 调用 getUserInfo 获取 encryptedData 和 iv
         wx.getUserInfo({
           success: (res) => {
-            console.log(res)
             const encryptedData = res.encryptedData || 'encry';
             const iv = res.iv || 'iv';
 
@@ -87,7 +85,6 @@ App({
               iv: iv,
               code: code
             }, function (res) {
-              console.log(res)
               if (res.success) {
                 wx.showToast({
                   title: '登录成功',

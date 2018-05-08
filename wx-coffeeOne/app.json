@@ -1,5 +1,6 @@
 {
   "pages": [
+<<<<<<< HEAD
     
     "pages/indexOne/indexOne",
     "pages/news/news",
@@ -19,6 +20,12 @@
     "pages/indexFive/indexFive",
     "pages/indexFour/indexFour",
     "pages/indexThree/indexThree",
+=======
+    "pages/index/index",
+    "pages/news/news",
+    "pages/category/category",
+    "pages/checkout/checkout",
+>>>>>>> origin/zhaogaoshang
     "pages/list/list",
     "pages/brand/brand",
     "pages/product/product",
@@ -48,13 +55,21 @@
   "tabBar": {
     "list": [
       {
+<<<<<<< HEAD
         "pagePath": "pages/indexOne/indexOne",
+=======
+        "pagePath": "pages/index/index",
+>>>>>>> origin/zhaogaoshang
         "text": "精选",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-hl.png"
       },
       {
+<<<<<<< HEAD
         "pagePath": "pages/categoryOne/categoryOne",
+=======
+        "pagePath": "pages/category/category",
+>>>>>>> origin/zhaogaoshang
         "text": "发现",
         "iconPath": "images/classify.png",
         "selectedIconPath": "images/classify-hl.png"
@@ -66,7 +81,11 @@
         "selectedIconPath": "images/cart-hl.png"
       },
       {
+<<<<<<< HEAD
         "pagePath": "pages/userOne/userOne",
+=======
+        "pagePath": "pages/user/user",
+>>>>>>> origin/zhaogaoshang
         "text": "我的",
         "iconPath": "images/my.png",
         "selectedIconPath": "images/my-hl.png"

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--pages/user/user.wxml-->
 <view class="container">
   <view class="userinfo">
@@ -41,6 +42,53 @@
           <text class="name">客服中心</text>
         </button>
       </view>
+=======
+<!--pages/userThree/userThree.wxml-->
+
+<view class='container'>
+  <view class='user-info-bg'>
+    <view class="userinfo">
+      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <block wx:else>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+        <view class='three-user-id'>ID:123456</view>
+      </block>
+    </view>
+  </view>
+  <!-- 中间 -->
+  <view class='middle-order-coupon' data-rid="s001" bindtap="handViewService">
+    <view>
+      <image src='../../images/icon-coupon@3x.png'></image>
+      <view>我的优惠券</view>
+    </view>
+    <view class='middle-line'></view>
+    <navigator class='order-btn' url='../order/order' hover-class="none">
+      <view>
+        <image src='../../images/icon-order@3x.png'></image>
+        <view>我的订单</view>
+      </view>
+    </navigator>
+  </view>
+  <view class='bottom-function'>
+    <view class='bottom-btn' data-rid="s003" bindtap="handViewService">
+      <view>地址管理</view>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+    </view>
+    <navigator url='../news/news' hover-class="none">
+      <view class='bottom-btn'>
+        <view>消息</view>
+        <view class=' my-iocn fx-icon-nothing-right'></view>
+      </view>
+    </navigator>
+    <view class='bottom-btn'>
+      <button open-type="contact">联系客服</button>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+    </view>
+    <view class='bottom-btn last-btn' data-rid="s006" bindtap="handViewService">
+      <view>关于我们</view>
+      <view class=' my-iocn fx-icon-nothing-right'></view>
+>>>>>>> origin/zhaogaoshang
     </view>
   </view>
 </view>

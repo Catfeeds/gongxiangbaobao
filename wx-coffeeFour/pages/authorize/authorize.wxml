@@ -3,9 +3,15 @@
   <view class="authorize-status">
     <i class="fx-icon-wechat-pay-colour"></i>
     <text class="tips">需要您授权后才能使用哦！</text>
+<<<<<<< HEAD
 
     <fx-button name="立即授权" type="primary" bind:tapEvent="handleUserAuthorize">
     </fx-button>
   </view>
 
+=======
+    <fx-button name="立即授权" type="primary" bind:tapEvent="handleUserAuthorize">
+    </fx-button>
+  </view>
+>>>>>>> origin/zhaogaoshang
 </view>

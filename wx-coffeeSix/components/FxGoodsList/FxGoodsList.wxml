@@ -3,11 +3,17 @@
       <image wx:if="{{label!='rotate'}}" src='../../images/superscript02@3x.png' class='new-recommend'>
         <view class='new-recommend-text'>新品</view>
       </image>
+<<<<<<< HEAD
 
     <view wx:if="{{label=='rotate'}}" class="fx-promo__title">
       活动
     </view>
 
+=======
+    <view wx:if="{{label=='rotate'}}" class="fx-promo__title">
+      活动
+    </view>
+>>>>>>> origin/zhaogaoshang
       <view class='line'>
         <image class='coffee-goods-photo' src='{{ product.cover }}'></image>
       </view>
@@ -15,7 +21,11 @@
         <view class='coffee-name'>{{ product.name }} </view>
         <view class='new-price'>
           ￥{{ product.price }}
+<<<<<<< HEAD
           <text class='old_price'> ￥￥{{ product.price }}</text> </view>
+=======
+          <text class='old_price'> ￥{{ product.price }}</text> </view>
+>>>>>>> origin/zhaogaoshang
       </view>
     </view>
 

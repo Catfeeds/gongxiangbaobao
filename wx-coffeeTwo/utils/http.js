@@ -85,7 +85,6 @@ function fxGet(url, data = {}, cb) {
     header: fxHeader(),
     success(res) {
       wx.hideNavigationBarLoading()
-      console.log(res)
       if (res.statusCode == 401) {
         wx.navigateTo({
           url: '/pages/authorize/authorize',
@@ -112,7 +111,6 @@ function fxPost(url, data = {}, cb) {
     method: 'POST',
     success(res) {
       wx.hideNavigationBarLoading()
-      console.log(res);
       return typeof cb == 'function' && cb(res.data)
     },
     fail() {

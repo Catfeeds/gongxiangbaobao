@@ -11,8 +11,13 @@
   font-weight: 400;
 }
 .page-bonus__nav .item.active {
+<<<<<<< HEAD
   color: #ff3a31;
   border-bottom: 4rpx solid #ff3a31;
+=======
+  color: #8C5A50;
+  border-bottom: 4rpx solid #8C5A50;
+>>>>>>> origin/zhaogaoshang
 }
 .page-bonus__list {
   font-size: 28rpx;

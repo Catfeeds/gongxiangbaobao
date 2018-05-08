@@ -59,7 +59,11 @@
       </fx-button>
     </view>
     <view class="empty-status" wx:else>
+<<<<<<< HEAD
       <image src="./../../images/order-empty@2x.png" mode="widthFix" class="image" />
+=======
+      <image src="./../../images/cart-empty@3x.png" mode="widthFix" class="image" />
+>>>>>>> origin/zhaogaoshang
       <text class="tips">目前没有{{ statusTitle }}订单哦</text>
     </view>
   </view>

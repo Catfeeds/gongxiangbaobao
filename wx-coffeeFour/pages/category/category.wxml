@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--pages/category/category.wxml-->
 <view class="container is-row">
   <scroll-view scroll-y="true" class="category-nav">
@@ -13,12 +14,35 @@
 
   <view class="category-main">
     <fx-product 
+=======
+<!--pages/categoryOne/categoryOne.wxml 分类-->
+<view class='container'>
+  <view class='goods-name-list-category'>
+    <view wx:for="{{ topCategories }}" wx:key="{{ item.id }}" class="category-item {{ cid == item.id ? 'textcolor' : '' }}" data-rid="{{ item.id }}" bindtap="handleChangeCategory">
+      {{ item.name }}
+    </view>
+  </view>
+
+  <view class='one-category-goods-list'>
+
+    <view class='one-categry-goodsinfo'>
+        <fx-goods-list 
+>>>>>>> origin/zhaogaoshang
         wx:for="{{ products }}" 
         wx:key="{{ item.rid }}" 
         bind:viewProduct="handleProductTap" 
         product="{{ item }}" 
+<<<<<<< HEAD
         class="product-item">
     </fx-product>
   </view>
 
+=======
+        class="product-item">></fx-goods-list>
+
+    </view>
+
+
+  </view>
+>>>>>>> origin/zhaogaoshang
 </view>

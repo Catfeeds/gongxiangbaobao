@@ -38,7 +38,20 @@
       </view>
 
       <!-- 添加新地址 -->
+<<<<<<< HEAD
       <button class='addLocation' bindtap="handleNewAddress">+ 添加新地址</button>
+=======
+      <!-- <button class='addLocation' bindtap="handleNewAddress">+ 添加新地址</button> -->
+
+       <view class="page-address__addfix" >
+      <view class="page-address--weixin important-color" bindtap="handleWxAddress">
+        使用微信地址
+      </view>
+      <view class="page-address--custom important-color" bindtap="handleNewAddress">
+        <i class="fx-icon-address important-color"></i> 添加新地址
+      </view>
+    </view>
+>>>>>>> origin/zhaogaoshang
 
     </view> 
 

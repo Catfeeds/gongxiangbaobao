@@ -1,5 +1,6 @@
 {
   "pages": [
+<<<<<<< HEAD
     "pages/indexFive/indexFive",
     "pages/indexOne/indexOne",
     "pages/news/news",
@@ -19,6 +20,12 @@
     
     "pages/indexFour/indexFour",
     "pages/indexThree/indexThree",
+=======
+    "pages/index/index",
+    "pages/news/news",
+    "pages/category/category",
+    "pages/checkout/checkout",
+>>>>>>> origin/zhaogaoshang
     "pages/list/list",
     "pages/brand/brand",
     "pages/product/product",
@@ -35,7 +42,10 @@
     "pages/aboutus/aboutus",
     "pages/authorize/authorize",
     "pages/logs/logs"
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/zhaogaoshang
   ],
   "window": {
     "backgroundTextStyle": "white",
@@ -48,7 +58,11 @@
   "tabBar": {
     "list": [
       {
+<<<<<<< HEAD
         "pagePath": "pages/indexFive/indexFive",
+=======
+        "pagePath": "pages/index/index",
+>>>>>>> origin/zhaogaoshang
         "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-hl.png"
@@ -66,7 +80,11 @@
         "selectedIconPath": "images/cart-hl.png"
       },
       {
+<<<<<<< HEAD
         "pagePath": "pages/userFive/userFive",
+=======
+        "pagePath": "pages/user/user",
+>>>>>>> origin/zhaogaoshang
         "text": "个人中心",
         "iconPath": "images/my.png",
         "selectedIconPath": "images/my-hl.png"

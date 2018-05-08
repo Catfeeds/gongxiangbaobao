@@ -145,7 +145,11 @@ Page({
   // 去挑选
   handleGoChoose (e) {
     wx.switchTab({
+<<<<<<< HEAD
       url: '../index/index',
+=======
+      url: '../indexOne/indexOne',
+>>>>>>> origin/zhaogaoshang
     })
   },
 

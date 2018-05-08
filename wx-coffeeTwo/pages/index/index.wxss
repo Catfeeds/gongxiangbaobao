@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* pages/indexTwo/indexTwo.wxss */
+>>>>>>> origin/zhaogaoshang
 /**index.wxss**/
 
 .fx-swiper {
@@ -244,7 +248,10 @@
   height: 34rpx;
   color: #8c5a50;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .new-recommend {
   font-size: 24rpx;
   color: #8c5a50;
@@ -254,36 +261,52 @@
   top: 0rpx;
   right: 30rpx;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .new-recommend-text {
   position: absolute;
   top: 10%;
   left: 50%;
   margin-left: -24rpx;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .goods-name-price {
   height: 130rpx;
   display: flex;
   flex-direction: column;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .one-search-out-box {
   position: absolute;
   width: 690rpx;
   padding: 30rpx;
   top: 0rpx;
 }
+<<<<<<< HEAD
 
 .one-fx-panel__promo {
   padding: 10rpx 0;
 }
 
+=======
+.one-fx-panel__promo {
+  padding: 10rpx 0;
+}
+>>>>>>> origin/zhaogaoshang
 .one-promo-products {
   display: flex;
   flex-direction: row;
   overflow: auto;
 }
+<<<<<<< HEAD
 
 .one-promo-products fx-promo-mini {
   margin-right: 10rpx;
@@ -293,6 +316,14 @@
   margin-top: 20rpx;
 }
 
+=======
+.one-promo-products fx-promo-mini {
+  margin-right: 10rpx;
+}
+.goods-name-info-list {
+  margin-top: 20rpx;
+}
+>>>>>>> origin/zhaogaoshang
 .goods-info-box {
   padding: 20rpx;
   display: flex;
@@ -310,19 +341,28 @@
   position: relative;
 }
 
+<<<<<<< HEAD
 .two-swiper-box fx-swiper {
 }
 
+=======
+>>>>>>> origin/zhaogaoshang
 .swiper-bottom-box {
   padding: 20rpx;
   background-color: RGB(250, 250, 250);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .coupon-out-box {
   margin: 20rpx 0;
   margin-bottom: 40rpx;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .coffee-list-photo {
   height: 130rpx !important;
   width: 130rpx !important;
@@ -330,6 +370,7 @@
   margin-top: -70rpx;
   margin-right: 30rpx;
 }
+<<<<<<< HEAD
 
 .two-page-coffe-list {
   margin-bottom: 50rpx;
@@ -343,6 +384,17 @@
   border-radius: 10rpx 10rpx 10rpx 10rpx/ 10rpx 10rpx 10rpx 10rpx;
 }
 
+=======
+.two-page-coffe-list {
+  margin-bottom: 50rpx;
+}
+.two-goods-list {
+  margin-top: 20rpx;
+}
+.goods-name-box {
+  border-radius: 10rpx 10rpx 10rpx 10rpx/ 10rpx 10rpx 10rpx 10rpx;
+}
+>>>>>>> origin/zhaogaoshang
 /* 3s */
 .three-container{
   background-color: RGB(250,250,250);
@@ -352,7 +404,10 @@
   width: 100%;
   position: relative;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .three-top-scroll-bg {
   height: 150rpx;
   position: absolute;
@@ -361,7 +416,10 @@
   z-index: 6;
   top: 0;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/zhaogaoshang
 .three-top-scroll-photo {
   position: absolute;
   top: 0;
@@ -372,9 +430,13 @@
   z-index: 99;
   margin: 0 10rpx;
   overflow: auto;
+<<<<<<< HEAD
 
 }
 
+=======
+}
+>>>>>>> origin/zhaogaoshang
 .three-top-scroll-photo>view {
   width: 600rpx;
   height: 300rpx;
@@ -389,6 +451,9 @@
 .three-coupon-box{
   padding: 30rpx;
 }
+<<<<<<< HEAD
 .three-goods-teilt-name{
   
 }
+=======
+>>>>>>> origin/zhaogaoshang

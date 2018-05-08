@@ -205,11 +205,17 @@ Page({
     this.setData({
       cartList: cartTmpList
     })
+<<<<<<< HEAD
 
     // 重新小计
     this.recalculateSubtotal()
   },
 
+=======
+    // 重新小计
+    this.recalculateSubtotal()
+  },
+>>>>>>> origin/zhaogaoshang
   /**
    * 去挑选商品
    */

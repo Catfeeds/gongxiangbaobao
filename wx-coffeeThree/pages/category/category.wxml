@@ -1,17 +1,29 @@
 <!--pages/category/category.wxml-->
 <view class="container is-row">
+<<<<<<< HEAD
   <scroll-view scroll-y="true" class="category-nav">
+=======
+  <scroll-view scroll-y="true"  class="category-nav">
+>>>>>>> origin/zhaogaoshang
     <view 
       wx:for="{{ topCategories }}" 
       wx:key="{{ item.id }}" 
       class="category-item {{ cid == item.id ? 'active' : '' }}" 
       data-rid="{{ item.id }}"
       bindtap="handleChangeCategory">
+<<<<<<< HEAD
+=======
+      <image src='{{item.cover}}'></image>
+>>>>>>> origin/zhaogaoshang
        {{ item.name }} 
     </view>
   </scroll-view>
 
   <view class="category-main">
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/zhaogaoshang
     <fx-product 
         wx:for="{{ products }}" 
         wx:key="{{ item.rid }}" 
