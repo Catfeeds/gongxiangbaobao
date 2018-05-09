@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "用户授权",
-  "usingComponents": {
-    "fx-button": "/components/FxButton/FxButton"
-  }
-}

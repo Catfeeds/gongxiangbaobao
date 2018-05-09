@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "订单详情",
-  "usingComponents": {
-    "fx-button": "/components/FxButton/FxButton",
-    "fx-order-product": "/components/FxOrderProduct/FxOrderProduct"
-  }
-}

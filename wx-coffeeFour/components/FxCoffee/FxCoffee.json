@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "fx-goods-list":"/components/FxGoodsList/FxGoodsList"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "发现",
-  "usingComponents": {
-    "fx-product": "/components/FxProduct/FxProduct"
-  }
-}

@@ -1,8 +1,0 @@
-{
-    "navigationBarTitleText": "分类",
-    "navigationBarBackgroundColor": "white",
-    "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "fx-product": "/components/FxProduct/FxProduct"
-  }
-}
