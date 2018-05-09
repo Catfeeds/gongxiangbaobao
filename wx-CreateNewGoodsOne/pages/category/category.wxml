@@ -2,7 +2,7 @@
 <view class="container catgory-is-row">
   <view class="catgory-is-row-top">
     <view wx:for="{{ catgory }}" wx:key="{{ item.id }}" class="catgory-item">
-      <fx-categoryList data-rid="{{ item.id }}" porduck="{{item}}" bindtap="handleChangeCategory"></fx-categoryList>
+      <fx-categoryList cid="{{cid}}" porduck="{{item}}" bind:tapEvent="handleChangeCategory" ></fx-categoryList>
     </view>
   </view>
 

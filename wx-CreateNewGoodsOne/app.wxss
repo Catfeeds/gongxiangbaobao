@@ -199,7 +199,7 @@
   flex: 0 0 auto;
 }
 .page-cart__checkout .checkbox.active {
-  color: #be8917;
+  color:#FF6464 ;
 }
 .page-cart__checkout .total-amount {
   flex: 1;

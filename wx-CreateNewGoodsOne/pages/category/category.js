@@ -12,39 +12,46 @@ Page({
   data: {
     // 带有背景图的分类
     catgory: [{
-      rid: 1,
+      rid: 0,
       name: '智能',
       img: "../../images/1@2x.png",
+      pick_images: "../../images/1-click@2x.png", 
       bg_img: "../../images/index-photo/intelligence@2x.png"
     }, {
-      rid: 2,
+      rid: 1,
       name: "家具",
       img: "../../images/2@2x.png",
+      pick_images: "../../images/2-click@2x.png", 
       bg_img: "../../images/index-photo/home-furnishing@2x.png"
     }, {
-      rid: 3,
+      rid: 2,
       name: "厨房",
       img: "../../images/3@2x.png",
+      pick_images: "../../images/3-click@2x.png", 
       bg_img: "../../images/index-photo/kitchen@2x.png"
     }, {
-      rid: 4,
+      rid: 3,
       name: "美食",
       img: "../../images/4@2x.png",
+      pick_images: "../../images/5-click@2x.png", 
       bg_img: "../../images/index-photo/food@2x.png"
     }, {
-      rid: 5,
+      rid: 4,
       name: "数码",
-      img: "../../images/5-click@2x.png",
+      img: "../../images/5@2x.png",
+      pick_images: "../../images/4-click@2x.png", 
       bg_img: "../../images/index-photo/digital@2x.png"
     }, {
-      rid: 6,
+      rid: 5,
       name: "服饰",
       img: "../../images/6@2x.png",
+      pick_images: "../../images/6-click@2x.png", 
       bg_img: "../../images/index-photo/clothes@2x.png"
     }, {
-      rid: 7,
+      rid: 6,
       name: "箱包",
       img: "../../images/7@2x.png",
+      pick_images: "../../images/7-click@2x.png", 
       bg_img: "../../images/index-photo/bag@2x.png"
     }],
     cid: 0,  // 选中分类ID
@@ -108,7 +115,9 @@ Page({
    * 切换分类
    */
   handleChangeCategory (e) {
-    let rid = e.currentTarget.dataset.rid
+    // console.log(e.detail.rid,)
+    // let rid = e.currentTarget.dataset.rid
+    let rid=e.detail.rid
     this.setData({
       cid: rid
     })

@@ -7,6 +7,14 @@ Component({
     porduck:{
       type:Object,
       value:{}
+      },
+      cid:{
+        type: Number,
+        value:0
+      },
+      rid:{
+        type:Number,
+        value:0
       }
 
   },
@@ -22,6 +30,13 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    pickTap(e){
+      console.log(e.currentTarget.dataset.cid)
+      // this.data.cid = e.currentTarget.dataset.cid
+      this.triggerEvent('tapEvent',{
+        rid: e.currentTarget.dataset.cid
+      })
+    }
 
   }
 })

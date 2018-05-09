@@ -24,9 +24,10 @@
 .fx-cart-item__body .checkbox {
   flex: 0 0 auto;
   font-weight: 500;
+  margin-right: 30rpx;
 }
 .fx-cart-item__body .checkbox .active {
-  color: #be8917;
+  color:#FF6464;
 }
 .fx-cart-item__body .cover {
   flex: 0 0 120rpx;

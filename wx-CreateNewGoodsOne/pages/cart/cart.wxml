@@ -4,30 +4,37 @@
 
     <view class="fx-cart-item" wx:for="{{ cartList }}" wx:key="{{ item.rid }}">
       <view class="fx-cart-item__body">
+      <!-- 1 -->
         <view class="checkbox" bindtap="handleCheckEvent" data-rid="{{ item.rid }}">
           <i class="fx-icon-check-mark active" wx:if="{{ item.checked }}"></i>
           <i class="fx-icon-circle" wx:else></i>
         </view>
-        <view class="cover">
+        <!-- 2 -->
+        <!-- <view class="cover">
           <image src="{{ item.product.cover }}" mode="widthFix" class="image" />
+        </view> -->
+        <view>
+        <fx-orderProductStatus></fx-orderProductStatus>
         </view>
+        <!-- 3 -->
         <view class="content">
           <text class="name">{{ item.product.product_name }}</text>
           <text class="mode">{{ item.product.model }}</text>
 
           <view class="box-bottom">
-            <text class="sale-price" wx:if="{{ item.product.sale_price > 0 }}">￥{{ item.product.sale_price }}</text>
-            <text class="sale-price" wx:else>￥{{ item.product.price }}</text>
+            <text class="sale-price" wx:if="{{ item.product.sale_price > 0 }}">{{ item.product.sale_price }}</text>
+            <text class="sale-price" wx:else>{{ item.product.price }}</text>
 
             <fx-input-number class="quantity" value="{{ item.quantity }}" bind:inputNumber="handleChangeQuantity" data-rid="{{ item.rid }}">
             </fx-input-number>
           </view>
         </view>
-        <view class="actions">
+        <!-- 4 -->
+         <view class="actions">
           <label class="close" data-rid="{{ item.rid }}" bindtap="handleRemoveEvent">
             <i class="fx-icon-close-error"></i>
           </label>
-        </view>
+        </view> 
       </view>
     </view>
     <!--fx-cart-item-->

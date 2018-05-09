@@ -4,6 +4,7 @@
   "navigationBarBackgroundColor": "white",
   "usingComponents": {
     "fx-button": "/components/FxButton/FxButton",
-    "fx-input-number": "/components/FxInputNumber/FxInputNumber"
+    "fx-input-number": "/components/FxInputNumber/FxInputNumber",
+    "fx-orderProductStatus": "/components/FxOrderProductStatus/FxOrderProductStatus"
   }
 }
