@@ -1,0 +1,20 @@
+<!--pages/critique/critique.wxml 全部评论-->
+
+<view class='container'>
+
+<view class='top-catgory'>
+    <view 
+    class='top-catgory-info {{currentStatus==item.rid?"active":""}}' 
+    wx:for="{{critique_catgry_list}}" 
+    wx:key="{{item.rid}}" 
+    catchtap='handleStatus'
+    data-rid="{{item.rid}}"  
+    >{{item.name}}</view>
+</view>
+
+<view>
+    <fx-critique></fx-critique>
+</view>
+
+</view>
+

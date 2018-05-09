@@ -1,0 +1,9 @@
+<!--pages/news/news.wxml-->
+<view class='container'>
+    <!-- 缺省页 -->
+    <view class='none-page'>
+        <image src='../../images/none-page/news-empty@2x.png'></image>
+        <view>您还没有收到任何消息～</view>
+    </view>
+
+</view>

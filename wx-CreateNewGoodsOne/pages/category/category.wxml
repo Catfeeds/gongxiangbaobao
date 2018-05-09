@@ -1,0 +1,15 @@
+<!--pages/category/category.wxml-->
+<view class="container catgory-is-row">
+  <view class="catgory-is-row-top">
+    <view wx:for="{{ catgory }}" wx:key="{{ item.id }}" class="catgory-item">
+      <fx-categoryList cid="{{cid}}" porduck="{{item}}" bind:tapEvent="handleChangeCategory" ></fx-categoryList>
+    </view>
+  </view>
+
+
+  <view class="category-main">
+    <view class="category-children" wx:for="{{ childrenCategories }}" wx:key="{{ item.id }}" >
+      <fx-product bind:viewProduct="handleClickCategory" product="{{item}}" data-rid="{{ item.id }}" data-name="{{ item.name }}"></fx-product>
+    </view>
+  </view>
+</view>

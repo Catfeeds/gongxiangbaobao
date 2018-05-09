@@ -1,0 +1,63 @@
+/* components/FxCritique/FxCritique.wxss */
+.critique-box{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+.one-critique-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.one-critique-top-l{
+  display: flex;
+  flex-direction: row;
+
+}
+.one-critique-top-l image{
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.one-critique-top-l-text{
+  font-size: 30rpx;
+  color: #222222 ;
+}
+.one-critique-top-l-time{
+font-size: 24rpx;
+color: #999999 ;
+}
+.one-critique-top-r{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.one-critique-top-r>image{
+  height: 20rpx;
+  width: 20rpx;
+}
+.user-critique-photo image{
+  width: 130rpx;
+  height: 130rpx;
+  border: 2rpx solid #999999;
+  box-sizing: border-box;
+  margin-right: 10rpx;
+  border-radius: 10rpx;
+}
+.user-critique-text{
+  font-size: 30rpx;
+  color: #222222 ;
+  margin-top: 16rpx;
+  margin-bottom: 16rpx;
+}
+.one-critique{
+  padding: 30rpx;
+  border-bottom: 2rpx solid #E6E6E6;
+  border-top:2rpx solid #E6E6E6; 
+}
+.Two-critique{
+  border-top: none;
+}

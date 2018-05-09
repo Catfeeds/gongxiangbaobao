@@ -1,0 +1,32 @@
+/* components/FxCoupon/FxCoupon.wxss */
+.coupon-box{
+  height: 100%;
+  width: 100%;
+   border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.coupon-box-can-use{
+background-color: #FF6867;
+
+}
+.coupon-box-over{
+background-color: #CDCDCD 100%;
+}
+.coupon-price-number{
+  font-size: 50rpx;
+  font-weight: 700;
+  color: #FFFFFF ;
+
+}
+.money-mark{
+  font-weight: 700;
+  font-size: 24rpx;
+  color: white;
+}
+.limit-text{
+  font-size: 24rpx;
+  color: white;
+}

@@ -1,0 +1,36 @@
+/* pages/receipt/receipt.wxss */
+.flex-c{
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+}
+.text-information-gather{
+  padding:20rpx 30rpx;
+  background-color: white;
+}
+textarea{
+  height: 80rpx;
+  width: 650rpx;
+  background-color:#FAFAFA;
+  font-size: 30rpx;
+  padding: 0 20rpx;
+}
+.receipt-margin{
+  margin-top: 30rpx;
+}
+.receipt-text{
+  height: 88rpx;
+  background-color:white;
+  line-height: 88rpx;
+  padding: 0 30rpx;
+}
+.btn{
+  color: white;
+  height: 88rpx;
+  position: fixed;
+  bottom: 0rpx;
+  width: 750rpx;
+  font-size: 30rpx;
+  line-height: 88rpx;
+  text-align: center;
+}

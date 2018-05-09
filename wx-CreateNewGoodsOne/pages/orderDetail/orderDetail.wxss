@@ -1,0 +1,82 @@
+/* pages/orderDetail/orderDetail.wxss */
+.marbottom{
+  margin-bottom: 20rpx;
+}
+.order-over{
+  height: 80rpx;
+  color: white;
+  background: #FF6464;
+  font-size: 34rpx;
+  text-align: center;
+  line-height: 80rpx;
+}
+.goods-box{
+  border-bottom:2rpx solid #E6E6E6;
+}
+.goods-item-box{
+  padding: 30rpx;
+  border-top:2rpx solid #E6E6E6; 
+  background-color: white;
+}
+.goods-receive-time{
+  height: 200rpx;
+  border-top: 2rpx solid #E6E6E6; 
+  border-bottom:2rpx solid #E6E6E6;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+  padding: 30rpx;
+  justify-content: space-around;
+  color: #666666;
+}
+.receive-name{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.examineGoodsLocation{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+.examineGoodsLocation>view{
+  margin-left: 20rpx;
+}
+.left-go{
+ padding-top: 5rpx;
+}
+.userIfo{
+  color: black;
+}
+.other-info>view{
+  padding: 0 30rpx;
+  height: 88rpx;
+  font-size: 30rpx;
+  color: #222222;
+  background-color: white;
+  border-top: 2rpx solid #E6E6E6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.other-info-bottom{
+  justify-content: space-between;
+}
+.bottom-add-delete{
+  font-size: 24rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0 150rpx
+}
+.bottom-add-delete>view{
+  height: 50rpx;
+  width: 160rpx;
+  border-radius: 30rpx;
+  border: 2rpx solid #FF6464;
+  text-align: center;
+  line-height: 50rpx;
+}

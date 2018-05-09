@@ -1,0 +1,55 @@
+<!--pages/paymentResult/paymentResult.wxml 支付成功或者失败返回的结果-->
+<view class='container'>
+  <!-- 支付成功 -->
+  <view class='success' wx:if="{{}}">
+    <view class='top-icon'>
+      <view class='top-icon-text-photo'>
+        <icon type="success" size="40"></icon>
+        <view>订单支付成功 ！</view>
+      </view>
+    </view>
+
+    <view class='payment-info'>
+      <view>支付信息</view>
+      <view class='bg-white' wx:for="{{payment_info}}" wx:key="index">
+        <text>{{item.title}}</text>
+        <text class='explain-text'>{{item.explain}}</text>
+      </view>
+    </view>
+
+    <view>
+      <view class='user-name'>收件人</view>
+      <view class='bg-white receive-user'>
+        <view>
+          <text>刘涛</text>
+          <text>12345678909</text>
+        </view>
+        <view>
+          <text>北京市</text>
+          <text>海淀区</text>
+        </view>
+        <view>五道口 华清商务会馆 1234室</view>
+      </view>
+    </view>
+
+    <view class='btn'>
+      <view class='Theme-bg-color' catchtap='indexTap'>返回首页</view>
+      <view class='Theme-bg-color' catchtap='orderTap'>订单列表</view>
+    </view>
+  </view>
+  <!-- 支付失败 -->
+  <view class='error'>
+    <view class='top-icon'>
+      <view class='top-icon-text-photo'>
+        <icon type="cancel" size="40"></icon>
+        <view>订单支付失败 ！</view>
+      </view>
+    </view>
+    <view class='btn'>
+      <view class='Theme-bg-color' catchtap='againPayment'>重新支付</view>
+    </view>
+
+
+  </view>
+
+</view>

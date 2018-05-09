@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "填写订单",
+  "navigationBarBackgroundColor": "white",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton",
+    "fx-order-product": "/components/FxOrderProduct/FxOrderProduct",
+    "fx-categoryList": "/components/FxcategoryList/FxcategoryList",
+    "fx-orderProductStatus":"/components/FxOrderProductStatus/FxOrderProductStatus",
+    "fx-informationGathering":"/components/FxRadioInformationGathering/FxRadioInformationGathering"
+  }
+}

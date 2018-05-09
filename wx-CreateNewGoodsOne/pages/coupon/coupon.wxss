@@ -1,0 +1,71 @@
+.page-bonus__nav {
+  background: #fff;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 32rpx;
+  height: 90rpx;
+  border-bottom: 2rpx solid #E6E6E6;
+  border-top: 2rpx solid #E6E6E6;
+}
+.page-bonus__nav .item {
+  line-height: 90rpx;
+  color: #6b6b6b;
+  font-weight: 400;
+}
+.page-bonus__nav .item.active {
+  color: #FF6464;
+  border-bottom: 4rpx solid #FF6464;
+}
+.page-bonus__list {
+  font-size: 28rpx;
+  margin: 30rpx 32rpx 150rpx;
+}
+.fx-bonus{
+  margin-bottom: 20rpx;
+}
+.overdue-coupon-text{
+  font-size: 24rpx;
+  color: #999999 ;
+  text-align: center;
+}
+.overdue-coupon{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* .fx-bonus {
+  margin-bottom: 20rpx;
+  background: #fff;
+  display: flex;
+  padding: 20rpx 0;
+  align-items: center;
+} */
+/* 
+.fx-bonus .money {
+  margin-left: 15rpx;
+  flex: 0 0 90rpx;
+  color: #f56c6c;
+}
+.fx-bonus .currency {
+  font-size: 28rpx;
+}
+.fx-bonus .amount {
+  font-size: 48rpx;
+  line-height: 100rpx;
+}
+.fx-bonus .fx-bonus__info {
+  flex: 1;
+  font-size: 22rpx;
+  margin-left: 20rpx;
+  text-align: left;
+}
+.fx-bonus__info .rule {
+  color: #222;
+  line-height: 60rpx;
+  font-size: 32rpx;
+}
+.fx-bonus__info .expired {
+  color: #6b6b6b;
+} */

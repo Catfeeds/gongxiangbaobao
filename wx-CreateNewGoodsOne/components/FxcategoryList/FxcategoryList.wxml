@@ -1,0 +1,9 @@
+<!--components/FxcategoryList/Fxcate
+goryList.wxml 产品类分类列表-->
+<view class='catgory-box' catchtap='pickTap' data-cid="{{porduck.rid}}">
+  <view class='catgory-top-photo'>
+    <image src='{{cid==porduck.rid?porduck.pick_images:porduck.img}}' class='catgory-photo'></image>
+  </view>
+  <view>{{porduck.name}}</view>
+</view>
+   

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "white",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton",
+    "fx-order-product": "/components/FxOrderProduct/FxOrderProduct",
+    "fx-product":"/components/FxProduct/FxProduct",
+    "fx-orderProductStatus": "/components/FxOrderProductStatus/FxOrderProductStatus"
+  }
+}

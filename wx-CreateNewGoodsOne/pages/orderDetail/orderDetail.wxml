@@ -1,0 +1,61 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<view class="container">
+  <view class='order-over marbottom'>
+    订单已完成
+  </view>
+
+  <view class='goods-box marbottom'>
+    <view class='goods-item-box'>
+      <fx-orderProductStatus></fx-orderProductStatus>
+    </view>
+    <view class='goods-item-box'>
+      <fx-orderProductStatus></fx-orderProductStatus>
+    </view>
+  </view>
+
+  <view class='goods-receive-time marbottom'>
+    <view class='Theme-color'>已签收，收件人是家人签收</view>
+    <view class='receive-name'>
+      <view>派件人员：郭晓</view>
+      <navigator class='examineGoodsLocation' url='../product_logistics/product_logistics'>
+        <view>查看物流详情</view>
+        <view class='fx-icon-nothing-right left-go'></view>
+      </navigator>
+    </view>
+    <view>2017.09.07 14:00:09</view>
+  </view>
+
+  <view class='goods-receive-time marbottom'>
+    <view class='Theme-color userIfo'>刘涛 12345678909</view>
+    <view class='receive-name'>
+      <view>北京市 海淀区</view>
+    </view>
+    <view>五道口 华清商务会馆 1234室</view>
+  </view>
+
+  <view class='marbottom goods-box other-info'>
+    <view>订单编号：69876557</view>
+    <view>下单时间：2017.06.28</view>
+    <view>支付方式：支付宝支付</view>
+    <view>快递公司：圆通快递</view>
+    <view>发票类型：不开发票</view>
+  </view>
+
+  <view class='marbottom goods-box other-info'>
+    <view class='other-info-bottom'>
+      <view>运费</view>
+      <view class='Theme-color'>￥10.00</view>
+    </view>
+    <view class='other-info-bottom'>
+      <view>订单总价</view>
+      <view class='Theme-color'>￥148.00</view>
+    </view>
+  </view>
+
+  <view class='bottom-add-delete marbottom'>
+      <view>追加评论</view>
+      <view>删除订单 </view>
+  </view>
+
+
+</view>

@@ -1,0 +1,87 @@
+/* pages/mycritique/mycritique.wxss */
+.top-product-info{
+  height: 240rpx;
+  border-top: 2rpx solid #E6E6E6 ;
+  margin-top: 30rpx;
+  padding: 20rpx 30rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.went-crotique-produck{
+  height: 180rpx;
+  width: 180rpx;
+  border: 2rpx solid #E6E6E6;
+}
+.product-list{
+  display: flex;
+  flex-direction: row;
+font-size: 30rpx;
+justify-content: space-between;
+}
+.product-list image{
+  height: 44rpx;
+  width: 44rpx;
+  margin-right: 36rpx;
+}
+.r-critique-text-photo{
+font-size: 30rpx;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+margin-left: 20rpx;
+height: 100%;
+flex: 1;
+}
+.middle-critique-text{
+   border-top: 2rpx solid #E6E6E6 ;
+   height: 210rpx;
+   background-color: white;
+   padding: 30rpx;
+   
+}
+.middle-critique-text textarea{
+  height: 100%;
+  widows: 100%;
+  white-space: pre-wrap;
+  word-break:break-all;
+  overflow: auto;
+}
+.bottom-photo{
+  border-top: 2rpx solid #E6E6E6;
+  border-bottom: 2rpx solid #E6E6E6;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #C8C8C8;
+  font-size: 30rpx;
+  padding: 20rpx 30rpx;
+}
+.bottom-photo image{
+  height: 130rpx;
+  width: 130rpx;
+  border:2rpx solid #E6E6E6;
+  box-sizing: border-box;
+  margin-right: 20rpx;
+}
+.time{
+   display: flex;
+  flex-direction: row;
+  justify-content: flex-end; 
+}
+.old-critique{
+  margin-bottom: 20rpx;
+  color: #222222;
+}
+.add-critique-text{
+  background-color: white;
+  font-size: 30rpx;
+  padding: 20rpx 30rpx;
+  margin-top: 30rpx;
+}
+textarea{
+  font-size: 30rpx;
+  color: #C8C8C8;
+}

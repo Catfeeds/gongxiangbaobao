@@ -1,0 +1,55 @@
+<!--pages/product_logistics/product_logistics.wxml 物流信息-->
+<view class='container'>
+  <view class='top-product-info'>
+    <image class='went-crotique-produck'></image>
+    <view class='r-critique-text-photo'>
+      <view>Nut 智能寻物防丢贴片 </view>
+      <view>产品是否与描述相符</view>
+      <view class='product-list'>
+        <view>官方电话：
+          <text class='Theme-color'> 95546 </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 中间的中专站点 -->
+  <view class='middle-info'>
+    <view class='prompt-icon'>
+      <image class='cart-prompt' src='../../images/transport@2x.png'></image>
+      <image src='../../images/send-after@2x.png'></image>
+      <view class='middle-line'></view>
+      <text class='red-round Theme-bg-color'></text>
+      <view class='middle-line'></view>
+      <image src='../../images/receive@2x.png'></image>
+    </view>
+    <view class='goods-location'>
+      <view>北京市</view>
+      <view>中转站</view>
+      <view>上海市</view>
+    </view>
+  </view>
+
+  <!-- 底部的信息 -->
+  <view class='bottom-info'>
+    <view class='bottom-info-top-lin'>
+      <view class='bottom-item-info' wx:for="{{product_status}}" wx:key="{{item.rid}}">
+        <view class='leftTime {{index!=product_status.length-1?"left-line":"" }}'>
+          <view class='timeT'>{{item.timeT}}</view>
+          <view class='timeB'>{{item.timeB}}</view>
+          <view class='diangong {{index!=0 && index!=product_status.length-1?"dian":""}} {{index==0?"reddian":""}} {{index==product_status.length-1?"huidian":""}}'>
+            <view class='{{index==0?"reddianxin":""}} {{index==product_status.length-1?"huidianxin":""}}'></view>
+          </view>
+        </view>
+        <view class='right-function'>
+          <view class='goods-current-location {{index==0?"Theme-color":""}}'>{{item.status}}</view>
+          <view class='name'>{{item.name}}</view>
+          <view class='logistics-number' wx:if="{{item.mobile!=false}}">
+            <text> 联系电话：</text>
+            <text class='Theme-color'> {{item.mobile}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

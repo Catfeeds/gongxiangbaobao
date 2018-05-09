@@ -22,7 +22,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
+
   },
 
   /**
@@ -56,7 +57,7 @@ Page({
         title: '提示',
         content: '请选择要结算的商品',
         showCancel: false,
-        confirmColor: '#f56c6c',
+        confirmColor: '#be8914',
         success: function (res) {
           if (res.confirm) {
             return false
@@ -138,7 +139,7 @@ Page({
       }
       idx += 1
     }
-
+    
     let params = {}
     let key = 'cartList[' + checked_idx + '].checked'
     params[key] = !checked
@@ -214,7 +215,7 @@ Page({
    */
   handleGoChoose () {
     wx.switchTab({
-      url: '../indexFive/indexFive'
+      url: '../index/index'
     })
   },
 

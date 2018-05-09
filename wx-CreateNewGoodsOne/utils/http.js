@@ -5,7 +5,7 @@ const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
 
 // 生成验证请求签名
 function buildSign(timestamp, nonce_str) {
-  let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}//
+  let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   const params = {
     app_key: extConfig.api.appKey,
     timestamp: timestamp,

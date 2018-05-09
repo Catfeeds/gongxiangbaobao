@@ -1,0 +1,7 @@
+<!--components/FxCoupon/FxCoupon.wxml-->
+<view class='coupon-box coupon-box-can-use'>
+  <view>
+    <text class='money-mark'>￥</text>
+    <text class='coupon-price-number'>500.00</text> </view>
+  <view class='limit-text'>满100.00元可用</view>
+</view>
