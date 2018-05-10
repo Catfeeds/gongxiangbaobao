@@ -1,0 +1,19 @@
+<!--components/FxGoodsLidtMax/FxGoodsLidtMax.wxml 产品列表的大页面-->
+<view class='two-goods-list-box'>
+  <!-- 左边 -->
+  <view class="two-fx-promo__image-l">
+    <image src="../../images/BG01@3x.png" class="goods-max-cover"></image>
+    <view class="fx-promo__title ">
+      新品
+    </view>
+  </view>
+
+  <!-- 右边 -->
+  <view class='two-fx-promo__image-r'>
+    <view class='two-goods-info-text'>核桃曲奇风味拿铁核桃曲奇风味拿铁</view>
+    <view class='two-goods-price-googscar'>
+      <view class='two-price-text-color'>￥69.00</view>
+      <view class='goodsAddCart-box'>加入购物车</view>
+    </view>
+  </view>
+</view>

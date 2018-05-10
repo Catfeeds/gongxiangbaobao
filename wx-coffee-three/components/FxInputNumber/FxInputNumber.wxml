@@ -1,0 +1,5 @@
+<view class="fx-input-number">
+  <label class="minus {{ disabledMinus ? 'disabled' : '' }}" bindtap="handleMinusEvent">-</label>
+  <input type="number" value="{{ value }}" class="input-area" bindblur="handleInputEvent" bindconfirm="handleInputEvent" />
+  <label class="add {{ disabledAdd ? 'disabled' : '' }}" bindtap="handleAddEvent">+</label>
+</view>

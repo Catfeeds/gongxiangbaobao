@@ -1,0 +1,16 @@
+.authorize-status {
+  flex: 1;
+  font-size: 28rpx;
+  background: #ffffff;
+  text-align: center;
+  padding: 50rpx 0;
+}
+.authorize-status i {
+  font-size: 70rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+.authorize-status .tips {
+  display: block;
+  margin-bottom: 100rpx;
+}

@@ -1,0 +1,111 @@
+<!--pages/address/address.wxml-->
+<view class="container">
+  <view class="page-address" hidden="{{ editStatus }}">
+    <view class="page-address--empty" hidden="{{ !isEmpty }}">
+      <image src="https://p4.taihuoniao.com/images/wechat/address.png" class="image" />
+      <text>完善收货地址，您的好货才能快速送达哦～</text>
+    </view>
+
+    <view class="page-address__list" hidden="{{ isEmpty }}">
+
+      <view class="fx-address fx-address-line" wx:for="{{ addressList }}" wx:key="{{ item.rid }}">
+        <view class="content" bindtap="handleChooseAddress" data-rid="{{ item.rid }}">
+          <!-- <label class="icon">
+            <i class="fx-icon-location"></i>
+          </label> -->
+          <view class="info">
+            <text class="title">{{ item.first_name }} {{ item.mobile }}</text>
+            <text class="summary">{{ item.province}} {{ item.city }} {{ item.town }} {{ item.area }} </text>
+            <view class="summary">{{ item.street_address }}</view>
+          </view>
+        </view>
+        <view class="action">
+          <label class="checkbox active select-location" wx:if="{{ item.is_default }}">
+             <icon color="#8C5A50" type='success'></icon> 默认地址
+          </label>
+          <label class="checkbox" wx:else >
+              <view class='location-round'></view> 默认地址
+          </label>
+          <view class="buttons">
+            <label class="edit" bindtap="handleEditEvent" data-rid="{{ item.rid }}">
+               编辑
+            </label>
+            <label class="delete" bindtap="handleDeleteEvent" data-rid="{{ item.rid }}">
+               删除
+            </label>
+          </view>
+        </view>
+      </view>
+
+      <!-- 添加新地址 -->
+      <!-- <button class='addLocation' bindtap="handleNewAddress">+ 添加新地址</button> -->
+
+    </view> 
+
+     <view class="page-address__addfix important-color" >
+      <view class="page-address--weixin important-color" bindtap="handleWxAddress">
+        使用微信地址
+      </view>
+      <view class="page-address--custom important-color" bindtap="handleNewAddress">
+        <i class="fx-icon-address important-color"></i> 添加新地址
+      </view>
+    </view> 
+  </view>
+    
+
+  <view class="fx-address__form" hidden="{{ !editStatus }}">
+    <view class="section">
+      <input bindblur="handleAddressInput" placeholder="姓名" data-name="first_name" value="{{ newAddress.first_name }}" type="text" />
+    </view>
+    <view class="section">
+      <input bindblur="handleAddressInput" placeholder="联系电话" data-name="mobile" value="{{ newAddress.mobile }}" type="number" />
+    </view>
+    <view class="section">
+      <input bindblur="handleAddressInput" placeholder="邮编" data-name="zipcode" value="{{ newAddress.zipcode }}" type="number" />
+    </view>
+    <view class="section">
+      <picker bindchange="handleChooseProvince" value="{{ index }}" range-key="name" range="{{ provinces }}">
+        <view class="picker">
+          选择省份：{{ provinces[index].name }}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="handleChooseCity" value="{{ cindex }}" range-key="name" range="{{ current_cities }}">
+        <view class="picker">
+          当前城市：{{ current_cities[cindex].name }}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="handleChooseTown" value="{{ tindex }}" range-key="name" range="{{ current_towns }}">
+        <view class="picker">
+          当前地区：{{ current_towns[tindex].name }}
+        </view>
+      </picker>
+    </view>
+    <!-- <view class="section">
+      <picker bindchange="handleChooseArea" value="{{ aindex }}" range-key="name" range="{{ current_areas }}">
+        <view class="picker">
+          当前城镇：{{ current_areas[aindex].name }}
+        </view>
+      </picker>
+    </view> -->
+    <view class="section">
+      <input class='text-input' bindblur="handleAddressInput" data-name="street_address" placeholder="请填写详细地址，不得少于5个字" value="{{ newAddress.street_address }}" type="text" />
+    </view>
+    <view class="defalut">
+      <text class="label">设置为默认地址</text>
+      <switch bindchange="handleSwitchChange" checked="{{ newAddress.is_default }}" color="RGB(140,90,80)" />
+    </view>
+          <!-- 添加新地址 -->
+      <button class='addLocation' catchtap="handleAddSubmit" >保存</button>
+
+    <!-- <view class="form-buttons">
+      <label class="btn" bindtap="handleCancelSubmit">取消</label>
+      <label class="btn submit" bindtap="handleAddSubmit">提交</label>
+    </view> -->
+
+  </view>
+
+</view>

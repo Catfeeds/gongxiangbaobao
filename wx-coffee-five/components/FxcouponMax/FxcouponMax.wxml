@@ -1,0 +1,12 @@
+<!--components/FxcouponMax/FxcouponMax.wxml 全屏优惠券-->
+<view class='max-coupon-box'>
+  <view class='max-coupon-l'>
+    <view class='max-coupon-number'>￥120.00
+      <text class='coupon-condition'>满100减120</text> </view>
+    <view class='max-coupon-time'>使用期限：2016-08-12至2016-12-12</view>
+  </view>
+  <view class='max-coupon-r'>
+    <view>立即</view>
+    <view>领取</view>
+  </view>
+</view>

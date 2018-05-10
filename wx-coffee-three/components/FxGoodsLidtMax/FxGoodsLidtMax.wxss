@@ -1,0 +1,76 @@
+/* components/FxGoodsLidtMax/FxGoodsLidtMax.wxss */
+
+.two-goods-list-box {
+  border-radius: 10rpx 10rpx 10rpx 10rpx/ 10rpx 10rpx 10rpx 10rpx;
+  background-color: white;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.two-fx-promo__image-l {
+  width: 200rpx;
+  height: 200rpx;
+  margin-right: 18rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.goods-max-cover {
+  border: 2rpx solid RGB(200, 200, 200);
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fx-promo__title {
+  width: 300rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  transform: rotate(-45deg);
+  font-size: 26rpx;
+  color: #8c5a50;
+  background-image: linear-gradient(-225deg, #f7e9cf 4%, #faf0de 48%, #f7e9cf 96%);
+  border: 2rpx solid #f2daad;
+  text-align: center;
+  position: absolute;
+  top: 8rpx;
+  left: -118rpx;
+}
+
+.two-goods-info-text {
+  font-size: 34rpx;
+  color: #222;
+}
+
+.two-goods-price-googscar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.two-fx-promo__image-r {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200rpx;
+}
+
+.two-price-text-color {
+  font-size: 34rpx;
+  color: #8c5a50;
+}
+
+.goodsAddCart-box {
+  height: 56rpx;
+  width: 170rpx;
+  background-color: #8c5a50;
+  border-radius: 20rpx 20rpx 20rpx 20rpx/ 20rpx 20rpx 20rpx 20rpx;
+  font-size: 26rpx;
+  color: white;
+  text-align: center;
+  line-height: 56rpx;
+}

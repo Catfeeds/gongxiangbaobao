@@ -1,0 +1,8 @@
+<!--components/FxSwiper/FxSwiper.wxml-->
+<swiper indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" interval="{{ interval }}" duration="{{ duration }}" class="fx-swiper">
+  <block wx:for="{{ swiperInfo }}" wx:key="{{ item.rid }}">
+    <swiper-item>
+      <image src="{{ item.image }}" class="slide-image" data-title="{{ item.title }}" data-type="{{ item.type }}" data-id="{{ item.link }}" bindtap="handleSlideTap" />
+    </swiper-item>
+  </block>
+</swiper>

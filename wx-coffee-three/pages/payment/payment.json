@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "支付成功",
+  "usingComponents": {
+    "fx-button": "/components/FxButton/FxButton"
+  }
+}

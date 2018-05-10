@@ -1,0 +1,105 @@
+/* pages/userFive/userFive.wxss */
+.five-user-info{
+  width: 100%;
+  background-color: RGB(140,90,80);
+}
+.midlle-curve-photo{
+  height: 100rpx;
+  width: 100%;
+}
+.userinfo{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+.userinfo-nickname {
+  padding: 26rpx 0;
+  font-size: 34rpx;
+  color: #FFFFFF ;
+}
+.three-user-id{
+  font-size: 26rpx;
+  color: #FFFFFF;
+  margin-bottom: 55rpx;
+}
+
+.middle-order-coupon image{
+  width: 69rpx;
+  height: 57rpx;
+}
+.middle-order-coupon{
+  font-size: 28rpx;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.middle-order-coupon>view,
+.middle-order-coupon>navigator
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.five-user-info>view{
+  flex: 1;
+}
+.four-middle-user-info{
+  height: 100%;
+  width: 100%;
+}
+.four-middle-user-info-top{
+  margin-top: 65rpx;
+}
+.coupon-order-location-box{
+  height: 120rpx;
+  width: 120rpx;
+  background-color: #F7E9CF ;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+
+.bottom-btn{
+  height: 90rpx;
+  border-top: 2rpx solid RGB(230,230,230);
+  line-height: 90rpx;
+  padding:0 30rpx;
+  font-size: 30rpx;
+  color: #222222;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.middle-order-coupon image{
+  width: 69rpx;
+  height: 57rpx;
+}
+.last-btn{
+  border-bottom:  2rpx solid RGB(230,230,230);
+}
+.bottom-function{
+  margin-top: 68rpx;
+}
+button{
+  border:none !important;
+  font-size: 30rpx;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+button::after {
+  border: none;
+}

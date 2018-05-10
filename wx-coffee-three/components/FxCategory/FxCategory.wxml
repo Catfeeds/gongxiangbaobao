@@ -1,0 +1,32 @@
+<!-- 首页01 -->
+<view class="fx-category__item" data-rid="{{ product.rid }}" data-title="{{ product.name }}" bindtap="viewTap">
+  <view class="fx-category__image">
+    <image src="{{ product.cover }}" mode="widthFix" class="cover" ></image>
+  </view>
+  <text class="name">{{ product.name }}</text>
+  <view class="fx-category__price" wx:if="{{ product.sale_price }}">
+    <text class="sale-price">￥{{ product.sale_price }}</text>
+    <text class="price">￥{{ product.price }}</text>
+  </view>
+  <view class="fx-category__price" wx:else>
+    <text class="sale-price">￥{{ product.price }}</text>
+  </view>
+</view>
+
+<!-- 首页02 -->
+<!-- <view class="fx-category__item" data-rid="{{ product.rid }}" data-title="{{ product.name }}" bindtap="viewTap">
+  <view class="fx-category__image">
+    <view class="fx-category__title_icon">
+      新品
+    </view>
+    <image src="{{ product.cover }}" mode="widthFix" class="cover" ></image>
+  </view>
+
+  <view class="fx-category__content">
+    <text class="name">{{ product.name }}</text>
+    <view class="price_content">
+      <text class="price">￥{{ product.price }}</text>
+      <view class="fx-category__btn">加入购物车</view>
+    </view>
+  </view>
+</view> -->

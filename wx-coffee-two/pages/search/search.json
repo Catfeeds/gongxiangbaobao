@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "搜索",
+  "usingComponents": {
+    "fx-search": "/components/FxSearch/FxSearch",
+    "fx-product": "/components/FxProduct/FxProduct"
+  }
+}

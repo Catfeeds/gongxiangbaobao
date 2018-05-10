@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="page-bonus__nav">
+    <block wx:for="{{ navList }}" wx:key="{{ item.status }}">
+      <label data-status="{{ item.status }}" class="item {{ currentStatus == item.status ? 'active' : '' }}" bindtap="handleNavStatus">{{ item.name }}</label>
+    </block>
+  </view>
+
+  <view class="page-bonus__list">
+    <view class="fx-bonus" wx:for="{{ couponList_zgs }}" wx:key="{{ item.coupon.code }}">
+    <!-- zgs s -->
+      <fx-coupon-middle></fx-coupon-middle>
+
+
+
+      <!-- <view class="money">
+        <label class="currency">￥</label>
+        <text class="amount">{{ item.coupon.amount }}</text>
+      </view>
+      <view class="fx-bonus__info">
+        <text class="rule">{{ item.coupon.name }}</text>
+        <text class="expired" wx:if="{{ item.coupon.start_date }}">
+          有效期：{{ item.coupon.start_date }}<text wx:if="{{ item.coupon.end_date }}"> - {{ item.coupon.end_date }}</text>
+        </text>
+      </view> -->
+    </view>
+  </view>
+</view>

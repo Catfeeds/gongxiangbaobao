@@ -1,0 +1,24 @@
+<!--pages/category/category.wxml-->
+<view class="container is-row">
+  <scroll-view scroll-y="true" class="category-nav">
+    <view 
+      wx:for="{{ topCategories }}" 
+      wx:key="{{ item.id }}" 
+      class="category-item {{ cid == item.id ? 'active' : '' }}" 
+      data-rid="{{ item.id }}"
+      bindtap="handleChangeCategory">
+       {{ item.name }} 
+    </view>
+  </scroll-view>
+
+  <view class="category-main">
+    <fx-product 
+        wx:for="{{ products }}" 
+        wx:key="{{ item.rid }}" 
+        bind:viewProduct="handleProductTap" 
+        product="{{ item }}" 
+        class="product-item">
+    </fx-product>
+  </view>
+
+</view>
