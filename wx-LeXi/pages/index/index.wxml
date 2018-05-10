@@ -1,4 +1,282 @@
 <view class='container'>
-    <image class='' src='../../images/index-top-bg.gif'></image>
+  <!-- 背景图片 -->
+  <view class='index-bg'>
+    <image src='../../images/index-top-bg.gif'></image>
+  </view>
+
+  <!-- 中间user的信息 -->
+  <view class='middle-user-box'>
+    <view class='middle-user-info'>
+      <image class='userPhoto'>
+      </image>
+      <view>
+        <fx-approve></fx-approve>
+      </view>
+      <view class='userNameBox theme-color'>
+        <view>mMMMMMMMM</view>
+        <view class='userNameBoxPhoto'>
+          <image></image>
+        </view>
+      </view>
+      <view class='shop-explain'>以多种工艺设计属于你的结婚婚事品阿迪经典卡带设计</view>
+      <view class='locationAddOther'>
+        <view>
+          <view class='fx-icon-address theme-green marR'></view>
+          <view class='theme-hui-color'>北京</view>
+        </view>
+        <view>
+          <view class='theme-hui-color marR'>粉丝</view>
+          <view>2345</view>
+        </view>
+      </view>
+      <view class='userInfoBtnBox'>
+        <view class='userInfoBtn btn-bg-color'>
+          <image></image>
+          <view>关注</view>
+        </view>
+        <view class='userInfoBtn theme-bg-color rander' catchtap='brandInformationTap'>关于品牌</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浏览过的人数 -->
+  <view class='joinNumber'>
+    <view class='theme-hui-color'>
+      <text class='theme-color'>346275人</text> 浏览过设计馆</view>
+    <view class='joinNumberBottom'>
+      <view class='joinNumberl'>
+        <view class='joinNumberlBox'>
+          <image class='photo-round joinNumberlPhoto'></image>
+          <image class='photo-round joinNumberlPhoto'></image>
+          <image class='photo-round joinNumberlPhoto'></image>
+        </view>
+      </view>
+      <view class='joinNumberR'>999+</view>
+    </view>
+  </view>
+  <!-- 公告 -->
+  <view class='notice'>
+    <view class='notice-title'>设计馆公告</view>
+    <view class='notice-box'>
+      <view>体制喜欢的颜色！即日起才5/13可以选择自己喜欢的 颜色留购馆内所有的款式的饰品，请选择款式后再联 络设计师哦！*手工客制商品等待色！即日起才5/13可以选择选择自己喜欢的 颜色留购馆内所有的款式的饰品，请选择款式后再联 络设计师哦！*手工客制商品等待色！即日起才5/13可以选择自己喜欢的 颜色留购馆内所有的款式的饰品，请选择款式后再联 络设计师哦！*手工客制商品等待 </view>
+    </view>
+    <view class='notice-info theme-green'>...阅读更多</view>
+  </view>
+  <!-- 精选 作品 人气 tab -->
+  <view class='tab {{tabPisition?" tabPosition ":""}}'>
+    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='catgoryActiveTap'>{{item.name}}
+    </view>
+  </view>
+
+  <!-- 垫片 -->
+  <view class='shim' wx:if="{{tabPisition}}"></view>
+
+  <!-- 精选 里面的内容-->
+  <view wx:if="{{catgoryActive==1}}">
+    <!-- 主打设计 -->
+    <view class='importantGoods'>
+      <view class='importantGoodsTitle'>主打设计</view>
+      <view class='importantGoodsBox'>
+        <view class='importantGoodsPhoto'>
+          <fx-product></fx-product>
+        </view>
+        <view class='importantGoodsPhoto'>
+          <fx-product></fx-product>
+        </view>
+        <view class='importantGoodsPhoto'>
+          <fx-product></fx-product>
+        </view>
+        <view class='importantGoodsPhoto'>
+          <fx-product></fx-product>
+        </view>
+      </view>
+    </view>
+    <!-- 主打下面的图片 -->
+    <view class='goodsPhotoInfo theme-bg-color'>
+      <image></image>
+    </view>
+    <!-- 推荐好物 -->
+    <view class=''>
+      <view class='importantGoodsTitle goodgoods'>推荐好物</view>
+      <!-- 推荐好物品的内容s -->
+      <view class='tuijian'>
+        <!-- 店长头相 -->
+        <view class='shopMaster'>
+          <image class='photo-round'></image>
+          <text>馆长极力推荐</text>
+        </view>
+        <!-- 推荐理由介绍 -->
+        <view class='shopRecommend theme-bg-color'>
+          <view class='triangle theme-bg-color'></view>
+          <text> 店主定期推出新系列，每个系列有各自的主题，以配合客人不同场合的造型，物料类型及颜色选择丰富，亦提供度身订造萨萨科机会考虑撒开，阿手机壳。 </text>
+        </view>
+        <!-- 物品的详情 -->
+        <view class='shopRecommendGoods-box'>
+          <view>
+            <image class='shopRecommendGoods-photo'></image>
+          </view>
+          <view class='shopRecommendGoodsR'>
+            <view>
+              <text class='logistics'>包邮</text>
+              <textarea rows="2">【心境】独家手作“一家手作“一家手作“一鹿平安”永生花 双色香薰石膏车挂室内挂饰</textarea>
+            </view>
+            <view>
+              <text>¥567</text>
+              <text class=' oldPrice shopRecommendGoodsR-old '>¥678</text>
+              <text class=' shopRecommendGoodsR-old '>喜欢+289</text>
+            </view>
+          </view>
+        </view>
+        <!-- 底部的喜欢和分享 -->
+        <view class='recommendbottom'>
+          <view class='recommendbottomText likeActive'>
+            <view class='fx-icon-like'></view>
+            <view>喜欢</view>
+          </view>
+          <view class='recommendbottomText'>
+            <view class='fx-icon-like'></view>
+            <view>分享</view>
+          </view>
+          <view class='recommendbottomRen'>
+            <image class='photo-round'></image>
+            <image class='photo-round'></image>
+            <image class='photo-round'></image>
+          </view>
+        </view>
+      </view>
+      <!-- 推荐好物品的内容e -->
+      <!-- 推荐好物品的内容s -->
+      <view class='tuijian'>
+        <!-- 店长头相 -->
+        <view class='shopMaster'>
+          <image class='photo-round'></image>
+          <text>馆长极力推荐</text>
+        </view>
+        <!-- 推荐理由介绍 -->
+        <view class='shopRecommend theme-bg-color'>
+          <view class='triangle theme-bg-color'></view>
+          <text> 店主定期推出新系列，每个系列有各自的主题，以配合客人不同场合的造型，物料类型及颜色选择丰富，亦提供度身订造萨萨科机会考虑撒开，阿手机壳。 </text>
+        </view>
+        <!-- 物品的详情 -->
+        <view class='shopRecommendGoods-box'>
+          <view>
+            <image class='shopRecommendGoods-photo'></image>
+          </view>
+          <view class='shopRecommendGoodsR'>
+            <view>
+              <text class='logistics'>包邮</text>
+              <textarea rows="2">【心境】独家手作“一家手作“一家手作“一鹿平安”永生花 双色香薰石膏车挂室内挂饰</textarea>
+            </view>
+            <view>
+              <text>¥567</text>
+              <text class=' oldPrice shopRecommendGoodsR-old '>¥678</text>
+              <text class=' shopRecommendGoodsR-old '>喜欢+289</text>
+            </view>
+          </view>
+        </view>
+        <!-- 底部的喜欢和分享 -->
+        <view class='recommendbottom'>
+          <view class='recommendbottomText likeActive'>
+            <view class='fx-icon-like'></view>
+            <view>喜欢</view>
+          </view>
+          <view class='recommendbottomText'>
+            <view class='fx-icon-like'></view>
+            <view>分享</view>
+          </view>
+          <view class='recommendbottomRen'>
+            <image class='photo-round'></image>
+            <image class='photo-round'></image>
+            <image class='photo-round'></image>
+          </view>
+        </view>
+      </view>
+      <!-- 推荐好物品的内容e -->
+    </view>
+
+
+
+  </view>
+
+  <!-- 作品里面的内容 -->
+  <view wx:if="{{catgoryActive==2}}">
+    <view class='pickList'>
+      <view class='reverseTriangleBox'>
+        <text>筛选</text>
+        <text class='reverseTriangle'></text>
+      </view>
+      <view class='reverseTriangleBox'>
+        <text>排序</text>
+        <text class='reverseTriangle'></text>
+      </view>
+    </view>
+    <view class='production'>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+    </view>
+    <view class='production'>
+      <view class='bagPhotoGoods'>
+        <fx-product></fx-product>
+      </view>
+    </view>
+  </view>
+
+  <!-- 人气里面的内容 -->
+  <view wx:if="{{catgoryActive==3}}">
+    <view class='human'>
+      最新作品
+    </view>
+    <view class='production'>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+      <view class='productionGoods'>
+        <fx-product></fx-product>
+      </view>
+    </view>
+    <view class='production'>
+      <view class='bagPhotoGoods'>
+        <fx-product></fx-product>
+      </view>
+    </view>
+
+    <view>
+      <view class='human themeGoods'>
+        主题
+      </view>
+
+      <view class='themeBottomPhoto'>
+        <image></image>
+      </view>
+
+      <view class='themeBottomPhoto'>
+        <image></image>
+      </view>
+
+    </view>
+
+
+
+  </view>
+
+
+
+
 
 </view>

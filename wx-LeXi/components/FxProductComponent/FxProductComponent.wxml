@@ -1,0 +1,15 @@
+<!--components/FxProductComponent/FxProductComponent.wxml-->
+<view class='photoBox'>
+  <view class='sellInfo'>售罄</view>
+  <image></image>
+</view>
+
+<view class='material-quality'>
+  <view class='logistics'>包邮</view>
+  <view class='material-quality-text'>天然橡胶天然橡胶树枝天然橡胶树枝树枝</view>
+</view>
+
+<view class='productPrice'>
+  <text class='nowPrice'>￥123</text>
+  <text class='oldPrice'>￥123</text>
+</view>

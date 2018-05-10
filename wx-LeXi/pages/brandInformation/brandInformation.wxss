@@ -1,0 +1,155 @@
+/* pages/brandInformation/brandInformation.wxss */
+
+.userPhotoBox {
+  margin: 0 40rpx 50rpx;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userinfoL {
+  display: flex;
+  flex-direction: column;
+  height: 122rpx;
+  justify-content: space-between;
+}
+
+.userinfoO {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.userinfoT {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.userinfoS {
+  width: 122rpx;
+  height: 32rpx;
+  font-size: 22rpx;
+  color: white;
+  border-radius: 5rpx;
+  text-align: center;
+  line-height: 32rpx;
+}
+
+.userPhoto {
+  height: 122rpx;
+  width: 122rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userPhoto image {
+  height: 100%;
+  width: 100%;
+}
+
+.authenticationBox {
+  height: 125rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: row;
+  padding: 0 40rpx;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50rpx 0;
+}
+
+.approveIcon image {
+  height: 30rpx;
+  width: 30rpx;
+  margin-right: 20rpx;
+}
+
+.authenticationBoxL {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.approveTextO {
+  font-size: 28rpx;
+}
+
+.approveTextT {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.brandOldPractice {
+  padding: 40rpx;
+  width: 670rpx;
+  border-top-left-radius: 40rpx;
+  border-top-right-radius: 40rpx;
+  /* box-shadow: -10rpx 0rpx 0rpx 10rpx  red, 0rpx 0rpx 0rpx 10rpx  red; */
+  box-shadow: -10rpx -10rpx 5rpx #f5f7f9, 10rpx -10rpx 5rpx #f5f7f9;
+}
+
+.bgxuhua {
+  -webkit-filter: blur(10px); /* Chrome, Opera */
+  -moz-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+}
+
+.addressInfo {
+  height: 222rpx;
+  width: 670rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  position: relative;
+}
+
+.addressInfoBox {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 99;
+}
+
+.addressInfoBoxL {
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 10rpx;
+  background-color: green;
+  margin-right: 20rpx;
+  margin-left: 30rpx;
+}
+
+.addressInfoBoxR {
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.addressInfoBoxO {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: white;
+}
+
+.addressInfoBoxT {
+  font-size: 24rpx;
+  color: white;
+}
+.addressInfoBoxS {
+  font-size: 24rpx;
+  color: #c6d1d9;
+}

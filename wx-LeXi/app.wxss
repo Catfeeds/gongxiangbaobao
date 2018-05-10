@@ -7,8 +7,54 @@
   padding: 0rpx 0;
   box-sizing: border-box;
   background: #ffffff;
-  color: #444444;
+  color: #333333;
 }
+image{
+  background-color: red;
+}
+.theme-hui-color{
+  color: #C2C2C2;
+}
+
+.theme-color{
+  color: #333333;
+}
+.theme-green{
+  color: #6ED7AF;
+}
+.photo-round{
+  height: 56rpx;
+  width: 56rpx;
+  border-radius: 50%;
+}
+.theme-bg-color{
+  background-color: #F7F9FB;
+}
+.btn-bg-color{
+  background-color: #6ED7AF;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.oldPrice{
+  text-decoration:line-through;
+  color: #999999;
+}
+
+.logistics{
+  height: 26rpx;
+  width: 42rpx;
+  border-radius: 5rpx;
+  background-color: #D4AF86;
+  color: white;
+  font-size: 20rpx;
+  line-height: 26rpx;
+  text-align: center;
+  margin-right: 6rpx;
+}
+
 
 @font-face {
     font-family: 'Fineix';

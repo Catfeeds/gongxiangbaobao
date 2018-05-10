@@ -1,0 +1,433 @@
+.index-bg {
+  height: 280rpx;
+  width: 100%;
+  overflow: hidden;
+}
+
+.index-bg image {
+  /* height: 80%; *//* width: 80%; */
+}
+
+.middle-user-info {
+  height: 406rpx;
+  width: 620rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 30rpx;
+  position: relative;
+  box-shadow: 5rpx 0 20rpx #f3f3f3, -5rpx 0 20rpx #f3f3f3, 0 5rpx 20rpx #f3f3f3;
+  border-radius: 10rpx;
+  margin-top: -90rpx;
+  background-color: white;
+}
+
+.middle-user-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+
+.locationAddOther>view, .shop-explain, .userNameBox {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.userNameBoxPhoto {
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 50%;
+  background-color: #6ed7af;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10rpx;
+}
+
+.userNameBoxPhoto image {
+  height: 20rpx;
+  width: 20rpx;
+  background-color: red;
+}
+
+.shop-explain {
+  font-weight: normal;
+  color: #646464;
+}
+
+.locationAddOther>view, .locationAddOther {
+  display: flex;
+  flex-direction: row;
+  font-weight: normal;
+}
+
+.fx-icon-address {
+  font-weight: 700;
+}
+
+.marR {
+  margin-right: 10rpx;
+}
+
+.userInfoBtn {
+  height: 70rpx;
+  width: 280rpx;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  color: white;
+}
+
+.userInfoBtn image {
+  height: 30rpx;
+  width: 30rpx;
+  background-color: white;
+  margin-right: 20rpx;
+}
+
+.userInfoBtnBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.rander {
+  color: #333;
+}
+
+.userPhoto {
+  border: 4rpx solid white;
+  height: 124rpx;
+  width: 124rpx;
+  border-radius: 10rpx;
+  background-color: red;
+  position: absolute;
+  left: 50%;
+  top: -62rpx;
+  transform: translate(-50%);
+}
+
+.joinNumber {
+  height: 160rpx;
+  padding: 40rpx;
+  font-size: 24rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.joinNumberR {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20rpx;
+  margin-left: 20rpx;
+}
+
+.joinNumberBottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.joinNumberl {
+  flex: 1;
+  box-shadow: -10rpx 0 0rpx #f3f3f3 inset;
+  display: flex;
+  /* flex-direction: row-reverse;  *//* padding-right: 30rpx; *//* flex-direction:  */
+}
+
+.joinNumberlBox {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.joinNumberlPhoto {
+  border: 6rpx solid white;
+  background-color: red;
+  margin-right: -20rpx;
+}
+
+.notice {
+  padding: 0 40rpx;
+  position: relative;
+  margin-bottom: 80rpx;
+}
+
+.notice-box {
+  padding: 40rpx;
+  border: 2rpx solid #e9e9e9;
+  border-radius: 10rpx;
+  position: relative;
+  font-size: 26rpx;
+  height: 100rpx;
+}
+
+.notice-box>view {
+  height: 103rpx;
+  overflow: hidden;
+}
+
+.notice-title {
+  font-size: 22rpx;
+  background-color: white;
+  font-weight: 700;
+  position: absolute;
+  top: -18rpx;
+  left: 80rpx;
+  z-index: 9;
+}
+
+.notice-info {
+  position: absolute;
+  font-size: 28rpx;
+  right: 80rpx;
+  bottom: 36rpx;
+  background-color: white;
+}
+
+.tab {
+  width: 710rpx;
+  height: 84rpx;
+  display: flex;
+  flex-direction: row;
+  font-size: 30rpx;
+  padding-left: 40rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.tab>view {
+  margin-right: 60rpx;
+  height: 100%;
+  font-weight: 700;
+}
+
+.active {
+  box-sizing: border-box;
+  border-bottom: 8rpx solid #6ed7af;
+  color: #6ed7af;
+}
+
+.shim {
+  height: 84rpx;
+}
+
+.tabPosition {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  background-color: white;
+}
+
+.importantGoodsPhoto {
+  width: 282rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+}
+
+.importantGoodsTitle {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.goodgoods {
+  padding: 40rpx 40rpx 0 40rpx;
+}
+
+.importantGoodsBox {
+  margin-top: 40rpx;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.goodsPhotoInfo {
+  text-align: center;
+}
+
+.goodsPhotoInfo image {
+  height: 282rpx;
+  width: 672rpx;
+  background-color: red;
+  border-radius: 10rpx;
+  margin: 30rpx auto;
+  vertical-align: middle;
+}
+
+.shopMaster image {
+  vertical-align: middle;
+  margin-right: 20rpx;
+}
+
+.shopMaster {
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  font-size: 24rpx;
+}
+
+.shopRecommend {
+  border-radius: 10rpx;
+  position: relative;
+  padding: 40rpx;
+  font-size: 26rpx;
+}
+
+.triangle {
+  position: absolute;
+  height: 20rpx;
+  width: 20rpx;
+  transform: rotate(45deg);
+  top: -10rpx;
+  left: 20rpx;
+}
+
+.shopRecommendGoods-box {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40rpx;
+  margin-bottom: 60rpx;
+}
+
+.shopRecommendGoodsR {
+  height: 182rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-left: 15rpx;
+  display: flex;
+  flex-direction: column;
+  margin-right: 40rpx;
+  justify-content: space-around;
+}
+
+.shopRecommendGoods-photo {
+  height: 180rpx;
+  width: 180rpx;
+}
+
+textarea {
+  display: inline;
+  resize: none;
+}
+
+.shopRecommendGoodsR-old {
+  margin-left: 15rpx;
+  font-weight: normal;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.recommendbottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.recommendbottomText {
+  flex: 1;
+  display: flex;
+  font-size: 26rpx;
+  align-items: center;
+}
+
+.recommendbottomText>view {
+  margin-right: 10rpx;
+}
+
+.recommendbottomRen {
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.recommendbottomRen image {
+  margin-left: 10rpx;
+}
+
+.likeActive {
+  color: #6ed7af;
+}
+
+.tuijian {
+  border-bottom: 30rpx solid #f7f9fb;
+  padding: 40rpx;
+}
+
+.importantGoods {
+  padding: 40rpx;
+}
+
+.pickList {
+  height: 84rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1rpx solid #e9e9e9;
+  font-size: 28rpx;
+}
+
+.reverseTriangle {
+  height: 16rpx;
+  width: 16rpx;
+  margin-left: 10rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.reverseTriangle::after {
+  display: inline-block;
+  content: " ";
+ height: 100%;
+ width: 100%;
+  background-color: black;
+  transform: rotate(45deg);
+  position: absolute;
+  top:-50%;
+}
+.reverseTriangleBox{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.production{
+  padding: 40rpx 40rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.productionGoods{
+  width: 330rpx;
+  margin-bottom: 50rpx;
+}
+.bagPhotoGoods{
+  width: 674rpx;
+  margin-bottom: 40rpx;
+}
+.human{
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  margin: 0 40rpx;
+}
+.themeGoods{
+  border-top: 2rpx solid #646464;
+  padding: 40rpx 0;
+}
+.themeBottomPhoto{
+  margin: 0 40rpx 20rpx;
+  height: 282rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}

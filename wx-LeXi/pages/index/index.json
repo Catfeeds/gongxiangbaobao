@@ -1,6 +1,9 @@
 {
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "乐喜好礼",
-  "navigationBarBackgroundColor": "white"
-  
+  "navigationBarBackgroundColor":"black",
+  "usingComponents":{
+      "fx-product":"/components/FxProductComponent/FxProductComponent",
+      "fx-approve":"/components/FxApprove/FxApprove"
+  }
 }
