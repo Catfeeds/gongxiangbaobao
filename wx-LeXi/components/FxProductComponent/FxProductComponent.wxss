@@ -2,16 +2,13 @@
 .photoBox{
   width: 100%;
   padding-bottom: 100%;
-   height: 0rpx; 
-  background-color: red;
+   height: 0; 
   position: relative;
   border-radius: 10rpx; 
-
+   overflow: hidden; 
 }
 .photoBox image{
-  background-color: red;
-  height: 100%;
-  width: 100%;
+
 }
 .sellInfo{
   position: absolute;
@@ -52,5 +49,4 @@ display: inline-block;
 .nowPrice{
   font-size: 24rpx;
   margin-right: 10rpx;
-
 }

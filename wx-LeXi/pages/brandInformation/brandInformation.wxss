@@ -153,3 +153,27 @@
   font-size: 24rpx;
   color: #c6d1d9;
 }
+.brandFunction{
+  font-size: 48rpx;
+  font-weight: 700;
+  margin: 40rpx 0;
+}
+.recommendGoods{
+  font-size: 24rpx;
+  margin-bottom: 24rpx;
+}
+.logo{
+  font-size: 22rpx;
+}
+.recommendgoodsText{
+  margin-top: 40rpx;
+  padding-top: 40rpx;
+  border-top: 2rpx solid #c6d1d9;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.recommendgoodsText>view{
+  margin-bottom: 20rpx;
+  font-weight: 700;
+  letter-spacing:4rpx;
+}

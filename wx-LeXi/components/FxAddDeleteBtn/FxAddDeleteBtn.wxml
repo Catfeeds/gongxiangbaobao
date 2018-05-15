@@ -1,0 +1,6 @@
+<!--components/FxAddDeleteBtn/FxAddDeleteBtn.wxml-->
+<view class='changBox'>
+  <view class='reduce' catchtap='reduce' data-id="{{product.id}}">一</view>
+  <view class='goodsNumber'>{{product.shopingNumber}}</view>
+  <view class='reduce addicon' catchtap='add' data-id="{{product.id}}">＋</view>
+</view>

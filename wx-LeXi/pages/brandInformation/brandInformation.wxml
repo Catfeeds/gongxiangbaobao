@@ -46,6 +46,18 @@
         </view>
       </view>
     </view>
+    <view class='brandFunction'>品牌故事</view>
+    <view class='recommendGoods'>以多种工艺，设计属于你的结婚饰品</view>
+    <view class='logo theme-green'>SLOGAN</view>
+    <view class='recommendgoodsText'>
+      <view>
+        于2015创立的品牌BREEZI ISLAND，就是为了提供都会且时尚的轻机能服饰，注重于衣着美感，实用性，与舒适的机能面料。 </view>
+      <view>
+        从骑单车通勤，上班开会，下班小酌，周末与亲朋好友出游，BREEZI ISLAND给予现代忙碌的都会人们一个健康，自性，舒适又具美感的衣着体验，让我们在任何天气与场合，都不需于美感与舒适之间妥协。</view>
+      <view> 因此我们希望健康与时尚能同时容入到我们的日常生活中，也鼓励大家在忙碌的生活里，能慢下脚步，走出户外，享受大自然，就算漫步在城市中，也能够体验微风吹拂过脸颊的感觉。</view>
+      <view> 还记得小时候骑单车的纯真心情吗，轻快的采动踏板， 迎着徐徐的微风，让汗水自由滴下，享受身体自由带动奔驰的双轮，自由控制着速度与方向的感觉。</view>
+      <view> 让我们一起享受这优雅又畅快的舒适感吧！</view>
+    </view>
   </view>
 
 </view>

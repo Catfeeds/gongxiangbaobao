@@ -1,1 +1,297 @@
 /* pages/cart/cart.wxss */
+page{
+    position: relative;
+}
+.shopCartNon {
+  height: 350rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100rpx;
+}
+
+.cartIcon {
+  font-size: 200rpx;
+}
+
+.shopCartNonText {
+  font-size: 30rpx;
+}
+
+.goToShop {
+  height: 82rpx;
+  width: 500rpx;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  color: white;
+}
+
+.thinkOrderBox {
+  margin-top: 20rpx;
+  background-color: white;
+
+}
+
+.thinkOrdertext {
+  height: 86rpx;
+  padding-left: 40rpx;
+  font-size: 28rpx;
+  line-height: 86rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.thinkOrderProduct {
+  margin-left: 40rpx;
+  padding: 40rpx 40rpx 40rpx 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1rpx solid #e9e9e9;
+  justify-content: space-between;
+}
+
+.addgoods {
+  height: 52rpx;
+  width: 100rpx;
+  border-radius: 8rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.addgoodscart {
+  font-size: 24rpx;
+}
+
+.thinkOrderAddCartBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 750rpx;
+  background-color: rgba(000, 000, 000, 0.5);
+  z-index: 999;
+}
+
+.priceAndname {
+  flex: 1;
+}
+
+.thinkOrderAddCart {
+  height: 370rpx;
+  width: 670rpx;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.goodsTitle {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.pickBox {
+  flex: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pickBox view {
+  margin-right: 40rpx;
+}
+
+.pick {
+  font-size: 28rpx;
+}
+
+.pickItem {
+  padding: 12rpx;
+  font-size: 24rpx;
+  border-radius: 10rpx;
+}
+
+.noActive {
+  border: 1rpx solid #eff4f7;
+}
+
+.active {
+  background-color: #6ed7af;
+  color: white;
+}
+
+.shopBtn {
+  width: 670rpx;
+  height: 82rpx;
+  font-size: 32rpx;
+  color: white;
+  background-color: #6ed7af;
+}
+
+.shopBtnBox {
+  flex: 1;
+}
+.produckNumber{
+  padding: 0 30rpx;
+  height: 90rpx;
+  border: 1rpx solid #eff4f7;
+  display: flex;
+  flex-direction: row;
+  font-size: 28rpx;
+  line-height: 90rpx;
+  justify-content: space-between;
+  background-color: white;
+}
+.goodsList{
+  padding-left: 30rpx;
+  background-color: white;
+}
+.goodsListItem{
+  border-bottom: 1rpx solid #eff4f7;
+  padding: 40rpx 30rpx 40rpx 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+}
+/* .goodsListItemPhoto image,
+.goodsListItemPhoto{
+  height: 142rpx;
+  width: 142rpx;
+}
+.goodsListItemPhoto{
+  margin-right: 10rpx;
+} */
+/* .goodspPriceAddTitle{
+  display: flex;
+  flex-direction: row;
+   justify-content: space-between; 
+  font-size: 26rpx;
+  font-weight: 700;
+  align-items: center;
+} */
+/* .goodsListItemPhotor{
+  flex: 1;
+  height: 144rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} */
+/* .goodsColor{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between ;
+  font-size: 24rpx;
+  color: #B2B2B2;
+} */
+/* .oldPriceLine{
+  text-decoration: line-through;
+} */
+/* .shopName{
+  display: flex;
+  flex-direction: row;
+  font-size: 24rpx;
+  align-items: center;
+} */
+/* .shopName image{
+  width: 24rpx;
+  height: 20rpx;
+  margin-right: 10rpx;
+} */
+/* .shopNumber{
+  width: 200rpx;
+  height: 50rpx;
+} */
+/* .shopNameAndNumber{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} */
+/* .goodsinfotext{
+  width: 410rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+} */
+.label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.clearDndthink{
+
+}
+.clearDndthinkBox{
+  height: 100rpx;
+  border-top: 1rpx solid #eff4f7;
+  width: 750rpx;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+position: fixed;
+bottom: 0rpx;
+background-color: white;
+align-items: center;
+font-size: 32rpx;
+}
+.clearDndthinkBox>view{
+height: 82rpx;
+width: 332rpx;
+border: 1rpx solid #6ED7AF;
+line-height: 82rpx;
+text-align: center;
+border-radius: 10rpx;
+}
+.clearCart{
+color: #6ED7AF;
+}
+.addThinkOrder{
+  background-color: #6ED7AF;
+  color: white;
+}
+.Bottom-shim{
+
+height: 100rpx;
+}
+.oldNewPrice{
+    height: 180rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.changenewprice{
+  font-size: 28rpx;
+  font-weight: 700;
+}
+.changeoldprice{
+  font-size: 24rpx;
+  color: RGB(178,178,178);
+  text-decoration: line-through;
+}
+.rightBottomNumberBtn{
+  width: 200rpx;
+  height: 50rpx;
+  position: absolute;
+  bottom: 30rpx;
+  right: 30rpx;
+}
+.payPrice{
+  font-size: 28rpx;
+  border:none !important;
+  white-space: nowrap;
+
+}
+.paymentBtn{
+  
+}
+.payPrice text{
+  font-size: 30rpx;
+  font-weight: 700;
+}

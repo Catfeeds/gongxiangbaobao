@@ -53,7 +53,7 @@
 .userNameBoxPhoto image {
   height: 20rpx;
   width: 20rpx;
-  background-color: red;
+
 }
 
 .shop-explain {
@@ -108,7 +108,6 @@
   height: 124rpx;
   width: 124rpx;
   border-radius: 10rpx;
-  background-color: red;
   position: absolute;
   left: 50%;
   top: -62rpx;
@@ -156,7 +155,6 @@
 
 .joinNumberlPhoto {
   border: 6rpx solid white;
-  background-color: red;
   margin-right: -20rpx;
 }
 
@@ -259,7 +257,6 @@
 .goodsPhotoInfo image {
   height: 282rpx;
   width: 672rpx;
-  background-color: red;
   border-radius: 10rpx;
   margin: 30rpx auto;
   vertical-align: middle;
@@ -293,39 +290,11 @@
 }
 
 .shopRecommendGoods-box {
-  display: flex;
-  flex-direction: row;
   margin-top: 40rpx;
   margin-bottom: 60rpx;
 }
 
-.shopRecommendGoodsR {
-  height: 182rpx;
-  font-size: 28rpx;
-  font-weight: 700;
-  margin-left: 15rpx;
-  display: flex;
-  flex-direction: column;
-  margin-right: 40rpx;
-  justify-content: space-around;
-}
 
-.shopRecommendGoods-photo {
-  height: 180rpx;
-  width: 180rpx;
-}
-
-textarea {
-  display: inline;
-  resize: none;
-}
-
-.shopRecommendGoodsR-old {
-  margin-left: 15rpx;
-  font-weight: normal;
-  font-size: 24rpx;
-  color: #999;
-}
 
 .recommendbottom {
   display: flex;

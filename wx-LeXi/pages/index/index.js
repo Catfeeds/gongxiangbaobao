@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    logo:"../../images/index-top-bg.gif",
     tabPisition: false,//tab是否定位
     catgory:[
       {name:"精品",rid:1},

@@ -1,2 +1,106 @@
 <!--pages/cart/cart.wxml-->
-<text>pages/cart/cart.wxml</text>
+<view class='container theme-bg-color'>
+  <!-- 购物车缺省页 -->
+  <view class='shopCartNon' wx:if="{{shoppingCart.length==0?true:false}}">
+    <view class=' fx-icon-cart theme-green cartIcon'></view>
+    <view class='shopCartNonText'>您的购物车空空如也</view>
+    <view class='goToShop btn-bg-color' catchtap='indexTap'>现在去逛逛</view>
+  </view>
+
+
+  <!-- 购物车中有商品 -->
+  <view wx:else>
+    <!-- 编辑购物车 -->
+    <view class='produckNumber' wx:if="{{!changeCart}}">
+      <view>{{shoppingCart.length}}件礼品</view>
+      <view class='theme-green' catchtap='changeCartTap' data-change="start">编辑</view>
+    </view>
+    <!-- 完成购物车的编辑 -->
+    <view class='produckNumber' wx:if="{{changeCart}}" >
+      <view>{{shoppingCart.length}}件礼品</view>
+      <view class='theme-green' catchtap='changeCartTap' data-change="over">完成</view>
+    </view>
+
+    <view class='goodsList'>
+      <checkbox-group bindchange="checkboxChange">
+        <label class="checkbox" wx:for="{{shoppingCart}}" wx:for-item="item" wx:key="{{item.id}}">
+          <view class='goodsListItem' name="{{item.id}}">
+            <!-- 左边选择框 -->
+            <block wx:if="{{changeCart}}">
+              <checkbox/>
+            </block>
+            <!-- 中间的产品信息 -->
+            <view>
+              <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+            </view>
+            <!-- 左上角的价格 -->
+            <view class='oldNewPrice'>
+              <view class='changenewprice'>￥{{item.currentPrice}}</view>
+              <view class='changeoldprice' wx:if="{{item.originPrice}}">￥{{item.originPrice}}</view>
+            </view>
+
+            <!-- 右下角的改变数量 -->
+            <view class='rightBottomNumberBtn' wx:if="{{!changeCart}}">
+              <fx-addDeleteBtn product="{{item}}" bind:changeNumberTap="changeNumberTap"></fx-addDeleteBtn>
+            </view>
+
+          </view>
+        </label>
+      </checkbox-group>
+
+    </view>
+
+  </view>
+
+
+
+  <!-- 心愿单 -->
+  <view class='thinkOrderBox'>
+    <view class='thinkOrdertext'>心愿单</view>
+    <view class='thinkOrderProduct' wx:for="{{thinkOrder}}" wx:key="{{item.id}}">
+      <fx-product-middle product="{{item}}" price="true" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middle>
+      <view class='addgoods btn-bg-color'>
+        <view class='fx-icon-cart addgoodscart'></view>
+        <view>+</view>
+      </view>
+    </view>
+
+
+  </view>
+
+  <!-- 心愿单的商品添加到购物车 -->
+  <view class='thinkOrderAddCartBox' wx:if="{{}}">
+    <view class='thinkOrderAddCart'>
+      <view class='priceAndname'>
+        <view class='goodsTitle'>海滩休闲潮流菠萝鞋</view>
+        <view class='goodsTitle'>￥258</view>
+      </view>
+      <view class='pickBox'>
+        <view class='pick'>颜色</view>
+        <view class='pickItem active'>红色</view>
+        <view class='pickItem noActive'>红色</view>
+      </view>
+      <view class='shopBtnBox'>
+        <button class='shopBtn'>购买</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 购物车的移除和放入心愿单的按钮 -->
+  <view class='clearDndthinkBox' wx:if="{{changeCart}}">
+    <view class='clearCart'>移除</view>
+    <view class='addThinkOrder'>放入心愿单</view>
+  </view>
+
+  <!-- 合计金额 -->
+  
+    <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart}}">
+      <view class='payPrice'>合计： <text>￥{{payment}}</text>  </view>
+      <view class='addThinkOrder'>结算</view>
+    </view>
+  
+
+  <!-- 底部垫片 -->
+  <view class='Bottom-shim'></view>
+
+</view>

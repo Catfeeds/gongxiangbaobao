@@ -1,13 +1,13 @@
 <view class='container'>
   <!-- 背景图片 -->
   <view class='index-bg'>
-    <image src='../../images/index-top-bg.gif'></image>
+    <image src='{{logo}}'></image>
   </view>
 
   <!-- 中间user的信息 -->
   <view class='middle-user-box'>
     <view class='middle-user-info'>
-      <image class='userPhoto'>
+      <image src='{{logo}}' class='userPhoto'>
       </image>
       <view>
         <fx-approve></fx-approve>
@@ -15,7 +15,7 @@
       <view class='userNameBox theme-color'>
         <view>mMMMMMMMM</view>
         <view class='userNameBoxPhoto'>
-          <image></image>
+          <image src='{{logo}}'></image>
         </view>
       </view>
       <view class='shop-explain'>以多种工艺设计属于你的结婚婚事品阿迪经典卡带设计</view>
@@ -31,7 +31,7 @@
       </view>
       <view class='userInfoBtnBox'>
         <view class='userInfoBtn btn-bg-color'>
-          <image></image>
+          <image src='{{logo}}'></image>
           <view>关注</view>
         </view>
         <view class='userInfoBtn theme-bg-color rander' catchtap='brandInformationTap'>关于品牌</view>
@@ -46,9 +46,9 @@
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
-          <image class='photo-round joinNumberlPhoto'></image>
-          <image class='photo-round joinNumberlPhoto'></image>
-          <image class='photo-round joinNumberlPhoto'></image>
+          <image src='{{logo}}' class='photo-round joinNumberlPhoto'></image>
+          <image src='{{logo}}' class='photo-round joinNumberlPhoto'></image>
+          <image src='{{logo}}' class='photo-round joinNumberlPhoto'></image>
         </view>
       </view>
       <view class='joinNumberR'>999+</view>
@@ -78,78 +78,34 @@
       <view class='importantGoodsTitle'>主打设计</view>
       <view class='importantGoodsBox'>
         <view class='importantGoodsPhoto'>
-          <fx-product></fx-product>
+          <fx-product product="{{logo}}"></fx-product>
         </view>
         <view class='importantGoodsPhoto'>
-          <fx-product></fx-product>
+          <fx-product product="{{logo}}"></fx-product>
         </view>
         <view class='importantGoodsPhoto'>
-          <fx-product></fx-product>
+          <fx-product product="{{logo}}"></fx-product>
         </view>
         <view class='importantGoodsPhoto'>
-          <fx-product></fx-product>
+          <fx-product product="{{logo}}"></fx-product>
         </view>
       </view>
     </view>
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color'>
-      <image></image>
+      <image src='{{logo}}'></image>
     </view>
     <!-- 推荐好物 -->
     <view class=''>
       <view class='importantGoodsTitle goodgoods'>推荐好物</view>
       <!-- 推荐好物品的内容s -->
-      <view class='tuijian'>
-        <!-- 店长头相 -->
-        <view class='shopMaster'>
-          <image class='photo-round'></image>
-          <text>馆长极力推荐</text>
-        </view>
-        <!-- 推荐理由介绍 -->
-        <view class='shopRecommend theme-bg-color'>
-          <view class='triangle theme-bg-color'></view>
-          <text> 店主定期推出新系列，每个系列有各自的主题，以配合客人不同场合的造型，物料类型及颜色选择丰富，亦提供度身订造萨萨科机会考虑撒开，阿手机壳。 </text>
-        </view>
-        <!-- 物品的详情 -->
-        <view class='shopRecommendGoods-box'>
-          <view>
-            <image class='shopRecommendGoods-photo'></image>
-          </view>
-          <view class='shopRecommendGoodsR'>
-            <view>
-              <text class='logistics'>包邮</text>
-              <textarea rows="2">【心境】独家手作“一家手作“一家手作“一鹿平安”永生花 双色香薰石膏车挂室内挂饰</textarea>
-            </view>
-            <view>
-              <text>¥567</text>
-              <text class=' oldPrice shopRecommendGoodsR-old '>¥678</text>
-              <text class=' shopRecommendGoodsR-old '>喜欢+289</text>
-            </view>
-          </view>
-        </view>
-        <!-- 底部的喜欢和分享 -->
-        <view class='recommendbottom'>
-          <view class='recommendbottomText likeActive'>
-            <view class='fx-icon-like'></view>
-            <view>喜欢</view>
-          </view>
-          <view class='recommendbottomText'>
-            <view class='fx-icon-like'></view>
-            <view>分享</view>
-          </view>
-          <view class='recommendbottomRen'>
-            <image class='photo-round'></image>
-            <image class='photo-round'></image>
-            <image class='photo-round'></image>
-          </view>
-        </view>
-      </view>
+
       <!-- 推荐好物品的内容e -->
       <!-- 推荐好物品的内容s -->
       <view class='tuijian'>
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image class='photo-round'></image>
+          <image src='{{logo}}' class='photo-round'></image>
           <text>馆长极力推荐</text>
         </view>
         <!-- 推荐理由介绍 -->
@@ -159,20 +115,7 @@
         </view>
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <view>
-            <image class='shopRecommendGoods-photo'></image>
-          </view>
-          <view class='shopRecommendGoodsR'>
-            <view>
-              <text class='logistics'>包邮</text>
-              <textarea rows="2">【心境】独家手作“一家手作“一家手作“一鹿平安”永生花 双色香薰石膏车挂室内挂饰</textarea>
-            </view>
-            <view>
-              <text>¥567</text>
-              <text class=' oldPrice shopRecommendGoodsR-old '>¥678</text>
-              <text class=' shopRecommendGoodsR-old '>喜欢+289</text>
-            </view>
-          </view>
+          <fx-product-middle></fx-product-middle>
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
@@ -185,9 +128,9 @@
             <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image class='photo-round'></image>
-            <image class='photo-round'></image>
-            <image class='photo-round'></image>
+            <image src='{{logo}}' class='photo-round'></image>
+            <image src='{{logo}}' class='photo-round'></image>
+            <image src='{{logo}}' class='photo-round'></image>
           </view>
         </view>
       </view>
@@ -212,21 +155,21 @@
     </view>
     <view class='production'>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
     </view>
     <view class='production'>
       <view class='bagPhotoGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
     </view>
   </view>
@@ -238,21 +181,21 @@
     </view>
     <view class='production'>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
     </view>
     <view class='production'>
       <view class='bagPhotoGoods'>
-        <fx-product></fx-product>
+        <fx-product product="{{logo}}"></fx-product>
       </view>
     </view>
 
@@ -262,11 +205,11 @@
       </view>
 
       <view class='themeBottomPhoto'>
-        <image></image>
+        <image src='{{logo}}'></image>
       </view>
 
       <view class='themeBottomPhoto'>
-        <image></image>
+        <image src='{{logo}}'></image>
       </view>
 
     </view>
@@ -274,9 +217,5 @@
 
 
   </view>
-
-
-
-
 
 </view>
