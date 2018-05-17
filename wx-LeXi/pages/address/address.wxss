@@ -1,0 +1,175 @@
+/* pages/address/address.wxss */
+@import "../addressTemplate/addressTemplate.wxss";
+
+.bottomCheck, form {
+  margin-top: 20rpx;
+}
+
+.adressInfoBox {
+  background-color: white;
+}
+
+.bottomCheck, .title, .identificationText, .adressInfoBox>view {
+  height: 94rpx;
+  border-bottom: 1rpx solid #f7f9fb;
+  line-height: 94rpx;
+  padding: 0 40rpx;
+}
+
+.adressInfoBox input {
+  height: 100%;
+}
+
+.phcolor {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.fx-icon-nothing-right {
+  color: #c1c1c1;
+  font-size: 28rpx;
+}
+
+.location {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addressText {
+  height: 150rpx !important;
+}
+
+.bottomCheck {
+  padding: none;
+  background-color: white;
+  font-size: 28rpx;
+}
+
+switch {
+}
+
+.address-text {
+  flex: 1;
+  display: flex;
+  font-size: 28rpx;
+  flex-direction: row;
+}
+
+.address-text>input {
+  width: 210rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  font-size: 24rpx;
+  color: #f85252;
+}
+
+.identificationText {
+  background-color: white;
+}
+
+.identificationTextL {
+  font-size: 28rpx;
+}
+
+.identificationTextR {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.identificationPhoto {
+  height: 328rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.userPhotoNull {
+  width: 318rpx;
+  height: 210rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 210rpx;
+  font-size: 120rpx;
+}
+
+.userPhotoNullBox {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dwletebtn {
+  height: 90rpx;
+  color: #f66;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 90rpx;
+  background-color: white;
+  margin: 30rpx 0;
+}
+
+.conservation {
+  height: 100rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.conservation button {
+  height: 80rpx;
+  width: 690rpx;
+  background-color: #6ed7af;
+  color: white;
+  font-size: 32rpx;
+}
+
+.userPhotoHave>image {
+  height: 100%;
+  width: 100%;
+}
+
+.cameraOrPhoto {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(000, 000, 000, 0.5);
+}
+.cameraOrPhoto>view{
+  background-color: white;
+  opacity: 1;
+  border-radius: 30rpx;
+   margin: 0 auto;
+   line-height: 120rpx;
+   text-align: center;
+   font-size: 38rpx;
+   font-weight: 500;
+   color: #007AFF;
+}
+
+.cameraOrPhoto-top {
+  height: 240rpx;
+  width: 712rpx;
+  margin-top: 90% !important;
+}
+
+.cameraOrPhoto-bottom {
+  height: 120rpx;
+  width: 712rpx;
+  margin-top: 20rpx !important;
+}
+.camera{
+  border-bottom: 1rpx solid #F7F9FB;
+}

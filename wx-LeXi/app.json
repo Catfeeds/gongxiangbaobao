@@ -1,11 +1,16 @@
 {
   "pages": [
+    "pages/paymentAddress/paymentAddress",
+    "pages/address/address",
+    "pages/product/product",
     "pages/cart/cart",
     "pages/index/index",
      "pages/brandInformation/brandInformation",
     "pages/logs/logs",
-    "pages/user/user"
-   
+    "pages/user/user",
+    "pages/addressTemplate/addressTemplate"
+    
+  
   ],
   "window": {
     "backgroundTextStyle": "light",

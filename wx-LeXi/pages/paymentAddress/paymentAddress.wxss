@@ -1,0 +1,82 @@
+/* pages/paymentAddress/paymentAddress.wxss */
+
+.container {
+}
+
+.paymentList {
+  height: 82rpx;
+  display: flex;
+  flex-direction: row;
+  color: #999;
+  justify-content: space-around;
+  font-size: 26rpx;
+  line-height: 82rpx;
+  background-color: white;
+}
+
+.bottom-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+}
+
+.bottom-line>view {
+  height: 4rpx;
+}
+
+.linelast {
+  flex: 1;
+  background-color: #e9e9e9;
+}
+
+.round {
+  height: 16rpx !important;
+  width: 16rpx;
+  border-radius: 50%;
+  border: 2rpx solid #e9e9e9;
+  background-color: white !important;
+}
+
+.middleline {
+  flex: 2;
+  background-color: #e9e9e9;
+}
+
+.lineGreen {
+  background-color: #6ed7af;
+  border-color: #6ed7af !important;
+}
+
+.radio-group {
+  margin-top: 40rpx;
+  padding: 30rpx;
+  background-color: white;
+
+
+}
+.radio{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.radio>view{
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.radio{
+  height: 150rpx;
+  flex: 2;
+  border-bottom: 1rpx solid #F7F9FB;
+}
+.userName{
+  font-size: 28rpx;
+  font-weight: 500rpx;
+
+}
+.userLocation{
+  font-size: 24rpx;
+ 
+}

@@ -27,7 +27,7 @@
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox/>
+              <checkbox value="{{item.id}}" checked="{{falseheckbox}}"/>
             </block>
             <!-- 中间的产品信息 -->
             <view>
@@ -88,8 +88,8 @@
 
   <!-- 购物车的移除和放入心愿单的按钮 -->
   <view class='clearDndthinkBox' wx:if="{{changeCart}}">
-    <view class='clearCart'>移除</view>
-    <view class='addThinkOrder'>放入心愿单</view>
+    <view class='clearCart' catchtap='cartClearTap' data-type="clear">移除</view>
+    <view class='addThinkOrder' catchtap='cartClearTap' data-type="addThink">放入心愿单</view>
   </view>
 
   <!-- 合计金额 -->

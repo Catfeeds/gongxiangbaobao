@@ -1,0 +1,42 @@
+/* pages/addressTemplate/addressTemplate.wxss */
+
+.T-temBox {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(000, 000, 000, 0.3);
+}
+
+picker-view {
+  height: 430rpx;
+}
+picker-view-column{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+}
+picker-view-column view{
+  height: 80rpx;
+  font-weight: 500;
+}
+
+.T-overtext {
+  height: 80rpx;
+  background-color: white;
+  padding: 0 40rpx;
+  font-size: 32rpx;
+  color: #949EA6;
+  font-weight: 500;
+  text-align: right;
+  border-bottom: 1rpx solid #F7F9FB;
+  line-height: 80rpx;
+}
+
+.T-bot {
+  position: absolute;
+  bottom: 0;
+  width: 750rpx;
+  background-color: white;
+}
+

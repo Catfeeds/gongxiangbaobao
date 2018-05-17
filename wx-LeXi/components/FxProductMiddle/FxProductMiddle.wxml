@@ -15,9 +15,7 @@
         </view>
       </block>
     </view>
-
     <!-- 颜色 -->
-
 
     <!-- 店铺名称 -->
     <view class='shopingName' wx:if="{{shopName}}">

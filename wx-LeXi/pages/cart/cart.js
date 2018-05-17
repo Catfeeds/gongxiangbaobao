@@ -5,6 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //falseheckbox
+    falseheckbox: false,
+    //选中的物品
+    checkboxPick: [],
     //购物车是否编辑
     changeCart: false,
     //应该支付的总金额
@@ -12,11 +16,11 @@ Page({
     //添加到购物车的内容产品内容
     shoppingCart: [
       {
-        id: 0,
+        id: 6,
         title: "图像加载被中断",
         currentPrice: 500,
         originPrice: 999,
-        logisticsExpenses: 5,//运费信息：0为没有运费用，包邮，其他为运费的价格
+        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
         is_like: true,//是否喜欢
         is_likeNumber: 66,//喜欢的人数
         shopName: "bbq_BBQ_123亲",//店铺名称
@@ -27,7 +31,7 @@ Page({
         size: "M"
       },
       {
-        id: 1,
+        id: 5,
         title: "	图像加载被中断",
         currentPrice: 500,
         originPrice: 321,
@@ -40,7 +44,7 @@ Page({
         repertoryNumber: 10
       },
       {
-        id: 2,
+        id: 4,
         title: "	图像加载被中断",
         currentPrice: 500.99,
         // originPrice: 666,
@@ -103,7 +107,53 @@ Page({
     ],
 
   },
-  //编辑购物车
+  //编辑按钮点击后左边的选择,赋值给data
+  checkboxChange(e) {
+    this.setData({
+      checkboxPick: e.detail.value
+    })
+  },
+
+  //当点击移除按钮后
+
+  clearCart() {
+    var deleteCart = this.data.shoppingCart.filter((value, index) => {
+      return this.data.checkboxPick.indexOf(String(value.id)) == -1
+    })
+    this.setData({
+      falseheckbox: false,
+      shoppingCart: deleteCart
+    })
+    //重新计算
+    this.paymentPrice()
+
+  },
+
+
+
+  //购物车点击移除按钮
+  cartClearTap(e) {
+    var cartAllInfo = []
+
+    var btnType = e.currentTarget.dataset.type
+
+    if (btnType == "clear") {
+      this.clearCart()
+
+    } else if (btnType == "addThink") {
+      //清楚购物车里面的
+      // this.clearCart()
+      var addThinkOrder = this.data.shoppingCart.filter((value, index) => {
+        return this.data.checkboxPick.indexOf(String(value.id)) != -1
+      })
+      //添加到心愿单
+      this.setData({
+        thinkOrder: this.data.thinkOrder.concat(addThinkOrder)
+      })
+      this.clearCart()
+    }
+  },
+  //编辑按钮购物车
   changeCartTap(e) {
     var status = e.currentTarget.dataset.change
     console.log(e.currentTarget.dataset.change)
