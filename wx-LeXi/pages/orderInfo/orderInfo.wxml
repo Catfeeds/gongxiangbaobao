@@ -1,0 +1,83 @@
+<!--pages/orderInfo/orderInfo.wxml 订单明细 -->
+<view class='container theme-bg-color'>
+  <!-- 上面的进度条 -->
+  <view>
+    <view class='paymentList'>
+      <view>寄送</view>
+      <view>明细</view>
+      <view>付款</view>
+    </view>
+    <view class='bottom-line'>
+      <view class='linelast lineGreen'></view>
+      <view class='round lineGreen'></view>
+      <view class='middleline lineGreen'></view>
+      <view class='round lineGreen'></view>
+      <view class='middleline'></view>
+      <view class='round'></view>
+      <view class='linelast'></view>
+    </view>
+  </view>
+
+  <!-- 收货人的地址 -->
+  <view class='receiveBox'>
+    <view class='locationTitle'>寄送地址 </view>
+    <view class='userNameBox'>
+      <view class='userName'>何自然</view>
+      <view>13381319070</view>
+    </view>
+    <view>贵州省遵义市汇川区天通苑丽水园4号楼2单园501</view>
+    <view>100220</view>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class='orderInfoBox' wx:for="{{order}}">
+    <view class='shopName'>
+      <text>素雅手作品牌馆 </text>
+      <text class='shopNameR'>从台湾发货</text>
+    </view>
+
+    <view class='OtherInfomation'>
+      <!-- 购买信息 -->
+      <view class='shopGoodsInfo component' wx:for="{{shoppingCart}}" wx:key="{{index}}">
+        <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+        <view class='shopGoodsInfoR'>
+          <text class='cureentPriceS'>￥80</text>
+          <text class='shopNameR'>$100</text>
+        </view>
+      </view>
+      <!-- 配送方式 -->
+      <view class='component receiveFn'>
+        <view class='receiveFnTop'>
+          <view>配送方式 </view>
+          <view class='theme-green' catchtap='otherLogisticsTap'>选择其他></view>
+        </view>
+        <fx-logistics></fx-logistics>
+      </view>
+
+      <!-- 给商家的注意事项 -->
+      <view class='component'>
+        <view class='receiveFnBottomBox'>
+          <image></image>
+        </view>
+        <input placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
+      </view>
+
+      <!-- 礼物寄语 -->
+      <view class='component'>
+        <view class='receiveFnBottomBox'>
+          <image></image>
+        </view>
+        <textarea class='goods-blessing'>很久没联系，不知道你怎么样！今天是你的生日在乐喜 给你购买了一件你曾经说很喜欢的小暖灯，你说那个颜 色是你最喜欢的，不管怎样亲爱的希望你喜欢！</textarea>
+      </view>
+    </view>
+  </view>
+
+    <!-- 继续确认订单按钮 -->
+
+  <view class='conservation' catchtap='paymentSuccess'>
+    <button >继续以确认订单</button>
+  </view>
+ <!-- 垫片 -->
+  <view class='shm'></view>
+
+</view>

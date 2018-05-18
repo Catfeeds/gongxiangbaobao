@@ -1,0 +1,36 @@
+<!--pages/pickLogistics/pickLogistics.wxml 选择配送方式-->
+<view class='container theme-bg-color'>
+  <view class='productPhotoBox'>
+    <image></image>
+    <text>手作插画创意手提袋礼品见好就收的纪设计开始卡 谁看饭刻开始可</text>
+  </view>
+
+  <!-- 物流公司 -->
+  <view>
+    <view class='logisticsTitle'>
+      <text>选择物流</text>
+      <text class='hui-zi'>从上海发货</text>
+    </view>
+
+    <view >
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio logisticsName">
+          <fx-logistics></fx-logistics>
+          <radio color='#6ED7AF' />
+        </label>
+
+        <label class="radio logisticsName">
+          <fx-logistics></fx-logistics>
+          <radio color='#6ED7AF' />
+        </label>
+
+      </radio-group>
+
+    </view>
+
+
+
+
+  </view>
+
+</view>

@@ -1,0 +1,112 @@
+/* pages/orderInfo/orderInfo.wxss */
+@import "../receiveAddress/receiveAddress.wxss";
+
+.receiveBox {
+  height: 150rpx;
+  background-color: white;
+  margin: 30rpx 0;
+  padding: 30rpx;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: normal;
+}
+.locationTitle{
+  font-size: 24rpx;
+  color: #999999;
+}
+.userNameBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.orderInfoBox{
+  background-color: white;
+  margin-bottom: 20rpx;
+}
+.shopName{
+  height: 88rpx;
+  border-bottom: 1rpx solid #E9E9E9;
+  font-size: 28rpx;
+  font-weight: 600;
+  display: flex;
+  flex-direction:row ;
+  padding: 0 30rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.shopNameR{
+  font-weight: normal;
+  font-size: 24rpx;
+  color: #949EA6;
+}
+.OtherInfomation{
+  padding-left: 30rpx;
+}
+
+.shopGoodsInfo{
+
+  flex-direction: row;
+  justify-content: space-between;
+}
+.shopGoodsInfoR{
+  display: flex;
+  flex-direction: column;
+}
+.cureentPriceS{
+  font-size: 28rpx;
+}
+.receiveFn{
+  height: 170rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.receiveFnTop{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-weight: 500;
+  width: 690rpx;
+}
+ 
+.receiveFnBottomBox{
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.receiveFnBottomBox>image{
+  height: 100%;
+  width: 100%;
+  background-color: red;
+} 
+.receiveFnBottom{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.logistics-goods{
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+}
+.logistics-goods text{
+  line-height: 40rpx;
+}
+.input{
+  font-size: 26rpx;
+  color: #B2B2B2;
+}
+.goods-blessing{
+  font-size: 26rpx;
+  height: auto;
+}
+

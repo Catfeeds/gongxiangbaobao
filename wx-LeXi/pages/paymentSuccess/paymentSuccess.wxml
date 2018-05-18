@@ -1,0 +1,74 @@
+<!--pages/paymentSuccess/paymentSuccess.wxml-->
+<view class='container theme-bg-color'>
+  <!-- 支付成功的提示 -->
+  <view class='successBG'>
+    <icon type='success' color="white" size="60"></icon>
+    <view class='paymentText'>支付成功</view>
+    <view class='examineOrder' catchtap='examineOrder'>查看我的订单</view>
+  </view>
+
+  <!-- 支付信息 -->
+  <view>
+    <!-- 接收地址 -->
+    <view class='receiveAddress componentTwo'>
+      <view class='receiveAddressL'>寄送地</view>
+      <view class='receiveAddressR'>何自然，北京市昌平区，天通苑丽水园4号楼 2单园501，100220</view>
+    </view>
+
+    <!-- 支付方式 -->
+    <view class='componentTwo paymentFnText'>
+      <view class='paymentFnText-top hui-zi'>支付方式</view>
+      <view class='black-font paymentFnTextB'>
+        <view>微信在线支付</view>
+        <view class='payment-icon'>
+          <image src='../../images/weixinpay.png'></image>
+        </view>
+      </view>
+    </view>
+
+    <!-- 金额计算 -->
+    <view class='componentTwo price'>
+      <!-- 左 -->
+      <view>
+        <view>
+          <text class='hui-zi'>小计 : </text>
+          <text>￥230</text> </view>
+        <view>
+          <text class='hui-zi'>配送 : </text>
+          <text>￥15</text> </view>
+      </view>
+      <!-- 右 -->
+      <view class='R'>
+        <view class='hui-zi'> 总计 </view>
+        <view class='priceG'>￥230</view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 购买产品的信息，订单信息 -->
+  <view class='shopGoodsInfo'>
+    <view class='componentTwo'>Skfoogall</view>
+
+    <view class='goodsInfoBox ' wx:for="{{shoppingCart}}">
+      <view class='goodsInfoBoxL'>
+        <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+      </view>
+      <view class='hui-zi number'>x 2</view>
+      <view class='price_old_new'>
+        <view>￥88</view>
+        <view class='hui-zi middle-line'>￥333</view>
+      </view>
+
+    </view>
+
+    <view class='goodsFn'>
+        <view>配送</view>
+        <view>￥90</view>
+    </view>
+
+  </view>
+
+<!-- 垫片 -->
+<view class='shm'></view>
+</view>

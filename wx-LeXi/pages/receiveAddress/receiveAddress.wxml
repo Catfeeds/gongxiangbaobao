@@ -1,0 +1,54 @@
+<!--pages/paymentAddress/paymentAddress.wxml-->
+<view class='container theme-bg-color'>
+  <!-- 上面的进度条 -->
+  <view>
+    <view class='paymentList'>
+      <view>寄送</view>
+      <view>明细</view>
+      <view>付款</view>
+    </view>
+    <view class='bottom-line'>
+      <view class='linelast lineGreen'></view>
+      <view class='round lineGreen'></view>
+      <view class='middleline'></view>
+      <view class='round'></view>
+      <view class='middleline'></view>
+      <view class='round'></view>
+      <view class='linelast'></view>
+    </view>
+  </view>
+
+  <!-- 收获地址列表 -->
+  <view>
+    <radio-group class="radio-group" bindchange="radioChange">
+
+      <label class="radio" wx:for="{{addres}}" wx:key="{{index}}">
+        <radio value="{{item.rid}}" color='#6ED7AF' />
+        <view>
+          <text class='userName'>{{item.name}} </text>
+          <text class='userLocation'>{{item.addressInfo}}</text>
+          <text class='userLocation'>{{item.addres}}</text>
+          <text class='userLocation'>{{item.addressNumber}}</text>
+        </view>
+      </label>
+
+
+    </radio-group>
+  </view>
+
+  <!-- 新增收获地址 -->
+  <view class='addNewAddrees'>
+    <view>新的收货地址</view>
+    <view class='fx-icon-nothing-plus theme-green'></view>
+  </view>
+
+
+
+
+  <!-- 继续确认订单按钮 -->
+  <view class='conservation'>
+    <button catchtap=''>继续以确认订单</button>
+  </view>
+
+ 
+</view>

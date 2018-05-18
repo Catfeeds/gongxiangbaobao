@@ -43,7 +43,9 @@
   text-decoration:line-through;
   color: #999999;
 }
-
+.shm{
+  height: 100rpx;
+}
 .logistics{
   height: 26rpx;
   width: 42rpx;
@@ -64,6 +66,24 @@
   border-radius: 5rpx;
 } */
 
+.hui-zi{
+  font-size: 24rpx;
+  color: #949EA6
+}
+.black-font{
+  font-size: 28rpx;
+}
+.component{
+  padding: 30rpx 30rpx 30rpx 0;
+  border-bottom: 1rpx solid #E9E9E9;
+  display: flex;
+}
+.componentTwo{
+  padding: 30rpx 30rpx 30rpx 30rpx;
+  border-bottom: 1rpx solid #E9E9E9;
+  display: flex;
+  background-color: white;
+}
 
 @font-face {
     font-family: 'Fineix';

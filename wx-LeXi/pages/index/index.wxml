@@ -115,7 +115,7 @@
         </view>
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <fx-product-middle></fx-product-middle>
+          <fx-product-middle ></fx-product-middle>
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
