@@ -8,7 +8,61 @@ Page({
    * 页面的初始数据
    */
   data: {
-    logo:"../../images/index-top-bg.gif",
+    //购物车
+    shoppingCart: [
+      {
+        id: 6,
+        title: "图像加载被中断",
+        currentPrice: 500,
+        originPrice: 999,
+        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
+        is_like: true,//是否喜欢
+        is_likeNumber: 66,//喜欢的人数
+        shopName: "bbq_BBQ_123亲",//店铺名称
+        shopingNumber: 1,//购买的数量
+        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
+        color: "白色",
+        repertoryNumber: 12,
+        size: "M"
+      },
+      {
+        id: 5,
+        title: "	图像加载被中断",
+        currentPrice: 500,
+        originPrice: 321,
+        logisticsExpenses: 9,//运费信息：0为没有运费用，包邮，其他为运费的价格
+        is_like: true,//是否喜欢
+        is_likeNumber: 66,//喜欢的人数
+        shopName: "bbq_BBQ_123亲",//店铺名称
+        shopingNumber: 1,//购买的数量
+        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
+        repertoryNumber: 10
+      },
+      {
+        id: 4,
+        title: "	图像加载被中断",
+        currentPrice: 500.99,
+        // originPrice: 666,
+        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
+        is_like: true,//是否喜欢
+        is_likeNumber: 66,//喜欢的人数
+        shopName: "bbq_BBQ_123亲",//店铺名称
+        shopingNumber: 1,//购买的数量
+        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
+        color: "绿色",
+        repertoryNumber: 13
+      }
+    ],
+    // 主打设计
+    Theme_goods:[
+      {},
+      {},
+      {},
+      {},
+      {}
+    ],
+    
+    logo:"../../images/timg.jpg",
     tabPisition: false,//tab是否定位
     catgory:[
       {name:"精品",rid:1},
@@ -16,7 +70,6 @@ Page({
       { name: "人气", rid: 3 }
     ],//分类
     catgoryActive:1//分类的选项
-
     
   },
 
@@ -102,6 +155,13 @@ Page({
     console.log(11)
     wx.navigateTo({
       url: '../brandInformation/brandInformation'
+    })
+  },
+
+  //跳转到商品详情
+  prodctTap(){
+    wx.navigateTo({
+      url: '../product/product',
     })
   }
 

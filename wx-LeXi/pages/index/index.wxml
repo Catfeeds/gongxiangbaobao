@@ -77,18 +77,10 @@
     <view class='importantGoods'>
       <view class='importantGoodsTitle'>主打设计</view>
       <view class='importantGoodsBox'>
-        <view class='importantGoodsPhoto'>
-          <fx-product product="{{logo}}"></fx-product>
+        <view class='importantGoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
+          <fx-product product="{{logo}}" bind:triggerEvent_product="prodctTap"></fx-product>
         </view>
-        <view class='importantGoodsPhoto'>
-          <fx-product product="{{logo}}"></fx-product>
-        </view>
-        <view class='importantGoodsPhoto'>
-          <fx-product product="{{logo}}"></fx-product>
-        </view>
-        <view class='importantGoodsPhoto'>
-          <fx-product product="{{logo}}"></fx-product>
-        </view>
+
       </view>
     </view>
     <!-- 主打下面的图片 -->
@@ -115,7 +107,7 @@
         </view>
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <fx-product-middle ></fx-product-middle>
+          <fx-product-middleM product="{{shoppingCart[0]}}"></fx-product-middleM>
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>

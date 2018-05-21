@@ -30,7 +30,7 @@
   </view>
 
   <!-- 订单信息 -->
-  <view class='orderInfoBox' wx:for="{{order}}">
+  <view class='orderInfoBox' wx:for="{{order}}" wx:key="{{index}}">
     <view class='shopName'>
       <text>素雅手作品牌馆 </text>
       <text class='shopNameR'>从台湾发货</text>

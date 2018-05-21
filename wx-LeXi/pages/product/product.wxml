@@ -1,5 +1,149 @@
 <!--pages/product/product.wxml 产品详情-->
-<view class='container'>
+<view class='container theme-bg-color'>
+
+  <!-- 轮播图 -->
+  <view class='swiperBox'>
+    <swiper indicator-dots="true" autoplay="true">
+      <block wx:for="{{swiper_infomation}}" wx:key="{{index}}">
+        <swiper-item display-multiple-items="{{index}}">
+          <image src="{{item.img}}" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <!--轮播图 产品底部信息 -->
+  <view class='goodsInfoBox'>
+    <view class='branderInfo'>
+      <text class='logistics'>包邮</text>
+      <text>时尚个性帆布手提包阿斯</text>
+    </view>
+    <view class='branderInfo'>
+      <text class='cureentPrice'>￥258</text>
+      <text class='origPrice'>￥389</text>
+    </view>
+
+    <view class='characteristic branderInfo'>
+      <text class='characteristicT'>独家贩售 · </text>
+      <text class=''>全国贩售 · </text>
+      <text class=''>台湾制作 · </text>
+      <text class=''>机械制造 · </text>
+      <text class=''>机械制造   </text>
+      <text class='theme-green'> +3 ></text>
+    </view>
+
+    <view class='branderInfo like-quantity'>
+
+      <view class='like-quantity-l'>
+        <text class='fx-icon-like'></text>
+        <text class='hui-zi'> +123</text>
+      </view>
+
+      <view class='transmission'>
+        <view class='like-quantity-l'>
+          <text class='fx-icon-nothing-plus'></text>
+          <text class='hui-zi'> 心愿单</text>
+        </view>
+
+        <view class=' like-quantity-l transmissionInfo'>
+          <view></view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class='branderInfo  goods-size'>
+      <text class='textInfo'>请选择规格和尺码</text>
+      <text class='fx-icon-nothing-lower icon'></text>
+    </view>
+
+    <view class='ordertext'>“接单订制”在付款后开始制作，需5个制作天（不包含节假日）</view>
+
+  </view>
+
+  <!-- 有多少人喜欢 -->
+  <view class='likeBox'>
+    <view class='roundL'>
+      <image src='../../images/timg.jpg' class='photo-round'></image>
+      <image src='../../images/timg.jpg' class='photo-round'></image>
+      <image src='../../images/timg.jpg' class='photo-round'></image>
+    </view>
+    <view class='roundR'>···</view>
+  </view>
+
+  <!-- 描述,发货地，时间 -->
+  <view class='otherInfo'>
+    <!-- 描述 -->
+    <view class='otherInfo-describe'>
+      <view class='titleText'>描述</view>
+      <view class='goodstext two-line-text'>
+        <text class='titlemini'>亮点：</text>
+        <text>香味可持续两个月左右，如果觉得香味变如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡淡， 可继续滴入自己喜欢的香水或精油哦阿酒红色</text>
+      </view>
+      <view class='goodstext'>
+        <text class='titlemini'>材质：</text>
+        <text>棉.麻</text>
+      </view>
+      <view class='goodstext'>
+        <text class='titlemini'>特点： </text>
+        <text>可提供定制化服务</text>
+      </view>
+      <view class='goodstext'>
+        <text class='titlemini'>数量：</text>
+        <text>仅剩最后3件</text>
+      </view>
+
+
+    </view>
+
+    <!-- 发货地点 -->
+    <view class='otherInfo-describe location'>
+      <view class='titleText'>发货地</view>
+      <view class='goodstext'>台湾.花莲</view>
+    </view>
+
+    <!-- 交货时间 -->
+    <view class='otherInfo-describe location'>
+      <view class='titleText'>交货时间</view>
+      <view class='goodstext'>预计3-5天到达
+        <text class='theme-green'> 遵义</text>
+      </view>
+    </view>
+
+    <!-- 退货政策 -->
+    <view class='otherInfo-describe location borN'>
+      <view class='titleText'>退货政策</view>
+      <view class='goodstext'>
+        <text class=''> ·</text>
+        <text>30天退换货服务</text>
+      </view>
+      <view class='two-line-text goodstext'>
+        预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+      </view>
+
+      <view class='allInfo'>
+            <view>查看全部</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 店铺其他产品信息 -->
+  <view class='shopInfo'>
+      <view class='shopInfoT'>
+          <view class='userIcon'> <image src='../../images/timg.jpg'></image></view>
+          <view class='shopMiddle'>
+              <view class='hui-zi'>原创品牌设计馆</view>
+              <view class='shou'>Brook 手工制作</view>
+          </view>
+          <view class='with'>
+              <image src='../../images/shop1.png'></image>
+              <view>关注</view>
+          </view>
+      </view>
+  
+  </view>
+
+
 
 
 </view>

@@ -1,0 +1,66 @@
+<!--pages/order/order.wxml 订单状态-->
+<view class='container theme-bg-color'>
+  <!-- 头部导航 -->
+  <view class="page-order__nav">
+    <block wx:for="{{ navList }}" wx:key="{{ item.status }}">
+      <label data-status="{{ item.status }}" class="item {{ currentStatus == item.status ? 'active' : '' }}" bindtap="handleStatus">{{ item.title }}</label>
+    </block>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class='orderInfoBox bg-white'>
+    <!-- 每一笔订单 -->
+    <view wx:for="{{order}}" wx:key="{{index}}" wx:for-item="items_order" class='component productAndShopInfoBox'>
+      <!--每一家商家  -->
+      <view class=''>
+        <!-- 每一家商家  -->
+        <view class='productAndShopInfo {{index==items_order.shopList.length-1?"productAndShopInfoN":""}}' wx:for-item="item_shop" wx:for="{{items_order.shopList}}" wx:key="{{index}}">
+          <!-- 店铺头像 -->
+          <view class='shopPhoto'>
+            <image src='{{item_shop.shopPhoto}}'></image>
+          </view>
+          <!-- 右面的信息 -->
+          <view class='productinfo'>
+            <view class='shopNameBox'>
+              <text class='shopName'>素雅手作店</text>
+              <text class='order-aggregate hui-zi'>订单总计</text>
+            </view>
+
+            <view class='time-top'>
+              <text>
+              <text class='hui-zi'>2016年10月26日·状态：</text>
+              <text class='nonePayment theme-green'>待付款</text>
+              </text>
+              <text class='price'>￥145</text>
+            </view>
+
+            <view class='goodsBox' wx:key="{{index}}" wx:for="{{item_shop.shopGoodsList}}">
+              <fx-product-middleM product="{{item}}"></fx-product-middleM>
+            </view>
+
+
+          </view>
+        </view>
+      </view>
+
+      <!-- 付款和其他按钮 -->
+      <view class='fnBtn'>
+        <view wx:if="{{items_order.status==0}}" class='paymentBtn'>
+          <text>付款</text>
+          <text>{{items_order.orderTime}}</text>
+        </view>
+        <view wx:if="{{items_order.status==2||items_order.status==4}}" 
+        catchtap='celeteOrderTap' 
+        class='delleteOrder hui-zi' 
+        data-rid="{{items_order.rid}}">
+        删除订单
+        </view>
+        <view wx:if="{{items_order.status==1}}" class='delleteOrder hui-zi'>物流跟踪</view>
+        <view wx:if="{{items_order.status==1}}" class='critiqueBtn'>确认收货</view>
+        <view wx:if="{{items_order.status==2}}" class='critiqueBtn'>去评价</view>
+      </view>
+
+
+    </view>
+  </view>
+</view>

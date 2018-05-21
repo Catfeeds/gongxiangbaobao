@@ -44,24 +44,8 @@
   background-color: white;
   flex-direction: column;
 }
-.payment-icon{
-  width: 56rpx;
-  height: 56rpx;
-  border: 1rpx solid #E9E9E9;
-  box-sizing: border-box;
-  border-radius: 5rpx;
-}
-.payment-icon image{
-  height: 100%;
-  width: 100%;
-  
-}
-.paymentFnTextB{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+
+
 .price{
   background-color: white;
   flex-direction: row;

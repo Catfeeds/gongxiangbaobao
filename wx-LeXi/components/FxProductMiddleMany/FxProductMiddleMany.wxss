@@ -1,0 +1,79 @@
+/* components/FxProductMiddleMany/FxProductMiddleMany.wxss */
+/* components/FxProductMiddle/FxProductMiddle.wxss */
+.shopRecommendGoods-photo {
+  height: 180rpx;
+  width: 180rpx;
+}
+.shopRecommendGoodsR {
+  height: 182rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-left: 15rpx;
+  display: flex;
+  flex-direction: column;
+  margin-right: 40rpx;
+  justify-content: space-between;
+}
+.shopRecommendGoodsR-old {
+  margin-left: 15rpx;
+  font-weight: normal;
+  font-size: 24rpx;
+  color: #999;
+}
+.oldPriceDecortion{
+  text-decoration: line-through
+}
+.productMiddle{
+    display: flex;
+  flex-direction: row;
+}
+.productMiddleBoxPhoto{
+  height: 182rpx;
+  width: 182rpx;
+}
+.logistics{
+  height: 26rpx;
+  width: 42rpx;
+  border-radius: 5rpx;
+  background-color: #D4AF86;
+  color: white;
+  font-size: 20rpx;
+  line-height: 26rpx;
+  text-align: center;
+  margin-right: 6rpx;
+}
+textarea {
+  display: inline;
+  resize: none;
+}
+.productMiddleBox{
+  display: flex;
+  flex-direction: row;
+}
+.shopingName image{
+  width: 24rpx;
+  height: 20rpx;
+
+}
+.shopingName text{
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #6ED7AF;
+  font-weight: normal;
+}
+.goodsColor{
+  font-size: 24rpx;
+  color: #B2B2B2;
+  font-weight: normal;
+  margin-top: 20rpx;
+}
+.repertoryNumber{
+  font-size: 22rpx;
+  color: #E02C2C;
+  font-weight: normal;
+}
+.shopingNumber{
+  font-size: 28rpx;
+  color: #999999;
+  font-weight: normal;
+}

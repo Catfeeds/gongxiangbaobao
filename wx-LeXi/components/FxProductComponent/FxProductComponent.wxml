@@ -1,7 +1,7 @@
 <!--components/FxProductComponent/FxProductComponent.wxml-->
-<view class='photoBox'>
+<view class='photoBox' catchtap='product'>
   <view class='sellInfo'>售罄</view>
-  <image src='{{product}}'></image>
+  <image mode="widthFix" src='{{product}}'></image>
 </view>
 
 <view class='material-quality'>

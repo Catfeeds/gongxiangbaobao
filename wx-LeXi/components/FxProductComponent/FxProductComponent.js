@@ -22,6 +22,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    product(e){
+      console.log(this)
+      this.triggerEvent("triggerEvent_product")
+    }
 
   }
 })

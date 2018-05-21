@@ -334,6 +334,7 @@
 
 .importantGoods {
   padding: 40rpx;
+  padding-right: 0;
 }
 
 .pickList {

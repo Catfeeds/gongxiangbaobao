@@ -1,15 +1,10 @@
-// pages/product/product.js
+// pages/orderRevise/orderRevise.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    swiper_infomation:[
-      { img: "../../images/timg.jpg"},
-      { img: "../../images/timg.jpg" },
-      { img: "../../images/timg.jpg" },
-    ]
   
   },
 

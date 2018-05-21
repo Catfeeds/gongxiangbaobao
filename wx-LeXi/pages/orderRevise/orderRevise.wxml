@@ -1,0 +1,75 @@
+<!--pages/orderRevise/orderRevise.wxml 订单详情的修改-->
+<view class='container theme-bg-color'>
+  <!-- 上部 -->
+  <view class='topInfo bg-white'>
+    <view class='orderNumber'>
+      <view class='hui-zi'>订单编号</view>
+      <view class='black-font'>#1234567</view>
+    </view>
+
+    <view class='orderNumber paymentFn'>
+      <view class='hui-zi'>支付方式</view>
+      <view class='black-font paymentFnTextB'>
+        <view>微信在线支付</view>
+        <view class='payment-icon'>
+          <image src='../../images/weixinpay.png'></image>
+        </view>
+      </view>
+    </view>
+
+    <view class='orderNumber '>
+
+      <view class='prceInfo'>
+        <text> 
+        <text class='hui-zi'>小计：</text>
+        <text class='black-font'>￥200</text>
+        </text>
+        <text class='hui-zi'>总计</text>
+      </view>
+
+      <view class='prceInfo'>
+        <text>  
+        <text class='hui-zi'>配送：</text>
+        <text class='expenses'>免费</text>
+        </text>
+        <text class='redtext'>￥200</text>
+      </view>
+
+    </view>
+
+  </view>
+
+  <!-- 下部 -->
+
+  <view class='BotBox bg-white'>
+    <view class='shopName'>
+      <text class='black-font'>素雅手作品牌店</text>
+      <view class='photo-round btn-bg-color'>
+        <text class='fx-icon-dialogbox dialogbox'></text>
+      </view>
+    </view>
+
+    <view class='PL'>
+      <view class='component'>
+          <view class='time-top startAddress'>
+              <text>  
+                  <text class='hui-zi'>2016年10月26日·状态：</text>
+                  <text class=' font-s theme-green'> 已发货</text>
+              </text> 
+              <text class='hui-zi'>从上海发货</text>
+              
+          </view>
+
+          <view>
+          
+          </view>
+
+          
+      </view>
+
+    </view>
+
+  </view>
+
+
+</view>
