@@ -50,3 +50,11 @@ display: inline-block;
   font-size: 24rpx;
   margin-right: 10rpx;
 }
+.oldPrice{
+  text-decoration: line-through;
+  color: #c2c2c2;
+}
+.like-number{
+  font-size: 22rpx;
+  color: #999999;
+}

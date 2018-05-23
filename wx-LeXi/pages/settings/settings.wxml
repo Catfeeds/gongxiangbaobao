@@ -1,0 +1,93 @@
+<!--pages/settings/settings.wxml 个人中心设置页面-->
+<view class='container'>
+  <view class='topBox'>
+    <!-- 查看并编辑 -->
+    <view class='user-name-edit time-top'>
+      <view>
+        <view class='user-name-text'> 何先生</view>
+        <view class='edit-user' catchtap='editInfoTap'>查看并编辑个人资料</view>
+      </view>
+      <view class='userPhoto'>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+    </view>
+    <!-- 是否绑定手机号码 -->
+    <view class='item component'>
+      <view class='hui-zi itemP'>连接</view>
+      <view class=' time-top'>
+        <view class=' time-top'>
+          <view>
+            <image src='../../images/my@3.png'></image>
+          </view>
+          <view class='font-size'>手机绑定</view>
+        </view>
+        <view class='time-top'>
+          <view class='font-size-red'>未绑定</view>
+          <view class='fx-icon-nothing-right'></view>
+        </view>
+      </view>
+    </view>
+    <!-- 账户 -->
+    <view class='item component'>
+      <view class='hui-zi itemP'>账户</view>
+      <view class=' time-top'>
+        <view class=' time-top'>
+          <view>
+            <image src='../../images/order@2.png'></image>
+          </view>
+          <view class='font-size'>我的订单</view>
+        </view>
+        <view class='time-top'>
+          <view class='fx-icon-nothing-right'></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 收货地址 -->
+  <view class='more item component'>
+    <view class=' time-top'>
+      <view class=' time-top'>
+        <view>
+          <image src='../../images/location@2.png'></image>
+        </view>
+        <view class='font-size'>收货地址</view>
+      </view>
+      <view class='time-top'>
+        <view class='fx-icon-nothing-right'></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 申请开馆 -->
+  <view class='item component more'>
+    <view class='hui-zi itemP'>更多</view>
+    <view class=' time-top'>
+      <view class=' time-top'>
+        <view>
+          <image src='../../images/join@2.png'></image>
+        </view>
+        <view class='font-size'>我的订单</view>
+      </view>
+      <view class='time-top'>
+        <view class='fx-icon-nothing-right'></view>
+      </view>
+    </view>
+  </view>
+
+    <!-- 关于乐喜 -->
+  <view class='more item component'>
+    <view class=' time-top'>
+      <view class=' time-top'>
+        <view>
+          <image src='../../images/lexi@2.png'></image>
+        </view>
+        <view class='font-size'>关于乐喜</view>
+      </view>
+      <view class='time-top'>
+        <view class='fx-icon-nothing-right'></view>
+      </view>
+    </view>
+  </view>
+
+</view>

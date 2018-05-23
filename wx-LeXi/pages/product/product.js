@@ -5,12 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //选择规格的盒子是否隐藏
+    pick:false,
     swiper_infomation:[
       { img: "../../images/timg.jpg"},
       { img: "../../images/timg.jpg" },
       { img: "../../images/timg.jpg" },
     ]
   
+  },
+  //选择规格的盒子显示
+  pickShowTap(){
+      this.setData({
+        pick:true
+      })
+  },
+  //选择规格的盒子隐藏
+  pickHideTap(){
+    this.setData({
+      pick: false
+    })
   },
 
   /**

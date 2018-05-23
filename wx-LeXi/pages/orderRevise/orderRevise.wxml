@@ -50,26 +50,58 @@
     </view>
 
     <view class='PL'>
-      <view class='component'>
-          <view class='time-top startAddress'>
-              <text>  
-                  <text class='hui-zi'>2016年10月26日·状态：</text>
-                  <text class=' font-s theme-green'> 已发货</text>
-              </text> 
-              <text class='hui-zi'>从上海发货</text>
-              
-          </view>
+      <view class='component item-product'>
 
-          <view>
-          
-          </view>
+        <view class='time-top startAddress'>
+          <text>  
+              <text class='hui-zi'>2016年10月26日·状态：</text>
+          <text class=' font-s theme-green'> 已发货</text>
+          </text>
+          <text class='hui-zi'>从上海发货</text>
+        </view>
 
-          
+        <!-- 购买的产品 -->
+        <view class='productBox' wx:for="{{shoppingCart}}" wx:key="{{item.id}}">
+          <view class='productComBoxL'>
+            <fx-product-middleM product="{{item}}"></fx-product-middleM>
+          </view>
+          <view class='needNumber hui-zi-m'>X2</view>
+          <view class='productComBoxR'>
+            <view class='black-font'>$80</view>
+            <view class='old-price-text'>$345</view>
+          </view>
+        </view>
       </view>
 
+
+      <!-- 物流跟踪 -->
+      <view class='logisticsInfo paymentFn time-top font-s PTRT'>
+        <view class=' colimn-B'>
+          <view class='hui-zi'>配送方式</view>
+          <view class='time-top'>
+            <view class='logistics-icon'>
+              <image></image>
+            </view>
+            <view>第三方直邮</view>
+          </view>
+        </view>
+        <view class='green-btn' catchtap='logisticsTap'>
+          物流跟踪
+        </view>
+      </view>
+
+      <!-- 寄送地址 -->
+      <view class='PTRT time-top'>
+        <view class='hui-zi userLocation'>
+          <view>寄送地址</view>
+          <view class='black-font theme-color'>何自然</view>
+          <view>昌平区天通银丽水元2单元501</view>
+          <view>贵州省，遵义市563100</view>
+        </view>
+        <view class='black-font'>13381319070</view>
+      </view>
     </view>
-
   </view>
-
-
+  <!-- 垫片 -->
+  <view class='shm'></view>
 </view>

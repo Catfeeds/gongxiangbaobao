@@ -1,0 +1,143 @@
+/* pages/logisticsWatch/logisticsWatch.wxss */
+
+.orderNumber {
+  height: 194rpx;
+  background-color: #2d343a;
+  padding: 30rpx;
+  color: white;
+  line-height: 48rpx;
+  position: relative;
+}
+
+.logisticsPhoto {
+  position: absolute;
+  bottom: -60rpx;
+  height: 110rpx;
+  width: 690rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(to right, #55d995 0%, #6dd7d2 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+
+.logisticsPhoto image:nth-child(1) {
+  height: 40rpx;
+  width: 36rpx;
+}
+
+.logisticsPhoto image:nth-child(2) {
+  height: 34rpx;
+  width: 48rpx;
+}
+
+.logisticsPhoto image:nth-child(3) {
+  height: 42rpx;
+  width: 42rpx;
+}
+
+.logisticsIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.middle-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  opacity: 0.5; 
+}
+
+.line {
+  height: 2rpx;
+  background-color: white;
+}
+
+.round {
+  height: 12rpx;
+  width: 12rpx;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 4rpx solid white;
+}
+
+.lineTwo {
+  flex: 1;
+}
+
+.lineone {
+  flex: 2;
+}
+
+.logistcsIcon {
+  height: 162rpx;
+  width: 162rpx;
+  border-radius: 50%;
+  background-color: #949ea6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logistcsIcon image {
+  height: 80%;
+  width: 80%;
+}
+
+.none-info>view, .none-info {
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx;
+}
+
+.none-info {
+  margin-top: 200rpx;
+}
+
+.have-Info {
+  padding: 30rpx;
+  padding-top: 100rpx;
+  
+}
+.left-line-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30rpx;
+}
+
+
+
+.left-line{
+  flex: 1;
+  width: 4rpx;
+  background-color: #e9e9e9;
+}
+.left-round{
+  height: 14rpx;
+  width: 14rpx;
+  background-color:#e9e9e9 ;
+  border-radius: 50%;
+}
+
+.left-round-line-green{
+  background-color:#6ed7af !important;
+}
+.newLocation{
+  display: flex;
+  flex-direction: row;
+}
+.locationInfoR{
+  padding-bottom: 60rpx;
+}
+.locationInfoR>view{
+  line-height: 48rpx;
+}
+.textR{
+  color: #FF6666;
+}

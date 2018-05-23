@@ -1,19 +1,25 @@
 {
   "pages": [
+     "pages/index/index",
+    "pages/settings/settings",
+    "pages/editInfo/editInfo",
+    "pages/user/user",
+    
+    "pages/product/product",
+    "pages/logisticsWatch/logisticsWatch",
     "pages/orderRevise/orderRevise",
     "pages/paymentSuccess/paymentSuccess",
-    "pages/product/product",
     "pages/orderInfo/orderInfo",
     "pages/order/order",
-    "pages/index/index",
     "pages/receiveAddress/receiveAddress",
     "pages/address/address",
     "pages/cart/cart",
     "pages/brandInformation/brandInformation",
     "pages/logs/logs",
-    "pages/user/user",
     "pages/addressTemplate/addressTemplate",
     "pages/pickLogistics/pickLogistics"
+  
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -4,6 +4,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    oldPrice: {
+      type: Boolean,
+      value: false
+    },
+    like_number: {
+      type: Boolean,
+      value: false
+    },
     
     product:{
         type:String,

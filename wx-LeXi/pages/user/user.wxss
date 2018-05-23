@@ -1,1 +1,122 @@
 /* pages/user/user.wxss */
+
+.top-box {
+  padding: 40rpx 40rpx 26rpx 40rpx;
+}
+
+.user-photo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.photo {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.photo image {
+  height: 100%;
+  width: 100%;
+}
+
+.user-photo>view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #949ea6;
+  margin-bottom: 14rpx;
+}
+
+.green {
+  color: #6ed7af;
+}
+
+.user-name-text {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin: 10rpx;
+}
+
+.is-login {
+  font-size: 22rpx;
+  color: #f4ac12;
+}
+
+.follow>text:nth-child(1) {
+  margin-right: 30rpx;
+}
+
+.follow {
+  margin-top: 15rpx;
+}
+
+.transmission {
+  height: 60rpx;
+  width: 176rpx;
+  color: white;
+  border-radius: 30rpx;
+  background-color: #6ed7af;
+  text-align: center;
+  line-height: 60rpx;
+}
+
+.service {
+  height: 60rpx;
+  width: 60rpx;
+  border: 1rpx solid #ededef;
+  border-radius: 50%;
+  margin-left: 20rpx;
+}
+
+.service image {
+  height: 100%;
+  width: 100%;
+}
+
+.service-intercalate {
+  margin-top: 30rpx;
+}
+
+.sotr {
+  justify-content: space-around;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #e9e9e9;
+  background-color: white;
+}
+
+.goodsList {
+  padding: 30rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.goods-item {
+  width: 48%;
+}
+
+.goodsFive {
+  width: 100%;
+}
+
+.goodsList>view {
+  margin-bottom: 40rpx;
+}
+.sotrF{
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  width: 100%;
+}
+.Fshim{
+  height: 120rpx;
+}

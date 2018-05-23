@@ -15,7 +15,7 @@
       <view class='userNameBox theme-color'>
         <view>mMMMMMMMM</view>
         <view class='userNameBoxPhoto'>
-          <image src='{{logo}}'></image>
+          <image src='../../images/icon@2.png'></image>
         </view>
       </view>
       <view class='shop-explain'>以多种工艺设计属于你的结婚婚事品阿迪经典卡带设计</view>
@@ -31,7 +31,7 @@
       </view>
       <view class='userInfoBtnBox'>
         <view class='userInfoBtn btn-bg-color'>
-          <image src='{{logo}}'></image>
+          <image src='../../images/icon@2.png'></image>
           <view>关注</view>
         </view>
         <view class='userInfoBtn theme-bg-color rander' catchtap='brandInformationTap'>关于品牌</view>
@@ -78,7 +78,11 @@
       <view class='importantGoodsTitle'>主打设计</view>
       <view class='importantGoodsBox'>
         <view class='importantGoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
-          <fx-product product="{{logo}}" bind:triggerEvent_product="prodctTap"></fx-product>
+          <fx-product 
+          product="{{logo}}" 
+          bind:triggerEvent_product="prodctTap"
+          oldPrice="{{true}}"
+          ></fx-product>
         </view>
 
       </view>
@@ -107,16 +111,58 @@
         </view>
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <fx-product-middleM product="{{shoppingCart[0]}}"></fx-product-middleM>
+          <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{shoppingCart[0]}}"></fx-product-middleM>
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
           <view class='recommendbottomText likeActive'>
-            <view class='fx-icon-like'></view>
+            <view class='icon-like'>
+              <image src='../../images/dLike@2.png'></image>
+            </view>
             <view>喜欢</view>
           </view>
           <view class='recommendbottomText'>
-            <view class='fx-icon-like'></view>
+            <view class='icon-like'>
+              <image src='../../images/share@2.png'></image>
+            </view>
+            <view>分享</view>
+          </view>
+          <view class='recommendbottomRen'>
+            <image src='{{logo}}' class='photo-round'></image>
+            <image src='{{logo}}' class='photo-round'></image>
+            <image src='{{logo}}' class='photo-round'></image>
+          </view>
+        </view>
+      </view>
+      <!-- 推荐好物品的内容e -->
+      <!-- 推荐好物品的内容s -->
+      <view class='tuijian'>
+        <!-- 店长头相 -->
+        <view class='shopMaster'>
+          <image src='{{logo}}' class='photo-round'></image>
+          <text>馆长极力推荐</text>
+        </view>
+        <!-- 推荐理由介绍 -->
+        <view class='shopRecommend theme-bg-color'>
+          <view class='triangle theme-bg-color'></view>
+          <text> 店主定期推出新系列，每个系列有各自的主题，以配合客人不同场合的造型，物料类型及颜色选择丰富，亦提供度身订造萨萨科机会考虑撒开，阿手机壳。 </text>
+        </view>
+        <!-- 物品的详情 -->
+        <view class='shopRecommendGoods-box'>
+          <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{shoppingCart[0]}}"></fx-product-middleM>
+        </view>
+        <!-- 底部的喜欢和分享 -->
+        <view class='recommendbottom'>
+          <view class='recommendbottomText likeActive'>
+            <view class='icon-like'>
+              <image src='../../images/Like@2.png'></image>
+            </view>
+            <view>喜欢</view>
+          </view>
+          <view class='recommendbottomText'>
+            <view class='icon-like'>
+              <image src='../../images/share@2.png'></image>
+            </view>
             <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
@@ -147,7 +193,7 @@
     </view>
     <view class='production'>
       <view class='productionGoods'>
-        <fx-product product="{{logo}}"></fx-product>
+        <fx-product like_number="{{true}}" product="{{logo}}"></fx-product>
       </view>
       <view class='productionGoods'>
         <fx-product product="{{logo}}"></fx-product>
@@ -173,7 +219,7 @@
     </view>
     <view class='production'>
       <view class='productionGoods'>
-        <fx-product product="{{logo}}"></fx-product>
+        <fx-product product="{{logo}}" like_number="{{true}}"></fx-product>
       </view>
       <view class='productionGoods'>
         <fx-product product="{{logo}}"></fx-product>

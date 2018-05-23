@@ -16,5 +16,4 @@
   height: 30rpx;
   width: 30rpx;
   border-radius: 50%;
-  background-color: red;
 }

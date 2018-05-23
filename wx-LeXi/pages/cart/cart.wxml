@@ -16,7 +16,7 @@
       <view class='theme-green' catchtap='changeCartTap' data-change="start">编辑</view>
     </view>
     <!-- 完成购物车的编辑 -->
-    <view class='produckNumber' wx:if="{{changeCart}}" >
+    <view class='produckNumber' wx:if="{{changeCart}}">
       <view>{{shoppingCart.length}}件礼品</view>
       <view class='theme-green' catchtap='changeCartTap' data-change="over">完成</view>
     </view>
@@ -27,7 +27,7 @@
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox value="{{item.id}}" checked="{{falseheckbox}}"/>
+              <checkbox value="{{item.id}}" checked="{{falseheckbox}}" />
             </block>
             <!-- 中间的产品信息 -->
             <view>
@@ -58,7 +58,9 @@
   <view class='thinkOrderBox'>
     <view class='thinkOrdertext'>心愿单</view>
     <view class='thinkOrderProduct' wx:for="{{thinkOrder}}" wx:key="{{item.id}}">
-      <fx-product-middle product="{{item}}" price="true" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middle>
+      <view class='cart-L'>
+        <fx-product-middleM product="{{item}}" price="true" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
+      </view>
       <view class='addgoods btn-bg-color'>
         <view class='fx-icon-cart addgoodscart'></view>
         <view>+</view>
@@ -93,12 +95,13 @@
   </view>
 
   <!-- 合计金额 -->
-  
-    <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart}}">
-      <view class='payPrice'>合计： <text>￥{{payment}}</text>  </view>
-      <view class='addThinkOrder'>结算</view>
-    </view>
-  
+
+  <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart}}">
+    <view class='payPrice'>合计：
+      <text>￥{{payment}}</text> </view>
+    <view class='addThinkOrder'>结算</view>
+  </view>
+
 
   <!-- 底部垫片 -->
   <view class='Bottom-shim'></view>

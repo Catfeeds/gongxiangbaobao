@@ -54,3 +54,51 @@
 .startAddress{
   flex: 1;  
 }
+.item-product{
+  display: flex;
+  flex-direction: column;
+}
+.productBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30rpx;
+}
+.productComBoxL{
+  flex: 9;
+}
+.productComBoxR{
+  flex: 1
+}
+.needNumber{
+  flex: 1;
+  font-weight: normal;
+}
+.logisticsInfo{
+  height: 80rpx;
+}
+.logistics-icon{
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 50%;
+  background-color: #6FC3DE;
+  margin-right: 20rpx;
+  overflow: hidden;
+}
+.logistics-icon image{
+  height: 100%;
+  width: 100%;
+}
+.colimn-B{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80rpx;
+}
+.userLocation view{
+  line-height: 50rpx;
+  
+}
+[class='black-font theme-color']{
+  font-weight: 600;
+}

@@ -17,7 +17,7 @@ Page({
     shoppingCart: [
       {
         id: 6,
-        title: "图像加载被中断",
+        title: "图像加载被中加载被中加载被中加载被中加载被中加载被中加载被中加载被中加载被中断",
         currentPrice: 500,
         originPrice: 999,
         logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
@@ -32,7 +32,7 @@ Page({
       },
       {
         id: 5,
-        title: "	图像加载被中断",
+        title: "	图像加载被像加载被中加载被中加载被中加载被中加中断",
         currentPrice: 500,
         originPrice: 321,
         logisticsExpenses: 9,//运费信息：0为没有运费用，包邮，其他为运费的价格
@@ -64,7 +64,7 @@ Page({
     thinkOrder: [
       {
         id: 0,
-        title: "图像加载被中断",
+        title: "图像中加载被中加载被中加载被中加载被中加载被中加加载被中加载被中加载被中加载被中加载被中加载被中加中断",
         currentPrice: 500,
         originPrice: 999,
         logisticsExpenses: 5,//运费信息：0为没有运费用，包邮，其他为运费的价格
@@ -92,7 +92,7 @@ Page({
       },
       {
         id: 2,
-        title: "	图像加载被中断",
+        title: "	图像加载中加载被中加载被中加载被中加载被中加载被中加加载被中加载被中加载被中加载被中加载被中加载被中加中被中断",
         currentPrice: 500.99,
         // originPrice: 666,
         logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格

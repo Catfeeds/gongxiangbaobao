@@ -52,7 +52,7 @@
       </view>
     </view>
 
-    <view class='branderInfo  goods-size'>
+    <view class='branderInfo  goods-size' catchtap='pickShowTap'>
       <text class='textInfo'>请选择规格和尺码</text>
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
@@ -122,26 +122,156 @@
       </view>
 
       <view class='allInfo'>
-            <view>查看全部</view>
+        <view>查看全部</view>
       </view>
     </view>
   </view>
 
   <!-- 店铺其他产品信息 -->
   <view class='shopInfo'>
-      <view class='shopInfoT'>
-          <view class='userIcon'> <image src='../../images/timg.jpg'></image></view>
-          <view class='shopMiddle'>
-              <view class='hui-zi'>原创品牌设计馆</view>
-              <view class='shou'>Brook 手工制作</view>
-          </view>
-          <view class='with'>
-              <image src='../../images/shop1.png'></image>
-              <view>关注</view>
-          </view>
+    <view class='shopInfoT'>
+      <view class='userIcon'>
+        <image src='../../images/timg.jpg'></image>
       </view>
-  
+      <view class='shopMiddle'>
+        <view class='hui-zi'>原创品牌设计馆</view>
+        <view class='shou'>Brook 手工制作</view>
+      </view>
+      <view class='with'>
+        <image src='../../images/shop1.png'></image>
+        <view>关注</view>
+      </view>
+    </view>
+
+    <view class='shop-other-goods'>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+    </view>
+
+    <view class='PTRT black-font theme-green'> 在线资讯</view>
   </view>
+
+  <!-- 相似的产品 也就是分销-->
+  <view class='similarityBox bg-white PL'>
+    <view class='black-font theme-green'>
+      <text>相似礼品</text> </view>
+    <view class='shop-other-goods'>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+      <view>
+        <image src='../../images/timg.jpg'></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 产品的详细介绍 -->
+  <view class='goods-info'>
+    <view class='title-text'>作品详情</view>
+    <view>
+      <view>这是切線派设计的第一款女士钱夹。追求实用性和美观的结合，在这款长夹上体现的淋漓尽致。</view>
+      <view>尺寸（闭合）：长 20 x 宽 9 x 厚3.5 （cm）封口的扣条设计，方便并且极其经久耐用。</view>
+    </view>
+    <view class='imgBox'>
+      <image mode="widthFix"></image>
+    </view>
+    <view class='imgBox'>
+      <image mode="widthFix"></image>
+    </view>
+    <view>另外，本店产品全部下单后开始手工制作，制作时间按实际情况为准。一般情况制作时间为5-10天。下单前请询问具体发货时间。
+    </view>
+    <view class='imgBox'>
+      <image mode="widthFix"></image>
+    </view>
+    <view>注意事项 </view>
+    <view>☆植鞣皮革，表明不防水，所以清洁时，请勿以手洗或机洗的方式处理，以免皮质受损。</view>
+    <view>☆包包在使用过程中如果不小心遇到水，皮面顏色会加深，不用过於担心，请用棉布擦乾表面，自然风乾就会恢复了，请勿使用高温、高热的电器烘乾。 </view>
+    <view>☆避免接触油污、酸性及硷性等物质或放置於高温、高热气处。</view>
+    <view>☆遇脏污时，可使用皮革专用清洗剂进行清洁动作，先用乾棉布将灰尘等脏污擦掉，再将清洗剂喷洒於棉布上后擦拭，清洗后记得放於通风处晾乾。。 。</view>
+
+  </view>
+
+  <!-- 选择规格box -->
+  <view class='specifications' wx:if="{{pick}}">
+    <view class='bg-white specificationsInfo black-font'>
+      <view class='top-info'>
+        <view>海滩休闲潮流菠萝鞋电视剧开始阿克苏大力大力啊啊...</view>
+        <view>
+          <text>￥258</text>
+          <text class='old-price-text'>￥358</text>
+        </view>
+      </view>
+      <!-- 颜色 -->
+      <view class='goods-color-box'>
+        <view class='black-font color-title'>颜色</view>
+        <view class='goods-color goods-color-box'>
+          <view class='color-item active'>白色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>透明的颜色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>透明的颜色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>透明的颜色</view>
+        </view>
+
+
+      </view>
+      <!-- 尺寸 -->
+      <view class='goods-color-box'>
+        <view class='black-font color-title'>尺寸</view>
+        <view class='goods-color goods-color-box'>
+          <view class='color-item active'>白色</view>
+          <view class='color-item none-goods'>白色</view>
+          <view class='color-item'>透明的颜色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>透明的颜色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>白色</view>
+          <view class='color-item'>透明的颜色</view>
+        </view>
+
+      </view>
+      <!-- 垫片 -->
+      <view class='shm'></view>
+      <view class='bottom-btn bg-white pick' catchtap='pickHideTap'>
+        <view class='btn-bg-color'>选好了</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 接单定制按钮 -->
+  <view class='bottom-btn bg-white'>
+    <view class='btn-bg-color'>接单订制</view>
+  </view>
+
+
+  <!-- 垫片 -->
+  <view class='shm'></view>
 
 
 

@@ -1,7 +1,7 @@
-<!--components/FxProductComponent/FxProductComponent.wxml-->
+<!--components/FxProductComponent/FxProductComponent.wxml {{product.img}}-->
 <view class='photoBox' catchtap='product'>
   <view class='sellInfo'>售罄</view>
-  <image mode="widthFix" src='{{product}}'></image>
+  <image mode="widthFix" src='../../images/timg.jpg'></image>
 </view>
 
 <view class='material-quality'>
@@ -11,5 +11,6 @@
 
 <view class='productPrice'>
   <text class='nowPrice'>￥123</text>
-  <text class='oldPrice'>￥123</text>
+  <text class='oldPrice' wx:if="{{oldPrice}}">￥123</text>
+  <text class='like-number' wx:if="{{like_number}}">喜欢 +123</text>
 </view>

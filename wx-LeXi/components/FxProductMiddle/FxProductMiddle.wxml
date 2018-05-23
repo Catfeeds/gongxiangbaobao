@@ -5,8 +5,10 @@
   </view>
   <view class='shopRecommendGoodsR'>
     <view>
-      <text class='logistics logistics' wx:if="{{product.logisticsExpenses==0}}">包邮</text>
-      <textarea rows="2">{{product.title}}</textarea>
+      <view class='nowarp'>
+        <text class='logistics logistics' wx:if="{{product.logisticsExpenses==0}}">包邮</text>
+        <view class='line-ine'>{{product.title}}</view>
+      </view>
       <block wx:if="{{color}}">
         <view class='goodsColor' wx:if="{{product.color||product.size }}">
           <text>{{product.color}}</text>

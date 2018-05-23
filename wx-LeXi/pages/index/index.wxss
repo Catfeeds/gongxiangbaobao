@@ -29,7 +29,6 @@
   position: relative;
 }
 
-
 .locationAddOther>view, .shop-explain, .userNameBox {
   margin: 0 auto;
   display: flex;
@@ -53,7 +52,6 @@
 .userNameBoxPhoto image {
   height: 20rpx;
   width: 20rpx;
-
 }
 
 .shop-explain {
@@ -89,7 +87,6 @@
 .userInfoBtn image {
   height: 30rpx;
   width: 30rpx;
-  background-color: white;
   margin-right: 20rpx;
 }
 
@@ -294,8 +291,6 @@
   margin-bottom: 60rpx;
 }
 
-
-
 .recommendbottom {
   display: flex;
   flex-direction: row;
@@ -310,6 +305,16 @@
 
 .recommendbottomText>view {
   margin-right: 10rpx;
+}
+
+.icon-like {
+  width: 38rpx;
+  height: 38rpx;
+}
+
+.recommendbottomText image {
+  height: 100%;
+  width: 100%;
 }
 
 .recommendbottomRen {
@@ -358,44 +363,51 @@
 .reverseTriangle::after {
   display: inline-block;
   content: " ";
- height: 100%;
- width: 100%;
+  height: 100%;
+  width: 100%;
   background-color: black;
   transform: rotate(45deg);
   position: absolute;
-  top:-50%;
+  top: -50%;
 }
-.reverseTriangleBox{
+
+.reverseTriangleBox {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.production{
+
+.production {
   padding: 40rpx 40rpx 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.productionGoods{
+
+.productionGoods {
   width: 330rpx;
   margin-bottom: 50rpx;
 }
-.bagPhotoGoods{
+
+.bagPhotoGoods {
   width: 674rpx;
   margin-bottom: 40rpx;
 }
-.human{
+
+.human {
   margin-top: 30rpx;
   font-size: 30rpx;
   font-weight: 700;
   margin: 0 40rpx;
 }
-.themeGoods{
+
+.themeGoods {
   border-top: 2rpx solid #646464;
   padding: 40rpx 0;
 }
-.themeBottomPhoto{
+
+.themeBottomPhoto {
   margin: 0 40rpx 20rpx;
   height: 282rpx;
   border-radius: 10rpx;

@@ -1,5 +1,5 @@
 <!--components/FxApprove/FxApprove.wxml 认证的图标-->
       <view class='is-approve'>
-        <image></image>
+        <image src='../../images/accept.png'></image>
         <view>已认证</view>
       </view>

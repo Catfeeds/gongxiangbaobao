@@ -8,6 +8,11 @@ Component({
       type: Object,
       value: {}
     },
+    //购买的数量
+    shopingNumber:{
+      type: Boolean,
+      value: false
+    },
     //颜色组建是否显示，false为不显示，true为显示
     color: {
       type: Boolean,

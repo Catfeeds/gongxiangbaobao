@@ -7,8 +7,10 @@
   </view>
   <view class='shopRecommendGoodsR'>
     <view>
-      <text class='logistics logistics' wx:if="{{product.logisticsExpenses==0}}">包邮</text>
-      <textarea rows="2">{{product.title}}</textarea>
+      <view class='two-line'>
+        <text class='logistics logistics' wx:if="{{product.logisticsExpenses==0}}">包邮</text>
+        <text class='line-two'>{{product.title}}</text>
+      </view>
       <block wx:if="{{color}}">
         <view class='goodsColor' wx:if="{{product.color||product.size }}">
           <text>{{product.color}}</text>
@@ -18,7 +20,7 @@
       </block>
 
       <!-- 购买的数量 -->
-      <view class='shopingNumber'>x 2</view>
+      <view class='shopingNumber' wx:if="{{shopingNumber}}">x 2</view>
     </view>
     <!-- 颜色 -->
 

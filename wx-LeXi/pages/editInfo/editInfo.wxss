@@ -1,0 +1,53 @@
+/* pages/editInfo/editInfo.wxss */
+.userPhoto{
+  height: 520rpx;
+  width: 100%;
+  position: relative;
+}
+.userPhoto image{
+  height: 100%;
+  width: 100%;
+}
+.register-time{
+  position: absolute;
+  bottom: 30rpx;
+  left: 30rpx;
+  color: white;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.bottomInfo{
+  padding-left: 30rpx;
+}
+.placeholder{
+  font-size: 26rpx;
+  color:#B2B2B2;
+}
+label{
+  display: flex;
+  flex-direction: column;
+}
+label>view{
+  font-size: 26rpx;
+  color: #999999;
+  margin-bottom: 20rpx;
+}
+.userInput{
+  font-size: 28rpx;
+}
+.camera{
+  position: absolute;
+  bottom: 30rpx ;
+  right: 30rpx;
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.camera>image{
+  height: 35rpx !important;
+  width: 40rpx !important;
+}

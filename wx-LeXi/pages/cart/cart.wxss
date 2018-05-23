@@ -288,10 +288,11 @@ height: 100rpx;
   white-space: nowrap;
 
 }
-.paymentBtn{
-  
-}
+
 .payPrice text{
   font-size: 30rpx;
   font-weight: 700;
+}
+.cart-L{
+  flex: 1;
 }
