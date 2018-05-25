@@ -14,7 +14,7 @@
   position: absolute;
   width: 62rpx;
   height: 36rpx;
-  background-color: #858583;
+  /* background-color: #858583; */
   font-size: 20rpx;
   border-radius: 5rpx;
   color: white;
@@ -23,6 +23,11 @@
   top: 15rpx;
   left: 15rpx;
 }
+.logistics image,
+.sellInfo image{
+  height: 100%;
+  width: 100%;
+}
 .material-quality>view{
 display: inline-block;
 }
@@ -30,7 +35,7 @@ display: inline-block;
   height: 26rpx;
   width: 42rpx;
   border-radius: 5rpx;
-  background-color: #D4AF86;
+  /* background-color: #D4AF86; */
   color: white;
   font-size: 20rpx;
   line-height: 26rpx;
@@ -38,6 +43,7 @@ display: inline-block;
   margin-right: 6rpx;
 }
 .material-quality-text{
+  flex: 1;
   font-size: 24rpx;
 }
 .material-quality{

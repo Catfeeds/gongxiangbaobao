@@ -1,7 +1,8 @@
 <view class='container'>
   <!-- 背景图片 -->
   <view class='index-bg'>
-    <image src='{{logo}}'></image>
+     <image src='{{logo}}' ></image> 
+     <view class='box-s'></view>
   </view>
 
   <!-- 中间user的信息 -->
@@ -9,8 +10,8 @@
     <view class='middle-user-info'>
       <image src='{{logo}}' class='userPhoto'>
       </image>
-      <view>
-        <fx-approve></fx-approve>
+      <view class='approve-photo'>
+         <image src='../../images/@2.png'></image>
       </view>
       <view class='userNameBox theme-color'>
         <view>mMMMMMMMM</view>

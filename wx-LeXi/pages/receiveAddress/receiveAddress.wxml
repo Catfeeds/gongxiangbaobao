@@ -37,7 +37,7 @@
   </view>
 
   <!-- 新增收获地址 -->
-  <view class='addNewAddrees'>
+  <view class='addNewAddrees' catchtap='addAddressTap'>
     <view>新的收货地址</view>
     <view class='fx-icon-nothing-plus theme-green'></view>
   </view>
@@ -46,7 +46,7 @@
 
 
   <!-- 继续确认订单按钮 -->
-  <view class='conservation'>
+  <view class='conservation' catchtap='submitOrderTap'>
     <button catchtap=''>继续以确认订单</button>
   </view>
 

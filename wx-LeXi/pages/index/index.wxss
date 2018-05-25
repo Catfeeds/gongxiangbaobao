@@ -1,11 +1,28 @@
 .index-bg {
   height: 280rpx;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
+  position: relative;
+}
+
+.index-bg image {
+  width: 100%;
+  height: 100%;
 }
 
 .index-bg image {
   /* height: 80%; *//* width: 80%; */
+}
+
+.box-s {
+  position: absolute;
+  bottom: -310rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 680rpx;
+  height: 310rpx;
+  background-color: red;
+  box-shadow: 10rpx 0 20rpx 6rpx rgba(0,0,0,0.2), -10rpx 0 20rpx 6rpx rgba(0,0,0,0.2), 0 10rpx 20rpx 10rpx rgba(0,0,0,0.2); 
 }
 
 .middle-user-info {
@@ -16,7 +33,7 @@
   justify-content: space-around;
   padding: 0 30rpx;
   position: relative;
-  box-shadow: 5rpx 0 20rpx #f3f3f3, -5rpx 0 20rpx #f3f3f3, 0 5rpx 20rpx #f3f3f3;
+  /* box-shadow: 10rpx 0 20rpx #333; */
   border-radius: 10rpx;
   margin-top: -90rpx;
   background-color: white;
@@ -412,4 +429,14 @@
   height: 282rpx;
   border-radius: 10rpx;
   overflow: hidden;
+}
+
+.approve-photo {
+  height: 40rpx;
+  width: 120rpx;
+}
+
+.approve-photo image {
+  height: 100%;
+  width: 100%;
 }

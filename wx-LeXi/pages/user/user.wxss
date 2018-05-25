@@ -74,12 +74,15 @@
   border: 1rpx solid #ededef;
   border-radius: 50%;
   margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.service image {
+/* .service image {
   height: 100%;
   width: 100%;
-}
+} */
 
 .service-intercalate {
   margin-top: 30rpx;
@@ -119,4 +122,8 @@
 }
 .Fshim{
   height: 120rpx;
+}
+.setings{
+  height: 32rpx;
+  width: 32rpx;
 }

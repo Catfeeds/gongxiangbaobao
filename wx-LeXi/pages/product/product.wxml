@@ -35,7 +35,8 @@
     <view class='branderInfo like-quantity'>
 
       <view class='like-quantity-l'>
-        <text class='fx-icon-like'></text>
+        <!-- <text class='fx-icon-like'></text> -->
+        <image src='../../images/dLike@2.png' class='like-icon'></image>
         <text class='hui-zi'> +123</text>
       </view>
 
@@ -46,7 +47,7 @@
         </view>
 
         <view class=' like-quantity-l transmissionInfo'>
-          <view></view>
+          <image class='fen' src='../../images/share@2.png'></image>
         </view>
 
       </view>
@@ -265,7 +266,7 @@
   </view>
 
   <!-- 接单定制按钮 -->
-  <view class='bottom-btn bg-white'>
+  <view class='bottom-btn bg-white' catchtap='receiveOrderTap'>
     <view class='btn-bg-color'>接单订制</view>
   </view>
 

@@ -57,6 +57,12 @@ swiper-item, swiper-item>image, swiper {
   font-size: 28rpx;
 }
 
+.like-icon {
+  width: 32rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+
 .like-quantity {
   justify-content: space-between;
 }
@@ -335,11 +341,12 @@ swiper-item, swiper-item>image, swiper {
   bottom: 0;
   width: 690rpx;
   padding: 30rpx;
-  
 }
-.top-info{
+
+.top-info {
   margin-bottom: 20rpx;
 }
+
 .top-info view {
   white-space: nowrap;
   overflow: hidden;
@@ -347,40 +354,55 @@ swiper-item, swiper-item>image, swiper {
   font-weight: 600;
   line-height: 50rpx;
 }
-.old-price-text{
+
+.old-price-text {
   margin-left: 20rpx;
 }
-.goods-color-box{
+
+.goods-color-box {
   display: flex;
   flex-direction: row;
 }
-.goods-color{
 
+.goods-color {
   flex-wrap: wrap;
 }
-.color-item{
+
+.color-item {
   padding: 10rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10rpx;
-  border: 1rpx solid #333333;
+  border: 1rpx solid #333;
   margin: 15rpx 30rpx 15rpx 15rpx;
 }
-.color-title{
+
+.color-title {
   margin: 30rpx 30rpx 30rpx 0;
   white-space: nowrap;
 }
 
-.active{
+.active {
   background-color: #6ed7af;
   color: white;
   border: none;
 }
-.none-goods{
-  border: 1rpx solid #B2B2B2;
-  color: #B2B2B2;
+
+.none-goods {
+  border: 1rpx solid #b2b2b2;
+  color: #b2b2b2;
 }
-.pick{
+
+.pick {
   width: 690rpx;
+}
+
+.fen {
+  height: 28rpx;
+  width: 32rpx;
+}
+.fx-icon-nothing-plus{
+  margin:0 10rpx;
+  color: #949EA6;
 }

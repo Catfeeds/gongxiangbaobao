@@ -37,10 +37,10 @@
       <view class='transmission black-font '>分享品牌馆</view>
       <view class=' time-top '>
         <view class='service'>
-          <image></image>
+          <image class='setings' src='../../images/set.png'></image>
         </view>
         <view class='service' catchtap='setTap'>
-          <image></image>
+          <image class='setings' src='../../images/setings.png'></image>
         </view>
       </view>
     </view>

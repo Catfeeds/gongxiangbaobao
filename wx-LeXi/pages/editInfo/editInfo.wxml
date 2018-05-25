@@ -3,7 +3,9 @@
   <view class='userPhoto'>
     <image src='../../images/timg.jpg'></image>
     <view class='register-time'>注册时间：2016年11月11日</view>
-    <view class='camera'><image src='../../images/lexi@2.png'></image></view>
+    <view class='camera'>
+      <image src='../../images/lexi@2.png'></image>
+    </view>
   </view>
 
   <view class='bottomInfo'>
@@ -41,7 +43,15 @@
         <input placeholder-class='placeholder' class='userInput' value='男' placeholder=''></input>
       </label>
 
+      <view class='bottom-btn-box bg-white '>
+        <button class='btn-bg-color'>保存</button>
+      </view>
+
     </form>
   </view>
+
+
   <view class='shm'></view>
+  <view class='shm'></view>
+
 </view>

@@ -63,7 +63,7 @@
 
     <view class='dwletebtn'>删除</view>
 
-    <view class='conservation'>
+    <view class='conservation' catchtap='storageTap'>
       <button>保存</button>
     </view>
     <!-- 垫片 -->
@@ -71,13 +71,12 @@
   </form>
 
   <!-- 身份证拍摄呼出 -->
-
   <view class='cameraOrPhoto' wx:if="{{is_cameraOrPhoto}}">
-      <view class='cameraOrPhoto-top'>
-          <view class='camera'>拍摄身份证</view>
-          <view>从相册选择身份证</view>
-      </view>
-      <view class='cameraOrPhoto-bottom' catchtap='pickCameraOrPhoto'>取消</view>
+    <view class='cameraOrPhoto-top'>
+      <view class='camera'>拍摄身份证</view>
+      <view>从相册选择身份证</view>
+    </view>
+    <view class='cameraOrPhoto-bottom' catchtap='pickCameraOrPhoto'>取消</view>
   </view>
 
 

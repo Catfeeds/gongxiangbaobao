@@ -75,7 +75,7 @@
     <!-- 继续确认订单按钮 -->
 
   <view class='conservation' catchtap='paymentSuccess'>
-    <button >继续以确认订单</button>
+    <button >继续以选择支付方式</button>
   </view>
  <!-- 垫片 -->
   <view class='shm'></view>

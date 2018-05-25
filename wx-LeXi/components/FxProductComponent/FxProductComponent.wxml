@@ -1,11 +1,15 @@
 <!--components/FxProductComponent/FxProductComponent.wxml {{product.img}}-->
 <view class='photoBox' catchtap='product'>
-  <view class='sellInfo'>售罄</view>
+  <view class='sellInfo'>
+    <image src='../../images/goodsOver@2.png'></image>
+  </view>
   <image mode="widthFix" src='../../images/timg.jpg'></image>
 </view>
 
 <view class='material-quality'>
-  <view class='logistics'>包邮</view>
+  <view class='logistics'>
+      <image src='../../images/logistics@2.png'></image>
+  </view>
   <view class='material-quality-text'>天然橡胶天然橡胶树枝天然橡胶树枝树枝</view>
 </view>
 

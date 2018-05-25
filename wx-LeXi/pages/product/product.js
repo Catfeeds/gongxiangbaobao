@@ -81,5 +81,11 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  receiveOrderTap(){
+    console.log(22)
+    wx.switchTab({
+      url: '../cart/cart',
+    })
   }
 })

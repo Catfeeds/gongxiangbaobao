@@ -68,5 +68,11 @@ Page({
     wx.navigateTo({
       url: '../editInfo/editInfo',
     })
+  },
+  //orderTap 我的订单
+  orderTap(){
+    wx.navigateTo({
+      url: '../order/order',
+    })
   }
 })

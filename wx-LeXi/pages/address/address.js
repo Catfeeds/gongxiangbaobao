@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    is_cameraOrPhoto:true,
+    is_cameraOrPhoto:false,
     is_template: 0,
     addressInfo: [
       {
@@ -110,6 +110,11 @@ Page({
         is_template: 0
       })
     }
-
+  },
+  //保存按钮
+  storageTap(){
+    wx.navigateBack({
+      delta:1
+    })
   }
 })

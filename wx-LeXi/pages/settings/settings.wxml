@@ -30,7 +30,7 @@
     <!-- 账户 -->
     <view class='item component'>
       <view class='hui-zi itemP'>账户</view>
-      <view class=' time-top'>
+      <view class=' time-top' catchtap='orderTap' >
         <view class=' time-top'>
           <view>
             <image src='../../images/order@2.png'></image>
@@ -89,5 +89,7 @@
       </view>
     </view>
   </view>
+
+  
 
 </view>

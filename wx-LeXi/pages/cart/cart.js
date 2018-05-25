@@ -267,5 +267,11 @@ Page({
       title: title,
       content: content,
     })
+  },
+  //结算跳转
+  chekoutTap(){
+    wx.navigateTo({
+      url: '../receiveAddress/receiveAddress',
+    })
   }
 })
