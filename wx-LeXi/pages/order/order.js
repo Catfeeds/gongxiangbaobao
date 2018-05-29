@@ -324,5 +324,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  critiqueTap(){
+    wx.navigateTo({
+      url: '../critique/critique',
+    })
   }
 })

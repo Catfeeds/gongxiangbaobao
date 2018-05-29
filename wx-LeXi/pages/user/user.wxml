@@ -39,6 +39,9 @@
         <view class='service'>
           <image class='setings' src='../../images/set.png'></image>
         </view>
+        <view class='service'>
+          <image class='setings' src='../../images/set.png'></image>
+        </view>
         <view class='service' catchtap='setTap'>
           <image class='setings' src='../../images/setings.png'></image>
         </view>

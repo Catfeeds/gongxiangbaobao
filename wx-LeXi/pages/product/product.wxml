@@ -69,7 +69,7 @@
       <image src='../../images/timg.jpg' class='photo-round'></image>
       <image src='../../images/timg.jpg' class='photo-round'></image>
     </view>
-    <view class='roundR'>···</view>
+    <view class='roundR' catchtap='watchTap'>···</view>
   </view>
 
   <!-- 描述,发货地，时间 -->

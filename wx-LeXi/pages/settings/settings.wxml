@@ -17,7 +17,7 @@
       <view class=' time-top'>
         <view class=' time-top'>
           <view>
-            <image src='../../images/my@3.png'></image>
+            <image src='../../images/my@2x.png'></image>
           </view>
           <view class='font-size'>手机绑定</view>
         </view>

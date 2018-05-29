@@ -107,6 +107,30 @@ Page({
     ],
 
   },
+  //心愿单添加到购物车
+  addCartTap(e) {
+    var select=e.currentTarget.dataset.rid
+
+    var newThinkOrder = this.data.thinkOrder.filter((v, i) => {
+      return select != v.id
+    })
+
+    var newCart = this.data.thinkOrder.filter((v, i) => {
+      return select == v.id
+    })
+
+    this.setData(
+      {
+        thinkOrder:newThinkOrder,
+        shoppingCart: this.data.shoppingCart.concat(newCart)
+      }
+    )
+
+    this.paymentPrice()
+
+  },
+
+
   //编辑按钮点击后左边的选择,赋值给data
   checkboxChange(e) {
     this.setData({
@@ -269,7 +293,7 @@ Page({
     })
   },
   //结算跳转
-  chekoutTap(){
+  chekoutTap() {
     wx.navigateTo({
       url: '../receiveAddress/receiveAddress',
     })

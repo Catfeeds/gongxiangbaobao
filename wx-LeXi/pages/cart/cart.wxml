@@ -61,7 +61,7 @@
       <view class='cart-L'>
         <fx-product-middleM product="{{item}}" price="true" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
       </view>
-      <view class='addgoods btn-bg-color'>
+      <view class='addgoods btn-bg-color' data-rid="{{item.id}}" catchtap='addCartTap'>
         <view class='fx-icon-cart addgoodscart'></view>
         <view>+</view>
       </view>

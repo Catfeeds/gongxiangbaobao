@@ -57,7 +57,7 @@
         </view>
         <view wx:if="{{items_order.status==1}}" class='delleteOrder hui-zi'>物流跟踪</view>
         <view wx:if="{{items_order.status==1}}" class='critiqueBtn'>确认收货</view>
-        <view wx:if="{{items_order.status==2}}" class='critiqueBtn'>去评价</view>
+        <view wx:if="{{items_order.status==2}}" class='critiqueBtn' catchtap='critiqueTap'>去评价</view>
       </view>
 
 

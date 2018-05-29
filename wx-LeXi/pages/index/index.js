@@ -164,5 +164,11 @@ Page({
       url: '../product/product',
     })
   }
-
+,
+//跳转到关注页面
+  wacthTap(){
+    wx.navigateTo({
+      url: '../watch/watch',
+    })
+  }
 })

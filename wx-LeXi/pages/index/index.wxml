@@ -52,7 +52,7 @@
           <image src='{{logo}}' class='photo-round joinNumberlPhoto'></image>
         </view>
       </view>
-      <view class='joinNumberR'>999+</view>
+      <view catchtap='wacthTap' class='joinNumberR'>999+</view>
     </view>
   </view>
   <!-- 公告 -->

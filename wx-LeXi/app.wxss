@@ -1,5 +1,28 @@
 /**app.wxss**/
 
+/* 通用按钮样式 提交按钮， 保存按钮 背景绿色，白字*/
+
+.wx-btn-box{
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.wx-btn-box button{
+width: 690rpx;
+height: 80rpx;
+background-color: #6ED7AF;
+color: white;
+font-size: 32rpx;
+line-height: 80rpx;
+text-align: center;
+}
+
 /* 支付文字和图标 */
 
 .green-btn {
@@ -40,6 +63,8 @@
   align-items: center;
 }
 
+/* 内边距相关布局s */
+
 .PL {
   padding-left: 30rpx;
 }
@@ -47,6 +72,62 @@
 .PTRT {
   padding: 30rpx 30rpx 30rpx 0;
 }
+
+.component {
+  padding: 30rpx 30rpx 30rpx 0;
+  border-bottom: 1rpx solid #e9e9e9;
+  display: flex;
+}
+
+.componentTwo {
+  padding: 30rpx 30rpx 30rpx 30rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+  display: flex;
+  background-color: white;
+}
+
+/* 内边距相关布局e */
+
+/* 字体的相关s */
+
+.theme-hui-color {
+  color: #c2c2c2;
+}
+
+.theme-color {
+  color: #333;
+}
+
+.theme-green {
+  color: #5fe4b1;
+}
+
+.hui-zi {
+  font-size: 24rpx;
+  color: #949ea6;
+}
+
+.hui-zi-m {
+  font-size: 28rpx;
+  color: #949ea6;
+}
+
+.old-price-text {
+  font-size: 24rpx;
+  color: #b2b2b2;
+  text-decoration: line-through;
+  font-weight: normal;
+}
+
+.black-font {
+  font-size: 28rpx;
+}
+
+.font-s {
+  font-size: 24rpx;
+}
+
+/* 字体的相关e */
 
 .container {
   height: 100%;
@@ -65,18 +146,6 @@
 
 image {
   width: 100%;
-}
-
-.theme-hui-color {
-  color: #c2c2c2;
-}
-
-.theme-color {
-  color: #333;
-}
-
-.theme-green {
-  color: #5fe4b1;
 }
 
 .photo-round {
@@ -116,44 +185,6 @@ image {
   line-height: 26rpx;
   text-align: center;
   margin-right: 6rpx;
-}
-
-.hui-zi {
-  font-size: 24rpx;
-  color: #949ea6;
-}
-
-.hui-zi-m {
-  font-size: 28rpx;
-  color: #949ea6;
-}
-
-.old-price-text {
-  font-size: 24rpx;
-  color: #b2b2b2;
-  text-decoration: line-through;
-  font-weight: normal;
-}
-
-.black-font {
-  font-size: 28rpx;
-}
-
-.font-s {
-  font-size: 24rpx;
-}
-
-.component {
-  padding: 30rpx 30rpx 30rpx 0;
-  border-bottom: 1rpx solid #e9e9e9;
-  display: flex;
-}
-
-.componentTwo {
-  padding: 30rpx 30rpx 30rpx 30rpx;
-  border-bottom: 1rpx solid #e9e9e9;
-  display: flex;
-  background-color: white;
 }
 
 .two-line-text {

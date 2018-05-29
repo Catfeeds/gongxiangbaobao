@@ -97,3 +97,8 @@ textarea {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
+.otherInfo{
+  font-size: 22rpx;
+  color: #B2B2B2;
+  font-weight: normal;
+}
