@@ -61,11 +61,11 @@
 .transmission {
   height: 60rpx;
   width: 176rpx;
-  color: white;
   border-radius: 30rpx;
-  background-color: #6ed7af;
+  border:1rpx solid #EDEDEF;
   text-align: center;
   line-height: 60rpx;
+  position: relative;
 }
 
 .service {
@@ -126,4 +126,45 @@
 .setings{
   height: 32rpx;
   width: 32rpx;
+}
+.fei{
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+.fei image{
+  height: 50%;
+  width: 50%;
+}
+.red-round{
+  height: 14rpx;
+  width: 14rpx;
+  background-color: #FF6666;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.coupon{
+  position: relative;
+}
+.shou{
+  border-top: 1rpx solid #e9e9e9;
+}
+.GoodsPhoto{
+  height: 200rpx;
+  width: 200rpx;
+
+}
+.GoodsPhoto image{
+  height: 100%;
+  width: 100%;
+    border-radius: 10rpx;
+}
+ .see-all{
+  padding-right: 25rpx;
+} 
+.p-null{
+  padding-bottom: 0;
 }

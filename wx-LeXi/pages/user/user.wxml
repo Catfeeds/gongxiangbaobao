@@ -7,18 +7,11 @@
       <view class='photo'>
         <image src='../../images/timg.jpg'></image>
       </view>
-      <view>
-        <view class='number green'>324</view>
-        <view class='hui-zi green'>已喜欢</view>
+      <view wx:for="{{classList}}" wx:key="{{index}}" data-rid='{{item.rid}}' catchtap='classTap'>
+        <view class='number {{classInfo==item.rid?"green":""}}'>{{item.num}}</view>
+        <view class='hui-zi {{classInfo==item.rid?"green":""}}'>{{item.name}}</view>
       </view>
-      <view>
-        <view class='number'>0</view>
-        <view class='hui-zi'>心原单</view>
-      </view>
-      <view>
-        <view class='number'>26</view>
-        <view class='hui-zi'>设计馆</view>
-      </view>
+
     </view>
     <!-- 手机号码 -->
     <view>
@@ -34,10 +27,19 @@
     </view>
     <!-- 设置和客服 -->
     <view class='time-top service-intercalate'>
-      <view class='transmission black-font '>分享品牌馆</view>
+      <view class='time-top'>
+        <view class='fei btn-bg-color'>
+          <image src='../../images/fei@2.png'></image>
+        </view>
+        <view class='transmission black-font '>
+          <text>我的订单</text>
+          <text class='red-round'></text>
+        </view>
+      </view>
       <view class=' time-top '>
-        <view class='service'>
-          <image class='setings' src='../../images/set.png'></image>
+        <view class='service coupon' catchtap='couponTap'>
+          <image class='setings' src='../../images/coupon_icon@2.png'></image>
+          <text class='red-round'></text>
         </view>
         <view class='service'>
           <image class='setings' src='../../images/set.png'></image>
@@ -48,23 +50,59 @@
       </view>
     </view>
   </view>
-  <!-- 定位垫片 -->
-  <view class='Fshim' wx:if="{{sotrF}}"></view>
-  <!-- 筛选和排序 -->
-  <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-    <view>筛选
-      <text>↓</text> </view>
-    <view>排序
-      <text>↓</text> </view>
+
+
+  <!-- 以喜欢里面的内容 -->
+  <view wx:if="{{classInfo==1}}">
+    <!-- 定位垫片 -->
+    <view class='Fshim' wx:if="{{sotrF}}"></view>
+    <!-- 筛选和排序 -->
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+      <view>筛选
+        <text>↓</text> </view>
+      <view>排序
+        <text>↓</text> </view>
+    </view>
+    <!-- 下面的产品列表 -->
+    <view class='goodsList'>
+      <view wx:for="{{product}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+        <fx-product product="{{item}}"></fx-product>
+      </view>
+
+    </view>
   </view>
-  <!-- 下面的产品列表 -->
-  <view class='goodsList'>
-    <view wx:for="{{product}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product product="{{item}}"></fx-product>
+
+  <!-- 收藏里面的内容 -->
+  <view class='shou' wx:if="{{classInfo==2}}">
+    <!-- 最近查看 -->
+    <view class='c-importantGoods p-null'>
+      <view class='c-importantGoodsTitle paymentFnTextB see-all'>
+        <text>最近查看</text>
+        <text class='see-all hui-zi'>查看全部 <text>></text> </text>
+      </view>
+      <view class='c-importantGoodsBox'>
+        <view class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
+          <image src='{{item.img}}'></image>
+        </view>
+
+      </view>
+    </view>
+
+    <!-- 心愿单 -->
+    <view class='c-importantGoods p-null'>
+      <view class='c-importantGoodsTitle paymentFnTextB see-all'>
+        <text>心原单</text>
+      </view>
+      <view class='c-importantGoodsBox'>
+        <view class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
+          <image src='{{item.img}}'></image>
+        </view>
+
+      </view>
+      <view class='shm'></view>
     </view>
 
   </view>
-
 
 
 </view>

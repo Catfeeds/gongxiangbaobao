@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    coupon_show:false,
     //购物车
     shoppingCart: [
       {
@@ -54,30 +55,30 @@ Page({
       }
     ],
     // 主打设计
-    Theme_goods:[
+    Theme_goods: [
       {},
       {},
       {},
       {},
       {}
     ],
-    
-    logo:"../../images/timg.jpg",
+
+    logo: "../../images/timg.jpg",
     tabPisition: false,//tab是否定位
-    catgory:[
-      {name:"精品",rid:1},
+    catgory: [
+      { name: "精品", rid: 1 },
       { name: "作品", rid: 2 },
       { name: "人气", rid: 3 }
     ],//分类
-    catgoryActive:1//分类的选项
-    
+    catgoryActive: 1//分类的选项
+
   },
 
   //分类选项的函数
-  catgoryActiveTap(e){
+  catgoryActiveTap(e) {
     console.log(e.currentTarget.dataset.rid)
     this.setData({
-      catgoryActive:e.currentTarget.dataset.rid
+      catgoryActive: e.currentTarget.dataset.rid
     })
   },
 
@@ -85,73 +86,73 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
-//监听页面的滚动
-  onPageScroll:function(e){
-  console.log(e)
-  if (e.scrollTop>=464){
-    this.setData({
-      tabPisition:true
-    })
-  } else if (e.scrollTop <464){
-    this.setData({
-      tabPisition: false
-    })
-  }
+  //监听页面的滚动
+  onPageScroll: function (e) {
+    console.log(e)
+    if (e.scrollTop >= 464) {
+      this.setData({
+        tabPisition: true
+      })
+    } else if (e.scrollTop < 464) {
+      this.setData({
+        tabPisition: false
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   },
 
   //跳转到关于品牌页面
-  brandInformationTap(){
+  brandInformationTap() {
     console.log(11)
     wx.navigateTo({
       url: '../brandInformation/brandInformation'
@@ -159,16 +160,22 @@ Page({
   },
 
   //跳转到商品详情
-  prodctTap(){
+  prodctTap() {
     wx.navigateTo({
       url: '../product/product',
     })
   }
-,
-//跳转到关注页面
-  wacthTap(){
+  ,
+  //跳转到关注页面
+  wacthTap() {
     wx.navigateTo({
       url: '../watch/watch',
+    })
+  },
+  //优惠卷隐藏和显示
+  coupon_show() {
+    this.setData({
+      coupon_show: true
     })
   }
 })

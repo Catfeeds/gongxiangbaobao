@@ -1,10 +1,9 @@
 {
   "pages": [
-    
     "pages/index/index",
+    "pages/user/user",
     "pages/settings/settings",
     "pages/editInfo/editInfo",
-    "pages/user/user",
     "pages/product/product",
     "pages/logisticsWatch/logisticsWatch",
     "pages/orderRevise/orderRevise",
@@ -19,7 +18,9 @@
     "pages/addressTemplate/addressTemplate",
     "pages/pickLogistics/pickLogistics",
     "pages/critique/critique",
-    "pages/watch/watch"
+    "pages/watch/watch",
+    "pages/coupon/coupon",
+    "pages/couponTemplate/couponTemplate"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

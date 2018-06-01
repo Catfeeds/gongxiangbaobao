@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    sotrF:false,
+    classInfo:1,
+    sotrF: false,
     product: [
       {
         title: "手作精品款牛皮手提黑包",
@@ -67,8 +68,27 @@ Page({
         price: 99,
         like: 123
       },
-    ]
+    ],
+    classList:[
+      {rid:1,num:123,name:"喜欢"},
+      {rid:2,num:13,name:"收藏"},
+      {rid:3,num:123,name:"设计馆"}
+    ],
+    Theme_goods: [
+      {img:"../../images/timg.jpg"},
+      {img:"../../images/timg.jpg"},
+      {img:"../../images/timg.jpg"},
+      {img:"../../images/timg.jpg"},
+      {img:"../../images/timg.jpg"}
+    ],
 
+  },
+  //切换类别
+  classTap(e){
+    console.log(e.currentTarget.dataset.rid)
+    this.setData({
+      classInfo: e.currentTarget.dataset.rid
+    })
   },
 
   /**
@@ -129,14 +149,14 @@ Page({
   /**
    * 监听页面的滑动
    */
-  onPageScroll(e){
-    
+  onPageScroll(e) {
+
     console.log(e.scrollTop)
-    if (e.scrollTop>245){
+    if (e.scrollTop > 245) {
       this.setData({
-        sotrF:true
+        sotrF: true
       })
-    } else if (e.scrollTop <= 245){
+    } else if (e.scrollTop <= 245) {
       this.setData({
         sotrF: false
       })
@@ -144,9 +164,15 @@ Page({
 
   },
   //跳转到设置页面
-  setTap(){
-wx.navigateTo({
-  url: '../settings/settings',
-})
+  setTap() {
+    wx.navigateTo({
+      url: '../settings/settings',
+    })
+  },
+  //跳转到优惠券
+  couponTap() {
+    wx.navigateTo({
+      url: '../coupon/coupon',
+    })
   }
 })

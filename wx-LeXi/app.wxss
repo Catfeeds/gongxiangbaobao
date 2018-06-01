@@ -1,8 +1,36 @@
 /**app.wxss**/
+/* 通用样式 */
+.c-importantGoods {
+  padding: 40rpx;
+  padding-right: 0;
+}
+
+.c-importantGoodsTitle {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.c-importantGoodsBox {
+  margin-top: 40rpx;
+  white-space: nowrap;
+  overflow: auto;
+}
+.c-importantGoodsPhoto {
+  width: 282rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+}
+
 
 /* 通用按钮样式 提交按钮， 保存按钮 背景绿色，白字*/
-
-.wx-btn-box{
+.coupon-template{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+.wx-btn-box {
   position: fixed;
   bottom: 0;
   background-color: white;
@@ -11,16 +39,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-.wx-btn-box button{
-width: 690rpx;
-height: 80rpx;
-background-color: #6ED7AF;
-color: white;
-font-size: 32rpx;
-line-height: 80rpx;
-text-align: center;
+
+.wx-btn-box button {
+  width: 690rpx;
+  height: 80rpx;
+  background-color: #6ed7af;
+  color: white;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
 }
 
 /* 支付文字和图标 */
@@ -56,12 +84,36 @@ text-align: center;
   width: 100%;
 }
 
+/* 布局 */
+
+/* 横向布局 */
 .time-top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
+
+/* 纵向布局 */
+.line-D {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.c-middle{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-bg-color {
+  background-color: #6ed7af;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* 内边距相关布局s */
 
@@ -89,7 +141,6 @@ text-align: center;
 /* 内边距相关布局e */
 
 /* 字体的相关s */
-
 .theme-hui-color {
   color: #c2c2c2;
 }
@@ -153,18 +204,13 @@ image {
   width: 56rpx;
   border-radius: 50%;
 }
-
+.c-theme-bg{
+  background-color: #5FE4B1;
+}
 .theme-bg-color {
   background-color: #f7f9fb;
 }
 
-.btn-bg-color {
-  background-color: #6ed7af;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
 
 .oldPrice {
   text-decoration: line-through;

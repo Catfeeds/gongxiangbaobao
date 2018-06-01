@@ -1,0 +1,14 @@
+<!--components/coupon.wxml-->
+ <view class='coupon-message'>
+    <view class='time-top coupon-icon'>
+      <view class=''>
+        <image src='../../images/coupon-icon@2.png'></image>
+        <text>领取设计馆优惠红包</text>
+      </view>
+      <view class='get-btn'>领取</view>
+    </view>
+    <view class='reduced-price' >
+      <image src='../../images/reduced-price@2.png'></image>
+      <text>满600减130,满600减130,满600减130,满600减130</text>
+    </view>
+  </view>
