@@ -5,6 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    coupon:false,
+    o:[1,1,1,1,1],
+    //优惠券
+    is_coupon:true,
     //添加到购物车的内容产品内容
     shoppingCart: [
       {
@@ -24,6 +28,20 @@ Page({
       },
     ],
     order:[1,2]
+  },
+  couponTap(e){
+    console.log()
+    var i
+    if (e.currentTarget.dataset.is_coupon==1){
+      i=true
+    }else{
+      i=false
+    }
+
+    this.setData({
+      coupon:i
+    })
+
   },
 
   /**

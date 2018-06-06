@@ -52,20 +52,24 @@
   justify-content: space-between;
   font-size: 30rpx;
 }
+.price>view>view{
+  width: 690rpx;
+  line-height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
 .priceG{
   font-size: 34rpx;
   color: #FF6666;
   font-weight: 600;
 }
-.R{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
+
 .shopGoodsInfo{
   margin-top: 30rpx;
   font-size: 28rpx;
-  background-color: white
+  background-color: white;
 }
 .goodsInfoBox{
   display: flex;
@@ -94,4 +98,12 @@
   flex-direction: row;
   justify-content: space-between;
   border-top: 1rpx solid #E9E9E9;
+}
+.price_logistics--color{
+  font-size: 24rpx;
+  color: #C1A67F;
+}
+.price_logistics--colorR{
+  font-size: 34rpx;
+  color:#FC6769;
 }

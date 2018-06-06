@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_share:false,
+    url:"../../images/timg.jpg",
     coupon_show:false,
     //购物车
     shoppingCart: [
@@ -97,7 +99,7 @@ Page({
   },
   //监听页面的滚动
   onPageScroll: function (e) {
-    console.log(e)
+    // console.log(e)
     if (e.scrollTop >= 464) {
       this.setData({
         tabPisition: true
@@ -107,6 +109,17 @@ Page({
         tabPisition: false
       })
     }
+  },
+  shareTap(e){
+    var sign
+    if (e.currentTarget.dataset.is_share=="1"){
+      sign=true
+    }else{
+      sign=false
+    }
+    this.setData({
+      is_share:sign
+    })
   },
 
   /**
@@ -147,8 +160,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    console.log(33)
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123'
+    }
   },
 
   //跳转到关于品牌页面
@@ -177,5 +198,5 @@ Page({
     this.setData({
       coupon_show: true
     })
-  }
+  },
 })

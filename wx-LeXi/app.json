@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/user/user",
     "pages/settings/settings",
+    "pages/index/index",
+    "pages/orderInfo/orderInfo",
+    "pages/user/user",
+   
     "pages/editInfo/editInfo",
     "pages/product/product",
     "pages/logisticsWatch/logisticsWatch",
     "pages/orderRevise/orderRevise",
     "pages/paymentSuccess/paymentSuccess",
-    "pages/orderInfo/orderInfo",
     "pages/order/order",
     "pages/receiveAddress/receiveAddress",
     "pages/address/address",
@@ -20,7 +21,8 @@
     "pages/critique/critique",
     "pages/watch/watch",
     "pages/coupon/coupon",
-    "pages/couponTemplate/couponTemplate"
+    "pages/couponTemplate/couponTemplate",
+    "pages/shareTemplate/shareTemplate"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

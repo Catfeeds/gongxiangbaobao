@@ -34,7 +34,8 @@
     <!-- 库存数量 是否售罄 -->
     <view wx:if="{{repertoryNumber}}" class='repertoryNumber'>该商品已售馨</view>
     <!-- 其他的信息 -->
-    <view wx:if="{{otherInfo}}" class='otherInfo'>手作工艺店</view>
-
+    <view wx:if="{{otherInfo}}" class='otherInfo'>{{product.time}}</view>
+    <!-- 购买的数量 -->
+    <view wx:if="{{shopingNumber}}" class='otherInfo'>x2</view>
   </view>
 </view>

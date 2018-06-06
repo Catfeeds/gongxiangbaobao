@@ -1,4 +1,5 @@
-<import src="../couponTemplate/couponTemplate.wxml"/>  
+<import src="../couponTemplate/couponTemplate.wxml" />
+<import src="../shareTemplate/shareTemplate.wxml" />
 <view class='container'>
   <!-- 背景图片 -->
   <view class='index-bg'>
@@ -66,10 +67,10 @@
   </view>
   <!-- 优惠券 -->
   <view class='coupon-box' catchtap='coupon_show'>
-  
-   <fx-coupon></fx-coupon> 
+
+    <fx-coupon></fx-coupon>
   </view>
- 
+
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
     <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='catgoryActiveTap'>{{item.name}}
@@ -125,7 +126,7 @@
             </view>
             <view>喜欢</view>
           </view>
-          <view class='recommendbottomText'>
+          <view class='recommendbottomText' data-is_share="1" catchtap='shareTap'>
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
@@ -280,6 +281,12 @@
 
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-      <template is="couponTemplate"></template>
+    <template is="couponTemplate"></template>
+  </view>
+
+  <!-- 分享模板 -->
+  <view class='share-Tempate' wx:if="{{is_share}}">
+    <template is="share" />
+      <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
   </view>
 </view>

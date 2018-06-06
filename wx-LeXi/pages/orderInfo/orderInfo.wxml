@@ -5,16 +5,14 @@
     <view class='paymentList'>
       <view>寄送</view>
       <view>明细</view>
-      <view>付款</view>
+
     </view>
     <view class='bottom-line'>
       <view class='linelast lineGreen'></view>
       <view class='round lineGreen'></view>
       <view class='middleline lineGreen'></view>
       <view class='round lineGreen'></view>
-      <view class='middleline'></view>
-      <view class='round'></view>
-      <view class='linelast'></view>
+      <view class='linelast lineGreen'></view>
     </view>
   </view>
 
@@ -29,6 +27,34 @@
     <view>100220</view>
   </view>
 
+  <!-- 计费清单 -->
+  <view class='count-price'>
+    <view class='time-top'>
+      <text class='hui-zi'>小计：</text>
+      <text class='black-font'>￥2584</text>
+    </view>
+    <view class='time-top'>
+      <text class='hui-zi'>配送：</text>
+      <text class='logistics_text font-s'>包邮</text>
+    </view>
+    <view class='time-top'>
+      <text class='hui-zi'>首单优惠：</text>
+      <text class='hui-zi-m'>-￥58</text>
+    </view>
+    <view class='time-top'>
+      <text class='hui-zi'>满减：</text>
+      <text class='hui-zi-m'>-￥84</text>
+    </view>
+    <view class='time-top'>
+      <text class='hui-zi'>优惠卷：</text>
+      <text class='hui-zi-m'>-￥25</text>
+    </view>
+    <view class='time-top'>
+      <text class='black-font'>订单总计 </text>
+      <text class='time-top_total'>￥2584</text>
+    </view>
+  </view>
+
   <!-- 订单信息 -->
   <view class='orderInfoBox' wx:for="{{order}}" wx:key="{{index}}">
     <view class='shopName'>
@@ -39,45 +65,112 @@
     <view class='OtherInfomation'>
       <!-- 购买信息 -->
       <view class='shopGoodsInfo component' wx:for="{{shoppingCart}}" wx:key="{{index}}">
-        <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+        <fx-product-middle shopingNumber="true" product="{{item}}" color="true"></fx-product-middle>
         <view class='shopGoodsInfoR'>
           <text class='cureentPriceS'>￥80</text>
-          <text class='shopNameR'>$100</text>
+          <text class='shopNameR old-price-text'>￥100</text>
         </view>
       </view>
+
+      <!-- 满减 -->
+      <view class='component discounts font-s '>
+        <image src='../../images/reduced-price@2.png'></image>
+        <text>已享满200减15</text>
+      </view>
+
+      <!-- 优惠券 -->
+      <view class='component black-font time-top' data-is_coupon="1" catchtap='couponTap'>
+        <view> 优惠卷</view>
+        <view class='font-s'>
+          <text class='coupon--color'>已抵¥25</text>
+          <text class='fx-icon-nothing-right'></text>
+        </view>
+      </view>
+
       <!-- 配送方式 -->
-      <view class='component receiveFn'>
+      <view class=' receiveFn'>
         <view class='receiveFnTop'>
           <view>配送方式 </view>
           <view class='theme-green' catchtap='otherLogisticsTap'>选择其他></view>
         </view>
-        <fx-logistics></fx-logistics>
+        <view>
+          <view class='receiveFn_photo time-top font-s'>
+            <view class='time-top'>
+              <view class="receiveFnBottomBox">
+                <image src='../../images/logistics-icon@2.png'></image>
+              </view>
+              <text>顺丰快递</text>
+            </view>
+            <view>物流时长：10至15天送达</view>
+          </view>
+          <view class='font-s logistice_text'>￥0.00</view>
+        </view>
       </view>
 
       <!-- 给商家的注意事项 -->
-      <view class='component'>
+      <view class='merchant '>
         <view class='receiveFnBottomBox'>
-          <image></image>
+          <image src='../../images/shop-icon@2.png'></image>
         </view>
         <input placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
       </view>
 
-      <!-- 礼物寄语 -->
-      <view class='component'>
+      <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
+      <view class='merchant voice'>
         <view class='receiveFnBottomBox'>
-          <image></image>
+          <image src='../../images/see-icon@2.png'></image>
         </view>
         <textarea class='goods-blessing'>很久没联系，不知道你怎么样！今天是你的生日在乐喜 给你购买了一件你曾经说很喜欢的小暖灯，你说那个颜 色是你最喜欢的，不管怎样亲爱的希望你喜欢！</textarea>
       </view>
     </view>
   </view>
 
-    <!-- 继续确认订单按钮 -->
-
+  <!-- 继续确认订单按钮 -->
   <view class='conservation' catchtap='paymentSuccess'>
-    <button >继续以选择支付方式</button>
+    <button>继续以选择支付方式</button>
   </view>
- <!-- 垫片 -->
+
+<!-- 优惠券弹框 -->
+  <view class='coupon-box' wx:if="{{coupon}}">
+    <view class='coupon-box_top'>
+      <view class='black-font coupon-box_top--mar'>选择优惠卷红包</view>
+      <radio-group bindchange="radioChange">
+        <label wx:for="{{o}}" class="coupon_radio coupon-box_top--mar time-top">
+          <view class='column-round column-round_l'></view>
+          <view class='column-round column-round_r'></view>
+          <view class='coupon-round coupon-round_t'></view>
+          <view class='coupon-round coupon-round_b'></view>
+          <view class='coupon-l c-middle'>
+            <text class='font-s'>￥</text>
+            <text class='price-number'>123</text>
+          </view>
+          <view class='coupon-r  c-line-D'>
+            <view>
+              <view class='font-m font-m--style'>满100使用</view>
+              <view class='font-ss font-ss--style'>
+                <text class='fang'></text>
+                <text>2017.08.31至2017.08.31</text>
+              </view>
+            </view>
+          </view>
+          <view class='coupon-btn bg-white c-middle'>
+            <radio color="#5FE4B1" />
+          </view>
+        </label>
+      </radio-group>
+      <view class='shm'></view>
+      <view class='shm'></view>
+    </view>
+    <view class='coupon-bot_btn bg-white c-crosswise-a'>
+      <view class='coupon-btn-l '>
+        <view class='black-font font-ss--style'>已抵扣12元</view>
+        <view class='font-s'>使用1张</view>
+      </view>
+      <view class='affirm-btn c-middle' catchtap='couponTap'>确定</view>
+    </view>
+  </view>
+
+  <!-- 垫片 -->
   <view class='shm'></view>
 
 </view>

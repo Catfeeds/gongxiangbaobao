@@ -1,5 +1,7 @@
 /**app.wxss**/
+
 /* 通用样式 */
+
 .c-importantGoods {
   padding: 40rpx;
   padding-right: 0;
@@ -15,21 +17,23 @@
   white-space: nowrap;
   overflow: auto;
 }
+
 .c-importantGoodsPhoto {
   width: 282rpx;
   display: inline-block;
   margin-right: 20rpx;
 }
 
-
 /* 通用按钮样式 提交按钮， 保存按钮 背景绿色，白字*/
-.coupon-template{
+
+.coupon-template {
   position: fixed;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
+
 .wx-btn-box {
   position: fixed;
   bottom: 0;
@@ -87,23 +91,11 @@
 /* 布局 */
 
 /* 横向布局 */
+
 .time-top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-}
-
-/* 纵向布局 */
-.line-D {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-.c-middle{
-    display: flex;
-  justify-content: center;
   align-items: center;
 }
 .btn-bg-color {
@@ -113,7 +105,36 @@
   justify-content: center;
   align-items: center;
 }
+.c-crosswise-a{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
+/* 纵向布局 */
+
+
+.line-D {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.c-line-D {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* 中间布局 */
+.c-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* 内边距相关布局s */
 
@@ -141,6 +162,7 @@
 /* 内边距相关布局e */
 
 /* 字体的相关s */
+
 .theme-hui-color {
   color: #c2c2c2;
 }
@@ -169,13 +191,19 @@
   text-decoration: line-through;
   font-weight: normal;
 }
-
+/* 字体大小 */
 .black-font {
   font-size: 28rpx;
 }
 
 .font-s {
   font-size: 24rpx;
+}
+.font-m{
+  font-size: 26rpx;
+}
+.font-ss{
+  font-size: 22rpx;
 }
 
 /* 字体的相关e */
@@ -191,10 +219,6 @@
   color: #333;
 }
 
-.bg-white {
-  background-color: white;
-}
-
 image {
   width: 100%;
 }
@@ -204,13 +228,14 @@ image {
   width: 56rpx;
   border-radius: 50%;
 }
-.c-theme-bg{
-  background-color: #5FE4B1;
+
+.c-theme-bg {
+  background-color: #5fe4b1;
 }
+
 .theme-bg-color {
   background-color: #f7f9fb;
 }
-
 
 .oldPrice {
   text-decoration: line-through;
@@ -239,6 +264,10 @@ image {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+/* 背景 */
+.bg-white {
+  background-color: white;
 }
 
 @font-face {

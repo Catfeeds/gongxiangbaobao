@@ -329,5 +329,10 @@ Page({
     wx.navigateTo({
       url: '../critique/critique',
     })
+  },
+  logTop(){
+    wx.navigateTo({
+      url: '../logisticsWatch/logisticsWatch',
+    })
   }
 })
