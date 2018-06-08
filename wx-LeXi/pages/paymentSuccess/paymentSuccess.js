@@ -9,7 +9,7 @@ Page({
     shoppingCart: [
       {
         id: 6,
-        title: "图像加载被中断",
+        title: "图像加载被中断被中断被中断被中断被中断被中断被中断",
         currentPrice: 500,
         originPrice: 999,
         logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
@@ -20,7 +20,8 @@ Page({
         img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
         color: "白色",
         repertoryNumber: 12,
-        size: "M"
+        size: "M",
+        time:"交货.2-3天送达"
       },
       {
         id: 6,
@@ -35,7 +36,8 @@ Page({
         img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
         color: "白色",
         repertoryNumber: 12,
-        size: "M"
+        size: "M",
+        time: "交货.2-3天送达"
       },
     ],
   

@@ -1,0 +1,103 @@
+/* pages/critique/critique.wxss */
+
+.Top-box {
+  border-top: 1rpx solid #e9e9e9;
+  padding: 30rpx;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+
+.critique-product {
+  flex: 9;
+}
+
+.price-box {
+  flex: 1;
+  height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.critique-star {
+  display: flex;
+  flex-direction: row;
+}
+
+.critique-star image {
+  height: 38rpx;
+  width: 42rpx;
+  margin: 0 10rpx;
+}
+
+.critique-box {
+  padding: 40rpx 30rpx;
+  margin: 20rpx 0;
+}
+
+.critique-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.critique-text {
+  margin: 30rpx 0 40rpx;
+}
+
+.user-text {
+  padding: 20rpx;
+  height: 160rpx;
+  width: 650rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.add-photo {
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add-icon {
+  height: 122rpx;
+  width: 122rpx;
+  font-size: 100rpx;
+  color: #e9e9e9;
+  line-height: 122rpx;
+  text-align: center;
+}
+
+.add-photo-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20rpx;
+}
+
+.submit-photo {
+  height: 122rpx;
+  width: 122rpx;
+  position: relative;
+  margin-right: 30rpx;
+}
+.del-pho{
+  position: absolute;
+  height: 30rpx;
+  width: 30rpx;
+  right: -45rpx;
+  top: -15rpx;
+  margin-right: 30rpx;
+}
+.uploadFile{
+  height: 100%;
+  width: 100%;
+}
+.submitBgc{
+  opacity: 0.5;
+}

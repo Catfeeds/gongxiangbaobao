@@ -32,16 +32,18 @@
       <view>
         <view>
           <text class='hui-zi'>小计 : </text>
-          <text>￥230</text> </view>
+          <text>￥230</text>
+        </view>
         <view>
           <text class='hui-zi'>配送 : </text>
-          <text>￥15</text> </view>
+          <text class='price_logistics--color'>包邮</text>
+        </view>
+        <view>
+          <text class='black-font'>订单总计 </text>
+          <text class='price_logistics--colorR'>￥2534</text>
+        </view>
       </view>
-      <!-- 右 -->
-      <view class='R'>
-        <view class='hui-zi'> 总计 </view>
-        <view class='priceG'>￥230</view>
-      </view>
+
     </view>
 
   </view>
@@ -52,7 +54,7 @@
 
     <view class='goodsInfoBox ' wx:for="{{shoppingCart}}">
       <view class='goodsInfoBoxL'>
-        <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+        <fx-product-middle  product="{{item}}" color="true"></fx-product-middle>
       </view>
       <view class='hui-zi number'>x 2</view>
       <view class='price_old_new'>
@@ -63,12 +65,12 @@
     </view>
 
     <view class='goodsFn'>
-        <view>配送</view>
-        <view>￥90</view>
+      <view>配送</view>
+      <view>￥90</view>
     </view>
 
   </view>
 
-<!-- 垫片 -->
-<view class='shm'></view>
+  <!-- 垫片 -->
+  <view class='shm'></view>
 </view>

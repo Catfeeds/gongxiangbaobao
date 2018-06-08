@@ -61,10 +61,14 @@
   margin: 50rpx 0;
 }
 
-.approveIcon image {
-  height: 30rpx;
-  width: 30rpx;
+.approveIcon {
+  height: 56rpx;
+  width: 46rpx;
   margin-right: 20rpx;
+}
+.approveIcon image{
+  height: 100%;
+  width: 100%;
 }
 
 .authenticationBoxL {
@@ -168,12 +172,20 @@
 .recommendgoodsText{
   margin-top: 40rpx;
   padding-top: 40rpx;
-  border-top: 2rpx solid #c6d1d9;
+  border-top: 1rpx solid #e9e9e9;
   font-size: 28rpx;
   line-height: 40rpx;
 }
 .recommendgoodsText>view{
   margin-bottom: 20rpx;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing:4rpx;
+}
+.ren-icon{
+  height: 40rpx;
+  width: 120rpx;
+}
+.ren-icon image{
+  height: 100%;
+  width: 100%;
 }

@@ -1,8 +1,10 @@
+<import src="../couponTemplate/couponTemplate.wxml" />
+<import src="../shareTemplate/shareTemplate.wxml" />
 <view class='container'>
   <!-- 背景图片 -->
   <view class='index-bg'>
-     <image src='{{logo}}' ></image> 
-     <view class='box-s'></view>
+    <image src='{{logo}}'></image>
+    <view class='box-s'></view>
   </view>
 
   <!-- 中间user的信息 -->
@@ -11,7 +13,7 @@
       <image src='{{logo}}' class='userPhoto'>
       </image>
       <view class='approve-photo'>
-         <image src='../../images/@2.png'></image>
+        <image src='../../images/@2.png'></image>
       </view>
       <view class='userNameBox theme-color'>
         <view>mMMMMMMMM</view>
@@ -52,7 +54,7 @@
           <image src='{{logo}}' class='photo-round joinNumberlPhoto'></image>
         </view>
       </view>
-      <view class='joinNumberR'>999+</view>
+      <view catchtap='wacthTap' class='joinNumberR'>999+</view>
     </view>
   </view>
   <!-- 公告 -->
@@ -63,6 +65,12 @@
     </view>
     <view class='notice-info theme-green'>...阅读更多</view>
   </view>
+  <!-- 优惠券 -->
+  <view class='coupon-box' catchtap='coupon_show'>
+
+    <fx-coupon></fx-coupon>
+  </view>
+
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
     <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='catgoryActiveTap'>{{item.name}}
@@ -75,15 +83,11 @@
   <!-- 精选 里面的内容-->
   <view wx:if="{{catgoryActive==1}}">
     <!-- 主打设计 -->
-    <view class='importantGoods'>
-      <view class='importantGoodsTitle'>主打设计</view>
-      <view class='importantGoodsBox'>
-        <view class='importantGoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
-          <fx-product 
-          product="{{logo}}" 
-          bind:triggerEvent_product="prodctTap"
-          oldPrice="{{true}}"
-          ></fx-product>
+    <view class='c-importantGoods'>
+      <view class='c-importantGoodsTitle'>主打设计</view>
+      <view class='c-importantGoodsBox'>
+        <view class='c-importantGoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
+          <fx-product product="{{logo}}" bind:triggerEvent_product="prodctTap" oldPrice="{{true}}"></fx-product>
         </view>
 
       </view>
@@ -122,7 +126,7 @@
             </view>
             <view>喜欢</view>
           </view>
-          <view class='recommendbottomText'>
+          <view class='recommendbottomText' data-is_share="1" catchtap='shareTap'>
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
@@ -176,6 +180,24 @@
       <!-- 推荐好物品的内容e -->
     </view>
 
+    <!-- 首页优质精选 -->
+    <view>
+      <view class=''>
+        <view class='importantGoodsTitle goodgoods'>优质精选</view>
+
+        <!-- 推荐好物品的内容s -->
+        <view class='tuijian'>
+
+          <!-- 物品的详情 -->
+          <view class='recommend-goods-box'>
+            <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{shoppingCart[0]}}"></fx-product-middleM>
+          </view>
+
+        </view>
+        <!-- 推荐好物品的内容e -->
+
+      </view>
+    </view>
 
 
   </view>
@@ -257,4 +279,14 @@
 
   </view>
 
+  <!-- 优惠券的模板 -->
+  <view class='coupon-template' wx:if="{{coupon_show}}">
+    <template is="couponTemplate"></template>
+  </view>
+
+  <!-- 分享模板 -->
+  <view class='share-Tempate' wx:if="{{is_share}}">
+    <template is="share" />
+      <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
+  </view>
 </view>

@@ -1,0 +1,82 @@
+<!--pages/coupon/coupon.wxml-->
+<view class='container theme-bg-color'>
+
+  <view class='coupon-box' >
+    <!-- left -->
+    <view class='info-box-left'>
+      <view class='line-L theme-bg-color line-out'></view>
+      <view class='theme-bg-color top-round top-round-top'></view>
+      <view class='theme-bg-color top-round top-round-bottom'></view>
+      <!-- 信息 -->
+      <view class='price-info-box'>
+        <view class='price-icon'>
+          <image src='../../images/￥@2-.png'></image>
+          <text>800</text>
+        </view>
+        <view class='price-text'>满801使用</view>
+      </view>
+    </view>
+    <!-- right 信息 -->
+    <view class='info-box-R'>
+      <view class='quadrate paymentFnTextB'>
+        <view class='quadrate-view'></view>
+        <text>2017.08.31至2017.08.31</text>
+      </view>
+      <view class='shop-icon paymentFnTextB'>
+        <view>
+          <image></image>
+        </view>
+        <text>SoLoMon原創..红包</text>
+      </view>
+    </view>
+    <!-- 去使用的按钮 -->
+    <view class='right-btn'>
+      <view class='btn-bg-color '>去使用</view>
+    </view>
+    <!-- 右边的线 -->
+    <view class='right-line line-L theme-bg-color'></view>
+  </view>
+
+  <view  class='coupon-box'>
+    <!-- left -->
+    <view class='info-box-left none-bg-l'>
+      <view class='line-L theme-bg-color line-out'></view>
+      <view class='theme-bg-color top-round top-round-top'></view>
+      <view class='theme-bg-color top-round top-round-bottom'></view>
+      <!-- 信息 -->
+      <view class='price-info-box'>
+        <view class='price-icon'>
+          <image src='../../images/￥@2-.png'></image>
+          <text>800</text>
+        </view>
+        <view class='price-text'>满801使用</view>
+      </view>
+    </view>
+    <!-- right 信息 -->
+    <view class='info-box-R'>
+      <view class='quadrate paymentFnTextB hui'>
+        <view class='quadrate-view none-bg'></view>
+        <text>2017.08.31至2017.08.31</text>
+      </view>
+      <view class='shop-icon paymentFnTextB hui'>
+        <view>
+          <image></image>
+        </view>
+        <text>SoLoMon原創..红包</text>
+      </view>
+    </view>
+    <!-- 去使用的按钮 -->
+    <view class='right-btn '>
+      <view class='btn-bg-color none-bg'>失败</view>
+    </view>
+    <!-- 右边的线 -->
+    <view class='right-line line-L theme-bg-color'></view>
+  </view>
+
+  <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>你当没有任何优惠卷红包</view>
+  
+  </view>
+
+</view>

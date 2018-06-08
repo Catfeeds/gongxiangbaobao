@@ -37,8 +37,17 @@ Component({
       repertoryNumber:{
         type: Boolean,
         value: false
-      }
-
+      },
+      //其他信息
+    otherInfo:{
+      type: Boolean,
+      value: false
+    },
+    //购买数量
+    shopingNumber:{
+      type: Boolean,
+      value: false
+    }
   },
 
   /**

@@ -1,0 +1,59 @@
+/* pages/shareTemplate/shareTemplate.wxss */
+
+.share-Tempate_box {
+  position: absolute;
+  bottom: 0;
+  height: 650rpx;
+  width: 690rpx;
+  background-color: #f7f9fb;
+  padding: 40rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.share-Tempate_img {
+  width: 340rpx;
+  height: 300rpx;
+  background-color: white;
+  padding: 40rpx 0 20rpx 0;
+}
+
+.share-Tempate_img, 
+.bottom-share_photo {
+  position: relative;
+}
+
+.share-Tempate_img button, .bottom-share_photo button {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  opacity: 0;
+}
+
+.share_photo {
+  height: 250rpx;
+  width: 290rpx;
+}
+
+.save_photo {
+  width: 190rpx;
+  height: 250rpx;
+}
+
+.bottom-share_photo, .bottom-save_photo {
+  height: 82rpx;
+  width: 82rpx;
+}
+
+[class='time-top c-crosswise-a'] {
+  margin-top: 60rpx;
+}
+
+.share-Tempate-delete {
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  width: 100%;
+  font-size: 32rpx;
+}

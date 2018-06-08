@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/settings/settings",
-    "pages/editInfo/editInfo",
+    "pages/index/index",
+    "pages/orderInfo/orderInfo",
     "pages/user/user",
+   
+    "pages/editInfo/editInfo",
     "pages/product/product",
     "pages/logisticsWatch/logisticsWatch",
     "pages/orderRevise/orderRevise",
     "pages/paymentSuccess/paymentSuccess",
-    "pages/orderInfo/orderInfo",
     "pages/order/order",
     "pages/receiveAddress/receiveAddress",
     "pages/address/address",
@@ -16,7 +17,12 @@
     "pages/brandInformation/brandInformation",
     "pages/logs/logs",
     "pages/addressTemplate/addressTemplate",
-    "pages/pickLogistics/pickLogistics"
+    "pages/pickLogistics/pickLogistics",
+    "pages/critique/critique",
+    "pages/watch/watch",
+    "pages/coupon/coupon",
+    "pages/couponTemplate/couponTemplate",
+    "pages/shareTemplate/shareTemplate"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
@@ -28,20 +34,20 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/indexicon@3.png",
-        "selectedIconPath": "images/indexicon@3 (2).png"
+        "iconPath": "images/indexicon@2x.png",
+        "selectedIconPath": "images/selectedIndexicon@2x.png"
       },
       {
         "pagePath": "pages/cart/cart",
         "text": "购物车",
-        "iconPath": "images/carticon@3.png",
-        "selectedIconPath": "images/carticon@3png.png"
+        "iconPath": "images/carticon@2x.png",
+        "selectedIconPath": "images/selectedCarticon@3x.png"
       },
       {
         "pagePath": "pages/user/user",
         "text": "我的",
-        "iconPath": "images/my.png",
-        "selectedIconPath": "images/my@3.png"
+        "iconPath": "images/my@2x.png",
+        "selectedIconPath": "images/selectedMy@2x.png"
       }
     ]
   }

@@ -1,5 +1,5 @@
 /* pages/product/product.wxss */
-
+@import '../couponTemplate/couponTemplate.wxss';
 .swiperBox {
   height: 620rpx;
 }
@@ -405,4 +405,10 @@ swiper-item, swiper-item>image, swiper {
 .fx-icon-nothing-plus{
   margin:0 10rpx;
   color: #949EA6;
+}
+.coupon-box{
+  background-color:  #fbf7f3;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 30rpx;
 }
