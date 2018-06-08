@@ -1,10 +1,10 @@
 {
   "extEnable": true,
-  "extAppid": "wx8faf4a3f2af100e6",
+  "extAppid": "wxee7b8ffc2247f960",
   "directCommit": false,
   "ext": {
-    "name": "贝塔咖啡",
-    "authAppid": "wx8faf4a3f2af100e6",
+    "name": "D3IN",
+    "authAppid": "wxee7b8ffc2247f960",
     "storeId": 0,
     "attr": {
       "users": [
@@ -12,10 +12,10 @@
       ]
     },
     "api": {
-      "host": "https://fx.taihuoniao.com/api",
+      "host": "https://wx.taihuoniao.com/api",
       "version": "v1.0",
-      "appKey": "gwrTzokPn7ESIGUpdbvl",
-      "appSecret": "a6e3e628e0e4e2ad201d1077c7e762971ceb0e3c"
+      "appKey": "G8IHjw1lBYDM76fxJtKe",
+      "appSecret": "aa0533900e3d8b024c11e722874231b54019b14a"
     }
   },
   "networkTimeout": {
