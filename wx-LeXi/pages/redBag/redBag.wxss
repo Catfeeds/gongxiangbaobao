@@ -1,0 +1,176 @@
+/* pages/redBag/redBag.wxss */
+
+.container>image, .red-bag_box {
+  height: 100%;
+  width: 100%;
+}
+
+.container>image {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.red-bag_box {
+  position: relative;
+  z-index: 2;
+  top: 0;
+}
+
+.receive-box {
+  position: absolute;
+  top: 100rpx;
+  left: 0;
+  padding-left: 10rpx;
+}
+
+.receive-item {
+  height: 52rpx;
+  width: 248rpx;
+  font-size: 18rpx;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 30rpx;
+  padding: 4rpx;
+  margin-bottom: 12rpx;
+}
+
+.receive-item image {
+  height: 48rpx;
+  width: 48rpx;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.receive-info {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 692rpx;
+  height: 724rpx;
+  background-color: white;
+}
+
+.receive-number {
+  position: absolute;
+  top: -46rpx;
+  left: 50%;
+  margin-left: -165rpx;
+  width: 330rpx;
+  height: 92rpx;
+  border-radius: 50rpx;
+  overflow: hidden;
+  border-bottom: 2rpx solid #FB8F22;
+  border-right:  2rpx solid #FB8F22;
+  border-left:  2rpx solid #FB8F22;
+}
+
+.receive-number view {
+  height: 50%;
+}
+
+.receive-number_top {
+  color: white;
+  background: linear-gradient(to right, #5fe4b1, #5fb7cb);
+}
+
+.receive-number_bottom {
+  color: #f66;
+  background: linear-gradient(to right,#fff4e8, #fff4e8);
+  
+}
+.red-bag_photo{
+  margin-top: 70rpx;
+  width: 510rpx;
+  height: 300rpx;
+  margin-left: 100rpx;
+}
+.red-bag_photo image{
+  height: 100%;
+  width: 100%;
+}
+.share_text{
+  font-weight: 500;
+  margin-top: 32rpx;
+  margin-bottom: 22rpx;
+}
+.share-btn button{
+  height: 90rpx;
+  width: 612rpx;
+  background-color: #FF6666;
+  color: white;
+  margin-top: 50rpx;
+  margin-bottom: 28rpx;
+}
+.rule-box{
+  position: fixed;
+  bottom:-2000rpx;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.rule-info{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 580rpx;
+  height: 560rpx;
+  border-radius: 10rpx;
+}
+.rle-title{
+  padding: 32rpx;
+  border-bottom:1rpx solid #e9e9e9;
+}
+.rle-title view:nth-child(1){
+  flex: 1;
+  font-weight: 600;
+}
+.rule-text{
+  padding: 15rpx;
+}
+.rule-text_iem{
+  margin: 15rpx;
+}
+.receive_over{
+
+}
+.receive-price{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -310rpx;
+  margin-left: -280rpx;
+
+}
+.receive-price_photo{
+  width: 560rpx;
+  height: 618rpx;
+}
+.rule-btn{
+  position: absolute;
+  left: 50%;
+  margin-left: -239rpx;
+  height: 80rpx;
+  width: 478rpx;
+}
+.continue-share{
+  bottom: 150rpx;
+  color: white;
+}
+.go-shopping{
+  bottom: 40rpx;
+}
+.off_shop{
+  position: absolute;
+  left: 50%;
+  top: 950rpx; 
+  transform: translateX(-50%);
+  font-size: 78rpx;
+  color: white;
+}
+.get-reward{
+  background-color: rgba(0, 0, 0, .9)
+}

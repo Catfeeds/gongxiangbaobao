@@ -178,7 +178,7 @@ swiper-item, swiper-item>image, swiper {
   justify-content: center;
 }
 
-.allInfo>view {
+.allInfo-btn {
   width: 200rpx;
   height: 80rpx;
   font-size: 28rpx;
@@ -411,4 +411,21 @@ swiper-item, swiper-item>image, swiper {
   border-radius: 10rpx;
   padding: 20rpx;
   margin-bottom: 30rpx;
+}
+.product-all-info{
+  position: fixed;
+  /* top: 0; */
+  bottom: -2000rpx;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  overflow: auto;
+}
+.off-info{
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 -50rpx 100rpx 50rpx white;
 }

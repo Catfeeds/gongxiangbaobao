@@ -1,6 +1,7 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../shareTemplate/shareTemplate.wxml" />
 <view class='container'>
+
   <!-- 背景图片 -->
   <view class='index-bg'>
     <image src='{{logo}}'></image>
@@ -33,9 +34,9 @@
         </view>
       </view>
       <view class='userInfoBtnBox'>
-        <view class='userInfoBtn btn-bg-color'>
-          <image src='../../images/icon@2.png'></image>
-          <view>关注</view>
+        <view class='userInfoBtn btn-bg-color {{is_with?"is_with":""}}'>
+          <image src='{{is_with?"../../images/join@2.png":"../../images/icon@2.png"}}'></image>
+          <view>{{is_with?"已关注":"关注"}}</view>
         </view>
         <view class='userInfoBtn theme-bg-color rander' catchtap='brandInformationTap'>关于品牌</view>
       </view>
@@ -67,7 +68,6 @@
   </view>
   <!-- 优惠券 -->
   <view class='coupon-box' catchtap='coupon_show'>
-
     <fx-coupon></fx-coupon>
   </view>
 
@@ -237,10 +237,22 @@
 
   <!-- 人气里面的内容 -->
   <view wx:if="{{catgoryActive==3}}">
-    <view class='human'>
+    <view catchtap='themeTap'>
+      <view class='human themeGoods'>
+        主题
+      </view>
+      <view class='themeBottomPhoto'>
+        <image src='{{logo}}'></image>
+      </view>
+      <view class='themeBottomPhoto'>
+        <image src='{{logo}}'></image>
+      </view>
+    </view>
+
+    <view class='human new-goods'>
       最新作品
     </view>
-    <view class='production'>
+    <view class='production new-goods_box'>
       <view class='productionGoods'>
         <fx-product product="{{logo}}" like_number="{{true}}"></fx-product>
       </view>
@@ -260,22 +272,6 @@
       </view>
     </view>
 
-    <view>
-      <view class='human themeGoods'>
-        主题
-      </view>
-
-      <view class='themeBottomPhoto'>
-        <image src='{{logo}}'></image>
-      </view>
-
-      <view class='themeBottomPhoto'>
-        <image src='{{logo}}'></image>
-      </view>
-
-    </view>
-
-
 
   </view>
 
@@ -287,6 +283,15 @@
   <!-- 分享模板 -->
   <view class='share-Tempate' wx:if="{{is_share}}">
     <template is="share" />
-      <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
+    <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
+  </view>
+
+  <!-- 分享的悬浮按钮 -->
+  <view class='time-top suspend-share bg-white font-s'>
+    <view class='suspend-share_box c-theme-bg c-middle'>
+      <image src='../../images/fei@2.png'></image>
+    </view>
+    <text>分享</text>
+    <button open-type="share" data-from="1"></button>
   </view>
 </view>

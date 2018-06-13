@@ -188,3 +188,11 @@
   width: 86rpx;
   text-align: right;
 }
+.off_btn{
+  height: 34rpx;
+  width: 34rpx;
+  position: fixed;
+  bottom: 60rpx;
+  left: 50%;
+  margin-left: -17rpx;
+}

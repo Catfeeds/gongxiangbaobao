@@ -1,5 +1,4 @@
 <!--pages/user/user.wxml-->
-
 <view class='container'>
   <view class='top-box'>
     <!-- 头相-->
@@ -28,8 +27,8 @@
     <!-- 设置和客服 -->
     <view class='time-top service-intercalate'>
       <view class='time-top'>
-        <view class='fei btn-bg-color'>
-          <image src='../../images/fei@2.png'></image>
+        <view class='fei c-middle' catchtap='redBagTap'>
+          <image src='../../images/red-bag.png'></image>
         </view>
         <view class='transmission black-font '>
           <text>我的订单</text>

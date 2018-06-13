@@ -1,0 +1,58 @@
+<!--pages/redBag/redBag.wxml 红包页面-->
+<view class='container'>
+  <image src='../../images/timg.jpg'></image>
+  <view class='red-bag_box'>
+    <!-- 左边领取红包的提示 -->
+    <view class='receive-box'>
+      <view class='receive-item time-top' wx:for="{{item}}" wx:key="{{index}}">
+        <view>
+          <image src='../../images/timg.jpg'></image>
+        </view>
+        <text>赵高尚...领取了10元红包</text>
+      </view>
+    </view>
+    <!-- 领取红包的盒子 -->
+    <view class='receive-info'>
+      <view class='receive-number font-s'>
+        <view class='receive-number_top c-middle'>现金红包天天领</view>
+        <view class='receive-number_bottom c-middle'>4203人领取红包</view>
+      </view>
+      <view class='red-bag_photo'>
+        <image src='../../images/red-bagPhoto@2.png'></image>
+      </view>
+      <view class='c-middle black-font share_text'>分享微信好友/群立得10元</view>
+      <view class='c-middle font-s'>每人每日限领一次</view>
+      <view class='c-middle font-xl share-btn'>
+        <button open-type='share'>分享领红包</button>
+      </view>
+      <view class='c-middle font-m qian-hui' catchtap='ruleShowTap'>活动规则></view>
+    </view>
+  </view>
+  <!-- 活动规则 呼出框-->
+  <view class='rule-box' animation="{{rule_show}}">
+    <view class='bg-white rule-info'>
+      <view class='fx-broadwise-e rle-title black-font'>
+        <view class='c-middle'>活动规则</view>
+        <view class='fx-icon-nothing-close-error' catchtap='ruleHidTap'></view>
+      </view>
+      <view class='rule-text'>
+        <view class='font-s shen-hui rule-text_iem' wx:for="{{rule_text}}" wx:key="{{index}}">
+          {{index+1}}:{{item.text}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 获得红包 呼出框-->
+  <view class='rule-box get-reward' animation="{{get_bonus}}">
+    <view class='receive-price '>
+      <image src='../../images/redbag-success.png' class='receive-price_photo'></image>
+      <button class='rule-btn font-xl continue-share fx-bg-hong'>继续分享</button>
+      <button class='rule-btn font-xl bg-white shen-hui go-shopping'>去使用</button>
+    </view>
+    <view class='fx-icon-close-error off_shop' catchtap='getHidShow'></view>
+  </view>
+
+  
+
+  
+</view>

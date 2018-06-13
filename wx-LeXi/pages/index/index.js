@@ -8,9 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    is_share:false,
-    url:"../../images/timg.jpg",
-    coupon_show:false,
+    //是否对这个店铺有关注
+    is_with: false,
+    is_share: false,
+    url: "../../images/timg.jpg",
+    coupon_show: false,
     //购物车
     shoppingCart: [
       {
@@ -89,6 +91,7 @@ Page({
    */
   onLoad: function (options) {
 
+
   },
 
   /**
@@ -110,15 +113,15 @@ Page({
       })
     }
   },
-  shareTap(e){
+  shareTap(e) {
     var sign
-    if (e.currentTarget.dataset.is_share=="1"){
-      sign=true
-    }else{
-      sign=false
+    if (e.currentTarget.dataset.is_share == "1") {
+      sign = true
+    } else {
+      sign = false
     }
     this.setData({
-      is_share:sign
+      is_share: sign
     })
   },
 
@@ -161,7 +164,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    console.log(33)
+
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
@@ -199,4 +202,10 @@ Page({
       coupon_show: true
     })
   },
+  //进入主题页面
+  themeTap() {
+    wx.navigateTo({
+      url: '../theme/theme',
+    })
+  }
 })
