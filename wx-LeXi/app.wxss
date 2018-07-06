@@ -177,6 +177,10 @@
 
 /* 字体颜色 */
 
+/* 红色 */
+.theme--hong{
+  color: #ff6666;
+}
 .theme-hui-color {
   color: #c2c2c2;
 }

@@ -91,7 +91,13 @@ Page({
    */
   onLoad: function (options) {
 
-
+    wx.showTabBarRedDot({
+      index:2,
+    })
+    wx.setTabBarBadge({
+      index: 1,
+      text: '1'
+    })
   },
 
   /**
