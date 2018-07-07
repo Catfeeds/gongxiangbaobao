@@ -1,10 +1,9 @@
 {
   "pages": [
-    "pages/settings/settings",
     "pages/index/index",
     "pages/orderInfo/orderInfo",
     "pages/user/user",
-   
+    "pages/settings/settings",
     "pages/editInfo/editInfo",
     "pages/product/product",
     "pages/logisticsWatch/logisticsWatch",
