@@ -1,15 +1,20 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    announcement:false, //获取店铺的公告---
+    shopInfo:[], //店铺信息--- 
     //是否对这个店铺有关注
     is_with: false,
+
     is_share: false,
     url: "../../images/timg.jpg",
     coupon_show: false,
@@ -75,9 +80,80 @@ Page({
       { name: "人气", rid: 3 }
     ],//分类
     catgoryActive: 1//分类的选项
-
   },
-
+  // 添加访问者
+  addBrowse () {
+    http.fxPost(api.add_browse,)
+  },
+  // 浏览浏览人数---
+  getBrowseQuantity (page = 1, per_page = 12) {
+    console.log(this.data.shopInfo.rid)
+    var params = {
+      rid: this.data.shopInfo.rid,
+      page: page,
+      per_page: per_page
+    }
+    http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.shopInfo.rid), params,(result) => {
+      if (result.success) {
+        console.log(result)
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 获取店铺公告
+  getAnnouncement () {
+    http.fxGet(api.store_announcement, { rid: this.data.shopInfo.rid},(result) =>{
+      if(result.success){
+        console.log(result)
+        this.setData({
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 添加关注---
+  handleAddWatch()  {
+    http.fxPost(api.add_watch, {rid: this.data.shopInfo.rid},(result) => {
+      if (result.success) {
+        console.log(result)
+        this.getIndexData()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 取消关注---
+  handleDeleteWatch()  {
+    http.fxPost(api.delete_watch, {rid: this.data.shopInfo.rid},(result) => {
+      if (result.success) {
+        console.log(result)
+        this.getIndexData()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  
+  // 获取店铺信息---
+  getIndexData () {
+    const that = this
+    const params = {
+      spot: "wx_index_slide",
+      per_page: 5
+    };
+    http.fxGet(api.shop_info, params, function (result) {
+      console.log(result)
+      if (result.success) {
+        that.setData({
+          shopInfo: result.data
+        })
+      } else {
+        
+      }
+    })
+  },
   //分类选项的函数
   catgoryActiveTap(e) {
     console.log(e.currentTarget.dataset.rid)
@@ -90,21 +166,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    wx.showTabBarRedDot({
-      index:2,
-    })
-    wx.setTabBarBadge({
-      index: 1,
-      text: '1'
-    })
+    this.getIndexData() //过去店铺信息---
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    setTimeout(() => {
+      this.getBrowseQuantity() // 浏览浏览人数---
+    },1500)
   },
   //监听页面的滚动
   onPageScroll: function (e) {

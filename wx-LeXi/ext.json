@@ -1,10 +1,10 @@
 {
   "extEnable": true,
-  "extAppid": "wx8faf4a3f2af100e6",
+  "extAppid": "wxee7b8ffc2247f960",
   "directCommit": false,
   "ext": {
-    "name": "贝塔咖啡",
-    "authAppid": "wx8faf4a3f2af100e6",
+    "name": "乐喜好礼",
+    "authAppid": "wxee7b8ffc2247f960",
     "storeId": 0,
     "attr": {
       "users": [
@@ -14,8 +14,8 @@
     "api": {
       "host": "https://fx.taihuoniao.com/api",
       "version": "v1.0",
-      "appKey": "gwrTzokPn7ESIGUpdbvl",
-      "appSecret": "a6e3e628e0e4e2ad201d1077c7e762971ceb0e3c"
+      "appKey": "zXIPN0ftRj6dlrKFOZpH",
+      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
     }
   },
   "networkTimeout": {

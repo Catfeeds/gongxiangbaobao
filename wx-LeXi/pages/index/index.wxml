@@ -4,45 +4,48 @@
 
   <!-- 背景图片 -->
   <view class='index-bg'>
-    <image src='{{logo}}'></image>
+    <image src='{{shopInfo.bgcover.view_url}}'></image>
     <view class='box-s'></view>
   </view>
 
   <!-- 中间user的信息 -->
   <view class='middle-user-box'>
     <view class='middle-user-info'>
-      <image src='{{logo}}' class='userPhoto'>
+      <image src='{{shopInfo.logo.view_url}}' class='userPhoto'>
       </image>
       <view class='approve-photo'>
         <image src='../../images/@2.png'></image>
       </view>
       <view class='userNameBox theme-color'>
-        <view>mMMMMMMMM</view>
+        <view>{{shopInfo.name}}</view>
         <view class='userNameBoxPhoto'>
           <image src='../../images/icon@2.png'></image>
         </view>
       </view>
-      <view class='shop-explain'>以多种工艺设计属于你的结婚婚事品阿迪经典卡带设计</view>
+      <view class='shop-explain'>{{shopInfo.tag_line}}</view>
       <view class='locationAddOther'>
         <view>
           <view class='fx-icon-address theme-green marR'></view>
-          <view class='theme-hui-color'>北京</view>
+          <view class='theme-hui-color'>{{shopInfo.province}}</view>
         </view>
         <view>
           <view class='theme-hui-color marR'>粉丝</view>
-          <view>2345</view>
+          <view>{{shopInfo.fans_count}}</view>
         </view>
       </view>
       <view class='userInfoBtnBox'>
-        <view class='userInfoBtn btn-bg-color {{is_with?"is_with":""}}'>
+        <view 
+          class='userInfoBtn btn-bg-color {{is_with?"is_with":""}}'       
+          catchtap='handleAddWatch'>
           <image src='{{is_with?"../../images/join@2.png":"../../images/icon@2.png"}}'></image>
           <view>{{is_with?"已关注":"关注"}}</view>
         </view>
-        <view class='userInfoBtn theme-bg-color rander' catchtap='brandInformationTap'>关于品牌</view>
+        <view 
+          class='userInfoBtn theme-bg-color rander' 
+          catchtap='brandInformationTap'>关于品牌</view>
       </view>
     </view>
   </view>
-
   <!-- 浏览过的人数 -->
   <view class='joinNumber'>
     <view class='theme-hui-color'>
@@ -59,7 +62,7 @@
     </view>
   </view>
   <!-- 公告 -->
-  <view class='notice'>
+  <view class='notice' wx-if="{{announcement}}">
     <view class='notice-title'>设计馆公告</view>
     <view class='notice-box'>
       <view>体制喜欢的颜色！即日起才5/13可以选择自己喜欢的 颜色留购馆内所有的款式的饰品，请选择款式后再联 络设计师哦！*手工客制商品等待色！即日起才5/13可以选择选择自己喜欢的 颜色留购馆内所有的款式的饰品，请选择款式后再联 络设计师哦！*手工客制商品等待色！即日起才5/13可以选择自己喜欢的 颜色留购馆内所有的款式的饰品，请选择款式后再联 络设计师哦！*手工客制商品等待 </view>
@@ -89,7 +92,6 @@
         <view class='c-importantGoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
           <fx-product product="{{logo}}" bind:triggerEvent_product="prodctTap" oldPrice="{{true}}"></fx-product>
         </view>
-
       </view>
     </view>
     <!-- 主打下面的图片 -->
@@ -184,22 +186,16 @@
     <view>
       <view class=''>
         <view class='importantGoodsTitle goodgoods'>优质精选</view>
-
         <!-- 推荐好物品的内容s -->
         <view class='tuijian'>
-
           <!-- 物品的详情 -->
           <view class='recommend-goods-box'>
             <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{shoppingCart[0]}}"></fx-product-middleM>
           </view>
-
         </view>
         <!-- 推荐好物品的内容e -->
-
       </view>
     </view>
-
-
   </view>
 
   <!-- 作品里面的内容 -->
@@ -271,8 +267,6 @@
         <fx-product product="{{logo}}"></fx-product>
       </view>
     </view>
-
-
   </view>
 
   <!-- 优惠券的模板 -->
