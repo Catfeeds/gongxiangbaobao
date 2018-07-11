@@ -5,9 +5,9 @@
   <!-- 轮播图 -->
   <view class='swiperBox'>
     <swiper indicator-dots="true" autoplay="true">
-      <block wx:for="{{swiper_infomation}}" wx:key="{{index}}">
+      <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image src="{{item.img}}" />
+          <image src="{{item.view_url}}" />
         </swiper-item>
       </block>
     </swiper>
@@ -16,28 +16,24 @@
   <!--轮播图 产品底部信息 -->
   <view class='goodsInfoBox'>
     <view class='branderInfo'>
-      <text class='logistics'>包邮</text>
-      <text>时尚个性帆布手提包阿斯</text>
+      <text class='logistics' wx:if="{{productInfomation.is_free_postage}}">包邮</text>
+      <text>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo'>
-      <text class='cureentPrice'>￥258</text>
-      <text class='origPrice'>￥389</text>
+      <text class='cureentPrice'>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
 
     <view class='characteristic branderInfo'>
-      <text class='characteristicT'>独家贩售 · </text>
-      <text class=''>全国贩售 · </text>
-      <text class=''>台湾制作 · </text>
-      <text class=''>机械制造 · </text>
-      <text class=''>机械制造   </text>
-      <text class='theme-green'> +3 ></text>
+      <text class='{{characteristicT}}' wx:for='{{productInfomation.labels}}' wx:key='{{index}}'>{{item.name}} · </text>
+      <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
     <view class='branderInfo like-quantity'>
       <view class='like-quantity-l'>
         <!-- <text class='fx-icon-like'></text> -->
         <image src='../../images/dLike@2.png' class='like-icon'></image>
-        <text class='hui-zi'> +123</text>
+        <text class='hui-zi'> +{{productInfomation.like_count}}</text>
       </view>
       <view class='transmission'>
         <view class='like-quantity-l'>
@@ -58,7 +54,7 @@
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
 
-    <view class='ordertext'>“接单订制”在付款后开始制作，需5个制作天（不包含节假日）</view>
+    <view class='ordertext'>“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
 
   </view>
 
@@ -67,7 +63,9 @@
     <view class='roundL'>
       <image src='../../images/timg.jpg' class='photo-round'></image>
       <image src='../../images/timg.jpg' class='photo-round'></image>
-      <image src='../../images/timg.jpg' class='photo-round'></image>
+      <view class='photo-round'>
+        <open-data type='userAvatarUrl'></open-data>
+      </view>
     </view>
     <view class='roundR' catchtap='watchTap'>···</view>
   </view>
@@ -79,19 +77,19 @@
       <view class='titleText'>描述</view>
       <view class='goodstext two-line-text'>
         <text class='titlemini'>亮点：</text>
-        <text>香味可持续两个月左右，如果觉得香味变如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡淡， 可继续滴入自己喜欢的香水或精油哦阿酒红色</text>
+        <text>{{productInfomation.features}}</text>
       </view>
       <view class='goodstext'>
         <text class='titlemini'>材质：</text>
-        <text>棉.麻</text>
+        <text>{{productInfomation.material_id}}</text>
       </view>
       <view class='goodstext'>
-        <text class='titlemini'>特点： </text>
+        <text class='titlemini' wx:if='{{productInfomation.is_custom_service}}'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
       <view class='goodstext'>
         <text class='titlemini'>数量：</text>
-        <text>仅剩最后3件</text>
+        <text>仅剩最后{{productInfomation.stock_count}}件</text>
       </view>
     </view>
 
@@ -210,57 +208,50 @@
   </view>
 
   <!-- 选择规格box -->
-  <view class='specifications' wx:if="{{pick}}">
+  <view class='specifications' wx:if="{{pick}}" catchtap='handleSpecificationsHide'>
     <view class='bg-white specificationsInfo black-font'>
       <view class='top-info'>
-        <view>海滩休闲潮流菠萝鞋电视剧开始阿克苏大力大力啊啊...</view>
+        <view>{{productInfomation.name}}</view>
         <view>
-          <text>￥258</text>
-          <text class='old-price-text'>￥358</text>
+          <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+          <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
         </view>
       </view>
       <!-- 颜色 -->
       <view class='goods-color-box'>
         <view class='black-font color-title'>颜色</view>
         <view class='goods-color goods-color-box'>
-          <view class='color-item active'>白色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>透明的颜色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>透明的颜色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>透明的颜色</view>
+          <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
         </view>
-
       </view>
       <!-- 尺寸 -->
       <view class='goods-color-box'>
-        <view class='black-font color-title'>尺寸</view>
+        <view class='black-font color-title'>规格</view>
         <view class='goods-color goods-color-box'>
-          <view class='color-item active'>白色</view>
-          <view class='color-item none-goods'>白色</view>
-          <view class='color-item'>透明的颜色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>透明的颜色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>白色</view>
-          <view class='color-item'>透明的颜色</view>
+          <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
+            wx:key='{{index}}'>{{item.name}}</view>
         </view>
       </view>
       <!-- 垫片 -->
       <view class='shm'></view>
-      <view class='bottom-btn bg-white pick' catchtap='pickHideTap'>
+      <view class='bottom-btn bg-white c-crosswise-a pick' catchtap='receiveOrderTap'>
+        <view class='add_cart'>加入购物车</view>
         <view class='btn-bg-color'>选好了</view>
       </view>
     </view>
   </view>
 
   <!-- 接单定制按钮 -->
-  <view class='bottom-btn bg-white' catchtap='receiveOrderTap'>
-    <view class='btn-bg-color'>接单订制</view>
+  <view class='bottom-btn bg-white c-crosswise-a'>
+    <view class='btn-bg-color shop-cart'>
+      <view class='add_cart--number'>999+</view>
+      <view class='c-line-D cart_text--color'>
+        <image src='../../images/carticon@2x.png'></image>
+        <text>购物车</text>
+      </view>
+    </view>
+    <view class='add_cart'>加入购物车</view>
+    <view class=' crated_btn--style btn-bg-color' catchtap='pickShowTap'>接单订制</view>
   </view>
 
   <!-- 垫片 -->

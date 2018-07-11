@@ -5,181 +5,369 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 Page({
-
   /**
-   * 页面的初始数据
+   * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    announcement:false, //获取店铺的公告---
-    shopInfo:[], //店铺信息--- 
-    //是否对这个店铺有关注
-    is_with: false,
-
-    is_share: false,
-    url: "../../images/timg.jpg",
-    coupon_show: false,
-    //购物车
-    shoppingCart: [
-      {
-        id: 6,
-        title: "图像加载被中断//运费信息：//运费信息：0为没有运费用，包邮，其他为运费的价格//运费信息：0为没有运费用，包邮，其他为运费的价格//运费信息：0为没有运费用，包邮，其他为运费的价格//运费信息：0为没有运费用，包邮，其他为运费的价格0为没有运费用，包邮，其他为运费的价格",
-        currentPrice: 500,
-        originPrice: 999,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "白色",
-        repertoryNumber: 12,
-        size: "M"
-      },
-      {
-        id: 5,
-        title: "	图像加载被中断",
-        currentPrice: 500,
-        originPrice: 321,
-        logisticsExpenses: 9,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        repertoryNumber: 10
-      },
-      {
-        id: 4,
-        title: "	图像加载被中断",
-        currentPrice: 500.99,
-        // originPrice: 666,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "绿色",
-        repertoryNumber: 13
-      }
-    ],
-    // 主打设计
-    Theme_goods: [
-      {},
-      {},
-      {},
-      {},
-      {}
-    ],
-
-    logo: "../../images/timg.jpg",
-    tabPisition: false,//tab是否定位
+    rid:[], // 店铺的rid---
+    ShopOwner:[], // 店铺主人的信息
+    currentNewProduct:[], // 人气里面最新---
+    highQualityProduct:[], // 优质精品---
+    popularProductTheme: [], // 人气里面的主题---
+    myProduct: [], //作品列表---
+    recommendProductList: [], // 推荐好物品---
+    themeProduct: [], //主打设计---
+    openid: '', // openid---
+    BrowseQuantityInfo: [], // 浏览人数---
+    announcement: false, //获取店铺的公告---
+    shopInfo: [], //店铺信息--- 
+    is_with: false, // 是否对这个店铺有关注---
+    is_share: false, //分享 ---
+    coupon_show: false, //优惠券是否显示
+    catgoryActive: 1, //分类的选项-切换---
+    // 优惠券的请求参数
+    couponParams: {
+      page: 1,
+      per_page: 10,
+      status: 1, // 优惠券状态 -1: 禁用；1：正常；2：已结束
+      'type': '' // 是否满减活动 3、满减
+    },
+    // 精品 作品 人气里面的请求参数---
+    productCategoryParams: {
+      page: 1, // 当前页码
+      per_page: 10, // 每页数量
+      start_date: '', // 发布日期的开始日期
+      end_date: '', // 发布日期的结束日期
+      cid: '', // 分类Id 
+      status: '', // 商品状态 0:仓库中; 1:出售中; 2:下架中; 3:已售罄
+      is_distributed: '', // 商品类别 0: 全部; 1：自营商品；2：分销商品
+      qk: '', // 搜索关键字
+      out_of_stock: '' // 商品库存 0: 全部; 1: 数量不足
+    },
+    //分类 精品 作品 人气---
     catgory: [
-      { name: "精品", rid: 1 },
-      { name: "作品", rid: 2 },
-      { name: "人气", rid: 3 }
-    ],//分类
-    catgoryActive: 1//分类的选项
-  },
-  // 添加访问者
-  addBrowse () {
-    http.fxPost(api.add_browse,)
-  },
-  // 浏览浏览人数---
-  getBrowseQuantity (page = 1, per_page = 12) {
-    console.log(this.data.shopInfo.rid)
-    var params = {
-      rid: this.data.shopInfo.rid,
-      page: page,
-      per_page: per_page
+      {name: "精品",rid: 1},
+      {name: "作品",rid: 2},
+      {name: "人气",rid: 3}
+    ],
+    url: "../../images/timg.jpg",
+    tabPisition: false, //tab是否定位
+    // 推荐好物里面的参数---
+    recommendProductParams:{
+      page:1, //Number	可选	1	当前页码
+      per_page:10, //Number	可选	10	每页数量
+    },
+    // 人气里面的最新作品参数
+    currentNewParams:{
+      page: 1,
+      per_page: 10
+    },
+    // 创造订单参数,待写入---
+    createdOrder: {
+      address_rid: '', //String	必需	 	收货地址ID
+      outside_target_id: '', //String	可选	 	 
+      invoice_type: 1, //Integer	可选	1	发票类型
+      invoice_info: '', //String	可选	{}	 
+      buyer_remark: '', //String	可选	 	买家备注
+      from_client: '1', //String	可选	 	来源客户端，1、小程序；2、H5 3、App 4、TV 5、POS 6、PAD
+      affiliate_code: '', //String	可选	 	推广码
+      bonus_code: '', //String	可选	 	官方红包码
+      customer_code: '', //String	可选	 	分销商代码
+      sync_pay: 1, //Integer	可选	 	是否同步返回支付参数
+      //Array	必需	 	店铺商品信息
+      store_items:[
+      {
+        store_rid: '', //String	必需	 	店铺rid
+        coupon_codes: [], //Array	可选	 	优惠券码列表
+        //Array	必需	 	订单明细参数
+        items: [
+        {
+          rid: '', //String	必需	 	sku
+          quantity: 1, //Number	必需	1	购买数量
+          express_id: '', //Integer	必需	 	物流公司ID
+          warehouse_id: '', //Number	可选	 	发货的仓库ID
+        }
+        ]
+      }
+      ]
     }
-    http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.shopInfo.rid), params,(result) => {
+  },
+  // 获取店铺的rid
+  getStoreId(){
+    var storeId=wx.getStorageSync('storeId')
+    this.setData({
+      rid: storeId
+    })
+  },
+  // 获取优惠券列表
+  coupon() {
+    http.fxGet(api.coupons, this.data.couponParams, (result) => {
+      console.log(result)
       if (result.success) {
-        console.log(result)
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
-  // 获取店铺公告
-  getAnnouncement () {
-    http.fxGet(api.store_announcement, { rid: this.data.shopInfo.rid},(result) =>{
-      if(result.success){
+  // 获取店铺主人的信息
+  getShopOwner () {
+    http.fxGet(api.store_owner_info,{},(result)=>{
+      if (result.success) {
         console.log(result)
         this.setData({
+          ShopOwner:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 主打商品和优质精选---
+  getThemeProduct(e = 1) {
+    http.fxGet(api.theme_product, {
+      "type": e
+    }, (result) => {
+      if (result.success) {
+        if (e == 1) {
+          this.setData({
+            themeProduct: result.data
+          })
+        } else {
+          console.log(result.data)
+          this.setData({
+            highQualityProduct: result.data
+          })
+        }
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  //推荐好物---
+  recommendProduct () {
+    this.setData({
+      ['productCategoryParams.is_distributed']:1,
+    })
+    http.fxGet(api.sticked_products, this.data.productCategoryParams,(result)=>{
+      console.log(result)
+      if(result.success){
+        this.setData({
+          recommendProductList: result.data
+        })
+      }else{
+         utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 人气里面的主题
+  getTheme(){
+    http.fxGet(api.theme,{},(result)=>{
+      if (result.success) {
+        console.log(result)
+        this.setData({
+          popularProductTheme: result.data.collections
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }     
+    })
+  },
+  // 人气最新商品
+  newProdct(){
+    http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
+      console.log(result.data)
+      if (result.success) {
+        this.setData({
+          currentNewProduct: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
+
+  // 添加访问者---
+  addBrowse() {
+    http.fxPost(api.add_browse, )
+  },
+  // 获取浏览浏览人数---
+  getBrowseQuantity(page = 1, per_page = 12) {
+    var params = {
+      rid: this.data.rid,
+      page: page,
+      per_page: per_page
+    }
+    http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.rid), params, (result) => {
+      if (result.success) {
+        console.log(result)
+        this.setData({
+          BrowseQuantityInfo: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 添加浏览人数---
+  postBrowseQuantity() {
+    var params = {
+      openid: '',
+      rid: this.data.rid,
+      ip_addr: '',
+      agent: ''
+    }
+    http.fxPost(api.add_browse, params, (res) => {
+      if (result.success) {
+
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+  // 获取店铺公告---
+  getAnnouncement() {
+    http.fxGet(api.store_announcement, {}, (result) => {
+      if (result.data.content !== undefined) {
+        this.setData({
+          announcement: result.data.content
+        })
+      }
+    })
+  },
   // 添加关注---
-  handleAddWatch()  {
-    http.fxPost(api.add_watch, {rid: this.data.shopInfo.rid},(result) => {
+  handleAddWatch() {
+    http.fxPost(api.add_watch, {
+      rid: this.data.rid
+    }, (result) => {
       if (result.success) {
         console.log(result)
         this.getIndexData()
+        this.getIsWatch()
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
   // 取消关注---
-  handleDeleteWatch()  {
-    http.fxPost(api.delete_watch, {rid: this.data.shopInfo.rid},(result) => {
+  handleDeleteWatch() {
+    http.fxPost(api.delete_watch, {
+      rid: this.data.rid
+    }, (result) => {
+      console.log(result)
       if (result.success) {
-        console.log(result)
         this.getIndexData()
+        this.getIsWatch()
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
-  
+  // 查看是否关注
+  getIsWatch() {
+    http.fxGet(api.examine_watch, {
+      rid: this.data.rid
+    }, (result) => {
+      console.log(result, this.data.rid)
+      if (result.success) {
+        this.setData({
+          is_with: result.data.status
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   // 获取店铺信息---
-  getIndexData () {
+  getIndexData() {
     const that = this
     const params = {
-      spot: "wx_index_slide",
-      per_page: 5
     };
-    http.fxGet(api.shop_info, params, function (result) {
+    http.fxGet(api.shop_info, params, function(result) {
       console.log(result)
       if (result.success) {
         that.setData({
           shopInfo: result.data
         })
       } else {
-        
+        utils.fxShowToast(result.status.message)
       }
     })
   },
-  //分类选项的函数
-  catgoryActiveTap(e) {
-    console.log(e.currentTarget.dataset.rid)
-    this.setData({
-      catgoryActive: e.currentTarget.dataset.rid
-    })
-  },
+  //分类选项的函数---
+  handleGoryActiveTap(e = 1) {
+    console.log(this.data.catgoryActive)
+    console.log(e.currentTarget)
+    if (e.currentTarget == undefined) {
+      this.setData({
+        catgoryActive: e
+      })
+    } else {
+      this.setData({
+        catgoryActive: e.currentTarget.dataset.rid
+      })
+    }
+    console.log(this.data.catgoryActive)
+    //精选里面的
+    if (this.data.catgoryActive === 1) {
 
+    }
+    // 作品里面的
+    if (this.data.catgoryActive === 2) {
+      http.fxGet(api.products, this.data.productCategoryParams, (result) => {
+        if (result.success) {
+          this.setData({
+            myProduct: result.data
+          })
+          console.log(this.data.myProduct)
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+    // 人气里面的
+    if (this.data.catgoryActive === 3) {
+      this.getTheme() // 人气里面的主题
+      this.newProdct() // 人气里面的最新作品
+    }
+  },
+  // 创建订单参数 并且设置店铺的id
+  createdOrderParams(){
+    this.setData({
+      ['createdOrder.store_items[0].store_rid']: this.data.rid
+    })
+    wx.setStorageSync('orderParams', this.data.createdOrder)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.getIndexData() //过去店铺信息---
+  onLoad: function(options) {
+    this.setData({
+      openid: wx.getStorageSync('openid')
+    })
     
+    this.getStoreId() // 获取店铺的rid---
+    this.getIndexData() //获取店铺信息---
+    this.coupon() // 获取优惠券---
+    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
+
+    this.createdOrderParams() //创建订单的参数---
+    this.getBrowseQuantity() // 浏览浏览人数---
+    this.getAnnouncement() // 获取店铺公告---
+    this.getIsWatch() // 查看是否关注---
+    this.getThemeProduct() //主打的设计1,主打设计 2,优质精选---
+    this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
+    this.recommendProduct() // 推荐好物---
+    this.getShopOwner() // 获取店铺主人的信息---
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    setTimeout(() => {
-      this.getBrowseQuantity() // 浏览浏览人数---
-    },1500)
+  onReady: function() {
+
   },
   //监听页面的滚动
-  onPageScroll: function (e) {
+  onPageScroll: function(e) {
     // console.log(e)
     if (e.scrollTop >= 464) {
       this.setData({
@@ -206,42 +394,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
 
     if (res.from === 'button') {
       // 来自页面内转发按钮
@@ -261,13 +449,12 @@ Page({
     })
   },
 
-  //跳转到商品详情
-  prodctTap() {
+  //跳转到商品详情---
+  handleInfomation(e) {
     wx.navigateTo({
-      url: '../product/product',
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })
-  }
-  ,
+  },
   //跳转到关注页面
   wacthTap() {
     wx.navigateTo({
@@ -281,9 +468,10 @@ Page({
     })
   },
   //进入主题页面
-  themeTap() {
+  handlethemeTap(e) {
+    console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: '../theme/theme',
+      url: '../theme/theme?id=' + e.currentTarget.dataset.id,
     })
   }
 })

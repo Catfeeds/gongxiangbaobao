@@ -18,17 +18,15 @@
   <!-- 收获地址列表 -->
   <view>
     <radio-group class="radio-group" bindchange="radioChange">
-      <label class="radio" wx:for="{{addres}}" wx:key="{{index}}">
-        <radio value="{{item.rid}}" color='#6ED7AF' />
+      <label class="radio" wx:for="{{addresList}}" wx:key="{{index}}">
+        <radio value="{{item.rid}}" color='#6ED7AF'/>
         <view>
-          <text class='userName'>{{item.name}} </text>
-          <text class='userLocation'>{{item.addressInfo}}</text>
-          <text class='userLocation'>{{item.addres}}</text>
-          <text class='userLocation'>{{item.addressNumber}}</text>
+          <text class='userName'>{{item.first_name}} </text>
+          <text class='userLocation'>{{item.province}} . {{item.full_name}}</text>
+          <text class='userLocation'>{{item.full_address}}</text>
+          <text class='userLocation'>{{item.mobile}}</text>
         </view>
       </label>
-
-
     </radio-group>
   </view>
 

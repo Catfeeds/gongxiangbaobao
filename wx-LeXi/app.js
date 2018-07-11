@@ -15,6 +15,7 @@ App({
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
     this.globalData.app_id = extConfig.authAppid
     console.log(this.globalData)
+    wx.setStorageSync('fx', this.globalData)
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
     // 检查 jwt 是否存在 如果不存在调用登录
@@ -29,7 +30,6 @@ App({
         // 过期重新登录
         this.login()
       }
-
       // 获取用户信息
       wx.getSetting({
         success: res => {
@@ -53,10 +53,11 @@ App({
       // 获取购物车数量
       this.getCartTotalCount()
     }
+    // 获取店铺的rid
+    this.getShopId()
   },
 
   login: function (cb) {
-    console.log("123214123")
     let that = this
     // 调用login获取code
     wx.login({
@@ -105,11 +106,23 @@ App({
             })
           },
           fail: (res) => {
-            wx.navigateTo({
-              url: '/pages/authorize/authorize',
-            })
+            // wx.navigateTo({
+            //   url: '/pages/authorize/authorize',
+            // })
           }
         })
+      }
+    })
+  },
+
+  // 获取商家的信息id
+  getShopId(){
+    http.fxGet(api.shop_info, {},(result)=> {
+      console.log(result)
+      if (result.success) {
+        wx.setStorageSync('storeId', result.data.rid)
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -206,46 +219,3 @@ App({
     system: []
   }
 })
-// //app.js
-// App({
-//   onLaunch: function () {
-//     //获取屏幕的高度
-
-//     // 展示本地存储能力
-//     var logs = wx.getStorageSync('logs') || []
-//     logs.unshift(Date.now())
-//     wx.setStorageSync('logs', logs)
-
-//     // 登录
-//     wx.login({
-//       success: res => {
-//         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-//       }
-//     })
-//     // 获取用户信息
-//     wx.getSetting({
-//       success: res => {
-//         if (res.authSetting['scope.userInfo']) {
-//           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-//           wx.getUserInfo({
-//             success: res => {
-//               // 可以将 res 发送给后台解码出 unionId
-//               this.globalData.userInfo = res.userInfo
-
-//               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-//               // 所以此处加入 callback 以防止这种情况
-//               if (this.userInfoReadyCallback) {
-//                 this.userInfoReadyCallback(res)
-//               }
-//             }
-//           })
-//         }
-//       }
-//     })
-//   },
-//   globalData: {
-//     userInfo: null,
-//     system:[]
-//   },
-// })
-//app.js

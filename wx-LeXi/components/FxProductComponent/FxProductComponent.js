@@ -4,6 +4,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
+
     oldPrice: {
       type: Boolean,
       value: false
@@ -14,7 +15,7 @@ Component({
     },
     
     product:{
-        type:String,
+        type:Object,
         value:" "
       }
   },
@@ -30,10 +31,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    product(e){
-      console.log(this)
-      this.triggerEvent("triggerEvent_product")
+    handleProductInfo (e){
+      this.triggerEvent("triggerEvent_product",{
+        rid: e.currentTarget.dataset.rid
+      })
     }
-
   }
 })

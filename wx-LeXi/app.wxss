@@ -256,9 +256,11 @@ image {
 }
 
 .photo-round {
+  display: inline-block;
   height: 56rpx;
   width: 56rpx;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .oldPrice {

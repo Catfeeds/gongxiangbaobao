@@ -5,7 +5,6 @@
     <view class='paymentList'>
       <view>寄送</view>
       <view>明细</view>
-
     </view>
     <view class='bottom-line'>
       <view class='linelast lineGreen'></view>

@@ -24,7 +24,6 @@
   transform: translateX(-50%);
   width: 680rpx;
   height: 310rpx;
-  /* background-color: red; */
   box-shadow: 10rpx 0 20rpx 6rpx rgba(0, 0, 0, 0.2),
                 -10rpx 0 20rpx 6rpx rgba(0, 0, 0, 0.2),
                 0 10rpx 20rpx 10rpx rgba(0, 0, 0, 0.2);
@@ -38,7 +37,6 @@
   justify-content: space-around;
   padding: 0 30rpx;
   position: relative;
-  /* box-shadow: 10rpx 0 20rpx #333; */
   border-radius: 10rpx;
   margin-top: -90rpx;
   background-color: white;
@@ -164,7 +162,6 @@
   flex: 1;
   box-shadow: -10rpx 0 0rpx #f3f3f3 inset;
   display: flex;
-  /* flex-direction: row-reverse;  *//* padding-right: 30rpx; *//* flex-direction:  */
 }
 
 .joinNumberlBox {
@@ -175,8 +172,12 @@
 .joinNumberlPhoto {
   border: 6rpx solid white;
   margin-right: -20rpx;
+  overflow: hidden;
 }
-
+.joinNumberlPhoto image{
+  height: 100%;
+  width: 100%;
+}
 .notice {
   padding: 0 40rpx;
   position: relative;
@@ -389,7 +390,9 @@
   width: 330rpx;
   margin-bottom: 50rpx;
 }
-
+.productionGoodsFive{
+  width: 670rpx;
+}
 .bagPhotoGoods {
   width: 674rpx;
   margin-bottom: 40rpx;

@@ -1,52 +1,60 @@
 // pages/paymentAddress/paymentAddress.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    addres: [
-      {
-        name: "大白",
-        PNumber: 13345670987,
-        addres: "贵州省遵义市红花岗区天通银丽水元2单元501",
-        addressInfo: "贵州省，遵义市",
-        addressNumber: 13381319070,
-        is_pick: false,
-        rid: 1
-      },
-      {
-        name: "小黑",
-        PNumber: 18888888888,
-        addres: "贵州省遵义市红花岗区天通银丽水元2单元501",
-        addressInfo: "贵州省，遵义市",
-        addressNumber: 13381319070,
-        is_pick: false,
-        rid: 2
-      },
-    ]
+    addresList: [], //地址列表---
 
   },
-
+  //选择的地址
+  radioChange (e) {
+    this.setData({
+      ['orderParams.address_rid']: e.detail.value
+    })
+    console.log(this.data.orderParams)
+     var addresId = wx.getStorageSync('orderParams')
+     addresId.address_rid = e.detail.value
+     wx.setStorageSync('orderParams', addresId)
+  },
+  // 获取地址列表
+  getAdressList() {
+    http.fxGet(api.addresses, {}, (result) => {
+      console.log(result)
+      if (result.success) {
+        this.setData({
+          addresList:result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(this.data.orderParams)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getAdressList() // 获取地址列表
   },
 
   /**
