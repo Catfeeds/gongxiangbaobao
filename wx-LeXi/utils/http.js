@@ -6,8 +6,8 @@ const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
 function buildSign(timestamp, nonce_str) {
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   const params = {
-    // app_key: extConfig.api.appKey,
-    app_key: "zXIPN0ftRj6dlrKFOZpH",
+    app_key: extConfig.api.appKey,
+    // app_key: "zXIPN0ftRj6dlrKFOZpH",
     timestamp: timestamp,
     nonce_str: nonce_str
   };
@@ -19,8 +19,8 @@ function buildSign(timestamp, nonce_str) {
     param_ary.push(keys[i] + '=' + params[keys[i]]);
   }
 
-  // return CryptoJS.SHA1(param_ary.join('&') + extConfig.api.appSecret).toString();
-  return CryptoJS.SHA1(param_ary.join('&') + "4d8ebaf52b76603a158b67f525a1b9e5f80677da").toString();
+  return CryptoJS.SHA1(param_ary.join('&') + extConfig.api.appSecret).toString();
+  // return CryptoJS.SHA1(param_ary.join('&') + "4d8ebaf52b76603a158b67f525a1b9e5f80677da").toString();
 }
 
 // 每个请求自动添加系统级参数
@@ -29,8 +29,8 @@ function appendSystemParams() {
   const t = util.timestamp()
   const s = util.randomString(16)
   return {
-    // app_key: extConfig.api.appKey,
-    app_key: "zXIPN0ftRj6dlrKFOZpH",
+    app_key: extConfig.api.appKey,
+    // app_key: "zXIPN0ftRj6dlrKFOZpH",
     timestamp: t,
     nonce_str: s,
     sign: buildSign(t, s)
