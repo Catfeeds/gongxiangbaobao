@@ -337,6 +337,13 @@ Page({
     })
     wx.setStorageSync('orderParams', this.data.createdOrder)
   },
+  
+  onGotUserInfo: function (e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -347,7 +354,7 @@ Page({
     
     this.getStoreId() // 获取店铺的rid---
     this.getIndexData() //获取店铺信息---
-    this.coupon() // 获取优惠券---
+    // this.coupon() // 获取优惠券---
     this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
 
     this.createdOrderParams() //创建订单的参数---

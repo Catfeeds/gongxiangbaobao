@@ -12,7 +12,7 @@ module.exports = {
   // User
   user: 'users',   // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
-  get_openid: 'accounts/wxa_authorize', //openid---
+  user_authorize: 'accounts/wxa_authorize', //openid---
 
   // Category
   categories: 'categories',  // GET 获取产品分类
