@@ -1,4 +1,3 @@
-
 const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
 
 const formatTime = date => {
@@ -31,12 +30,9 @@ const timestamp2string = (ts, format = 'time') => {
   if (format == 'time') {
     return y + '-' + m + '-' + d + ' ' + h + ':' + minute;  // + ':' + second
   }
-
   if (format == 'date') {
     return y + '.' + m + '.' + d;  // + ':' + second
   }
-
-
 }
 
 const formatNumber = n => {

@@ -7,7 +7,6 @@ function buildSign(timestamp, nonce_str) {
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   const params = {
     app_key: extConfig.api.appKey,
-    // app_key: "zXIPN0ftRj6dlrKFOZpH",
     timestamp: timestamp,
     nonce_str: nonce_str
   };
@@ -20,7 +19,6 @@ function buildSign(timestamp, nonce_str) {
   }
 
   return CryptoJS.SHA1(param_ary.join('&') + extConfig.api.appSecret).toString();
-  // return CryptoJS.SHA1(param_ary.join('&') + "4d8ebaf52b76603a158b67f525a1b9e5f80677da").toString();
 }
 
 // 每个请求自动添加系统级参数
@@ -30,7 +28,6 @@ function appendSystemParams() {
   const s = util.randomString(16)
   return {
     app_key: extConfig.api.appKey,
-    // app_key: "zXIPN0ftRj6dlrKFOZpH",
     timestamp: t,
     nonce_str: s,
     sign: buildSign(t, s)
@@ -67,8 +64,7 @@ function fxHeader(content_type) {
 }
 
 // api host
-function fxUrl(url) {
-  
+function fxUrl(url) {  
   // 获取第三方平台自定义的数据字段  
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   // let urlAry = [extConfig.api.host, extConfig.api.version, url]

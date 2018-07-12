@@ -1,11 +1,10 @@
-
+//app.js
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
 const util = require('./utils/util.js')
 
 App({
   onLaunch: function () {
-    this.login()
     // 展示本地存储能力
     let logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -14,7 +13,6 @@ App({
     // 获取自定义第三方扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
     this.globalData.app_id = extConfig.authAppid
-    console.log(this.globalData)
     wx.setStorageSync('fx', this.globalData)
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
@@ -30,24 +28,6 @@ App({
         // 过期重新登录
         this.login()
       }
-      // 获取用户信息
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: res => {
-                this.globalData.userInfo = res.userInfo
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                if (this.userInfoReadyCallback) {
-                  this.userInfoReadyCallback(res)
-                }
-              }
-            })
-          }
-        }
-      })
       // 获取地理位置
       this.getUserLocation()
       // 获取购物车数量
@@ -59,56 +39,42 @@ App({
 
   login: function (cb) {
     let that = this
+    console.log('调用login获取code')
     // 调用login获取code
     wx.login({
       success: function (res) {
+        console.log(res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        const code = res.code;
-        // 调用 getUserInfo 获取 encryptedData 和 iv
-        wx.getUserInfo({
-          success: (res) => {
-            const encryptedData = res.encryptedData || 'encry';
-            const iv = res.iv || 'iv';
-            that.globalData.userInfo = res.userInfo;
-            // 发送请求获取 jwt
-            http.fxPost(api.get_openid, {
-              auth_app_id: that.globalData.app_id,
-              encrypted_data: encryptedData,
-              iv: iv,
-              code: code
-            }, function (res) {
-              console.log(res)
-              if (res.success) {
-                wx.showToast({
-                  title: '登录成功',
-                  icon: 'success'
-                })
-                // 登录成功，得到jwt后存储到storage
-                wx.setStorage({
-                  key: 'jwt',
-                  data: res.data
-                })
-                that.globalData.isLogin = true
-                that.globalData.token = res.data.token
-                that.globalData.uid = res.data.uid
-                // 回调函数
-                if (cb) {
-                  return typeof cb == 'function' && cb(true)
-                }
-              } else {
-                // 显示错误信息
-                wx.showToast({
-                  title: res.status.message,
-                  icon: 'none',
-                  duration: 2000
-                })
-              }
+        const code = res.code
+        console.log('Login code: ' + code)
+        // 发送请求获取 jwt
+        http.fxPost(api.user_authorize, {
+          auth_app_id: that.globalData.app_id,
+          code: code
+        }, function (res) {
+          console.log(res)
+          if (res.success) {
+            let isBind = res.data.is_bind
+            
+            // 登录成功，得到jwt后存储到storage
+            wx.setStorage({
+              key: 'jwt',
+              data: res.data
             })
-          },
-          fail: (res) => {
-            // wx.navigateTo({
-            //   url: '/pages/authorize/authorize',
-            // })
+            that.globalData.isLogin = true
+            that.globalData.token = res.data.token
+            that.globalData.uid = res.data.uid
+            // 回调函数
+            if (cb) {
+              return typeof cb == 'function' && cb(true)
+            }
+          } else {
+            // 显示错误信息
+            wx.showToast({
+              title: res.status.message,
+              icon: 'none',
+              duration: 2000
+            })
           }
         })
       }
@@ -208,6 +174,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 微信用户openid
+    openid: '',
     // 地址位置
     location: {},
     // 购物车数量

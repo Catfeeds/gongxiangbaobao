@@ -4,7 +4,7 @@
     <!-- 头相-->
     <view class='user-photo'>
       <view class='photo'>
-        <image src='../../images/timg.jpg'></image>
+        <open-data type="userAvatarUrl"></open-data>
       </view>
       <view wx:for="{{classList}}" wx:key="{{index}}" data-rid='{{item.rid}}' catchtap='classTap'>
         <view class='number {{classInfo==item.rid?"green":""}}'>{{item.num}}</view>
@@ -14,8 +14,12 @@
     </view>
     <!-- 手机号码 -->
     <view>
-      <view class='user-name-text'>何自然</view>
-      <view class='is-login'>你还未绑定手机号</view>
+      <view class='user-name-text'>
+        <open-data type="userNickName"></open-data>
+      </view>
+      <view class='is-login'>
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号</button>
+      </view>
     </view>
     <!-- 粉丝 -->
     <view class='follow'>

@@ -3,7 +3,7 @@
   "extAppid": "wxee7b8ffc2247f960",
   "directCommit": false,
   "ext": {
-    "name": "乐喜好礼",
+    "name": "乐喜",
     "authAppid": "wxee7b8ffc2247f960",
     "storeId": 0,
     "attr": {
@@ -12,7 +12,7 @@
       ]
     },
     "api": {
-      "host": "https://fx.taihuoniao.com/api",
+      "host": "https://wx.taihuoniao.com/api",
       "version": "v1.0",
       "appKey": "zXIPN0ftRj6dlrKFOZpH",
       "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
