@@ -40,11 +40,11 @@ module.exports = {
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme:'wx_app_design/collections', //Get 主题---
   // Cart
-  cart: 'cart',  // GET 购物车列表
+  cart: 'cart',  // GET 加入购物车---
   cart_addon: 'cart',  // POST 添加产品至购物车
   cart_remove: 'cart/:rid/remove',  // DELETE 移除产品
   cart_clear: 'cart/clear', // DELETE 清空购物车
-  cart_item_count: 'cart/item_count',  // GET 购物车产品数
+  cart_item_count: 'cart/item_count',  // GET 购物车产品数---
 
   // Order
   orders: 'orders',  // GET 订单列表---

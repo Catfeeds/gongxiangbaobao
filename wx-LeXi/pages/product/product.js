@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    needSpecifications:[], // 需要的规格
-    needColor:[], //需要的颜色
+    needSpecifications: [], // 需要的规格
+    needColor: [], //需要的颜色
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
     productInfomation: [], // 商品详情列表---
@@ -21,6 +21,37 @@ Page({
     window_height: app.globalData.system.screenHeight * 2, // 屏幕的高度
     coupon_show: false,
     pick: false, //选择规格的盒子是否隐藏---
+
+  },
+  // 加入购物车
+  handleAddCart() {
+    var addCartParams={
+      rid: '', //String	必填	 商品Id
+      quantity: 1, //Integer	可选	1	购买数量
+      option: '', //String	可选	 	其他选项
+      open_id: '' //String	独立小程序端必填	 	独立小程序openid
+    }
+    addCartParams.rid = this.data.rid
+    http.fxPost(api.cart,addCartParams,(result)=>{
+      if (result.success) {
+        console.log(result)
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 获取购物车商品数
+  getShopCartNum(){
+    var params={
+      open_id:''
+    }
+    http.fxGet(api.cart_item_count, params,(result)=>{
+      if(result.success){
+        console.log(result)
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
   //点击规格按钮
   handleSpecificationsTap(e) {
@@ -222,8 +253,8 @@ Page({
     })
   },
   // 设置订单参数的 商品的rid store_items.itemsrid = 
-  setOrderParamsProductId(e){
-    var productId=wx.getStorageSync('orderParams')
+  setOrderParamsProductId(e) {
+    var productId = wx.getStorageSync('orderParams')
     productId.store_items[0].items[0].rid = e
     console.log(productId)
     wx.setStorageSync('orderParams', productId)
@@ -236,14 +267,15 @@ Page({
     this.setData({
       rid: options.rid
     })
-    
+
     this.getProductInfomation() // 获取商品详情---
-    
+
     setTimeout(() => {
       this.filterColor() //过滤商品的颜色---
       this.filterSpecifications() //过滤产品的规格---
     }, 1500)
 
+    this.getShopCartNum() // 获取购物车商品数量
   },
 
   /**
@@ -300,22 +332,22 @@ Page({
   },
   receiveOrderTap() {
     var rid
-    if (this.data.needSpecifications=='' || this.data.needColor==''){
+    if (this.data.needSpecifications == '' || this.data.needColor == '') {
       wx.showToast({
         title: '选择不完整',
         icon: 'none',
         duration: 2000
       })
-      return 
+      return
     }
-    this.data.productInfomation.skus.forEach((v,i)=>{
-      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor){
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
         rid = v.rid
         this.setOrderParamsProductId(v.rid) // 设置订单的商品id---
       }
     })
     wx.navigateTo({
-      url: '../receiveAddress/receiveAddress?rid='+rid,
+      url: '../receiveAddress/receiveAddress?rid=' + rid,
     })
   },
   watchTap() {

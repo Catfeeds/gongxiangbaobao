@@ -10,7 +10,8 @@ Page({
    */
   data: {
     rid:[], // 店铺的rid---
-    ShopOwner:[], // 店铺主人的信息
+    shareWhat:'', //分享什么东西---
+    ShopOwner:[], // 店铺主人的信息---
     currentNewProduct:[], // 人气里面最新---
     highQualityProduct:[], // 优质精品---
     popularProductTheme: [], // 人气里面的主题---
@@ -91,6 +92,15 @@ Page({
       }
       ]
     }
+  },
+  // 分享模板弹出
+  handleShareBox(e){
+    console.log(e.currentTarget.dataset)
+
+    this.setData({
+      is_share:true,
+      shareWhat:e.currentTarget.dataset
+    })
   },
   // 获取店铺的rid
   getStoreId(){
@@ -430,14 +440,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
+    //***注意！ this.data.shareWhat.from==2 为分享商品
+    //***注意！ this.data.shareWhat.from==1 为分享店铺
+    console.log(this.data.shareWhat)
+    if (res.from === 'button' && this.data.shareWhat.from==2) {
       console.log(res.target)
+      return {
+        title: this.data.shareWhat.sharestore.name,
+        imageUrl: this.data.shareWhat.sharestore.cover,
+        path: '/page/product/product?rid=' + this.data.shareWhat.sharestore.rid
+      }
     }
-    return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123'
+    if (res.from === 'button' && this.data.shareWhat.from == 1) {
+      console.log(res.target, this.shopInfo)
+      return {
+        title: this.shopInfo.name,
+        path: '/page/index/index'
+      }
     }
   },
 
