@@ -11,26 +11,29 @@
       <text>选择物流</text>
       <text class='hui-zi'>从上海发货</text>
     </view>
-
-    <view >
+    <view>
       <radio-group class="radio-group" bindchange="radioChange">
         <label class="radio logisticsName">
           <fx-logistics></fx-logistics>
           <radio color='#6ED7AF' />
         </label>
-
         <label class="radio logisticsName">
           <fx-logistics></fx-logistics>
           <radio color='#6ED7AF' />
         </label>
-
       </radio-group>
-
     </view>
-
-
-
-
   </view>
 
+  <!-- 预计运费 -->
+  <view class='estimate-price bg-white'>
+    <view class='time-top estimate-price_top black-font'>
+      <text>预计运费</text>
+      <text>￥80</text>
+    </view>
+    <view class='font-ss estimate-price_bottom'>
+      <text class='theme--hong'>注:</text>
+      <text>采用不同的配送方式的到达天数不同，运费价格也有所不同，实际运费返回明细查看。</text>
+    </view>
+  </view>
 </view>

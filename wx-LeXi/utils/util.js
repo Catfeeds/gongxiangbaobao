@@ -12,7 +12,7 @@ const formatTime = date => {
 }
 
 // 时间戳转换为时间格式字符串
-const timestamp2string = (ts, format='time') => {
+const timestamp2string = (ts, format = 'time') => {
   let date = new Date();
   date.setTime(ts * 1000);
   let y = date.getFullYear();
@@ -30,12 +30,9 @@ const timestamp2string = (ts, format='time') => {
   if (format == 'time') {
     return y + '-' + m + '-' + d + ' ' + h + ':' + minute;  // + ':' + second
   }
-  
   if (format == 'date') {
     return y + '.' + m + '.' + d;  // + ':' + second
   }
-
-  
 }
 
 const formatNumber = n => {
@@ -45,7 +42,7 @@ const formatNumber = n => {
 
 // 验证Token是否过期
 const checkTokenIsExpired = jwt => {
-  const nowstamp = parseInt(new Date().getTime()/1000)
+  const nowstamp = parseInt(new Date().getTime() / 1000)
   if (!jwt.hasOwnProperty('created_at') || (jwt.created_at + jwt.expiration < nowstamp)) {
     return true
   }
@@ -190,8 +187,17 @@ const orderStatusTitle = (status) => {
   })
   return tmp ? tmp[0].title : ''
 }
+// 提示信息
+const showToast = (v) => {
+  wx.showToast({
+    title: v,
+    icon: 'none',
+    duration: 2000
+  })
+}
 
 module.exports = {
+  fxShowToast: showToast,
   formatTime: formatTime,
   timestamp2string,
   checkTokenIsExpired,

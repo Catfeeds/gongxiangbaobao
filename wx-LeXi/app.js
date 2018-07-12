@@ -5,14 +5,17 @@ const util = require('./utils/util.js')
 
 App({
   onLaunch: function () {
-    let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-    this.globalData.app_id = extConfig.authAppid
+    this.login()
 
     // 展示本地存储能力
     let logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    // 获取自定义第三方扩展信息
+    let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+    this.globalData.app_id = extConfig.authAppid
+    console.log(this.globalData)
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
     // 检查 jwt 是否存在 如果不存在调用登录
@@ -26,41 +29,35 @@ App({
         this.globalData.isLogin = false
         // 过期重新登录
         this.login()
-      } else {
-        this.globalData.isLogin = true
-        this.globalData.token = jwt.token
-        this.globalData.uid = jwt.uid
-        
-        // 获取用户信息
-        wx.getSetting({
-          success: res => {
-            if (res.authSetting['scope.userInfo']) {
-              // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-              wx.getUserInfo({
-                success: res => {
-                  this.globalData.userInfo = res.userInfo
+      }
 
-                  // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                  // 所以此处加入 callback 以防止这种情况
-                  if (this.userInfoReadyCallback) {
-                    this.userInfoReadyCallback(res)
-                  }
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                this.globalData.userInfo = res.userInfo
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                // 所以此处加入 callback 以防止这种情况
+                if (this.userInfoReadyCallback) {
+                  this.userInfoReadyCallback(res)
                 }
-              })
-            }
+              }
+            })
           }
-        })
-      }      
-
+        }
+      })
       // 获取地理位置
       this.getUserLocation()
-
       // 获取购物车数量
       this.getCartTotalCount()
     }
   },
 
   login: function (cb) {
+    console.log("123214123")
     let that = this
     // 调用login获取code
     wx.login({
@@ -72,28 +69,25 @@ App({
           success: (res) => {
             const encryptedData = res.encryptedData || 'encry';
             const iv = res.iv || 'iv';
-
             that.globalData.userInfo = res.userInfo;
-
             // 发送请求获取 jwt
-            http.fxPost(api.auth_login, {
+            http.fxPost(api.get_openid, {
               auth_app_id: that.globalData.app_id,
               encrypted_data: encryptedData,
               iv: iv,
               code: code
             }, function (res) {
+              console.log(res)
               if (res.success) {
                 wx.showToast({
                   title: '登录成功',
                   icon: 'success'
                 })
-
                 // 登录成功，得到jwt后存储到storage
                 wx.setStorage({
                   key: 'jwt',
                   data: res.data
                 })
-
                 that.globalData.isLogin = true
                 that.globalData.token = res.data.token
                 that.globalData.uid = res.data.uid
@@ -209,6 +203,50 @@ App({
     // 选中的产品
     checkedBuyItems: [],
     // 选中的收货地址
-    checkedDeliveryAddress: {}
+    checkedDeliveryAddress: {},
+    system: []
   }
 })
+// //app.js
+// App({
+//   onLaunch: function () {
+//     //获取屏幕的高度
+
+//     // 展示本地存储能力
+//     var logs = wx.getStorageSync('logs') || []
+//     logs.unshift(Date.now())
+//     wx.setStorageSync('logs', logs)
+
+//     // 登录
+//     wx.login({
+//       success: res => {
+//         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+//       }
+//     })
+//     // 获取用户信息
+//     wx.getSetting({
+//       success: res => {
+//         if (res.authSetting['scope.userInfo']) {
+//           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+//           wx.getUserInfo({
+//             success: res => {
+//               // 可以将 res 发送给后台解码出 unionId
+//               this.globalData.userInfo = res.userInfo
+
+//               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+//               // 所以此处加入 callback 以防止这种情况
+//               if (this.userInfoReadyCallback) {
+//                 this.userInfoReadyCallback(res)
+//               }
+//             }
+//           })
+//         }
+//       }
+//     })
+//   },
+//   globalData: {
+//     userInfo: null,
+//     system:[]
+//   },
+// })
+//app.js

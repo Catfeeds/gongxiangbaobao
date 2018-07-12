@@ -3,7 +3,7 @@
   "extAppid": "wxee7b8ffc2247f960",
   "directCommit": false,
   "ext": {
-    "name": "D3IN",
+    "name": "乐喜好礼",
     "authAppid": "wxee7b8ffc2247f960",
     "storeId": 0,
     "attr": {
@@ -14,8 +14,8 @@
     "api": {
       "host": "https://wx.taihuoniao.com/api",
       "version": "v1.0",
-      "appKey": "G8IHjw1lBYDM76fxJtKe",
-      "appSecret": "aa0533900e3d8b024c11e722874231b54019b14a"
+      "appKey": "zXIPN0ftRj6dlrKFOZpH",
+      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
     }
   },
   "networkTimeout": {

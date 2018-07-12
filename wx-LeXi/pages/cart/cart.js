@@ -1,6 +1,5 @@
 // pages/cart/cart.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -110,24 +109,19 @@ Page({
   //心愿单添加到购物车
   addCartTap(e) {
     var select=e.currentTarget.dataset.rid
-
     var newThinkOrder = this.data.thinkOrder.filter((v, i) => {
       return select != v.id
     })
-
     var newCart = this.data.thinkOrder.filter((v, i) => {
       return select == v.id
     })
-
     this.setData(
       {
         thinkOrder:newThinkOrder,
         shoppingCart: this.data.shoppingCart.concat(newCart)
       }
     )
-
     this.paymentPrice()
-
   },
 
 
@@ -150,7 +144,6 @@ Page({
     })
     //重新计算
     this.paymentPrice()
-
   },
 
 
@@ -158,12 +151,9 @@ Page({
   //购物车点击移除按钮
   cartClearTap(e) {
     var cartAllInfo = []
-
     var btnType = e.currentTarget.dataset.type
-
     if (btnType == "clear") {
       this.clearCart()
-
     } else if (btnType == "addThink") {
       //清楚购物车里面的
       // this.clearCart()

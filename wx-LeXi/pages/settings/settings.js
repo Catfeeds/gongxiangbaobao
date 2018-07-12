@@ -34,8 +34,7 @@ Page({
   //选择国家的id
   pickCountryTap(e){
     this.setData({
-      country_code: e.currentTarget.dataset.code,
-      is_country:false
+      country_code: e.currentTarget.dataset.code
     })
 
   },
@@ -198,5 +197,11 @@ Page({
   //阻止返回，防止点击穿透
   returnTap() {
     return
+  },
+  //关闭按钮
+  offBtnTap(){
+    this.setData({
+      is_country: false
+    })
   }
 })

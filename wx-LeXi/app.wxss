@@ -98,6 +98,7 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .btn-bg-color {
   background-color: #6ed7af;
   display: flex;
@@ -105,15 +106,22 @@
   justify-content: center;
   align-items: center;
 }
-.c-crosswise-a{
+
+.c-crosswise-a {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
 
-/* 纵向布局 */
+.fx-broadwise-e {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
 
+/* 纵向布局 */
 
 .line-D {
   display: flex;
@@ -128,8 +136,14 @@
   justify-content: space-around;
   align-items: center;
 }
+.fx-column-b{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 /* 中间布局 */
+
 .c-middle {
   display: flex;
   justify-content: center;
@@ -161,8 +175,12 @@
 
 /* 内边距相关布局e */
 
-/* 字体的相关s */
+/* 字体颜色 */
 
+/* 红色 */
+.theme--hong{
+  color: #ff6666;
+}
 .theme-hui-color {
   color: #c2c2c2;
 }
@@ -175,6 +193,12 @@
   color: #5fe4b1;
 }
 
+.qian-hui {
+  color: #999;
+}
+.shen-hui{
+  color: #666666;
+}
 .hui-zi {
   font-size: 24rpx;
   color: #949ea6;
@@ -191,7 +215,9 @@
   text-decoration: line-through;
   font-weight: normal;
 }
+
 /* 字体大小 */
+
 .black-font {
   font-size: 28rpx;
 }
@@ -199,11 +225,17 @@
 .font-s {
   font-size: 24rpx;
 }
-.font-m{
+
+.font-m {
   font-size: 26rpx;
 }
-.font-ss{
+
+.font-ss {
   font-size: 22rpx;
+}
+
+.font-xl {
+  font-size: 32rpx;
 }
 
 /* 字体的相关e */
@@ -227,14 +259,6 @@ image {
   height: 56rpx;
   width: 56rpx;
   border-radius: 50%;
-}
-
-.c-theme-bg {
-  background-color: #5fe4b1;
-}
-
-.theme-bg-color {
-  background-color: #f7f9fb;
 }
 
 .oldPrice {
@@ -265,9 +289,22 @@ image {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
 /* 背景 */
+
 .bg-white {
   background-color: white;
+}
+
+.c-theme-bg {
+  background-color: #5fe4b1;
+}
+
+.theme-bg-color {
+  background-color: #f7f9fb;
+}
+.fx-bg-hong{
+  background: #ff6666;
 }
 
 @font-face {

@@ -1,5 +1,6 @@
 @import '../couponTemplate/couponTemplate.wxss';
 @import '../shareTemplate/shareTemplate.wxss';
+
 .index-bg {
   height: 280rpx;
   width: 100%;
@@ -247,7 +248,6 @@
   background-color: white;
 }
 
-
 .goodgoods {
   padding: 40rpx 40rpx 0 40rpx;
 }
@@ -342,8 +342,6 @@
   padding: 40rpx;
 }
 
-
-
 .pickList {
   height: 84rpx;
   display: flex;
@@ -398,15 +396,9 @@
 }
 
 .human {
-  margin-top: 30rpx;
   font-size: 30rpx;
   font-weight: 700;
-  margin: 0 40rpx;
-}
-
-.themeGoods {
-  border-top: 2rpx solid #646464;
-  padding: 40rpx 0;
+  margin: 60rpx 40rpx 40rpx;
 }
 
 .themeBottomPhoto {
@@ -436,13 +428,57 @@
   padding: 20rpx;
   background-color: #fbf7f3;
   border-radius: 10rpx;
-    margin-bottom: 76rpx;
+  margin-bottom: 76rpx;
 }
-.share-Tempate{
+
+.share-Tempate {
   position: fixed;
   top: 0;
   height: 100%;
   width: 100%;
-   background-color: rgba(0,0,0,.3); 
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 99;
+}
+
+.suspend-share {
+  position: fixed;
+  right: 0;
+  top: 216rpx;
+  height: 54rpx;
+  width: 120rpx;
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  padding: 0 16rpx 0 4rpx;
+  color: rgb(51, 51, 51);
+  box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.2);
+}
+
+.suspend-share_box {
+  height: 46rpx;
+  width: 46rpx;
+  border-radius: 50%;
+}
+
+.suspend-share_box image {
+  height: 26rpx;
+  width: 30rpx;
+}
+
+.suspend-share button {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
+
+.new-goods {
+  margin: 82rpx 40rpx 40rpx;
+}
+.new-goods_box{
+  padding-top: 0;
+}
+.is_with{
+  background-color: rgb(245,247,249);
+  color: rgb(153,153,153);
 }

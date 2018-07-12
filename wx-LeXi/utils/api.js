@@ -12,6 +12,7 @@ module.exports = {
   // User
   user: 'users',   // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
+  get_openid: 'accounts/wxa_authorize', //openid---
 
   // Category
   categories: 'categories',  // GET 获取产品分类
@@ -20,7 +21,9 @@ module.exports = {
   // Brand
   brand_list: 'brands',  // GET 品牌列表
   brand_detail: 'brands/:rid',  // GET 品牌详情
-
+  shop_info: 'store/info', // 获取店铺信息--
+  store_announcement: 'store/announcement', //获取店铺公告---
+  BrowseQuantityNumber:'store/:rid/visitor', //浏览过的人数
   // Product
   products: 'products',  // GET 产品列表
   latest_products: 'products/latest',  // GET 最新产品
@@ -34,7 +37,7 @@ module.exports = {
   wishlist_addto: 'wishlist/addto',  // POST 添加收藏
   wishlist_remove: 'wishlist/remove',  // POST 移除收藏
   wxacode: 'market/wxacode',  // POST 生成小程序码
-  
+
   // Cart
   cart: 'cart',  // GET 购物车列表
   cart_addon: 'cart',  // POST 添加产品至购物车
@@ -91,5 +94,10 @@ module.exports = {
   wxapp_info: 'store/wxapp',  // GET
 
   // Test
-  demo: 'demo'
+  demo: 'demo',
+  // post关注---
+  add_watch: 'follow/store',
+  delete_watch: 'unfollow/store',
+  add_browse : 'store/visitor' //添加访问者---
+
 }

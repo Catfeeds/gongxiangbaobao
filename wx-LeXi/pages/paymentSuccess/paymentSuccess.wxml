@@ -52,7 +52,7 @@
   <view class='shopGoodsInfo'>
     <view class='componentTwo'>Skfoogall</view>
 
-    <view class='goodsInfoBox ' wx:for="{{shoppingCart}}">
+    <view class='goodsInfoBox ' wx:for="{{shoppingCart}}" wx:key='index'>
       <view class='goodsInfoBoxL'>
         <fx-product-middle  product="{{item}}" color="true"></fx-product-middle>
       </view>

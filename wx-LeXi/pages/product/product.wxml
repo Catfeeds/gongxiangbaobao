@@ -1,5 +1,5 @@
 <!--pages/product/product.wxml 产品详情-->
-<import src="../couponTemplate/couponTemplate.wxml"/>  
+<import src="../couponTemplate/couponTemplate.wxml" />
 <view class='container theme-bg-color'>
 
   <!-- 轮播图 -->
@@ -50,7 +50,7 @@
       </view>
     </view>
     <!-- 领取优惠券 -->
-    <view class='coupon-box'  catchtap='coupon_show'>
+    <view class='coupon-box' catchtap='coupon_show'>
       <fx-coupon></fx-coupon>
     </view>
     <view class='branderInfo  goods-size' catchtap='pickShowTap'>
@@ -93,8 +93,6 @@
         <text class='titlemini'>数量：</text>
         <text>仅剩最后3件</text>
       </view>
-
-
     </view>
 
     <!-- 发货地点 -->
@@ -121,9 +119,8 @@
       <view class='two-line-text goodstext'>
         预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
       </view>
-
-      <view class='allInfo'>
-        <view>查看全部</view>
+      <view class='allInfo' catchtap='animationOnFn'>
+        <view class='allInfo-btn'>查看全部</view>
       </view>
     </view>
   </view>
@@ -161,7 +158,6 @@
         <image src='../../images/timg.jpg'></image>
       </view>
     </view>
-
     <view class='PTRT black-font theme-green'> 在线资讯</view>
   </view>
 
@@ -211,7 +207,6 @@
     <view>☆包包在使用过程中如果不小心遇到水，皮面顏色会加深，不用过於担心，请用棉布擦乾表面，自然风乾就会恢复了，请勿使用高温、高热的电器烘乾。 </view>
     <view>☆避免接触油污、酸性及硷性等物质或放置於高温、高热气处。</view>
     <view>☆遇脏污时，可使用皮革专用清洗剂进行清洁动作，先用乾棉布将灰尘等脏污擦掉，再将清洗剂喷洒於棉布上后擦拭，清洗后记得放於通风处晾乾。。 。</view>
-
   </view>
 
   <!-- 选择规格box -->
@@ -239,7 +234,6 @@
           <view class='color-item'>透明的颜色</view>
         </view>
 
-
       </view>
       <!-- 尺寸 -->
       <view class='goods-color-box'>
@@ -255,7 +249,6 @@
           <view class='color-item'>白色</view>
           <view class='color-item'>透明的颜色</view>
         </view>
-
       </view>
       <!-- 垫片 -->
       <view class='shm'></view>
@@ -270,14 +263,71 @@
     <view class='btn-bg-color'>接单订制</view>
   </view>
 
-
   <!-- 垫片 -->
   <view class='shm'></view>
 
-
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-      <template is="couponTemplate"></template>
+    <template is="couponTemplate"></template>
+  </view>
+
+  <!-- 查看全部的呼出框  style='height:{{window_height}}rpx'-->
+  <view animation="{{animationData}}" class='product-all-info'>
+    <view class='otherInfo'>
+      <!-- 描述 -->
+      <view class='otherInfo-describe'>
+        <view class='titleText'>描述</view>
+        <view class='goodstext two-line-text'>
+          <text class='titlemini'>亮点：</text>
+          <text>香味可持续两个月左右，如果觉得香味变如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡淡， 可继续滴入自己喜欢的香水或精油哦阿酒红色</text>
+        </view>
+        <view class='goodstext'>
+          <text class='titlemini'>材质：</text>
+          <text>棉.麻</text>
+        </view>
+        <view class='goodstext'>
+          <text class='titlemini'>特点： </text>
+          <text>可提供定制化服务</text>
+        </view>
+        <view class='goodstext'>
+          <text class='titlemini'>数量：</text>
+          <text>仅剩最后3件</text>
+        </view>
+      </view>
+
+      <!-- 发货地点 -->
+      <view class='otherInfo-describe location'>
+        <view class='titleText'>发货地</view>
+        <view class='goodstext'>台湾.花莲</view>
+      </view>
+
+      <!-- 交货时间 -->
+      <view class='otherInfo-describe location'>
+        <view class='titleText'>交货时间</view>
+        <view class='goodstext'>预计3-5天到达
+          <text class='theme-green'> 遵义</text>
+        </view>
+      </view>
+
+      <!-- 退货政策 -->
+      <view class='otherInfo-describe location borN'>
+        <view class='titleText'>退货政策</view>
+        <view class='goodstext'>
+          <text class=''> ·</text>
+          <text>30天退换货服务</text>
+        </view>
+        <view class='goodstext'>
+          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+        </view>
+        <view class='shm'></view>
+        <view class='allInfo off-info' catchtap='animationOffFn' wx:if="{{off_icon}}">
+          <view class='fx-icon-nothing-close-error'></view>
+        </view>
+      </view>
+    </view>
   </view>
 
 </view>

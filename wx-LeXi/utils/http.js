@@ -2,12 +2,12 @@
 const util = require('./util.js')
 const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
 
-
-// 生成验证请求签名
+// 生成验证请求签名extConfig
 function buildSign(timestamp, nonce_str) {
-  let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}//
+  let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   const params = {
-    app_key: extConfig.api.appKey,
+    // app_key: extConfig.api.appKey,
+    app_key: "zXIPN0ftRj6dlrKFOZpH",
     timestamp: timestamp,
     nonce_str: nonce_str
   };
@@ -19,7 +19,8 @@ function buildSign(timestamp, nonce_str) {
     param_ary.push(keys[i] + '=' + params[keys[i]]);
   }
 
-  return CryptoJS.SHA1(param_ary.join('&') + extConfig.api.appSecret).toString();
+  // return CryptoJS.SHA1(param_ary.join('&') + extConfig.api.appSecret).toString();
+  return CryptoJS.SHA1(param_ary.join('&') + "4d8ebaf52b76603a158b67f525a1b9e5f80677da").toString();
 }
 
 // 每个请求自动添加系统级参数
@@ -28,7 +29,8 @@ function appendSystemParams() {
   const t = util.timestamp()
   const s = util.randomString(16)
   return {
-    app_key: extConfig.api.appKey,
+    // app_key: extConfig.api.appKey,
+    app_key: "zXIPN0ftRj6dlrKFOZpH",
     timestamp: t,
     nonce_str: s,
     sign: buildSign(t, s)
@@ -46,7 +48,7 @@ function make_base_auth(user, password) {
   var tok = user + ':' + password;
   var hash = util.Base64.encode(tok);
   return 'Basic ' + hash;
-} 
+}
 
 // 请求头部信息
 function fxHeader(content_type) {
@@ -66,10 +68,11 @@ function fxHeader(content_type) {
 }
 
 // api host
-function fxUrl(url) {
-  // 获取第三方平台自定义的数据字段
+function fxUrl(url) {  
+  // 获取第三方平台自定义的数据字段  
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-  let urlAry = [extConfig.api.host, extConfig.api.version, url]
+  // let urlAry = [extConfig.api.host, extConfig.api.version, url]
+  let urlAry = ["https://fx.taihuoniao.com/api", "v1.0", url]
   return urlAry.join('/')
 }
 
