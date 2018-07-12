@@ -2,7 +2,7 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <view class='container theme-bg-color'>
 
-  <!-- 轮播图 -->
+  <!-- 轮播图 123-->
   <view class='swiperBox'>
     <swiper indicator-dots="true" autoplay="true">
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
@@ -160,7 +160,7 @@
   </view>
 
   <!-- 相似的产品 也就是分销-->
-  <view class='similarityBox bg-white PL'>
+  <!-- <view class='similarityBox bg-white PL'>
     <view class='black-font theme-green'>
       <text>相似礼品</text> </view>
     <view class='shop-other-goods'>
@@ -180,7 +180,7 @@
         <image src='../../images/timg.jpg'></image>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!-- 产品的详细介绍 -->
   <view class='goods-info'>
@@ -235,7 +235,7 @@
       <!-- 垫片 -->
       <view class='shm'></view>
       <view class='bottom-btn bg-white c-crosswise-a pick' catchtap='receiveOrderTap'>
-        <view class='add_cart'>加入购物车</view>
+        <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
         <view class='btn-bg-color'>选好了</view>
       </view>
     </view>
@@ -250,7 +250,7 @@
         <text>购物车</text>
       </view>
     </view>
-    <view class='add_cart'>加入购物车</view>
+    <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
     <view class=' crated_btn--style btn-bg-color' catchtap='pickShowTap'>接单订制</view>
   </view>
 
