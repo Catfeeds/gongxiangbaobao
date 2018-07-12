@@ -1,5 +1,6 @@
 /* pages/product/product.wxss */
 @import '../couponTemplate/couponTemplate.wxss';
+
 .swiperBox {
   height: 620rpx;
 }
@@ -310,21 +311,17 @@ swiper-item, swiper-item>image, swiper {
 .bottom-btn {
   width: 100%;
   height: 100rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   bottom: 0;
 }
 
-.bottom-btn view {
-  width: 690rpx;
-  height: 80rpx;
+.bottom-btn>view {
+  width: 270rpx;
   border-radius: 10rpx;
   font-size: 32rpx;
   color: white;
   text-align: center;
-  line-height: 80rpx;
+  
 }
 
 .specifications {
@@ -363,7 +360,6 @@ swiper-item, swiper-item>image, swiper {
   display: flex;
   flex-direction: row;
 }
-
 .goods-color {
   flex-wrap: wrap;
 }
@@ -396,23 +392,27 @@ swiper-item, swiper-item>image, swiper {
 
 .pick {
   width: 690rpx;
+  line-height: 80rpx;
 }
 
 .fen {
   height: 28rpx;
   width: 32rpx;
 }
-.fx-icon-nothing-plus{
-  margin:0 10rpx;
-  color: #949EA6;
+
+.fx-icon-nothing-plus {
+  margin: 0 10rpx;
+  color: #949ea6;
 }
-.coupon-box{
-  background-color:  #fbf7f3;
+
+.coupon-box {
+  background-color: #fbf7f3;
   border-radius: 10rpx;
   padding: 20rpx;
   margin-bottom: 30rpx;
 }
-.product-all-info{
+
+.product-all-info {
   position: fixed;
   /* top: 0; */
   bottom: -2000rpx;
@@ -421,11 +421,48 @@ swiper-item, swiper-item>image, swiper {
   background-color: white;
   overflow: auto;
 }
-.off-info{
+
+.off-info {
   position: fixed;
   bottom: 0;
   height: 80rpx;
   width: 100%;
   background-color: white;
   box-shadow: 0 -50rpx 100rpx 50rpx white;
+}
+
+.shop-cart {
+  width: 106rpx !important;
+  background-color: white;
+  position: relative;
+  font-size: 22rpx;
+}
+
+.shop-cart image {
+  height: 40rpx;
+  width: 40rpx;
+}
+
+.add_cart {
+  background-color: #2d343a;
+}
+.add_cart,
+.crated_btn--style{
+   line-height: 80rpx;
+}
+
+.add_cart--number {
+  position: absolute;
+  top: 0rpx;
+  right: 20rpx;
+  height: 24rpx;
+  width: 24rpx;
+  background-color: #f66;
+  border-radius: 50%;
+  font-size: 16rpx;
+  overflow: hidden;
+}
+.cart_text--color{
+  color: #949ea6;
+  font-size: 22rpx;
 }

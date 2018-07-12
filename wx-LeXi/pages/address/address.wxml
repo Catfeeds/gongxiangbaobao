@@ -2,28 +2,81 @@
 <import src="../addressTemplate/addressTemplate.wxml" />
 <view class='container theme-bg-color'>
   <form>
-
     <!-- top -->
     <view class='adressInfoBox'>
       <view>
-        <input placeholder-class="phcolor" placeholder='收件人真实姓名'></input>
+        <input placeholder-class="phcolor" placeholder='收件人真实姓名' bindinput='ahndleUserName' value='{{form.first_name}}'></input>
       </view>
       <view>
-        <input placeholder-class="phcolor" placeholder='手机号'></input>
+        <input 
+          value='{{form.mobile}}' 
+          bindinput='handleMobileCode' 
+          placeholder-class="phcolor" 
+          placeholder='手机号' 
+          type='number'></input>
       </view>
-      <view class='location' catchtap='T_addressovar'>
+      <!-- 国家 -->
+      <view>
+        <picker 
+          bindchange="bindPickerChange" 
+          value="{{index}}" 
+          range="{{country.area_codes}}"
+          range-key='name'>
+          <view class="picker">
+            选择国家：{{country.area_codes[index]}}
+          </view>
+        </picker>
+      </view>
+      <!-- 省份 -->
+      <view>
+        <picker 
+          bindchange="bindProvinceChange" 
+          value="{{index}}" 
+          range="{{allProvince}}"
+          range-key='name'>
+          <view class="picker">
+            省份：{{allProvince[allProvinceIndex].name}}
+          </view>
+        </picker>
+      </view> 
+      <!-- 市区 -->
+      <view>
+        <picker 
+          bindchange="bindCityChange" 
+          value="{{index}}" 
+          range="{{allCity}}"
+          range-key='name'>
+          <view class="picker">
+            市/区：{{allCity[allCityIndex].name}}
+          </view>
+        </picker>
+      </view>
+      <!-- 区/县-->
+      <view>
+        <picker 
+          bindchange="bindAllTownsChange" 
+          value="{{index}}" 
+          range="{{allTowns}}"
+          range-key='name'>
+          <view class="picker">
+            县：{{allTowns[allTownsIndex].name}}
+          </view>
+        </picker>
+      </view>  
+      <!-- 省市区的三级联动暂时关闭 -->
+      <!-- <view class='location' catchtap='T_addressovar'>
         <view class='address-text'>
           <input value='{{s}}'></input>
           <input value='{{sh}}'></input>
           <input value='{{x}}'></input>
         </view>
         <view class='fx-icon-nothing-right'></view>
-      </view>
+      </view> -->
       <view class='addressText'>
-        <input placeholder-class="phcolor " placeholder='详细地址'></input>
+        <input value='{{form.street_address}}' placeholder-class="phcolor " placeholder='详细地址' bindinput='handleAddressInfo'></input>
       </view>
       <view>
-        <input placeholder-class="phcolor" placeholder='邮政编码'></input>
+        <input bindinput='handleAdressCode' placeholder-class="phcolor" placeholder='邮政编码' value='{{form.zipcode}}' type='number'></input>
       </view>
     </view>
 
@@ -81,5 +134,6 @@
 
 
   <!-- 呼出省市区 -->
-  <template is="msgItem" data="{{is_template:is_template,addressInfo:addressInfo}}" />
+  <!-- <template is="msgItem" data="{{is_template:is_template,addressInfo:AllAdress}}" /> -->
+
 </view>

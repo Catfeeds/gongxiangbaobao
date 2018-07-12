@@ -63,7 +63,6 @@ function fxHeader(content_type) {
     let auth = make_base_auth(jwt.token, jwt.token)
     header['Authorization'] = auth
   }
-
   return header
 }
 
@@ -88,7 +87,6 @@ function fxGet(url, data = {}, cb) {
     header: fxHeader(),
     success(res) {
       wx.hideNavigationBarLoading()
-      console.log(res)
       if (res.statusCode == 401) {
         wx.navigateTo({
           url: '/pages/authorize/authorize',

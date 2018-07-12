@@ -1,10 +1,16 @@
 // pages/orderInfo/orderInfo.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    orderInfomation:[], // 订单详情---
+    logisticsCompany:[],// 物流公司及模板信息---
     coupon:false,
     o:[1,1,1,1,1],
     //优惠券
@@ -29,6 +35,42 @@ Page({
     ],
     order:[1,2]
   },
+
+  // 写死的物流模板
+  logisiticsmoble(){
+    var i = wx.getStorageSync('orderParams')
+    i.store_items[0].items[0].express_id=7
+    console.log(i)
+    this.setData({
+      orderInfomation:i
+    })
+  },
+
+  //获取物流信息---
+  getLogistics() {
+    var logisticsId = wx.getStorageSync("logisticsIdFid")
+    http.fxGet(api.logisitcs.replace(/:rid/, logisticsId),{},(result)=>{
+      console.log(result)
+      console.log(result.data.express_id)
+      this.setData({
+        logisticsCompany: result.data
+      })
+    })
+  },
+  
+  // 获取订单详情---
+  getOrderInfo() {
+    var orderParams=wx.getStorageSync('orderParams')
+    //获取地址
+    http.fxGet(api.address_update.replace(/:rid/g, orderParams.address_rid),{},(result)=>{
+      console.log(result,'地址信息')
+    })
+    //获取产品的详情
+    http.fxGet(api.product_detail.replace(/:rid/g, orderParams.store_items[0].items[0].rid),{},(result)=>{
+      console.log(result, "产品的详情")
+    })
+  },
+  //
   couponTap(e){
     console.log()
     var i
@@ -37,18 +79,26 @@ Page({
     }else{
       i=false
     }
-
     this.setData({
       coupon:i
     })
-
+  },
+  //支付,并跳转到支付成功页面---
+  paymentSuccess() {
+    console.log(this.data.orderInfomation)
+    http.fxPost(api.order_create, this.data.orderInfomation,(result)=>{
+      console.log(result)
+    })
+    // wx.navigateTo({
+    //   url: '../paymentSuccess/paymentSuccess',
+    // })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getOrderInfo() // 获取去订单详情
   },
 
   /**
@@ -62,7 +112,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    
+    // this.getLogistics() //获取运费的模板
+    this.logisiticsmoble() // 写死的运费模板
   },
 
   /**
@@ -105,12 +157,5 @@ Page({
       url: '../pickLogistics/pickLogistics',
     })
   },
-
-  //跳转到支付成功页面
-  paymentSuccess(){
-    wx.navigateTo({
-      url: '../paymentSuccess/paymentSuccess',
-    })
-  }
 
 })

@@ -23,7 +23,9 @@
     "pages/watch/watch",
     "pages/coupon/coupon",
     "pages/couponTemplate/couponTemplate",
-    "pages/shareTemplate/shareTemplate"
+    "pages/shareTemplate/shareTemplate",
+    "pages/paymentAddress/paymentAddress",
+    "pages/authorize/authorize"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

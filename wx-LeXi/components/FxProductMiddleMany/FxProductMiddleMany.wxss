@@ -5,6 +5,7 @@
 .shopRecommendGoods-photo {
   height: 180rpx;
   width: 180rpx;
+  position: relative;
 }
 
 .shopRecommendGoodsR {
@@ -28,15 +29,18 @@
 .oldPriceDecortion {
   text-decoration: line-through;
 }
-
-.productMiddle {
+ .oldPrice{
   display: flex;
-  flex-direction: row;
-}
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} 
+
 
 .productMiddleBoxPhoto {
   height: 182rpx;
   width: 182rpx;
+  position: relative;
 }
 
 .logistics {
@@ -55,12 +59,18 @@ textarea {
   display: inline;
   resize: none;
 }
-
+.productMiddle {
+  display: flex;
+  flex-direction: row;
+}
+.price-like-box,
 .productMiddleBox {
   display: flex;
   flex-direction: row;
 }
-
+.price-like-box{
+  align-items: center;
+}
 .shopingName image {
   width: 24rpx;
   height: 20rpx;
@@ -101,4 +111,19 @@ textarea {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+.sell_up_text{
+  position: absolute;
+  top: 10rpx;
+  left: 10rpx;
+  width: 62rpx;
+  height: 32rpx;
+  border-radius: 8rpx;
+  background-color: rgba(0, 0, 0, .3);
+  font-size: 22rpx;
+  color: white;
+  text-align: center;
+  line-height: 32rpx;
+}
+.current_price{
 }
