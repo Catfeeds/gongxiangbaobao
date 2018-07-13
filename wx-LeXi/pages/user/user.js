@@ -1,4 +1,8 @@
 // pages/user/user.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
@@ -7,6 +11,10 @@ Page({
   data: {
     classInfo:1,
     sotrF: false,
+    likeProduct:[],// 喜欢的的商品---
+    recentlyLookProduct:[],// 最近查看的商品---
+    desireOrderProduct:[], //心愿单商品---
+
     product: [
       {
         title: "手作精品款牛皮手提黑包",
@@ -69,11 +77,17 @@ Page({
         like: 123
       },
     ],
+    // 切换类型---
     classList:[
       {rid:1,num:123,name:"喜欢"},
       {rid:2,num:13,name:"收藏"},
       {rid:3,num:123,name:"设计馆"}
     ],
+    // 获取商品的参数
+    getProductParams:{
+      page:1,
+      per_page:10
+    },
     Theme_goods: [
       {img:"../../images/timg.jpg"},
       {img:"../../images/timg.jpg"},
@@ -89,13 +103,64 @@ Page({
     this.setData({
       classInfo: e.currentTarget.dataset.rid
     })
+    this.getProduct(e.currentTarget.dataset.rid)
+  },
+  // 获取商品
+  getProduct(e=1){
+    switch (e){
+      case 1:
+        http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
+          console.log(result)
+          if(result.success){
+            this.setData({
+              likeProduct: result.data
+            })
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+        })
+      break;
+      case 2:
+        //最近查看
+        http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
+          if(result.success){
+            this.setData({
+              // likeProduct: result.data
+            })
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+        })
+        //心愿单
+        http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
+          if (result.success) {
+            this.setData({
+              desireOrderProduct: result.data
+            })
+          } else {
+            utils.fxShowToast(result.status.message)
+          }
+        })        
+      break;
+      default:
+        // 设计管
+        http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
+          if(result.success){
+            this.setData({
+              // likeProduct: result.data
+            })
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+        });
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getProduct() // 获取商品---
   },
 
   /**
@@ -151,7 +216,6 @@ Page({
    */
   onPageScroll(e) {
 
-    console.log(e.scrollTop)
     if (e.scrollTop > 245) {
       this.setData({
         sotrF: true
@@ -180,5 +244,17 @@ Page({
     wx.navigateTo({
       url: '../redBag/redBag',
     })
-  }
+  },
+  //跳转到订单页面 
+  handleToOrderTap(){
+    wx.navigateTo({
+      url: '../order/order',
+    })
+  },
+  //跳转到商品详情---
+  handleInfomation(e) {
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+    })
+  },
 })

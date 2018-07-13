@@ -8,61 +8,47 @@
         <input placeholder-class="phcolor" placeholder='收件人真实姓名' bindinput='ahndleUserName' value='{{form.first_name}}'></input>
       </view>
       <view>
-        <input 
-          value='{{form.mobile}}' 
-          bindinput='handleMobileCode' 
-          placeholder-class="phcolor" 
-          placeholder='手机号' 
-          type='number'></input>
+        <input value='{{form.mobile}}' bindinput='handleMobileCode' placeholder-class="phcolor" placeholder='手机号' type='number'></input>
       </view>
       <!-- 国家 -->
-      <view>
-        <picker 
-          bindchange="bindPickerChange" 
-          value="{{index}}" 
-          range="{{country.area_codes}}"
-          range-key='name'>
+      <view class='adress-pick--style qian-hui'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{country.area_codes}}" range-key='name'>
           <view class="picker">
-            选择国家：{{country.area_codes[index]}}
+            选择国家：{{country.area_codes[countryIndex].name}}
           </view>
         </picker>
       </view>
+      
+      <view class='c-crosswise-a adress-pick--style qian-hui'>
       <!-- 省份 -->
-      <view>
-        <picker 
-          bindchange="bindProvinceChange" 
-          value="{{index}}" 
-          range="{{allProvince}}"
-          range-key='name'>
-          <view class="picker">
-            省份：{{allProvince[allProvinceIndex].name}}
-          </view>
-        </picker>
-      </view> 
-      <!-- 市区 -->
-      <view>
-        <picker 
-          bindchange="bindCityChange" 
-          value="{{index}}" 
-          range="{{allCity}}"
-          range-key='name'>
-          <view class="picker">
-            市/区：{{allCity[allCityIndex].name}}
-          </view>
-        </picker>
+        <view>
+          <picker bindchange="bindProvinceChange" value="{{index}}" range="{{allProvince}}" range-key='name'>
+            <view class="picker ">
+              省份：{{allProvince[allProvinceIndex].name}}
+            </view>
+          </picker>
+        </view>
+        <!-- 市区 -->
+        <view>
+          <picker bindchange="bindCityChange" value="{{index}}" range="{{allCity}}" range-key='name'>
+            <view class="picker">
+              市/区：{{allCity[allCityIndex].name}}
+            </view>
+          </picker>
+        </view>
+        <!-- 区/县-->
+        <view>
+          <picker 
+            bindchange="bindAllTownsChange" 
+            value="{{index}}" range="{{allTowns}}" 
+            range-key='name'>
+            <view class="picker">
+              县/镇：{{allTowns[allTownsIndex].name}}
+            </view>
+          </picker>
+        </view>
+        
       </view>
-      <!-- 区/县-->
-      <view>
-        <picker 
-          bindchange="bindAllTownsChange" 
-          value="{{index}}" 
-          range="{{allTowns}}"
-          range-key='name'>
-          <view class="picker">
-            县：{{allTowns[allTownsIndex].name}}
-          </view>
-        </picker>
-      </view>  
       <!-- 省市区的三级联动暂时关闭 -->
       <!-- <view class='location' catchtap='T_addressovar'>
         <view class='address-text'>

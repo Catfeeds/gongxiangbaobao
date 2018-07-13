@@ -1,173 +1,119 @@
 // pages/cart/cart.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    //falseheckbox
-    falseheckbox: false,
-    //选中的物品
-    checkboxPick: [],
-    //购物车是否编辑
-    changeCart: false,
-    //应该支付的总金额
-    payment: 0,
-    //添加到购物车的内容产品内容
-    shoppingCart: [
-      {
-        id: 6,
-        title: "图像加载被中加载被中加载被中加载被中加载被中加载被中加载被中加载被中加载被中断",
-        currentPrice: 500,
-        originPrice: 999,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "白色",
-        repertoryNumber: 12,
-        size: "M"
-      },
-      {
-        id: 5,
-        title: "	图像加载被像加载被中加载被中加载被中加载被中加中断",
-        currentPrice: 500,
-        originPrice: 321,
-        logisticsExpenses: 9,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        repertoryNumber: 10
-      },
-      {
-        id: 4,
-        title: "	图像加载被中断",
-        currentPrice: 500.99,
-        // originPrice: 666,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "绿色",
-        repertoryNumber: 13
+    falseheckbox: false,//falseheckbox---
+    checkboxPick: [],//选中的物品---
+    changeCart: false,//购物车是否编辑---
+    shoppingCart: [{}],//添加到购物车的内容产品内容---
+    payment: 0,//应该支付的总金额---
+    //添加购物车和修改购买数量的时候参数
+    addCartParams:{
+      rid:'', //	商品Id
+      quantity:1, // 1	购买数量
+      option:'', // 其他选项
+      open_id:'', //	独立小程序openid
+    },
+    // 心愿单的内容---
+    thinkOrder: [{}],
+  },
+  // 获取购物车 ---
+  getCartProduct() {
+    http.fxGet(api.cart, {
+      open_id: wx.getStorageSync('jwt').openid
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        this.setData({
+          shoppingCart: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
       }
-    ],
-
-
-    // 心愿单的内容
-    thinkOrder: [
-      {
-        id: 0,
-        title: "图像中加载被中加载被中加载被中加载被中加载被中加加载被中加载被中加载被中加载被中加载被中加载被中加中断",
-        currentPrice: 500,
-        originPrice: 999,
-        logisticsExpenses: 5,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "白色",
-        repertoryNumber: 12,
-        size: "M"
-      },
-      {
-        id: 1,
-        title: "	图像加载被中断",
-        currentPrice: 500,
-        originPrice: 321,
-        logisticsExpenses: 9,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        repertoryNumber: 10//仓储数量
-      },
-      {
-        id: 2,
-        title: "	图像加载中加载被中加载被中加载被中加载被中加载被中加加载被中加载被中加载被中加载被中加载被中加载被中加中被中断",
-        currentPrice: 500.99,
-        // originPrice: 666,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "绿色",
-        repertoryNumber: 0
+    })
+  },
+  //  获取心愿单---
+  getDesireOrder(){
+    http.fxGet(api.wishlist,{},(result)=>{
+      if (result.success){
+        console.log(result)
+        this.setData({
+          thinkOrder:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
       }
-    ],
 
+    })
   },
   //心愿单添加到购物车
   addCartTap(e) {
-    var select=e.currentTarget.dataset.rid
+    var select = e.currentTarget.dataset.rid
     var newThinkOrder = this.data.thinkOrder.filter((v, i) => {
       return select != v.id
     })
     var newCart = this.data.thinkOrder.filter((v, i) => {
       return select == v.id
     })
-    this.setData(
-      {
-        thinkOrder:newThinkOrder,
-        shoppingCart: this.data.shoppingCart.concat(newCart)
-      }
-    )
+    this.setData({
+      thinkOrder: newThinkOrder,
+      shoppingCart: this.data.shoppingCart.concat(newCart)
+    })
     this.paymentPrice()
   },
 
-
-  //编辑按钮点击后左边的选择,赋值给data
+  //编辑按钮点击后左边的选择,赋值给data---
   checkboxChange(e) {
+    console.log(e.detail.value)
     this.setData({
       checkboxPick: e.detail.value
     })
   },
 
-  //当点击移除按钮后
-
+  //当点击移除---
   clearCart() {
-    var deleteCart = this.data.shoppingCart.filter((value, index) => {
-      return this.data.checkboxPick.indexOf(String(value.id)) == -1
-    })
-    this.setData({
-      falseheckbox: false,
-      shoppingCart: deleteCart
+    http.fxPost(api.clearCart, { open_id: wx.getStorageSync("jwt").openid, rids: this.data.checkboxPick},(result)=>{
+      if(result.success){
+        console.log(result)
+        this.getCartProduct()
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
     })
     //重新计算
     this.paymentPrice()
   },
-
-
-
-  //购物车点击移除按钮
+  // 放入心愿单--
+  addDesire(){
+    http.fxPost(api.wishlist, { rids: this.data.checkboxPick},(result)=>{
+      if(result.success){
+        console.log(result)
+        this.getDesireOrder()
+        this.getCartProduct()
+        this.paymentPrice()
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  //购物车点击移除按钮和放入心愿单按钮---
   cartClearTap(e) {
     var cartAllInfo = []
     var btnType = e.currentTarget.dataset.type
     if (btnType == "clear") {
       this.clearCart()
     } else if (btnType == "addThink") {
-      //清楚购物车里面的
-      // this.clearCart()
-      var addThinkOrder = this.data.shoppingCart.filter((value, index) => {
-        return this.data.checkboxPick.indexOf(String(value.id)) != -1
-      })
-      //添加到心愿单
-      this.setData({
-        thinkOrder: this.data.thinkOrder.concat(addThinkOrder)
-      })
-      this.clearCart()
+      this.addDesire()
+      
     }
   },
-  //编辑按钮购物车
+  //编辑按钮购物车---
   changeCartTap(e) {
     var status = e.currentTarget.dataset.change
     console.log(e.currentTarget.dataset.change)
@@ -181,92 +127,129 @@ Page({
       })
     }
   },
-  // 应该支付的总金额
+  // 应该支付的总金额shoppingCart---
   paymentPrice() {
     this.setData({
       payment: 0
     })
-    this.data.shoppingCart.map((value, index) => {
+    console.log(this.data.shoppingCart.items)
+    this.data.shoppingCart.items.map((value, index) => {
       this.setData({
-        payment: ((this.data.payment * 100 + value.shopingNumber * value.currentPrice * 100) / 100).toFixed(2)
+        payment: ((this.data.payment * 1000 + value.product.sale_price * value.quantity * 1000) / 1000).toFixed(2)
       })
     })
   },
 
-  //改变数量
-  changeNumberTap(e) {
-    // console.log(e.detail.NeedNumber)
-    this.data.shoppingCart.map((value, index) => {
-      if (value.id == e.detail.id) {
-        if (e.detail.NeedNumber < 1) {
-          this.warn("亲", "不能再少了")
-        } else if (e.detail.NeedNumber > 0 && e.detail.NeedNumber <= this.data.shoppingCart[index].repertoryNumber) {
-          var a = "shoppingCart" + [index] + ".shopingNumber"
-          this.setData({
-            ["shoppingCart[" + index + "].shopingNumber"]: e.detail.NeedNumber
-          })
-        } else if (e.detail.NeedNumber > this.data.shoppingCart[index].repertoryNumber) {
-          this.warn("亲", "货物不充足，哦")
-        }
-      }
+  //增加数量或者减少数量---
+  changeQuantity(e){
+    console.log(e.currentTarget.dataset)
+    var is_function = e.currentTarget.dataset.function
+    var index = e.currentTarget.dataset.index
+    var openid = wx.getStorageSync('jwt').openid
+    var rid = e.currentTarget.dataset.rid
+    this.setData({
+      ['addCartParams.rid']: rid,
+      ['addCartParams.open_id']: openid,
     })
-    this.paymentPrice()
+    if (is_function =='add'){
+      if (this.data.shoppingCart.items[index].quantity-0+1 > this.data.shoppingCart.items[index].product.stock_quantity){
+        utils.fxShowToast('仓库中数量不足')
+        return false
+      }else{
+        this.setData({
+          ['addCartParams.quantity']: this.data.shoppingCart.items[index].quantity - 0 + 1,
+        })
+        this.putRenovateCart()
+        this.setData({
+          ['shoppingCart.items['+index+'].quantity']: this.data.shoppingCart.items[index].quantity-0+1
+        })
+      }
+    } else if(is_function == 'subtract'){
+      if (this.data.shoppingCart.items[index].quantity-1<0){
+        utils.fxShowToast('不能倒贴的')
+        return false
+      }else{
+        this.setData({
+          ['addCartParams.quantity']: this.data.shoppingCart.items[index].quantity - 1,
+        })
+        this.putRenovateCart()
+        this.setData({
+          ['shoppingCart.items[' + index + '].quantity']: this.data.shoppingCart.items[index].quantity - 1
+        })
+      }
+    }
+  },
+  //更新购物车---
+  putRenovateCart(e){
+    http.fxPut(api.cart, this.data.addCartParams,(result)=>{
+      console.log(result)
+      if(result.success){
+      }else{
+        utils.fxShowToast('添加失败')
+        return
+      }
+
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this.getCartProduct() // 获取购物车商品
+    this.getDesireOrder() // 获取心愿单
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     //计算金额
-    this.paymentPrice()
+    setTimeout(()=>{
+      this.paymentPrice()
+    },1000)
+    
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //去首页

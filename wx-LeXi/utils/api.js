@@ -7,7 +7,7 @@ module.exports = {
   auth_logout: 'auth/logout',  // POST 退出登录
   auth_register: 'auth/register', // POST 注册
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
-  auth_get_msm_code: 'auth/get_msm_code', // POST 获取手机验证码
+  auth_get_msm_code: 'users/register_verify_code', // POST 注册时候手机验证码---
 
   // User
   user: 'users',   // GET 获取用户（当前登录用户）
@@ -33,7 +33,7 @@ module.exports = {
   product_content: 'products/:rid/detail',  // GET 产品图文介绍
   product_skus: 'products/skus',  // GET 产品SKU
   skus: 'products/by_sku',  // GET 产品SKU信息
-  wishlist: 'wishlist', // GET 收藏列表
+  wishlist: 'wishlist', // GET 心愿单---
   wishlist_addto: 'wishlist/addto',  // POST 添加收藏
   wishlist_remove: 'wishlist/remove',  // POST 移除收藏
   wxacode: 'market/wxacode',  // POST 生成小程序码
@@ -45,7 +45,7 @@ module.exports = {
   cart_remove: 'cart/:rid/remove',  // DELETE 移除产品
   cart_clear: 'cart/clear', // DELETE 清空购物车
   cart_item_count: 'cart/item_count',  // GET 购物车产品数---
-
+  clearCart:'cart/remove', // 移除购物车
   // Order
   orders: 'orders',  // GET 订单列表---
   order_detail: 'orders/:rid',  // GET 订单详情
@@ -103,10 +103,11 @@ module.exports = {
   delete_watch: 'unfollow/store', // 取消关注
   examine_watch: 'follow/get_status', // 查看是否关注
   add_browse : 'store/visitor', //添加访问者---
-
+  userlike:'userlike', //添加喜欢
   // 查询运费模板详情
   logisitcs:'logistics/freight_template/:rid',
 
   //店铺的主人的
   store_owner_info:'users/authenticate'
+
 }

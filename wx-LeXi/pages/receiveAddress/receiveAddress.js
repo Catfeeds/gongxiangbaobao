@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    path:true,// 页面来源
     addresList: [], //地址列表---
 
   },
@@ -39,7 +40,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this.data.orderParams)
+    var router=getCurrentPages()
+    console.log(router[router.length - 2].route)
+    if (router[router.length - 2].route=='pages/settings/settings'){
+      this.setData({
+        path:false
+      })
+    }
   },
 
   /**

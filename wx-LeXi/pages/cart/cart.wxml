@@ -20,36 +20,52 @@
       <view>{{shoppingCart.length}}件礼品</view>
       <view class='theme-green' catchtap='changeCartTap' data-change="over">完成</view>
     </view>
-
     <view class='goodsList'>
       <checkbox-group bindchange="checkboxChange">
-        <label class="checkbox" wx:for="{{shoppingCart}}" wx:for-item="item" wx:key="{{item.id}}">
+        <label class="checkbox" wx:for="{{shoppingCart.items}}" wx:key="{{item.id}}">
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox value="{{item.id}}" checked="{{falseheckbox}}" />
+              <checkbox value="{{item.product.rid}}" checked="{{falseheckbox}}" />
             </block>
             <!-- 中间的产品信息 -->
             <view>
-              <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+              <fx-product-middle shopName="true" product="{{item.product}}" color="true">
+              </fx-product-middle>
             </view>
-            <!-- 左上角的价格 -->
+            <!-- 右上角的价格 -->
             <view class='oldNewPrice'>
-              <view class='changenewprice'>￥{{item.currentPrice}}</view>
-              <view class='changeoldprice' wx:if="{{item.originPrice}}">￥{{item.originPrice}}</view>
+              <view class='changenewprice'>￥{{item.product.sale_price}}</view>
+              <view 
+                class='changeoldprice' 
+                wx:if="{{item.product.sale_price!=item.product.price}}">￥{{item.product.price}}</view>
             </view>
 
             <!-- 右下角的改变数量 -->
             <view class='rightBottomNumberBtn' wx:if="{{!changeCart}}">
-              <fx-addDeleteBtn product="{{item}}" bind:changeNumberTap="changeNumberTap"></fx-addDeleteBtn>
+              <view class='changBox-quantity'>
+                <view 
+                  data-rid='{{item.rid}}'
+                  data-function='subtract'
+                  data-index="{{index}}"
+                  class='changBox-quantity_reduce' 
+                  catchtap='changeQuantity' 
+                  data-id="{{product.rid}}">一</view>
+                <view class='changBox-quantity_goodsNumber'>{{item.quantity}}</view>
+                <view 
+                  data-function='add'
+                  data-rid='{{item.rid}}'
+                  data-index="{{index}}"
+                  class='changBox-quantity_reduce changBox-quantity_addicon' 
+                  catchtap='changeQuantity'
+                  data-id="{{product.rid}}">＋</view>
+              </view>
             </view>
 
           </view>
         </label>
       </checkbox-group>
-
     </view>
-
   </view>
 
 

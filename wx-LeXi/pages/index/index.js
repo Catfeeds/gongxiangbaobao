@@ -9,11 +9,11 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    rid:[], // 店铺的rid---
-    shareWhat:'', //分享什么东西---
-    ShopOwner:[], // 店铺主人的信息---
-    currentNewProduct:[], // 人气里面最新---
-    highQualityProduct:[], // 优质精品---
+    rid: [], // 店铺的rid---
+    shareWhat: '', //分享什么东西---
+    ShopOwner: [], // 店铺主人的信息---
+    currentNewProduct: [], // 人气里面最新---
+    highQualityProduct: [], // 优质精品---
     popularProductTheme: [], // 人气里面的主题---
     myProduct: [], //作品列表---
     recommendProductList: [], // 推荐好物品---
@@ -43,23 +43,32 @@ Page({
       status: '', // 商品状态 0:仓库中; 1:出售中; 2:下架中; 3:已售罄
       is_distributed: '', // 商品类别 0: 全部; 1：自营商品；2：分销商品
       qk: '', // 搜索关键字
-      out_of_stock: '' // 商品库存 0: 全部; 1: 数量不足
+      out_of_stock: '', // 商品库存 0: 全部; 1: 数量不足
+      user_record:true //用户是否喜欢
     },
     //分类 精品 作品 人气---
-    catgory: [
-      {name: "精品",rid: 1},
-      {name: "作品",rid: 2},
-      {name: "人气",rid: 3}
+    catgory: [{
+        name: "精品",
+        rid: 1
+      },
+      {
+        name: "作品",
+        rid: 2
+      },
+      {
+        name: "人气",
+        rid: 3
+      }
     ],
     url: "../../images/timg.jpg",
     tabPisition: false, //tab是否定位
     // 推荐好物里面的参数---
-    recommendProductParams:{
-      page:1, //Number	可选	1	当前页码
-      per_page:10, //Number	可选	10	每页数量
+    recommendProductParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
     },
     // 人气里面的最新作品参数
-    currentNewParams:{
+    currentNewParams: {
       page: 1,
       per_page: 10
     },
@@ -76,35 +85,31 @@ Page({
       customer_code: '', //String	可选	 	分销商代码
       sync_pay: 1, //Integer	可选	 	是否同步返回支付参数
       //Array	必需	 	店铺商品信息
-      store_items:[
-      {
+      store_items: [{
         store_rid: '', //String	必需	 	店铺rid
         coupon_codes: [], //Array	可选	 	优惠券码列表
         //Array	必需	 	订单明细参数
-        items: [
-        {
+        items: [{
           rid: '', //String	必需	 	sku
           quantity: 1, //Number	必需	1	购买数量
           express_id: '', //Integer	必需	 	物流公司ID
           warehouse_id: '', //Number	可选	 	发货的仓库ID
-        }
-        ]
-      }
-      ]
+        }]
+      }]
     }
   },
   // 分享模板弹出
-  handleShareBox(e){
+  handleShareBox(e) {
     console.log(e.currentTarget.dataset)
 
     this.setData({
-      is_share:true,
-      shareWhat:e.currentTarget.dataset
+      is_share: true,
+      shareWhat: e.currentTarget.dataset
     })
   },
   // 获取店铺的rid
-  getStoreId(){
-    var storeId=wx.getStorageSync('storeId')
+  getStoreId() {
+    var storeId = wx.getStorageSync('storeId')
     this.setData({
       rid: storeId
     })
@@ -113,21 +118,20 @@ Page({
   coupon() {
     http.fxGet(api.coupons, this.data.couponParams, (result) => {
       console.log(result)
-      if (result.success) {
-      } else {
+      if (result.success) {} else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
   // 获取店铺主人的信息
-  getShopOwner () {
-    http.fxGet(api.store_owner_info,{},(result)=>{
+  getShopOwner() {
+    http.fxGet(api.store_owner_info, {}, (result) => {
       if (result.success) {
         console.log(result)
         this.setData({
-          ShopOwner:result.data
+          ShopOwner: result.data
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -154,24 +158,24 @@ Page({
     })
   },
   //推荐好物---
-  recommendProduct () {
+  recommendProduct() {
     this.setData({
-      ['productCategoryParams.is_distributed']:1,
+      ['productCategoryParams.is_distributed']: 1,
     })
-    http.fxGet(api.sticked_products, this.data.productCategoryParams,(result)=>{
+    http.fxGet(api.sticked_products, this.data.productCategoryParams, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
           recommendProductList: result.data
         })
-      }else{
-         utils.fxShowToast(result.status.message)
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
   // 人气里面的主题
-  getTheme(){
-    http.fxGet(api.theme,{},(result)=>{
+  getTheme() {
+    http.fxGet(api.theme, {}, (result) => {
       if (result.success) {
         console.log(result)
         this.setData({
@@ -179,11 +183,11 @@ Page({
         })
       } else {
         utils.fxShowToast(result.status.message)
-      }     
+      }
     })
   },
   // 人气最新商品
-  newProdct(){
+  newProdct() {
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
       console.log(result.data)
       if (result.success) {
@@ -198,7 +202,22 @@ Page({
 
   // 添加访问者---
   addBrowse() {
-    http.fxPost(api.add_browse, )
+    var params = {
+      openid: '', //String	必须	 	用户唯一标识
+      rid: '', //String	必须	 	店铺编号
+      ip_addr: '', //String	可选	 	访问时IP
+      agent: '', //String	可选	 	访问时代理
+    }
+    params.openid = wx.getStorageSync('jwt').openid
+    params.rid = this.data.rid
+    http.fxPost(api.add_browse, params,(result)=>{
+      if(result.success){
+        console.log(result)
+        this.getBrowseQuantity()
+      }else{
+        utils.fxShowToast(res.status.message)
+      }
+    })
   },
   // 获取浏览浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
@@ -215,22 +234,6 @@ Page({
         })
       } else {
         utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-  // 添加浏览人数---
-  postBrowseQuantity() {
-    var params = {
-      openid: '',
-      rid: this.data.rid,
-      ip_addr: '',
-      agent: ''
-    }
-    http.fxPost(api.add_browse, params, (res) => {
-      if (result.success) {
-
-      } else {
-        utils.fxShowToast(res.status.message)
       }
     })
   },
@@ -290,11 +293,11 @@ Page({
   // 获取店铺信息---
   getIndexData() {
     const that = this
-    const params = {
-    };
+    const params = {};
     http.fxGet(api.shop_info, params, function(result) {
       console.log(result)
       if (result.success) {
+        app.globalData.storeInfo = result.data
         that.setData({
           shopInfo: result.data
         })
@@ -341,14 +344,44 @@ Page({
     }
   },
   // 创建订单参数 并且设置店铺的id
-  createdOrderParams(){
+  createdOrderParams() {
     this.setData({
       ['createdOrder.store_items[0].store_rid']: this.data.rid
     })
     wx.setStorageSync('orderParams', this.data.createdOrder)
   },
-  
-  onGotUserInfo: function (e) {
+  // 点击喜欢
+  handleBindLike(e) {
+    console.log(e.currentTarget.dataset)
+    var rid = e.currentTarget.dataset.id
+    var fx = wx.getStorageSync('fx')
+    var isLike = e.currentTarget.dataset.islike
+    if (!fx.isLogin) {
+      if (isLike){
+        //喜欢就删除
+        http.fxDelete(api.userlike, { rid: rid }, (result) => {
+          if (result.success) {
+            this.recommendProduct()
+          } else {
+            utils.fxShowToast(result.status.message)
+          }
+        })
+      }else{
+        // 不喜欢就添加
+        http.fxPost(api.userlike, { rid: rid }, (result) => {
+          if (result.success) {
+            this.recommendProduct()
+          } else {
+            utils.fxShowToast(result.status.message)
+          }
+        })        
+      }
+    } else {
+      //有没有在自己服务器登陆
+    }
+  },
+
+  onGotUserInfo: function(e) {
     console.log(e.detail.errMsg)
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
@@ -359,9 +392,9 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      openid: wx.getStorageSync('openid')
+      openid: wx.getStorageSync('jwt').openid
     })
-    
+    console.log(this.data.openid)
     this.getStoreId() // 获取店铺的rid---
     this.getIndexData() //获取店铺信息---
     // this.coupon() // 获取优惠券---
@@ -375,6 +408,7 @@ Page({
     this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
     this.recommendProduct() // 推荐好物---
     this.getShopOwner() // 获取店铺主人的信息---
+    this.addBrowse()// 添加访问者---
   },
 
   /**
@@ -450,7 +484,7 @@ Page({
     //***注意！ this.data.shareWhat.from==2 为分享商品
     //***注意！ this.data.shareWhat.from==1 为分享店铺
     console.log(this.data.shareWhat)
-    if (res.from === 'button' && this.data.shareWhat.from==2) {
+    if (res.from === 'button' && this.data.shareWhat.from == 2) {
       console.log(res.target)
       return {
         title: this.data.shareWhat.sharestore.name,

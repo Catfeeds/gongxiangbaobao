@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    storeInfo: [], // 店铺的信息
     needSpecifications: [], // 需要的规格
     needColor: [], //需要的颜色
     pickColor: [], // 所有的颜色---
@@ -21,34 +22,74 @@ Page({
     window_height: app.globalData.system.screenHeight * 2, // 屏幕的高度
     coupon_show: false,
     pick: false, //选择规格的盒子是否隐藏---
-
+    ShopCartNum: [], //购物车的数量---
+    newProductList:[], // 最新的商品列表---
+    //最新产品的请求参数
+    newProductParams:{
+      page:	1,
+      per_page:	10
+    }
+  },
+  // 获取店铺信息
+  getstoreInfo() {
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
+  },
+  // 加入购物车盒子显示
+  handleAddCartShow() {
+    this.setData({
+      pick: true
+    })
   },
   // 加入购物车
   handleAddCart() {
-    var addCartParams={
-      rid: '', //String	必填	 商品Id
+    var rid
+    if (this.data.needSpecifications == '' || this.data.needColor == '') {
+      wx.showToast({
+        title: '请选择',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
+        rid = v.rid
+        this.setOrderParamsProductId(v.rid) // 设置订单的商品id,sku---
+      }
+    })
+    var addCartParams = {
+      rid: '', //String	必填	 商品sku
       quantity: 1, //Integer	可选	1	购买数量
       option: '', //String	可选	 	其他选项
       open_id: '' //String	独立小程序端必填	 	独立小程序openid
     }
-    addCartParams.rid = this.data.rid
-    http.fxPost(api.cart,addCartParams,(result)=>{
+    addCartParams.open_id = wx.getStorageSync("jwt").openid
+    addCartParams.rid = rid
+    http.fxPost(api.cart, addCartParams, (result) => {
       if (result.success) {
         console.log(result)
-      }else{
+        utils.fxShowToast('成功购物车')
+        this.getShopCartNum()
+
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
   // 获取购物车商品数
-  getShopCartNum(){
-    var params={
-      open_id:''
+  getShopCartNum() {
+    var params = {
+      open_id: wx.getStorageSync("jwt").openid
     }
-    http.fxGet(api.cart_item_count, params,(result)=>{
-      if(result.success){
+    http.fxGet(api.cart_item_count, params, (result) => {
+      if (result.success) {
         console.log(result)
-      }else{
+        this.setData({
+          ShopCartNum: result.data.item_count
+        })
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -107,7 +148,6 @@ Page({
         })
       }
     })
-
   },
   // 点击颜色按钮
   handlePickColor(e) {
@@ -259,7 +299,30 @@ Page({
     console.log(productId)
     wx.setStorageSync('orderParams', productId)
   },
-
+  //商品详情
+  handleProductInfoTap(e){
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+    this.setData({
+      rid: e.currentTarget.dataset.rid
+    })
+    this.getProductInfomation() // 获取商品详情---
+  },
+  // 获取最新的商品
+  getNewProduct(){
+    http.fxGet(api.latest_products, this.data.newProductParams,(result)=>{
+      if(result.success){
+        console.log(result)
+        this.setData({
+          newProductList: result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+      console.log(result)
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -269,13 +332,14 @@ Page({
     })
 
     this.getProductInfomation() // 获取商品详情---
-
+    this.getNewProduct() // 获取最新的商品---
     setTimeout(() => {
       this.filterColor() //过滤商品的颜色---
       this.filterSpecifications() //过滤产品的规格---
     }, 1500)
 
-    this.getShopCartNum() // 获取购物车商品数量
+    this.getShopCartNum() // 获取购物车商品数量---
+    this.getstoreInfo() // 获取店铺信息
   },
 
   /**
@@ -293,7 +357,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    console.log(app.globalData.storeInfo)
   },
 
   /**
@@ -336,7 +400,7 @@ Page({
       wx.showToast({
         title: '选择不完整',
         icon: 'none',
-        duration: 2000
+        duration: 1500
       })
       return
     }
@@ -357,8 +421,22 @@ Page({
   },
   //优惠卷隐藏和显示
   coupon_show() {
+    handleGoIndex
     this.setData({
       coupon_show: true
+    })
+  },
+  // 回到首页
+  handleGoIndex(){
+    wx.navigateBack({
+      delta:1
+    })
+  },
+  //跳转到购物车
+  handleToCartTap(){
+    console.log("cart")
+    wx.switchTab({
+      url: '../cart/cart',
     })
   }
 })

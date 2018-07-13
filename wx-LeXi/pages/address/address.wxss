@@ -173,3 +173,10 @@ switch {
 .camera{
   border-bottom: 1rpx solid #F7F9FB;
 }
+.adress-pick--style{
+  font-size: 28rpx;
+}
+.adress-pick--style view{
+  flex: 1;
+  white-space: nowrap;
+}

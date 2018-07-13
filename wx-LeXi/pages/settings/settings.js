@@ -1,4 +1,8 @@
 // pages/settings/settings.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
@@ -6,18 +10,14 @@ Page({
    */
   data: {
     country_code:886,
-    // 手机号码的验证是否弹出
-    is_mobile: false,
-    //选择国家的模态框是否弹出
-    is_country: false,
-    //获取验证码按钮的颜色
-    getBtnStyle: false,
-    //获取手机及号码的按钮和秒变按钮是否显示
-    is_time: false,
-    time: 60,
+    is_mobile: false, // 手机号码的验证是否弹出---
+    is_country: false,//选择国家的模态框是否弹出---
+    getBtnStyle: false,//获取验证码按钮的颜色---
+    is_time: false,//获取手机及号码的按钮和秒变按钮是否显示---
+    time: 60, // 倒计时---
     // 手机号码
-    mobaile_number: [],
-    //验证码
+    mobaile_number: '',
+    //验证码输入
     verification_code: [],
     // 完成按钮
     over_button: false,
@@ -42,19 +42,29 @@ Page({
   // 清空手机号码的按钮
   mobileNumberNullTap() {
     this.setData({
-      mobaile_number: []
+      mobaile_number: ''
     })
   },
-  //获取手机号码的按钮
+  //获取手机验证码的按钮
   getNumberTap() {
-    clearInterval(pageTime)
+    
+    var mobileNumber = this.data.mobaile_number-0
+    var getMobalCode={
+      mobile:''	,//String	必须	 	手机号
+      area_code:'+86'	,//String	可选	+86	区号
+      page:'phone_verify_code'	//String	必须	 	接口请求地址(如注册页面就是register)
+    }
+    if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(mobileNumber))) {
+      utils.fxShowToast('输入的手机号码错误')
+      return
+    }
+    getMobalCode.mobile = mobileNumber.toString()
     this.setData({
       is_time: true,
       time: 60
     })
     if (this.data.is_time == true) {
       var pageTime = setInterval(() => {
-
         this.setData({
           time: --this.data.time
         })
@@ -64,16 +74,23 @@ Page({
             is_time: false
           })
         }
-      }, 100)
+      }, 1000)
     }
-  },
-  //输入手机号码时候出发
-  inputText(e) {
+    http.fxPost(api.auth_get_msm_code, getMobalCode,(result)=>{
+      console.log(result)
 
-    if (e.detail.cursor >= 0) {
+    })
+  },
+  //输入手机号码时候出发users/register_verify_code
+  inputText(e) {
+    console.log(e.detail.cursor)
+    this.setData({
+      mobaile_number: e.detail.value
+    })
+
+    if (this.data.mobaile_number!='') {
       this.setData({
-        getBtnStyle: true,
-        mobaile_number: e.detail.value
+        getBtnStyle: true
       })
     } else {
       this.setData({
@@ -84,7 +101,6 @@ Page({
   },
   //验证码的输入框
   serveNumber(e) {
-
     this.setData({
       verification_code: e.detail.value
     })
@@ -202,6 +218,12 @@ Page({
   offBtnTap(){
     this.setData({
       is_country: false
+    })
+  },
+  // 跳转到我的额收获地址
+  handleToAddressTap(){
+    wx.navigateTo({
+      url: '../receiveAddress/receiveAddress',
     })
   }
 })

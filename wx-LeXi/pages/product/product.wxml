@@ -126,12 +126,12 @@
   <!-- 店铺其他产品信息 -->
   <view class='shopInfo'>
     <view class='shopInfoT'>
-      <view class='userIcon'>
-        <image src='../../images/timg.jpg'></image>
+      <view class='userIcon' catchtap='handleGoIndex'>
+        <image src='{{storeInfo.logo.view_url}}'></image>
       </view>
-      <view class='shopMiddle'>
+      <view class='shopMiddle' catchtap='handleGoIndex'>
         <view class='hui-zi'>原创品牌设计馆</view>
-        <view class='shou'>Brook 手工制作</view>
+        <view class='shou'>{{storeInfo.name}}</view>
       </view>
       <view class='with'>
         <image src='../../images/shop1.png'></image>
@@ -140,20 +140,12 @@
     </view>
 
     <view class='shop-other-goods'>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
+      <view 
+        wx:for='{{newProductList.products}}' 
+        wx:key="{{index}}" 
+        data-rid='{{item.rid}}' 
+        catchtap='handleProductInfoTap'>
+        <image src='{{item.cover}}'></image>
       </view>
     </view>
     <view class='PTRT black-font theme-green'> 在线资讯</view>
@@ -209,7 +201,7 @@
 
   <!-- 选择规格box -->
   <view class='specifications' wx:if="{{pick}}" catchtap='handleSpecificationsHide'>
-    <view class='bg-white specificationsInfo black-font'>
+    <view class='bg-white specificationsInfo black-font' catchtap='{{false}}'>
       <view class='top-info'>
         <view>{{productInfomation.name}}</view>
         <view>
@@ -234,9 +226,9 @@
       </view>
       <!-- 垫片 -->
       <view class='shm'></view>
-      <view class='bottom-btn bg-white c-crosswise-a pick' catchtap='receiveOrderTap'>
+      <view class='bottom-btn bg-white c-crosswise-a pick' >
         <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
-        <view class='btn-bg-color'>选好了</view>
+        <view class='btn-bg-color' catchtap='receiveOrderTap'>选好了</view>
       </view>
     </view>
   </view>
@@ -244,13 +236,13 @@
   <!-- 接单定制按钮 -->
   <view class='bottom-btn bg-white c-crosswise-a'>
     <view class='btn-bg-color shop-cart'>
-      <view class='add_cart--number'>999+</view>
-      <view class='c-line-D cart_text--color'>
+      <view class='add_cart--number' wx:if='{{ShopCartNum!=0}}'>{{ShopCartNum>9?'9+':ShopCartNum}}</view>
+      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
         <image src='../../images/carticon@2x.png'></image>
         <text>购物车</text>
       </view>
     </view>
-    <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
+    <view class='add_cart' catchtap='handleAddCartShow'>加入购物车</view>
     <view class=' crated_btn--style btn-bg-color' catchtap='pickShowTap'>接单订制</view>
   </view>
 

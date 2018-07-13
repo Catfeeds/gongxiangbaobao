@@ -17,6 +17,7 @@ Page({
     allProvinceIndex:[], // 所有的省份列表index---
     AllAdress:[], //获取所有的地区 ---
     country:[], //所有的国家的--
+    countryIndex:[], //所有的国家的index--
     is_cameraOrPhoto:false,
     is_template: 0,
     addressInfo: [
@@ -125,6 +126,7 @@ Page({
       ['form.province_id']: this.data.allProvince[e.detail.value].oid
     })
     console.log(e.detail.value, this.data.allProvince[e.detail.value].oid)
+    this.getAllCity(this.data.allProvince[e.detail.value].oid)
   },
   //获取所有的市区---
   getAllCity(e = 1) {
@@ -146,6 +148,7 @@ Page({
       ['form.city_id']: this.data.allCity[e.detail.value].oid
     })
     console.log(e.detail.value, this.data.allCity[e.detail.value].oid)
+    this.getAllTowns(this.data.allCity[e.detail.value].oid)
   },
   //获取所有的县---
   getAllTowns(e=72) {
@@ -176,12 +179,18 @@ Page({
         this.setData({
           country: result.data
         })
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
   //国家选择器发生变化的时候
   bindPickerChange(e) {
-    console.log(e)
+    console.log(e.detail.value)
+    this.setData({
+      countryIndex: e.detail.value,
+      ['form.country_id']: this.data.country.area_codes[e.detail.value].id
+    })
   },
   //要填写在地址栏里面的地址信息
   addInfomation(e){

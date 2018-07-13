@@ -34,7 +34,7 @@
         <view class='fei c-middle' catchtap='redBagTap'>
           <image src='../../images/red-bag.png'></image>
         </view>
-        <view class='transmission black-font '>
+        <view class='transmission black-font' catchtap='handleToOrderTap'>
           <text>我的订单</text>
           <text class='red-round'></text>
         </view>
@@ -68,8 +68,13 @@
     </view>
     <!-- 下面的产品列表 -->
     <view class='goodsList'>
-      <view wx:for="{{product}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}"></fx-product>
+      <view 
+        wx:for="{{likeProduct.products}}" 
+        wx:key="{{index}}" 
+        class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+        <fx-product 
+          product="{{item}}" 
+          bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
 
     </view>

@@ -124,9 +124,15 @@
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view class='recommendbottomText likeActive'>
+          <view 
+            data-id='{{item.rid}}'
+            data-isLike='{{item.is_like}}'
+            class='recommendbottomText {{item.is_like?"likeActive":""}}' 
+            catchtap='handleBindLike'>
             <view class='icon-like'>
-              <image src='../../images/Like@2.png'></image>
+              <image 
+                src='{{item.is_like?"../../images/Like@2.png":"../../images/dLike@2.png"}}'>
+              </image>
             </view>
             <view>喜欢</view>
           </view>
