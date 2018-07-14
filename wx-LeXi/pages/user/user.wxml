@@ -102,8 +102,13 @@
         <text>心原单</text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
-          <image src='{{item.img}}'></image>
+        <view 
+          catchtap='handleToProductInfoTap'
+          data-rid="{{item.rid}}"
+          class='c-importantGoodsPhoto GoodsPhoto' 
+          wx:for="{{desireOrderProduct.products}}" 
+          wx:key="{{index}}">
+          <image src='{{item.cover}}'></image>
         </view>
 
       </view>

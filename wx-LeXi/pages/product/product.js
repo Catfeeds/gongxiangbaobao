@@ -11,7 +11,7 @@ Page({
   data: {
     storeInfo: [], // 店铺的信息
     needSpecifications: [], // 需要的规格
-    needColor: [], //需要的颜色
+    needColor: [], //需要的颜色---
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
     productInfomation: [], // 商品详情列表---
@@ -29,6 +29,18 @@ Page({
       page:	1,
       per_page:	10
     }
+  },
+  // 加入心愿单
+  handleaddDesireTap() {
+    http.fxPost(api.wishlist, {rids:[this.data.rid]},(result)=>{
+      console.log(result)
+      if(result.success){
+        utils.fxShowToast('成功添加',"success")
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+
+    })
   },
   // 获取店铺信息
   getstoreInfo() {
@@ -340,6 +352,7 @@ Page({
 
     this.getShopCartNum() // 获取购物车商品数量---
     this.getstoreInfo() // 获取店铺信息
+    console.log(this.rid)
   },
 
   /**

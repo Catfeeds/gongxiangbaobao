@@ -329,3 +329,41 @@ height: 100rpx;
   color: #333 !important;
   font-size: 24rpx;
 }
+.bottom-btn {
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+}
+
+.bottom-btn>view {
+  width: 270rpx;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  color: white;
+  text-align: center;
+}
+.pick_btn {
+  width: 690rpx;
+  line-height: 80rpx;
+}
+.add_cart {
+  background-color: #2d343a;
+}
+.add_cart,
+.crated_btn--style{
+   line-height: 80rpx;
+}
+.none-goods {
+  border: 1rpx solid #b2b2b2;
+  color: #b2b2b2;
+}
+.color-item {
+  padding: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  border: 1rpx solid #333;
+  margin: 15rpx 30rpx 15rpx 15rpx;
+}

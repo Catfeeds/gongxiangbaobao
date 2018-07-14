@@ -8,6 +8,7 @@ module.exports = {
   auth_register: 'auth/register', // POST 注册
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
   auth_get_msm_code: 'users/register_verify_code', // POST 注册时候手机验证码---
+  bind_mobile:'accounts/wxa_bind_mobile',//绑定手机号码---
 
   // User
   user: 'users',   // GET 获取用户（当前登录用户）
@@ -29,8 +30,9 @@ module.exports = {
   latest_products: 'products/latest',  // GET 最新产品---
   sticked_products: 'fx_distribute/agency',  // GET 推荐产品---
   brand_products: 'products/by_brand/:rid',  // GET 品牌下产品列表
-  product_detail: 'products/:rid/all_detail', // GET 产品详情---
   product_content: 'products/:rid/detail',  // GET 产品图文介绍
+  product_detail: 'products/:rid/all_detail', // GET 产品详情---
+  by_sku: 'by_sku', // GET 多个sku详情---
   product_skus: 'products/skus',  // GET 产品SKU
   skus: 'products/by_sku',  // GET 产品SKU信息
   wishlist: 'wishlist', // GET 心愿单---

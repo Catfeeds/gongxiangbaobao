@@ -321,7 +321,6 @@ swiper-item, swiper-item>image, swiper {
   font-size: 32rpx;
   color: white;
   text-align: center;
-  
 }
 
 .specifications {

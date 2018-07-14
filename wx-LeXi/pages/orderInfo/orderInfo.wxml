@@ -19,11 +19,11 @@
   <view class='receiveBox'>
     <view class='locationTitle'>寄送地址 </view>
     <view class='userNameBox'>
-      <view class='userName'>何自然</view>
-      <view>13381319070</view>
+      <view class='userName'>{{receiveAddress.first_name}}</view>
+      <view>{{receiveAddress.mobile}}</view>
     </view>
-    <view>贵州省遵义市汇川区天通苑丽水园4号楼2单园501</view>
-    <view>100220</view>
+    <view>{{receiveAddress.full_address}}</view>
+    <view>{{receiveAddress.zipcode}}</view>
   </view>
 
   <!-- 计费清单 -->

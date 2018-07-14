@@ -134,6 +134,7 @@ Page({
         //心愿单
         http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
           if (result.success) {
+            console.log(result)
             this.setData({
               desireOrderProduct: result.data
             })
@@ -160,7 +161,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getProduct() // 获取商品---
+    
   },
 
   /**
@@ -174,7 +175,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getProduct() // 获取商品---
   },
 
   /**
@@ -249,6 +250,13 @@ Page({
   handleToOrderTap(){
     wx.navigateTo({
       url: '../order/order',
+    })
+  },
+  //跳转到商品详情---
+  handleToProductInfoTap(e){
+    console.log(e.currentTarget.dataset.rid)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid
     })
   },
   //跳转到商品详情---

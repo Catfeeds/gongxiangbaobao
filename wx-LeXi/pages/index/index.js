@@ -215,7 +215,7 @@ Page({
         console.log(result)
         this.getBrowseQuantity()
       }else{
-        utils.fxShowToast(res.status.message)
+        utils.fxShowToast(result.status.message)
       }
     })
   },

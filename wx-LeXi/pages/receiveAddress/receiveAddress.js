@@ -11,7 +11,6 @@ Page({
   data: {
     path:true,// 页面来源
     addresList: [], //地址列表---
-
   },
   //选择的地址
   radioChange (e) {

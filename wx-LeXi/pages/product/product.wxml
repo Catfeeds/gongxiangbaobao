@@ -36,7 +36,7 @@
         <text class='hui-zi'> +{{productInfomation.like_count}}</text>
       </view>
       <view class='transmission'>
-        <view class='like-quantity-l'>
+        <view class='like-quantity-l' catchtap='handleaddDesireTap'>
           <text class='fx-icon-nothing-plus'></text>
           <text class='hui-zi'> 心愿单</text>
         </view>
@@ -213,14 +213,28 @@
       <view class='goods-color-box'>
         <view class='black-font color-title'>颜色</view>
         <view class='goods-color goods-color-box'>
-          <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
+          <view 
+            data-colorName="{{item.name}}" 
+            data-icon='{{item.name}}' 
+            data-isPick='{{item.disabled}}' 
+            class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}'
+            wx:for='{{pickColor}}' 
+            wx:key='{{index}}' 
+            catchtap='handlePickColor'>{{item.name}}</view>
         </view>
       </view>
       <!-- 尺寸 -->
       <view class='goods-color-box'>
         <view class='black-font color-title'>规格</view>
         <view class='goods-color goods-color-box'>
-          <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
+          <view 
+            data-icon='{{item.name}}' 
+            catchtap='handleSpecificationsTap' 
+            data-isPick='{{item.disabled}}' 
+            data-specificationsName='{{item.name}}' 
+            class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' 
+            disabled='{{item.disabled}}' 
+            wx:for='{{pickSpecifications}}'
             wx:key='{{index}}'>{{item.name}}</view>
         </view>
       </view>

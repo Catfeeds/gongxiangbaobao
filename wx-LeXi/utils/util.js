@@ -188,11 +188,11 @@ const orderStatusTitle = (status) => {
   return tmp ? tmp[0].title : ''
 }
 // 提示信息
-const showToast = (v) => {
+const showToast = (v, typeText ="none") => {
   wx.showToast({
     title: v,
-    icon: 'none',
-    duration: 2000
+    icon: typeText,
+    duration: 1200
   })
 }
 

@@ -107,7 +107,13 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (e) {
     this.getBonusShow()
+  },
+  //跳转到首页
+  handleToIndexTap(){
+    wx.switchTab({
+      url: '../index/index',
+    })
   }
 })

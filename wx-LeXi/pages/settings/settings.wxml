@@ -136,7 +136,9 @@
           <text class='error-text font-ss'>验证码错误</text>
         </view>
         <!-- 按钮 -->
-        <button class='ok-btn c-middle {{over_button?"bg-green":""}}'>完成</button>
+        <button 
+          class='ok-btn c-middle {{over_button?"bg-green":""}}'
+          catchtap='handleVerifyOverTap'>完成</button>
       </view>
     </form>
   </view>

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    receiveAddress:[], // 收货地址---
     orderInfomation:[], // 订单详情---
     logisticsCompany:[],// 物流公司及模板信息---
     coupon:false,
@@ -33,20 +34,25 @@ Page({
         size: "M"
       },
     ],
-    order:[1,2]
+    order:[1]
   },
-
-  // 写死的物流模板
-  logisiticsmoble(){
-    var i = wx.getStorageSync('orderParams')
-    i.store_items[0].items[0].express_id=7
-    console.log(i)
-    this.setData({
-      orderInfomation:i
+  // 收货地址
+  receiveAddress(){
+    var address = wx.getStorageSync('orderParams').address_rid
+    console.log(address)
+    http.fxGet(api.address_update.replace(/:rid/g, address),{},(result)=>{
+      console.log(result)
+      if(result.success){
+        this.setData({
+          receiveAddress: result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
-  //获取物流信息---
+  //获取默认的物流信息---
   getLogistics() {
     var logisticsId = wx.getStorageSync("logisticsIdFid")
     http.fxGet(api.logisitcs.replace(/:rid/, logisticsId),{},(result)=>{
@@ -58,15 +64,18 @@ Page({
     })
   },
   
-  // 获取订单详情---
-  getOrderInfo() {
-    var orderParams=wx.getStorageSync('orderParams')
-    //获取地址
-    http.fxGet(api.address_update.replace(/:rid/g, orderParams.address_rid),{},(result)=>{
-      console.log(result,'地址信息')
+  // //获取产品的详情---
+  getOrderProdectInfo() {
+    console.log(wx.getStorageSync('orderParams'))
+    var orderParams=wx.getStorageSync('orderParams').store_items[0].items
+    console.log(orderParams)
+    var prductSkuArr=orderParams.map((v,i)=>{
+      return v.rid
     })
+    var prductSkustr=prductSkuArr.join(',')
+    console.log(prductSkustr)
     //获取产品的详情
-    http.fxGet(api.product_detail.replace(/:rid/g, orderParams.store_items[0].items[0].rid),{},(result)=>{
+    http.fxGet(api.by_sku, { rid: prductSkustr },(result)=>{
       console.log(result, "产品的详情")
     })
   },
@@ -98,7 +107,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getOrderInfo() // 获取去订单详情
+    this.getOrderProdectInfo() // 获取订单详情
+    this.receiveAddress()// 收货地址---
   },
 
   /**
@@ -113,8 +123,7 @@ Page({
    */
   onShow: function () {
     
-    // this.getLogistics() //获取运费的模板
-    this.logisiticsmoble() // 写死的运费模板
+    this.getLogistics() //获取默认的运费模板
   },
 
   /**
