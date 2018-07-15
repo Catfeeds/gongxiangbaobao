@@ -33,6 +33,10 @@ const timestamp2string = (ts, format = 'time') => {
   if (format == 'date') {
     return y + '.' + m + '.' + d;  // + ':' + second
   }
+  if (format == 'cn') {
+    return y + '年' + m + '月' + d + '日';  // + ':' + second
+  }
+
 }
 
 const formatNumber = n => {

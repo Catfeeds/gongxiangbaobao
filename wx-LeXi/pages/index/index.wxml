@@ -47,7 +47,7 @@
   <!-- 浏览过的人数 -->
   <view class='joinNumber'>
     <view class='theme-hui-color'>
-      <text class='theme-color'>{{BrowseQuantityInfo.count}}</text> 浏览过设计馆</view>
+      <text class='theme-color'>{{shopInfo.browse_number}}</text> 浏览过设计馆</view>
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
@@ -62,8 +62,8 @@
           </view>
         </view>
       </view>
-      <view catchtap='wacthTap' class='joinNumberR'>
-        {{BrowseQuantityInfo.count>999?'999+':BrowseQuantityInfo.count}}
+      <view  class='joinNumberR'>
+        {{shopInfo.browse_number>999?'999+':shopInfo.browse_number}}
       </view>
     </view>
   </view>
@@ -81,7 +81,12 @@
   </view>
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
-    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='handleGoryActiveTap'>{{item.name}}
+    <view 
+      wx:for="{{catgory}}" 
+      wx:key="{{item.rid}}" 
+      data-rid="{{item.rid}}" 
+      class='{{catgoryActive==item.rid?"active":""}}' 
+      catchtap='handleGoryActiveTap'>{{item.name}}
     </view>
   </view>
   <!-- 垫片 -->
@@ -120,7 +125,12 @@
         </view>
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item}}" bind:triggerEvent_product="handleInfomation"></fx-product-middleM>
+          <fx-product-middleM 
+            originPric="{{true}}" 
+            is_likeNumber="{{true}}" 
+            price="{{true}}" 
+            product="{{item}}" 
+            bind:triggerEvent_product="handleInfomation"></fx-product-middleM>
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
@@ -158,8 +168,16 @@
         <!-- 推荐好物品的内容s -->
         <view class='tuijian'>
           <!-- 物品的详情 -->
-          <view class='recommend-goods-box' wx:for='{{highQualityProduct.designs}}' wx:key='{{index}}'>
-            <fx-product-middleM bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}">
+          <view 
+            class='recommend-goods-box' 
+            wx:for='{{highQualityProduct.designs}}' 
+            wx:key='{{index}}'>
+            <fx-product-middleM 
+              bind:triggerEvent_product="handleInfomation" 
+              originPric="{{true}}" 
+              is_likeNumber="{{true}}" 
+              price="{{true}}" 
+              product="{{item.product}}">
             </fx-product-middleM>
           </view>
         </view>
@@ -180,8 +198,14 @@
       </view>
     </view>
     <view class='production'>
-      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' wx:for="{{myProduct.products}}" wx:key='{{index}}'>
-        <fx-product product='{{item}}' like_number='{{true}}' bind:triggerEvent_product='handleInfomation'></fx-product>
+      <view 
+        class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' 
+        wx:for="{{myProduct.products}}" 
+        wx:key='{{index}}'>
+        <fx-product 
+          product='{{item}}' 
+          like_number='{{true}}' 
+          bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>
@@ -192,7 +216,13 @@
       <view class='human themeGoods'>
         主题
       </view>
-      <view class='themeBottomPhoto' data-id='{{item.id}}' wx:for='{{popularProductTheme}}' wx:key='{{index}}' catchtap='handlethemeTap'>
+      <view 
+        class='themeBottomPhoto' 
+        data-id='{{item.id}}' 
+        wx:for='{{popularProductTheme}}' 
+        wx:key='{{index}}' 
+        data-index='{{index}}'
+        catchtap='handlethemeTap'>
         <image src='{{item.cover}}'></image>
       </view>
     </view>
@@ -201,7 +231,10 @@
     </view>
     <view class='production new-goods_box'>
       <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct.products}}' wx:key='{{index}}'>
-        <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product 
+          product="{{item}}" 
+          like_number="{{true}}" 
+          bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
     <!-- <view class='production'>

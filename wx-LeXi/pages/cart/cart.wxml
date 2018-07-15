@@ -68,13 +68,11 @@
         <view>+</view>
       </view>
     </view>
-
-
   </view>
 
   <!-- 心愿单的商品添加到购物车 -->
-  <view class='thinkOrderAddCartBox' wx:if="{{pickBox}}">
-    <view class='thinkOrderAddCart'>
+  <view class='thinkOrderAddCartBox' wx:if="{{pickBox}}" catchtap='handlePickBoxOffTap'>
+    <view class='thinkOrderAddCart' catchtap='{{false}}'>
       <view class='priceAndname'>
         <view class='goodsTitle'>{{productInfomation.name}}</view>
         <view class='goodsTitle'>
@@ -105,6 +103,8 @@
             wx:for='{{pickSpecifications}}'
             wx:key='{{index}}'>{{item.name}}</view>
       </view>
+      <view class='shm'></view>
+      <view class='shm'></view>
       <view class='shopBtnBox'>
         <view class='bottom-btn bg-white c-crosswise-a pick_btn'>
           <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    order: [], // 所有的订单信息---
     receiveAddress:[], // 收货地址---
     orderInfomation:[], // 订单详情---
     logisticsCompany:[],// 物流公司及模板信息---
@@ -34,7 +35,7 @@ Page({
         size: "M"
       },
     ],
-    order:[1]
+    
   },
   // 收货地址
   receiveAddress(){
@@ -74,9 +75,22 @@ Page({
     })
     var prductSkustr=prductSkuArr.join(',')
     console.log(prductSkustr)
-    //获取产品的详情
-    http.fxGet(api.by_sku, { rid: prductSkustr },(result)=>{
+    //获取sku的详情
+    http.fxGet(api.by_sku, { rids: prductSkustr },(result)=>{
+      var skuInfo=[]
       console.log(result, "产品的详情")
+      if (result.success){
+        Object.keys(result.data).forEach((key)=>{
+          // skuInfo.push({[key]:result.data[key]})
+          skuInfo.push({key:result.data[key]})
+        })
+        this.setData({
+          order: skuInfo
+        })
+        console.log(this.data.order)
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
   //

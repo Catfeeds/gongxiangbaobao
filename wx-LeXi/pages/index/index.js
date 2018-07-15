@@ -131,6 +131,7 @@ Page({
         this.setData({
           ShopOwner: result.data
         })
+        wx.setStorageSync('storeOwnerInfo', result.data)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -208,14 +209,16 @@ Page({
       ip_addr: '', //String	可选	 	访问时IP
       agent: '', //String	可选	 	访问时代理
     }
+    
     params.openid = wx.getStorageSync('jwt').openid
     params.rid = this.data.rid
     http.fxPost(api.add_browse, params,(result)=>{
       if(result.success){
         console.log(result)
-        this.getBrowseQuantity()
+        this.getBrowseQuantity() // 浏览浏览人数---
       }else{
         utils.fxShowToast(result.status.message)
+        this.getBrowseQuantity() // 浏览浏览人数---
       }
     })
   },
@@ -233,7 +236,7 @@ Page({
           BrowseQuantityInfo: result.data
         })
       } else {
-        utils.fxShowToast(result.status.message)
+        // utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -301,6 +304,7 @@ Page({
         that.setData({
           shopInfo: result.data
         })
+        wx.setStorageSync('storeInfo', result.data)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -308,7 +312,6 @@ Page({
   },
   //分类选项的函数---
   handleGoryActiveTap(e = 1) {
-    console.log(this.data.catgoryActive)
     console.log(e.currentTarget)
     if (e.currentTarget == undefined) {
       this.setData({
@@ -401,7 +404,6 @@ Page({
     this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
 
     this.createdOrderParams() //创建订单的参数---
-    this.getBrowseQuantity() // 浏览浏览人数---
     this.getAnnouncement() // 获取店铺公告---
     this.getIsWatch() // 查看是否关注---
     this.getThemeProduct() //主打的设计1,主打设计 2,优质精选---
@@ -529,7 +531,10 @@ Page({
   },
   //进入主题页面
   handlethemeTap(e) {
+    
     console.log(e.currentTarget.dataset.id)
+    console.log(this.data.popularProductTheme)
+    app.globalData.themeProdct = this.data.popularProductTheme[e.currentTarget.dataset.index]
     wx.navigateTo({
       url: '../theme/theme?id=' + e.currentTarget.dataset.id,
     })

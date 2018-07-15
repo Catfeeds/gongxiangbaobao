@@ -81,7 +81,7 @@ page{
 }
 
 .thinkOrderAddCart {
-  height: 370rpx;
+  min-height: 370rpx;
   width: 670rpx;
   background-color: white;
   position: absolute;
@@ -101,6 +101,7 @@ page{
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .pickBox view {
@@ -366,4 +367,5 @@ height: 100rpx;
   border-radius: 10rpx;
   border: 1rpx solid #333;
   margin: 15rpx 30rpx 15rpx 15rpx;
+  font-size: 24rpx;
 }

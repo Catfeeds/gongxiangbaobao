@@ -1,79 +1,31 @@
 // pages/theme/theme.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    product: [
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-    ],  
+    product: [{}],  
+  },
+  //跳转到商品详情---
+  handleInfomation(e) {
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    console.log(app.globalData.themeProdct)
+    this.setData({
+      product: app.globalData.themeProdct
+    })
   },
 
   /**
@@ -87,7 +39,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**

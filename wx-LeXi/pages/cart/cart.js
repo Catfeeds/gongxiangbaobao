@@ -213,7 +213,7 @@ Page({
       }
     })
   },
-  /** start**/
+  /** start 后续抽离**/
   // 获取商品详情
   getProductInfomation(e) {
     http.fxGet(api.product_detail.replace(/:rid/g, e), {}, (result) => {
@@ -380,7 +380,71 @@ Page({
       }
     })
   },
-  /** end**/
+  // 选好了按钮
+  receiveOrderTap() {
+    var rid
+    if (this.data.needSpecifications == '' || this.data.needColor == '') {
+      wx.showToast({
+        title: '选择不完整',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
+        rid = v.rid
+        this.setOrderParamsProductId(v.rid) // 设置订单的商品id---
+      }
+    })
+    wx.navigateTo({
+      url: '../receiveAddress/receiveAddress?rid=' + rid,
+    })
+  },
+  // 加入购物车
+  handleAddCart() {
+    var rid
+    if (this.data.needSpecifications == '' || this.data.needColor == '') {
+      wx.showToast({
+        title: '请选择',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
+        rid = v.rid
+        this.setOrderParamsProductId(v.rid) // 设置订单的商品id,sku---
+      }
+    })
+    var addCartParams = {
+      rid: '', //String	必填	 商品sku
+      quantity: 1, //Integer	可选	1	购买数量
+      option: '', //String	可选	 	其他选项
+      open_id: '' //String	独立小程序端必填	 	独立小程序openid
+    }
+    addCartParams.open_id = wx.getStorageSync("jwt").openid
+    addCartParams.rid = rid
+    http.fxPost(api.cart, addCartParams, (result) => {
+      if (result.success) {
+        console.log(result)
+        utils.fxShowToast('成功购物车')
+        this.getCartProduct() // 获取购物车商品---
+        this.getDesireOrder() // 获取心愿单---
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 设置订单参数的 商品的rid store_items.itemsrid = 
+  setOrderParamsProductId(e) {
+    var productId = wx.getStorageSync('orderParams')
+    productId.store_items[0].items[0].rid = e
+    console.log(productId)
+    wx.setStorageSync('orderParams', productId)
+  },
+  /** end 后续抽离**/
 
   /**
    * 生命周期函数--监听页面加载
@@ -489,5 +553,12 @@ Page({
     wx.navigateTo({
       url: '../receiveAddress/receiveAddress',
     })
+  },
+  // 关闭选择呼出框、
+  handlePickBoxOffTap(){
+    this.setData({
+      pickBox:false
+    })
   }
+
 })

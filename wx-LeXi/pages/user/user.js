@@ -9,7 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    classInfo:1,
+    userInfo:[],// 用户的信息
+    classInfo:1,// 切换---
     sotrF: false,
     likeProduct:[],// 喜欢的的商品---
     recentlyLookProduct:[],// 最近查看的商品---
@@ -97,6 +98,20 @@ Page({
     ],
 
   },
+  // 获取用户信息---
+  getUserInfo(){
+    http.fxGet(api.users_profile,{},(result)=>{
+      if(result.success){
+        console.log(result,'用户的信息')
+        this.setData({
+          userInfo: result.data
+        })
+        wx.setStorageSync("userInfo", result.data)
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   //切换类别
   classTap(e){
     console.log(e.currentTarget.dataset.rid)
@@ -161,7 +176,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getUserInfo() // 获取用户的信息
   },
 
   /**
@@ -229,9 +244,9 @@ Page({
 
   },
   //跳转到设置页面
-  setTap() {
+  setTap(e) {
     wx.navigateTo({
-      url: '../settings/settings',
+      url: '../settings/settings'
     })
   },
   //跳转到优惠券

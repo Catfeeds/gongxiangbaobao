@@ -55,7 +55,7 @@
   </view>
 
   <!-- 订单信息 -->
-  <view class='orderInfoBox' wx:for="{{order}}" wx:key="{{index}}">
+  <view class='orderInfoBox'>
     <view class='shopName'>
       <text>素雅手作品牌馆 </text>
       <text class='shopNameR'>从台湾发货</text>
@@ -63,12 +63,18 @@
 
     <view class='OtherInfomation'>
       <!-- 购买信息 -->
-      <view class='shopGoodsInfo component' wx:for="{{shoppingCart}}" wx:key="{{index}}">
-        <fx-product-middle shopingNumber="true" product="{{item}}" color="true"></fx-product-middle>
+      <view class='shopGoodsInfo component' wx:for="{{order}}" wx:key="{{index}}">
+        <fx-product-middle 
+          shopingNumber="true" 
+          product="{{item.key}}" 
+          color="true"></fx-product-middle>
         <view class='shopGoodsInfoR'>
-          <text class='cureentPriceS'>￥80</text>
-          <text class='shopNameR old-price-text'>￥100</text>
+          <text class='cureentPriceS'>￥{{item.key.sale_price==0?item.key.price:item.key.sale_price}}</text>
+          <text 
+            class='shopNameR old-price-text' 
+            wx:if='{{item.key.sale_price!=0}}'>￥{{item.key.price}}</text>
         </view>
+        <text class='otherInfo'>x1</text>
       </view>
 
       <!-- 满减 -->

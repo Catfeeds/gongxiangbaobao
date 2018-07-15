@@ -67,7 +67,7 @@
         <open-data type='userAvatarUrl'></open-data>
       </view>
     </view>
-    <view class='roundR' catchtap='watchTap'>···</view>
+    <view class='roundR' >···</view>
   </view>
 
   <!-- 描述,发货地，时间 -->

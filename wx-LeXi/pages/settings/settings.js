@@ -9,7 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    testCode: [], // 返回的验证码
+    userInfo:[], // 用户的资料---
+    testCode: [], // 返回的验证码---
     country_code: 86, //默认国家---
     is_mobile: false, // 手机号码的验证是否弹出---
     is_country: false, //选择国家的模态框是否弹出---
@@ -112,7 +113,6 @@ Page({
     this.setData({
       mobaile_number: e.detail.value
     })
-
     if (this.data.mobaile_number != '') {
       this.setData({
         getBtnStyle: true
@@ -143,7 +143,7 @@ Page({
     //   is_mobile: false
     // })
     wx.navigateBack({
-      delta:1
+      delta: 1
     })
   },
   //选择国家的模态框是否弹出
@@ -185,7 +185,7 @@ Page({
     }
     http.fxPost(api.bind_mobile, params, (result) => {
       console.log(result)
-      utils.fxShowToast('ok','success')
+      utils.fxShowToast('ok', 'success')
       if (result.success) {
         wx.navigateBack({
           delta: 1,
@@ -195,11 +195,17 @@ Page({
       }
     })
   },
+  // 获取用户信息 ---
+  getUserInfo() {
+    this.setData({
+      userInfo:wx.getStorageSync('userInfo')
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getUserInfo() // 获取用户信息
   },
 
   /**

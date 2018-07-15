@@ -24,7 +24,7 @@ module.exports = {
   brand_detail: 'brands/:rid',  // GET 品牌详情
   shop_info: 'store/info', // 获取店铺信息--
   store_announcement: 'store/announcement', //获取店铺公告---
-  BrowseQuantityNumber:'store/:rid/visitor', //浏览过的人数
+  BrowseQuantityNumber:'store/:rid/visitor', //浏览过的人数---
   // Product
   products: 'products/by_store',  // GET 产品列表---
   latest_products: 'products/latest',  // GET 最新产品---
@@ -32,7 +32,7 @@ module.exports = {
   brand_products: 'products/by_brand/:rid',  // GET 品牌下产品列表
   product_content: 'products/:rid/detail',  // GET 产品图文介绍
   product_detail: 'products/:rid/all_detail', // GET 产品详情---
-  by_sku: 'by_sku', // GET 多个sku详情---
+  by_sku: 'products/by_sku', // GET 多个sku详情---
   product_skus: 'products/skus',  // GET 产品SKU
   skus: 'products/by_sku',  // GET 产品SKU信息
   wishlist: 'wishlist', // GET 心愿单---
@@ -110,6 +110,9 @@ module.exports = {
   logisitcs:'logistics/freight_template/:rid',
 
   //店铺的主人的
-  store_owner_info:'users/authenticate'
+  store_owner_info:'users/authenticate',
+
+  // user
+  users_profile: 'users/profile' //get 获取用户的信息
 
 }

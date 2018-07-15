@@ -23,20 +23,22 @@ Page({
     coupon_show: false,
     pick: false, //选择规格的盒子是否隐藏---
     ShopCartNum: [], //购物车的数量---
-    newProductList:[], // 最新的商品列表---
+    newProductList: [], // 最新的商品列表---
     //最新产品的请求参数
-    newProductParams:{
-      page:	1,
-      per_page:	10
+    newProductParams: {
+      page: 1,
+      per_page: 10
     }
   },
   // 加入心愿单
   handleaddDesireTap() {
-    http.fxPost(api.wishlist, {rids:[this.data.rid]},(result)=>{
+    http.fxPost(api.wishlist, {
+      rids: [this.data.rid]
+    }, (result) => {
       console.log(result)
-      if(result.success){
-        utils.fxShowToast('成功添加',"success")
-      }else{
+      if (result.success) {
+        utils.fxShowToast('成功添加', "success")
+      } else {
         utils.fxShowToast(result.status.message)
       }
 
@@ -312,7 +314,7 @@ Page({
     wx.setStorageSync('orderParams', productId)
   },
   //商品详情
-  handleProductInfoTap(e){
+  handleProductInfoTap(e) {
     wx.pageScrollTo({
       scrollTop: 0
     })
@@ -322,14 +324,14 @@ Page({
     this.getProductInfomation() // 获取商品详情---
   },
   // 获取最新的商品
-  getNewProduct(){
-    http.fxGet(api.latest_products, this.data.newProductParams,(result)=>{
-      if(result.success){
+  getNewProduct() {
+    http.fxGet(api.latest_products, this.data.newProductParams, (result) => {
+      if (result.success) {
         console.log(result)
         this.setData({
           newProductList: result.data
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
       console.log(result)
@@ -407,6 +409,7 @@ Page({
   onShareAppMessage: function() {
 
   },
+  // 选好了按钮
   receiveOrderTap() {
     var rid
     if (this.data.needSpecifications == '' || this.data.needColor == '') {
@@ -427,6 +430,7 @@ Page({
       url: '../receiveAddress/receiveAddress?rid=' + rid,
     })
   },
+
   watchTap() {
     wx.navigateTo({
       url: '../watch/watch',
@@ -440,13 +444,13 @@ Page({
     })
   },
   // 回到首页
-  handleGoIndex(){
+  handleGoIndex() {
     wx.navigateBack({
-      delta:1
+      delta: 1
     })
   },
   //跳转到购物车
-  handleToCartTap(){
+  handleToCartTap() {
     console.log("cart")
     wx.switchTab({
       url: '../cart/cart',

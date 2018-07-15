@@ -184,7 +184,10 @@ App({
     // 选中的收货地址
     checkedDeliveryAddress: {},
     system: [],
-    //店铺的信息
-    storeInfo:[]
+    // 店铺的信息
+    storeInfo:[],
+    // 主题商品列表
+    themeProdct:[]
+
   }
 })

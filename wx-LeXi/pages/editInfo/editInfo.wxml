@@ -1,8 +1,8 @@
 <!--pages/editInfo/editInfo.wxml-->
 <view class='container'>
   <view class='userPhoto'>
-    <image src='../../images/timg.jpg'></image>
-    <view class='register-time'>注册时间：2016年11月11日</view>
+    <image src='{{userInfo.profile.avatar}}'></image>
+    <view class='register-time'>注册时间：{{userInfo.profile.created_at}}</view>
     <view class='camera'>
       <image src='../../images/lexi@2.png'></image>
     </view>
@@ -13,34 +13,71 @@
       <!-- 用户名字 -->
       <label class='componentTwo'>
         <view>用户名</view>
-        <input placeholder-class='placeholder' value='设计师Ricky' class='userInput' placeholder='输入姓名'></input>
-
+        <input 
+          bindinput='handleNameInput'
+          placeholder-class='placeholder' 
+          value='{{editUserInfo.username}}' 
+          class='userInput' 
+          placeholder='输入姓名'></input>
       </label>
       <!-- 个人介绍 -->
       <label class='componentTwo'>
         <view>个人介绍</view>
-        <input placeholder-class='placeholder' class='userInput' placeholder='给自己添加一个solgan吧'></input>
+        <input 
+          placeholder-class='placeholder' 
+          class='userInput' 
+          value='{{editUserInfo.about_me}}'
+          placeholder='给自己添加一个solgan吧'></input>
 
       </label>
       <!-- 邮箱 -->
       <label class='componentTwo'>
         <view>邮箱</view>
-        <input placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
+        <input 
+          value='{{editUserInfo.email}}'
+          placeholder-class='placeholder' 
+          class='userInput' 
+          placeholder='定期为你推荐好设计'></input>
       </label>
       <!-- 位置 -->
       <label class='componentTwo'>
         <view>位置</view>
-        <input placeholder-class='placeholder' value='贵州.遵义' class='userInput' placeholder='定期为你推荐好设计'></input>
+          <picker 
+            mode="region" 
+            bindchange="bindRegionChange" 
+            value="{{region}}">
+            <view class="black-font">
+              {{region[0]}}，{{region[1]}}，{{region[2]}}
+            </view>
+          </picker>
       </label>
       <!-- 出生日期 -->
       <label class='componentTwo'>
         <view>出生日期</view>
-        <input placeholder-class='placeholder' value='1992年8月25日' class='userInput' placeholder='定期为你推荐好设计'></input>
+          <picker 
+            mode="date" 
+            value="{{date}}" 
+            start="2015-09-01" 
+            end="2017-09-01" 
+            bindchange="bindDateChange">
+            <view class="black-font">
+              {{date}}
+            </view>
+          </picker>
       </label>
       <!-- 性别 -->
       <label class='componentTwo'>
         <view>性别</view>
-        <input placeholder-class='placeholder' class='userInput' value='男' placeholder=''></input>
+          <picker 
+            bindchange="bindGenderChange" 
+            mode ='selector'
+            range="{{gender}}"
+            value="{{gender}}">
+            <view class="black-font">
+              {{gender[userInfo.profile.gender]}}
+              <picker-view></picker-view>
+            </view>
+          </picker>
       </label>
 
       <view class='bottom-btn-box bg-white '>
