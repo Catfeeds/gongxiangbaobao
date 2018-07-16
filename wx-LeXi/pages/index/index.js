@@ -257,8 +257,10 @@ Page({
     }, (result) => {
       if (result.success) {
         console.log(result)
+        app.globalData.isWatchstore = true
         this.getIndexData()
         this.getIsWatch()
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -271,8 +273,10 @@ Page({
     }, (result) => {
       console.log(result)
       if (result.success) {
+        app.globalData.isWatchstore = false
         this.getIndexData()
         this.getIsWatch()
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -288,6 +292,7 @@ Page({
         this.setData({
           is_with: result.data.status
         })
+        app.globalData.isWatchstore = result.data.status
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -329,6 +334,7 @@ Page({
     }
     // 作品里面的
     if (this.data.catgoryActive === 2) {
+      console.log(this.data.productCategoryParams)
       http.fxGet(api.products, this.data.productCategoryParams, (result) => {
         if (result.success) {
           this.setData({

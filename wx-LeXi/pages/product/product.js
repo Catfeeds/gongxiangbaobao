@@ -9,8 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    storeInfo: [], // 店铺的信息
-    needSpecifications: [], // 需要的规格
+    isWatch:false, // 是否关注过店铺
+    storeInfo: [], // 店铺的信息---
+    needSpecifications: [], // 需要的规格---
     needColor: [], //需要的颜色---
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
@@ -29,6 +30,14 @@ Page({
       page: 1,
       per_page: 10
     }
+  },
+  // 增加浏览记录
+  postAddBrowses(){
+    http.fxPost(api.user_browses,{rid:this.data.rid},(result)=>{
+      if(result.success){
+      }else{
+      }
+    })
   },
   // 加入心愿单
   handleaddDesireTap() {
@@ -342,7 +351,8 @@ Page({
    */
   onLoad: function(options, product) {
     this.setData({
-      rid: options.rid
+      rid: options.rid,
+      isWatch: app.globalData.isWatchstore
     })
 
     this.getProductInfomation() // 获取商品详情---
@@ -350,6 +360,7 @@ Page({
     setTimeout(() => {
       this.filterColor() //过滤商品的颜色---
       this.filterSpecifications() //过滤产品的规格---
+      this.postAddBrowses()// 增加浏览记录
     }, 1500)
 
     this.getShopCartNum() // 获取购物车商品数量---

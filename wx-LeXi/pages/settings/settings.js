@@ -3,6 +3,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+const common= require('./../../utils/common.js')
 Page({
 
   /**
@@ -206,13 +207,14 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfo() // 获取用户信息
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    wx.getStorageSync('adress') || common.getReceiveAddress() // 加载地址
   },
 
   /**

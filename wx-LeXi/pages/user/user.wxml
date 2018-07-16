@@ -54,8 +54,6 @@
       </view>
     </view>
   </view>
-
-
   <!-- 以喜欢里面的内容 -->
   <view wx:if="{{classInfo==1}}">
     <!-- 定位垫片 -->
@@ -77,10 +75,8 @@
           product="{{item}}" 
           bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
-
     </view>
   </view>
-
   <!-- 收藏里面的内容 -->
   <view class='shou' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
@@ -90,13 +86,16 @@
         <text class='see-all hui-zi'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{Theme_goods}}" wx:key="{{index}}">
-          <image src='{{item.img}}'></image>
+        <view 
+          catchtap='handleToProductInfoTap'
+          data-rid='{{item.rid}}'
+          class='c-importantGoodsPhoto GoodsPhoto' 
+          wx:for="{{userBrowsesProduct}}" 
+          wx:key="{{index}}">
+          <image src='{{item.cover}}'></image>
         </view>
-
       </view>
     </view>
-
     <!-- 心愿单 -->
     <view class='c-importantGoods p-null'>
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
@@ -111,12 +110,8 @@
           wx:key="{{index}}">
           <image src='{{item.cover}}'></image>
         </view>
-
       </view>
       <view class='shm'></view>
     </view>
-
   </view>
-
-
 </view>

@@ -1,7 +1,7 @@
 <!--pages/coupon/coupon.wxml-->
 <view class='container theme-bg-color'>
-
-  <view class='coupon-box' >
+  <!-- 商家劝 -->
+  <view class='coupon-box'>
     <!-- left -->
     <view class='info-box-left'>
       <view class='line-L theme-bg-color line-out'></view>
@@ -30,21 +30,18 @@
       </view>
     </view>
     <!-- 去使用的按钮 -->
-    <view class='right-btn'>
-      <view class='btn-bg-color '>去使用</view>
+    <view class='right-btn coupon_right--red'>
+      <view>去 使 用</view>
     </view>
     <!-- 右边的线 -->
     <view class='right-line line-L theme-bg-color'></view>
   </view>
-
-  <view  class='coupon-box'>
+  <!-- 乐喜券 -->
+  <view class='coupon-box'>
     <!-- left -->
-    <view class='info-box-left none-bg-l'>
-      <view class='line-L theme-bg-color line-out'></view>
-      <view class='theme-bg-color top-round top-round-top'></view>
-      <view class='theme-bg-color top-round top-round-bottom'></view>
+    <view class='info-box-left'>
       <!-- 信息 -->
-      <view class='price-info-box'>
+      <view class='price-info-box lx-coupon--style'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
           <text>800</text>
@@ -54,6 +51,43 @@
     </view>
     <!-- right 信息 -->
     <view class='info-box-R'>
+      <view class='quadrate paymentFnTextB'>
+        <view class='quadrate-view'></view>
+        <text>2017.08.31至2017.08.31</text>
+      </view>
+      <view class='paymentFnTextB lx-coupon--text'>
+        <view class='font-xss'>
+          乐喜券
+        </view>
+        <text class='font-s'>全场通用</text>
+      </view>
+      <view class='qian-hui font-xss coupon_explain'>新店礼包</view>
+    </view>
+    <!-- 去使用的按钮 -->
+    <view class='right-btn'>
+      <view class='coupon_dashes--round'>去 使 用</view>
+    </view>
+  </view>
+
+  <!-- 已经失效 -->
+  <view class='time-top separate_line'>已失效的卷</view>
+  <view class='coupon-box'>
+    <!-- left -->
+    <view class='info-box-left none-bg-l'>
+      <view class='line-L theme-bg-color line-out'></view>
+      <view class='theme-bg-color top-round top-round-top'></view>
+      <view class='theme-bg-color top-round top-round-bottom'></view>
+      <!-- 信息 -->
+      <view class='price-info-box exceed_coupon--right'>
+        <view class='price-icon'>
+          <image src='../../images/￥@2-.png'></image>
+          <text>800</text>
+        </view>
+        <view class='price-text'>满801使用</view>
+      </view>
+    </view>
+    <!-- right 信息 -->
+    <view class='info-box-R exceed_coupon--middle'>
       <view class='quadrate paymentFnTextB hui'>
         <view class='quadrate-view none-bg'></view>
         <text>2017.08.31至2017.08.31</text>
@@ -66,17 +100,49 @@
       </view>
     </view>
     <!-- 去使用的按钮 -->
-    <view class='right-btn '>
-      <view class='btn-bg-color none-bg'>失败</view>
+    <view class='right-btn exceed_coupon--middle'>
+      <view>失 效</view>
     </view>
     <!-- 右边的线 -->
     <view class='right-line line-L theme-bg-color'></view>
   </view>
 
+  <view class='coupon-box'>
+    <!-- left -->
+    <view class='info-box-left exceed_coupon--middle'>
+      <!-- 信息 -->
+      <view class='price-info-box lx-coupon--style exceed_coupon--right'>
+        <view class='price-icon'>
+          <image src='../../images/￥@2-.png'></image>
+          <text>800</text>
+        </view>
+        <view class='price-text'>满801使用</view>
+      </view>
+    </view>
+    <!-- right 信息 -->
+    <view class='info-box-R exceed_coupon--middle'>
+      <view class='quadrate paymentFnTextB'>
+        <view class='quadrate-view none-bg'></view>
+        <text>2017.08.31至2017.08.31</text>
+      </view>
+      <view class='paymentFnTextB lx-coupon--text '>
+        <view class='font-xss none-bg'>
+          乐喜券
+        </view>
+        <text class='font-s'>全场通用</text>
+      </view>
+      <view class='qian-hui font-xss coupon_explain'>新店礼包</view>
+    </view>
+    <!-- 去使用的按钮 -->
+    <view class='right-btn exceed_coupon--middle'>
+      <view class='coupon_dashes--round'>失 效</view>
+    </view>
+  </view>
+
   <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
-      <image src='../../images/coupon@2.png'></image>
-      <view class='black-font '>你当没有任何优惠卷红包</view>
-  
+    <image src='../../images/coupon@2.png'></image>
+    <view class='black-font '>你当没有任何优惠卷红包</view>
+
   </view>
 
 </view>

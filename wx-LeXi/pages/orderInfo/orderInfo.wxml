@@ -66,15 +66,15 @@
       <view class='shopGoodsInfo component' wx:for="{{order}}" wx:key="{{index}}">
         <fx-product-middle 
           shopingNumber="true" 
-          product="{{item.key}}" 
+          product="{{item}}" 
           color="true"></fx-product-middle>
         <view class='shopGoodsInfoR'>
-          <text class='cureentPriceS'>￥{{item.key.sale_price==0?item.key.price:item.key.sale_price}}</text>
+          <text class='cureentPriceS'>￥{{item.sale_price==0?item.price:item.key.sale_price}}</text>
           <text 
             class='shopNameR old-price-text' 
-            wx:if='{{item.key.sale_price!=0}}'>￥{{item.key.price}}</text>
+            wx:if='{{item.sale_price!=0}}'>￥{{item.price}}</text>
         </view>
-        <text class='otherInfo'>x1</text>
+        <text class='otherInfo'>x{{item.shopingQuantity}}</text>
       </view>
 
       <!-- 满减 -->
@@ -117,7 +117,10 @@
         <view class='receiveFnBottomBox'>
           <image src='../../images/shop-icon@2.png'></image>
         </view>
-        <input placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
+        <input 
+          bindinput='handleGiveShop'
+          placeholder-class='input' 
+          placeholder='给商家的说明和注意事项'></input>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->

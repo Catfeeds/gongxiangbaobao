@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userBrowsesProduct: [], //用户浏览记录---
     userInfo:[],// 用户的信息
     classInfo:1,// 切换---
     sotrF: false,
@@ -89,14 +90,6 @@ Page({
       page:1,
       per_page:10
     },
-    Theme_goods: [
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"}
-    ],
-
   },
   // 获取用户信息---
   getUserInfo(){
@@ -137,10 +130,11 @@ Page({
       break;
       case 2:
         //最近查看
-        http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
+        http.fxGet(api.user_browses,{},(result)=>{
           if(result.success){
+            console.log(result)
             this.setData({
-              // likeProduct: result.data
+              userBrowsesProduct: result.data
             })
           }else{
             utils.fxShowToast(result.status.message)

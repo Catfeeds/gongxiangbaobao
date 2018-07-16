@@ -54,9 +54,9 @@ Page({
   },
 
   //获取默认的物流信息---
-  getLogistics() {
-    var logisticsId = wx.getStorageSync("logisticsIdFid")
-    http.fxGet(api.logisitcs.replace(/:rid/, logisticsId),{},(result)=>{
+  getLogistics(e) {
+    // var logisticsId = wx.getStorageSync("logisticsIdFid")
+    http.fxGet(api.logisitcs.replace(/:rid/g, e),{},(result)=>{
       console.log(result)
       console.log(result.data.express_id)
       this.setData({
@@ -78,16 +78,29 @@ Page({
     //获取sku的详情
     http.fxGet(api.by_sku, { rids: prductSkustr },(result)=>{
       var skuInfo=[]
+      var skuCode=[]
       console.log(result, "产品的详情")
       if (result.success){
-        Object.keys(result.data).forEach((key)=>{
-          // skuInfo.push({[key]:result.data[key]})
-          skuInfo.push({key:result.data[key]})
+        var orderParams = wx.getStorageSync('orderParams').store_items[0].items
+        console.log(orderParams)
+        orderParams.forEach((v,i)=>{
+          var rid= v.rid
+          result.data[rid].shopingQuantity = v.quantity
         })
+        console.log(result)
+        //赋值页面
+        Object.keys(result.data).forEach((key)=>{
+          skuInfo.push(result.data[key])
+          skuCode.push(key)
+        })
+        
         this.setData({
           order: skuInfo
         })
-        console.log(this.data.order)
+        var skuString = skuCode.join(',')
+        console.log(skuCode.join(','))
+        //调取默认的运费模板
+        this.getLogistics(skuString)
       }else{
         utils.fxShowToast(result.status.message)
       }
@@ -137,7 +150,6 @@ Page({
    */
   onShow: function () {
     
-    this.getLogistics() //获取默认的运费模板
   },
 
   /**

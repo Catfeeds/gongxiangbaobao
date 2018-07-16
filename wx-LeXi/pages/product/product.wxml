@@ -133,12 +133,11 @@
         <view class='hui-zi'>原创品牌设计馆</view>
         <view class='shou'>{{storeInfo.name}}</view>
       </view>
-      <view class='with'>
+      <view class='with '>
         <image src='../../images/shop1.png'></image>
-        <view>关注</view>
+        <view>{{isWatch?'已关注':'关注'}}</view>
       </view>
     </view>
-
     <view class='shop-other-goods'>
       <view 
         wx:for='{{newProductList.products}}' 

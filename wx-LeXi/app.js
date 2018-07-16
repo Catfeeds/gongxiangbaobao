@@ -187,7 +187,9 @@ App({
     // 店铺的信息
     storeInfo:[],
     // 主题商品列表
-    themeProdct:[]
+    themeProdct:[],
+    //书否关注过
+    isWatchstore:false
 
   }
 })

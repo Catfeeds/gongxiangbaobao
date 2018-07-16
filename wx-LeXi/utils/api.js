@@ -113,6 +113,7 @@ module.exports = {
   store_owner_info:'users/authenticate',
 
   // user
-  users_profile: 'users/profile' //get 获取用户的信息
+  users_profile: 'users/profile' ,//get 获取用户的信息---
+  user_browses:'user_browses' // post添加浏览记录/get获取浏览记录---
 
 }

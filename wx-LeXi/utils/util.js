@@ -199,6 +199,9 @@ const showToast = (v, typeText ="none") => {
     duration: 1200
   })
 }
+//预先加载地址
+
+
 
 module.exports = {
   fxShowToast: showToast,
