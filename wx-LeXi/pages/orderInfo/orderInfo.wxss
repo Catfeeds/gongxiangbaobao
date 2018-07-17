@@ -125,7 +125,6 @@
 
 .goods-blessing {
   font-size: 26rpx;
-  height: auto;
 }
 
 .count-price {

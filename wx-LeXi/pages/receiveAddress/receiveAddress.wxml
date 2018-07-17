@@ -19,7 +19,7 @@
   <view>
     <radio-group class="radio-group" bindchange="radioChange">
       <label class="radio" wx:for="{{addresList}}" wx:key="{{index}}">
-        <radio value="{{item.rid}}" color='#6ED7AF' />
+        <radio value="{{item.rid}}" color='#6ED7AF' checked='{{item.is_default}}'/>
         <view>
           <text class='userName'>{{item.first_name}} </text>
           <text class='userLocation'>{{item.province}} . {{item.full_name}}</text>

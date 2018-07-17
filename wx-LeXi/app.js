@@ -189,7 +189,10 @@ App({
     // 主题商品列表
     themeProdct:[],
     //书否关注过
-    isWatchstore:false
-
+    isWatchstore:false,
+    //订单页面最合适的运费模板
+    logisticsMould:'',
+    // 订单页面的sku信息
+    orderInfoSkus:''
   }
 })

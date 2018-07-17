@@ -61,7 +61,7 @@ module.exports = {
   order_prepay_sign: 'orders/wx_prepay_sign',  // POST 获取prepay_id和支付签名验证paySign
 
   // Market
-  coupons: 'market/coupons',  // POST 优惠券列表---
+  coupons: 'market/coupons',  // get 优惠券列表---
   coupon_detail: 'market/coupons/:rid',  // GET 单个优惠券
   user_coupons: 'market/user_coupons',  // POST 用户优惠券列表
   available_coupons: 'market/coupons/available',  // POST 用户可用优惠券
@@ -108,7 +108,7 @@ module.exports = {
   userlike:'userlike', //添加喜欢
   // 查询运费模板详情
   logisitcs:'logistics/freight_template/:rid',
-
+   cheapLogisitcs:'logistics/freight/available',// post合适的运费模板
   //店铺的主人的
   store_owner_info:'users/authenticate',
 

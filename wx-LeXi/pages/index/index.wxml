@@ -76,8 +76,13 @@
     <view class='notice-info theme-green'>...阅读更多</view>
   </view>
   <!-- 优惠券 -->
-  <view class='coupon-box' catchtap='coupon_show'>
-    <fx-coupon></fx-coupon>
+  <view 
+    class='coupon-box' 
+    catchtap='coupon_show' 
+    wx:if='{{couponList||fullSubtractionList}}'>
+    <fx-coupon 
+      coupon='{{couponList.coupons}}' 
+      fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
   </view>
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
@@ -98,7 +103,10 @@
       <view class='c-importantGoodsTitle'>主打设计</view>
       <view class='c-importantGoodsBox'>
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
-          <fx-product product="{{item.product}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product 
+            product="{{item.product}}" 
+            bind:triggerEvent_product="handleInfomation" 
+            oldPrice="{{true}}"></fx-product>
         </view>
       </view>
     </view>
@@ -245,7 +253,9 @@
   </view>
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-    <template is="couponTemplate"></template>
+    <template 
+      is="couponTemplate" 
+      data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
   <!-- 分享模板 -->
   <view class='share-Tempate' wx:if="{{is_share}}">

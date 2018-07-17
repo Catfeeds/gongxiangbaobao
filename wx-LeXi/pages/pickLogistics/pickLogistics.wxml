@@ -1,8 +1,8 @@
 <!--pages/pickLogistics/pickLogistics.wxml 选择配送方式-->
 <view class='container theme-bg-color'>
-  <view class='productPhotoBox'>
-    <image></image>
-    <text>手作插画创意手提袋礼品见好就收的纪设计开始卡 谁看饭刻开始可</text>
+  <view class='productPhotoBox' wx:for='{{orderInfoSkus}}' wx:key='{{index}}'>
+    <image src='{{item.cover}}'></image>
+    <text>{{item.product_name}}</text>
   </view>
 
   <!-- 物流公司 -->
@@ -13,13 +13,22 @@
     </view>
     <view>
       <radio-group class="radio-group" bindchange="radioChange">
-        <label class="radio logisticsName">
-          <fx-logistics></fx-logistics>
-          <radio color='#6ED7AF' />
-        </label>
-        <label class="radio logisticsName">
-          <fx-logistics></fx-logistics>
-          <radio color='#6ED7AF' />
+        <label 
+          class="radio logisticsName" 
+          wx:for='{{logisticsMould.express_info}}'
+          wx:key='{{index}}'
+          data-express_id='{{item.express.express_id}}'>
+          <view class='receiveFnBottom'>
+            <view class='receiveFnBottomBox'>
+              <image src='../../images/logistics-icon@2.png'></image>
+            </view>
+            <view class='logistics-goods'>
+              <text>{{item.express.express_name}}</text>
+              <text>物流时长：{{item.min_days}}至{{item.max_days}}天送达，已含税</text>
+              <text>￥{{item.freight}}</text>
+            </view>
+          </view>
+          <radio color='#6ED7AF' value='{{index}}'/>
         </label>
       </radio-group>
     </view>
@@ -29,7 +38,7 @@
   <view class='estimate-price bg-white'>
     <view class='time-top estimate-price_top black-font'>
       <text>预计运费</text>
-      <text>￥80</text>
+      <text>￥{{freight}}</text>
     </view>
     <view class='font-ss estimate-price_bottom'>
       <text class='theme--hong'>注:</text>

@@ -96,7 +96,7 @@
       <view class=' receiveFn'>
         <view class='receiveFnTop'>
           <view>配送方式 </view>
-          <view class='theme-green' catchtap='otherLogisticsTap'>选择其他></view>
+          <view class='theme-green' data-rid='{{logisticsCompany.express_info[0].rid}}' catchtap='otherLogisticsTap'>选择其他></view>
         </view>
         <view>
           <view class='receiveFn_photo time-top font-s'>
@@ -104,11 +104,11 @@
               <view class="receiveFnBottomBox">
                 <image src='../../images/logistics-icon@2.png'></image>
               </view>
-              <text>顺丰快递</text>
+              <text>{{logisticsCompany.express.express_name}}</text>
             </view>
-            <view>物流时长：10至15天送达</view>
+            <view>物流时长：{{logisticsCompany.min_days}}至{{logisticsCompany.max_days}}天送达</view>
           </view>
-          <view class='font-s logistice_text'>￥0.00</view>
+          <view class='font-s logistice_text'>￥{{logisticsCompany.freight}}</view>
         </view>
       </view>
 
@@ -118,7 +118,7 @@
           <image src='../../images/shop-icon@2.png'></image>
         </view>
         <input 
-          bindinput='handleGiveShop'
+          bindblur='handleGiveShop'
           placeholder-class='input' 
           placeholder='给商家的说明和注意事项'></input>
       </view>
@@ -128,14 +128,18 @@
         <view class='receiveFnBottomBox'>
           <image src='../../images/see-icon@2.png'></image>
         </view>
-        <textarea class='goods-blessing'>很久没联系，不知道你怎么样！今天是你的生日在乐喜 给你购买了一件你曾经说很喜欢的小暖灯，你说那个颜 色是你最喜欢的，不管怎样亲爱的希望你喜欢！</textarea>
+        <textarea 
+        value=''
+        bindblur='handleUtterance'
+        placeholder-class='goods-blessing'
+        placeholder='我的语录'></textarea>
       </view>
     </view>
   </view>
 
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' catchtap='paymentSuccess'>
-    <button>继续以选择支付方式</button>
+  <view class='conservation' >
+    <button catchtap='paymentSuccess'>继续以选择支付方式</button>
   </view>
 
 <!-- 优惠券弹框 -->

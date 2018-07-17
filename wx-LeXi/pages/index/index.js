@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    couponList: '', // 优惠券列表---couponList
+    fullSubtractionList: '', // 满减---
     rid: [], // 店铺的rid---
     shareWhat: '', //分享什么东西---
     ShopOwner: [], // 店铺主人的信息---
@@ -44,7 +46,7 @@ Page({
       is_distributed: '', // 商品类别 0: 全部; 1：自营商品；2：分销商品
       qk: '', // 搜索关键字
       out_of_stock: '', // 商品库存 0: 全部; 1: 数量不足
-      user_record:true //用户是否喜欢
+      user_record: true //用户是否喜欢
     },
     //分类 精品 作品 人气---
     catgory: [{
@@ -79,6 +81,7 @@ Page({
       invoice_type: 1, //Integer	可选	1	发票类型
       invoice_info: '', //String	可选	{}	 
       buyer_remark: '', //String	可选	 	买家备注
+      blessing_utterance: '', // 买家语录
       from_client: '1', //String	可选	 	来源客户端，1、小程序；2、H5 3、App 4、TV 5、POS 6、PAD
       affiliate_code: '', //String	可选	 	推广码
       bonus_code: '', //String	可选	 	官方红包码
@@ -101,7 +104,6 @@ Page({
   // 分享模板弹出
   handleShareBox(e) {
     console.log(e.currentTarget.dataset)
-
     this.setData({
       is_share: true,
       shareWhat: e.currentTarget.dataset
@@ -117,8 +119,23 @@ Page({
   // 获取优惠券列表
   coupon() {
     http.fxGet(api.coupons, this.data.couponParams, (result) => {
-      console.log(result)
-      if (result.success) {} else {
+      if (result.success) {
+        if (this.data.couponParams.type != 3) {
+          this.setData({
+            couponList: result.data,
+            ['couponParams.type']: 3
+          })
+          this.coupon()
+          console.log(this.data.couponList)
+        } else {
+          this.setData({
+            fullSubtractionList: result.data,
+            ['couponParams.type']: ''
+          })
+          console.log(this.data.fullSubtractionList)
+        }
+
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -209,14 +226,14 @@ Page({
       ip_addr: '', //String	可选	 	访问时IP
       agent: '', //String	可选	 	访问时代理
     }
-    
+
     params.openid = wx.getStorageSync('jwt').openid
     params.rid = this.data.rid
-    http.fxPost(api.add_browse, params,(result)=>{
-      if(result.success){
+    http.fxPost(api.add_browse, params, (result) => {
+      if (result.success) {
         console.log(result)
         this.getBrowseQuantity() // 浏览浏览人数---
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
         this.getBrowseQuantity() // 浏览浏览人数---
       }
@@ -260,7 +277,7 @@ Page({
         app.globalData.isWatchstore = true
         this.getIndexData()
         this.getIsWatch()
-        
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -276,7 +293,7 @@ Page({
         app.globalData.isWatchstore = false
         this.getIndexData()
         this.getIsWatch()
-        
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -366,24 +383,28 @@ Page({
     var fx = wx.getStorageSync('fx')
     var isLike = e.currentTarget.dataset.islike
     if (!fx.isLogin) {
-      if (isLike){
+      if (isLike) {
         //喜欢就删除
-        http.fxDelete(api.userlike, { rid: rid }, (result) => {
+        http.fxDelete(api.userlike, {
+          rid: rid
+        }, (result) => {
           if (result.success) {
             this.recommendProduct()
           } else {
             utils.fxShowToast(result.status.message)
           }
         })
-      }else{
+      } else {
         // 不喜欢就添加
-        http.fxPost(api.userlike, { rid: rid }, (result) => {
+        http.fxPost(api.userlike, {
+          rid: rid
+        }, (result) => {
           if (result.success) {
             this.recommendProduct()
           } else {
             utils.fxShowToast(result.status.message)
           }
-        })        
+        })
       }
     } else {
       //有没有在自己服务器登陆
@@ -406,9 +427,9 @@ Page({
     console.log(this.data.openid)
     this.getStoreId() // 获取店铺的rid---
     this.getIndexData() //获取店铺信息---
-    // this.coupon() // 获取优惠券---
-    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
 
+    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
+    this.coupon() // 获取优惠券---
     this.createdOrderParams() //创建订单的参数---
     this.getAnnouncement() // 获取店铺公告---
     this.getIsWatch() // 查看是否关注---
@@ -416,7 +437,7 @@ Page({
     this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
     this.recommendProduct() // 推荐好物---
     this.getShopOwner() // 获取店铺主人的信息---
-    this.addBrowse()// 添加访问者---
+    this.addBrowse() // 添加访问者---
   },
 
   /**
@@ -491,7 +512,21 @@ Page({
   onShareAppMessage: function(res) {
     //***注意！ this.data.shareWhat.from==2 为分享商品
     //***注意！ this.data.shareWhat.from==1 为分享店铺
+    //***注意！ target.dataset.from==3 为分优惠券
     console.log(this.data.shareWhat)
+    console.log(res)
+    if (res.target.dataset.from == 3) {
+      return {
+        title: "转发的标题",
+        path: '/pages/share/share',
+        success:function(e) {
+          console.log(e)
+        },
+        fail:function(e){
+          console.log(e)
+        }
+      }
+    }
     if (res.from === 'button' && this.data.shareWhat.from == 2) {
       console.log(res.target)
       return {
@@ -535,9 +570,15 @@ Page({
       coupon_show: true
     })
   },
+  //优惠券完成按钮
+  handleOffCouponTap() {
+    this.setData({
+      coupon_show: false
+    })
+  },
   //进入主题页面
   handlethemeTap(e) {
-    
+
     console.log(e.currentTarget.dataset.id)
     console.log(this.data.popularProductTheme)
     app.globalData.themeProdct = this.data.popularProductTheme[e.currentTarget.dataset.index]

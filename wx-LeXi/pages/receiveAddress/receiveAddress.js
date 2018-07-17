@@ -3,8 +3,8 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+const common = require('./../../utils/common.js')
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,12 +12,25 @@ Page({
     path:true,// 页面来源
     addresList: [], //地址列表---
   },
+  //在没有选择的时候去设置订单参数
+  pickAdress(){
+    var rid
+    this.data.addresList.forEach((v,i)=>{
+      if(v.is_default){
+        rid = v.rid
+      }
+    })
+    console.log(rid)
+    var objct = { detail: { value: rid}}
+    this.radioChange(objct)
+  },
   //选择的地址
   radioChange (e) {
-    this.setData({
-      ['orderParams.address_rid']: e.detail.value
-    })
-    console.log(this.data.orderParams)
+    // this.setData({
+    //   ['orderParams.address_rid']: e.detail.value
+    // })
+    
+    console.log(e.detail.value)
      var addresId = wx.getStorageSync('orderParams')
      addresId.address_rid = e.detail.value
      wx.setStorageSync('orderParams', addresId)
@@ -30,6 +43,7 @@ Page({
         this.setData({
           addresList:result.data
         })
+        this.pickAdress()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -60,7 +74,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getAdressList() // 获取地址列表
+    
+      this.getAdressList() // 获取地址列表
+    
   },
 
   /**

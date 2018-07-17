@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/coupon/coupon",
+    
     "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
@@ -22,7 +22,7 @@
     "pages/pickLogistics/pickLogistics",
     "pages/critique/critique",
     "pages/watch/watch",
-    
+    "pages/coupon/coupon",
     "pages/couponTemplate/couponTemplate",
     "pages/shareTemplate/shareTemplate",
     "pages/paymentAddress/paymentAddress",

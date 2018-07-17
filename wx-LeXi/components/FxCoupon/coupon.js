@@ -4,7 +4,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    coupon:{
+      type:Array,
+      value:[]
+    },
+    fullSubtractionList:{
+      type:Array,
+      value:[]
+    }
   },
 
   /**

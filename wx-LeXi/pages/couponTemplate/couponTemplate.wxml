@@ -2,55 +2,31 @@
 
 <template name="couponTemplate">
   <view class='ct-subtract'>
-    <view class='ct-top hui-zi'>
+    <view class='ct-top hui-zi' wx:if="{{fullSubtractionList.length!=0}}">
       <view class='ct-jian'>
         <image src='../../images/reduced-price@2.png'></image>
       </view>
-      <text>满600减130；满600减130；满600减130；满600减130；满600减130；</text>
+      <text wx:for='{{fullSubtractionList}}' wx:key="{{index}}">{{item.type_text}}</text>
     </view>
     <!-- 优惠券图案 -->
     <view class='ct-bottom'>
       <view class='black-font'>设计馆优惠红包</view>
       <!-- 优惠券 -->
-      <view class='ct-coupon time-top'>
+      <view 
+        class='ct-coupon time-top' 
+        wx:key='{{index}}' 
+        wx:for='{{couponList}}'>
         <view class='ct-line ct-line-l'></view>
         <view class='ct-line ct-line-r'></view>
         <view class='ct-round ct-round-top'></view>
         <view class='ct-round ct-round-bom'></view>
-
         <view class='ct-item-l time-top'>
           <view class='ct-price '>
             <view class='ct-price-icon ct-price--red'>￥</view>
-            <view class='ct-price--red'>24</view>
+            <view class='ct-price--red'>{{item.amount}}</view>
           </view>
           <view class='ce-price-r '>
-            <view class='ct-price-icon ce-green'>满100使用</view>
-            <view class='ct-time'>有效期2017.08.31至2017.08.31</view>
-          </view>
-        </view>
-        <view class='ct-item-r'>
-          <view>已领取</view>
-          <view wx:if="{{}}">
-            <view>分享</view>
-            <view>领取</view>
-          </view>
-        </view>
-      </view>
-
-      <!-- 优惠券 -->
-      <view class='ct-coupon time-top'>
-        <view class='ct-line ct-line-l'></view>
-        <view class='ct-line ct-line-r'></view>
-        <view class='ct-round ct-round-top'></view>
-        <view class='ct-round ct-round-bom'></view>
-
-        <view class='ct-item-l time-top'>
-          <view class='ct-price '>
-            <view class='ct-price-icon ct-price--red'>￥</view>
-            <view class='ct-price--red'>24</view>
-          </view>
-          <view class='ce-price-r '>
-            <view class='ct-price-icon ce-green'>满100使用</view>
+            <view class='ct-price-icon ce-green'>满{{item.min_amount}}使用</view>
             <view class='ct-time'>有效期2017.08.31至2017.08.31</view>
           </view>
         </view>
@@ -60,41 +36,16 @@
             <view>分享</view>
             <view>领取</view>
           </view>
+          <button open-type="share" data-from='3'>
+          </button>
         </view>
       </view>
-
-      <!-- 优惠券 -->
-      <view class='ct-coupon time-top'>
-        <view class='ct-line ct-line-l'></view>
-        <view class='ct-line ct-line-r'></view>
-        <view class='ct-round ct-round-top'></view>
-        <view class='ct-round ct-round-bom'></view>
-
-        <view class='ct-item-l time-top'>
-          <view class='ct-price '>
-            <view class='ct-price-icon ct-price--red'>￥</view>
-            <view class='ct-price--red'>24</view>
-          </view>
-          <view class='ce-price-r '>
-            <view class='ct-price-icon ce-green'>满100使用</view>
-            <view class='ct-time'>有效期2017.08.31至2017.08.31</view>
-          </view>
-        </view>
-        <view class='ct-item-r'>
-          <view wx:if="{{}}">已领取</view>
-          <view>
-            <view>分享</view>
-            <view>领取</view>
-          </view>
-        </view>
-      </view>
-
 
       <view class='shm'></view>
     </view>
   </view>
   <!-- 完成按钮 -->
   <view class='wx-btn-box'>
-    <button>完成</button>
+    <button catchtap='handleOffCouponTap'>完成</button>
   </view>
 </template>

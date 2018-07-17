@@ -50,19 +50,32 @@ Page({
       area_id:''	,//Number	可选	 	村/ 区域
       street_address_two:''	,//String	可选	 	 
       zipcode:''	,//Number	可选	 	邮编
-      is_default:''	,//Bool	可选	False	是否默认地址
+      is_default:false	,//Bool	可选	False	是否默认地址
       is_overseas:''	,//Bool	可选	False	是否海外地址
       user_custom_id:''	,//Integer	可选	 	海关信息id
     }
   },
+  // 设置为默认的收货地址
+  switch1Change(e){
+    console.log(e)
+    this.setData({
+      ['form.is_default']: e.detail.value
+    })
+  },
   //保存新增地址
   storageTap() {
+    console.log(this.data.form)
     http.fxPost(api.address_addto, { ...this.data.form},(result)=>{
       console.log(result)
+      if(result.success){
+        wx.navigateBack({
+          delta: 1
+        })
+      }else{
+
+      }
     })
-    wx.navigateBack({
-      delta: 1
-    })
+
   },
   // 邮政编号
   handleAdressCode(e) {
@@ -120,7 +133,6 @@ Page({
   },
   // 省发生变化---
   bindProvinceChange(e) {
-    
     this.setData({
       allProvinceIndex: e.detail.value,
       ['form.province_id']: this.data.allProvince[e.detail.value].oid

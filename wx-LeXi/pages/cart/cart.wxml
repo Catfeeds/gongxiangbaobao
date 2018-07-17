@@ -26,25 +26,45 @@
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox value="{{item.product.rid}}" checked="{{falseheckbox}}" data-rid='{{1234}}' />
+              <checkbox 
+                value="{{item.product.rid}}" 
+                checked="{{falseheckbox}}" 
+                data-rid='{{1234}}' />
             </block>
             <!-- 中间的产品信息 -->
             <view>
-              <fx-product-middle shopName="true" product="{{item.product}}" color="true">
+              <fx-product-middle 
+                shopName="true" 
+                product="{{item.product}}" 
+                color="true">
               </fx-product-middle>
             </view>
             <!-- 右上角的价格 -->
             <view class='oldNewPrice'>
               <view class='changenewprice'>￥{{item.product.sale_price}}</view>
-              <view class='changeoldprice' wx:if="{{item.product.sale_price!=item.product.price}}">￥{{item.product.price}}</view>
+              <view 
+                class='changeoldprice' 
+                wx:if="{{item.product.sale_price!=item.product.price}}">￥{{item.product.price}}</view>
             </view>
 
             <!-- 右下角的改变数量 -->
             <view class='rightBottomNumberBtn' wx:if="{{!changeCart}}">
               <view class='changBox-quantity'>
-                <view data-rid='{{item.rid}}' data-function='subtract' data-index="{{index}}" class='changBox-quantity_reduce' catchtap='changeQuantity' data-id="{{product.rid}}">一</view>
+                <view 
+                  data-rid='{{item.rid}}' 
+                  data-function='subtract' 
+                  data-index="{{index}}" 
+                  class='changBox-quantity_reduce' 
+                  catchtap='changeQuantity' 
+                  data-id="{{product.rid}}">一</view>
                 <view class='changBox-quantity_goodsNumber'>{{item.quantity}}</view>
-                <view data-function='add' data-rid='{{item.rid}}' data-index="{{index}}" class='changBox-quantity_reduce changBox-quantity_addicon' catchtap='changeQuantity' data-id="{{product.rid}}">＋</view>
+                <view 
+                  data-function='add' 
+                  data-rid='{{item.rid}}' 
+                  data-index="{{index}}" 
+                  class='changBox-quantity_reduce changBox-quantity_addicon' 
+                  catchtap='changeQuantity' 
+                  data-id="{{product.rid}}">＋</view>
               </view>
             </view>
 
@@ -54,16 +74,21 @@
     </view>
   </view>
 
-
-
   <!-- 心愿单 -->
   <view class='thinkOrderBox'>
     <view class='thinkOrdertext'>心愿单</view>
     <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}">
       <view class='cart-L'>
-        <fx-product-middleM product="{{item}}" price="true" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
+        <fx-product-middleM 
+          product="{{item}}" 
+          price="true" 
+          repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
       </view>
-      <view class='addgoods btn-bg-color' data-rid="{{item.rid}}" data-itemProdact='{{item}}' catchtap='addCartTap'>
+      <view 
+        class='addgoods btn-bg-color' 
+        data-rid="{{item.rid}}" 
+        data-itemProdact='{{item}}' 
+        catchtap='addCartTap'>
         <view class='fx-icon-cart addgoodscart'></view>
         <view>+</view>
       </view>
@@ -121,7 +146,6 @@
   </view>
 
   <!-- 合计金额 -->
-
   <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart}}">
     <view class='payPrice'>合计：
       <text>￥{{payment}}</text>
@@ -129,8 +153,6 @@
     <view class='addThinkOrder' catchtap='chekoutTap'>结算</view>
   </view>
 
-
   <!-- 底部垫片 -->
   <view class='Bottom-shim'></view>
-
 </view>
