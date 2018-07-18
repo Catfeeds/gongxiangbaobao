@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    skuPrice:'',//sku价格
     needSpecifications: [], // 需要的规格---
     needColor: [], //需要的颜色---
     pickColor: [], // 所有的颜色---
@@ -214,6 +215,19 @@ Page({
     })
   },
   /** start 后续抽离**/
+  // 查找sku的价格
+  getSkuPrice() {
+    var sku = this.data.needSpecifications + " " + this.data.needColor
+    console.log(sku, this.data.productInfomation)
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == sku) {
+        this.setData({
+          skuPrice: v.price
+        })
+        console.log(this.data.skuPrice)
+      }
+    })
+  },
   // 获取商品详情
   getProductInfomation(e) {
     http.fxGet(api.product_detail.replace(/:rid/g, e), {}, (result) => {
@@ -324,6 +338,7 @@ Page({
         })
       }
     })
+    this.getSkuPrice()
   },
   //点击规格按钮
   handleSpecificationsTap(e) {
@@ -379,6 +394,7 @@ Page({
         })
       }
     })
+    this.getSkuPrice()
   },
   // 选好了按钮
   receiveOrderTap() {
@@ -450,7 +466,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getCartProduct() // 获取购物车商品
+    
     this.getDesireOrder() // 获取心愿单
   },
 
@@ -469,7 +485,7 @@ Page({
     setTimeout(() => {
       this.paymentPrice()
     }, 1000)
-
+    this.getCartProduct() // 获取购物车商品
   },
 
   /**

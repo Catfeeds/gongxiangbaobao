@@ -1,7 +1,7 @@
 <!--pages/coupon/coupon.wxml-->
 <view class='container theme-bg-color'>
   <!-- 商家劝 -->
-  <view class='coupon-box'>
+  <view class='coupon-box' wx:for='{{normalCouponList.coupons}}' wx:key="{{index}}">
     <!-- left -->
     <view class='info-box-left'>
       <view class='line-L theme-bg-color line-out'></view>
@@ -11,16 +11,16 @@
       <view class='price-info-box'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>800</text>
+          <text>{{item.coupon.amount}}</text>
         </view>
-        <view class='price-text'>满801使用</view>
+        <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
       </view>
     </view>
     <!-- right 信息 -->
     <view class='info-box-R'>
       <view class='quadrate paymentFnTextB'>
         <view class='quadrate-view'></view>
-        <text>2017.08.31至2017.08.31</text>
+        <text>{{item.start_time}}至{{item.end_time}}</text>
       </view>
       <view class='shop-icon paymentFnTextB'>
         <view>
@@ -30,7 +30,10 @@
       </view>
     </view>
     <!-- 去使用的按钮 -->
-    <view class='right-btn coupon_right--red'>
+    <view 
+      class='right-btn coupon_right--red' 
+      data-rid='{{item.coupon.code}}' 
+      catchtap='handleUseCouponTap'>
       <view>去 使 用</view>
     </view>
     <!-- 右边的线 -->
@@ -69,9 +72,10 @@
     </view>
   </view>
 
-  <!-- 已经失效 -->
-  <view class='time-top separate_line'>已失效的卷</view>
-  <view class='coupon-box'>
+  <!-- 已经失效 商家-->
+
+  <view class='time-top separate_line' >已失效的卷</view>
+  <view class='coupon-box' wx:for='{{exceedCouponList.coupons}}' wx:key="{{index}}">
     <!-- left -->
     <view class='info-box-left none-bg-l'>
       <view class='line-L theme-bg-color line-out'></view>
@@ -81,16 +85,16 @@
       <view class='price-info-box exceed_coupon--right'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>800</text>
+          <text>{{item.coupon.amount}}</text>
         </view>
-        <view class='price-text'>满801使用</view>
+        <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
       </view>
     </view>
     <!-- right 信息 -->
     <view class='info-box-R exceed_coupon--middle'>
       <view class='quadrate paymentFnTextB hui'>
         <view class='quadrate-view none-bg'></view>
-        <text>2017.08.31至2017.08.31</text>
+        <text>{{item.start_time}}至{{item.end_time}}</text>
       </view>
       <view class='shop-icon paymentFnTextB hui'>
         <view>
@@ -106,8 +110,8 @@
     <!-- 右边的线 -->
     <view class='right-line line-L theme-bg-color'></view>
   </view>
-
-  <view class='coupon-box'>
+<!-- 已经失效 乐喜-->
+  <view class='coupon-box' >
     <!-- left -->
     <view class='info-box-left exceed_coupon--middle'>
       <!-- 信息 -->

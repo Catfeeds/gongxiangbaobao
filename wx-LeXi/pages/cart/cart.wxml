@@ -41,10 +41,10 @@
             </view>
             <!-- 右上角的价格 -->
             <view class='oldNewPrice'>
-              <view class='changenewprice'>￥{{item.product.sale_price}}</view>
+              <view class='changenewprice'>￥{{item.product.sale_price==0?item.product.price:item.product.sale_price}}</view>
               <view 
                 class='changeoldprice' 
-                wx:if="{{item.product.sale_price!=item.product.price}}">￥{{item.product.price}}</view>
+                wx:if="{{item.product.sale_price!=0}}">￥{{item.product.price}}</view>
             </view>
 
             <!-- 右下角的改变数量 -->
@@ -101,8 +101,8 @@
       <view class='priceAndname'>
         <view class='goodsTitle'>{{productInfomation.name}}</view>
         <view class='goodsTitle'>
-          <text>￥{{productInfomation.price}}</text>
-          <text>￥{{productInfomation.price}}</text>
+          <text wx:if="{{productInfomation.min_price!=productInfomation.max_price&&!skuPrice}}">￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}} - ￥{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+          <text wx:if="{{skuPrice}}">￥{{skuPrice}}</text>
         </view>
       </view>
       <view class='pickBox'>

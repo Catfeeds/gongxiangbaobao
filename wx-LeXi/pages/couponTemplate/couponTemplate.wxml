@@ -22,25 +22,31 @@
         <view class='ct-round ct-round-bom'></view>
         <view class='ct-item-l time-top'>
           <view class='ct-price '>
-            <view class='ct-price-icon ct-price--red'>￥</view>
-            <view class='ct-price--red'>{{item.amount}}</view>
+            <view class='ct-price-icon ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>￥</view>
+            <view class='ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>{{item.amount}}</view>
           </view>
           <view class='ce-price-r '>
-            <view class='ct-price-icon ce-green'>满{{item.min_amount}}使用</view>
-            <view class='ct-time'>有效期2017.08.31至2017.08.31</view>
+            <view class='ct-price-icon ce-green {{item.status==1?"lose-efficacy_price--color":""}}'>满{{item.min_amount}}使用</view>
+            <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期2017.08.31至2017.08.31</view>
           </view>
         </view>
-        <view class='ct-item-r'>
-          <view wx:if="{{}}">已领取</view>
-          <view>
+        <view 
+          class='ct-item-r item.status==1?"lose-efficacy_bg--color' 
+          wx:if="{{item.status==1}}">
+          <view >已领取</view>
+        </view>
+        <view 
+          class='ct-item-r' 
+          wx:else data-rid='{{item.code}}' 
+          catchtap='getReceiveCoupon'>
+          <view >
             <view>分享</view>
             <view>领取</view>
           </view>
-          <button open-type="share" data-from='3'>
-          </button>
+          <!--后期用 <button open-type="share" data-from='3'> -->
+          <!-- </button> -->
         </view>
       </view>
-
       <view class='shm'></view>
     </view>
   </view>

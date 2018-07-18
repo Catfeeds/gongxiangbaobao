@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    isAuthentication:'', // 是否经过官方认证的店铺
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
     rid: [], // 店铺的rid---
@@ -101,9 +102,19 @@ Page({
       }]
     }
   },
+  // 领取优惠券
+  getReceiveCoupon(e){
+    http.fxPost(api.coupon_grant, { rid: e.currentTarget.dataset.rid},(result)=>{
+      if(result.success){
+        utils.fxShowToast('领取成功', 'success')
+        this.coupon()
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   // 分享模板弹出
   handleShareBox(e) {
-    console.log(e.currentTarget.dataset)
     this.setData({
       is_share: true,
       shareWhat: e.currentTarget.dataset
@@ -125,16 +136,15 @@ Page({
             couponList: result.data,
             ['couponParams.type']: 3
           })
+          app.globalData.couponList = result.data
           this.coupon()
-          console.log(this.data.couponList)
         } else {
           this.setData({
             fullSubtractionList: result.data,
             ['couponParams.type']: ''
           })
-          console.log(this.data.fullSubtractionList)
+          app.globalData.fullSubtractionList = result.data
         }
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -144,7 +154,6 @@ Page({
   getShopOwner() {
     http.fxGet(api.store_owner_info, {}, (result) => {
       if (result.success) {
-        console.log(result)
         this.setData({
           ShopOwner: result.data
         })
@@ -165,7 +174,6 @@ Page({
             themeProduct: result.data
           })
         } else {
-          console.log(result.data)
           this.setData({
             highQualityProduct: result.data
           })
@@ -181,7 +189,6 @@ Page({
       ['productCategoryParams.is_distributed']: 1,
     })
     http.fxGet(api.sticked_products, this.data.productCategoryParams, (result) => {
-      console.log(result)
       if (result.success) {
         this.setData({
           recommendProductList: result.data
@@ -195,7 +202,6 @@ Page({
   getTheme() {
     http.fxGet(api.theme, {}, (result) => {
       if (result.success) {
-        console.log(result)
         this.setData({
           popularProductTheme: result.data.collections
         })
@@ -207,7 +213,6 @@ Page({
   // 人气最新商品
   newProdct() {
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
-      console.log(result.data)
       if (result.success) {
         this.setData({
           currentNewProduct: result.data
@@ -231,10 +236,9 @@ Page({
     params.rid = this.data.rid
     http.fxPost(api.add_browse, params, (result) => {
       if (result.success) {
-        console.log(result)
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
-        utils.fxShowToast(result.status.message)
+        // utils.fxShowToast(result.status.message)
         this.getBrowseQuantity() // 浏览浏览人数---
       }
     })
@@ -244,11 +248,12 @@ Page({
     var params = {
       rid: this.data.rid,
       page: page,
-      per_page: per_page
+      per_page: per_page,
+      openid: wx.getStorageSync('jwt').openid
     }
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.rid), params, (result) => {
+      console.log(params,result)
       if (result.success) {
-        console.log(result)
         this.setData({
           BrowseQuantityInfo: result.data
         })
@@ -273,7 +278,6 @@ Page({
       rid: this.data.rid
     }, (result) => {
       if (result.success) {
-        console.log(result)
         app.globalData.isWatchstore = true
         this.getIndexData()
         this.getIsWatch()
@@ -288,7 +292,6 @@ Page({
     http.fxPost(api.delete_watch, {
       rid: this.data.rid
     }, (result) => {
-      console.log(result)
       if (result.success) {
         app.globalData.isWatchstore = false
         this.getIndexData()
@@ -304,7 +307,6 @@ Page({
     http.fxGet(api.examine_watch, {
       rid: this.data.rid
     }, (result) => {
-      console.log(result, this.data.rid)
       if (result.success) {
         this.setData({
           is_with: result.data.status
@@ -320,7 +322,6 @@ Page({
     const that = this
     const params = {};
     http.fxGet(api.shop_info, params, function(result) {
-      console.log(result)
       if (result.success) {
         app.globalData.storeInfo = result.data
         that.setData({
@@ -334,7 +335,6 @@ Page({
   },
   //分类选项的函数---
   handleGoryActiveTap(e = 1) {
-    console.log(e.currentTarget)
     if (e.currentTarget == undefined) {
       this.setData({
         catgoryActive: e
@@ -344,20 +344,17 @@ Page({
         catgoryActive: e.currentTarget.dataset.rid
       })
     }
-    console.log(this.data.catgoryActive)
     //精选里面的
     if (this.data.catgoryActive === 1) {
 
     }
     // 作品里面的
     if (this.data.catgoryActive === 2) {
-      console.log(this.data.productCategoryParams)
       http.fxGet(api.products, this.data.productCategoryParams, (result) => {
         if (result.success) {
           this.setData({
             myProduct: result.data
           })
-          console.log(this.data.myProduct)
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -378,7 +375,6 @@ Page({
   },
   // 点击喜欢
   handleBindLike(e) {
-    console.log(e.currentTarget.dataset)
     var rid = e.currentTarget.dataset.id
     var fx = wx.getStorageSync('fx')
     var isLike = e.currentTarget.dataset.islike
@@ -410,12 +406,27 @@ Page({
       //有没有在自己服务器登陆
     }
   },
-
-  onGotUserInfo: function(e) {
-    console.log(e.detail.errMsg)
-    console.log(e.detail.userInfo)
-    console.log(e.detail.rawData)
+  //  是否经过认证 4 是已经认证，其他为没有认证
+  getAuthentication(){
+    http.fxGet(api.is_authentication,{},(result)=>{
+      console.log(result)
+      if(result.success){
+        this.setData({
+          isAuthentication:result.data
+        })
+        app.globalData.isAuthenticationStore = result.data.status
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
+
+
+  // onGotUserInfo: function(e) {
+  //   console.log(e.detail.errMsg)
+  //   console.log(e.detail.userInfo)
+  //   console.log(e.detail.rawData)
+  // },
 
   /**
    * 生命周期函数--监听页面加载
@@ -427,9 +438,9 @@ Page({
     console.log(this.data.openid)
     this.getStoreId() // 获取店铺的rid---
     this.getIndexData() //获取店铺信息---
-
-    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
     this.coupon() // 获取优惠券---
+    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
+    
     this.createdOrderParams() //创建订单的参数---
     this.getAnnouncement() // 获取店铺公告---
     this.getIsWatch() // 查看是否关注---
@@ -437,7 +448,9 @@ Page({
     this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
     this.recommendProduct() // 推荐好物---
     this.getShopOwner() // 获取店铺主人的信息---
-    this.addBrowse() // 添加访问者---
+    this.getAuthentication()// 查看是否认证---
+    // this.addBrowse() // 添加访问者---
+    
   },
 
   /**

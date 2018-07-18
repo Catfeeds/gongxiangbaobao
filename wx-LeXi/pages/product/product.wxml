@@ -20,7 +20,16 @@
       <text>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo'>
-      <text class='cureentPrice'>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'>
+        <text>￥</text>
+        <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+        <text>-</text>
+        <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+      </text>
+      <text class='cureentPrice' wx:else>
+         ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
+      </text>
+
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
 
@@ -47,7 +56,9 @@
     </view>
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show'>
-      <fx-coupon></fx-coupon>
+      <fx-coupon 
+        coupon='{{couponList.coupons}}' 
+        fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
     </view>
     <view class='branderInfo  goods-size' catchtap='pickShowTap'>
       <text class='textInfo'>请选择规格和尺码</text>
@@ -204,8 +215,18 @@
       <view class='top-info'>
         <view>{{productInfomation.name}}</view>
         <view>
-          <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
-          <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
+          <!-- <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+          <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text> -->
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price && !skuPrice}}'>
+        <text>￥</text>
+        <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+        <text>-</text>
+        <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+      </text>
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price==productInfomation.min_price && !skuPrice}}'>
+         ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
+      </text>
+      <text wx:if='{{skuPrice}}'>￥{{skuPrice}}</text>
         </view>
       </view>
       <!-- 颜色 -->
@@ -264,7 +285,9 @@
 
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-    <template is="couponTemplate"></template>
+    <template 
+    is="couponTemplate" 
+    data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 
   <!-- 查看全部的呼出框  style='height:{{window_height}}rpx'-->

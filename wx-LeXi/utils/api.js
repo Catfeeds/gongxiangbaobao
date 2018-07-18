@@ -25,6 +25,8 @@ module.exports = {
   shop_info: 'store/info', // 获取店铺信息--
   store_announcement: 'store/announcement', //获取店铺公告---
   BrowseQuantityNumber:'store/:rid/visitor', //浏览过的人数---
+  brand_info:'store/detail', // 品牌故事
+  is_authentication:'users/get_authenticate_status',//GET店铺是否经过官方认证
   // Product
   products: 'products/by_store',  // GET 产品列表---
   latest_products: 'products/latest',  // GET 最新产品---
@@ -61,11 +63,11 @@ module.exports = {
   order_prepay_sign: 'orders/wx_prepay_sign',  // POST 获取prepay_id和支付签名验证paySign
 
   // Market
-  coupons: 'market/coupons',  // get 优惠券列表---
+  coupons: 'market/user_master_coupons',  // get 优惠券列表---
   coupon_detail: 'market/coupons/:rid',  // GET 单个优惠券
-  user_coupons: 'market/user_coupons',  // POST 用户优惠券列表
+  user_coupons: 'market/user_coupons',  // POST 用户优惠券列表---
   available_coupons: 'market/coupons/available',  // POST 用户可用优惠券
-  coupon_grant: 'market/coupons/grant',  // POST 领取优惠券
+  coupon_grant: 'market/coupons/grant',  // POST 领取优惠券---
 
   // Search
   search: 'search/products',  // POST 搜索商品
@@ -108,7 +110,7 @@ module.exports = {
   userlike:'userlike', //添加喜欢
   // 查询运费模板详情
   logisitcs:'logistics/freight_template/:rid',
-   cheapLogisitcs:'logistics/freight/available',// post合适的运费模板
+   cheapLogisitcs:'logistics/freight/available',// post合适的运费模板---
   //店铺的主人的
   store_owner_info:'users/authenticate',
 

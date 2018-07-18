@@ -9,6 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    skuPrice:'',// sku价格---
+    couponList: '', // 优惠券列表---couponList
+    fullSubtractionList: '', // 满减---
     isWatch:false, // 是否关注过店铺
     storeInfo: [], // 店铺的信息---
     needSpecifications: [], // 需要的规格---
@@ -31,6 +34,33 @@ Page({
       per_page: 10
     }
   },
+  // 关闭优惠卷呼出框
+  handleOffCouponTap(){
+    this.setData({
+      coupon_show:false
+    })
+  },
+  
+  // 领取优惠券
+  getReceiveCoupon(e) {
+    console.log(e.currentTarget.dataset.rid)
+    http.fxPost(api.coupon_grant, { rid: e.currentTarget.dataset.rid }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('领取成功','success')
+        this.getCouponAndFullSubtraction()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 优惠券，满减
+  getCouponAndFullSubtraction(){
+    this.setData({
+      couponList: app.globalData.couponList, // 优惠券列表
+      fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
+    })
+  },
   // 增加浏览记录
   postAddBrowses(){
     http.fxPost(api.user_browses,{rid:this.data.rid},(result)=>{
@@ -50,7 +80,6 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
-
     })
   },
   // 获取店铺信息
@@ -95,7 +124,6 @@ Page({
         console.log(result)
         utils.fxShowToast('成功购物车')
         this.getShopCartNum()
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -114,6 +142,18 @@ Page({
         })
       } else {
         utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 查找sku的价格
+  getSkuPrice() {
+    var sku = this.data.needSpecifications + " " + this.data.needColor
+    console.log(sku, this.data.productInfomation )
+    this.data.productInfomation.skus.forEach((v,i)=>{
+      if (v.mode == sku){
+        this.setData({
+          skuPrice:v.price
+        })
       }
     })
   },
@@ -171,7 +211,10 @@ Page({
         })
       }
     })
+    //查找价格
+    this.getSkuPrice()
   },
+
   // 点击颜色按钮
   handlePickColor(e) {
     var newData = []
@@ -226,6 +269,9 @@ Page({
         })
       }
     })
+    //查找价格
+    this.getSkuPrice()
+
   },
   // 过滤产品的颜色去重
   filterColor() {
@@ -356,6 +402,7 @@ Page({
     })
 
     this.getProductInfomation() // 获取商品详情---
+    this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
     setTimeout(() => {
       this.filterColor() //过滤商品的颜色---
@@ -364,7 +411,7 @@ Page({
     }, 1500)
 
     this.getShopCartNum() // 获取购物车商品数量---
-    this.getstoreInfo() // 获取店铺信息
+    this.getstoreInfo() // 获取店铺信息---
     console.log(this.rid)
   },
 
@@ -417,8 +464,19 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
+  onShareAppMessage: function(res) {
+    if (res.target.dataset.from == 3) {
+      return {
+        title: "转发的标题",
+        path: '/pages/share/share',
+        success: function (e) {
+          console.log(e)
+        },
+        fail: function (e) {
+          console.log(e)
+        }
+      }
+    }
   },
   // 选好了按钮
   receiveOrderTap() {
@@ -449,7 +507,7 @@ Page({
   },
   //优惠卷隐藏和显示
   coupon_show() {
-    handleGoIndex
+    // handleGoIndex
     this.setData({
       coupon_show: true
     })

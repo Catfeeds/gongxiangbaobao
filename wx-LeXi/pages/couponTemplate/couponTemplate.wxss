@@ -156,6 +156,7 @@ opacity: 0;
 .ct-subtract {
   position: absolute;
   bottom: 0;
+  background-color: white;
   overflow: auto;
 }
 

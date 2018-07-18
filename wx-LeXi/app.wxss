@@ -91,7 +91,11 @@
 /* 布局 */
 
 /* 横向布局 */
-
+.flex_row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .time-top {
   display: flex;
   flex-direction: row;

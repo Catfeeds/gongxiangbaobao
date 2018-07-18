@@ -193,6 +193,12 @@ App({
     //订单页面最合适的运费模板
     logisticsMould:'',
     // 订单页面的sku信息
-    orderInfoSkus:''
+    orderInfoSkus:'',
+    //优惠卷
+    couponList:'',
+    //满减
+    fullSubtractionList:'',
+    // 店铺是否经过认证
+    isAuthenticationStore:'',
   }
 })

@@ -11,7 +11,7 @@
     <view class='middle-user-info'>
       <image src='{{shopInfo.logo.view_url}}' class='userPhoto'>
       </image>
-      <view class='approve-photo'>
+      <view class='approve-photo' wx:if='{{isAuthentication.status==4}}'>
         <image src='../../images/@2.png'></image>
       </view>
       <view class='userNameBox theme-color'>
@@ -32,7 +32,10 @@
         </view>
       </view>
       <view class='userInfoBtnBox'>
-        <view wx:if="{{is_with}}" class='userInfoBtn btn-bg-color is_with' catchtap='handleDeleteWatch'>
+        <view 
+          wx:if="{{is_with}}" 
+          class='userInfoBtn btn-bg-color is_with' 
+          catchtap='handleDeleteWatch'>
           <image src='../../images/join@2.png'></image>
           <view>已关注</view>
         </view>
@@ -158,7 +161,10 @@
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view catchtap='handleShareBox' data-shareStore='{{item}}' data-from="2">分享</view>
+            <view 
+              catchtap='handleShareBox' 
+              data-shareStore='{{item}}' 
+              data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image src='{{logo}}' class='photo-round'></image>
