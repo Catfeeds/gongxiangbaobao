@@ -23,7 +23,7 @@ Page({
 
   },
   // 祝福y语录
-  handleUtterance(e){
+  handleUtterance(e) {
     console.log(e.detail.value)
     var orderParams = wx.getStorageSync('orderParams')
     orderParams.blessing_utterance = e.detail.value
@@ -53,75 +53,104 @@ Page({
 
   //获取默认的物流信息---
   getLogistics() {
-    // var logisticsId = wx.getStorageSync("logisticsIdFid")
+    var logisticsId = wx.getStorageSync("logisticsIdFid")
+    var order = []
     var params = {
       address_rid: wx.getStorageSync('orderParams').address_rid,
       product_items: []
     }
-    this.data.order.forEach((v, i) => {
-      params.product_items.push({
-        sku_rid: v.rid,
-        quantity: v.shopingQuantity,
-        freight_template_id: v.fid
+
+    this.data.order.forEach((item, list) => {
+      item.forEach((v, i) => {
+        params.product_items.push({
+          sku_rid: v.rid,
+          quantity: v.needQuantity,
+          freight_template_id: v.fid
+        })
       })
-    })
-    console.log(params)
-    http.fxPost(api.cheapLogisitcs, params, (result) => {
-      // 三个运费模板
-      console.log(result.data)
-      app.globalData.logisticsMould = result.data
-      result.data.express_info.forEach((v,i)=>{
-        if (v.express.express_id == result.data.min_express){
-          this.setData({
-            logisticsCompany: v
+      http.fxPost(api.cheapLogisitcs, params, (result) => {
+        console.log(result)
+        if (result.success) {
+          //把所有的物流公司放到第一个
+          item[0].logisticsCompany = result.data
+          // 选择合适的模板单存放
+          result.data.express_info.forEach((every, index) => {
+            if (every.express.express_id == result.data.min_express) {
+              item[0].n_ame = every.express.express_name
+              item[0].firstLogisticsCompanyExpress_id = every.express.express_id
+              item[0].firstLogisticsCompanyFreight = every.freight
+              item[0].firstLogisticsCompanyMax_days = every.max_days
+              item[0].firstLogisticsCompanyMin_days = every.min_days
+            }
           })
+        } else {
+          utils.fxShowToast(result.status.message)
         }
       })
+      order.push(item)
     })
+    this.setData({
+      order: order
+    })
+    console.log(this.data.order)
   },
 
   //获取产品的详情---
   getOrderProdectInfo() {
-    console.log(wx.getStorageSync('orderParams'))
-    var orderParams = wx.getStorageSync('orderParams').store_items[0].items
-    console.log(orderParams)
-    var prductSkuArr = orderParams.map((v, i) => {
-      return v.rid
-    })
-    var prductSkustr = prductSkuArr.join(',')
-    console.log(prductSkustr)
-    //获取sku的详情
-    http.fxGet(api.by_sku, {
-      rids: prductSkustr
-    }, (result) => {
-      var skuInfo = []
-      var skuCode = []
-      console.log(result, "产品的详情")
+    var skus = app.globalData.orderSkus
+    var skusList = []
+    var order = []
 
-      if (result.success) {
-        var orderParams = wx.getStorageSync('orderParams').store_items[0].items
-        console.log(orderParams)
-        orderParams.forEach((v, i) => {
-          var rid = v.rid
-          result.data[rid].shopingQuantity = v.quantity
-        })
-        console.log(result)
-        //赋值页面
-        Object.keys(result.data).forEach((key) => {
-          skuInfo.push(result.data[key])
-          skuCode.push(key)
-        })
-        this.setData({
-          order: skuInfo
-        })
-        //sku 信息 给下一页用
-        app.globalData.orderInfoSkus = skuInfo
-        //调取默认的运费模板
-        this.getLogistics()
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+    var params = {
+      address_rid: wx.getStorageSync('orderParams').address_rid,
+      product_items: []
+    }
+
+    Object.keys(skus.data).forEach((key) => {
+      console.log(skus.data[key])
+      skusList.push(skus.data[key])
     })
+    // console.log(skus, "产品的详情")
+    // this.setData({
+    //   order: skusList
+    // })
+    console.log(this.data.order)
+    skusList.forEach((item, list) => {
+      item.forEach((v, i) => {
+        params.product_items.push({
+          sku_rid: v.rid,
+          quantity: v.needQuantity,
+          freight_template_id: v.fid
+        })
+      })
+
+      http.fxPost(api.cheapLogisitcs, params, (result) => {
+        console.log(result)
+        if (result.success) {
+          //把所有的物流公司放到第一个
+          item[0].logisticsCompany = result.data
+          // 选择合适的模板单存放
+          result.data.express_info.forEach((every, index) => {
+            if (every.express.express_id == result.data.min_express) {
+              item[0].firstLogisticsCompanyName = every.express.express_name
+              item[0].firstLogisticsCompanyExpress_id = every.express.express_id
+              item[0].firstLogisticsCompanyFreight = every.freight
+              item[0].firstLogisticsCompanyMax_days = every.max_days
+              item[0].firstLogisticsCompanyMin_days = every.min_days
+            }
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+      order.push(item)
+    })
+    console.log(order)
+    setTimeout(()=>{
+      this.setData({
+        order: order
+      })
+    },1000)
   },
   //
   couponTap(e) {
@@ -139,7 +168,7 @@ Page({
   //支付,并跳转到支付成功页面---
   paymentSuccess() {
     console.log(wx.getStorageSync('orderParams'))
-    http.fxPost(api.order_create, this.data.orderInfomation, (result) => {
+    http.fxPost(api.order_create, wx.getStorageSync('orderParams'), (result) => {
       console.log(result)
     })
     // wx.navigateTo({
@@ -205,10 +234,15 @@ Page({
   },
   //选择其他物流
   otherLogisticsTap(e) {
-    console.log(e.currentTarget.dataset.rid)
-    wx.navigateTo({
-      url: '../pickLogistics/pickLogistics',
-    })
+    console.log(e.currentTarget.dataset.index)
+    console.log(e.currentTarget.dataset.templet)
+    app.globalData.logisticsMould = e.currentTarget.dataset.templet
+    setTimeout(()=>{
+      wx.navigateTo({
+        url: '../pickLogistics/pickLogistics?index=' + e.currentTarget.dataset.index,
+      })
+    },1000)
+
   },
 
 })

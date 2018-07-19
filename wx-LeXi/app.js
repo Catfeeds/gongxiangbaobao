@@ -200,5 +200,7 @@ App({
     fullSubtractionList:'',
     // 店铺是否经过认证
     isAuthenticationStore:'',
+    //订单里面的sku
+    orderSkus:''
   }
 })

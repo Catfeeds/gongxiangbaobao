@@ -35,6 +35,7 @@ module.exports = {
   product_content: 'products/:rid/detail',  // GET 产品图文介绍
   product_detail: 'products/:rid/all_detail', // GET 产品详情---
   by_sku: 'products/by_sku', // GET 多个sku详情---
+  by_store_sku: 'products/by_store_sku', // GET sku以及店铺的信息详情---
   product_skus: 'products/skus',  // GET 产品SKU
   skus: 'products/by_sku',  // GET 产品SKU信息
   wishlist: 'wishlist', // GET 心愿单---
@@ -55,7 +56,7 @@ module.exports = {
   order_detail: 'orders/:rid',  // GET 订单详情
   order_quick_buy: 'orders/quick_buy',  // POST 立即购买
   order_by_cart: 'orders/cart_buy',  // POST 购物车下单
-  order_create: 'orders/create', // POST 新增订单
+  order_create: 'orders/create', // POST 新增订单---
   order_delete: 'orders/:rid/delete',  // DELETE 删除订单
   order_cancel: 'orders/cancel',  // POST 取消订单
   order_signed: 'orders/signed',  // POST 订单签收
@@ -68,6 +69,7 @@ module.exports = {
   user_coupons: 'market/user_coupons',  // POST 用户优惠券列表---
   available_coupons: 'market/coupons/available',  // POST 用户可用优惠券
   coupon_grant: 'market/coupons/grant',  // POST 领取优惠券---
+  red_bag:'market/bonus',//GET红包列表
 
   // Search
   search: 'search/products',  // POST 搜索商品
@@ -81,7 +83,7 @@ module.exports = {
   addresses: 'address', // GET 地址列表---
   address_addto: 'address',  // POST 添加收货地址---
   address_update: 'address/:rid',  // get 获取用户设置的收获地址---
-  address_delete: 'address/:rid',   // DELETE 删除收货地址
+  address_delete: 'address/:rid',   // DELETE 删除收货地址---
   address_default: 'address/is_default',  // GET 获取默认地址
   address_set_default: 'address/:rid/set_default', // PUT 快捷更新默认收货地址
   place_provinces: 'places/provinces',  // GET 获取所有省级列表---

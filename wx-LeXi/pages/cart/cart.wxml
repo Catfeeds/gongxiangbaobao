@@ -7,7 +7,6 @@
     <view class='goToShop btn-bg-color' catchtap='indexTap'>现在去逛逛</view>
   </view>
 
-
   <!-- 购物车中有商品 -->
   <view wx:else>
     <!-- 编辑购物车 -->
@@ -102,6 +101,7 @@
         <view class='goodsTitle'>{{productInfomation.name}}</view>
         <view class='goodsTitle'>
           <text wx:if="{{productInfomation.min_price!=productInfomation.max_price&&!skuPrice}}">￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}} - ￥{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+          <text wx:if="{{productInfomation.min_price==productInfomation.max_price&&!skuPrice}}">{{productInfomation.min_price}}</text>
           <text wx:if="{{skuPrice}}">￥{{skuPrice}}</text>
         </view>
       </view>

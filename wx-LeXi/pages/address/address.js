@@ -3,60 +3,99 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+var adressData = wx.getStorageSync('adress')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    allTowns:[], //所有的县镇列表---
-    allTownsIndex:[], //所有的县镇列表index---
-    allCity:[],// 所有的市区列表---
-    allCityIndex:[],// 所有的市区列表index---
-    allProvince:[], // 所有的省份列表---
-    allProvinceIndex:[], // 所有的省份列表index---
-    AllAdress:[], //获取所有的地区 ---
-    country:[], //所有的国家的--
-    countryIndex:[], //所有的国家的index--
-    is_cameraOrPhoto:false,
+    provinceList: [], //省地址列表---
+    cityList: [], //市地址列表---
+    countyList: [], //县地址列表---
+    provinceOid: [], //省地址列表oid---
+    cityOid: [], //市地址列表oid---
+    countyOid: [], //县地址列表oid---
+    adressIndex: [0, 1, 1], // 地址的下表
+    isPicker: false, // 省市呼出框---
+    country: [], //所有的国家的--
+    countryIndex: [], //所有的国家的index--
+    is_cameraOrPhoto: false,
     is_template: 0,
-    addressInfo: [
-      {
-        s: "北京",
-        sh: ["海淀", "朝阳", "大型", "大红门"],
-        x: ["海淀", "朝阳", "大型", "大红门"]
-      },
-      {
-        s: "上海",
-        sh: ["海淀", "朝阳", "大型", "大红门"],
-        x: ["海淀", "朝阳", "大型", "大红门"]
-      }
-    ],
-    s:[],
-    sh:[],
-    x:[],
     //表单信息---
-    form:{
-      first_name:'',//String	必需	 	姓
-      mobile: "",//String	必需	 	手机号码
-      province_id: '',//Number	必需	 	省市
-      city_id: '',//Number	必需	 	城区
-      street_address: '',//String	必需	 	详细街道
+    form: {
+      first_name: '', //String	必需	 	姓
+      mobile: "", //String	必需	 	手机号码
+      province_id: '', //Number	必需	 	省市
+      city_id: '', //Number	必需	 	城区
+      street_address: '', //String	必需	 	详细街道
 
-      last_name:''	,//String	可选	 	名
-      phone:''	,//String	可选	 	电话
-      country_id:''	,//Number	可选	1	国家
-      town_id:''	,//Number	可选	 	镇/地区
-      area_id:''	,//Number	可选	 	村/ 区域
-      street_address_two:''	,//String	可选	 	 
-      zipcode:''	,//Number	可选	 	邮编
-      is_default:false	,//Bool	可选	False	是否默认地址
-      is_overseas:''	,//Bool	可选	False	是否海外地址
-      user_custom_id:''	,//Integer	可选	 	海关信息id
+      last_name: '', //String	可选	 	名
+      phone: '', //String	可选	 	电话
+      country_id: '', //Number	可选	1	国家
+      town_id: '', //Number	可选	 	镇/地区
+      area_id: '', //Number	可选	 	村/ 区域
+      street_address_two: '', //String	可选	 	 
+      zipcode: '', //Number	可选	 	邮编
+      is_default: false, //Bool	可选	False	是否默认地址
+      is_overseas: '', //Bool	可选	False	是否海外地址
+      user_custom_id: '', //Integer	可选	 	海关信息id
     }
   },
+
+  // 地址选择器
+  getAdressPick() {
+    var provinceOid = adressData.k_1_0[this.data.adressIndex[0]].oid
+    var countyOid = adressData['k_2_' + provinceOid][this.data.adressIndex[1]].oid
+    this.setData({
+      provinceList: adressData.k_1_0, //省地址列表---
+      cityList: adressData['k_2_' + provinceOid], //市地址列表---
+      countyList: adressData['k_3_' + countyOid], //县地址列表--
+    })
+  },
+  // 省发生变化
+  provinceChange(e) {
+    this.setData({
+      adressIndex: e.detail.value
+    })
+    this.cityChange(adressData.k_1_0[e.detail.value[0]].oid)
+  },
+  //市
+  cityChange(e) {
+    this.setData({
+      provinceOid: e,
+      cityList: adressData['k_2_' + e]
+    })
+    if (!adressData['k_3_' + adressData['k_2_' + e][0].oid]){
+      this.setData({
+        countyList:[],
+        countyOid:''
+      })
+      return false
+    }
+    this.countyChange(adressData['k_2_' + e][this.data.adressIndex[1]].oid)
+  },
+  // 县发生变化
+  countyChange(e) {
+    this.setData({
+      cityOid: e,
+      countyList: adressData['k_3_' + e],
+      countyOid: adressData['k_3_' + e][this.data.adressIndex[2]].oid
+    })
+
+  },
+  // 确定选择地址
+  handlePickAdressOver() {
+    this.setData({
+      ['form.country_id']: this.data.countyOid, //县
+      ['form.province_id']: this.data.provinceOid, //省份
+      ['form.city_id']: this.data.cityOid, //Integer 市
+      isPicker: false
+    })
+  },
+
   // 设置为默认的收货地址
-  switch1Change(e){
+  switch1Change(e) {
     console.log(e)
     this.setData({
       ['form.is_default']: e.detail.value
@@ -65,13 +104,14 @@ Page({
   //保存新增地址
   storageTap() {
     console.log(this.data.form)
-    http.fxPost(api.address_addto, { ...this.data.form},(result)=>{
+    http.fxPost(api.address_addto, { ...this.data.form
+    }, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         wx.navigateBack({
           delta: 1
         })
-      }else{
+      } else {
 
       }
     })
@@ -99,94 +139,17 @@ Page({
     })
   },
   //填写手机号码---
-  handleMobileCode (e) {
+  handleMobileCode(e) {
     console.log(e.detail.value)
     this.setData({
       ['form.mobile']: e.detail.value
     })
   },
-  // 获取所有的地址---
-  getAdress(){
-    http.fxGet(api.all_places, {country_id:1},(result)=>{
-      console.log(result)
-      if(result.success){
-        this.setData({
-          AllAdress:result.data
-        })
-      }else{
-        
-      }
-    })
-  },
-  //获取所有的省份
-  getAllProvinces(e = 1) {
-    http.fxGet(api.place_provinces, {country_id:e},(result)=>{
-      console.log(result,'所有的省份')
-      if(result.success){
-        this.setData({
-          allProvince:result.data
-        })
-      }else{
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-  // 省发生变化---
-  bindProvinceChange(e) {
-    this.setData({
-      allProvinceIndex: e.detail.value,
-      ['form.province_id']: this.data.allProvince[e.detail.value].oid
-    })
-    console.log(e.detail.value, this.data.allProvince[e.detail.value].oid)
-    this.getAllCity(this.data.allProvince[e.detail.value].oid)
-  },
-  //获取所有的市区---
-  getAllCity(e = 1) {
-    http.fxGet(api.place_cities.replace(/:pid/g,e), {country_id:1},(result)=>{
-      console.log(result,'所有的市')
-      if (result.success) {
-        this.setData({
-          allCity: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-  // 市区发生变化---
-  bindCityChange(e) {
-    this.setData({
-      allCityIndex: e.detail.value,
-      ['form.city_id']: this.data.allCity[e.detail.value].oid
-    })
-    console.log(e.detail.value, this.data.allCity[e.detail.value].oid)
-    this.getAllTowns(this.data.allCity[e.detail.value].oid)
-  },
-  //获取所有的县---
-  getAllTowns(e=72) {
-    http.fxGet(api.place_towns.replace(/:pid/g, e), {country_id:1},(result)=>{
-      console.log(result,'所有的县')
-      if (result.success) {
-        this.setData({
-          allTowns: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-  // 县发生变化---
-  bindAllTownsChange(e) {
-    console.log(e.detail.value)
-    this.setData({
-      allTownsIndex: e.detail.value,
-      ['form.town_id']: this.data.allTowns[e.detail.value].oid
-    })
-  },
+
   // 获取所有的国家---
   getCountry() {
-    http.fxGet(api.get_country,{},(result)=>{
-      if (result.success){
+    http.fxGet(api.get_country, {}, (result) => {
+      if (result.success) {
         console.log(result)
         this.setData({
           country: result.data
@@ -204,20 +167,11 @@ Page({
       ['form.country_id']: this.data.country.area_codes[e.detail.value].id
     })
   },
-  //要填写在地址栏里面的地址信息
-  addInfomation(e){
-    var index=e.detail.value
-    console.log(index)
-    this.setData({
-      s:this.data.addressInfo[index[0]].s,
-      sh:this.data.addressInfo[index[0]].sh[index[1]],
-      x: this.data.addressInfo[index[0]].sh[index[2]]
-    })
-  },
 
-  pickCameraOrPhoto(){
+
+  pickCameraOrPhoto() {
     this.setData({
-      is_cameraOrPhoto:false
+      is_cameraOrPhoto: false
     })
   },
 
@@ -225,61 +179,59 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // this.getAdress() // 获取所有的地址---
     this.getCountry() // 获取所有的国家---
-    this.getAllProvinces() //获取省份---
-    this.getAllCity() // 获取所有的市---
-    this.getAllTowns() // 获取所有的镇---
+    this.getAdressPick() //地址获取---
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //模板的显示与隐藏
@@ -295,5 +247,16 @@ Page({
       })
     }
   },
-
+  //呼出框取消
+  handledeletePick() {
+    this.setData({
+      isPicker: false
+    })
+  },
+  //呼出框显示
+  handleShowPick() {
+    this.setData({
+      isPicker: true
+    })
+  }
 })

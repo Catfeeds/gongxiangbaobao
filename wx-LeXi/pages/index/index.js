@@ -252,13 +252,13 @@ Page({
       openid: wx.getStorageSync('jwt').openid
     }
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.rid), params, (result) => {
-      console.log(params,result)
+      console.log(result)
       if (result.success) {
         this.setData({
           BrowseQuantityInfo: result.data
         })
       } else {
-        // utils.fxShowToast(result.status.message)
+        utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -449,7 +449,7 @@ Page({
     this.recommendProduct() // 推荐好物---
     this.getShopOwner() // 获取店铺主人的信息---
     this.getAuthentication()// 查看是否认证---
-    // this.addBrowse() // 添加访问者---
+    this.addBrowse() // 添加访问者---
     
   },
 

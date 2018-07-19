@@ -55,15 +55,14 @@
   </view>
 
   <!-- 订单信息 -->
-  <view class='orderInfoBox'>
+  <view class='orderInfoBox' wx:for="{{order}}" wx:key="{{index}}" wx:for-item="items">
     <view class='shopName'>
-      <text>素雅手作品牌馆 </text>
-      <text class='shopNameR'>从台湾发货</text>
+      <text>{{items[0].store_name}}</text>
+      <text class='shopNameR'>从{{items[0].delivery_country}}发货</text>
     </view>
-
     <view class='OtherInfomation'>
       <!-- 购买信息 -->
-      <view class='shopGoodsInfo component' wx:for="{{order}}" wx:key="{{index}}">
+      <view class='shopGoodsInfo component' wx:for='{{items}}' wx:key="{{index}}">
         <fx-product-middle 
           shopingNumber="true" 
           product="{{item}}" 
@@ -93,10 +92,10 @@
       </view>
 
       <!-- 配送方式 -->
-      <view class=' receiveFn'>
+      <view class='receiveFn'>
         <view class='receiveFnTop'>
           <view>配送方式 </view>
-          <view class='theme-green' data-rid='{{logisticsCompany.express_info[0].rid}}' catchtap='otherLogisticsTap'>选择其他></view>
+          <view class='theme-green' data-index="{{index}}" data-templet='{{items[0].logisticsCompany}}' catchtap='otherLogisticsTap'>选择其他></view>
         </view>
         <view>
           <view class='receiveFn_photo time-top font-s'>
@@ -104,11 +103,12 @@
               <view class="receiveFnBottomBox">
                 <image src='../../images/logistics-icon@2.png'></image>
               </view>
-              <text>{{logisticsCompany.express.express_name}}</text>
+              
+              <text>{{items[0].firstLogisticsCompanyName}}</text>
             </view>
-            <view>物流时长：{{logisticsCompany.min_days}}至{{logisticsCompany.max_days}}天送达</view>
+            <view>物流时长：{{items[0].firstLogisticsCompanyMin_days}}至{{items[0].firstLogisticsCompanyMax_days}}天送达</view>
           </view>
-          <view class='font-s logistice_text'>￥{{logisticsCompany.freight}}</view>
+          <view class='font-s logistice_text'>￥{{items[0].firstLogisticsCompanyFreight}}</view>
         </view>
       </view>
 

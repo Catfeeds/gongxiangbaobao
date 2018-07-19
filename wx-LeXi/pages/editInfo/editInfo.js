@@ -116,6 +116,13 @@ Page({
       provinceOid:e,
       cityList: adressData['k_2_'+e]
     })
+    if (!adressData['k_3_' + adressData['k_2_' + e][0].oid]) {
+      this.setData({
+        countyList: [],
+        countyOid: ''
+      })
+      return false
+    }
     this.countyChange(adressData['k_2_' + e][this.data.adressIndex[1]].oid)
   },
   // 县发生变化

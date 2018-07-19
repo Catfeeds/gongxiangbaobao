@@ -12,6 +12,21 @@ Page({
     normalCouponList: [], // 未使用的
     useCouponList: [], // 已经使用的
     exceedCouponList: [], // 已经过期
+    red_bag:[]
+  },
+  // 红包列表 暂时隐藏
+  getRedBag(){
+    http.fxGet(api.red_bag,{},(result)=>{
+      console.log(result,'红包列表')
+      if(result.success){
+        this.setData({
+          red_bag: result.data
+        })
+      }else{
+
+      }
+
+    })
   },
   // 未使用// 已经过期 优惠券
   getUserCoupon(o = 'N01', v = 1, i = 10) {
@@ -61,6 +76,7 @@ Page({
     this.getUserCoupon() // N01: 未使用
     this.getUserCoupon('N02') // N02: 已使用
     this.getUserCoupon('N03') // N03: 已过期
+    this.getRedBag()// 红包列表
   },
 
   /**

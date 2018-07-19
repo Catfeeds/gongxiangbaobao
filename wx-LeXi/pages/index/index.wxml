@@ -54,17 +54,18 @@
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
-          <view class='photo-round joinNumberlPhoto'>
-            <image src='{{logo}}'></image>
-          </view>
-          <view class='photo-round joinNumberlPhoto'>
-            <image src='{{logo}}'></image>
+          <view 
+            wx:key='{{index}}'
+            class='photo-round joinNumberlPhoto' 
+            wx:for='{{BrowseQuantityInfo.user_parties}}'>
+            <image src='{{item.avatar}}'></image>
           </view>
           <view class='photo-round joinNumberlPhoto'>
             <open-data type='userAvatarUrl'></open-data>
           </view>
         </view>
       </view>
+      <view class='middle_shadou'></view>
       <view  class='joinNumberR'>
         {{shopInfo.browse_number>999?'999+':shopInfo.browse_number}}
       </view>

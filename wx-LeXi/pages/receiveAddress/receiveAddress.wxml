@@ -31,6 +31,12 @@
   </view>
 
   <!-- 新增收获地址 -->
+  <view class='addNewAddrees' catchtap='deleteAddress'>
+    <view>删除收货地址</view>
+    <view class='fx-icon-nothing-plus theme-green'></view>
+  </view>
+
+  <!-- 新增收获地址 -->
   <view class='addNewAddrees' catchtap='addAddressTap'>
     <view>新的收货地址</view>
     <view class='fx-icon-nothing-plus theme-green'></view>

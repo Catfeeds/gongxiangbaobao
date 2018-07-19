@@ -8,12 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    skuPrice:'',//sku价格
+    skuPrice: '', //sku价格
     needSpecifications: [], // 需要的规格---
     needColor: [], //需要的颜色---
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
-    productInfomation:[], // 获取商品的详情，用来获取商品的规格和颜色，，用来挑选
+    productInfomation: [], // 获取商品的详情，用来获取商品的规格和颜色，，用来挑选
     pickBox: false, //选择的呼出框
     addDesireOrder: [], // 要加入心愿单的rid---
     falseheckbox: false, //falseheckbox---
@@ -67,7 +67,8 @@ Page({
     var select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
     this.setData({
-      pickBox: true
+      pickBox: true,
+      skuPrice: ''
     })
   },
 
@@ -466,7 +467,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+
     this.getDesireOrder() // 获取心愿单
   },
 
@@ -539,41 +540,83 @@ Page({
   chekoutTap() {
     var shopProduct = []
     // 订单内容
-    var items = {
-      rid: '', //String	必需	 	sku
-      quantity: '', //Number	必需	1	购买数量
-      express_id: '', //Integer	必需	 	物流公司ID
-      warehouse_id: '' //Number	可选	 	发货的仓库ID
-    }
 
-    this.data.shoppingCart.items.forEach((v, i) => {
-      console.log(v.product.rid)
-      console.log(v.quantity)
-
-      items.rid = v.product.rid,
-        items.quantity = v.quantity,
-        items.express_id = '',
-        items.warehouse_id = ''
-      shopProduct.push(items)
-      items = {
+    var store_items = [{
+      store_rid: '', //String	必需	 	当前店铺rid
+      is_distribute: 0,//Integer  可选 0 是否分销 0、否 1、是
+      original_store_rid:'',// String 可选   原店铺rid
+      buyer_remark: '', //String	可选	 	买家备注
+      blessing_utterance: '', //String	可选	 	买家寄语
+      coupon_codes: '', //Array	可选	 	优惠券码列表
+      items: [{
         rid: '', //String	必需	 	sku
         quantity: '', //Number	必需	1	购买数量
         express_id: '', //Integer	必需	 	物流公司ID
         warehouse_id: '' //Number	可选	 	发货的仓库ID
+      }]
+    }]
+    var skus = []
+    var skusNeedQuantity = []
+    console.log(this.data.shoppingCart)
+
+
+
+    this.data.shoppingCart.items.forEach((v, i) => {
+      skusNeedQuantity.push(v.product.rid + ":" + v.quantity) // 每个sku需求数量
+      skus.push(v.product.rid)
+
+    })
+    // var orderParams = wx.getStorageSync('orderParams')
+    // orderParams.store_items[0].items = shopProduct
+    // wx.setStorageSync('orderParams', orderParams)
+    // console.log(shopProduct)
+
+    // 获取产品的详情
+
+    http.fxGet(api.by_store_sku, {
+      rids: skus.join(',')
+    }, (result) => {
+      console.log(result)
+      if(result.success){
+        //添加每件sku的需求数量
+        Object.keys(result.data).forEach((key) => {
+          console.log(result.data[key]) // 每个店铺
+          result.data[key].forEach((v, i) => {//每个sku
+            console.log(v)
+            // 当前店铺的rid
+            v.current_store_rid = wx.getStorageSync('storeInfo').rid
+            // 是否为分销商品
+            if (v.store_rid != wx.getStorageSync('storeInfo').rid){
+              v.is_distribute=1
+            }else{
+              v.is_distribute = 0
+            }
+            //需求数量
+            skusNeedQuantity.forEach((item, n) => {
+              var newArray = item.split(":")
+              console.log(newArray)
+              if (v.rid == newArray[0]) {
+                v.needQuantity = newArray[1]
+              }
+            })
+          })
+        })
+        app.globalData.orderSkus = result 
+
+        wx.navigateTo({
+          url: '../receiveAddress/receiveAddress',
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
       }
     })
-    var orderParams = wx.getStorageSync('orderParams')
-    orderParams.store_items[0].items = shopProduct
-    wx.setStorageSync('orderParams', orderParams)
-    console.log(shopProduct)
-    wx.navigateTo({
-      url: '../receiveAddress/receiveAddress',
-    })
+    console.log(skus, skusNeedQuantity)
   },
+
   // 关闭选择呼出框、
-  handlePickBoxOffTap(){
+  handlePickBoxOffTap() {
     this.setData({
-      pickBox:false
+      pickBox: false
     })
   }
 
