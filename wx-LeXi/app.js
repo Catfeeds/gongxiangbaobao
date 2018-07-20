@@ -55,7 +55,6 @@ App({
           console.log(res)
           if (res.success) {
             let isBind = res.data.is_bind
-            
             // 登录成功，得到jwt后存储到storage
             wx.setStorage({
               key: 'jwt',
@@ -184,6 +183,24 @@ App({
     checkedBuyItems: [],
     // 选中的收货地址
     checkedDeliveryAddress: {},
-    system: []
+    system: [],
+    // 店铺的信息
+    storeInfo:[],
+    // 主题商品列表
+    themeProdct:[],
+    //书否关注过
+    isWatchstore:false,
+    //订单页面最合适的运费模板
+    logisticsMould:'',
+    // 订单页面的sku信息
+    orderInfoSkus:'',
+    //优惠卷
+    couponList:'',
+    //满减
+    fullSubtractionList:'',
+    // 店铺是否经过认证
+    isAuthenticationStore:'',
+    //订单里面的sku
+    orderSkus:''
   }
 })

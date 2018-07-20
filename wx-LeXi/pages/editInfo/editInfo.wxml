@@ -1,8 +1,8 @@
 <!--pages/editInfo/editInfo.wxml-->
 <view class='container'>
   <view class='userPhoto'>
-    <image src='../../images/timg.jpg'></image>
-    <view class='register-time'>注册时间：2016年11月11日</view>
+    <image src='{{userInfo.profile.avatar}}'></image>
+    <view class='register-time'>注册时间：{{userInfo.profile.created_at}}</view>
     <view class='camera'>
       <image src='../../images/lexi@2.png'></image>
     </view>
@@ -13,44 +13,82 @@
       <!-- 用户名字 -->
       <label class='componentTwo'>
         <view>用户名</view>
-        <input placeholder-class='placeholder' value='设计师Ricky' class='userInput' placeholder='输入姓名'></input>
-
+        <input bindinput='handleNameInput' placeholder-class='placeholder' value='{{editUserInfo.username}}' class='userInput' placeholder='输入姓名'></input>
       </label>
       <!-- 个人介绍 -->
       <label class='componentTwo'>
         <view>个人介绍</view>
-        <input placeholder-class='placeholder' class='userInput' placeholder='给自己添加一个solgan吧'></input>
+        <input bindinput='handleOwnerIntroduce' placeholder-class='placeholder' class='userInput' value='{{editUserInfo.about_me}}' placeholder='给自己添加一个solgan吧'></input>
 
       </label>
       <!-- 邮箱 -->
       <label class='componentTwo'>
         <view>邮箱</view>
-        <input placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
+        <input bindinput='hanleOwnerEmail' value='{{editUserInfo.email}}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
       </label>
       <!-- 位置 -->
-      <label class='componentTwo'>
+      <label class='componentTwo' catchtap='handleShowPick'>
         <view>位置</view>
-        <input placeholder-class='placeholder' value='贵州.遵义' class='userInput' placeholder='定期为你推荐好设计'></input>
+        <view class="black-font">
+          {{provinceList[adressIndex[0]].name}}.{{cityList[adressIndex[1]].name}}.{{countyList[adressIndex[2]].name}}
+        </view>
       </label>
       <!-- 出生日期 -->
       <label class='componentTwo'>
         <view>出生日期</view>
-        <input placeholder-class='placeholder' value='1992年8月25日' class='userInput' placeholder='定期为你推荐好设计'></input>
+        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+          <view class="black-font">
+            {{date}}
+          </view>
+        </picker>
       </label>
       <!-- 性别 -->
       <label class='componentTwo'>
         <view>性别</view>
-        <input placeholder-class='placeholder' class='userInput' value='男' placeholder=''></input>
+        <picker bindchange="bindGenderChange" mode='selector' range="{{gender}}" value="{{gender}}">
+          <view class="black-font">
+            {{gender[editUserInfo.gender]}}
+            <picker-view></picker-view>
+          </view>
+        </picker>
       </label>
-
       <view class='bottom-btn-box bg-white '>
-        <button class='btn-bg-color'>保存</button>
+        <button class='btn-bg-color' catchtap='handlePreserveTap'>保存</button>
       </view>
-
     </form>
   </view>
-
-
+  <view wx:if="{{isPicker}}" class='picker-box'>
+    <view class='time-top over-or-delete'>
+      <view catchtap='handledeletePick'>取消</view>
+      <view catchtap='handlePickAdressOver'>确定</view>
+    </view>
+    <picker-view 
+      bindchange='provinceChange' 
+      indicator-style="height: 50px;" 
+      style="width: 100%; height: 400rpx;">
+      <!-- 省 -->
+      <picker-view-column value='province'>
+        <view 
+          wx:key='{{index}}' 
+          wx:for="{{provinceList}}" 
+          style="line-height: 50px">{{item.name}}</view>
+      </picker-view-column>
+      <!-- 市 -->
+      <picker-view-column>
+        <view 
+          wx:key='{{index}}' 
+          wx:for="{{cityList}}" 
+          style="line-height: 50px">{{item.name}}</view>
+      </picker-view-column>
+      <!-- 县 -->
+      <picker-view-column>
+        <view 
+          wx:key='{{index}}' 
+          wx:for="{{countyList}}" 
+          style="line-height: 50px">{{item.name}}</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
   <view class='shm'></view>
   <view class='shm'></view>
 

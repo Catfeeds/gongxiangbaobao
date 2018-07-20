@@ -1,18 +1,40 @@
 // pages/brandInformation/brandInformation.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    createdTime:[], // 开馆时间---
+    storeInfo:[], // 店铺的信息---
+    storeOwnerInfo:[], //店铺主人的信息---
+  },
+  //获取店铺休息，和店铺主人的信息
+  getAllInfo(){
+    this.setData({
+      storeInfo: wx.getStorageSync('storeInfo'),
+      storeOwnerInfo: wx.getStorageSync('storeOwnerInfo'),
+      isAuthentication:app.globalData.isAuthenticationStore
+    })
+    this.getStoreCreatedTime()
+  },
+  //开馆时间
+  getStoreCreatedTime(){
+    var createdTime = utils.timestamp2string(this.data.storeInfo.created_at,'date')
+    this.setData({
+      createdTime: createdTime
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getAllInfo() // 获取店铺信息
   },
 
   /**

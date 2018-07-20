@@ -33,6 +33,10 @@ const timestamp2string = (ts, format = 'time') => {
   if (format == 'date') {
     return y + '.' + m + '.' + d;  // + ':' + second
   }
+  if (format == 'cn') {
+    return y + '年' + m + '月' + d + '日';  // + ':' + second
+  }
+
 }
 
 const formatNumber = n => {
@@ -188,13 +192,16 @@ const orderStatusTitle = (status) => {
   return tmp ? tmp[0].title : ''
 }
 // 提示信息
-const showToast = (v) => {
+const showToast = (v, typeText ="none") => {
   wx.showToast({
     title: v,
-    icon: 'none',
-    duration: 2000
+    icon: typeText,
+    duration: 1200
   })
 }
+//预先加载地址
+
+
 
 module.exports = {
   fxShowToast: showToast,

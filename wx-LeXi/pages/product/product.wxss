@@ -29,6 +29,7 @@ swiper-item, swiper-item>image, swiper {
 .cureentPrice {
   font-size: 34rpx;
   font-weight: 500rpx;
+  white-space: nowrap;
 }
 
 .origPrice {
@@ -321,7 +322,6 @@ swiper-item, swiper-item>image, swiper {
   font-size: 32rpx;
   color: white;
   text-align: center;
-  
 }
 
 .specifications {

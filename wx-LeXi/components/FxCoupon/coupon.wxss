@@ -33,3 +33,7 @@ margin-right: 10rpx;
   justify-content: space-between;
   align-items: center;
 }
+.reduced-price text{
+  margin-right: 20rpx;
+
+}

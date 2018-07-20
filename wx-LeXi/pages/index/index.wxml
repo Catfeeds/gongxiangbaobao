@@ -11,7 +11,7 @@
     <view class='middle-user-info'>
       <image src='{{shopInfo.logo.view_url}}' class='userPhoto'>
       </image>
-      <view class='approve-photo'>
+      <view class='approve-photo' wx:if='{{isAuthentication.status==4}}'>
         <image src='../../images/@2.png'></image>
       </view>
       <view class='userNameBox theme-color'>
@@ -32,7 +32,10 @@
         </view>
       </view>
       <view class='userInfoBtnBox'>
-        <view wx:if="{{is_with}}" class='userInfoBtn btn-bg-color is_with' catchtap='handleDeleteWatch'>
+        <view 
+          wx:if="{{is_with}}" 
+          class='userInfoBtn btn-bg-color is_with' 
+          catchtap='handleDeleteWatch'>
           <image src='../../images/join@2.png'></image>
           <view>已关注</view>
         </view>
@@ -47,23 +50,24 @@
   <!-- 浏览过的人数 -->
   <view class='joinNumber'>
     <view class='theme-hui-color'>
-      <text class='theme-color'>{{BrowseQuantityInfo.count}}</text> 浏览过设计馆</view>
+      <text class='theme-color'>{{shopInfo.browse_number}}</text> 浏览过设计馆</view>
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
-          <view class='photo-round joinNumberlPhoto'>
-            <image src='{{logo}}'></image>
-          </view>
-          <view class='photo-round joinNumberlPhoto'>
-            <image src='{{logo}}'></image>
+          <view 
+            wx:key='{{index}}'
+            class='photo-round joinNumberlPhoto' 
+            wx:for='{{BrowseQuantityInfo.user_parties}}'>
+            <image src='{{item.avatar}}'></image>
           </view>
           <view class='photo-round joinNumberlPhoto'>
             <open-data type='userAvatarUrl'></open-data>
           </view>
         </view>
       </view>
-      <view catchtap='wacthTap' class='joinNumberR'>
-        {{BrowseQuantityInfo.count>999?'999+':BrowseQuantityInfo.count}}
+      <view class='middle_shadou'></view>
+      <view  class='joinNumberR'>
+        {{shopInfo.browse_number>999?'999+':shopInfo.browse_number}}
       </view>
     </view>
   </view>
@@ -76,12 +80,22 @@
     <view class='notice-info theme-green'>...阅读更多</view>
   </view>
   <!-- 优惠券 -->
-  <view class='coupon-box' catchtap='coupon_show'>
-    <fx-coupon></fx-coupon>
+  <view 
+    class='coupon-box' 
+    catchtap='coupon_show' 
+    wx:if='{{couponList||fullSubtractionList}}'>
+    <fx-coupon 
+      coupon='{{couponList.coupons}}' 
+      fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
   </view>
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
-    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='handleGoryActiveTap'>{{item.name}}
+    <view 
+      wx:for="{{catgory}}" 
+      wx:key="{{item.rid}}" 
+      data-rid="{{item.rid}}" 
+      class='{{catgoryActive==item.rid?"active":""}}' 
+      catchtap='handleGoryActiveTap'>{{item.name}}
     </view>
   </view>
   <!-- 垫片 -->
@@ -93,7 +107,10 @@
       <view class='c-importantGoodsTitle'>主打设计</view>
       <view class='c-importantGoodsBox'>
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
-          <fx-product product="{{item.product}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product 
+            product="{{item.product}}" 
+            bind:triggerEvent_product="handleInfomation" 
+            oldPrice="{{true}}"></fx-product>
         </view>
       </view>
     </view>
@@ -120,13 +137,24 @@
         </view>
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item}}" bind:triggerEvent_product="handleInfomation"></fx-product-middleM>
+          <fx-product-middleM 
+            originPric="{{true}}" 
+            is_likeNumber="{{true}}" 
+            price="{{true}}" 
+            product="{{item}}" 
+            bind:triggerEvent_product="handleInfomation"></fx-product-middleM>
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view class='recommendbottomText likeActive'>
+          <view 
+            data-id='{{item.rid}}'
+            data-isLike='{{item.is_like}}'
+            class='recommendbottomText {{item.is_like?"likeActive":""}}' 
+            catchtap='handleBindLike'>
             <view class='icon-like'>
-              <image src='../../images/Like@2.png'></image>
+              <image 
+                src='{{item.is_like?"../../images/Like@2.png":"../../images/dLike@2.png"}}'>
+              </image>
             </view>
             <view>喜欢</view>
           </view>
@@ -134,7 +162,10 @@
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view>分享</view>
+            <view 
+              catchtap='handleShareBox' 
+              data-shareStore='{{item}}' 
+              data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image src='{{logo}}' class='photo-round'></image>
@@ -152,8 +183,16 @@
         <!-- 推荐好物品的内容s -->
         <view class='tuijian'>
           <!-- 物品的详情 -->
-          <view class='recommend-goods-box' wx:for='{{highQualityProduct.designs}}' wx:key='{{index}}'>
-            <fx-product-middleM bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}">
+          <view 
+            class='recommend-goods-box' 
+            wx:for='{{highQualityProduct.designs}}' 
+            wx:key='{{index}}'>
+            <fx-product-middleM 
+              bind:triggerEvent_product="handleInfomation" 
+              originPric="{{true}}" 
+              is_likeNumber="{{true}}" 
+              price="{{true}}" 
+              product="{{item.product}}">
             </fx-product-middleM>
           </view>
         </view>
@@ -174,8 +213,14 @@
       </view>
     </view>
     <view class='production'>
-      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' wx:for="{{myProduct.products}}" wx:key='{{index}}'>
-        <fx-product product='{{item}}' like_number='{{true}}' bind:triggerEvent_product='handleInfomation'></fx-product>
+      <view 
+        class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' 
+        wx:for="{{myProduct.products}}" 
+        wx:key='{{index}}'>
+        <fx-product 
+          product='{{item}}' 
+          like_number='{{true}}' 
+          bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>
@@ -186,7 +231,13 @@
       <view class='human themeGoods'>
         主题
       </view>
-      <view class='themeBottomPhoto' data-id='{{item.id}}' wx:for='{{popularProductTheme}}' wx:key='{{index}}' catchtap='handlethemeTap'>
+      <view 
+        class='themeBottomPhoto' 
+        data-id='{{item.id}}' 
+        wx:for='{{popularProductTheme}}' 
+        wx:key='{{index}}' 
+        data-index='{{index}}'
+        catchtap='handlethemeTap'>
         <image src='{{item.cover}}'></image>
       </view>
     </view>
@@ -195,7 +246,10 @@
     </view>
     <view class='production new-goods_box'>
       <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct.products}}' wx:key='{{index}}'>
-        <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product 
+          product="{{item}}" 
+          like_number="{{true}}" 
+          bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
     <!-- <view class='production'>
@@ -206,7 +260,9 @@
   </view>
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-    <template is="couponTemplate"></template>
+    <template 
+      is="couponTemplate" 
+      data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
   <!-- 分享模板 -->
   <view class='share-Tempate' wx:if="{{is_share}}">
@@ -219,6 +275,6 @@
       <image src='../../images/fei@2.png'></image>
     </view>
     <text>分享</text>
-    <button open-type="share" data-from="1"></button>
+    <button catchtap='handleShareBox' data-shareStore='{{rid}}' data-from="1"></button>
   </view>
 </view>

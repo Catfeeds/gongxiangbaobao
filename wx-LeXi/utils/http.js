@@ -85,9 +85,9 @@ function fxGet(url, data = {}, cb) {
     success(res) {
       wx.hideNavigationBarLoading()
       if (res.statusCode == 401) {
-        wx.navigateTo({
-          url: '/pages/authorize/authorize',
-        })
+        // wx.navigateTo({
+        //   url: '/pages/authorize/authorize',
+        // })
       }
       return typeof cb == 'function' && cb(res.data)
     },

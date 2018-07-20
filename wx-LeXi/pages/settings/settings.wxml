@@ -2,13 +2,14 @@
 <view class='container'>
   <view class='topBox'>
     <!-- 查看并编辑 -->
-    <view class='user-name-edit time-top'>
+    <view class='user-name-edit time-top' catchtap='editInfoTap'>
       <view>
-        <view class='user-name-text'> 何先生</view>
-        <view class='edit-user' catchtap='editInfoTap'>查看并编辑个人资料</view>
+        <text wx:if='{{userInfo.profile.name!=null}}'>{{userInfo.profile.name}}</text>
+        <open-data wx:else type="userNickName"></open-data>
+        <view class='edit-user' >查看并编辑个人资料</view>
       </view>
       <view class='userPhoto'>
-        <image src='../../images/timg.jpg'></image>
+        <image src='{{userInfo.profile.avatar}}'></image>
       </view>
     </view>
     <!-- 是否绑定手机号码 -->
@@ -45,7 +46,7 @@
   </view>
 
   <!-- 收货地址 -->
-  <view class='more item component'>
+  <view class='more item component' catchtap='handleToAddressTap'>
     <view class=' time-top'>
       <view class=' time-top'>
         <view>
@@ -104,20 +105,41 @@
             </view>
           </view>
           <view class='input-number'>
-            <input placeholder-class='number' placeholder='输入手机号码' maxlength="11" type="number" bindinput="inputText" value='{{mobaile_number}}'></input>
+            <input 
+              placeholder-class='number' 
+              placeholder='输入手机号码' 
+              maxlength="11" 
+              type="number" 
+              bindinput="inputText" 
+              value='{{mobaile_number}}'>
+            </input>
           </view>
-          <view class='cha' catchtap='mobileNumberNullTap'>x</view>
-          <view wx:if="{{!is_time}}" class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}' catchtap='getNumberTap'>获取验证码</view>
+          <view 
+            class='cha' 
+            catchtap='mobileNumberNullTap'>x</view>
+          <view 
+            wx:if="{{!is_time}}" 
+            class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}'
+            catchtap='getNumberTap'>获取验证码</view>
 
           <view class='button-style font-ss c-middle' wx:if="{{is_time}}">{{time}}s</view>
         </view>
         <!-- 输入验证码 -->
         <view class='mobile-number yan input-number time-top'>
-          <input placeholder-class='number' placeholder='短信验证码' type="number" bindinput="serveNumber" value='{{verification_code}}' maxlength="6"></input>
+          <input 
+            placeholder-class='number' 
+            placeholder='短信验证码' 
+            type="number" 
+            bindinput="serveNumber" 
+            value='{{verification_code}}' 
+            maxlength="6">
+          </input>
           <text class='error-text font-ss'>验证码错误</text>
         </view>
         <!-- 按钮 -->
-        <button class='ok-btn c-middle {{over_button?"bg-green":""}}'>完成</button>
+        <button 
+          class='ok-btn c-middle {{over_button?"bg-green":""}}'
+          catchtap='handleVerifyOverTap'>完成</button>
       </view>
     </form>
   </view>
@@ -126,7 +148,12 @@
   <view class='pick-country-box bg-white black-font' wx:if="{{is_country}}">
     <view class='componentTwo'>常用</view>
     <view class='pick-country-btm'>
-      <view class='time-top' wx:for="{{country_pick}}" wx:key="{{item.rid}}" catchtap='pickCountryTap' data-code="{{item.code}}">
+      <view 
+        class='time-top' 
+        wx:for="{{country_pick}}" 
+        wx:key="{{item.rid}}" 
+        catchtap='pickCountryTap' 
+        data-code="{{item.code}}">
         <text>{{item.country_name}}</text>
         <text class='theme-hui-color'>+{{item.code}}</text>
       </view>

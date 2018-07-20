@@ -9,8 +9,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    needSpecifications:[], // 需要的规格
-    needColor:[], //需要的颜色
+    skuPrice:'',// sku价格---
+    couponList: '', // 优惠券列表---couponList
+    fullSubtractionList: '', // 满减---
+    isWatch:false, // 是否关注过店铺
+    storeInfo: [], // 店铺的信息---
+    needSpecifications: [], // 需要的规格---
+    needColor: [], //需要的颜色---
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
     productInfomation: [], // 商品详情列表---
@@ -21,6 +26,136 @@ Page({
     window_height: app.globalData.system.screenHeight * 2, // 屏幕的高度
     coupon_show: false,
     pick: false, //选择规格的盒子是否隐藏---
+    ShopCartNum: [], //购物车的数量---
+    newProductList: [], // 最新的商品列表---
+    //最新产品的请求参数
+    newProductParams: {
+      page: 1,
+      per_page: 10
+    }
+  },
+  // 关闭优惠卷呼出框
+  handleOffCouponTap(){
+    this.setData({
+      coupon_show:false
+    })
+  },
+  
+  // 领取优惠券
+  getReceiveCoupon(e) {
+    console.log(e.currentTarget.dataset.rid)
+    http.fxPost(api.coupon_grant, { rid: e.currentTarget.dataset.rid }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('领取成功','success')
+        this.getCouponAndFullSubtraction()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 优惠券，满减
+  getCouponAndFullSubtraction(){
+    this.setData({
+      couponList: app.globalData.couponList, // 优惠券列表
+      fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
+    })
+  },
+  // 增加浏览记录
+  postAddBrowses(){
+    http.fxPost(api.user_browses,{rid:this.data.rid},(result)=>{
+      if(result.success){
+      }else{
+      }
+    })
+  },
+  // 加入心愿单
+  handleaddDesireTap() {
+    http.fxPost(api.wishlist, {
+      rids: [this.data.rid]
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('成功添加', "success")
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 获取店铺信息
+  getstoreInfo() {
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
+  },
+  // 加入购物车盒子显示
+  handleAddCartShow() {
+    this.setData({
+      pick: true
+    })
+  },
+  // 加入购物车
+  handleAddCart() {
+    var rid
+    if (this.data.needSpecifications == '' || this.data.needColor == '') {
+      wx.showToast({
+        title: '请选择',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
+        rid = v.rid
+        this.setOrderParamsProductId(v.rid) // 设置订单的商品id,sku---
+      }
+    })
+    var addCartParams = {
+      rid: '', //String	必填	 商品sku
+      quantity: 1, //Integer	可选	1	购买数量
+      option: '', //String	可选	 	其他选项
+      open_id: '' //String	独立小程序端必填	 	独立小程序openid
+    }
+    addCartParams.open_id = wx.getStorageSync("jwt").openid
+    addCartParams.rid = rid
+    http.fxPost(api.cart, addCartParams, (result) => {
+      if (result.success) {
+        console.log(result)
+        utils.fxShowToast('成功购物车')
+        this.getShopCartNum()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 获取购物车商品数
+  getShopCartNum() {
+    var params = {
+      open_id: wx.getStorageSync("jwt").openid
+    }
+    http.fxGet(api.cart_item_count, params, (result) => {
+      if (result.success) {
+        console.log(result)
+        this.setData({
+          ShopCartNum: result.data.item_count
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 查找sku的价格
+  getSkuPrice() {
+    var sku = this.data.needSpecifications + " " + this.data.needColor
+    console.log(sku, this.data.productInfomation )
+    this.data.productInfomation.skus.forEach((v,i)=>{
+      if (v.mode == sku){
+        this.setData({
+          skuPrice:v.price
+        })
+      }
+    })
   },
   //点击规格按钮
   handleSpecificationsTap(e) {
@@ -76,8 +211,10 @@ Page({
         })
       }
     })
-
+    //查找价格
+    this.getSkuPrice()
   },
+
   // 点击颜色按钮
   handlePickColor(e) {
     var newData = []
@@ -132,6 +269,9 @@ Page({
         })
       }
     })
+    //查找价格
+    this.getSkuPrice()
+
   },
   // 过滤产品的颜色去重
   filterColor() {
@@ -222,28 +362,57 @@ Page({
     })
   },
   // 设置订单参数的 商品的rid store_items.itemsrid = 
-  setOrderParamsProductId(e){
-    var productId=wx.getStorageSync('orderParams')
+  setOrderParamsProductId(e) {
+    var productId = wx.getStorageSync('orderParams')
     productId.store_items[0].items[0].rid = e
     console.log(productId)
     wx.setStorageSync('orderParams', productId)
   },
-
+  //商品详情
+  handleProductInfoTap(e) {
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+    this.setData({
+      rid: e.currentTarget.dataset.rid
+    })
+    this.getProductInfomation() // 获取商品详情---
+  },
+  // 获取最新的商品
+  getNewProduct() {
+    http.fxGet(api.latest_products, this.data.newProductParams, (result) => {
+      if (result.success) {
+        console.log(result)
+        this.setData({
+          newProductList: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+      console.log(result)
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
     this.setData({
-      rid: options.rid
+      rid: options.rid,
+      isWatch: app.globalData.isWatchstore
     })
-    
+
     this.getProductInfomation() // 获取商品详情---
-    
+    this.getCouponAndFullSubtraction() // 获取优惠券---
+    this.getNewProduct() // 获取最新的商品---
     setTimeout(() => {
       this.filterColor() //过滤商品的颜色---
       this.filterSpecifications() //过滤产品的规格---
+      this.postAddBrowses()// 增加浏览记录
     }, 1500)
 
+    this.getShopCartNum() // 获取购物车商品数量---
+    this.getstoreInfo() // 获取店铺信息---
+    console.log(this.rid)
   },
 
   /**
@@ -261,7 +430,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    console.log(app.globalData.storeInfo)
   },
 
   /**
@@ -295,29 +464,42 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
+  onShareAppMessage: function(res) {
+    if (res.target.dataset.from == 3) {
+      return {
+        title: "转发的标题",
+        path: '/pages/share/share',
+        success: function (e) {
+          console.log(e)
+        },
+        fail: function (e) {
+          console.log(e)
+        }
+      }
+    }
   },
+  // 选好了按钮
   receiveOrderTap() {
     var rid
-    if (this.data.needSpecifications=='' || this.data.needColor==''){
+    if (this.data.needSpecifications == '' || this.data.needColor == '') {
       wx.showToast({
         title: '选择不完整',
         icon: 'none',
-        duration: 2000
+        duration: 1500
       })
-      return 
+      return
     }
-    this.data.productInfomation.skus.forEach((v,i)=>{
-      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor){
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
         rid = v.rid
         this.setOrderParamsProductId(v.rid) // 设置订单的商品id---
       }
     })
     wx.navigateTo({
-      url: '../receiveAddress/receiveAddress?rid='+rid,
+      url: '../receiveAddress/receiveAddress?rid=' + rid,
     })
   },
+
   watchTap() {
     wx.navigateTo({
       url: '../watch/watch',
@@ -325,8 +507,22 @@ Page({
   },
   //优惠卷隐藏和显示
   coupon_show() {
+    // handleGoIndex
     this.setData({
       coupon_show: true
+    })
+  },
+  // 回到首页
+  handleGoIndex() {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+  //跳转到购物车
+  handleToCartTap() {
+    console.log("cart")
+    wx.switchTab({
+      url: '../cart/cart',
     })
   }
 })

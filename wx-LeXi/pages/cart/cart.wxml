@@ -7,7 +7,6 @@
     <view class='goToShop btn-bg-color' catchtap='indexTap'>现在去逛逛</view>
   </view>
 
-
   <!-- 购物车中有商品 -->
   <view wx:else>
     <!-- 编辑购物车 -->
@@ -20,70 +19,122 @@
       <view>{{shoppingCart.length}}件礼品</view>
       <view class='theme-green' catchtap='changeCartTap' data-change="over">完成</view>
     </view>
-
     <view class='goodsList'>
       <checkbox-group bindchange="checkboxChange">
-        <label class="checkbox" wx:for="{{shoppingCart}}" wx:for-item="item" wx:key="{{item.id}}">
+        <label class="checkbox" wx:for="{{shoppingCart.items}}" wx:key="{{item.id}}">
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox value="{{item.id}}" checked="{{falseheckbox}}" />
+              <checkbox 
+                value="{{item.product.rid}}" 
+                checked="{{falseheckbox}}" 
+                data-rid='{{1234}}' />
             </block>
             <!-- 中间的产品信息 -->
             <view>
-              <fx-product-middle shopName="true" product="{{item}}" color="true"></fx-product-middle>
+              <fx-product-middle 
+                shopName="true" 
+                product="{{item.product}}" 
+                color="true">
+              </fx-product-middle>
             </view>
-            <!-- 左上角的价格 -->
+            <!-- 右上角的价格 -->
             <view class='oldNewPrice'>
-              <view class='changenewprice'>￥{{item.currentPrice}}</view>
-              <view class='changeoldprice' wx:if="{{item.originPrice}}">￥{{item.originPrice}}</view>
+              <view class='changenewprice'>￥{{item.product.sale_price==0?item.product.price:item.product.sale_price}}</view>
+              <view 
+                class='changeoldprice' 
+                wx:if="{{item.product.sale_price!=0}}">￥{{item.product.price}}</view>
             </view>
 
             <!-- 右下角的改变数量 -->
             <view class='rightBottomNumberBtn' wx:if="{{!changeCart}}">
-              <fx-addDeleteBtn product="{{item}}" bind:changeNumberTap="changeNumberTap"></fx-addDeleteBtn>
+              <view class='changBox-quantity'>
+                <view 
+                  data-rid='{{item.rid}}' 
+                  data-function='subtract' 
+                  data-index="{{index}}" 
+                  class='changBox-quantity_reduce' 
+                  catchtap='changeQuantity' 
+                  data-id="{{product.rid}}">一</view>
+                <view class='changBox-quantity_goodsNumber'>{{item.quantity}}</view>
+                <view 
+                  data-function='add' 
+                  data-rid='{{item.rid}}' 
+                  data-index="{{index}}" 
+                  class='changBox-quantity_reduce changBox-quantity_addicon' 
+                  catchtap='changeQuantity' 
+                  data-id="{{product.rid}}">＋</view>
+              </view>
             </view>
 
           </view>
         </label>
       </checkbox-group>
-
     </view>
-
   </view>
-
-
 
   <!-- 心愿单 -->
   <view class='thinkOrderBox'>
     <view class='thinkOrdertext'>心愿单</view>
-    <view class='thinkOrderProduct' wx:for="{{thinkOrder}}" wx:key="{{item.id}}">
+    <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}">
       <view class='cart-L'>
-        <fx-product-middleM product="{{item}}" price="true" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
+        <fx-product-middleM 
+          product="{{item}}" 
+          price="true" 
+          repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
       </view>
-      <view class='addgoods btn-bg-color' data-rid="{{item.id}}" catchtap='addCartTap'>
+      <view 
+        class='addgoods btn-bg-color' 
+        data-rid="{{item.rid}}" 
+        data-itemProdact='{{item}}' 
+        catchtap='addCartTap'>
         <view class='fx-icon-cart addgoodscart'></view>
         <view>+</view>
       </view>
     </view>
-
-
   </view>
 
   <!-- 心愿单的商品添加到购物车 -->
-  <view class='thinkOrderAddCartBox' wx:if="{{}}">
-    <view class='thinkOrderAddCart'>
+  <view class='thinkOrderAddCartBox' wx:if="{{pickBox}}" catchtap='handlePickBoxOffTap'>
+    <view class='thinkOrderAddCart' catchtap='{{false}}'>
       <view class='priceAndname'>
-        <view class='goodsTitle'>海滩休闲潮流菠萝鞋</view>
-        <view class='goodsTitle'>￥258</view>
+        <view class='goodsTitle'>{{productInfomation.name}}</view>
+        <view class='goodsTitle'>
+          <text wx:if="{{productInfomation.min_price!=productInfomation.max_price&&!skuPrice}}">￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}} - ￥{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+          <text wx:if="{{productInfomation.min_price==productInfomation.max_price&&!skuPrice}}">{{productInfomation.min_price}}</text>
+          <text wx:if="{{skuPrice}}">￥{{skuPrice}}</text>
+        </view>
       </view>
       <view class='pickBox'>
         <view class='pick'>颜色</view>
-        <view class='pickItem active'>红色</view>
-        <view class='pickItem noActive'>红色</view>
+        <view 
+          data-colorName="{{item.name}}" 
+          data-icon='{{item.name}}' 
+          data-isPick='{{item.disabled}}' 
+          class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' 
+          wx:for='{{pickColor}}' 
+          wx:key='{{index}}' 
+          catchtap='handlePickColor'>{{item.name}}</view>
       </view>
+      <view class='pickBox'>
+        <view class='pick'>规格</view>
+        <view 
+            data-icon='{{item.name}}' 
+            catchtap='handleSpecificationsTap' 
+            data-isPick='{{item.disabled}}' 
+            data-specificationsName='{{item.name}}' 
+            class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' 
+            disabled='{{item.disabled}}' 
+            wx:for='{{pickSpecifications}}'
+            wx:key='{{index}}'>{{item.name}}</view>
+      </view>
+      <view class='shm'></view>
+      <view class='shm'></view>
       <view class='shopBtnBox'>
-        <button class='shopBtn'>购买</button>
+        <view class='bottom-btn bg-white c-crosswise-a pick_btn'>
+          <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
+          <view class='btn-bg-color' catchtap='receiveOrderTap'>购买</view>
+        </view>
       </view>
     </view>
   </view>
@@ -95,7 +146,6 @@
   </view>
 
   <!-- 合计金额 -->
-
   <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart}}">
     <view class='payPrice'>合计：
       <text>￥{{payment}}</text>
@@ -103,8 +153,6 @@
     <view class='addThinkOrder' catchtap='chekoutTap'>结算</view>
   </view>
 
-
   <!-- 底部垫片 -->
   <view class='Bottom-shim'></view>
-
 </view>

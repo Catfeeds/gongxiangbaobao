@@ -1,12 +1,22 @@
 // pages/user/user.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    classInfo:1,
+    userBrowsesProduct: [], //用户浏览记录---
+    userInfo:[],// 用户的信息
+    classInfo:1,// 切换---
     sotrF: false,
+    likeProduct:[],// 喜欢的的商品---
+    recentlyLookProduct:[],// 最近查看的商品---
+    desireOrderProduct:[], //心愿单商品---
+
     product: [
       {
         title: "手作精品款牛皮手提黑包",
@@ -69,19 +79,31 @@ Page({
         like: 123
       },
     ],
+    // 切换类型---
     classList:[
       {rid:1,num:123,name:"喜欢"},
       {rid:2,num:13,name:"收藏"},
       {rid:3,num:123,name:"设计馆"}
     ],
-    Theme_goods: [
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"},
-      {img:"../../images/timg.jpg"}
-    ],
-
+    // 获取商品的参数
+    getProductParams:{
+      page:1,
+      per_page:10
+    },
+  },
+  // 获取用户信息---
+  getUserInfo(){
+    http.fxGet(api.users_profile,{},(result)=>{
+      if(result.success){
+        console.log(result,'用户的信息')
+        this.setData({
+          userInfo: result.data
+        })
+        wx.setStorageSync("userInfo", result.data)
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
   //切换类别
   classTap(e){
@@ -89,13 +111,66 @@ Page({
     this.setData({
       classInfo: e.currentTarget.dataset.rid
     })
+    this.getProduct(e.currentTarget.dataset.rid)
+  },
+  // 获取商品
+  getProduct(e=1){
+    switch (e){
+      case 1:
+        http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
+          console.log(result)
+          if(result.success){
+            this.setData({
+              likeProduct: result.data
+            })
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+        })
+      break;
+      case 2:
+        //最近查看
+        http.fxGet(api.user_browses,{},(result)=>{
+          if(result.success){
+            console.log(result)
+            this.setData({
+              userBrowsesProduct: result.data
+            })
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+        })
+        //心愿单
+        http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
+          if (result.success) {
+            console.log(result)
+            this.setData({
+              desireOrderProduct: result.data
+            })
+          } else {
+            utils.fxShowToast(result.status.message)
+          }
+        })        
+      break;
+      default:
+        // 设计管
+        http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
+          if(result.success){
+            this.setData({
+              // likeProduct: result.data
+            })
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+        });
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getUserInfo() // 获取用户的信息
   },
 
   /**
@@ -109,7 +184,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getProduct() // 获取商品---
   },
 
   /**
@@ -151,7 +226,6 @@ Page({
    */
   onPageScroll(e) {
 
-    console.log(e.scrollTop)
     if (e.scrollTop > 245) {
       this.setData({
         sotrF: true
@@ -164,9 +238,9 @@ Page({
 
   },
   //跳转到设置页面
-  setTap() {
+  setTap(e) {
     wx.navigateTo({
-      url: '../settings/settings',
+      url: '../settings/settings'
     })
   },
   //跳转到优惠券
@@ -180,5 +254,24 @@ Page({
     wx.navigateTo({
       url: '../redBag/redBag',
     })
-  }
+  },
+  //跳转到订单页面 
+  handleToOrderTap(){
+    wx.navigateTo({
+      url: '../order/order',
+    })
+  },
+  //跳转到商品详情---
+  handleToProductInfoTap(e){
+    console.log(e.currentTarget.dataset.rid)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid
+    })
+  },
+  //跳转到商品详情---
+  handleInfomation(e) {
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+    })
+  },
 })

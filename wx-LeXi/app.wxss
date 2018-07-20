@@ -91,7 +91,11 @@
 /* 布局 */
 
 /* 横向布局 */
-
+.flex_row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .time-top {
   display: flex;
   flex-direction: row;
@@ -234,11 +238,34 @@
   font-size: 22rpx;
 }
 
+.font-xss {
+  font-size: 20rpx;
+}
+
 .font-xl {
   font-size: 32rpx;
 }
 
+.font-width--bold{
+  font-weight: 700;
+}
+.font-width--semibold{
+  font-weight: 600;
+}
+
+.font-width--medium{
+  font-weight: 500;
+}
+
+.font_width--regular{
+  font-weight: 400;
+}
+.font_width--light{
+  font-weight: 300;
+}
+
 /* 字体的相关e */
+
 
 .container {
   height: 100%;

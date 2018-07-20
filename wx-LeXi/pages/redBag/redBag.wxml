@@ -47,7 +47,7 @@
     <view class='receive-price '>
       <image src='../../images/redbag-success.png' class='receive-price_photo'></image>
       <button class='rule-btn font-xl continue-share fx-bg-hong'>继续分享</button>
-      <button class='rule-btn font-xl bg-white shen-hui go-shopping'>去使用</button>
+      <button class='rule-btn font-xl bg-white shen-hui go-shopping' catchtap='handleToIndexTap'>去使用</button>
     </view>
     <view class='fx-icon-close-error off_shop' catchtap='getHidShow'></view>
   </view>

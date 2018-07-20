@@ -2,7 +2,7 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <view class='container theme-bg-color'>
 
-  <!-- 轮播图 -->
+  <!-- 轮播图 123-->
   <view class='swiperBox'>
     <swiper indicator-dots="true" autoplay="true">
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
@@ -20,7 +20,16 @@
       <text>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo'>
-      <text class='cureentPrice'>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'>
+        <text>￥</text>
+        <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+        <text>-</text>
+        <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+      </text>
+      <text class='cureentPrice' wx:else>
+         ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
+      </text>
+
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
 
@@ -36,7 +45,7 @@
         <text class='hui-zi'> +{{productInfomation.like_count}}</text>
       </view>
       <view class='transmission'>
-        <view class='like-quantity-l'>
+        <view class='like-quantity-l' catchtap='handleaddDesireTap'>
           <text class='fx-icon-nothing-plus'></text>
           <text class='hui-zi'> 心愿单</text>
         </view>
@@ -47,7 +56,9 @@
     </view>
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show'>
-      <fx-coupon></fx-coupon>
+      <fx-coupon 
+        coupon='{{couponList.coupons}}' 
+        fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
     </view>
     <view class='branderInfo  goods-size' catchtap='pickShowTap'>
       <text class='textInfo'>请选择规格和尺码</text>
@@ -67,7 +78,7 @@
         <open-data type='userAvatarUrl'></open-data>
       </view>
     </view>
-    <view class='roundR' catchtap='watchTap'>···</view>
+    <view class='roundR' >···</view>
   </view>
 
   <!-- 描述,发货地，时间 -->
@@ -126,41 +137,32 @@
   <!-- 店铺其他产品信息 -->
   <view class='shopInfo'>
     <view class='shopInfoT'>
-      <view class='userIcon'>
-        <image src='../../images/timg.jpg'></image>
+      <view class='userIcon' catchtap='handleGoIndex'>
+        <image src='{{storeInfo.logo.view_url}}'></image>
       </view>
-      <view class='shopMiddle'>
+      <view class='shopMiddle' catchtap='handleGoIndex'>
         <view class='hui-zi'>原创品牌设计馆</view>
-        <view class='shou'>Brook 手工制作</view>
+        <view class='shou'>{{storeInfo.name}}</view>
       </view>
-      <view class='with'>
+      <view class='with '>
         <image src='../../images/shop1.png'></image>
-        <view>关注</view>
+        <view>{{isWatch?'已关注':'关注'}}</view>
       </view>
     </view>
-
     <view class='shop-other-goods'>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
-      </view>
-      <view>
-        <image src='../../images/timg.jpg'></image>
+      <view 
+        wx:for='{{newProductList.products}}' 
+        wx:key="{{index}}" 
+        data-rid='{{item.rid}}' 
+        catchtap='handleProductInfoTap'>
+        <image src='{{item.cover}}'></image>
       </view>
     </view>
     <view class='PTRT black-font theme-green'> 在线资讯</view>
   </view>
 
   <!-- 相似的产品 也就是分销-->
-  <view class='similarityBox bg-white PL'>
+  <!-- <view class='similarityBox bg-white PL'>
     <view class='black-font theme-green'>
       <text>相似礼品</text> </view>
     <view class='shop-other-goods'>
@@ -180,7 +182,7 @@
         <image src='../../images/timg.jpg'></image>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!-- 产品的详细介绍 -->
   <view class='goods-info'>
@@ -209,34 +211,58 @@
 
   <!-- 选择规格box -->
   <view class='specifications' wx:if="{{pick}}" catchtap='handleSpecificationsHide'>
-    <view class='bg-white specificationsInfo black-font'>
+    <view class='bg-white specificationsInfo black-font' catchtap='{{false}}'>
       <view class='top-info'>
         <view>{{productInfomation.name}}</view>
         <view>
-          <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
-          <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
+          <!-- <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+          <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text> -->
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price && !skuPrice}}'>
+        <text>￥</text>
+        <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+        <text>-</text>
+        <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+      </text>
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price==productInfomation.min_price && !skuPrice}}'>
+         ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
+      </text>
+      <text wx:if='{{skuPrice}}'>￥{{skuPrice}}</text>
         </view>
       </view>
       <!-- 颜色 -->
       <view class='goods-color-box'>
         <view class='black-font color-title'>颜色</view>
         <view class='goods-color goods-color-box'>
-          <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
+          <view 
+            data-colorName="{{item.name}}" 
+            data-icon='{{item.name}}' 
+            data-isPick='{{item.disabled}}' 
+            class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}'
+            wx:for='{{pickColor}}' 
+            wx:key='{{index}}' 
+            catchtap='handlePickColor'>{{item.name}}</view>
         </view>
       </view>
       <!-- 尺寸 -->
       <view class='goods-color-box'>
         <view class='black-font color-title'>规格</view>
         <view class='goods-color goods-color-box'>
-          <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
+          <view 
+            data-icon='{{item.name}}' 
+            catchtap='handleSpecificationsTap' 
+            data-isPick='{{item.disabled}}' 
+            data-specificationsName='{{item.name}}' 
+            class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' 
+            disabled='{{item.disabled}}' 
+            wx:for='{{pickSpecifications}}'
             wx:key='{{index}}'>{{item.name}}</view>
         </view>
       </view>
       <!-- 垫片 -->
       <view class='shm'></view>
-      <view class='bottom-btn bg-white c-crosswise-a pick' catchtap='receiveOrderTap'>
-        <view class='add_cart'>加入购物车</view>
-        <view class='btn-bg-color'>选好了</view>
+      <view class='bottom-btn bg-white c-crosswise-a pick' >
+        <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
+        <view class='btn-bg-color' catchtap='receiveOrderTap'>选好了</view>
       </view>
     </view>
   </view>
@@ -244,13 +270,13 @@
   <!-- 接单定制按钮 -->
   <view class='bottom-btn bg-white c-crosswise-a'>
     <view class='btn-bg-color shop-cart'>
-      <view class='add_cart--number'>999+</view>
-      <view class='c-line-D cart_text--color'>
+      <view class='add_cart--number' wx:if='{{ShopCartNum!=0}}'>{{ShopCartNum>9?'9+':ShopCartNum}}</view>
+      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
         <image src='../../images/carticon@2x.png'></image>
         <text>购物车</text>
       </view>
     </view>
-    <view class='add_cart'>加入购物车</view>
+    <view class='add_cart' catchtap='handleAddCartShow'>加入购物车</view>
     <view class=' crated_btn--style btn-bg-color' catchtap='pickShowTap'>接单订制</view>
   </view>
 
@@ -259,7 +285,9 @@
 
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-    <template is="couponTemplate"></template>
+    <template 
+    is="couponTemplate" 
+    data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 
   <!-- 查看全部的呼出框  style='height:{{window_height}}rpx'-->

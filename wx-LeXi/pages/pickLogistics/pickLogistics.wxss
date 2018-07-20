@@ -52,3 +52,34 @@
 .estimate-price_bottom text{
   line-height: 40rpx;
 }
+/* components/logstics/Fxlogstics.wxss */
+
+.receiveFnBottomBox{
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.receiveFnBottomBox>image{
+  height: 100%;
+  width: 100%;
+  background-color: red;
+}
+
+.logistics-goods{
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+}
+.logistics-goods text{
+  line-height: 40rpx;
+}
+.receiveFnBottom{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

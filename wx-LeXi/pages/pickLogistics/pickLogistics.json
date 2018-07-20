@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "选择配送方式",
-  "usingComponents":{
-    "fx-logistics":"/components/Fxlogstics/Fxlogstics"
-  }
+  "navigationBarTitleText": "选择配送方式"
 }

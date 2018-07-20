@@ -55,6 +55,7 @@
 .shopGoodsInfo {
   flex-direction: row;
   justify-content: space-between;
+  position: relative;
 }
 
 .shopGoodsInfoR {
@@ -124,7 +125,6 @@
 
 .goods-blessing {
   font-size: 26rpx;
-  height: auto;
 }
 
 .count-price {
@@ -322,4 +322,12 @@
 .coupon-btn-l {
   flex: 1;
   text-align: center;
+}
+.otherInfo{
+  font-size: 22rpx;
+  color: #B2B2B2;
+  font-weight: normal;
+  position: absolute;
+  bottom: 60rpx;
+  left: 200rpx;
 }
