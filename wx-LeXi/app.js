@@ -201,6 +201,8 @@ App({
     // 店铺是否经过认证
     isAuthenticationStore:'',
     //订单里面的sku
-    orderSkus:''
+    orderSkus:'',
+    //评论订单的时候的商品
+    critiqueProduct:''
   }
 })

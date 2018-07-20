@@ -62,6 +62,7 @@ module.exports = {
   order_signed: 'orders/signed',  // POST 订单签收
   order_paid_status: 'orders/up_paid_status',  // POST 更新订单支付状态
   order_prepay_sign: 'orders/wx_prepay_sign',  // POST 获取prepay_id和支付签名验证paySign
+  critique_product:'orders/product/comment/create', //post 评论商品
 
   // Market
   coupons: 'market/user_master_coupons',  // get 优惠券列表---

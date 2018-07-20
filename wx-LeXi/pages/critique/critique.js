@@ -1,4 +1,8 @@
 // pages/critique/critique.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
@@ -33,7 +37,8 @@ Page({
   },
   //改变星星选中数量
   starTap(e){
-    console.log(e.currentTarget.dataset.index)
+    console.log(e)
+    
     this.setData({
       selectedStar: e.currentTarget.dataset.index,
       submit_btn:true
@@ -67,12 +72,19 @@ Page({
       photo_url: newArr
     })
   },
+  // 获取商品---critique_product
+  getProductInfo(){
+    this.setData({
+      product: app.globalData.critiqueProduct.items
+    })
+    console.log(this.data.product)
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getProductInfo() // 获取商品详情
   },
 
   /**

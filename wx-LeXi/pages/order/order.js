@@ -195,7 +195,7 @@ Page({
     ],
     currentStatus: 0,
     // 请求订单需要的参数
-    getOrderListParams:{
+    getOrderListParams: {
       status: 0, //Number	订单状态 0、全部 1、待发货 2、待收货 3、待评价 4、待付款
       page: 1, //Number	可选	1	当前页码
       per_page: 10 //Number	可选	10	每页数量
@@ -209,7 +209,7 @@ Page({
     this.setData({
       currentStatus: status,
       ['getOrderListParams.status']: status
-    },()=>{
+    }, () => {
       this.getOrderList()
     })
   },
@@ -217,11 +217,11 @@ Page({
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
-          order:result.data
+          order: result.data
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -306,11 +306,16 @@ Page({
   onShareAppMessage: function() {
 
   },
-  critiqueTap() {
+  // 评论
+  critiqueTap(e) {
+    console.log(e.currentTarget.dataset.product)
+    //传输要评论的东西
+    app.globalData.critiqueProduct = e.currentTarget.dataset.product
     wx.navigateTo({
       url: '../critique/critique',
     })
   },
+  // 物流跟踪
   logTop() {
     wx.navigateTo({
       url: '../logisticsWatch/logisticsWatch',
