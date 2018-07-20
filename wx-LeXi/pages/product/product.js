@@ -9,10 +9,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    skuPrice:'',// sku价格---
+    skuPrice: '', // sku价格---
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
-    isWatch:false, // 是否关注过店铺
+    isWatch: false, // 是否关注过店铺
     storeInfo: [], // 店铺的信息---
     needSpecifications: [], // 需要的规格---
     needColor: [], //需要的颜色---
@@ -35,19 +35,21 @@ Page({
     }
   },
   // 关闭优惠卷呼出框
-  handleOffCouponTap(){
+  handleOffCouponTap() {
     this.setData({
-      coupon_show:false
+      coupon_show: false
     })
   },
-  
+
   // 领取优惠券
   getReceiveCoupon(e) {
     console.log(e.currentTarget.dataset.rid)
-    http.fxPost(api.coupon_grant, { rid: e.currentTarget.dataset.rid }, (result) => {
+    http.fxPost(api.coupon_grant, {
+      rid: e.currentTarget.dataset.rid
+    }, (result) => {
       console.log(result)
       if (result.success) {
-        utils.fxShowToast('领取成功','success')
+        utils.fxShowToast('领取成功', 'success')
         this.getCouponAndFullSubtraction()
       } else {
         utils.fxShowToast(result.status.message)
@@ -55,18 +57,18 @@ Page({
     })
   },
   // 优惠券，满减
-  getCouponAndFullSubtraction(){
+  getCouponAndFullSubtraction() {
     this.setData({
       couponList: app.globalData.couponList, // 优惠券列表
       fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
     })
   },
   // 增加浏览记录
-  postAddBrowses(){
-    http.fxPost(api.user_browses,{rid:this.data.rid},(result)=>{
-      if(result.success){
-      }else{
-      }
+  postAddBrowses() {
+    http.fxPost(api.user_browses, {
+      rid: this.data.rid
+    }, (result) => {
+      if (result.success) {} else {}
     })
   },
   // 加入心愿单
@@ -148,11 +150,11 @@ Page({
   // 查找sku的价格
   getSkuPrice() {
     var sku = this.data.needSpecifications + " " + this.data.needColor
-    console.log(sku, this.data.productInfomation )
-    this.data.productInfomation.skus.forEach((v,i)=>{
-      if (v.mode == sku){
+    console.log(sku, this.data.productInfomation)
+    this.data.productInfomation.skus.forEach((v, i) => {
+      if (v.mode == sku) {
         this.setData({
-          skuPrice:v.price
+          skuPrice: v.price
         })
       }
     })
@@ -407,7 +409,7 @@ Page({
     setTimeout(() => {
       this.filterColor() //过滤商品的颜色---
       this.filterSpecifications() //过滤产品的规格---
-      this.postAddBrowses()// 增加浏览记录
+      this.postAddBrowses() // 增加浏览记录
     }, 1500)
 
     this.getShopCartNum() // 获取购物车商品数量---
@@ -469,10 +471,10 @@ Page({
       return {
         title: "转发的标题",
         path: '/pages/share/share',
-        success: function (e) {
+        success: function(e) {
           console.log(e)
         },
-        fail: function (e) {
+        fail: function(e) {
           console.log(e)
         }
       }
@@ -490,14 +492,49 @@ Page({
       return
     }
     this.data.productInfomation.skus.forEach((v, i) => {
+
       if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
         rid = v.rid
-        this.setOrderParamsProductId(v.rid) // 设置订单的商品id---
+        this.setOrderParamsProductId(v.rid) // 设置订单的商品sku---
       }
+      console.log(rid)
     })
-    wx.navigateTo({
-      url: '../receiveAddress/receiveAddress?rid=' + rid,
+    /**statr**/
+    http.fxGet(api.by_store_sku, {
+      rids: rid
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        Object.keys(result.data).forEach((key) => {
+          console.log(result.data[key]) // 每个店铺
+          result.data[key].forEach((v, i) => { //每个sku
+            console.log(v)
+            // 当前店铺的rid
+            v.current_store_rid = wx.getStorageSync('storeInfo').rid
+            // 是否为分销商品
+            if (v.store_rid != wx.getStorageSync('storeInfo').rid) {
+              v.is_distribute = 1
+            } else {
+              v.is_distribute = 0
+            }
+            //需求数量
+            v.quantity = 1
+          })
+        })
+        app.globalData.orderSkus = result
+        console.log(app.globalData.orderSkus)
+        wx.navigateTo({
+          url: '../receiveAddress/receiveAddress?rid=' + rid,
+        })
+      } else {
+
+      }
+
+
     })
+
+    /**end**/
+
   },
 
   watchTap() {

@@ -50,7 +50,6 @@ Page({
 
   //获取默认的物流信息---
   getLogistics() {
-    var logisticsId = wx.getStorageSync("logisticsIdFid")
     var order = []
     var params = {
       address_rid: wx.getStorageSync('orderParams').address_rid,
@@ -105,10 +104,7 @@ Page({
       console.log(skus.data[key])
       skusList.push(skus.data[key])
     })
-    // console.log(skus, "产品的详情")
-    // this.setData({
-    //   order: skusList
-    // })
+
     console.log(this.data.order)
     skusList.forEach((item, list) => {
       item.forEach((v, i) => {
@@ -183,6 +179,7 @@ Page({
       params.store_rid = v[0].current_store_rid
       params.is_distribute = v[0].is_distribute
       params.original_store_rid = v[0].store_rid
+
       let items=[]
       v.forEach((item,list)=>{
         console.log(item)

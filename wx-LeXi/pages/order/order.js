@@ -171,73 +171,59 @@ Page({
         }, ]
       },
     ],
+    // navbar
     navList: [{
         title: '全部',
         status: 0
       },
       {
         title: '待付款',
-        status: 1
+        status: 4
       },
       {
         title: '待发货',
-        status: 5
+        status: 1
       },
       {
         title: '待收货',
-        status: 10
+        status: 2
       },
       {
         title: '待评价',
-        status: 20
+        status: 3
       }
     ],
     currentStatus: 0,
     // 请求订单需要的参数
-    getOrderListParams: {
-      status: '', //Number	可选	 	订单状态 1、待发货 2、待收货 3、待评价
-      no_pay: '', //Number	可选	 	未付款 0、未付款
+    getOrderListParams:{
+      status: 0, //Number	订单状态 0、全部 1、待发货 2、待收货 3、待评价 4、待付款
       page: 1, //Number	可选	1	当前页码
       per_page: 10 //Number	可选	10	每页数量
     }
+  },
 
 
-  },
-  //时间处理函数
-  timeFn(e, fn) {
-    var cureentTime = e - new Date().getTime()
-    // console.log(e, new Date().getTime(),45)
-    if (cureentTime >= 600000) {
-      var date = new Date(cureentTime)
-      let m = date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes()
-      let s = date.getSeconds() >= 10 ? date.getSeconds() : "0" + date.getSeconds()
-      let _time = m + ":" + s
-      fn(_time)
-    } else(
-      fn(0)
-    )
-  },
   //选择
   handleStatus(e) {
     let status = e.currentTarget.dataset.status;
-
-    let currentTab = this.data.navList.filter(function(item) {
-      return item.status == status
-    })
-
     this.setData({
-      page: 1,
-      loadingMoreHidden: true,
       currentStatus: status,
-      statusTitle: currentTab[0].title
+      ['getOrderListParams.status']: status
+    },()=>{
+      this.getOrderList()
     })
-
-    // this.getOrderList()
   },
   // 获取订单列表---
   getOrderList() {
-    http.fxGet(api.orders, this.data.getOrderListParams,(result)=>{
+    http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       console.log(result)
+      if(result.success){
+        this.setData({
+          order:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
@@ -245,25 +231,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getOrderList() // 获取订单列表
-    var timeContainer = setInterval(() => {
-      this.timeFn(536988758595, (e) => {
-        if (e <= 0) {
-          clearInterval(timeContainer)
-          return
-        }
-        // 赋值给页面时间
-        this.data.order.forEach((v, i, a) => {
-          if (v.orderTime) {
-            var pageTime = "order[" + i + "].orderTime"
-            console.log(pageTime)
-            this.setData({
-              [pageTime]: e
-            })
-          }
-        })
-      })
-    }, 1000)
+    this.getOrderList() // 获取订单列表---
+
   },
   //删除订单
   celeteOrderTap(e) {

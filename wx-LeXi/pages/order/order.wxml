@@ -10,57 +10,71 @@
   <!-- 内容区域 -->
   <view class='orderInfoBox bg-white'>
     <!-- 每一笔订单 -->
-    <view wx:for="{{order}}" wx:key="{{index}}" wx:for-item="items_order" class='component productAndShopInfoBox'>
+    <view 
+      wx:for="{{order.orders}}" 
+      wx:key="{{index}}" 
+      wx:for-item="items_order" 
+      class='component productAndShopInfoBox'>
       <!--每一家商家  -->
       <view class=''>
         <!-- 每一家商家  -->
-        <view class='productAndShopInfo {{index==items_order.shopList.length-1?"productAndShopInfoN":""}}' wx:for-item="item_shop" wx:for="{{items_order.shopList}}" wx:key="{{index}}">
+        <view class='productAndShopInfo {{index==items_order.shopList.length-1?"productAndShopInfoN":""}}'>
           <!-- 店铺头像 -->
           <view class='shopPhoto'>
-            <image src='{{item_shop.shopPhoto}}'></image>
+            <image src='{{item_sku.cover}}'></image>
           </view>
           <!-- 右面的信息 -->
           <view class='productinfo'>
             <view class='shopNameBox'>
-              <text class='shopName'>素雅手作店</text>
+              <text class='shopName'>{{items_order.store_name}}</text>
               <text class='order-aggregate hui-zi'>订单总计</text>
             </view>
 
             <view class='time-top'>
               <text>
               <text class='hui-zi'>2016年10月26日·状态：</text>
-              <text class='nonePayment theme-green'>待付款</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==-1}}">已关闭</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==1}}">待支付</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==5}}">待审核</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==10}}">待发货</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==12}}">配送中</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==3}}">待打印</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==16}}">已发货</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==17}}">待签收</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==20}}">已签收</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==30}}">订单完成</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==40}}">待评价</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.status==45}}">评价完成</text>
+              <text class='nonePayment theme-green' wx:if="{{items_order.user_order_status==90}}">已退款</text>
               </text>
-              <text class='price'>￥145</text>
+              <text class='price'>￥{{items_order.pay_amount}}</text>
             </view>
-
-            <view class='goodsBox' wx:key="{{index}}" wx:for="{{item_shop.shopGoodsList}}">
-              <fx-product-middleM product="{{item}}"></fx-product-middleM>
+            <view class='goodsBox' wx:key="{{index}}" wx:for="{{items_order.items}}">
+              <fx-product-middleM 
+                shopingNumber='{{true}}'
+                product="{{item}}"></fx-product-middleM>
             </view>
-
-
           </view>
         </view>
       </view>
 
       <!-- 付款和其他按钮 -->
       <view class='fnBtn'>
-        <view wx:if="{{items_order.status==0}}" class='paymentBtn'>
+        <view wx:if="{{items_order.user_order_status==4}}" class='paymentBtn'>
           <text>付款</text>
           <text>{{items_order.orderTime}}</text>
         </view>
-        <view wx:if="{{items_order.status==2||items_order.status==4}}" 
-        catchtap='celeteOrderTap' 
-        class='delleteOrder hui-zi' 
-        data-rid="{{items_order.rid}}">
-        删除订单
+        <view 
+          wx:if="{{items_order.user_order_status==3}}" 
+          catchtap='celeteOrderTap' 
+          class='delleteOrder hui-zi' 
+          data-rid="{{items_order.rid}}">
+          删除订单
         </view>
-        <view wx:if="{{items_order.status==1}}" class='delleteOrder hui-zi' catchtap='logTop'>物流跟踪</view>
-        <view wx:if="{{items_order.status==1}}" class='critiqueBtn'>确认收货</view>
-        <view wx:if="{{items_order.status==2}}" class='critiqueBtn' catchtap='critiqueTap'>去评价</view>
+        <view wx:if="{{items_order.user_order_status==2}}" class='delleteOrder hui-zi' catchtap='logTop'>物流跟踪</view>
+        <view wx:if="{{items_order.user_order_status==2}}" class='critiqueBtn'>确认收货</view>
+        <view wx:if="{{items_order.user_order_status==3}}" class='critiqueBtn' catchtap='critiqueTap'>去评价</view>
       </view>
-
-
     </view>
   </view>
 </view>
