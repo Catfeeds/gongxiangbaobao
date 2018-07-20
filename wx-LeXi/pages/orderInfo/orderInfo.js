@@ -13,14 +13,11 @@ Page({
     receiveAddress: [], // 收货地址---
     orderInfomation: [], // 订单详情---
     logisticsCompany: [], // 物流公司及模板信息---
-
+    shoppingCart: [{}, ], //添加到购物车的内容产品内容
     coupon: false,
     o: [1, 1, 1, 1, 1],
     //优惠券
     is_coupon: true,
-    //添加到购物车的内容产品内容
-    shoppingCart: [{}, ],
-
   },
   // 祝福y语录
   handleUtterance(e) {
@@ -59,7 +56,6 @@ Page({
       address_rid: wx.getStorageSync('orderParams').address_rid,
       product_items: []
     }
-
     this.data.order.forEach((item, list) => {
       item.forEach((v, i) => {
         params.product_items.push({
@@ -100,7 +96,6 @@ Page({
     var skus = app.globalData.orderSkus
     var skusList = []
     var order = []
-
     var params = {
       address_rid: wx.getStorageSync('orderParams').address_rid,
       product_items: []
@@ -146,11 +141,11 @@ Page({
       order.push(item)
     })
     console.log(order)
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setData({
         order: order
       })
-    },1000)
+    }, 1000)
   },
   //
   couponTap(e) {
@@ -167,10 +162,44 @@ Page({
   },
   //支付,并跳转到支付成功页面---
   paymentSuccess() {
-    console.log(wx.getStorageSync('orderParams'))
-    http.fxPost(api.order_create, wx.getStorageSync('orderParams'), (result) => {
-      console.log(result)
+    let params = {
+      store_rid: '', // String	必需	 	        当前店铺rid
+      is_distribute: '', //Integer  可选          0    是否分销 0、否 1、是
+      original_store_rid: '', //String    可选               原店铺rid
+      coupon_codes: [], //Array	可选	 	优惠券码列表
+      items:''
+      //Array	必需	 	订单明细参数
+    }
+    let paramsItems={
+      rid: '', //String	必需	 	sku
+      quantity: 1, //Number	必需	1	购买数量
+      express_id: '', //Integer	必需	 	物流公司ID
+      warehouse_id: '', //Number	可选	 	发货的仓库ID
+    }
+    let outParams=[]
+    console.log(this.data.order)
+    this.data.order.forEach((v,i)=>{
+      console.log(v,'每一项')
+      params.store_rid = v[0].current_store_rid
+      params.is_distribute = v[0].is_distribute
+      params.original_store_rid = v[0].store_rid
+      let items=[]
+      v.forEach((item,list)=>{
+        console.log(item)
+        console.log(item.firstLogisticsCompanyExpress_id)
+        paramsItems.rid = item.rid
+        paramsItems.express_id = item.firstLogisticsCompanyExpress_id
+        paramsItems.quantity = item.needQuantity
+        items.push(paramsItems)
+      })
+      params.items = items
+      outParams.push(params)
     })
+    console.log(outParams)
+    // console.log(wx.getStorageSync('orderParams'))
+    // http.fxPost(api.order_create, wx.getStorageSync('orderParams'), (result) => {
+    //   console.log(result)
+    // })
     // wx.navigateTo({
     //   url: '../paymentSuccess/paymentSuccess',
     // })
@@ -237,11 +266,11 @@ Page({
     console.log(e.currentTarget.dataset.index)
     console.log(e.currentTarget.dataset.templet)
     app.globalData.logisticsMould = e.currentTarget.dataset.templet
-    setTimeout(()=>{
+    setTimeout(() => {
       wx.navigateTo({
         url: '../pickLogistics/pickLogistics?index=' + e.currentTarget.dataset.index,
       })
-    },1000)
+    }, 1000)
 
   },
 

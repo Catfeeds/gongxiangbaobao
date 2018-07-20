@@ -28,9 +28,7 @@ Page({
       option: '', // 其他选项
       open_id: '', //	独立小程序openid
     },
-
     thinkOrder: [{}], // 心愿单的内容---
-
   },
   // 获取购物车 ---
   getCartProduct() {
@@ -58,7 +56,6 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
-
     })
   },
   //心愿单添加到购物车
@@ -543,8 +540,8 @@ Page({
 
     var store_items = [{
       store_rid: '', //String	必需	 	当前店铺rid
-      is_distribute: 0,//Integer  可选 0 是否分销 0、否 1、是
-      original_store_rid:'',// String 可选   原店铺rid
+      is_distribute: 0, //Integer  可选 0 是否分销 0、否 1、是
+      original_store_rid: '', // String 可选   原店铺rid
       buyer_remark: '', //String	可选	 	买家备注
       blessing_utterance: '', //String	可选	 	买家寄语
       coupon_codes: '', //Array	可选	 	优惠券码列表
@@ -577,18 +574,18 @@ Page({
       rids: skus.join(',')
     }, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         //添加每件sku的需求数量
         Object.keys(result.data).forEach((key) => {
           console.log(result.data[key]) // 每个店铺
-          result.data[key].forEach((v, i) => {//每个sku
+          result.data[key].forEach((v, i) => { //每个sku
             console.log(v)
             // 当前店铺的rid
             v.current_store_rid = wx.getStorageSync('storeInfo').rid
             // 是否为分销商品
-            if (v.store_rid != wx.getStorageSync('storeInfo').rid){
-              v.is_distribute=1
-            }else{
+            if (v.store_rid != wx.getStorageSync('storeInfo').rid) {
+              v.is_distribute = 1
+            } else {
               v.is_distribute = 0
             }
             //需求数量
@@ -601,12 +598,12 @@ Page({
             })
           })
         })
-        app.globalData.orderSkus = result 
+        app.globalData.orderSkus = result
 
         wx.navigateTo({
           url: '../receiveAddress/receiveAddress',
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
