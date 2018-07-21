@@ -9,41 +9,92 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 提交按钮是否生效
-    submit_btn:false,
-    //星星数量
-    star_list:[1,2,3,4,5],
-    //选中星星的数量
-    selectedStar:0,
+    submit_btn: false, // 提交按钮是否生效
+    star_list: [1, 2, 3, 4, 5], //星星数量
+    selectedStar: 0, //选中星星的数量
+    photo_url: [], //上传的图片
+    cretiqueParams: {}, // 提交评论的时候的参数
+
     //商品
-    product: {
-      id: 6,
-      title: "图像加载被中断//运费信息：//运费信息：0为没有运费用，包邮，其他为运费的价格//运费信息：0为没有运费用，包邮，其他为运费的价格//运费信息：0为没有运费用，包邮，其他为运费的价格//运费信息：0为没有运费用，包邮，其他为运费的价格0为没有运费用，包邮，其他为运费的价格",
-      currentPrice: 500,
-      originPrice: 999,
-      logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-      is_like: true,//是否喜欢
-      is_likeNumber: 66,//喜欢的人数
-      shopName: "bbq_BBQ_123亲",//店铺名称
-      shopingNumber: 1,//购买的数量
-      img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-      color: "白色",
-      repertoryNumber: 12,
-      size: "M"
-    },
-    //上传的图片
-    photo_url: []
+    product: [{}],
 
   },
-  //改变星星选中数量
-  starTap(e){
-    console.log(e)
-    
+  //改变星星选中数量---
+  starTap(e) {
+    console.log(e.currentTarget.dataset.skuid)
+    var skuid = e.currentTarget.dataset.skuid
+    console.log(this.data.cretiqueParams[skuid])
+
     this.setData({
       selectedStar: e.currentTarget.dataset.index,
-      submit_btn:true
-    })
+      ['cretiqueParams.' + [skuid] + '.score']: e.currentTarget.dataset.index,
 
+    }, () => {
+      this.handleIsSubmit()
+    })
+  },
+  // 评论内容发---
+  handleCritique(e) {
+    console.log(e.detail.value)
+    console.log(e.target.dataset.rid)
+    var skuid = e.target.dataset.rid
+    this.setData({
+      ['cretiqueParams.' + [skuid] + '.content']: e.detail.value,
+    }, () => {
+      this.handleIsSubmit()
+    })
+    console.log(this.data.cretiqueParams)
+  },
+  //判断是否可提交
+  handleIsSubmit() {
+    var totalOne = 0
+    var totalTwo = 0
+    var totalThree = 0
+    Object.keys(this.data.cretiqueParams).forEach((key) => {
+      totalOne = totalOne + 1
+      console.log(this.data.cretiqueParams[key])
+      if (this.data.cretiqueParams[key].content) {
+
+        totalTwo = totalTwo + 1
+      }
+      if (this.data.cretiqueParams[key].score != 0) {
+        totalThree = totalThree + 1
+      }
+    })
+    console.log(totalOne, totalTwo, totalThree)
+    if (totalOne == totalTwo && totalOne == totalThree && totalTwo == totalThree) {
+      console.log(55555)
+      this.setData({
+        submit_btn: true
+      })
+    } else {
+      this.setData({
+        submit_btn: false
+      })
+    }
+  },
+  // 提交按钮
+  hanleSubmitTap() {
+    if (!this.data.submit_btn) {
+      utils.fxShowToast('星星和评论内容是必填的')
+      return
+    }
+    Object.keys(this.data.cretiqueParams).forEach((key)=>{
+      console.log(this.data.cretiqueParams[key])
+      http.fxPost(api.critique_product, this.data.cretiqueParams[key],(result)=>{
+        console.log(result)
+        if(result.success){
+          utils.fxShowToast('点评已经提交','success')
+          wx.navigateBack({
+            delta:1
+          })
+          
+        }else{
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }) 
+    
   },
   //添加图片
   addPhotoTap() {
@@ -73,66 +124,83 @@ Page({
     })
   },
   // 获取商品---critique_product
-  getProductInfo(){
+  getProductInfo() {
+    var objectParams = {}
+    //获取
     this.setData({
-      product: app.globalData.critiqueProduct.items
+      product: app.globalData.critiqueProduct
+    }, () => {
+      this.data.product.items.forEach((v, i) => {
+        console.log(v)
+        objectParams[v.rid] = {
+          sku_rid: v.rid, //Integer	必需	 	商品sku_id
+          order_rid: this.data.product.rid, //String	必需	 	订单编号
+          content: false, //String	必需	 	评论内容
+          score: 0, //Integer	必需	 	评论星级
+          pid: 0, //Integer	可选	 	父级评论id
+          asset_ids: [], //String	可选	 	图片id, 多个图片逗号隔开
+        }
+      })
+      this.setData({
+        cretiqueParams: objectParams
+      })
+      console.log(this.data.cretiqueParams)
     })
-    console.log(this.data.product)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getProductInfo() // 获取商品详情
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

@@ -62,7 +62,8 @@ module.exports = {
   order_signed: 'orders/signed',  // POST 订单签收
   order_paid_status: 'orders/up_paid_status',  // POST 更新订单支付状态
   order_prepay_sign: 'orders/wx_prepay_sign',  // POST 获取prepay_id和支付签名验证paySign
-  critique_product:'orders/product/comment/create', //post 评论商品
+  critique_product:'orders/product/comment/create', //post 评论商品---
+  orders_delete:'orders/delete',// 删除订单---
 
   // Market
   coupons: 'market/user_master_coupons',  // get 优惠券列表---
@@ -70,7 +71,8 @@ module.exports = {
   user_coupons: 'market/user_coupons',  // POST 用户优惠券列表---
   available_coupons: 'market/coupons/available',  // POST 用户可用优惠券
   coupon_grant: 'market/coupons/grant',  // POST 领取优惠券---
-  red_bag:'market/bonus',//GET红包列表
+  red_bag:'market/bonus',//GET红包列表---
+  order_info_page_coupon:'market/user_order_coupons',//订单页面优惠券
 
   // Search
   search: 'search/products',  // POST 搜索商品

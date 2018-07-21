@@ -1,6 +1,6 @@
 <!--pages/critique/critique.wxml 评价页面-->
 <view class='container theme-bg-color'>
-  <view wx:for='{{product}}' wx:key='{{index}}'>
+  <view wx:for='{{product.items}}' wx:key='{{index}}'>
     <!-- 产品的盒子 -->
     <view class='Top-box paymentFnTextB bg-white'>
       <view class='critique-product'>
@@ -16,18 +16,26 @@
       <view class='critique-top '>
         <view class='critique-star'>
           <image 
-            data-skuId='{{item.rid}}'
+            
             wx:for="{{star_list}}" 
-            wx:key="{{item}}" 
-            data-index="{{item}}" 
+            wx:for-item='star_item'
+            wx:key="{{star_item}}" 
+            data-index="{{star_item}}" 
+            data-skuId='{{item.rid}}'
             catchtap='starTap' 
-            src='{{item<=selectedStar?"../../images/star_1@2.png":"../../images/star_2@2.png"}}'></image>
+            src='{{star_item<=cretiqueParams[item.rid].score?"../../images/star_1@2.png":"../../images/star_2@2.png"}}'></image>
         </view>
         <view class='hui-zi critique-text'>轻点星形来评分</view>
       </view>
       <!-- 评论内容 -->
       <view class='user-text theme-bg-color font-s'>
-        <textarea maxlength="100" placeholder-class='hui-zi' placeholder='我们希望收到你的建议，优化我们的不足。长度在100字以内'>
+        <textarea 
+          data-rid='{{item.rid}}'
+          maxlength="100" 
+          placeholder-class='hui-zi' 
+          value=''
+          bindinput='handleCritique'
+          placeholder='我们希望收到你的建议，优化我们的不足。长度在100字以内'>
         </textarea>
       </view>
     </view>
@@ -52,7 +60,7 @@
   <view class='shm'></view>
   <view class='shm'></view>
   <!-- 提交按钮 -->
-  <view class='wx-btn-box {{submit_btn?"":"submitBgc"}}'>
+  <view class='wx-btn-box {{submit_btn?"":"submitBgc"}}' catchtap='hanleSubmitTap'>
     <button> 提交 </button>
   </view>
 
