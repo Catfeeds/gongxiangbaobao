@@ -33,6 +33,19 @@ Page({
       alstPrice:0,//订单总计
     },
   },
+  // 获取收货地址
+  receiveAddress(){
+    http.fxGet(api.address_default,{},(result)=>{
+      console.log(result)
+      if(result.success){
+        this.setData({
+          receiveAddress:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   // 祝福y语录
   handleUtterance(e) {
     this.setData({
@@ -373,7 +386,7 @@ Page({
   onLoad: function(options) {
     this.getOrderProdectInfo() // 获取订单详情
 
-    // this.receiveAddress() // 收货地址---
+    this.receiveAddress() // 收货地址---
   },
 
   /**
