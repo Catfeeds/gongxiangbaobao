@@ -197,8 +197,6 @@ Page({
       })
     },1000)
 
-
-
   },
   // 获取每件商品的物流公司列表logistics_product_express
   getLogisticsCompanyList(){
