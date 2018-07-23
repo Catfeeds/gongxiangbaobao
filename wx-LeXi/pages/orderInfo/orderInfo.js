@@ -11,93 +11,117 @@ Page({
   data: {
 
     order: [], // 所有的订单信息---
+    itemOrderLogisticsPrice:{},// 每笔订单运费
     receiveAddress: [], // 收货地址---
     orderInfomation: [], // 订单参数---
     logisticsCompany: [], // 物流公司及模板信息---
     shoppingCart: [{}], //添加到购物车的内容产品内容
     coupon: false,
     couponList: [], // 所有的优惠券列表
-    pickCoupon: [],//选择后每一项里面的优惠券列表
-    pickCouponProductId:'',// 店铺的id
-    is_coupon: true,//优惠券
+    pickCoupon: [], //选择后每一项里面的优惠券列表
+    pickCouponProductId: '', // 店铺的id
+    is_coupon: true, //优惠券
+    fullReductionParams: '', // 满减活动的参数
+    fullReductionList: '', // 满减活动列表
+    //页面的订单明细
+    pageOrderInfo:{
+      firstPrice:0,//小计
+      logisticsPrice:0,//配送
+      firstOrderPrice:0,//收单优惠
+      fullSubtraction:0,//满减
+      couponPrice:0,//优惠券
+      alstPrice:0,//订单总计
+    },
   },
   // 祝福y语录
   handleUtterance(e) {
-    console.log(e.detail.value)
-    var orderParams = wx.getStorageSync('orderParams')
-    orderParams.blessing_utterance = e.detail.value
-    wx.setStorageSync('orderParams', orderParams)
+    this.setData({
+      ['orderInfomation.' + e.target.dataset.rid + '.blessing_utterance']: e.detail.value
+    })
+    console.log(this.data.orderInfomation)
   },
   // 给商家的注意事项
   handleGiveShop(e) {
-    var orderParams = wx.getStorageSync('orderParams')
-    orderParams.buyer_remark = e.detail.value
-    wx.setStorageSync('orderParams', orderParams)
+    this.setData({
+      ['orderInfomation.' + e.target.dataset.rid +'.buyer_remark']: e.detail.value
+    })
+    console.log(this.data.orderInfomation)
   },
-  // 收货地址
-  // receiveAddress() {
-  //   var address = wx.getStorageSync('orderParams').address_rid
-  //   console.log(address)
-  //   http.fxGet(api.address_update.replace(/:rid/g, address), {}, (result) => {
-  //     console.log(result)
-  //     if (result.success) {
-  //       this.setData({
-  //         receiveAddress: result.data
-  //       })
-  //     } else {
-  //       utils.fxShowToast(result.status.message)
-  //     }
-  //   })
-  // },
+  
 
-  //获取默认的物流信息---
-  // getLogistics() {
-  //   var order = []
-  //   var params = {
-  //     address_rid: wx.getStorageSync('orderParams').address_rid,
-  //     product_items: []
-  //   }
-  //   this.data.order.forEach((item, list) => {
-  //     item.forEach((v, i) => {
-  //       params.product_items.push({
-  //         sku_rid: v.rid,
-  //         quantity: v.needQuantity,
-  //         freight_template_id: v.fid
-  //       })
-  //     })
-  //     http.fxPost(api.cheapLogisitcs, params, (result) => {
-  //       console.log(result)
-  //       if (result.success) {
-  //         //把所有的物流公司放到第一个
-  //         item[0].logisticsCompany = result.data
-  //         // 选择合适的模板单存放
-  //         result.data.express_info.forEach((every, index) => {
-  //           if (every.express.express_id == result.data.min_express) {
-  //             item[0].n_ame = every.express.express_name
-  //             item[0].firstLogisticsCompanyExpress_id = every.express.express_id
-  //             item[0].firstLogisticsCompanyFreight = every.freight
-  //             item[0].firstLogisticsCompanyMax_days = every.max_days
-  //             item[0].firstLogisticsCompanyMin_days = every.min_days
-  //           }
-  //         })
-  //       } else {
-  //         utils.fxShowToast(result.status.message)
-  //       }
-  //     })
-  //     order.push(item)
-  //   })
-  //   this.setData({
-  //     order: order
-  //   })
-  //   console.log(this.data.order)
-  // },
+  //订单总计
+  orderLastPrice(){
+    var lastPrice = this.data.pageOrderInfo.firstPrice - this.data.pageOrderInfo.logisticsPrice - this.data.pageOrderInfo.firstOrderPrice - this.data.pageOrderInfo.fullSubtraction - this.data.pageOrderInfo.couponPrice + this.data.pageOrderInfo.logisticsPrice
+    this.setData({
+      ['pageOrderInfo.alstPrice']: lastPrice
+    })
+  },
+
+  //首单优惠
+  getFirst(){
+    http.fxPost(api.first_order_reduction, { pay_amount: this.data.pageOrderInfo.firstPrice},(result)=>{
+      console.log(result)
+      if(result){
+        this.setData({
+          ['pageOrderInfo.firstOrderPrice']:result.data.discount_amount
+        },()=>{
+          this.orderLastPrice()//订单总计
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  //获取满减
+  getFullReduction() {
+    console.log(this.data.skusList)
+    console.log(this.data.orderInfomation)
+    var params = this.data.orderInfomation
+    var items = []
+    Object.keys(params).forEach((key) => {
+      var item = {
+        rid: params[key].store_rid,
+        sku_items: []
+      }
+      Object.keys(params[key].items).forEach((e) => {
+        var i = {
+          sku: params[key].items[e].rid,
+          quantity: params[key].items[e].quantity
+        }
+        item.sku_items.push(i)
+      })
+      items.push(item)
+    })
+    //发送请求获取满减
+    setTimeout(() => {
+      http.fxPost(api.full_reduction, { items: items},(result)=>{
+        console.log(items)
+        console.log(result)
+        if(result.success){
+          var fullSubtractionPrice=0
+          //计算满减的总共金额
+          Object.keys(result.data).forEach((key)=>{
+            console.log(result.data[key])
+            fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
+          })
+          this.setData({
+            fullReductionList:result.data,
+            ['pageOrderInfo.fullSubtraction']:fullSubtractionPrice
+          },()=>{
+            this.orderLastPrice()//订单总计
+          })
+        }else{
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }, 1000)
+  },
 
   // 获取优惠券
   GetcouponList(e) {
-
     var products = app.globalData.orderSkus
     var product = []
-
     Object.keys(products.data).forEach((key) => {
       console.log(products.data[key])
       var productItem = {
@@ -127,94 +151,190 @@ Page({
       }
     })
   },
+  // 获取运费
+  getPrice(){
+    console.log(this.data.orderInfomation)
+    var order = this.data.orderInfomation
+    var params={
+      address_rid: wx.getStorageSync('orderParams').address_rid,
+      items:[]
+    }
+    Object.keys(order).forEach((key)=>{
+      console.log(key)
+      var productsList={
+        rid:key,
+        sku_items:[]
+      }
 
+      Object.keys(order[key].items).forEach((e)=>{
+        var skus={
+          sku:e,
+          quantity: order[key].items[e].quantity,
+          express_id: order[key].items[e].express_id
+        }
+        productsList.sku_items.push(skus)
+      }) 
+      params.items.push(productsList)
+    })
+    console.log(params)
+    setTimeout(()=>{
+      http.fxPost(api.calculate_logisitcs, params,(result)=>{
+        console.log(result)
+        if(result.success){
+          var sum = 0
+          Object.keys(result.data).forEach((key)=>{
+            sum = result.data[key] - 0 + sum
+          })
+          this.setData({
+            itemOrderLogisticsPrice: result.data,
+            ['pageOrderInfo.logisticsPrice']:sum
+          },()=>{
+            this.orderLastPrice()//计算总额
+          })
+        }else{
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    },1000)
+
+
+
+  },
+  // 获取每件商品的物流公司列表logistics_product_express
+  getLogisticsCompanyList(){
+    var skus = app.globalData.orderSkus
+    var params = []
+    console.log(skus)
+    Object.keys(skus.data).forEach((key)=>{
+      var items={
+        rid:key,
+        sku_items:[]
+      }
+      skus.data[key].forEach((v,i)=>{
+        var item = {
+          sku: v.rid
+        }
+        items.sku_items.push(item)
+      })
+      params.push(items)
+    })
+    console.log(params)
+    http.fxPost(api.logistics_product_express, { items: params},(result)=>{
+      console.log(result)
+      if(result.success){
+        this.setData({
+          logisticsCompany:result.data
+        },()=>{
+          this.handleLogisticsSetingOrder()
+          // this.getLogisticsPrice()// 获取运费
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+
+    })
+  },
+  //把选择的物流信息设置到订单参数里面
+  handleLogisticsSetingOrder(){
+    console.log(this.data.orderInfomation,'订单参数') 
+    console.log(this.data.logisticsCompany,'物流模板')
+    var order = this.data.orderInfomation
+    var params = this.data.logisticsCompany
+    Object.keys(params).forEach((key)=>{
+      Object.keys(params[key]).forEach((e) => {
+        console.log(order[key].items[e].express_id)
+        console.log(params[key][e].express)
+        // order[key][e].express_id = params[key][e]
+        params[key][e].express.forEach((v,i)=>{
+          if (v.is_default){
+            order[key].items[e].express_id = v.express_id
+          }
+        })
+      })
+    })
+    console.log(order)
+    setTimeout(()=>{
+      this.setData({
+        orderInfomation: order
+      },()=>{
+        this.getPrice()
+      })
+      
+    },1000)
+  },
   //获取产品的详情---
   getOrderProdectInfo() {
     var skus = app.globalData.orderSkus
     var skusList = []
     var store_items = {}
-
+    var generalPrice=0
     console.log(skus)
 
     Object.keys(skus.data).forEach((key) => {
-      console.log(skus.data[key], key)
-      
-      store_items[key]={
-          store_rid: wx.getStorageSync('storeInfo').rid, //String	必需	 	当前店铺rid
-          is_distribute: wx.getStorageSync('storeInfo').rid == key ? 0 : 1, //Integer	可选	0	是否分销 0、否 1、是
-          original_store_rid: key, //String	可选	 	原店铺rid
-          buyer_remark: '', //String	可选	 	买家备注
-          blessing_utterance: '', //String	可选	 	买家寄语
-          coupon_codes: '', //String	可选	 	优惠券码
-          coupon_price: 0, //String  自定义 优惠券的金额
-          items: {}, //Array	必需	 	订单明细参数
-        }
-      
+      console.log(skus)
+      store_items[key] = {
+        store_rid: wx.getStorageSync('storeInfo').rid, //String	必需	 	当前店铺rid
+        is_distribute: wx.getStorageSync('storeInfo').rid == key ? 0 : 1, //Integer	可选	0	是否分销 0、否 1、是
+        original_store_rid: key, //String	可选	 	原店铺rid
+        buyer_remark: '', //String	可选	 	买家备注
+        blessing_utterance: '', //String	可选	 	买家寄语
+        coupon_codes: '', //String	可选	 	优惠券码
+        coupon_price: 0, //String  自定义 优惠券的金额
+        items: {}, //Array	必需	 	订单明细参数
+      }
+
       skus.data[key].forEach((v, i) => {
         store_items[key].items[v.rid] = {
           rid: v.rid, //String	必需	 	sku
           quantity: v.quantity, //Number	必需	1	购买数量
           express_id: "", //Integer	必需	 	物流公司ID
           warehouse_id: "", //Number	可选	 	发货的仓库ID
+          sku_price: v.sale_price == 0 ? v.price : v.sale_price
         }
+        var price = v.sale_price == 0 ? v.price : v.sale_price
+        generalPrice = price * v.quantity + generalPrice
       })
+
       skusList.push(skus.data[key])
     })
     console.log(store_items)
     this.setData({
-      order: skusList,// 订单页面渲染
-      orderInfomation: store_items // 订单参数
+      order: skusList, // 订单页面渲染
+      orderInfomation: store_items, // 订单参数
+      ['pageOrderInfo.firstPrice']: generalPrice
+    }, () => {
+      this.getFullReduction() //获取满减
+      this.GetcouponList() // 获取优惠券
+      this.getFirst()//获取首单优惠
+      this.getLogisticsCompanyList()// 获取物流公司的列表
     })
 
     console.log(this.data.order)
-    console.log( this.data.orderInfomation)
-    // skusList.forEach((item, list) => {
-    //   item.forEach((v, i) => {
-    //     params.product_items.push({
-    //       sku_rid: v.rid,
-    //       quantity: v.needQuantity,
-    //       freight_template_id: v.fid
-    //     })
-    //   })
+    console.log(this.data.orderInfomation)
 
-    //   http.fxPost(api.cheapLogisitcs, params, (result) => {
-    //     console.log(result)
-    //     if (result.success) {
-    //       //把所有的物流公司放到第一个
-    //       item[0].logisticsCompany = result.data
-    //       // 选择合适的模板单存放
-    //       result.data.express_info.forEach((every, index) => {
-    //         if (every.express.express_id == result.data.min_express) {
-    //           item[0].firstLogisticsCompanyName = every.express.express_name
-    //           item[0].firstLogisticsCompanyExpress_id = every.express.express_id
-    //           item[0].firstLogisticsCompanyFreight = every.freight
-    //           item[0].firstLogisticsCompanyMax_days = every.max_days
-    //           item[0].firstLogisticsCompanyMin_days = every.min_days
-    //         }
-    //       })
-    //     } else {
-    //       utils.fxShowToast(result.status.message)
-    //     }
-    //   })
-    //   order.push(item)
-    // })
-    // console.log(order)
-    // setTimeout(() => {
-    //   this.setData({
-    //     order: order
-    //   })
-    // }, 1000)
   },
   // 选择优惠券后
-  radioChange(e){
+  radioChange(e) {
     console.log(e)
     var params = JSON.parse(e.detail.value)
     console.log(params)
-    
     console.log(this.data.orderInfomation[params.store_rid].coupon_price)
     this.setData({
-      ['orderInfomation.'+ params.store_rid + '.coupon_price']: params.price,
+      ['orderInfomation.' + params.store_rid + '.coupon_price']: params.price,
       ['orderInfomation.' + params.store_rid + '.coupon_codes']: params.code
+    },()=>{
+      var couponPriceSum = 0
+      Object.keys(this.data.orderInfomation).forEach((key)=>{
+        console.log(this.data.orderInfomation[key].coupon_price)
+        couponPriceSum = this.data.orderInfomation[key].coupon_price - 0 + couponPriceSum
+      })
+      console.log(couponPriceSum)
+      this.setData({
+        ['pageOrderInfo.couponPrice']:couponPriceSum
+      },()=>{
+        this.orderLastPrice()// 计算最后金额
+      })
+      
     })
     console.log(this.data.orderInfomation)
   },
@@ -222,17 +342,15 @@ Page({
   couponTap(e) {
     console.log(this.data.couponList)
     console.log(e.currentTarget.dataset.order_rid)
-    
-    if (e.currentTarget.dataset.order_rid){
+    if (e.currentTarget.dataset.order_rid) {
       var coupon = this.data.couponList[e.currentTarget.dataset.order_rid]
       coupon.forEach((v, i) => {
         v.get_at = utils.timestamp2string(v.get_at, 'date')
         v.end_at = utils.timestamp2string(v.end_at, 'date')
       })
       this.setData({
-        pickCoupon: coupon,//选择的优惠券列表
-        pickCouponProductId: e.currentTarget.dataset.order_rid// 优惠券店铺的id
-
+        pickCoupon: coupon, //选择的优惠券列表
+        pickCouponProductId: e.currentTarget.dataset.order_rid // 优惠券店铺的id
       })
     }
     var i
@@ -248,48 +366,7 @@ Page({
   },
   //支付,并跳转到支付成功页面---
   paymentSuccess() {
-    // let params = {
-    //   store_rid: '', // String	必需	 	        当前店铺rid
-    //   is_distribute: '', //Integer  可选          0    是否分销 0、否 1、是
-    //   original_store_rid: '', //String    可选               原店铺rid
-    //   coupon_codes: [], //Array	可选	 	优惠券码列表
-    //   items:''
-    //   //Array	必需	 	订单明细参数
-    // }
-    // let paramsItems={
-    //   rid: '', //String	必需	 	sku
-    //   quantity: 1, //Number	必需	1	购买数量
-    //   express_id: '', //Integer	必需	 	物流公司ID
-    //   warehouse_id: '', //Number	可选	 	发货的仓库ID
-    // }
-    // let outParams=[]
-    // console.log(this.data.order)
-    // this.data.order.forEach((v,i)=>{
-    //   console.log(v,'每一项')
-    //   params.store_rid = v[0].current_store_rid
-    //   params.is_distribute = v[0].is_distribute
-    //   params.original_store_rid = v[0].store_rid
-
-    //   let items=[]
-    //   v.forEach((item,list)=>{
-    //     console.log(item)
-    //     console.log(item.firstLogisticsCompanyExpress_id)
-    //     paramsItems.rid = item.rid
-    //     paramsItems.express_id = item.firstLogisticsCompanyExpress_id
-    //     paramsItems.quantity = item.needQuantity
-    //     items.push(paramsItems)
-    //   })
-    //   params.items = items
-    //   outParams.push(params)
-    // })
-    // console.log(outParams)
-    // console.log(wx.getStorageSync('orderParams'))
-    // http.fxPost(api.order_create, wx.getStorageSync('orderParams'), (result) => {
-    //   console.log(result)
-    // })
-    // wx.navigateTo({
-    //   url: '../paymentSuccess/paymentSuccess',
-    // })
+ 
   },
 
   /**
@@ -297,7 +374,7 @@ Page({
    */
   onLoad: function(options) {
     this.getOrderProdectInfo() // 获取订单详情
-    this.GetcouponList() // 获取优惠券
+
     // this.receiveAddress() // 收货地址---
   },
 
@@ -311,8 +388,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function() {  
+    
   },
 
   /**
@@ -351,15 +428,16 @@ Page({
   },
   //选择其他物流
   otherLogisticsTap(e) {
-    console.log(e.currentTarget.dataset.index)
+    console.log(e)
+    console.log(e.currentTarget.dataset.store_rid)
     console.log(e.currentTarget.dataset.templet)
-    app.globalData.logisticsMould = e.currentTarget.dataset.templet
+    console.log(e.currentTarget.dataset.product)
+    app.globalData.logisticsMould = e.currentTarget.dataset.item.express
+    app.globalData.pickLogistics = e.currentTarget.dataset.product
     setTimeout(() => {
       wx.navigateTo({
-        url: '../pickLogistics/pickLogistics?index=' + e.currentTarget.dataset.index,
+        url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&&sku_rid=" + e.currentTarget.dataset.sku_rid,
       })
     }, 1000)
-
   },
-
 })

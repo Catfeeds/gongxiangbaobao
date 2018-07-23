@@ -15,7 +15,7 @@
       <radio-group class="radio-group" bindchange="radioChange">
         <label 
           class="radio logisticsName" 
-          wx:for='{{logisticsMould.express_info}}'
+          wx:for='{{logisticsMould}}'
           wx:key='{{index}}'
           data-express_id='{{item.express.express_id}}'>
           <view class='receiveFnBottom'>
@@ -25,7 +25,7 @@
             <view class='logistics-goods'>
               <text>{{item.express.express_name}}</text>
               <text>物流时长：{{item.min_days}}至{{item.max_days}}天送达，已含税</text>
-              <text>￥{{item.freight}}</text>
+              <text></text>
             </view>
           </view>
           <radio color='#6ED7AF' value='{{index}}'/>

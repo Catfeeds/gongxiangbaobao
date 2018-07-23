@@ -203,6 +203,8 @@ App({
     //订单里面的sku
     orderSkus:'',
     //评论订单的时候的商品
-    critiqueProduct:''
+    critiqueProduct:'',
+    //选择运费模板里面的需要的订单信息
+    pickLogistics:''
   }
 })

@@ -88,7 +88,6 @@ Page({
           wx.navigateBack({
             delta:1
           })
-          
         }else{
           utils.fxShowToast(result.status.message)
         }
