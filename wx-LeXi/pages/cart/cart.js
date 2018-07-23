@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    carQuantity:0, // 购物车的数量问题
     skuPrice: '', //sku价格
     needSpecifications: [], // 需要的规格---
     needColor: [], //需要的颜色---
@@ -39,7 +40,10 @@ Page({
       if (result.success) {
         this.setData({
           shoppingCart: result.data
+        },()=>{
+          this.paymentPrice()//计算金额
         })
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -152,14 +156,16 @@ Page({
   },
   // 应该支付的总金额shoppingCart---
   paymentPrice() {
-    this.setData({
-      payment: 0
+    let  aggregatePrice = 0
+    let   quantity = 0
+    this.data.shoppingCart.items.forEach((v,i)=>{
+      quantity = v.quantity - 0 + quantity
+      let sellPrice = v.product.sale_price == 0 ? v.product.price : v.product.sale_price
+      aggregatePrice = aggregatePrice + sellPrice*v.quantity
     })
-    console.log(this.data.shoppingCart.items)
-    this.data.shoppingCart.items.map((value, index) => {
-      this.setData({
-        payment: ((this.data.payment * 1000 + value.product.sale_price * value.quantity * 1000) / 1000).toFixed(2)
-      })
+    this.setData({
+      carQuantity: quantity,
+      payment: aggregatePrice
     })
   },
 
@@ -201,6 +207,7 @@ Page({
         })
       }
     }
+    this.paymentPrice()//计算金额
   },
   //更新购物车---
   putRenovateCart(e) {
@@ -479,10 +486,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    //计算金额
-    setTimeout(() => {
-      this.paymentPrice()
-    }, 1000)
+    
     this.getCartProduct() // 获取购物车商品
   },
 
@@ -536,39 +540,14 @@ Page({
   //结算跳转
   chekoutTap() {
     var shopProduct = []
-    // 订单内容
-
-    var store_items = [{
-      store_rid: '', //String	必需	 	当前店铺rid
-      is_distribute: 0, //Integer  可选 0 是否分销 0、否 1、是
-      original_store_rid: '', // String 可选   原店铺rid
-      buyer_remark: '', //String	可选	 	买家备注
-      blessing_utterance: '', //String	可选	 	买家寄语
-      coupon_codes: '', //Array	可选	 	优惠券码列表
-      items: [{
-        rid: '', //String	必需	 	sku
-        quantity: '', //Number	必需	1	购买数量
-        express_id: '', //Integer	必需	 	物流公司ID
-        warehouse_id: '' //Number	可选	 	发货的仓库ID
-      }]
-    }]
     var skus = []
     var skusNeedQuantity = []
     console.log(this.data.shoppingCart)
 
-
-
     this.data.shoppingCart.items.forEach((v, i) => {
       skusNeedQuantity.push(v.product.rid + ":" + v.quantity) // 每个sku需求数量
       skus.push(v.product.rid)
-
     })
-    // var orderParams = wx.getStorageSync('orderParams')
-    // orderParams.store_items[0].items = shopProduct
-    // wx.setStorageSync('orderParams', orderParams)
-    // console.log(shopProduct)
-
-    // 获取产品的详情
 
     http.fxGet(api.by_store_sku, {
       rids: skus.join(',')
@@ -593,13 +572,13 @@ Page({
               var newArray = item.split(":")
               console.log(newArray)
               if (v.rid == newArray[0]) {
-                v.needQuantity = newArray[1]
+                v.quantity = newArray[1]
               }
             })
           })
         })
         app.globalData.orderSkus = result
-
+        console.log(app.globalData.orderSkus)
         wx.navigateTo({
           url: '../receiveAddress/receiveAddress',
         })

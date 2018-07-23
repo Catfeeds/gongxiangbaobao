@@ -83,7 +83,11 @@
       </view>
 
       <!-- 优惠券 -->
-      <view class='component black-font time-top' data-is_coupon="1" catchtap='couponTap'>
+      <view 
+        class='component black-font time-top' 
+        data-is_coupon="1" 
+        
+        catchtap='couponTap'>
         <view> 优惠卷</view>
         <view class='font-s'>
           <text class='coupon--color'>已抵¥25</text>

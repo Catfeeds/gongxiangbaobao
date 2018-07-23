@@ -127,7 +127,7 @@
       <view class='tuijian' wx:for='{{recommendProductList.products}}' wx:key="{{index}}">
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image src='{{ShopOwner.avatar}}' class='photo-round'></image>
+          <image src='{{item.cover}}' class='photo-round'></image>
           <text>馆长极力推荐</text>
         </view>
         <!-- 推荐理由介绍 -->

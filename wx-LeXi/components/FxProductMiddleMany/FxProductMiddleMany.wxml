@@ -10,7 +10,7 @@
     <view>
       <view class='two-line'>
         <text class='logistics logistics' wx:if="{{product.is_free_postage}}">包邮</text>
-        <text class='line-two'>{{product.name}}</text>
+        <text class='line-two'>{{product.name?product.name:product.product_name}}</text>
       </view>
       <block wx:if="{{color}}">
         <view class='goodsColor' wx:if="{{product.color||product.size }}">
@@ -21,7 +21,7 @@
       </block>
 
       <!-- 购买的数量 -->
-      <view class='shopingNumber' wx:if="{{shopingNumber}}">x 2</view>
+      <view class='shopingNumber' wx:if="{{shopingNumber}}">x {{product.quantity}}</view>
     </view>
     <!-- 颜色 -->
 

@@ -62,59 +62,7 @@ Page({
       }
     })
   },
-  //获取产品的详情---
-  getOrderProdectInfo() {
-    var skus = app.globalData.orderSkus
-    var skusList = []
-    var order = []
 
-    var params = {
-      address_rid: wx.getStorageSync('orderParams').address_rid,
-      product_items: []
-    }
-
-    Object.keys(skus.data).forEach((key) => {
-      console.log(skus.data[key])
-      skusList.push(skus.data[key])
-    })
-    
-    console.log(this.data.order)
-    skusList.forEach((item, list) => {
-      item.forEach((v, i) => {
-        params.product_items.push({
-          sku_rid: v.rid,
-          quantity: v.needQuantity,
-          freight_template_id: v.fid
-        })
-      })
-
-      http.fxPost(api.cheapLogisitcs, params, (result) => {
-        console.log(result)
-        if (result.success) {
-          //把所有的物流公司放到第一个
-          item[0].logisticsCompany = result.data
-          // 选择合适的模板单存放
-          result.data.express_info.forEach((every, index) => {
-            if (every.express.express_id == result.data.min_express) {
-              item[0].firstLogisticsCompanyName = every.express.express_name
-              item[0].firstLogisticsCompanyExpress_id = every.express.express_id
-              item[0].firstLogisticsCompanyFreight = every.freight
-              item[0].firstLogisticsCompanyMax_days = every.max_days
-              item[0].firstLogisticsCompanyMin_days = every.min_days
-            }
-          })
-        } else {
-          utils.fxShowToast(result.status.message)
-        }
-      })
-      order.push(item)
-    })
-
-    // this.setData({
-    //   order: order
-    // })
-    console.log(this.data.order)
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -140,12 +88,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
       this.getAdressList() // 获取地址列表
-      // setTimeout(()=>{
-      //   this.getOrderProdectInfo() 
-      // },1000)
-      //
+
   },
 
   /**

@@ -189,6 +189,7 @@ Page({
       ['productCategoryParams.is_distributed']: 1,
     })
     http.fxGet(api.sticked_products, this.data.productCategoryParams, (result) => {
+      console.log(result)
       if (result.success) {
         this.setData({
           recommendProductList: result.data
