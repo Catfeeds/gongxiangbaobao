@@ -55,7 +55,7 @@ Page({
           utils.fxShowToast(result.status.message)
         }
       })
-    }, 1000)
+    }, 500)
   },
   // 运费模板的express_id
   radioChange(e) {

@@ -166,8 +166,8 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-  <view class='conservation'>
-    <button catchtap='paymentSuccess'>继续以选择支付方式</button>
+  <view class='conservation' wx:if='{{paymentBtn}}'>
+    <button catchtap='paymentSuccess'>提交订单</button>
   </view>
 
   <!-- 优惠券弹框 -->
