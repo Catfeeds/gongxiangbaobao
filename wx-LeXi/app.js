@@ -14,6 +14,8 @@ App({
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
     this.globalData.app_id = extConfig.authAppid
     wx.setStorageSync('fx', this.globalData)
+    console.log(extConfig,'第三方拓展信息')
+    this.globalData.configInfo = extConfig
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
     // 检查 jwt 是否存在 如果不存在调用登录
@@ -80,14 +82,14 @@ App({
     })
   },
 
-  // 获取商家的信息id
+  // 获取店铺的信息id
   getShopId(){
     http.fxGet(api.shop_info, {},(result)=> {
       console.log(result)
       if (result.success) {
         wx.setStorageSync('storeId', result.data.rid)
       } else {
-        utils.fxShowToast(result.status.message)
+        util.fxShowToast(result.status.message)
       }
     })
   },
@@ -131,7 +133,6 @@ App({
             title: '已取消支付',
           })
         }
-
         return typeof cb == 'function' && cb()
       }
     })
@@ -166,6 +167,7 @@ App({
       },
     })
   },
+  
 
   globalData: {
     isLogin: false,
@@ -173,6 +175,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 第三方配置信息
+    configInfo:'',
     // 微信用户openid
     openid: '',
     // 地址位置

@@ -44,6 +44,7 @@ module.exports = {
   wxacode: 'market/wxacode',  // POST 生成小程序码
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme:'wx_app_design/collections', //Get 主题---
+  marketBanners:'market/banners',//广告
   // Cart
   cart: 'cart',  // GET 加入购物车---
   cart_addon: 'cart',  // POST 添加产品至购物车
@@ -67,6 +68,7 @@ module.exports = {
 
   // Market
   coupons: 'market/user_master_coupons',  // get 优惠券列表---
+  noCouponsList: 'market/not_login_coupons',  // get 优惠券列表---
   coupon_detail: 'market/coupons/:rid',  // GET 单个优惠券
   user_coupons: 'market/user_coupons',  // POST 用户优惠券列表---
   available_coupons: 'market/coupons/available',  // POST 用户可用优惠券
@@ -122,6 +124,7 @@ module.exports = {
    calculate_logisitcs:'logistics/freight/calculate',// post计算运费---
   //店铺的主人的
   store_owner_info:'users/authenticate',
+  masterInfo:'store/master_info',
 
   // user
   users_profile: 'users/profile' ,//get 获取用户的信息---

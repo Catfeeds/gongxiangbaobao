@@ -120,7 +120,10 @@ Page({
           //计算满减的总共金额
           Object.keys(result.data).forEach((key) => {
             console.log(result.data[key])
-            fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
+            if (result.data[key]==[]){
+              console.log(99)
+              fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
+            }
           })
           this.setData({
             fullReductionList: result.data,

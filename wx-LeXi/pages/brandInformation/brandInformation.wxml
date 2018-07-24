@@ -9,7 +9,7 @@
         <view class='userinfoS btn-bg-color'>独立设计师</view>
       </view>
       <view class='userPhoto'>
-        <image src='{{storeOwnerInfo.avatar}}'></image>
+        <image src='{{storeOwnerInfo.avatar.view_url}}'></image>
       </view>
     </view>
 
