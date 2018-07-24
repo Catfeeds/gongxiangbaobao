@@ -73,7 +73,7 @@
         </view>
         <view wx:if="{{items_order.user_order_status==2}}" class='delleteOrder hui-zi' catchtap='logTop'>物流跟踪</view>
         <view wx:if="{{items_order.user_order_status==2}}" class='critiqueBtn'>确认收货</view>
-        <view wx:if="{{items_order.user_order_status==3}}" class='critiqueBtn' catchtap='critiqueTap'>去评价</view>
+        <view wx:if="{{items_order.user_order_status==3}}" data-product='{{items_order}}' class='critiqueBtn' catchtap='critiqueTap'>去评价</view>
       </view>
     </view>
   </view>

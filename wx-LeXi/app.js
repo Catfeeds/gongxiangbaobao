@@ -201,6 +201,10 @@ App({
     // 店铺是否经过认证
     isAuthenticationStore:'',
     //订单里面的sku
-    orderSkus:''
+    orderSkus:'',
+    //评论订单的时候的商品
+    critiqueProduct:'',
+    //选择运费模板里面的需要的订单信息
+    pickLogistics:''
   }
 })
