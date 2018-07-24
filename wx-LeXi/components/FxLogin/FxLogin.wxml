@@ -1,0 +1,55 @@
+<!--components/FxLogin/FxLogin.wxml-->
+<view class='container'>
+  <!--填写手机验证码弹出框 -->
+  <view class='binding-box' catchtap='countryHidTap'>
+    <form>
+      <view class='binding-info bg-white' catchtap='returnTap'>
+        <view class='binding-title'>登录/注册</view>
+        <!-- 输入手机号码 -->
+        <view class='mobile-number paymentFnTextB'>
+          <view class='paymentFnTextB country' catchtap='countryTap'>
+            <input value='+{{country_code}}' class='country_code'></input>
+            <view class='jian'>
+              <image src='../../images/bottom@2.png'></image>
+            </view>
+          </view>
+          <view class='input-number'>
+            <input 
+              placeholder-class='number' 
+              placeholder='输入手机号码' 
+              maxlength="11" 
+              type="number" 
+              bindinput="inputText" 
+              value='{{mobaile_number}}'>
+            </input>
+          </view>
+          <view 
+            class='cha' 
+            catchtap='mobileNumberNullTap'>x</view>
+          <view 
+            wx:if="{{!is_time}}" 
+            class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}'
+            catchtap='getNumberTap'>获取验证码</view>
+
+          <view class='button-style font-ss c-middle' wx:if="{{is_time}}">{{time}}s</view>
+        </view>
+        <!-- 输入验证码 -->
+        <view class='mobile-number yan input-number time-top'>
+          <input 
+            placeholder-class='number' 
+            placeholder='短信验证码' 
+            type="number" 
+            bindinput="serveNumber" 
+            value='{{verification_code}}' 
+            maxlength="6">
+          </input>
+          <text class='error-text font-ss'>验证码错误</text>
+        </view>
+        <!-- 按钮 -->
+        <button 
+          class='ok-btn c-middle {{over_button?"bg-green":""}}'
+          catchtap='handleVerifyOverTap'>完成</button>
+      </view>
+    </form>
+  </view>
+</view>

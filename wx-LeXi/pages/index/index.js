@@ -4,11 +4,14 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+const common = require('./../../utils/common.js')
 Page({
   /**
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    advertisement:'',// 广告
+    is_mobile:false,// 优惠券模板是否弹出
     isAuthentication:'', // 是否经过官方认证的店铺
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
@@ -102,8 +105,38 @@ Page({
       }]
     }
   },
+  // 是否登陆
+  getIsLogin(){
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+  },
+  // 是否获取物品与用户之间的关系
+  handleIsGetProductAtRelation(){
+    if (!app.globalData.isLogin) {
+      return
+    }
+  },
+  // 广告
+  getAdvertisement(){
+    http.fxGet(api.marketBanners,{},(result)=>{
+      console.log(result,'广告')
+      if(result.success){
+        this.setData({
+          advertisement:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   // 领取优惠券
   getReceiveCoupon(e){
+    this.getIsLogin()// 是否登陆
+    console.log(app.globalData.isLogin)
     http.fxPost(api.coupon_grant, { rid: e.currentTarget.dataset.rid},(result)=>{
       if(result.success){
         utils.fxShowToast('领取成功', 'success')
@@ -129,30 +162,45 @@ Page({
   },
   // 获取优惠券列表
   coupon() {
-    http.fxGet(api.coupons, this.data.couponParams, (result) => {
-      if (result.success) {
-        if (this.data.couponParams.type != 3) {
+    console.log(app.globalData.isLogin)
+    if (!app.globalData.isLogin){
+      http.fxGet(api.noCouponsList,{},(result)=>{
+        console.log(result)
+        if (result.success){
           this.setData({
-            couponList: result.data,
-            ['couponParams.type']: 3
+            couponList: result.data
           })
-          app.globalData.couponList = result.data
-          this.coupon()
-        } else {
-          this.setData({
-            fullSubtractionList: result.data,
-            ['couponParams.type']: ''
-          })
-          app.globalData.fullSubtractionList = result.data
+        }else{
+          utils.fxShowToast(result.status.message)
         }
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
+      })
+    }else{
+      http.fxGet(api.coupons, this.data.couponParams, (result) => {
+        if (result.success) {
+          if (this.data.couponParams.type != 3) {
+            this.setData({
+              couponList: result.data,
+              ['couponParams.type']: 3
+            })
+            app.globalData.couponList = result.data
+            this.coupon()
+          } else {
+            this.setData({
+              fullSubtractionList: result.data,
+              ['couponParams.type']: ''
+            })
+            app.globalData.fullSubtractionList = result.data
+          }
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })  
+    }
   },
   // 获取店铺主人的信息
   getShopOwner() {
-    http.fxGet(api.store_owner_info, {}, (result) => {
+    http.fxGet(api.masterInfo, {}, (result) => {
+      console.log(result)
       if (result.success) {
         this.setData({
           ShopOwner: result.data
@@ -275,6 +323,7 @@ Page({
   },
   // 添加关注---
   handleAddWatch() {
+    this.getIsLogin()// 是否登陆
     http.fxPost(api.add_watch, {
       rid: this.data.rid
     }, (result) => {
@@ -282,7 +331,6 @@ Page({
         app.globalData.isWatchstore = true
         this.getIndexData()
         this.getIsWatch()
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -290,6 +338,7 @@ Page({
   },
   // 取消关注---
   handleDeleteWatch() {
+    this.getIsLogin()// 是否登陆
     http.fxPost(api.delete_watch, {
       rid: this.data.rid
     }, (result) => {
@@ -305,6 +354,7 @@ Page({
   },
   // 查看是否关注
   getIsWatch() {
+
     http.fxGet(api.examine_watch, {
       rid: this.data.rid
     }, (result) => {
@@ -322,12 +372,13 @@ Page({
   getIndexData() {
     const that = this
     const params = {};
-    http.fxGet(api.shop_info, params, function(result) {
+    http.fxGet(api.shop_info, params, (result)=> {
       if (result.success) {
         app.globalData.storeInfo = result.data
         that.setData({
           shopInfo: result.data
         })
+        
         wx.setStorageSync('storeInfo', result.data)
       } else {
         utils.fxShowToast(result.status.message)
@@ -376,10 +427,13 @@ Page({
   },
   // 点击喜欢
   handleBindLike(e) {
+    this.getIsLogin()// 是否登陆
+    console.log(app.globalData.isLogin)
     var rid = e.currentTarget.dataset.id
     var fx = wx.getStorageSync('fx')
     var isLike = e.currentTarget.dataset.islike
-    if (!fx.isLogin) {
+    console.log(isLike)
+    
       if (isLike) {
         //喜欢就删除
         http.fxDelete(api.userlike, {
@@ -403,24 +457,9 @@ Page({
           }
         })
       }
-    } else {
-      //有没有在自己服务器登陆
-    }
+
   },
-  //  是否经过认证 4 是已经认证，其他为没有认证
-  getAuthentication(){
-    http.fxGet(api.is_authentication,{},(result)=>{
-      console.log(result)
-      if(result.success){
-        this.setData({
-          isAuthentication:result.data
-        })
-        app.globalData.isAuthenticationStore = result.data.status
-      }else{
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
+
 
 
   // onGotUserInfo: function(e) {
@@ -429,6 +468,12 @@ Page({
   //   console.log(e.detail.rawData)
   // },
 
+  //设置头部
+  getNavigationBarTitleText(){
+    wx.setNavigationBarTitle({
+      title: app.globalData.configInfo.name
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -437,9 +482,11 @@ Page({
       openid: wx.getStorageSync('jwt').openid
     })
     console.log(this.data.openid)
+    
+    this.getNavigationBarTitleText()// 设置头部信息
     this.getStoreId() // 获取店铺的rid---
     this.getIndexData() //获取店铺信息---
-    this.coupon() // 获取优惠券---
+    
     this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
     
     this.createdOrderParams() //创建订单的参数---
@@ -449,8 +496,12 @@ Page({
     this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
     this.recommendProduct() // 推荐好物---
     this.getShopOwner() // 获取店铺主人的信息---
-    this.getAuthentication()// 查看是否认证---
+    // this.getAuthentication()// 查看是否认证---
     this.addBrowse() // 添加访问者---
+    this.getAdvertisement() // 获取广告
+    setTimeout(()=>{
+      this.coupon() // 获取优惠券---
+    },1000)
     
   },
 

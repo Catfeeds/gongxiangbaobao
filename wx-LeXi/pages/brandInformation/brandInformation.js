@@ -21,6 +21,7 @@ Page({
       isAuthentication:app.globalData.isAuthenticationStore
     })
     this.getStoreCreatedTime()
+    console.log(this.data.storeOwnerInfo)
   },
   //开馆时间
   getStoreCreatedTime(){

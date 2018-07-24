@@ -2,8 +2,8 @@
 const http = require('./http.js')
 const api = require('./api.js')
 const utils = require('./util.js')
-
-//请求地址
+const app = getApp()
+//预先请求地址
 const getAddressInfo = () => {
   http.fxGet(api.all_places, {
     country_id: 1
@@ -17,7 +17,7 @@ const getAddressInfo = () => {
   })
 }
 
-
 module.exports = {
-  getReceiveAddress: getAddressInfo
+  getReceiveAddress: getAddressInfo,
+
 }
