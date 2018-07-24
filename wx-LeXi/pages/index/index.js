@@ -13,7 +13,7 @@ Page({
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
     rid: [], // 店铺的rid---
-    shareWhat: '', //分享什么东西---
+    shareWhat: '', // 分享什么东西---
     ShopOwner: [], // 店铺主人的信息---
     currentNewProduct: [], // 人气里面最新---
     highQualityProduct: [], // 优质精品---
