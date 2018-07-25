@@ -222,7 +222,8 @@ Page({
   },
   // 查看是否喜欢
   examineIsLike() {
-    if (!app.globalData.isBind) {
+    console.log(app.globalData.isLogin,'查看是否喜欢')
+    if (!app.globalData.isLogin) {
       return
     }
     console.log(this.data.recommendProductList.products,'推荐好物列表')
@@ -364,10 +365,12 @@ Page({
       rid: this.data.rid
     }, (result) => {
       if (result.success) {
+        console.log(result, '关注')
         app.globalData.isWatchstore = true
         this.getIndexData()
         this.getIsWatch()
       } else {
+        console.log(result, '错关注')
         utils.fxShowToast(result.status.message)
       }
     })
@@ -396,6 +399,7 @@ Page({
   },
   // 查看是否关注
   getIsWatch() {
+    console.log(app.globalData.isLogin)
     if (!app.globalData.isLogin) {
       return
     }
@@ -403,11 +407,13 @@ Page({
       rid: this.data.rid
     }, (result) => {
       if (result.success) {
+        console.log(result,'查看是否关注')
         this.setData({
           is_with: result.data.status
         })
         app.globalData.isWatchstore = result.data.status
       } else {
+        console.log(result, '查看是否关注错')
         utils.fxShowToast(result.status.message)
       }
     })
