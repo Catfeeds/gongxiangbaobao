@@ -68,7 +68,7 @@ function fxUrl(url) {
   // 获取第三方平台自定义的数据字段  
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   // let urlAry = [extConfig.api.host, extConfig.api.version, url]
-  let urlAry = ["https://fx.taihuoniao.com/api", "v1.0", url]
+  let urlAry = ["https://wx.taihuoniao.com/api", "v1.0", url]
   return urlAry.join('/')
 }
 

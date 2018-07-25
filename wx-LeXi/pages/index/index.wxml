@@ -115,8 +115,17 @@
       </view>
     </view>
     <!-- 主打下面的图片 -->
-    <view class='goodsPhotoInfo theme-bg-color' wx:if='{{advertisement.banners.length!=0}}'>
-      <image src='{{logo}}'></image>
+    <view 
+      class='goodsPhotoInfo theme-bg-color' 
+      wx:if='{{advertisement.banners.length!=0}}'>
+      <swiper 
+        indicator-color='rgba(0, 0, 0, .3)'
+        autoplay='{{true}}'
+        scroll-x style="width: 100%">
+        <swiper-item wx:for='{{advertisement.banner_images}}' wx:key='{{index}}'>
+          <image src='{{item.image}}'></image>
+        </swiper-item>
+      </swiper>
     </view>
     <!-- 推荐好物 -->
     <view class=''>
@@ -278,8 +287,7 @@
     <button catchtap='handleShareBox' data-shareStore='{{rid}}' data-from="1"></button>
   </view>
   <!-- 登陆注册模态框 -->
-  <view wx:if="{{is_mobile}}" class='login-box'>
-      12345678
-      <fx-login></fx-login>
+  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
 </view>

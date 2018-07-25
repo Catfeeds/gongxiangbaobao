@@ -7,8 +7,9 @@ module.exports = {
   auth_logout: 'auth/logout',  // POST 退出登录
   auth_register: 'auth/register', // POST 注册
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
-  auth_get_msm_code: 'users/register_verify_code', // POST 注册时候手机验证码---
+  auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
   bind_mobile:'accounts/wxa_bind_mobile',//绑定手机号码---
+  countries:'countries',// 获取国家列表
 
   // User
   user: 'users',   // GET 获取用户（当前登录用户）
@@ -44,7 +45,7 @@ module.exports = {
   wxacode: 'market/wxacode',  // POST 生成小程序码
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme:'wx_app_design/collections', //Get 主题---
-  marketBanners:'market/banners',//广告
+  marketBanners:'banners/:rid',//广告
   // Cart
   cart: 'cart',  // GET 加入购物车---
   cart_addon: 'cart',  // POST 添加产品至购物车
@@ -117,6 +118,7 @@ module.exports = {
   examine_watch: 'follow/get_status', // 查看是否关注
   add_browse : 'store/visitor', //添加访问者---
   userlike:'userlike', //添加喜欢
+  usetIsLike:'products_userlike',// 查看用户是否喜欢
   // 查询运费模板详情
   logisitcs:'logistics/freight_template/:rid',
   logistics_product_express: 'logistics/product/express', //post获取每件商品的物流公司列表

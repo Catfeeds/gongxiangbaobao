@@ -8,9 +8,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    
+    pickCategory: 1,//选择分类
+    //分类列表
+    category:[
+      {name:'生活馆',id:1},
+      {name:'精选',id:2},
+      {name:'探索',id:3}
+    ]
   },
-
+// 分类的选择
+  handlePickCategory(e){
+    this.setData({
+      pickCategory: e.currentTarget.dataset.categoryId
+    })
+    console.log(e.currentTarget.dataset.categoryId)
+  },
 
   //设置头部信息
   handleSetNavigationBar(e='首页',){

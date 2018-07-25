@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "乐喜好礼",
     "usingComponents": {
-      "fx-coupon": "/components/FxCoupon/coupon"
+      "fx-coupon": "/components/FxCoupon/coupon",
+      "fx-login": "/components/FxLogin/FxLogin"
     }
 }

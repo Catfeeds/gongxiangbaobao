@@ -10,9 +10,9 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    advertisement:'',// 广告
-    is_mobile:false,// 优惠券模板是否弹出
-    isAuthentication:'', // 是否经过官方认证的店铺
+    advertisement: '', // 广告
+    is_mobile: false, // 优惠券模板是否弹出
+    isAuthentication: '', // 是否经过官方认证的店铺
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
     rid: [], // 店铺的rid---
@@ -105,43 +105,37 @@ Page({
       }]
     }
   },
-  // 是否登陆
-  getIsLogin(){
+
+  // 广告
+  getAdvertisement() {
+    http.fxGet(api.marketBanners.replace(/:rid/g,'shop_wxa_index'), {}, (result) => {
+      console.log(result, '广告')
+      if (result.success) {
+        this.setData({
+          advertisement: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  // 领取优惠券
+  getReceiveCoupon(e) {
+    // 是否登陆
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
       })
       return
     }
-  },
-  // 是否获取物品与用户之间的关系
-  handleIsGetProductAtRelation(){
-    if (!app.globalData.isLogin) {
-      return
-    }
-  },
-  // 广告
-  getAdvertisement(){
-    http.fxGet(api.marketBanners,{},(result)=>{
-      console.log(result,'广告')
-      if(result.success){
-        this.setData({
-          advertisement:result.data
-        })
-      }else{
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-  // 领取优惠券
-  getReceiveCoupon(e){
-    this.getIsLogin()// 是否登陆
     console.log(app.globalData.isLogin)
-    http.fxPost(api.coupon_grant, { rid: e.currentTarget.dataset.rid},(result)=>{
-      if(result.success){
+    http.fxPost(api.coupon_grant, {
+      rid: e.currentTarget.dataset.rid
+    }, (result) => {
+      if (result.success) {
         utils.fxShowToast('领取成功', 'success')
         this.coupon()
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -153,28 +147,23 @@ Page({
       shareWhat: e.currentTarget.dataset
     })
   },
-  // 获取店铺的rid
-  getStoreId() {
-    var storeId = wx.getStorageSync('storeId')
-    this.setData({
-      rid: storeId
-    })
-  },
+
   // 获取优惠券列表
   coupon() {
     console.log(app.globalData.isLogin)
-    if (!app.globalData.isLogin){
-      http.fxGet(api.noCouponsList,{},(result)=>{
+    if (!app.globalData.isLogin) {
+      http.fxGet(api.noCouponsList, {}, (result) => {
         console.log(result)
-        if (result.success){
+        if (result.success) {
           this.setData({
             couponList: result.data
           })
-        }else{
+          app.globalData.couponList = result.data
+        } else {
           utils.fxShowToast(result.status.message)
         }
       })
-    }else{
+    } else {
       http.fxGet(api.coupons, this.data.couponParams, (result) => {
         if (result.success) {
           if (this.data.couponParams.type != 3) {
@@ -194,7 +183,7 @@ Page({
         } else {
           utils.fxShowToast(result.status.message)
         }
-      })  
+      })
     }
   },
   // 获取店铺主人的信息
@@ -231,16 +220,55 @@ Page({
       }
     })
   },
+  // 查看是否喜欢
+  examineIsLike() {
+    console.log(app.globalData.isLogin,'查看是否喜欢')
+    if (!app.globalData.isLogin) {
+      return
+    }
+    console.log(this.data.recommendProductList.products,'推荐好物列表')
+    var products=this.data.recommendProductList.products
+    var productsArray = []
+    products.forEach((v,i)=>{
+      productsArray.push(v.rid)
+    })
+    console.log(productsArray.join())
+    http.fxGet(api.usetIsLike, { rids: productsArray.join()},(result)=>{
+
+      console.log(result)
+      
+      if(result.success){
+        products.forEach((v, i) => {
+          result.data.forEach((e,index)=>{
+            if(v.rid==e.rid){
+              v.is_like=e.is_like
+            }
+          })
+          //最后一次循环去设置data
+          if (products.length-1==i){
+            console.log(products)
+            this.setData({
+              ['recommendProductList.products']:products
+            })
+          }
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
   //推荐好物---
-  recommendProduct() {
+  recommendProduct(e = 1) {
     this.setData({
-      ['productCategoryParams.is_distributed']: 1,
+      ['productCategoryParams.is_distributed']: e,
     })
     http.fxGet(api.sticked_products, this.data.productCategoryParams, (result) => {
-      console.log(result)
+      console.log(result, '推荐好物')
       if (result.success) {
         this.setData({
           recommendProductList: result.data
+        }, () => {
+          this.examineIsLike()
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -274,32 +302,35 @@ Page({
 
   // 添加访问者---
   addBrowse() {
+    var openid = wx.getStorageSync('jwt').openid
     var params = {
-      openid: '', //String	必须	 	用户唯一标识
-      rid: '', //String	必须	 	店铺编号
+      openid: openid, //String	必须	 	用户唯一标识
+      rid: this.data.rid, //String	必须	 	店铺编号
       ip_addr: '', //String	可选	 	访问时IP
       agent: '', //String	可选	 	访问时代理
     }
-
-    params.openid = wx.getStorageSync('jwt').openid
-    params.rid = this.data.rid
+    console.log(params)
     http.fxPost(api.add_browse, params, (result) => {
       if (result.success) {
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
-        // utils.fxShowToast(result.status.message)
+        console.log(result)
         this.getBrowseQuantity() // 浏览浏览人数---
+        // utils.fxShowToast(result.status.message)
       }
     })
   },
   // 获取浏览浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
+    var rid = this.data.rid
+    var openid = wx.getStorageSync('jwt').openid
     var params = {
-      rid: this.data.rid,
+      rid: rid,
       page: page,
       per_page: per_page,
-      openid: wx.getStorageSync('jwt').openid
+      openid: openid
     }
+    console.log(params)
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.rid), params, (result) => {
       console.log(result)
       if (result.success) {
@@ -323,22 +354,36 @@ Page({
   },
   // 添加关注---
   handleAddWatch() {
-    this.getIsLogin()// 是否登陆
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     http.fxPost(api.add_watch, {
       rid: this.data.rid
     }, (result) => {
       if (result.success) {
+        console.log(result, '关注')
         app.globalData.isWatchstore = true
         this.getIndexData()
         this.getIsWatch()
       } else {
+        console.log(result, '错关注')
         utils.fxShowToast(result.status.message)
       }
     })
   },
   // 取消关注---
   handleDeleteWatch() {
-    this.getIsLogin()// 是否登陆
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     http.fxPost(api.delete_watch, {
       rid: this.data.rid
     }, (result) => {
@@ -354,16 +399,21 @@ Page({
   },
   // 查看是否关注
   getIsWatch() {
-
+    console.log(app.globalData.isLogin)
+    if (!app.globalData.isLogin) {
+      return
+    }
     http.fxGet(api.examine_watch, {
       rid: this.data.rid
     }, (result) => {
       if (result.success) {
+        console.log(result,'查看是否关注')
         this.setData({
           is_with: result.data.status
         })
         app.globalData.isWatchstore = result.data.status
       } else {
+        console.log(result, '查看是否关注错')
         utils.fxShowToast(result.status.message)
       }
     })
@@ -372,13 +422,13 @@ Page({
   getIndexData() {
     const that = this
     const params = {};
-    http.fxGet(api.shop_info, params, (result)=> {
+    http.fxGet(api.shop_info, params, (result) => {
       if (result.success) {
         app.globalData.storeInfo = result.data
         that.setData({
           shopInfo: result.data
         })
-        
+
         wx.setStorageSync('storeInfo', result.data)
       } else {
         utils.fxShowToast(result.status.message)
@@ -427,49 +477,48 @@ Page({
   },
   // 点击喜欢
   handleBindLike(e) {
-    this.getIsLogin()// 是否登陆
+    console.log(app.globalData.isLogin)
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     console.log(app.globalData.isLogin)
     var rid = e.currentTarget.dataset.id
     var fx = wx.getStorageSync('fx')
     var isLike = e.currentTarget.dataset.islike
     console.log(isLike)
-    
-      if (isLike) {
-        //喜欢就删除
-        http.fxDelete(api.userlike, {
-          rid: rid
-        }, (result) => {
-          if (result.success) {
-            this.recommendProduct()
-          } else {
-            utils.fxShowToast(result.status.message)
-          }
-        })
-      } else {
-        // 不喜欢就添加
-        http.fxPost(api.userlike, {
-          rid: rid
-        }, (result) => {
-          if (result.success) {
-            this.recommendProduct()
-          } else {
-            utils.fxShowToast(result.status.message)
-          }
-        })
-      }
+
+    if (isLike) {
+      //喜欢就删除
+      http.fxDelete(api.userlike, {
+        rid: rid
+      }, (result) => {
+        if (result.success) {
+          this.recommendProduct()
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      // 不喜欢就添加
+      http.fxPost(api.userlike, {
+        rid: rid
+      }, (result) => {
+        if (result.success) {
+          this.recommendProduct()
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
 
   },
 
-
-
-  // onGotUserInfo: function(e) {
-  //   console.log(e.detail.errMsg)
-  //   console.log(e.detail.userInfo)
-  //   console.log(e.detail.rawData)
-  // },
-
   //设置头部
-  getNavigationBarTitleText(){
+  getNavigationBarTitleText() {
     wx.setNavigationBarTitle({
       title: app.globalData.configInfo.name
     })
@@ -478,31 +527,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var storeId = wx.getStorageSync('storeId')
+    var openid= wx.getStorageSync('jwt').openid
     this.setData({
-      openid: wx.getStorageSync('jwt').openid
+      openid: openid,
+      rid: storeId
+    },()=>{
+
+      this.getNavigationBarTitleText() // 设置头部信息
+      // this.getStoreId() // 获取店铺的rid---
+      this.getIndexData() //获取店铺信息---
+
+      this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
+
+      this.createdOrderParams() //创建订单的参数---
+      this.getAnnouncement() // 获取店铺公告---
+      this.getIsWatch() // 查看是否关注---
+      this.getThemeProduct() //主打的设计1,主打设计 2,优质精选---
+      this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
+      this.recommendProduct() // 推荐好物---
+      this.getShopOwner() // 获取店铺主人的信息---
+      // this.getAuthentication()// 查看是否认证---
+
+      this.getAdvertisement() // 获取广告
+      setTimeout(() => {
+        this.coupon() // 获取优惠券---
+        this.addBrowse() // 添加访问者---
+      }, 1000)
+
     })
+
     console.log(this.data.openid)
-    
-    this.getNavigationBarTitleText()// 设置头部信息
-    this.getStoreId() // 获取店铺的rid---
-    this.getIndexData() //获取店铺信息---
-    
-    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
-    
-    this.createdOrderParams() //创建订单的参数---
-    this.getAnnouncement() // 获取店铺公告---
-    this.getIsWatch() // 查看是否关注---
-    this.getThemeProduct() //主打的设计1,主打设计 2,优质精选---
-    this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
-    this.recommendProduct() // 推荐好物---
-    this.getShopOwner() // 获取店铺主人的信息---
-    // this.getAuthentication()// 查看是否认证---
-    this.addBrowse() // 添加访问者---
-    this.getAdvertisement() // 获取广告
-    setTimeout(()=>{
-      this.coupon() // 获取优惠券---
-    },1000)
-    
+
   },
 
   /**
@@ -514,11 +570,11 @@ Page({
   //监听页面的滚动
   onPageScroll: function(e) {
     // console.log(e)
-    if (e.scrollTop >= 464) {
+    if (e.scrollTop >= 622) {
       this.setData({
         tabPisition: true
       })
-    } else if (e.scrollTop < 464) {
+    } else if (e.scrollTop < 622) {
       this.setData({
         tabPisition: false
       })
@@ -584,10 +640,10 @@ Page({
       return {
         title: "转发的标题",
         path: '/pages/share/share',
-        success:function(e) {
+        success: function(e) {
           console.log(e)
         },
-        fail:function(e){
+        fail: function(e) {
           console.log(e)
         }
       }
@@ -649,6 +705,13 @@ Page({
     app.globalData.themeProdct = this.data.popularProductTheme[e.currentTarget.dataset.index]
     wx.navigateTo({
       url: '../theme/theme?id=' + e.currentTarget.dataset.id,
+    })
+  },
+  // 关闭
+  hanleOffLoginBox(e){
+    console.log(e)
+    this.setData({
+      is_mobile: e.detail.offBox
     })
   }
 })

@@ -246,6 +246,9 @@
 .font-xl {
   font-size: 32rpx;
 }
+.font-xxl {
+  font-size: 34rpx;
+}
 
 .font-width--bold{
   font-weight: 700;

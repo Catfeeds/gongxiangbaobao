@@ -1,10 +1,29 @@
 <!--index.wxml-->
 <view class="container">
-  <view class='sear-box'>
+  <view class='sear-box flex_row font-s'>
     <image src='../../images/sear@2.png'></image>
-    <view>
+    <view class='search-box_text flex_row'>
       <image src='../../images/sear-icon@2.png'></image>
       <text>关键字/礼物/品牌馆/人</text>
     </view>
   </view>
+  <view class='category-box'>
+    <text 
+      class='font-xxl {{pickCategory==item.id?"pickCategory--style theme-green":""}}' 
+      wx:for='{{category}}' 
+      wx:key='{{index}}'
+      data-category-id='{{item.id}}'
+      catchtap='handlePickCategory'> {{item.name}} </text>
+  </view>
+  <!-- 生活馆 -->
+  <view wx:if="{{pickCategory==1}}">
+    <view class='owner-info_box'>
+    
+    </view>
+
+  </view>
+  <!-- 精选 -->
+  <view wx:if="{{pickCategory==2}}">精选</view>
+  <!-- 探索 -->
+  <view wx:if="{{pickCategory==3}}">探索 </view>
 </view>
