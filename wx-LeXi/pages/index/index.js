@@ -150,7 +150,7 @@ Page({
 
   // 获取优惠券列表
   coupon() {
-    console.log(app.globalData.isLogin)
+    console.log('获取优惠券：' + app.globalData.isLogin)
     if (!app.globalData.isLogin) {
       http.fxGet(api.noCouponsList, {}, (result) => {
         console.log(result)

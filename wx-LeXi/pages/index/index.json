@@ -1,6 +1,5 @@
 {
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "乐喜好礼",
   "navigationBarBackgroundColor": "white",
   "usingComponents": {
     "fx-coupon": "/components/FxCoupon/coupon",

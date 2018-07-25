@@ -1,10 +1,10 @@
 {
   "extEnable": true,
-  "extAppid": "wxee7b8ffc2247f960",
+  "extAppid": "wx3cc0ea5d2c601f30",
   "directCommit": false,
   "ext": {
-    "name": "乐喜",
-    "authAppid": "wxee7b8ffc2247f960",
+    "name": "小灵兽",
+    "authAppid": "wx3cc0ea5d2c601f30",
     "storeId": 0,
     "attr": {
       "users": [
@@ -14,8 +14,8 @@
     "api": {
       "host": "https://wx.taihuoniao.com/api",
       "version": "v1.0",
-      "appKey": "zXIPN0ftRj6dlrKFOZpH",
-      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
+      "appKey": "eV7po2YUCbwn9N3W6tig",
+      "appSecret": "150785ffa7e1612b6dc506d469baccccc51f890e"
     }
   },
   "networkTimeout": {

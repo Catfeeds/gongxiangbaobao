@@ -59,14 +59,15 @@ App({
             let isBind = res.data.is_bind
             // 登录成功，得到jwt后存储到storage
             wx.setStorageSync('jwt', res.data)
-            that.globalData.isLogin = true
-            that.globalData.token = res.data.token
-            that.globalData.uid = res.data.uid
-            // 回调函数
-            if (cb) {
-              return typeof cb == 'function' && cb(true)
+            if (isBind) {
+              that.globalData.isLogin = true
+              that.globalData.token = res.data.token
+              that.globalData.uid = res.data.uid
+              // 回调函数
+              if (cb) {
+                return typeof cb == 'function' && cb(true)
+              }
             }
-
           } else {
             // 显示错误信息
             wx.showToast({
@@ -179,8 +180,6 @@ App({
     uid: 0,
     // 第三方配置信息
     configInfo: '',
-    // 微信用户openid
-    openid: '',
     // 地址位置
     location: {},
     // 购物车数量
