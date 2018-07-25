@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_mobile:false,//  绑定手机模板
     skuPrice: '', // sku价格---
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
@@ -43,6 +44,12 @@ Page({
 
   // 领取优惠券
   getReceiveCoupon(e) {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     console.log(e.currentTarget.dataset.rid)
     http.fxPost(api.coupon_grant, {
       rid: e.currentTarget.dataset.rid
@@ -73,6 +80,13 @@ Page({
   },
   // 加入心愿单
   handleaddDesireTap() {
+  //是否绑定
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     http.fxPost(api.wishlist, {
       rids: [this.data.rid]
     }, (result) => {
@@ -92,6 +106,13 @@ Page({
   },
   // 加入购物车盒子显示
   handleAddCartShow() {
+    //是否绑定
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     this.setData({
       pick: true
     })
@@ -337,6 +358,13 @@ Page({
   },
   //选择规格的盒子显示
   pickShowTap() {
+    //是否绑定
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     this.setData({
       pick: true
     })
@@ -560,6 +588,13 @@ Page({
     console.log("cart")
     wx.switchTab({
       url: '../cart/cart',
+    })
+  },
+  // 关闭
+  hanleOffLoginBox(e) {
+    console.log(e)
+    this.setData({
+      is_mobile: e.detail.offBox
     })
   }
 })

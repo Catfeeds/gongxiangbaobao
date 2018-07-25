@@ -348,5 +348,8 @@
       </view>
     </view>
   </view>
-
+  <!-- 绑定手机的模板 -->
+  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
 </view>

@@ -114,4 +114,8 @@
       <view class='shm'></view>
     </view>
   </view>
+  <!-- //登陆注册 -->
+    <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
 </view>

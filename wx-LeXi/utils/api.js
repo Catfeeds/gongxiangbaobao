@@ -7,7 +7,7 @@ module.exports = {
   auth_logout: 'auth/logout',  // POST 退出登录
   auth_register: 'auth/register', // POST 注册
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
-  auth_get_msm_code: 'users/register_verify_code', // POST 注册时候手机验证码---
+  auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
   bind_mobile:'accounts/wxa_bind_mobile',//绑定手机号码---
 
   // User
@@ -117,6 +117,7 @@ module.exports = {
   examine_watch: 'follow/get_status', // 查看是否关注
   add_browse : 'store/visitor', //添加访问者---
   userlike:'userlike', //添加喜欢
+  usetIsLike:'products_userlike',// 查看用户是否喜欢
   // 查询运费模板详情
   logisitcs:'logistics/freight_template/:rid',
   logistics_product_express: 'logistics/product/express', //post获取每件商品的物流公司列表

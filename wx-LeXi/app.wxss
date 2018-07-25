@@ -1,6 +1,15 @@
 /**app.wxss**/
 
 /* 通用样式 */
+/* 这是绑定手机号码呼出框 */
+.login-bind_box--style{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
 
 .c-importantGoods {
   padding: 40rpx;

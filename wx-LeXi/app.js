@@ -174,6 +174,8 @@ App({
     userInfo: null,
     app_id: null,
     token: null,
+    // 是否绑定
+    isBind:wx.getStorageSync('jwt').is_bind,
     uid: 0,
     // 第三方配置信息
     configInfo:'',

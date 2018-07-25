@@ -4,11 +4,11 @@
   <view class='binding-box' catchtap='countryHidTap'>
     <form>
       <view class='binding-info bg-white' catchtap='returnTap'>
-        <view class='binding-title'>登录/注册</view>
+        <view class='binding-title'>登录/注册{{mobileCode}}</view>
         <!-- 输入手机号码 -->
         <view class='mobile-number paymentFnTextB'>
           <view class='paymentFnTextB country' catchtap='countryTap'>
-            <input value='+{{country_code}}' class='country_code'></input>
+            <input value='+{{country_code}}86' class='country_code'></input>
             <view class='jian'>
               <image src='../../images/bottom@2.png'></image>
             </view>
@@ -43,7 +43,7 @@
             value='{{verification_code}}' 
             maxlength="6">
           </input>
-          <text class='error-text font-ss'>验证码错误</text>
+          <text class='error-text font-ss' wx:if="{{prompt}}">验证码错误</text>
         </view>
         <!-- 按钮 -->
         <button 

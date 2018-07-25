@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_mobile:false,// 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
     userInfo:[],// 用户的信息
     classInfo:1,// 切换---
@@ -91,6 +92,7 @@ Page({
       per_page:10
     },
   },
+
   // 获取用户信息---
   getUserInfo(){
     http.fxGet(api.users_profile,{},(result)=>{
@@ -170,6 +172,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // 注册呼出框
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     this.getUserInfo() // 获取用户的信息
   },
 
@@ -274,4 +283,11 @@ Page({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })
   },
+  // 关闭
+  hanleOffLoginBox(e) {
+    console.log(e)
+    this.setData({
+      is_mobile: e.detail.offBox
+    })
+  }
 })

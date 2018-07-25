@@ -34,6 +34,9 @@
   width: 15rpx;
   margin-left: 6rpx;
 }
+.input-number{
+  flex: 1
+}
 .input-number input {
   padding: 20rpx;
   font-size: 34rpx;
@@ -42,13 +45,6 @@
   font-size: 34rpx;
   color: #b2b2b2;
   padding-left: 20rpx;
-}
-.cha {
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 50%;
-  background-color: #dadada;
-  color: white;
 }
 
 .cha {

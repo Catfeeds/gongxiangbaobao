@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    carQuantity:0, // 购物车的数量问题
+    is_mobile: false, // 登陆呼出框
+    carQuantity: 0, // 购物车的数量问题
     skuPrice: '', //sku价格
     needSpecifications: [], // 需要的规格---
     needColor: [], //需要的颜色---
@@ -31,6 +32,21 @@ Page({
     },
     thinkOrder: [{}], // 心愿单的内容---
   },
+  // 是否登陆
+  getIsLogin() {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+  },
+  // 是否获取物品与用户之间的关系
+  handleIsGetProductAtRelation() {
+    if (!app.globalData.isBind) {
+      return
+    }
+  },
   // 获取购物车 ---
   getCartProduct() {
     http.fxGet(api.cart, {
@@ -40,10 +56,10 @@ Page({
       if (result.success) {
         this.setData({
           shoppingCart: result.data
-        },()=>{
-          this.paymentPrice()//计算金额
+        }, () => {
+          this.paymentPrice() //计算金额
         })
-        
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -156,12 +172,12 @@ Page({
   },
   // 应该支付的总金额shoppingCart---
   paymentPrice() {
-    let  aggregatePrice = 0
-    let   quantity = 0
-    this.data.shoppingCart.items.forEach((v,i)=>{
+    let aggregatePrice = 0
+    let quantity = 0
+    this.data.shoppingCart.items.forEach((v, i) => {
       quantity = v.quantity - 0 + quantity
       let sellPrice = v.product.sale_price == 0 ? v.product.price : v.product.sale_price
-      aggregatePrice = aggregatePrice + sellPrice*v.quantity
+      aggregatePrice = aggregatePrice + sellPrice * v.quantity
     })
     this.setData({
       carQuantity: quantity,
@@ -207,7 +223,7 @@ Page({
         })
       }
     }
-    this.paymentPrice()//计算金额
+    this.paymentPrice() //计算金额
   },
   //更新购物车---
   putRenovateCart(e) {
@@ -471,7 +487,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     this.getDesireOrder() // 获取心愿单
   },
 
@@ -486,7 +508,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+    console.log(app.globalData.isLogin)
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     this.getCartProduct() // 获取购物车商品
   },
 
@@ -594,6 +623,13 @@ Page({
     this.setData({
       pickBox: false
     })
-  }
+  },
+  // 关闭
+  hanleOffLoginBox(e) {
+    console.log(e)
+    this.setData({
+      is_mobile: e.detail.offBox
+    })
 
+  }
 })
