@@ -43,3 +43,27 @@
   border-bottom-left-radius: 20rpx;
   box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
 }
+
+.owner-info_icon--style {
+  height: 34rpx;
+  width: 34rpx;
+}
+
+.owner-info_camera_icon {
+  position: absolute;
+  bottom: -17rpx;
+  right: -17rpx;
+}
+
+.owner-avatar_box {
+  width: 128rpx;
+  height: 128rpx;
+  position: relative;
+  border-radius: 50%;
+}
+
+.owner-avatar_box image:nth-child(1) {
+  height: 100%;
+  width: 100%;
+  border-radius: 8rpx;
+}

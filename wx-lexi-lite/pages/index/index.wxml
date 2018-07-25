@@ -17,8 +17,21 @@
   </view>
   <!-- 生活馆 -->
   <view wx:if="{{pickCategory==1}}">
+    <!-- 店主信息 -->
     <view class='owner-info_box'>
-    
+      <view class='owner-avatar_box'>
+        <image src='../../images/timg.jpg'></image>
+        <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon'></image>
+      </view>
+      <view>
+        <view>
+          <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
+          <text>"设计师然Ricky的生活馆..."</text>
+        </view>
+        <view>
+          <text>"欢迎来到我的乐喜生活馆,我准备了一些独特好设计供你挑选"</text>
+        </view>
+      </view>
     </view>
 
   </view>
