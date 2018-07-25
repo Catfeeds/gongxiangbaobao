@@ -18,7 +18,7 @@
         <text wx:if='{{userInfo.profile.name!=null}}'>{{userInfo.profile.name}}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
-      <view class='is-login'>
+      <view class='is-login' wx:if='{{!userInfo.profile.mobile}}'>
         <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号</button>
       </view>
     </view>

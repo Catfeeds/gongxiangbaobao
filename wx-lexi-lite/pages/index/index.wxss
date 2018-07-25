@@ -1,10 +1,45 @@
 /**index.wxss**/
-.sear-box{
+
+.sear-box {
   position: relative;
   height: 120rpx;
-  border-top: 1rpx solid #e9e9e9;
+  /* border-top: 1rpx solid #e9e9e9; */
 }
-.sear-box>image{
+
+.sear-box>image {
   position: absolute;
   height: 100%;
+  z-index: 0;
+}
+
+.search-box_text {
+  z-index: 1;
+}
+
+.search-box_text>image {
+  height: 30rpx;
+  width: 30rpx;
+  margin-left: 100rpx;
+  margin-right: 20rpx;
+}
+
+.category-box {
+  padding: 40rpx 0 20rpx 0;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.category-box text {
+  margin: 0 40rpx;
+}
+
+.pickCategory--style {
+  font-size: 40rpx;
+}
+
+.owner-info_box {
+  width: 670rpx;
+  padding: 60rpx 40rpx;
+  border-bottom-right-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
 }

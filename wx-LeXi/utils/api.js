@@ -9,6 +9,7 @@ module.exports = {
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
   auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
   bind_mobile:'accounts/wxa_bind_mobile',//绑定手机号码---
+  countries:'countries',// 获取国家列表
 
   // User
   user: 'users',   // GET 获取用户（当前登录用户）
@@ -44,7 +45,7 @@ module.exports = {
   wxacode: 'market/wxacode',  // POST 生成小程序码
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme:'wx_app_design/collections', //Get 主题---
-  marketBanners:'market/banners',//广告
+  marketBanners:'banners/:rid',//广告
   // Cart
   cart: 'cart',  // GET 加入购物车---
   cart_addon: 'cart',  // POST 添加产品至购物车

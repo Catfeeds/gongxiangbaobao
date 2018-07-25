@@ -115,8 +115,17 @@
       </view>
     </view>
     <!-- 主打下面的图片 -->
-    <view class='goodsPhotoInfo theme-bg-color' wx:if='{{advertisement.banners.length!=0}}'>
-      <image src='{{logo}}'></image>
+    <view 
+      class='goodsPhotoInfo theme-bg-color' 
+      wx:if='{{advertisement.banners.length!=0}}'>
+      <swiper 
+        indicator-color='rgba(0, 0, 0, .3)'
+        autoplay='{{true}}'
+        scroll-x style="width: 100%">
+        <swiper-item wx:for='{{advertisement.banner_images}}'>
+          <image src='{{item.image}}'></image>
+        </swiper-item>
+      </swiper>
     </view>
     <!-- 推荐好物 -->
     <view class=''>

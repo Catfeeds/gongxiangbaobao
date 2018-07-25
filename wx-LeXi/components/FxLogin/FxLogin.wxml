@@ -8,48 +8,43 @@
         <!-- 输入手机号码 -->
         <view class='mobile-number paymentFnTextB'>
           <view class='paymentFnTextB country' catchtap='countryTap'>
-            <input value='+{{country_code}}86' class='country_code'></input>
+            <input value='{{country_code}}' class='country_code'></input>
             <view class='jian'>
               <image src='../../images/bottom@2.png'></image>
             </view>
           </view>
           <view class='input-number'>
-            <input 
-              placeholder-class='number' 
-              placeholder='输入手机号码' 
-              maxlength="11" 
-              type="number" 
-              bindinput="inputText" 
-              value='{{mobaile_number}}'>
+            <input placeholder-class='number' placeholder='输入手机号码' maxlength="11" type="number" bindinput="inputText" value='{{mobaile_number}}'>
             </input>
           </view>
-          <view 
-            class='cha' 
-            catchtap='mobileNumberNullTap'>x</view>
-          <view 
-            wx:if="{{!is_time}}" 
-            class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}'
-            catchtap='getNumberTap'>获取验证码</view>
+          <view class='cha' catchtap='mobileNumberNullTap'>x</view>
+          <view wx:if="{{!is_time}}" class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}' catchtap='getNumberTap'>获取验证码</view>
 
           <view class='button-style font-ss c-middle' wx:if="{{is_time}}">{{time}}s</view>
         </view>
         <!-- 输入验证码 -->
         <view class='mobile-number yan input-number time-top'>
-          <input 
-            placeholder-class='number' 
-            placeholder='短信验证码' 
-            type="number" 
-            bindinput="serveNumber" 
-            value='{{verification_code}}' 
-            maxlength="6">
+          <input placeholder-class='number' placeholder='短信验证码' type="number" bindinput="serveNumber" value='{{verification_code}}' maxlength="6">
           </input>
           <text class='error-text font-ss' wx:if="{{prompt}}">验证码错误</text>
         </view>
         <!-- 按钮 -->
-        <button 
-          class='ok-btn c-middle {{over_button?"bg-green":""}}'
-          catchtap='handleVerifyOverTap'>完成</button>
+        <button class='ok-btn c-middle {{over_button?"bg-green":""}}' catchtap='handleVerifyOverTap'>完成</button>
       </view>
     </form>
+  </view>
+  <!-- 选择国家的弹出框 -->
+  <view class='pick-country-box bg-white black-font' wx:if="{{is_country}}">
+    <view class='componentTwo'>常用</view>
+    <view class='pick-country-btm'>
+      <view class='time-top' wx:for="{{country_pick}}" wx:key="{{item.rid}}" catchtap='pickCountryTap' data-code="{{item.areacode}}">
+        <text>{{item.name}}</text>
+        <text class='theme-hui-color'>{{item.areacode}}</text>
+      </view>
+    </view>
+    <view class='shim'></view>
+    <view class='off-btn_box'>
+      <image src='../../images/off@2.png' class='off_btn' catchtap='offBtnTap'></image>
+    </view>
   </view>
 </view>

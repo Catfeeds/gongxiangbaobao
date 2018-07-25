@@ -4,7 +4,7 @@ const api = require('./utils/api.js')
 const util = require('./utils/util.js')
 
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
     let logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -14,7 +14,7 @@ App({
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
     this.globalData.app_id = extConfig.authAppid
     wx.setStorageSync('fx', this.globalData)
-    console.log(extConfig,'第三方拓展信息')
+    console.log(extConfig, '第三方拓展信息')
     this.globalData.configInfo = extConfig
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
@@ -39,12 +39,12 @@ App({
     this.getShopId()
   },
 
-  login: function (cb) {
+  login: function(cb) {
     let that = this
     console.log('调用login获取code')
     // 调用login获取code
     wx.login({
-      success: function (res) {
+      success: function(res) {
         console.log(res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         const code = res.code
@@ -53,15 +53,12 @@ App({
         http.fxPost(api.user_authorize, {
           auth_app_id: that.globalData.app_id,
           code: code
-        }, function (res) {
+        }, function(res) {
           console.log(res)
           if (res.success) {
             let isBind = res.data.is_bind
             // 登录成功，得到jwt后存储到storage
-            wx.setStorage({
-              key: 'jwt',
-              data: res.data
-            })
+            wx.setStorageSync('jwt', res.data)
             that.globalData.isLogin = true
             that.globalData.token = res.data.token
             that.globalData.uid = res.data.uid
@@ -69,6 +66,7 @@ App({
             if (cb) {
               return typeof cb == 'function' && cb(true)
             }
+
           } else {
             // 显示错误信息
             wx.showToast({
@@ -83,8 +81,8 @@ App({
   },
 
   // 获取店铺的信息id
-  getShopId(){
-    http.fxGet(api.shop_info, {},(result)=> {
+  getShopId() {
+    http.fxGet(api.shop_info, {}, (result) => {
       console.log(result)
       if (result.success) {
         wx.setStorageSync('storeId', result.data.rid)
@@ -97,7 +95,7 @@ App({
   /**
    * 支付订单
    */
-  wxpayOrder: function (rid, payParams, cb) {
+  wxpayOrder: function(rid, payParams, cb) {
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -105,14 +103,16 @@ App({
       package: 'prepay_id=' + payParams.prepay_id,
       signType: 'MD5',
       paySign: payParams.pay_sign,
-      success: function (res) {
+      success: function(res) {
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
             title: '支付成功',
           })
 
           // 支付成功，更新订单状态
-          http.fxPost(api.order_paid_status, { rid: rid }, function (result) {
+          http.fxPost(api.order_paid_status, {
+            rid: rid
+          }, function(result) {
             if (result.success) {
               // 跳转至详情
               wx.navigateTo({
@@ -122,7 +122,7 @@ App({
           })
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res.errMsg)
         if (res.errMsg == 'requestPayment:fail') {
           wx.showToast({
@@ -143,7 +143,7 @@ App({
    */
   getCartTotalCount() {
     let that = this
-    http.fxGet(api.cart_item_count, {}, function (res) {
+    http.fxGet(api.cart_item_count, {}, function(res) {
       if (res.success) {
         that.globalData.cartTotalCount = res.data.item_count
       }
@@ -153,11 +153,11 @@ App({
   /**
    * 获取用户地理位置
    */
-  getUserLocation: function () {
+  getUserLocation: function() {
     let that = this
     wx.getLocation({
       type: 'wgs84',
-      success: function (res) {
+      success: function(res) {
         that.globalData.location = {
           latitude: res.latitude,
           longitude: res.longitude,
@@ -167,7 +167,7 @@ App({
       },
     })
   },
-  
+
 
   globalData: {
     isLogin: false,
@@ -175,10 +175,10 @@ App({
     app_id: null,
     token: null,
     // 是否绑定
-    isBind:wx.getStorageSync('jwt').is_bind,
+    isBind: wx.getStorageSync('jwt').is_bind,
     uid: 0,
     // 第三方配置信息
-    configInfo:'',
+    configInfo: '',
     // 微信用户openid
     openid: '',
     // 地址位置
@@ -191,26 +191,26 @@ App({
     checkedDeliveryAddress: {},
     system: [],
     // 店铺的信息
-    storeInfo:[],
+    storeInfo: [],
     // 主题商品列表
-    themeProdct:[],
+    themeProdct: [],
     //书否关注过
-    isWatchstore:false,
+    isWatchstore: false,
     //订单页面最合适的运费模板
-    logisticsMould:'',
+    logisticsMould: '',
     // 订单页面的sku信息
-    orderInfoSkus:'',
+    orderInfoSkus: '',
     //优惠卷
-    couponList:'',
+    couponList: '',
     //满减
-    fullSubtractionList:'',
+    fullSubtractionList: '',
     // 店铺是否经过认证
-    isAuthenticationStore:'',
+    isAuthenticationStore: '',
     //订单里面的sku
-    orderSkus:'',
+    orderSkus: '',
     //评论订单的时候的商品
-    critiqueProduct:'',
+    critiqueProduct: '',
     //选择运费模板里面的需要的订单信息
-    pickLogistics:''
+    pickLogistics: ''
   }
 })

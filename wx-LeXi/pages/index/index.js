@@ -108,7 +108,7 @@ Page({
 
   // 广告
   getAdvertisement() {
-    http.fxGet(api.marketBanners, {}, (result) => {
+    http.fxGet(api.marketBanners.replace(/:rid/g,'shop_wxa_index'), {}, (result) => {
       console.log(result, '广告')
       if (result.success) {
         this.setData({
@@ -307,32 +307,34 @@ Page({
 
   // 添加访问者---
   addBrowse() {
+    var openid = wx.getStorageSync('jwt').openid
     var params = {
-      openid: '', //String	必须	 	用户唯一标识
-      rid: '', //String	必须	 	店铺编号
+      openid: openid, //String	必须	 	用户唯一标识
+      rid: this.data.rid, //String	必须	 	店铺编号
       ip_addr: '', //String	可选	 	访问时IP
       agent: '', //String	可选	 	访问时代理
     }
-
-    params.openid = wx.getStorageSync('jwt').openid
-    params.rid = this.data.rid
+    console.log(params)
     http.fxPost(api.add_browse, params, (result) => {
       if (result.success) {
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
-        // utils.fxShowToast(result.status.message)
+        console.log(result)
         this.getBrowseQuantity() // 浏览浏览人数---
+        // utils.fxShowToast(result.status.message)
       }
     })
   },
   // 获取浏览浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
+    var openid = wx.getStorageSync('jwt').openid
     var params = {
       rid: this.data.rid,
       page: page,
       per_page: per_page,
-      openid: wx.getStorageSync('jwt').openid
+      openid: openid
     }
+    console.log(params)
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.rid), params, (result) => {
       console.log(result)
       if (result.success) {
@@ -543,10 +545,11 @@ Page({
     this.recommendProduct() // 推荐好物---
     this.getShopOwner() // 获取店铺主人的信息---
     // this.getAuthentication()// 查看是否认证---
-    this.addBrowse() // 添加访问者---
+    
     this.getAdvertisement() // 获取广告
     setTimeout(() => {
       this.coupon() // 获取优惠券---
+      this.addBrowse() // 添加访问者---
     }, 1000)
 
   },
@@ -560,11 +563,11 @@ Page({
   //监听页面的滚动
   onPageScroll: function(e) {
     // console.log(e)
-    if (e.scrollTop >= 464) {
+    if (e.scrollTop >= 622) {
       this.setData({
         tabPisition: true
       })
-    } else if (e.scrollTop < 464) {
+    } else if (e.scrollTop < 622) {
       this.setData({
         tabPisition: false
       })
