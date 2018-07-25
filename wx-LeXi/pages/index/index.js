@@ -147,13 +147,7 @@ Page({
       shareWhat: e.currentTarget.dataset
     })
   },
-  // 获取店铺的rid
-  getStoreId() {
-    var storeId = wx.getStorageSync('storeId')
-    this.setData({
-      rid: storeId
-    })
-  },
+
   // 获取优惠券列表
   coupon() {
     console.log(app.globalData.isLogin)
@@ -327,9 +321,10 @@ Page({
   },
   // 获取浏览浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
+    var rid = this.data.rid
     var openid = wx.getStorageSync('jwt').openid
     var params = {
-      rid: this.data.rid,
+      rid: rid,
       page: page,
       per_page: per_page,
       openid: openid
@@ -526,31 +521,37 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var storeId = wx.getStorageSync('storeId')
+    var openid= wx.getStorageSync('jwt').openid
     this.setData({
-      openid: wx.getStorageSync('jwt').openid
+      openid: openid,
+      rid: storeId
+    },()=>{
+
+      this.getNavigationBarTitleText() // 设置头部信息
+      // this.getStoreId() // 获取店铺的rid---
+      this.getIndexData() //获取店铺信息---
+
+      this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
+
+      this.createdOrderParams() //创建订单的参数---
+      this.getAnnouncement() // 获取店铺公告---
+      this.getIsWatch() // 查看是否关注---
+      this.getThemeProduct() //主打的设计1,主打设计 2,优质精选---
+      this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
+      this.recommendProduct() // 推荐好物---
+      this.getShopOwner() // 获取店铺主人的信息---
+      // this.getAuthentication()// 查看是否认证---
+
+      this.getAdvertisement() // 获取广告
+      setTimeout(() => {
+        this.coupon() // 获取优惠券---
+        this.addBrowse() // 添加访问者---
+      }, 1000)
+
     })
+
     console.log(this.data.openid)
-
-    this.getNavigationBarTitleText() // 设置头部信息
-    this.getStoreId() // 获取店铺的rid---
-    this.getIndexData() //获取店铺信息---
-
-    this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
-
-    this.createdOrderParams() //创建订单的参数---
-    this.getAnnouncement() // 获取店铺公告---
-    this.getIsWatch() // 查看是否关注---
-    this.getThemeProduct() //主打的设计1,主打设计 2,优质精选---
-    this.getThemeProduct(2) //主打的设计1,主打设计 2,优质精选---
-    this.recommendProduct() // 推荐好物---
-    this.getShopOwner() // 获取店铺主人的信息---
-    // this.getAuthentication()// 查看是否认证---
-    
-    this.getAdvertisement() // 获取广告
-    setTimeout(() => {
-      this.coupon() // 获取优惠券---
-      this.addBrowse() // 添加访问者---
-    }, 1000)
 
   },
 

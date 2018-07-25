@@ -122,7 +122,7 @@
         indicator-color='rgba(0, 0, 0, .3)'
         autoplay='{{true}}'
         scroll-x style="width: 100%">
-        <swiper-item wx:for='{{advertisement.banner_images}}'>
+        <swiper-item wx:for='{{advertisement.banner_images}}' wx:key='{{index}}'>
           <image src='{{item.image}}'></image>
         </swiper-item>
       </swiper>
