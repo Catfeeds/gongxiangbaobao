@@ -233,10 +233,9 @@ Page({
       productsArray.push(v.rid)
     })
     console.log(productsArray.join())
-    http.fxGet(api.usetIsLike, { rids: productsArray.join()},(result)=>{
-
+    var rids = productsArray.join()
+    http.fxGet(api.usetIsLike, { rids: rids},(result)=>{
       console.log(result)
-      
       if(result.success){
         products.forEach((v, i) => {
           result.data.forEach((e,index)=>{
