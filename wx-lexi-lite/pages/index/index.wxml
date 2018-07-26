@@ -8,31 +8,51 @@
     </view>
   </view>
   <view class='category-box'>
-    <text 
-      class='font-xxl {{pickCategory==item.id?"pickCategory--style theme-green":""}}' 
-      wx:for='{{category}}' 
-      wx:key='{{index}}'
-      data-category-id='{{item.id}}'
-      catchtap='handlePickCategory'> {{item.name}} </text>
+    <text class='font-xxl {{pickCategory==item.id?"pickCategory--style theme-green":""}}' wx:for='{{category}}' wx:key='{{index}}' data-category-id='{{item.id}}' catchtap='handlePickCategory'> {{item.name}} </text>
   </view>
   <!-- 生活馆 -->
   <view wx:if="{{pickCategory==1}}">
-    <!-- 店主信息 -->
     <view class='owner-info_box'>
-      <view class='owner-avatar_box'>
-        <image src='../../images/timg.jpg'></image>
-        <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon'></image>
-      </view>
-      <view>
-        <view>
-          <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
-          <text>"设计师然Ricky的生活馆..."</text>
+      <view class=' flex_row'>
+        <!-- 店主信息 -->
+        <view class='owner-avatar_box'>
+          <image src='../../images/timg.jpg'></image>
+          <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon'></image>
         </view>
-        <view>
-          <text>"欢迎来到我的乐喜生活馆,我准备了一些独特好设计供你挑选"</text>
+
+        <view class='owner-info-text_info'>
+          <view>
+            <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
+            <text class='font-sxl'>"设计师然Ricky的生活馆..."</text>
+          </view>
+          <view class='font-s qian-hui'>
+            <text>"欢迎来到我的乐喜生活馆,我准备了一些独特好设计供你挑选"</text>
+          </view>
+        </view>
+      </view>
+      <!-- 浏览过的人数 -->
+      <view class='joinNumber'>
+        <view class='theme-hui-color'>
+          <text class='theme-color'>{{shopInfo.browse_number}}</text> 浏览过设计馆</view>
+        <view class='joinNumberBottom'>
+          <view class='joinNumberl'>
+            <view class='joinNumberlBox'>
+              <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
+                <image src='{{item.avatar}}'></image>
+              </view>
+              <view class='photo-round joinNumberlPhoto'>
+                <open-data type='userAvatarUrl'></open-data>
+              </view>
+            </view>
+          </view>
+          <view class='middle_shadou'></view>
+          <view class='joinNumberR'>
+            {{shopInfo.browse_number>999?'999+':shopInfo.browse_number}}
+          </view>
         </view>
       </view>
     </view>
+
 
   </view>
   <!-- 精选 -->

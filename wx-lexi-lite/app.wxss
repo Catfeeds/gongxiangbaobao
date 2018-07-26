@@ -222,9 +222,12 @@
 }
 
 /* 字体大小 */
+.font-xss {
+  font-size: 20rpx;
+}
 
-.black-font {
-  font-size: 28rpx;
+.font-ss {
+  font-size: 22rpx;
 }
 
 .font-s {
@@ -235,12 +238,12 @@
   font-size: 26rpx;
 }
 
-.font-ss {
-  font-size: 22rpx;
+.black-font {
+  font-size: 28rpx;
 }
 
-.font-xss {
-  font-size: 20rpx;
+.font-sxl{
+  font-size: 30rpx;
 }
 
 .font-xl {
