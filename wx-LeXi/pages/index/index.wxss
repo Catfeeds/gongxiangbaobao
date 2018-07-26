@@ -24,9 +24,9 @@
   transform: translateX(-50%);
   width: 680rpx;
   height: 310rpx;
-  box-shadow: 10rpx 0 20rpx 6rpx rgba(0, 0, 0, 0.2),
-                -10rpx 0 20rpx 6rpx rgba(0, 0, 0, 0.2),
-                0 10rpx 20rpx 10rpx rgba(0, 0, 0, 0.2);
+  box-shadow: 4rpx 0 12rpx 4rpx rgba(0, 0, 0, 0.05),
+                -4rpx 0 12rpx 4rpx rgba(0, 0, 0, 0.05),
+                0 4rpx 12rpx 4rpx rgba(0, 0, 0, 0.05);
 }
 
 .middle-user-info {
@@ -49,13 +49,28 @@
   position: relative;
 }
 
-.locationAddOther>view, .shop-explain, .userNameBox {
+.shop-explain, .userNameBox {
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 24rpx;
   font-weight: 700;
+}
+.locationAddOther {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.locationAddOther > view {
+  flex: 0 0 auto;
+  font-size: 24rpx;
+  font-weight: 700;
+  margin-right: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .userNameBoxPhoto {
@@ -79,7 +94,7 @@
   color: #646464;
 }
 
-.locationAddOther>view, .locationAddOther {
+.locationAddOther > view, .locationAddOther {
   display: flex;
   flex-direction: row;
   font-weight: normal;
@@ -133,7 +148,7 @@
 
 .joinNumber {
   height: 160rpx;
-  padding: 40rpx;
+  padding: 30rpx 40rpx 40rpx;
   font-size: 24rpx;
   display: flex;
   flex-direction: column;
@@ -159,7 +174,7 @@
 }
 .middle_shadou{
   width: 40rpx;
-  background:linear-gradient(to left,rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));
+  background:linear-gradient(to left,rgba(0, 0, 0, 0.05),rgba(0, 0, 0, 0));
 }
 .joinNumberl {
   width: 540rpx;
@@ -195,6 +210,7 @@
   position: relative;
   font-size: 26rpx;
   height: 100rpx;
+  color: #999999;
 }
 
 .notice-box>view {
@@ -214,7 +230,7 @@
 
 .notice-info {
   position: absolute;
-  font-size: 28rpx;
+  font-size: 24rpx;
   right: 80rpx;
   bottom: 36rpx;
   background-color: white;
@@ -259,6 +275,9 @@
 
 .goodsPhotoInfo {
   text-align: center;
+}
+.goodsPhotoInfo > swiper {
+  height: 340rpx;
 }
 
 .goodsPhotoInfo image {
@@ -344,7 +363,7 @@
 
 .tuijian {
   border-bottom: 30rpx solid #f7f9fb;
-  padding: 40rpx;
+  padding: 0rpx 40rpx 40rpx;
 }
 
 .pickList {
@@ -391,10 +410,10 @@
 }
 
 .productionGoods {
-  width: 330rpx;
+  width: 325rpx;
   margin-bottom: 50rpx;
 }
-.productionGoodsFive{
+.productionGoodsFive {
   width: 670rpx;
 }
 .bagPhotoGoods {

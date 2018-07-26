@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   margin-right: 40rpx;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .shopRecommendGoodsR-old {

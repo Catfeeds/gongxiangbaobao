@@ -5,6 +5,7 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+
 Page({
   /**
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
@@ -119,6 +120,7 @@ Page({
       }
     })
   },
+
   // 领取优惠券
   getReceiveCoupon(e) {
     // 是否登陆
@@ -140,6 +142,7 @@ Page({
       }
     })
   },
+
   // 分享模板弹出
   handleShareBox(e) {
     this.setData({
@@ -200,6 +203,7 @@ Page({
       })
     }
   },
+
   // 获取店铺主人的信息
   getShopOwner() {
     http.fxGet(api.masterInfo, {}, (result) => {
@@ -214,6 +218,7 @@ Page({
       }
     })
   },
+
   // 主打商品和优质精选---
   getThemeProduct(e = 1) {
     http.fxGet(api.theme_product, {
@@ -234,6 +239,7 @@ Page({
       }
     })
   },
+
   // 查看是否喜欢
   examineIsLike() {
     console.log(app.globalData.isLogin,'查看是否喜欢')
@@ -241,6 +247,7 @@ Page({
       return
     }
     console.log(this.data.recommendProductList.products,'推荐好物列表')
+
     var products=this.data.recommendProductList.products
     var productsArray = []
     products.forEach((v,i)=>{
@@ -270,7 +277,8 @@ Page({
       }
     })
   },
-  //推荐好物---
+
+  // 推荐好物---
   recommendProduct(e = 1) {
     this.setData({
       ['productCategoryParams.is_distributed']: e,
@@ -288,6 +296,7 @@ Page({
       }
     })
   },
+
   // 人气里面的主题
   getTheme() {
     http.fxGet(api.theme, {}, (result) => {
@@ -300,6 +309,7 @@ Page({
       }
     })
   },
+
   // 人气最新商品
   newProdct() {
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
@@ -333,6 +343,7 @@ Page({
       }
     })
   },
+
   // 获取浏览浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
     var rid = this.data.rid
@@ -355,6 +366,7 @@ Page({
       }
     })
   },
+
   // 获取店铺公告---
   getAnnouncement() {
     http.fxGet(api.store_announcement, {}, (result) => {
@@ -365,6 +377,7 @@ Page({
       }
     })
   },
+
   // 添加关注---
   handleAddWatch() {
     // 是否登陆
@@ -388,6 +401,7 @@ Page({
       }
     })
   },
+
   // 取消关注---
   handleDeleteWatch() {
     // 是否登陆
@@ -410,6 +424,7 @@ Page({
       }
     })
   },
+
   // 查看是否关注
   getIsWatch() {
     console.log(app.globalData.isLogin)
@@ -431,6 +446,7 @@ Page({
       }
     })
   },
+
   // 获取店铺信息---
   getIndexData() {
     const that = this
@@ -448,6 +464,7 @@ Page({
       }
     })
   },
+
   //分类选项的函数---
   handleGoryActiveTap(e = 1) {
     if (e.currentTarget == undefined) {
@@ -481,6 +498,7 @@ Page({
       this.newProdct() // 人气里面的最新作品
     }
   },
+
   // 创建订单参数 并且设置店铺的id
   createdOrderParams() {
     this.setData({
@@ -488,6 +506,7 @@ Page({
     })
     wx.setStorageSync('orderParams', this.data.createdOrder)
   },
+
   // 点击喜欢
   handleBindLike(e) {
     console.log(app.globalData.isLogin)
@@ -536,6 +555,7 @@ Page({
       title: app.globalData.configInfo.name
     })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -580,6 +600,7 @@ Page({
   onReady: function() {
 
   },
+
   //监听页面的滚动
   onPageScroll: function(e) {
     // console.log(e)
@@ -593,6 +614,7 @@ Page({
       })
     }
   },
+
   shareTap(e) {
     var sign
     if (e.currentTarget.dataset.is_share == "1") {
@@ -692,24 +714,28 @@ Page({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })
   },
+
   //跳转到关注页面
   wacthTap() {
     wx.navigateTo({
       url: '../watch/watch',
     })
   },
+
   //优惠卷隐藏和显示
   coupon_show() {
     this.setData({
       coupon_show: true
     })
   },
+
   //优惠券完成按钮
   handleOffCouponTap() {
     this.setData({
       coupon_show: false
     })
   },
+
   //进入主题页面
   handlethemeTap(e) {
 
@@ -720,6 +746,7 @@ Page({
       url: '../theme/theme?id=' + e.currentTarget.dataset.id,
     })
   },
+
   // 关闭
   hanleOffLoginBox(e){
     console.log(e)
@@ -727,4 +754,5 @@ Page({
       is_mobile: e.detail.offBox
     })
   }
+  
 })

@@ -4,7 +4,7 @@
   <view class='sellInfo' wx:if='{{product.is_sold_out}}'>
     <image src='{{product.cover}}'></image>
   </view>
-  <image mode="widthFix" src='{{product.cover}}'></image>
+  <image mode="widthFix" src='{{ product.cover }}-p30'></image>
 </view>
 
 <view class='material-quality'>
