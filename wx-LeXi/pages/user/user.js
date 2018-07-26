@@ -193,6 +193,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     this.getProduct() // 获取商品---
   },
 

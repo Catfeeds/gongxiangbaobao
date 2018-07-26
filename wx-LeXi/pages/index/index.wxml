@@ -195,8 +195,22 @@
       <view class='human themeGoods'>
         主题
       </view>
-      <view class='themeBottomPhoto' data-id='{{item.id}}' wx:for='{{popularProductTheme}}' wx:key='{{index}}' data-index='{{index}}' catchtap='handlethemeTap'>
-        <image src='{{item.cover}}'></image>
+      <view 
+        class='themeBottomPhoto' 
+        data-id='{{item.id}}' 
+        wx:for='{{popularProductTheme}}' 
+        wx:key='{{index}}' 
+        data-index='{{index}}' 
+        catchtap='handlethemeTap'>
+        <image 
+          
+          src='{{item.cover}}'></image>
+        <view class='theme-text theme-text__name'>{{item.name}}</view>
+        <view class='theme-text theme-sub__name'>{{item.sub_name}}</view>
+        <view
+          class='theme-shade'
+          style="background: linear-gradient(to bottom, rgba(255,255,255,0) , {{item.mask_color}});">
+        </view>
       </view>
     </view>
 

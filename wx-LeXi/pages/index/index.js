@@ -300,6 +300,7 @@ Page({
   // 人气里面的主题
   getTheme() {
     http.fxGet(api.theme, {}, (result) => {
+      console.log(result,'人气里面的主题')
       if (result.success) {
         this.setData({
           popularProductTheme: result.data.collections
