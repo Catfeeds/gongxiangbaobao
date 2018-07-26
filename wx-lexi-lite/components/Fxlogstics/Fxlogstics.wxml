@@ -1,0 +1,11 @@
+<!--components/logstics/Fxlogstics.wxml-->
+<view class='receiveFnBottom'>
+  <view class='receiveFnBottomBox'>
+    <image src='https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3775999286,734565944&fm=58'></image>
+  </view>
+  <view class='logistics-goods'>
+    <text>顺丰快递</text>
+    <text>物流时长：10至15天送达，已含税</text>
+    <text>￥0.00</text>
+  </view>
+</view>

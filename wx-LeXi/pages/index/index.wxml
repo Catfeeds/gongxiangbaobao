@@ -100,7 +100,7 @@
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
           <fx-product product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
-      </view>
+      </view> 
     </view>
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color' wx:if='{{ advertisement.banners.length != 0 }}'>

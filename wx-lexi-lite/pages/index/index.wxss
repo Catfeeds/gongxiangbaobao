@@ -1,5 +1,11 @@
 /**index.wxss**/
 
+.delete-icon image, .no-sell-product_icon_box image, .characteristic-log image,
+.joinNumberlPhoto image, .characteristic-photo image, .all-product image {
+  height: 100%;
+  width: 100%;
+}
+
 .sear-box {
   position: relative;
   height: 120rpx;
@@ -43,12 +49,15 @@
   border-bottom-left-radius: 20rpx;
   box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
 }
-.owner-info-text_info{
+
+.owner-info-text_info {
   flex: 1;
 }
-.owner-info-text_info image{
+
+.owner-info-text_info image {
   margin-right: 10rpx;
 }
+
 .owner-info_icon--style {
   height: 34rpx;
   width: 34rpx;
@@ -71,8 +80,8 @@
 .owner-avatar_box image:nth-child(1) {
   height: 100%;
   width: 100%;
-  border-radius: 8rpx;
 }
+
 .joinNumber {
   height: 160rpx;
   padding-top: 40rpx;
@@ -81,33 +90,30 @@
   flex-direction: column;
   justify-content: space-around;
 }
+
 .joinNumberBottom {
   display: flex;
   flex-direction: row;
 }
+
 .joinNumberl {
-  width: 540rpx;
+  width: 590rpx;
   /* box-shadow: -10rpx 0 0rpx #f3f3f3 inset; */
   display: flex;
   overflow: hidden;
 }
+
 .joinNumberlBox {
   display: flex;
   flex-direction: row-reverse;
 }
+
 .joinNumberlPhoto {
   border: 6rpx solid white;
   margin-right: -20rpx;
   overflow: hidden;
 }
-.joinNumberlPhoto image{
-  height: 100%;
-  width: 100%;
-}
-.middle_shadou{
-  width: 40rpx;
-  background:linear-gradient(to left,rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));
-}
+
 .joinNumberR {
   height: 60rpx;
   width: 60rpx;
@@ -118,5 +124,306 @@
   justify-content: center;
   align-items: center;
   font-size: 20rpx;
-  margin-left: 20rpx;
+}
+
+.browse-number-box {
+  flex: 1;
+  box-shadow: -30rpx 0px 20rpx -10rpx rgba(0, 0, 0, 0.2);
+}
+
+.small-b-no_prodct {
+  height: 225rpx;
+  background-color: #f7f9fb;
+}
+
+.no-sell-product_icon_box {
+  height: 60rpx;
+  width: 60rpx;
+}
+
+.probation-box {
+  width: 650rpx;
+  height: 180rpx;
+  margin: 0 auto;
+  background-color: #f7f9fb;
+  padding: 20rpx;
+  border-bottom-left-radius: 8rpx;
+  border-bottom-right-radius: 8rpx;
+}
+
+.probation-icon {
+  width: 60rpx;
+  height: 36rpx;
+  background-color: #2785fa;
+  border-radius: 18rpx;
+  color: white;
+}
+
+.probation-success-text {
+  margin-top: 20rpx;
+  line-height: 40rpx;
+}
+
+.off-icon--style {
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.pick-product-box {
+  width: 670rpx;
+  height: 122rpx;
+  background-image: linear-gradient(95deg, #5fe4b1 0%, #b1e67e 100%);
+  margin: 30rpx auto;
+}
+
+.tuijian {
+  position: relative;
+  border-bottom: 2rpx solid #f7f9fb;
+  border-top: 2rpx solid #f7f9fb;
+  margin-bottom: 30rpx;
+  padding: 40rpx;
+  background-color: white;
+}
+
+.shopMaster image {
+  vertical-align: middle;
+  margin-right: 20rpx;
+}
+
+.shopMaster {
+  position: relative;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  font-size: 24rpx;
+}
+
+.shopRecommend {
+  position: relative;
+  padding: 40rpx;
+  font-size: 26rpx;
+}
+
+.triangle {
+  position: absolute;
+  height: 20rpx;
+  width: 20rpx;
+  transform: rotate(45deg);
+  top: -10rpx;
+  left: 20rpx;
+}
+
+.shopRecommendGoods-box {
+  margin-top: 40rpx;
+  margin-bottom: 60rpx;
+}
+
+.recommendbottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.recommendbottomText {
+  flex: 1;
+  display: flex;
+  font-size: 26rpx;
+  align-items: center;
+}
+
+.recommendbottomText>view {
+  margin-right: 10rpx;
+}
+
+.likeActive {
+  color: #6ed7af;
+}
+
+.recommendbottomText image {
+  height: 100%;
+  width: 100%;
+}
+
+.recommendbottomRen {
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.recommendbottomRen image {
+  margin-left: 10rpx;
+}
+
+.icon-like {
+  width: 38rpx;
+  height: 38rpx;
+}
+
+.examine-more-box {
+  margin-top: -30rpx;
+  height: 80rpx;
+  background-color: white;
+}
+
+.recommend-product-box {
+  padding-bottom: 30rpx;
+}
+
+.human {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin: 60rpx 40rpx 40rpx;
+}
+
+.new-goods {
+  margin: 82rpx 40rpx 40rpx;
+}
+
+.production {
+  padding: 40rpx 40rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.productionGoods {
+  width: 330rpx;
+  margin-bottom: 50rpx;
+}
+
+.productionGoodsFive {
+  width: 670rpx;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0rpx;
+  right: 0rpx;
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.delete-icon image {
+}
+
+.advertisement-box {
+  margin-top: 30rpx;
+}
+
+.advertisement-box swiper, .advertisement-box image {
+  height: 100%;
+}
+
+.product-category-box {
+  margin: 60rpx 0 60rpx 40rpx;
+  overflow: auto;
+}
+
+.slither-box {
+  flex-wrap: nowrap;
+}
+
+.slither-box>view {
+  margin-right: 54rpx;
+}
+
+.product-category-icon {
+  height: 108rpx;
+  width: 108rpx;
+  border-radius: 50%;
+}
+
+.characteristic-box {
+  display: inline-block;
+  width: 500rpx;
+  height: 500rpx;
+  margin-right: 40rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.characteristic-box>image {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  filter: blur(10rpx);
+}
+
+.characteristic-info {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.characteristic-log {
+  width: 90rpx;
+  height: 90rpx;
+  border: 4rpx solid white;
+}
+
+.characteristic-box__title {
+  width: 450rpx;
+  margin: 30rpx 25rpx 10rpx 25rpx;
+}
+
+.characteristic-title__text {
+  flex: 1;
+  margin-left: 18rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.characteristic-box__middle {
+  margin: 40rpx 25rpx;
+}
+
+.characteristic-photo {
+  height: 140rpx;
+  width: 140rpx;
+}
+
+.characteristic-watch_btn {
+  width: 151rpx;
+  height: 61rpx;
+  background-color: #5fe4b1;
+  border-radius: 30rpx;
+  margin: 0 auto;
+}
+
+.characteristic-watch_btn image {
+  height: 24rpx;
+  width: 28rpx;
+}
+
+.all-product {
+  width: 316rpx;
+  height: 316rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+  position: relative;
+}
+
+.all-product view {
+  position: absolute;
+  left: 30rpx;
+}
+
+.competitive-pick-icon {
+  bottom: 100rpx;
+  width: 62rpx;
+  height: 30rpx;
+  background-color: #fff;
+  border-radius: 4rpx;
+}
+.all-product_geishei{
+  bottom: 50rpx;
+}
+.all-product_miaoshu{
+  bottom: 15rpx;
 }

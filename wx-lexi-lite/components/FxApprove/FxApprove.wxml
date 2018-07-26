@@ -1,0 +1,5 @@
+<!--components/FxApprove/FxApprove.wxml 认证的图标-->
+
+        <image src='../../images/@2.png'></image>
+       
+
