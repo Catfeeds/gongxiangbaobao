@@ -83,7 +83,7 @@
   <view 
     class='coupon-box' 
     catchtap='coupon_show' 
-    wx:if='{{couponList||fullSubtractionList}}'>
+    wx:if='{{couponList.coupons.length!=0||fullSubtractionList.coupons.length!=0}}'>
     <fx-coupon 
       coupon='{{couponList.coupons}}' 
       fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>

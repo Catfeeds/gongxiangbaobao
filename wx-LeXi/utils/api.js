@@ -78,6 +78,7 @@ module.exports = {
   order_info_page_coupon:'market/user_order_coupons',//订单页面优惠券
   full_reduction:'market/user_order_full_reduction',//满减
   first_order_reduction:'market/coupons/new_user_discount',//满减
+  noLoginFullSubtraction:'market/coupons', //没有登陆下的满减
 
   // Search
   search: 'search/products',  // POST 搜索商品

@@ -163,8 +163,22 @@ Page({
           utils.fxShowToast(result.status.message)
         }
       })
+      this.setData({
+        ['couponParams.type']: 3
+      },()=>{
+        http.fxGet(api.noLoginFullSubtraction, this.data.couponParams, (result) =>{
+          console.log(result,'获取满减的')
+          app.globalData.fullSubtractionList = result.data
+          this.setData({
+            fullSubtractionList: result.data,
+            ['couponParams.type']: ''
+          })
+        })
+      })
+
     } else {
       http.fxGet(api.coupons, this.data.couponParams, (result) => {
+        console.log(result,'登陆的优惠券，满减')
         if (result.success) {
           if (this.data.couponParams.type != 3) {
             this.setData({
