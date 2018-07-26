@@ -3,7 +3,7 @@
 <!--components/FxProductMiddle/FxProductMiddle.wxml-->
 <view class='productMiddleBox' data-rid='{{product.rid}}' catchtap='handleProductInfo'>
   <view class='productMiddleBoxPhoto'>
-    <image src='{{product.cover}}' class='shopRecommendGoods-photo'></image>
+    <image src='{{ product.cover }}-p16' class='shopRecommendGoods-photo'></image>
     <view class='sell_up_text' wx:if="{{product.total_stock==0}}">售 罄</view>
   </view>
   <view class='shopRecommendGoodsR'>

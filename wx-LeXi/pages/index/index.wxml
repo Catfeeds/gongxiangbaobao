@@ -85,7 +85,8 @@
 
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
-    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='handleGoryActiveTap'>{{item.name}}
+    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='handleGoryActiveTap'>
+    {{ item.name }} <i wx:if="{{ item.rid == 2 && shopInfo.product_count > 0 }}">{{ shopInfo.product_count }}</i>
     </view>
   </view>
   <!-- 垫片 -->
