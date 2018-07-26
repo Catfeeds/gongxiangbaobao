@@ -9,7 +9,7 @@ Page({
    */
   data: {
     
-    pickCategory: 1,//选择分类
+    pickCategory: 3,//选择分类
     //分类列表
     category:[
       {name:'生活馆',id:1},

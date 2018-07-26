@@ -1,0 +1,39 @@
+/* components/coupon.wxss */
+
+.coupon-message{
+  font-size: 24rpx;
+  color: #555555;
+}
+.coupon-icon{
+  margin-bottom: 20rpx;
+}
+.coupon-icon image{
+  height: 30rpx;
+  width: 60rpx;
+vertical-align: middle;
+margin-right: 10rpx;
+}
+.get-btn{
+  width: 90rpx;
+  height: 54rpx;
+  border-radius: 30rpx;
+  border:1rpx solid #DADADA;
+  line-height: 54rpx;
+  text-align: center;
+}
+
+.reduced-price image{
+  height: 30rpx;
+  width: 30rpx;
+  vertical-align: middle;
+}
+.time-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.reduced-price text{
+  margin-right: 20rpx;
+
+}

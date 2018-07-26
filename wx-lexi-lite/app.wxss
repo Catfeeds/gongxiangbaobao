@@ -146,6 +146,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.fx-column--center{
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 /* 中间布局 */
 
@@ -181,8 +187,10 @@
 /* 内边距相关布局e */
 
 /* 字体颜色 */
+.font--white{
+  color: white;
+}
 
-/* 红色 */
 .theme--hong{
   color: #ff6666;
 }
