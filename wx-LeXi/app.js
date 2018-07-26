@@ -12,57 +12,74 @@ App({
 
     // 获取自定义第三方扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-    this.globalData.app_id = extConfig.authAppid
-    wx.setStorageSync('fx', this.globalData)
+
     console.log(extConfig, '第三方拓展信息')
+
+    this.globalData.app_id = extConfig.authAppid
     this.globalData.configInfo = extConfig
+
+    // wx.setStorageSync('fx', this.globalData)
+
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
+
     // 检查 jwt 是否存在 如果不存在调用登录
     if (!jwt || !jwt.token) {
       this.globalData.isLogin = false
       this.login()
     } else {
       // 验证token是否过期
-      console.log('Token expired: ' + util.checkTokenIsExpired(jwt))
+      console.log(util.checkTokenIsExpired(jwt), 'Token expired')
+
       if (util.checkTokenIsExpired(jwt)) {
         this.globalData.isLogin = false
         // 过期重新登录
         this.login()
+      } else {
+        // 设置全局变量
+        this.globalData.isLogin = true
+        this.globalData.token = jwt.token
+        this.globalData.uid = jwt.uid
+
+        this.updateUserInfo(jwt)
       }
-      // 获取地理位置
-      this.getUserLocation()
+
       // 获取购物车数量
       this.getCartTotalCount()
     }
+
+    // 获取地理位置
+    this.getUserLocation()
+
     // 获取店铺的rid
-    this.getShopId()
+    this.getShopInfo()
   },
 
   login: function(cb) {
-    let that = this
-    console.log('调用login获取code')
     // 调用login获取code
     wx.login({
-      success: function(res) {
-        console.log(res)
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      success: (res) => {
+        // 发送 res.code 到后台换取 openId
         const code = res.code
         console.log('Login code: ' + code)
+
         // 发送请求获取 jwt
         http.fxPost(api.user_authorize, {
-          auth_app_id: that.globalData.app_id,
+          auth_app_id: this.globalData.app_id,
           code: code
-        }, function(res) {
-          console.log(res)
+        }, (res) => {
+          console.log(res, '自动登录')
           if (res.success) {
             let isBind = res.data.is_bind
             // 登录成功，得到jwt后存储到storage
             wx.setStorageSync('jwt', res.data)
+
             if (isBind) {
-              that.globalData.isLogin = true
-              that.globalData.token = res.data.token
-              that.globalData.uid = res.data.uid
+              this.globalData.isLogin = true
+              this.globalData.token = res.data.token
+              this.globalData.uid = res.data.uid
+              
+              this.updateUserInfo(res.data)
               // 回调函数
               if (cb) {
                 return typeof cb == 'function' && cb(true)
@@ -81,11 +98,22 @@ App({
     })
   },
 
+  // 更新用户信息
+  updateUserInfo (jwt) {
+    this.globalData.userInfo = {
+      avatar: jwt.avatar,
+      username: jwt.username,
+      mobile: jwt.mobile,
+      username: jwt.username
+    }
+  },
+
   // 获取店铺的信息id
-  getShopId() {
+  getShopInfo() {
     http.fxGet(api.shop_info, {}, (result) => {
-      console.log(result)
+      console.log(result, '店铺信息')
       if (result.success) {
+        this.globalData.storeInfo = result.data
         wx.setStorageSync('storeId', result.data.rid)
       } else {
         util.fxShowToast(result.status.message)
@@ -142,11 +170,11 @@ App({
   /**
    * 获取购物车数量
    */
-  getCartTotalCount() {
-    let that = this
-    http.fxGet(api.cart_item_count, {}, function(res) {
+  getCartTotalCount () {
+    http.fxGet(api.cart_item_count, {}, (res) => {
+      console.log(res, '购物车数量')
       if (res.success) {
-        that.globalData.cartTotalCount = res.data.item_count
+        this.globalData.cartTotalCount = res.data.item_count
       }
     })
   },
@@ -155,11 +183,10 @@ App({
    * 获取用户地理位置
    */
   getUserLocation: function() {
-    let that = this
     wx.getLocation({
       type: 'wgs84',
-      success: function(res) {
-        that.globalData.location = {
+      success: (res) => {
+        this.globalData.location = {
           latitude: res.latitude,
           longitude: res.longitude,
           speed: res.speed,
@@ -169,17 +196,17 @@ App({
     })
   },
 
-
   globalData: {
     isLogin: false,
-    userInfo: null,
     app_id: null,
     token: null,
-    // 是否绑定
-    isBind: wx.getStorageSync('jwt').is_bind,
     uid: 0,
     // 第三方配置信息
     configInfo: '',
+    // 店铺的信息
+    storeInfo: [],
+    // 登录用户信息
+    userInfo: null,
     // 地址位置
     location: {},
     // 购物车数量
@@ -189,27 +216,25 @@ App({
     // 选中的收货地址
     checkedDeliveryAddress: {},
     system: [],
-    // 店铺的信息
-    storeInfo: [],
     // 主题商品列表
     themeProdct: [],
-    //书否关注过
+    // 是否关注过
     isWatchstore: false,
-    //订单页面最合适的运费模板
+    // 订单页面最合适的运费模板
     logisticsMould: '',
     // 订单页面的sku信息
     orderInfoSkus: '',
-    //优惠卷
+    // 优惠卷
     couponList: '',
-    //满减
+    // 满减
     fullSubtractionList: '',
     // 店铺是否经过认证
     isAuthenticationStore: '',
-    //订单里面的sku
+    // 订单里面的sku
     orderSkus: '',
-    //评论订单的时候的商品
+    // 评论订单的时候的商品
     critiqueProduct: '',
-    //选择运费模板里面的需要的订单信息
+    // 选择运费模板里面的需要的订单信息
     pickLogistics: ''
   }
 })

@@ -1,6 +1,6 @@
-//index.js
-//获取应用实例
+// 获取应用实例
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -55,19 +55,19 @@ Page({
     },
     //分类 精品 作品 人气---
     catgory: [{
-        name: "精品",
+        name: '精品',
         rid: 1
       },
       {
-        name: "作品",
+        name: '作品',
         rid: 2
       },
       {
-        name: "人气",
+        name: '人气',
         rid: 3
       }
     ],
-    url: "../../images/timg.jpg",
+    url: '../../images/timg.jpg',
     tabPisition: false, //tab是否定位
     // 推荐好物里面的参数---
     recommendProductParams: {
@@ -109,7 +109,7 @@ Page({
 
   // 广告
   getAdvertisement() {
-    http.fxGet(api.marketBanners.replace(/:rid/g,'shop_wxa_index'), {}, (result) => {
+    http.fxGet(api.marketBanners.replace(/:rid/g, 'shop_wxa_index'), {}, (result) => {
       console.log(result, '广告')
       if (result.success) {
         this.setData({
@@ -153,7 +153,7 @@ Page({
 
   // 获取优惠券列表
   coupon() {
-    console.log('获取优惠券：' + app.globalData.isLogin)
+    console.log(app.globalData.isLogin, '获取优惠券')
     if (!app.globalData.isLogin) {
       http.fxGet(api.noCouponsList, {}, (result) => {
         console.log(result)
@@ -560,14 +560,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getNavigationBarTitleText() // 设置头部信息
+
     var storeId = wx.getStorageSync('storeId')
     var openid= wx.getStorageSync('jwt').openid
     this.setData({
       openid: openid,
       rid: storeId
     },()=>{
-
-      this.getNavigationBarTitleText() // 设置头部信息
       // this.getStoreId() // 获取店铺的rid---
       this.getIndexData() //获取店铺信息---
 
@@ -754,5 +754,5 @@ Page({
       is_mobile: e.detail.offBox
     })
   }
-  
+
 })
