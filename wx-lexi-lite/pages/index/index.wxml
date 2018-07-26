@@ -175,7 +175,7 @@
     <!-- 分类的 -->
     <view class='product-category-box'>
       <view class='flex_row slither-box'>
-        <view class='fx-column--center' wx:for='112345'>
+        <view class='fx-column--center' wx:for='112345' wx:key='{{index}}'>
           <image class='product-category-icon' src='../../images/timg.jpg'></image>
           <view class='font-s'>配件饰品</view>
           <view class='font-ss qian-hui'>23454人</view>
@@ -197,23 +197,81 @@
     <view class='c-importantGoods'>
       <view class='c-importantGoodsTitle'>特色品牌馆</view>
       <view class='c-importantGoodsBox'>
-        <view class='characteristic-box' wx:for="123456790" wx:key="{{index}}">
+        <view class='characteristic-box' wx:for="123456790" wx:key="{{ index }}">
           <image src='../../images/timg.jpg'></image>
-          <view class='characteristic-info'>
-            <view class='flex_row'>
-              <view class='characteristic-log'>
-                <!-- <image src='../../images/timg.jpg'></image> -->
+          <view class='characteristic-info border-radius--8'>
+            <view class='flex_row characteristic-box__title border-radius--8'>
+              <view class='characteristic-log border-radius--8'>
+                <image class='border-radius--8' src='../../images/timg.jpg'></image>
               </view>
-              <view>
-                <view>Yimu一目就啊快点就...</view>
-                <view>456件</view>
+              <view class='characteristic-title__text'>
+                <text class='font--white font-xl text--hidden'>目就啊快啊快啊快啊快啊快啊快点就</text>
+                <view class='font-s shen-hui'>456件</view>
               </view>
             </view>
-            <view></view>
-            <view></view>
+            <view class='time-top characteristic-box__middle'>
+              <view class='characteristic-photo'>
+                <image src='../../images/timg.jpg' class='border-radius--8'></image>
+              </view>
+              <view class='characteristic-photo'>
+                <image src='../../images/timg.jpg' class='border-radius--8'></image>
+              </view>
+              <view class='characteristic-photo'>
+                <image src='../../images/timg.jpg' class='border-radius--8'></image>
+              </view>
+            </view>
+            <view class='characteristic-watch_btn c-middle'>
+              <image src='../../images/icon@2.png'></image>
+              <text class='font--white black-font'>关注</text>
+            </view>
           </view>
         </view>
       </view>
+    </view>
+
+    <!-- 优质新品 {{themeProduct.designs}} -->
+    <view class='c-importantGoods'>
+      <view class='c-importantGoodsTitle'>优质新品</view>
+      <view class='c-importantGoodsBox'>
+        <view class='c-importantGoodsPhoto' wx:for="123456790" wx:key="{{index}}">
+          <fx-product product="{{item.product}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+        </view>
+      </view>
+    </view>
+
+    <!-- 集合 {{themeProduct.designs}} -->
+    <view class='c-importantGoods'>
+      <view class='c-importantGoodsTitle'>集合</view>
+      <view class='c-importantGoodsBox'>
+        <view class='all-product' wx:for="123456790" wx:key="{{index}}">
+          <image class='border-radius--8' src='../../images/timg.jpg'></image>
+          <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
+          <view class='all-product_geishei font--white black-font'>给父亲的</view>
+          <view class='all-product_miaoshu font--white black-font'>个性化礼物</view>
+        </view>
+      </view>
+
+    <!-- 特惠好设计 {{themeProduct.designs}} -->
+    <view class='c-importantGoods'>
+      <view class='c-importantGoodsTitle'>特惠好设计</view>
+      <view class='c-importantGoodsBox'>
+        <view class='c-importantGoodsPhoto' wx:for="123456790" wx:key="{{index}}">
+          <fx-product product="{{item.product}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+        </view>
+      </view>
+    </view>
+
+    <!-- 百元好物 {{themeProduct.designs}} -->
+    <view class='c-importantGoods'>
+      <view class='c-importantGoodsTitle'>百元好物</view>
+      <view class='c-importantGoodsBox'>
+        <view class='c-importantGoodsPhoto' wx:for="123456790" wx:key="{{index}}">
+          <fx-product product="{{item.product}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+        </view>
+      </view>
+    </view>
+
+
     </view>
 
 

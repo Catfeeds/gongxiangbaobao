@@ -1,4 +1,5 @@
 /**app.wxss**/
+
 /**app.wxss**/
 
 /* 通用样式 */
@@ -89,14 +90,22 @@
   width: 100%;
 }
 
+/*边框*/
+
+.border-radius--8 {
+  border-radius: 8rpx;
+}
+
 /* 布局 */
 
 /* 横向布局 */
-.flex_row{
+
+.flex_row {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 .time-top {
   display: flex;
   flex-direction: row;
@@ -141,13 +150,15 @@
   justify-content: space-around;
   align-items: center;
 }
-.fx-column-b{
+
+.fx-column-b {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.fx-column--center{
-    display: flex;
+
+.fx-column--center {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -187,13 +198,15 @@
 /* 内边距相关布局e */
 
 /* 字体颜色 */
-.font--white{
+
+.font--white {
   color: white;
 }
 
-.theme--hong{
-  color: #ff6666;
+.theme--hong {
+  color: #f66;
 }
+
 .theme-hui-color {
   color: #c2c2c2;
 }
@@ -209,9 +222,11 @@
 .qian-hui {
   color: #999;
 }
-.shen-hui{
-  color: #666666;
+
+.shen-hui {
+  color: #666;
 }
+
 .hui-zi {
   font-size: 24rpx;
   color: #949ea6;
@@ -230,6 +245,7 @@
 }
 
 /* 字体大小 */
+
 .font-xss {
   font-size: 20rpx;
 }
@@ -250,37 +266,39 @@
   font-size: 28rpx;
 }
 
-.font-sxl{
+.font-sxl {
   font-size: 30rpx;
 }
 
 .font-xl {
   font-size: 32rpx;
 }
+
 .font-xxl {
   font-size: 34rpx;
 }
 
-.font-width--bold{
+.font-width--bold {
   font-weight: 700;
 }
-.font-width--semibold{
+
+.font-width--semibold {
   font-weight: 600;
 }
 
-.font-width--medium{
+.font-width--medium {
   font-weight: 500;
 }
 
-.font_width--regular{
+.font_width--regular {
   font-weight: 400;
 }
-.font_width--light{
+
+.font_width--light {
   font-weight: 300;
 }
 
 /* 字体的相关e */
-
 
 .container {
   height: 100%;
@@ -347,8 +365,9 @@ image {
 .theme-bg-color {
   background-color: #f7f9fb;
 }
-.fx-bg-hong{
-  background: #ff6666;
+
+.fx-bg-hong {
+  background: #f66;
 }
 
 @font-face {

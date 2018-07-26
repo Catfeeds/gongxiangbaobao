@@ -1,5 +1,7 @@
 /**index.wxss**/
-.delete-icon image, .no-sell-product_icon_box image,.characteristic-log image, .joinNumberlPhoto image {
+
+.delete-icon image, .no-sell-product_icon_box image, .characteristic-log image,
+.joinNumberlPhoto image, .characteristic-photo image, .all-product image {
   height: 100%;
   width: 100%;
 }
@@ -78,7 +80,6 @@
 .owner-avatar_box image:nth-child(1) {
   height: 100%;
   width: 100%;
-  border-radius: 8rpx;
 }
 
 .joinNumber {
@@ -112,7 +113,6 @@
   margin-right: -20rpx;
   overflow: hidden;
 }
-
 
 .joinNumberR {
   height: 60rpx;
@@ -173,7 +173,6 @@
   width: 670rpx;
   height: 122rpx;
   background-image: linear-gradient(95deg, #5fe4b1 0%, #b1e67e 100%);
-  border-radius: 8rpx;
   margin: 30rpx auto;
 }
 
@@ -199,7 +198,6 @@
 }
 
 .shopRecommend {
-  border-radius: 10rpx;
   position: relative;
   padding: 40rpx;
   font-size: 26rpx;
@@ -349,7 +347,6 @@
   top: 0;
   height: 100%;
   width: 100%;
-  border-radius: 8rpx;
   z-index: 0;
   filter: blur(10rpx);
 }
@@ -359,17 +356,74 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  border-radius: 8rpx;
 }
-.characteristic-log{
+
+.characteristic-log {
   width: 90rpx;
   height: 90rpx;
-  border: 4rpx solid white
-  
+  border: 4rpx solid white;
 }
-.characteristic-log,
-.characteristic-log image{
-  border-radius: 8rpx;
+
+.characteristic-box__title {
+  width: 450rpx;
+  margin: 30rpx 25rpx 10rpx 25rpx;
+}
+
+.characteristic-title__text {
+  flex: 1;
+  margin-left: 18rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.characteristic-box__middle {
+  margin: 40rpx 25rpx;
+}
+
+.characteristic-photo {
+  height: 140rpx;
+  width: 140rpx;
+}
+
+.characteristic-watch_btn {
+  width: 151rpx;
+  height: 61rpx;
+  background-color: #5fe4b1;
+  border-radius: 30rpx;
+  margin: 0 auto;
+}
+
+.characteristic-watch_btn image {
+  height: 24rpx;
+  width: 28rpx;
+}
+
+.all-product {
+  width: 316rpx;
+  height: 316rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+  position: relative;
+}
+
+.all-product view {
+  position: absolute;
+  left: 30rpx;
+}
+
+.competitive-pick-icon {
+  bottom: 100rpx;
+  width: 62rpx;
+  height: 30rpx;
+  background-color: #fff;
+  border-radius: 4rpx;
+}
+.all-product_geishei{
+  bottom: 50rpx;
+}
+.all-product_miaoshu{
+  bottom: 15rpx;
 }

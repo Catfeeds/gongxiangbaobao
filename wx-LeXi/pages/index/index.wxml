@@ -112,7 +112,7 @@
             bind:triggerEvent_product="handleInfomation" 
             oldPrice="{{true}}"></fx-product>
         </view>
-      </view>
+      </view> 
     </view>
     <!-- 主打下面的图片 -->
     <view 
