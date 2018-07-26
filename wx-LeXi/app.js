@@ -18,8 +18,6 @@ App({
     this.globalData.app_id = extConfig.authAppid
     this.globalData.configInfo = extConfig
 
-    // wx.setStorageSync('fx', this.globalData)
-
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
 
