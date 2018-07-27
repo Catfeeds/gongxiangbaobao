@@ -22,7 +22,7 @@ App({
 
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
-    
+    console.log(jwt,'jwt')
     this.globalData.jwt = jwt
 
     // 检查 jwt 是否存在 如果不存在调用登录
@@ -42,7 +42,7 @@ App({
         this.globalData.isLogin = true
         this.globalData.token = jwt.token
         this.globalData.uid = jwt.uid
-
+        // 更新用户信息
         this.updateUserInfo(jwt)
       }
 
@@ -53,7 +53,7 @@ App({
     // 获取地理位置
     this.getUserLocation()
 
-    // 获取店铺的rid
+    // 获取店铺的信息
     this.getShopInfo()
   },
 
@@ -80,7 +80,7 @@ App({
               this.globalData.isLogin = true
               this.globalData.token = res.data.token
               this.globalData.uid = res.data.uid
-              
+              //更新用户信息
               this.updateUserInfo(res.data)
               // 回调函数
               if (cb) {
@@ -110,7 +110,7 @@ App({
     }
   },
 
-  // 获取店铺的信息id
+  // 获取店铺的信息
   getShopInfo() {
     http.fxGet(api.shop_info, {}, (result) => {
       console.log(result, '店铺信息')

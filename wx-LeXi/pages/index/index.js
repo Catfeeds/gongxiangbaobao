@@ -391,10 +391,16 @@ Page({
     http.fxPost(api.add_watch, {
       rid: this.data.rid
     }, (result) => {
+
       if (result.success) {
+        app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count - 0 + 1
+        this.setData({
+          shopInfo: app.globalData.storeInfo,
+          is_with:true
+        })
         console.log(result, '关注')
         app.globalData.isWatchstore = true
-        this.getIsWatch()
+        // this.getIsWatch()
       } else {
         console.log(result, '错关注')
         utils.fxShowToast(result.status.message)
@@ -404,6 +410,7 @@ Page({
 
   // 取消关注---
   handleDeleteWatch() {
+    console.log(1)
     // 是否登陆
     if (!app.globalData.isLogin) {
       this.setData({
@@ -416,8 +423,13 @@ Page({
     }, (result) => {
       if (result.success) {
         app.globalData.isWatchstore = false
-        this.getIsWatch()
-
+        // this.getIsWatch()
+        app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count-1
+        this.setData({
+          shopInfo: app.globalData.storeInfo,
+          is_with: false
+        })
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -438,6 +450,7 @@ Page({
         this.setData({
           is_with: result.data.status
         })
+        console.log(app.globalData.storeInfo.browse_number)
         app.globalData.isWatchstore = result.data.status
       } else {
         console.log(result, '查看是否关注错')

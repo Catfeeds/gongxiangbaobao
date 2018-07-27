@@ -16,12 +16,13 @@ Page({
   //获取店铺休息，和店铺主人的信息
   getAllInfo(){
     this.setData({
-      storeInfo: wx.getStorageSync('storeInfo'),
+      storeInfo: app.globalData.storeInfo,
       storeOwnerInfo: wx.getStorageSync('storeOwnerInfo'),
       isAuthentication:app.globalData.isAuthenticationStore
     })
     this.getStoreCreatedTime()
     console.log(this.data.storeOwnerInfo)
+    console.log(this.data.storeInfo)
   },
   //开馆时间
   getStoreCreatedTime(){
@@ -36,6 +37,7 @@ Page({
    */
   onLoad: function (options) {
     this.getAllInfo() // 获取店铺信息
+    
   },
 
   /**

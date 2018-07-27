@@ -45,6 +45,7 @@ Page({
 
   // 地址选择器
   getAdressPick() {
+    console.log(this.data.adressIndex)
     var provinceOid = adressData.k_1_0[this.data.adressIndex[0]].oid
     var countyOid = adressData['k_2_' + provinceOid][this.data.adressIndex[1]].oid
     this.setData({

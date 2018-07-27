@@ -4,13 +4,14 @@
 
   <!-- 轮播图 123-->
   <view class='swiperBox'>
-    <swiper indicator-dots="true" autoplay="true">
+    <swiper autoplay="true" current bindanimationfinish='animationOver'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
-        <swiper-item display-multiple-items="{{index}}">
+        <swiper-item display-multiple-items="{{index}}" >
           <image src="{{item.view_url}}" />
         </swiper-item>
       </block>
     </swiper>
+    <view class='subscript'>{{swiperIndex}}/{{productInfomation.assets.length}}</view>
   </view>
 
   <!--轮播图 产品底部信息 -->
@@ -72,13 +73,10 @@
   </view>
 
   <!-- 有多少人喜欢 -->
-  <view class='likeBox'>
+  <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image src='../../images/timg.jpg' class='photo-round'></image>
-      <image src='../../images/timg.jpg' class='photo-round'></image>
-      <view class='photo-round'>
-        <open-data type='userAvatarUrl'></open-data>
-      </view>
+      <image wx:for="{{productInfomation.product_like_users}}" src='{{item.product_like_users.avatar}}' class='photo-round'></image>
+
     </view>
     <view class='roundR' >···</view>
   </view>

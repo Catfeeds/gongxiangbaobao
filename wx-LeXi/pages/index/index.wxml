@@ -104,7 +104,11 @@
     </view>
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color' wx:if='{{ advertisement.banners.length != 0 }}'>
-      <swiper indicator-color='rgba(0, 0, 0, .3)' autoplay='{{ true }}' scroll-x style="width: 100%">
+      <swiper 
+        indicator-dots="{{ true }}"
+        indicator-color='rgba(0, 0, 0, .3)' 
+        indicator-active-color="#fff"
+        autoplay='{{ true }}' scroll-x style="width: 100%">
         <swiper-item wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
           <image src='{{ item.image }}'></image>
         </swiper-item>
@@ -144,9 +148,9 @@
             <view catchtap='handleShareBox' data-shareStore='{{item}}' data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image src='{{logo}}' class='photo-round'></image>
-            <image src='{{logo}}' class='photo-round'></image>
-            <image src='{{logo}}' class='photo-round'></image>
+            <image src='{{item.product_like_users[0].avatar}}' class='photo-round'></image>
+            <image src='{{item.product_like_users[1].avatar}}' class='photo-round'></image>
+            <image src='{{item.product_like_users[2].avatar}}' class='photo-round'></image>
           </view>
         </view>
       </view>

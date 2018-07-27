@@ -3,6 +3,7 @@
 
 .swiperBox {
   height: 620rpx;
+  position: relative;
 }
 
 swiper-item, swiper-item>image, swiper {
@@ -465,4 +466,12 @@ swiper-item, swiper-item>image, swiper {
 .cart_text--color{
   color: #949ea6;
   font-size: 22rpx;
+}
+
+.subscript{
+  position: absolute;
+  color: white;
+  bottom: 30rpx;
+  right: 36rpx;
+  z-index: 999;
 }

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    swiperIndex:0,
     is_mobile:false,//  绑定手机模板
     skuPrice: '', // sku价格---
     couponList: '', // 优惠券列表---couponList
@@ -34,6 +35,12 @@ Page({
       page: 1,
       per_page: 10
     }
+  },
+  //轮播图结束后执行
+  animationOver(e){
+    this.setData({
+      swiperIndex: e.detail.current - 0 + 1
+    })
   },
 
   // 关闭优惠卷呼出框
@@ -165,14 +172,10 @@ Page({
 
   // 获取购物车商品数
   getShopCartNum() {
-<<<<<<< HEAD
-    let params = {
-=======
     if (!app.globalData.isLogin) {
       return
     }
     var params = {
->>>>>>> zgs4
       open_id: wx.getStorageSync("jwt").openid
     }
     http.fxGet(api.cart_item_count, params, (result) => {
@@ -372,9 +375,9 @@ Page({
 
   // 获取商品详情
   getProductInfomation() {
-    http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {}, (result) => {
+    http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), { user_record: true}, (result) => {
       if (result.success) {
-        console.log(result)
+        console.log(result,'产品详情')
         this.setData({
           productInfomation: result.data
         })
