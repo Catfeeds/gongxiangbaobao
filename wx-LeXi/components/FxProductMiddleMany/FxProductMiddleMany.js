@@ -42,8 +42,11 @@ Component({
     repertoryNumber: {
       type: Boolean,
       value: false
+    },
+    round: {
+      type: Boolean,
+      value: false
     }
-
   },
 
   /**

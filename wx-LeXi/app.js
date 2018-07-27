@@ -20,6 +20,8 @@ App({
 
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
+    
+    this.globalData.jwt = jwt
 
     // 检查 jwt 是否存在 如果不存在调用登录
     if (!jwt || !jwt.token) {
@@ -173,6 +175,12 @@ App({
       console.log(res, '购物车数量')
       if (res.success) {
         this.globalData.cartTotalCount = res.data.item_count
+        if (this.globalData.cartTotalCount > 0) {
+          wx.setTabBarBadge({
+            index: 1,
+            text: '' + this.globalData.cartTotalCount
+          })
+        }
       }
     })
   },
@@ -199,6 +207,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 登录相关信息
+    jwt: {},
     // 第三方配置信息
     configInfo: '',
     // 店铺的信息
