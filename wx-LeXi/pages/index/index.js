@@ -393,7 +393,6 @@ Page({
       if (result.success) {
         console.log(result, '关注')
         app.globalData.isWatchstore = true
-        this.getIndexData()
         this.getIsWatch()
       } else {
         console.log(result, '错关注')
@@ -416,7 +415,6 @@ Page({
     }, (result) => {
       if (result.success) {
         app.globalData.isWatchstore = false
-        this.getIndexData()
         this.getIsWatch()
 
       } else {
@@ -442,24 +440,6 @@ Page({
         app.globalData.isWatchstore = result.data.status
       } else {
         console.log(result, '查看是否关注错')
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 获取店铺信息---
-  getIndexData() {
-    const that = this
-    const params = {};
-    http.fxGet(api.shop_info, params, (result) => {
-      if (result.success) {
-        app.globalData.storeInfo = result.data
-        that.setData({
-          shopInfo: result.data
-        })
-
-        wx.setStorageSync('storeInfo', result.data)
-      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -562,14 +542,16 @@ Page({
   onLoad: function(options) {
     this.getNavigationBarTitleText() // 设置头部信息
 
+    this.setData({
+      shopInfo: app.globalData.storeInfo
+    })
+
     var storeId = wx.getStorageSync('storeId')
     var openid= wx.getStorageSync('jwt').openid
     this.setData({
       openid: openid,
       rid: storeId
     },()=>{
-      // this.getStoreId() // 获取店铺的rid---
-      this.getIndexData() //获取店铺信息---
 
       this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
 
@@ -583,6 +565,7 @@ Page({
       // this.getAuthentication()// 查看是否认证---
 
       this.getAdvertisement() // 获取广告
+
       setTimeout(() => {
         this.coupon() // 获取优惠券---
         this.addBrowse() // 添加访问者---

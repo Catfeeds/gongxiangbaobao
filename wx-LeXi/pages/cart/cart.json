@@ -1,4 +1,5 @@
-{"navigationBarTitleText": "购物车",
+{
+  "navigationBarTitleText": "购物车",
     "usingComponents": {
       "fx-product": "/components/FxProductComponent/FxProductComponent",
       "fx-approve": "/components/FxApprove/FxApprove",

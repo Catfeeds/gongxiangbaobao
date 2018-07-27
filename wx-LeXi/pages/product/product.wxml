@@ -54,13 +54,15 @@
         </view>
       </view>
     </view>
+
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show'>
       <fx-coupon 
         coupon='{{couponList.coupons}}' 
         fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
     </view>
-    <view class='branderInfo  goods-size' catchtap='pickShowTap'>
+
+    <view class='branderInfo goods-size' catchtap='pickShowTap'>
       <text class='textInfo'>请选择规格和尺码</text>
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
@@ -100,7 +102,7 @@
       </view>
       <view class='goodstext'>
         <text class='titlemini'>数量：</text>
-        <text>仅剩最后{{productInfomation.stock_count}}件</text>
+        <text>仅剩最后{{ productInfomation.stock_count }}件</text>
       </view>
     </view>
 
@@ -114,7 +116,7 @@
     <view class='otherInfo-describe location'>
       <view class='titleText'>交货时间</view>
       <view class='goodstext'>预计3-5天到达
-        <text class='theme-green'> 遵义</text>
+        <text class='theme-green'>遵义</text>
       </view>
     </view>
 
@@ -142,23 +144,22 @@
       </view>
       <view class='shopMiddle' catchtap='handleGoIndex'>
         <view class='hui-zi'>原创品牌设计馆</view>
-        <view class='shou'>{{storeInfo.name}}</view>
+        <view class='shou'>{{ storeInfo.name }}</view>
       </view>
       <view class='with '>
         <image src='../../images/shop1.png'></image>
-        <view>{{isWatch?'已关注':'关注'}}</view>
+        <view>{{ isWatch ? '已关注' : '关注' }}</view>
       </view>
     </view>
     <view class='shop-other-goods'>
       <view 
-        wx:for='{{newProductList.products}}' 
-        wx:key="{{index}}" 
-        data-rid='{{item.rid}}' 
+        wx:for='{{ newProductList.products }}' 
+        wx:key="{{ index }}" 
+        data-rid='{{ item.rid }}' 
         catchtap='handleProductInfoTap'>
-        <image src='{{item.cover}}'></image>
+        <image src='{{ item.cover }}'></image>
       </view>
     </view>
-    <view class='PTRT black-font theme-green'> 在线资讯</view>
   </view>
 
   <!-- 相似的产品 也就是分销-->

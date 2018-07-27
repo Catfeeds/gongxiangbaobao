@@ -7,7 +7,9 @@
   width: 180rpx;
   position: relative;
 }
-
+.shopRecommendGoods-photo.round {
+  border-radius: 4px;
+}
 .shopRecommendGoodsR {
   height: 182rpx;
   font-size: 28rpx;
@@ -16,7 +18,8 @@
   display: flex;
   flex-direction: column;
   margin-right: 40rpx;
-  justify-content: space-around;
+  justify-content: flex-start;
+  margin-top: 5px;
 }
 
 .shopRecommendGoodsR-old {
@@ -70,6 +73,7 @@ textarea {
 }
 .price-like-box{
   align-items: center;
+  margin-top: 5px;
 }
 .shopingName image {
   width: 24rpx;

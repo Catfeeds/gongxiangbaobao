@@ -161,7 +161,7 @@
         <view class='tuijian'>
           <!-- 物品的详情 -->
           <view class='recommend-goods-box' wx:for='{{highQualityProduct.designs}}' wx:key='{{index}}'>
-            <fx-product-middleM bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}">
+            <fx-product-middleM bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
             </fx-product-middleM>
           </view>
         </view>
