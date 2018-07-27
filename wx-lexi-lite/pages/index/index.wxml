@@ -142,7 +142,7 @@
       </view>
     </view>
 
-    <!-- 本周最受欢迎 wx:for='{{currentNewProduct.products}}' -->
+    <!-- 最新作品 wx:for='{{currentNewProduct.products}}' -->
     <view>
       <view class='human new-goods'>
         最新作品
@@ -157,24 +157,115 @@
 
   <!-- 精选 -->
   <view wx:if="{{pickCategory==2}}">
-    
+
     <!-- 手动旋转木马 -->
     <view></view>
 
     <!-- 开店指引 -->
     <view class="setUpShop-guide border-radius--8">
-      <view class='flex_row setUpShop-guide__top'>
-        <view>
+      <view class='time-top setUpShop-guide__top'>
+        <view class=''>
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
         </view>
-        <view class='black-font font--white time-top border-radius--8 c-theme-bg'>开馆指引</view>
+        <view class='black-font font--white c-middle border-radius--8 c-theme-bg setUpshop-guide__btn'>开馆指引</view>
       </view>
-
-      <view class='setUpShop-guide__bottom'>
-
+      <view class='flex_row font-s setUpShop-guide__bottom'>
+        <view class=" c-line-D  setUpShop-guide__bottom__left ">
+          <view class="setUpShop-guide__suona">
+            <image src='../../images/set-up-shop-suona@2.png'></image>
+          </view>
+          <view>开馆</view>
+          <view>头条</view>
+        </view>
+        <image class='setUpShop-guide__middle' src='../../images/set-up-shop-line.png'></image>
+        <view class=''>
+          <view>
+            <text class='theme-green'>设计师ricky</text>
+            <text>十秒</text>前开了自己的设计馆</view>
+          <view>「
+            <text>玮峰</text>」的设计馆
+            <text>1</text>小时
+            <text class='sell-order-quantity'>售出<text>200</text>单</text>
+          </view>
+        </view>
       </view>
     </view>
+
+    <!-- 今日推荐 {{themeProduct.designs}} -->
+    <view class='c-importantGoods box--margin'>
+      <view class='c-importantGoodsTitle'>今日推荐</view>
+      <view class='c-importantGoodsBox  today-recommend-box'>
+        <view class="today-recommend" wx:for="123456790" wx:key="{{index}}">
+          <view class='all-product'>
+            <image class='border-radius--8' src='../../images/timg.jpg'></image>
+          </view>
+          <view class='recommend-text theme-green'>
+            <text class='font-ss'>今日主题</text>
+          </view>
+          <view class='recommend-text'>
+            <text class='font-m'>创造101皮件特辑</text>
+          </view>
+          <view class='recommend-text qian-hui'>
+            <text class='font-ss'>温暖人心的潮流与的潮流与的潮流与复古的碰撞</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- "免运，奖励，优惠生活" -->
+    <view class='material-benefits'>
+      <view class='material-benefits-top qian-hui font-s'>免运，奖励，优惠生活</view>
+      <view class='material-benefits_bottom c-crosswise-a'>
+        <view class='font-s fx-column--center'>
+          <image src='../../images/guess-and-win-cash@2.png'></image>
+          <view>猜图赢现金</view>
+        </view>
+        <view class='font-s fx-column--center'>
+          <image src='../../images/receiv-coupon@2x.png'></image>
+          <view>领劵中心</view>
+        </view>
+        <view class='font-s fx-column--center'>
+          <image src='../../images/no-logistics-icon@2x.png'></image>
+          <view>包邮专区</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 人气推荐 wx:for='{{currentNewProduct.products}}' -->
+    <view>
+      <view class='human new-goods'>
+        人气推荐
+      </view>
+      <view class='production new-goods_box'>
+        <view class='productionGoods {{index==2||index==3||index==4?"one-row-three":""}}' wx:for="{{[1,7,2,3,9]}}" wx:key='{{index}}'>
+          <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        </view>
+      </view>
+    </view>
+
+    <!-- 广告 -->
+    <view class='probation-box advertisement-box'>
+      <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
+        <block wx:for="{{[1,1,1,1]}}">
+          <swiper-item>
+            <image src="{{item}}" class="slide-image" width="355" height="150" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+        <!-- 发现生活美学 {{themeProduct.designs}} -->
+    <view class='c-importantGoods box--margin'>
+      <view class='c-importantGoodsTitle'>发现生活美学</view>
+      <view class='c-importantGoodsBox  today-recommend-box'>
+        <view class="life-beautiful-box" wx:for="123456790" wx:key="{{index}}">
+          <view class='life-beautiful___photo'></view>
+
+        </view>
+      </view>
+    </view>
+
   </view>
 
   <!-- 探索 -->
@@ -269,6 +360,7 @@
           <view class='all-product_miaoshu font--white black-font'>个性化礼物</view>
         </view>
       </view>
+    </view>
 
     <!-- 特惠好设计 {{themeProduct.designs}} -->
     <view class='c-importantGoods'>
@@ -289,10 +381,6 @@
         </view>
       </view>
     </view>
-
-
-    </view>
-
 
   </view>
 
