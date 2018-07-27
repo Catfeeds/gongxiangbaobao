@@ -12,11 +12,9 @@ App({
 
     // 获取自定义第三方扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-<<<<<<< HEAD
 
-=======
     this.globalData.app_id = extConfig.authAppid
->>>>>>> zgs3
+
     console.log(extConfig, '第三方拓展信息')
 
     this.globalData.app_id = extConfig.authAppid

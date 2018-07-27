@@ -75,6 +75,9 @@ Page({
 
   // 增加浏览记录
   postAddBrowses() {
+    if (!app.globalData.isLogin) {
+      return
+    }
     http.fxPost(api.user_browses, {
       rid: this.data.rid
     }, (result) => {
@@ -162,7 +165,14 @@ Page({
 
   // 获取购物车商品数
   getShopCartNum() {
+<<<<<<< HEAD
     let params = {
+=======
+    if (!app.globalData.isLogin) {
+      return
+    }
+    var params = {
+>>>>>>> zgs4
       open_id: wx.getStorageSync("jwt").openid
     }
     http.fxGet(api.cart_item_count, params, (result) => {

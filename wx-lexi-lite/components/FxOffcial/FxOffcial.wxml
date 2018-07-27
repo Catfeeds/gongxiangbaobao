@@ -1,4 +1,4 @@
-<!--components/FxOfficial/FxOffcial.wxml-->
+<!--components/FxOfficial/FxOffcial.wxml 官方的图标-->
 <view class='container'>
   <view class='offcial-icon'>
     <view class='offcial-icon_item'>

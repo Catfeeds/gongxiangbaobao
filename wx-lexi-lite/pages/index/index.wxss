@@ -1,7 +1,8 @@
 /**index.wxss**/
 
 .delete-icon image, .no-sell-product_icon_box image, .characteristic-log image,
-.joinNumberlPhoto image, .characteristic-photo image, .all-product image {
+.joinNumberlPhoto image, .characteristic-photo image, .all-product image,
+.setUpShop-guide__suona image {
   height: 100%;
   width: 100%;
 }
@@ -421,9 +422,101 @@
   background-color: #fff;
   border-radius: 4rpx;
 }
-.all-product_geishei{
+
+.all-product_geishei {
   bottom: 50rpx;
 }
-.all-product_miaoshu{
+
+.all-product_miaoshu {
   bottom: 15rpx;
+}
+
+.setUpShop-guide {
+  width: 690rpx;
+  height: 252rpx;
+  margin: 0 auto;
+  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
+  border: solid 1px #e9e9e9;
+  margin-top: 40rpx;
+}
+
+.setUpShop-guide__top {
+  padding: 25rpx 30rpx;
+}
+
+.setUpShop-guide__bottom {
+  padding: 21rpx 0 21rpx 30rpx;
+}
+
+.setUpshop-guide__btn {
+  width: 147rpx;
+  height: 59rpx;
+}
+
+.setUpShop-guide__top {
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.setUpShop-guide__suona {
+  width: 31rpx;
+  height: 26rpx;
+}
+
+.setUpShop-guide__middle {
+  width: 8rpx;
+  height: 67rpx;
+  margin: 0 30rpx;
+}
+
+.sell-order-quantity {
+  color: #f4b329;
+}
+
+.box--margin {
+  padding-left: 0;
+  margin-left: 40rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.today-recommend {
+  width: 316rpx;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+
+.recommend-text {
+  width: 300rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.material-benefits {
+  margin: 0 40rpx;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.material-benefits image {
+  width: 54rpx;
+  height: 51rpx;
+}
+
+.material-benefits-top {
+  text-align: center;
+  margin-bottom: 50rpx;
+}
+
+.one-row-three {
+  width: 200rpx;
+}
+
+.life-beautiful-box{
+  display: inline-block;
+  margin-right: 40rpx;
+}
+.life-beautiful___photo{
+  width: 496rpx;
+  height: 507rpx;
+  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
 }
