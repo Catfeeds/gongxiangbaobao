@@ -156,7 +156,26 @@
   </view>
 
   <!-- 精选 -->
-  <view wx:if="{{pickCategory==2}}">精选</view>
+  <view wx:if="{{pickCategory==2}}">
+    
+    <!-- 手动旋转木马 -->
+    <view></view>
+
+    <!-- 开店指引 -->
+    <view class="setUpShop-guide border-radius--8">
+      <view class='flex_row setUpShop-guide__top'>
+        <view>
+          <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
+          <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
+        </view>
+        <view class='black-font font--white time-top border-radius--8 c-theme-bg'>开馆指引</view>
+      </view>
+
+      <view class='setUpShop-guide__bottom'>
+
+      </view>
+    </view>
+  </view>
 
   <!-- 探索 -->
   <view wx:if="{{pickCategory==3}}">
