@@ -3,6 +3,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
   /**
    * 页面的初始数据
@@ -16,13 +17,13 @@ Page({
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
     productInfomation: [], // 获取商品的详情，用来获取商品的规格和颜色，，用来挑选
-    pickBox: false, //选择的呼出框
+    pickBox: false, // 选择的呼出框
     addDesireOrder: [], // 要加入心愿单的rid---
-    falseheckbox: false, //falseheckbox---
-    checkboxPick: [], //选中的物品---
-    changeCart: false, //购物车是否编辑---
-    shoppingCart: [{}], //添加到购物车的内容产品内容---
-    payment: 0, //应该支付的总金额---
+    falseheckbox: false, // falseheckbox---
+    checkboxPick: [], // 选中的物品---
+    changeCart: false, // 购物车是否编辑---
+    shoppingCart: [{}], // 添加到购物车的内容产品内容---
+    payment: 0, // 应该支付的总金额---
     //添加购物车和修改购买数量的时候参数
     addCartParams: {
       rid: '', //	商品Id
@@ -32,6 +33,7 @@ Page({
     },
     thinkOrder: [{}], // 心愿单的内容---
   },
+
   // 是否登陆
   getIsLogin() {
     if (!app.globalData.isLogin) {
@@ -41,12 +43,14 @@ Page({
       return
     }
   },
+
   // 是否获取物品与用户之间的关系
   handleIsGetProductAtRelation() {
     if (!app.globalData.isBind) {
       return
     }
   },
+
   // 获取购物车 ---
   getCartProduct() {
     http.fxGet(api.cart, {
@@ -65,6 +69,7 @@ Page({
       }
     })
   },
+
   //  获取心愿单---
   getDesireOrder() {
     http.fxGet(api.wishlist, {}, (result) => {
@@ -78,6 +83,7 @@ Page({
       }
     })
   },
+
   //心愿单添加到购物车
   addCartTap(e) {
     console.log(e.currentTarget.dataset.rid)
@@ -108,7 +114,7 @@ Page({
     })
   },
 
-  //当点击移除---
+  // 当点击移除---
   clearCart() {
     http.fxPost(api.clearCart, {
       open_id: wx.getStorageSync("jwt").openid,
@@ -124,6 +130,7 @@ Page({
     //重新计算
     this.paymentPrice()
   },
+
   // 放入心愿单--
   addDesire() {
     console.log(this.data.addDesireOrder)
@@ -145,6 +152,7 @@ Page({
       }
     })
   },
+
   //购物车点击移除按钮和放入心愿单按钮---
   cartClearTap(e) {
     var cartAllInfo = []
@@ -156,6 +164,7 @@ Page({
 
     }
   },
+
   //编辑按钮购物车---
   changeCartTap(e) {
     var status = e.currentTarget.dataset.change
@@ -170,6 +179,7 @@ Page({
       })
     }
   },
+
   // 应该支付的总金额shoppingCart---
   paymentPrice() {
     let aggregatePrice = 0
@@ -185,7 +195,7 @@ Page({
     })
   },
 
-  //增加数量或者减少数量---
+  // 增加数量或者减少数量---
   changeQuantity(e) {
     console.log(e.currentTarget.dataset)
     var is_function = e.currentTarget.dataset.function
@@ -225,6 +235,7 @@ Page({
     }
     this.paymentPrice() //计算金额
   },
+
   //更新购物车---
   putRenovateCart(e) {
     http.fxPut(api.cart, this.data.addCartParams, (result) => {
@@ -235,6 +246,7 @@ Page({
       }
     })
   },
+
   /** start 后续抽离**/
   // 查找sku的价格
   getSkuPrice() {
@@ -249,6 +261,7 @@ Page({
       }
     })
   },
+
   // 获取商品详情
   getProductInfomation(e) {
     http.fxGet(api.product_detail.replace(/:rid/g, e), {}, (result) => {
@@ -265,7 +278,8 @@ Page({
       }
     })
   },
-  //过滤产品的型号
+
+  // 过滤产品的型号
   filterSpecifications() {
     var newColor = []
     var colorTwo = []
@@ -285,6 +299,7 @@ Page({
       pickSpecifications: colorTwo
     })
   },
+
   // 过滤产品的颜色去重
   filterColor() {
     var newColor = []
@@ -305,6 +320,7 @@ Page({
       pickColor: colorTwo
     })
   },
+  
   // 点击颜色按钮
   handlePickColor(e) {
     var newData = []
