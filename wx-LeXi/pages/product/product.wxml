@@ -1,12 +1,13 @@
 <!--pages/product/product.wxml 产品详情-->
 <import src="../couponTemplate/couponTemplate.wxml" />
-<view class='container theme-bg-color'>
+<import src="../../wxParse/wxParse.wxml" />
+<view class='container theme-bg-color product-bout-box'>
 
   <!-- 轮播图 123-->
   <view class='swiperBox'>
     <swiper autoplay="true" current bindanimationfinish='animationOver'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
-        <swiper-item display-multiple-items="{{index}}" >
+        <swiper-item display-multiple-items="{{index}}">
           <image src="{{item.view_url}}" />
         </swiper-item>
       </block>
@@ -23,9 +24,9 @@
     <view class='branderInfo'>
       <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'>
         <text>￥</text>
-        <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
-        <text>-</text>
-        <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+      <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text>-</text>
+      <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
       </text>
       <text class='cureentPrice' wx:else>
          ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
@@ -33,9 +34,13 @@
 
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
-
+<!-- wx:for='{{productInfomation.labels}}' -->
     <view class='characteristic branderInfo'>
-      <text class='{{characteristicT}}' wx:for='{{productInfomation.labels}}' wx:key='{{index}}'>{{item.name}} · </text>
+      <text class='{{characteristicT}} characteristic-index_one'  wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text>
+      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[1].name}}  </text>
+      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[2].name}} </text>
+      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[3].name}}  </text>
+      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[4].name}}  </text>
       <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
@@ -58,9 +63,7 @@
 
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show'>
-      <fx-coupon 
-        coupon='{{couponList.coupons}}' 
-        fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
+      <fx-coupon coupon='{{couponList.coupons}}' fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
     </view>
 
     <view class='branderInfo goods-size' catchtap='pickShowTap'>
@@ -75,10 +78,10 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image wx:for="{{productInfomation.product_like_users}}" src='{{item.product_like_users.avatar}}' class='photo-round'></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.product_like_users.avatar}}' class='photo-round'></image>
 
     </view>
-    <view class='roundR' >···</view>
+    <view class='roundR'>···</view>
   </view>
 
   <!-- 描述,发货地，时间 -->
@@ -94,8 +97,8 @@
         <text class='titlemini'>材质：</text>
         <text>{{productInfomation.material_id}}</text>
       </view>
-      <view class='goodstext'>
-        <text class='titlemini' wx:if='{{productInfomation.is_custom_service}}'>特点： </text>
+      <view class='goodstext' wx:if='{{productInfomation.is_custom_service}}'>
+        <text class='titlemini'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
       <view class='goodstext'>
@@ -107,14 +110,14 @@
     <!-- 发货地点 -->
     <view class='otherInfo-describe location'>
       <view class='titleText'>发货地</view>
-      <view class='goodstext'>台湾.花莲</view>
+      <view class='goodstext'>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}.{{storeInfo.delivery_city}}</view>
     </view>
 
     <!-- 交货时间 -->
     <view class='otherInfo-describe location'>
       <view class='titleText'>交货时间</view>
       <view class='goodstext'>预计3-5天到达
-        <text class='theme-green'>遵义</text>
+        <!-- <text class='theme-green'>遵义</text> -->
       </view>
     </view>
 
@@ -126,7 +129,7 @@
         <text>30天退换货服务</text>
       </view>
       <view class='two-line-text goodstext'>
-        预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+      {{productInfomation.product_return_policy}}
       </view>
       <view class='allInfo' catchtap='animationOnFn'>
         <view class='allInfo-btn'>查看全部</view>
@@ -150,11 +153,7 @@
       </view>
     </view>
     <view class='shop-other-goods'>
-      <view 
-        wx:for='{{ newProductList.products }}' 
-        wx:key="{{ index }}" 
-        data-rid='{{ item.rid }}' 
-        catchtap='handleProductInfoTap'>
+      <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
         <image src='{{ item.cover }}'></image>
       </view>
     </view>
@@ -184,28 +183,12 @@
   </view> -->
 
   <!-- 产品的详细介绍 -->
+
   <view class='goods-info'>
-    <view class='title-text'>作品详情</view>
     <view>
-      <view>这是切線派设计的第一款女士钱夹。追求实用性和美观的结合，在这款长夹上体现的淋漓尽致。</view>
-      <view>尺寸（闭合）：长 20 x 宽 9 x 厚3.5 （cm）封口的扣条设计，方便并且极其经久耐用。</view>
+      <view class='title-text'>作品详情</view>
+      <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}" />
     </view>
-    <view class='imgBox'>
-      <image mode="widthFix"></image>
-    </view>
-    <view class='imgBox'>
-      <image mode="widthFix"></image>
-    </view>
-    <view>另外，本店产品全部下单后开始手工制作，制作时间按实际情况为准。一般情况制作时间为5-10天。下单前请询问具体发货时间。
-    </view>
-    <view class='imgBox'>
-      <image mode="widthFix"></image>
-    </view>
-    <view>注意事项 </view>
-    <view>☆植鞣皮革，表明不防水，所以清洁时，请勿以手洗或机洗的方式处理，以免皮质受损。</view>
-    <view>☆包包在使用过程中如果不小心遇到水，皮面顏色会加深，不用过於担心，请用棉布擦乾表面，自然风乾就会恢复了，请勿使用高温、高热的电器烘乾。 </view>
-    <view>☆避免接触油污、酸性及硷性等物质或放置於高温、高热气处。</view>
-    <view>☆遇脏污时，可使用皮革专用清洗剂进行清洁动作，先用乾棉布将灰尘等脏污擦掉，再将清洗剂喷洒於棉布上后擦拭，清洗后记得放於通风处晾乾。。 。</view>
   </view>
 
   <!-- 选择规格box -->
@@ -216,50 +199,36 @@
         <view>
           <!-- <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
           <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text> -->
-      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price && !skuPrice}}'>
+          <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price && !skuPrice}}'>
         <text>￥</text>
-        <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
-        <text>-</text>
-        <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
-      </text>
-      <text class='cureentPrice' wx:if='{{productInfomation.max_price==productInfomation.min_price && !skuPrice}}'>
+          <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+          <text>-</text>
+          <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+          </text>
+          <text class='cureentPrice' wx:if='{{productInfomation.max_price==productInfomation.min_price && !skuPrice}}'>
          ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
       </text>
-      <text wx:if='{{skuPrice}}'>￥{{skuPrice}}</text>
+          <text wx:if='{{skuPrice}}'>￥{{skuPrice}}</text>
         </view>
       </view>
       <!-- 颜色 -->
       <view class='goods-color-box'>
         <view class='black-font color-title'>颜色</view>
         <view class='goods-color goods-color-box'>
-          <view 
-            data-colorName="{{item.name}}" 
-            data-icon='{{item.name}}' 
-            data-isPick='{{item.disabled}}' 
-            class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}'
-            wx:for='{{pickColor}}' 
-            wx:key='{{index}}' 
-            catchtap='handlePickColor'>{{item.name}}</view>
+          <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
         </view>
       </view>
       <!-- 尺寸 -->
       <view class='goods-color-box'>
         <view class='black-font color-title'>规格</view>
         <view class='goods-color goods-color-box'>
-          <view 
-            data-icon='{{item.name}}' 
-            catchtap='handleSpecificationsTap' 
-            data-isPick='{{item.disabled}}' 
-            data-specificationsName='{{item.name}}' 
-            class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' 
-            disabled='{{item.disabled}}' 
-            wx:for='{{pickSpecifications}}'
+          <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
             wx:key='{{index}}'>{{item.name}}</view>
         </view>
       </view>
       <!-- 垫片 -->
       <view class='shm'></view>
-      <view class='bottom-btn bg-white c-crosswise-a pick' >
+      <view class='bottom-btn bg-white c-crosswise-a pick'>
         <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
         <view class='btn-bg-color' catchtap='receiveOrderTap'>选好了</view>
       </view>
@@ -284,9 +253,7 @@
 
   <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}">
-    <template 
-    is="couponTemplate" 
-    data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
+    <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 
   <!-- 查看全部的呼出框  style='height:{{window_height}}rpx'-->
@@ -297,33 +264,33 @@
         <view class='titleText'>描述</view>
         <view class='goodstext two-line-text'>
           <text class='titlemini'>亮点：</text>
-          <text>香味可持续两个月左右，如果觉得香味变如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡如果觉得香味变淡淡， 可继续滴入自己喜欢的香水或精油哦阿酒红色</text>
+          <text>{{productInfomation.features}}</text>
         </view>
         <view class='goodstext'>
           <text class='titlemini'>材质：</text>
-          <text>棉.麻</text>
+          <text>{{productInfomation.material_id}}</text>
         </view>
-        <view class='goodstext'>
+        <view class='goodstext' wx:if='{{productInfomation.is_custom_service}}'>
           <text class='titlemini'>特点： </text>
           <text>可提供定制化服务</text>
         </view>
         <view class='goodstext'>
           <text class='titlemini'>数量：</text>
-          <text>仅剩最后3件</text>
+          <text>仅剩最后{{ productInfomation.stock_count }}件</text>
         </view>
       </view>
 
       <!-- 发货地点 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>发货地</view>
-        <view class='goodstext'>台湾.花莲</view>
+        <view class='goodstext'>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}.{{storeInfo.delivery_city}}</view>
       </view>
 
       <!-- 交货时间 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>交货时间</view>
         <view class='goodstext'>预计3-5天到达
-          <text class='theme-green'> 遵义</text>
+          <!-- <text class='theme-green'> 遵义</text> -->
         </view>
       </view>
 
@@ -335,10 +302,7 @@
           <text>30天退换货服务</text>
         </view>
         <view class='goodstext'>
-          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
-          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
-          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
-          预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注 预计到达目的地的估计到达3-5，如计到达3-5，如果任何的不满计到达3-5，如果任意你购买，你可以退货或换货之日起30日。请注
+         {{productInfomation.product_return_policy}}
         </view>
         <view class='shm'></view>
         <view class='allInfo off-info' catchtap='animationOffFn' wx:if="{{off_icon}}">
@@ -349,6 +313,6 @@
   </view>
   <!-- 绑定手机的模板 -->
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
-      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
 </view>

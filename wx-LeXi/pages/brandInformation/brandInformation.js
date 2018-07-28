@@ -3,6 +3,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+let wxparse = require("../../wxParse/wxParse.js")
 Page({
 
   /**
@@ -12,18 +13,21 @@ Page({
     createdTime:[], // 开馆时间---
     storeInfo:[], // 店铺的信息---
     storeOwnerInfo:[], //店铺主人的信息---
+    dkcontent:'',
   },
   //获取店铺休息，和店铺主人的信息
   getAllInfo(){
     this.setData({
       storeInfo: app.globalData.storeInfo,
       storeOwnerInfo: wx.getStorageSync('storeOwnerInfo'),
-      isAuthentication:app.globalData.isAuthenticationStore
+      isAuthentication:app.globalData.isAuthenticationStore,
+      dkcontent: app.globalData.storeInfo.detail.content
     })
     this.getStoreCreatedTime()
     console.log(this.data.storeOwnerInfo)
     console.log(this.data.storeInfo)
   },
+
   //开馆时间
   getStoreCreatedTime(){
     var createdTime = utils.timestamp2string(this.data.storeInfo.created_at,'date')
@@ -44,14 +48,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    //处理数据
+    wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**

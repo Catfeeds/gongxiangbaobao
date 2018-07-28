@@ -3,14 +3,15 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-
+let wxparse = require("../../wxParse/wxParse.js")
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    swiperIndex:0,
-    is_mobile:false,//  绑定手机模板
+    dkcontent: '',
+    swiperIndex: 0,
+    is_mobile: false, //  绑定手机模板
     skuPrice: '', // sku价格---
     couponList: '', // 优惠券列表---couponList
     fullSubtractionList: '', // 满减---
@@ -37,7 +38,7 @@ Page({
     }
   },
   //轮播图结束后执行
-  animationOver(e){
+  animationOver(e) {
     this.setData({
       swiperIndex: e.detail.current - 0 + 1
     })
@@ -81,20 +82,20 @@ Page({
   },
 
   // 增加浏览记录
-  postAddBrowses() {
-    if (!app.globalData.isLogin) {
-      return
-    }
-    http.fxPost(api.user_browses, {
-      rid: this.data.rid
-    }, (result) => {
-      if (result.success) {} else {}
-    })
-  },
+  // postAddBrowses() {
+  //   if (!app.globalData.isLogin) {
+  //     return
+  //   }
+  //   http.fxPost(api.user_browses, {
+  //     rid: this.data.rid
+  //   }, (result) => {
+  //     if (result.success) {} else {}
+  //   })
+  // },
 
   // 加入心愿单
   handleaddDesireTap() {
-  //是否绑定
+    //是否绑定
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
@@ -375,15 +376,22 @@ Page({
 
   // 获取商品详情
   getProductInfomation() {
-    http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), { user_record: true}, (result) => {
+    http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
+      user_record: true
+    }, (result) => {
       if (result.success) {
-        console.log(result,'产品详情')
+        console.log(result, '产品详情')
+        // console.log(result.data.content)
         this.setData({
-          productInfomation: result.data
+          productInfomation: result.data,
+          dkcontent: result.data.content
         })
-        
-
-        wx.setStorageSync('logisticsIdFid', result.data.fid)
+        // 过滤商品的颜色---
+        this.filterColor() 
+        // 过滤产品的规格---
+        this.filterSpecifications() 
+        // 处理html数据---
+        wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -482,11 +490,11 @@ Page({
     this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
 
-    setTimeout(() => {
-      this.filterColor() // 过滤商品的颜色---
-      this.filterSpecifications() // 过滤产品的规格---
-      this.postAddBrowses() // 增加浏览记录
-    }, 1500)
+    // setTimeout(() => {
+      // this.filterColor() // 过滤商品的颜色---
+      // this.filterSpecifications() // 过滤产品的规格---
+      // this.postAddBrowses() // 增加浏览记录
+    // }, 1500)
 
     this.getShopCartNum() // 获取购物车商品数量---
     this.getstoreInfo() // 获取店铺信息---
@@ -598,19 +606,16 @@ Page({
           })
         })
         app.globalData.orderSkus = result
+        wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
+        console.log(this.data.productInfomation.fid)
         console.log(app.globalData.orderSkus)
         wx.navigateTo({
           url: '../receiveAddress/receiveAddress?rid=' + rid,
         })
       } else {
-
       }
-
-
     })
-
     /**end**/
-
   },
 
   watchTap() {

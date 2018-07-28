@@ -153,10 +153,10 @@ Page({
 
   // 获取优惠券列表
   coupon() {
-    console.log(app.globalData.isLogin, '获取优惠券')
+    console.log(app.globalData.isLogin)
     if (!app.globalData.isLogin) {
       http.fxGet(api.noCouponsList, {}, (result) => {
-        console.log(result)
+        console.log(result, '没有获取优惠券')
         if (result.success) {
           this.setData({
             couponList: result.data
@@ -170,7 +170,7 @@ Page({
         ['couponParams.type']: 3
       },()=>{
         http.fxGet(api.noLoginFullSubtraction, this.data.couponParams, (result) =>{
-          console.log(result,'获取满减的')
+          console.log(result,'获取优惠券')
           app.globalData.fullSubtractionList = result.data
           this.setData({
             fullSubtractionList: result.data,
@@ -582,7 +582,7 @@ Page({
 
       setTimeout(() => {
         this.coupon() // 获取优惠券---
-        this.addBrowse() // 添加访问者---
+        // this.addBrowse() // 添加访问者---
       }, 1000)
 
     })

@@ -475,3 +475,7 @@ swiper-item, swiper-item>image, swiper {
   right: 36rpx;
   z-index: 999;
 }
+
+.characteristic-index_one{
+  color: #F5A43C;
+}

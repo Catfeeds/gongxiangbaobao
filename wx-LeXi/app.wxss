@@ -1,5 +1,10 @@
 /**app.wxss**/
+@import "wxParse/wxParse.wxss";
 
+/*商品详情页面的样式*/
+.product-bout-box .goods-info .WxEmojiView{
+  background-color: #f7f9fb;
+}
 /* 通用样式 */
 /* 这是绑定手机号码呼出框 */
 .login-bind_box--style{

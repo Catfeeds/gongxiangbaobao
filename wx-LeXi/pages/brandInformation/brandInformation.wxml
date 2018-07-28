@@ -1,5 +1,5 @@
 <!--pages/brandInformation/brandInformation.wxml 关于品牌-->
-
+<import src="../../wxParse/wxParse.wxml"/>
 <view class='container'>
   <view class='userPhotoBox'>
     <view class='userinfo'>
@@ -49,7 +49,8 @@
     <view class='recommendGoods'>以多种工艺，设计属于你的结婚饰品</view>
     <view class='logo theme-green'>SLOGAN</view>
     <view class='recommendgoodsText'>
-      <view> {{storeInfo.detail.content}}</view>
+      <!-- <view> {{storeInfo.detail.content}}</view> -->
+      <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}"/>
     </view>
   </view>
 

@@ -117,7 +117,7 @@ module.exports = {
   add_watch: 'follow/store', // 添加
   delete_watch: 'unfollow/store', // 取消关注
   examine_watch: 'follow/get_status', // 查看是否关注
-  add_browse : 'store/visitor', //添加访问者---
+  // add_browse : 'store/visitor', //添加访问者---
   userlike:'userlike', //添加喜欢
   usetIsLike:'products_userlike',// 查看用户是否喜欢
   // 查询运费模板详情
