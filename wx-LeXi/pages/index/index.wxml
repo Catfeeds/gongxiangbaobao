@@ -41,7 +41,7 @@
           <image src='../../images/icon@2.png'></image>
           <view>关注</view>
         </view>
-        <view class='userInfoBtn theme-bg-color rander' catchtap='brandInformationTap'>关于品牌</view>
+        <view class='userInfoBtn theme-bg-color rander' catchtap="handleViewBrandStory">关于品牌</view>
       </view>
     </view>
   </view>

@@ -113,6 +113,13 @@ Page({
     console.log(e)
   },
 
+  // 跳转到关于品牌页面
+  handleViewBrandStory () {
+    wx.navigateTo({
+      url: '../brandInformation/brandInformation'
+    })
+  },
+
   // 创建订单参数 并且设置店铺的id
   createdOrderParams() {
     this.setData({
@@ -521,20 +528,6 @@ Page({
     })
   },
 
-  // 获取店铺主人的信息
-  getShopOwner() {
-    http.fxGet(api.masterInfo, {}, (result) => {
-      if (result.success) {
-        this.setData({
-          ShopOwner: result.data
-        })
-        wx.setStorageSync('storeOwnerInfo', result.data)
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
   // 获取店铺的信息
   getShopInfo() {
     http.fxGet(api.shop_info, {}, (result) => {
@@ -581,13 +574,10 @@ Page({
     }
 
     // 获取商品 (精选)
-    this.getThemeProduct() // 主打的设计1,主打设计 2,优质精选---
+    this.getThemeProduct() // 1,主打设计
     this.getRecommendProducts() // 推荐好物---
     this.getAdvertises() // 获取广告
-    this.getThemeProduct(2) // 主打的设计1,主打设计 2,优质精选---
-    
-    // 获取店铺主人的信息
-    this.getShopOwner()     
+    this.getThemeProduct(2) // 2,优质精选---   
   },
 
   /**
@@ -696,30 +686,22 @@ Page({
     }
   },
 
-  //跳转到关于品牌页面
-  brandInformationTap() {
-    console.log(11)
-    wx.navigateTo({
-      url: '../brandInformation/brandInformation'
-    })
-  },
-
-  //跳转到商品详情---
+  // 跳转到商品详情---
   handleInfomation(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })
   },
 
-  //跳转到关注页面
+  // 跳转到关注页面
   wacthTap() {
     wx.navigateTo({
       url: '../watch/watch',
     })
   },
 
-  //优惠卷隐藏和显示
-  coupon_show() {
+  // 优惠卷隐藏和显示
+  coupon_show () {
     this.setData({
       coupon_show: true
     })
@@ -732,9 +714,8 @@ Page({
     })
   },
 
-  //进入主题页面
+  // 进入主题页面
   handlethemeTap(e) {
-
     console.log(e.currentTarget.dataset.id)
     console.log(this.data.popularProductTheme)
     app.globalData.themeProdct = this.data.popularProductTheme[e.currentTarget.dataset.index]

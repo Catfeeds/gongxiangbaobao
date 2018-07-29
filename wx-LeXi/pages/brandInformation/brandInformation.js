@@ -3,34 +3,65 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-let wxparse = require("../../wxParse/wxParse.js")
-Page({
 
+let wxparse = require('../../wxParse/wxParse.js')
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
     createdTime:[], // 开馆时间---
     storeInfo:[], // 店铺的信息---
-    storeOwnerInfo:[], //店铺主人的信息---
+    shopOwner:[], // 店铺主人的信息---
+    isAuthentication: '',
+    createdTime: '', // 开馆时间
     dkcontent:'',
   },
-  //获取店铺休息，和店铺主人的信息
-  getAllInfo(){
+
+  getUserIdentityLabel (val) {
+    switch (val) {
+      case 1:
+        return '独立设计师'
+      case 2:
+        return '艺术家'
+      case 3:
+        return '手作艺人'
+      case 4:
+        return '业余设计师'
+      default:
+        return '原创商户经营'
+    }
+  },
+
+  // 获取店铺主人的信息
+  getShopOwner() {
+    http.fxGet(api.masterInfo, {}, (result) => {
+      if (result.success) {
+        console.log(result.data, '店铺主人信息')
+        result.data.user_label = this.getUserIdentityLabel(result.data.user_identity)
+        this.setData({
+          shopOwner: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 获取店铺休息，和店铺主人的信息
+  getAllInfo () {
     this.setData({
       storeInfo: app.globalData.storeInfo,
-      storeOwnerInfo: wx.getStorageSync('storeOwnerInfo'),
-      isAuthentication:app.globalData.isAuthenticationStore,
+      isAuthentication: app.globalData.isAuthenticationStore,
       dkcontent: app.globalData.storeInfo.detail.content
     })
     this.getStoreCreatedTime()
-    console.log(this.data.storeOwnerInfo)
-    console.log(this.data.storeInfo)
   },
 
-  //开馆时间
-  getStoreCreatedTime(){
-    var createdTime = utils.timestamp2string(this.data.storeInfo.created_at,'date')
+  // 开馆时间
+  getStoreCreatedTime () {
+    let createdTime = utils.timestamp2string(this.data.storeInfo.created_at, 'date')
     this.setData({
       createdTime: createdTime
     })
@@ -40,8 +71,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getShopOwner() // 店铺主人
     this.getAllInfo() // 获取店铺信息
-    
   },
 
   /**
