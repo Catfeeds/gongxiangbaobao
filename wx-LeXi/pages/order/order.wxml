@@ -11,22 +11,22 @@
   <view class='orderInfoBox bg-white'>
     <!-- 每一笔订单 -->
     <view 
-      wx:for="{{order.orders}}" 
-      wx:key="{{index}}" 
+      wx:for="{{ order.orders }}" 
+      wx:key="{{ index }}" 
       wx:for-item="items_order" 
       class='component productAndShopInfoBox'>
       <!--每一家商家  -->
       <view class=''>
         <!-- 每一家商家  -->
-        <view class='productAndShopInfo {{index==items_order.shopList.length-1?"productAndShopInfoN":""}}'>
+        <view class='productAndShopInfo {{ index == items_order.shopList.length-1?"productAndShopInfoN" : ""}}'>
           <!-- 店铺头像 -->
           <view class='shopPhoto'>
-            <image src='{{item_sku.cover}}'></image>
+            <image src='{{ item_sku.cover }}'></image>
           </view>
           <!-- 右面的信息 -->
           <view class='productinfo'>
             <view class='shopNameBox'>
-              <text class='shopName'>{{items_order.store_name}}</text>
+              <text class='shopName'>{{ items_order.store_name }}</text>
               <text class='order-aggregate hui-zi'>订单总计</text>
             </view>
 

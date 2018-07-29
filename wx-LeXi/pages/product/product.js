@@ -4,6 +4,7 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 let wxparse = require("../../wxParse/wxParse.js")
+
 Page({
   /**
    * 页面的初始数据

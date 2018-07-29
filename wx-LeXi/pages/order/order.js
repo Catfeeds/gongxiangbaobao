@@ -3,16 +3,17 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-Page({
 
-  /**17600351560
+Page({
+  /**
    * 页面的初始数据
    */
   data: {
-    //订单
+    // 订单
     order:[],
     // navbar
-    navList: [{
+    navList: [
+      {
         title: '全部',
         status: 0
       },
@@ -36,13 +37,13 @@ Page({
     currentStatus: 0,
     // 请求订单需要的参数
     getOrderListParams: {
-      status: 0, //Number	订单状态 0、全部 1、待发货 2、待收货 3、待评价 4、待付款
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10 //Number	可选	10	每页数量
+      status: 0, // Number	订单状态 0、全部 1、待发货 2、待收货 3、待评价 4、待付款
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
-  //选择
+  // 选择
   handleStatus(e) {
     let status = e.currentTarget.dataset.status;
     this.setData({
@@ -52,6 +53,7 @@ Page({
       this.getOrderList()
     })
   },
+
   // 获取订单列表---
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
@@ -71,9 +73,9 @@ Page({
    */
   onLoad: function(options) {
     
-
   },
-  //删除订单
+
+  // 删除订单
   celeteOrderTap(e) {
     var rid = e.currentTarget.dataset.rid
     console.log(rid)
@@ -150,6 +152,7 @@ Page({
   onShareAppMessage: function() {
 
   },
+  
   // 评论
   critiqueTap(e) {
     console.log(e.currentTarget.dataset.product)
@@ -159,6 +162,7 @@ Page({
       url: '../critique/critique',
     })
   },
+
   // 物流跟踪
   logTop() {
     wx.navigateTo({

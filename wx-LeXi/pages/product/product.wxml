@@ -18,7 +18,7 @@
   <!--轮播图 产品底部信息 -->
   <view class='goodsInfoBox'>
     <view class='branderInfo'>
-      <text class='logistics' wx:if="{{productInfomation.is_free_postage}}">包邮</text>
+      <text class='logistics' wx:if="{{ productInfomation.is_free_postage }}">包邮</text>
       <text>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo'>
@@ -37,10 +37,10 @@
     <!-- wx:for='{{productInfomation.labels}}' -->
     <view class='characteristic branderInfo'>
       <text class='{{characteristicT}} characteristic-index_one' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[1].name}}  </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[2].name}} </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[3].name}}  </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[4].name}}  </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[1].name}}  </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[2].name}} </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[3].name}}  </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[4].name}}  </text>
       <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
@@ -53,9 +53,9 @@
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
           <text class='fx-icon-nothing-plus'></text>
-          <text class='hui-zi'> 心愿单</text>
+          <text class='hui-zi'>心愿单</text>
         </view>
-        <view class=' like-quantity-l transmissionInfo'>
+        <view class='like-quantity-l transmissionInfo'>
           <image class='fen' src='../../images/share@2.png'></image>
         </view>
       </view>
@@ -106,13 +106,13 @@
       <view class='titleText'>描述</view>
       <view class='goodstext two-line-text'>
         <text class='titlemini'>亮点：</text>
-        <text>{{productInfomation.features}}</text>
+        <text>{{ productInfomation.features }}</text>
       </view>
       <view class='goodstext'>
         <text class='titlemini'>材质：</text>
-        <text>{{productInfomation.material_id}}</text>
+        <text>{{ productInfomation.material_id }}</text>
       </view>
-      <view class='goodstext' wx:if='{{productInfomation.is_custom_service}}'>
+      <view class='goodstext' wx:if='{{ productInfomation.is_custom_service }}'>
         <text class='titlemini'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
@@ -125,7 +125,7 @@
     <!-- 发货地点 -->
     <view class='otherInfo-describe location'>
       <view class='titleText'>发货地</view>
-      <view class='goodstext'>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}.{{storeInfo.delivery_city}}</view>
+      <view class='goodstext'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}·{{ storeInfo.delivery_city }}</view>
     </view>
 
     <!-- 交货时间 -->
@@ -140,11 +140,11 @@
     <view class='otherInfo-describe location borN'>
       <view class='titleText'>退货政策</view>
       <view class='goodstext'>
-        <text class=''> ·</text>
+        <text class=''>·</text>
         <text>30天退换货服务</text>
       </view>
       <view class='two-line-text goodstext'>
-        {{productInfomation.product_return_policy}}
+        {{ productInfomation.product_return_policy }}
       </view>
       <view class='allInfo' catchtap='animationOnFn'>
         <view class='allInfo-btn'>查看全部</view>
@@ -156,10 +156,10 @@
   <view class='shopInfo'>
     <view class='shopInfoT'>
       <view class='userIcon' catchtap='handleGoIndex'>
-        <image src='{{storeInfo.logo.view_url}}'></image>
+        <image src='{{ storeInfo.logo.view_url }}'></image>
       </view>
       <view class='shopMiddle' catchtap='handleGoIndex'>
-        <view class='hui-zi'>原创品牌设计馆</view>
+        <view class='hui-zi'>原创品牌馆</view>
         <view class='shou'>{{ storeInfo.name }}</view>
       </view>
       <view class='with '>
