@@ -11,11 +11,11 @@ Page({
   data: {
     submit_btn: false, // 提交按钮是否生效
     star_list: [1, 2, 3, 4, 5], //星星数量
-    selectedStar: 0, //选中星星的数量
-    photo_url: [], //上传的图片
+    selectedStar: 0, // 选中星星的数量
+    photo_url: [], // 上传的图片
     cretiqueParams: {}, // 提交评论的时候的参数
 
-    //商品
+    // 商品
     product: [{}],
 
   },

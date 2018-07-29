@@ -14,6 +14,7 @@ App({
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
 
     this.globalData.app_id = extConfig.authAppid
+    this.globalData.storeRid = extConfig.storeRid
 
     console.log(extConfig, '第三方拓展信息')
 
@@ -52,9 +53,6 @@ App({
 
     // 获取地理位置
     this.getUserLocation()
-
-    // 获取店铺的信息
-    this.getShopInfo()
   },
 
   login: function(cb) {
@@ -108,19 +106,6 @@ App({
       mobile: jwt.mobile,
       username: jwt.username
     }
-  },
-
-  // 获取店铺的信息
-  getShopInfo() {
-    http.fxGet(api.shop_info, {}, (result) => {
-      console.log(result, '店铺信息')
-      if (result.success) {
-        this.globalData.storeInfo = result.data
-        wx.setStorageSync('storeId', result.data.rid)
-      } else {
-        util.fxShowToast(result.status.message)
-      }
-    })
   },
 
   /**
@@ -214,6 +199,7 @@ App({
     // 第三方配置信息
     configInfo: '',
     // 店铺的信息
+    storeRid: '',
     storeInfo: [],
     // 登录用户信息
     userInfo: null,
