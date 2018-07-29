@@ -17,26 +17,26 @@ Component({
    * 组件的初始数据
    */
   data: {
-    
-    prompt:false,// 验证码错误提示
+
+    prompt: false, // 验证码错误提示
     mobaile_number: '', // 手机号码
-    getBtnStyle:'',// 输入框的的颜色
+    getBtnStyle: '', // 输入框的的颜色
     is_time: false, //获取手机及号码的按钮和秒变按钮是否显示---
     verification_code: [], //验证码输入---
     over_button: false, // 完成按钮---
-    country_pick:[],// 开放国家列表---
-    is_country:false,//国家列表盒子---
-    country_code:'+86',// 选择国家的---
+    country_pick: [], // 开放国家列表---
+    is_country: false, //国家列表盒子---
+    country_code: '+86', // 选择国家的---
   },
 
   /**
    * 组建钩子函数
    * **/
-  created(){
-    http.fxGet(api.countries,{},(result)=>{
+  created() {
+    http.fxGet(api.countries, {}, (result) => {
       console.log(result)
       this.setData({
-        country_pick:result.data
+        country_pick: result.data
       })
     })
   },
@@ -78,10 +78,10 @@ Component({
       console.log(e.detail.value)
       var buttonStyle
       this.setData({
-        mobaile_number : e.detail.value,
+        mobaile_number: e.detail.value,
         prompt: false
       })
-      
+
       if (this.data.mobaile_number) {
         buttonStyle = true
       } else {
@@ -136,7 +136,7 @@ Component({
     serveNumber(e) {
       this.setData({
         verification_code: e.detail.value,
-        prompt:false
+        prompt: false
       })
       this.verification()
     },
@@ -166,7 +166,7 @@ Component({
       if (!this.data.over_button || this.data.verification_code != this.data.testCode) {
         utils.fxShowToast('手机号码或验证码错误')
         this.setData({
-          prompt:true
+          prompt: true
         })
         return
       }
@@ -175,12 +175,14 @@ Component({
         console.log(result)
         utils.fxShowToast('ok', 'success')
         if (result.success) {
-          app.globalData.isLogin=true
+          app.globalData.isLogin = true
           wx.setStorage({
             key: 'jwt',
             data: result.data
           })
-          this.triggerEvent('customevent',{offBox:false})
+          this.triggerEvent('customevent', {
+            offBox: false
+          })
           console.log(app.globalData.isLogin)
         } else {
           utils.fxShowToast(result.status.message)

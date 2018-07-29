@@ -1,0 +1,18 @@
+<!--components/FxSortProduct/FxSortProduct.wxml-->
+<view class='sort-box'>
+  <view class='sort-box__title'>
+    <text class='sort-title__icon'><text>x</text></text>  
+    <text class='sort-title__text'>排序</text>
+  </view>
+  <view 
+    class="sort-box__item {{index%2==1?'bg--hui':''}} {{item.rid==pitchOn?'bg--white':''}}"
+    wx:for="{{sortData}}" 
+    wx:key="{{index}}" 
+    data-rid="{{item.rid}}"
+    catchtap='handlePickTap'> 
+    <text>{{item.name}}</text>  
+    <image src='../../images/pitch-on@2.png' wx:if="{{item.rid==pitchOn}}"></image>
+    </view>
+  <view class='sort-box__item bg--hui'></view>
+</view>
+

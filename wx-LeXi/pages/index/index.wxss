@@ -27,6 +27,7 @@
   box-shadow: 4rpx 0 12rpx 4rpx rgba(0, 0, 0, 0.05),
                 -4rpx 0 12rpx 4rpx rgba(0, 0, 0, 0.05),
                 0 4rpx 12rpx 4rpx rgba(0, 0, 0, 0.05);
+  z-index: 123;
 }
 
 .middle-user-info {
@@ -40,6 +41,7 @@
   border-radius: 10rpx;
   margin-top: -90rpx;
   background-color: white;
+  z-index: 321;
 }
 
 .middle-user-box {
@@ -47,6 +49,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+
 }
 
 .shop-explain, .userNameBox {
@@ -482,6 +485,7 @@
   padding: 0 16rpx 0 4rpx;
   color: rgb(51, 51, 51);
   box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.2);
+  z-index: 999;
 }
 
 .suspend-share_box {
@@ -501,6 +505,7 @@
   height: 100%;
   width: 100%;
   opacity: 0;
+  
 }
 
 .new-goods {

@@ -1,6 +1,6 @@
 /* pages/product/product.wxss */
 @import '../couponTemplate/couponTemplate.wxss';
-
+@import "../../wxParse/wxParse.wxss";
 .swiperBox {
   height: 620rpx;
   position: relative;
@@ -265,7 +265,6 @@ swiper-item, swiper-item>image, swiper {
 .shop-other-goods image {
   height: 100%;
   width: 100%;
-  background-color: red;
 }
 
 [class='PTRT black-font theme-green'] {
@@ -478,4 +477,7 @@ swiper-item, swiper-item>image, swiper {
 
 .characteristic-index_one{
   color: #F5A43C;
+}
+.reduced-price_text{
+  line-height: 40rpx !important;
 }

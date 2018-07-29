@@ -45,7 +45,7 @@ App({
         // 更新用户信息
         this.updateUserInfo(jwt)
       }
-
+      // console.log('现在调取的是没有登陆')
       // 获取购物车数量
       this.getCartTotalCount()
     }
@@ -235,9 +235,9 @@ App({
     // 订单页面的sku信息
     orderInfoSkus: '',
     // 优惠卷
-    couponList: '',
+    couponList: {},
     // 满减
-    fullSubtractionList: '',
+    fullSubtractionList: {},
     // 店铺是否经过认证
     isAuthenticationStore: '',
     // 订单里面的sku

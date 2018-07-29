@@ -68,7 +68,7 @@ module.exports = {
   orders_delete:'orders/delete',// 删除订单---
 
   // Market
-  coupons: 'market/user_master_coupons',  // get 优惠券列表---
+  coupons: 'market/coupons',  // get 优惠券列表---
   noCouponsList: 'market/not_login_coupons',  // get 优惠券列表---
   coupon_detail: 'market/coupons/:rid',  // GET 单个优惠券
   user_coupons: 'market/user_coupons',  // POST 用户优惠券列表---

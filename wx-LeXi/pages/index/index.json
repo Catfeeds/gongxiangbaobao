@@ -8,6 +8,7 @@
     "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
-    "fx-login": "/components/FxLogin/FxLogin"
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-sort":"/components/FxSortProduct/FxSortProduct"
   }
 }

@@ -13,8 +13,8 @@ Page({
     swiperIndex: 0,
     is_mobile: false, //  绑定手机模板
     skuPrice: '', // sku价格---
-    couponList: '', // 优惠券列表---couponList
-    fullSubtractionList: '', // 满减---
+    couponList: [], // 优惠券列表---couponList
+    fullSubtractionList: [], // 满减---
     isWatch: false, // 是否关注过店铺
     storeInfo: [], // 店铺的信息---
     needSpecifications: [], // 需要的规格---
@@ -75,6 +75,7 @@ Page({
 
   // 优惠券，满减
   getCouponAndFullSubtraction() {
+    console.log(app.globalData.couponList, app.globalData.fullSubtractionList,)
     this.setData({
       couponList: app.globalData.couponList, // 优惠券列表
       fullSubtractionList: app.globalData.fullSubtractionList, // 满减---

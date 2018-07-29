@@ -1,4 +1,5 @@
 /* pages/brandInformation/brandInformation.wxss */
+@import "../../wxParse/wxParse.wxss";
 .userPhotoBox {
   margin: 0 40rpx 50rpx;
 }

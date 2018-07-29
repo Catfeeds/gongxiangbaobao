@@ -11,11 +11,12 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    isSortShow:false, // 排序
     advertisement: '', // 广告
     is_mobile: false, // 优惠券模板是否弹出
     isAuthentication: '', // 是否经过官方认证的店铺
-    couponList: '', // 优惠券列表---couponList
-    fullSubtractionList: '', // 满减---
+    couponList: {}, // 优惠券列表---couponList
+    fullSubtractionList: {}, // 满减---
     rid: [], // 店铺的rid---
     shareWhat: '', // 分享什么东西---
     ShopOwner: [], // 店铺主人的信息---
@@ -107,6 +108,12 @@ Page({
     }
   },
 
+  // 获取排序的产品
+  handleSort(e){
+    console.log(e)
+
+  },
+
   // 广告
   getAdvertisement() {
     http.fxGet(api.marketBanners.replace(/:rid/g, 'shop_wxa_index'), {}, (result) => {
@@ -156,34 +163,36 @@ Page({
     console.log(app.globalData.isLogin)
     if (!app.globalData.isLogin) {
       http.fxGet(api.noCouponsList, {}, (result) => {
-        console.log(result, '没有获取优惠券')
+        console.log(result, '没有登陆获取优惠券')
         if (result.success) {
-          this.setData({
-            couponList: result.data
+          var coupon = [] // 优惠券
+          var full = [] // 满减券
+          result.data.coupons.forEach((v, i) => {
+            console.log(v)
+            if (v.type == 3) {
+              full.push(v)
+            } else {
+              coupon.push(v)
+            }
           })
-          app.globalData.couponList = result.data
+          this.setData({
+            ['couponList.coupons']: coupon, // 优惠券列表---couponList
+            ['fullSubtractionList.coupons']: full, // 满减---
+          })
+          app.globalData.fullSubtractionList.coupons = full
+          app.globalData.couponList.coupons = coupon
+          // app.globalData.couponList = result.data
         } else {
           utils.fxShowToast(result.status.message)
         }
       })
-      this.setData({
-        ['couponParams.type']: 3
-      },()=>{
-        http.fxGet(api.noLoginFullSubtraction, this.data.couponParams, (result) =>{
-          console.log(result,'获取优惠券')
-          app.globalData.fullSubtractionList = result.data
-          this.setData({
-            fullSubtractionList: result.data,
-            ['couponParams.type']: ''
-          })
-        })
-      })
 
     } else {
       http.fxGet(api.coupons, this.data.couponParams, (result) => {
-        console.log(result,'登陆的优惠券，满减')
+
         if (result.success) {
           if (this.data.couponParams.type != 3) {
+            console.log(result, '登陆的优惠券')
             this.setData({
               couponList: result.data,
               ['couponParams.type']: 3
@@ -191,6 +200,7 @@ Page({
             app.globalData.couponList = result.data
             this.coupon()
           } else {
+            console.log(result, '登陆的满减')
             this.setData({
               fullSubtractionList: result.data,
               ['couponParams.type']: ''
@@ -242,37 +252,39 @@ Page({
 
   // 查看是否喜欢
   examineIsLike() {
-    console.log(app.globalData.isLogin,'查看是否喜欢')
+    console.log(app.globalData.isLogin, '查看是否喜欢')
     if (!app.globalData.isLogin) {
       return
     }
-    console.log(this.data.recommendProductList.products,'推荐好物列表')
+    console.log(this.data.recommendProductList.products, '推荐好物列表')
 
-    var products=this.data.recommendProductList.products
+    var products = this.data.recommendProductList.products
     var productsArray = []
-    products.forEach((v,i)=>{
+    products.forEach((v, i) => {
       productsArray.push(v.rid)
     })
     console.log(productsArray.join())
     var rids = productsArray.join()
-    http.fxGet(api.usetIsLike, { rids: rids},(result)=>{
+    http.fxGet(api.usetIsLike, {
+      rids: rids
+    }, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         products.forEach((v, i) => {
-          result.data.forEach((e,index)=>{
-            if(v.rid==e.rid){
-              v.is_like=e.is_like
+          result.data.forEach((e, index) => {
+            if (v.rid == e.rid) {
+              v.is_like = e.is_like
             }
           })
           //最后一次循环去设置data
-          if (products.length-1==i){
+          if (products.length - 1 == i) {
             console.log(products)
             this.setData({
-              ['recommendProductList.products']:products
+              ['recommendProductList.products']: products
             })
           }
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -300,7 +312,7 @@ Page({
   // 人气里面的主题
   getTheme() {
     http.fxGet(api.theme, {}, (result) => {
-      console.log(result,'人气里面的主题')
+      console.log(result, '人气里面的主题')
       if (result.success) {
         this.setData({
           popularProductTheme: result.data.collections
@@ -396,7 +408,7 @@ Page({
         app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count - 0 + 1
         this.setData({
           shopInfo: app.globalData.storeInfo,
-          is_with:true
+          is_with: true
         })
         console.log(result, '关注')
         app.globalData.isWatchstore = true
@@ -424,12 +436,12 @@ Page({
       if (result.success) {
         app.globalData.isWatchstore = false
         // this.getIsWatch()
-        app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count-1
+        app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count - 1
         this.setData({
           shopInfo: app.globalData.storeInfo,
           is_with: false
         })
-        
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -446,7 +458,7 @@ Page({
       rid: this.data.rid
     }, (result) => {
       if (result.success) {
-        console.log(result,'查看是否关注')
+        console.log(result, '查看是否关注')
         this.setData({
           is_with: result.data.status
         })
@@ -561,12 +573,12 @@ Page({
     })
 
     var storeId = wx.getStorageSync('storeId')
-    var openid= wx.getStorageSync('jwt').openid
+    var openid = wx.getStorageSync('jwt').openid
     this.setData({
       openid: openid,
       rid: storeId
-    },()=>{
-
+    }, () => {
+      this.coupon() // 获取优惠券---
       this.handleGoryActiveTap() //获取产品 例如作品（首先获取的） 作品 人气
 
       this.createdOrderParams() //创建订单的参数---
@@ -577,11 +589,11 @@ Page({
       this.recommendProduct() // 推荐好物---
       this.getShopOwner() // 获取店铺主人的信息---
       // this.getAuthentication()// 查看是否认证---
-
+      this.getBrowseQuantity() // 浏览浏览人数---
       this.getAdvertisement() // 获取广告
 
       setTimeout(() => {
-        this.coupon() // 获取优惠券---
+
         // this.addBrowse() // 添加访问者---
       }, 1000)
 
@@ -745,11 +757,16 @@ Page({
   },
 
   // 关闭
-  hanleOffLoginBox(e){
+  hanleOffLoginBox(e) {
     console.log(e)
     this.setData({
       is_mobile: e.detail.offBox
     })
+  },
+  // 排序的盒子
+  handleSortShow(){
+    this.settData({
+      isSortShow:true
+    })
   }
-
 })

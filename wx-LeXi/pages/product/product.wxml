@@ -34,13 +34,13 @@
 
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
-<!-- wx:for='{{productInfomation.labels}}' -->
+    <!-- wx:for='{{productInfomation.labels}}' -->
     <view class='characteristic branderInfo'>
-      <text class='{{characteristicT}} characteristic-index_one'  wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text>
-      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[1].name}}  </text>
-      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[2].name}} </text>
-      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[3].name}}  </text>
-      <text class='{{characteristicT}}'  wx:key='{{index}}'>.{{productInfomation.labels[4].name}}  </text>
+      <text class='{{characteristicT}} characteristic-index_one' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[1].name}}  </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[2].name}} </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[3].name}}  </text>
+      <text class='{{characteristicT}}' wx:key='{{index}}'>.{{productInfomation.labels[4].name}}  </text>
       <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
@@ -62,8 +62,23 @@
     </view>
 
     <!-- 领取优惠券 -->
-    <view class='coupon-box' catchtap='coupon_show'>
-      <fx-coupon coupon='{{couponList.coupons}}' fullSubtractionList='{{fullSubtractionList.coupons}}'></fx-coupon>
+    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
+      <view class='coupon-message'>
+        <!-- 优惠券 -->
+        <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
+          <view class=''>
+            <image src='../../images/coupon-icon@2.png'></image>
+            <text>领取设计馆优惠红包</text>
+          </view>
+          <view class='get-btn'>领取</view>
+        </view>
+
+        <!-- 满减 -->
+        <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
+          <image src='../../images/reduced-price@2.png'></image>
+          <text class="reduced-price_text" wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">{{ item.type_text }}</text>
+        </view>
+      </view>
     </view>
 
     <view class='branderInfo goods-size' catchtap='pickShowTap'>
@@ -129,7 +144,7 @@
         <text>30天退换货服务</text>
       </view>
       <view class='two-line-text goodstext'>
-      {{productInfomation.product_return_policy}}
+        {{productInfomation.product_return_policy}}
       </view>
       <view class='allInfo' catchtap='animationOnFn'>
         <view class='allInfo-btn'>查看全部</view>
@@ -302,7 +317,7 @@
           <text>30天退换货服务</text>
         </view>
         <view class='goodstext'>
-         {{productInfomation.product_return_policy}}
+          {{productInfomation.product_return_policy}}
         </view>
         <view class='shm'></view>
         <view class='allInfo off-info' catchtap='animationOffFn' wx:if="{{off_icon}}">

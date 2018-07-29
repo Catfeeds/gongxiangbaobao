@@ -8,7 +8,7 @@
   </view>
 
   <!-- 中间user的信息 -->
-  <view class='middle-user-box'>
+  <view class="middle-user-box">
     <view class='middle-user-info'>
       <image src='{{shopInfo.logo.view_url}}' class='userPhoto'>
       </image>
@@ -16,7 +16,7 @@
         <image src='../../images/@2.png'></image>
       </view>
       <view class='userNameBox theme-color'>
-        <view>{{shopInfo.name}}</view>
+        <view>{{ shopInfo.name }}</view>
         <view class='userNameBoxPhoto'>
           <image src='../../images/icon@2.png'></image>
         </view>
@@ -54,7 +54,7 @@
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
-          <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
+          <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.users}}'>
             <image src='{{item.avatar}}'></image>
           </view>
           <view class='photo-round joinNumberlPhoto'>
@@ -80,13 +80,32 @@
 
   <!-- 优惠券 -->
   <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
-    <fx-coupon coupon='{{ couponList.coupons }}' fullSubtractionList='{{ fullSubtractionList.coupons }}'></fx-coupon>
+    <view class='coupon-message'>
+
+      <!-- 优惠券 -->
+      <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
+        <view class=''>
+          <image src='../../images/coupon-icon@2.png'></image>
+          <text>领取设计馆优惠红包</text>
+        </view>
+        <view class='get-btn'>领取</view>
+      </view>
+
+      <!-- 满减 -->
+      <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
+        <image src='../../images/reduced-price@2.png'></image>
+        <text wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">
+      {{ item.type_text }}
+    </text>
+      </view>
+    </view>
   </view>
 
   <!-- 精选 作品 人气 tab -->
   <view class='tab {{tabPisition?" tabPosition ":""}}'>
     <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='handleGoryActiveTap'>
-    {{ item.name }} <i wx:if="{{ item.rid == 2 && shopInfo.product_count > 0 }}">{{ shopInfo.product_count }}</i>
+      {{ item.name }}
+      <i wx:if="{{ item.rid == 2 && shopInfo.product_count > 0 }}">{{ shopInfo.product_count }}</i>
     </view>
   </view>
   <!-- 垫片 -->
@@ -100,15 +119,11 @@
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
           <fx-product product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
-      </view> 
+      </view>
     </view>
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color' wx:if='{{ advertisement.banners.length != 0 }}'>
-      <swiper 
-        indicator-dots="{{ true }}"
-        indicator-color='rgba(0, 0, 0, .3)' 
-        indicator-active-color="#fff"
-        autoplay='{{ true }}' scroll-x style="width: 100%">
+      <swiper indicator-dots="{{ true }}" indicator-color='rgba(0, 0, 0, .3)' indicator-active-color="#fff" autoplay='{{ true }}' scroll-x style="width: 100%">
         <swiper-item wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
           <image src='{{ item.image }}'></image>
         </swiper-item>
@@ -199,21 +214,11 @@
       <view class='human themeGoods'>
         主题
       </view>
-      <view 
-        class='themeBottomPhoto' 
-        data-id='{{item.id}}' 
-        wx:for='{{popularProductTheme}}' 
-        wx:key='{{index}}' 
-        data-index='{{index}}' 
-        catchtap='handlethemeTap'>
-        <image 
-          
-          src='{{item.cover}}'></image>
+      <view class='themeBottomPhoto' data-id='{{item.id}}' wx:for='{{popularProductTheme}}' wx:key='{{index}}' data-index='{{index}}' catchtap='handlethemeTap'>
+        <image src='{{item.cover}}'></image>
         <view class='theme-text theme-text__name'>{{item.name}}</view>
         <view class='theme-text theme-sub__name'>{{item.sub_name}}</view>
-        <view
-          class='theme-shade'
-          style="background: linear-gradient(to bottom, rgba(255,255,255,0) , {{item.mask_color}});">
+        <view class='theme-shade' style="background: linear-gradient(to bottom, rgba(255,255,255,0) , {{item.mask_color}});">
         </view>
       </view>
     </view>
@@ -251,5 +256,10 @@
   <!-- 登陆注册模态框 -->
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
+
+  <!-- 排序的呼出框 -->
+  <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap="handleSortShow"> 
+    <fx-sort bind:handlePickOver="handleSort"></fx-sort>
   </view>
 </view>
