@@ -27,7 +27,8 @@
     "pages/paymentAddress/paymentAddress",
     "pages/authorize/authorize",
     "pages/myFollower/myFollower",
-    "pages/likeThisProduct/likeThisProduct"
+    "pages/likeThisProduct/likeThisProduct",
+    "pages/allProduct/allProduct"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

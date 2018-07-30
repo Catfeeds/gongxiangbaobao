@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    followerAddWatch:[], // 关注和粉丝的数量
     is_mobile: false,// 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
     userInfo: [],// 用户的信息
@@ -17,69 +18,7 @@ Page({
     likeProduct: [],// 喜欢的的商品---
     recentlyLookProduct: [],// 最近查看的商品---
     desireOrderProduct: [], //心愿单商品---
-
-    product: [
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: "../../images/timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-      {
-        title: "手作精品款牛皮手提黑包",
-        img: " ../../images / timg.jpg",
-        price: 99,
-        like: 123
-      },
-    ],
+    product: [{}],
     // 切换类型---
     classList:[
       {rid:1,num:123,name:"喜欢"},
@@ -91,6 +30,29 @@ Page({
       page:1,
       per_page:10
     },
+  },
+  //获取喜欢 收藏 设计管
+  getCategoryQuantity(){
+    http.fxGet(api.users_user_center,{},(result)=>{
+      console.log(result)
+      let category = this.data.classList
+      category.forEach((v)=>{
+        console.log(v)
+        if (v.rid == 1){
+          v.num = result.data.user_like_counts
+        }
+        if (v.rid == 2){
+          v.num = result.data.wish_list_counts
+        }
+        if (v.rid == 3){
+          v.num = result.data.followed_stores_counts
+        }
+      })
+      this.setData({
+        classList:category,
+        followerAddWatch:result.data
+      })
+    })
   },
 
   // 获取用户信息---
@@ -184,8 +146,8 @@ Page({
       })
       return false
     }
-
     this.getUserInfo() // 获取用户的信息
+    this.getCategoryQuantity() // 获取用户的喜欢收藏
   },
 
   /**
@@ -257,7 +219,6 @@ Page({
         sotrF: false
       })
     }
-
   },
 
   // 跳转到设置页面
@@ -320,6 +281,13 @@ Page({
   handleFollowerTap(){
     wx.navigateTo({
       url: '../myFollower/myFollower',
+    })
+  },
+  // 查看全部
+  handleAllProduct(e){
+    console.log(e.currentTarget.dataset.from)
+    wx.navigateTo({
+      url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from,
     })
   }
 })

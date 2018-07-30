@@ -1,0 +1,8 @@
+<!--pages/allProduct/allProduct.wxml-->
+<view>
+    <view class="goodsList">
+      <view wx:for="{{productList}}" wx:key="{{index}}" class="goods-item">
+        <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation"></fx-product>
+      </view>
+    </view>
+</view>
