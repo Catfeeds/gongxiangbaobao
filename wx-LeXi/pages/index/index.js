@@ -11,8 +11,8 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    handelOffPick:false,
-    isSortShow:false, // 排序
+    handelOffPick: false,
+    isSortShow: false, // 排序
     advertisement: '', // 广告
     is_mobile: false, // 优惠券模板是否弹出
     isAuthentication: '', // 是否经过官方认证的店铺
@@ -110,12 +110,12 @@ Page({
   },
 
   // 获取排序的产品
-  handleSort(e){
+  handleSort(e) {
     console.log(e)
   },
 
   // 跳转到关于品牌页面
-  handleViewBrandStory () {
+  handleViewBrandStory() {
     wx.navigateTo({
       url: '../brandInformation/brandInformation'
     })
@@ -138,7 +138,7 @@ Page({
       })
       return
     }
-    
+
     http.fxPost(api.coupon_grant, {
       rid: e.currentTarget.dataset.rid
     }, (result) => {
@@ -160,7 +160,7 @@ Page({
   },
 
   // 验证是否喜欢
-  examineIsLike () {
+  examineIsLike() {
     if (!app.globalData.isLogin) { // 如未登录
       return
     }
@@ -281,7 +281,7 @@ Page({
       this.getThemeProduct() // 1,主打设计
       this.getThemeProduct(2) // 2,优质精选---
     }
-    
+
     // 作品里面的
     if (this.data.catgoryActive === 2) {
       this.getStoreProducts() // 店铺全部作品
@@ -295,7 +295,7 @@ Page({
   },
 
   // 点击喜欢
-  handleBindLike (e) {
+  handleBindLike(e) {
     // 是否登陆
     if (!app.globalData.isLogin) {
       this.setData({
@@ -303,16 +303,9 @@ Page({
       })
       return
     }
-<<<<<<< HEAD
-    
+
     let rid = e.currentTarget.dataset.id
     let isLike = e.currentTarget.dataset.islike
-=======
-    console.log(app.globalData.isLogin)
-    var rid = e.currentTarget.dataset.id
-    var isLike = e.currentTarget.dataset.islike
-    console.log(isLike)
->>>>>>> zgs5
 
     if (isLike) {
       // 喜欢，则删除
@@ -340,7 +333,7 @@ Page({
   },
 
   // 人气最新商品
-  getNewestProdcts () {
+  getNewestProdcts() {
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
       if (result.success) {
         this.setData({
@@ -442,7 +435,7 @@ Page({
   },
 
   // 获取店铺商品列表
-  getStoreProducts () {
+  getStoreProducts() {
     http.fxGet(api.products, this.data.productCategoryParams, (result) => {
       if (result.success) {
         this.setData({
@@ -455,10 +448,11 @@ Page({
   },
 
   // 获取与登录用户相关的店铺优惠券 or 满减
-  getCouponsByUser (type = 3) {
+  getCouponsByUser(type = ' ') {
     this.setData({
       ['couponParams.type']: type
     })
+    // 优惠券
     http.fxGet(api.coupons, this.data.couponParams, (result) => {
       if (result.success) {
         if (type != 3) {
@@ -469,10 +463,9 @@ Page({
           app.globalData.couponList = result.data
         } else {
           console.log(result, '登陆的满减')
-          this.setData({
-            fullSubtractionList: result.data
-          })
-          app.globalData.fullSubtractionList = result.data
+          // 调取满减
+          this.getCoupons('loginFullSubtractionList')
+
         }
       } else {
         utils.fxShowToast(result.status.message)
@@ -481,7 +474,7 @@ Page({
   },
 
   // 用户未登录时获取店铺优惠券 or 满减活动列表
-  getCoupons() {
+  getCoupons(e) {
     http.fxGet(api.noCouponsList, {}, (result) => {
       console.log(result, '没有登陆获取优惠券')
       if (result.success) {
@@ -495,12 +488,23 @@ Page({
             coupon.push(v)
           }
         })
-        this.setData({
-          ['couponList.coupons']: coupon, // 优惠券列表---couponList
-          ['fullSubtractionList.coupons']: full, // 满减---
-        })
-        app.globalData.fullSubtractionList.coupons = full
-        app.globalData.couponList.coupons = coupon
+        // 如果是登陆状态下调取直接赋值满减
+        if (e == "loginFullSubtractionList") {
+          console.log(full)
+          this.setData({
+            ['fullSubtractionList.coupons']: full
+          })
+          console.log(full)
+          app.globalData.fullSubtractionList = result.data
+        } else {
+          this.setData({
+            ['couponList.coupons']: coupon, // 优惠券列表---couponList
+            ['fullSubtractionList.coupons']: full, // 满减---
+          })
+          app.globalData.fullSubtractionList.coupons = full
+          app.globalData.couponList.coupons = coupon
+        }
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -709,7 +713,7 @@ Page({
   },
 
   // 优惠卷隐藏和显示
-  coupon_show () {
+  coupon_show() {
     this.setData({
       coupon_show: true
     })
@@ -740,27 +744,27 @@ Page({
     })
   },
   // 排序的盒子
-  handleSortShow(){
+  handleSortShow() {
     this.setData({
-      isSortShow:true
+      isSortShow: true
     })
   },
   // 排序的盒子关闭
-  handleSortOff(){
+  handleSortOff() {
     this.setData({
       isSortShow: false
     })
   },
   //关闭筛选的盒子
-  handelOffPick(){
+  handelOffPick() {
     this.setData({
-      handelOffPick:false
+      handelOffPick: false
     })
   },
   // 打开筛选的盒子
-  hanlePickS(){
+  hanlePickS() {
     this.setData({
-      handelOffPick:true
+      handelOffPick: true
     })
   }
 })

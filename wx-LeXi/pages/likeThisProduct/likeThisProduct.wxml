@@ -1,4 +1,4 @@
-<!--pages/watch/watch.wxml 关注的人-->
+<!--pages/likeThisProduct/likeThisProduct.wxml-->
 <view class='container'>
   <view class='time-top font-m relation-item' >
     <view class='flex_row relation-avater'>  

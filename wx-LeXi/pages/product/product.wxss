@@ -59,11 +59,12 @@ swiper-item, swiper-item>image, swiper {
   justify-content: center;
   font-size: 28rpx;
 }
-
+.like-icon-add{
+  margin-left: 10rpx;
+}
 .like-icon {
   width: 32rpx;
   height: 28rpx;
-  margin-right: 10rpx;
 }
 
 .like-quantity {
@@ -475,9 +476,9 @@ swiper-item, swiper-item>image, swiper {
   z-index: 999;
 }
 
-.characteristic-index_one{
+/* .characteristic-index_one{
   color: #F5A43C;
-}
+} */
 .reduced-price_text{
   line-height: 40rpx !important;
 }

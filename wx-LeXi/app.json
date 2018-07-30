@@ -25,7 +25,9 @@
     "pages/couponTemplate/couponTemplate",
     "pages/shareTemplate/shareTemplate",
     "pages/paymentAddress/paymentAddress",
-    "pages/authorize/authorize"
+    "pages/authorize/authorize",
+    "pages/myFollower/myFollower",
+    "pages/likeThisProduct/likeThisProduct"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

@@ -34,25 +34,38 @@
 
 .coupon-message .reduced-price {
   display: flex;
-  flex-flow: row wrap;
+  /* flex-flow: row wrap; */
+  overflow: hidden;
   align-items: center;
   position: relative;
+  padding-left: 20rpx;
+  margin-right:124rpx;
 }
 .coupon-message .reduced-price image {
   height: 30rpx;
   width: 30rpx;
   position: absolute;
   left: 5rpx;
-  top: 15rpx;
 }
 .coupon-message .reduced-price text {
   flex: 0 0 auto;
   line-height: 20rpx;
-  margin-right: 20rpx;
+  margin-right: 10rpx;
   vertical-align: middle;
-  padding-left: 25px;
+  padding-left: 10px;
 }
-
+.reduced-price__last{
+  width: 30rpx;
+  height: 30rpx;
+  background-color: #fbf7f3;
+  position: absolute;
+  right: 0;
+}
+.coupon-message .reduced-price image,
+.reduced-price__last{
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 /*商品详情页面的样式*/
 .product-bout-box .goods-info .WxEmojiView{

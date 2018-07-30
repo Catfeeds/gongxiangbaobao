@@ -1,0 +1,28 @@
+<!--pages/myFollower/myFollower.wxml-->
+<view class='container'>
+  <view class='time-top font-m relation-item' >
+    <view class='flex_row relation-avater'>  
+      <image src='../../images/timg.jpg'></image>
+      <text>海绵人</text>
+    </view>
+
+    <view class='relation-icon'>
+      <view>互相关注</view>
+      <view>已关注</view>
+      <view class='relation-icon__add'>+ 关注</view>
+    </view>
+  </view>
+  <view class='time-top font-m relation-item' >
+    <view class='flex_row relation-avater'>  
+      <image src='../../images/timg.jpg'></image>
+      <text>海绵人</text>
+    </view>
+
+    <view class='relation-icon'>
+      <view>互相关注</view>
+      <view>已关注</view>
+      <view class='relation-icon__add'>+ 关注</view>
+    </view>
+  </view>
+</view>
+

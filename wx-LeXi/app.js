@@ -23,7 +23,7 @@ App({
 
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
-    console.log(jwt,'jwt')
+    console.log(jwt, 'jwt')
     this.globalData.jwt = jwt
 
     // 检查 jwt 是否存在 如果不存在调用登录
@@ -99,7 +99,7 @@ App({
   },
 
   // 更新用户信息
-  updateUserInfo (jwt) {
+  updateUserInfo(jwt) {
     this.globalData.userInfo = {
       avatar: jwt.avatar,
       username: jwt.username,
@@ -157,7 +157,7 @@ App({
   /**
    * 获取购物车数量
    */
-  getCartTotalCount () {
+  getCartTotalCount() {
     http.fxGet(api.cart_item_count, {}, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
@@ -231,6 +231,32 @@ App({
     // 评论订单的时候的商品
     critiqueProduct: '',
     // 选择运费模板里面的需要的订单信息
-    pickLogistics: ''
+    pickLogistics: '',
+    //订单的参数
+    orderParams: {
+      address_rid: '', //String	必需	 	收货地址ID
+      outside_target_id: '', //String	可选	 	 
+      invoice_type: '', //Integer	可选	1	发票类型
+      invoice_info: '', //String	可选	{}	 
+      ship_mode: '', //Integer	可选	1	1、发快递 2、自提
+      from_client: '1', //String	可选	 	来源客户端，1、小程序；2、H5  6、PAD
+      affiliate_code: '', //String	可选	 	推广码
+      bonus_code: '', //String	可选	 	官方红包码
+      sync_pay: '', //Integer	可选	0	是否同步返回支付参数 0、否 1、是
+      store_items: [{
+        store_rid: '', //String	必需	 	当前店铺rid
+        is_distribute: '', //Integer	可选	0	是否分销 0、否 1、是
+        original_store_rid: '', //String	可选	 	原店铺rid
+        buyer_remark: '', //String	可选	 	买家备注
+        blessing_utterance: '', //String	可选	 	买家寄语
+        coupon_codes: '', //String	可选	 	优惠券码
+        items: [{
+          rid: '', //String	必需	 	sku
+          quantity: '', //Number	必需	1	购买数量
+          express_id: '', //Integer	必需	 	物流公司ID
+          warehouse_id: '' //Number	可选	 	发货的仓库ID
+        }]
+      }]
+    }
   }
 })

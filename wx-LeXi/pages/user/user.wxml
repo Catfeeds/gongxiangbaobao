@@ -23,11 +23,16 @@
       </view>
     </view>
     <!-- 粉丝 -->
-    <view class='follow'>
-      <text class='font-s'> <text class='hui-zi'> 关注 </text>
-      <text>123</text> </text>
-      <text class='font-s'> <text class='hui-zi'> 粉丝 </text>
-      <text>123</text> </text>
+    <view class='flex_row follow'>
+      <view catchtap='handleWatchTap'>
+        <text class='font-s'> <text class='hui-zi' > 关注 </text>
+        <text>123</text> </text>
+      </view>
+      <view catchtap='handleFollowerTap'>
+        <text class='font-s'> <text class='hui-zi'> 粉丝 </text>
+        <text>123</text> </text>
+      </view>
+
     </view>
     <!-- 设置和客服 -->
     <view class='time-top service-intercalate'>
@@ -67,13 +72,8 @@
     </view>
     <!-- 下面的产品列表 -->
     <view class='goodsList'>
-      <view 
-        wx:for="{{likeProduct.products}}" 
-        wx:key="{{index}}" 
-        class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product 
-          product="{{item}}" 
-          bind:triggerEvent_product='handleInfomation'></fx-product>
+      <view wx:for="{{likeProduct.products}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>
@@ -86,12 +86,7 @@
         <text class='see-all hui-zi'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view 
-          catchtap='handleToProductInfoTap'
-          data-rid='{{item.rid}}'
-          class='c-importantGoodsPhoto GoodsPhoto' 
-          wx:for="{{userBrowsesProduct}}" 
-          wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct}}" wx:key="{{index}}">
           <image src='{{item.cover}}'></image>
         </view>
       </view>
@@ -102,12 +97,7 @@
         <text>心原单</text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view 
-          catchtap='handleToProductInfoTap'
-          data-rid="{{item.rid}}"
-          class='c-importantGoodsPhoto GoodsPhoto' 
-          wx:for="{{desireOrderProduct.products}}" 
-          wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
           <image src='{{item.cover}}'></image>
         </view>
       </view>
@@ -115,7 +105,7 @@
     </view>
   </view>
   <!-- //登陆注册 -->
-    <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
-      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
 </view>

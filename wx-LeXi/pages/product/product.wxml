@@ -36,19 +36,19 @@
     </view>
     <!-- wx:for='{{productInfomation.labels}}' -->
     <view class='characteristic branderInfo'>
-      <text class='{{characteristicT}} characteristic-index_one' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[1].name}}  </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[2].name}} </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[3].name}}  </text>
-      <text class='{{characteristicT}}' wx:key='{{index}}'>·{{productInfomation.labels[4].name}}  </text>
+      <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
+      <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
+          <text wx:if="{{index!=0}}"> · </text>
+      <text>{{item.name}}</text>
+      </text>
       <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
     <view class='branderInfo like-quantity'>
-      <view class='like-quantity-l'>
-        <!-- <text class='fx-icon-like'></text> -->
-        <image src='../../images/dLike@2.png' class='like-icon'></image>
-        <text class='hui-zi'> +{{productInfomation.like_count}}</text>
+      <view class='like-quantity-l' catchtap='handleBindLike'>
+        <image 
+          src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
+        <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
       </view>
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
@@ -77,6 +77,8 @@
         <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
           <image src='../../images/reduced-price@2.png'></image>
           <text class="reduced-price_text" wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">{{ item.type_text }}</text>
+          <view class='reduced-price__last' wx:if="{{fullSubtractionList.coupons.length>2&&couponList.coupons.length != 0}}"> ... </view>
+          <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
         </view>
       </view>
     </view>
@@ -93,10 +95,11 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
+      <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image>
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.product_like_users.avatar}}' class='photo-round'></image>
 
     </view>
-    <view class='roundR'>···</view>
+    <view class='roundR' catchtap='handelToLikeThisProductTap'>···</view>
   </view>
 
   <!-- 描述,发货地，时间 -->
@@ -131,8 +134,7 @@
     <!-- 交货时间 -->
     <view class='otherInfo-describe location'>
       <view class='titleText'>交货时间</view>
-      <view class='goodstext'>预计3-5天到达
-        <!-- <text class='theme-green'>遵义</text> -->
+      <view class='goodstext'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
       </view>
     </view>
 

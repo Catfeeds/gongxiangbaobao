@@ -296,5 +296,17 @@ Page({
     this.setData({
       is_mobile: e.detail.offBox
     })
+  },
+  // 关注页面跳转
+  handleWatchTap(){
+    wx.navigateTo({
+      url: '../watch/watch',
+    })
+  },
+  //粉丝页面的跳转
+  handleFollowerTap(){
+    wx.navigateTo({
+      url: '../myFollower/myFollower',
+    })
   }
 })

@@ -33,9 +33,9 @@ Page({
     })
     
     console.log(e.detail.value)
-     var addresId = wx.getStorageSync('orderParams')
-     addresId.address_rid = e.detail.value
-     wx.setStorageSync('orderParams', addresId)
+    //  var addresId = wx.getStorageSync('orderParams')
+    app.globalData.orderParams.address_rid = e.detail.value
+    //  wx.setStorageSync('orderParams', addresId)
   },
   // 获取地址列表
   getAdressList() {
@@ -80,7 +80,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.getStorageSync('adress') || common.getReceiveAddress() // 加载收货地址
+    app.globalData.orderParams.adress || common.getReceiveAddress() // 加载收货地址
     
   },
 

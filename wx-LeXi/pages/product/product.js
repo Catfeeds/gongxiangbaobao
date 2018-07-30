@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    logisticsTime:{}, // 交货时间
     dkcontent: '',
     swiperIndex: 0,
     is_mobile: false, //  绑定手机模板
@@ -32,12 +33,62 @@ Page({
     pick: false, // 选择规格的盒子是否隐藏---
     ShopCartNum: [], //购物车的数量---
     newProductList: [], // 最新的商品列表---
+    userPhoto: app.globalData.userInfo.avatar, // 用户的头像
     //最新产品的请求参数
     newProductParams: {
       page: 1,
       per_page: 10
     }
   },
+
+
+
+  // 点击喜欢
+  handleBindLike(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    let isLike = this.data.productInfomation.is_like
+    let rid = this.data.productInfomation.rid
+    console.log(isLike)
+    if (isLike) {
+      // 喜欢，则删除
+      http.fxDelete(api.userlike, {
+        rid: rid
+      }, (result) => {
+        if (result.success) {
+          console.log(result)
+          this.setData({
+            ['productInfomation.is_like']:false,
+            ['productInfomation.like_count']: this.data.productInfomation.like_count-1,
+            ['productInfomation.product_like_users']: this.data.productInfomation.product_like_users.slice(0, this.data.productInfomation.product_like_users.length-1)
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      // 未喜欢，则添加
+      http.fxPost(api.userlike, {
+        rid: rid
+      }, (result) => {
+        if (result.success) {
+          this.setData({
+            ['productInfomation.is_like']: true,
+            ['productInfomation.like_count']: this.data.productInfomation.like_count-0 + 1,
+            ['productInfomation.product_like_users']: this.data.productInfomation.product_like_users.push({})
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+  },
+
   //轮播图结束后执行
   animationOver(e) {
     this.setData({
@@ -376,10 +427,29 @@ Page({
     })
   },
 
+  // 交货时间
+  getLogisticsTime(e){
+    http.fxGet(api.logisitcs.replace(/:rid/g,e),{},(result)=>{
+      console.log(result.data,'交货时间')
+      if(result.success){
+        let min = result.data.items[0].min_days
+        let max = result.data.items[0].max_days
+        result.data.items.forEach((v,i)=>{
+          if (v.is_default){
+            //循环完毕
+              this.setData({
+                logisticsTime: v
+              })
+          }
+        })
+      }
+    })
+    
+  },
   // 获取商品详情
   getProductInfomation() {
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
-      user_record: true
+      user_record: "1"
     }, (result) => {
       if (result.success) {
         console.log(result, '产品详情')
@@ -394,6 +464,8 @@ Page({
         this.filterSpecifications() 
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
+        // 交货时间
+        this.getLogisticsTime(result.data.fid)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -446,12 +518,12 @@ Page({
     })
   },
 
-  // 设置订单参数的 商品的rid store_items.itemsrid = 
+  // 设置订单参数的 商品的sku-rid store_items.itemsrid = 
   setOrderParamsProductId(e) {
-    let productId = wx.getStorageSync('orderParams')
-    productId.store_items[0].items[0].rid = e
-    console.log(productId)
-    wx.setStorageSync('orderParams', productId)
+    // let productId = wx.getStorageSync('orderParams')
+    app.globalData.orderParams.store_items[0].items[0].rid = e
+    // console.log(productId)
+    // wx.setStorageSync('orderParams', productId)
   },
 
   // 商品详情
@@ -483,6 +555,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
+    console.log(app.globalData.userInfo.avatar)
     this.setData({
       rid: options.rid,
       isWatch: app.globalData.isWatchstore
@@ -596,9 +669,9 @@ Page({
           result.data[key].forEach((v, i) => { //每个sku
             console.log(v)
             // 当前店铺的rid
-            v.current_store_rid = wx.getStorageSync('storeInfo').rid
+            v.current_store_rid = app.globalData.storeInfo.rid
             // 是否为分销商品
-            if (v.store_rid != wx.getStorageSync('storeInfo').rid) {
+            if (v.store_rid != app.globalData.storeInfo.rid) {
               v.is_distribute = 1
             } else {
               v.is_distribute = 0
@@ -654,6 +727,11 @@ Page({
     console.log(e)
     this.setData({
       is_mobile: e.detail.offBox
+    })
+  },
+  handelToLikeThisProductTap(){
+    wx.navigateTo({
+      url: '../likeThisProduct/likeThisProduct'
     })
   }
 })

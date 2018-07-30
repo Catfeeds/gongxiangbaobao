@@ -50,7 +50,7 @@
   color: #f4ac12;
 }
 
-.follow>text:nth-child(1) {
+.follow>view:nth-child(1) {
   margin-right: 30rpx;
 }
 
