@@ -15,6 +15,11 @@ module.exports = {
   user: 'users',   // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
   user_authorize: 'accounts/wxa_authorize', //openid---
+  user_avatar_upload: '', // POST 
+  user_upload_token: 'assets/user_upload_token', // GET 获取上传Token
+
+  // Asset
+  asset_detail: 'assets/show_asset', // GET 获取附件 
 
   // Category
   categories: 'categories',  // GET 获取产品分类

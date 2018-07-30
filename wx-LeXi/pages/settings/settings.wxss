@@ -52,6 +52,10 @@
   font-size: 24rpx;
   color: #f66;
 }
+.ft-gray {
+  font-size: 24rpx;
+  color: #999;
+}
 
 .fx-icon-nothing-right {
   font-size: 26rpx;

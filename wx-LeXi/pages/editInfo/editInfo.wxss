@@ -1,10 +1,10 @@
 /* pages/editInfo/editInfo.wxss */
-.userPhoto{
+.userPhoto {
   height: 520rpx;
   width: 100%;
   position: relative;
 }
-.userPhoto image{
+.userPhoto image {
   height: 100%;
   width: 100%;
 }
@@ -48,11 +48,10 @@ label>view{
   align-items: center;
 }
 .camera>image{
-  height: 35rpx !important;
+  height: 40rpx !important;
   width: 40rpx !important;
 }
-.bottom-btn-box{
-  
+.bottom-btn-box {
   height: 100rpx;
   position: fixed;
   bottom: 0;
@@ -64,13 +63,13 @@ label>view{
   background-color: white;
   z-index: 99;
 }
-.bottom-btn-box>button{
-height: 80rpx;
-border-radius: 15rpx;
-width: 600rpx;
-color: white;
-font-size: 28rpx;
 
+.bottom-btn-box > button {
+  height: 80rpx;
+  border-radius: 8rpx;
+  width: 600rpx;
+  color: white;
+  font-size: 28rpx;
 }
 .picker-box{
   position: fixed;

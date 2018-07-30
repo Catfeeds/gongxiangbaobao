@@ -1,10 +1,10 @@
 <!--pages/editInfo/editInfo.wxml-->
 <view class='container'>
   <view class='userPhoto'>
-    <image src='{{userInfo.profile.avatar}}'></image>
-    <view class='register-time'>注册时间：{{userInfo.profile.created_at}}</view>
-    <view class='camera'>
-      <image src='../../images/lexi@2.png'></image>
+    <image src='{{ userInfo.profile.avatar }}'></image>
+    <view class='register-time'>注册时间：{{ userInfo.profile.created_at }}</view>
+    <view class='camera' bindtap='handleUploadAvatar'>
+      <image src='../../images/icon-camera@2x.png'></image>
     </view>
   </view>
 
@@ -13,32 +13,35 @@
       <!-- 用户名字 -->
       <label class='componentTwo'>
         <view>用户名</view>
-        <input bindinput='handleNameInput' placeholder-class='placeholder' value='{{editUserInfo.username}}' class='userInput' placeholder='输入姓名'></input>
+        <input bindinput='handleNameInput' placeholder-class='placeholder' value='{{ editUserInfo.username }}' class='userInput' placeholder='输入姓名'></input>
       </label>
       <!-- 个人介绍 -->
       <label class='componentTwo'>
         <view>个人介绍</view>
-        <input bindinput='handleOwnerIntroduce' placeholder-class='placeholder' class='userInput' value='{{editUserInfo.about_me}}' placeholder='给自己添加一个solgan吧'></input>
+        <input bindinput='handleOwnerIntroduce' placeholder-class='placeholder' class='userInput' value='{{ editUserInfo.about_me }}' placeholder='给自己添加一个 solgan 吧'></input>
 
       </label>
       <!-- 邮箱 -->
       <label class='componentTwo'>
         <view>邮箱</view>
-        <input bindinput='hanleOwnerEmail' value='{{editUserInfo.email}}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
+        <input bindinput='hanleOwnerMail' value='{{ editUserInfo.mail }}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
       </label>
       <!-- 位置 -->
       <label class='componentTwo' catchtap='handleShowPick'>
         <view>位置</view>
         <view class="black-font">
-          {{provinceList[adressIndex[0]].name}}.{{cityList[adressIndex[1]].name}}.{{countyList[adressIndex[2]].name}}
+          {{ provinceList[adressIndex[0]].name }}·{{ cityList[adressIndex[1]].name }}·{{ countyList[adressIndex[2]].name }}
         </view>
       </label>
       <!-- 出生日期 -->
       <label class='componentTwo'>
         <view>出生日期</view>
-        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-          <view class="black-font">
-            {{date}}
+        <picker mode="date" value="{{ editUserInfo.date }}" start="1990-01-01" end="2017-09-01" bindchange="bindDateChange">
+          <view class="black-font" wx:if="{{ editUserInfo.date }}">
+            {{ editUserInfo.date }}
+          </view>
+          <view class="black-font" wx:else>
+            设置日期
           </view>
         </picker>
       </label>
@@ -47,7 +50,7 @@
         <view>性别</view>
         <picker bindchange="bindGenderChange" mode='selector' range="{{gender}}" value="{{gender}}">
           <view class="black-font">
-            {{gender[editUserInfo.gender]}}
+            {{ gender[editUserInfo.gender] }}
             <picker-view></picker-view>
           </view>
         </picker>
@@ -57,6 +60,7 @@
       </view>
     </form>
   </view>
+
   <view wx:if="{{isPicker}}" class='picker-box'>
     <view class='time-top over-or-delete'>
       <view catchtap='handledeletePick'>取消</view>
