@@ -4,46 +4,50 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    path:true,// 页面来源
-    addresList: [], //地址列表---
-    address_rid:[] ,// 选择的rid
-    order:''
+    path: true,// 页面来源
+    addresList: [], // 地址列表---
+    address_rid: [],// 选择的rid
+    order: ''
   },
-  //在没有选择的时候去设置订单参数
+
+  // 在没有选择的时候去设置订单参数
   pickAdress(){
-    var rid
-    this.data.addresList.forEach((v,i)=>{
-      if(v.is_default){
+    let rid
+    this.data.addresList.forEach((v, i) => {
+      if (v.is_default) {
         rid = v.rid
       }
     })
     console.log(rid)
-    var objct = { detail: { value: rid}}
+    var objct = { detail: { value: rid } }
     this.radioChange(objct)
   },
-  //选择的地址
+
+  // 选择的地址
   radioChange (e) {
     this.setData({
       address_rid: e.detail.value
     })
     
     console.log(e.detail.value)
-     var addresId = wx.getStorageSync('orderParams')
-     addresId.address_rid = e.detail.value
-     wx.setStorageSync('orderParams', addresId)
+    let addresId = wx.getStorageSync('orderParams')
+    addresId.address_rid = e.detail.value
+    wx.setStorageSync('orderParams', addresId)
   },
+
   // 获取地址列表
   getAdressList() {
     http.fxGet(api.addresses, {}, (result) => {
       console.log(result)
       if (result.success) {
         this.setData({
-          addresList:result.data
+          addresList: result.data
         })
         this.pickAdress()
       } else {
@@ -51,13 +55,14 @@ Page({
       }
     })
   },
-  //删除地址
-  deleteAddress(){
-    http.fxDelete(api.address_delete.replace(/:rid/g, this.data.address_rid),{},(result) => {
-      if (result.success){
+
+  // 删除地址
+  deleteAddress() {
+    http.fxDelete(api.address_delete.replace(/:rid/g, this.data.address_rid), {}, (result) => {
+      if (result.success) {
         this.getAdressList()
         console.log(2)
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -67,11 +72,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var router=getCurrentPages()
+    let router = getCurrentPages()
     console.log(router[router.length - 2].route)
-    if (router[router.length - 2].route=='pages/settings/settings'){
+    if (router[router.length - 2].route == 'pages/settings/settings'){
       this.setData({
-        path:false
+        path: false
       })
     }
   },
@@ -126,6 +131,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+
   //选择地址
   addAddressTap() {
     wx.navigateTo({
