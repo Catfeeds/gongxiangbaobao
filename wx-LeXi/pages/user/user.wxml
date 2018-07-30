@@ -49,9 +49,9 @@
           <image class='setings' src='../../images/coupon_icon@2.png'></image>
           <text class='red-round'></text>
         </view>
-        <view class='service'>
-          <image class='setings' src='../../images/set.png'></image>
-        </view>
+        <button open-type="contact" class="service">
+          <image class='setings sms' src='../../images/set.png'></image>
+        </button>
         <view class='service' catchtap='setTap'>
           <image class='setings' src='../../images/setings.png'></image>
         </view>
