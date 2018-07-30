@@ -3,7 +3,8 @@ const http = require('./http.js')
 const api = require('./api.js')
 const utils = require('./util.js')
 const app = getApp()
-//预先请求地址
+
+// 预先请求地址
 const getAddressInfo = () => {
   http.fxGet(api.all_places, {
     country_id: 1

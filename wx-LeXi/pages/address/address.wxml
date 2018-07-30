@@ -56,18 +56,18 @@
         <text class='identificationTextR'>请填写收件人身份证</text>
       </view>
       <view class='identificationPhoto'>
-        <view class='userPhotoNullBox'>
-          <view class='userPhotoNull theme-bg-color' wx:if="{{1}}">+</view>
+        <view class='userPhotoNullBox' data-type='front' bindtap='handleUploadIdCard'>
+          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_front_image }}">+</view>
           <view class='userPhotoNull userPhotoHave' wx:else>
-            <image></image>
+            <image src='{{ id_card_front_image }}'></image>
           </view>
           <view>清晰正面照片</view>
         </view>
 
-        <view class='userPhotoNullBox'>
-          <view class='userPhotoNull theme-bg-color' wx:if="{{1}}">+</view>
+        <view class='userPhotoNullBox' data-type='back' bindtap='handleUploadIdCard'>
+          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_back_image }}">+</view>
           <view class='userPhotoNull userPhotoHave' wx:else>
-            <image></image>
+            <image src='{{ id_card_back_image }}'></image>
           </view>
           <view>
             清晰反面照片</view>
