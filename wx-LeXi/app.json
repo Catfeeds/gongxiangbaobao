@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/user/user",
     "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
     "pages/settings/settings",
     "pages/orderInfo/orderInfo",
-    "pages/user/user",
+    
     "pages/editInfo/editInfo",
     "pages/product/product",
     "pages/logisticsWatch/logisticsWatch",

@@ -3,20 +3,20 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-Page({
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-    is_mobile:false,// 注册的呼出框
+    is_mobile: false,// 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
-    userInfo:[],// 用户的信息
-    classInfo:1,// 切换---
+    userInfo: [],// 用户的信息
+    classInfo: 1,// 切换---
     sotrF: false,
-    likeProduct:[],// 喜欢的的商品---
-    recentlyLookProduct:[],// 最近查看的商品---
-    desireOrderProduct:[], //心愿单商品---
+    likeProduct: [],// 喜欢的的商品---
+    recentlyLookProduct: [],// 最近查看的商品---
+    desireOrderProduct: [], //心愿单商品---
 
     product: [
       {
@@ -94,29 +94,34 @@ Page({
   },
 
   // 获取用户信息---
-  getUserInfo(){
-    http.fxGet(api.users_profile,{},(result)=>{
+  getUserInfo () {
+    http.fxGet(api.users_profile, {}, (result) => {
       if(result.success){
-        console.log(result,'用户的信息')
+        console.log(result, '用户的信息')
+        // 格式化时间
+        result.data.profile.created_at = utils.timestamp2string(result.data.profile.created_at, 'cn')
+        // 设置全局变量
+        app.globalData.userInfo.profile = result.data.profile
         this.setData({
-          userInfo: result.data
-        })
-        wx.setStorageSync("userInfo", result.data)
+          userInfo: app.globalData.userInfo
+        })      
       }else{
         utils.fxShowToast(result.status.message)
       }
     })
   },
-  //切换类别
-  classTap(e){
+
+  // 切换类别
+  classTap (e) {
     console.log(e.currentTarget.dataset.rid)
     this.setData({
       classInfo: e.currentTarget.dataset.rid
     })
     this.getProduct(e.currentTarget.dataset.rid)
   },
+
   // 获取商品
-  getProduct(e=1){
+  getProduct (e=1) {
     switch (e){
       case 1:
         http.fxGet(api.userlike, this.data.getProductParams,(result)=>{
@@ -179,6 +184,7 @@ Page({
       })
       return false
     }
+
     this.getUserInfo() // 获取用户的信息
   },
 
@@ -253,43 +259,50 @@ Page({
     }
 
   },
-  //跳转到设置页面
+
+  // 跳转到设置页面
   setTap(e) {
     wx.navigateTo({
       url: '../settings/settings'
     })
   },
-  //跳转到优惠券
+
+  // 跳转到优惠券
   couponTap() {
     wx.navigateTo({
       url: '../coupon/coupon',
     })
   },
-  //跳转到红包页面
+
+  // 跳转到红包页面
   redBagTap(){
     wx.navigateTo({
       url: '../redBag/redBag',
     })
   },
-  //跳转到订单页面 
+
+  // 跳转到订单页面 
   handleToOrderTap(){
     wx.navigateTo({
       url: '../order/order',
     })
   },
-  //跳转到商品详情---
+
+  // 跳转到商品详情---
   handleToProductInfoTap(e){
     console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid
     })
   },
-  //跳转到商品详情---
+
+  // 跳转到商品详情---
   handleInfomation(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })
   },
+
   // 关闭
   hanleOffLoginBox(e) {
     console.log(e)
