@@ -18,6 +18,12 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    handleSlider3change(e){
+      console.log(e)
 
+    },
+    handleOffPick(e){
+      this.triggerEvent('handlePickOff')
+    }
   }
 })

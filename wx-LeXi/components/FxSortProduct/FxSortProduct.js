@@ -24,6 +24,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    // 筛选成功
     handlePickTap(e){
       console.log(e.currentTarget.dataset.rid)
       this.setData({
@@ -32,6 +33,10 @@ Component({
       this.triggerEvent('handlePickOver', {
         rid: e.currentTarget.dataset.rid
       })
+    },
+    // 关闭盒子
+    handleSortOff(){
+      this.triggerEvent('handleSortOff')
     }
   }
 })

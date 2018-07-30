@@ -1,2 +1,42 @@
 <!--components/FxPickProduct/FxPickProduct.wxml-->
-<text>components/FxPickProduct/FxPickProduct.wxml</text>
+<view class='pick-product-box'>
+  <view class='pick-product__title direction--row'>
+    <view class='pick-title__off'> <view catchtap='handleOffPick' >x</view></view>
+    <view class='pick-title__middle'>筛选</view>
+    <view class='pick-title__set'>重置</view>
+  </view>
+
+  <view class='slider'>
+    <view class='price-pick'>价格区间</view>
+    <view>
+      <slider 
+        max="{{6}}"
+        step="{{1}}"
+        block-size="{{18}}"
+        block-color="#5fe4b1"
+        show-value="{{false}}"
+        bindchange="handleSlider3change"/>
+    </view>
+    <view class='price-text font-s direction--row'>
+      <text>￥0</text>
+      <text>￥150</text>
+      <text>¥300</text>
+      <text>¥400</text>
+      <text>¥500</text>
+      <text>¥800</text>
+      <text>不限</text>
+    </view>
+  </view>
+
+  <view class='slider'>
+    <view class='price-pick'>分类 <text class='pick-product__text'>可多选</text> </view>
+    <view class='direction--row font-s pick-product__category '>
+      <view>heheh</view>
+      <view>heheh</view>
+      <view>heheh</view>
+      <view>heheh</view>
+      <view>heheh</view>
+      <view>heheh</view>
+    </view>
+  </view>
+</view>
