@@ -109,6 +109,7 @@ Page({
       items.push(item)
     })
     //发送请求获取满减
+    console.log(items)
     setTimeout(() => {
       http.fxPost(api.full_reduction, {
         items: items
@@ -135,7 +136,7 @@ Page({
           utils.fxShowToast(result.status.message)
         }
       })
-    }, 800)
+    }, 1000)
   },
 
   // 获取优惠券
@@ -292,9 +293,11 @@ Page({
 
     Object.keys(skus.data).forEach((key) => {
       console.log(skus)
+      console.log(key)
+      console.log(app.globalData.storeInfo.rid)
       store_items[key] = {
-        store_rid: wx.getStorageSync('storeInfo').rid, //String	必需	 	当前店铺rid
-        is_distribute: wx.getStorageSync('storeInfo').rid == key ? 0 : 1, //Integer	可选	0	是否分销 0、否 1、是
+        store_rid: app.globalData.storeInfo.rid, //String	必需	 	当前店铺rid
+        is_distribute: app.globalData.storeInfo.rid == key ? 0 : 1, //Integer	可选	0	是否分销 0、否 1、是
         original_store_rid: key, //String	可选	 	原店铺rid
         buyer_remark: '', //String	可选	 	买家备注
         blessing_utterance: '', //String	可选	 	买家寄语

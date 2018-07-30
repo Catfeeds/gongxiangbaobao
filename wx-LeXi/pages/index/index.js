@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    handelOffPick:false,
     isSortShow:false, // 排序
     advertisement: '', // 广告
     is_mobile: false, // 优惠券模板是否弹出
@@ -302,9 +303,16 @@ Page({
       })
       return
     }
+<<<<<<< HEAD
     
     let rid = e.currentTarget.dataset.id
     let isLike = e.currentTarget.dataset.islike
+=======
+    console.log(app.globalData.isLogin)
+    var rid = e.currentTarget.dataset.id
+    var isLike = e.currentTarget.dataset.islike
+    console.log(isLike)
+>>>>>>> zgs5
 
     if (isLike) {
       // 喜欢，则删除
@@ -733,8 +741,26 @@ Page({
   },
   // 排序的盒子
   handleSortShow(){
-    this.settData({
+    this.setData({
       isSortShow:true
+    })
+  },
+  // 排序的盒子关闭
+  handleSortOff(){
+    this.setData({
+      isSortShow: false
+    })
+  },
+  //关闭筛选的盒子
+  handelOffPick(){
+    this.setData({
+      handelOffPick:false
+    })
+  },
+  // 打开筛选的盒子
+  hanlePickS(){
+    this.setData({
+      handelOffPick:true
     })
   }
 })

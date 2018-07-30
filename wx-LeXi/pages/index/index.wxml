@@ -192,11 +192,11 @@
   <!-- 作品里面的内容 -->
   <view wx:if="{{catgoryActive==2}}">
     <view class='pickList'>
-      <view class='reverseTriangleBox'>
+      <view class='reverseTriangleBox' catchtap='hanlePickS'>
         <text>筛选</text>
         <text class='reverseTriangle'></text>
       </view>
-      <view class='reverseTriangleBox'>
+      <view class='reverseTriangleBox' catchtap="handleSortShow">
         <text>排序</text>
         <text class='reverseTriangle'></text>
       </view>
@@ -259,7 +259,14 @@
   </view>
 
   <!-- 排序的呼出框 -->
-  <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap="handleSortShow"> 
-    <fx-sort bind:handlePickOver="handleSort"></fx-sort>
+  <view class='login-bind_box--style' wx:if="{{isSortShow}}"> 
+    <fx-sort 
+      bind:handleSortOff="handleSortOff" 
+      bind:handlePickOver="handleSort"></fx-sort>
+  </view>
+
+  <!-- 筛选的产品 -->
+  <view class='login-bind_box--style' wx:if="{{handelOffPick}}">
+    <fx-pick-product bind:handlePickOff="handelOffPick"></fx-pick-product>
   </view>
 </view>
