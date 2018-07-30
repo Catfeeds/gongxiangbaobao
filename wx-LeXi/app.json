@@ -1,12 +1,11 @@
 {
   "pages": [
-    "pages/user/user",
     "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
     "pages/settings/settings",
     "pages/orderInfo/orderInfo",
-    
+    "pages/user/user",
     "pages/editInfo/editInfo",
     "pages/product/product",
     "pages/logisticsWatch/logisticsWatch",
@@ -28,7 +27,8 @@
     "pages/paymentAddress/paymentAddress",
     "pages/authorize/authorize",
     "pages/myFollower/myFollower",
-    "pages/likeThisProduct/likeThisProduct"
+    "pages/likeThisProduct/likeThisProduct",
+    "pages/allProduct/allProduct"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

@@ -133,6 +133,7 @@ module.exports = {
   //店铺的主人的
   store_owner_info:'users/authenticate',
   masterInfo:'store/master_info',
+  users_user_center:'users/user_center', // 获取用户的收藏 喜欢 设计管
 
   // user
   users_profile: 'users/profile' ,//get 获取用户的信息---

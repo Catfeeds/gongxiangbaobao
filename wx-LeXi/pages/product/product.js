@@ -33,15 +33,13 @@ Page({
     pick: false, // 选择规格的盒子是否隐藏---
     ShopCartNum: [], //购物车的数量---
     newProductList: [], // 最新的商品列表---
-    userPhoto: app.globalData.userInfo.avatar, // 用户的头像
+    userPhoto: "", // 用户的头像
     //最新产品的请求参数
     newProductParams: {
       page: 1,
       per_page: 10
     }
   },
-
-
 
   // 点击喜欢
   handleBindLike(e) {
@@ -64,9 +62,9 @@ Page({
           console.log(result)
           this.setData({
             ['productInfomation.is_like']:false,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count-1,
-            ['productInfomation.product_like_users']: this.data.productInfomation.product_like_users.slice(0, this.data.productInfomation.product_like_users.length-1)
+            ['productInfomation.like_count']: this.data.productInfomation.like_count-1
           })
+
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -558,7 +556,8 @@ Page({
     console.log(app.globalData.userInfo.avatar)
     this.setData({
       rid: options.rid,
-      isWatch: app.globalData.isWatchstore
+      isWatch: app.globalData.isWatchstore,
+      userPhoto:app.globalData.userInfo.avatar
     })
 
     this.getProductInfomation() // 获取商品详情---

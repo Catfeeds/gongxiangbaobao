@@ -82,7 +82,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    app.globalData.orderParams.adress || common.getReceiveAddress() // 加载收货地址
+    wx.getStorageSync('adress') || common.getReceiveAddress() // 加载收货地址
     
   },
 
