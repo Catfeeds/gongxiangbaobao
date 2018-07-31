@@ -71,21 +71,38 @@
   margin-right: 20rpx;
 }
 
-.movable-view{
+.movable-view {
   margin: 0 45rpx;
 
 }
-.movable-view__bg{
+
+.movable-view__bg {
   height: 10rpx;
-  width: 100%;
+  width: 600rpx;
   background-color: #999;
   border-radius: 10rpx;
+  position: relative;
 }
-.movable-view__item{
+
+.movable-view__item {
   height: 40rpx;
   width: 40rpx;
   border-radius: 50%;
   border: 4rpx solid #6ed7af;
   top: -166%;
   background-color: white;
+  z-index: 9;
 }
+
+.middle-line {
+  height: 10rpx;
+  background-color:#6ed7af ;
+  border-radius: 10rpx;
+  position: absolute;
+  top: 0;
+}
+.pick-bg{
+  border: 2rpx solid #5fe4b1;
+  background-color:rgba(0, 255, 191,.9)
+}
+

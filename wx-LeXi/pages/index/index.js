@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    handelOffPick: true,
+    handelOffPick: false,
     isSortShow: false, // 排序
     advertisement: '', // 广告
     is_mobile: false, // 优惠券模板是否弹出
@@ -117,20 +117,35 @@ Page({
       status: '', //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
     }
   },
+  // 获取筛选
+  handlePickProduct(e){
+    console.log(e.detail.category)
+    let rids = e.detail.category
+    this.setData({
+      ['sortParams.cids']: rids.join(',')
+    })
+    this.getPick()
+  },
 
   // 获取排序的产品
-  handleSort(e) {
+  handleSort(e=0) {
     console.log(e.detail.rid)
-    this.setData({
-      ['sortParams.sort_type']:e.detail.rid
-    })
-    http.fxGet(api.products_index, this.data.pickParmas,(result)=>{
+    if (e.detail.rid!=undefined){
+      this.setData({
+        ['sortParams.sort_type']: e.detail.rid
+      })
+    }
+    this.getPick()
+  },
+  // 排序和筛选公共的接口
+  getPick(){
+    http.fxGet(api.products_index, this.data.sortParams, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
-          myProduct:result.data
+          myProduct: result.data
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })

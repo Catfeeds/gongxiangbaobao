@@ -7,9 +7,18 @@
     </view>
 
     <view class='relation-icon'>
-      <view wx:if="{{item.mutual_followed}}">互相关注</view>
+      <view 
+        wx:if="{{item.followed_status==2}}"
+        catchtap='hanleDeleteWatch' 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}">互相关注</view>
       <!-- <view>已关注</view> -->
-      <view class='relation-icon__add' wx:if="{{!item.mutual_followed}}">+ 关注</view>
+      <view 
+        class='relation-icon__add' 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        catchtap='hanleAddWatch' 
+        wx:if="{{item.followed_status==0}}">+ 关注</view>
     </view>
   </view>
 </view>

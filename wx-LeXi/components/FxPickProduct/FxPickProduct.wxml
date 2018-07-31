@@ -1,7 +1,9 @@
 <!--components/FxPickProduct/FxPickProduct.wxml-->
 <view class='pick-product-box'>
   <view class='pick-product__title direction--row'>
-    <view class='pick-title__off'> <view catchtap='handleOffPick' >x</view></view>
+    <view class='pick-title__off'>
+      <view catchtap='handleOffPick'>x</view>
+    </view>
     <view class='pick-title__middle'>筛选</view>
     <view class='pick-title__set'>重置</view>
   </view>
@@ -9,26 +11,23 @@
   <view class='slider'>
     <view class='price-pick'>价格区间</view>
     <view class='movable-view'>
-      <view class='movable-view__bg'></view>
-      
+
+
       <movable-area 
         class="movable-view__bg" 
-        style="background-color:#6ed7af; ">
-        
+        style="margin-left:{{movableLeft}}rpx; width:{{}}rpx">
+
         <!-- 左面 -->
-        <movable-view 
-          x="{{0}}"
-          direction="horizontal"
-          damping="{{50}}"
-          class='movable-view__item'>
+        <movable-view x="{{0}}" bindchange="handleMovableLeft" direction="horizontal" damping="{{50}}" class='movable-view__item'>
         </movable-view>
 
+      <!-- 中间 -->
+      <view 
+        class='middle-line' 
+        style="margin-left:{{lineLeft}}rpx;width:{{lineWhite}}rpx"></view>
+
         <!-- 右面 -->
-        <movable-view 
-          x="{{600}}"
-          direction="horizontal"
-          damping="{{50}}"
-          class='movable-view__item'>
+        <movable-view x="{{600}}" bindchange="handleMovableRight" direction="horizontal" damping="{{50}}" class='movable-view__item'>
         </movable-view>
 
       </movable-area>
@@ -43,16 +42,30 @@
       <text>不限</text>
     </view>
   </view>
-
-  <view class='slider'>
-    <view class='price-pick'>分类 <text class='pick-product__text'>可多选</text> </view>
+  
+  <!-- 首页的分类 -->
+  <view class='slider' wx:if="{{!recommend}}">
+    <view class='price-pick'>分类
+      <text class='pick-product__text'>可多选</text> </view>
     <view class='direction--row font-s pick-product__category '>
-      <view>heheh</view>
-      <view>heheh</view>
-      <view>heheh</view>
-      <view>heheh</view>
-      <view>heheh</view>
-      <view>heheh</view>
+      <view 
+        wx:for="{{categoryList}}" 
+        wx:key="{{index}}" 
+        catchtap='hanlePickCategory'
+        class='{{ item[2] == 1?"pick-bg":"" }}'
+        data-rid="{{item[0]}}">{{item[1]}}</view>
+
     </view>
   </view>
+
+    <!-- 个人中心的 -->
+  <view class='slider' wx:if="{{recommend}}">
+    <view class='price-pick'>推荐</view>
+    <view 
+      catchtap='handleLogistics'
+      class='direction--row font-s pick-product__category '>
+      <view class='{{logisticsPrice==1?"pick-bg":""}}'>包邮</view>
+    </view>
+  </view>
+
 </view>

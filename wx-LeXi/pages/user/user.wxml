@@ -64,7 +64,8 @@
     <view class='Fshim' wx:if="{{sotrF}}"></view>
     <!-- 筛选和排序 -->
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-      <view>筛选
+      <view catchtap='hanlePickS'>
+        筛选
         <text>↓</text> </view>
       <view catchtap="handleSortShow">
         排序
@@ -77,6 +78,7 @@
       </view>
     </view>
   </view>
+
   <!-- 收藏里面的内容 -->
   <view class='shou' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
@@ -105,6 +107,49 @@
     </view>
   </view>
 
+<!-- 设计管里面 -->
+<view wx:if="{{classInfo==3}}">
+    <!-- 店铺其他产品信息 -->
+  <view class='shopInfo' wx:for="{{watchStoreList.stores}}" wx:key="{{index}}">
+    <view class='shopInfoT'>
+      <view class='userIcon' catchtap='handleGoIndex'>
+        <image src='{{ item.logo.view_url }}'></image>
+      </view>
+      <view class='shopMiddle' catchtap='handleGoIndex'>
+        <view class='hui-zi'>原创品牌馆</view>
+        <view class='shop-name'>{{ item.name }}</view>
+      </view>
+      <view 
+        class='with' 
+        catchtap='handleAddWatch' 
+        wx:if="{{item.watch}}" 
+        data-rid="{{item.rid}}"
+        data-index="{{index}}">
+        <image src='../../images/shop1.png'></image>
+        <view>关注</view>
+      </view>
+      <view 
+        class='with' 
+        data-rid="{{item.rid}}"
+        catchtap='handleDeleteWatch' 
+        wx:if="{{!item.watch}}" 
+        data-index="{{index}}">
+        <!-- <image src='../../images/shop1.png'></image> -->
+        <view>已关注</view>
+      </view>
+    </view>
+    <view class='shop-other-goods'>
+      <view wx:for='{{ item.products }}' 
+        wx:key="{{ index }}" 
+        wx:for-item="value"
+        data-rid='{{ value.rid }}' 
+        catchtap='handleToProductInfoTap'>
+        <image src='{{ value.cover }}'></image>
+      </view>
+    </view>
+  </view>
+</view>
+
   <!-- //登陆注册 -->
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
@@ -118,5 +163,15 @@
       teHuiShow="{{true}}"      
       bind:handleSortOff="handleSortOff" 
       bind:handlePickOver="handleSort"></fx-sort>
+  </view>
+
+    <!-- 筛选的产品 -->
+  <view class='login-bind_box--style' wx:if="{{handelOffPick}}">
+    <fx-pick-product 
+      bind:logisticsPrice="handlePick"
+      bind:handlePickOff="handelOffPick"
+      recommend="{{true}}"
+      bind:handlePickProduct="handlePickProduct"
+      category="{{shopInfo.categories}}"></fx-pick-product>
   </view>
 </view>
