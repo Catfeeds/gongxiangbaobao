@@ -1,18 +1,37 @@
 <!--components/FxSortProduct/FxSortProduct.wxml-->
 <view class='sort-box'>
   <view class='sort-box__title'>
-    <text class='sort-title__icon' catchtap='handleSortOff'><text>x</text></text>  
+    <text class='sort-title__icon' catchtap='handleSortOff'><text>x</text></text>
     <text class='sort-title__text'>排序</text>
   </view>
+
+  <!-- 最新 -->
   <view 
-    class="sort-box__item {{index%2==1?'bg--hui':''}} {{item.rid==pitchOn?'bg--white':''}}"
-    wx:for="{{sortData}}" 
-    wx:key="{{index}}" 
-    data-rid="{{item.rid}}"
-    catchtap='handlePickTap'> 
-    <text>{{item.name}}</text>  
+    wx:if="{{!teHuiShow}}"
+    class="sort-box__item {{1==pitchOn?'bg--white':''}}" 
+    data-rid="1" catchtap='handlePickTap'>
+    <text>最新</text>
+    <image src='../../images/pitch-on@2.png' wx:if="{{1==pitchOn}}"></image>
+  </view>
+
+  <!-- 不限 -->
+  <view 
+    wx:if="{{teHuiShow}}"
+    class="sort-box__item {{0==pitchOn?'bg--white':''}}" 
+    data-rid="0" catchtap='handlePickTap'>
+    <text>不限</text>
+    <image src='../../images/pitch-on@2.png' wx:if="{{0==pitchOn}}"></image>
+  </view>
+
+  <!-- 价格 -->
+  <view  class="sort-box__item bg--hui" >
+    <text>价格</text>
+  </view>
+
+  <view class="sort-box__item {{item.rid==pitchOn?'bg--white':''}}" wx:for="{{sortData}}" wx:key="{{index}}" data-rid="{{item.rid}}" catchtap='handlePickTap'>
+    <text>{{item.name}}</text>
     <image src='../../images/pitch-on@2.png' wx:if="{{item.rid==pitchOn}}"></image>
-    </view>
+  </view>
+
   <view class='sort-box__item bg--hui'></view>
 </view>
-

@@ -22,7 +22,7 @@ Page({
     falseheckbox: false, // falseheckbox---
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
-    shoppingCart: [{}], // 添加到购物车的内容产品内容---
+    shoppingCart: [], // 添加到购物车的内容产品内容---
     payment: 0, // 应该支付的总金额---
     //添加购物车和修改购买数量的时候参数
     addCartParams: {
@@ -31,7 +31,7 @@ Page({
       option: '', // 其他选项
       open_id: '', //	独立小程序openid
     },
-    thinkOrder: [{}], // 心愿单的内容---
+    thinkOrder: [], // 心愿单的内容---
   },
 
   // 是否登陆
@@ -477,7 +477,7 @@ Page({
       option: '', //String	可选	 	其他选项
       open_id: '' //String	独立小程序端必填	 	独立小程序openid
     }
-    addCartParams.open_id = wx.getStorageSync("jwt").openid
+    addCartParams.open_id = app.globalData.jwt.openid
     addCartParams.rid = rid
     http.fxPost(api.cart, addCartParams, (result) => {
       if (result.success) {
@@ -492,10 +492,10 @@ Page({
   },
   // 设置订单参数的 商品的rid store_items.itemsrid = 
   setOrderParamsProductId(e) {
-    var productId = wx.getStorageSync('orderParams')
-    productId.store_items[0].items[0].rid = e
-    console.log(productId)
-    wx.setStorageSync('orderParams', productId)
+    // var productId = wx.getStorageSync('orderParams')
+    app.globalData.orderParams.store_items[0].items[0].rid = e
+    // console.log(productId)
+    // wx.setStorageSync('orderParams', productId)
   },
   /** end 后续抽离**/
 

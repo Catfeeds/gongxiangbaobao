@@ -8,14 +8,30 @@
 
   <view class='slider'>
     <view class='price-pick'>价格区间</view>
-    <view>
-      <slider 
-        max="{{6}}"
-        step="{{1}}"
-        block-size="{{18}}"
-        block-color="#5fe4b1"
-        show-value="{{false}}"
-        bindchange="handleSlider3change"/>
+    <view class='movable-view'>
+      <view class='movable-view__bg'></view>
+      
+      <movable-area 
+        class="movable-view__bg" 
+        style="background-color:#6ed7af; ">
+        
+        <!-- 左面 -->
+        <movable-view 
+          x="{{0}}"
+          direction="horizontal"
+          damping="{{50}}"
+          class='movable-view__item'>
+        </movable-view>
+
+        <!-- 右面 -->
+        <movable-view 
+          x="{{600}}"
+          direction="horizontal"
+          damping="{{50}}"
+          class='movable-view__item'>
+        </movable-view>
+
+      </movable-area>
     </view>
     <view class='price-text font-s direction--row'>
       <text>￥0</text>

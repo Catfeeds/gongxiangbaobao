@@ -37,7 +37,7 @@
 }
 
 .slider {
-  height: 300rpx;
+  height: 200rpx;
   padding: 30rpx;
   display: flex;
   flex-direction: column;
@@ -69,4 +69,23 @@
   background-color: #f5f7f9;
   border-radius: 8px;
   margin-right: 20rpx;
+}
+
+.movable-view{
+  margin: 0 45rpx;
+
+}
+.movable-view__bg{
+  height: 10rpx;
+  width: 100%;
+  background-color: #999;
+  border-radius: 10rpx;
+}
+.movable-view__item{
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 50%;
+  border: 4rpx solid #6ed7af;
+  top: -166%;
+  background-color: white;
 }

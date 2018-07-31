@@ -5,7 +5,7 @@
 
   <!-- 轮播图 123-->
   <view class='swiperBox'>
-    <swiper autoplay="true" current bindanimationfinish='animationOver'>
+    <swiper  current bindanimationfinish='animationOver'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
           <image src="{{item.view_url}}" />
@@ -99,7 +99,7 @@
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.product_like_users.avatar}}' class='photo-round'></image>
 
     </view>
-    <view class='roundR' catchtap='handelToLikeThisProductTap'>···</view>
+    <view class='roundR' data-rid='{{productInfomation.rid}}' catchtap='handelToLikeThisProductTap'>···</view>
   </view>
 
   <!-- 描述,发货地，时间 -->

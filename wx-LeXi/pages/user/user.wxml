@@ -66,7 +66,8 @@
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
       <view>筛选
         <text>↓</text> </view>
-      <view>排序
+      <view catchtap="handleSortShow">
+        排序
         <text>↓</text> </view>
     </view>
     <!-- 下面的产品列表 -->
@@ -103,8 +104,19 @@
       <view class='shm'></view>
     </view>
   </view>
+
   <!-- //登陆注册 -->
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
+
+    <!-- 排序的呼出框 -->
+  <view 
+    class='login-bind_box--style' 
+    wx:if="{{isSortShow}}">
+    <fx-sort 
+      teHuiShow="{{true}}"      
+      bind:handleSortOff="handleSortOff" 
+      bind:handlePickOver="handleSort"></fx-sort>
   </view>
 </view>
