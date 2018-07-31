@@ -553,6 +553,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
+    console.log(app.globalData.userInfo)
     console.log(app.globalData.userInfo.avatar)
     this.setData({
       rid: options.rid,
@@ -728,9 +729,10 @@ Page({
       is_mobile: e.detail.offBox
     })
   },
-  handelToLikeThisProductTap(){
+  handelToLikeThisProductTap(e){
+    // console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
-      url: '../likeThisProduct/likeThisProduct'
+      url: '../likeThisProduct/likeThisProduct?rid=' + e.currentTarget.dataset.rid
     })
   }
 })

@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    handelOffPick: false,
+    handelOffPick: true,
     isSortShow: false, // 排序
     advertisement: '', // 广告
     is_mobile: false, // 优惠券模板是否弹出
@@ -106,12 +106,34 @@ Page({
           warehouse_id: '', //Number	可选	 	发货的仓库ID
         }]
       }]
+    },
+    sortParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //N	可选	10	每页数量
+      sort_type: 0, //0	排序: 0 = 默认排序, 1= 最新, 2= 价格由低至高, 3= 价格由高至低
+      cids: '', //	 	分类编号， 多个用, 隔开
+      min_price: '', //	 	价格区间： 最小价格
+      max_price: '', //	 	价格区间： 最大价格
+      status: '', //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
     }
   },
 
   // 获取排序的产品
   handleSort(e) {
-    console.log(e)
+    console.log(e.detail.rid)
+    this.setData({
+      ['sortParams.sort_type']:e.detail.rid
+    })
+    http.fxGet(api.products_index, this.data.pickParmas,(result)=>{
+      console.log(result)
+      if(result.success){
+        this.setData({
+          myProduct:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 跳转到关于品牌页面

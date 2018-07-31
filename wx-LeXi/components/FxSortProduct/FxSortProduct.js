@@ -4,7 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    teHuiShow:{
+      type:Boolean,
+      value:false
+    }
   },
 
   /**
@@ -12,23 +15,30 @@ Component({
    */
   data: {
     sortData:[
-      {name:'综合排序',rid:1},
-      {name:'价格',rid:2},
-      {name:'由低至高',rid:3},
-      {name:'由高至低',rid:4}
+      {name:'由低至高',rid:2},
+      {name:'由高至低',rid:3}
     ],
-    pitchOn:1 
+    pitchOn:0, //页面的选择
+    tehui:0,
   },
+  /**
+   * 初始化
+   * **/
+  created(){
+
+  },
+
 
   /**
    * 组件的方法列表
    */
   methods: {
-    // 筛选成功
+    // 排序成功
     handlePickTap(e){
       console.log(e.currentTarget.dataset.rid)
       this.setData({
-        pitchOn: e.currentTarget.dataset.rid
+        pitchOn: e.currentTarget.dataset.rid,
+        tehui: 0,
       })
       this.triggerEvent('handlePickOver', {
         rid: e.currentTarget.dataset.rid
@@ -37,6 +47,16 @@ Component({
     // 关闭盒子
     handleSortOff(){
       this.triggerEvent('handleSortOff')
-    }
+    },
+    //特惠
+    handleTeHuiTap() {
+      console.log(123)
+      this.setData({
+        pitchOn: 5, //页面的选择
+        tehui: 1,
+      })
+    },
   }
+
+
 })

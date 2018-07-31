@@ -1,7 +1,7 @@
 <!--pages/cart/cart.wxml-->
 <view class='container theme-bg-color'>
   <!-- 购物车缺省页 -->
-  <view class='shopCartNon' wx:if="{{shoppingCart.length==0?true:false}}">
+  <view class='shopCartNon' wx:if="{{shoppingCart.items.length==0}}">
     <view class=' fx-icon-cart theme-green cartIcon'></view>
     <view class='shopCartNonText'>您的购物车空空如也</view>
     <view class='goToShop btn-bg-color' catchtap='indexTap'>现在去逛逛</view>
@@ -54,7 +54,7 @@
   </view>
 
   <!-- 心愿单 -->
-  <view class='thinkOrderBox'>
+  <view class='thinkOrderBox' wx:if="{{thinkOrder.products.length!=0}}">
     <view class='thinkOrdertext'>心愿单</view>
     <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}">
       <view class='cart-L'>
