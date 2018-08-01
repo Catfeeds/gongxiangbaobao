@@ -30,7 +30,7 @@
 }
 
 .middle-user-info {
-  height: 406rpx;
+  height: 407rpx;
   width: 610rpx;
   display: flex;
   flex-direction: column;
@@ -41,6 +41,7 @@
   margin-top: -90rpx;
   background-color: white;
   z-index: 321;
+  border: 2rpx solid red;
 }
 
 .middle-user-box {
@@ -48,7 +49,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-
+  /* border: 2rpx solid red; */
 }
 
 .shop-explain, .userNameBox {
@@ -472,7 +473,7 @@
 .approve-photo {
   height: 36rpx;
   width: 118rpx;
-  margin-top: 10px;
+  margin-top: 16rpx;
 }
 
 .approve-photo image {
@@ -571,10 +572,10 @@
   padding-top: 32rpx;
 }
 .margin__top--12px{
-  padding-top: 22.4rpx;
+  padding-top: 20rpx;
 }
 .margin__top--30px{
-  padding-top: 30px;
+  padding-top: 48rpx;
 }
 .importantGoodsTitle{
   font-size: 30rpx;
@@ -585,7 +586,7 @@
   font-weight: 500;
 }
 .margin__top--16px{
-  padding-top: 16px;
+  padding-top: 28.8rpx;
 }
 .joinNumberR-box{
   height: 80rpx;

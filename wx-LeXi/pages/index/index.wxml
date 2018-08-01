@@ -6,7 +6,7 @@
     <image src='{{ shopInfo.bgcover.view_url }}'></image>
     <image src='{{shopInfo.logo.view_url}}' class='userPhoto'>
     </image>
-    <view class='box-s'></view>
+    <!-- <view class='box-s'></view> -->
   </view>
 
   <!-- 中间user的信息 -->
