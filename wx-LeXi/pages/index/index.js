@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    pickQuantity:0, // 筛选后的数量
     handelOffPick: false,
     isSortShow: false, // 排序
     advertisement: '', // 广告
@@ -117,6 +118,7 @@ Page({
       status: '', //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
     }
   },
+
   // 获取筛选
   handlePickProduct(e){
     console.log(e.detail.category)
@@ -143,7 +145,8 @@ Page({
       console.log(result)
       if (result.success) {
         this.setData({
-          myProduct: result.data
+          myProduct: result.data,
+          pickQuantity: result.data.products.length
         })
       } else {
         utils.fxShowToast(result.status.message)

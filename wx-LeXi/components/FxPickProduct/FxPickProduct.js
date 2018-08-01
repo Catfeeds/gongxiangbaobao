@@ -4,6 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    pickQuantity:{
+      type:Number,
+      value:0
+    },
     recommend: {
       type: Boolean,
       value: false
