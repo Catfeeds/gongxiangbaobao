@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
-    pickQuantity:0, // 筛选后的数量
+    pickQuantity: 0, // 筛选后的数量
     handelOffPick: false,
     isSortShow: false, // 排序
     advertisement: '', // 广告
@@ -120,7 +120,7 @@ Page({
   },
 
   // 获取筛选
-  handlePickProduct(e){
+  handlePickProduct(e) {
     console.log(e.detail.category)
     let rids = e.detail.category
     this.setData({
@@ -130,9 +130,9 @@ Page({
   },
 
   // 获取排序的产品
-  handleSort(e=0) {
+  handleSort(e = 0) {
     console.log(e.detail.rid)
-    if (e.detail.rid!=undefined){
+    if (e.detail.rid != undefined) {
       this.setData({
         ['sortParams.sort_type']: e.detail.rid
       })
@@ -140,7 +140,7 @@ Page({
     this.getPick()
   },
   // 排序和筛选公共的接口
-  getPick(){
+  getPick() {
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
       console.log(result)
       if (result.success) {
@@ -602,6 +602,32 @@ Page({
     })
   },
 
+  // 获取店铺的信息
+  // getOwnerInfo(){
+  //   console.log(app.globalData.storeOwnerInfo)
+  //   this.setData({
+  //     ShopOwner: app.globalData.storeOwnerInfo
+  //   })
+  // },
+  /**
+   * 获取店铺主人的信息
+   * **/
+  getStoreOwner() {
+    http.fxGet(api.masterInfo, {}, (result) => {
+      if (result.success) {
+        console.log(result.data, '店铺主人信息')
+        // result.data.user_label = this.getUserIdentityLabel(result.data.user_identity)
+        this.setData({
+          ShopOwner: result.data
+        })
+        // shopOwner: result.data
+        app.globalData.storeOwnerInfo = result.data
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -611,6 +637,8 @@ Page({
 
     // 获取店铺的信息
     this.getShopInfo()
+    //获取主人信息
+    this.getStoreOwner()
     this.getAnnouncement() // 获取店铺公告---
 
     this.getBrowseQuantity() // 浏览浏览人数---
@@ -805,6 +833,12 @@ Page({
   hanlePickS() {
     this.setData({
       handelOffPick: true
+    })
+  },
+  // 关闭分享模态框
+  handleOffBox(){
+    this.setData({
+      is_share:false
     })
   }
 })

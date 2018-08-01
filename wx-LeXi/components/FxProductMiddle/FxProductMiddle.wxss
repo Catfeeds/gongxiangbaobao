@@ -68,7 +68,7 @@ textarea {
 .shopingName text {
   margin-left: 20rpx;
   font-size: 24rpx;
-  color: #6ed7af;
+  color: #5fe4b1;
   font-weight: normal;
 }
 

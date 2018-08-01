@@ -123,7 +123,7 @@ page{
 }
 
 .active {
-  background-color: #6ed7af;
+  background-color: #5fe4b1;
   color: white;
 }
 
@@ -132,7 +132,7 @@ page{
   height: 82rpx;
   font-size: 32rpx;
   color: white;
-  background-color: #6ed7af;
+  background-color: #5fe4b1;
 }
 
 .shopBtnBox {
@@ -245,16 +245,16 @@ font-size: 32rpx;
 .clearDndthinkBox>view{
 height: 82rpx;
 width: 332rpx;
-border: 1rpx solid #6ED7AF;
+border: 1rpx solid #5fe4b1;
 line-height: 82rpx;
 text-align: center;
 border-radius: 10rpx;
 }
 .clearCart{
-color: #6ED7AF;
+color: #5fe4b1;
 }
 .addThinkOrder{
-  background-color: #6ED7AF;
+  background-color: #5fe4b1;
   color: white;
 }
 .Bottom-shim{
