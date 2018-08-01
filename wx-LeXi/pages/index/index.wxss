@@ -48,7 +48,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-
 }
 
 .shop-explain, .userNameBox {
@@ -64,6 +63,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  background-color: green;
 }
 .locationAddOther > view {
   flex: 0 0 auto;
@@ -96,6 +96,8 @@
   width: 580rpx;
   font-weight: normal;
   color: #646464;
+  background-color: blue;
+  margin-top: 28rpx;
 }
 
 .shop-explain text{
@@ -110,7 +112,9 @@
   flex-direction: row;
   font-weight: normal;
 }
-
+.locationAddOther {
+  margin-top: 40rpx;
+}
 .fx-icon-address {
   font-weight: 700;
 }
@@ -121,13 +125,13 @@
 }
 
 .userInfoBtn {
-  height: 70rpx;
-  width: 280rpx;
-  border-radius: 10rpx;
+  border-radius: 8rpx;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28rpx;
+  font-size: 26rpx;
+  padding: 21rpx 0rpx 23rpx;
   color: white;
 }
 
@@ -141,14 +145,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  background: red;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx; 
 }
 
 .rander {
   color: #333;
+  margin-left: 50rpx;
 }
 
 .userPhoto {
-  border: 2.4rpx solid white;
+  border: 3rpx solid white;
   height: 124rpx !important;
   width: 124rpx !important;
   border-radius: 4px;
@@ -161,7 +169,7 @@
 
 .joinNumber {
   height: 160rpx;
-  padding: 40rpx 40rpx 20px;
+  padding: 40rpx;
   font-size: 24rpx;
   display: flex;
   flex-direction: column;
@@ -180,20 +188,21 @@
   /* margin-left: 20rpx; */
 }
 
+.h40px {
+  background: red;
+  font-size: 24rpx;
+}
+
 .joinNumberBottom {
-  height: 80rpx;
   display: flex;
-  flex-direction: row;
   margin-top: 10rpx;
+  flex-direction: row;
   align-items: center;
   position: relative;
+  background: red;
 }
 .middle_shadou{
   width: 40rpx;
-  height: 80rpx;
-  position: absolute;
-  top:0;
-  right: 63rpx;
   z-index: 1;
 }
 .middle_shadou image{
@@ -201,7 +210,7 @@
   width: 100%;
 }
 .joinNumberl {
-  width: 540rpx;
+  flex: 1;
   /* box-shadow: -10rpx 0 0rpx #f3f3f3 inset; */
   display: flex;
   overflow: hidden;
@@ -568,13 +577,13 @@
   height: 100%;
 }
 .margin__top--20px {
-  padding-top: 32rpx;
+  padding-top: 40rpx;
 }
-.margin__top--12px{
-  padding-top: 22.4rpx;
+.margin__top--12px {
+  padding-top: 28rpx;
 }
 .margin__top--30px{
-  padding-top: 30px;
+  padding-top: 60rpx;
 }
 .importantGoodsTitle{
   font-size: 30rpx;
@@ -588,7 +597,6 @@
   padding-top: 16px;
 }
 .joinNumberR-box{
-  height: 80rpx;
   width: 80rpx;
   position: absolute;
   top: 50%;
@@ -596,6 +604,4 @@
   right: 0;
   z-index: 2;
   background-color: white;
-  /* background-color: red; */
-
 }

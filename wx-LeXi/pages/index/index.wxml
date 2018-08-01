@@ -22,9 +22,9 @@
           <image src='../../images/icon@2.png'></image>
         </view>
       </view>
-      <view class='shop-explain margin__top--12px'>
+      <view class='shop-explain'>
         <text class='font-s'>{{shopInfo.tag_line}}</text> </view>
-      <view class='locationAddOther margin__top--20px'>
+      <view class='locationAddOther'>
         <view>
           <view class='fx-icon-address theme-green marR'></view>
           <view class='marR'>{{shopInfo.province}}</view>
@@ -34,7 +34,7 @@
           <view>{{shopInfo.fans_count}}</view>
         </view>
       </view>
-      <view class='userInfoBtnBox margin__top--30px'>
+      <view class='userInfoBtnBox'>
         <view wx:if="{{is_with}}" class='userInfoBtn btn-bg-color is_with' catchtap='handleDeleteWatch'>
           <image src='../../images/join@2.png'></image>
           <view>已关注</view>
@@ -50,25 +50,30 @@
 
   <!-- 浏览过的人数 -->
   <view class='joinNumber'>
-    <view class='theme-hui-color'>
+    <view class='theme-hui-color h40px'>
       <text class='theme-color'>{{ shopInfo.browse_number }} 人</text>浏览过设计馆
     </view>
+
     <view class='joinNumberBottom'>
+
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
           <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
-            <image src='{{item.avatar}}'></image>
+            <image src='{{ item.avatar }}'></image>
           </view>
         </view>
       </view>
+
       <view class='middle_shadou'>
         <image src='../../images/shadow.png'></image>
       </view>
+
       <view class='joinNumberR-box c-middle'>
         <view class='joinNumberR'>
           {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
         </view>
       </view>
+
     </view>
   </view>
 
