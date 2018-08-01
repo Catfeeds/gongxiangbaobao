@@ -30,6 +30,41 @@ Page({
     })
   },
 
+  //添加关注
+  hanleAddWatch(e) {
+    console.log(this.data.peopleList.product_like_users)
+    console.log(e.currentTarget.dataset.uid)
+    console.log(e.currentTarget.dataset.index)
+    let index = e.currentTarget.dataset.index
+    http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
+      console.log(result)
+      if (result.success) {
+        this.setData({
+          ['peopleList.user_fans[' + index + '].followed_status']: result.data.followed_status
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  //取消关注
+  hanleDeleteWatch(e) {
+    let index = e.currentTarget.dataset.index
+    console.log(index)
+    console.log(this.data.peopleList)
+    http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
+      console.log(result)
+      if (result.success) {
+        this.setData({
+          ['peopleList.user_fans[' + index + '].followed_status']: result.data.followed_status
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

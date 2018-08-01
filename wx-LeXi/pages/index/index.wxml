@@ -267,6 +267,10 @@
 
   <!-- 筛选的产品 -->
   <view class='login-bind_box--style' wx:if="{{handelOffPick}}">
-    <fx-pick-product bind:handlePickOff="handelOffPick"></fx-pick-product>
+    <fx-pick-product 
+      pickQuantity="{{pickQuantity}}"
+      bind:handlePickOff="handelOffPick"
+      bind:handlePickProduct="handlePickProduct"
+      category="{{shopInfo.categories}}"></fx-pick-product>
   </view>
 </view>

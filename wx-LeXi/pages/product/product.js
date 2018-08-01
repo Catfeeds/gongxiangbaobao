@@ -442,7 +442,6 @@ Page({
         })
       }
     })
-    
   },
   // 获取商品详情
   getProductInfomation() {

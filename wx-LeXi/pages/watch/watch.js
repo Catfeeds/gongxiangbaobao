@@ -30,6 +30,7 @@ Page({
       }
     })
   },
+  
   //取消关注
   hanleDeleteWatch(e) {
     let index = e.currentTarget.dataset.index

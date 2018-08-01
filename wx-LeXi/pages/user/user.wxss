@@ -173,3 +173,83 @@ button-hover {
 .p-null{
   padding-bottom: 0;
 }
+/*  */
+
+
+.shopInfo {
+  padding-left: 30rpx;
+  background-color: white;
+  margin-top: 20rpx;
+}
+
+.shopInfoT {
+  padding: 30rpx;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid #ededef;
+  align-items: center;
+}
+
+.userIcon {
+  height: 90rpx;
+  width: 90rpx;
+}
+
+.userIcon>image {
+  height: 100%;
+  width: 100%;
+}
+
+.shopMiddle {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.with {
+  height: 58rpx;
+  width: 126rpx;
+  background-color: #6ed7af;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.with>image {
+  height: 26rpx;
+  width: 26rpx;
+}
+.shop-other-goods {
+  padding: 20rpx 0 0rpx 0;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.shop-other-goods>view {
+  height: 180rpx;
+  width: 180rpx;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+
+.shop-other-goods image {
+  height: 100%;
+  width: 100%;
+}
+.shop-name {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
