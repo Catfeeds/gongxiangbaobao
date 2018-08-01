@@ -28,7 +28,8 @@
     "pages/authorize/authorize",
     "pages/myFollower/myFollower",
     "pages/likeThisProduct/likeThisProduct",
-    "pages/allProduct/allProduct"
+    "pages/allProduct/allProduct",
+    "pages/demo/demo"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
