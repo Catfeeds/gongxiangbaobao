@@ -646,6 +646,5 @@ Page({
     this.setData({
       is_mobile: e.detail.offBox
     })
-
   }
 })

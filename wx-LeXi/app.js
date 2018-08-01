@@ -163,9 +163,8 @@ App({
       if (res.success) {
         this.globalData.cartTotalCount = res.data.item_count
         if (this.globalData.cartTotalCount > 0) {
-          wx.setTabBarBadge({
-            index: 1,
-            text: '' + this.globalData.cartTotalCount
+          wx.showTabBarRedDot({
+            index: 1
           })
         }
       }

@@ -4,6 +4,7 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+
 Component({
   /**
    * 组件的属性列表
@@ -158,8 +159,8 @@ Component({
     handleVerifyOverTap() {
       var params = {
         area_code: this.data.country_code,
-        auth_app_id: wx.getStorageSync('fx').app_id, //	 	小程序ID
-        openid: wx.getStorageSync('jwt').openid, //	用户标识
+        auth_app_id: app.globalData.configInfo.authAppid, // 小程序ID
+        openid: app.globalData.jwt.openid, //	用户标识
         mobile: this.data.mobaile_number, // 	手机号
         verify_code: this.data.testCode, //	手机验证码
       }
