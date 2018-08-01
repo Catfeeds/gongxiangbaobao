@@ -30,7 +30,7 @@
 }
 
 .middle-user-info {
-  height: 406rpx;
+  height: 407rpx;
   width: 610rpx;
   display: flex;
   flex-direction: column;
@@ -41,6 +41,7 @@
   margin-top: -90rpx;
   background-color: white;
   z-index: 321;
+  /* border: 2rpx solid red; */
 }
 
 .middle-user-box {
@@ -48,13 +49,14 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-bottom: 40rpx;
 }
 
 .shop-explain, .userNameBox {
-  margin: 0 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   font-size: 28rpx;
   font-weight: 500;
 }
@@ -63,7 +65,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  /* background-color: green; */
 }
 .locationAddOther > view {
   flex: 0 0 auto;
@@ -96,7 +98,7 @@
   width: 580rpx;
   font-weight: normal;
   color: #646464;
-  background-color: blue;
+  /* background-color: blue; */
   margin-top: 28rpx;
 }
 
@@ -145,7 +147,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background: red;
+  /* background: red; */
   margin-top: 60rpx;
   margin-bottom: 40rpx; 
 }
@@ -169,7 +171,7 @@
 
 .joinNumber {
   height: 160rpx;
-  padding: 40rpx;
+  padding:0 40rpx;
   font-size: 24rpx;
   display: flex;
   flex-direction: column;
@@ -189,7 +191,6 @@
 }
 
 .h40px {
-  background: red;
   font-size: 24rpx;
 }
 
@@ -199,10 +200,11 @@
   flex-direction: row;
   align-items: center;
   position: relative;
-  background: red;
 }
 .middle_shadou{
+  height: 80rpx;
   width: 40rpx;
+  margin-right: -18rpx;
   z-index: 1;
 }
 .middle_shadou image{
@@ -239,16 +241,14 @@
 
 .notice-box {
   padding: 40rpx 30rpx;
-  border: 2rpx solid #e9e9e9;
+  border: 1rpx solid #e9e9e9;
   border-radius: 10rpx;
   position: relative;
   font-size: 26rpx;
-  height: 100rpx;
   color: #999999;
 }
 
 .notice-box>view {
-  height: 103rpx;
   overflow: hidden;
 }
 
@@ -267,18 +267,19 @@
 .notice-info {
   position: absolute;
   font-size: 24rpx;
-  right: 80rpx;
-  bottom: 36rpx;
+  right: 84rpx;
+  bottom: 42rpx;
   background-color: white;
 }
 
 .tab {
   width: 710rpx;
-  height: 84rpx;
+  height: 80rpx;
   display: flex;
   flex-direction: row;
   font-size: 30rpx;
   padding-left: 40rpx;
+  line-height: 80rpx;
   border-bottom: 1rpx solid #e9e9e9;
 }
 
@@ -290,7 +291,7 @@
 
 .active {
   box-sizing: border-box;
-  border-bottom: 8rpx solid #5fe4b1;
+  border-bottom: 6rpx solid #5fe4b1;
   color: #5fe4b1 !important;
   font-weight: 600;
 }
@@ -299,12 +300,12 @@
   height: 84rpx;
 }
 
-.tabPosition {
+/* .tabPosition {
   position: fixed;
   top: 0;
   z-index: 99;
   background-color: white;
-}
+} */
 
 .goodgoods {
   padding: 40rpx 40rpx 0 40rpx;
@@ -336,7 +337,7 @@
 
 .shopMaster {
   margin-top: 40rpx;
-  margin-bottom: 40rpx;
+  margin-bottom: 32rpx;
   font-size: 24rpx;
 }
 
@@ -349,15 +350,19 @@
 
 .triangle {
   position: absolute;
-  height: 20rpx;
-  width: 20rpx;
-  transform: rotate(45deg);
-  top: -10rpx;
+  height: 17rpx;
+  width: 38rpx;
+  top: -24rpx;
   left: 20rpx;
 }
 
+.triangle image{
+  height: 100%;
+  width: 100%;
+}
+
 .shopRecommendGoods-box {
-  margin-top: 40rpx;
+  margin-top: 20rpx;
   margin-bottom: 60rpx;
 }
 
@@ -405,7 +410,8 @@
 .tuijian {
   border-bottom: 30rpx solid #f7f9fb;
   padding: 0rpx 40rpx;
-  padding-bottom: 20rpx
+  padding-bottom: 20rpx;
+  position: relative;
 }
 
 .pickList {
@@ -481,7 +487,7 @@
 .approve-photo {
   height: 36rpx;
   width: 118rpx;
-  margin-top: 10px;
+  margin-top: 16rpx;
 }
 
 .approve-photo image {
@@ -499,10 +505,10 @@
 
 .coupon-box {
   margin: 0 40rpx;
-  padding: 20rpx;
+  padding: 10rpx 20rpx;
   background-color: #fbf7f3;
   border-radius: 10rpx;
-  margin-bottom: 76rpx;
+  margin-bottom: 50rpx;
 }
 
 .share-Tempate {
@@ -579,11 +585,13 @@
 .margin__top--20px {
   padding-top: 40rpx;
 }
+
 .margin__top--12px {
   padding-top: 28rpx;
 }
 .margin__top--30px{
   padding-top: 60rpx;
+
 }
 .importantGoodsTitle{
   font-size: 30rpx;
@@ -594,11 +602,21 @@
   font-weight: 500;
 }
 .margin__top--16px{
-  padding-top: 16px;
+  padding-top: 28.8rpx;
 }
 .joinNumberR-box{
-  width: 80rpx;
-  /* background-color: white; */
-  background-color: red;
-
+  height: 80rpx;
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  padding-left: 20rpx;
+  /* background-color: red; */
+}
+.bottom_line{
+  height: 2rpx;
+  width: 750rpx;
+  position: absolute;
+  bottom: 0;
+  background-color: #e9e9e9;
+  left: 0;
 }

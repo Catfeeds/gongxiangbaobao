@@ -5,8 +5,8 @@
   color: #555;
 }
 
-.coupon-message .coupon-icon {
-  margin-bottom: 20rpx;
+.coupon-message>view {
+  margin: 10rpx 0;
 }
 
 .coupon-message .coupon-icon image {
@@ -34,38 +34,33 @@
 
 .coupon-message .reduced-price {
   display: flex;
-  /* flex-flow: row wrap; */
-  overflow: hidden;
+  justify-content: row;
   align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
   position: relative;
-  padding-left: 20rpx;
-  margin-right:124rpx;
+
 }
 .coupon-message .reduced-price image {
   height: 30rpx;
   width: 30rpx;
-  position: absolute;
-  left: 5rpx;
+  
+  /* position: absolute; */
+  /* left: 5rpx; */
 }
 .coupon-message .reduced-price text {
-  flex: 0 0 auto;
-  line-height: 20rpx;
-  margin-right: 10rpx;
   vertical-align: middle;
-  padding-left: 10px;
+  margin-left: 10rpx;
 }
 .reduced-price__last{
-  width: 30rpx;
+  width: 160rpx;
   height: 30rpx;
+  padding-left: 10rpx;
   background-color: #fbf7f3;
   position: absolute;
   right: 0;
 }
-.coupon-message .reduced-price image,
-.reduced-price__last{
-  top: 50%;
-  transform: translateY(-50%);
-}
+
 
 /*商品详情页面的样式*/
 .product-bout-box .goods-info .WxEmojiView{
@@ -347,7 +342,7 @@
 
 /* 字体的相关e */
 
-.container {
+/* .container {
   height: 100%;
   min-height: 100vh;
   display: flex;
@@ -356,7 +351,7 @@
   box-sizing: border-box;
   background: #fff;
   color: #333;
-}
+} */
 
 image {
   width: 100%;

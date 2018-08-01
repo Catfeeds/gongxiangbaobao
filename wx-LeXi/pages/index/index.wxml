@@ -61,9 +61,6 @@
           <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
             <image src='{{ item.avatar }}'></image>
           </view>
-          <view class='photo-round joinNumberlPhoto'>
-            <open-data type='userAvatarUrl'></open-data>
-          </view>
         </view>
       </view>
 
@@ -80,13 +77,13 @@
     </view>
   </view>
 
-  <!-- 公告 -->
-  <view class='notice' wx:if="{{ announcement }}">
+  <!-- 公告 wx:if="{{ announcement }}"-->
+  <view class='notice' wx:if="{{  }}">
     <view class='notice-title'>设计馆公告</view>
     <view class='notice-box'>
       <view>{{ announcement }}</view>
     </view>
-    <view class='notice-info theme-green'>阅读更多</view>
+    <view class='notice-info theme-green' wx:if="{{announcement.length>66}}">...阅读更多</view>
   </view>
 
   <!-- 优惠券 -->
@@ -105,10 +102,10 @@
       <!-- 满减 -->
       <view class='reduced-price' wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
         <image src='../../images/reduced-price@2.png'></image>
-        <text wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">
-          {{ item.type_text }}
-        </text>
-        <view class='reduced-price__last' wx:if="{{fullSubtractionList.coupons.length>2&&couponList.coupons.length != 0}}"> ... </view>
+        <text 
+          wx:for="{{ fullSubtractionList.coupons }}" 
+          wx:key="{{ index }}">{{ item.type_text }}</text>
+        <view class='reduced-price__last' wx:if="{{fullSubtractionList.coupons.length>2&&couponList.coupons.length != 0}}"> ··· </view>
         <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
       </view>
     </view>
@@ -153,7 +150,9 @@
         </view>
         <!-- 推荐理由介绍 -->
         <view class='shopRecommend theme-bg-color'>
-          <view class='triangle theme-bg-color'></view>
+          <view class='triangle '>
+            <image src='../../images/horn.png'></image>
+          </view>
           <text> {{ item.stick_text }} </text>
         </view>
         <!-- 物品的详情 -->
@@ -181,13 +180,14 @@
             <image wx:if="{{item.product_like_users.length>2}}" src='{{item.product_like_users[2].avatar}}' class='photo-round'></image>
           </view>
         </view>
+        <view class='bottom_line'></view>
       </view>
       <!-- 推荐好物品的内容e -->
     </view>
 
     <!-- 首页优质精选 -->
     <view>
-      <view class=''>
+      <view >
         <view class='importantGoodsTitle goodgoods'>优质精选</view>
         <!-- 推荐好物品的内容s -->
         <view class='tuijian'>
