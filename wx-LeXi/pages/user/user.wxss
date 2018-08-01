@@ -36,7 +36,7 @@
 }
 
 .green {
-  color: #6ed7af;
+  color: #5fe4b1;
 }
 
 .user-name-text {
@@ -205,7 +205,7 @@
 .with {
   height: 58rpx;
   width: 126rpx;
-  background-color: #6ed7af;
+  background-color: #5fe4b1;
   border-radius: 10rpx;
   font-size: 24rpx;
   color: white;

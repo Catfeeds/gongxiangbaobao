@@ -44,8 +44,8 @@
 }
 
 .lineGreen {
-  background-color: #6ed7af;
-  border-color: #6ed7af !important;
+  background-color: #5fe4b1;
+  border-color: #5fe4b1 !important;
 }
 
 .radio-group {
@@ -107,7 +107,7 @@ radio {
 .conservation button {
   height: 80rpx;
   width: 690rpx;
-  background-color: #6ed7af;
+  background-color: #5fe4b1;
   color: white;
   font-size: 32rpx;
 }

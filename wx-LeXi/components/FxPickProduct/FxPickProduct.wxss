@@ -88,7 +88,7 @@
   height: 40rpx;
   width: 40rpx;
   border-radius: 50%;
-  border: 4rpx solid #6ed7af;
+  border: 4rpx solid #5fe4b1;
   top: -166%;
   background-color: white;
   z-index: 9;
@@ -96,7 +96,7 @@
 
 .middle-line {
   height: 10rpx;
-  background-color:#6ed7af ;
+  background-color:#5fe4b1 ;
   border-radius: 10rpx;
   position: absolute;
   top: 0;
@@ -118,7 +118,7 @@
 .bottom-btn>view{
   width: 690rpx;
   height: 100%;
-  background-color: #6ed7af;
+  background-color: #5fe4b1;
   border-radius: 8rpx;
   color: white;
   justify-content: center;
