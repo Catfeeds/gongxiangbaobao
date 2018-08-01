@@ -30,7 +30,7 @@
 }
 
 .middle-user-info {
-  height: 406rpx;
+  height: 407rpx;
   width: 610rpx;
   display: flex;
   flex-direction: column;
@@ -41,6 +41,7 @@
   margin-top: -90rpx;
   background-color: white;
   z-index: 321;
+  border: 2rpx solid red;
 }
 
 .middle-user-box {
@@ -481,7 +482,7 @@
 .approve-photo {
   height: 36rpx;
   width: 118rpx;
-  margin-top: 10px;
+  margin-top: 16rpx;
 }
 
 .approve-photo image {
@@ -579,11 +580,13 @@
 .margin__top--20px {
   padding-top: 40rpx;
 }
+
 .margin__top--12px {
   padding-top: 28rpx;
 }
 .margin__top--30px{
   padding-top: 60rpx;
+
 }
 .importantGoodsTitle{
   font-size: 30rpx;
@@ -594,7 +597,7 @@
   font-weight: 500;
 }
 .margin__top--16px{
-  padding-top: 16px;
+  padding-top: 28.8rpx;
 }
 .joinNumberR-box{
   width: 80rpx;
