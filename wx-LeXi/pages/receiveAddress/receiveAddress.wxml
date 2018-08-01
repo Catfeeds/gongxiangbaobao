@@ -1,7 +1,7 @@
 <!--pages/paymentAddress/paymentAddress.wxml-->
 <view class='container theme-bg-color'>
   <!-- 上面的进度条 -->
-  <view wx-if='{{path}}'>
+  <view wx-if='{{ path }}'>
     <view class='paymentList'>
       <view>寄送</view>
       <view>明细</view>
@@ -18,13 +18,13 @@
   <!-- 收获地址列表 -->
   <view>
     <radio-group class="radio-group" bindchange="radioChange">
-      <label class="radio" wx:for="{{addresList}}" wx:key="{{index}}">
-        <radio value="{{item.rid}}" color='#6ED7AF' checked='{{item.is_default}}'/>
+      <label class="radio" wx:for="{{ addressList }}" wx:key="{{ index }}">
+        <radio value="{{ item.rid }}" color='#6ED7AF' checked='{{ item.is_default }}'/>
         <view>
-          <text class='userName'>{{item.first_name}} </text>
-          <text class='userLocation'>{{item.province}} . {{item.full_name}}</text>
-          <text class='userLocation'>{{item.full_address}}</text>
-          <text class='userLocation'>{{item.mobile}}</text>
+          <text class='userName'>{{ item.first_name }} </text>
+          <text class='userLocation'>{{ item.province }}·{{ item.full_name }}</text>
+          <text class='userLocation'>{{ item.full_address }}</text>
+          <text class='userLocation'>{{ item.mobile }}</text>
         </view>
       </label>
     </radio-group>
@@ -47,8 +47,8 @@
   <view class='shm'></view>
 
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' catchtap='submitOrderTap' wx-if='{{path}}'>
-    <button catchtap=''>继续以确认订单</button>
+  <view class='conservation' wx-if='{{ path }}'>
+    <button catchtap='submitOrderTap'>继续以确认订单</button>
   </view>
   
 </view>

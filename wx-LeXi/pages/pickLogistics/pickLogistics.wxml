@@ -1,8 +1,8 @@
 <!--pages/pickLogistics/pickLogistics.wxml 选择配送方式-->
 <view class='container theme-bg-color'>
-  <view class='productPhotoBox' wx:for='{{orderInfoSkus}}' wx:key='{{index}}'>
-    <image src='{{item.cover}}'></image>
-    <text>{{item.product_name}}</text>
+  <view class='productPhotoBox' wx:for='{{ orderInfoSkus }}' wx:key='{{ index }}'>
+    <image src='{{ item.cover }}'></image>
+    <text>{{ item.product_name }}</text>
   </view>
 
   <!-- 物流公司 -->
@@ -23,8 +23,8 @@
               <image src='../../images/logistics-icon@2.png'></image>
             </view>
             <view class='logistics-goods'>
-              <text>{{item.express.express_name}}</text>
-              <text>物流时长：{{item.min_days}}至{{item.max_days}}天送达，已含税</text>
+              <text>{{ item.express.express_name }}</text>
+              <text>物流时长：{{ item.min_days }}至{{ item.max_days }}天送达，已含税</text>
               <text></text>
             </view>
           </view>
@@ -38,10 +38,10 @@
   <view class='estimate-price bg-white'>
     <view class='time-top estimate-price_top black-font'>
       <text>预计运费</text>
-      <text>￥{{freight}}</text>
+      <text>￥{{ freight }}</text>
     </view>
     <view class='font-ss estimate-price_bottom'>
-      <text class='theme--hong'>注:</text>
+      <text class='theme--hong'>注: </text>
       <text>采用不同的配送方式的到达天数不同，运费价格也有所不同，实际运费返回明细查看。</text>
     </view>
   </view>
