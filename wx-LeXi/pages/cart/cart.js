@@ -1,5 +1,6 @@
 // pages/cart/cart.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -11,12 +12,12 @@ Page({
   data: {
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
-    skuPrice: '', //sku价格
+    skuPrice: '', // sku价格
     needSpecifications: [], // 需要的规格---
-    needColor: [], //需要的颜色---
+    needColor: [], // 需要的颜色---
     pickColor: [], // 所有的颜色---
     pickSpecifications: [], // 所有的规格---
-    productInfomation: [], // 获取商品的详情，用来获取商品的规格和颜色，，用来挑选
+    productInfomation: [], // 获取商品的详情，用来获取商品的规格和颜色，用来挑选
     pickBox: false, // 选择的呼出框
     addDesireOrder: [], // 要加入心愿单的rid---
     falseheckbox: false, // falseheckbox---
@@ -24,6 +25,7 @@ Page({
     changeCart: false, // 购物车是否编辑---
     shoppingCart: [], // 添加到购物车的内容产品内容---
     payment: 0, // 应该支付的总金额---
+
     //添加购物车和修改购买数量的时候参数
     addCartParams: {
       rid: '', //	商品Id
@@ -31,6 +33,7 @@ Page({
       option: '', // 其他选项
       open_id: '', //	独立小程序openid
     },
+
     thinkOrder: [], // 心愿单的内容---
   },
 
@@ -54,27 +57,26 @@ Page({
   // 获取购物车 ---
   getCartProduct() {
     http.fxGet(api.cart, {
-      open_id: wx.getStorageSync('jwt').openid
+      open_id: app.globalData.jwt.openid
     }, (result) => {
-      console.log(result)
+      console.log(result, '获取购物车')
       if (result.success) {
         this.setData({
           shoppingCart: result.data
         }, () => {
-          this.paymentPrice() //计算金额
+          this.paymentPrice() // 计算金额
         })
-
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  //  获取心愿单---
+  // 获取心愿单---
   getDesireOrder() {
     http.fxGet(api.wishlist, {}, (result) => {
+      console.log(result, '获取心愿单')
       if (result.success) {
-        console.log(result)
         this.setData({
           thinkOrder: result.data
         })
@@ -84,10 +86,10 @@ Page({
     })
   },
 
-  //心愿单添加到购物车
+  // 心愿单添加到购物车
   addCartTap(e) {
     console.log(e.currentTarget.dataset.rid)
-    var select = e.currentTarget.dataset.rid
+    let select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
     this.setData({
       pickBox: true,
@@ -95,20 +97,22 @@ Page({
     })
   },
 
-  //编辑按钮点击后左边的选择,赋值给data---
+  // 编辑按钮点击后左边的选择,赋值给data---
   checkboxChange(e) {
     console.log(e.detail.value)
     this.setData({
       checkboxPick: e.detail.value
     })
-    //加入心愿单
-    var pickProduct = this.data.shoppingCart.items.filter((v, i) => {
+
+    // 加入心愿单
+    let pickProduct = this.data.shoppingCart.items.filter((v, i) => {
       return this.data.checkboxPick.indexOf(v.product.rid) != -1
     })
     console.log(pickProduct)
     if (pickProduct.length == 0) {
       return
     }
+
     this.setData({
       addDesireOrder: pickProduct
     })
@@ -117,24 +121,25 @@ Page({
   // 当点击移除---
   clearCart() {
     http.fxPost(api.clearCart, {
-      open_id: wx.getStorageSync("jwt").openid,
+      open_id: app.globalData.jwt.openid,
       rids: this.data.checkboxPick
     }, (result) => {
+      console.log(result, '删除购物车商品')
       if (result.success) {
-        console.log(result)
         this.getCartProduct()
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-    //重新计算
+
+    // 重新计算
     this.paymentPrice()
   },
 
   // 放入心愿单--
   addDesire() {
     console.log(this.data.addDesireOrder)
-    var rid = this.data.addDesireOrder.map((v, i) => {
+    let rid = this.data.addDesireOrder.map((v, i) => {
       console.log(v)
       return v.product.product_rid
     })
@@ -153,27 +158,28 @@ Page({
     })
   },
 
-  //购物车点击移除按钮和放入心愿单按钮---
+  // 购物车点击移除按钮和放入心愿单按钮---
   cartClearTap(e) {
-    var cartAllInfo = []
-    var btnType = e.currentTarget.dataset.type
-    if (btnType == "clear") {
-      this.clearCart()
-    } else if (btnType == "addThink") {
-      this.addDesire()
+    let cartAllInfo = []
 
+    let btnType = e.currentTarget.dataset.type
+
+    if (btnType == 'clear') {
+      this.clearCart()
+    } else if (btnType == 'addThink') {
+      this.addDesire()
     }
   },
 
-  //编辑按钮购物车---
+  // 编辑按钮购物车---
   changeCartTap(e) {
-    var status = e.currentTarget.dataset.change
+    let status = e.currentTarget.dataset.change
     console.log(e.currentTarget.dataset.change)
-    if (status == "start") {
+    if (status == 'start') {
       this.setData({
         changeCart: true
       })
-    } else if (status == "over") {
+    } else if (status == 'over') {
       this.setData({
         changeCart: false
       })
@@ -184,11 +190,13 @@ Page({
   paymentPrice() {
     let aggregatePrice = 0
     let quantity = 0
+
     this.data.shoppingCart.items.forEach((v, i) => {
       quantity = v.quantity - 0 + quantity
       let sellPrice = v.product.sale_price == 0 ? v.product.price : v.product.sale_price
       aggregatePrice = aggregatePrice + sellPrice * v.quantity
     })
+
     this.setData({
       carQuantity: quantity,
       payment: aggregatePrice
@@ -198,14 +206,15 @@ Page({
   // 增加数量或者减少数量---
   changeQuantity(e) {
     console.log(e.currentTarget.dataset)
-    var is_function = e.currentTarget.dataset.function
-    var index = e.currentTarget.dataset.index
-    var openid = wx.getStorageSync('jwt').openid
-    var rid = e.currentTarget.dataset.rid
+    let is_function = e.currentTarget.dataset.function
+    let index = e.currentTarget.dataset.index
+
+    let rid = e.currentTarget.dataset.rid
     this.setData({
       ['addCartParams.rid']: rid,
-      ['addCartParams.open_id']: openid,
+      ['addCartParams.open_id']: app.globalData.jwt.openid,
     })
+
     if (is_function == 'add') {
       if (this.data.shoppingCart.items[index].quantity - 0 + 1 > this.data.shoppingCart.items[index].product.stock_quantity) {
         utils.fxShowToast('仓库中数量不足')
@@ -233,14 +242,14 @@ Page({
         })
       }
     }
-    this.paymentPrice() //计算金额
+
+    this.paymentPrice() // 计算金额
   },
 
-  //更新购物车---
+  // 更新购物车---
   putRenovateCart(e) {
     http.fxPut(api.cart, this.data.addCartParams, (result) => {
-      console.log(result)
-      if (result.success) {} else {
+      if (!result.success) {
         utils.fxShowToast('添加失败')
         return
       }
@@ -248,9 +257,10 @@ Page({
   },
 
   /** start 后续抽离**/
+
   // 查找sku的价格
   getSkuPrice() {
-    var sku = this.data.needSpecifications + " " + this.data.needColor
+    let sku = this.data.needSpecifications + ' ' + this.data.needColor
     console.log(sku, this.data.productInfomation)
     this.data.productInfomation.skus.forEach((v, i) => {
       if (v.mode == sku) {
@@ -265,14 +275,15 @@ Page({
   // 获取商品详情
   getProductInfomation(e) {
     http.fxGet(api.product_detail.replace(/:rid/g, e), {}, (result) => {
+      console.log(result, '购物车-商品详情')
       if (result.success) {
-        console.log(result)
         this.setData({
           productInfomation: result.data
         })
         this.filterSpecifications()
         this.filterColor()
-        wx.setStorageSync('logisticsIdFid', result.data.fid)
+
+        // wx.setStorageSync('logisticsIdFid', result.data.fid)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -281,13 +292,15 @@ Page({
 
   // 过滤产品的型号
   filterSpecifications() {
-    var newColor = []
-    var colorTwo = []
+    let newColor = []
+    let colorTwo = []
+
     this.data.productInfomation.skus.forEach((v, i) => {
       if (newColor.indexOf(v.s_model) == -1) {
         newColor.push(v.s_model)
       }
     })
+
     newColor.forEach((v, i) => {
       colorTwo.push({
         name: v,
@@ -295,6 +308,7 @@ Page({
         is_bg: false
       })
     })
+
     this.setData({
       pickSpecifications: colorTwo
     })
@@ -302,13 +316,15 @@ Page({
 
   // 过滤产品的颜色去重
   filterColor() {
-    var newColor = []
-    var colorTwo = []
+    let newColor = []
+    let colorTwo = []
+
     this.data.productInfomation.skus.forEach((v, i) => {
       if (newColor.indexOf(v.s_color) == -1) {
         newColor.push(v.s_color)
       }
     })
+
     newColor.forEach((v, i) => {
       colorTwo.push({
         name: v,
@@ -316,6 +332,7 @@ Page({
         is_bg: false
       })
     })
+
     this.setData({
       pickColor: colorTwo
     })
@@ -323,9 +340,9 @@ Page({
   
   // 点击颜色按钮
   handlePickColor(e) {
-    var newData = []
-    var haveProduct = []
-    var havespecifications = []
+    let newData = []
+    let haveProduct = []
+    let havespecifications = []
     if (!e.currentTarget.dataset.ispick) {
       wx.showToast({
         title: '亲！此商品库存不足',
@@ -334,7 +351,8 @@ Page({
       })
       return false
     }
-    //改变按钮颜色
+
+    // 改变按钮颜色
     this.data.pickColor.forEach((v, i) => {
       this.setData({
         ['pickColor[' + i + '].is_bg']: false
@@ -346,10 +364,12 @@ Page({
         })
       }
     })
+
     // 拼接规格
     this.data.pickSpecifications.forEach((v, i) => {
       newData.push(v.name + " " + e.currentTarget.dataset.colorname)
     })
+
     // 把拼接的规格和后台发过来的数据做比较
     newData.forEach((v, i) => {
       this.data.productInfomation.skus.forEach((e, index) => {
@@ -358,12 +378,14 @@ Page({
         }
       })
     })
+
     // 把找到的规格记录下来
     haveProduct.forEach((v, i) => {
-      var newstring = v.split(' ')[0]
+      let newstring = v.split(' ')[0]
       havespecifications.push(newstring)
     })
-    //去改变按钮颜色
+
+    // 去改变按钮颜色
     this.data.pickSpecifications.forEach((v, i) => {
       if (havespecifications.indexOf(v.name) == -1) {
         this.setData({
@@ -375,13 +397,16 @@ Page({
         })
       }
     })
+
     this.getSkuPrice()
   },
-  //点击规格按钮
+
+  // 点击规格按钮
   handleSpecificationsTap(e) {
-    var newData = []
-    var haveProduct = []
-    var havespecifications = []
+    let newData = []
+    let haveProduct = []
+    let havespecifications = []
+
     if (!e.currentTarget.dataset.ispick) {
       wx.showToast({
         title: '亲！此商品库存不足',
@@ -390,7 +415,8 @@ Page({
       })
       return false
     }
-    //改变按钮颜色
+
+    // 改变按钮颜色
     this.data.pickSpecifications.forEach((v, i) => {
       this.setData({
         ['pickSpecifications[' + i + '].is_bg']: false
@@ -402,10 +428,12 @@ Page({
         })
       }
     })
+
     // 拼接颜色
     this.data.pickColor.forEach((v, i) => {
       newData.push(e.currentTarget.dataset.specificationsname + ' ' + v.name)
     })
+
     // 把拼接的颜色和后台发过来的数据做比较
     newData.forEach((v, i) => {
       this.data.productInfomation.skus.forEach((e, index) => {
@@ -414,12 +442,14 @@ Page({
         }
       })
     })
+
     // 把找到的颜色记录下来
     haveProduct.forEach((v, i) => {
-      var newstring = v.split(' ')[1]
+      let newstring = v.split(' ')[1]
       havespecifications.push(newstring)
     })
-    //去改变按钮颜色
+
+    // 去改变按钮颜色
     this.data.pickColor.forEach((v, i) => {
       if (havespecifications.indexOf(v.name) == -1) {
         this.setData({
@@ -433,9 +463,10 @@ Page({
     })
     this.getSkuPrice()
   },
+
   // 选好了按钮
   receiveOrderTap() {
-    var rid
+    let rid
     if (this.data.needSpecifications == '' || this.data.needColor == '') {
       wx.showToast({
         title: '选择不完整',
@@ -444,19 +475,22 @@ Page({
       })
       return
     }
+
     this.data.productInfomation.skus.forEach((v, i) => {
       if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
         rid = v.rid
         this.setOrderParamsProductId(v.rid) // 设置订单的商品id---
       }
     })
+
     wx.navigateTo({
       url: '../receiveAddress/receiveAddress?rid=' + rid,
     })
   },
+
   // 加入购物车
   handleAddCart() {
-    var rid
+    let rid
     if (this.data.needSpecifications == '' || this.data.needColor == '') {
       wx.showToast({
         title: '请选择',
@@ -465,24 +499,28 @@ Page({
       })
       return
     }
+
     this.data.productInfomation.skus.forEach((v, i) => {
       if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
         rid = v.rid
         this.setOrderParamsProductId(v.rid) // 设置订单的商品id,sku---
       }
     })
-    var addCartParams = {
-      rid: '', //String	必填	 商品sku
-      quantity: 1, //Integer	可选	1	购买数量
-      option: '', //String	可选	 	其他选项
-      open_id: '' //String	独立小程序端必填	 	独立小程序openid
+
+    let addCartParams = {
+      rid: '', // String	必填	 商品sku
+      quantity: 1, // Integer	可选	1	购买数量
+      option: '', // String	可选	 	其他选项
+      open_id: '' // String	独立小程序端必填	 	独立小程序openid
     }
     addCartParams.open_id = app.globalData.jwt.openid
     addCartParams.rid = rid
+
     http.fxPost(api.cart, addCartParams, (result) => {
+      console.log(result, '添加购物车')
       if (result.success) {
-        console.log(result)
         utils.fxShowToast('成功购物车')
+
         this.getCartProduct() // 获取购物车商品---
         this.getDesireOrder() // 获取心愿单---
       } else {
@@ -490,6 +528,7 @@ Page({
       }
     })
   },
+
   // 设置订单参数的 商品的rid store_items.itemsrid = 
   setOrderParamsProductId(e) {
     // var productId = wx.getStorageSync('orderParams')
@@ -497,19 +536,21 @@ Page({
     // console.log(productId)
     // wx.setStorageSync('orderParams', productId)
   },
-  /** end 后续抽离**/
+  /** end 后续抽离 **/
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // 是否登陆
+    // 未登录
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
       })
       return
     }
+
+    // 已登录
     this.getDesireOrder() // 获取心愿单
   },
 
@@ -524,14 +565,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log(app.globalData.isLogin)
-    // 是否登陆
+    // 未登陆
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
       })
       return
     }
+
     this.getCartProduct() // 获取购物车商品
   },
 
@@ -569,25 +610,27 @@ Page({
   onShareAppMessage: function() {
 
   },
-  //去首页
+
+  // 去首页
   indexTap() {
     wx.switchTab({
       url: '../index/index',
     })
   },
-  //提示信息
+
+  // 提示信息
   warn(title, content) {
     wx.showModal({
       title: title,
       content: content,
     })
   },
-  //结算跳转
+
+  // 结算跳转
   chekoutTap() {
-    var shopProduct = []
-    var skus = []
-    var skusNeedQuantity = []
-    console.log(this.data.shoppingCart)
+    let shopProduct = []
+    let skus = []
+    let skusNeedQuantity = []
 
     this.data.shoppingCart.items.forEach((v, i) => {
       skusNeedQuantity.push(v.product.rid + ":" + v.quantity) // 每个sku需求数量
@@ -597,24 +640,27 @@ Page({
     http.fxGet(api.by_store_sku, {
       rids: skus.join(',')
     }, (result) => {
-      console.log(result)
+      console.log(result, '购物车-去结算')
       if (result.success) {
-        //添加每件sku的需求数量
+        // 添加每件sku的需求数量
         Object.keys(result.data).forEach((key) => {
           console.log(result.data[key]) // 每个店铺
-          result.data[key].forEach((v, i) => { //每个sku
+
+          result.data[key].forEach((v, i) => { // 每个sku
             console.log(v)
             // 当前店铺的rid
-            v.current_store_rid = wx.getStorageSync('storeInfo').rid
+            v.current_store_rid = app.globalData.storeRid
+
             // 是否为分销商品
-            if (v.store_rid != wx.getStorageSync('storeInfo').rid) {
+            if (v.store_rid != app.globalData.storeRid) {
               v.is_distribute = 1
             } else {
               v.is_distribute = 0
             }
-            //需求数量
+
+            // 需求数量
             skusNeedQuantity.forEach((item, n) => {
-              var newArray = item.split(":")
+              let newArray = item.split(':')
               console.log(newArray)
               if (v.rid == newArray[0]) {
                 v.quantity = newArray[1]
@@ -622,24 +668,26 @@ Page({
             })
           })
         })
+
         app.globalData.orderSkus = result
         console.log(app.globalData.orderSkus)
+
         wx.navigateTo({
-          url: '../receiveAddress/receiveAddress',
+          url: '../receiveAddress/receiveAddress?from_ref=cart',
         })
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-    console.log(skus, skusNeedQuantity)
   },
 
-  // 关闭选择呼出框、
+  // 关闭选择呼出框
   handlePickBoxOffTap() {
     this.setData({
       pickBox: false
     })
   },
+
   // 关闭
   hanleOffLoginBox(e) {
     console.log(e)
@@ -647,4 +695,5 @@ Page({
       is_mobile: e.detail.offBox
     })
   }
+
 })

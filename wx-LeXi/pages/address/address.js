@@ -3,7 +3,9 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-var adressData = wx.getStorageSync('adress')
+
+const addressData = wx.getStorageSync('allPlaces')
+
 Page({
 
   /**
@@ -16,7 +18,7 @@ Page({
     provinceOid: [], //省地址列表oid---
     cityOid: [], //市地址列表oid---
     countyOid: [], //县地址列表oid---
-    adressIndex: [0, 1, 1], // 地址的下表
+    addressIndex: [0, 1, 1], // 地址的下表
     isPicker: false, // 省市呼出框---
     country: [], //所有的国家的--
     countryIndex: [], //所有的国家的index--
@@ -53,47 +55,50 @@ Page({
   },
 
   // 地址选择器
-  getAdressPick() {
-    console.log(this.data.adressIndex)
-    var provinceOid = adressData.k_1_0[this.data.adressIndex[0]].oid
-    var countyOid = adressData['k_2_' + provinceOid][this.data.adressIndex[1]].oid
+  getAddressPick() {
+    console.log(this.data.addressIndex)
+    let provinceOid = addressData.k_1_0[this.data.addressIndex[0]].oid
+    let countyOid = addressData['k_2_' + provinceOid][this.data.addressIndex[1]].oid
     this.setData({
-      provinceList: adressData.k_1_0, //省地址列表---
-      cityList: adressData['k_2_' + provinceOid], //市地址列表---
-      countyList: adressData['k_3_' + countyOid], //县地址列表--
+      provinceList: addressData.k_1_0, // 省地址列表---
+      cityList: addressData['k_2_' + provinceOid], // 市地址列表---
+      countyList: addressData['k_3_' + countyOid], // 县地址列表--
     })
   },
 
   // 省发生变化
   provinceChange(e) {
     this.setData({
-      adressIndex: e.detail.value
+      addressIndex: e.detail.value
     })
-    this.cityChange(adressData.k_1_0[e.detail.value[0]].oid)
+
+    this.cityChange(addressData.k_1_0[e.detail.value[0]].oid)
   },
 
-  //市
+  // 市
   cityChange(e) {
     this.setData({
       provinceOid: e,
-      cityList: adressData['k_2_' + e]
+      cityList: addressData['k_2_' + e]
     })
-    if (!adressData['k_3_' + adressData['k_2_' + e][0].oid]){
+
+    if (!addressData['k_3_' + addressData['k_2_' + e][0].oid]){
       this.setData({
         countyList:[],
         countyOid:''
       })
       return false
     }
-    this.countyChange(adressData['k_2_' + e][this.data.adressIndex[1]].oid)
+
+    this.countyChange(addressData['k_2_' + e][this.data.addressIndex[1]].oid)
   },
 
   // 县发生变化
   countyChange(e) {
     this.setData({
       cityOid: e,
-      countyList: adressData['k_3_' + e],
-      countyOid: adressData['k_3_' + e][this.data.adressIndex[2]].oid
+      countyList: addressData['k_3_' + e],
+      countyOid: addressData['k_3_' + e][this.data.addressIndex[2]].oid
     })
   },
 
@@ -119,7 +124,7 @@ Page({
   storageTap() {
     console.log(this.data.form)
     http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
-      console.log(result)
+      console.log(result, '新增地址')
       if (result.success) {
         wx.navigateBack({
           delta: 1
@@ -128,7 +133,6 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   // 邮政编号
@@ -166,8 +170,8 @@ Page({
   // 获取所有的国家---
   getCountry() {
     http.fxGet(api.get_country, {}, (result) => {
+      console.log(result, '国家列表')
       if (result.success) {
-        console.log(result)
         this.setData({
           country: result.data
         })
@@ -176,7 +180,8 @@ Page({
       }
     })
   },
-  //国家选择器发生变化的时候
+
+  // 国家选择器发生变化
   bindPickerChange(e) {
     console.log(e.detail.value)
     this.setData({
@@ -184,7 +189,6 @@ Page({
       ['form.country_id']: this.data.country.area_codes[e.detail.value].id
     })
   },
-
 
   pickCameraOrPhoto() {
     this.setData({
@@ -261,9 +265,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // this.getAdress() // 获取所有的地址---
     this.getCountry() // 获取所有的国家---
-    this.getAdressPick() // 地址获取---
+    this.getAddressPick() // 地址获取---
+
     this.getUploadToken()
   },
 
@@ -315,9 +319,9 @@ Page({
   onShareAppMessage: function() {
 
   },
-  //模板的显示与隐藏
-  T_addressovar() {
 
+  // 模板的显示与隐藏
+  T_addressovar() {
     if (this.data.is_template == 0) {
       this.setData({
         is_template: 1
@@ -328,16 +332,19 @@ Page({
       })
     }
   },
-  //呼出框取消
+
+  // 呼出框取消
   handledeletePick() {
     this.setData({
       isPicker: false
     })
   },
+
   //呼出框显示
   handleShowPick() {
     this.setData({
       isPicker: true
     })
   }
+
 })

@@ -97,6 +97,7 @@ module.exports = {
   // Address
   addresses: 'address', // GET 地址列表---
   address_addto: 'address', // POST 添加收货地址---
+  address_info: 'address/:rid', // GET 地址详情
   address_update: 'address/:rid', // get 获取用户设置的收获地址---
   address_delete: 'address/:rid', // DELETE 删除收货地址---
   address_default: 'address/is_default', // GET 获取默认地址

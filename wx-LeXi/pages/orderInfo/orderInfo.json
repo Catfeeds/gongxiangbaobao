@@ -1,11 +1,11 @@
 {
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "确认订单",
+  "navigationBarTitleText": "订单详情",
   "navigationBarBackgroundColor": "black",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
-    "fx-logistics": "/components/Fxlogstics/Fxlogstics"
+    "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany"
   }
 }

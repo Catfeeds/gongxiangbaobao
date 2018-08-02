@@ -1,11 +1,14 @@
-// pages/paymentSuccess/paymentSuccess.js
-Page({
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-    //添加到购物车的内容产品内容
+    // 添加到购物车的产品
     shoppingCart: [
       {
         id: 6,
@@ -41,6 +44,13 @@ Page({
       },
     ],
   
+  },
+
+  // 查看订单
+  examineOrder() {
+    wx.navigateTo({
+      url: '../orderInfo/orderInfo'
+    })
   },
 
   /**
@@ -97,13 +107,5 @@ Page({
    */
   onShareAppMessage: function () {
   
-  },
-//查看订单
-examineOrder(){
-  wx.navigateTo({
-    url: '../orderInfo/orderInfo',
-  })
-}
-
-
+  }
 })

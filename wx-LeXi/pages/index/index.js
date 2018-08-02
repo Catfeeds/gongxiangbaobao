@@ -530,11 +530,9 @@ Page({
         })
         // 如果是登陆状态下调取直接赋值满减
         if (e == "loginFullSubtractionList") {
-          console.log(full)
           this.setData({
             ['fullSubtractionList.coupons']: full
           })
-          console.log(full)
           app.globalData.fullSubtractionList = result.data
         } else {
           this.setData({

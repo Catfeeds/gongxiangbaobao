@@ -52,15 +52,7 @@ App({
     }
 
     // 获取地理位置
-    this.getUserLocation()
-
-    wx.getSystemInfo({
-      success: function (res) {
-        console.log(res) // 获取可使用窗口高度
-        let windowHeight = (res.windowHeight * (750 / res.windowWidth)) //将高度乘以换算后的该设备的rpx与px的比例
-        console.log(windowHeight) //最后获得转化后得rpx单位的窗口高度
-      }
-    }) 
+    this.getUserLocation() 
   },
 
   login: function(cb) {
@@ -140,7 +132,7 @@ App({
             if (result.success) {
               // 跳转至详情
               wx.navigateTo({
-                url: './../payment/payment?rid=' + rid,
+                url: './../paymentSuccess/paymentSuccess?rid=' + rid,
               })
             }
           })
@@ -241,29 +233,31 @@ App({
     critiqueProduct: '',
     // 选择运费模板里面的需要的订单信息
     pickLogistics: '',
-    //订单的参数
+    // 订单的参数
     orderParams: {
-      address_rid: '', //String	必需	 	收货地址ID
-      outside_target_id: '', //String	可选	 	 
-      invoice_type: '', //Integer	可选	1	发票类型
-      invoice_info: '', //String	可选	{}	 
-      ship_mode: '', //Integer	可选	1	1、发快递 2、自提
-      from_client: '1', //String	可选	 	来源客户端，1、小程序；2、H5  6、PAD
-      affiliate_code: '', //String	可选	 	推广码
-      bonus_code: '', //String	可选	 	官方红包码
-      sync_pay: '', //Integer	可选	0	是否同步返回支付参数 0、否 1、是
+      authAppid: '',
+      address_rid: '', // String	必需	 	收货地址ID
+      outside_target_id: '', // String	可选	 	 
+      invoice_type: 1, // Integer	可选	1	发票类型
+      invoice_info: '', // String	可选	{}	 
+      ship_mode: '', // Integer	可选	1	1、发快递 2、自提
+      from_client: 1, // String	可选	 	来源客户端，1、小程序；2、H5  6、PAD
+      affiliate_code: '', // String	可选	 	推广码
+      bonus_code: '', // String	可选	 	官方红包码
+      sync_pay: 1, // Integer	可选	0	是否同步返回支付参数 0、否 1、是
+      openid: '',
       store_items: [{
-        store_rid: '', //String	必需	 	当前店铺rid
-        is_distribute: '', //Integer	可选	0	是否分销 0、否 1、是
-        original_store_rid: '', //String	可选	 	原店铺rid
-        buyer_remark: '', //String	可选	 	买家备注
-        blessing_utterance: '', //String	可选	 	买家寄语
-        coupon_codes: '', //String	可选	 	优惠券码
+        store_rid: '', // String	必需	 	当前店铺rid
+        is_distribute: '', // Integer	可选	0	是否分销 0、否 1、是
+        original_store_rid: '', // String	可选	 	原店铺rid
+        buyer_remark: '', // String	可选	 	买家备注
+        blessing_utterance: '', // String	可选	 	买家寄语
+        coupon_codes: '', // String	可选	 	优惠券码
         items: [{
-          rid: '', //String	必需	 	sku
-          quantity: '', //Number	必需	1	购买数量
-          express_id: '', //Integer	必需	 	物流公司ID
-          warehouse_id: '' //Number	可选	 	发货的仓库ID
+          rid: '', // String	必需	 	sku
+          quantity: '', // Number	必需	1	购买数量
+          express_id: '', // Integer	必需	 	物流公司ID
+          warehouse_id: '' // Number	可选	 	发货的仓库ID
         }]
       }]
     }
