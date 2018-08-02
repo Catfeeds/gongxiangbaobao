@@ -354,19 +354,19 @@ swiper-item, swiper-item>image, swiper {
   position: fixed;
   bottom: 0;
   width: 690rpx;
-  padding: 30rpx;
+  padding: 24rpx 30rpx 30rpx 30rpx;
+  margin-bottom: 0;
+  color: #333;
 }
 
-.top-info {
-  margin-bottom: 20rpx;
-}
+
 
 .top-info view {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
-  line-height: 50rpx;
+  /* line-height: 50rpx; */
 }
 
 .old-price-text {
@@ -383,18 +383,22 @@ swiper-item, swiper-item>image, swiper {
 }
 
 .color-item {
-  padding: 10rpx;
+  height: 50rpx;
+  padding:0 12rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10rpx;
   border: 1rpx solid #333;
-  margin: 15rpx 30rpx 15rpx 15rpx;
+  margin: 15rpx 28rpx 15rpx 0rpx;
+  font-weight: normal;
+  box-sizing: border-box;
 }
 
 .color-title {
-  margin: 30rpx 30rpx 30rpx 0;
+  padding: 15rpx 30rpx 15rpx 0;
   white-space: nowrap;
+  font-weight: 300;
 }
 
 .active {
@@ -409,10 +413,15 @@ swiper-item, swiper-item>image, swiper {
 }
 
 .pick {
+  height: 152rpx;
   width: 690rpx;
   line-height: 80rpx;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(255, 255, 255, 1),rgba(255, 255, 255, .5));
 }
+.category-box__title{
 
+}
 .fen {
   height: 28rpx;
   width: 32rpx;
@@ -456,6 +465,13 @@ swiper-item, swiper-item>image, swiper {
   font-size: 22rpx;
 }
 
+.pick__button{
+  width: 335rpx !important;
+
+}
+.shim{
+  height: 110rpx;
+}
 .shop-cart image {
   height: 40rpx;
   width: 40rpx;
@@ -491,7 +507,7 @@ swiper-item, swiper-item>image, swiper {
   color: white;
   bottom: 3rpx;
   right: 30rpx;
-  z-index: 999;
+  z-index: 88;
   text-shadow:1px 2px 3px rgba(0, 0, 0, .4);
   
 }
@@ -507,12 +523,21 @@ swiper-item, swiper-item>image, swiper {
   color: #F5A43C;
 } */
 
+.category-max__box{
+  max-height: 320rpx;
+  width: 690rpx;
+  overflow: auto;
+}
+
 .reduced-price_text {
   line-height: 40rpx !important;
 }
 
 .product-info__title {
   font-size: 32rpx;
+}
+.category-box__right{
+  flex: 1;
 }
 
 .margin-bottom--22rpx {
@@ -539,7 +564,13 @@ swiper-item, swiper-item>image, swiper {
 .margin-bottom--30rpx{
   margin-bottom: 30rpx;
 }
+.margin-bottom--34rpx{
+  margin-bottom: 34rpx;
+}
 
+.padding-bottom-34rpx {
+padding-bottom: 34rpx;
+}
 .margin-bottom--18rpx {
   margin-bottom: 18rpx;
 }
@@ -551,7 +582,8 @@ swiper-item, swiper-item>image, swiper {
   font-weight: 600;
   /* background-color: red; */
 }
-.otherInfo-describe>view{
+.goods-color-box>view>view,
+.top-info>view>view{
   /* background-color: red; */
 }
 .margin-bottom--4rpx {

@@ -153,19 +153,36 @@ Page({
       })
       return false
     }
-    http.fxPost(api.wishlist, {
-      rids: [this.data.rid]
-    }, (result) => {
-      console.log(result)
-      if (result.success) {
-        utils.fxShowToast('成功添加', "success")
-        this.setData({
-          ['productInfomation.is_wish']:true
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
+    if ( !this.data.productInfomation.is_wish ){
+      http.fxPost(api.wishlist, {
+        rids: [this.data.rid]
+      }, (result) => {
+        console.log(result)
+        if (result.success) {
+          utils.fxShowToast('成功添加', "success")
+          this.setData({
+            ['productInfomation.is_wish']: true
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      http.fxDelete(api.wishlist, {
+        rids: [this.data.rid]
+      }, (result) => {
+        console.log(result)
+        if (result.success) {
+          utils.fxShowToast('移除添加', "success")
+          this.setData({
+            ['productInfomation.is_wish']: false
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+
   },
 
   // 获取店铺信息

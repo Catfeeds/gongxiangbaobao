@@ -5,7 +5,7 @@
 
   <!-- 轮播图 123-->
   <view class='swiperBox'>
-    <swiper  current bindanimationfinish='animationOver'>
+    <swiper current bindanimationfinish='animationOver'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
           <image src="{{item.view_url}}-p50" />
@@ -41,8 +41,7 @@
     <!-- 喜欢心愿单 -->
     <view class='branderInfo like-quantity margin-bottom--30rpx'>
       <view class='like-quantity-l' catchtap='handleBindLike'>
-        <image 
-          src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
+        <image src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
         <text class='hui-zi like-icon-add' wx:else>喜欢</text>
       </view>
@@ -96,13 +95,10 @@
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
 
     </view>
-    <view 
-      class='roundR' 
-      data-rid='{{productInfomation.rid}}' 
-      catchtap='handelToLikeThisProductTap'>
-      <image src='../../images/sandian.png'></image>  
+    <view class='roundR' data-rid='{{productInfomation.rid}}' catchtap='handelToLikeThisProductTap'>
+      <image src='../../images/sandian.png'></image>
     </view>
-    
+
   </view>
 
   <!-- 描述,发货地，时间 -->
@@ -214,44 +210,43 @@
   <!-- 选择规格box -->
   <view class='specifications' wx:if="{{pick}}" catchtap='handleSpecificationsHide'>
     <view class='bg-white specificationsInfo black-font' catchtap='{{false}}'>
-      <view class='top-info'>
-        <view>{{productInfomation.name}}</view>
-        <view>
-          <!-- <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
-          <text class='old-price-text' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text> -->
+      <view class=''>
+        <view class=" sku__name ">{{productInfomation.name}}</view>
+        <view class='flex_row padding-bottom-34rpx category-box__title'>
           <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price && !skuPrice}}'>
-        <text>￥</text>
-          <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+          <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
           <text>-</text>
-          <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+          <text>￥{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
           </text>
-          <text class='cureentPrice' wx:if='{{productInfomation.max_price==productInfomation.min_price && !skuPrice}}'>
-         ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
-      </text>
+          <text class='cureentPrice' wx:if='{{productInfomation.max_price==productInfomation.min_price && !skuPrice}}'>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
           <text wx:if='{{skuPrice}}'>￥{{skuPrice}}</text>
         </view>
       </view>
+      <view class='category-max__box'>
       <!-- 颜色 -->
-      <view class='goods-color-box'>
+      <view class='goods-color-box category-box__right'>
         <view class='black-font color-title'>颜色</view>
         <view class='goods-color goods-color-box'>
           <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
         </view>
       </view>
       <!-- 尺寸 -->
-      <view class='goods-color-box'>
+      <view class='goods-color-box category-box__right'>
         <view class='black-font color-title'>规格</view>
         <view class='goods-color goods-color-box'>
           <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
             wx:key='{{index}}'>{{item.name}}</view>
         </view>
       </view>
-      <!-- 垫片 -->
-      <view class='shm'></view>
-      <view class='bottom-btn bg-white c-crosswise-a pick'>
-        <view class='add_cart' catchtap='handleAddCart'>加入购物车</view>
-        <view class='btn-bg-color' catchtap='receiveOrderTap'>选好了</view>
+</view>
+      <view class='bottom-btn bg-white c-crosswise-a pick '>
+        <view class='add_cart pick__button' catchtap='handleAddCart'>加入购物车</view>
+        <view class='btn-bg-color pick__button' catchtap='receiveOrderTap'>选好了</view>
       </view>
+
+      <!-- 垫片 -->
+      <view class='shim'></view>
+
     </view>
   </view>
 

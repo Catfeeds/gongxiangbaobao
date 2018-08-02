@@ -13,8 +13,14 @@ page{
 }
 
 .cartIcon {
-  font-size: 200rpx;
+  height: 138rpx;
+  width: 138rpx;
 }
+.cartIcon image{
+  height: 100%;
+  width: 100%;
+}
+
 
 .shopCartNonText {
   font-size: 30rpx;
@@ -24,7 +30,7 @@ page{
   height: 82rpx;
   width: 500rpx;
   font-size: 32rpx;
-  border-radius: 10rpx;
+  border-radius: 8rpx;
   color: white;
 }
 
