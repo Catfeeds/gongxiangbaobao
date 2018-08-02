@@ -159,6 +159,9 @@ Page({
       console.log(result)
       if (result.success) {
         utils.fxShowToast('成功添加', "success")
+        this.setData({
+          ['productInfomation.is_wish']:true
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }

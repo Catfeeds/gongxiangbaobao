@@ -194,7 +194,7 @@ swiper-item, swiper-item>image, swiper {
   line-height: 80rpx;
   text-align: center;
   border: 1rpx solid #666;
-  border-radius: 20rpx;
+  border-radius: 8rpx;
   /* margin-bottom: 30rpx; */
 }
 

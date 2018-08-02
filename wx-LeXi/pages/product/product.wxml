@@ -48,8 +48,9 @@
       </view>
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
-          <text class='fx-icon-nothing-plus'></text>
-          <text class='hui-zi'>心愿单</text>
+          <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>
+          <text class='hui-zi' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
+          <text class='hui-zi' wx:else>已添加</text>
         </view>
         <view class='like-quantity-l transmissionInfo'>
           <image class='fen' src='../../images/share@2.png'></image>
