@@ -159,7 +159,7 @@
   <view class='shopInfo'>
     <view class='shopInfoT'>
       <view class='userIcon' catchtap='handleGoIndex'>
-        <image src='{{ storeInfo.logo.view_url }}'></image>
+        <image src='{{ storeInfo.logo }}'></image>
       </view>
       <view class='shopMiddle' catchtap='handleGoIndex'>
         <view class='hui-zi'>原创品牌馆</view>
