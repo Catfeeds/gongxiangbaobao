@@ -1,11 +1,11 @@
 {
   "extEnable": true,
-  "extAppid": "wx3cc0ea5d2c601f30",
+  "extAppid": "wx60ed17bfd850985d",
   "directCommit": false,
   "ext": {
-    "name": "小灵兽",
-    "authAppid": "wx3cc0ea5d2c601f30",
-    "storeRid": "99130748",
+    "name": "乐喜小馆",
+    "authAppid": "wx60ed17bfd850985d",
+    "storeRid": "91984703",
     "attr": {
       "users": [
         "purpen"
@@ -14,8 +14,8 @@
     "api": {
       "host": "https://wx.taihuoniao.com/api",
       "version": "v1.0",
-      "appKey": "eV7po2YUCbwn9N3W6tig",
-      "appSecret": "150785ffa7e1612b6dc506d469baccccc51f890e"
+      "appKey": "zXIPN0ftRj6dlrKFOZpH",
+      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
     }
   },
   "networkTimeout": {

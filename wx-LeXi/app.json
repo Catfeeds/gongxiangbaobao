@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
@@ -28,7 +29,8 @@
     "pages/authorize/authorize",
     "pages/myFollower/myFollower",
     "pages/likeThisProduct/likeThisProduct",
-    "pages/allProduct/allProduct"
+    "pages/allProduct/allProduct",
+    "pages/checkout/checkout"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

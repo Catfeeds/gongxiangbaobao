@@ -138,7 +138,7 @@ Page({
   // 继续提交订单
   submitOrderTap() {
     wx.navigateTo({
-      url: '../orderInfo/orderInfo',
+      url: '../checkout/checkout'
     })
   }
   

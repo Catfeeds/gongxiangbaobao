@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 订单
-    order:[],
+    // 订单列表
+    orderList:[],
     // navbar
     navList: [
       {
@@ -45,7 +45,7 @@ Page({
 
   // 选择
   handleStatus(e) {
-    let status = e.currentTarget.dataset.status;
+    let status = e.currentTarget.dataset.status
     this.setData({
       currentStatus: status,
       ['getOrderListParams.status']: status
@@ -54,13 +54,21 @@ Page({
     })
   },
 
+  // 查看订单详情
+  handleViewDetail (e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../orderInfo/orderInfo?rid=' + rid
+    })
+  },
+
   // 获取订单列表---
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
-      console.log(result)
+      console.log(result, '订单列表')
       if (result.success) {
         this.setData({
-          order: result.data
+          orderList: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -76,9 +84,8 @@ Page({
   },
 
   // 删除订单
-  celeteOrderTap(e) {
-    var rid = e.currentTarget.dataset.rid
-    console.log(rid)
+  deleteOrderTap(e) {
+    let rid = e.currentTarget.dataset.rid
     wx.showModal({
       title: '确认删除订单？',
       content: '订单删除后将无法还原',
@@ -89,7 +96,7 @@ Page({
           http.fxDelete(api.orders_delete, {
             rid: rid
           }, (result) => {
-            console.log(result)
+            console.log(result, '删除订单')
             if (result.success) {
               this.getOrderList()
             } else {
@@ -101,7 +108,6 @@ Page({
         }
       }
     })
-
   },
 
   /**
@@ -156,7 +162,7 @@ Page({
   // 评论
   critiqueTap(e) {
     console.log(e.currentTarget.dataset.product)
-    //传输要评论的东西
+    // 传输要评论的东西
     app.globalData.critiqueProduct = e.currentTarget.dataset.product
     wx.navigateTo({
       url: '../critique/critique',
@@ -166,7 +172,7 @@ Page({
   // 物流跟踪
   logTop() {
     wx.navigateTo({
-      url: '../logisticsWatch/logisticsWatch',
+      url: '../logisticsWatch/logisticsWatch'
     })
   }
 })

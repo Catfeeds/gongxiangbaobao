@@ -17,7 +17,7 @@
     </view>
     <!-- 完成购物车的编辑 -->
     <view class='produckNumber' wx:if="{{changeCart}}">
-      <view>{{shoppingCart.length}}件礼品</view>
+      <view>{{shoppingCart.length}}件商品</view>
       <view class='theme-green' catchtap='changeCartTap' data-change="over">完成</view>
     </view>
     <view class='goodsList'>

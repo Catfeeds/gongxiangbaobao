@@ -3,8 +3,8 @@
 <view class='container'>
   <!-- 背景图片 -->
   <view class='index-bg'>
-    <image src='{{ shopInfo.bgcover.view_url }}'></image>
-    <image src='{{shopInfo.logo.view_url}}' class='userPhoto'>
+    <image src='{{ shopInfo.bgcover }}'></image>
+    <image src='{{ shopInfo.logo }}' class='userPhoto'>
     </image>
     <view class='box-s'></view>
   </view>

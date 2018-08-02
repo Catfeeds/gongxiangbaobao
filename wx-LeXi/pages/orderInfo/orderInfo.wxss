@@ -1,349 +1,102 @@
-/* pages/orderInfo/orderInfo.wxss */
-@import "../receiveAddress/receiveAddress.wxss";
-
-.receiveBox {
-  height: 150rpx;
-  background-color: white;
-  margin: 30rpx 0;
-  padding: 30rpx;
-  font-size: 28rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-weight: normal;
-}
-
-.locationTitle {
-  font-size: 24rpx;
-  color: #999;
-}
-
-.userNameBox {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.orderInfoBox {
-  background-color: white;
-  margin-bottom: 20rpx;
-}
-
-.shopName {
-  height: 88rpx;
-  border-bottom: 1rpx solid #e9e9e9;
-  font-size: 28rpx;
-  font-weight: 600;
-  display: flex;
-  flex-direction: row;
-  padding: 0 30rpx;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.shopNameR {
-  font-weight: normal;
-  font-size: 24rpx;
-  color: #949ea6;
-}
-
-.OtherInfomation {
+.topInfo {
+  height: 414rpx;
   padding-left: 30rpx;
+  border-top: 1rpx solid #e9e9e9;
+  margin-bottom: 30rpx;
 }
 
-.shopGoodsInfo {
-  flex-direction: row;
-  justify-content: space-between;
-  position: relative;
-}
-
-.shopGoodsInfoR {
-  display: flex;
-  flex-direction: column;
-}
-
-.cureentPriceS {
-  font-size: 28rpx;
-}
-
-.receiveFn {
-  /* height: 170rpx; */
+.orderNumber {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40rpx 0;
-  position: relative;
-}
-.receiveFn_line{
-  position: absolute;
-  bottom: 0;
-  left: -30rpx;
-  height: 2rpx;
-  width: 750rpx;
-  background-color: #e9e9e9;
+  padding: 30rpx 30rpx 30rpx 0;
+  height: 76rpx;
 }
 
-.receiveFnTop {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 28rpx;
-  font-weight: 500;
-  width: 690rpx;
-  margin-bottom: 38rpx;
+.paymentFn {
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
 }
 
-.receiveFnBottomBox {
-  height: 36rpx;
-  width: 36rpx;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  margin-right: 20rpx;
-}
-
-.receiveFnBottomBox>image {
-  height: 100%;
-  width: 100%;
-  /* background-color: red; */
-}
-
-.receiveFnBottom {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.logistics-goods {
-  display: flex;
-  flex-direction: column;
+.expenses {
   font-size: 24rpx;
-}
-
-.logistics-goods text {
-  line-height: 40rpx;
-}
-
-.input {
-  font-size: 26rpx;
-  color: #b2b2b2;
-}
-
-.goods-blessing {
-  font-size: 26rpx;
-}
-
-.count-price {
-  padding: 10rpx 30rpx;
-  margin: 20rpx 0;
-  background-color: white;
-}
-
-.count-price>view {
-  margin: 15rpx 0;
-}
-
-.logistics_text {
   color: #c2a67d;
 }
 
-.time-top_total {
+.prceInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.redtext {
   font-size: 34rpx;
   color: #f66;
   font-weight: 500;
 }
 
-.receiveFn_photo {
-  padding-right: 30rpx;
-}
-
-.merchant {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-right: 30rpx;
-  padding: 30rpx;
-  border: 1rpx solid #e9e9e9;
-  height: 90rpx;
-  border-radius: 6rpx;
-}
-
-.voice {
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-}
-
-.discounts {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #555;
-}
-
-.discounts image {
-  height: 32rpx;
-  width: 32rpx;
-  margin-right: 10rpx;
-}
-
-.coupon--color {
-  margin-right: 14rpx;
-  color: #f66;
-}
-
-.coupon--color+text {
-  color: #999;
-}
-
-.logistice_text {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 30rpx;
-  margin-top: 14rpx;
-}
-
-.coupon-box {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 99;
-}
-
-.coupon-box_top {
-  max-height: 770rpx;
-  background-color: #f7f9fb;
-  padding: 20rpx 30rpx 0 30rpx;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  overflow: auto;
-}
-
-.coupon-box_top--mar {
-  margin: 20rpx 0rpx;
-}
-
-.coupon_radio {
-  position: relative;
-  overflow: hidden;
-  width: 690rpx;
-  height: 170rpx;
-  /* background-color: red; */
-  border-radius: 10rpx;
-}
-
-.column-round {
-  height: 70rpx;
-  width: 20rpx;
-  border-radius: 30rpx;
-  background-color: #f7f9fb;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.column-round_l {
-  left: -10rpx;
-}
-
-.column-round_r {
-  right: -10rpx;
-}
-
-.coupon-round {
-  width: 10rpx;
-  height: 20rpx;
-  border-radius: 30rpx;
-  background-color: #f7f9fb;
-  position: absolute;
-  left: 30%;
-}
-
-.coupon-round_t {
-  top: -10rpx;
-}
-
-.coupon-round_b {
-  bottom: -10rpx;
-}
-
-.coupon-l {
-  flex: 340;
-  height: 100%;
-  background-color: #ff6a35;
-  color: white;
-  font-size: 60rpx;
-}
-
-.coupon-r {
-  flex: 500;
-  height: 100%;
-  background-color: #fffcfb;
-}
-
-.coupon-btn {
-  flex: 166rpx;
-  height: 100%;
-  background-color: #fffcfb;
-}
-
-.price-number {
-  margin-top: 28rpx;
-}
-
-.font-m--style {
-  color: #5fe4b1;
-}
-
-.font-ss--style {
-  color: #ff6a35;
-}
-
-.fang {
-  display: inline-block;
-  height: 10rpx;
-  width: 10rpx;
-  background-color: #ff6934;
-  transform: rotate(45deg);
-  margin-right: 8rpx;
-}
-
-.coupon-bot_btn {
-  position: fixed;
-  bottom: 0;
-  width: 690rpx;
-  height: 100rpx;
-  padding: 10rpx 30rpx 0 30rpx;
-}
-
-.affirm-btn {
-  flex: 1;
-  font-size: 32rpx;
-  color: white;
-  height: 82rpx;
-  width: 348rpx;
-  border-radius: 10rpx;
-  background-color: #5fe4b1;
-}
-
-.coupon-btn-l {
-  flex: 1;
-  text-align: center;
-}
-.otherInfo{
-  font-size: 22rpx;
-  color: #B2B2B2;
-  font-weight: normal;
-  position: absolute;
-  bottom: 60rpx;
-  left: 200rpx;
-}
-.lx-coupon{
-  padding-left: 30rpx;
-  border-top: 1rpx solid #e9e9e9;
+.shopName {
+  height: 86rpx;
   border-bottom: 1rpx solid #e9e9e9;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dialogbox{
+  color: white;
+  font-size: 32rpx;
+}
+.startAddress{
+  flex: 1;  
+}
+.item-product{
+  display: flex;
+  flex-direction: column;
+}
+.productBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30rpx;
+}
+.productComBoxL{
+  flex: 9;
+}
+.productComBoxR{
+  flex: 1
+}
+.needNumber{
+  flex: 1;
+  font-weight: normal;
+}
+.logisticsInfo{
+  height: 80rpx;
+}
+.logistics-icon{
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 50%;
+  background-color: #6FC3DE;
+  margin-right: 20rpx;
+  overflow: hidden;
+}
+.logistics-icon image{
+  height: 100%;
+  width: 100%;
+}
+.colimn-B{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80rpx;
+}
+.userLocation view{
+  line-height: 50rpx;
+  
+}
+[class='black-font theme-color']{
+  font-weight: 600;
 }

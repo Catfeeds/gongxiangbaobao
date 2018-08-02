@@ -52,15 +52,7 @@ App({
     }
 
     // 获取地理位置
-    this.getUserLocation()
-
-    wx.getSystemInfo({
-      success: function (res) {
-        console.log(res) // 获取可使用窗口高度
-        let windowHeight = (res.windowHeight * (750 / res.windowWidth)) //将高度乘以换算后的该设备的rpx与px的比例
-        console.log(windowHeight) //最后获得转化后得rpx单位的窗口高度
-      }
-    }) 
+    this.getUserLocation() 
   },
 
   login: function(cb) {
