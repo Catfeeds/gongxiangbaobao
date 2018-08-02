@@ -68,7 +68,7 @@
   </view>
 
   <!-- 底部按钮 -->
-  <view class='bottom-btn'>
+  <view class='bottom-btn' catchtap='handleOffPick'>
       <view class='direction--row'>
         查看商品 <text> ({{pickQuantity}}件) </text>
       </view>

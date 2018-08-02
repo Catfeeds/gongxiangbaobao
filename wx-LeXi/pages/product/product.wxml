@@ -12,30 +12,25 @@
         </swiper-item>
       </block>
     </swiper>
-    <view class='subscript'>{{swiperIndex}}/{{productInfomation.assets.length}}</view>
+    <text class='subscript black-font'>{{swiperIndex}}/{{productInfomation.assets.length}}</text>
   </view>
 
   <!--轮播图 产品底部信息 -->
   <view class='goodsInfoBox'>
-    <view class='branderInfo'>
+    <view class='branderInfo  font-with--600'>
       <text class='logistics' wx:if="{{ productInfomation.is_free_postage }}">包邮</text>
-      <text>{{productInfomation.name}}</text>
+      <text class='product-info__title'>{{productInfomation.name}}</text>
     </view>
-    <view class='branderInfo'>
-      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'>
-        <text>￥</text>
-      <text>{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+    <view class='branderInfo margin-bottom--22rpx'>
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'><text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
       <text>-</text>
       <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
       </text>
-      <text class='cureentPrice' wx:else>
-         ￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}
-      </text>
-
+      <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
     <!-- wx:for='{{productInfomation.labels}}' -->
-    <view class='characteristic branderInfo'>
+    <view class='characteristic branderInfo margin-bottom--40rpx'>
       <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
       <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
           <text wx:if="{{index!=0}}"> · </text>
@@ -44,7 +39,7 @@
       <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
-    <view class='branderInfo like-quantity'>
+    <view class='branderInfo like-quantity margin-bottom--30rpx'>
       <view class='like-quantity-l' catchtap='handleBindLike'>
         <image 
           src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
@@ -74,7 +69,7 @@
         </view>
 
         <!-- 满减 -->
-        <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
+        <view class='reduced-price' wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
           <image src='../../images/reduced-price@2.png'></image>
           <text class="reduced-price_text" wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">{{ item.type_text }}</text>
           <view class='reduced-price__last' wx:if="{{fullSubtractionList.coupons.length>2&&couponList.coupons.length != 0}}"> ... </view>
@@ -83,7 +78,7 @@
       </view>
     </view>
 
-    <view class='branderInfo goods-size' catchtap='pickShowTap'>
+    <view class='branderInfo goods-size margin-bottom--18rpx' catchtap='pickShowTap'>
       <text class='textInfo'>请选择规格和尺码</text>
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
@@ -96,10 +91,16 @@
   <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
       <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image>
-      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.product_like_users.avatar}}' class='photo-round'></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
 
     </view>
-    <view class='roundR' data-rid='{{productInfomation.rid}}' catchtap='handelToLikeThisProductTap'>···</view>
+    <view 
+      class='roundR' 
+      data-rid='{{productInfomation.rid}}' 
+      catchtap='handelToLikeThisProductTap'>
+      <image src='../../images/sandian.png'></image>  
+    </view>
+    
   </view>
 
   <!-- 描述,发货地，时间 -->
@@ -107,45 +108,45 @@
     <!-- 描述 -->
     <view class='otherInfo-describe'>
       <view class='titleText'>描述</view>
-      <view class='goodstext two-line-text'>
+      <view class='goodstext two-line-text margin-bottom--12rpx'>
         <text class='titlemini'>亮点：</text>
         <text>{{ productInfomation.features }}</text>
       </view>
-      <view class='goodstext'>
+      <view class='goodstext margin-bottom--12rpx'>
         <text class='titlemini'>材质：</text>
         <text>{{ productInfomation.material_id }}</text>
       </view>
-      <view class='goodstext' wx:if='{{ productInfomation.is_custom_service }}'>
+      <view class='goodstext margin-bottom--12rpx' wx:if='{{ productInfomation.is_custom_service }}'>
         <text class='titlemini'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
-      <view class='goodstext'>
+      <view class='goodstext margin-bottom--30rpx'>
         <text class='titlemini'>数量：</text>
         <text>仅剩最后{{ productInfomation.stock_count }}件</text>
       </view>
     </view>
 
     <!-- 发货地点 -->
-    <view class='otherInfo-describe location'>
+    <view class='otherInfo-describe location '>
       <view class='titleText'>发货地</view>
-      <view class='goodstext'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}·{{ storeInfo.delivery_city }}</view>
+      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}·{{ storeInfo.delivery_city }}</view>
     </view>
 
     <!-- 交货时间 -->
-    <view class='otherInfo-describe location'>
+    <view class='otherInfo-describe location '>
       <view class='titleText'>交货时间</view>
-      <view class='goodstext'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
+      <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
       </view>
     </view>
 
     <!-- 退货政策 -->
     <view class='otherInfo-describe location borN'>
-      <view class='titleText'>退货政策</view>
-      <view class='goodstext'>
-        <text class=''>·</text>
-        <text>30天退换货服务</text>
+      <view class='titleText flex_row margin-bottom--4rpx'>退货政策</view>
+      <view class='goodstext flex_row margin-bottom--4rpx'>
+        <view class='dian'></view>
+        <text>{{productInfomation.return_policy_title}}</text>
       </view>
-      <view class='two-line-text goodstext'>
+      <view class='two-line-text goodstext margin-bottom--50rpx'>
         {{ productInfomation.product_return_policy }}
       </view>
       <view class='allInfo' catchtap='animationOnFn'>
@@ -279,19 +280,19 @@
       <!-- 描述 -->
       <view class='otherInfo-describe'>
         <view class='titleText'>描述</view>
-        <view class='goodstext two-line-text'>
+        <view class='goodstext two-line-text margin-bottom--12rpx'>
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
-        <view class='goodstext'>
+        <view class='goodstext margin-bottom--12rpx'>
           <text class='titlemini'>材质：</text>
           <text>{{productInfomation.material_id}}</text>
         </view>
-        <view class='goodstext' wx:if='{{productInfomation.is_custom_service}}'>
+        <view class='goodstext margin-bottom--12rpx' wx:if='{{productInfomation.is_custom_service}}'>
           <text class='titlemini'>特点： </text>
           <text>可提供定制化服务</text>
         </view>
-        <view class='goodstext'>
+        <view class='goodstext margin-bottom--30rpx'>
           <text class='titlemini'>数量：</text>
           <text>仅剩最后{{ productInfomation.stock_count }}件</text>
         </view>
@@ -300,22 +301,22 @@
       <!-- 发货地点 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>发货地</view>
-        <view class='goodstext'>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}.{{storeInfo.delivery_city}}</view>
+        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}.{{storeInfo.delivery_city}}</view>
       </view>
 
       <!-- 交货时间 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>交货时间</view>
-        <view class='goodstext'>预计3-5天到达
+        <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
           <!-- <text class='theme-green'> 遵义</text> -->
         </view>
       </view>
 
       <!-- 退货政策 -->
       <view class='otherInfo-describe location borN'>
-        <view class='titleText'>退货政策</view>
-        <view class='goodstext'>
-          <text class=''> ·</text>
+        <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
+        <view class='goodstext margin-bottom--12rpx'>
+          <text class='dian'> ·</text>
           <text>30天退换货服务</text>
         </view>
         <view class='goodstext'>
