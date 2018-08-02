@@ -44,6 +44,7 @@
         <image 
           src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
+        <text class='hui-zi like-icon-add' wx:else>喜欢</text>
       </view>
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
@@ -315,8 +316,8 @@
       <!-- 退货政策 -->
       <view class='otherInfo-describe location borN'>
         <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
-        <view class='goodstext margin-bottom--12rpx'>
-          <text class='dian'> ·</text>
+        <view class='goodstext flex_row margin-bottom--12rpx'>
+          <view class='dian'></view>
           <text>30天退换货服务</text>
         </view>
         <view class='goodstext'>
