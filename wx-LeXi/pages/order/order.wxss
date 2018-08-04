@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 32rpx;
-  border-top:1rpx solid #E2E3E4;
+  border-top: 1rpx solid #e2e3e4;
   margin-bottom: 20rpx;
 }
 
@@ -15,89 +15,118 @@
   color: #6b6b6b;
   font-weight: 400;
 }
+
 .page-order__nav .item.active {
   color: #6ed7af;
   border-bottom: 4rpx solid #6ed7af;
 }
-.orderInfoBox{
+
+.orderInfoBox {
   padding-left: 30rpx;
 }
-.productAndShopInfo{
+
+.productAndShopInfo {
   display: flex;
   flex-direction: row;
   /* border-bottom: 1rpx solid #e9e9e9; */
   padding: 30rpx 30rpx 30rpx 0rpx;
 }
-.productAndShopInfoN{
+
+.productAndShopInfoN {
   border-bottom: none;
 }
-.shopPhoto{
+
+.shopPhoto {
   height: 46rpx;
   width: 46rpx;
   border-radius: 10rpx;
   overflow: hidden;
 }
-.shopPhoto image{
+
+.shopPhoto image {
   height: 100%;
   width: 100%;
 }
-.productinfo{
+
+.productinfo {
   flex-direction: column;
   margin-left: 20rpx;
   flex: 1;
 }
-.goodsBox{
-  padding: 20rpx 30rpx 0rpx 0;
+
+.goodsBox {
+  padding: 16rpx 30rpx 0rpx 0;
 }
-.fnBtn{
+
+.fnBtn {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding:30rpx 30rpx 0 0;
-
+  padding: 0rpx 30rpx 0 0;
 }
-.fnBtn view{
+
+.fnBtn view {
   width: 158rpx;
-  height: 58rpx;text-align: center;
+  height: 58rpx;
+  text-align: center;
   font-size: 24rpx;
   border-radius: 10rpx;
   line-height: 58rpx;
   margin-left: 20rpx;
 }
-.productAndShopInfoBox{
-flex-direction: column;
-padding-right: 0rpx;
-padding-top: 0rpx;
+
+.productAndShopInfoBox {
+  flex-direction: column;
+  padding-right: 0rpx;
+  padding-top: 0rpx;
+  padding-bottom: 20rpx;
 }
-.paymentBtn{
-  background-color: #FF6666;
+
+.paymentBtn {
+  background-color: #f66;
   color: white;
 }
-.delleteOrder{
-  border: 1rpx solid #999999;
+
+.delleteOrder {
+  border: 1rpx solid #999;
 }
-.critiqueBtn{
-  background-color: #6ED7AF;
+
+.critiqueBtn {
+  background-color: #6ed7af;
   color: white;
   font-size: 24rpx;
 }
- .shopNameBox{
+
+.shopNameBox {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-} 
-.order-aggregate{
- 
 }
-.shopName{
-  font-size: 26rpx;
 
+.order-aggregate {
+  color: #999;
 }
-.nonePayment{
+
+.shopName {
+  font-size: 26rpx;
+}
+
+.nonePayment {
   font-size: 24rpx;
 }
 
-.price{
+.price {
   font-size: 28rpx;
-  font-weight: 500;
+  padding-top:13rpx;
+}
+
+.margin-top---13rpx {
+  margin-top: -13rpx;
+}
+
+.margin-bottom--2rpx {
+  margin-bottom: 2rpx;
+}
+.order_sum{
+  /* padding-bottom: 6rpx; */
 }

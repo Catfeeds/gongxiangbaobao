@@ -1,22 +1,22 @@
 <!--components/FxProductComponent/FxProductComponent.wxml {{product.img}}-->
-<view catchtap='handleProductInfo' data-rid='{{product.rid}}'>
-<view class='photoBox'>
-  <view class='sellInfo' wx:if='{{product.is_sold_out}}'>
-    <image src='{{product.cover}}'></image>
+<view catchtap='handleProductInfo' class='direction' data-rid='{{product.rid}}'>
+  <view class='photoBox'>
+    <view class='sellInfo' wx:if='{{product.is_sold_out}}'>
+      <image src='{{product.cover}}'></image>
+    </view>
+    <image mode="widthFix" src='{{ product.cover }}-p30'></image>
   </view>
-  <image mode="widthFix" src='{{ product.cover }}-p30'></image>
-</view>
 
-<view class='material-quality'>
-  <view class='logistics' wx:if='{{product.is_free_postage}}'>
+  <view class='material-quality'>
+    <view class='logistics' wx:if='{{product.is_free_postage}}'>
       <image src='../../images/logistics@2.png'></image>
+    </view>
+    <view class='material-quality-text'>{{product.name}}</view>
   </view>
-  <view class='material-quality-text'>{{product.name}}</view>
-</view>
 
-<view class='productPrice'>
-  <text class='nowPrice'>￥{{product.max_price}}</text>
-  <text class='oldPrice' wx:if="{{oldPrice}}">￥123</text>
-  <text class='like-number' wx:if="{{like_number}}">喜欢 +{{product.like_count}}</text>
-</view>
+  <view class='productPrice'>
+    <text class='nowPrice'>￥{{product.max_price}}</text>
+    <text class='oldPrice' wx:if="{{oldPrice}}">￥{{product.oldPrice}}</text>
+    <text class='like-number' wx:if="{{like_number}}">喜欢 +{{product.like_count}}</text>
+  </view>
 </view>

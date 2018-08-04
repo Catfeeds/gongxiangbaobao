@@ -144,8 +144,27 @@ Page({
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
       console.log(result)
       if (result.success) {
+        //如果没有数据了通知用户
+
+        if (this.data.myProduct.length==0){
+          this.setData({
+            myProduct: result.data,
+            pickQuantity: result.data.products.length
+          })
+        }else{
+          let newProduct = this.data.myProduct.products
+          //把触底加载的数据添加进去
+          result.data.products.forEach((v,i)=>{
+            newProduct.push(v)
+            if (result.data.products.length-1==i){
+              this.setData({
+                ['myProduct.products']: newProduct,
+                ['myProduct.next']: result.data.next
+              })
+            }
+          })
+        }
         this.setData({
-          myProduct: result.data,
           pickQuantity: result.data.products.length
         })
       } else {
@@ -324,13 +343,12 @@ Page({
 
     // 作品里面的
     if (this.data.catgoryActive === 2) {
-      this.getStoreProducts() // 店铺全部作品
+      // this.getStoreProducts() // 店铺全部作品
     }
 
     // 人气里面的
     if (this.data.catgoryActive === 3) {
-      this.getTheme() // 人气--主题
-      this.getNewestProdcts() // 人气--最新作品
+
     }
   },
 
@@ -376,9 +394,24 @@ Page({
   getNewestProdcts() {
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
       if (result.success) {
-        this.setData({
-          currentNewProduct: result.data
-        })
+        console.log(result.data,"最新的商品")
+        if (this.data.currentNewProduct.length==0){
+          this.setData({
+            currentNewProduct: result.data
+          })
+        }else{
+          let newProduct = this.data.currentNewProduct.products
+          // newProduct
+          result.data.products.forEach((v,i)=>{
+            newProduct.push(v)
+            if (result.data.products.length-1==i){
+              this.setData({
+                ['currentNewProduct.products']: newProduct,
+                ['currentNewProduct.next']: result.data.next
+              })
+            }
+          })
+        }
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -656,10 +689,42 @@ Page({
     this.getRecommendProducts() // 推荐好物---
     this.getAdvertises() // 获取广告
     this.getThemeProduct(2) // 2,优质精选---   
+    this.getPick() // 获取作品---
+    this.getTheme() // 人气--主题---
+    this.getNewestProdcts() // 人气--最新作品---
   },
-
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 页面触底事件的处理函数
+   */
+  onReachBottom: function () {
+    console.log(123)
+    switch (this.data.catgoryActive) {
+      case 1:
+
+        break;
+      case 2:
+        this.setData({
+          ['sortParams.page']: this.data.sortParams.page+1
+        })
+        if (!this.data.myProduct.next) {
+          utils.fxShowToast("没有更多产品了")
+          return
+        }
+        this.getPick() //获取作品
+        break;
+      default:
+        this.setData({
+          ['currentNewParams.page']: this.data.currentNewParams.page+1
+        })
+        if (!this.data.currentNewParams.next){
+          utils.fxShowToast("没有更多产品了")
+          return
+        }
+        this.getNewestProdcts()// 
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成   
    */
   onReady: function() {
 
@@ -668,15 +733,15 @@ Page({
   //监听页面的滚动
   onPageScroll: function(e) {
     // console.log(e)
-    if (e.scrollTop >= 622) {
-      this.setData({
-        tabPisition: true
-      })
-    } else if (e.scrollTop < 622) {
-      this.setData({
-        tabPisition: false
-      })
-    }
+    // if (e.scrollTop >= 622) {
+    //   this.setData({
+    //     tabPisition: true
+    //   })
+    // } else if (e.scrollTop < 622) {
+    //   this.setData({
+    //     tabPisition: false
+    //   })
+    // }
   },
 
   shareTap(e) {
@@ -719,12 +784,7 @@ Page({
 
   },
 
-  /**
-   * 页面触底事件的处理函数
-   */
-  onReachBottom: function() {
-      console.log(123)
-  },
+
 
   /**
    * 用户点击右上角分享

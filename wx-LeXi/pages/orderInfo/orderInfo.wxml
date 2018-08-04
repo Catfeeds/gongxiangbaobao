@@ -1,13 +1,13 @@
 <view class='container theme-bg-color'>
   <!-- 上部 -->
   <view class='topInfo bg-white'>
-    <view class='orderNumber'>
-      <view class='hui-zi'>订单编号</view>
+    <view class='orderNumber padding-top--24rpx padding-bottom--22rpx'>
+      <view class='hui-zi padding-bottom--10rpx'>订单编号</view>
       <view class='black-font'># {{ orderInfo.rid }}</view>
     </view>
 
-    <view class='orderNumber paymentFn'>
-      <view class='hui-zi'>支付方式</view>
+    <view class='orderNumber paymentFn padding-top--24rpx padding-bottom--16rpx'>
+      <view class='hui-zi '>支付方式</view>
       <view class='black-font paymentFnTextB'>
         <view>微信在线支付</view>
         <view class='payment-icon'>
@@ -16,24 +16,22 @@
       </view>
     </view>
 
-    <view class='orderNumber '>
-
-      <view class='prceInfo'>
+    <view class='orderNumber padding-top--22rpx'>
+      <view class='prceInfo padding-bottom--4rpx'>
         <text> 
         <text class='hui-zi'>小计：</text>
-        <text class='black-font'>￥</text>
+        <text class='black-font'>￥{{orderInfo.total_amount}}</text>
         </text>
         <text class='hui-zi'>总计</text>
       </view>
-
       <view class='prceInfo'>
         <text>  
         <text class='hui-zi'>配送：</text>
-        <text class='expenses'>免费</text>
+        <text class='expenses' wx:if="{{orderInfo.freight==0}}">免费</text>
+        <text class='expenses' wx:else>{{orderInfo.freight}}</text>
         </text>
-        <text class='redtext'>￥200</text>
+        <text class='redtext'>￥{{orderInfo.pay_amount}}</text>
       </view>
-
     </view>
 
   </view>
@@ -42,41 +40,56 @@
 
   <view class='BotBox bg-white'>
     <view class='shopName'>
-      <text class='black-font'>素雅手作品牌店</text>
+      <text class='black-font'>{{orderInfo.store.store_name}}</text>
       <view class='photo-round btn-bg-color'>
-        <text class='fx-icon-dialogbox dialogbox'></text>
+        <image src='{{orderInfo.store.store_logo}}'></image>
       </view>
     </view>
 
     <view class='PL'>
-      <view class='component item-product'>
-
-        <view class='time-top startAddress'>
+      <view class='component item-product padding-top--10rpx padding-bottom--10rpx'>
+        <view class='time-top startAddress padding-bottom--22rpx'>
           <text>  
-              <text class='hui-zi'>2016年10月26日·状态：</text>
-          <text class=' font-s theme-green'> 已发货</text>
+              <text class='hui-zi'>{{orderInfo.created_item}}·状态：</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==-1 }}">已关闭</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status == 1 }}">待支付</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==5 }}">待审核</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==10 }}">待发货</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==12 }}">配送中</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==3 }}">待打印</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==16 }}">已发货</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==17 }}">待签收</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==20 }}">已签收</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==30 }}">订单完成</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==40 }}">待评价</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.status==45 }}">评价完成</text>
+              <text class='font-s theme-green' wx:if="{{ orderInfo.user_order_status==90 }}">已退款</text>
           </text>
           <text class='hui-zi'>从上海发货</text>
         </view>
 
         <!-- 购买的产品 -->
-        <view class='productBox' wx:for="{{shoppingCart}}" wx:key="{{item.id}}">
+        <view class='productBox' wx:for="{{orderInfo.items}}" wx:key="{{index}}" wx:for-item='sku'>
           <view class='productComBoxL'>
-            <fx-product-middleM product="{{item}}"></fx-product-middleM>
+            <fx-product-middleM 
+              photoWidth="{{130}}" 
+              photoHeight="{{130}}" 
+              product="{{sku}}"></fx-product-middleM>
           </view>
-          <view class='needNumber hui-zi-m'>X2</view>
+          <text class='sku__price'>{{sku.mode}}</text>
+          <view class='needNumber hui-zi-m'>X{{sku.quantity}}</view>
           <view class='productComBoxR'>
-            <view class='black-font'>$80</view>
-            <view class='old-price-text'>$345</view>
+            <view class='black-font'>￥{{sku.deal_price}}</view>
+            <view class='old-price-text' wx:if="{{sku.price!=sku.deal_price}}">￥{{sku.price}}</view>
           </view>
         </view>
       </view>
 
 
       <!-- 物流跟踪 -->
-      <view class='logisticsInfo paymentFn time-top font-s PTRT'>
+      <view class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
         <view class=' colimn-B'>
-          <view class='hui-zi'>配送方式</view>
+          <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
           <view class='time-top'>
             <view class='logistics-icon'>
               <image></image>
@@ -90,14 +103,14 @@
       </view>
 
       <!-- 寄送地址 -->
-      <view class='PTRT time-top'>
+      <view class='PTRT time-top padding-top--24rpx padding-bottom--24rpx'>
         <view class='hui-zi userLocation'>
-          <view>寄送地址</view>
-          <view class='black-font theme-color'>何自然</view>
-          <view>昌平区天通银丽水元2单元501</view>
-          <view>贵州省，遵义市563100</view>
+          <view class='padding-bottom--10rpx'>寄送地址</view>
+          <view class='black-font theme-color padding-bottom--10rpx'>{{orderInfo.buyer_name}}</view>
+          <view class='padding-bottom--10rpx'>{{orderInfo.buyer_city}}{{orderInfo.buyer_address}}</view>
+          <view class=''>{{orderInfo.buyer_country}},{{orderInfo.buyer_province}},{{orderInfo.buyer_city}}  {{orderInfo.buyer_zipcode}}</view>
         </view>
-        <view class='black-font'>13381319070</view>
+        <view class='black-font'>{{orderInfo.buyer_phone}}</view>
       </view>
     </view>
   </view>

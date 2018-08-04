@@ -27,12 +27,12 @@
           <view class='productinfo'>
             <view class='shopNameBox'>
               <text class='shopName'>{{ order.store.store_name }}</text>
-              <text class='order-aggregate hui-zi'>订单总计</text>
+              <text class='order-aggregate hui-zi order_sum'>订单总计</text>
             </view>
 
-            <view class='time-top'>
+            <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
               <text>
-              <text class='hui-zi'>2016年10月26日·状态：</text>
+              <text class='hui-zi order-aggregate'>{{order.created_item}}·状态：</text>
               <text class='nonePayment theme-green' wx:if="{{ order.status==-1 }}">已关闭</text>
               <text class='nonePayment theme-green' wx:if="{{ order.status == 1 }}">待支付</text>
               <text class='nonePayment theme-green' wx:if="{{ order.status==5 }}">待审核</text>
@@ -52,6 +52,8 @@
 
             <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
               <fx-product-middleM 
+                photoHeight="{{120}}"
+                photoWidth="{{120}}"
                 shopingNumber='{{ true }}'
                 product="{{ item }}">
               </fx-product-middleM>

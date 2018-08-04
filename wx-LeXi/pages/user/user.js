@@ -221,7 +221,7 @@ Page({
       default:
         // 设计管
         http.fxGet(api.users_followed_stores, this.data.getProductParams, (result) => {
-          console.log(result)
+          console.log(result,"设计管")
           if (result.success) {
             this.setData({
               watchStoreList: result.data
@@ -245,7 +245,7 @@ Page({
       return false
     }
     this.getUserInfo() // 获取用户的信息
-    this.getCategoryQuantity() // 获取用户的喜欢收藏
+    
   },
 
   /**
@@ -267,6 +267,7 @@ Page({
       return
     }
     this.getProduct() // 获取商品---
+    this.getCategoryQuantity() // 获取用户的喜欢收藏---
   },
 
   /**

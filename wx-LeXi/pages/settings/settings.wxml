@@ -4,7 +4,7 @@
     <!-- 查看并编辑 -->
     <view class='user-name-edit time-top' catchtap='editInfoTap'>
       <view>
-        <text wx:if='{{ userInfo.profile.username != null }}'>{{ userInfo.profile.username }}</text>
+        <text wx:if='{{ userInfo.profile.username != null }}' class='user__name'>{{ userInfo.profile.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
         <view class='edit-user'>查看并编辑个人资料</view>
       </view>
@@ -13,12 +13,12 @@
       </view>
     </view>
     <!-- 是否绑定手机号码 -->
-    <view class='item component'>
-      <view class='hui-zi itemP'>连接</view>
+    <view class='item component padding-bottom--20rpx'>
+      <view class='font-m itemP'>连接</view>
       <view class=' time-top' catchtap='bindMobileTap'>
         <view class=' time-top'>
           <view>
-            <image src='../../images/my@2x.png'></image>
+            <image src='../../images/my@3.png'></image>
           </view>
           <view class='font-size'>手机绑定</view>
         </view>
@@ -30,8 +30,8 @@
       </view>
     </view>
     <!-- 账户 -->
-    <view class='item component'>
-      <view class='hui-zi itemP'>账户</view>
+    <view class='item component padding-top--24rpx padding-bottom--20rpx'>
+      <view class='font-m itemP margin-bottom--26rpx'>账户</view>
       <view class=' time-top' catchtap='orderTap'>
         <view class=' time-top'>
           <view>
@@ -47,7 +47,7 @@
   </view>
 
   <!-- 收货地址 -->
-  <view class='more item component' catchtap='handleToAddressTap'>
+  <view class='more item component padding-top--20rpx padding-bottom--20rpx' catchtap='handleToAddressTap'>
     <view class=' time-top'>
       <view class=' time-top'>
         <view>
@@ -62,8 +62,8 @@
   </view>
 
   <!-- 申请开馆 -->
-  <view class='item component more'>
-    <view class='hui-zi itemP'>更多</view>
+  <view class='item component more padding-top--24rpx padding-bottom--20rpx'>
+    <view class='hui-zi qian-hui padding-bottom--30rpx'>更多</view>
     <view class=' time-top'>
       <view class=' time-top'>
         <view>
@@ -78,7 +78,7 @@
   </view>
 
   <!-- 关于乐喜 -->
-  <view class='more item component'>
+  <view class='more item component padding-top--24rpx padding-bottom--14rpx'>
     <view class=' time-top'>
       <view class=' time-top'>
         <view>

@@ -67,8 +67,15 @@ Page({
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       console.log(result, '订单列表')
       if (result.success) {
-        this.setData({
-          orderList: result.data
+        result.data.orders.forEach((v,i)=>{
+          v.created_item = utils.timestamp2string(v.created_at,"cn")
+          
+          //时间格式化
+          if (result.data.orders.length-1==i){
+            this.setData({
+              orderList: result.data
+            })
+          }
         })
       } else {
         utils.fxShowToast(result.status.message)
