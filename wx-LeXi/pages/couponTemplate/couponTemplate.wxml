@@ -1,7 +1,8 @@
 <!--pages/couponTemplate/couponTemplate.wxml  领取优惠券的模板-->
 
 <template name="couponTemplate">
-  <view class='ct-subtract'>
+  <view class='ct-subtract' catchtap='{{ false }}'>
+    <view class='coupon-shim'></view>
     <view class='ct-top hui-zi' wx:if="{{fullSubtractionList.length!=0}}">
       <view class='ct-jian'>
         <image src='../../images/reduced-price@2.png'></image>

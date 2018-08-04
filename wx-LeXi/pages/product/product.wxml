@@ -223,22 +223,22 @@
         </view>
       </view>
       <view class='category-max__box'>
-      <!-- 颜色 -->
-      <view class='goods-color-box category-box__right'>
-        <view class='black-font color-title'>颜色</view>
-        <view class='goods-color goods-color-box'>
-          <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
+        <!-- 颜色 -->
+        <view class='goods-color-box category-box__right'>
+          <view class='black-font color-title'>颜色</view>
+          <view class='goods-color goods-color-box'>
+            <view data-colorName="{{item.name}}" data-icon='{{item.name}}' data-isPick='{{item.disabled}}' class='color-item {{item.disabled?"":"none-goods"}} {{item.is_bg?"active":""}}' wx:for='{{pickColor}}' wx:key='{{index}}' catchtap='handlePickColor'>{{item.name}}</view>
+          </view>
+        </view>
+        <!-- 尺寸 -->
+        <view class='goods-color-box category-box__right'>
+          <view class='black-font color-title'>规格</view>
+          <view class='goods-color goods-color-box'>
+            <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
+              wx:key='{{index}}'>{{item.name}}</view>
+          </view>
         </view>
       </view>
-      <!-- 尺寸 -->
-      <view class='goods-color-box category-box__right'>
-        <view class='black-font color-title'>规格</view>
-        <view class='goods-color goods-color-box'>
-          <view data-icon='{{item.name}}' catchtap='handleSpecificationsTap' data-isPick='{{item.disabled}}' data-specificationsName='{{item.name}}' class='color-item {{item.disabled?"": "none-goods"}} {{item.is_bg?"active":""}}' disabled='{{item.disabled}}' wx:for='{{pickSpecifications}}'
-            wx:key='{{index}}'>{{item.name}}</view>
-        </view>
-      </view>
-</view>
       <view class='bottom-btn bg-white c-crosswise-a pick '>
         <view class='add_cart pick__button' catchtap='handleAddCart'>加入购物车</view>
         <view class='btn-bg-color pick__button' catchtap='receiveOrderTap'>选好了</view>
@@ -271,8 +271,8 @@
     <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 
-  <!-- 查看全部的呼出框  style='height:{{window_height}}rpx'-->
-  <view animation="{{animationData}}" class='product-all-info'>
+  <!-- 查看全部的呼出框  style='height:{{window_height}}rpx' animation="{{animationData}}"-->
+  <view  wx:if="{{allInfo}}" class='product-all-info'>
     <view class='otherInfo'>
       <!-- 描述 -->
       <view class='otherInfo-describe'>
@@ -320,7 +320,7 @@
           {{productInfomation.product_return_policy}}
         </view>
         <view class='shm'></view>
-        <view class='allInfo off-info' catchtap='animationOffFn' wx:if="{{off_icon}}">
+        <view class='allInfo off-info' catchtap='animationOffFn' >
           <view class='fx-icon-nothing-close-error'></view>
         </view>
       </view>

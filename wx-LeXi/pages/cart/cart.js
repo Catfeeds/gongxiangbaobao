@@ -484,7 +484,7 @@ Page({
     })
 
     wx.navigateTo({
-      url: '../receiveAddress/receiveAddress?rid=' + rid,
+      url: '../receiveAddress/receiveAddress?from_ref=cart&&rid=' + rid,
     })
   },
 

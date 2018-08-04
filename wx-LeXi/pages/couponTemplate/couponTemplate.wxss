@@ -31,22 +31,12 @@
 }
 
 .ct-bottom {
-  padding: 0 30rpx 30rpx 30rpx;
+  padding: 26rpx 30rpx 30rpx 30rpx;
 }
 
 .black-font {
   font-weight: 500;
   margin-bottom: 20rpx;
-}
-
-.ct-coupon {
-  position: relative;
-  width: 690rpx;
-  height: 150rpx;
-  border-radius: 10rpx;
-  overflow: hidden;
-  box-shadow: 0 0 20rpx 0rpx rgba(0, 0, 0, 0.3);
-  margin-bottom: 40rpx;
 }
 
 .ct-item-l {
@@ -64,14 +54,14 @@
   position: relative;
   color: white;
   font-size: 28rpx;
-  border-style:none;
+  border-style: none;
 }
 
 .ct-item-r button {
-position: absolute;
-height: 100%;
-width: 100%;
-opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
 }
 
 .ct-line {
@@ -160,8 +150,13 @@ opacity: 0;
   overflow: auto;
 }
 
+.coupon-shim {
+  height: 40rpx;
+  background-color: white;
+}
+
 .ct-top {
-  padding: 30rpx;
+  padding: 0rpx 30rpx 36rpx;
   background-color: white;
   display: flex;
   flex-direction: row;
@@ -194,7 +189,7 @@ opacity: 0;
 
 .black-font {
   font-weight: 500;
-  margin-bottom: 20rpx;
+  margin-bottom: 26rpx;
 }
 
 .ct-coupon {
@@ -204,7 +199,7 @@ opacity: 0;
   border-radius: 10rpx;
   overflow: hidden;
   box-shadow: 0 0 20rpx 0rpx rgba(0, 0, 0, 0.3);
-  margin-bottom: 40rpx;
+  margin-bottom: 32rpx;
 }
 
 .ct-item-l {

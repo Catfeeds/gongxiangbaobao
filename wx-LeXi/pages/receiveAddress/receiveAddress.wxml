@@ -7,11 +7,11 @@
       <view>明细</view>
     </view>
     <view class='bottom-line'>
-      <view class='linelast lineGreen'></view>
-      <view class='round lineGreen'></view>
+      <view class='linelast lineGreen line__first'></view>
+      <view class='round lineGreen green__round'></view>
       <view class='middleline'></view>
       <view class='round'></view>
-      <view class='linelast'></view>
+      <view class='linelast line__last'></view>
     </view>
   </view>
 
@@ -22,19 +22,19 @@
         <radio value="{{ item.rid }}" color='#6ED7AF' checked='{{ item.is_default }}'/>
         <view>
           <text class='userName'>{{ item.first_name }} </text>
-          <text class='userLocation'>{{ item.province }}·{{ item.full_name }}</text>
-          <text class='userLocation'>{{ item.full_address }}</text>
-          <text class='userLocation'>{{ item.mobile }}</text>
+          <text class='userLocation margin--20rpx'>{{ item.full_address }}</text>
+          <text class='userLocation margin--18rpx'>{{ item.province }}, {{item.city}} {{item.zipcode}}</text>
+          <text class='userLocation margin--20rpx'>{{ item.mobile }}</text>
         </view>
       </label>
     </radio-group>
   </view>
 
   <!-- 新增收获地址 -->
-  <view class='addNewAddrees' catchtap='deleteAddress'>
+  <!-- <view class='addNewAddrees' catchtap='deleteAddress'>
     <view>删除收货地址</view>
     <view class='fx-icon-nothing-minus-sign theme-green'></view>
-  </view>
+  </view> -->
 
   <!-- 新增收获地址 -->
   <view class='addNewAddrees' catchtap='addAddressTap'>

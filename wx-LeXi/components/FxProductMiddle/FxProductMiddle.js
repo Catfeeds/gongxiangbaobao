@@ -42,6 +42,16 @@ Component({
     otherInfo:{
       type: Boolean,
       value: false
+    },
+    //宽
+    width:{
+      type:Number,
+      value:182
+    },
+    //高
+    height:{
+      type:Number,
+      value:182
     }
   },
 

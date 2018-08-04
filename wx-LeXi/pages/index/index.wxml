@@ -205,7 +205,7 @@
   <!-- 作品里面的内容 -->
   <view wx:if="{{catgoryActive==2}}">
     <view class='pickList'>
-      <view class='reverseTriangleBox' catchtap='hanlePickS'>
+      <view class='reverseTriangleBox' catchtap='handelOffPick'>
         <text>筛选</text>
         <text class='reverseTriangle'></text>
       </view>
@@ -247,7 +247,7 @@
   </view>
 
   <!-- 优惠券的模板 -->
-  <view class='coupon-template' wx:if="{{coupon_show}}">
+  <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='coupon_show'>
     <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 
@@ -272,12 +272,12 @@
   </view>
 
   <!-- 排序的呼出框 -->
-  <view class='login-bind_box--style' wx:if="{{isSortShow}}">
+  <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap='handleSortOff'>
     <fx-sort bind:handleSortOff="handleSortOff" bind:handlePickOver="handleSort"></fx-sort>
   </view>
 
   <!-- 筛选的产品 -->
-  <view class='login-bind_box--style' wx:if="{{handelOffPick}}">
+  <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
     <fx-pick-product pickQuantity="{{pickQuantity}}" bind:handlePickOff="handelOffPick" bind:handlePickProduct="handlePickProduct" category="{{shopInfo.categories}}"></fx-pick-product>
   </view>
 </view>

@@ -1,5 +1,5 @@
 <!--components/FxSortProduct/FxSortProduct.wxml-->
-<view class='sort-box'>
+<view class='sort-box' catchtap='{{ false }}'>
   <view class='sort-box__title'>
     <text class='sort-title__icon' catchtap='handleSortOff'><text>x</text></text>
     <text class='sort-title__text'>排序</text>

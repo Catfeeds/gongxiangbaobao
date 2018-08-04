@@ -1,10 +1,7 @@
 <!--components/FxProductMiddle/FxProductMiddle.wxml 已用-->
 <view class='productMiddleBox'>
-  <view class='productMiddleBoxPhoto' style='height:{{height}}rpx;width:{{width}}rpx'>
-    <image 
-      src='{{product.cover}}'
-      style='height:{{height}}rpx;width:{{width}}rpx' 
-      class='shopRecommendGoods-photo'></image>
+  <view class='productMiddleBoxPhoto'>
+    <image src='{{product.cover}}' class='shopRecommendGoods-photo'></image>
   </view>
   <view class='shopRecommendGoodsR'>
     <view>
@@ -24,7 +21,7 @@
 
     <!-- 店铺名称 -->
     <view class='shopingName' wx:if="{{shopName}}">
-      <image src='../../images/shop.png'></image>
+      <image src='../../images/store.png'></image>
       <text>{{product.store_name}}</text>
     </view>
 

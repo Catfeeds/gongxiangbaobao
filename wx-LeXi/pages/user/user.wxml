@@ -64,7 +64,7 @@
     <view class='Fshim' wx:if="{{sotrF}}"></view>
     <!-- 筛选和排序 -->
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-      <view catchtap='hanlePickS'>
+      <view catchtap='handelOffPick'>
         筛选
         <text>↓</text> </view>
       <view catchtap="handleSortShow">
@@ -158,6 +158,7 @@
     <!-- 排序的呼出框 -->
   <view 
     class='login-bind_box--style' 
+    catchtap='handleSortOff'
     wx:if="{{isSortShow}}">
     <fx-sort 
       teHuiShow="{{true}}"      
@@ -166,7 +167,7 @@
   </view>
 
     <!-- 筛选的产品 -->
-  <view class='login-bind_box--style' wx:if="{{handelOffPick}}">
+  <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
     <fx-pick-product 
       bind:logisticsPrice="handlePick"
       bind:handlePickOff="handelOffPick"

@@ -1,5 +1,5 @@
 <!--components/FxPickProduct/FxPickProduct.wxml-->
-<view class='pick-product-box'>
+<view class='pick-product-box' catchtap='{{ false }}'>
   <view class='pick-product__title direction--row'>
     <view class='pick-title__off'>
       <view catchtap='handleOffPick'>x</view>

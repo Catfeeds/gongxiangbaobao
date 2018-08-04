@@ -397,21 +397,40 @@ Page({
   },
   // 排序的盒子关闭
   handleSortOff() {
+    var params = this.data.isSortShow
+    if (params) {
+      params = false
+    } else {
+      params = true
+    }
     this.setData({
-      isSortShow: false
+      isSortShow: params
     })
   },
+  // 排序的盒子关闭
+  // handleSortOff() {
+  //   this.setData({
+  //     isSortShow: false
+  //   })
+  // },
+  //关闭筛选的盒子
   //关闭筛选的盒子
   handelOffPick() {
+    let params = this.data.handelOffPick
+    if (params) {
+      params = false
+    } else {
+      params = true
+    }
     this.setData({
-      handelOffPick: false
+      handelOffPick: params
     })
   },
   // 打开筛选的盒子
-  hanlePickS() {
-    this.setData({
-      handelOffPick: true
-    })
-  },
+  // hanlePickS() {
+  //   this.setData({
+  //     handelOffPick: true
+  //   })
+  // },
 
 })

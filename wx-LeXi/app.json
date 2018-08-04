@@ -40,7 +40,7 @@
   "tabBar": {
     "backgroundColor": "#ffffff",
     "selectedColor": "#5fe4b1",
-    "borderStyle": "white",
+    "borderStyle": "#dadada",
     "list": [
       {
         "pagePath": "pages/index/index",

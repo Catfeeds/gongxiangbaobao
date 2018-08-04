@@ -8,11 +8,6 @@ Component({
       type: Object,
       value: {}
     },
-    //购买的数量
-    shopingNumber:{
-      type: Boolean,
-      value: false
-    },
     //颜色组建是否显示，false为不显示，true为显示
     color: {
       type: Boolean,
@@ -43,17 +38,10 @@ Component({
       type: Boolean,
       value: false
     },
-    round: {
+    //其他信息
+    otherInfo: {
       type: Boolean,
       value: false
-    },
-    photoHeight:{
-      type:Number,
-      value:180
-    },
-    photoWidth:{
-      type:Number,
-      value:180
     }
   },
 
@@ -68,10 +56,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    handleProductInfo(e) {
-      this.triggerEvent("triggerEvent_product", {
-        rid: e.currentTarget.dataset.rid
-      })
-    }
+
   }
 })

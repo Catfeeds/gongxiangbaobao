@@ -1,4 +1,9 @@
 /**app.wxss**/
+/** 购物车和商品详情通用样式**/
+.padding-bottom-34rpx {
+  padding-bottom: 34rpx;
+}
+
 /**优惠券的样式**/
 .coupon-message {
   font-size: 24rpx;
@@ -415,6 +420,10 @@ image {
 .fx-bg-hong{
   background: #ff6666;
 }
+
+button::after {
+  border: 0;
+} 
 
 @font-face {
   font-family: 'Fineix';

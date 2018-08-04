@@ -19,7 +19,7 @@
   flex-direction: column;
   margin-right: 40rpx;
   justify-content: flex-start;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .shopRecommendGoodsR-old {
@@ -73,7 +73,7 @@ textarea {
 }
 .price-like-box{
   align-items: center;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 .shopingName image {
   width: 24rpx;
@@ -107,7 +107,8 @@ textarea {
 }
 
 .line-two {
-
+  font-size: 26rpx;
+  font-weight: normal;
 }
 .two-line{
   overflow: hidden;

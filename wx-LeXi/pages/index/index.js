@@ -780,8 +780,14 @@ Page({
 
   // 优惠卷隐藏和显示
   coupon_show() {
+    let params = this.data.coupon_show
+    if (params){
+      params = false
+    }else{
+      params = true
+    }
     this.setData({
-      coupon_show: true
+      coupon_show: params
     })
   },
 
@@ -802,7 +808,7 @@ Page({
     })
   },
 
-  // 关闭
+  // 关闭或开启优惠券的模态框
   hanleOffLoginBox(e) {
     console.log(e)
     this.setData({
@@ -817,20 +823,26 @@ Page({
   },
   // 排序的盒子关闭
   handleSortOff() {
+    var params = this.data.isSortShow
+    if (params) {
+      params = false
+    }else{
+      params = true
+    }
     this.setData({
-      isSortShow: false
+      isSortShow: params
     })
   },
   //关闭筛选的盒子
   handelOffPick() {
+    let params = this.data.handelOffPick
+    if (params) {
+      params = false
+    } else {
+      params = true
+    }
     this.setData({
-      handelOffPick: false
-    })
-  },
-  // 打开筛选的盒子
-  hanlePickS() {
-    this.setData({
-      handelOffPick: true
+      handelOffPick: params
     })
   },
   // 关闭分享模态框

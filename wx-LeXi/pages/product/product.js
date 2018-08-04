@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    allInfo:false, // 查看全部的
     logisticsTime:{}, // 交货时间
     dkcontent: '',
     swiperIndex: 0,
@@ -236,6 +237,9 @@ Page({
         console.log(result)
         utils.fxShowToast('成功购物车')
         this.getShopCartNum()
+        this.setData({
+          pick:false
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -519,19 +523,25 @@ Page({
 
   // 查看全部的盒子信息的盒子关闭
   animationOffFn() {
-    this.animation.height("0").step()
+    // this.animation.height("0").step()
+    // this.setData({
+    //   animationData: this.animation.export(),
+    //   off_icon: false
+    // })
     this.setData({
-      animationData: this.animation.export(),
-      off_icon: false
+      allInfo: false
     })
   },
 
   // 查看全部的盒子信息的盒子打开
   animationOnFn() {
-    this.animation.bottom(0 + "rpx").step()
+    // this.animation.bottom(0 + "rpx").step()
+    // this.setData({
+    //   animationData: this.animation.export(),
+    //   off_icon: true
+    // })
     this.setData({
-      animationData: this.animation.export(),
-      off_icon: true
+      allInfo:true
     })
   },
 
@@ -573,12 +583,16 @@ Page({
    */
   onLoad: function(options, product) {
     console.log(app.globalData.userInfo)
-    console.log(app.globalData.userInfo.avatar)
+    // console.log(app.globalData.userInfo.avatar)
     this.setData({
       rid: options.rid,
       isWatch: app.globalData.isWatchstore,
-      userPhoto:app.globalData.userInfo.avatar
     })
+    if (app.globalData.isLogin){
+      this.setData({
+        userPhoto: app.globalData.userInfo.avatar
+      })
+    }
 
     this.getProductInfomation() // 获取商品详情---
     this.getCouponAndFullSubtraction() // 获取优惠券---
@@ -704,7 +718,7 @@ Page({
         console.log(this.data.productInfomation.fid)
         console.log(app.globalData.orderSkus)
         wx.navigateTo({
-          url: '../receiveAddress/receiveAddress?rid=' + rid,
+          url: '../receiveAddress/receiveAddress?from_ref=cart&&rid=' + rid,
         })
       } else {
       }
@@ -749,6 +763,12 @@ Page({
     })
   },
   handelToLikeThisProductTap(e){
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     // console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
       url: '../likeThisProduct/likeThisProduct?rid=' + e.currentTarget.dataset.rid
