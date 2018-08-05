@@ -13,7 +13,7 @@ Page({
     allInfo:false, // 查看全部的
     logisticsTime:{}, // 交货时间
     dkcontent: '',
-    swiperIndex: 0,
+    swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
     skuPrice: '', // sku价格---
     couponList: [], // 优惠券列表---couponList
@@ -89,7 +89,7 @@ Page({
   },
 
   //轮播图结束后执行
-  animationOver(e) {
+  animationOver (e) {
     this.setData({
       swiperIndex: e.detail.current - 0 + 1
     })
