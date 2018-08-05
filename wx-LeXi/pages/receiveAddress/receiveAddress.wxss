@@ -67,6 +67,7 @@ page {
 .lineGreen {
   background-color: #5fe4b1;
   border-color: #5fe4b1 !important;
+  z-index: 99;
 }
 
 .radio-group {

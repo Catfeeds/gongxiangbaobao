@@ -241,6 +241,7 @@
 
 .coupon-box {
   position: fixed;
+  top: 0;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
@@ -386,7 +387,8 @@
   left: 180rpx;
 }
 .last__line{
-  left: 578rpx;
+  left: 568rpx;
+  z-index: 1;
 }
 .margin-bottom--6rpx{
   margin-bottom: 6rpx;

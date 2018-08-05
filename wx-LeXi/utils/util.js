@@ -211,8 +211,22 @@ const handleShowTabBar = () => {
   wx.showTabBar(OBJECT)
 }
 
+// 显示加载
+const handleShowLoading = () => {
+  wx.showLoading({
+    title: '加载中'
+  }) 
+}
+
+// 隐藏加载
+const handleHideLoading = () => {
+  wx.hideLoading() 
+}
+
 
 module.exports = {
+  handleHideLoading: handleHideLoading,
+  handleShowLoading: handleShowLoading,
   handleShowTabBar: handleShowTabBar,
   handleHideTabBar: handleHideTabBar,
   fxShowToast: showToast,

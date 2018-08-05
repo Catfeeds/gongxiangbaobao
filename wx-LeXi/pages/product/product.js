@@ -582,6 +582,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
+    wx.showLoading({
+      title: '加载中'
+    }) 
+
     console.log(app.globalData.userInfo)
     // console.log(app.globalData.userInfo.avatar)
     this.setData({
@@ -612,6 +616,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    
+
     this.animation = wx.createAnimation({
       transformOrigin: "bottom bottom",
       duration: 500,
@@ -623,6 +629,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    wx.hideLoading() 
     console.log(app.globalData.storeInfo)
   },
 

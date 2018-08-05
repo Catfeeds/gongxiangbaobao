@@ -664,6 +664,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    utils.handleShowLoading()
     // 设置头部信息
     this.getNavigationBarTitleText()
 
@@ -728,7 +729,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成   
    */
   onReady: function() {
-
+    utils.handleHideLoading()
   },
 
   //监听页面的滚动
@@ -761,7 +762,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    
   },
 
   /**
@@ -841,10 +842,13 @@ Page({
 
   // 优惠卷隐藏和显示
   coupon_show() {
+    
     let params = this.data.coupon_show
     if (params){
+      wx.showTabBar()
       params = false
     }else{
+      wx.hideTabBar()
       params = true
     }
     this.setData({
@@ -854,6 +858,7 @@ Page({
 
   //优惠券完成按钮
   handleOffCouponTap() {
+    wx.showTabBar()
     this.setData({
       coupon_show: false
     })

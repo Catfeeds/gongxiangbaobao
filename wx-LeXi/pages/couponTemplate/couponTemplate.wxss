@@ -26,12 +26,14 @@
 }
 
 .ct-bottom {
-  height: 600rpx;
+  max-height: 600rpx;
   background-color: white;
+  padding: 26rpx 30rpx 30rpx 30rpx;
+  width: 690rpx;
 }
 
 .ct-bottom {
-  padding: 26rpx 30rpx 30rpx 30rpx;
+  
 }
 
 .black-font {
@@ -148,11 +150,16 @@
   bottom: 0;
   background-color: white;
   overflow: auto;
+  padding-top: 40rpx;
 }
 
 .coupon-shim {
   height: 40rpx;
+  width: 690rpx;
   background-color: white;
+  position: absolute;
+  top: 0;
+  z-index: 9;
 }
 
 .ct-top {
@@ -160,6 +167,7 @@
   background-color: white;
   display: flex;
   flex-direction: row;
+  z-index: 1
 }
 
 .ct-jian {
@@ -181,6 +189,7 @@
 .ct-bottom {
   height: 600rpx;
   background-color: white;
+  z-index: 1;
 }
 
 .ct-bottom {
