@@ -3,9 +3,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-
-let adressData = wx.getStorageSync('adress')
-
+const adressData = wx.getStorageSync('allPlaces')
 Page({
 
   /**
@@ -86,56 +84,6 @@ Page({
     this.setData({
       isEdited: true,
       ['editUserInfo.gender']: parseInt(e.detail.value)
-    })
-  },
-
-  // 省发生变化
-  provinceChange(e) {   
-    this.setData({
-      isEdited: true,
-      adressIndex: e.detail.value
-    })
-    this.cityChange(adressData.k_1_0[e.detail.value[0]].oid)
-  },
-
-  // 市
-  cityChange(e) {
-    this.setData({
-      provinceOid: e,
-      isEdited: true,
-      cityList: adressData['k_2_'+e]
-    })
-
-    if (!adressData['k_3_' + adressData['k_2_' + e][0].oid]) {
-      this.setData({
-        countyList: [],
-        countyOid: ''
-      })
-      return false
-    }
-
-    this.countyChange(adressData['k_2_' + e][this.data.adressIndex[1]].oid)
-  },
-
-  // 县发生变化
-  countyChange(e) {
-    this.setData({
-      isEdited: true,
-      cityOid:e,
-      countyList: adressData['k_3_' + e],
-      countyOid: adressData['k_3_' + e][this.data.adressIndex[2]].oid
-    })
-    console.log(this.data.countyOid)
-  },
-
-  // 确定选择地址
-  handlePickAdressOver() {
-    this.setData({
-      isEdited: true,
-      ['editUserInfo.country_id']: this.data.countyOid,//Integer 可选 市ID
-      ['editUserInfo.province_id']: this.data.provinceOid,//Integer 可选 国家ID
-      ['editUserInfo.city_id']: this.data.cityOid,//Integer 可选 省ID
-      isPicker:false
     })
   },
 
@@ -231,6 +179,58 @@ Page({
       countyList: adressData['k_3_' + countyOid], //县地址列表--
     })
   },
+
+
+  // 省发生变化
+  provinceChange(e) {
+    this.setData({
+      isEdited: true,
+      adressIndex: e.detail.value
+    })
+    this.cityChange(adressData.k_1_0[e.detail.value[0]].oid)
+  },
+
+  // 市
+  cityChange(e) {
+    this.setData({
+      provinceOid: e,
+      isEdited: true,
+      cityList: adressData['k_2_' + e]
+    })
+
+    if (!adressData['k_3_' + adressData['k_2_' + e][0].oid]) {
+      this.setData({
+        countyList: [],
+        countyOid: ''
+      })
+      return false
+    }
+
+    this.countyChange(adressData['k_2_' + e][this.data.adressIndex[1]].oid)
+  },
+
+  // 县发生变化
+  countyChange(e) {
+    this.setData({
+      isEdited: true,
+      cityOid: e,
+      countyList: adressData['k_3_' + e],
+      countyOid: adressData['k_3_' + e][this.data.adressIndex[2]].oid
+    })
+    console.log(this.data.countyOid)
+  },
+
+  // 确定选择地址
+  handlePickAdressOver() {
+    this.setData({
+      isEdited: true,
+      ['editUserInfo.country_id']: this.data.countyOid,//Integer 可选 市ID
+      ['editUserInfo.province_id']: this.data.provinceOid,//Integer 可选 国家ID
+      ['editUserInfo.city_id']: this.data.cityOid,//Integer 可选 省ID
+      isPicker: false
+    })
+  },
+
 
   // 获取用户信息 ---
   getUserInfo() {

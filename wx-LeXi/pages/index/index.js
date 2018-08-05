@@ -493,6 +493,7 @@ Page({
     }, (result) => {
       if (result.success) {
         if (e == 1) {
+          console.log(result.data,'主打设计')
           this.setData({
             themeProduct: result.data
           })

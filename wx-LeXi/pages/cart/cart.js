@@ -61,6 +61,11 @@ Page({
     }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
+        if (result.data.items.length==0){
+          this.setData({
+            changeCart:false
+          })
+        }
         this.setData({
           shoppingCart: result.data
         }, () => {
@@ -160,8 +165,8 @@ Page({
 
   // 购物车点击移除按钮和放入心愿单按钮---
   cartClearTap(e) {
-    let cartAllInfo = []
 
+    let cartAllInfo = []
     let btnType = e.currentTarget.dataset.type
 
     if (btnType == 'clear') {

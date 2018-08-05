@@ -83,6 +83,30 @@ Page({
     })
   },
 
+  // 付款
+
+  paymentBtn(e){
+    console.log(e.currentTarget.dataset.order)
+    let order = this.data.orderList.orders[e.currentTarget.dataset.order]
+    console.log(order)
+
+    // 补充参数
+    app.globalData.orderParams.rid = order.rid
+    app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
+    app.globalData.orderParams.openid = app.globalData.jwt.openid
+    
+    // 获取订单签名
+    http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
+      console.log(result)
+      if(result.success){
+        app.wxpayOrder(order.rid, result.data)
+        this.getOrderList()
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

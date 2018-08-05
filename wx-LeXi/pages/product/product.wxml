@@ -267,7 +267,7 @@
   <view class='shm'></view>
 
   <!-- 优惠券的模板 -->
-  <view class='coupon-template' wx:if="{{coupon_show}}">
+  <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='handleOffCouponTap'>
     <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 

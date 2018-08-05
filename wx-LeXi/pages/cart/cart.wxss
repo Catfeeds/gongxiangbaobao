@@ -286,18 +286,20 @@ page {
   align-items: center;
   font-size: 32rpx;
 }
-
+.clearDndthinkBox>view:nth-child(1),
 .clearDndthinkBox>view:nth-child(2) {
   height: 82rpx;
-  width: 360rpx;
+  width: 330rpx;
   border: 1rpx solid #5fe4b1;
   line-height: 82rpx;
   text-align: center;
-  border-radius: 10rpx;
+  border-radius: 8rpx;
 }
 
 .clearCart {
+
   color: #5fe4b1;
+  border: 1rpx soli #5fe4b1;
 }
 
 .addThinkOrder {

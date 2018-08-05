@@ -66,7 +66,9 @@ Page({
   // 使用优惠券
   handleUseCouponTap(e){
     console.log(e.currentTarget.dataset.rid)
-    
+    wx.switchTab({
+      url: '../index/index',
+    })
 
   },
   /**

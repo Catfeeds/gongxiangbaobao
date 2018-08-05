@@ -56,7 +56,7 @@ display: inline-block;
   text-overflow: ellipsis;
 }
 .productPrice{
-  margin-top: -20rpx;
+  margin-top: -10rpx;
 }
 .oldPrice,
 .nowPrice{

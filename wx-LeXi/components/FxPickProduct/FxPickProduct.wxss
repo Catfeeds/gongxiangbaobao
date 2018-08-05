@@ -73,14 +73,15 @@
 
 .movable-view {
   margin: 0 45rpx;
+  position: relative;
 
 }
 
 .movable-view__bg {
-  height: 10rpx;
+  height: 40rpx;
   width: 600rpx;
-  background-color: #999;
-  border-radius: 10rpx;
+  /* background-color: #999; */
+  /* border-radius: 10rpx; */
   position: relative;
 }
 
@@ -92,14 +93,17 @@
   top: -166%;
   background-color: white;
   z-index: 9;
+  box-sizing: border-box;
 }
 
 .middle-line {
   height: 10rpx;
+  width:520rpx;
   background-color:#5fe4b1 ;
   border-radius: 10rpx;
   position: absolute;
   top: 0;
+  z-index: 6;
 }
 .pick-bg{
   border: 2rpx solid #5fe4b1;
@@ -126,4 +130,7 @@
 }
 .shim{
   height: 100rpx;
+}
+.zindex{
+  z-index: 2;
 }
