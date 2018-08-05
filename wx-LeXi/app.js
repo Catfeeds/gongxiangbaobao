@@ -197,7 +197,7 @@ App({
     jwt: {},
     // 第三方配置信息
     configInfo: '',
-    //店铺主人信息
+    // 店铺主人信息
     storeOwnerInfo:'',
     // 店铺的信息
     storeRid: '',
