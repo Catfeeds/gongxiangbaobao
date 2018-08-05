@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    storeInfo:{}, // 店铺详情
     normalCouponList: [], // 未使用的
     useCouponList: [], // 已经使用的
     exceedCouponList: [], // 已经过期
@@ -79,6 +80,10 @@ Page({
     this.getUserCoupon('N02') // N02: 已使用
     this.getUserCoupon('N03') // N03: 已过期
     this.getRedBag()// 红包列表
+    console.log(app.globalData.storeInfo)
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
   },
 
   /**

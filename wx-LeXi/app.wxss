@@ -420,6 +420,10 @@ image {
   margin: 10px 0px;
 }
 
+.wxParse-p image{
+  max-width: 100%;
+}
+
 /* 背景 */
 
 .bg-white {
