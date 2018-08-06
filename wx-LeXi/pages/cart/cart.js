@@ -93,9 +93,12 @@ Page({
 
   // 心愿单添加到购物车
   addCartTap(e) {
+    wx.hideTabBar()
+
     console.log(e.currentTarget.dataset.rid)
     let select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
+    
     this.setData({
       pickBox: true,
       skuPrice: ''
@@ -547,6 +550,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中'
+    }) 
+
     // 未登录
     if (!app.globalData.isLogin) {
       this.setData({
@@ -563,7 +570,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    wx.hideLoading() 
   },
 
   /**
@@ -688,6 +695,7 @@ Page({
 
   // 关闭选择呼出框
   handlePickBoxOffTap() {
+    wx.showTabBar()
     this.setData({
       pickBox: false
     })

@@ -74,7 +74,7 @@ function fxUrl(url) {
 
 // Get请求
 function fxGet(url, data = {}, cb) {
-  wx.showNavigationBarLoading()
+  // wx.showNavigationBarLoading()
   wx.request({
     url: fxUrl(url),
     data: {
@@ -83,7 +83,7 @@ function fxGet(url, data = {}, cb) {
     method: 'GET',
     header: fxHeader(),
     success(res) {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       if (res.statusCode == 401) {
         // wx.navigateTo({
         //   url: '/pages/authorize/authorize',
@@ -100,7 +100,7 @@ function fxGet(url, data = {}, cb) {
 
 // post请求
 function fxPost(url, data = {}, cb) {
-  wx.showNavigationBarLoading()
+  // wx.showNavigationBarLoading()
   wx.request({
     url: fxUrl(url),
     data: {
@@ -109,7 +109,7 @@ function fxPost(url, data = {}, cb) {
     header: fxHeader('application/json'),
     method: 'POST',
     success(res) {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       console.log(res);
       return typeof cb == 'function' && cb(res.data)
     },
@@ -122,7 +122,7 @@ function fxPost(url, data = {}, cb) {
 
 // put请求
 function fxPut(url, data = {}, cb) {
-  wx.showNavigationBarLoading()
+  // wx.showNavigationBarLoading()
   wx.request({
     url: fxUrl(url),
     data: {
@@ -131,7 +131,7 @@ function fxPut(url, data = {}, cb) {
     header: fxHeader('application/json'),
     method: 'PUT',
     success(res) {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
       console.log(res);
       return typeof cb == 'function' && cb(res.data)
     },
@@ -144,7 +144,7 @@ function fxPut(url, data = {}, cb) {
 
 // delete请求
 function fxDelete(url, data = {}, cb) {
-  wx.showNavigationBarLoading()
+  // wx.showNavigationBarLoading()
   wx.request({
     url: fxUrl(url),
     data: {
@@ -153,7 +153,8 @@ function fxDelete(url, data = {}, cb) {
     header: fxHeader('application/json'),
     method: 'DELETE',
     success(res) {
-      wx.hideNavigationBarLoading()
+      // wx.hideNavigationBarLoading()
+     
       console.log(res)
       return typeof cb == 'function' && cb(res.data)
     },
