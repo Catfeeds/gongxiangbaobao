@@ -920,5 +920,9 @@ Page({
     this.setData({
       is_share:false
     })
+  },
+  // 阻止滑动穿透
+  hanlePreventScroll(){
+    return
   }
 })

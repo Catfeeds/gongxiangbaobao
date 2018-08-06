@@ -78,7 +78,7 @@
 }
 
 .movable-view__bg {
-  height: 40rpx;
+  height: 50rpx;
   width: 600rpx;
   /* background-color: #999; */
   /* border-radius: 10rpx; */
@@ -86,8 +86,8 @@
 }
 
 .movable-view__item {
-  height: 40rpx;
-  width: 40rpx;
+  height: 50rpx;
+  width: 50rpx;
   border-radius: 50%;
   border: 4rpx solid #5fe4b1;
   top: -166%;
@@ -97,13 +97,18 @@
 }
 
 .middle-line {
-  height: 10rpx;
+  height: 8rpx;
   width:520rpx;
   background-color:#5fe4b1 ;
   border-radius: 10rpx;
   position: absolute;
-  top: 0;
+  top: 20rpx;
   z-index: 6;
+}
+
+.hui__xian{
+  width: 600rpx;
+  background-color: #eeeeee;
 }
 .pick-bg{
   border: 2rpx solid #5fe4b1;

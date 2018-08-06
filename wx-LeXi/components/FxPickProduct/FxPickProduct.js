@@ -32,8 +32,8 @@ Component({
     minPrice: 0, //最小价格 
     maxPrice: -1, // 最大的价格
 
-    left: 0, // 
-    right: 600,
+    xLeft: 0, // 
+    xRight: 600,
 
     windowWidth: 375, // 屏幕的宽度(真机)
     movableLeftRight: 37.5, //滑块的左右距离（真机）
@@ -136,8 +136,16 @@ Component({
         minPrice: this.data.minPrice, //最小价格 
         maxPrice: this.data.maxPrice, // 最大的价格
       })
-
     },
+
+    // 重新设置
+    newSeting(){
+      this.setData({
+        xLeft: 0, // 
+        xRight: 600,
+      })
+    },
+
     //
     handleSlider3change(e) {
       console.log(e)

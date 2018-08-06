@@ -252,7 +252,7 @@
   </view>
 
   <!-- 分享模板 -->
-  <view class='share-Tempate' catchtap='handleOffBox' wx:if="{{is_share}}">
+  <view class='share-Tempate' catchtouchmove="hanlePreventScroll" catchtap='handleOffBox' wx:if="{{is_share}}">
     <template is="share" />
     <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
   </view>

@@ -5,14 +5,15 @@
       <view catchtap='handleOffPick'>x</view>
     </view>
     <view class='pick-title__middle'>筛选</view>
-    <view class='pick-title__set'>重置</view>
+    <view class='pick-title__set' catchtap='newSeting'>重置</view>
   </view>
 
   <view class='slider'>
     <view class='price-pick'>价格区间</view>
     <view class='movable-view'>
-
-          <!-- 中间 绿线 -->
+      <!-- 中间 灰线 -->
+        <view class='middle-line hui__xian'></view>
+      <!-- 中间 绿线 -->
       <view class='middle-line' style="width:{{lineWhite}}rpx;left:{{offsetLeft}}rpx;"></view>
 
 <!-- style="margin-left:{{movableLeft}}rpx; width:{{}}rpx" -->
@@ -23,8 +24,9 @@
 
         <!-- 左面 -->
         <movable-view 
-          x="{{left}}"
+          x="{{xLeft}}"
           damping="{{0}}"
+          catchtap="{{ false }}"
           disabled="{{isDisabled}}"
           bindchange="handleMovableLeft" 
           direction="horizontal" 
@@ -35,9 +37,10 @@
 
         <!-- 右面 -->
         <movable-view 
-          x="{{right}}" 
+          x="{{xRight}}" 
          damping="{{0}}"
           bindchange="handleMovableRight" 
+          catchtap="{{ false }}"
           direction="horizontal"  
           disabled="{{isDisabled}}"
           class='movable-view__item'>

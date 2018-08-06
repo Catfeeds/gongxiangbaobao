@@ -237,8 +237,8 @@ Page({
   },
 
   // 交货时间
-  getLogisticsTime(e) {
-    http.fxGet(api.logisitcs.replace(/:rid/g,e), {}, (result)=>{
+  getLogisticsTime(e,rid) {
+    http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:rid}, (result)=>{
       console.log(result.data,'交货时间')
       if(result.success){
         let min = result.data.items[0].min_days
@@ -269,7 +269,7 @@ Page({
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
         // 交货时间
-        this.getLogisticsTime(result.data.fid)
+        this.getLogisticsTime(result.data.fid, result.data.rid)
       } else {
         utils.fxShowToast(result.status.message)
       }
