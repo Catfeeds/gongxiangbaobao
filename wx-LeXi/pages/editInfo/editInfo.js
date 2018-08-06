@@ -18,7 +18,7 @@ Page({
     provinceOid: [], // 省地址列表oid---
     cityOid: [], // 市地址列表oid---
     countyOid: [], // 县地址列表oid---
-    adressIndex: [0, 0, 0],// 地址的下表
+    addressIndex: [0, 0, 0],// 地址的下表
 
     gender: ['女', '男'], // 性别选择器---
     region: ['北京市', '北京市', '朝阳区'], // 地址的pick---
@@ -171,8 +171,8 @@ Page({
 
   // 地址选择器
   getAddressPick() {
-    var provinceOid = adressData.k_1_0[this.data.adressIndex[0]].oid
-    var countyOid = adressData['k_2_' + provinceOid][this.data.adressIndex[1]].oid
+    var provinceOid = adressData.k_1_0[this.data.addressIndex[0]].oid
+    var countyOid = adressData['k_2_' + provinceOid][this.data.addressIndex[1]].oid
     this.setData({
       provinceList: adressData.k_1_0, //省地址列表---
       cityList: adressData['k_2_' + provinceOid], //市地址列表---
@@ -185,7 +185,7 @@ Page({
   provinceChange(e) {
     this.setData({
       isEdited: true,
-      adressIndex: e.detail.value
+      addressIndex: e.detail.value
     })
     this.cityChange(adressData.k_1_0[e.detail.value[0]].oid)
   },
@@ -206,7 +206,7 @@ Page({
       return false
     }
 
-    this.countyChange(adressData['k_2_' + e][this.data.adressIndex[1]].oid)
+    this.countyChange(adressData['k_2_' + e][this.data.addressIndex[1]].oid)
   },
 
   // 县发生变化
@@ -215,7 +215,7 @@ Page({
       isEdited: true,
       cityOid: e,
       countyList: adressData['k_3_' + e],
-      countyOid: adressData['k_3_' + e][this.data.adressIndex[2]].oid
+      countyOid: adressData['k_3_' + e][this.data.addressIndex[2]].oid
     })
     console.log(this.data.countyOid)
   },

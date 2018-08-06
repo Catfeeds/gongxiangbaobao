@@ -30,7 +30,7 @@
       <label class='componentTwo pading-bottom--14rpx' catchtap='handleShowPick'>
         <view class='margin-bottom--16rpx'>位置</view>
         <view class="black-font">
-          {{ provinceList[adressIndex[0]].name }}·{{ cityList[adressIndex[1]].name }}·{{ countyList[adressIndex[2]].name }}
+          {{ provinceList[addressIndex[0]].name }}·{{ cityList[addressIndex[1]].name }}·{{ countyList[addressIndex[2]].name }}
         </view>
       </label>
       <!-- 出生日期 -->

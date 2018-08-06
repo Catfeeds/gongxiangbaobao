@@ -10,35 +10,123 @@ Page({
    * 页面的初始数据
    */
   data: {
-    allInfo:false, // 查看全部的
-    logisticsTime:{}, // 交货时间
+    rid: '', // 商品的rid---
+    productInfomation: [], // 商品详情列表---
+    product: {},
+    productContent: {},
+    skus: {
+      modes: [],
+      colors: []
+    },
+    choosed: {},
+    choosedSkuText: '',
+    cartTotalCount: 0,
+    activeModeIdx: 0,
+    activeColorIdx: 0,
+    hasMode: false,
+    hasColor: false,
+    chooseMode: {},
+    chooseColor: {},
+    quantity: 1,
+    pick: false, // 颜色/规格的盒子是否隐藏---
+
+    posterImage: '',
+    posterSaving: false,
+    posterBtnText: '保存图片',
+
+    allInfo: false, // 查看全部
+    logisticsTime: {}, // 交货时间
     dkcontent: '',
     swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
-    skuPrice: '', // sku价格---
     couponList: [], // 优惠券列表---couponList
     fullSubtractionList: [], // 满减---
     isWatch: false, // 是否关注过店铺
     storeInfo: [], // 店铺的信息---
-    needSpecifications: [], // 需要的规格---
-    needColor: [], //需要的颜色---
-    pickColor: [], // 所有的颜色---
-    pickSpecifications: [], // 所有的规格---
-    productInfomation: [], // 商品详情列表---
-    rid: '', // 商品的rid---
+
     off_icon: false, // 关闭按钮
     OffAnimationData: [], //关闭按钮动画
     animationData: [], //动画
     window_height: app.globalData.system.screenHeight * 2, // 屏幕的高度
     coupon_show: false,
-    pick: false, // 选择规格的盒子是否隐藏---
-    ShopCartNum: [], //购物车的数量---
     newProductList: [], // 最新的商品列表---
     userPhoto: "", // 用户的头像
-    //最新产品的请求参数
+    // 最新产品的请求参数
     newProductParams: {
       page: 1,
       per_page: 10
+    }
+  },
+
+  /**
+   * 滑块变化
+   */
+  handleSwiperChange: function (e) {
+    this.setData({
+      swiperIndex: e.detail.current - 0 + 1
+    })
+  },
+
+  /**
+   * 加入购物车
+   */
+  handleAddCart(e) {
+    if (this.validateChooseSku()) {
+      this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
+      let cartParams = {
+        rid: this.data.choosed.rid, // String	必填	 商品sku
+        quantity: this.data.quantity, // Integer	可选	1	购买数量
+        option: '', // String	可选	 	其他选项
+        open_id: app.globalData.jwt.openid // String	独立小程序端必填/独立小程序openid
+      }
+
+      http.fxPost(api.cart_addon, cartParams, (result) => {
+        if (result.success) {
+          // 隐藏弹出层
+          this.hideSkuModal()
+
+          // 更新数量
+          this.updateCartTotalCount(result.data.item_count)
+        }
+      })
+    }
+  },
+
+  /**
+   * 直接购买
+   */
+  handleQuickBuy(e) {
+    if (this.validateChooseSku()) {
+      this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
+
+      http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
+        if (result.success) {
+          Object.keys(result.data).forEach((key) => {
+            console.log(result.data[key]) // 每个店铺
+            result.data[key].forEach((v, i) => { //每个sku
+              // 当前店铺的rid
+              v.current_store_rid = app.globalData.storeInfo.rid
+              // 是否为分销商品
+              if (v.store_rid != app.globalData.storeInfo.rid) {
+                v.is_distribute = 1
+              } else {
+                v.is_distribute = 0
+              }
+              // 需求数量
+              v.quantity = 1
+            })
+          })
+
+          app.globalData.orderSkus = result
+          // 设置当前商品的物流模板
+          wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
+          wx.navigateTo({
+            url: './../receiveAddress/receiveAddress?from_ref=cart&&rid=' + this.data.choosed.rid,
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
     }
   },
 
@@ -88,13 +176,6 @@ Page({
     }
   },
 
-  //轮播图结束后执行
-  animationOver (e) {
-    this.setData({
-      swiperIndex: e.detail.current - 0 + 1
-    })
-  },
-
   // 关闭优惠卷呼出框
   handleOffCouponTap() {
     this.setData({
@@ -102,59 +183,16 @@ Page({
     })
   },
 
-  // 领取优惠券
-  getReceiveCoupon(e) {
-    if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
-      return false
-    }
-    console.log(e.currentTarget.dataset.rid)
-    http.fxPost(api.coupon_grant, {
-      rid: e.currentTarget.dataset.rid
-    }, (result) => {
-      console.log(result)
-      if (result.success) {
-        utils.fxShowToast('领取成功', 'success')
-        this.getCouponAndFullSubtraction()
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 优惠券，满减
-  getCouponAndFullSubtraction() {
-    console.log(app.globalData.couponList, app.globalData.fullSubtractionList,)
-    this.setData({
-      couponList: app.globalData.couponList, // 优惠券列表
-      fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
-    })
-  },
-
-  // 增加浏览记录
-  // postAddBrowses() {
-  //   if (!app.globalData.isLogin) {
-  //     return
-  //   }
-  //   http.fxPost(api.user_browses, {
-  //     rid: this.data.rid
-  //   }, (result) => {
-  //     if (result.success) {} else {}
-  //   })
-  // },
-
   // 加入心愿单
   handleaddDesireTap() {
-    //是否绑定
+    // 是否绑定
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
       })
       return false
     }
-    if ( !this.data.productInfomation.is_wish ){
+    if (!this.data.productInfomation.is_wish){
       http.fxPost(api.wishlist, {
         rids: [this.data.rid]
       }, (result) => {
@@ -186,272 +224,21 @@ Page({
 
   },
 
-  // 获取店铺信息
-  getstoreInfo() {
-    this.setData({
-      storeInfo: app.globalData.storeInfo
-    })
-  },
-
-  // 加入购物车盒子显示
-  handleAddCartShow() {
-    //是否绑定
-    if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
-      return false
-    }
-    this.setData({
-      pick: true
-    })
-  },
-
-  // 加入购物车
-  handleAddCart() {
-    let rid
-    if (this.data.needSpecifications == '' || this.data.needColor == '') {
-      wx.showToast({
-        title: '请选择',
-        icon: 'none',
-        duration: 1500
-      })
-      return
-    }
-    this.data.productInfomation.skus.forEach((v, i) => {
-      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
-        rid = v.rid
-        this.setOrderParamsProductId(v.rid) // 设置订单的商品id,sku---
-      }
-    })
-    var addCartParams = {
-      rid: '', //String	必填	 商品sku
-      quantity: 1, //Integer	可选	1	购买数量
-      option: '', //String	可选	 	其他选项
-      open_id: '' //String	独立小程序端必填	 	独立小程序openid
-    }
-    addCartParams.open_id = wx.getStorageSync("jwt").openid
-    addCartParams.rid = rid
-    http.fxPost(api.cart, addCartParams, (result) => {
-      if (result.success) {
-        console.log(result)
-        utils.fxShowToast('成功购物车')
-        this.getShopCartNum()
-        this.setData({
-          pick:false
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 获取购物车商品数
-  getShopCartNum() {
-    if (!app.globalData.isLogin) {
-      return
-    }
-    var params = {
-      open_id: wx.getStorageSync("jwt").openid
-    }
-    http.fxGet(api.cart_item_count, params, (result) => {
-      if (result.success) {
-        console.log(result)
-        this.setData({
-          ShopCartNum: result.data.item_count
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 查找sku的价格
-  getSkuPrice() {
-    let sku = this.data.needSpecifications + " " + this.data.needColor
-    console.log(sku, this.data.productInfomation)
-    this.data.productInfomation.skus.forEach((v, i) => {
-      if (v.mode == sku) {
-        this.setData({
-          skuPrice: v.price
-        })
-      }
-    })
-  },
-
-  // 点击规格按钮
-  handleSpecificationsTap(e) {
-    let newData = []
-    let haveProduct = []
-    let havespecifications = []
-    if (!e.currentTarget.dataset.ispick) {
-      wx.showToast({
-        title: '亲！此商品库存不足',
-        icon: 'none',
-        duration: 2000
-      })
-      return false
-    }
-
-    // 改变按钮颜色
-    this.data.pickSpecifications.forEach((v, i) => {
-      this.setData({
-        ['pickSpecifications[' + i + '].is_bg']: false
-      })
-      if (e.currentTarget.dataset.icon == v.name) {
-        this.setData({
-          ['pickSpecifications[' + i + '].is_bg']: true,
-          needSpecifications: v.name
-        })
-      }
-    })
-
-    // 拼接颜色
-    this.data.pickColor.forEach((v, i) => {
-      newData.push(e.currentTarget.dataset.specificationsname + ' ' + v.name)
-    })
-
-    // 把拼接的颜色和后台发过来的数据做比较
-    newData.forEach((v, i) => {
-      this.data.productInfomation.skus.forEach((e, index) => {
-        if (e.mode == v) {
-          haveProduct.push(v)
-        }
-      })
-    })
-
-    // 把找到的颜色记录下来
-    haveProduct.forEach((v, i) => {
-      var newstring = v.split(' ')[1]
-      havespecifications.push(newstring)
-    })
-
-    //去改变按钮颜色
-    this.data.pickColor.forEach((v, i) => {
-      if (havespecifications.indexOf(v.name) == -1) {
-        this.setData({
-          ["pickColor[" + i + "].disabled"]: false
-        })
-      } else {
-        this.setData({
-          ["pickColor[" + i + "].disabled"]: true
-        })
-      }
-    })
-
-    //查找价格
-    this.getSkuPrice()
-  },
-
-  // 点击颜色按钮
-  handlePickColor(e) {
-    let newData = []
-    let haveProduct = []
-    let havespecifications = []
-    if (!e.currentTarget.dataset.ispick) {
-      wx.showToast({
-        title: '亲！此商品库存不足',
-        icon: 'none',
-        duration: 2000
-      })
-      return false
-    }
-
-    // 改变按钮颜色
-    this.data.pickColor.forEach((v, i) => {
-      this.setData({
-        ['pickColor[' + i + '].is_bg']: false
-      })
-      if (e.currentTarget.dataset.icon == v.name) {
-        this.setData({
-          ['pickColor[' + i + '].is_bg']: true,
-          needColor: v.name
-        })
-      }
-    })
-
-    // 拼接规格
-    this.data.pickSpecifications.forEach((v, i) => {
-      newData.push(v.name + " " + e.currentTarget.dataset.colorname)
-    })
-
-    // 把拼接的规格和后台发过来的数据做比较
-    newData.forEach((v, i) => {
-      this.data.productInfomation.skus.forEach((e, index) => {
-        if (e.mode == v) {
-          haveProduct.push(v)
-        }
-      })
-    })
-
-    // 把找到的规格记录下来
-    haveProduct.forEach((v, i) => {
-      let newstring = v.split(' ')[0]
-      havespecifications.push(newstring)
-    })
-
-    //去改变按钮颜色
-    this.data.pickSpecifications.forEach((v, i) => {
-      if (havespecifications.indexOf(v.name) == -1) {
-        this.setData({
-          ["pickSpecifications[" + i + "].disabled"]: false
-        })
-      } else {
-        this.setData({
-          ["pickSpecifications[" + i + "].disabled"]: true
-        })
-      }
-    })
-
-    //查找价格
-    this.getSkuPrice()
-  },
-
-  // 过滤产品的颜色去重
-  filterColor() {
-    let newColor = []
-    let colorTwo = []
-    this.data.productInfomation.skus.forEach((v, i) => {
-      if (newColor.indexOf(v.s_color) == -1) {
-        newColor.push(v.s_color)
-      }
-    })
-    newColor.forEach((v, i) => {
-      colorTwo.push({
-        name: v,
-        disabled: true,
-        is_bg: false
-      })
+  // 商品详情
+  handleProductInfoTap(e) {
+    wx.pageScrollTo({
+      scrollTop: 0
     })
     this.setData({
-      pickColor: colorTwo
+      rid: e.currentTarget.dataset.rid
     })
-  },
 
-  // 过滤产品的型号
-  filterSpecifications() {
-    let newColor = []
-    let colorTwo = []
-    this.data.productInfomation.skus.forEach((v, i) => {
-      if (newColor.indexOf(v.s_model) == -1) {
-        newColor.push(v.s_model)
-      }
-    })
-    newColor.forEach((v, i) => {
-      colorTwo.push({
-        name: v,
-        disabled: true,
-        is_bg: false
-      })
-    })
-    this.setData({
-      pickSpecifications: colorTwo
-    })
+    this.getProductInfomation() // 获取商品详情---
   },
 
   // 交货时间
-  getLogisticsTime(e){
-    http.fxGet(api.logisitcs.replace(/:rid/g,e),{},(result)=>{
+  getLogisticsTime(e) {
+    http.fxGet(api.logisitcs.replace(/:rid/g,e), {}, (result)=>{
       console.log(result.data,'交货时间')
       if(result.success){
         let min = result.data.items[0].min_days
@@ -459,14 +246,15 @@ Page({
         result.data.items.forEach((v,i)=>{
           if (v.is_default){
             //循环完毕
-              this.setData({
-                logisticsTime: v
-              })
+            this.setData({
+              logisticsTime: v
+            })
           }
         })
       }
     })
   },
+
   // 获取商品详情
   getProductInfomation() {
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
@@ -474,15 +262,10 @@ Page({
     }, (result) => {
       if (result.success) {
         console.log(result, '产品详情')
-        // console.log(result.data.content)
         this.setData({
           productInfomation: result.data,
           dkcontent: result.data.content
         })
-        // 过滤商品的颜色---
-        this.filterColor() 
-        // 过滤产品的规格---
-        this.filterSpecifications() 
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
         // 交货时间
@@ -493,16 +276,9 @@ Page({
     })
   },
 
-  // 选择规格的盒子隐藏
-  handleSpecificationsHide() {
-    this.setData({
-      pick: false
-    })
-  },
-
-  // 选择规格的盒子显示
-  pickShowTap() {
-    //是否绑定
+  // 加入购物车盒子显示
+  handleAddCartShow() {
+    // 是否绑定
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
@@ -514,20 +290,35 @@ Page({
     })
   },
 
-  // 选择规格的盒子隐藏
-  pickHideTap() {
+  // 选择规格的盒子显示
+  handlePickShow() {
+    //是否绑定
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
+    this.setData({
+      pick: true
+    })
+  },
+
+  // 隐藏弹出层
+  hideSkuModal() {
     this.setData({
       pick: false
     })
   },
 
+  // 点击sku层，不触发隐藏
+  handleSkuModal() {
+    return false
+  },
+
   // 查看全部的盒子信息的盒子关闭
   animationOffFn() {
-    // this.animation.height("0").step()
-    // this.setData({
-    //   animationData: this.animation.export(),
-    //   off_icon: false
-    // })
     this.setData({
       allInfo: false
     })
@@ -535,11 +326,6 @@ Page({
 
   // 查看全部的盒子信息的盒子打开
   animationOnFn() {
-    // this.animation.bottom(0 + "rpx").step()
-    // this.setData({
-    //   animationData: this.animation.export(),
-    //   off_icon: true
-    // })
     this.setData({
       allInfo:true
     })
@@ -547,21 +333,7 @@ Page({
 
   // 设置订单参数的 商品的sku-rid store_items.itemsrid = 
   setOrderParamsProductId(e) {
-    // let productId = wx.getStorageSync('orderParams')
     app.globalData.orderParams.store_items[0].items[0].rid = e
-    // console.log(productId)
-    // wx.setStorageSync('orderParams', productId)
-  },
-
-  // 商品详情
-  handleProductInfoTap(e) {
-    wx.pageScrollTo({
-      scrollTop: 0
-    })
-    this.setData({
-      rid: e.currentTarget.dataset.rid
-    })
-    this.getProductInfomation() // 获取商品详情---
   },
 
   // 获取最新的商品
@@ -578,18 +350,87 @@ Page({
     })
   },
 
+  // 领取优惠券
+  getReceiveCoupon(e) {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+    console.log(e.currentTarget.dataset.rid)
+    http.fxPost(api.coupon_grant, {
+      rid: e.currentTarget.dataset.rid
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('领取成功', 'success')
+        this.getCouponAndFullSubtraction()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 优惠券，满减
+  getCouponAndFullSubtraction() {
+    console.log(app.globalData.couponList, app.globalData.fullSubtractionList, )
+    this.setData({
+      couponList: app.globalData.couponList, // 优惠券列表
+      fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
+    })
+  },
+
+  /**
+   * 获取sku数量
+   */
+  getSkus() {
+    let params = {
+      rid: this.data.rid
+    }
+    http.fxGet(api.product_skus, params, (result) => {
+      console.log(result.data, 'skus信息')
+      if (result.success) {
+        this.setData({
+          skus: result.data
+        })
+        this.initialShowSku()
+      }
+    })
+  },
+
+  // 获取店铺信息
+  getstoreInfo() {
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
     wx.showLoading({
       title: '加载中'
-    }) 
+    })
+    // scene格式：rid + '#' + customer_rid
+    let scene = decodeURIComponent(options.scene)
+    let rid = ''
+    if (scene && scene != 'undefined') {
+      let scene_ary = scene.split('#')
+      rid = scene_ary[0]
+      // 分销商ID
+      if (scene_ary.length == 2) {
+        let customer_rid = scene_ary[1]
+        wx.setStorageSync('customer_rid', customer_rid)
+      }
+    } else {
+      rid = options.rid
+    }
 
-    console.log(app.globalData.userInfo)
-    // console.log(app.globalData.userInfo.avatar)
     this.setData({
       rid: options.rid,
+      cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
     if (app.globalData.isLogin){
@@ -598,26 +439,396 @@ Page({
       })
     }
 
+    this.getstoreInfo() // 店铺信息---
     this.getProductInfomation() // 获取商品详情---
+    this.getSkus()
+    
     this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
+  },
 
-    // setTimeout(() => {
-      // this.filterColor() // 过滤商品的颜色---
-      // this.filterSpecifications() // 过滤产品的规格---
-      // this.postAddBrowses() // 增加浏览记录
-    // }, 1500)
+  // 初始化sku
+  initialShowSku() {
+    let hasMode = this.data.skus.modes.length > 0 ? true : false
+    let hasColor = this.data.skus.colors.length > 0 ? true : false
+    let choosed = {}
+    let chooseMode = {}
+    let chooseColor = {}
+    let activeColorIdx = 0
+    let activeModeIdx = 0
 
-    this.getShopCartNum() // 获取购物车商品数量---
-    this.getstoreInfo() // 获取店铺信息---
+    // 默认选中一个，有库存的
+    if (hasMode) {
+      for (let i = 0; i < this.data.skus.items.length; i++) {
+        if (this.data.skus.items[i].stock_count > 0) {
+          choosed = this.data.skus.items[i]
+          activeModeIdx = this.getModeIndex(this.data.skus.items[i].s_model)
+          chooseMode = this.data.skus.modes[activeModeIdx]
+          break
+        }
+      }
+    }
+
+    if (hasColor) {
+      for (let i = 0; i < this.data.skus.items.length; i++) {
+        if (this.data.skus.items[i].stock_count > 0) {
+          choosed = this.data.skus.items[i]
+          activeColorIdx = this.getColorIndex(this.data.skus.items[i].s_color)
+          chooseColor = this.data.skus.colors[activeColorIdx]
+          break
+        }
+      }
+    }
+
+    // 同时存在时，color获取实际存在的一个
+    if (hasMode && hasColor) {
+      for (let i = 0; i < this.data.skus.items.length; i++) {
+        if (this.data.skus.items[i].stock_count > 0) {
+          choosed = this.data.skus.items[i]
+          activeModeIdx = this.getModeIndex(this.data.skus.items[i].s_model)
+          activeColorIdx = this.getColorIndex(this.data.skus.items[i].s_color)
+          chooseMode = this.data.skus.modes[activeModeIdx]
+          chooseColor = this.data.skus.colors[activeColorIdx]
+          break
+        }
+      }
+    }
+
+    this.setData({
+      hasMode: hasMode,
+      hasColor: hasColor,
+      choosed: choosed,
+      chooseMode: chooseMode,
+      chooseColor: chooseColor,
+      activeModeIdx: activeModeIdx,
+      activeColorIdx: activeColorIdx,
+    });
+
+    this.renewStockStatus()
+
+    this.choosedSku()
+  },
+
+  /**
+   * 获取激活颜色索引
+   */
+  getColorIndex(name) {
+    for (let k = 0; k < this.data.skus.colors.length; k++) {
+      if (this.data.skus.colors[k].name == name) {
+        return k
+      }
+    }
+  },
+
+  /**
+   * 获取激活型号索引
+   */
+  getModeIndex(name) {
+    for (let k = 0; k < this.data.skus.modes.length; k++) {
+      if (this.data.skus.modes[k].name == name) {
+        return k
+      }
+    }
+  },
+
+  /**
+   * 验证是否有库存
+   */
+  renewStockStatus() {
+    // 仅型号选项
+    if (this.data.hasMode && !this.data.hasColor) {
+      let tmpModes = []
+      for (const mode of this.data.skus.modes) {
+        for (const item of this.data.skus.items) {
+          if (item.s_model == mode.name && item.stock_count <= 0) {
+            mode.valid = false
+          }
+        }
+        tmpModes.push(mode)
+      }
+
+      this.setData({
+        'skus.modes': tmpModes
+      })
+    }
+
+    // 仅颜色选项
+    if (this.data.hasColor && !this.data.hasMode) {
+      let tmpColors = []
+      for (const color of this.data.skus.colors) {
+        for (const item of this.data.skus.items) {
+          if (item.s_color == color.name && item.stock_count <= 0) {
+            color.valid = false
+          }
+        }
+        tmpColors.push(color)
+      }
+      this.setData({
+        'skus.colors': tmpColors
+      })
+    }
+
+    // 型号、颜色同时存在
+    if (this.data.hasMode && this.data.hasColor) {
+      let chooseMode = this.data.chooseMode
+      let filter_colors = []
+      for (const c of this.data.skus.colors) {
+        if (!this.hasExistItem(chooseMode.name, c.name)) {
+          c.valid = false
+        } else {
+          c.valid = true
+        }
+        filter_colors.push(c)
+      }
+
+      let chooseColor = this.data.chooseColor
+      let filter_modes = []
+      for (const m of this.data.skus.modes) {
+        if (!this.hasExistItem(m.name, chooseColor.name)) {
+          m.valid = false
+        } else {
+          m.valid = true
+        }
+        filter_modes.push(m)
+      }
+
+      this.setData({
+        'skus.modes': filter_modes,
+        'skus.colors': filter_colors
+      })
+    }
+
+  },
+
+  /**
+   * 选中sku信息
+   */
+  choosedSku() {
+    if (this.data.choosed) {
+      let sku_txt = [];
+      if (this.data.choosed.s_model) {
+        sku_txt.push(this.data.choosed.s_model)
+      }
+      if (this.data.choosed.s_color) {
+        sku_txt.push(this.data.choosed.s_color)
+      }
+
+      this.setData({
+        choosedSkuText: sku_txt.join(' ') + '，' + this.data.quantity + '个'
+      })
+    }
+  },
+
+  hasExistItem(mode, color) {
+    for (const item of this.data.skus.items) {
+      if (item.s_model === mode && item.s_color === color && item.stock_count > 0) {
+        return true
+      }
+    }
+    return false
+  },
+
+  handleChooseMode(e) {
+    const that = this;
+    const idx = e.currentTarget.dataset.idx;
+    const valid = e.currentTarget.dataset.valid;
+    if (!valid) return;
+
+    let activeModeIdx = idx;
+    let chooseMode = this.data.skus.modes[idx];
+    // 重新筛选与型号匹配的颜色
+    let filter_colors = []
+    for (const c of this.data.skus.colors) {
+      if (!this.hasExistItem(chooseMode.name, c.name)) {
+        c.valid = false
+      } else {
+        c.valid = true
+      }
+      filter_colors.push(c)
+    }
+
+    let choosed = {};
+    for (const item of this.data.skus.items) {
+      if (item.s_model == chooseMode.name) {
+        if (that.data.hasColor) {
+          if (item.s_color == that.data.chooseColor.name) {
+            choosed = item
+          }
+        } else {
+          choosed = item
+        }
+      }
+    }
+
+    this.setData({
+      choosed: choosed,
+      chooseMode: chooseMode,
+      activeModeIdx: activeModeIdx,
+      'skus.colors': filter_colors
+    });
+
+    this.choosedSku()
+  },
+
+  /**
+   * 选择颜色
+   */
+  handleChooseColor(e) {
+    console.log(e)
+    const idx = e.currentTarget.dataset.idx;
+    const valid = e.currentTarget.dataset.valid;
+    if (!valid) return;
+
+    let activeColorIdx = idx;
+    let chooseColor = this.data.skus.colors[idx];
+
+    // 重新筛选与颜色匹配的型号
+    let filter_modes = [];
+    for (const m of this.data.skus.modes) {
+      if (!this.hasExistItem(m.name, chooseColor.name)) {
+        m.valid = false
+      } else {
+        m.valid = true
+      }
+      filter_modes.push(m)
+    }
+    let choosed = {};
+    for (const item of this.data.skus.items) {
+      if (item.s_color == chooseColor.name) {
+        if (this.data.hasMode) {
+          if (item.s_model == this.data.chooseMode.name) {
+            choosed = item
+          }
+        } else {
+          choosed = item
+        }
+      }
+    }
+
+    this.setData({
+      choosed: choosed,
+      chooseColor: chooseColor,
+      activeColorIdx: activeColorIdx,
+      'skus.modes': filter_modes
+    });
+
+    this.choosedSku()
+  },
+
+  /**
+   * 更新购物车数量
+   */
+  updateCartTotalCount(item_count) {
+    app.globalData.cartTotalCount = item_count
+    this.setData({
+      cartTotalCount: item_count
+    })
+  },
+
+  /**
+   * 验证是否选择sku
+   */
+  validateChooseSku() {
+    if (!this.data.choosed) {
+      return false
+    }
+    if (!this.data.quantity) {
+      return false
+    }
+    return true
+  },
+
+  /**
+   * 生成推广海报
+   */
+  handleGenPoster(e) {
+    let that = this
+
+    this.setData({
+      seePosterModal: true
+    })
+
+    let rid = e.currentTarget.dataset.rid
+    // 添加自定义扩展信息
+    let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+
+    let params = {
+      rid: rid,
+      path: 'pages/product/product',
+      auth_app_id: extConfig.authAppid
+    }
+
+    http.fxPost(api.wxacode, params, (res) => {
+      if (res.success) {
+        that.setData({
+          posterImage: res.data.wxa_image
+        })
+      }
+    })
+  },
+
+  /**
+   * 保存海报至本地
+   */
+  handleSavePoster() {
+    let that = this
+
+    if (this.data.posterImage && !this.data.posterSaving) {
+      this.setData({
+        posterSaving: true,
+        posterBtnText: '正在保存...'
+      })
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.posterImage,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success(res) {
+                wx.showToast({
+                  title: '图片保存成功',
+                })
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存图片',
+                  seePosterModal: false
+                })
+              },
+              fail(res) {
+                console.log(res)
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存图片'
+                })
+              }
+            })
+          }
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '图片正在生成中',
+        icon: 'loading',
+        duration: 2000
+      })
+    }
+  },
+
+  /**
+   * 隐藏生成海报框
+   */
+  hidePosterModal() {
+    this.setData({
+      seePosterModal: false
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    
-
     this.animation = wx.createAnimation({
       transformOrigin: "bottom bottom",
       duration: 500,
@@ -679,60 +890,6 @@ Page({
     }
   },
 
-  // 选好了按钮
-  receiveOrderTap() {
-    var rid
-    if (this.data.needSpecifications == '' || this.data.needColor == '') {
-      wx.showToast({
-        title: '选择不完整',
-        icon: 'none',
-        duration: 1500
-      })
-      return
-    }
-    this.data.productInfomation.skus.forEach((v, i) => {
-
-      if (v.mode == this.data.needSpecifications + ' ' + this.data.needColor) {
-        rid = v.rid
-        this.setOrderParamsProductId(v.rid) // 设置订单的商品sku---
-      }
-      console.log(rid)
-    })
-    /**statr**/
-    http.fxGet(api.by_store_sku, {
-      rids: rid
-    }, (result) => {
-      console.log(result)
-      if (result.success) {
-        Object.keys(result.data).forEach((key) => {
-          console.log(result.data[key]) // 每个店铺
-          result.data[key].forEach((v, i) => { //每个sku
-            console.log(v)
-            // 当前店铺的rid
-            v.current_store_rid = app.globalData.storeInfo.rid
-            // 是否为分销商品
-            if (v.store_rid != app.globalData.storeInfo.rid) {
-              v.is_distribute = 1
-            } else {
-              v.is_distribute = 0
-            }
-            //需求数量
-            v.quantity = 1
-          })
-        })
-        app.globalData.orderSkus = result
-        wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
-        console.log(this.data.productInfomation.fid)
-        console.log(app.globalData.orderSkus)
-        wx.navigateTo({
-          url: '../receiveAddress/receiveAddress?from_ref=cart&&rid=' + rid,
-        })
-      } else {
-      }
-    })
-    /**end**/
-  },
-
   watchTap() {
     wx.navigateTo({
       url: '../watch/watch',
@@ -769,6 +926,7 @@ Page({
       is_mobile: e.detail.offBox
     })
   },
+
   handelToLikeThisProductTap(e){
     if (!app.globalData.isLogin) {
       this.setData({

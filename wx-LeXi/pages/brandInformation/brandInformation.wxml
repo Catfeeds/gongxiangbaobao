@@ -34,7 +34,7 @@
   <view class='brandOldPractice'>
 
     <view class='addressInfo'>
-      <image class='bgxuhua' src='{{ storeInfo.bgcover.view_url }}'></image>
+      <image class='bgxuhua' src='{{ storeInfo.bgcover }}'></image>
       <view class="mask"></view>
       <view class='addressInfoBox'>
         <image class='addressInfoBoxL' src='{{ storeInfo.logo }}'></image>

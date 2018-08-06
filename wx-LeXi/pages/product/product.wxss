@@ -33,7 +33,13 @@ swiper-item, swiper-item>image, swiper {
   font-weight: 600;
   white-space: nowrap;
 }
-
+.stock {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-left: 20rpx;
+  white-space: nowrap;
+  color: #f66;
+}
 .origPrice {
   font-size: 28rpx;
   color: #949ea6;
@@ -405,10 +411,11 @@ swiper-item, swiper-item>image, swiper {
 .active {
   background-color: #6ed7af;
   color: white;
-  border: none;
+  border-color: #6ed7af;
 }
 
-.none-goods {
+.none-goods,
+.disabled {
   border: 1rpx solid #b2b2b2;
   color: #b2b2b2;
 }
