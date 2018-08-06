@@ -26,6 +26,7 @@ function appendSystemParams() {
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   const t = util.timestamp()
   const s = util.randomString(16)
+  console.log(extConfig)
   return {
     app_key: extConfig.api.appKey,
     timestamp: t,

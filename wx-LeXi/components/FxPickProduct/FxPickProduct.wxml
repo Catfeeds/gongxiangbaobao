@@ -12,18 +12,18 @@
     <view class='price-pick'>价格区间</view>
     <view class='movable-view'>
 
-          <!-- 中间 style="margin-left:{{lineLeft}}rpx;width:{{lineWhite}}rpx"-->
-          
-      <view class='middle-line'></view>
+          <!-- 中间 绿线 -->
+      <view class='middle-line' style="width:{{lineWhite}}rpx;left:{{offsetLeft}}rpx;"></view>
 
 <!-- style="margin-left:{{movableLeft}}rpx; width:{{}}rpx" -->
       <movable-area 
+        width="600rpx"
+        height="40rpx"
         class="movable-view__bg">
 
         <!-- 左面 -->
         <movable-view 
-          x="{{movableLeft}}"
-          y="8" 
+          x="{{left}}"
           damping="{{0}}"
           disabled="{{isDisabled}}"
           bindchange="handleMovableLeft" 
@@ -35,8 +35,7 @@
 
         <!-- 右面 -->
         <movable-view 
-          x="{{movableRight}}" 
-          y="-8"
+          x="{{right}}" 
          damping="{{0}}"
           bindchange="handleMovableRight" 
           direction="horizontal"  

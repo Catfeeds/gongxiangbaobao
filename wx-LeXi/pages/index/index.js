@@ -123,8 +123,13 @@ Page({
   handlePickProduct(e) {
     console.log(e.detail.category)
     let rids = e.detail.category
+    let minPrice = e.detail.minPrice
+    let maxPrice = e.detail.maxPrice
     this.setData({
-      ['sortParams.cids']: rids.join(',')
+      myProduct:[],
+      ['sortParams.cids']: rids.join(','),
+      ['sortParams.min_price']: minPrice,
+      ['sortParams.max_price']: maxPrice
     })
     this.getPick()
   },
@@ -141,11 +146,10 @@ Page({
   },
   // 排序和筛选公共的接口
   getPick() {
+    console.log(this.data.sortParams)
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
       console.log(result)
       if (result.success) {
-        //如果没有数据了通知用户
-
         if (this.data.myProduct.length==0){
           this.setData({
             myProduct: result.data,

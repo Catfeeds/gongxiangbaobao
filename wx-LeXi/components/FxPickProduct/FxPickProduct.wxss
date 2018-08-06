@@ -74,7 +74,7 @@
 .movable-view {
   margin: 0 45rpx;
   position: relative;
-
+  height: 40rpx;
 }
 
 .movable-view__bg {
@@ -82,7 +82,7 @@
   width: 600rpx;
   /* background-color: #999; */
   /* border-radius: 10rpx; */
-  position: relative;
+  /* position: relative; */
 }
 
 .movable-view__item {

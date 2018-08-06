@@ -410,9 +410,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
-    wx.showLoading({
-      title: '加载中'
-    })
+    utils.handleShowLoading()
     // scene格式：rid + '#' + customer_rid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
@@ -430,7 +428,7 @@ Page({
 
     this.setData({
       rid: options.rid,
-      cartTotalCount: app.globalData.cartTotalCount,
+      // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
     if (app.globalData.isLogin){
@@ -829,6 +827,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    utils.handleHideLoading()
     this.animation = wx.createAnimation({
       transformOrigin: "bottom bottom",
       duration: 500,
@@ -842,6 +841,11 @@ Page({
   onShow: function() {
     wx.hideLoading() 
     console.log(app.globalData.storeInfo)
+    this.setData({
+      
+      cartTotalCount: app.globalData.cartTotalCount,
+      
+    })
   },
 
   /**

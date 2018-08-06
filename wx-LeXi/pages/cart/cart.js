@@ -219,6 +219,9 @@ Page({
       carQuantity: quantity,
       payment: aggregatePrice
     })
+
+    //更新数量
+    app.globalData.cartTotalCount = quantity
   },
 
   // 增加数量或者减少数量---
