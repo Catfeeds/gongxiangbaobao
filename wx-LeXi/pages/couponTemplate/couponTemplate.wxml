@@ -1,7 +1,7 @@
 <!--pages/couponTemplate/couponTemplate.wxml  领取优惠券的模板-->
 
 <template name="couponTemplate">
-  <view class='ct-subtract' catchtap='{{ false }}'>
+  <scroll-view scroll-y class='ct-subtract' catchtap='{{ false }}'>
     <view class='coupon-shim'></view>
     <view class='ct-top hui-zi' wx:if="{{fullSubtractionList.length!=0}}">
       <view class='ct-jian'>
@@ -50,7 +50,7 @@
       </view>
       <view class='shm'></view>
     </view>
-  </view>
+  </scroll-view>
   <!-- 完成按钮 -->
   <view class='wx-btn-box'>
     <button catchtap='handleOffCouponTap'>完成</button>

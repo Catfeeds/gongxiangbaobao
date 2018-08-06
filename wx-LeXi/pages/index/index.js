@@ -127,7 +127,7 @@ Page({
     let maxPrice = e.detail.maxPrice
     this.setData({
       myProduct:[],
-      ['sortParams.cids']: rids.join(','),
+      ['sortParams.cids']: rids == undefined ? "" : rids.join(','),
       ['sortParams.min_price']: minPrice,
       ['sortParams.max_price']: maxPrice
     })
@@ -703,7 +703,7 @@ Page({
    * 页面触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log(123)
+    
     switch (this.data.catgoryActive) {
       case 1:
 
@@ -736,19 +736,6 @@ Page({
     utils.handleHideLoading()
   },
 
-  //监听页面的滚动
-  onPageScroll: function(e) {
-    // console.log(e)
-    // if (e.scrollTop >= 622) {
-    //   this.setData({
-    //     tabPisition: true
-    //   })
-    // } else if (e.scrollTop < 622) {
-    //   this.setData({
-    //     tabPisition: false
-    //   })
-    // }
-  },
 
   shareTap(e) {
     var sign

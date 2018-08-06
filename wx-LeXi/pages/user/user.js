@@ -98,6 +98,10 @@ Page({
   handlePick(e){
     console.log(e)
     this.setData({
+      likeProduct:[],
+      ['sortParams.min_price']: e.detail.minPrice, // 最小价格
+      ['sortParams.max_price']: e.detail.maxPrice, // 最大价格
+      
       ['sortParams.is_free_postage']: e.detail.logisticsPrice
     })
     this.getPick()
@@ -118,9 +122,16 @@ Page({
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
       console.log(result)
       if (result.success) {
-        this.setData({
-          likeProduct: result.data
-        })
+        if (this.data.likeProduct.length==0){
+          this.setData({
+            likeProduct: result.data
+          })
+        }else{
+          this.setData({
+            ['likeProduct.products']: this.data.likeProduct.products.push(result.data.products)
+          })
+        }
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -270,6 +281,23 @@ Page({
     }
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
+  },
+
+  // 触底加载
+  onReachBottom: function () {
+    console.log(123)
+    if (this.data.classInfo == 1){
+      //判断是否有下一页
+      if (!this.data.likeProduct.next) {
+        utils.fxShowToast("没有更多产品了")
+        return
+      }
+      this.setData({
+        ['sortParams.page']: this.data.sortParams.page - 0 + 1
+      })
+      //加载
+      this.getPick()
+    }
   },
 
   /**

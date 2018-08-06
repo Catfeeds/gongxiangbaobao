@@ -1,7 +1,7 @@
 <!--pages/allProduct/allProduct.wxml-->
 <view>
     <view class="goodsList">
-      <view wx:for="{{productList}}" wx:key="{{index}}" class="goods-item">
+      <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
         <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation"></fx-product>
       </view>
     </view>
