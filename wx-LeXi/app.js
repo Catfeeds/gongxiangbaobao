@@ -148,6 +148,10 @@ App({
           wx.showToast({
             title: '已取消支付',
           })
+          // 跳转到订单
+          wx.navigateTo({
+            url: './../order/order',
+          })
         }
         return typeof cb == 'function' && cb()
       }
@@ -193,6 +197,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 支付成功后的订单
+    paymentSuccessOrder:{},
     // 登录相关信息
     jwt: {},
     // 第三方配置信息

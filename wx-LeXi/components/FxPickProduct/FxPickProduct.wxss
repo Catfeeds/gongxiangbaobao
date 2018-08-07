@@ -24,9 +24,9 @@
   background-color: #fdfdfd;
 }
 
-.pick-title__set, .pick-title__middle {
+/* .pick-title__set, .pick-title__middle {
   font-size: 32rpx;
-}
+} */
 
 .pick-title__set {
   color: #5fe4b1;

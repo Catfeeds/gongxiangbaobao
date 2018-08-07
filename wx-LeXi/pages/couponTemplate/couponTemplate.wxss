@@ -3,7 +3,7 @@
 .ct-subtract {
   position: absolute;
   bottom: 0;
-  overflow: auto;
+  
 }
 
 .ct-top {
@@ -154,7 +154,7 @@
 }
 
 .coupon-shim {
-  height: 40rpx;
+  /* height: 40rpx; */
   width: 690rpx;
   background-color: white;
   position: absolute;
@@ -299,4 +299,9 @@
 
 .lose-efficacy_bg--color {
   background-color: #e1dedc;
+}
+
+/*  */
+.over{
+  overflow: hidden;
 }

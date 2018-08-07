@@ -1,5 +1,5 @@
 <!--pages/cart/cart.wxml-->
-<view class='container theme-bg-color'>
+<view class='container theme-bg-color {{is_mobile ||pickBox?"prevent__penetrate":""}}' >
 
   <!-- 购物车缺省页 -->
   <view class='shopCartNon' wx:if="{{shoppingCart.items.length==0}}">

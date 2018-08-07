@@ -1,6 +1,6 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../shareTemplate/shareTemplate.wxml" />
-<view class='container'>
+<view class='container {{coupon_show?"prevent__penetrate":""}}'>
   <!-- 背景图片 -->
   <view class='index-bg'>
     <image src='{{ shopInfo.bgcover }}'></image>
@@ -216,7 +216,7 @@
     </view>
     <view class='production'>
       <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' wx:for="{{myProduct.products}}" wx:key='{{index}}'>
-        <fx-product product='{{item}}' like_number='{{true}}' bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product product='{{item}}' photoSize="{{(index+1)%5==0?'50':'30'}}" like_number='{{true}}' bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>
@@ -241,18 +241,24 @@
     </view>
     <view class='production new-goods_box'>
       <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct.products}}' wx:key='{{index}}'>
-        <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product photoSize="{{(index+1)%5==0?'50':'30'}}" product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>
 
   <!-- 优惠券的模板 -->
-  <view class='coupon-template' catchtouchmove="hanlePreventScroll" wx:if="{{coupon_show}}" catchtap='coupon_show'>
-    <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
+  <view 
+    class='coupon-template'
+    wx:if="{{coupon_show}}" 
+    catchtap='coupon_show'>
+    <template 
+    is="couponTemplate"
+    data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
+    <view class='prevent__penetrate' ></view>
   </view>
 
   <!-- 分享模板 -->
-  <view class='share-Tempate' catchtouchmove="hanlePreventScroll" catchtap='handleOffBox' wx:if="{{is_share}}">
+  <view class='share-Tempate' catchtap='handleOffBox' wx:if="{{is_share}}">
     <template is="share" />
     <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
   </view>

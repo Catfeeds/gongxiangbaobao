@@ -99,7 +99,7 @@ Component({
             logisticsPrice: this.data.logisticsPrice
           })
         }
-        this.handleOffPick()
+        // this.handleOffPick()
       },2000)
     },
 
@@ -175,7 +175,7 @@ Component({
       console.log(e)
     },
 
-    //查看商品件数
+    //关闭选择的盒子
     handleOffPick(e) {
       this.triggerEvent('handlePickOff')
     },

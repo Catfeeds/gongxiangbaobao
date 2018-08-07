@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    order:[],
     // 添加到购物车的产品
     shoppingCart: [
       {
@@ -47,9 +48,10 @@ Page({
   },
 
   // 查看订单
-  examineOrder() {
+  examineOrder(e) {
+    let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '../orderInfo/orderInfo'
+      url: '../orderInfo/orderInfo?rid='+rid
     })
   },
 
@@ -57,7 +59,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.setData({
+      order: app.globalData.paymentSuccessOrder
+    })
   },
 
   /**
