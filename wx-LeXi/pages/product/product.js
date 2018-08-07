@@ -366,6 +366,13 @@ Page({
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
         this.getCouponAndFullSubtraction()
+        let topPage = getCurrentPages()
+        let topPagePath = topPage[topPage.length - 2]
+
+        topPagePath.getCouponsByUser()
+        setTimeout(()=>{
+          this.getCouponAndFullSubtraction()
+        },200)
       } else {
         utils.fxShowToast(result.status.message)
       }

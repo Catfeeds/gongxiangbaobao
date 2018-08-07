@@ -1,6 +1,6 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../shareTemplate/shareTemplate.wxml" />
-<view class='container {{coupon_show?"prevent__penetrate":""}}'>
+<view class='container {{coupon_show?"prevent__penetrate":""}} index-page'>
   <!-- 背景图片 -->
   <view class='index-bg'>
     <image src='{{ shopInfo.bgcover }}'></image>
@@ -251,10 +251,11 @@
     class='coupon-template'
     wx:if="{{coupon_show}}" 
     catchtap='coupon_show'>
+    
     <template 
     is="couponTemplate"
     data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
-    <view class='prevent__penetrate' ></view>
+    <!-- <view class='prevent__penetrate' ></view> -->
   </view>
 
   <!-- 分享模板 -->

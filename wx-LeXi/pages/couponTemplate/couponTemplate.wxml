@@ -1,63 +1,50 @@
 <!--pages/couponTemplate/couponTemplate.wxml  领取优惠券的模板-->
 
-<template
-  name="couponTemplate"
-  class="over">
-  <scroll-view 
-    scroll-y 
-    class='ct-subtract' 
-    catchtap='{{ false }}'>
-    <view class='coupon-shim'></view>
-    <view class='ct-top hui-zi' wx:if="{{fullSubtractionList.length!=0}}">
-      <view class='ct-jian'>
-        <image src='../../images/reduced-price@2.png'></image>
+  <template name="couponTemplate" class="over">
+    <scroll-view scroll-y class='ct-subtract'>
+      <view class='coupon-shim'></view>
+      <view class='ct-top hui-zi' wx:if="{{fullSubtractionList.length!=0}}">
+        <view class='ct-jian'>
+          <image src='../../images/reduced-price@2.png'></image>
+        </view>
+        <text wx:for='{{fullSubtractionList}}' wx:key="{{index}}">{{item.type_text}}</text>
       </view>
-      <text wx:for='{{fullSubtractionList}}' wx:key="{{index}}">{{item.type_text}}</text>
-    </view>
-    <!-- 优惠券图案 -->
-    <view class='ct-bottom'>
-      <view class='black-font'>设计馆优惠红包</view>
-      <!-- 优惠券 -->
-      <view 
-        class='ct-coupon time-top' 
-        wx:key='{{index}}' 
-        wx:for='{{couponList}}'>
-        <view class='ct-line ct-line-l'></view>
-        <view class='ct-line ct-line-r'></view>
-        <view class='ct-round ct-round-top'></view>
-        <view class='ct-round ct-round-bom'></view>
-        <view class='ct-item-l time-top'>
-          <view class='ct-price '>
-            <view class='ct-price-icon ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>￥</view>
-            <view class='ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>{{item.amount}}</view>
+      <!-- 优惠券图案 -->
+      <view class='ct-bottom'>
+        <view class='black-font'>设计馆优惠红包</view>
+        <!-- 优惠券 -->
+        <view class='ct-coupon time-top' wx:key='{{index}}' wx:for='{{couponList}}'>
+          <view class='ct-line ct-line-l'></view>
+          <view class='ct-line ct-line-r'></view>
+          <view class='ct-round ct-round-top'></view>
+          <view class='ct-round ct-round-bom'></view>
+          <view class='ct-item-l time-top'>
+            <view class='ct-price '>
+              <view class='ct-price-icon ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>￥</view>
+              <view class='ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>{{item.amount}}</view>
+            </view>
+            <view class='ce-price-r '>
+              <view class='ct-price-icon ce-green {{item.status==1?"lose-efficacy_price--color":""}}'>满{{item.min_amount}}使用</view>
+              <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期: {{item.user_coupon_start}} 至 {{item.user_coupon_start}}</view>
+            </view>
           </view>
-          <view class='ce-price-r '>
-            <view class='ct-price-icon ce-green {{item.status==1?"lose-efficacy_price--color":""}}'>满{{item.min_amount}}使用</view>
-            <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期2017.08.31至2017.08.31</view>
+          <view class='ct-item-r item.status==1?"lose-efficacy_bg--color' wx:if="{{item.status==1}}">
+            <view>已领取</view>
+          </view>
+          <view class='ct-item-r' wx:else data-rid='{{item.code}}' catchtap='getReceiveCoupon'>
+            <view>
+              <view>分享</view>
+              <view>领取</view>
+            </view>
+            <!--后期用 <button open-type="share" data-from='3'> -->
+            <!-- </button> -->
           </view>
         </view>
-        <view 
-          class='ct-item-r item.status==1?"lose-efficacy_bg--color' 
-          wx:if="{{item.status==1}}">
-          <view >已领取</view>
-        </view>
-        <view 
-          class='ct-item-r' 
-          wx:else data-rid='{{item.code}}' 
-          catchtap='getReceiveCoupon'>
-          <view >
-            <view>分享</view>
-            <view>领取</view>
-          </view>
-          <!--后期用 <button open-type="share" data-from='3'> -->
-          <!-- </button> -->
-        </view>
+        <view class='shm'></view>
       </view>
-      <view class='shm'></view>
+    </scroll-view>
+    <!-- 完成按钮 -->
+    <view class='wx-btn-box'>
+      <button catchtap='handleOffCouponTap'>完成</button>
     </view>
-  </scroll-view>
-  <!-- 完成按钮 -->
-  <view class='wx-btn-box'>
-    <button catchtap='handleOffCouponTap'>完成</button>
-  </view>
-</template>
+  </template>

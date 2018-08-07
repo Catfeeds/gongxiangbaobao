@@ -168,7 +168,7 @@
   left: 50%;
   top: 130rpx;
   transform: translateX(-50%);
-  z-index: 1000;
+  z-index: 900;
 }
 
 .joinNumber {
@@ -361,7 +361,7 @@
   position: absolute;
   height: 17rpx;
   width: 38rpx;
-  top: -24rpx;
+  top: -18rpx;
   left: 20rpx;
 }
 

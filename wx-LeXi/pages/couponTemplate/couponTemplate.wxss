@@ -302,6 +302,3 @@
 }
 
 /*  */
-.over{
-  overflow: hidden;
-}

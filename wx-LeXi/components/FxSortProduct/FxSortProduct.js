@@ -43,6 +43,7 @@ Component({
       this.triggerEvent('handlePickOver', {
         rid: e.currentTarget.dataset.rid
       })
+      this.handleSortOff()
     },
     // 关闭盒子
     handleSortOff(){

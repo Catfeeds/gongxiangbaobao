@@ -4,7 +4,8 @@
     <!-- 头像 -->
     <view class='user-photo'>
       <view class='photo'>
-        <image src='{{ userInfo.profile.avatar }}'></image>
+        <image src='{{ userInfo.profile.avatar }}' wx:if='{{ userInfo.profile.avatar != null }}'></image>
+        <open-data wx:else type="userAvatarUrl"></open-data>
       </view>
       <view 
         wx:for="{{ classList }}" 
@@ -22,7 +23,7 @@
         <text wx:if='{{ userInfo.profile.username != null }}'>{{ userInfo.profile.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
-      <view class='is-login' wx:if='{{ !userInfo.profile.mobile }}'>
+      <view class='is-login font-ss' wx:if='{{ !is_mobile }}'>
         <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号</button>
       </view>
     </view>
@@ -83,7 +84,7 @@
     <!-- 下面的产品列表 -->
     <view class='goodsList'>
       <view wx:for="{{likeProduct.products}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}"bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>
@@ -160,7 +161,7 @@
 </view>
 
   <!-- //登陆注册 -->
-  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+  <view wx:if="{{!is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
 

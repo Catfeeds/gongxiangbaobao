@@ -23,6 +23,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    
     isDisabled: false, // 是否禁用
     lineLeft: 0, //线距离左边的距离
     lineWhite: 520, // 线的长度
@@ -66,22 +67,27 @@ Component({
   ready() {
     let current = getCurrentPages()
     if (current[0].route == "pages/index/index") {
+      let pickCategory = this.properties.category
+      pickCategory.forEach((v)=>{
+        v[2] = 0
+      })
       this.setData({
         currentPages: current[0].route,
-        categoryList: this.properties.category
+        categoryList: pickCategory
       })
+      console.log(this.data.categoryList)
     }
   },
   /**
    * 组件的方法列表
    */
   methods: {
-
     // 倒计时的函数
     handleSettimeout(){
       clearTimeout(setTimeoutFn)
       
       setTimeoutFn = setTimeout((result)=>{
+
         console.log(this.data.categoryId)
         if (this.data.currentPages== "pages/index/index"){
           console.log(this.data.categoryId,this.data.minPrice,this.data.maxPrice)
@@ -99,63 +105,62 @@ Component({
             logisticsPrice: this.data.logisticsPrice
           })
         }
-        // this.handleOffPick()
       },2000)
     },
 
-    // 是否包邮
+    // 是否包邮 推荐
     handleLogistics() {
-      this.setData({
-        logisticsPrice: 1
-      })
+      if (this.data.logisticsPrice == 1){
+        this.setData({
+          logisticsPrice: 0
+        })
+      }else{
+        this.setData({
+          logisticsPrice: 1
+        })
+      }
+
       this.triggerEvent('logisticsPrice', {
         logisticsPrice: this.data.logisticsPrice
       })
+
     },
     // 选择分类 
     hanlePickCategory(e) {
+      console.log(e)
       console.log(e.currentTarget.dataset.rid)
       let rid = e.currentTarget.dataset.rid
       let categoryIds = this.data.categoryId
-      let index = categoryIds.indexOf(rid)
+      let index = e.currentTarget.dataset.index
 
-      console.log(index)
-      if (index == -1) {
-        categoryIds.push(rid)
-        this.setData({
-          categoryId: categoryIds
-        })
-        console.log(this.data.categoryId)
+      let ridArray = this.data.categoryId
 
-      } else {
-        let newArr = categoryIds.filter((v, i) => {
-          return index == v
-        })
-        console.log(newArr)
-        this.setData({
-          categoryId: newArr
-        })
-        console.log(this.data.categoryId)
+      if (ridArray.indexOf(rid)==-1){
+        ridArray.push(rid)
+      }else{
+        ridArray.splice(index, 1)
       }
 
-      let item = this.data.categoryList
-      console.log(item)
-      item.forEach((v, i) => {
-        if (this.data.categoryId.indexOf(v[0]) > -1) {
-          v[2] = 1
-        } else {
-          v[2] = 0
-        }
-        if (item.length - 1 == i) {
-          console.log(item)
-          this.setData({
-            categoryList: item
-          })
-
-        }
+      this.setData({
+        categoryId: ridArray
       })
+      console.log(ridArray)
+
+      // 改变颜色
+      if (this.data.categoryList[index][2] == 1){
+        this.setData({
+          ['categoryList['+index+'][2]']:0
+        })
+      }else{
+        this.setData({
+          ['categoryList[' + index + '][2]']: 1
+        })
+      }
+
+      console.log(index)
 
       this.triggerEvent('handlePickProduct', {
+        page:1,
         category: this.data.categoryId,
         minPrice: this.data.minPrice, //最小价格 
         maxPrice: this.data.maxPrice, // 最大的价格
