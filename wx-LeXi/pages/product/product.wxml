@@ -2,7 +2,7 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../../wxParse/wxParse.wxml" />
 
-<view class='container theme-bg-color product-bout-box'>
+<view class='container theme-bg-color product-bout-box {{coupon_show || pick?"prevent__penetrate":""}}'>
 
   <!-- 轮播图 123-->
   <view class='swiperBox'>
@@ -80,7 +80,7 @@
       </view>
     </view>
 
-    <view class='branderInfo goods-size margin-bottom--18rpx' catchtap='pickShowTap'>
+    <view class='branderInfo goods-size margin-bottom--18rpx' catchtap='handlePickShow'>
       <text class='textInfo'>请选择规格和尺码</text>
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
@@ -171,7 +171,7 @@
     </view>
     <view class='shop-other-goods'>
       <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
-        <image src='{{ item.cover }}'></image>
+        <image src='{{ item.cover }}-p16'></image>
       </view>
     </view>
   </view>
@@ -298,7 +298,7 @@
         <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
         <view class='goodstext flex_row margin-bottom--12rpx'>
           <view class='dian'></view>
-          <text>30天退换货服务</text>
+          <text>{{productInfomation.return_policy_title}}</text>
         </view>
         <view class='goodstext'>
           {{productInfomation.product_return_policy}}

@@ -83,7 +83,7 @@
     <!-- 下面的产品列表 -->
     <view class='goodsList'>
       <view wx:for="{{likeProduct.products}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}"bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
   </view>

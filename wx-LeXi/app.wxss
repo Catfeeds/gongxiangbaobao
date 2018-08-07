@@ -425,6 +425,17 @@ image {
   max-width: 100%;
 }
 
+/* 蒙层滚动穿透问题 */
+.prevent__penetrate{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+
 /* 背景 */
 
 .bg-white {

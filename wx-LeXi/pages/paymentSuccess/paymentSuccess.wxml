@@ -4,7 +4,7 @@
   <view class='successBG'>
     <icon type='success' color="white" size="60"></icon>
     <view class='paymentText'>支付成功</view>
-    <view class='examineOrder' catchtap='examineOrder'>查看我的订单</view>
+    <view class='examineOrder' data-rid='{{order.orders[0].rid}}' catchtap='examineOrder'>查看我的订单</view>
   </view>
 
   <!-- 支付信息 -->
@@ -12,7 +12,7 @@
     <!-- 接收地址 -->
     <view class='receiveAddress componentTwo'>
       <view class='receiveAddressL'>寄送地</view>
-      <view class='receiveAddressR'>何自然，北京市昌平区，天通苑丽水园4号楼 2单园501，100220</view>
+      <view class='receiveAddressR'>{{order.orders[0].buyer_name}}，{{order.orders[0].buyer_province}}{{order.buyer_city}}，{{order.orders[0].buyer_address}}，{{order.orders[0].buyer_zipcode}}</view>
     </view>
 
     <!-- 支付方式 -->
@@ -32,15 +32,15 @@
       <view>
         <view>
           <text class='hui-zi'>小计 : </text>
-          <text>￥230</text>
+          <text>￥{{order.actual_payment - order.orders[0].freight}}</text>
         </view>
         <view>
           <text class='hui-zi'>配送 : </text>
-          <text class='price_logistics--color'>包邮</text>
+          <text class='price_logistics--color'>{{order.orders[0].freight==0?"包邮":order.orders.freight}}</text>
         </view>
         <view>
           <text class='black-font'>订单总计 </text>
-          <text class='price_logistics--colorR'>￥2534</text>
+          <text class='price_logistics--colorR'>￥{{order.actual_payment}}</text>
         </view>
       </view>
 
@@ -50,23 +50,23 @@
 
   <!-- 购买产品的信息，订单信息 -->
   <view class='shopGoodsInfo'>
-    <view class='componentTwo'>Skfoogall</view>
+    <view class='componentTwo'>{{order.orders[0].store.store_name}}</view>
 
-    <view class='goodsInfoBox ' wx:for="{{shoppingCart}}" wx:key='index'>
+    <view class='goodsInfoBox ' wx:for="{{order.orders[0].items}}" wx:key='index'>
       <view class='goodsInfoBoxL'>
         <fx-product-middle  product="{{item}}" color="true"></fx-product-middle>
       </view>
-      <view class='hui-zi number'>x 2</view>
+      <view class='hui-zi number'>x {{item.quantity}}</view>
       <view class='price_old_new'>
-        <view>￥88</view>
-        <view class='hui-zi middle-line'>￥333</view>
+        <view>￥{{item.sale_price==0?item.price:item.sale_price}}</view>
+        <view class='hui-zi middle-line' wx:if="{{item.sale_price!=0}}" >￥{{item.price}}</view>
       </view>
 
     </view>
 
     <view class='goodsFn'>
       <view>配送</view>
-      <view>￥90</view>
+      <view>￥{{order.orders[0].freight}}</view>
     </view>
 
   </view>

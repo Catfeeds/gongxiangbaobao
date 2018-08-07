@@ -70,7 +70,7 @@
         wx:for="{{categoryList}}" 
         wx:key="{{index}}" 
         catchtap='hanlePickCategory'
-        class='{{ item[2] == 1?"pick-bg":"" }}'
+        class='font-s {{ item[2] == 1?"pick-bg":"" }}'
         data-rid="{{item[0]}}">{{item[1]}}</view>
     </view>
   </view>

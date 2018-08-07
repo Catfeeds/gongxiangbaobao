@@ -580,7 +580,7 @@ Page({
           app.globalData.fullSubtractionList.coupons = full
           app.globalData.couponList.coupons = coupon
         }
-
+        console.log(full,'满减')
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -749,6 +749,15 @@ Page({
     })
   },
 
+  // 页面的卷曲
+  onPageScroll(e){
+    // console.log(e.scrollTop)
+    this.setData({
+      pageScrol:e.scrollTop
+    })
+
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -892,10 +901,13 @@ Page({
   },
   //关闭筛选的盒子
   handelOffPick() {
+    
     let params = this.data.handelOffPick
     if (params) {
+      wx.showTabBar()
       params = false
     } else {
+      wx.hideTabBar()
       params = true
     }
     this.setData({
@@ -910,6 +922,6 @@ Page({
   },
   // 阻止滑动穿透
   hanlePreventScroll(){
-    return
+    
   }
 })
