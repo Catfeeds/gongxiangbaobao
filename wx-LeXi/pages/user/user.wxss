@@ -121,6 +121,7 @@ button-hover {
   justify-content: space-between;
   flex-wrap: wrap;
   background-color: white;
+  border-bottom:40rpx solid #f7f9fb;
 }
 
 .goods-item {

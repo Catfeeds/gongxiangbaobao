@@ -1,4 +1,5 @@
 // components/FxPickProduct/FxPickProduct.js
+let setTimeoutFn
 Component({
   /**
    * 组件的属性列表
@@ -51,11 +52,6 @@ Component({
   created() {
     wx.getSystemInfo({
       success: (res) => {
-        console.log(res.windowWidth, "屏幕的宽度")
-
-
-
-        // console.log(sumLeftDistance)
         this.setData({
           windowWidth: res.windowWidth,
 
@@ -71,6 +67,7 @@ Component({
     let current = getCurrentPages()
     if (current[0].route == "pages/index/index") {
       this.setData({
+        currentPages: current[0].route,
         categoryList: this.properties.category
       })
     }
@@ -79,6 +76,33 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
+    // 倒计时的函数
+    handleSettimeout(){
+      clearTimeout(setTimeoutFn)
+      
+      setTimeoutFn = setTimeout((result)=>{
+        console.log(this.data.categoryId)
+        if (this.data.currentPages== "pages/index/index"){
+          console.log(this.data.categoryId,this.data.minPrice,this.data.maxPrice)
+          this.triggerEvent('handlePickProduct', {
+            minPrice: this.data.minPrice, //最小价格 
+            maxPrice: this.data.maxPrice, // 最大的价格
+          })
+          
+        }else{
+          console.log(this.data.minPrice)
+          console.log(this.data.maxPrice)
+          this.triggerEvent('logisticsPrice', {
+            minPrice: this.data.minPrice, //最小价格 
+            maxPrice: this.data.maxPrice, // 最大的价格
+            logisticsPrice: this.data.logisticsPrice
+          })
+        }
+        this.handleOffPick()
+      },2000)
+    },
+
     // 是否包邮
     handleLogistics() {
       this.setData({
@@ -150,6 +174,7 @@ Component({
     handleSlider3change(e) {
       console.log(e)
     },
+
     //查看商品件数
     handleOffPick(e) {
       this.triggerEvent('handlePickOff')
@@ -212,6 +237,9 @@ Component({
       this.setData({
         minPrice: price
       })
+
+      //获取数据
+      this.handleSettimeout() 
     },
 
     //右面滑块
@@ -260,6 +288,9 @@ Component({
       this.setData({
         maxPrice: price
       })
+
+      //获取数据
+      this.handleSettimeout() 
     }
   }
 

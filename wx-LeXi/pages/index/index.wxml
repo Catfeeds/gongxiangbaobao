@@ -247,7 +247,7 @@
   </view>
 
   <!-- 优惠券的模板 -->
-  <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='coupon_show'>
+  <view class='coupon-template' catchtouchmove="hanlePreventScroll" wx:if="{{coupon_show}}" catchtap='coupon_show'>
     <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
   </view>
 
