@@ -139,7 +139,7 @@
       </swiper>
       <!-- 轮播点 -->
       <view class='swiper__round'>
-        <view wx:for="{{advertisement.banner_images}}" class='swiper__round--pick {{roundActive==index?"swiper__round--active":""}}'></view>
+        <view wx:for="{{advertisement.banner_images}}" wx:key="{{index}}" class='swiper__round--pick {{roundActive==index?"swiper__round--active":""}}'></view>
       </view>
     </view>
     <!-- 推荐好物 -->

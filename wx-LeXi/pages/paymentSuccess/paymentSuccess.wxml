@@ -32,7 +32,7 @@
       <view>
         <view>
           <text class='hui-zi'>小计 : </text>
-          <text>￥{{order.actual_payment - order.orders[0].freight}}</text>
+          <text>￥{{((order.actual_payment)*1000 - (order.orders[0].freight)*1000)/1000}}</text>
         </view>
         <view>
           <text class='hui-zi'>配送 : </text>

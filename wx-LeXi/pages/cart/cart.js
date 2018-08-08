@@ -107,6 +107,9 @@ Page({
 
     console.log(e.currentTarget.dataset.rid)
 
+    this.setData({
+      productInfomation:[]
+    })
     let select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
     this.getSkus(select)
@@ -620,8 +623,20 @@ Page({
           // 隐藏弹出层
           this.hideSkuModal()
 
+          // 获取购物车 ---
+          this.getCartProduct()
+
           // 更新数量
           this.updateCartTotalCount(result.data.item_count)
+
+          this.setData({
+            skus: {
+              modes: [],
+              colors: []
+            },
+            choosed:{},
+            productInfomation: [],
+          })
         }
       })
     }
@@ -655,6 +670,15 @@ Page({
           app.globalData.orderSkus = result
           // 设置当前商品的物流模板
           wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
+
+          this.setData({
+            skus: {
+              modes: [],
+              colors: []
+            },
+            choosed:{},
+            productInfomation: [],
+          })
           wx.navigateTo({
             url: './../receiveAddress/receiveAddress?from_ref=cart&&rid=' + this.data.choosed.rid,
           })
@@ -823,6 +847,12 @@ Page({
     wx.showTabBar()
 
     this.setData({
+      skus: {
+        modes: [],
+        colors: []
+      },
+      choosed: {},
+      productInfomation: [],
       pickBox: false
     })
   },
@@ -832,13 +862,20 @@ Page({
     wx.showTabBar()
 
     this.setData({
+      skus: {
+        modes: [],
+        colors: []
+      },
+      choosed:{},
+      productInfomation:[],
       pickBox: false
     })
   },
 
   // 点击sku层，不触发隐藏
   handleSkuModal() {
-    return false
+    console.log(123)
+    return 
   },
 
   // 关闭

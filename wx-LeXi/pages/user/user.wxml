@@ -106,7 +106,7 @@
     <!-- 心愿单 -->
     <view class='c-importantGoods p-null'>
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
-        <text>心原单</text>
+        <text>心愿单</text>
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
