@@ -85,7 +85,7 @@
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
 
-    <view class='ordertext'>“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
+    <view class='ordertext' wx:if="{{productInfomation.made_cycle>0}}">“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
 
   </view>
 
@@ -119,7 +119,7 @@
         <text class='titlemini'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
-      <view class='goodstext margin-bottom--30rpx'>
+      <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
         <text class='titlemini'>数量：</text>
         <text>仅剩最后{{ productInfomation.stock_count }}件</text>
       </view>
@@ -273,7 +273,7 @@
           <text class='titlemini'>特点： </text>
           <text>可提供定制化服务</text>
         </view>
-        <view class='goodstext margin-bottom--30rpx'>
+        <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
           <text class='titlemini'>数量：</text>
           <text>仅剩最后{{ productInfomation.stock_count }}件</text>
         </view>
@@ -282,7 +282,7 @@
       <!-- 发货地点 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>发货地</view>
-        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}.{{storeInfo.delivery_city}}</view>
+        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.delivery_country}}·{{storeInfo.delivery_province}}·{{storeInfo.delivery_city}}</view>
       </view>
 
       <!-- 交货时间 -->

@@ -66,7 +66,7 @@ Page({
 
   // 订单总计
   orderLastPrice() {
-    var lastPrice = this.data.pageOrderInfo.firstPrice - this.data.pageOrderInfo.logisticsPrice - this.data.pageOrderInfo.firstOrderPrice - this.data.pageOrderInfo.fullSubtraction - this.data.pageOrderInfo.couponPrice + this.data.pageOrderInfo.logisticsPrice
+    var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 - this.data.pageOrderInfo.logisticsPrice * 1000 - this.data.pageOrderInfo.firstOrderPrice * 1000 - this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000)/1000
 
     this.setData({
       ['pageOrderInfo.alstPrice']: lastPrice
