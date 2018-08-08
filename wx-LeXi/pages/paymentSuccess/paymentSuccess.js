@@ -8,43 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order:[],
-    // 添加到购物车的产品
-    shoppingCart: [
-      {
-        id: 6,
-        title: "图像加载被中断被中断被中断被中断被中断被中断被中断",
-        currentPrice: 500,
-        originPrice: 999,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "白色",
-        repertoryNumber: 12,
-        size: "M",
-        time:"交货.2-3天送达"
-      },
-      {
-        id: 6,
-        title: "图像加载被中断",
-        currentPrice: 500,
-        originPrice: 999,
-        logisticsExpenses: 0,//运费信息：0为没有运费用，包邮，其他为运费的价格
-        is_like: true,//是否喜欢
-        is_likeNumber: 66,//喜欢的人数
-        shopName: "bbq_BBQ_123亲",//店铺名称
-        shopingNumber: 1,//购买的数量
-        img: "http://www.hzxznjs.com/uploads/160728/1-160HQ64603a7.jpg",
-        color: "白色",
-        repertoryNumber: 12,
-        size: "M",
-        time: "交货.2-3天送达"
-      },
-    ],
-  
+    order: [],// 订单
+    logisticsPriceSum:0
+
+
+    
   },
 
   // 查看订单
@@ -59,8 +27,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let order = app.globalData.paymentSuccessOrder
     this.setData({
-      order: app.globalData.paymentSuccessOrder
+      order: order
+    })
+    order.orders.forEach((v,i)=>{
+      this.setData({
+        logisticsPriceSum: this.data.logisticsPriceSum + v.freight
+      })
+
     })
   },
 

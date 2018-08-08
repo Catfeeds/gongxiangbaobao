@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    roundActive:0, // 广告的轮播点索引
     pickQuantity: 0, // 筛选后的数量
     handelOffPick: false,
     isSortShow: false, // 排序
@@ -127,6 +128,7 @@ Page({
     let maxPrice = e.detail.maxPrice
     this.setData({
       myProduct:[],
+      ['sortParams.page']: e.detail.page ? e.detail.page : this.data.page,
       ['sortParams.cids']: rids == undefined ? "" : rids.join(','),
       ['sortParams.min_price']: minPrice,
       ['sortParams.max_price']: maxPrice
@@ -139,6 +141,8 @@ Page({
     console.log(e.detail.rid)
     if (e.detail.rid != undefined) {
       this.setData({
+        myProduct: [],
+        ['sortParams.page']: 1,
         ['sortParams.sort_type']: e.detail.rid
       })
     }
@@ -194,6 +198,7 @@ Page({
 
   // 领取优惠券
   getReceiveCoupon(e) {
+    console.log(e)
     // 是否登陆
     if (!app.globalData.isLogin) {
       this.setData({
@@ -531,10 +536,16 @@ Page({
       ['couponParams.type']: type
     })
     // 优惠券
-    http.fxGet(api.coupons, this.data.couponParams, (result) => {
+    http.fxGet(api.user_login_coupon, this.data.couponParams, (result) => {
       if (result.success) {
         if (type != 3) {
           console.log(result, '登陆的优惠券')
+          let parms = result.data
+          parms.coupons.forEach((v,i)=>{
+            v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+            v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+          })
+
           this.setData({
             couponList: result.data
           })
@@ -709,13 +720,15 @@ Page({
 
         break;
       case 2:
-        this.setData({
-          ['sortParams.page']: this.data.sortParams.page+1
-        })
         if (!this.data.myProduct.next) {
           utils.fxShowToast("没有更多产品了")
           return
         }
+        
+        this.setData({
+          ['sortParams.page']: this.data.sortParams.page+1
+        })
+
         this.getPick() //获取作品
         break;
       default:
@@ -878,7 +891,7 @@ Page({
   hanleOffLoginBox(e) {
     console.log(e)
     this.setData({
-      is_mobile: e.detail.offBox
+      is_mobile: false
     })
   },
   // 排序的盒子
@@ -922,6 +935,15 @@ Page({
   },
   // 阻止滑动穿透
   hanlePreventScroll(){
-    
+    return
+  },
+
+  // 轮播图的小点 选中的点
+  handleRoundActive(e){
+    // console.log(e.detail.current)
+    this.setData({
+      roundActive: e.detail.current
+    })
   }
+  
 })

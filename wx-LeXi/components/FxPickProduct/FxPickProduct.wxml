@@ -5,11 +5,11 @@
       <view catchtap='handleOffPick'>x</view>
     </view>
     <view class='pick-title__middle'>筛选</view>
-    <view class='pick-title__set' catchtap='newSeting'>重置</view>
+    <view class='pick-title__set again__setting' catchtap='newSeting'>重置</view>
   </view>
 
   <view class='slider'>
-    <view class='price-pick'>价格区间</view>
+    <view class='price-pick margin--bottom'>价格区间</view>
     <view class='movable-view'>
       <!-- 中间 灰线 -->
         <view class='middle-line hui__xian'></view>
@@ -62,11 +62,12 @@
   </view>
   
   <!-- 首页的分类 -->
-  <view class='slider' wx:if="{{!recommend}}">
-    <view class='price-pick'>分类
+  <view class='slider padding-bottom--134rpx' wx:if="{{!recommend}}">
+    <view class='price-pick margin-bottom--34rpx'>分类
       <text class='pick-product__text'>可多选</text> </view>
     <view class='direction--row font-s pick-product__category '>
       <view 
+        data-index="{{index}}"
         wx:for="{{categoryList}}" 
         wx:key="{{index}}" 
         catchtap='hanlePickCategory'

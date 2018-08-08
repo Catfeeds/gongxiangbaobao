@@ -36,7 +36,7 @@
         </view>
         <view>
           <text class='hui-zi'>配送 : </text>
-          <text class='price_logistics--color'>{{order.orders[0].freight==0?"包邮":order.orders.freight}}</text>
+          <text class='price_logistics--color'>{{logisticsPriceSum==0?"包邮":order.orders.freight}}</text>
         </view>
         <view>
           <text class='black-font'>订单总计 </text>
@@ -45,29 +45,30 @@
       </view>
 
     </view>
-
   </view>
 
   <!-- 购买产品的信息，订单信息 -->
-  <view class='shopGoodsInfo'>
-    <view class='componentTwo'>{{order.orders[0].store.store_name}}</view>
+  <view class='shopGoodsInfo' wx:for="{{order.orders}}" wx:for-item="items" wx:key="{{index}}">
+    <view class='componentTwo'>{{items.store.store_name}}</view>
 
-    <view class='goodsInfoBox ' wx:for="{{order.orders[0].items}}" wx:key='index'>
-      <view class='goodsInfoBoxL'>
-        <fx-product-middle  product="{{item}}" color="true"></fx-product-middle>
-      </view>
-      <view class='hui-zi number'>x {{item.quantity}}</view>
-      <view class='price_old_new'>
-        <view>￥{{item.sale_price==0?item.price:item.sale_price}}</view>
-        <view class='hui-zi middle-line' wx:if="{{item.sale_price!=0}}" >￥{{item.price}}</view>
+    <view class='fx-column-b' wx:for="{{items.items}}" wx:key='index' wx:for-item="item">
+      <view  class='goodsInfoBox'>
+        <view class='goodsInfoBoxL'>
+          <fx-product-middle product="{{item}}" color="true"></fx-product-middle>
+        </view>
+        <view class='hui-zi number'>x {{item.quantity}}</view>
+        <view class='price_old_new'>
+          <view>￥{{item.sale_price==0?item.price:item.sale_price}}</view>
+          <view class='hui-zi middle-line' wx:if="{{item.sale_price!=0}}">￥{{item.price}}</view>
+        </view>
       </view>
 
+      <view class='goodsFn'>
+        <view>配送</view>
+        <view>￥{{item.freight}}</view>
+      </view>
     </view>
 
-    <view class='goodsFn'>
-      <view>配送</view>
-      <view>￥{{order.orders[0].freight}}</view>
-    </view>
 
   </view>
 

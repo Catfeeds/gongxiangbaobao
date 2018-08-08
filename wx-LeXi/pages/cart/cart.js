@@ -844,7 +844,7 @@ Page({
   // 关闭
   hanleOffLoginBox(e) {
     this.setData({
-      is_mobile: e.detail.offBox
+      is_mobile: false
     })
   }
 

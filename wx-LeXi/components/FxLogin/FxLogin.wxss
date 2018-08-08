@@ -8,7 +8,7 @@
 }
 
 .binding-info {
-  height: 536rpx;
+  height: 426rpx;
   width: 690rpx;
   padding: 40rpx 30rpx;
   position: absolute;
@@ -18,7 +18,7 @@
 .binding-title {
   font-size: 40rpx;
   font-weight: 500;
-  margin-bottom: 86rpx;
+  margin-bottom: 46rpx;
 }
 
 .mobile-number {
@@ -74,7 +74,7 @@
   border: 1rpx solid #b2b2b2;
   border-radius: 30rpx;
   color: #999;
-  margin-bottom: 10rpx;
+  margin-bottom: 0rpx;
 }
 
 .border-green {
@@ -109,6 +109,7 @@
   font-size: 34rpx;
   color: #b2b2b2;
   padding-left: 20rpx;
+  font-weight: 300;
 }
 
 .button-style {
@@ -122,6 +123,7 @@
 
 .input-number input {
   padding: 20rpx;
+  padding-bottom: 10rpx;
   font-size: 34rpx;
 }
 
@@ -158,7 +160,7 @@
   margin-right: 10rpx;
   text-align: center;
   line-height: 36rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 0rpx;
 }
 
 .bg-green {
@@ -240,3 +242,4 @@
 .shim{
   height: 100rpx; 
 }
+

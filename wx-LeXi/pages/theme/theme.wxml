@@ -1,7 +1,7 @@
 <!--pages/theme/theme.wxml-->
 <view class='container'>
   <view class='theme-top_box'>
-    <image src='{{product.cover}}'></image>
+    <image src='{{product.cover}}-p50'></image>
   </view>
   <view class='bg-white fx-column-b theme-top_text'>
     <view class='theme-top_text--width'>{{product.name}}</view>
@@ -14,7 +14,8 @@
       wx:key="{{index}}" 
       class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
       <fx-product product="{{item}}"
-      bind:triggerEvent_product='handleInfomation'></fx-product>
+       photoSize ='{{(index+1)%5==0?"50":"30"}}'
+        bind:triggerEvent_product='handleInfomation'></fx-product>
     </view>
   </view>
 </view>

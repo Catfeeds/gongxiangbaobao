@@ -74,6 +74,7 @@ module.exports = {
   orders_delete: 'orders/delete', // 删除订单---
 
   // Market
+  user_login_coupon:'market/user_master_coupons',//用户登陆时候的优惠券
   coupons: 'market/coupons', // get 优惠券列表---
   noCouponsList: 'market/not_login_coupons', // get 优惠券列表---
   coupon_detail: 'market/coupons/:rid', // GET 单个优惠券

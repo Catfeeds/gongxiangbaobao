@@ -18,8 +18,7 @@
 }
 
 .pick-product__title {
-  height: 80rpx;
-  padding: 0 40rpx;
+  padding: 18rpx 30rpx;
   justify-content: space-between;
   background-color: #fdfdfd;
 }
@@ -38,7 +37,7 @@
 
 .slider {
   height: 200rpx;
-  padding: 30rpx;
+  padding:8rpx 30rpx 30rpx 30rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -112,17 +111,20 @@
 }
 .pick-bg{
   border: 2rpx solid #5fe4b1;
-  background-color:rgba(0, 255, 191,.9)
+  background-color:rgba(0, 255, 191,.9);
+  box-sizing: border-box;
 }
 
 .bottom-btn{
   position: absolute;
-  bottom: 0;
+  bottom: 40rpx;
   width: 100%;
   height: 100rpx;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 100rpx;
+
 }
 .bottom-btn>view{
   width: 690rpx;
@@ -138,4 +140,21 @@
 }
 .zindex{
   z-index: 2;
+}
+
+.margin--bottom{
+  margin-bottom: 38rpx;
+}
+.margin-bottom--34rpx{
+  margin-bottom: 30rpx;
+}
+.margin-bottom--220rpx{
+  margin-bottom: 220rpx;
+}
+.padding-bottom--134rpx{
+  padding-bottom: 126rpx;
+}
+
+.again__setting{
+  visibility: hidden;
 }
