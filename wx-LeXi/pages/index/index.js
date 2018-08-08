@@ -719,13 +719,15 @@ Page({
 
         break;
       case 2:
-        this.setData({
-          ['sortParams.page']: this.data.sortParams.page+1
-        })
         if (!this.data.myProduct.next) {
           utils.fxShowToast("没有更多产品了")
           return
         }
+        
+        this.setData({
+          ['sortParams.page']: this.data.sortParams.page+1
+        })
+
         this.getPick() //获取作品
         break;
       default:

@@ -554,6 +554,7 @@
 .suspend-share_box image {
   height: 26rpx;
   width: 30rpx;
+  background-color: #5fe4b1;
 }
 
 .suspend-share button {

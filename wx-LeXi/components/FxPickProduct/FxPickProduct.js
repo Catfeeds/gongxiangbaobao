@@ -92,6 +92,7 @@ Component({
         if (this.data.currentPages== "pages/index/index"){
           console.log(this.data.categoryId,this.data.minPrice,this.data.maxPrice)
           this.triggerEvent('handlePickProduct', {
+            page: 1,
             minPrice: this.data.minPrice, //最小价格 
             maxPrice: this.data.maxPrice, // 最大的价格
           })
@@ -100,6 +101,7 @@ Component({
           console.log(this.data.minPrice)
           console.log(this.data.maxPrice)
           this.triggerEvent('logisticsPrice', {
+            page: 1,
             minPrice: this.data.minPrice, //最小价格 
             maxPrice: this.data.maxPrice, // 最大的价格
             logisticsPrice: this.data.logisticsPrice
