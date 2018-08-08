@@ -82,12 +82,13 @@ module.exports = {
   available_coupons: 'market/coupons/available', // POST 用户可用优惠券
   coupon_grant: 'market/coupons/grant', // POST 领取优惠券---
   red_bag: 'market/bonus', //GET红包列表---
+  authority_coupon:'market/user_official', //官方的优惠券
   order_info_page_coupon: 'market/user_order_coupons', //订单页面优惠券
   full_reduction: 'market/user_order_full_reduction', //满减
   first_order_reduction: 'market/coupons/new_user_discount', //满减
   noLoginFullSubtraction: 'market/coupons', //没有登陆下的满减
 
-  // Search
+  // Search  
   search: 'search/products', // POST 搜索商品
   search_history: 'search/history', // GET 搜索历史关键词
 

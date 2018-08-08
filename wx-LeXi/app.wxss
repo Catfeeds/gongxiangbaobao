@@ -245,6 +245,13 @@
   align-items: center;
 }
 
+.column-row--middle{
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 内边距相关布局s */
 
 .PL {

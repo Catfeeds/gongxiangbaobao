@@ -458,3 +458,15 @@ page {
 .pick_btn>view {
   width: 335rpx !important;
 }
+.stock {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-left: 20rpx;
+  white-space: nowrap;
+  color: #f66;
+}
+.none-goods,
+.disabled {
+  border: 1rpx solid #b2b2b2;
+  color: #b2b2b2;
+}

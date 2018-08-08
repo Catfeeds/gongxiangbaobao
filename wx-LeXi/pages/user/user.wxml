@@ -67,11 +67,11 @@
     </view>
   </view>
   <!-- 以喜欢里面的内容 -->
-  <view wx:if="{{classInfo==1}}">
+  <view wx:if="{{classInfo==1}}" class='bottom__info'>
     <!-- 定位垫片 -->
     <view class='Fshim' wx:if="{{sotrF}}"></view>
     <!-- 筛选和排序 -->
-    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
       <view catchtap='handelOffPick' class='flex_row'>
         筛选
         <image src='../../images/arrowhead.png'></image>
@@ -82,17 +82,31 @@
        </view>
     </view>
     <!-- 下面的产品列表 -->
-    <view class='goodsList'>
+    <view class='goodsList' wx:if="{{likeProduct.products.length!=0}}">
       <view wx:for="{{likeProduct.products}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
         <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
+
+    <!-- 缺省图片 -->
+    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.products.length==0}}">
+      <view>
+        <image src='../../images/user-xin.png'></image>
+      </view>
+      <view class='black-font no-like__title'> <text>你还未喜欢过任何东西</text></view>
+      <view class='flex_row font-s qian-hui hui-xin'>
+        <view>点击商品和橱窗上的</view>
+        <image src='../../images/dLike@2.png'></image>
+        <view>即可添加到您的喜欢列表中</view>
+      </view>
+    </view>
+
   </view>
 
   <!-- 收藏里面的内容 -->
-  <view class='shou' wx:if="{{classInfo==2}}">
+  <view class='shou bottom__info' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
-    <view class='c-importantGoods p-null'>
+    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>最近查看</text>
         <text class=' hui-zi margin--15rpx' data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
@@ -104,9 +118,9 @@
       </view>
     </view>
     <!-- 心愿单 -->
-    <view class='c-importantGoods p-null'>
+    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
-        <text>心原单</text>
+        <text>心愿单</text>
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
@@ -115,12 +129,26 @@
       </view>
       <view class='shm'></view>
     </view>
+
+    <!-- 缺省图片 -->
+    <view 
+      class=' column-row--middle user-null__product' 
+      wx:if="{{desireOrderProduct.products.length==0 && userBrowsesProduct.length==0}}">
+      <view>
+        <image src='../../images/user-star.png'></image>
+      </view>
+      <view class='black-font no-like__title'> <text>你当前还没有浏览和添加心愿单商品</text></view>
+    </view>
   </view>
 
 <!-- 设计管里面 -->
-<view wx:if="{{classInfo==3}}" class='shou'>
+<view wx:if="{{classInfo==3}}" class='shou bottom__info'>
     <!-- 店铺其他产品信息 -->
-  <view class='shopInfo' wx:for="{{watchStoreList.stores}}" wx:key="{{index}}">
+  <view 
+    class='shopInfo' 
+    wx:if="{{watchStoreList.stores.length!=0}}"
+    wx:for="{{watchStoreList.stores}}" 
+    wx:key="{{index}}">
     <view class='shopInfoT'>
       <view class='userIcon' catchtap='handleGoIndex'>
         <image src='{{ item.logo }}'></image>
@@ -158,6 +186,14 @@
       </view>
     </view>
   </view>
+
+    <!-- 缺省图片 -->
+    <view class=' column-row--middle user-null__product' wx:if="{{watchStoreList.stores.length==0}}">
+      <view>
+        <image src='../../images/user-store.png'></image>
+      </view>
+      <view class='black-font no-like__title'> <text>你当前还未关注任何原创品牌设计馆</text></view>
+    </view>
 </view>
 
   <!-- //登陆注册 -->

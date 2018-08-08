@@ -586,11 +586,12 @@ Page({
         } else {
           this.setData({
             ['couponList.coupons']: coupon, // 优惠券列表---couponList
-            ['fullSubtractionList.coupons']: full, // 满减---
+            ['fullSubtractionList.coupons']: [], // 满减---
           })
           app.globalData.fullSubtractionList.coupons = full
           app.globalData.couponList.coupons = coupon
         }
+        console.log(full,'满减')
         console.log(full,'满减')
       } else {
         utils.fxShowToast(result.status.message)
@@ -747,6 +748,7 @@ Page({
    */
   onReady: function() {
     utils.handleHideLoading()
+    
   },
 
 

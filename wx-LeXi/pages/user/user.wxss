@@ -1,7 +1,13 @@
 /* pages/user/user.wxss */
 
 page {
+  height: 100%;
   background-color: #f7f9fb;
+}
+.container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .top-box {
@@ -314,3 +320,27 @@ button-hover {
 .c-importantGoodsBox {
   margin-top: 34rpx;
 }
+
+.user-null__product{
+  height: 100%;
+}
+
+.user-null__product image{
+  height: 120rpx;
+  width: 120rpx;
+
+}
+
+.bottom__info{
+  flex: 1;
+}
+
+.no-like__title{
+margin:35rpx 0 20rpx 0;
+}
+
+.hui-xin image{
+  width: 26rpx;
+  height: 24rpx;
+}
+
