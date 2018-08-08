@@ -53,27 +53,28 @@
     <view class='theme-hui-color h40px'>
       <text class='theme-color'>{{ shopInfo.browse_number }} 人</text>浏览过设计馆
     </view>
-
     <view class='joinNumberBottom'>
-
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
+
+          <view class='number-visits'>
+            
+            <image class='middle_shadou' src='../../images/shadow.png'></image>
+            
+            <view class='joinNumberR-box c-middle'>
+              <view class='joinNumberR'>
+                {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
+              </view>
+            </view>
+          </view>
+
           <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
             <image src='{{ item.avatar }}'></image>
           </view>
+          <open-data class='photo-round joinNumberlPhoto' type="userAvatarUrl"></open-data>
+
         </view>
       </view>
-
-      <view class='middle_shadou'>
-        <image src='../../images/shadow.png'></image>
-      </view>
-
-      <view class='joinNumberR-box c-middle'>
-        <view class='joinNumberR'>
-          {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
-        </view>
-      </view>
-
     </view>
   </view>
 
@@ -102,9 +103,7 @@
       <!-- 满减 -->
       <view class='reduced-price' wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
         <image src='../../images/reduced-price@2.png'></image>
-        <text 
-          wx:for="{{ fullSubtractionList.coupons }}" 
-          wx:key="{{ index }}">{{ item.type_text }}</text>
+        <text wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">{{ item.type_text }}</text>
         <view class='reduced-price__last' wx:if="{{fullSubtractionList.coupons.length>2&&couponList.coupons.length != 0}}"> ··· </view>
         <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
       </view>
@@ -133,11 +132,15 @@
     </view>
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color c-middle' wx:if='{{ advertisement.banners.length != 0 }}'>
-      <swiper indicator-dots="{{ true }}" indicator-color='white' indicator-active-color="#5fe4b1" autoplay='{{ true }}' scroll-x style="width: 100%">
+      <swiper autoplay='{{ true }}' bindchange="handleRoundActive" scroll-x style="width: 100%">
         <swiper-item class="swiper-item" wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
           <image src='{{ item.image }}'></image>
         </swiper-item>
       </swiper>
+      <!-- 轮播点 -->
+      <view class='swiper__round'>
+        <view wx:for="{{advertisement.banner_images}}" class='swiper__round--pick {{roundActive==index?"swiper__round--active":""}}'></view>
+      </view>
     </view>
     <!-- 推荐好物 -->
     <view class=''>
@@ -187,7 +190,7 @@
 
     <!-- 首页优质精选 -->
     <view>
-      <view >
+      <view>
         <view class='importantGoodsTitle goodgoods'>优质精选</view>
         <!-- 推荐好物品的内容s -->
         <view class='tuijian'>
@@ -247,14 +250,9 @@
   </view>
 
   <!-- 优惠券的模板 -->
-  <view 
-    class='coupon-template'
-    wx:if="{{coupon_show}}" 
-    catchtap='coupon_show'>
-    
-    <template 
-    is="couponTemplate"
-    data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
+  <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='coupon_show'>
+
+    <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList.coupons}}'></template>
     <!-- <view class='prevent__penetrate' ></view> -->
   </view>
 

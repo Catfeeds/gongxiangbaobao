@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    roundActive:0, // 广告的轮播点索引
     pickQuantity: 0, // 筛选后的数量
     handelOffPick: false,
     isSortShow: false, // 排序
@@ -890,7 +891,7 @@ Page({
   hanleOffLoginBox(e) {
     console.log(e)
     this.setData({
-      is_mobile: e.detail.offBox
+      is_mobile: false
     })
   },
   // 排序的盒子
@@ -935,8 +936,14 @@ Page({
   // 阻止滑动穿透
   hanlePreventScroll(){
     return
-  }
+  },
 
-  //
+  // 轮播图的小点 选中的点
+  handleRoundActive(e){
+    // console.log(e.detail.current)
+    this.setData({
+      roundActive: e.detail.current
+    })
+  }
   
 })

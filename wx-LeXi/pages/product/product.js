@@ -934,7 +934,7 @@ Page({
   hanleOffLoginBox(e) {
     console.log(e)
     this.setData({
-      is_mobile: e.detail.offBox
+      is_mobile:false
     })
   },
 

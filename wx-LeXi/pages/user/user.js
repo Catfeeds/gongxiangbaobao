@@ -98,6 +98,7 @@ Page({
   handlePick(e){
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -269,20 +270,6 @@ Page({
    */
   onLoad: function(options) {
 
-    // 是否登陆
-    // if (!app.globalData.isLogin) {
-    //   this.setData({
-    //     is_mobile: true
-    //   })
-    //   return
-    // }
-    // // 注册呼出框
-    // if (!app.globalData.isLogin) {
-    //   this.setData({
-    //     is_mobile: true
-    //   })
-    //   return false
-    // }
     this.getUserInfo() // 获取用户的信息
     
   },
@@ -378,6 +365,7 @@ Page({
   setTap(e) {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -392,6 +380,7 @@ Page({
   couponTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -406,6 +395,7 @@ Page({
   redBagTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -420,6 +410,7 @@ Page({
   handleToOrderTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -449,6 +440,7 @@ Page({
   // 关闭
   hanleOffLoginBox(e) {
     console.log(e)
+    utils.handleShowTabBar()
     this.setData({
       // is_mobile: e.detail.offBox
        is_mobile: false
@@ -458,6 +450,7 @@ Page({
   handleWatchTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -471,6 +464,7 @@ Page({
   handleFollowerTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -492,6 +486,7 @@ Page({
   handleSortShow() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -524,6 +519,7 @@ Page({
   handelOffPick() {
     // 是否登陆
     if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -545,5 +541,10 @@ Page({
   //     handelOffPick: true
   //   })
   // },
-
+  handelOffTap(){
+    utils.handleShowTabBar()
+    this.setData({
+      is_mobile:false
+    })
+  }
 })

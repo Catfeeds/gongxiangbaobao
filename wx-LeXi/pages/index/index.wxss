@@ -209,6 +209,7 @@
   width: 40rpx;
   margin-right: -18rpx;
   z-index: 1;
+  background-color: rgba(255, 255, 255, .6)
 }
 
 .middle_shadou image {
@@ -217,16 +218,20 @@
 }
 
 .joinNumberl {
+  height: 80rpx;
   flex: 1;
   /* box-shadow: -10rpx 0 0rpx #f3f3f3 inset; */
   display: flex;
   overflow: hidden;
   align-items: center;
+  position: relative;
 }
 
 .joinNumberlBox {
+  height: 80rpx;
   display: flex;
   flex-direction: row-reverse;
+  align-items: center;
 }
 
 .joinNumberlPhoto {
@@ -321,6 +326,7 @@
 .goodsPhotoInfo {
   height: 340rpx;
   text-align: center;
+  position: relative;
 }
 
 .goodsPhotoInfo > swiper {
@@ -338,7 +344,26 @@
   border-radius: 8rpx;
   vertical-align: middle;
 }
-
+.swiper__round{
+  position: absolute;
+  right: 70rpx;
+  bottom: 70rpx;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-end;
+  z-index: 2;
+}
+.swiper__round--pick{
+  height: 14rpx;
+  width: 14rpx;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 18rpx;
+}
+.swiper__round--active {
+  background-color: #5fe4b1;
+}
 .shopMaster image {
   vertical-align: middle;
   margin-right: 20rpx;
@@ -361,7 +386,7 @@
   position: absolute;
   height: 17rpx;
   width: 38rpx;
-  top: -18rpx;
+  top: -22rpx;
   left: 20rpx;
 }
 
@@ -549,6 +574,7 @@
   height: 46rpx;
   width: 46rpx;
   border-radius: 50%;
+   background-color: #5fe4b1;
 }
 
 .suspend-share_box image {
@@ -643,5 +669,12 @@
   bottom: 0;
   background-color: #e9e9e9;
   left: 0;
+}
+.number-visits{
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 

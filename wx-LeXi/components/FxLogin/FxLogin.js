@@ -74,6 +74,7 @@ Component({
         mobaile_number: ''
       })
     },
+
     // 输入手机号码
     inputText(e) {
       console.log(e.detail.value)
@@ -92,6 +93,7 @@ Component({
         getBtnStyle: buttonStyle
       })
     },
+
     //获取手机验证码的按钮
     getNumberTap() {
       var mobileNumber = this.data.mobaile_number - 0
@@ -133,6 +135,7 @@ Component({
         }
       })
     },
+    
     //验证码的输入框
     serveNumber(e) {
       this.setData({
@@ -141,6 +144,7 @@ Component({
       })
       this.verification()
     },
+
     //校验绑定手机号码的完成按钮是否y颜色
     verification() {
       console.log(this.data.verification_code)
@@ -155,6 +159,7 @@ Component({
         })
       }
     },
+
     // 完成按钮
     handleVerifyOverTap() {
       var params = {
@@ -182,9 +187,9 @@ Component({
             data: result.data
           })
           app.globalData.userInfo.avatar = result.data.avatar,
-          app.globalData.userInfo.username = result.data.username,
-          app.globalData.userInfo.mobile=result.data.mobile,
-          app.globalData.userInfo.username = result.data.username
+            app.globalData.userInfo.username = result.data.username,
+            app.globalData.userInfo.mobile = result.data.mobile,
+            app.globalData.userInfo.username = result.data.username
           this.triggerEvent('customevent', {
             offBox: false
           })
@@ -194,5 +199,10 @@ Component({
         }
       })
     },
+
+    //防止穿透
+    returnTap(){
+      return
+    }
   }
 })
