@@ -41,17 +41,23 @@
 }
 
 .coupon-message .reduced-price {
-  display: flex;
+  /* display: flex;
   justify-content: row;
   align-items: center;
   flex-wrap: nowrap;
   overflow: hidden;
-  position: relative;
+  position: relative; */
+  position: relative; 
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+  
 }
 
 .coupon-message .reduced-price image {
   height: 30rpx;
   width: 30rpx;
+  vertical-align: middle;
   /* position: absolute; *//* left: 5rpx; */
 }
 
@@ -67,6 +73,7 @@
   background-color: #fbf7f3;
   position: absolute;
   right: 0;
+  top: 2rpx;
 }
 
 /*商品详情页面的样式*/

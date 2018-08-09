@@ -583,10 +583,11 @@ Page({
             ['fullSubtractionList.coupons']: full
           })
           app.globalData.fullSubtractionList = result.data
+          console.log(result.data,"满减")
         } else {
           this.setData({
             ['couponList.coupons']: coupon, // 优惠券列表---couponList
-            ['fullSubtractionList.coupons']: [], // 满减---
+            ['fullSubtractionList.coupons']: full, // 满减---
           })
           app.globalData.fullSubtractionList.coupons = full
           app.globalData.couponList.coupons = coupon

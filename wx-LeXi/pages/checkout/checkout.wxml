@@ -1,5 +1,5 @@
 <!--pages/checkout/checkout.wxml 订单结算 -->
-<view class='container theme-bg-color'>
+<view class='container theme-bg-color {{authorityCouponShow || coupon?"prevent__penetrate":""}}' >
   <!-- 上面的进度条 -->
   <view>
     <view class='paymentList'>
@@ -36,16 +36,16 @@
       <text class='hui-zi'>配送：</text>
       <text class='logistics_text font-s'>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : pageOrderInfo.logisticsPrice }}</text>
     </view>
-    <view class='time-top margin-bottom--14rpx'>
+    <view class='time-top margin-bottom--14rpx' wx:if="{{isFirstOrder}}">
       <text class='hui-zi'>首单优惠：</text>
       <text class='hui-zi-m'>-￥{{ pageOrderInfo.firstOrderPrice }}</text>
     </view>
-    <view class='time-top margin-bottom--14rpx'>
+    <view class='time-top margin-bottom--14rpx'  wx:if="{{pageOrderInfo.fullSubtraction!=0}}">
       <text class='hui-zi'>满减：</text>
       <text class='hui-zi-m'>-￥{{ pageOrderInfo.fullSubtraction }}</text>
     </view>
     <view class='time-top margin-bottom--22rpx'>
-      <text class='hui-zi'>优惠卷：</text>
+      <text class='hui-zi'>优惠券：</text>
       <text class='hui-zi-m'>-￥{{ pageOrderInfo.couponPrice }}</text>
     </view>
     <view class='time-top'>
@@ -72,7 +72,8 @@
             color="true"></fx-product-middle>
 
           <view class='shopGoodsInfoR'>
-            <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.key.sale_price }}</text>
+            <!-- <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.key.sale_price }}</text> -->
+            <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.sale_price }}</text>
             <text class='shopNameR old-price-text' wx:if='{{ item.sale_price != 0 }}'>￥{{ item.price }}</text>
           </view>
           <text class='otherInfo'>x{{ item.quantity }}</text>
@@ -144,8 +145,8 @@
       </view>
 
       <!-- 满减 -->
-      <view class='component discounts font-s time-top' wx:if="{{fullReductionList[items[0].store_rid]}}">
-        <view class='black-font flex_row'>
+      <view class='component discounts font-s time-top' wx:if="{{fullReductionList[items[0].store_rid] &&  pageOrderInfo.fullSubtraction!=0}}">
+        <view class='black-font flex_row' >
           <image src='../../images/reduced-price@2.png'></image>
           <text>满减促销</text>
         </view>
@@ -154,10 +155,11 @@
 
       <!-- 优惠券 -->
       <view class='component black-font time-top coupon--padding' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='couponTap'>
-        <view> 优惠卷</view>
+        <view> 优惠券</view>
         <view class='font-s'>
-          <text class='coupon--color'>已抵¥{{orderInfomation[items[0].store_rid].coupon_price}}</text>
-          <text class='fx-icon-nothing-right coupon--color'></text>
+          <text class='coupon--color' wx:if="{{storeOrAuthoritativeCouponPick}}">已抵¥{{orderInfomation[items[0].store_rid].coupon_price}}</text>
+          <text class='' wx:else>不可使用</text>
+          <text class='fx-icon-nothing-right '></text>
         </view>
       </view>
     </view>
@@ -166,10 +168,11 @@
   <!-- 乐喜券 -->
   <!-- <view class='shm'></view> -->
   <view class='bg-white lx-coupon'>
-    <view class='component black-font time-top coupon--padding ' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='couponTap'>
+    <view class='component black-font time-top coupon--padding ' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='handleAuthorityCoupon'>
       <view>乐喜券</view>
       <view class='font-s qian-hui'>
-        <text class=''>不可使用</text>
+        <text class='' wx:if="{{storeOrAuthoritativeCouponPick}}">不可使用</text>
+        <text class='coupon--color' wx:else>已抵¥{{authoritativeCouponPrice}}</text>
         <text class='fx-icon-nothing-right'></text>
       </view>
     </view>
@@ -183,7 +186,7 @@
   <!-- 优惠券弹框 -->
   <view class='coupon-box' wx:if="{{coupon}}" catchtap='couponTap'>
     <view class='coupon-box_top' catchtap='{{false}}'>
-      <view class='black-font coupon-box_top--mar'>选择优惠卷红包</view>
+      <view class='black-font coupon-box_top--mar'>选择优惠券红包</view>
       <radio-group bindchange="radioChange">
         <label wx:for="{{pickCoupon}}" wx:key='{{index}}' class="coupon_radio coupon-box_top--mar time-top">
           <view class='column-round column-round_l'></view>
@@ -199,7 +202,7 @@
               <view class='font-m font-m--style'>满{{item.coupon.min_amount}}使用</view>
               <view class='font-ss font-ss--style'>
                 <text class='fang'></text>
-                <text>{{item.get_at}}至{{item.end_at}}</text>
+                <text>{{item.start_time}}至{{item.end_time}}</text>
               </view>
             </view>
           </view>
@@ -214,9 +217,54 @@
     <view class='coupon-bot_btn bg-white c-crosswise-a' catchtap='{{false}}'>
       <view class='coupon-btn-l '>
         <view class='black-font font-ss--style'>已抵扣{{orderInfomation[pickCouponProductId].coupon_price}}元</view>
-        <view class='font-s'>使用0张</view>
+        <view class='font-s'>使用{{orderInfomation[pickCouponProductId].coupon_price>0?1:0}}张</view>
       </view>
       <view class='affirm-btn c-middle' catchtap='couponTap'>确定</view>
+    </view>
+  </view>
+
+  <!--官方乐喜券弹框-->
+  <view class='coupon-box' wx:if="{{authorityCouponShow}}" catchtap='handleAuthorityCoupon'>
+    <view class='coupon-box_top' catchtap='{{false}}'>
+      <view class='black-font coupon-box_top--mar'>选择优惠券红包</view>
+      <radio-group bindchange="handleAuthoritativeCoupon">
+        <label 
+          wx:for="{{authorityCouponList.coupons}}" 
+          wx:key='{{index}}' 
+          wx:if="{{!item.is_expired && !item.is_used}}"
+          class="coupon_radio coupon-box_top--mar time-top">
+          <!-- <view class='column-round column-round_l'></view>
+          <view class='column-round column-round_r'></view>
+          <view class='coupon-round coupon-round_t'></view>
+          <view class='coupon-round coupon-round_b'></view> -->
+          <view class='coupon-l c-middle authority-oupon'>
+            <text class='font-s'>￥</text>
+            <text class='price-number'>{{item.amount}}</text>
+          </view>
+          <view class='coupon-r  c-line-D'>
+            <view>
+              <view class='font-m font-m--style'>满{{item.min_amount}}使用</view>
+              <view class='font-ss font-ss--style'>
+                <text class='fang'></text>
+                <text>{{item.start_time}}至{{item.end_time}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='coupon-btn bg-white c-middle'>
+            <radio color="#5FE4B1" 
+              value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}"}' />
+          </view>
+        </label>
+      </radio-group>
+      <view class='shm'></view>
+      <view class='shm'></view>
+    </view>
+    <view class='coupon-bot_btn bg-white c-crosswise-a' catchtap='{{false}}'>
+      <view class='coupon-btn-l '>
+        <view class='black-font font-ss--style'>已抵扣{{authoritativeCouponPrice}}元</view>
+        <view class='font-s'>使用{{authoritativeCouponPrice==0?0:1}}张</view>
+      </view>
+      <view class='affirm-btn c-middle' catchtap='handleAuthorityCoupon'>确定</view>
     </view>
   </view>
 
