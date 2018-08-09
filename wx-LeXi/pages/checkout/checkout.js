@@ -30,15 +30,25 @@ Page({
     fullReductionParams: '', // 满减活动的参数
     fullReductionList: '', // 满减活动列表
 
+    //店铺信息
+    storeInfo:'',
+
     // 页面的订单明细
     pageOrderInfo: {
       firstPrice: 0, //小计
       logisticsPrice: 0, //配送
-      firstOrderPrice: 0, //收单优惠
+      firstOrderPrice: 0, //首单优惠
       fullSubtraction: 0, //满减
       couponPrice: 0, //优惠券
       alstPrice: 0, //订单总计
     },
+  },
+  // 获取店铺的详情
+  getStoreInfo() {
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
+    console.log(this.data.storeInfo, "店铺信息")
   },
 
   // 获取是否属于首单
@@ -92,6 +102,9 @@ Page({
 
     if (this.data.isFirstOrder){
       lastPrice = lastPrice *0.9
+      this.setData({
+        ['pageOrderInfo.firstOrderPrice']:lastPrice*0.1
+      })
     }
 
     this.setData({
@@ -559,6 +572,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getStoreInfo()
     this.getIsFirstOrder() // 查看是否属于首单
     this.getOrderProdectInfo() // 获取订单详情
     this.getReceiveAddress() // 收货地址---

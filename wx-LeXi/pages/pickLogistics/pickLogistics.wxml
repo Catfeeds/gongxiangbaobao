@@ -9,7 +9,7 @@
   <view>
     <view class='logisticsTitle'>
       <text>选择物流</text>
-      <text class='hui-zi'>从上海发货</text>
+      <text class='hui-zi'>从{{storeInfo.delivery_country}}{{storeInfo.delivery_province}}发货</text>
     </view>
     <view>
       <radio-group class="radio-group" bindchange="radioChange">
@@ -23,12 +23,12 @@
               <image src='../../images/logistics-icon@2.png'></image>
             </view>
             <view class='logistics-goods'>
-              <text>{{ item.express.express_name }}</text>
+              <text>{{ item.express_name }}</text>
               <text>物流时长：{{ item.min_days }}至{{ item.max_days }}天送达，已含税</text>
               <text></text>
             </view>
           </view>
-          <radio color='#6ED7AF' value='{{index}}'/>
+          <radio color='#6ED7AF' value='{{index}}' checked="{{item.is_default}}"/>
         </label>
       </radio-group>
     </view>

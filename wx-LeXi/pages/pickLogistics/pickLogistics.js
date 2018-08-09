@@ -10,14 +10,28 @@ Page({
    * 页面的初始数据
    */
   data: {
+    storeInfo:[], // 获取店详情
     logisticsMould: [], // 运费模板
     store_rid: '',
     sku_rid: '',
     freight: 0
   },
 
+  // 获取店铺的详情
+  getStoreInfo(){
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
+    console.log(this.data.storeInfo,"店铺信息")
+  },
+
+
   // 页面的费用计算
   currentPagePriceSum(event) {
+    console.log(event)
+    this.setData({
+      freight: 0
+    })
     let params = {
       address_rid: app.globalData.orderParams.address_rid,
       items: []
@@ -67,6 +81,9 @@ Page({
     })
 
     logisticsMould[e.detail.value].is_default = true
+
+    console.log(logisticsMould[e.detail.value],"123")
+
     this.setData({
       freight: logisticsMould[e.detail.value]
     })
@@ -90,12 +107,24 @@ Page({
     this.setData({
       logisticsMould: app.globalData.logisticsMould, // 运费模板
     })
+    console.log(this.data.logisticsMould)
+    app.globalData.logisticsMould.forEach((v,i)=>{
+      if (v.is_default){
+        this.currentPagePriceSum(v.express_id)
+        // this.setData({
+        //   :v.
+        // })
+      }
+
+
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(e) {
+    this.getStoreInfo()
     this.setData({
       store_rid: e.store_rid,
       sku_rid: e.sku_rid,

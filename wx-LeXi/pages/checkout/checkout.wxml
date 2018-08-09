@@ -58,7 +58,7 @@
   <view class='orderInfoBox' wx:for="{{ order }}" wx:key="{{ index }}" wx:for-item="items">
     <view class='shopName'>
       <text>{{ items[0].store_name }}</text>
-      <text class='shopNameR'>从{{ items[0].delivery_country }}发货</text>
+      <text class='shopNameR'>从{{storeInfo.delivery_country}}{{storeInfo.delivery_province}}发货</text>
     </view>
     <view class='OtherInfomation'>
       <!-- 购买信息 -->
