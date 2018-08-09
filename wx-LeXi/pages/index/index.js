@@ -19,7 +19,9 @@ Page({
     is_mobile: false, // 优惠券模板是否弹出
     isAuthentication: '', // 是否经过官方认证的店铺
     couponList: {}, // 优惠券列表---couponList
-    fullSubtractionList: {}, // 满减---
+    fullSubtractionList: {
+      coupons: []
+    }, // 满减---
     rid: [], // 店铺的rid---
     shareWhat: '', // 分享什么东西---
     ShopOwner: [], // 店铺主人的信息---
