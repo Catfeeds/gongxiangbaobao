@@ -632,6 +632,7 @@ Page({
     app.globalData.logisticsMould = e.currentTarget.dataset.item.express
     app.globalData.pickLogistics = e.currentTarget.dataset.product
 
+
     wx.navigateTo({
       url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&&sku_rid=" + e.currentTarget.dataset.sku_rid
     })

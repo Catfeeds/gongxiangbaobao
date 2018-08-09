@@ -24,22 +24,24 @@
         <!-- 省份 -->
         <view>
           <view class="picker ">
-            省份：{{ provinceList[addressIndex[0]].name }}
+            <!-- 省份：{{ provinceList[addressIndex[0]].name }} -->
+            省份：{{ provinceList[provinceIndex].name }}
           </view>
         </view>
         <!-- 市区 -->
         <view>
           <view class="picker">
-            市/区：{{ cityList[addressIndex[1]].name }}
+            <!-- 市/区：{{ cityList[addressIndex[1]].name }} -->
+            市/区：{{ cityList[cityIndex].name }}
           </view>
         </view>
         <!-- 区/县-->
         <view>
           <view class="picker">
-            县/镇：{{ countyList[addressIndex[2]].name }}
+            <!-- 县/镇：{{ countyList[addressIndex[0]].name }} -->
+            县/镇：{{ countyList[countyIndex].name }}
           </view>
         </view>
-
       </view>
 
       <view class='addressText'>

@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    logisticsSum:0, // 金额
     storeInfo:[], // 获取店详情
     logisticsMould: [], // 运费模板
     store_rid: '',
@@ -29,9 +30,7 @@ Page({
   // 页面的费用计算
   currentPagePriceSum(event) {
     console.log(event)
-    this.setData({
-      freight: 0
-    })
+
     let params = {
       address_rid: app.globalData.orderParams.address_rid,
       items: []
@@ -65,7 +64,7 @@ Page({
           sum = result.data[key] - 0 + sum
         })
         this.setData({
-          freight: sum
+          logisticsSum: sum
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -82,7 +81,7 @@ Page({
 
     logisticsMould[e.detail.value].is_default = true
 
-    console.log(logisticsMould[e.detail.value],"123")
+    console.log(logisticsMould[e.detail.value],"运费模板")
 
     this.setData({
       freight: logisticsMould[e.detail.value]
@@ -111,12 +110,7 @@ Page({
     app.globalData.logisticsMould.forEach((v,i)=>{
       if (v.is_default){
         this.currentPagePriceSum(v.express_id)
-        // this.setData({
-        //   :v.
-        // })
       }
-
-
     })
   },
 

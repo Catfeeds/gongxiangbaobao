@@ -130,8 +130,9 @@ App({
             rid: rid
           }, function(result) {
             if (result.success) {
+
               // 跳转至详情
-              wx.navigateTo({
+              wx.redirectTo({
                 url: './../paymentSuccess/paymentSuccess?rid=' + rid,
               })
             }
@@ -148,8 +149,9 @@ App({
           wx.showToast({
             title: '已取消支付',
           })
+
           // 跳转到订单
-          wx.navigateTo({
+          wx.redirectTo({
             url: './../order/order',
           })
         }

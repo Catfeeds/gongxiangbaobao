@@ -3,6 +3,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+const common = require('./../../utils/common.js')
 
 const addressData = wx.getStorageSync('allPlaces')
 
@@ -12,16 +13,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    provinceList: [], //省地址列表---
-    cityList: [], //市地址列表---
-    countyList: [], //县地址列表---
-    provinceOid: [], //省地址列表oid---
-    cityOid: [], //市地址列表oid---
-    countyOid: [], //县地址列表oid---
+    
     addressIndex: [0, 1, 1], // 地址的下表
     isPicker: false, // 省市呼出框---
     country: [], //所有的国家的--
     countryIndex: [], //所有的国家的index--
+
+    provinceList: [], //省地址列表---
+    cityList: [], //市地址列表---
+    countyList: [], //县地址列表---
+
+    provinceOid: 0, //省地址oid---
+    cityOid: 0, //市oid---
+    countyOid: 0, //县oid---
+
+    addressList:'', //地址列表
+    provinceIndex:0, 
+    cityIndex:0,
+    countyIndex:0,
 
     is_cameraOrPhoto: false,
     is_template: 0,
@@ -54,53 +63,114 @@ Page({
     }
   },
 
-  // 地址选择器
+
+
+  // 获取省
   getAddressPick() {
-    console.log(this.data.addressIndex)
-    let provinceOid = addressData.k_1_0[this.data.addressIndex[0]].oid
-    let countyOid = addressData['k_2_' + provinceOid][this.data.addressIndex[1]].oid
     this.setData({
-      provinceList: addressData.k_1_0, // 省地址列表---
-      cityList: addressData['k_2_' + provinceOid], // 市地址列表---
-      countyList: addressData['k_3_' + countyOid], // 县地址列表--
+      provinceOid: addressData.k_1_0[0].oid, // 省的oid
+      provinceList: addressData.k_1_0, // 省地址列表--
     })
+
+    // 市
+    this.getAllPlaces(1, addressData.k_1_0[0].oid)
   },
 
-  // 省发生变化
-  provinceChange(e) {
-    this.setData({
-      addressIndex: e.detail.value
-    })
 
-    this.cityChange(addressData.k_1_0[e.detail.value[0]].oid)
+  //获取市和县
+  getAllPlaces(country_id = 1, province_oid = 0,cb){
+
+    console.log(province_oid,"省的id")
+    http.fxGet(api.all_places, {
+      country_id: country_id,
+      province_oid: province_oid
+    }, (result) => {
+        console.log(result,"sheng,shi,qu")
+
+        // 获取市区
+      if (result.success) {
+        this.setData({
+          addressList:result.data, 
+          cityList: result.data["k_2_" + province_oid],// 市的列表
+          cityOid: result.data["k_2_" + province_oid][this.data.cityIndex].oid, //市的id
+          countyList: result.data["k_3_"+[result.data["k_2_" + province_oid][0].oid]], //县的列表
+          countyOid: result.data["k_3_" + [result.data["k_2_" + province_oid][0].oid]][0].oid
+        },()=>{
+          if (cb){
+            cb()
+          }
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+    
   },
+  
 
-  // 市
-  cityChange(e) {
-    this.setData({
-      provinceOid: e,
-      cityList: addressData['k_2_' + e]
-    })
 
-    if (!addressData['k_3_' + addressData['k_2_' + e][0].oid]){
+  // 地址变化选择器
+  provinceChange(e){
+
+    // provinceIndex: 0, 记录省份的下表
+    //   cityIndex: 0, 记录市的下表
+    //     countyIndex: 0, 记录县的下标
+
+    console.log(e)
+
+    console.log(e.detail.value)
+
+
+    if (e.detail.value[0] != this.data.provinceIndex){
+      console.log(this.data.provinceList[e.detail.value[0]].oid)
       this.setData({
-        countyList:[],
-        countyOid:''
+        provinceIndex: e.detail.value[0],// 设置坐标
+        provinceOid: this.data.provinceList[e.detail.value[0]].oid // 设置省的oid
       })
-      return false
+      this.getAllPlaces(1,this.data.provinceList[e.detail.value[0]].oid)
     }
 
-    this.countyChange(addressData['k_2_' + e][this.data.addressIndex[1]].oid)
+    if (e.detail.value[1] != this.data.cityIndex){
+      this.data.cityList[e.detail.value[1]].oid //市oid
+
+      this.setData({
+        cityIndex: e.detail.value[1],
+        cityOid: this.data.cityList[e.detail.value[1]].oid
+      })
+      console.log(this.data.cityList[e.detail.value[1]].oid )
+      console.log(this.data.addressList)
+
+      console.log(this.data.addressList["k_2_" + [this.data.provinceOid]])
+      console.log(this.data.addressList["k_2_" + [this.data.cityList[e.detail.value[1]].oid]])
+
+     let v= this.data.addressList["k_2_" + [this.data.provinceOid]][e.detail.value[1]].oid
+     console.log(v)
+      console.log(this.data.addressList["k_3_" + v])
+
+     this.setData({
+       countyList: this.data.addressList["k_3_" + v]
+     })
+
+    }
+
+    if (e.detail.value[2] != this.data.countyIndex){
+
+      console.log(this.data.countyList[[e.detail.value[2]].oid])
+      console.log(e.detail.value[2])
+      console.log(this.data.countyList[e.detail.value[2]].oid)
+
+      this.setData({
+        countyIndex: e.detail.value[2],
+        countyOid: this.data.countyList[e.detail.value[2]].oid
+      })
+    }
+    
+    console.log(this.data.provinceOid,this.data.cityOid,this.data.countyOid,this.data.addressList,this.data.provinceIndex,this.data.cityIndex,this.data.countyIndex)
+
+
+
   },
 
-  // 县发生变化
-  countyChange(e) {
-    this.setData({
-      cityOid: e,
-      countyList: addressData['k_3_' + e],
-      countyOid: addressData['k_3_' + e][this.data.addressIndex[2]].oid
-    })
-  },
 
   // 确定选择地址
   handlePickAdressOver() {
@@ -123,6 +193,11 @@ Page({
   // 保存新增地址
   storageTap() {
     console.log(this.data.form)
+    this.setData({
+      ['form.province_id']: this.data.provinceOid, //Number	必需	 	省市
+      ['city_id']: this.data.cityOid , //Number	必需	 	城区
+    })
+
     http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
       console.log(result, '新增地址')
       if (result.success) {

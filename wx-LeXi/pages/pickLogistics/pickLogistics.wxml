@@ -38,7 +38,7 @@
   <view class='estimate-price bg-white'>
     <view class='time-top estimate-price_top black-font'>
       <text>预计运费</text>
-      <text>￥{{ freight }}</text>
+      <text>￥{{ logisticsSum }}</text>
     </view>
     <view class='font-ss estimate-price_bottom'>
       <text class='theme--hong'>注: </text>
