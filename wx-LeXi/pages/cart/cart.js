@@ -67,7 +67,7 @@ Page({
   // 获取购物车 ---
   getCartProduct() {
     http.fxGet(api.cart, {
-      open_id: app.globalData.jwt.openid
+      open_id: wx.getStorageSync('jwt').openid
     }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
@@ -143,7 +143,7 @@ Page({
   // 当点击移除---
   clearCart() {
     http.fxPost(api.clearCart, {
-      open_id: app.globalData.jwt.openid,
+      open_id: wx.getStorageSync('jwt').openid,
       rids: this.data.checkboxPick
     }, (result) => {
       console.log(result, '删除购物车商品')
@@ -236,7 +236,7 @@ Page({
     let rid = e.currentTarget.dataset.rid
     this.setData({
       ['addCartParams.rid']: rid,
-      ['addCartParams.open_id']: app.globalData.jwt.openid,
+      ['addCartParams.open_id']: wx.getStorageSync('jwt').openid,
     })
 
     if (is_function == 'add') {
@@ -615,7 +615,7 @@ Page({
         rid: this.data.choosed.rid, // String	必填	 商品sku
         quantity: this.data.quantity, // Integer	可选	1	购买数量
         option: '', // String	可选	 	其他选项
-        open_id: app.globalData.jwt.openid // String	独立小程序端必填/独立小程序openid
+        open_id: wx.getStorageSync('jwt').openid // String	独立小程序端必填/openid
       }
 
       http.fxPost(api.cart_addon, cartParams, (result) => {
@@ -701,7 +701,7 @@ Page({
   onLoad: function(options) {
     wx.showLoading({
       title: '加载中'
-    }) 
+    })
 
     // 未登录
     if (!app.globalData.isLogin) {
