@@ -2,6 +2,7 @@
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
 const util = require('./utils/util.js')
+const common = require('./utils/common.js')
 
 App({
   onLaunch: function() {
@@ -50,6 +51,9 @@ App({
       // 获取购物车数量
       this.getCartTotalCount()
     }
+
+    // 预加载收货地址
+    wx.getStorageSync('allPlaces') || common.getReceivePlaces()
 
     // 获取地理位置
     this.getUserLocation() 

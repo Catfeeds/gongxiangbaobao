@@ -314,7 +314,7 @@ Page({
     http.fxPost(api.logistics_product_express, {
       items: params
     }, (result) => {
-      console.log(result)
+      console.log(result, '获取运费模板')
       if (result.success) {
         this.setData({
           logisticsCompany: result.data
