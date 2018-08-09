@@ -77,7 +77,8 @@
 
   <!-- 已经失效 商家-->
 
-  <view class='time-top separate_line' >已失效的卷</view>
+  <view class='time-top separate_line' 
+    wx:if="{{exceedCouponList.length!=0 || authorityExceedCouponList.length!=0}}">已失效的卷</view>
 
 
   <view class='coupon-box' wx:for='{{exceedCouponList}}' wx:key="{{index}}" wx:if="{{item.is_expired || is_used}}">

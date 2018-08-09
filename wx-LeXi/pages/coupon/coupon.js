@@ -18,7 +18,7 @@ Page({
     useCouponList: [], // 已经使用的 
     red_bag: []
   },
-  // 红包列表 暂时隐藏
+  // 红包列表 官方优惠券
   getRedBag() {
     http.fxGet(api.authority_coupon, {}, (result) => {
       console.log(result, '红包列表')

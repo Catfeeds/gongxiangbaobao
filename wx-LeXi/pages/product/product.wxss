@@ -340,6 +340,7 @@ swiper-item, swiper-item>image, swiper {
   width: 8rpx;
   border-radius: 50%;
   background-color: black;
+  margin-right: 5rpx;
 }
 
 .bottom-btn>view {

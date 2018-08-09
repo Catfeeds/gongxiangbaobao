@@ -269,6 +269,7 @@
   height: 170rpx;
   /* background-color: red; */
   border-radius: 10rpx;
+  background-color:#fffcfb;
 }
 
 .column-round {
@@ -313,7 +314,11 @@
   color: white;
   font-size: 60rpx;
 }
-
+.authority-oupon{
+  border-top-right-radius: 28rpx 85rpx;
+  border-bottom-right-radius:  28rpx 85rpx;
+background-color: #dab867;
+}
 .coupon-r {
   flex: 500;
   height: 100%;
@@ -422,4 +427,7 @@
 }
 .lx-coupon{
   
+}
+.conservation{
+  z-index: 6;
 }
