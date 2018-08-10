@@ -63,8 +63,6 @@ Page({
     }
   },
 
-
-
   // 获取省
   getAddressPick() {
     this.setData({
@@ -107,8 +105,6 @@ Page({
     
   },
   
-
-
   // 地址变化选择器
   provinceChange(e){
 
@@ -117,9 +113,7 @@ Page({
     //     countyIndex: 0, 记录县的下标
 
     console.log(e)
-
     console.log(e.detail.value)
-
 
     if (e.detail.value[0] != this.data.provinceIndex){
       console.log(this.data.provinceList[e.detail.value[0]].oid)
@@ -165,12 +159,7 @@ Page({
       })
     }
     
-    console.log(this.data.provinceOid,this.data.cityOid,this.data.countyOid,this.data.addressList,this.data.provinceIndex,this.data.cityIndex,this.data.countyIndex)
-
-
-
   },
-
 
   // 确定选择地址
   handlePickAdressOver() {
