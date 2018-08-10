@@ -1,104 +1,243 @@
 /**app.wxss**/
 
-/**app.wxss**/
-
-/* 通用样式 */
-
-.c-importantGoods {
-  padding: 40rpx;
-  padding-right: 0;
-}
-
-.c-importantGoodsTitle {
-  font-size: 28rpx;
-  font-weight: 600;
-}
-
-.c-importantGoodsBox {
-  margin-top: 40rpx;
-  white-space: nowrap;
-  overflow: auto;
-}
-
-.c-importantGoodsPhoto {
-  width: 282rpx;
-  display: inline-block;
-  margin-right: 20rpx;
-}
-
-/* 通用按钮样式 提交按钮， 保存按钮 背景绿色，白字*/
-
-.coupon-template {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 999;
-}
-
-.wx-btn-box {
-  position: fixed;
-  bottom: 0;
-  background-color: white;
-  height: 100rpx;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.wx-btn-box button {
-  width: 690rpx;
-  height: 80rpx;
-  background-color: #6ed7af;
-  color: white;
-  font-size: 32rpx;
-  line-height: 80rpx;
-  text-align: center;
-}
-
-/* 支付文字和图标 */
-
-.green-btn {
-  height: 60rpx;
-  width: 150rpx;
-  border-radius: 10rpx;
-  background-color: #5fe4b1;
-  text-align: center;
-  line-height: 60rpx;
-  font-size: 28rpx;
-  color: white;
-}
-
-.paymentFnTextB {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.payment-icon {
-  width: 56rpx;
-  height: 56rpx;
-  border: 1rpx solid #e9e9e9;
-  box-sizing: border-box;
-  border-radius: 5rpx;
-}
-
-.payment-icon image {
-  height: 100%;
-  width: 100%;
-}
-
-/*边框*/
-
-.border-radius--8 {
-  border-radius: 8rpx;
-}
-
 /* 布局 */
 
+/* 按钮 */
+.fx-button {
+  border-radius: 8rpx;
+  border: none;
+  padding: 25rpx 0rpx;
+  font-size: 32rpx;
+  line-height: 1;
+}
+.fx-button.primary {
+  background-color: #5FE4B1;
+  color: #fff;
+}
+
+
+/* 小按钮 */
+.fx-mini-btn {
+  font-size: 28rpx;
+  line-height: 1;
+  padding: 12rpx 48rpx;
+  display: inline-block;
+  border: none;
+}
+.fx-mini-btn.round {
+  border-radius: 25rpx;
+}
+.fx-mini-btn.black {
+  background-color: #2D343A;
+  color: #ffffff;
+}
+.fx-mini-btn.red {
+  background-color: #FF6666;
+  color: #ffffff;
+}
+
+/* 底部弹出层 */
+.fx-mask {
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+  bottom: 0rpx;
+  width: 100%;
+  background:rgba(0,0,0, 0.5);
+  z-index: 10;
+}
+.fx-modal {
+  background-color: #F7F9FB;
+  z-index: 11;
+  width: 100%;
+}
+.fx-modal.fixed-bottom {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+}
+.fx-modal .fx-modal__head {
+  font-size: 32rpx;
+  color: #333333;
+  background-color: #FDFDFD;
+  padding: 25rpx 40rpx;
+  display: flex;
+  align-items: center;
+}
+.fx-modal .fx-modal__head .close {
+  flex: 0 0 auto;
+  color: #949EA6;
+  font-size: 30rpx;
+  width: 31rpx;
+  height: 31rpx;
+}
+.fx-modal .fx-modal__head .title {
+  flex: 1;
+  text-align: center;
+}
+.fx-modal .fx-modal__head .reset {
+  flex: 0 0 auto;
+  color: #5FE4B1;
+}
+.fx-modal .fx-modal__body {
+  padding-bottom: 100rpx;
+}
+.fx-modal .fx-modal__body .filter-item {
+  font-size: 28rpx;
+  color: #333;
+  padding: 31rpx 40rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+.fx-modal .fx-modal__body .filter-item .text {
+  flex: 1;
+}
+.fx-modal .fx-modal__body .filter-item .icon-checked {
+  width: 44rpx;
+  height: 44rpx;
+  flex: 0 0 auto;
+  visibility: hidden;
+}
+.fx-modal .fx-modal__body .filter-item.active {
+  color: #5fe4b1;
+}
+.fx-modal .fx-modal__body .filter-item.active .icon-checked {
+  visibility: visible;
+}
+.fx-modal .fx-modal__body .filter-item-line {
+  font-size: 26rpx;
+  color: #555;
+  padding: 30rpx 40rpx;
+  background-color: #F7F9FB;
+  border-top: 1rpx solid #e9e9e9;
+}
+
+.fx-modal .fx-modal__body .block-title {
+  font-size: 34rpx;
+  color: #333;
+  padding: 30rpx 40rpx;
+  background-color: #fff;
+}
+.fx-modal .fx-modal__body .block-title small {
+  font-size: 22rpx;
+  color: #999;
+}
+.fx-modal .fx-modal__body .categories {
+  background-color: #fff;
+  padding-left: 40rpx; 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  padding-bottom: 60rpx;
+}
+.fx-modal .fx-modal__body .categories .category {
+  flex: 0 0 auto;
+  background-color: #F5F7F9;
+  border: 1rpx solid #e9e9e9;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #333;
+  padding: 18rpx;
+  margin-right: 20rpx;
+}
+.fx-modal .fx-modal__body .categories .category.active {
+  background:rgba(95,228,177, 0.1);
+  border-color: rgba(95,228,177, 0.7);
+}
+
+.fx-modal .fx-modal__foot {
+  background-color: #fff;
+  padding: 20rpx 40rpx;
+  margin-top: -100rpx;
+}
+
+
+/* 分销商品 */
+.product-item {
+  display: flex;
+  padding: 30rpx 40rpx;
+}
+.product-item__cover {
+  flex: 0 0 200rpx;
+  position: relative;
+}
+.product-item__cover .image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 8rpx;
+}
+.product-item__cover .icon-sold-out {
+  position: absolute;
+  left: 11rpx;
+  top: 11rpx;
+  width: 62rpx;
+  height: 36rpx;
+}
+.product-item__body {
+  flex: 1;
+  padding-left: 20rpx;
+}
+.product-item__body .title {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 18rpx;
+  line-height: 38rpx;
+}
+.product-item__body .title.icon-free {
+  background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
+  background-repeat: no-repeat; 
+  background-size: 40rpx 24rpx;
+  background-position: left 6rpx;
+  text-indent: 48rpx;
+}
+.product-item__body .price-box {
+  margin-bottom: 26rpx; 
+}
+.product-item__body .price-box .sale-price {
+  font-size: 28rpx;
+  color: #333333;
+}
+.product-item__body .price-box .price {
+  color: #999999;
+  font-size: 24rpx;
+  margin-left: 17rpx;
+  text-decoration: line-through;
+}
+.product-item__body .price-box .love {
+  font-size: 24rpx;
+  margin-left: 24rpx;
+  color: #999999;
+}
+.product-item__body .income {
+  font-size: 24rpx;
+  color: #FF6666;
+}
+.product-item__body .income text {
+  font-weight: bold;
+}
+
+.product-item__actions {
+  border-top: 1rpx solid #E9E9E9;
+  border-bottom: 1rpx solid #E9E9E9;
+  padding: 15rpx 0rpx;
+  margin: 0rpx 40rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.product-item__actions .fx-mini-btn {
+  margin: 0rpx;
+  flex: 0 0 auto;
+}
+.product-item__actions .fx-mini-btn + .fx-mini-btn {
+  margin-left: 30rpx; 
+}
+
 /* 横向布局 */
+
+
 
 .flex_row {
   display: flex;
@@ -300,6 +439,100 @@
 
 /* 字体的相关e */
 
+/* 通用样式 */
+
+.c-importantGoods {
+  padding: 40rpx;
+  padding-right: 0;
+}
+
+.c-importantGoodsTitle {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.c-importantGoodsBox {
+  margin-top: 40rpx;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.c-importantGoodsPhoto {
+  width: 282rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+}
+
+/* 通用按钮样式 提交按钮， 保存按钮 背景绿色，白字*/
+
+.coupon-template {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.wx-btn-box {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wx-btn-box button {
+  width: 690rpx;
+  height: 80rpx;
+  background-color: #6ed7af;
+  color: white;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+/* 支付文字和图标 */
+
+.green-btn {
+  height: 60rpx;
+  width: 150rpx;
+  border-radius: 10rpx;
+  background-color: #5fe4b1;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: white;
+}
+
+.paymentFnTextB {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-icon {
+  width: 56rpx;
+  height: 56rpx;
+  border: 1rpx solid #e9e9e9;
+  box-sizing: border-box;
+  border-radius: 5rpx;
+}
+
+.payment-icon image {
+  height: 100%;
+  width: 100%;
+}
+
+/*边框*/
+
+.border-radius--8 {
+  border-radius: 8rpx;
+}
+
 .container {
   height: 100%;
   min-height: 100vh;
@@ -307,8 +540,9 @@
   flex-direction: column;
   padding: 0rpx 0;
   box-sizing: border-box;
-  background: #fff;
+  background: #f7f9fb;
   color: #333;
+  position: relative;
 }
 
 image {

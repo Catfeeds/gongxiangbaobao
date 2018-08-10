@@ -1,2 +1,45 @@
-<!--pages/distributeSubmit/distributeSubmit.wxml-->
-<text>pages/distributeSubmit/distributeSubmit.wxml</text>
+<!-- 上架到生活馆 -->
+<view class="container">
+
+  <!-- 推荐语 -->
+  <view class="page-section distribute-form">
+    <label class="form-title">推荐语</label>
+    <textarea 
+      class="input-text"
+      placeholder-class="form-holder"
+      placeholder="一个出色的推荐语，除了精简的描述商品的优势亮点外，应对消费者具有吸引点，促进销售（140字以内）" auto-focus />
+  </view>
+
+  <!-- 分销商品 -->
+  <view class="page-section distribute-products">
+    <!-- 商品项 -->
+      <view class="product-distribute-item">
+        <view class="product-item">
+          <view class="product-item__cover">
+            <image src="../../images/distribute/pic-holder.jpg" class="image"></image>
+            <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out"></image>
+          </view>
+          <view class="product-item__body">
+            <view class="title icon-free">
+              [心境]独家手作永生花五角星特调流苏
+            </view>
+            <view class="price-box">
+              <label class="sale-price">￥567</label>
+              <label class="price">￥678</label>
+              <label class="love">喜欢 +289</label>
+            </view>
+            <view class="income">
+              赚
+              <text>￥10</text>
+            </view>
+          </view>
+        </view>
+      </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="page-section distribute-action">
+    <button class="fx-button primary">确认上架</button>
+  </view>
+
+</view>

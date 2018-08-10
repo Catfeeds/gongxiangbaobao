@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/distributeCenter/DistributeCenter",
     "pages/distributeSubmit/distributeSubmit",
+    "pages/distributeCenter/DistributeCenter",
     "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
