@@ -52,6 +52,14 @@ module.exports = {
   theme: 'wx_app_design/collections', //Get 主题---
   marketBanners: 'banners/:rid', //广告--
   products_index:'products/index', // 首页作品的排序---
+
+  // 核心 product
+  banners_explore: 'banners/explore', //探索的头部广告h
+  column_explore_recommend:'column/explore_recommend', // 编辑推荐h
+
+  // 核心 store
+  column_feature_store:'column/feature_store', // 特色品牌管h
+
   // Cart
   cart: 'cart', // GET 加入购物车---
   cart_addon: 'cart', // POST 添加产品至购物车

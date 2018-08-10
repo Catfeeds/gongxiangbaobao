@@ -8,7 +8,7 @@
     </view>
   </view>
   <view class='category-box'>
-    <text class='font-xxl {{pickCategory==item.id?"pickCategory--style theme-green":""}}' wx:for='{{category}}' wx:key='{{index}}' data-category-id='{{item.id}}' catchtap='handlePickCategory'> {{item.name}} </text>
+    <text class='font-xl font-width--medium {{pickCategory==item.id?"pickCategory--style theme-green":""}}' wx:for='{{category}}' wx:key='{{index}}' data-category-id='{{item.id}}' catchtap='handlePickCategory'> {{item.name}} </text>
   </view>
 
   <!-- 生活馆 -->
@@ -148,7 +148,7 @@
         最新作品
       </view>
       <view class='production new-goods_box'>
-        <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for="{{[1,7,2,3]}}" wx:key='{{index}}'>
+        <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:key="{{index}}" wx:for="{{[1,7,2,3]}}" wx:key='{{index}}'>
           <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>
@@ -247,7 +247,7 @@
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
       <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
-        <block wx:for="{{[1,1,1,1]}}">
+        <block wx:for="{{[1,1,1,1]}}" wx:key="{{index}}">
           <swiper-item>
             <image src="{{item}}" class="slide-image" width="355" height="150" />
           </swiper-item>
@@ -273,70 +273,111 @@
 
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
-      <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
-        <block wx:for="{{[1,1,1,1]}}">
-          <swiper-item>
-            <image src="{{item}}" class="slide-image" width="355" height="150" />
+      <swiper 
+        autoplay="{{true}}" 
+        indicator-color="rgba(0, 0, 0, .3)" 
+        indicator-active-color='#fff' 
+        indicator-dots="{{true}}">
+          <swiper-item wx:for="{{ExploreAdvertisementList.banner_images}}" wx:key="{{index}}">
+            <view class='advertisement-item'>
+              <image src="{{item.image}}" class="slide-image" />
+              <text class='explore-advertisement__title'>{{item.title}}</text>
+              <text class='explore-advertisement__info'>{{item.description}}</text>
+            </view>
           </swiper-item>
-        </block>
       </swiper>
     </view>
 
     <!-- 分类的 -->
     <view class='product-category-box'>
-      <view class='flex_row slither-box'>
-        <view class='fx-column--center' wx:for='112345' wx:key='{{index}}'>
-          <image class='product-category-icon' src='../../images/timg.jpg'></image>
-          <view class='font-s'>配件饰品</view>
-          <view class='font-ss qian-hui'>23454人</view>
+      <scroll-view scroll-x class='flex_row slither-box'>
+        <view 
+          class='fx-column--center inline-block padding--27rpx {{index==0?"padding-left--40rpx":""}} {{index==categoryList.categories.length-1?"padding-right--40rpx":""}}' 
+          wx:for="{{categoryList.categories}}" 
+          wx:key='{{index}}'>
+          <image class='product-category-icon' src='{{item.cover}}'></image>
+          <view class='font-s'>{{item.name}}</view>
+          <view class='font-ss qian-hui'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
         </view>
-      </view>
+      </scroll-view>
     </view>
 
     <!-- 编辑推荐 {{themeProduct.designs}} -->
-    <view class='c-importantGoods'>
-      <view class='c-importantGoodsTitle'>编辑推荐</view>
+    <view class=''>
+      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+        <text>编辑推荐</text>
+        <text wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+      </view>
       <view class='c-importantGoodsBox'>
-        <view class='c-importantGoodsPhoto' wx:for="123456790" wx:key="{{index}}">
-          <fx-product product="{{item.product}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
-        </view>
+        <scroll-view 
+          class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.products.length-1?"margin-right--40rpx":""}}' 
+          wx:for="{{editRecommendList.products}}" 
+          wx:key="{{index}}">
+          <fx-product 
+            product="{{item}}" 
+            bind:triggerEvent_product="handleInfomation" 
+            oldPrice="{{true}}"></fx-product>
+        </scroll-view>
       </view>
     </view>
 
     <!-- 特色品牌馆 -->
-    <view class='c-importantGoods'>
-      <view class='c-importantGoodsTitle'>特色品牌馆</view>
-      <view class='c-importantGoodsBox'>
-        <view class='characteristic-box' wx:for="123456790" wx:key="{{ index }}">
-          <image src='../../images/timg.jpg'></image>
+    <view class=''>
+      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+        <text>特色品牌馆</text> 
+        <text 
+          wx:if="{{editRecommendList.products.length>9}}" 
+          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+      </view>
+
+      <scroll-view scroll-x class='c-importantGoodsBox'>
+        <view 
+          class='characteristic-box {{}}' 
+          wx:for="{{characteristicStoreList.stores}}" 
+          wx:for-item="items"
+          wx:key="{{ index }}">
+          <image src='{{items.bgcover}}-p50'></image>
           <view class='characteristic-info border-radius--8'>
             <view class='flex_row characteristic-box__title border-radius--8'>
               <view class='characteristic-log border-radius--8'>
-                <image class='border-radius--8' src='../../images/timg.jpg'></image>
+                <image class='border-radius--8' src='{{items.logo}}'></image>
               </view>
               <view class='characteristic-title__text'>
-                <text class='font--white font-xl text--hidden'>目就啊快啊快啊快啊快啊快啊快点就</text>
-                <view class='font-s shen-hui'>456件</view>
+                <text class='font--white font-xl text--hidden'>{{items.name}}</text>
+                <view class='font-s shen-hui'>{{items.store_products_counts>0?items.store_products_counts+"件":""}}</view>
               </view>
             </view>
             <view class='time-top characteristic-box__middle'>
-              <view class='characteristic-photo'>
-                <image src='../../images/timg.jpg' class='border-radius--8'></image>
+              <view 
+                class='characteristic-photo' 
+                wx:for="{{items.products_cover}}" 
+                wx:key="{{index}}"
+                wx:for-item="item"
+                wx:if="{{index<3}}">
+                 <image src='{{item}}' class='border-radius--8'></image>
               </view>
-              <view class='characteristic-photo'>
-                <image src='../../images/timg.jpg' class='border-radius--8'></image>
-              </view>
-              <view class='characteristic-photo'>
-                <image src='../../images/timg.jpg' class='border-radius--8'></image>
-              </view>
+
             </view>
-            <view class='characteristic-watch_btn c-middle'>
+            <view 
+              class='characteristic-watch_btn c-middle' 
+              data-index="{{index}}"
+              data-rid="{{items.rid}}" 
+              catchtap="handleAddFollowed"
+              wx:if="{{!items.is_followed}}">
               <image src='../../images/icon@2.png'></image>
               <text class='font--white black-font'>关注</text>
             </view>
+            <view 
+              wx:else 
+              data-index="{{index}}" 
+              data-rid="{{items.rid}}" 
+              class='characteristic-watch_btn c-middle bg--hui' 
+              catchtap="handleDeleteFollowed">
+              <text class='font--white black-font'>已关注</text>
+            </view>
           </view>
         </view>
-      </view>
+      </scroll-view>
     </view>
 
     <!-- 优质新品 {{themeProduct.designs}} -->
@@ -386,4 +427,9 @@
 
   <!-- 官方信息 -->
   <fx-offcial></fx-offcial>
+
+    <!-- 登陆注册模态框 -->
+  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
 </view>

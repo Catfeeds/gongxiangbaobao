@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/distributeCenter/DistributeCenter",
     "pages/distributeSubmit/distributeSubmit",
-    "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
     "pages/settings/settings",

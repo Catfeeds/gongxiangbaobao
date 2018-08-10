@@ -21,7 +21,7 @@
 }
 
 .c-importantGoodsPhoto {
-  width: 282rpx;
+  width: 280rpx;
   display: inline-block;
   margin-right: 20rpx;
 }
