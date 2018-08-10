@@ -137,6 +137,7 @@ Page({
       })
 
       items.push(item)
+
     })
 
     // 发送请求获取满减
@@ -560,8 +561,16 @@ Page({
    */
   onLoad: function (options) {
     this.getIsFirstOrder() // 查看是否属于首单
-    this.getOrderProdectInfo() // 获取订单详情
     this.getReceiveAddress() // 收货地址---
+    this.loadOrder()
+  },
+
+  /**
+   * 加载订单相关
+   */
+  loadOrder () {
+    // const do1 = await 
+    this.getOrderProdectInfo() // 获取订单详情
   },
 
   /**

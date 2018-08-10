@@ -4,6 +4,8 @@ const api = require('./utils/api.js')
 const util = require('./utils/util.js')
 const common = require('./utils/common.js')
 
+// global.regenerator = require('./utils/regenerator/runtime.js')
+
 App({
   onLaunch: function() {
     // 展示本地存储能力
