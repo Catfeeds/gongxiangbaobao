@@ -1,0 +1,2 @@
+/* pages/myFollower/myFollower.wxss */
+ @import '../watch/watch.wxss'

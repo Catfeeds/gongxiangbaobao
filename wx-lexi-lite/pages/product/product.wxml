@@ -1,0 +1,317 @@
+<!--pages/product/product.wxml 产品详情-->
+<import src="../couponTemplate/couponTemplate.wxml" />
+<import src="../../wxParse/wxParse.wxml" />
+
+<view class='container theme-bg-color product-bout-box {{coupon_show || pick?"prevent__penetrate":""}}'>
+
+  <!-- 轮播图 123-->
+  <view class='swiperBox'>
+    <swiper bindchange='handleSwiperChange'>
+      <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
+        <swiper-item display-multiple-items="{{index}}">
+          <image src="{{item.view_url}}-p50" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <text class='subscript black-font'>{{swiperIndex}}/{{productInfomation.assets.length}}</text>
+  </view>
+
+  <!--轮播图 产品底部信息 -->
+  <view class='goodsInfoBox'>
+    <view class='branderInfo  font-with--600'>
+      <text class='logistics' wx:if="{{ productInfomation.is_free_postage }}">包邮</text>
+      <text class='product-info__title'>{{productInfomation.name}}</text>
+    </view>
+    <view class='branderInfo margin-bottom--22rpx'>
+      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'><text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text>-</text>
+      <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
+      </text>
+      <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
+    </view>
+    <!-- wx:for='{{productInfomation.labels}}' -->
+    <view class='characteristic branderInfo margin-bottom--40rpx'>
+      <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
+      <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
+          <text wx:if="{{index!=0}}"> · </text>
+      <text>{{item.name}}</text>
+      </text>
+      <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
+    </view>
+    <!-- 喜欢心愿单 -->
+    <view class='branderInfo like-quantity margin-bottom--30rpx'>
+      <view class='like-quantity-l' catchtap='handleBindLike'>
+        <image src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
+        <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
+        <text class='hui-zi like-icon-add' wx:else>喜欢</text>
+      </view>
+      <view class='transmission'>
+        <view class='like-quantity-l' catchtap='handleaddDesireTap'>
+          <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>
+          <text class='hui-zi' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
+          <text class='hui-zi' wx:else>已添加</text>
+        </view>
+        <view class='like-quantity-l transmissionInfo'>
+          <image class='fen' src='../../images/share@2.png'></image>
+        </view>
+      </view>
+    </view>
+
+    <!-- 领取优惠券 -->
+    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
+      <view class='coupon-message'>
+        <!-- 优惠券 -->
+        <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
+          <view class=''>
+            <image src='../../images/coupon-icon@2.png'></image>
+            <text>领取设计馆优惠红包</text>
+          </view>
+          <view class='get-btn'>领取</view>
+        </view>
+
+        <!-- 满减 -->
+        <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
+          <image src='../../images/reduced-price@2.png'></image>
+          <text class="reduced-price_text" wx:for="{{ fullSubtractionList }}" wx:key="{{ index }}">{{ item.type_text }}</text>
+          <view class='reduced-price__last' wx:if="{{fullSubtractionList.length>2&&couponList.coupons.length != 0}}"> ... </view>
+          <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
+        </view>
+      </view>
+    </view>
+
+    <view class='branderInfo goods-size margin-bottom--18rpx' catchtap='handlePickShow'>
+      <text class='textInfo'>请选择规格和尺码</text>
+      <text class='fx-icon-nothing-lower icon'></text>
+    </view>
+
+    <view class='ordertext' wx:if="{{productInfomation.made_cycle>0}}">“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
+
+  </view>
+
+  <!-- 有多少人喜欢 -->
+  <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
+    <view class='roundL'>
+      <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
+
+    </view>
+    <view class='roundR' data-rid='{{productInfomation.rid}}' catchtap='handelToLikeThisProductTap'>
+      <image src='../../images/sandian.png'></image>
+    </view>
+
+  </view>
+
+  <!-- 描述,发货地，时间 -->
+  <view class='otherInfo'>
+    <!-- 描述 -->
+    <view class='otherInfo-describe'>
+      <view class='titleText'>描述</view>
+      <view class='goodstext two-line-text margin-bottom--12rpx'>
+        <text class='titlemini'>亮点：</text>
+        <text>{{ productInfomation.features }}</text>
+      </view>
+      <view class='goodstext margin-bottom--12rpx'>
+        <text class='titlemini'>材质：</text>
+        <text>{{ productInfomation.material_id }}</text>
+      </view>
+      <view class='goodstext margin-bottom--12rpx' wx:if='{{ productInfomation.is_custom_service }}'>
+        <text class='titlemini'>特点： </text>
+        <text>可提供定制化服务</text>
+      </view>
+      <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
+        <text class='titlemini'>数量：</text>
+        <text>仅剩最后{{ productInfomation.stock_count }}件</text>
+      </view>
+    </view>
+
+    <!-- 发货地点 -->
+    <view class='otherInfo-describe location '>
+      <view class='titleText'>发货地</view>
+      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}·{{ storeInfo.delivery_city }}</view>
+    </view>
+
+    <!-- 交货时间 -->
+    <view class='otherInfo-describe location '>
+      <view class='titleText'>交货时间</view>
+      <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
+      </view>
+    </view>
+
+    <!-- 退货政策 -->
+    <view class='otherInfo-describe location borN'>
+      <view class='titleText flex_row margin-bottom--4rpx'>退货政策</view>
+      <view class='goodstext flex_row margin-bottom--4rpx'>
+        <view class='dian'></view>
+        <text>{{productInfomation.return_policy_title}}</text>
+      </view>
+      <view class='two-line-text goodstext margin-bottom--50rpx'>
+        {{ productInfomation.product_return_policy }}
+      </view>
+      <view class='allInfo' catchtap='animationOnFn'>
+        <view class='allInfo-btn'>查看全部</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 店铺其他产品信息 -->
+  <view class='shopInfo'>
+    <view class='shopInfoT'>
+      <view class='userIcon' catchtap='handleGoIndex'>
+        <image src='{{ storeInfo.logo }}'></image>
+      </view>
+      <view class='shopMiddle' catchtap='handleGoIndex'>
+        <view class='hui-zi'>原创品牌馆</view>
+        <view class='shou'>{{ storeInfo.name }}</view>
+      </view>
+      <view class='with '>
+        <image src='../../images/shop1.png'></image>
+        <view>{{ isWatch ? '已关注' : '关注' }}</view>
+      </view>
+    </view>
+    <view class='shop-other-goods'>
+      <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
+        <image src='{{ item.cover }}-p16'></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 产品的详细介绍 -->
+  <view class='goods-info'>
+    <view>
+      <view class='title-text'>作品详情</view>
+      <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}" />
+    </view>
+  </view>
+
+  <!-- 选择规格box -->
+  <view class='specifications' wx:if="{{pick}}" catchtap='hideSkuModal'>
+    <view class='bg-white specificationsInfo black-font' catchtap='handleSkuModal'>
+      <view class=''>
+        <view class=" sku__name ">{{ productInfomation.name }}</view>
+        <view class='flex_row padding-bottom-34rpx category-box__title'>
+          <text class='cureentPrice' wx:if="{{ choosed.sale_price > 0 }}">
+            <text>￥{{ choosed.sale_price }}</text>
+          </text>
+          <text class='cureentPrice' wx:else>
+            <text>￥{{ choosed.price }}</text>
+          </text>
+          <text class="stock" wx:if="{{ choosed.stock_count <= 5 }}">
+            <text>仅剩 {{ choosed.stock_count }} 个</text>
+          </text>
+        </view>
+      </view>
+
+      <view class='category-max__box'>
+        <!-- 颜色 -->
+        <view class='goods-color-box category-box__right' wx:if="{{ hasColor }}">
+          <view class='black-font color-title'>颜色</view>
+          <view class='goods-color goods-color-box'>
+            <label wx:for="{{ skus.colors }}" wx:for-index="idx" wx:for-item="color" wx:key="{{ color.rid }}" class="color-item {{ activeColorIdx == idx ? 'active': ''  }} {{ !color.valid ? 'disabled': '' }}" catchtap="handleChooseColor" data-idx="{{ idx }}" data-valid="{{ color.valid }}">
+              {{ color.name }}
+            </label>
+          </view>
+        </view>
+
+        <!-- 尺寸 -->
+        <view class='goods-color-box category-box__right' wx:if="{{ hasMode }}">
+          <view class='black-font color-title'>规格</view>
+          <view class='goods-color goods-color-box'>
+            <label wx:for="{{ skus.modes }}" wx:for-index="idx" wx:for-item="mode" wx:key="{{ mode.rid }}" class="color-item {{ activeModeIdx == idx ? 'active': '' }} {{ !mode.valid ? 'disabled': '' }}" catchtap="handleChooseMode" data-idx="{{ idx }}" data-valid="{{ mode.valid }}">
+              {{ mode.name }}
+            </label>
+          </view>
+        </view>
+      </view>
+      <view class='bottom-btn bg-white c-crosswise-a pick '>
+        <view class='add_cart pick__button' catchtap='handleAddCart'>加入购物车</view>
+        <view class='btn-bg-color pick__button' catchtap='handleQuickBuy'>选好了</view>
+      </view>
+
+      <!-- 垫片 -->
+      <view class='shim'></view>
+
+    </view>
+  </view>
+
+  <!-- 接单定制按钮 -->
+  <view class='bottom-btn bg-white c-crosswise-a'>
+    <view class='btn-bg-color shop-cart'>
+      <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
+      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
+        <image src='../../images/carticon@2x.png'></image>
+        <text>购物车</text>
+      </view>
+    </view>
+    <view class='add_cart' catchtap='handleAddCartShow'>加入购物车</view>
+    <view class=' crated_btn--style btn-bg-color' catchtap='handlePickShow'>接单订制</view>
+  </view>
+
+  <!-- 垫片 -->
+  <view class='shm'></view>
+
+  <!-- 优惠券的模板 -->
+  <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='handleOffCouponTap'>
+    <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList}}'></template>
+  </view>
+
+  <!-- 查看全部的呼出框  style='height:{{window_height}}rpx' animation="{{animationData}}"-->
+  <view wx:if="{{allInfo}}" class='product-all-info'>
+    <view class='otherInfo'>
+      <!-- 描述 -->
+      <view class='otherInfo-describe'>
+        <view class='titleText'>描述</view>
+        <view class='goodstext two-line-text margin-bottom--12rpx'>
+          <text class='titlemini'>亮点：</text>
+          <text>{{productInfomation.features}}</text>
+        </view>
+        <view class='goodstext margin-bottom--12rpx'>
+          <text class='titlemini'>材质：</text>
+          <text>{{productInfomation.material_id}}</text>
+        </view>
+        <view class='goodstext margin-bottom--12rpx' wx:if='{{productInfomation.is_custom_service}}'>
+          <text class='titlemini'>特点： </text>
+          <text>可提供定制化服务</text>
+        </view>
+        <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
+          <text class='titlemini'>数量：</text>
+          <text>仅剩最后{{ productInfomation.stock_count }}件</text>
+        </view>
+      </view>
+
+      <!-- 发货地点 -->
+      <view class='otherInfo-describe location'>
+        <view class='titleText'>发货地</view>
+        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.delivery_country}}·{{storeInfo.delivery_province}}·{{storeInfo.delivery_city}}</view>
+      </view>
+
+      <!-- 交货时间 -->
+      <view class='otherInfo-describe location'>
+        <view class='titleText'>交货时间</view>
+        <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
+          <!-- <text class='theme-green'> 遵义</text> -->
+        </view>
+      </view>
+
+      <!-- 退货政策 -->
+      <view class='otherInfo-describe location borN'>
+        <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
+        <view class='goodstext flex_row margin-bottom--12rpx'>
+          <view class='dian'></view>
+          <text>{{productInfomation.return_policy_title}}</text>
+        </view>
+        <view class='goodstext'>
+          {{productInfomation.product_return_policy}}
+        </view>
+        <view class='shm'></view>
+        <view class='allInfo off-info' catchtap='animationOffFn'>
+          <view class='fx-icon-nothing-close-error'></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 绑定手机的模板 -->
+  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
+</view>

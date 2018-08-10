@@ -1,0 +1,25 @@
+{
+  "extEnable": true,
+  "extAppid": "wx60ed17bfd850985d",
+  "directCommit": false,
+  "ext": {
+    "name": "乐喜小馆",
+    "authAppid": "wx60ed17bfd850985d",
+    "storeRid": "91984703",
+    "attr": {
+      "users": [
+        "purpen"
+      ]
+    },
+    "api": {
+      "host": "https://wx.taihuoniao.com/api",
+      "version": "v1.0",
+      "appKey": "zXIPN0ftRj6dlrKFOZpH",
+      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
+    }
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "downloadFile": 10000
+  }
+}

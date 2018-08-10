@@ -1,0 +1,32 @@
+<!--pages/likeThisProduct/likeThisProduct.wxml-->
+<view class='container'>
+  <view 
+    class='time-top font-m relation-item' 
+    wx:for="{{peopleList.product_like_users}}"
+    wx:key="{{index}}">
+    <view class='flex_row relation-avater'>   
+      <image src='{{item.avatar}}'></image>
+      <text>{{item.username}}</text>
+    </view>
+
+    <view class='relation-icon'>
+      <view 
+        wx:if="{{item.followed_status==2}}" 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        catchtap='hanleDeleteWatch'>互相关注</view>
+      <view 
+        wx:if="{{item.followed_status==1}}" 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        catchtap='hanleDeleteWatch'>已关注</view>
+      <view 
+        data-uid="{{item.uid}}"
+        data-index="{{index}}"
+        class='relation-icon__add' 
+        catchtap='hanleAddWatch'
+        wx:if="{{item.followed_status==0 && index!=0}}">+ 关注</view>
+    </view>
+  </view>
+</view>
+

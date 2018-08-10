@@ -1,0 +1,38 @@
+<!--pages/paymentAddress/paymentAddress.wxml-->
+<view class='container theme-bg-color'>
+  <!-- 上面的进度条 -->
+  <view>
+    <view class='paymentList'>
+      <view>寄送</view>
+      <view>明细</view>
+      <view>付款</view>
+    </view>
+    <view class='bottom-line'>
+      <view class='linelast lineGreen'></view>
+      <view class='round lineGreen'></view>
+      <view class='middleline'></view>
+      <view class='round'></view>
+      <view class='middleline'></view>
+      <view class='round'></view>
+      <view class='linelast'></view>
+    </view>
+  </view>
+
+  <!-- 收获地址列表 -->
+  <view>
+    <radio-group class="radio-group" bindchange="radioChange">
+
+      <label class="radio">
+        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+        <view>
+          <text class='userName'>何自然 </text>
+          <text class='userLocation'>贵州省遵义市红花岗区天通银丽水元2单元501</text>
+          <text class='userLocation'>贵州省，遵义市 563100</text>
+          <text class='userLocation'>13381319070</text>
+        </view>
+      </label>
+
+
+    </radio-group>
+  </view>
+</view>

@@ -2,17 +2,18 @@
 
 <!--components/FxProductMiddle/FxProductMiddle.wxml-->
 <view class='productMiddleBox' data-rid='{{product.rid}}' catchtap='handleProductInfo'>
-  <view class='productMiddleBoxPhoto'>
-    <image src='{{product.cover}}' class='shopRecommendGoods-photo'></image>
+  <view class='productMiddleBoxPhoto' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx'>
+    <image src='{{ product.cover }}-p16' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo" wx:if="{{ !round }}"></image>
+    <image src='{{ product.cover }}-p16' style='height:{{}}rpx;width:{{}}rpx' class="shopRecommendGoods-photo round" wx:if="{{ round }}"></image>
     <view class='sell_up_text' wx:if="{{product.total_stock==0}}">售 罄</view>
   </view>
-  <view class='shopRecommendGoodsR'>
+  <view class='shopRecommendGoodsR' style='height:{{ photoHeight }}rpx;'>
     <view>
       <view class='two-line'>
         <text class='logistics logistics' wx:if="{{product.is_free_postage}}">包邮</text>
-        <text class='line-two'>{{product.name?product.name:product.product_name}}</text>
+        <text class='{{photoHeight==140?"line-two":""}}'>{{ product.name ? product.name : product.product_name }}</text>
       </view>
-      <block wx:if="{{color}}">
+      <block wx:if="{{ color }}">
         <view class='goodsColor' wx:if="{{product.color||product.size }}">
           <text>{{product.color}}</text>
           <text wx:if="{{product.color&&product.size}}">/</text>

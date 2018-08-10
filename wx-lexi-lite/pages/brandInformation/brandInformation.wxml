@@ -1,0 +1,56 @@
+<!--pages/brandInformation/brandInformation.wxml 关于品牌-->
+<import src="../../wxParse/wxParse.wxml"/>
+
+<view class='container'>
+  <view class='userPhotoBox'>
+    <view class='userinfo'>
+      <view class='userinfoL'>
+        <view class='userinfoO'>创作人</view>
+        <view class='userinfoT'>{{ shopOwner.brand_name }}</view>
+        <view class='userinfoS btn-bg-color'>{{ shopOwner.user_label }}</view>
+      </view>
+      <view class='userPhoto'>
+        <image src='{{ shopOwner.avatar.view_url }}'></image>
+      </view>
+    </view>
+
+    <!-- 是否认证 -->
+    <view class='authenticationBox theme-bg-color'>
+      <view class='authenticationBoxL'>
+        <view class='approveIcon'>
+          <image src='../../images/accept.png'></image>
+        </view>
+        <view>
+          <view class='approveTextO'>实名认证</view>
+          <view class='approveTextT'>乐喜官方已校验</view>
+        </view>
+      </view>
+      <view class='ren-icon'>
+        <image src='../../images/@2.png'></image>
+      </view>
+    </view>
+  </view>
+
+  <view class='brandOldPractice'>
+
+    <view class='addressInfo'>
+      <image class='bgxuhua' src='{{ storeInfo.bgcover }}'></image>
+      <view class="mask"></view>
+      <view class='addressInfoBox'>
+        <image class='addressInfoBoxL' src='{{ storeInfo.logo }}'></image>
+        <view class='addressInfoBoxR'>
+          <view class='addressInfoBoxO'>{{ storeInfo.name }}原创品牌馆</view>
+          <view class='addressInfoBoxT'>开馆时间：{{ createdTime }}</view>
+          <view class='addressInfoBoxS'>{{ storeInfo.country }}.{{ storeInfo.province }}</view>
+        </view>
+      </view>
+    </view>
+    <view class='brandFunction'>品牌故事</view>
+    <view class='recommendGoods'>{{ storeInfo.tag_line }}</view>
+    <view class='logo theme-green'>SLOGAN</view>
+    <view class='recommendgoodsText'>
+      <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}"/>
+    </view>
+  </view>
+
+</view>

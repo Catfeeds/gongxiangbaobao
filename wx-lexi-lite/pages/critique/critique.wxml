@@ -1,0 +1,67 @@
+<!--pages/critique/critique.wxml 评价页面-->
+<view class='container theme-bg-color'>
+  <view wx:for='{{product.items}}' wx:key='{{index}}'>
+    <!-- 产品的盒子 -->
+    <view class='Top-box paymentFnTextB bg-white'>
+      <view class='critique-product'>
+        <fx-product-middle otherInfo="true" color="true" product="{{item}}"></fx-product-middle>
+      </view>
+      <view class='price-box'>
+        <view class='black-font'>￥{{item.sale_price==0?item.price:item.sale_price}}</view>
+        <view class='hui-zi old-price' wx:if='{{item.sale_price!=0}}'>￥{{item.price}}</view>
+      </view>
+    </view>
+    <!-- 评价的盒子 -->
+    <view class='critique-box bg-white'>
+      <view class='critique-top '>
+        <view class='critique-star'>
+          <image 
+            
+            wx:for="{{star_list}}" 
+            wx:for-item='star_item'
+            wx:key="{{star_item}}" 
+            data-index="{{star_item}}" 
+            data-skuId='{{item.rid}}'
+            catchtap='starTap' 
+            src='{{star_item<=cretiqueParams[item.rid].score?"../../images/star_1@2.png":"../../images/star_2@2.png"}}'></image>
+        </view>
+        <view class='hui-zi critique-text'>轻点星形来评分</view>
+      </view>
+      <!-- 评论内容 -->
+      <view class='user-text theme-bg-color font-s'>
+        <textarea 
+          data-rid='{{item.rid}}'
+          maxlength="100" 
+          placeholder-class='hui-zi' 
+          value=''
+          bindinput='handleCritique'
+          placeholder='我们希望收到你的建议，优化我们的不足。长度在100字以内'>
+        </textarea>
+      </view>
+    </view>
+    <!-- 添加图片盒子 -->
+    <view class='add-photo'>
+      <view class='componentTwo title'>
+        <text class='black-font'>添加图片</text>
+        <text class='hui-zi'>（最多添加9张图片)</text>
+      </view>
+      <view class='componentTwo add-photo-box'>
+        <view class='submit-photo' wx:for="{{photo_url}}" wx:key="{{index}}">
+          <image data-index="{{index}}" src='../../images/delete_icon@2.png' class='del-pho' catchtap='delPhotoTap'></image>
+          <image src='{{item}}' class='uploadFile'></image>
+        </view>
+        <view class='add-icon theme-bg-color' catchtap='addPhotoTap'>+</view>
+      </view>
+    </view>
+    <!-- 分界线 -->
+    <view class='shm'></view>
+    <view class='shm'></view>
+  </view>
+  <view class='shm'></view>
+  <view class='shm'></view>
+  <!-- 提交按钮 -->
+  <view class='wx-btn-box {{submit_btn?"":"submitBgc"}}' catchtap='hanleSubmitTap'>
+    <button> 提交 </button>
+  </view>
+
+</view>

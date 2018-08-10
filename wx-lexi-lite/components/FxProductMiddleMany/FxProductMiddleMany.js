@@ -42,8 +42,19 @@ Component({
     repertoryNumber: {
       type: Boolean,
       value: false
+    },
+    round: {
+      type: Boolean,
+      value: false
+    },
+    photoHeight:{
+      type:Number,
+      value:180
+    },
+    photoWidth:{
+      type:Number,
+      value:180
     }
-
   },
 
   /**

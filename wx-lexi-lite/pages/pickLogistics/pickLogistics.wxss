@@ -1,0 +1,85 @@
+/* pages/pickLogistics/pickLogistics.wxss */
+.productPhotoBox{
+  height: 110rpx;
+  padding: 30rpx;
+  border-top: 1rpx solid #E2E3E4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24rpx;
+}
+.productPhotoBox>image{
+  height: 100rpx;
+  width: 100rpx;
+  background-color: pink;
+  margin-right: 20rpx;
+}
+.productPhotoBox>text{
+  flex: 1;
+}
+.logisticsTitle{
+  height: 80rpx;
+  border-top: 1rpx solid #E2E3E4;
+  border-bottom: 1rpx solid #E2E3E4;
+  background-color: white;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.logisticsName{
+   background-color: white; 
+   padding: 30rpx;
+}
+.radio{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.estimate-price{
+  margin-top: 28px;
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
+  padding: 30rpx;
+}
+.estimate-price_top{
+  margin-bottom: 30rpx;
+  font-weight: 500;
+}
+.estimate-price_bottom text{
+  line-height: 40rpx;
+}
+/* components/logstics/Fxlogstics.wxss */
+
+.receiveFnBottomBox{
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.receiveFnBottomBox>image{
+  height: 100%;
+  width: 100%;
+  background-color: red;
+}
+
+.logistics-goods{
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+}
+.logistics-goods text{
+  line-height: 40rpx;
+}
+.receiveFnBottom{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

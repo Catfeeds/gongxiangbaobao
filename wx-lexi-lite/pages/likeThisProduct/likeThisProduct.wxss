@@ -1,0 +1,2 @@
+/* pages/likeThisProduct/likeThisProduct.wxss */
+@import '../watch/watch.wxss'

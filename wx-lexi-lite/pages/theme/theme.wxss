@@ -1,0 +1,22 @@
+/* pages/theme/theme.wxss */
+@import "../user/user.wxss";
+.theme-top_box{
+  height: 320rpx;
+  overflow: hidden;
+  margin-bottom: 100rpx;
+}
+.theme-top_text{
+  position: absolute;
+  left: 50%;
+  top: 248rpx;
+  transform: translateX(-50%);
+  width: 610rpx;
+  height: 84rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, .3);
+  padding: 30rpx;
+  font-weight: 600;
+}
+.theme-top_text--width{
+  font-size: 38rpx;
+}

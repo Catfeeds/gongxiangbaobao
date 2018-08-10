@@ -2,6 +2,9 @@
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
 const util = require('./utils/util.js')
+const common = require('./utils/common.js')
+
+// global.regenerator = require('./utils/regenerator/runtime.js')
 
 App({
   onLaunch: function() {
@@ -43,12 +46,13 @@ App({
         this.globalData.isLogin = true
         this.globalData.token = jwt.token
         this.globalData.uid = jwt.uid
+
         // 更新用户信息
         this.updateUserInfo(jwt)
+
+        // 已登录，则直接执行
+        this.hookLoginCallBack()
       }
-      // console.log('现在调取的是没有登陆')
-      // 获取购物车数量
-      this.getCartTotalCount()
     }
 
     // 获取地理位置
@@ -73,7 +77,7 @@ App({
             let isBind = res.data.is_bind
             // 登录成功，得到jwt后存储到storage
             wx.setStorageSync('jwt', res.data)
-            console.log(res.data,'jwt信息')
+            console.log(res.data, 'jwt信息')
             if (isBind) {
               this.globalData.isLogin = true
               this.globalData.token = res.data.token
@@ -81,6 +85,8 @@ App({
               //更新用户信息
               this.updateUserInfo(res.data)
               // 回调函数
+              this.hookLoginCallBack()
+              
               if (cb) {
                 return typeof cb == 'function' && cb(true)
               }
@@ -96,6 +102,13 @@ App({
         })
       }
     })
+  },
+
+  // 登录后回调事件
+  hookLoginCallBack () {
+    console.log('登录后，执行回调函数')
+    // 获取购物车数量
+    this.getCartTotalCount()
   },
 
   // 更新用户信息
@@ -164,7 +177,7 @@ App({
    * 获取购物车数量
    */
   getCartTotalCount() {
-    http.fxGet(api.cart_item_count, {}, (res) => {
+    http.fxGet(api.cart_item_count, { params: { open_id: this.globalData.jwt.openid }}, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
         this.globalData.cartTotalCount = res.data.item_count
