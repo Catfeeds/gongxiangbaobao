@@ -1,0 +1,98 @@
+<!--components/FxPickProduct/FxPickProduct.wxml-->
+<view class='pick-product-box' catchtap='{{ false }}'>
+  <view class='pick-product__title direction--row'>
+    <view class='pick-title__off'>
+      <view catchtap='handleOffPick'>x</view>
+    </view>
+    <view class='pick-title__middle'>筛选</view>
+    <view class='pick-title__set again__setting' catchtap='newSeting'>重置</view>
+  </view>
+
+  <view class='slider'>
+    <view class='price-pick margin--bottom'>价格区间</view>
+    <view class='movable-view'>
+      <!-- 中间 灰线 -->
+        <view class='middle-line hui__xian'></view>
+      <!-- 中间 绿线 -->
+      <view class='middle-line' style="width:{{lineWhite}}rpx;left:{{offsetLeft}}rpx;"></view>
+
+<!-- style="margin-left:{{movableLeft}}rpx; width:{{}}rpx" -->
+      <movable-area 
+        width="600rpx"
+        height="40rpx"
+        class="movable-view__bg">
+
+        <!-- 左面 -->
+        <movable-view 
+          x="{{xLeft}}"
+          damping="{{0}}"
+          catchtap="{{ false }}"
+          disabled="{{isDisabled}}"
+          bindchange="handleMovableLeft" 
+          direction="horizontal" 
+          class='movable-view__item'>
+        </movable-view>
+
+
+
+        <!-- 右面 -->
+        <movable-view 
+          x="{{xRight}}" 
+         damping="{{0}}"
+          bindchange="handleMovableRight" 
+          catchtap="{{ false }}"
+          direction="horizontal"  
+          disabled="{{isDisabled}}"
+          class='movable-view__item'>
+        </movable-view>
+
+      </movable-area>
+    </view>
+    <view class='price-text font-s direction--row'>
+      <text 
+        class='{{movableLeft<=80?"pick-title__set":""}}'>￥0</text>
+      <text 
+        class='{{movableLeft<=160 && movableLeft>80 || movableRight>80 && movableRight<=160 ?"pick-title__set":""}}'>￥150</text>
+      <text class='{{movableLeft<=240 && movableLeft>160 || movableRight>160 && movableRight<=240 ?"pick-title__set":""}}'>¥300</text>
+      <text class='{{movableLeft<=320 && movableLeft>240 || movableRight>240 && movableRight<=320 ?"pick-title__set":""}}'>¥400</text>
+      <text class='{{movableLeft<=400 && movableLeft>320 || movableRight>320 && movableRight<=400 ?"pick-title__set":""}}'>¥500</text>
+      <text class='{{movableLeft<=480 && movableLeft>400 || movableRight>400 && movableRight<=480 ?"pick-title__set":""}}'>¥800</text>
+      <text class='{{movableRight>480?"pick-title__set":""}}'>不限</text>
+    </view>
+  </view>
+  
+  <!-- 首页的分类 -->
+  <view class='slider padding-bottom--134rpx' wx:if="{{!recommend}}">
+    <view class='price-pick margin-bottom--34rpx'>分类
+      <text class='pick-product__text'>可多选</text> </view>
+    <view class='direction--row font-s pick-product__category '>
+      <view 
+        data-index="{{index}}"
+        wx:for="{{categoryList}}" 
+        wx:key="{{index}}" 
+        catchtap='hanlePickCategory'
+        class='font-s {{ item[2] == 1?"pick-bg":"" }}'
+        data-rid="{{item[0]}}">{{item[1]}}</view>
+    </view>
+  </view>
+
+    <!-- 个人中心的 -->
+  <view class='slider' wx:if="{{recommend}}">
+    <view class='price-pick'>推荐</view>
+    <view 
+      catchtap='handleLogistics'
+      class='direction--row font-s pick-product__category '>
+      <view class='{{logisticsPrice==1?"pick-bg":""}}'>包邮</view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class='bottom-btn' catchtap='handleOffPick'>
+      <view class='direction--row'>
+        查看商品 <text> ({{pickQuantity}}件) </text>
+      </view>
+  </view>
+
+  <!-- 垫片 -->
+  <view class='shim'></view>
+</view>

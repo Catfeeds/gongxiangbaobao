@@ -201,9 +201,34 @@ const showToast = (v, typeText ="none") => {
 }
 //预先加载地址
 
+// 隐藏tabbar
+const handleHideTabBar = () => {
+  wx.hideTabBar(OBJECT)
+}
+
+// 显示tabbar
+const handleShowTabBar = () => {
+  wx.showTabBar(OBJECT)
+}
+
+// 显示加载
+const handleShowLoading = () => {
+  wx.showLoading({
+    title: '加载中'
+  }) 
+}
+
+// 隐藏加载
+const handleHideLoading = () => {
+  wx.hideLoading() 
+}
 
 
 module.exports = {
+  handleHideLoading: handleHideLoading,
+  handleShowLoading: handleShowLoading,
+  handleShowTabBar: handleShowTabBar,
+  handleHideTabBar: handleHideTabBar,
   fxShowToast: showToast,
   formatTime: formatTime,
   timestamp2string,

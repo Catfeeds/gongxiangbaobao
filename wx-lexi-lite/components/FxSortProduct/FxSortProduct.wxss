@@ -1,0 +1,47 @@
+/* components/FxSortProduct/FxSortProduct.wxss */
+.sort-box{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 28rpx;
+  background-color: white;
+}
+.sort-box__item,
+.sort-box__title{
+  padding: 0 40rpx;
+}
+.sort-box__title{
+  height: 80rpx;
+  line-height: 80rpx;
+  display: flex;
+  font-size: 32rpx;
+}
+.sort-box__title text{
+  flex: 1;
+
+}
+.sort-box__item{
+  height: 88rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.bg--hui{
+  background-color: #e9e9e9;
+}
+.sort-box__item image{
+  height: 44rpx;
+  width: 44rpx;
+}
+.sort-title__text{
+  margin: 0 auto;
+}
+.bg--white{
+  background-color: white;
+  color: #5fe4b1;
+}
+.sort-title__icon{
+  font-size: 32rpx;
+  color: #949ea6;
+}

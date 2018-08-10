@@ -1,0 +1,346 @@
+/* pages/user/user.wxss */
+
+page {
+  height: 100%;
+  background-color: #f7f9fb;
+}
+.container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-box {
+  padding: 40rpx 40rpx 26rpx 40rpx;
+  background-color: white;
+}
+
+.user-photo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.photo {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 70rpx;
+}
+
+.photo image {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #eee;
+}
+
+.user-photo>view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #949ea6;
+  /* margin-bottom: 14rpx; */
+}
+
+.green {
+  color: #5fe4b1;
+}
+
+.user-name-text {
+  font-size: 34rpx;
+  font-weight: 500;
+  margin-top: 12rpx;
+}
+
+.is-login button {
+  font-size: 22rpx;
+  color: #f4ac12;
+  text-align: left;
+  padding: 0;
+  background-color: white;
+}
+
+.follow>view:nth-child(1) {
+  margin-right: 40rpx;
+}
+
+.follow {
+  /* margin-top: 8rpx; */
+}
+
+.transmission {
+  height: 60rpx;
+  width: 176rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #ededef;
+  text-align: center;
+  line-height: 60rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: transparent;
+}
+
+button-hover {
+  background-color: transparent;
+}
+
+.service {
+  height: 60rpx;
+  width: 60rpx;
+  border: 1rpx solid #ededef;
+  border-radius: 50%;
+  margin-left: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.service-intercalate {
+  margin-top: 22rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.service-intercalate>.time-top:nth-child(1) {
+  margin-right: 136rpx;
+}
+
+.sotr {
+  justify-content: space-around;
+  padding: 23rpx 0 20rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+  background-color: white;
+}
+
+.sotr image {
+  width: 12rpx;
+  height: 10rpx;
+  margin-left: 14rpx;
+}
+
+.goodsList {
+  padding: 30rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: white;
+  border-bottom: 40rpx solid #f7f9fb;
+}
+
+.goods-item {
+  width: 48%;
+}
+
+.goodsFive {
+  width: 100%;
+}
+
+.goodsList>view {
+  margin-bottom: 30rpx;
+}
+
+.sotrF {
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  width: 100%;
+}
+
+.Fshim {
+  height: 120rpx;
+}
+
+.setings {
+  height: 32rpx;
+  width: 32rpx;
+}
+
+.sms {
+  margin-left: -15rpx;
+}
+
+.fei {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+  background-color: #f66;
+}
+
+.fei image {
+  height: 50%;
+  width: 50%;
+}
+
+.red-round {
+  height: 14rpx;
+  width: 14rpx;
+  background-color: #f66;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.coupon {
+  position: relative;
+}
+
+.shou {
+  border-top: 1rpx solid #e9e9e9;
+}
+
+.GoodsPhoto {
+  height: 200rpx;
+  width: 200rpx;
+}
+
+.GoodsPhoto image {
+  height: 100%;
+  width: 100%;
+  border-radius: 10rpx;
+}
+
+.see-all {
+  padding-right: 25rpx;
+}
+
+.p-null {
+  padding-bottom: 0;
+}
+
+/*  */
+
+.shopInfo {
+  padding-left: 40rpx;
+  padding-bottom: 20rpx;
+  background-color: white;
+  margin-bottom: 20rpx;
+}
+
+.shopInfoT {
+  padding: 30rpx 40rpx 28rpx 0;
+  display: flex;
+  flex-direction: row;
+  /* border-bottom: 1rpx solid #ededef; */
+  align-items: center;
+}
+
+.userIcon {
+  height: 90rpx;
+  width: 90rpx;
+}
+
+.userIcon>image {
+  height: 100%;
+  width: 100%;
+}
+
+.shopMiddle {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.with {
+  height: 58rpx;
+  width: 126rpx;
+  background-color: #5fe4b1;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.with>image {
+  height: 26rpx;
+  width: 26rpx;
+}
+
+.shop-other-goods {
+  /* padding: 20rpx 0 0 0; */
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.shop-other-goods>view {
+  height: 180rpx;
+  width: 180rpx;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+
+.shop-other-goods image {
+  height: 100%;
+  width: 100%;
+  border-radius: 8rpx;
+}
+
+.shop-name {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.user__like {
+  padding: 0 40rpx;
+}
+
+.wacth-follower {
+  font-weight: 500;
+}
+
+.seting--left {
+  margin-right: 0;
+}
+
+.margin--15rpx {
+  margin-right: 15rpx;
+  font-weight: normal;
+}
+
+.c-importantGoods {
+  padding-top: 32rpx;
+  background-color: white;
+}
+
+.c-importantGoodsBox {
+  margin-top: 34rpx;
+}
+
+.user-null__product{
+  height: 100%;
+}
+
+.user-null__product image{
+  height: 120rpx;
+  width: 120rpx;
+
+}
+
+.bottom__info{
+  flex: 1;
+}
+
+.no-like__title{
+margin:35rpx 0 20rpx 0;
+}
+
+.hui-xin image{
+  width: 26rpx;
+  height: 24rpx;
+}
+

@@ -1,12 +1,66 @@
 {
-  "pages":[
+  "pages": [
+    "pages/distributeCenter/DistributeCenter",
+    "pages/distributeSubmit/distributeSubmit",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/theme/theme",
+    "pages/redBag/redBag",
+    "pages/settings/settings",
+    "pages/orderInfo/orderInfo",
+    "pages/user/user",
+    "pages/editInfo/editInfo",
+    "pages/product/product",
+    "pages/logisticsWatch/logisticsWatch",
+    "pages/orderRevise/orderRevise",
+    "pages/paymentSuccess/paymentSuccess",
+    "pages/order/order",
+    "pages/receiveAddress/receiveAddress",
+    "pages/address/address",
+    "pages/cart/cart",
+    "pages/brandInformation/brandInformation",
+    "pages/logs/logs",
+    "pages/addressTemplate/addressTemplate",
+    "pages/pickLogistics/pickLogistics",
+    "pages/critique/critique",
+    "pages/watch/watch",
+    "pages/coupon/coupon",
+    "pages/couponTemplate/couponTemplate",
+    "pages/shareTemplate/shareTemplate",
+    "pages/paymentAddress/paymentAddress",
+    "pages/authorize/authorize",
+    "pages/myFollower/myFollower",
+    "pages/likeThisProduct/likeThisProduct",
+    "pages/allProduct/allProduct",
+    "pages/checkout/checkout"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "navigationBarBackgroundColor": "white",
+    "navigationBarTitleText": "String",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#5fe4b1",
+    "borderStyle": "#dadada",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icon-home@3x.png",
+        "selectedIconPath": "images/icon-home-active@3x.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "images/icon-cart@3x.png",
+        "selectedIconPath": "images/icon-cart-active@3x.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/icon-account@3x.png",
+        "selectedIconPath": "images/icon-account-active@3x.png"
+      }
+    ]
   }
 }

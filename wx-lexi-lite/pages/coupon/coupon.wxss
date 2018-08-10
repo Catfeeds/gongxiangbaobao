@@ -1,0 +1,202 @@
+/* pages/coupon/coupon.wxss */
+
+.container {
+  padding: 40rpx;
+}
+
+.coupon-box {
+  width: 670rpx;
+  height: 190rpx;
+  display: flex;
+  flex-direction: row;
+  border-radius: 20rpx;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 40rpx;
+}
+
+.info-box-left {
+  flex: 380;
+  background-color: white;
+  position: relative;
+  /* overflow: hidden; */
+  height: 100%;
+}
+
+.info-box-R {
+  flex: 498;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  padding-left: 30rpx;
+}
+
+.line-L {
+  height: 100rpx;
+  width: 20rpx;
+  border-radius: 20rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.line-out {
+  left: -10rpx;
+}
+
+.top-round {
+  height: 20rpx;
+  width: 10rpx;
+  position: absolute;
+  right: -5rpx;
+  border-radius: 20rpx;
+}
+
+.top-round-top {
+  top: -10rpx;
+}
+
+.top-round-bottom {
+  bottom: -10rpx;
+}
+
+.right-line {
+  right: -10rpx;
+}
+
+.price-icon image {
+  height: 20rpx;
+  width: 16rpx;
+  vertical-align: text-top;
+  margin-top: 20rpx;
+  margin-right: 10rpx;
+}
+
+.price-icon {
+  font-size: 60rpx;
+  font-weight: 500rpx;
+  color: white;
+}
+
+.price-info-box {
+   background-color: #ff6934; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.price-text {
+  font-size: 26rpx;
+  color: white;
+}
+
+.right-btn {
+  flex: 120;
+  background-color: white;
+  font-size: 24rpx;
+  color: #dab867;
+}
+.right-btn>view{
+  height: 100%;
+  width: 62rpx;
+  writing-mode: tb-rl;
+  text-align: center;
+  border-left: 1rpx dashed #b2b2b2;
+}
+
+.quadrate-view {
+  height: 8rpx;
+  width: 8rpx;
+  background-color: #ff6934;
+  margin-right: 10rpx;
+  transform: rotate(45deg)
+}
+
+.quadrate {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.shop-icon {
+  font-size: 26rpx;
+}
+
+.shop-icon>view {
+  height: 42rpx;
+  width: 42rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid #e9e9e9;
+  overflow: hidden;
+  margin-right: 10rpx;
+}
+
+.shop-icon>view>image {
+  width: 100%;
+  height: 100%;
+  /* background-color: red; */
+}
+.noll-coupon image{
+  height: 250rpx;
+  width: 510rpx;
+  margin: 200rpx 0 20rpx 0;
+}
+.noll-coupon view{
+  color: #666666;
+}
+/* 优惠券无效时候的颜色 */
+.hui{
+    color: #999999 !important;
+}
+.none-bg{
+  background-color: #B2B2B2 !important;
+}
+.none-bg-l{
+  background-color: #dcdbdb !important;
+}
+.separate_line{
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+}
+.separate_line::after,
+.separate_line::before{
+  content: '';
+  flex: 1;
+  height: 2rpx;
+  background-color: #999999;
+  margin: 40rpx 0;
+}
+.coupon_explain{
+  
+}
+.lx-coupon--style{
+  background-color: #dab867;
+  border-top-right-radius:50rpx 90rpx;
+  border-bottom-right-radius: 50rpx 90rpx;
+}
+.lx-coupon--text .font-xss{
+  text-align: center;
+  	width: 70rpx;
+	height: 30rpx;
+  background-color: #dab867;
+  color: white;
+  border-radius: 6rpx;
+  margin-right: 20rpx;
+}
+.coupon_right--red{
+  color: #ff733b;
+}
+.coupon_dashes--round{
+  border-left: 14rpx dotted #e9e9e9;
+}
+.exceed_coupon--right{
+  background-color: #e1dedc;
+}
+.exceed_coupon--middle{
+  background-color: #e9e9e9;
+  color: #b2b2b2;
+}

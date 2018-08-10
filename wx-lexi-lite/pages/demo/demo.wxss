@@ -1,0 +1,14 @@
+/* pages/demo/demo.wxss */
+.box {
+  background-color: blueviolet;
+  margin: 40rpx;
+}
+.text {
+  margin-bottom: 40rpx; 
+  background-color: green;
+}
+.image {
+  background-color: red;
+  padding-bottom: 30rpx;
+  margin-bottom: 50rpx;
+}

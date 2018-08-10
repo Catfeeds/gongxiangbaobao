@@ -1,0 +1,202 @@
+/* pages/brandInformation/brandInformation.wxss */
+@import "../../wxParse/wxParse.wxss";
+.userPhotoBox {
+  margin: 0 40rpx 20rpx;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userinfoL {
+  display: flex;
+  flex-direction: column;
+  height: 122rpx;
+  justify-content: space-between;
+}
+
+.userinfoO {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.userinfoT {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.userinfoS {
+  width: 122rpx;
+  height: 32rpx;
+  font-size: 22rpx;
+  color: white;
+  border-radius: 5rpx;
+  text-align: center;
+  line-height: 32rpx;
+}
+
+.userPhoto {
+  height: 122rpx;
+  width: 122rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userPhoto image {
+  height: 100%;
+  width: 100%;
+}
+
+.authenticationBox {
+  height: 105rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: row;
+  padding: 0 30rpx;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30rpx 0;
+}
+
+.approveIcon {
+  height: 56rpx;
+  width: 46rpx;
+  margin-right: 20rpx;
+}
+.approveIcon image{
+  height: 100%;
+  width: 100%;
+}
+
+.authenticationBoxL {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.approveTextO {
+  font-size: 28rpx;
+}
+
+.approveTextT {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.brandOldPractice {
+  padding: 40rpx;
+  width: 670rpx;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  /* box-shadow: -10rpx 0rpx 0rpx 10rpx  red, 0rpx 0rpx 0rpx 10rpx  red; */
+  box-shadow: -10rpx -10rpx 5rpx #f5f7f9, 10rpx -10rpx 5rpx #f5f7f9;
+}
+
+.bgxuhua {
+  -webkit-filter: blur(10px); /* Chrome, Opera */
+  -moz-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+}
+
+.addressInfo {
+  height: 222rpx;
+  width: 670rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  position: relative;
+}
+
+.mask {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.addressInfoBox {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 99;
+}
+
+.addressInfoBoxL {
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 10rpx;
+  background-color: green;
+  margin-right: 20rpx;
+  margin-left: 30rpx;
+  border: 1px solid #ffffff;
+}
+
+.addressInfoBoxR {
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.addressInfoBoxO {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: white;
+}
+
+.addressInfoBoxT {
+  font-size: 24rpx;
+  color: white;
+}
+.addressInfoBoxS {
+  font-size: 24rpx;
+  color: #c6d1d9;
+}
+.brandFunction{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin: 40rpx 0 20rpx;
+}
+.recommendGoods{
+  font-size: 24rpx;
+  margin-bottom: 5rpx;
+}
+.logo{
+  font-size: 22rpx;
+}
+.recommendgoodsText{
+  margin-top: 40rpx;
+  padding-top: 40rpx;
+  border-top: 1rpx solid #e9e9e9;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.recommendgoodsText > view{
+  margin-bottom: 20rpx;
+  font-weight: 500;
+  letter-spacing:4rpx;
+}
+.ren-icon{
+  height: 40rpx;
+  width: 120rpx;
+}
+.ren-icon image{
+  height: 100%;
+  width: 100%;
+}
+

@@ -1,0 +1,48 @@
+<!--pages/pickLogistics/pickLogistics.wxml 选择配送方式-->
+<view class='container theme-bg-color'>
+  <view class='productPhotoBox' wx:for='{{ orderInfoSkus }}' wx:key='{{ index }}'>
+    <image src='{{ item.cover }}'></image>
+    <text>{{ item.product_name }}</text>
+  </view>
+
+  <!-- 物流公司 -->
+  <view>
+    <view class='logisticsTitle'>
+      <text>选择物流</text>
+      <text class='hui-zi'>从{{storeInfo.delivery_country}}{{storeInfo.delivery_province}}发货</text>
+    </view>
+    <view>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label 
+          class="radio logisticsName" 
+          wx:for='{{logisticsMould}}'
+          wx:key='{{index}}'
+          data-express_id='{{item.express.express_id}}'>
+          <view class='receiveFnBottom'>
+            <view class='receiveFnBottomBox'>
+              <image src='../../images/logistics-icon@2.png'></image>
+            </view>
+            <view class='logistics-goods'>
+              <text>{{ item.express_name }}</text>
+              <text>物流时长：{{ item.min_days }}至{{ item.max_days }}天送达，已含税</text>
+              <text></text>
+            </view>
+          </view>
+          <radio color='#6ED7AF' value='{{index}}' checked="{{item.is_default}}"/>
+        </label>
+      </radio-group>
+    </view>
+  </view>
+
+  <!-- 预计运费 -->
+  <view class='estimate-price bg-white'>
+    <view class='time-top estimate-price_top black-font'>
+      <text>预计运费</text>
+      <text>￥{{ logisticsSum }}</text>
+    </view>
+    <view class='font-ss estimate-price_bottom'>
+      <text class='theme--hong'>注: </text>
+      <text>采用不同的配送方式的到达天数不同，运费价格也有所不同，实际运费返回明细查看。</text>
+    </view>
+  </view>
+</view>

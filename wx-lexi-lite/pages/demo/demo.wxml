@@ -1,0 +1,9 @@
+<view class='container'>
+  <view class="box">
+    <view class="text">这是文本</view>
+    <view class="image">
+      这是图片
+    </view>
+  </view>
+</view>
+

@@ -1,0 +1,160 @@
+/* components/FxPickProduct/FxPickProduct.wxss */
+
+.font-s {
+  font-size: 24rpx;
+}
+
+.direction--row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pick-product-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+}
+
+.pick-product__title {
+  padding: 18rpx 30rpx;
+  justify-content: space-between;
+  background-color: #fdfdfd;
+}
+
+/* .pick-title__set, .pick-title__middle {
+  font-size: 32rpx;
+} */
+
+.pick-title__set {
+  color: #5fe4b1;
+}
+
+.pick-title__off {
+  color: #949ea6;
+}
+
+.slider {
+  height: 200rpx;
+  padding:8rpx 30rpx 30rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.price-pick {
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
+.price-text {
+  justify-content: space-around;
+}
+
+.pick-product__text {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.pick-product__category {
+  padding-right: 0;
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
+.pick-product__category view {
+  padding: 20rpx;
+  background-color: #f5f7f9;
+  border-radius: 8px;
+  margin-right: 20rpx;
+}
+
+.movable-view {
+  margin: 0 45rpx;
+  position: relative;
+  height: 40rpx;
+}
+
+.movable-view__bg {
+  height: 50rpx;
+  width: 600rpx;
+  /* background-color: #999; */
+  /* border-radius: 10rpx; */
+  /* position: relative; */
+}
+
+.movable-view__item {
+  height: 50rpx;
+  width: 50rpx;
+  border-radius: 50%;
+  border: 4rpx solid #5fe4b1;
+  top: -166%;
+  background-color: white;
+  z-index: 9;
+  box-sizing: border-box;
+}
+
+.middle-line {
+  height: 8rpx;
+  width:520rpx;
+  background-color:#5fe4b1 ;
+  border-radius: 10rpx;
+  position: absolute;
+  top: 20rpx;
+  z-index: 6;
+}
+
+.hui__xian{
+  width: 600rpx;
+  background-color: #eeeeee;
+}
+.pick-bg{
+  border: 2rpx solid #5fe4b1;
+  background-color:rgba(0, 255, 191,.9);
+  box-sizing: border-box;
+}
+
+.bottom-btn{
+  position: absolute;
+  bottom: 40rpx;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100rpx;
+
+}
+.bottom-btn>view{
+  width: 690rpx;
+  height: 100%;
+  background-color: #5fe4b1;
+  border-radius: 8rpx;
+  color: white;
+  justify-content: center;
+  font-size: 28rpx;
+}
+.shim{
+  height: 100rpx;
+}
+.zindex{
+  z-index: 2;
+}
+
+.margin--bottom{
+  margin-bottom: 38rpx;
+}
+.margin-bottom--34rpx{
+  margin-bottom: 30rpx;
+}
+.margin-bottom--220rpx{
+  margin-bottom: 220rpx;
+}
+.padding-bottom--134rpx{
+  padding-bottom: 126rpx;
+}
+
+.again__setting{
+  visibility: hidden;
+}

@@ -14,7 +14,16 @@
             </view>
           </view>
           <view class='input-number'>
-            <input placeholder-class='number' placeholder='输入手机号码' maxlength="11" type="number" bindinput="inputText" value='{{mobaile_number}}'>
+            <input 
+              placeholder-class='number' 
+              placeholder='输入手机号码' 
+              maxlength="11" 
+              type="number" 
+              focus="{{!is_time}}"
+              cursor-spacing="120"
+              adjust-position="{{true}}"
+              bindinput="inputText" 
+              value='{{mobaile_number}}'>
             </input>
           </view>
           <view class='cha' catchtap='mobileNumberNullTap'>x</view>
@@ -24,7 +33,14 @@
         </view>
         <!-- 输入验证码 -->
         <view class='mobile-number yan input-number time-top'>
-          <input placeholder-class='number' placeholder='短信验证码' type="number" bindinput="serveNumber" value='{{verification_code}}' maxlength="6">
+          <input 
+            placeholder-class='number' 
+            placeholder='短信验证码' 
+            type="number" 
+            cursor-spacing="120"
+            bindinput="serveNumber" 
+            adjust-position="{{true}}"
+            value='{{verification_code}}' maxlength="6">
           </input>
           <text class='error-text font-ss' wx:if="{{prompt}}">验证码错误</text>
         </view>
@@ -37,7 +53,13 @@
   <view class='pick-country-box bg-white black-font' wx:if="{{is_country}}">
     <view class='componentTwo'>常用</view>
     <view class='pick-country-btm'>
-      <view class='time-top' wx:for="{{country_pick}}" wx:key="{{item.rid}}" catchtap='pickCountryTap' data-code="{{item.areacode}}">
+      <view 
+        class='time-top' 
+        wx:for="{{country_pick}}" 
+        wx:key="{{item.rid}}" 
+        catchtap='pickCountryTap' 
+        wx:if="{{item.areacode!=null}}"
+        data-code="{{item.areacode}}">
         <text>{{item.name}}</text>
         <text class='theme-hui-color'>{{item.areacode}}</text>
       </view>

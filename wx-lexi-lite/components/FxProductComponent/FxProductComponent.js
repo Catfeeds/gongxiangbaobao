@@ -4,6 +4,11 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    // 图片的大小
+    photoSize:{
+      type:String,
+      value:"30"
+    },
 
     oldPrice: {
       type: Boolean,

@@ -1,0 +1,40 @@
+<!--components/FxProductMiddle/FxProductMiddle.wxml 已用-->
+<view class='productMiddleBox'>
+  <view class='productMiddleBoxPhoto'>
+    <image src='{{ product.cover }}-p16' class='shopRecommendGoods-photo'></image>
+  </view>
+  <view class='shopRecommendGoodsR'>
+    <view>
+      <view class='nowarp'>
+        <text class='logistics logistics' wx:if="{{product.logisticsExpenses==0}}">包邮</text>
+        <view class='line-ine'>{{product.product_name}}</view>
+      </view>
+      <!-- 颜色 -->
+      <block wx:if="{{color}}">
+        <view class='goodsColor' wx:if="{{product.s_colorcolor||product.s_model }}">
+          <text>{{product.s_color}}</text>
+          <text wx:if="{{product.color&&product.size}}">/</text>
+          <text>{{product.s_model}}</text>
+        </view>
+      </block>
+    </view>
+
+    <!-- 店铺名称 -->
+    <view class='shopingName' wx:if="{{shopName}}">
+      <image src='../../images/store.png'></image>
+      <text>{{product.store_name}}</text>
+    </view>
+
+    <!-- 价格和喜欢的人数 -->
+    <view wx:if="{{price}}">
+      <text>¥{{product.currentPrice}}</text>
+      <text wx:if="{{originPric}}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{product.originPrice}}</text>
+      <text wx:if="{{is_likeNumber}}" class='shopRecommendGoodsR-old '>喜欢+{{product.is_likeNumber}}</text>
+    </view>
+    <!-- 库存数量 是否售罄 -->
+    <view wx:if="{{repertoryNumber}}" class='repertoryNumber'>该商品已售馨</view>
+    <!-- 其他的信息 -->
+    <view wx:if="{{otherInfo}}" class='otherInfo'>{{product.time}}</view>
+
+  </view>
+</view>

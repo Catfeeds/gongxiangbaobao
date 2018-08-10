@@ -1,7 +1,10 @@
 <!--components/FxProductMiddle/FxProductMiddle.wxml 已用-->
 <view class='productMiddleBox'>
-  <view class='productMiddleBoxPhoto'>
-    <image src='{{product.cover}}' class='shopRecommendGoods-photo'></image>
+  <view class='productMiddleBoxPhoto' style='height:{{height}}rpx;width:{{width}}rpx'>
+    <image 
+      src='{{product.cover}}'
+      style='height:{{height}}rpx;width:{{width}}rpx' 
+      class='shopRecommendGoods-photo'></image>
   </view>
   <view class='shopRecommendGoodsR'>
     <view>

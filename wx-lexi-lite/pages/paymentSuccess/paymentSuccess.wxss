@@ -1,0 +1,109 @@
+/* pages/paymentSuccess/paymentSuccess.wxss */
+
+.successBG {
+  height: 270rpx;
+  background-color: #6ed7af;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+}
+
+.paymentText {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.examineOrder {
+  height: 56rpx;
+  width: 200rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  background-color: rgba(255, 255, 255, 0.5);
+  line-height: 56rpx;
+  text-align: center;
+}
+
+.receiveAddress {
+  background-color: white;
+  flex-direction: row;
+  font-size: 28rpx;
+  align-items: center;
+}
+
+.receiveAddressL {
+  font-weight: 500rpx;
+  flex: 2;
+}
+.receiveAddressR{
+  flex: 8;
+}
+.paymentFnText{
+  background-color: white;
+  flex-direction: column;
+}
+
+
+.price{
+  background-color: white;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 30rpx;
+}
+.price>view>view{
+  width: 690rpx;
+  line-height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+.priceG{
+  font-size: 34rpx;
+  color: #FF6666;
+  font-weight: 600;
+}
+
+.shopGoodsInfo{
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  background-color: white;
+}
+.goodsInfoBox{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  padding: 30rpx;
+  justify-content: space-between
+}
+.middle-line{
+  text-decoration: line-through;
+}
+.goodsInfoBoxL{
+  flex: 12;
+}
+.number{
+  flex: 1;
+}
+.price_old_new{
+  flex: 1;
+}
+.goodsFn{
+  padding: 20rpx 20rpx 20rpx 0;
+  margin-left: 30rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1rpx solid #E9E9E9;
+}
+.price_logistics--color{
+  font-size: 24rpx;
+  color: #C1A67F;
+}
+.price_logistics--colorR{
+  font-size: 34rpx;
+  color:#FC6769;
+}

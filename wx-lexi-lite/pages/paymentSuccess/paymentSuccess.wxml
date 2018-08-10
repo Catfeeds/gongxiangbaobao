@@ -1,0 +1,77 @@
+<!--pages/paymentSuccess/paymentSuccess.wxml-->
+<view class='container theme-bg-color'>
+  <!-- 支付成功的提示 -->
+  <view class='successBG'>
+    <icon type='success' color="white" size="60"></icon>
+    <view class='paymentText'>支付成功</view>
+    <view class='examineOrder' data-rid='{{order.orders[0].rid}}' catchtap='examineOrder'>查看我的订单</view>
+  </view>
+
+  <!-- 支付信息 -->
+  <view>
+    <!-- 接收地址 -->
+    <view class='receiveAddress componentTwo'>
+      <view class='receiveAddressL'>寄送地</view>
+      <view class='receiveAddressR'>{{order.orders[0].buyer_name}}，{{order.orders[0].buyer_province}}{{order.buyer_city}}，{{order.orders[0].buyer_address}}，{{order.orders[0].buyer_zipcode}}</view>
+    </view>
+
+    <!-- 支付方式 -->
+    <view class='componentTwo paymentFnText'>
+      <view class='paymentFnText-top hui-zi'>支付方式</view>
+      <view class='black-font paymentFnTextB'>
+        <view>微信在线支付</view>
+        <view class='payment-icon'>
+          <image src='../../images/weixinpay.png'></image>
+        </view>
+      </view>
+    </view>
+
+    <!-- 金额计算 -->
+    <view class='componentTwo price'>
+      <!-- 左 -->
+      <view>
+        <view>
+          <text class='hui-zi'>小计 : </text>
+          <text>￥{{((order.actual_payment)*1000 - (order.orders[0].freight)*1000)/1000}}</text>
+        </view>
+        <view>
+          <text class='hui-zi'>配送 : </text>
+          <text class='price_logistics--color'>{{logisticsPriceSum==0?"包邮":order.orders.freight}}</text>
+        </view>
+        <view>
+          <text class='black-font'>订单总计 </text>
+          <text class='price_logistics--colorR'>￥{{order.actual_payment}}</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+  <!-- 购买产品的信息，订单信息 -->
+  <view class='shopGoodsInfo' wx:for="{{order.orders}}" wx:for-item="items" wx:key="{{index}}">
+    <view class='componentTwo'>{{items.store.store_name}}</view>
+
+    <view class='fx-column-b' wx:for="{{items.items}}" wx:key='index' wx:for-item="item">
+      <view  class='goodsInfoBox'>
+        <view class='goodsInfoBoxL'>
+          <fx-product-middle product="{{item}}" color="true"></fx-product-middle>
+        </view>
+        <view class='hui-zi number'>x {{item.quantity}}</view>
+        <view class='price_old_new'>
+          <view>￥{{item.sale_price==0?item.price:item.sale_price}}</view>
+          <view class='hui-zi middle-line' wx:if="{{item.sale_price!=0}}">￥{{item.price}}</view>
+        </view>
+      </view>
+
+      <view class='goodsFn'>
+        <view>配送</view>
+        <view>￥{{item.freight}}</view>
+      </view>
+    </view>
+
+
+  </view>
+
+  <!-- 垫片 -->
+  <view class='shm'></view>
+</view>

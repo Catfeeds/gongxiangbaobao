@@ -1,0 +1,139 @@
+<!--pages/address/address.wxml 收获地址-->
+<import src="../addressTemplate/addressTemplate.wxml" />
+
+<view class='container theme-bg-color'>
+  <form>
+    <!-- top -->
+    <view class='adressInfoBox'>
+      <view>
+        <input placeholder-class="phcolor" placeholder='收件人真实姓名' bindinput='ahndleUserName' value='{{ form.first_name }}'></input>
+      </view>
+      <view>
+        <input value='{{ form.mobile }}' bindinput='handleMobileCode' placeholder-class="phcolor" placeholder='手机号' type='number'></input>
+      </view>
+      <!-- 国家 -->
+      <view class='adress-pick--style qian-hui'>
+        <picker bindchange="bindPickerChange" value="{{ index }}" range="{{ country.area_codes }}" range-key='name'>
+          <view class="picker">
+            选择国家：{{ country.area_codes[countryIndex].name }}
+          </view>
+        </picker>
+      </view>
+
+      <view class='c-crosswise-a adress-pick--style qian-hui' catchtap='handleShowPick'>
+        <!-- 省份 -->
+        <view>
+          <view class="picker ">
+            <!-- 省份：{{ provinceList[addressIndex[0]].name }} -->
+            省份：{{ provinceList[provinceIndex].name }}
+          </view>
+        </view>
+        <!-- 市区 -->
+        <view>
+          <view class="picker">
+            <!-- 市/区：{{ cityList[addressIndex[1]].name }} -->
+            市/区：{{ cityList[cityIndex].name }}
+          </view>
+        </view>
+        <!-- 区/县-->
+        <view>
+          <view class="picker">
+            <!-- 县/镇：{{ countyList[addressIndex[0]].name }} -->
+            县/镇：{{ countyList[countyIndex].name }}
+          </view>
+        </view>
+      </view>
+
+      <view class='addressText'>
+        <input value='{{ form.street_address }}' placeholder-class="phcolor " placeholder='详细地址' bindinput='handleAddressInfo'></input>
+      </view>
+      <view>
+        <input bindinput='handleAdressCode' placeholder-class="phcolor" placeholder='邮政编码' value='{{ form.zipcode }}' type='number'></input>
+      </view>
+    </view>
+
+    <!-- 海关照片信息 -->
+    <view>
+      <view class='title'>海关政策要求，请填写身份证。加密保存，仅用于海关清关</view>
+      <view class='identificationText'>
+        <text class='identificationTextL'>收件人身份证：</text>
+        <text class='identificationTextR'>请填写收件人身份证</text>
+      </view>
+      <view class='identificationPhoto'>
+        <view class='userPhotoNullBox' data-type='front' bindtap='handleUploadIdCard'>
+          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_front_image }}">+</view>
+          <view class='userPhotoNull userPhotoHave' wx:else>
+            <image src='{{ id_card_front_image }}'></image>
+          </view>
+          <view>清晰正面照片</view>
+        </view>
+
+        <view class='userPhotoNullBox' data-type='back' bindtap='handleUploadIdCard'>
+          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_back_image }}">+</view>
+          <view class='userPhotoNull userPhotoHave' wx:else>
+            <image src='{{ id_card_back_image }}'></image>
+          </view>
+          <view>
+            清晰反面照片</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- bottom checkbox  设置为默认的收获地址-->
+    <view class=' bottomCheck location'>
+      <view>设置为默认地址</view>
+      <switch size="10" color="#6ED7AF" checked='{{ form.is_default }}' bindchange="switch1Change" />
+    </view>
+    <view class='dwletebtn'>删除</view>
+    <view class='conservation' catchtap='storageTap'>
+      <button>保存</button>
+    </view>
+    <!-- 垫片 -->
+    <view class='shim'></view>
+  </form>
+
+  <!-- 身份证拍摄呼出 -->
+  <view class='cameraOrPhoto' wx:if="{{ is_cameraOrPhoto }}">
+    <view class='cameraOrPhoto-top'>
+      <view class='camera'>拍摄身份证</view>
+      <view>从相册选择身份证</view>
+    </view>
+    <view class='cameraOrPhoto-bottom' catchtap='pickCameraOrPhoto'>取消</view>
+  </view>
+
+  <!-- 呼出省市区 -->
+  <!-- <template is="msgItem" data="{{is_template:is_template,addressInfo:AllAdress}}" /> -->
+      <!-- 地址选择三级联动 -->
+      <view wx:if="{{ isPicker }}" class='picker-box--bgc'>
+        <view class='time-top over-or-delete'>
+          <view catchtap='handledeletePick'>取消</view>
+          <view catchtap='handlePickAdressOver'>确定</view>
+        </view>
+        <picker-view 
+          bindchange='provinceChange' 
+          indicator-style="height: 50px;" 
+          style="width: 100%; height: 400rpx; background-color:white;">
+          <!-- 省 -->
+          <picker-view-column value='province'>
+            <view 
+              wx:key='{{ index }}' 
+              wx:for="{{ provinceList }}" 
+              style="line-height: 50px">{{ item.name }}</view>
+          </picker-view-column>
+          <!-- 市 -->
+          <picker-view-column>
+            <view 
+              wx:key='{{ index }}' 
+              wx:for="{{ cityList }}" 
+              style="line-height: 50px">{{ item.name }}</view>
+          </picker-view-column>
+          <!-- 县 -->
+          <picker-view-column>
+            <view 
+              wx:key='{{ index }}' 
+              wx:for="{{ countyList }}" 
+              style="line-height: 50px">{{ item.name }}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+</view>
