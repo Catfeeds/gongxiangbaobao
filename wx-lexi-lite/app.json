@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/windowDetail/windowDetail",
+    "pages/window/window",
     "pages/distributeSubmit/distributeSubmit",
     "pages/distributeCenter/DistributeCenter",
     "pages/index/index",

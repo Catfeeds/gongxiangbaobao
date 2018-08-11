@@ -1,0 +1,121 @@
+<view class="container fixed-bottom">
+  <!-- 橱窗列表 -->
+  <view class="page-section fx-windows">
+
+    <view class="fx-window">
+      <view class="fx-window__author">
+        <view class="author-info">
+          <image src="../../images/distribute/pic-holder.jpg" class="avatar"></image>
+          <label class="name">设计师 Ricky</label>
+          <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
+        </view>
+        <button class="fx-mini-btn round follow primary">关注</button>
+      </view>
+
+      <view class="fx-window__images five" wx:if="{{ imagesLength == 5 }}">
+        <view class="image-container">
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
+        </view>
+        <view class="image-container half">
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-head-bg.jpg' }});"></view>
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});"></view>
+        </view>
+        <view class="image-container half-h">
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});">
+          </view>
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});">
+          </view>
+        </view>
+      </view>
+
+      <view class="fx-window__images seven"  wx:if="{{ imagesLength == 7 }}">
+        <view class="image-container three">
+          <view class="image-item of2-1" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item of2-1" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item " style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
+        </view>
+        <view class="image-container one">
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-head-bg.jpg' }});"></view>
+        </view>
+        <view class="image-container three-h">
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});">
+          </view>
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});">
+          </view>
+          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});">
+          </view>
+        </view>
+      </view>
+
+
+      <view class="fx-window__actions">
+        <view class="like-comment">
+          <view class="done">
+            <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+          </view>
+          <view class="remark">
+            <text>22喜欢</text>·<text>322条评论</text>
+          </view>
+        </view>
+        <view class="share">
+          <view class="done">
+            <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+          </view>
+        </view>
+      </view>
+
+      <view class="fx-window__body">
+        <view class="title">
+          一个让你爱不释手的包包
+        </view>
+
+        <view class="summary">
+          某一天，你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦
+        </view>
+
+        <view class="keywords">
+          <label>#夏天的女孩</label>
+          <label>#夏天的女孩</label>
+          <label>#夏天的女孩</label>
+        </view>
+
+      </view>
+
+    </view>
+  </view>  
+
+  <!-- 评论列表 -->
+  <view class="page-section comments">
+    <view class="block-title">评论</view>
+
+  </view>
+
+  <!-- 猜你喜欢 -->
+  <view class="page-section suggestion">
+    <view class="block-title">猜你喜欢</view>
+
+  </view>
+
+  <!-- 相关橱窗 -->
+  <view class="page-section similar-windows">
+    <view class="block-title">相关橱窗</view>
+
+
+  </view>
+
+  <!-- 底部添加评论 -->
+  <view class="bottom-comment">
+    <view class="comment-form">
+      <input type="text" placeholder="添加评论" class="input-text" />
+      <image src="../../images/icons/icon-like@3x.png" class="icon icon-like"></image>
+      <text class="count">220</text>
+      <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment"></image>
+      <text class="comment-count">240</text>
+
+      <image src="../../images/icons/icon-share@3x.png" class="icon icon-share"></image>
+    </view>
+  </view>
+
+</view>

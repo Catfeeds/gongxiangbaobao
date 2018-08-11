@@ -1,0 +1,339 @@
+/* 按钮 */
+button::after {
+  border: none;
+}
+.fx-button {
+  border-radius: 8rpx;
+  padding: 25rpx 0rpx;
+  font-size: 32rpx;
+  line-height: 1;
+}
+.fx-button.primary {
+  background-color: #5FE4B1;
+  color: #fff;
+}
+
+.fx-button--text {
+  border-radius: 0rpx;
+  background-color: transparent;
+  font-size: 40rpx;
+  padding: 0rpx;
+  line-height: 1;
+}
+.fx-button--text.primary {
+  color: #5FE4B1;
+}
+
+
+/* 小按钮 */
+.fx-mini-btn {
+  font-size: 28rpx;
+  line-height: 1;
+  padding: 12rpx 48rpx;
+  display: inline-block;
+  border: none;
+}
+.fx-mini-btn.round {
+  border-radius: 25rpx;
+}
+.fx-mini-btn.primary {
+  background-color: #5FE4B1;
+  color: #ffffff;
+}
+.fx-mini-btn.black {
+  background-color: #2D343A;
+  color: #ffffff;
+}
+.fx-mini-btn.red {
+  background-color: #FF6666;
+  color: #ffffff;
+}
+
+.fx-mini-btn.follow {
+  padding: 12rpx 30rpx;
+}
+
+/* 底部弹出层 */
+.fx-mask {
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+  bottom: 0rpx;
+  width: 100%;
+  background:rgba(0,0,0, 0.5);
+  z-index: 10;
+}
+.fx-modal {
+  background-color: #F7F9FB;
+  z-index: 11;
+  width: 100%;
+}
+.fx-modal.fixed-bottom {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+}
+.fx-modal .fx-modal__head {
+  font-size: 32rpx;
+  color: #333333;
+  background-color: #FDFDFD;
+  padding: 25rpx 40rpx;
+  display: flex;
+  align-items: center;
+}
+.fx-modal .fx-modal__head .close {
+  flex: 0 0 auto;
+  color: #949EA6;
+  font-size: 30rpx;
+  width: 31rpx;
+  height: 31rpx;
+}
+.fx-modal .fx-modal__head .title {
+  flex: 1;
+  text-align: center;
+}
+.fx-modal .fx-modal__head .reset {
+  flex: 0 0 auto;
+  color: #5FE4B1;
+}
+.fx-modal .fx-modal__body {
+  padding-bottom: 100rpx;
+}
+.fx-modal .fx-modal__body .filter-item {
+  font-size: 28rpx;
+  color: #333;
+  padding: 31rpx 40rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+.fx-modal .fx-modal__body .filter-item .text {
+  flex: 1;
+}
+.fx-modal .fx-modal__body .filter-item .icon-checked {
+  width: 44rpx;
+  height: 44rpx;
+  flex: 0 0 auto;
+  visibility: hidden;
+}
+.fx-modal .fx-modal__body .filter-item.active {
+  color: #5fe4b1;
+}
+.fx-modal .fx-modal__body .filter-item.active .icon-checked {
+  visibility: visible;
+}
+.fx-modal .fx-modal__body .filter-item-line {
+  font-size: 26rpx;
+  color: #555;
+  padding: 30rpx 40rpx;
+  background-color: #F7F9FB;
+  border-top: 1rpx solid #e9e9e9;
+}
+
+.fx-modal .fx-modal__body .block-title {
+  font-size: 34rpx;
+  color: #333;
+  padding: 30rpx 40rpx;
+  background-color: #fff;
+}
+.fx-modal .fx-modal__body .block-title small {
+  font-size: 22rpx;
+  color: #999;
+}
+.fx-modal .fx-modal__body .categories {
+  background-color: #fff;
+  padding-left: 40rpx; 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  padding-bottom: 60rpx;
+}
+.fx-modal .fx-modal__body .categories .category {
+  flex: 0 0 auto;
+  background-color: #F5F7F9;
+  border: 1rpx solid #e9e9e9;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #333;
+  padding: 18rpx;
+  margin-right: 20rpx;
+}
+.fx-modal .fx-modal__body .categories .category.active {
+  background:rgba(95,228,177, 0.1);
+  border-color: rgba(95,228,177, 0.7);
+}
+
+.fx-modal .fx-modal__foot {
+  background-color: #fff;
+  padding: 20rpx 40rpx;
+  margin-top: -100rpx;
+}
+
+
+
+/* Tabs */
+
+.fx-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1rpx solid #E9E9E9;
+  padding: 0rpx 40rpx;
+  font-size: 34rpx;
+  background-color: #fff;
+}
+.fx-tabs .tab-item {
+  flex: 0 0 auto;
+  margin-right: 60rpx;
+  color: #2D343A;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.fx-tabs .tab-item.active {
+  color: #5fe4b1;
+  font-size: 40rpx;
+}
+.fx-tabs .tab-item text {
+  margin-bottom: 20rpx;
+}
+.fx-tabs .tab-item .arrow {
+  width: 27rpx;
+  height: 6rpx;
+  display: block;
+}
+
+.fx-tabs.fx-tabs--md {
+  font-size: 28rpx;
+}
+.fx-tabs.fx-tabs--md .tab-item.active {
+  font-size: 30rpx;
+}
+.fx-tabs.fx-tabs--md .tab-item.active .arrow {
+  background-color: #5fe4b1;
+}
+
+
+/* 橱窗 */
+
+.fx-window {
+  background-color: #fff; 
+  border-bottom: 1rpx solid #e9e9e9;
+  margin-bottom: 20rpx;
+}
+.fx-window .fx-window__author {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 40rpx 20rpx;
+}
+.fx-window .fx-window__author .author-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.fx-window .fx-window__author .avatar {
+  width: 60rpx;
+  height: 60rpx;
+}
+.fx-window .fx-window__author .name {
+  font-size: 24rpx;
+  margin: 0rpx 10rpx;
+}
+.fx-window .fx-window__author .icon-star {
+  width: 24rpx;
+  height: 24rpx;
+}
+.fx-window .fx-window__author .icon-offical {
+  width: 50rpx;
+  height: 26rpx;
+}
+.fx-window .fx-window__author .btn-follow {
+  margin: 0rpx;
+}
+.fx-window .fx-window__images {
+  display: flex;
+}
+.fx-window .fx-window__images .image-container {
+  width: 498rpx;
+  height: 498rpx;
+}
+.fx-window .fx-window__images .image-container .image-item {
+  position: relative;
+  margin: 0rpx;
+  padding: 0rpx;
+  display: inline-flex;
+}
+.fx-window .fx-window__images .image-container.half {
+  width: 248rpx;
+  margin-left: 4rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.fx-window .fx-window__images .image-container .image-item .photo {
+  width: 498rpx;
+  height: 498rpx;
+}
+.fx-window .fx-window__images .image-container.half .image-item .photo {
+  width: 248rpx;
+  height: 248rpx;
+}
+.fx-window .fx-window__images .image-container.half .image-item .surplus-count {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #fff;
+  width: 100%;
+  left: 0rpx;
+  top: 0rpx;
+  bottom: 0rpx;
+  line-height: 248rpx;
+}
+
+.fx-window .fx-window__actions {
+  display: flex;
+  padding: 25rpx 40rpx 0rpx;
+}
+.fx-window .fx-window__actions image {
+  width: 44rpx;
+  height: 44rpx;
+}
+.fx-window .fx-window__actions .like-comment {
+  flex: 1;
+}
+.fx-window .fx-window__actions .like-comment .icon-comment {
+  margin-left: 50rpx;
+}
+.fx-window .fx-window__actions .like-comment .remark {
+  font-size: 22rpx;
+  color: rgb(37, 33, 30);
+}
+.fx-window .fx-window__actions .share {
+  flex: 0 0 auto;
+}
+.fx-window .fx-window__body {
+  padding: 0rpx 40rpx;
+}
+.fx-window .fx-window__body .title {
+  font-size: 30rpx;
+  color: rgb(37, 33, 30);
+  padding-top: 30rpx;
+  margin-bottom: 30rpx;
+  font-weight: 500;
+}
+.fx-window .fx-window__body .summary {
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+}
+.fx-window .fx-window__body .keywords {
+  font-size: 24rpx;
+  color: #5FE4B1;
+  margin-bottom: 40rpx;
+}
+.fx-window .fx-window__body .keywords label {
+  margin-right: 21rpx;
+}
