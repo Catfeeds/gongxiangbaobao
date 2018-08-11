@@ -3,6 +3,10 @@
 
 /* 布局 */
 
+.c-importantGoodsPhoto {
+  width: 280rpx;
+}
+
 /* 分销商品 */
 .product-item {
   display: flex;
@@ -125,6 +129,11 @@
 }
 
 /* 纵向布局 */
+
+.flex-direction--column{
+  display: flex;
+  flex-direction: column;
+}
 
 .line-D {
   display: flex;
