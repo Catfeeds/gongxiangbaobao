@@ -1,0 +1,167 @@
+<view class="container">
+
+  <!-- 头图 -->
+  <view class="page-section headline">
+    <image src="../../images/window/window-head-bg.jpg"></image>
+    <view class="mask">
+      <view class="content">
+        <view class="big-title">
+          发现生活美学
+        </view>
+        <view class="description">
+          发掘好物，品味生活，
+        </view>
+        <view class="description02">
+          寻找搭配灵感，塑造自己的独特风格
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- tabs -->
+  <view class="page-section fx-tabs">
+    <view class="tab-item">
+      <text>关注</text>
+    </view>
+    <view class="tab-item active">
+      <text>推荐</text>
+    </view>
+  </view>
+
+  <!-- 橱窗列表 -->
+  <view class="page-section fx-windows">
+
+    <view class="fx-window">
+      <view class="fx-window__author">
+        <view class="author-info">
+          <image src="../../images/distribute/pic-holder.jpg" class="avatar"></image>
+          <label class="name">设计师 Ricky</label>
+          <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
+        </view>
+        <button class="btn-follow fx-button--text primary">关注</button>
+      </view>
+
+      <view class="fx-window__images">
+        <view class="image-container">
+          <view class="image-item">
+            <image src="../../images/window/window-holder-01.jpg" class="photo"></image>
+          </view>
+        </view>
+        <view class="image-container half">
+          <view class="image-item">
+            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
+          </view>
+          <view class="image-item">
+            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
+            <label class="surplus-count">+2</label>
+          </view>
+        </view>
+      </view>
+
+      <view class="fx-window__actions">
+        <view class="like-comment">
+          <view class="done">
+            <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+          </view>
+          <view class="remark">
+            <text>22喜欢</text>·<text>322条评论</text>
+          </view>
+        </view>
+        <view class="share">
+          <view class="done">
+            <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+          </view>
+        </view>
+      </view>
+
+      <view class="fx-window__body">
+        <view class="title">
+          一个让你爱不释手的包包
+        </view>
+
+        <view class="summary">
+          某一天，你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦
+        </view>
+
+        <view class="keywords">
+          <label>#夏天的女孩</label>
+          <label>#夏天的女孩</label>
+          <label>#夏天的女孩</label>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="fx-window">
+      <view class="fx-window__author">
+        <view class="author-info">
+          <image src="../../images/distribute/pic-holder.jpg" class="avatar"></image>
+          <label class="name">设计师 Ricky</label>
+          <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+        </view>
+        <button class="btn-follow fx-button--text primary">关注</button>
+      </view>
+
+      <view class="fx-window__images">
+        <view class="image-container">
+          <view class="image-item">
+            <image src="../../images/window/window-holder-01.jpg" class="photo"></image>
+          </view>
+        </view>
+        <view class="image-container half">
+          <view class="image-item">
+            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
+          </view>
+          <view class="image-item">
+            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
+            <label class="surplus-count">+2</label>
+          </view>
+        </view>
+      </view>
+
+      <view class="fx-window__actions">
+        <view class="like-comment">
+          <view class="done">
+            <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+          </view>
+          <view class="remark">
+            <text>22喜欢</text>·<text>322条评论</text>
+          </view>
+        </view>
+        <view class="share">
+          <view class="done">
+            <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+          </view>
+        </view>
+      </view>
+
+      <view class="fx-window__body">
+        <view class="title">
+          一个让你爱不释手的包包
+        </view>
+
+        <view class="summary">
+          某一天，你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦
+        </view>
+
+        <view class="keywords">
+          <label>#夏天的女孩</label>
+          <label>#夏天的女孩</label>
+          <label>#夏天的女孩</label>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="window-publish">
+      <button class="fx-button--text btn-plus">
+        <text>拼贴我的橱窗</text>
+        <image src="../../images/icons/icon-plus@3x.png" class="icon-plus"></image>
+      </button>
+    </view>
+  </view>
+
+</view>

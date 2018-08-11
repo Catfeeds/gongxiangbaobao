@@ -1,0 +1,66 @@
+<view class="container">
+
+  <view class="apply-container" wx:if="{{ activePage == 'apply-form' }}">
+    <view class="apply-jumbotron">
+      <image src="../../images/lexi-logo.png" class="logo"></image>
+      <view class="name">乐喜生活馆</view>
+      <view class="sologn">做自己热爱的事，顺便赚取收入</view>
+    </view>
+
+    <!--申请开通-->
+    <view class="apply-form-wrapper">
+
+      <form class="apply-form" bindsubmit="handleSubmitApply" bindreset="formReset">
+        <view class="fx-input">
+          <input type="text" name="name" placeholder="你的真实姓名" />
+        </view>
+
+        <view class="fx-input">
+          <input type="text" name="profession" placeholder="你的职业" />
+        </view>
+
+        <view class="fx-input verify-mobile">
+          <view class="areacode">
+            +86
+          </view>
+          <view class="line"></view>
+          <input type="text" class="input-inner" bindblur="handleChangeMobile" name="mobile" placeholder="你的手机号" />
+          <button bindtap="handleGotCode" class="fetch-verify-code fx-button--text">获取验证码</button>
+        </view>
+
+        <view class="fx-input">
+          <input type="text" name="verify_code" placeholder="输入验证码" />
+        </view>
+
+        <view class="btn-area">
+          <button class="fx-button primary" formType="submit">开通生活馆</button>
+        </view>
+      </form>
+
+    </view>
+  </view>
+
+  <!--申请结果-->
+  <view class="apply-result" wx:if="{{ activePage == 'apply-result' }}">
+    <view class="success">
+      恭喜开通乐喜生活馆
+    </view>
+
+    <view class="you">
+      你当前的身份为
+    </view>
+
+    <label class="role">实习馆主</label>
+
+    <view class="summary">
+      <text>30 天内需成功销售 3 单， 即可成为正式馆主，如未达指标，则自动撤销馆主身份，关闭生活馆。</text>
+    </view>
+
+    <view class="follow">
+      获取快速销售秘诀，关注微信公众号：<text>乐喜生活馆</text>
+    </view>
+    
+    <button class="fx-button primary">进入生活馆</button>
+
+  </view>
+</view>
