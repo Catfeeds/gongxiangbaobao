@@ -125,7 +125,7 @@ module.exports = {
   // Test
   demo: 'demo',
   // post关注---
-  add_watch: 'follow/store', // 添加
+  add_watch: 'follow/store', // 添加h
   delete_watch: 'unfollow/store', // 取消关注
   examine_watch: 'follow/get_status', // 查看是否关注
   // add_browse : 'store/visitor', //添加访问者---

@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/distributeCenter/DistributeCenter",
     "pages/distributeSubmit/distributeSubmit",

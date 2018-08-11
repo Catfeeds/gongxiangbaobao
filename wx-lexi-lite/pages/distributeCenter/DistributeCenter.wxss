@@ -1,1 +1,228 @@
-/* pages/distributeCenter/DistributeCenter.wxss */
+.page-section {
+  padding-top: 20rpx; 
+}
+
+/* 搜索框 */
+.search-box {
+  padding: 0rpx 40rpx;
+}
+.search-box__text {
+  font-size: 24rpx;
+  position: relative;
+  background: #ff0000;
+}
+.search-box__text .icon {
+  width: 29rpx;
+  height: 29rpx;
+  position: absolute;
+  left: 33rpx;
+  top: 34rpx;
+  z-index: 9;
+}
+.search-box__text .search-input {
+  background-color: rgba(246,245,245,1);
+  padding: 24rpx 20rpx 20rpx 83rpx;
+  border-radius: 50rpx;
+  color: #555555;
+}
+
+
+.fx-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1rpx solid #E9E9E9;
+  padding: 0rpx 40rpx;
+  font-size: 34rpx;
+}
+.fx-tabs .tab-item {
+  flex: 0 0 auto;
+  margin-right: 60rpx;
+  color: #2D343A;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.fx-tabs .tab-item.active {
+  color: #5fe4b1;
+  font-size: 40rpx;
+}
+.fx-tabs .tab-item text {
+  margin-bottom: 20rpx;
+}
+.fx-tabs .tab-item .arrow {
+  width: 27rpx;
+  height: 6rpx;
+  display: block;
+}
+
+.fx-tabs.fx-tabs--md {
+  font-size: 28rpx;
+}
+.fx-tabs.fx-tabs--md .tab-item.active {
+  font-size: 30rpx;
+}
+.fx-tabs.fx-tabs--md .tab-item.active .arrow {
+  background-color: #5fe4b1;
+}
+.page-section.fx-tabs {
+  padding-top: 24rpx;
+}
+
+/* 生活馆头条 */
+.headline {
+  display: flex;
+  align-items: center;
+  margin: 0rpx 40rpx;
+  border: 1rpx solid #E9E9E9;
+  box-shadow: 8rpx 0rpx 15rpx rgba(0, 0, 0, 0.1);
+  border-radius: 8rpx;
+  padding: 21rpx 20rpx;
+}
+.headline-side {
+  flex: 0 0 auto;
+}
+.headline-side text {
+  font-size: 24rpx;
+  color: #333333;
+  display: block;
+}
+.headline-line {
+  flex: 0 0 8rpx;
+  width: 8rpx;
+  height: 67rpx;
+  margin-left: 16rpx;
+  margin-right: 22rpx;
+  background: linear-gradient(1deg,rgba(95,228,177,1),rgba(95,228,177,1));
+}
+.headline-body {
+  flex: 1;
+}
+.headline-body .headline-item {
+  font-size: 24rpx;
+  color:rgba(51,51,51,1);
+  margin-bottom: 18rpx;
+}
+.headline-body .headline-item .store-green {
+  color: #5fe4b1;
+}
+.headline-body .headline-item .order-yellow {
+  color: #F4B329;
+}
+
+.open-more {
+  font-size: 24rpx;
+  color: #666666;
+  text-align: center;
+  padding: 28rpx 0rpx;
+  border-bottom: 1rpx solid #E9E9E9;
+}
+
+
+/* 筛选器 */
+.fx-filter {
+  display: flex;
+  justify-content: space-between;
+  padding: 0rpx 40rpx;
+  border-bottom: 1rpx solid #E9E9E9;
+}
+.fx-filter .filter-item {
+  flex: 0 0 auto;
+  padding: 26rpx 20rpx 28rpx 20rpx;
+  display: flex;
+  align-items: center; 
+}
+.fx-filter .filter-item:last-child {
+  padding-right: 37rpx;
+}
+.fx-filter .filter-item text {
+  font-size: 28rpx;
+  color: #555555;
+  margin-right: 10rpx;
+}
+.fx-filter .filter-item .icon-arrow-down {
+  width: 12rpx;
+  height: 10rpx;
+}
+
+
+.fx-distribute-cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 0rpx 40rpx;
+}
+
+.distribute-card {
+  display: flex;
+  flex-direction: column;
+  padding-top: 22rpx;
+}
+.distribute-card .distribute-card__cover {
+  position: relative;
+}
+.distribute-card .distribute-card__cover .image {
+  width: 326rpx;
+  height: 326rpx;
+  border-radius: 8rpx;
+}
+.distribute-card .distribute-card__cover .icon-sold-out {
+  position: absolute;
+  left: 11rpx;
+  top: 11rpx;
+  width: 62rpx;
+  height: 36rpx;
+}
+.distribute-card .distribute-card__body .title {
+  font-size: 24rpx;
+  color: #333333;
+  margin-bottom: 9rpx;
+}
+.distribute-card .distribute-card__body .title.icon-free {
+  background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
+  background-repeat: no-repeat; 
+  background-size: 40rpx 24rpx;
+  background-position: left 6rpx;
+  text-indent: 48rpx;
+}
+.distribute-card .distribute-card__body .price-box {
+  margin-bottom: 17rpx; 
+}
+.distribute-card .distribute-card__body .price-box .sale-price {
+  font-size: 24rpx;
+  color: #333333;
+}
+.distribute-card .distribute-card__body .price-box .price {
+  color: #999999;
+  font-size: 22rpx;
+  margin-left: 17rpx;
+  text-decoration: line-through;
+}
+.distribute-card .distribute-card__body .price-box .love {
+  font-size: 22rpx;
+  margin-left: 24rpx;
+  color: #999999;
+}
+.distribute-card .distribute-card__body .income {
+  font-size: 24rpx;
+  color: #FF6666;
+}
+.distribute-card .distribute-card__body .income text {
+  font-weight: bold;
+  font-size: 26rpx;
+}
+.distribute-card .distribute-card__actions {
+  padding-top: 18rpx;
+}
+.distribute-card .distribute-card__actions .fx-mini-btn {
+  margin-right: 20rpx;
+}
+
+.ending {
+  font-size: 24rpx;
+  color: #b2b2b2;
+  padding: 39rpx 0rpx 52rpx;
+  text-align: center;
+  border-top: 1rpx solid #E9E9E9;
+  margin-top: 40rpx;
+}
