@@ -13,6 +13,10 @@
 }
 .photoBox image{ 
 }
+.phpto--sm{
+  height: 280rpx !important;
+  width: 280rpx !important;
+}
 .sellInfo{
   position: absolute;
   width: 62rpx;

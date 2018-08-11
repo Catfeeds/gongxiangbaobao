@@ -280,6 +280,11 @@
 
 /* 纵向布局 */
 
+.flex-direction--column{
+  display: flex;
+  flex-direction: column;
+}
+
 .line-D {
   display: flex;
   flex-direction: column;

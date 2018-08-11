@@ -319,7 +319,7 @@
 .advertisement-item{
   position: relative;
 }
-
+.img--style,
 .advertisement-box view,
 .advertisement-box swiper, 
 .advertisement-box image {
@@ -565,6 +565,9 @@
   white-space: nowrap;
 }
 
+.gratefulList-box{
+  height: 840rpx;
+}
 
 .category-title{
   padding: 0 30rpx;
@@ -577,6 +580,30 @@
 .recommend-scroll__box view{
 
 }
+.img--style {
+  height: 216rpx;
+  width: 326rpx;
+}
+
+.text-two_line {
+   overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.plant-owner__photo{
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 50%; 
+}
+
+
+/* .plant-cover{
+  width: 326rpx;
+  height: 216rpx;
+} */
 
 .margin-left--40rpx {
   margin-left: 40rpx
@@ -604,3 +631,66 @@
 .bg--hui{
   background-color: #949ea6;
 }
+.height--372rpx{
+  height: 372rpx;
+}
+
+/* xaun zhuan */
+.swiper-photo{
+  background-color: white;
+}
+.swiper-photo .hidding {
+  transform: scale(0);
+  /* visibility: hidden; */
+  transition: all 0.2s ease-in 0.1s;
+}
+
+.swiper-photo swiper {
+width: 100%;
+height: 400rpx;
+margin: 0 auto;
+}
+
+.swiper-photo swiper-item {
+background: #fff;
+padding-top: 30rpx;
+overflow: hidden !important;
+}
+
+/* .imgpic3{
+
+} */
+
+.swiper-photo image {
+width: 86%;
+height: 280rpx;
+border-radius: 8rpx;
+margin: 0 auto;
+display: block;
+
+}
+
+.swiper-photo image.active {
+transform: scale(2);
+transition: all 0.2s ease-in 0s;
+}
+
+.swiper-photo image.active .prompt-textwrap {
+display: block;
+}
+
+.swiper-photo .slogan {
+color: #d4d2d3;
+font-size: 47rpx;
+position: absolute;
+bottom: -90rpx;
+left: 0;
+display: none;
+}
+
+.swiper-photo image.active .slogan {
+display: block;
+}
+
+
+

@@ -56,6 +56,16 @@ module.exports = {
   // 核心 product
   banners_explore: 'banners/explore', //探索的头部广告h
   column_explore_recommend:'column/explore_recommend', // 编辑推荐h
+  column_explore_new:'column/explore_new', // 优质新品
+  column_collections:'column/collections', // 集合
+  column_preferential_design:'column/preferential_design', // 特惠好设计
+  column_affordable_goods:'column/affordable_goods', //百元好物
+  column_handpick_recommend:'column/handpick_recommend', // 人气推荐
+  banners_handpick_content:'banners/handpick_content', // 精选的中间广告
+  banners_handpick:'banners/handpick', // 精选区域的头部广告
+  column_handpick_optimization:'column/handpick_optimization', // 乐喜优选
+  life_records_recommend:'life_records/recommend', // 种草清单
+
 
   // 核心 store
   column_feature_store:'column/feature_store', // 特色品牌管h
