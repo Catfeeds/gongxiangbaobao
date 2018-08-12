@@ -1,5 +1,5 @@
 <!--components/FxProductComponent/FxProductComponent.wxml {{product.img}}-->
-<view catchtap='handleProductInfo' class='direction' data-rid='{{product.rid}}'>
+<view catchtap='handleProductInfo' class='direction' data-store-rid="{{product.store_rid}}" data-rid='{{product.rid}}'>
   <view class='photoBox'>
     <view class='sellInfo' wx:if='{{product.is_sold_out}}'>
       <image src='{{product.cover}}'></image>

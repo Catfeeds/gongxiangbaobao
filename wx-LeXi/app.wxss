@@ -421,6 +421,7 @@ image {
   margin-right: 6rpx;
 }
 
+/* 两行文本 */
 .two-line-text {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -29,6 +29,7 @@ Page({
     lexiPick:[], // 乐喜优选
     plantOrderList:[], //种草清单
     swiperIndex: 0, // 旋转木马当前选中项目
+    todayRecommendList:[], // 今日推荐
 
 
     is_mobile:false, // 验证是否登陆
@@ -248,11 +249,11 @@ Page({
 
   // 今日推荐
   getTodayRecommend(){
-    http.fxGet(api.column_affordable_goods, {}, (result) => {
+    http.fxGet(api.column_daily_recommends, {}, (result) => {
       console.log(result, "今日推荐")
       if (result.success) {
         this.setData({
-          oneHundredList: result.data
+          todayRecommendList: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -420,8 +421,9 @@ Page({
   
   // 跳转到商品详情---
   handleInfomation(e) {
+    console.log(e)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid="+e.detail.storeRid
     })
   },
   

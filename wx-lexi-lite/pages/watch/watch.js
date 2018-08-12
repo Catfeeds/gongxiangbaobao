@@ -20,7 +20,7 @@ Page({
   // 获取粉丝
   getFollower() {
     http.fxGet(api.users_followed_users, this.data.params, (result) => {
-      console.log(result)
+      console.log(result,"")
       if (result.success) {
         this.setData({
           peopleList:result.data

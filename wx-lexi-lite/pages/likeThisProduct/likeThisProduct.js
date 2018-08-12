@@ -19,7 +19,7 @@ Page({
   getinfo(e) {
     console.log(this.data.parmas)
     http.fxGet(api.product_userlike, this.data.parmas,(result)=>{
-      console.log(result)
+      console.log(result,"喜欢该商品地人")
       if(result.success){
         this.setData({
           peopleList: result.data
@@ -119,5 +119,16 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  // 跳转到其他人地主页
+  handleToPeopleTap(e){
+    console.log(e.currentTarget.dataset.uid)
+    wx.navigateTo({
+      url: '../people/people?uid='+e.currentTarget.dataset.uid,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   }
 })

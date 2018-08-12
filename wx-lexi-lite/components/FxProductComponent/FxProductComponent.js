@@ -43,8 +43,10 @@ Component({
    */
   methods: {
     handleProductInfo (e){
+      console.log(e.currentTarget.dataset.storeRid)
       this.triggerEvent("triggerEvent_product",{
-        rid: e.currentTarget.dataset.rid
+        rid: e.currentTarget.dataset.rid,
+        storeRid: e.currentTarget.dataset.storeRid
       })
     }
   }

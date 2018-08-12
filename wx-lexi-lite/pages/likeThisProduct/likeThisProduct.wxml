@@ -4,7 +4,7 @@
     class='time-top font-m relation-item' 
     wx:for="{{peopleList.product_like_users}}"
     wx:key="{{index}}">
-    <view class='flex_row relation-avater'>   
+    <view class='flex_row relation-avater' catchtap="handleToPeopleTap" data-uid="{{item.uid}}">   
       <image src='{{item.avatar}}'></image>
       <text>{{item.username}}</text>
     </view>
