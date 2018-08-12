@@ -62,6 +62,7 @@ button::after {
   width: 100%;
   background:rgba(0,0,0, 0.5);
   z-index: 10;
+  display: none;
 }
 .fx-modal {
   background-color: #F7F9FB;

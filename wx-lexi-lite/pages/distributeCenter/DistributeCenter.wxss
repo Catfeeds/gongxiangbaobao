@@ -1,5 +1,6 @@
 .page-section {
   padding-top: 20rpx; 
+  background-color: #fff;
 }
 
 /* 搜索框 */
@@ -184,6 +185,5 @@
   color: #b2b2b2;
   padding: 39rpx 0rpx 52rpx;
   text-align: center;
-  border-top: 1rpx solid #E9E9E9;
   margin-top: 40rpx;
 }

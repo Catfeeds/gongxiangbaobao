@@ -60,7 +60,7 @@
       获取快速销售秘诀，关注微信公众号：<text>乐喜生活馆</text>
     </view>
     
-    <button class="fx-button primary">进入生活馆</button>
+    <button bindtap="handGoLifeStore" class="fx-button primary">进入生活馆</button>
 
   </view>
 </view>

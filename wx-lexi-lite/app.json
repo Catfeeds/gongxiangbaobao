@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
+    "pages/applyLifeStore/applyLifeStore",
     "pages/index/index",
-    "pages/distributeCenter/DistributeCenter",
+    "pages/distributeCenter/distributeCenter",
     "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",

@@ -34,13 +34,32 @@ module.exports = {
   brand_info: 'store/detail', // 品牌故事
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
 
-  apply_store: 'store/apply_life_store', // POST 申请生活馆
+  // 生活馆
+  life_store: 'store/life_store', // GET 生活馆信息
+  life_store_apply: 'store/apply_life_store', // POST 申请生活馆
+  life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
+
+  // 分销
+
+  // GET 分销池
+  get_all_distribution: 'fx_distribute/index',
+  // GET 获取-推荐--热门单品的分销
+  get_hot_distribution: 'fx_distribute/hot',
+  // GET 获取-推荐--官方单品的分销
+  get_sticked_distribution: 'fx_distribute/sticked',
+  // GET 获取-推荐--新品单品的分销
+  get_new_distribution: 'fx_distribute/latest',
+  // PUT 已经上架
+  distribution_sell: 'core_platforms/fx_distribute/publish',
+  // GET 本周最受欢迎的分销商品
+  distribution_week_popular: 'fx_distribute/week_popular',
 
   // Product
   products: 'products/by_store', // GET 产品列表---
   latest_products: 'products/latest', // GET 最新产品---
   sticked_products: 'fx_distribute/agency', // GET 推荐产品---
   brand_products: 'products/by_brand/:rid', // GET 品牌下产品列表
+  product_info: 'products/:rid', // GET 产品信息
   product_content: 'products/:rid/detail', // GET 产品图文介绍
   product_detail: 'products/:rid/all_detail', // GET 产品详情---
   by_sku: 'products/by_sku', // GET 多个sku详情---
@@ -80,6 +99,7 @@ module.exports = {
   cart_clear: 'cart/clear', // DELETE 清空购物车
   cart_item_count: 'cart/item_count', // GET 购物车产品数---
   clearCart: 'cart/remove', // 移除购物车
+
   // Order
   orders: 'orders', // GET 订单列表---
   order_detail: 'orders/:rid', // GET 订单详情
@@ -145,6 +165,7 @@ module.exports = {
 
   // Test
   demo: 'demo',
+
   // post关注---
   add_watch: 'follow/store', // 添加
   delete_watch: 'unfollow/store', // 取消关注
@@ -170,5 +191,11 @@ module.exports = {
   users_followed_users: 'users/followed_users', // 获取关注
   follow_user: 'follow/user', // 添加关注
   unfollow_user: 'unfollow/user', // 取消关注
-  users_followed_stores: 'users/followed_stores' // 获取关注店铺的列表
+  users_followed_stores: 'users/followed_stores', // 获取关注店铺的列表
+
+  // POST 获取验证码
+  auth_sms_code: 'users/wx_bind_mobile_verify_code',
+
+
+
 }
