@@ -295,6 +295,15 @@ button-hover {
   font-weight: 500;
 }
 
+.user__status{
+  padding: 10rpx 178rpx;
+  border: 1rpx solid #ededef;
+  font-size: 28rpx;
+  border-radius: 8rpx;
+  margin-top: 16rpx;
+  color: #333;
+}
+
 .user__like {
   padding: 0 40rpx;
 }

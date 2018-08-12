@@ -1,0 +1,113 @@
+/* pages/dynamic/dynamic.wxss */
+
+.container{
+  background-color: white;
+}
+
+.dynamic-owner image {
+  height: 100%;
+  width: 100%;
+}
+
+.dynamic-hander__photo {
+  width: 750rpx;
+  height: 307rpx;
+  background-color: red;
+  overflow: hidden;
+}
+
+.dynamic-hander__photo image {
+}
+
+.add-showcase__btn {
+  border-radius: 32rpx;
+  margin: 20rpx 0;
+  height: 66rpx;
+  width: 196rpx;
+  color: white;
+  text-align: center;
+  line-height: 66rpx;
+}
+
+.add-showcase__btn text:nth-child(1) {
+  margin-right: 10rpx;
+}
+
+.dynamic-add__box {
+  padding: 0 40rpx;
+  position: relative;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.dynamic-owner {
+  position: absolute;
+  top: -40rpx;
+  left: 40rpx;
+  height: 120rpx;
+  width: 120rpx;
+  border: 2rpx solid white;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.designer-name {
+  position: absolute;
+  top: 20rpx;
+  left: 170rpx;
+}
+
+.dynamic-item{
+  padding: 30rpx 40rpx 26rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.designer-info image{
+  height: 60rpx;
+  width: 60rpx;
+  margin-right: 12rpx;
+  border-radius: 50%;
+}
+
+.round view{
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background-color: #999;
+  margin-left: 8rpx;
+}
+
+.time-middine image{
+  height: 216rpx;
+  width: 216rpx;
+  margin-bottom: 24rpx;
+}
+
+.text-two--line {
+  display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2; 
+overflow: hidden;
+}
+
+.like-iocn__box {
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.like-iocn__box view{
+  padding: 20rpx 40rpx;
+}
+
+.like-iocn__box view image{
+  height: 44rpx;
+  width: 44rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+
+.margin-bottom--8rpx {
+  margin-bottom: 8rpx;
+}
+
+.margin-bottom--30rpx{
+  margin-bottom: 30rpx;
+}

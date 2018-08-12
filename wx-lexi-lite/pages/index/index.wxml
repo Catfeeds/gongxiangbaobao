@@ -275,7 +275,11 @@
         <!-- 2 -->
         <swiper-item>
           <view class='production new-goods_box'>
-            <view wx:if="{{4<index && index<10}}" class='productionGoods {{index==7||index==8||index==9?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
+            <view 
+              wx:if="{{4<index && index<10}}" 
+              class='productionGoods {{index==7||index==8||index==9?"one-row-three":""}}' 
+              wx:for="{{gratefulList.products}}" 
+              wx:key='{{index}}'>
               <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
@@ -337,7 +341,7 @@
           <image src="{{item.cover}}" class="img--style"></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='font-ss shen-hui text-two_line'>{{item.description}}</text>
-          <view>
+          <view class='plant-owner__box flex_row'>
             <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
             <text class="font-s shen-hui">{{item.user_name}}</text>
           </view>

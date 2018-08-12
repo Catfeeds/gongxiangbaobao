@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.container{
+  background-color: white;
+}
+
 .sear-box {
   position: relative;
   height: 120rpx;
@@ -583,6 +587,11 @@
 .img--style {
   height: 216rpx;
   width: 326rpx;
+  margin-bottom: 22rpx;
+}
+
+.plant-owner__box{
+  margin-top: 16rpx;
 }
 
 .text-two_line {
@@ -597,8 +606,8 @@
   height: 40rpx;
   width: 40rpx;
   border-radius: 50%; 
+  margin-right: 10rpx;
 }
-
 
 /* .plant-cover{
   width: 326rpx;
@@ -638,6 +647,8 @@
 /* xaun zhuan */
 .swiper-photo{
   background-color: white;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
 }
 .swiper-photo .hidding {
   transform: scale(0);
