@@ -2,6 +2,10 @@
 @import 'common.wxss';
 
 /* 布局 */
+.m-r-30 {
+  margin-right: 30rpx;
+}
+
 
 .c-importantGoodsPhoto {
   width: 280rpx;

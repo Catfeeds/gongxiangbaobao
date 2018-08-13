@@ -1,4 +1,12 @@
 <!-- 选品中心 -->
+<template name="sale-price">
+  <label class="sale-price">￥{{ real_sale_price }}</label>
+  <label class="price">￥{{ real_price }}</label>
+</template>
+<template name="price">
+  <label class="sale-price">￥{{ real_price }}</label>
+</template>
+
 <view class="container">
 
   <!-- 搜索框 -->
@@ -11,10 +19,10 @@
 
   <!-- tabs -->
   <view class="page-section fx-tabs">
-    <view class="tab-item">
+    <view class="tab-item {{ pageActiveTab == 'stick' ? 'active' : '' }}" bindtap="handleChangePage" data-name="stick">
       <text>推荐</text>
     </view>
-    <view class="tab-item">
+    <view class="tab-item {{ pageActiveTab == 'all' ? 'active' : '' }}" bindtap="handleChangePage" data-name="all">
       <text>全部商品</text>
     </view>
   </view>
@@ -36,7 +44,7 @@
     <!-- 头条动态 -->
     <view class="page-section headline">
       <view class="headline-side">
-        <i class="fx-icon"></i>
+        <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
         <text>生活馆</text>
         <text>头条</text>
       </view>
@@ -54,16 +62,8 @@
 
     <!-- 推荐类别 -->
     <view class="page-section fx-tabs fx-tabs--md">
-      <view class="tab-item">
-        <text>热门单品</text>
-        <view class="arrow"></view>
-      </view>
-      <view class="tab-item active">
-        <text>官方精选</text>
-        <view class="arrow"></view>
-      </view>
-      <view class="tab-item">
-        <text>新品首发</text>
+      <view wx:for="{{ panelTabs }}" wx:for-item="panel" wx:key="{{ panel.rid }}" class="tab-item {{ panel.name == panelActiveTab ? 'active' : '' }}" bindtap="handleChangePanel" data-name="{{ panel.name }}">
+        <text>{{ panel.title }}</text>
         <view class="arrow"></view>
       </view>
     </view>
@@ -71,64 +71,40 @@
     <!-- 商品列表 -->
     <view class="page-section fx-distributes">
       <!-- 商品项 -->
-      <view class="product-distribute-item">
+      <view class="product-distribute-item" wx:for="{{ stickedProducts }}" wx:for-item="product" wx:for-index="idx" wx:key="{{ product.rid }}">
         <view class="product-item">
           <view class="product-item__cover">
-            <image src="../../images/distribute/pic-holder.jpg" class="image"></image>
-            <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out"></image>
+            <image src="{{ product.cover }}-p30" class="image"></image>
+            <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
           </view>
           <view class="product-item__body">
-            <view class="title icon-free">
-              [心境]独家手作永生花五角星特调流苏
+            <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">
+              {{ product.name }}
             </view>
             <view class="price-box">
-              <label class="sale-price">￥567</label>
-              <label class="price">￥678</label>
-              <label class="love">喜欢 +289</label>
+              <template is="sale-price" data="{{ ...product }}" wx:if="{{ product.real_sale_price > 0 }}" />
+              <template is="price" data="{{ ...product }}" wx:else />
+              <label class="love" wx:if="{{ product.like_count > 0 }}">喜欢 +{{ product.like_count }}</label>
             </view>
             <view class="income">
               赚
-              <text>￥10</text>
+              <text>￥{{ product.commission_price }}</text>
             </view>
           </view>
         </view>
         <view class="product-item__actions">
-          <button class="fx-mini-btn round black">上架</button>
-          <button class="fx-mini-btn round red">卖</button>
-        </view>
-      </view>
-
-      <view class="product-distribute-item">
-        <view class="product-item">
-          <view class="product-item__cover">
-            <image src="../../images/distribute/pic-holder.jpg" class="image"></image>
-            <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out"></image>
-          </view>
-          <view class="product-item__body">
-            <view class="title icon-free">
-              [心境]独家手作永生花五角星特调流苏
-            </view>
-            <view class="price-box">
-              <label class="sale-price">￥567</label>
-              <label class="price">￥678</label>
-              <label class="love">喜欢 +289</label>
-            </view>
-            <view class="income">
-              赚
-              <text>￥10</text>
-            </view>
-          </view>
-        </view>
-        <view class="product-item__actions">
-          <button class="fx-mini-btn round black">上架</button>
-          <button class="fx-mini-btn round red">卖</button>
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
         </view>
       </view>
 
       <!-- 更多 -->
-      <view class="open-more">
+      <view class="open-more" wx:if="{{ loadingMore }}">
         查看更多好物
         <i class="fx-icon-nothing-lower"></i>
+      </view>
+      <view class="ending" wx:else>
+        End
       </view>
 
     </view>
@@ -157,18 +133,19 @@
     <!-- 商品列表 -->
     <view class="page-section fx-distribute-cards">
 
-      <view class="distribute-card">
+      <view class="distribute-card" wx:for="{{ allProducts }}" wx:for-item="product" wx:key="{{ product.rid }}">
         <view class="distribute-card__cover">
-          <image src="../../images/distribute/pic-holder.jpg" class="image"></image>
-          <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out"></image>
+          <image src="{{ product.cover }}" class="image"></image>
+          <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
         </view>
         <view class="distribute-card__body">
-          <view class="title icon-free">
-            [心境]独家手作永生花...
+          <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">
+            {{ product.name }}
           </view>
           <view class="price-box">
-            <label class="sale-price">￥567</label>
-            <label class="love">喜欢 +289</label>
+            <template is="sale-price" data="{{ ...product }}" wx:if="{{ product.real_sale_price > 0 }}" />
+            <template is="price" data="{{ ...product }}" wx:else />
+            <label class="love" wx:if="{{ product.like_count > 0 }}">喜欢 +{{ product.like_count }}</label>
           </view>
           <view class="income">
             赚
@@ -176,54 +153,9 @@
           </view>
         </view>
         <view class="distribute-card__actions">
-          <button class="fx-mini-btn round black">上架</button>
-          <button class="fx-mini-btn round red">卖</button>
-        </view>
-      </view>
-
-      <view class="distribute-card">
-        <view class="distribute-card__cover">
-          <image src="../../images/distribute/pic-holder.jpg" class="image"></image>
-        </view>
-        <view class="distribute-card__body">
-          <view class="title icon-free">
-            [心境]独家手作永生花...
-          </view>
-          <view class="price-box">
-            <label class="sale-price">￥567</label>
-            <label class="love">喜欢 +289</label>
-          </view>
-          <view class="income">
-            赚
-            <text>￥10</text>
-          </view>
-        </view>
-        <view class="distribute-card__actions">
-          <button class="fx-mini-btn round black">上架</button>
-          <button class="fx-mini-btn round red">卖</button>
-        </view>
-      </view>
-
-      <view class="distribute-card">
-        <view class="distribute-card__cover">
-          <image src="../../images/distribute/pic-holder.jpg" class="image"></image>
-        </view>
-        <view class="distribute-card__body">
-          <view class="title icon-free">
-            [心境]独家手作永生花...
-          </view>
-          <view class="price-box">
-            <label class="sale-price">￥567</label>
-            <label class="love">喜欢 +289</label>
-          </view>
-          <view class="income">
-            赚
-            <text>￥10</text>
-          </view>
-        </view>
-        <view class="distribute-card__actions">
-          <button class="fx-mini-btn round black">上架</button>
-          <button class="fx-mini-btn round red">卖</button>
+          <button class="fx-mini-btn round black"  bindtap=""></button>
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
         </view>
       </view>
 

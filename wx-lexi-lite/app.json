@@ -1,12 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/people/people",
-    
+    "pages/distributeCenter/distributeCenter",
     "pages/dynamic/dynamic",
+    "pages/people/people",
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
-    "pages/distributeCenter/DistributeCenter",
     "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
@@ -38,8 +37,8 @@
     "pages/myFollower/myFollower",
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
-    "pages/checkout/checkout"
-    
+    "pages/checkout/checkout",
+    "pages/find/find"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
@@ -56,6 +55,12 @@
         "text": "首页",
         "iconPath": "images/icon-home@3x.png",
         "selectedIconPath": "images/icon-home-active@3x.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "text": "发现",
+        "iconPath": "images/icon-find@3x.png",
+        "selectedIconPath": "images/icon-find-active@3x.png"
       },
       {
         "pagePath": "pages/cart/cart",

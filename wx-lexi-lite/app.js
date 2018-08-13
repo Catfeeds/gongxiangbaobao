@@ -50,6 +50,9 @@ App({
         // 更新用户信息
         this.updateUserInfo(jwt)
 
+        // 更新小B身份
+        this.updateLifeStoreInfo(jwt)
+
         // 已登录，则直接执行
         this.hookLoginCallBack()
       }
@@ -84,6 +87,9 @@ App({
               this.globalData.uid = res.data.uid
               //更新用户信息
               this.updateUserInfo(res.data)
+              // 更新小B身份
+              this.updateLifeStoreInfo(res.data)
+
               // 回调函数
               this.hookLoginCallBack()
 
@@ -119,8 +125,29 @@ App({
       mobile: jwt.mobile,
       username: jwt.username
     }
+    
+    wx.setStorageSync('userInfo', this.globalData.userInfo)
   },
 
+  /**
+   * 更新登录用户的生活馆信息
+   */
+  updateLifeStoreInfo(jwt) {
+    let lifeStore = {
+      isSmallB: false,
+      lifeStoreRid: ''
+    }
+
+    if (jwt.is_small_b) {
+      lifeStore = {
+        isSmallB: jwt.is_small_b,
+        lifeStoreRid: jwt.store_rid
+      }
+    }
+
+    wx.setStorageSync('lifeStore', lifeStore)
+  },
+  
   /**
    * 支付订单
    */
@@ -223,6 +250,8 @@ App({
     // 店铺的信息
     storeRid: '',
     storeInfo: [],
+    // 当前登录用户的生活馆
+    lifeStore: {},
     // 登录用户信息
     userInfo: null,
     // 地址位置

@@ -24,35 +24,6 @@ button::after {
   color: #5FE4B1;
 }
 
-
-/* 小按钮 */
-.fx-mini-btn {
-  font-size: 28rpx;
-  line-height: 1;
-  padding: 12rpx 48rpx;
-  display: inline-block;
-  border: none;
-}
-.fx-mini-btn.round {
-  border-radius: 25rpx;
-}
-.fx-mini-btn.primary {
-  background-color: #5FE4B1;
-  color: #ffffff;
-}
-.fx-mini-btn.black {
-  background-color: #2D343A;
-  color: #ffffff;
-}
-.fx-mini-btn.red {
-  background-color: #FF6666;
-  color: #ffffff;
-}
-
-.fx-mini-btn.follow {
-  padding: 12rpx 30rpx;
-}
-
 /* 底部弹出层 */
 .fx-mask {
   position: absolute;
@@ -62,6 +33,7 @@ button::after {
   width: 100%;
   background:rgba(0,0,0, 0.5);
   z-index: 10;
+  display: none;
 }
 .fx-modal {
   background-color: #F7F9FB;

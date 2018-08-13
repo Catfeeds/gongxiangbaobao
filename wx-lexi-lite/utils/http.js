@@ -102,6 +102,7 @@ function fxGet(url, data = {}, cb) {
 // post请求
 function fxPost(url, data = {}, cb) {
   // wx.showNavigationBarLoading()
+  console.log(data)
   wx.request({
     url: fxUrl(url),
     data: {

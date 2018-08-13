@@ -7,41 +7,52 @@
       <text>关键字/礼物/品牌馆/人</text>
     </view>
   </view>
-  <view class='category-box'>
-    <text class='font-xl font-width--medium {{pickCategory==item.id?"pickCategory--style theme-green":""}}' wx:for='{{category}}' wx:key='{{index}}' data-category-id='{{item.id}}' catchtap='handlePickCategory'> {{item.name}} </text>
+
+  <view class='fx-tabs'>
+    <view 
+      class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}"
+      wx:for='{{ pageTabs }}' 
+      wx:for-item="pageTab" 
+      wx:key='{{ pageTab.rid }}' 
+      data-name='{{ pageTab.name }}' 
+      catchtap="handlePickCategory" 
+      wx:if="{{ !pageTab.disabled }}">
+      <text>{{ pageTab.title }}</text>
+    </view>
   </view>
 
   <!-- 生活馆 -->
-  <view wx:if="{{pickCategory==1}}">
-
+  <view wx:if="{{ pageActiveTab == 'lifeStore' }}" class='bg-white'>
     <!-- 用户的信息和店铺的信息 -->
     <view class='owner-info_box'>
       <view class=' flex_row'>
         <!-- 店主信息 -->
         <view class='owner-avatar_box'>
-          <image src='../../images/timg.jpg'></image>
+          <image src="{{ lifeStore.logo }}"></image>
           <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon'></image>
         </view>
 
         <view class='owner-info-text_info'>
           <view>
             <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
-            <text class='font-sxl'>"设计师然Ricky的生活馆..."</text>
+            <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
           </view>
           <view class='font-s qian-hui'>
-            <text>"欢迎来到我的乐喜生活馆,我准备了一些独特好设计供你挑选"</text>
+            <text wx:if="{{ lifeStore.description }}">{{ lifeStore.description }}</text>
+            <text wx:else>欢迎来到我的乐喜生活馆，我准备了一些独特好设计供你挑选</text>
           </view>
         </view>
       </view>
+
       <!-- 浏览过的人数 -->
       <view class='joinNumber'>
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{shopInfo.browse_number}}</text> 浏览过设计馆</view>
+          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 浏览过设计馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
-              <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
-                <image src='{{item.avatar}}'></image>
+              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ BrowseQuantityInfo.user_parties }}'>
+                <image src='{{ item.avatar }}'></image>
               </view>
               <view class='photo-round joinNumberlPhoto'>
                 <open-data type='userAvatarUrl'></open-data>
@@ -50,7 +61,7 @@
           </view>
           <view class='browse-number-box fx-broadwise-e'>
             <view class='joinNumberR'>
-              {{shopInfo.browse_number>999?'999+':shopInfo.browse_number}}
+              {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
             </view>
           </view>
         </view>
@@ -71,19 +82,20 @@
     </view>
 
     <!-- 选聘中心 -->
-    <view class='pick-product-box c-crosswise-a font--white'>
+    <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
       <view></view>
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
       </view>
-      <view class='font-m '>选品中心 ></view>
+      <view class='font-m'>选品中心 ></view>
     </view>
 
     <!-- 商品展示区域 -->
     <view class='theme-bg-color recommend-product-box'>
+      
       <!-- 缺省 -->
-      <view class='small-b-no_prodct fx-column--center qian-hui font-s'>
+      <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ !storeProducts.length }}">
         <view class='no-sell-product_icon_box'>
           <image src='../../images/no-sell-product@2.png'></image>
         </view>
@@ -91,27 +103,29 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <!-- 有商品展示 wx:for='{{recommendProductList.products}}'-->
-      <view class='tuijian' wx:for='123' wx:key="{{index}}">
+      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ storeProducts.length }}">
 
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image src='{{ShopOwner.avatar.view_url}}' class='photo-round'></image>
+          <image src='{{ storeOwner.avatar }}' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
-          <view class="delete-icon">
+          <view class="delete-icon" data-rid="{{ product.rid }}" bindtap="handleRemoveFromStore">
             <image src='../../images/delete-icon@2.png'></image>
           </view>
         </view>
+
         <!-- 推荐理由介绍 -->
         <view class='shopRecommend theme-bg-color'>
           <view class='triangle theme-bg-color'></view>
-          <text> {{item.features}} </text>
+          <text> {{ product.stick_text }} </text>
         </view>
+
         <!-- 物品的详情 -->
         <view class='shopRecommendGoods-box'>
-          <fx-product-middleM originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item}}" bind:triggerEvent_product="handleInfomation"></fx-product-middleM>
+          <fx-product-middleM originPric="{{ true }}" is_likeNumber="{{ true }}" price="{{ true }}" product="{{ product }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ product.rid }}"></fx-product-middleM>
         </view>
+
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
           <view data-id='{{item.rid}}' data-isLike='{{item.is_like}}' class='recommendbottomText {{item.is_like?"likeActive":""}}' catchtap='handleBindLike'>
@@ -136,30 +150,29 @@
       </view>
 
       <!-- 查看更多 -->
-      <view class='c-middle shen-hui font-s examine-more-box'>
+      <view class="c-middle shen-hui font-s examine-more-box" wx:if="{{ loadingMore }}">
         查看更多好物
         <text class='fx-icon-nothing-lower'></text>
       </view>
+
     </view>
 
-    <!-- 最新作品 wx:for='{{currentNewProduct.products}}' -->
     <view>
       <view class='human new-goods'>
-        最新作品
+        本周最受欢迎
       </view>
       <view class='production new-goods_box'>
-        <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:key="{{index}}" wx:for="{{[1,7,2,3]}}" wx:key='{{index}}'>
-          <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <view class='productionGoods {{ (index+1)%5 == 0 ? "productionGoodsFive" : "" }}' wx:for="{{ popularProducts }}" wx:key='{{ item.rid }}'>
+          <fx-product product="{{ item }}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ item.rid }}"></fx-product>
         </view>
       </view>
     </view>
+
   </view>
 
   <!-- 精选 -->
-  <view wx:if="{{pickCategory==2}}" class='bg-white'>
-
+  <view wx:if="{{ pageActiveTab == 'featured' }}" class='bg-white'>
     <!-- 手动旋转木马 -->
-
     <view class='swiper-photo list'>
       <swiper autoplay="{{false}}" previous-margin="{{'64rpx'}}" next-margin="{{'64rpx'}}" bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
@@ -175,7 +188,6 @@
         </block>
       </swiper>
     </view>
-
 
     <!-- 开店指引 -->
     <view class="setUpShop-guide border-radius--8">
@@ -346,12 +358,12 @@
   </view>
 
   <!-- 探索 -->
-  <view wx:if="{{pickCategory==3}}" class='bg-white'>
+  <view wx:if="{{ pageActiveTab == 'explore' }}" class='bg-white'>
 
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
       <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
-        <swiper-item wx:for="{{ExploreAdvertisementList.banner_images}}" wx:key="{{index}}">
+        <swiper-item wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
             <text class='explore-advertisement__title'>{{item.title}}</text>
@@ -487,4 +499,5 @@
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
+
 </view>

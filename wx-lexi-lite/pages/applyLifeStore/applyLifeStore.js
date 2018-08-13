@@ -25,10 +25,19 @@ Page({
   },
 
   /**
+   * 跳转至生活馆
+   */
+  handGoLifeStore () {
+    wx.redirectTo({
+      url: '/pages/lifeStore/lifeStore'
+    })
+  },
+
+  /**
    * 提交申请
    */
   handleSubmitApply (e) {
-    http.fxPost(api.apply_store, e.detail.value, (res) => {
+    http.fxPost(api.life_store_apply, e.detail.value, (res) => {
       console.log(res, '开通生活馆')
       if (res.success) {
         this.setData({
@@ -58,14 +67,35 @@ Page({
       return
     }
 
-    
+    this.setData({
+      sending: true
+    })
+    http.fxPost(api.auth_sms_code, {
+      mobile: this.data.form.mobile,
+      area_code: this.data.form.areacode
+    }, (res) => {
+      console.log(res, '发送验证码')
+      if (res.success) {
+        
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    // 从本地缓存中获取数据
+    const lifeStore = wx.getStorageSync('lifeStore')
+
+    // 已经申请过则不能重复申请
+    if (lifeStore.isSmallB) {
+      wx.redirectTo({
+        url: '/pages/lifeStore/lifeStore'
+      })
+    }
   },
 
   /**
