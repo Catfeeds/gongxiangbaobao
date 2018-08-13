@@ -103,14 +103,14 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ storeProducts.length }}">
+      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}"  wx:if="{{ storeProducts.length }}">
 
         <!-- 店长头相 -->
         <view class='shopMaster'>
           <image src='{{ storeOwner.avatar }}' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
-          <view class="delete-icon" data-rid="{{ product.rid }}" bindtap="handleRemoveFromStore">
+          <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ product.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
             <image src='../../images/delete-icon@2.png'></image>
           </view>
         </view>

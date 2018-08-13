@@ -38,6 +38,7 @@ module.exports = {
   life_store: 'store/life_store', // GET 生活馆信息
   life_store_apply: 'store/apply_life_store', // POST 申请生活馆
   life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
+  life_store_delete_product: 'fx_distribute/remove', // DELETE 从生活馆删除某商品
 
   // 分销
 

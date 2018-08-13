@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
+    
     "pages/distributeCenter/distributeCenter",
+    "pages/index/index",
     "pages/dynamic/dynamic",
     "pages/people/people",
     "pages/applyLifeStore/applyLifeStore",

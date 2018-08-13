@@ -42,20 +42,22 @@
     </view>
 
     <!-- 头条动态 -->
-    <view class="page-section headline">
-      <view class="headline-side">
-        <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
-        <text>生活馆</text>
-        <text>头条</text>
-      </view>
-      <view class="headline-line"></view>
-      <view class="headline-body">
-        <view class="headline-item">
-          <label class="store-green">设计馆A</label> 20 秒前成功售出3单成为正式馆主
+    <view class="page-section headline-wrapper">
+      <view class="headline">
+        <view class="headline-side">
+          <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
+          <text>生活馆</text>
+          <text>头条</text>
         </view>
-        <view class="headline-item">
-          「玮峰」的生活馆1 小时
-          <label class="order-yellow">售出200单</label>
+        <view class="headline-line"></view>
+        <view class="headline-body">
+          <view class="headline-item">
+            <label class="store-green">设计馆A</label> 20 秒前成功售出3单成为正式馆主
+          </view>
+          <view class="headline-item">
+            「玮峰」的生活馆1 小时
+            <label class="order-yellow">售出200单</label>
+          </view>
         </view>
       </view>
     </view>
@@ -153,7 +155,7 @@
           </view>
         </view>
         <view class="distribute-card__actions">
-          <button class="fx-mini-btn round black"  bindtap=""></button>
+          <button class="fx-mini-btn round black" bindtap=""></button>
           <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
           <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
         </view>
@@ -230,7 +232,9 @@
     <view class="fx-modal__body">
       <view class="block-title">价格区间</view>
       <view class=""></view>
-      <view class="block-title">分类 <small>可多选</small></view>
+      <view class="block-title">分类
+        <small>可多选</small>
+      </view>
       <view class="categories">
         <view class="category">
           亲子用品
