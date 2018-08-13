@@ -251,7 +251,7 @@ Page({
         })
         break;
       default:
-        // 设计管
+        // 设计管 users/followed_life_stores
         http.fxGet(api.users_followed_stores, this.data.getProductParams, (result) => {
           console.log(result,"设计管")
           if (result.success) {
