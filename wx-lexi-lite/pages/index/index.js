@@ -16,7 +16,7 @@ Page({
     page: 1,
     perPage: 10,
     loadingMore: true, // 加载更多标记
-    
+
     // 生活馆
     sid: '', // 生活馆rid
     lifeStore: {}, // 生活馆信息
@@ -68,11 +68,29 @@ Page({
   },
 
   /**
+   * 轮换图广告
+   */
+  swiperChange(e) {
+    console.log(e.detail.current)
+    this.setData({
+      swiperIndex: e.detail.current
+    })
+  },
+
+  /**
    * 跳转分销中心
    */
   handleGoDistribute() {
     wx.navigateTo({
       url: '/pages/distributeCenter/distributeCenter'
+    })
+  },
+
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
   },
 
@@ -83,6 +101,33 @@ Page({
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
       url: '/pages/product/product?rid=' + rid
+    })
+  },
+
+  // 设置页面标题
+  handleSetNavigationTitle(name = '首页') {
+    wx.setNavigationBarTitle({
+      title: name
+    })
+  },
+
+  /**
+   * 从生活馆删除某商品
+   */
+  handleRemoveFromStore (e) {
+    let rid = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+    console.log(this.data.sid)
+    http.fxDelete(api.life_store_delete_product, { sid: this.data.sid, rid: rid }, (result) => {
+      console.log(result, "删除商品")
+      if (result.success) {
+        let _storeProducts = this.data.storeProducts
+        this.setData({
+          storeProducts: _storeProducts.splice(idx, 1)
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
@@ -103,9 +148,9 @@ Page({
   },
 
   // 分类列表
-  getCategory(){
+  getCategory() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result,"fen lei")
+      console.log(result, "fen lei")
       if (result.success) {
         this.setData({
           categoryList: result.data
@@ -117,7 +162,7 @@ Page({
   },
 
   // 编辑推荐
-  getEditRecommend(){
+  getEditRecommend() {
     http.fxGet(api.column_explore_recommend, {}, (result) => {
       console.log(result, "编辑 推荐")
       if (result.success) {
@@ -131,7 +176,7 @@ Page({
   },
 
   // 特色品牌馆
-  getCharacteristicBranderStore(){
+  getCharacteristicBranderStore() {
     http.fxGet(api.column_feature_store, {}, (result) => {
       console.log(result, "特色品牌管")
       if (result.success) {
@@ -145,18 +190,19 @@ Page({
   },
 
   // 关注特色品牌馆
-  handleAddFollowed(e){
+  handleAddFollowed(e) {
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
 
     // 检验是否登陆
-    if (!app.globalData.isLogin){
+    if (!app.globalData.isLogin) {
       this.setData({
-        is_mobile:true
+        is_mobile: true
       })
       return
     }
-    http.fxPost(api.add_watch, { rid:rid},(result)=>{
+
+    http.fxPost(api.add_watch, { rid:rid }, (result)=>{
       console.log(result)
       if(result.success){
         this.setData({
@@ -170,7 +216,7 @@ Page({
   },
 
   // 取消关注特色品牌馆
-  handleDeleteFollowed(e){
+  handleDeleteFollowed(e) {
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
     console.log(e)
@@ -187,7 +233,7 @@ Page({
   },
 
   // 优质新品
-  getHighQuality(){
+  getHighQuality() {
     http.fxGet(api.column_explore_new, {}, (result) => {
       console.log(result, "优质新品")
       if (result.success) {
@@ -201,7 +247,7 @@ Page({
   },
 
   // 集合
-  getGather(){
+  getGather() {
     http.fxGet(api.column_collections, {}, (result) => {
       console.log(result, "集合")
       if (result.success) {
@@ -215,7 +261,7 @@ Page({
   },
 
   // 特惠好设计
-  getGoodDesign(){
+  getGoodDesign() {
     http.fxGet(api.column_preferential_design, {}, (result) => {
       console.log(result, "特惠好设计")
       if (result.success) {
@@ -242,17 +288,17 @@ Page({
     })
   },
 
-  /**探索页面end**/
+  /** 探索页面end **/
 
-  /**精选里面的 start**/
+  /** 精选里面的 start **/
 
   // 开馆指引
-  getOpenStoreGuide(){
+  getOpenStoreGuide() {
     
   },
 
   // 今日推荐
-  getTodayRecommend(){
+  getTodayRecommend() {
     http.fxGet(api.column_daily_recommends, {}, (result) => {
       console.log(result, "今日推荐")
       if (result.success) {
@@ -266,8 +312,8 @@ Page({
   },
 
   // 人气推荐 column_handpick_recommend
-  getGrateful(){
-    http.fxGet(api.column_handpick_recommend, { page: 1, per_page:15}, (result) => {
+  getGrateful() {
+    http.fxGet(api.column_handpick_recommend, { page: 1, per_page: 15 }, (result) => {
       console.log(result, "人气推荐")
       if (result.success) {
         this.setData({
@@ -280,9 +326,9 @@ Page({
   },
 
   // 精选的中间广告banners_handpick_content  handerAdvertisementList
-  getChoiceMiddleAdvertisement(){
+  getChoiceMiddleAdvertisement() {
     http.fxGet(api.banners_handpick_content, { page: 1, per_page: 15 }, (result) => {
-      console.log(result, "精选区的中间广告")
+      console.log(result, "精选 中间广告")
       if (result.success) {
         this.setData({
           middleAdvertisementList: result.data
@@ -294,9 +340,9 @@ Page({
   },
 
   // 精选区域的头部广告
-  getChoiceHanderAdvertisement(){
+  getChoiceHanderAdvertisement() {
     http.fxGet(api.banners_handpick, {}, (result) => {
-      console.log(result, "精选区的头部广告")
+      console.log(result, "精选 头部广告")
       if (result.success) {
         this.setData({
           handerAdvertisementList: result.data
@@ -308,7 +354,7 @@ Page({
   },
 
   // 乐喜优选 column/handpick_optimization
-  getLitePick(){
+  getLitePick() {
     http.fxGet(api.column_handpick_optimization, {}, (result) => {
       console.log(result, "乐喜优选")
       if (result.success) {
@@ -322,7 +368,7 @@ Page({
   },
 
   // 种草清单 life_records/recommend
-  getPlantOrder(){
+  getPlantOrder() {
     http.fxGet(api.life_records_recommend, {}, (result) => {
       console.log(result, "种草清单")
       if (result.success) {
@@ -335,24 +381,7 @@ Page({
     })
   },
 
-  //旋转木马
-  swiperChange(e) {
-    console.log(e.detail.current)
-    this.setData({
-      swiperIndex: e.detail.current
-    })
-  },
-
-
-
-  /**精选里面的 end**/
-
-  // 设置头部信息
-  handleSetNavigationBar(name='首页'){
-    wx.setNavigationBarTitle({
-      title: name
-    })
-  },
+  /** 精选 end**/
 
   /**
    * 本周最受欢迎商品
@@ -423,6 +452,8 @@ Page({
         this.setData({
           lifeStore: res.data
         })
+        let lifeStoreName = res.data.name + '的生活馆'
+        this.handleSetNavigationTitle(lifeStoreName)
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -440,6 +471,8 @@ Page({
         this.getWeekPopular() // 本周最受欢迎商品
         break;
       case 'featured': // 精选
+        this.handleSetNavigationTitle('精选')
+
         this.getOpenStoreGuide() // 开馆指引
         this.getTodayRecommend() // 今日推荐
         this.getChoiceHanderAdvertisement() // 头部广告
@@ -452,6 +485,8 @@ Page({
         if (this.data.exploreAdvertisementList.length != 0) {
           return
         }
+        this.handleSetNavigationTitle('探索')
+
         this.getExploreAdvertisement() // 广告位
         this.getCategory() // 分类
         this.getEditRecommend() // 编辑推荐
@@ -490,6 +525,10 @@ Page({
       // 小B商家获取自己生活馆
       if (lifeStore.isSmallB) {
         sid = lifeStore.lifeStoreRid
+
+        this.setData({
+          canAdmin: true
+        })
       }
     }
 
@@ -562,14 +601,5 @@ Page({
     console.log(e)
 
   },
-  
-  // 跳转到商品详情---
-  handleInfomation(e) {
-    console.log(e)
-    wx.navigateTo({
-      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid="+e.detail.storeRid
-    })
-  },
-  
   
 })

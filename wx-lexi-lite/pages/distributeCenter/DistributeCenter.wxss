@@ -32,6 +32,10 @@
 }
 
 /* 生活馆头条 */
+.headline-wrapper {
+  background-color: #fff;
+  padding-bottom: 20rpx;
+}
 .headline {
   display: flex;
   align-items: center;
@@ -43,6 +47,7 @@
 }
 .headline-side {
   flex: 0 0 auto;
+  text-align: center;
 }
 .headline-side .icon-voice {
   width: 31rpx;

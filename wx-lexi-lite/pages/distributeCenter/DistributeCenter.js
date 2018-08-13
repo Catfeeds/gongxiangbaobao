@@ -30,6 +30,9 @@ Page({
       { rid: 't3', name: 'newest', title: '新品首发' }
     ],
     stickedProducts: {}, // 推荐分销-官方
+    advertises: [], // 推荐广告图
+    headlines: [], // 生活馆头条
+    
     allProducts: {}, // 全部分销商品
 
     showSortModal: false, // 排序
@@ -83,6 +86,34 @@ Page({
   handleShareDistribute (e) {
     let rid = e.currentTarget.dataset.rid
 
+  },
+
+  /**
+   * 推荐-广告图
+   */
+  getAdvertises() {
+    http.fxGet(api.get_hot_distribution, {}, (res) => {
+      console.log(res, '推荐广告')
+      if (res.success) {
+        
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 生活馆头条
+   */
+  getHeadlines() {
+    http.fxGet(api.get_hot_distribution, {}, (res) => {
+      console.log(res, '生活馆头条')
+      if (res.success) {
+        
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
   },
 
   // 获取热门单品
@@ -277,11 +308,12 @@ Page({
    */
   onLoad: function (options) {
     if (this.data.pageActiveTab == 'stick') {
+      this.getAdvertises()
+      this.getHeadlines()
       this.getHotDistribution()
     } else {
       this.getAllProducts()
     }
-    
   },
 
   /**
