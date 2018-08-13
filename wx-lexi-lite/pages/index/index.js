@@ -46,6 +46,7 @@ Page({
 
 
     is_mobile:false, // 验证是否登陆
+    isNavbarAdsorb:false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
     pageTabs:[
@@ -547,6 +548,22 @@ Page({
     this._swtichActivePageTab(this.data.pageActiveTab)
   },
 
+  /**
+   * 监听页面滚动
+   * **/
+  onPageScroll(e){
+    console.log(e.scrollTop)
+    if (e.scrollTop > 60){
+      this.setData({
+        isNavbarAdsorb:true
+      })
+    } else if (e.scrollTop <= 60){
+      this.setData({
+        isNavbarAdsorb: false
+      })
+    }
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

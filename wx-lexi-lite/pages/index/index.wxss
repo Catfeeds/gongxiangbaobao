@@ -703,5 +703,8 @@ display: none;
 display: block;
 }
 
-
+.fx-tabs{
+  height: 90rpx;
+  /* border-top: 1rpx solid red; */
+}
 

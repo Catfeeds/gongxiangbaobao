@@ -1,5 +1,7 @@
 <!--index.wxml-->
+
 <view class="container">
+ 
   <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
     <image src='../../images/sear@2.png'></image>
     <view class='search-box_text flex_row'>
@@ -8,17 +10,14 @@
     </view>
   </view>
 
-  <view class='fx-tabs'>
-    <view 
-      class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}"
-      wx:for='{{ pageTabs }}' 
-      wx:for-item="pageTab" 
-      wx:key='{{ pageTab.rid }}' 
-      data-name='{{ pageTab.name }}' 
-      catchtap="handlePickCategory" 
-      wx:if="{{ !pageTab.disabled }}">
+ <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
+
+  <view class='fx-tabs {{isNavbarAdsorb?"navbar-adsorb":""}}'>
+    <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
       <text>{{ pageTab.title }}</text>
     </view>
+
+
   </view>
 
   <!-- 生活馆 -->
@@ -93,7 +92,7 @@
 
     <!-- 商品展示区域 -->
     <view class='theme-bg-color recommend-product-box'>
-      
+
       <!-- 缺省 -->
       <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ !storeProducts.length }}">
         <view class='no-sell-product_icon_box'>
@@ -103,7 +102,7 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}"  wx:if="{{ storeProducts.length }}">
+      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ storeProducts.length }}">
 
         <!-- 店长头相 -->
         <view class='shopMaster'>
@@ -228,10 +227,7 @@
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox  today-recommend-box'>
-        <view 
-          class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}'
-          wx:for="{{todayRecommendList.daily_recommends}}" 
-          wx:key="{{index}}">
+        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" wx:key="{{index}}">
           <view class='all-product'>
             <image class='border-radius--8' src="{{item.cover}}"></image>
           </view>

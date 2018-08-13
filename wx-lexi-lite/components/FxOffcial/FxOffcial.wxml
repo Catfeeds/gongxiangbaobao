@@ -2,11 +2,11 @@
 <view class='container'>
   <view class='offcial-icon'>
     <view class='offcial-icon_item'>
-      <image src='../../images/'></image>
+      <image src='../../images/lexi-logo.png'></image>
     </view>
     <view class='middle-line'></view>
     <view class='offcial-icon_item'>
-      <image src='../../images/'></image>
+      <image src='../../images/lexi-logo.png'></image>
     </view>
   </view>
   <view>小灵兽和旗下乐喜</view>

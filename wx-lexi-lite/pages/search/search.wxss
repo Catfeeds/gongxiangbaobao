@@ -3,26 +3,146 @@
 .search-input {
   position: relative;
   height: 80rpx;
+  width: 100%;
 }
 
 .search-input input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 58rpx;
-  width: 600rpx;
+  width: 510rpx;
   background-color: #eaedf0;
   border-radius: 28rpx;
-  padding-left: 70rpx;
+  padding:0 80rpx;
+  font-size: 28rpx;
 }
 
 .search-input image {
   height: 30rpx;
   width: 30rpx;
+}
+
+.search-input view {
+  padding: 0 10rpx;
   position: absolute;
   top: 50%;
-  left: 20rpx;
   transform: translateY(-50%);
+}
+
+.infput-search__btn {
+  left: 60rpx;
+}
+
+.input-off__btn {
+  right: 60rpx;
+}
+
+.history-record {
+  padding: 40rpx 0 40rpx 40rpx;
+}
+
+.history-record view {
+  width: 10rpx;
+  text-align: right;
+}
+
+.history-record image {
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.history-record__text {
+  flex-wrap: wrap;
+}
+
+.history-record__text view {
+  padding: 6rpx 20rpx 8rpx;
+  border-radius: 30rpx;
+  color: #666;
+  background-color: #f5f7f9;
+  flex-wrap: wrap;
+  margin-right: 20rpx;
+  margin-bottom: 30rpx;
+  max-width: 414rpx;
 }
 
 .input-font {
   font-size: 24rpx;
   color: #555;
+}
+
+.last-record {
+  padding: 40rpx 0rpx;
+  /* color: #949ea6; */
+}
+
+.last-record scroll-view {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.last-record__item {
+  width: 200rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+}
+
+.hot-recommend__bottom image {
+  background-color: red;
+  height: 90rpx;
+  width: 90rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+}
+
+.hot-search {
+  height: 100rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.hot-search image {
+  height: 24rpx;
+  width: 40rpx;
+  margin-right: 20rpx;
+}
+
+.hot-search__list {
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 20rpx;
+  color: white;
+}
+
+.bgc--red {
+  background-color: #f66;
+}
+
+.bgc--yellow {
+  background-color: #ff7f00;
+}
+
+.bgc--blue {
+  background-color: #139bd8;
+}
+
+.padding-left--40rpx {
+  padding-left: 40rpx;
+}
+
+.padding-right--40rpx {
+  padding-right: 40rpx;
+}
+
+.padding-bottom--24rpx {
+  padding-bottom: 24rpx;
+}
+
+.margin-left--40rpx {
+  margin-left: 40rpx;
+}
+
+.margin-right--40rpx {
+  margin-right: 40rpx;
 }
