@@ -93,8 +93,8 @@
           </view>
         </view>
         <view class="product-item__actions">
-          <button class="fx-mini-btn round black" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bindtap="handleGoSale">上架</button>
-          <button class="fx-mini-btn round red" data-rid="{{ product.rid }}" bindtap="handleSellShare">卖</button>
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
         </view>
       </view>
 
@@ -153,8 +153,9 @@
           </view>
         </view>
         <view class="distribute-card__actions">
-          <button class="fx-mini-btn round black" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bindtap="handleGoSale">上架</button>
-          <button class="fx-mini-btn round red" data-rid="{{ product.rid }}" bindtap="handleSellShare">卖</button>
+          <button class="fx-mini-btn round black"  bindtap=""></button>
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
         </view>
       </view>
 

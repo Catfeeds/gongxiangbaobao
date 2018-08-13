@@ -1,0 +1,38 @@
+/* 小按钮 */
+.fx-mini-btn {
+  font-size: 28rpx;
+  line-height: 1;
+  padding: 18rpx 48rpx;
+  display: inline-block;
+  border: none;
+}
+.fx-mini-btn--xs {
+  padding: 12rpx 48rpx;
+}
+.fx-mini-btn--md {
+  padding: 18rpx 48rpx;
+}
+.fx-mini-btn--lg {
+  padding: 24rpx 48rpx;
+}
+.fx-mini-btn--round {
+  border-radius: 25rpx;
+}
+.fx-mini-btn--primary {
+  background-color: #5FE4B1;
+  color: #ffffff;
+}
+.fx-mini-btn--black,
+.fx-mini-btn--default {
+  background-color: #2D343A;
+  color: #ffffff;
+}
+.fx-mini-btn--red,
+.fx-mini-btn--danger {
+  background-color: #FF6666;
+  color: #ffffff;
+}
+
+.fx-mini-btn.follow {
+  padding: 12rpx 30rpx;
+}

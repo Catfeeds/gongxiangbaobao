@@ -9,7 +9,6 @@ const utils = require('./../../utils/util.js')
 const app = getApp()
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -220,13 +219,13 @@ Page({
             loadingMore: false
           })
         }
-
+        let pageProducts = this._rebuildProducts(res.data.products)
         let _products = this.data.allProducts
         if (this.data.page > 1) {
           // 合并数组
-          _products.push.apply(_products, res.data.products)
+          _products.push.apply(_products, pageProducts)
         } else {
-          _products = res.data.products
+          _products = pageProducts
         }
 
         this.setData({
@@ -253,6 +252,24 @@ Page({
         this.getNewestDistribution()
         break
     }
+  },
+
+  truncate(s, max = 10) {
+    if (s.length > max) {
+      return s.substr(0, max) + '...'
+    }
+    return s
+  },
+
+  /**
+   * 修正数据
+   */
+  _rebuildProducts(products) {
+    let _mockProducts = products.map(product => {
+      product.name = this.truncate(product.name, 12)
+      return product
+    })
+    return _mockProducts
   },
 
   /**
