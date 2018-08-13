@@ -33,6 +33,7 @@ swiper-item, swiper-item>image, swiper {
   font-weight: 600;
   white-space: nowrap;
 }
+
 .stock {
   font-size: 28rpx;
   font-weight: 600;
@@ -40,6 +41,7 @@ swiper-item, swiper-item>image, swiper {
   white-space: nowrap;
   color: #f66;
 }
+
 .origPrice {
   font-size: 28rpx;
   color: #949ea6;
@@ -415,8 +417,7 @@ swiper-item, swiper-item>image, swiper {
   border-color: #6ed7af;
 }
 
-.none-goods,
-.disabled {
+.none-goods, .disabled {
   border: 1rpx solid #b2b2b2;
   color: #b2b2b2;
 }
@@ -447,6 +448,59 @@ swiper-item, swiper-item>image, swiper {
   border-radius: 10rpx;
   padding: 10rpx 20rpx;
   margin-bottom: 30rpx;
+}
+
+.coupon-message {
+  font-size: 24rpx;
+  color: #555;
+}
+
+.coupon-message>view {
+  margin: 10rpx 0;
+}
+
+.coupon-message .coupon-icon image {
+  height: 30rpx;
+  width: 60rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+
+.coupon-message .get-btn {
+  width: 90rpx;
+  height: 54rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #dadada;
+  line-height: 54rpx;
+  text-align: center;
+}
+
+.coupon-message .reduced-price {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.coupon-message .reduced-price image {
+  height: 30rpx;
+  width: 30rpx;
+  vertical-align: middle;
+}
+
+.coupon-message .reduced-price text {
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+
+.reduced-price__last {
+  width: 160rpx;
+  height: 30rpx;
+  padding-left: 10rpx;
+  background-color: #fbf7f3;
+  position: absolute;
+  right: 0;
+  top: 2rpx;
 }
 
 .product-all-info {
@@ -585,7 +639,6 @@ swiper-item, swiper-item>image, swiper {
 .margin-bottom--34rpx {
   margin-bottom: 34rpx;
 }
-
 
 .margin-bottom--18rpx {
   margin-bottom: 18rpx;

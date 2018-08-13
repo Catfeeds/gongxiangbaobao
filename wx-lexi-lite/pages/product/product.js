@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    originalStoreRid:"", // 原店铺的rid
     rid: '', // 商品的rid---
     productInfomation: [], // 商品详情列表---
     product: {},
@@ -55,7 +56,84 @@ Page({
     newProductParams: {
       page: 1,
       per_page: 10
-    }
+    },
+    // 优惠券的请求参数
+    couponParams: {
+      page: 1,
+      per_page: 10,
+      status: 1, // 优惠券状态 -1: 禁用；1：正常；2：已结束
+      'type': '' // 是否满减活动 3、满减
+    },
+  },
+
+  // 获取与登录用户相关的店铺优惠券 or 满减
+  getCouponsByUser(type = ' ') {
+    this.setData({
+      ['couponParams.type']: type
+    })
+    // 优惠券
+    http.fxGet(api.user_login_coupon, { ...this.data.couponParams, rid: this.data.originalStoreRid}, (result) => {
+      if (result.success) {
+        if (type != 3) {
+          console.log(result, '登陆的优惠券')
+          let parms = result.data
+          parms.coupons.forEach((v, i) => {
+            v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+            v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+          })
+
+          this.setData({
+            couponList: result.data
+          })
+          app.globalData.couponList = result.data
+        } else {
+          console.log(result, '获取满减')
+          // 调取满减
+          this.getCoupons('loginFullSubtractionList')
+
+        }
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 用户未登录时获取店铺优惠券 or 满减活动列表
+  getCoupons(e) {
+    http.fxGet(api.noCouponsList, {}, (result) => {
+      console.log(result, '没有登陆获取优惠券')
+      if (result.success) {
+        let coupon = [] // 优惠券
+        let full = [] // 满减券
+        result.data.coupons.forEach((v, i) => {
+          console.log(v)
+          if (v.type == 3) {
+            full.push(v)
+          } else {
+            coupon.push(v)
+          }
+        })
+        // 如果是登陆状态下调取直接赋值满减
+        if (e == "loginFullSubtractionList") {
+          this.setData({
+            ['fullSubtractionList.coupons']: full
+          })
+          app.globalData.fullSubtractionList = result.data
+          console.log(result.data, "满减")
+        } else {
+          this.setData({
+            ['couponList.coupons']: coupon, // 优惠券列表---couponList
+            ['fullSubtractionList.coupons']: full, // 满减---
+          })
+          app.globalData.fullSubtractionList.coupons = full
+          app.globalData.couponList.coupons = coupon
+        }
+        console.log(full, '满减')
+        console.log(full, '满减')
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   /**
@@ -365,13 +443,13 @@ Page({
       console.log(result)
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
-        this.getCouponAndFullSubtraction()
-        let topPage = getCurrentPages()
-        let topPagePath = topPage[topPage.length - 2]
+        // this.getCouponAndFullSubtraction()
+        // let topPage = getCurrentPages()
+        // let topPagePath = topPage[topPage.length - 2]
 
-        topPagePath.getCouponsByUser()
+        // topPagePath.getCouponsByUser()
         setTimeout(()=>{
-          this.getCouponAndFullSubtraction()
+          // this.getCouponAndFullSubtraction()
         },200)
       } else {
         utils.fxShowToast(result.status.message)
@@ -379,23 +457,24 @@ Page({
     })
   },
 
-  // 优惠券，满减
-  getCouponAndFullSubtraction() {
-    console.log(app.globalData.couponList, app.globalData.fullSubtractionList, )
+  // 优惠券，满减 originalStoreRid 商品店铺地 rid
+  // getCouponAndFullSubtraction() {
+    
+  //   console.log(app.globalData.couponList, app.globalData.fullSubtractionList, )
 
-    let full = []
-    app.globalData.fullSubtractionList.coupons.forEach((v,i)=>{
-      if (v.type==3){
-        full.push(v)
-      }
-    })
+  //   let full = []
+  //   app.globalData.fullSubtractionList.coupons.forEach((v,i)=>{
+  //     if (v.type==3){
+  //       full.push(v)
+  //     }
+  //   })
 
-    this.setData({
-      couponList: app.globalData.couponList, // 优惠券列表
-      fullSubtractionList: full, // 满减---
-    })
-    console.log(this.data.fullSubtractionList)
-  },
+  //   this.setData({
+  //     couponList: app.globalData.couponList, // 优惠券列表
+  //     fullSubtractionList: full, // 满减---
+  //   })
+  //   console.log(this.data.fullSubtractionList)
+  // },
 
   /**
    * 获取sku数量
@@ -415,17 +494,38 @@ Page({
     })
   },
 
-  // 获取店铺信息
+  // 获取商品原店铺信息
   getstoreInfo() {
-    this.setData({
-      storeInfo: app.globalData.storeInfo
+    console.log(this.data.originalStoreRid)
+    http.fxGet(api.shop_info, { rid: this.data.originalStoreRid}, (result) => {
+      console.log(result, '原店铺信息')
+      if (result.success) {
+        app.globalData.storeInfo = result.data
+        this.setData({
+          storeInfo: app.globalData.storeInfo
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
+
+  // getstoreInfo() {
+  //   // http.fxGet(api.)
+  //     // 获取店铺的信息
+
+
+  //   this.setData({
+  //     storeInfo: app.globalData.storeInfo
+  //   })
+  // },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
+    console.log(options, product,"上一页穿的参数")
+
     utils.handleShowLoading()
     // scene格式：rid + '#' + customer_rid
     let scene = decodeURIComponent(options.scene)
@@ -443,6 +543,7 @@ Page({
     }
 
     this.setData({
+      originalStoreRid: options.storeRid, // 原店铺的rid
       rid: options.rid,
       // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
@@ -455,9 +556,11 @@ Page({
 
     this.getstoreInfo() // 店铺信息---
     this.getProductInfomation() // 获取商品详情---
+    this.getCouponsByUser() // 获取登陆用户地优惠券
+    this.getCouponsByUser(3) // 获取满减
     this.getSkus()
     
-    this.getCouponAndFullSubtraction() // 获取优惠券---
+    // this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
   },
 

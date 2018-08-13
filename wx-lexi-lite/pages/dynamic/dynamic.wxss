@@ -111,3 +111,17 @@ overflow: hidden;
 .margin-bottom--30rpx{
   margin-bottom: 30rpx;
 }
+
+.null-photo {
+  height: 700rpx;
+
+}
+
+.null-photo image{
+  height: 120rpx;
+  width: 120rpx;
+  margin-bottom: 34rpx;
+}
+
+
+

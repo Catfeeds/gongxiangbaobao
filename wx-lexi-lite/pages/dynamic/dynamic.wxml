@@ -57,4 +57,9 @@
     </view>
   </view>
 
+  <view wx:if="{{true}}" class="fx-column--center null-photo">
+      <image src='../../images/user-star.png'></image>
+      <view class='black-font'>你还没有任何动态信息</view>
+  </view>
+
 </view>

@@ -3,6 +3,7 @@
     "pages/distributeCenter/distributeCenter",
     "pages/dynamic/dynamic",
     "pages/index/index",
+    "pages/people/people",
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
     "pages/distributeSubmit/distributeSubmit",

@@ -1,0 +1,14 @@
+/* pages/people/people.wxss */
+@import "../user/user.wxss";
+
+.add-watch__btn {
+  width: 176rpx;
+  height: 60rpx;
+  background-color: #5fe4b1;
+  border-radius: 30rpx;
+  color: white;
+  text-align: center;
+  margin-top: 24rpx;
+}
+
+

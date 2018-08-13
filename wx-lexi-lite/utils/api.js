@@ -28,7 +28,7 @@ module.exports = {
   // Brand
   brand_list: 'brands', // GET 品牌列表
   brand_detail: 'brands/:rid', // GET 品牌详情
-  shop_info: 'store/info', // 获取店铺信息--
+  shop_info: 'store/info', // 获取店铺信息--h
   store_announcement: 'store/announcement', //获取店铺公告---
   BrowseQuantityNumber: 'store/:rid/visitor', //浏览过的人数---
   brand_info: 'store/detail', // 品牌故事
@@ -87,6 +87,7 @@ module.exports = {
   banners_handpick:'banners/handpick', // 精选区域的头部广告
   column_handpick_optimization:'column/handpick_optimization', // 乐喜优选
   life_records_recommend:'life_records/recommend', // 种草清单
+  column_daily_recommends:"column/daily_recommends", //今日推荐
 
 
   // 核心 store
