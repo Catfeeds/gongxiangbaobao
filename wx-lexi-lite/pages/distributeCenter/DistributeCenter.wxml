@@ -44,7 +44,7 @@
     <!-- 头条动态 -->
     <view class="page-section headline">
       <view class="headline-side">
-        <i class="fx-icon"></i>
+        <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
         <text>生活馆</text>
         <text>头条</text>
       </view>
