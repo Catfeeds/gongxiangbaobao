@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/lifeStore/lifeStore",
-    "pages/applyLifeStore/applyLifeStore",
-    "pages/index/index",
     "pages/distributeCenter/distributeCenter",
+    "pages/dynamic/dynamic",
+    "pages/index/index",
+    "pages/applyLifeStore/applyLifeStore",
+    "pages/lifeStore/lifeStore",
     "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
@@ -36,6 +37,7 @@
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
     "pages/checkout/checkout"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

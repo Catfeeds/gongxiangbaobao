@@ -546,5 +546,12 @@ Page({
     this.setData({
       is_mobile:false
     })
+  },
+
+  // 去动态页面
+  handleDynamicTap(){
+    wx.navigateTo({
+      url: '../dynamic/dynamic',
+    })
   }
 })

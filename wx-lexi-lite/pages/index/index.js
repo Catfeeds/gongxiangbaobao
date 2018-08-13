@@ -416,5 +416,14 @@ Page({
   handleCategoryInfoTap(e){
     console.log(e)
 
-  }
+  },
+  
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+    })
+  },
+  
+  
 })

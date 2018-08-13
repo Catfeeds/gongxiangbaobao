@@ -1,0 +1,60 @@
+<!--pages/dynamic/dynamic.wxml 动态页面 "pages/dynamic/dynamic"-->
+<view class='container'>
+  <!-- 背景 -->
+  <view class="dynamic-hander__photo">
+    <image mode="widthFix" src="../../images/timg.jpg"></image>
+  </view>
+
+  <!-- 添加橱窗栏目 -->
+  <view class='dynamic-add__box fx-broadwise-e'>
+    <view class='dynamic-owner'>
+      <image src="../../images/timg.jpg"></image>
+    </view>
+    <view class='black-font designer-name'>设计师Ricky</view>
+    <view class='c-theme-bg add-showcase__btn font-s'>
+      <text>拼贴橱窗</text>
+      <text class='fx-icon-nothing-plus'></text> </view>
+  </view>
+
+  <!-- 每一项 -->
+  <view>
+    <view class='flex-direction--column dynamic-item'>
+      <view class='time-top dynamic-item__top margin-bottom--30rpx'>
+        <view class='flex_row designer-info'>
+          <image src="../../images/timg.jpg"></image>
+          <view>
+            <view class='font-s'>设计师ricky</view>
+            <view class='font-ss qian-hui'>8月2日</view>
+          </view>
+        </view>
+        <view class="flex_row round ">
+          <view></view>
+          <view></view>
+          <view></view>
+        </view>
+      </view>
+
+      <view class="time-top time-middine">
+        <image mode="widthFix" src="../../images/timg.jpg"></image>
+        <image mode="widthFix" src="../../images/timg.jpg"></image>
+        <image mode="widthFix" src="../../images/timg.jpg"></image>
+      </view>
+
+      <text class='text-two--line font-sxl text-two--line margin-bottom--8rpx'>一个让你爱不释手的包包</text>
+      <text class='text-two--line font-m'>某一天，你会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它掀起那时的回忆，碰触的记忆爱阿斯顿asjdj就看。</text>
+    </view>
+
+    <view class="like-iocn__box flex_row">
+      <view>
+        <image src='{{1==1?"../../images/icons/icon-like-active@3x.png":"../../images/icons/icon-like@3x.png"}}'></image>
+        <text class='font-ss'>1</text>
+      </view>
+
+      <view>
+        <image src="../../images/icons/icon-comment@3x.png"></image>
+        <text class='font-ss'>1</text>
+      </view>
+    </view>
+  </view>
+
+</view>

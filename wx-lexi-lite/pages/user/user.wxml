@@ -7,15 +7,23 @@
         <image src='{{ userInfo.profile.avatar }}' wx:if='{{ userInfo.profile.avatar != null }}'></image>
         <open-data wx:else type="userAvatarUrl"></open-data>
       </view>
-      <view 
-        wx:for="{{ classList }}" 
-        wx:key="{{ index }}" 
-        data-rid='{{ item.rid }}' 
-        class="user__like"
-        catchtap='classTap'>
-        <view class='number {{ classInfo == item.rid ? "green" : "" }}'>{{ item.num }}</view>
-        <view class='hui-zi {{ classInfo == item.rid ? "green" : ""}}'>{{ item.name }}</view>
+
+      <view>
+        <view class='flex_row'>
+        <view 
+          wx:for="{{ classList }}" 
+          wx:key="{{ index }}" 
+          data-rid='{{ item.rid }}' 
+          class="user__like"
+          catchtap='classTap'>
+          <view class='number {{ classInfo == item.rid ? "green" : "" }}'>{{ item.num }}</view>
+          <view class='hui-zi {{ classInfo == item.rid ? "green" : ""}}'>{{ item.name }}</view>
+        </view>
+        </view>
+
+        <view class="user__status" catchtap="handleDynamicTap"> 动态 </view>
       </view>
+
     </view>
     <!-- 手机号码 -->
     <view>
@@ -24,7 +32,7 @@
         <open-data wx:else type="userNickName"></open-data>
       </view>
       <view class='is-login font-ss' wx:if='{{ is_mobile }}'>
-        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号</button>
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号,仅能浏览</button>
       </view>
     </view>
     <!-- 粉丝 -->
