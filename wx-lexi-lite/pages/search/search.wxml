@@ -1,0 +1,9 @@
+<!--pages/search/search.wxml-->
+<view class='container search-page'>
+  <!-- 搜索框 -->
+  <view class="search-input">
+    <input placeholder="关键字/商品/品牌馆/人" placeholder-class="input-font" auto-focus/>
+    <image src='../../images/sear-icon@2.png'></image>
+  </view>
+
+</view>

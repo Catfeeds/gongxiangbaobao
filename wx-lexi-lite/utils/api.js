@@ -98,7 +98,8 @@ module.exports = {
   other_userlike:'userlike', //其他人喜欢的商品
   other_wishlist: 'other_wishlist', // 其他人心愿单
   users_other_followed_life_stores: 'users/other_followed_life_stores', //别人收藏的设计管
-
+  users_other_user_dynamic:"users/other_user_dynamic", // 其他人的动态
+  users_user_dynamic:"users/user_dynamic", // 获取自己的动态
 
   // Cart
   cart: 'cart', // GET 加入购物车---

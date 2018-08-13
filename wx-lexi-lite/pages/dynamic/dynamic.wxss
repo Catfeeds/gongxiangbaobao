@@ -1,7 +1,7 @@
 /* pages/dynamic/dynamic.wxss */
 
 .container{
-  background-color: white;
+  /* background-color: white; */
 }
 
 .dynamic-owner image {
@@ -12,7 +12,6 @@
 .dynamic-hander__photo {
   width: 750rpx;
   height: 307rpx;
-  background-color: red;
   overflow: hidden;
 }
 
@@ -121,6 +120,9 @@ overflow: hidden;
   height: 120rpx;
   width: 120rpx;
   margin-bottom: 34rpx;
+}
+.watch-btn{
+  width: 140rpx;
 }
 
 

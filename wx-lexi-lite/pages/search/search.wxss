@@ -1,0 +1,28 @@
+/* pages/search/search.wxss */
+
+.search-input {
+  position: relative;
+  height: 80rpx;
+}
+
+.search-input input {
+  height: 58rpx;
+  width: 600rpx;
+  background-color: #eaedf0;
+  border-radius: 28rpx;
+  padding-left: 70rpx;
+}
+
+.search-input image {
+  height: 30rpx;
+  width: 30rpx;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.input-font {
+  font-size: 24rpx;
+  color: #555;
+}

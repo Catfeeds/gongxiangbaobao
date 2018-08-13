@@ -238,7 +238,7 @@ getOtherWatchStore(e){
   },
   handleDynamicTap(e){
     wx.navigateTo({
-      url: '../dynamic/dynamic'
+      url: '../dynamic/dynamic?from=people&uid=' + this.data.otherPeopleUid
     })
   },
   // 切换类别

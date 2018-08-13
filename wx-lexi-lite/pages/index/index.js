@@ -601,5 +601,12 @@ Page({
     console.log(e)
 
   },
+
+  //去搜索页面
+  handleToSearch(){
+    wx.navigateTo({
+      url: '../search/search',
+    })
+  }
   
 })

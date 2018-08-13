@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <view class='sear-box flex_row font-s'>
+  <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
     <image src='../../images/sear@2.png'></image>
     <view class='search-box_text flex_row'>
       <image src='../../images/sear-icon@2.png'></image>
