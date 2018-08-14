@@ -85,7 +85,7 @@ Page({
    */
   handleGoDistribute() {
     wx.navigateTo({
-      url: '/pages/distributeCenter/distributeCenter'
+      url: '/pages/distributes/distributes'
     })
   },
 

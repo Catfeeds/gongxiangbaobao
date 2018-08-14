@@ -3,12 +3,7 @@
 
   <!-- 搜索框 -->
   <view class="bg-white search-input ">
-    <input 
-      value="{{inputText}}"
-      placeholder="关键字/商品/品牌馆/人" 
-      bindinput="handleInput" 
-      placeholder-class="input-font" 
-      auto-focus/>
+    <input value="{{inputText}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
     <view class='infput-search__btn'>
       <image src='../../images/sear-icon@2.png'></image>
     </view>
@@ -77,9 +72,9 @@
 
   <!-- 输入的时候 -->
   <block wx:if="{{inputText}}">
-        <view class="black-font padding-left--40rpx flex-direction__column--center one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
-          <view>台湾手工轻珠宝</view>
-          <view>台湾手工轻珠宝</view>
-        </view>
+    <view class="black-font padding-left--40rpx flex-direction__column--center one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
+      <view>台湾手工轻珠宝</view>
+      <view>台湾手工轻珠宝</view>
+    </view>
   </block>
 </view>

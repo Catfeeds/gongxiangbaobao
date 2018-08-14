@@ -270,14 +270,14 @@
     </view>
 
     <!-- 人气推荐 wx:for='{{currentNewProduct.products}}' -->
-    <view class="margin-left--40rpx margin-right--40rpx">
+    <view >
       <view class='human new-goods'>
         人气推荐
       </view>
-      <swiper class='gratefulList-box'>
+      <swiper class='gratefulList-box margin-left--40rpx  margin-right--40rpx border-bottom'>
         <!-- 1 -->
-        <swiper-item>
-          <view class='production new-goods_box'>
+        <swiper-item >
+          <view class='production new-goods_box padding-left__right--0rpx '>
             <view class='productionGoods {{index==2||index==3||index==4?"one-row-three":""}}' wx:if="{{index<5}}" wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
               <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
@@ -285,15 +285,15 @@
         </swiper-item>
         <!-- 2 -->
         <swiper-item>
-          <view class='production new-goods_box'>
+          <view class='production new-goods_box padding-left__right--0rpx'>
             <view wx:if="{{4<index && index<10}}" class='productionGoods {{index==7||index==8||index==9?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
               <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
         <!-- 3 -->
-        <swiper-item>
-          <view class='production new-goods_box'>
+        <swiper-item class="">
+          <view class='production new-goods_box padding-left__right--0rpx'>
             <view wx:if="{{9<index && index<15}}" class='productionGoods {{index==12||index==13||index==14?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
               <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
@@ -303,7 +303,7 @@
     </view>
 
     <!--中间 广告 -->
-    <view class='probation-box advertisement-box'>
+    <view class='probation-box advertisement-box '>
       <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
         <block wx:for="{{middleAdvertisementList.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <swiper-item>
@@ -314,7 +314,7 @@
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}} -->
-    <view class='c-importantGoods box--margin'>
+    <view class='c-importantGoods box--margin border-top'>
       <view class='c-importantGoodsTitle'>发现生活美学</view>
       <view class='c-importantGoodsBox  today-recommend-box'>
         <view class="life-beautiful-box" wx:for="123456790" wx:key="{{index}}">
@@ -337,12 +337,12 @@
     </view>
 
     <!-- 种草清单 -->
-    <view>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class="border-top margin-left--40rpx">
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
         <text>种草清单</text>
         <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
-      <view class='production new-goods_box'>
+      <view class='production new-goods_box padding-left--0rpx'>
         <view wx:if="{{index<4}}" class='flex-direction--column productionGoods ' wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
           <image src="{{item.cover}}" class="img--style"></image>

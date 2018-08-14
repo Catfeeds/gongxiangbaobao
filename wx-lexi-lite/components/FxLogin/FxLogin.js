@@ -186,6 +186,7 @@ Component({
             key: 'jwt',
             data: result.data
           })
+          app.globalData.userInfo = {}
           app.globalData.userInfo.avatar = result.data.avatar,
             app.globalData.userInfo.username = result.data.username,
             app.globalData.userInfo.mobile = result.data.mobile,

@@ -19,6 +19,8 @@ Page({
     interval: 2000,
     duration: 500,
 
+    swiperIndex: 0, // 轮播图的index
+
     pageActiveTab: 'stick', // stick, all
 
     panelActiveTab: 'hot',
@@ -30,7 +32,7 @@ Page({
     stickedProducts: {}, // 推荐分销-官方
     advertises: [], // 推荐广告图
     headlines: [], // 生活馆头条
-    
+
     allProducts: {}, // 全部分销商品
 
     showSortModal: false, // 排序
@@ -45,7 +47,7 @@ Page({
   /**
    * 切换页面
    */
-  handleChangePage (e) {
+  handleChangePage(e) {
     let pageName = e.currentTarget.dataset.name
     this.setData({
       pageActiveTab: pageName,
@@ -58,20 +60,20 @@ Page({
   /**
    * 切换
    */
-  handleChangePanel (e) {
+  handleChangePanel(e) {
     let panelName = e.currentTarget.dataset.name
     this.setData({
       panelActiveTab: panelName,
       page: 1
     })
-    
+
     this._watchPanelChange(panelName)
   },
 
   /**
    * 跳转分销上架
    */
-  handleGoSale (e) {
+  handleGoSale(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
       url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid
@@ -81,7 +83,7 @@ Page({
   /**
    * 分享-销售
    */
-  handleShareDistribute (e) {
+  handleShareDistribute(e) {
     let rid = e.currentTarget.dataset.rid
 
   },
@@ -109,7 +111,7 @@ Page({
     http.fxGet(api.get_hot_distribution, {}, (res) => {
       console.log(res, '生活馆头条')
       if (res.success) {
-        
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -230,7 +232,7 @@ Page({
   /**
    * 获取全部分销商品
    */
-  getAllProducts () {
+  getAllProducts() {
     let params = {
       page: this.data.page,
       per_page: this.data.perPage
@@ -303,6 +305,16 @@ Page({
     return _mockProducts
   },
 
+  // 轮播图发生变化的时候
+  handleswiperItemCheng(e) {
+    console.log(e, "轮播图发生变化的时候")
+
+    this.setData({
+      swiperIndex: e.detail.current
+    })
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -320,35 +332,35 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
@@ -373,6 +385,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })
