@@ -190,12 +190,12 @@
 
     <!-- 开店指引 -->
     <view class="setUpShop-guide border-radius--8">
-      <view class='time-top setUpShop-guide__top'>
+      <view class='time-top setUpShop-guide__top' wx:if="{{ !isSmallB }}">
         <view class=''>
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
         </view>
-        <view class='black-font font--white c-middle border-radius--8 c-theme-bg setUpshop-guide__btn'>开馆指引</view>
+        <view class='black-font font--white c-middle border-radius--8 c-theme-bg setUpshop-guide__btn' bindtap="handleApplyLifeStore">开馆指引</view>
       </view>
       <view class='flex_row font-s setUpShop-guide__bottom'>
         <view class=" c-line-D  setUpShop-guide__bottom__left ">
@@ -494,6 +494,11 @@
   <!-- 登陆注册模态框 -->
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+  </view>
+
+  <view class="fx-back-home" bindtap="handleBackLifeStore" wx:if="{{ !canAdmin }}">
+    <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
+    <text>回到自己生活馆</text>
   </view>
 
 </view>

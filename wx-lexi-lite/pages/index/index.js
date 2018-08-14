@@ -22,6 +22,7 @@ Page({
     lifeStore: {}, // 生活馆信息
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
+    isSmallB: false, // 当前用户是否为小B
     canAdmin: false, // 是否具备管理生活馆
     popularProducts: [], // 本周最受欢迎
 
@@ -110,6 +111,48 @@ Page({
     wx.setNavigationBarTitle({
       title: name
     })
+  },
+
+  /**
+   * 申请开通生活馆
+   */
+  handleApplyLifeStore () {
+    // 未登录，需先登录
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    // 已是小B用户,则不能再申请
+    if (this.data.isSmallB) {
+      return
+    }
+    
+    wx.navigateTo({
+      url: '../applyLifeStore/applyLifeStore',
+    })
+  },
+
+  /**
+   * 回到自己的生活馆
+   */
+  handleBackLifeStore () {
+    const lifeStore = wx.getStorageSync('lifeStore')
+    const userInfo = wx.getStorageSync('userInfo')
+
+    let sid = lifeStore.lifeStoreRid
+    this.setData({
+      sid: sid,
+      pageActiveTab: 'lifeStore',
+      storeOwner: userInfo,
+      canAdmin: true
+    })
+
+    this._swtichActivePageTab(this.data.pageActiveTab)
+
+    // 更新当前用户的last_store_rid
+    this.handleUpdateLastStoreRid(sid)
   },
 
   /**
@@ -542,7 +585,8 @@ Page({
         sid = lifeStore.lifeStoreRid
 
         this.setData({
-          canAdmin: true
+          canAdmin: true,
+          isSmallB: true
         })
       }
     }
