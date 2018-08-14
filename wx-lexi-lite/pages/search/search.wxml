@@ -1,0 +1,85 @@
+<!--pages/search/search.wxml-->
+<view class='container search-page'>
+
+  <!-- 搜索框 -->
+  <view class="bg-white search-input ">
+    <input 
+      value="{{inputText}}"
+      placeholder="关键字/商品/品牌馆/人" 
+      bindinput="handleInput" 
+      placeholder-class="input-font" 
+      auto-focus/>
+    <view class='infput-search__btn'>
+      <image src='../../images/sear-icon@2.png'></image>
+    </view>
+
+    <view class='input-off__btn' catchtap='handleDeleteInput'>
+      <image src="../../images/icon-close@2x.png"></image>
+    </view>
+  </view>
+
+  <!-- 没有输入的时候 -->
+  <block wx:if="{{!inputText}}">
+    <!-- 历史搜索 -->
+    <view class="bg-white ">
+      <view class='time-top black-font font-width--semibold history-record padding-bottom--24rpx '>
+        <text>历史搜索</text>
+        <image class="margin-left--40rpx margin-right--40rpx" src='../../images/delete-icon@2.png'></image>
+      </view>
+      <view class="flex_row black-font padding-left--40rpx padding-right--40rpx history-record__text">
+        <view class="one-line-text">太火呵</view>
+        <view class="one-line-text">太火鸟呵呵呵fff火fsdhsdjnsdjfkdj鸟呵呵呵额呵呵呵额呵呵呵呵呵</view>
+        <view class="one-line-text">太呵呵</view>
+      </view>
+    </view>
+
+    <!-- 最近记录 -->
+    <view class='bg-white last-record'>
+      <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>最近查看</view>
+      <scroll-view scroll-x>
+        <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
+          <fx-product product="{{item}}" bind:triggerEvent_product="handleGoProduct"></fx-product>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 热门推荐 -->
+    <view class="bg-white last-record hot-recommend">
+      <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>热门推荐</view>
+      <view class=" hot-recommend__bottom c-crosswise-a">
+        <view class="fx-column--center font-s" wx:for="{{'1234'}}" wx:key="{{index}}">
+          <image src="../../imagees/timg.jpg"></image>
+          <view>接单订制</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 热门搜索 -->
+    <view class="bg-white last-record hot-recommend">
+      <view class='black-font font-width--semibold padding-left--40rpx '>热门搜索</view>
+      <view class="padding-left--40rpx">
+
+        <!-- 数字序列 -->
+        <view class="black-font flex_row one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
+          <view class="c-middle hot-search__list {{index==0?'bgc--red':''}} {{index==2?'bgc--blue':''}} {{index==1?'bgc--yellow':''}}">{{index+1}}</view>
+          <text>台湾手工轻珠宝</text>
+        </view>
+
+        <!-- 上声榜 -->
+        <view class="black-font flex_row one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
+          <image src='../../images/set-up-shop-suona@2.png'></image>
+          <text>台湾手工轻珠宝</text>
+        </view>
+
+      </view>
+    </view>
+  </block>
+
+  <!-- 输入的时候 -->
+  <block wx:if="{{inputText}}">
+        <view class="black-font padding-left--40rpx flex-direction__column--center one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
+          <view>台湾手工轻珠宝</view>
+          <view>台湾手工轻珠宝</view>
+        </view>
+  </block>
+</view>

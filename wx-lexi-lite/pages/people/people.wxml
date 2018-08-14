@@ -1,11 +1,10 @@
 <!--pages/people/people.wxml 我看别人主页-->
 <view class='container {{is_mobile?"prevent__penetrate":""}}'>
-  <view class='top-box'>
+  <view class='top-box border-bottom'>
     <!-- 头像 -->
     <view class='user-photo'>
       <view class='photo'>
-        <image src='{{ userInfo.profile.avatar }}' wx:if='{{ userInfo.profile.avatar != null }}'></image>
-        <open-data wx:else type="userAvatarUrl"></open-data>
+        <image src='{{ otherPeopleInfo.avatar }}'></image>
       </view>
 
       <view>
@@ -23,8 +22,8 @@
     <!-- 手机号码 -->
     <view>
       <view class='user-name-text'>
-        <text wx:if='{{ userInfo.profile.username != null }}'>{{ userInfo.profile.username }}</text>
-        <open-data wx:else type="userNickName"></open-data>
+        <text>{{ otherPeopleInfo.username }}</text>
+
       </view>
       <view class='is-login font-ss' wx:if='{{ is_mobile }}'>
         <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号,仅能浏览</button>
@@ -36,18 +35,20 @@
       <view catchtap='handleWatchTap'>
         <text class='font-s'> 
           <text class='hui-zi' > 关注 </text>
-        <text class='wacth-follower'>{{followerAddWatch.followed_users_counts}}</text>
+        <text class='wacth-follower'>{{otherPeopleInfo.followed_users_counts}}</text>
         </text>
       </view>
       <view catchtap='handleFollowerTap'>
         <text class='font-s'> <text class='hui-zi'> 粉丝 </text>
-        <text class='wacth-follower'>{{followerAddWatch.fans_counts}}</text> </text>
+        <text class='wacth-follower'>{{otherPeopleInfo.fans_counts}}</text> </text>
       </view>
 
     </view>
 
     <!-- 描述 -->
-    <text class='font-m describe__text two-line-text'>折柳作别，你微笑。然后转身。那动作定格在眸中，迷蒙成一帘烟雨。我神情木然，脏腑痉挛。折柳作别，你微笑。然后转身。那动作定格在眸中，迷蒙成一帘烟雨。我神情木然，脏腑痉挛。折柳作别，你微笑。然后转身。那动作定格在眸中，迷蒙成一帘烟雨。我神情木然，脏腑痉挛。  </text>
+    <text 
+      class='font-m describe__text' 
+      wx:if="{{otherPeopleInfo.about_me!=null}}"> {{otherPeopleInfo.about_me}} </text>
 
     <view class="">
       <view class='add-watch__btn'>
@@ -58,14 +59,88 @@
 
   </view>
 
+    <!-- 以喜欢里面的内容 -->
+  <view wx:if="{{classInfo==1}}" class='bottom__info'>
+
+    <!-- 喜欢的商品列表 -->
+    <view class='p-null' >
+      <view class='c-importantGoodsTitle paymentFnTextB user__like'>
+        <text>喜欢的商品</text>
+        <text 
+          class=' hui-zi margin--15rpx' 
+          data-from='userBrowses' 
+          catchtap='handleAllProduct'>查看全部 <text>></text> </text>
+      </view>
+      <scroll-view scroll-x class='c-importantGoodsBox'>
+        <view 
+          catchtap='handleToProductInfoTap' 
+          data-rid='{{item.rid}}' 
+          class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' 
+          wx:for="{{otherLikeList.products}}" 
+          wx:key="{{index}}">
+          <image src='{{item.cover}}-p16'></image>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 喜欢的商品列表 -->
+    <view class='p-null' >
+      <view class='c-importantGoodsTitle paymentFnTextB user__like'>
+        <text>喜欢的橱窗</text>
+        <text 
+          class=' hui-zi margin--15rpx' 
+          data-from='userBrowses' 
+          catchtap='handleAllProduct'>查看全部 <text>></text> </text>
+      </view>
+      <scroll-view scroll-x class=' c-importantGoodsBox'>
+        <view 
+          catchtap='handleToProductInfoTap' 
+          data-rid='{{item.rid}}' 
+          class='inline-block {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' 
+          wx:for="{{otherLikeList.products}}" 
+          wx:key="{{index}}">
+          <!-- 橱窗 -->
+          <view class='time-top showcase-box'>
+            <view class='showcase-box__left'>
+              <image src='../../images/timg.jpg'></image>
+            </view>
+            <view class='line-D showcase-box__right'>
+              <view> <image src='../../images/timg.jpg'></image> </view>
+              <view> <image src='../../images/timg.jpg'></image> </view>
+            </view>
+
+          </view>
+
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 缺省图片 -->
+    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.products.length==0}}">
+      <view>
+        <image src='../../images/user-xin.png'></image>
+      </view>
+      <view class='black-font no-like__title'> <text>ta还未喜欢过任何东西</text></view>
+      <view class='flex_row font-s qian-hui hui-xin'>
+        <view>点击商品和橱窗上的</view>
+        <image src='../../images/dLike@2.png'></image>
+        <view>即可添加到您的喜欢列表中</view>
+      </view>
+    </view>
+
+  </view>
+
 
   <!-- 收藏里面的内容 -->
   <view class='shou bottom__info' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
     <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.length!=0}}">
-      <view class='c-importantGoodsTitle paymentFnTextB see-all'>
+      <view class='c-importantGoodsTitle paymentFnTextB'>
         <text>最近查看</text>
-        <text class=' hui-zi margin--15rpx' data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
+        <text 
+          class=' hui-zi margin--15rpx' 
+          data-from='userBrowses' 
+          catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct}}" wx:key="{{index}}">

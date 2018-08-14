@@ -72,7 +72,7 @@ Page({
       ['couponParams.type']: type
     })
     // 优惠券
-    http.fxGet(api.user_login_coupon, { ...this.data.couponParams, rid: this.data.originalStoreRid}, (result) => {
+    http.fxGet(api.user_login_coupon, { ...this.data.couponParams, store_rid: this.data.originalStoreRid}, (result) => {
       if (result.success) {
         if (type != 3) {
           console.log(result, '登陆的优惠券')
@@ -87,7 +87,7 @@ Page({
           })
           app.globalData.couponList = result.data
         } else {
-          console.log(result, '获取满减')
+          
           // 调取满减
           this.getCoupons('loginFullSubtractionList')
 
@@ -100,7 +100,7 @@ Page({
 
   // 用户未登录时获取店铺优惠券 or 满减活动列表
   getCoupons(e) {
-    http.fxGet(api.noCouponsList, {}, (result) => {
+    http.fxGet(api.noCouponsList, { store_rid: this.data.originalStoreRid}, (result) => {
       console.log(result, '没有登陆获取优惠券')
       if (result.success) {
         let coupon = [] // 优惠券
@@ -113,17 +113,18 @@ Page({
             coupon.push(v)
           }
         })
+        console.log(full,"满减")
         // 如果是登陆状态下调取直接赋值满减
         if (e == "loginFullSubtractionList") {
           this.setData({
-            ['fullSubtractionList.coupons']: full
+            fullSubtractionList: full
           })
           app.globalData.fullSubtractionList = result.data
           console.log(result.data, "满减")
         } else {
           this.setData({
             ['couponList.coupons']: coupon, // 优惠券列表---couponList
-            ['fullSubtractionList.coupons']: full, // 满减---
+            fullSubtractionList: full, // 满减---
           })
           app.globalData.fullSubtractionList.coupons = full
           app.globalData.couponList.coupons = coupon
@@ -447,9 +448,9 @@ Page({
         // let topPage = getCurrentPages()
         // let topPagePath = topPage[topPage.length - 2]
 
-        // topPagePath.getCouponsByUser()
+        // this.getCouponAndFullSubtraction()
         setTimeout(()=>{
-          // this.getCouponAndFullSubtraction()
+          this.getCouponsByUser()
         },200)
       } else {
         utils.fxShowToast(result.status.message)

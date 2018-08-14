@@ -1,6 +1,8 @@
 <!--index.wxml-->
+
 <view class="container">
-  <view class='sear-box flex_row font-s'>
+ 
+  <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
     <image src='../../images/sear@2.png'></image>
     <view class='search-box_text flex_row'>
       <image src='../../images/sear-icon@2.png'></image>
@@ -8,17 +10,14 @@
     </view>
   </view>
 
-  <view class='fx-tabs'>
-    <view 
-      class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}"
-      wx:for='{{ pageTabs }}' 
-      wx:for-item="pageTab" 
-      wx:key='{{ pageTab.rid }}' 
-      data-name='{{ pageTab.name }}' 
-      catchtap="handlePickCategory" 
-      wx:if="{{ !pageTab.disabled }}">
+ <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
+
+  <view class='fx-tabs navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
+    <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
       <text>{{ pageTab.title }}</text>
     </view>
+
+
   </view>
 
   <!-- 生活馆 -->
@@ -93,7 +92,7 @@
 
     <!-- 商品展示区域 -->
     <view class='theme-bg-color recommend-product-box'>
-      
+
       <!-- 缺省 -->
       <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ !storeProducts.length }}">
         <view class='no-sell-product_icon_box'>
@@ -103,7 +102,7 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}"  wx:if="{{ storeProducts.length }}">
+      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ storeProducts.length }}">
 
         <!-- 店长头相 -->
         <view class='shopMaster'>
@@ -228,10 +227,7 @@
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox  today-recommend-box'>
-        <view 
-          class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}'
-          wx:for="{{todayRecommendList.daily_recommends}}" 
-          wx:key="{{index}}">
+        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" wx:key="{{index}}">
           <view class='all-product'>
             <image class='border-radius--8' src="{{item.cover}}"></image>
           </view>
@@ -268,7 +264,7 @@
     </view>
 
     <!-- 人气推荐 wx:for='{{currentNewProduct.products}}' -->
-    <view>
+    <view class="margin-left--40rpx margin-right--40rpx">
       <view class='human new-goods'>
         人气推荐
       </view>
@@ -374,7 +370,7 @@
     </view>
 
     <!-- 分类的 -->
-    <view class='product-category-box'>
+    <view class='product-category-box '>
       <scroll-view scroll-x class='flex_row slither-box'>
         <view class='fx-column--center inline-block padding--27rpx {{index==0?"padding-left--40rpx":""}} {{index==categoryList.categories.length-1?"padding-right--40rpx":""}}' wx:for="{{categoryList.categories}}" wx:key='{{index}}'>
           <image class='product-category-icon' src='{{item.cover}}'></image>
@@ -385,12 +381,12 @@
     </view>
 
     <!-- 编辑推荐 {{themeProduct.designs}} -->
-    <view class=''>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class='border-bottom '>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx recommend-product-box'>
         <text>编辑推荐</text>
         <text wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
-      <view class='c-importantGoodsBox'>
+      <view class='c-importantGoodsBox margin-top--34rpx'>
         <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{editRecommendList.products}}" wx:key="{{index}}">
           <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </scroll-view>
@@ -398,13 +394,13 @@
     </view>
 
     <!-- 特色品牌馆 -->
-    <view class=''>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class='border-bottom'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特色品牌馆</text>
         <text wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
-      <scroll-view scroll-x class='c-importantGoodsBox'>
+      <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' wx:for="{{characteristicStoreList.stores}}" wx:for-item="items" wx:key="{{ index }}">
           <image src='{{items.bgcover}}-p50'></image>
           <view class='characteristic-info border-radius--8'>
@@ -436,12 +432,12 @@
     </view>
 
     <!-- 优质新品 {{themeProduct.designs}} -->
-    <view class=''>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class='border-bottom'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>优质新品</text>
         <text wx:if="{{highQualityList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
-      <scroll-view scroll-x class='c-importantGoodsBox'>
+      <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto {{index==0?"padding-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
           <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
@@ -449,12 +445,12 @@
     </view>
 
     <!-- 集合 {{themeProduct.designs}} -->
-    <view>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class='border-bottom'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>集合</text>
         <text wx:if="{{gatherList.collections.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
-      <scroll-view scroll-x class='c-importantGoodsBox'>
+      <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-id="{{item.id}}" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
           <image class='border-radius--8' src="{{item.cover}}-p30"></image>
           <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
@@ -465,12 +461,12 @@
     </view>
 
     <!-- 特惠好设计 {{themeProduct.designs}} -->
-    <view class=''>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class='border-bottom'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特惠好设计</text>
         <text wx:if="{{gatherList.collections.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right nothing-right__size'></text> </text>
       </view>
-      <scroll-view scroll-x class='c-importantGoodsBox'>
+      <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==goodDesignList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{goodDesignList.products}}" photo="1" wx:key="{{index}}">
           <fx-product photoSize="16" photo="2" product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
@@ -478,12 +474,12 @@
     </view>
 
     <!-- 百元好物 {{themeProduct.designs}} -->
-    <view>
-      <view class='c-importantGoodsTitle time-top font-xl category__title'>
+    <view class='border-bottom'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>百元好物</text>
         <text wx:if="{{oneHundredList.products.length>8}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
-      <scroll-view scroll-x class='c-importantGoodsBox'>
+      <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto height--372rpx {{index==0?"margin-left--40rpx":""}} {{index==oneHundredList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{oneHundredList.products}}" wx:key="{{index}}">
           <fx-product product="{{item}}" photoSize="16" photo="2" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>

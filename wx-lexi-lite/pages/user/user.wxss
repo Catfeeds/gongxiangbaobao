@@ -353,3 +353,10 @@ margin:35rpx 0 20rpx 0;
   height: 24rpx;
 }
 
+.margin-left--40rpx{
+  margin-left: 40rpx;
+}
+
+.margin-right--40rpx{
+  margin-right: 40rpx;
+}

@@ -136,6 +136,11 @@
   display: flex;
   flex-direction: column;
 }
+.flex-direction__column--center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .line-D {
   display: flex;
@@ -449,6 +454,11 @@ image {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+.one-line-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* 背景 */
 
@@ -466,6 +476,30 @@ image {
 
 .fx-bg-hong {
   background: #f66;
+}
+
+/* 头部导航滑动定位的垫片 以及吸附 */
+.navbar-shim{
+  height: 90rpx;
+  width: 100%;
+}
+
+.navbar-adsorb{
+  position: fixed;
+  top: 0rpx;
+  z-index: 99;
+  width: 670rpx;
+}
+
+
+/* 蒙层滚动穿透问题 */
+.prevent__penetrate{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 
 @font-face {

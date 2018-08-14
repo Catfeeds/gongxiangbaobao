@@ -2,29 +2,44 @@
 <view class='container'>
   <!-- 背景 -->
   <view class="dynamic-hander__photo">
-    <image mode="widthFix" src="../../images/timg.jpg"></image>
+    <image mode="widthFix" src="{{dynamicList.lines[0].shop_window.user_avatar}}"></image>
   </view>
 
   <!-- 添加橱窗栏目 -->
-  <view class='dynamic-add__box fx-broadwise-e'>
+  <view class='dynamic-add__box fx-broadwise-e bg-white'>
     <view class='dynamic-owner'>
-      <image src="../../images/timg.jpg"></image>
+      <image src="{{dynamicList.lines[0].shop_window.user_avatar}}"></image>
     </view>
-    <view class='black-font designer-name'>设计师Ricky</view>
-    <view class='c-theme-bg add-showcase__btn font-s'>
-      <text>拼贴橱窗</text>
-      <text class='fx-icon-nothing-plus'></text> </view>
+    <view class='black-font designer-name'>{{dynamicList.lines[0].shop_window.user_name}}</view>
+    <!-- 拼接橱窗 -->
+    <view class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==1}}">
+      <text >拼贴橱窗</text>
+      <text class='fx-icon-nothing-plus'></text> 
+    </view>
+    <!-- 关注 -->
+    <view class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==2&&dynamicList.followed_status==0}}">
+      <text class='fx-icon-nothing-plus'></text> 
+      <text>关注</text>
+    </view>
+    <!-- 取消关注-->
+    <view class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==2&&dynamicList.followed_status==1}}">
+      <text class='fx-icon-nothing-plus'></text> 
+      <text>已关注</text>
+    </view>
+    
   </view>
 
   <!-- 每一项 -->
-  <view>
-    <view class='flex-direction--column dynamic-item'>
+  <view wx:for="{{dynamicList.lines}}" wx:key="{{index}}" class='margin-bottom--30rpx bg-white'>
+    
+    <view 
+      class='flex-direction--column dynamic-item' >
       <view class='time-top dynamic-item__top margin-bottom--30rpx'>
         <view class='flex_row designer-info'>
-          <image src="../../images/timg.jpg"></image>
+          <image src="{{item.shop_window.user_avatar}}"></image>
           <view>
-            <view class='font-s'>设计师ricky</view>
-            <view class='font-ss qian-hui'>8月2日</view>
+            <view class='font-s'>{{item.shop_window.user_name}}</view>
+            <view class='font-ss qian-hui'>{{item.created_time}}</view>
           </view>
         </view>
         <view class="flex_row round ">
@@ -35,31 +50,42 @@
       </view>
 
       <view class="time-top time-middine">
-        <image mode="widthFix" src="../../images/timg.jpg"></image>
-        <image mode="widthFix" src="../../images/timg.jpg"></image>
-        <image mode="widthFix" src="../../images/timg.jpg"></image>
+        <image 
+          mode="widthFix" 
+          wx:if="{{index<3}}"
+          wx:key="{{index}}"
+          wx:for="{{item.shop_window.product_covers}}" 
+          wx:for-item="items"
+          src="{{items}}"></image>
       </view>
 
-      <text class='text-two--line font-sxl text-two--line margin-bottom--8rpx'>一个让你爱不释手的包包</text>
-      <text class='text-two--line font-m'>某一天，你会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它会因为看到它穿上它掀起那时的回忆，碰触的记忆爱阿斯顿asjdj就看。</text>
+      <text 
+      class='text-two--line font-sxl text-two--line margin-bottom--8rpx'>{{item.shop_window.title}}</text>
+      <text class='text-two--line font-m'>{{item.shop_window.description}}</text>
     </view>
 
     <view class="like-iocn__box flex_row">
       <view>
-        <image src='{{1==1?"../../images/icons/icon-like-active@3x.png":"../../images/icons/icon-like@3x.png"}}'></image>
-        <text class='font-ss'>1</text>
+        <image 
+          src='{{item.shop_window.is_follow?"../../images/icons/icon-like-active@3x.png":"../../images/icons/icon-like@3x.png"}}'></image>
+        <text class='font-ss' wx:if="{{item.shop_window.like_count!=0&&item.shop_window.like_count!=null}}">{{item.shop_window.like_count}}</text>
       </view>
 
-      <view>
+      <view >
         <image src="../../images/icons/icon-comment@3x.png"></image>
-        <text class='font-ss'>1</text>
+        <text class='font-ss' wx:if="{{item.shop_window.comment_count!=0&&item.shop_window.comment_count!=null}}">{{item.shop_window.comment_count}}</text>
       </view>
     </view>
+    
   </view>
 
-  <view wx:if="{{true}}" class="fx-column--center null-photo">
+  
+
+  <view wx:if="{{dynamicList.lines.length==0}}" class="fx-column--center null-photo">
       <image src='../../images/user-star.png'></image>
       <view class='black-font'>你还没有任何动态信息</view>
   </view>
+
+  <view class='shm'></view>
 
 </view>

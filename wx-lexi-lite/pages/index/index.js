@@ -46,6 +46,7 @@ Page({
 
 
     is_mobile:false, // 验证是否登陆
+    isNavbarAdsorb:false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
     pageTabs:[
@@ -562,6 +563,20 @@ Page({
   },
 
   /**
+   * 监听页面滚动
+   * **/
+  onPageScroll(e){
+    if (e.scrollTop > 59){
+      this.setData({
+        isNavbarAdsorb:true
+      })
+    } else if (e.scrollTop < 60){
+      this.setData({
+        isNavbarAdsorb: false
+      })
+    }
+  },
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
@@ -615,5 +630,12 @@ Page({
     console.log(e)
 
   },
+
+  //去搜索页面
+  handleToSearch(){
+    wx.navigateTo({
+      url: '../search/search',
+    })
+  }
   
 })

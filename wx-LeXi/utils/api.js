@@ -149,5 +149,5 @@ module.exports = {
   users_followed_users: 'users/followed_users', // 获取关注
   follow_user: 'follow/user', // 添加关注
   unfollow_user: 'unfollow/user', // 取消关注
-  users_followed_stores: 'users/followed_stores' // 获取关注店铺的列表
+  users_followed_stores: 'users/followed_life_stores' // 获取关注店铺的列表
 }
