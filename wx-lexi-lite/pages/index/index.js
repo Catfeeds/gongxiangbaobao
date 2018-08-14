@@ -527,8 +527,10 @@ Page({
     http.fxGet(api.life_store_headlines, { type: 2 }, (res) => {
       console.log(res, '生活馆头条')
       if (res.success) {
+        let l = res.data.headlines.length
+        // 暂时展示2条
         this.setData({
-          storeHeadlines: res.data.headlines
+          storeHeadlines: res.data.headlines.splice(0, 2)
         })
       } else {
         utils.fxShowToast(res.status.message)

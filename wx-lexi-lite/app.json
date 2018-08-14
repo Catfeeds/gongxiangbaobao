@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/distributes/distributes",
     "pages/index/index",
     "pages/search/search",
     "pages/dynamic/dynamic",
@@ -38,8 +39,7 @@
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
-    "pages/find/find",
-    "pages/distributes/distributes"
+    "pages/find/find"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

@@ -22,7 +22,7 @@
 }
 .search-box__text .search-input {
   background-color: rgba(246,245,245,1);
-  padding: 24rpx 20rpx 20rpx 83rpx;
+  padding: 20rpx 20rpx 18rpx 83rpx;
   border-radius: 50rpx;
   color: #555555;
 }

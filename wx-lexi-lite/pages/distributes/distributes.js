@@ -31,7 +31,7 @@ Page({
     ],
     stickedProducts: {}, // 推荐分销-官方
     advertises: [], // 推荐广告图
-    headlines: [], // 生活馆头条
+    storeHeadlines: [], // 生活馆头条
 
     allProducts: {}, // 全部分销商品
 
@@ -71,6 +71,61 @@ Page({
   },
 
   /**
+   * 排序
+   */
+  handleShowSortModal (e) {
+    console.log(e)
+    this.setData({
+      showSortModal: true
+    })
+  },
+
+  /**
+   * 关闭弹窗回调
+   */
+  handleCloseSortModal (e) {
+    this.setData({
+      showSortModal: false
+    })
+  },
+
+  /**
+   * 利润
+   */
+  handleShowIncomeModal (e) {
+    this.setData({
+      showIncomeModal: true
+    })
+  },
+
+  /**
+   * 关闭弹窗回调
+   */
+  handleCloseIncomeModal(e) {
+    this.setData({
+      showIncomeModal: false
+    })
+  },
+
+  /**
+   * 排序
+   */
+  handleShowFilterModal(e) {
+    this.setData({
+      showFilterModal: true
+    })
+  },
+
+  /**
+   * 关闭弹窗回调
+   */
+  handleCloseFilterModal(e) {
+    this.setData({
+      showFilterModal: false
+    })
+  },
+
+  /**
    * 跳转分销上架
    */
   handleGoSale(e) {
@@ -105,13 +160,17 @@ Page({
   },
 
   /**
-   * 生活馆头条
+   * 获取生活馆头条
    */
-  getHeadlines() {
-    http.fxGet(api.get_hot_distribution, {}, (res) => {
+  getStoreHeadlines() {
+    http.fxGet(api.life_store_headlines, { type: 2 }, (res) => {
       console.log(res, '生活馆头条')
       if (res.success) {
-
+        let l = res.data.headlines.length
+        // 暂时展示2条
+        this.setData({
+          storeHeadlines: res.data.headlines.splice(0, 2)
+        })
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -321,7 +380,7 @@ Page({
   onLoad: function (options) {
     if (this.data.pageActiveTab == 'stick') {
       this.getAdvertises()
-      this.getHeadlines()
+      this.getStoreHeadlines()
       this.getHotDistribution()
     } else {
       this.getAllProducts()
