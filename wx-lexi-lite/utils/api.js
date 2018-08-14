@@ -9,6 +9,7 @@ module.exports = {
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
   auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
   bind_mobile: 'accounts/wxa_bind_mobile', //绑定手机号码---
+  wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
   countries: 'countries', // 获取国家列表
 
   // User
@@ -35,11 +36,14 @@ module.exports = {
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
 
   // 生活馆
+
   life_store: 'store/life_store', // GET 生活馆信息
   life_store_apply: 'store/apply_life_store', // POST 申请生活馆
   life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
+  life_store_headlines: 'store/store_headline', // GET 
+
 
   // 分销
 

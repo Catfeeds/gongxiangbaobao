@@ -44,6 +44,7 @@ Page({
     plantOrderList:[], //种草清单
     swiperIndex: 0, // 旋转木马当前选中项目
     todayRecommendList:[], // 今日推荐
+    storeHeadlines: [], // 生活馆头条
 
 
     is_mobile:false, // 验证是否登陆
@@ -128,7 +129,7 @@ Page({
     if (this.data.isSmallB) {
       return
     }
-    
+
     wx.navigateTo({
       url: '../applyLifeStore/applyLifeStore',
     })
@@ -519,6 +520,22 @@ Page({
   },
 
   /**
+   * 获取生活馆头条
+   */
+  getStoreHeadlines() {
+    http.fxGet(api.life_store_headlines, { type: 2 }, (res) => {
+      console.log(res, '生活馆头条')
+      if (res.success) {
+        this.setData({
+          storeHeadlines: res.data.headlines
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
    * 激活页面Tab
    */
   _swtichActivePageTab(name) {
@@ -531,6 +548,7 @@ Page({
       case 'featured': // 精选
         this.handleSetNavigationTitle('精选')
 
+        this.getStoreHeadlines() // 开馆头条
         this.getOpenStoreGuide() // 开馆指引
         this.getTodayRecommend() // 今日推荐
         this.getChoiceHanderAdvertisement() // 头部广告
