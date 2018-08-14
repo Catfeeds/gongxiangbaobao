@@ -550,11 +550,15 @@ Page({
     // 判断是否有生活馆显示
     if (sid) {
       const userInfo = wx.getStorageSync('userInfo')
-
+      
       this.setData({
         sid: sid,
         pageActiveTab: 'lifeStore',
         storeOwner: userInfo
+      })
+    } else {
+      this.setData({
+        'pageTabs[0].disabled': true
       })
     }
 
