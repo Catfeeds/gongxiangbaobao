@@ -13,7 +13,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
     indicatorDots: true,
     vertical: false,
     autoplay: false,
@@ -92,12 +91,14 @@ Page({
    * 推荐-广告图
    */
   getAdvertises() {
-    http.fxGet(api.get_hot_distribution, {}, (res) => {
-      console.log(res, '推荐广告')
-      if (res.success) {
-        
+    http.fxGet(api.marketBanners.replace(/:rid/, 'center_ad'), {}, (result) => {
+      console.log(result, '推荐广告')
+      if (result.success) {
+        this.setData({
+          advertises: result.data.banner_images
+        })
       } else {
-        utils.fxShowToast(res.status.message)
+        utils.fxShowToast(result.status.message)
       }
     })
   },

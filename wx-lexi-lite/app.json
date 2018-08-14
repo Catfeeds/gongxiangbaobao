@@ -1,10 +1,11 @@
 {
   "pages": [
     
-    "pages/distributeCenter/distributeCenter",
+    
     "pages/index/index",
     "pages/dynamic/dynamic",
     "pages/people/people",
+    "pages/distributeCenter/distributeCenter",
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
     "pages/distributeSubmit/distributeSubmit",

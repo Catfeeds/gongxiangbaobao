@@ -131,6 +131,20 @@ Page({
     })
   },
 
+  /**
+   * 更新最近访问的生活馆
+   */
+  handleUpdateLastStoreRid(sid) {
+    http.fxPost(api.life_store_update_rid, { last_store_rid: sid }, (result) => {
+      console.log(result, '更新最近的生活馆')
+      if (!result.success) {
+        utils.fxShowToast(result.status.message)
+      } else {
+        console.log('已成功更新最近的生活馆！')
+      }
+    })
+  },
+
   /** 探索页面start **/
 
   // 广告位置
@@ -520,7 +534,7 @@ Page({
     // 从某个生活馆点击进入
     if (sid != '') {
       // 更新当前用户的last_store_rid
-
+      this.handleUpdateLastStoreRid(sid)
     } else {
       // 小B商家获取自己生活馆
       if (lifeStore.isSmallB) {

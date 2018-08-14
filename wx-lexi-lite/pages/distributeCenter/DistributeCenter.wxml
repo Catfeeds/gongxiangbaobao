@@ -16,7 +16,7 @@
       <input class="search-input" type="text" placeholder="商品名称、关键词"></input>
     </view>
   </view>
-
+  
   <!-- tabs -->
   <view class="page-section fx-tabs">
     <view class="tab-item {{ pageActiveTab == 'stick' ? 'active' : '' }}" bindtap="handleChangePage" data-name="stick">
@@ -32,10 +32,12 @@
 
     <!-- 推荐图幻灯片 -->
     <view class="page-section swiper">
-      <swiper indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" circular="{{ circular }}" interval="{{ interval }}" duration="{{ duration }}">
-        <block wx:for="{{ background }}" wx:key="*this">
+      <swiper class="distribute-swiper" indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" circular="{{ circular }}" interval="{{ interval }}" duration="{{ duration }}">
+        <block wx:for="{{ advertises }}" wx:for-item="adv"  wx:key="*this">
           <swiper-item>
-            <view class="swiper-item {{ item }}"></view>
+            <view class="swiper-item" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
+              <image src="{{ adv.image }}" ></image>
+            </view>
           </swiper-item>
         </block>
       </swiper>
