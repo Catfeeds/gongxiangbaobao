@@ -11,8 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    inputText:'', // 输入框的内容
-    highQualityList:[] // 最近查看
+    inputText: '', // 输入框的内容
+    highQualityList: [] // 最近查看
 
   },
 
@@ -31,7 +31,7 @@ Page({
   },
 
   // 输入框输入信息
-  handleInput(e){
+  handleInput(e) {
     console.log(e.detail.value)
     this.setData({
       inputText: e.detail.value
@@ -40,7 +40,7 @@ Page({
   },
 
   // 关闭输入框
-  handleDeleteInput(){
+  handleDeleteInput() {
     this.setData({
       inputText: ''
     })
@@ -50,61 +50,61 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getHighQuality()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
   /**
- * 跳转商品详情
- */
+   * 跳转商品详情
+   */
   handleGoProduct(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({

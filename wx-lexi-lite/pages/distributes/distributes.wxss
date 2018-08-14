@@ -42,7 +42,7 @@
   margin: 0 auto;
 }
 
-<<<<<<< HEAD
+
 .distribute-swiper .swiper-item image{
   height: 218rpx;
   width: 452rpx;
@@ -111,8 +111,6 @@
   color: #F4B329;
 }
 
-=======
->>>>>>> 8130bd28b7254abc4e00cfff5944a4f27f44f9bb
 .open-more {
   font-size: 24rpx;
   color: #666666;
@@ -120,7 +118,6 @@
   padding: 28rpx 0rpx;
   border-bottom: 1rpx solid #E9E9E9;
 }
-
 
 /* 筛选器 */
 .fx-filter {

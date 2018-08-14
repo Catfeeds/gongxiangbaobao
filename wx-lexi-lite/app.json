@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/search/search",
-    "pages/distributeCenter/distributeCenter",
     "pages/dynamic/dynamic",
     "pages/people/people",
     "pages/applyLifeStore/applyLifeStore",
@@ -39,7 +38,8 @@
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
-    "pages/find/find"
+    "pages/find/find",
+    "pages/distributes/distributes"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
