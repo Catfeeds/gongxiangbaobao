@@ -32,14 +32,28 @@
 
     <!-- 推荐图幻灯片 -->
     <view class="page-section swiper">
-      <swiper class="distribute-swiper" indicator-dots="{{ indicatorDots }}" autoplay="{{ autoplay }}" circular="{{ circular }}" interval="{{ interval }}" duration="{{ duration }}">
-        <block wx:for="{{ advertises }}" wx:for-item="adv"  wx:key="*this">
-          <swiper-item>
-            <view class="swiper-item" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
-              <image src="{{ adv.image }}" ></image>
+      <swiper 
+        class="distribute-swiper"  
+        previous-margin="86rpx"
+        next-margin="86rpx"
+        autoplay="true"
+        circular="{{true}}"
+        interval="3000"
+        bindchange="handleswiperItemCheng"
+        autoplay="{{ autoplay }}" 
+        circular="{{ circular }}" 
+        interval="{{ interval }}" 
+        duration="{{ duration }}">
+
+        <swiper-item  
+          wx:for="{{ advertises }}"
+           wx:for-item="adv"
+           wx:key="*this">
+            <view class="swiper-item fx-column--center" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
+              <image src="{{ adv.image }}" class='{{swiperIndex==index?"swiperActive":""}} {{index==swiperIndex-1?"transtion-right":""}} {{index==swiperIndex+1?"transtion-left":""}}'></image>
             </view>
-          </swiper-item>
-        </block>
+        </swiper-item>
+
       </swiper>
     </view>
 

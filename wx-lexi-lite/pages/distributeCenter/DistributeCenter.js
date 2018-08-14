@@ -20,6 +20,8 @@ Page({
     interval: 2000,
     duration: 500,
 
+    swiperIndex:0, // 轮播图的index
+
     pageActiveTab: 'stick', // stick, all
 
     panelActiveTab: 'hot',
@@ -302,6 +304,16 @@ Page({
       return product
     })
     return _mockProducts
+  },
+
+  // 轮播图发生变化的时候
+  handleswiperItemCheng(e){
+    console.log(e,"轮播图发生变化的时候")
+
+    this.setData({
+      swiperIndex: e.detail.current
+    })
+
   },
 
   /**
