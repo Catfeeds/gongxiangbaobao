@@ -25,14 +25,15 @@
       </view>
 
     </view>
+
     <!-- 手机号码 -->
     <view>
       <view class='user-name-text'>
         <text wx:if='{{ userInfo.profile.username != null }}'>{{ userInfo.profile.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
-      <view class='is-login font-ss' wx:if='{{ is_mobile }}'>
-        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号,仅能浏览</button>
+      <view class='is-login font-ss' wx:if='{{ !is_mobile }}'>
+        <button open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">你还未绑定手机号,仅能浏览</button>
       </view>
     </view>
     <!-- 粉丝 -->

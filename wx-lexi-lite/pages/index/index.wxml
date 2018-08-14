@@ -189,35 +189,41 @@
     </view>
 
     <!-- 开店指引 -->
-    <view class="setUpShop-guide border-radius--8">
-      <view class='time-top setUpShop-guide__top' wx:if="{{ !isSmallB }}">
+    <view class="setUpShop-guide border-radius--8" wx:if="{{ !isSmallB }}">
+      <view class='time-top setUpShop-guide__top'>
         <view class=''>
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
         </view>
         <view class='black-font font--white c-middle border-radius--8 c-theme-bg setUpshop-guide__btn' bindtap="handleApplyLifeStore">开馆指引</view>
       </view>
-      <view class='flex_row font-s setUpShop-guide__bottom'>
-        <view class=" c-line-D  setUpShop-guide__bottom__left ">
-          <view class="setUpShop-guide__suona">
-            <image src='../../images/set-up-shop-suona@2.png'></image>
-          </view>
-          <view>开馆</view>
-          <view>头条</view>
+    </view>
+
+    <!-- 头条动态 -->
+    <view class="page-section headline-wrapper">
+      <view class="headline">
+        <view class="headline-side">
+          <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
+          <text>开馆</text>
+          <text>头条</text>
         </view>
-        <image class='setUpShop-guide__middle' src='../../images/set-up-shop-line.png'></image>
-        <view class=''>
-          <view>
-            <text class='theme-green'>设计师ricky</text>
-            <text>十秒</text>前开了自己的设计馆</view>
-          <view>「
-            <text>玮峰</text>」的设计馆
-            <text>1</text>小时
-            <text class='sell-order-quantity'>售出<text>200</text>单</text>
+        <view class="headline-line">
+          <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
+        </view>
+        <view class="headline-body">
+          <view class="headline-group" wx:for="{{ storeHeadlines[0] }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
+            <view class="headline-item" >
+              <label class="store-green">{{ headline[0].username }}</label> {{ headline[0].time }} 小时前开通了自己的设计馆
+            </view>
+            <view class="headline-item">
+              「{{ headline[1].username }}」的生活馆 {{ headline[1].hour }} 小时
+              <label class="order-yellow">售出{{ headline[1].quantity }}单</label>
+            </view>
           </view>
         </view>
       </view>
     </view>
+
 
     <!-- 今日推荐 {{themeProduct.designs}} -->
     <view class=' '>

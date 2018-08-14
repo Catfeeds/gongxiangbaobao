@@ -5,10 +5,62 @@
 .m-r-30 {
   margin-right: 30rpx;
 }
-
-
 .c-importantGoodsPhoto {
   width: 280rpx;
+}
+
+/* 生活馆头条 */
+
+.headline-wrapper {
+  background-color: #fff;
+  padding-bottom: 20rpx;
+}
+.headline {
+  display: flex;
+  align-items: center;
+  margin: 0rpx 40rpx;
+  border: 1rpx solid #E9E9E9;
+  box-shadow: 8rpx 0rpx 15rpx rgba(0, 0, 0, 0.1);
+  border-radius: 8rpx;
+  padding: 21rpx 20rpx;
+}
+.headline-side {
+  flex: 0 0 auto;
+  text-align: center;
+}
+.headline-side .icon-voice {
+  width: 31rpx;
+  height: 26rpx;
+}
+.headline-side text {
+  font-size: 24rpx;
+  color: #333333;
+  display: block;
+}
+.headline-line {
+  flex: 0 0 8rpx;
+  width: 8rpx;
+  height: 67rpx;
+  margin-left: 16rpx;
+  margin-right: 22rpx;
+}
+.headline-line .icon-line {
+  width: 8rpx;
+  height: 67rpx;
+}
+.headline-body {
+  flex: 1;
+}
+.headline-body .headline-item {
+  font-size: 24rpx;
+  color:rgba(51,51,51,1);
+  margin-bottom: 18rpx;
+}
+.headline-body .headline-item .store-green {
+  color: #5fe4b1;
+}
+.headline-body .headline-item .order-yellow {
+  color: #F4B329;
 }
 
 /* 分销商品 */

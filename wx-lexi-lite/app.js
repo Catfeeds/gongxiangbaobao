@@ -16,14 +16,12 @@ App({
     // 获取自定义第三方扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
 
-    this.globalData.app_id = extConfig.authAppid
-    this.globalData.storeRid = extConfig.storeRid
-
     console.log(extConfig, '第三方拓展信息')
 
-    this.globalData.app_id = extConfig.authAppid
     this.globalData.configInfo = extConfig
-
+    this.globalData.app_id = extConfig.authAppid
+    this.globalData.storeRid = extConfig.storeRid
+    
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
     console.log(jwt, 'jwt')
