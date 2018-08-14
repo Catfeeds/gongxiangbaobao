@@ -1,7 +1,10 @@
 <!--pages/coupon/coupon.wxml-->
 <view class='container theme-bg-color'>
   <!-- 商家劝 -->
-  <view class='coupon-box' wx:for='{{normalCouponList}}' wx:key="{{index}}" wx:if="{{!item.is_used &&! item.is_expired}}">
+  <view 
+    class='coupon-box' 
+    wx:for='{{normalCouponList}}' 
+    wx:key="{{index}}" wx:if="{{!item.is_used &&! item.is_expired}}">
     <!-- left -->
     <view class='info-box-left'>
       <view class='line-L theme-bg-color line-out'></view>
@@ -30,10 +33,7 @@
       </view>
     </view>
     <!-- 去使用的按钮 -->
-    <view 
-      class='right-btn coupon_right--red' 
-      data-rid='{{item.coupon.code}}' 
-      catchtap='handleUseCouponTap'>
+    <view class='right-btn coupon_right--red' data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap'>
       <view>去 使 用</view>
     </view>
     <!-- 右边的线 -->
@@ -68,19 +68,14 @@
     </view>
     <!-- 去使用的按钮 -->
     <view class='right-btn'>
-      <view       
-      data-rid='{{item.coupon.code}}' 
-      catchtap='handleUseCouponTap'
-      class='coupon_dashes--round'>去 使 用</view>
+      <view data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
     </view>
   </view>
 
-  <!-- 已经失效 商家-->
+  <!-- 中间线 -->
+  <view class='time-top separate_line' wx:if="{{exceedCouponList.length!=0 || authorityExceedCouponList.length!=0}}">已失效的卷</view>
 
-  <view class='time-top separate_line' 
-    wx:if="{{exceedCouponList.length!=0 || authorityExceedCouponList.length!=0}}">已失效的卷</view>
-
-
+<!-- 已经失效 商家-->
   <view class='coupon-box' wx:for='{{exceedCouponList}}' wx:key="{{index}}" wx:if="{{item.is_expired || is_used}}">
     <!-- left -->
     <view class='info-box-left none-bg-l'>
@@ -118,7 +113,7 @@
   </view>
 
 
-<!-- 已经失效 乐喜-->
+  <!-- 已经失效 乐喜-->
   <view class='coupon-box' wx:for='{{authorityExceedCouponList}}' wx:key="{{index}}">
     <!-- left -->
     <view class='info-box-left exceed_coupon--middle'>
@@ -154,6 +149,11 @@
   <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
     <image src='../../images/coupon@2.png'></image>
     <view class='black-font '>你当没有任何优惠卷红包</view>
+
+  </view>
+
+  <view class='null-coupon__box' wx:if="{{authorityExceedCouponList.length==0&&authorityNormalCouponList.length==0&&exceedCouponList.length==0&&normalCouponList.length==0}}">
+    <image src='../../images/coupon@2.png'></image>
 
   </view>
 

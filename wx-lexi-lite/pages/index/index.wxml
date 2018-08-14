@@ -1,7 +1,7 @@
 <!--index.wxml-->
 
 <view class="container">
- 
+
   <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
     <image src='../../images/sear@2.png'></image>
     <view class='search-box_text flex_row'>
@@ -10,7 +10,7 @@
     </view>
   </view>
 
- <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
+  <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
   <view class='fx-tabs navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
     <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
@@ -82,7 +82,25 @@
 
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
-      <view></view>
+
+      <view class='float'>
+        <view style='z-index={{aIamge-2}}' animation="{{e}}">
+          <image src='{{photo[aIamge-1].img}}'></image>
+        </view>
+        <view style='z-index={{aIamge-2}}' animation="{{d}}">
+          <image src='{{photo[bIamge-1].img}}'></image>
+        </view>
+        <view style='z-index={{aIamge-2}}' animation="{{c}}">
+          <image src='{{photo[cIamge-1].img}}'></image>
+        </view>
+        <view style='z-index={{aIamge-2}}' animation="{{b}}">
+          <image src='{{photo[dIamge-1].img}}'></image>
+        </view>
+        <view style='z-index={{aIamge-2}}' animation="{{a}}">
+          <image src='{{photo[eIamge-1].img}}'></image>
+        </view>
+      </view>
+      
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
@@ -212,7 +230,7 @@
         </view>
         <view class="headline-body">
           <view class="headline-group" wx:for="{{ storeHeadlines[0] }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
-            <view class="headline-item" >
+            <view class="headline-item">
               <label class="store-green">{{ headline[0].username }}</label> {{ headline[0].time }} 小时前开通了自己的设计馆
             </view>
             <view class="headline-item">
@@ -270,13 +288,13 @@
     </view>
 
     <!-- 人气推荐 wx:for='{{currentNewProduct.products}}' -->
-    <view >
+    <view>
       <view class='human new-goods'>
         人气推荐
       </view>
       <swiper class='gratefulList-box margin-left--40rpx  margin-right--40rpx border-bottom'>
         <!-- 1 -->
-        <swiper-item >
+        <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx '>
             <view class='productionGoods {{index==2||index==3||index==4?"one-row-three":""}}' wx:if="{{index<5}}" wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
               <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
