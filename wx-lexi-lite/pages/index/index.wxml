@@ -82,7 +82,7 @@
 
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
-      <view></view>
+      <view class=""></view>
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>

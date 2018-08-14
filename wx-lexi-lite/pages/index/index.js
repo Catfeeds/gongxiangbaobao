@@ -25,6 +25,7 @@ Page({
     isSmallB: false, // 当前用户是否为小B
     canAdmin: false, // 是否具备管理生活馆
     popularProducts: [], // 本周最受欢迎
+    latestDistributeProducts: [], // 最新分销商品
 
     // 探索
     characteristicStoreList:[], // 特色品牌商店
@@ -536,12 +537,29 @@ Page({
   },
 
   /**
+   * 获取最新3个分销商品
+   */
+  getDistributeNewest () {
+    http.fxGet(api.distribute_newest, {}, (res) => {
+      console.log(res, '选品中心')
+      if (res.success) {
+        this.setData({
+          latestDistributeProducts: res.data.products
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
    * 激活页面Tab
    */
   _swtichActivePageTab(name) {
     switch (name) {
       case 'lifeStore':
         this.getLifeStore() // 生活馆信息
+        this.getDistributeNewest() // 选品中心入口
         this.getStoreProducts() // 生活馆商品
         this.getWeekPopular() // 本周最受欢迎商品
         break;
