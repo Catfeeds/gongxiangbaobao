@@ -38,8 +38,26 @@
 }
 .distribute-swiper .swiper-item {
   width: 580rpx;
-  height: 280rpx;
+  height: 360rpx;
   margin: 0 auto;
+}
+
+.distribute-swiper .swiper-item image{
+  height: 218rpx;
+  width: 452rpx;
+}
+.swiperActive{
+  transform: scale(1.3,1.28);
+  transition: all 0.5s ease 0s;
+}
+.transtion-right{
+  transform: translateX(62rpx);
+  transition: all 0.5s ease 0.1s;
+}
+
+.transtion-left{
+  transform: translateX(-64rpx);
+  transition: all 0.5s ease 0.1s;
 }
 
 /* 生活馆头条 */
