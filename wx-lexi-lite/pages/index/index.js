@@ -815,6 +815,22 @@ Page({
     })
   },
 
+  //跳转到商品列表页面
+  handleToProductList(e){
+    console.log(e.currentTarget.dataset.from)
+    let editRecommend = e.currentTarget.dataset.from
+    wx.navigateTo({
+      url: '../allProduct/allProduct?from=' + editRecommend,
+    })
+  },
+
+  // 集合页面
+  hanleToGatherPage(){
+    wx.navigateTo({
+      url:'../gather/gather'
+    })
+  },
+
 
   /////////
   one() {

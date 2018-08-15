@@ -1,6 +1,38 @@
 <!--pages/allProduct/allProduct.wxml-->
-<view>
-    <view class="goodsList">
+<view class="container">
+
+    <!-- 筛选和排序 -->
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' >
+      <view catchtap="handleSortShow" class='flex_row'>
+        综合排序  
+        <image src='../../images/arrowhead.png'></image>
+       </view>
+      <view catchtap='handelOffPick' class='flex_row'>
+        筛选
+        <image src='../../images/arrowhead.png'></image>
+       </view>
+    </view>
+
+    <view class="top-bg__photo">
+        <view class="top__bg">
+          <image src="../../images/timg.jpg"></image>
+        </view>
+
+        <view class="top-bg__photo shade"></view>
+
+        <view class="browse-record__box">
+          <view wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="{{index}}">
+            <image src="../../images/timg/jpg"></image>
+          </view>
+
+          
+        </view>
+
+    </view>
+
+
+
+    <view class="goodsList padding-top--105rpx">
       <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
         <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}"bind:triggerEvent_product="handleInfomation"></fx-product>
       </view>

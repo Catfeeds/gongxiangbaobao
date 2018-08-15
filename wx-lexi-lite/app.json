@@ -39,7 +39,8 @@
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
     "pages/find/find",
-    "pages/distributes/distributes"
+    "pages/distributes/distributes",
+    "pages/gather/gather"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

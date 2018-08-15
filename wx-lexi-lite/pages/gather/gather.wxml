@@ -1,0 +1,24 @@
+<!--pages/gather/gather.wxml 集合-->
+<view class="theme-hui-color container">
+
+  <view class="gather bg-white" wx:for="{{gatherList}}" wx:key="{{index}}">
+    <view class="gather-top">
+      <image src="{{item.cover}}"></image>
+    </view>
+
+    <view class="padding--30rpx">
+      <view class="flex_row--middle gather-min__photo">
+        <image 
+          wx:for="{{item.products}}" 
+          wx:for-item="val" 
+          wx:key="{{index}}" 
+          wx:if="{{index<4}}"
+          class="{{index==3?'margin-right--0rpx':''}}"
+          src="{{val.cover}}"></image>
+      </view>
+
+      <view class='font-xl font-width--medium margin-top--22rpx'> <text>给她的礼物</text> </view>
+      <view class='font-s qian-hui'>55件商品</view>
+    </view>
+  </view>
+</view>

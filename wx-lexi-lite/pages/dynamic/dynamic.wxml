@@ -2,7 +2,8 @@
 <view class='container'>
   <!-- 背景 -->
   <view class="dynamic-hander__photo">
-    <image mode="widthFix" src="{{dynamicList.lines[0].shop_window.user_avatar}}"></image>
+    <!-- <image mode="widthFix" src="{{dynamicList.lines[0].shop_window.user_avatar}}"></image> -->
+    <open-data type="userAvatarUrl"></open-data>
   </view>
 
   <!-- 添加橱窗栏目 -->

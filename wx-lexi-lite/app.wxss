@@ -153,6 +153,13 @@
   align-items: center;
 }
 
+.flex_row--middle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .time-top {
   display: flex;
   flex-direction: row;

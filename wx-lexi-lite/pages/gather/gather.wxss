@@ -1,0 +1,37 @@
+/* pages/gather/gather.wxss */
+
+.container {
+}
+
+.gather {
+  margin-bottom: 30rpx;
+}
+
+.gather-top {
+  width: 750rpx;
+  height: 400rpx;
+}
+
+.gather-top image {
+  height: 100%;
+  width: 100%;
+}
+
+.gather-min__photo image {
+  height: 160rpx;
+  width: 160rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.padding--30rpx {
+  padding: 30rpx;
+}
+
+.margin-right--0rpx{
+  margin-right: 0rpx !important;
+}
+
+.margin-top--22rpx{
+  margin-top: 22rpx;
+}
