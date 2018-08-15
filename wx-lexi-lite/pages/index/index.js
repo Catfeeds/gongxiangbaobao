@@ -28,34 +28,123 @@ Page({
     latestDistributeProducts: [], // 最新分销商品
 
     // 探索
-    characteristicStoreList:[], // 特色品牌商店
-    exploreAdvertisementList: [],// 广告位置
-    categoryList:[], // 分类
-    editRecommendList:[], // 编辑推荐
-    highQualityList:[], // 优质新品
-    gatherList:[], // 集合
-    goodDesignList:[], // 特惠好设计
-    oneHundredList:[], // 百元好物
+    characteristicStoreList: [], // 特色品牌商店
+    exploreAdvertisementList: [], // 广告位置
+    categoryList: [], // 分类
+    editRecommendList: [], // 编辑推荐
+    highQualityList: [], // 优质新品
+    gatherList: [], // 集合
+    goodDesignList: [], // 特惠好设计
+    oneHundredList: [], // 百元好物
 
     // 精选
-    gratefulList:[], // 人气推荐
-    handerAdvertisementList:[], // 头部广告
-    middleAdvertisementList:[], // 精选的中间广告
-    lexiPick:[], // 乐喜优选
-    plantOrderList:[], //种草清单
+    gratefulList: [], // 人气推荐
+    handerAdvertisementList: [], // 头部广告
+    middleAdvertisementList: [], // 精选的中间广告
+    lexiPick: [], // 乐喜优选
+    plantOrderList: [], //种草清单
     swiperIndex: 0, // 旋转木马当前选中项目
-    todayRecommendList:[], // 今日推荐
+    todayRecommendList: [], // 今日推荐
     storeHeadlines: [], // 生活馆头条
 
 
-    is_mobile:false, // 验证是否登陆
-    isNavbarAdsorb:false, // 头部导航是否吸附
+    is_mobile: false, // 验证是否登陆
+    isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
-    pageTabs:[
-      { rid: 'p1', name: 'lifeStore', title: '生活馆', disabled: false },
-      { rid: 'p2', name: 'featured', title: '精选', disabled: false },
-      { rid: 'p3', name: 'explore', title: '探索', disabled: false }
+    pageTabs: [{
+        rid: 'p1',
+        name: 'lifeStore',
+        title: '生活馆',
+        disabled: false
+      },
+      {
+        rid: 'p2',
+        name: 'featured',
+        title: '精选',
+        disabled: false
+      },
+      {
+        rid: 'p3',
+        name: 'explore',
+        title: '探索',
+        disabled: false
+      }
+    ],
+
+    a: [], //动画
+    b: [], //动画
+    c: [], //动画
+    d: [], //动画
+    e: [], //动画
+
+    aIamge: 16, // 图片索引
+    bIamge: 17, // 图片索引
+    cIamge: 18, // 图片索引
+    dIamge: 19, // 图片索引
+    eIamge: 20, // 图片索引
+
+    photo: [{
+        img: "../../image/1.jpg"
+      },
+      {
+        img: "../../image/2.jpg"
+      },
+      {
+        img: "../../image/3.jpg"
+      },
+      {
+        img: "../../image/4.jpg"
+      },
+      {
+        img: "../../image/5.jpg"
+      },
+      {
+        img: "../../image/6.jpg"
+      },
+      {
+        img: "../../image/7.jpg"
+      },
+      {
+        img: "../../image/8.jpg"
+      },
+      {
+        img: "../../image/9.jpg"
+      },
+      {
+        img: "../../image/10.jpg"
+      },
+      {
+        img: "../../image/11.jpg"
+      },
+      {
+        img: "../../image/12.jpg"
+      },
+      {
+        img: "../../image/13.jpg"
+      },
+      {
+        img: "../../image/14.jpg"
+      },
+      {
+        img: "../../image/15.jpg"
+      },
+      {
+        img: "../../image/16.jpg"
+      },
+      {
+        img: "../../image/17.jpg"
+      },
+      {
+        img: "../../image/18.jpg"
+      },
+      {
+        img: "../../image/19.png"
+      },
+      {
+        img: "../../image/20.png"
+      },
+
     ]
   },
 
@@ -67,7 +156,7 @@ Page({
     this.setData({
       pageActiveTab: name
     })
-    
+
     this._swtichActivePageTab(name)
   },
 
@@ -118,7 +207,7 @@ Page({
   /**
    * 申请开通生活馆
    */
-  handleApplyLifeStore () {
+  handleApplyLifeStore() {
     // 未登录，需先登录
     if (!app.globalData.isLogin) {
       this.setData({
@@ -139,7 +228,7 @@ Page({
   /**
    * 回到自己的生活馆
    */
-  handleBackLifeStore () {
+  handleBackLifeStore() {
     const lifeStore = wx.getStorageSync('lifeStore')
     const userInfo = wx.getStorageSync('userInfo')
 
@@ -160,11 +249,14 @@ Page({
   /**
    * 从生活馆删除某商品
    */
-  handleRemoveFromStore (e) {
+  handleRemoveFromStore(e) {
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
     console.log(this.data.sid)
-    http.fxDelete(api.life_store_delete_product, { sid: this.data.sid, rid: rid }, (result) => {
+    http.fxDelete(api.life_store_delete_product, {
+      sid: this.data.sid,
+      rid: rid
+    }, (result) => {
       console.log(result, "删除商品")
       if (result.success) {
         let _storeProducts = this.data.storeProducts
@@ -181,7 +273,9 @@ Page({
    * 更新最近访问的生活馆
    */
   handleUpdateLastStoreRid(sid) {
-    http.fxPost(api.life_store_update_rid, { last_store_rid: sid }, (result) => {
+    http.fxPost(api.life_store_update_rid, {
+      last_store_rid: sid
+    }, (result) => {
       console.log(result, '更新最近的生活馆')
       if (!result.success) {
         utils.fxShowToast(result.status.message)
@@ -196,7 +290,7 @@ Page({
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
-      console.log(result,"广告位置")
+      console.log(result, "广告位置")
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data
@@ -262,13 +356,15 @@ Page({
       return
     }
 
-    http.fxPost(api.add_watch, { rid:rid }, (result)=>{
+    http.fxPost(api.add_watch, {
+      rid: rid
+    }, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
-          ["characteristicStoreList.stores[" + index +"].is_followed"]:true
+          ["characteristicStoreList.stores[" + index + "].is_followed"]: true
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -280,7 +376,9 @@ Page({
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
     console.log(e)
-    http.fxPost(api.delete_watch, { rid: rid }, (result) => {
+    http.fxPost(api.delete_watch, {
+      rid: rid
+    }, (result) => {
       console.log(result)
       if (result.success) {
         this.setData({
@@ -335,7 +433,7 @@ Page({
   },
 
   // 百元好物
-  getOneHundred(){
+  getOneHundred() {
     http.fxGet(api.column_affordable_goods, {}, (result) => {
       console.log(result, "百元好物")
       if (result.success) {
@@ -354,7 +452,7 @@ Page({
 
   // 开馆指引
   getOpenStoreGuide() {
-    
+
   },
 
   // 今日推荐
@@ -373,7 +471,10 @@ Page({
 
   // 人气推荐 column_handpick_recommend
   getGrateful() {
-    http.fxGet(api.column_handpick_recommend, { page: 1, per_page: 15 }, (result) => {
+    http.fxGet(api.column_handpick_recommend, {
+      page: 1,
+      per_page: 15
+    }, (result) => {
       console.log(result, "人气推荐")
       if (result.success) {
         this.setData({
@@ -387,7 +488,10 @@ Page({
 
   // 精选的中间广告banners_handpick_content  handerAdvertisementList
   getChoiceMiddleAdvertisement() {
-    http.fxGet(api.banners_handpick_content, { page: 1, per_page: 15 }, (result) => {
+    http.fxGet(api.banners_handpick_content, {
+      page: 1,
+      per_page: 15
+    }, (result) => {
       console.log(result, "精选 中间广告")
       if (result.success) {
         this.setData({
@@ -447,7 +551,10 @@ Page({
    * 本周最受欢迎商品
    */
   getWeekPopular() {
-    http.fxGet(api.distribution_week_popular, { page: 1, per_page: 4 }, (res) => {
+    http.fxGet(api.distribution_week_popular, {
+      page: 1,
+      per_page: 4
+    }, (res) => {
       console.log(res, '最受欢迎商品')
       if (res.success) {
         this.setData({
@@ -506,7 +613,9 @@ Page({
    * 获取生活馆信息
    */
   getLifeStore() {
-    http.fxGet(api.life_store, { rid: this.data.sid }, (res) => {
+    http.fxGet(api.life_store, {
+      rid: this.data.sid
+    }, (res) => {
       console.log(res, '生活馆信息')
       if (res.success) {
         this.setData({
@@ -524,7 +633,9 @@ Page({
    * 获取生活馆头条
    */
   getStoreHeadlines() {
-    http.fxGet(api.life_store_headlines, { type: 2 }, (res) => {
+    http.fxGet(api.life_store_headlines, {
+      type: 2
+    }, (res) => {
       console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
@@ -632,7 +743,7 @@ Page({
     // 判断是否有生活馆显示
     if (sid) {
       const userInfo = wx.getStorageSync('userInfo')
-      
+
       this.setData({
         sid: sid,
         pageActiveTab: 'lifeStore',
@@ -651,12 +762,12 @@ Page({
   /**
    * 监听页面滚动
    * **/
-  onPageScroll(e){
-    if (e.scrollTop > 59){
+  onPageScroll(e) {
+    if (e.scrollTop > 59) {
       this.setData({
-        isNavbarAdsorb:true
+        isNavbarAdsorb: true
       })
-    } else if (e.scrollTop < 60){
+    } else if (e.scrollTop < 60) {
       this.setData({
         isNavbarAdsorb: false
       })
@@ -673,7 +784,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.one()
   },
 
   /**
@@ -712,16 +823,224 @@ Page({
   },
 
   // 点击分类
-  handleCategoryInfoTap(e){
+  handleCategoryInfoTap(e) {
     console.log(e)
 
   },
 
   //去搜索页面
-  handleToSearch(){
+  handleToSearch() {
     wx.navigateTo({
       url: '../search/search',
     })
-  }
-  
+  },
+
+
+  /////////
+  one() {
+    let animation = wx.createAnimation({
+      duration: 5000,
+      timingFunction: 'ease',
+    })
+
+    animation.left(40).scale(0.1, 0.1).step()
+
+    this.setData({
+      a: animation.export()
+    })
+
+    setTimeout(() => {
+      this.two()
+    }, 2500)
+
+    // 恢复
+    setTimeout(() => {
+      let orgin = wx.createAnimation({
+        duration: 0,
+        timingFunction: 'ease',
+      })
+      orgin.right(0).scale(1, 1).step()
+      this.setData({
+        a: orgin.export()
+      })
+
+      if (this.data.aIamge == 0) {
+        this.setData({
+          aIamge: 20
+        })
+      } else {
+        this.setData({
+          aIamge: this.data.aIamge - 5
+        })
+      }
+
+    }, 5000)
+  },
+
+  /////////
+  two() {
+    let animation = wx.createAnimation({
+      duration: 5000,
+      timingFunction: 'ease',
+    })
+
+    animation.left(40).scale(0.1, 0.1).step()
+
+    this.setData({
+      b: animation.export()
+    })
+
+    //调取下一个
+    setTimeout(() => {
+      this.three()
+    }, 2500)
+
+    // 恢复
+    setTimeout(() => {
+      let orgin = wx.createAnimation({
+        duration: 0,
+        timingFunction: 'ease',
+      })
+      orgin.right(0).scale(1, 1).step()
+      this.setData({
+        b: orgin.export()
+      })
+
+      if (this.data.bIamge == 1) {
+        this.setData({
+          bIamge: 19
+        })
+      } else {
+        this.setData({
+          bIamge: this.data.bIamge - 5
+        })
+      }
+
+    }, 5000)
+
+  },
+
+  /////
+  three() {
+    let animation = wx.createAnimation({
+      duration: 5000,
+      timingFunction: 'ease',
+    })
+
+    animation.left(40).scale(0.1, 0.1).step()
+
+    this.setData({
+      c: animation.export()
+    })
+
+    setTimeout(() => {
+      this.four()
+    }, 2500)
+
+
+    // 恢复
+    setTimeout(() => {
+      let orgin = wx.createAnimation({
+        duration: 0,
+        timingFunction: 'ease',
+      })
+      orgin.right(0).scale(1, 1).step()
+      this.setData({
+        c: orgin.export()
+      })
+
+      if (this.data.cIamge == 2) {
+        this.setData({
+          cIamge: 18
+        })
+      } else {
+        this.setData({
+          cIamge: this.data.cIamge - 5
+        })
+      }
+
+    }, 5000)
+  },
+
+  /////
+  four() {
+    let animation = wx.createAnimation({
+      duration: 5000,
+      timingFunction: 'ease',
+    })
+
+    animation.left(40).scale(0.1, 0.1).step()
+
+    this.setData({
+      d: animation.export()
+    })
+
+    setTimeout(() => {
+      this.five()
+    }, 2500)
+
+    // 恢复
+    setTimeout(() => {
+      let orgin = wx.createAnimation({
+        duration: 0,
+        timingFunction: 'ease',
+      })
+      orgin.right(0).scale(1, 1).step()
+      this.setData({
+        d: orgin.export()
+      })
+
+      if (this.data.dIamge == 3) {
+        this.setData({
+          dIamge: 17
+        })
+      } else {
+        this.setData({
+          dIamge: this.data.dIamge - 5
+        })
+      }
+
+    }, 5000)
+  },
+  /////
+  five() {
+    let animation = wx.createAnimation({
+      duration: 5000,
+      timingFunction: 'ease',
+    })
+
+    animation.left(40).scale(0.1, 0.1).step()
+
+    this.setData({
+      e: animation.export()
+    })
+
+    setTimeout(() => {
+      this.one()
+    }, 2500)
+
+    // 恢复
+    setTimeout(() => {
+      let orgin = wx.createAnimation({
+        duration: 0,
+        timingFunction: 'ease',
+      })
+      orgin.right(0).scale(1, 1).step()
+      this.setData({
+        e: orgin.export()
+      })
+
+      if (this.data.eIamge == 4) {
+        this.setData({
+          eIamge: 16
+        })
+      } else {
+        this.setData({
+          eIamge: this.data.eIamge - 5
+        })
+      }
+
+    }, 5000)
+  },
+
 })

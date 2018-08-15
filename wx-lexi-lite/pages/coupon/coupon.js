@@ -10,18 +10,22 @@ Page({
    */
   data: {
     storeInfo: {}, // 店铺详情
-    normalCouponList: [], // 未使用的 可用红包 非官方
-    exceedCouponList: [], // 已经过期 不可用红包 非官方
+    normalCouponList: [], // 可用红包 非官方
+    exceedCouponList: [], // 不可用红包 非官方
 
     authorityNormalCouponList: [], // 官方的可用红包
     authorityExceedCouponList: [], // 官方的不可用红包
     useCouponList: [], // 已经使用的 
     red_bag: []
   },
-  // 红包列表 官方优惠券
+  // 官方优惠券 红包列表 
   getRedBag() {
     http.fxGet(api.authority_coupon, {}, (result) => {
       console.log(result, '红包列表')
+
+      this.setData({
+        couponList: result.data.coupons
+      })
 
       if (result.success) {
 
@@ -29,12 +33,10 @@ Page({
         let authorityExceedCouponList = []
 
         result.data.coupons.forEach((v, i) => {
-          console.log(v)
 
           v.start_time = utils.timestamp2string(v.start_at, 'date')
           v.end_time = utils.timestamp2string(v.expired_at, 'date')
 
-          console.log(v)
           // 没有过期的非官方的优惠券 没有使用过的 
           if (v.type == 1 && !v.is_expired && !v.is_used) {
             normalCouponList.push(v)
@@ -108,20 +110,9 @@ Page({
           })
         }
       })
-
-
-      // if (o == 'N03') {
-      //   this.setData({
-      //     exceedCouponList: result.data
-      //   })
-      // }
     })
   },
 
-  //乐喜优惠券
-  getLxCoupon() {
-
-  },
   // 使用优惠券
   handleUseCouponTap(e) {
     console.log(e.currentTarget.dataset.rid)

@@ -81,7 +81,7 @@
 }
 
 .price-info-box {
-   background-color: #ff6934; 
+  background-color: #ff6934;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,7 +100,8 @@
   font-size: 24rpx;
   color: #dab867;
 }
-.right-btn>view{
+
+.right-btn>view {
   height: 100%;
   width: 62rpx;
   writing-mode: tb-rl;
@@ -113,12 +114,12 @@
   width: 8rpx;
   background-color: #ff6934;
   margin-right: 10rpx;
-  transform: rotate(45deg)
+  transform: rotate(45deg);
 }
 
 .quadrate {
   font-size: 22rpx;
-  color: #999999;
+  color: #999;
 }
 
 .shop-icon {
@@ -139,64 +140,81 @@
   height: 100%;
   /* background-color: red; */
 }
-.noll-coupon image{
+
+.noll-coupon image {
   height: 250rpx;
   width: 510rpx;
   margin: 200rpx 0 20rpx 0;
 }
-.noll-coupon view{
-  color: #666666;
+
+.noll-coupon view {
+  color: #666;
 }
+
 /* 优惠券无效时候的颜色 */
-.hui{
-    color: #999999 !important;
+
+.hui {
+  color: #999 !important;
 }
-.none-bg{
-  background-color: #B2B2B2 !important;
+
+.none-bg {
+  background-color: #b2b2b2 !important;
 }
-.none-bg-l{
+
+.none-bg-l {
   background-color: #dcdbdb !important;
 }
-.separate_line{
+
+.separate_line {
   text-align: center;
   font-size: 24rpx;
-  color: #999999;
+  color: #999;
 }
-.separate_line::after,
-.separate_line::before{
+
+.separate_line::after, .separate_line::before {
   content: '';
   flex: 1;
   height: 2rpx;
-  background-color: #999999;
+  background-color: #999;
   margin: 40rpx 0;
 }
-.coupon_explain{
-  
+
+.coupon_explain {
 }
-.lx-coupon--style{
+
+.lx-coupon--style {
   background-color: #dab867;
-  border-top-right-radius:50rpx 90rpx;
+  border-top-right-radius: 50rpx 90rpx;
   border-bottom-right-radius: 50rpx 90rpx;
 }
-.lx-coupon--text .font-xss{
+
+.lx-coupon--text .font-xss {
   text-align: center;
-  	width: 70rpx;
-	height: 30rpx;
+  width: 70rpx;
+  height: 30rpx;
   background-color: #dab867;
   color: white;
   border-radius: 6rpx;
   margin-right: 20rpx;
 }
-.coupon_right--red{
+
+.coupon_right--red {
   color: #ff733b;
 }
-.coupon_dashes--round{
+
+.coupon_dashes--round {
   border-left: 14rpx dotted #e9e9e9;
 }
-.exceed_coupon--right{
+
+.exceed_coupon--right {
   background-color: #e1dedc;
 }
-.exceed_coupon--middle{
+
+.exceed_coupon--middle {
   background-color: #e9e9e9;
   color: #b2b2b2;
+}
+
+.null-coupon__box {
+  padding-top: 200rpx;
 }

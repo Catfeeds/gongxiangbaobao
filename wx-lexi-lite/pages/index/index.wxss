@@ -776,3 +776,42 @@ display: block;
   padding-left: 0rpx;
   padding-right: 0rpx;
 }
+
+.float{
+  height: 100rpx;
+  width: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border:1rpx solid red;
+  position: relative;
+}
+.float view{
+  height: 100rpx;
+  width: 100rpx;
+  position: absolute;
+  top: 0;
+  left:0;
+  border-radius: 8rpx;
+}
+
+.float view image{
+  height: 100%;
+  width: 100%;
+  border-radius: 8rpx;
+  border: 4rpx solid red;
+  box-sizing: border-box;
+}
+
+.float view:nth-child(1){
+  background-color: red;
+}
+.float view:nth-child(2){
+  background-color: pink;
+}
+.float view:nth-child(3){
+  background-color: blue;
+}
+.float view:nth-child(4){
+  background-color: yellow;
+}

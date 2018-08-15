@@ -98,7 +98,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.products.length==0}}">
+    <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">
       <view>
         <image src='../../images/user-xin.png'></image>
       </view>
@@ -115,7 +115,7 @@
   <!-- 收藏里面的内容 -->
   <view class='shou bottom__info' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
-    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>最近查看</text>
         <text class=' hui-zi margin--15rpx' data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
@@ -141,7 +141,7 @@
 
     <!-- 缺省图片 -->
     <view 
-      class=' column-row--middle user-null__product' 
+      class=' fx-column--center user-null__product' 
       wx:if="{{desireOrderProduct.products.length==0 && userBrowsesProduct.length==0}}">
       <view>
         <image src='../../images/user-star.png'></image>
@@ -197,7 +197,7 @@
   </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{watchStoreList.stores.length==0}}">
+    <view class=' fx-column--center user-null__product' wx:if="{{watchStoreList.stores.length==0}}">
       <view>
         <image src='../../images/user-store.png'></image>
       </view>
