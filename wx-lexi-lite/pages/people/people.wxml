@@ -51,10 +51,23 @@
       wx:if="{{otherPeopleInfo.about_me!=null}}"> {{otherPeopleInfo.about_me}} </text>
 
     <view class="">
-      <view class='add-watch__btn'>
+      <view 
+        class='add-watch__btn' 
+        catchtap="hanleAddWatch"
+        data-uid="{{otherPeopleUid}}" 
+        wx:if="{{otherPeopleInfo.followed_status==0}}">
         <text class='fx-icon-nothing-plus black-font'></text> 
         <text class='black-font'> 关注</text>
       </view>
+
+      <view 
+        class='add-watch__btn' 
+        data-uid="{{otherPeopleUid}}"  
+        catchtap="hanleDeleteWatch"
+        wx:if="{{otherPeopleInfo.followed_status==1}}">
+        <text class='black-font'> 已关注</text>
+      </view>
+      
     </view>
 
   </view>
@@ -134,16 +147,17 @@
   <!-- 收藏里面的内容 -->
   <view class='shou bottom__info' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
-    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB'>
         <text>最近查看</text>
         <text 
+          wx:if="{{userBrowsesProduct.products.length>9}}"
           class=' hui-zi margin--15rpx' 
           data-from='userBrowses' 
           catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct}}" wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct.products}}" wx:key="{{index}}">
           <image src='{{item.cover}}-p16'></image>
         </view>
       </view>
@@ -152,6 +166,11 @@
     <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
+        <text 
+          wx:if="{{desireOrderProduct.products.length>9}}"
+          class=' hui-zi margin--15rpx' 
+          data-from='userBrowses' 
+          catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
@@ -184,11 +203,11 @@
           <view class='hui-zi'>原创品牌馆</view>
           <view class='shop-name'>{{ item.name }}</view>
         </view>
-        <view class='with' catchtap='handleAddWatch' wx:if="{{item.watch}}" data-rid="{{item.rid}}" data-index="{{index}}">
+        <view class='with' catchtap='handleAddWatch' wx:if="{{item.followed_status==0}}" data-rid="{{item.rid}}" data-index="{{index}}">
           <image src='../../images/shop1.png'></image>
           <view>关注</view>
         </view>
-        <view class='with' data-rid="{{item.rid}}" catchtap='handleDeleteWatch' wx:if="{{!item.watch}}" data-index="{{index}}">
+        <view class='with' data-rid="{{item.rid}}" catchtap='handleDeleteWatch' wx:if="{{item.followed_status==1}}" data-index="{{index}}">
           <!-- <image src='../../images/shop1.png'></image> -->
           <view>已关注</view>
         </view>

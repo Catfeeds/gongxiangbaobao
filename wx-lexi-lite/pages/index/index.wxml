@@ -467,8 +467,7 @@
           wx:if="{{highQualityList.products.length>9}}" 
           catchtap="handleToProductList"
           data-from="highQualityList"
-          class='hui-zi-m'>查看全部  
-          <text class='fx-icon-nothing-right'></text> </text>
+          class='hui-zi-m'>查看全部 <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto {{index==0?"padding-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">

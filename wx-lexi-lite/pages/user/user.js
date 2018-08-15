@@ -271,7 +271,7 @@ Page({
         break;
       case 2:
         //最近查看
-        http.fxGet(api.user_browses, {}, (result) => {
+        http.fxGet(api.user_browses, { page: 1, per_page: 10}, (result) => {
           if (result.success) {
             console.log(result,"用户最近查看")
             this.setData({

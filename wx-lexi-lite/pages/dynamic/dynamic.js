@@ -78,21 +78,23 @@ Page({
 
   // 获取其他人的动态
   getOtherDynamic(e) {
-    http.fxGet(api.this.data.dynamicParams, {
-      uid: e
-    }, (result) => {
-      console.log(result, "获取其他人的动态")
+    console.log(456)
+    http.fxGet(api.users_other_user_dynamic,this.data.dynamicParams, (result) => {
       if (result.success) {
-        let result = result.data
+        console.log(result, "获取其他人的动态")
+        let data = result.data
 
-        result.lines.forEach((v, i) => {
+        data.lines.forEach((v, i) => {
           v.created_time = utils.timestamp2string(v.created_at, "cn")
         })
 
         this.setData({
-          dynamicList: result
+          dynamicList: data
         })
+
+        console.log(this.data.dynamicList)
       } else {
+        console.log(123)
         utils.fxShowToast(result.status.message)
       }
     });
@@ -121,11 +123,12 @@ Page({
 
     // 其他人的动态
     if (options.from == "people") {
+      console.log(options.from)
       this.setData({
         ['dynamicParams.uid']: options.uid,
         showcaseOrWatch: 2
       })
-      this.getOtherDynamic() // 获取其他人的动态
+      this.getOtherDynamic(options.uid) // 获取其他人的动态
 
 
     } else {

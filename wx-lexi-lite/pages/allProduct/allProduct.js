@@ -19,7 +19,6 @@ Page({
   },
 
   /**来自首页探索页面里面的 start**/
-
   //编辑推荐
   editRecommend(){
     wx.showLoading()
@@ -92,7 +91,7 @@ Page({
     })
   },
 
-  // 特惠好设计 getGoodDesign
+  // 特惠好设计 
   getGoodDesign(){
     wx.showLoading()
 
@@ -115,16 +114,45 @@ Page({
       }
     })
   },
-
-
   /**来自编辑推荐页面里面的 end**/
+
+   /** 个人中心 start**/
+   //浏览记录
+  getBrowse(){
+    wx.showLoading()
+
+    http.fxGet(api.user_browses, this.data.editRecommendRequestParams, (result) => {
+      console.log(result, "浏览记录")
+      wx.hideLoading()
+
+      if (result.success) {
+        let data = this.data.productList
+        result.data.products.forEach((v) => {
+          data.push(v)
+        })
+
+        this.setData({
+          productList: data,
+          isLoadingNextPage: result.data.next
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+   /** 个人中心 end**/
+
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
 
-    //编辑推荐
+    //编辑推荐 首页的探索
     if(options.from=="editRecommend"){
       wx.setNavigationBarTitle({ title: "编辑推荐"})
       this.editRecommend()
@@ -144,7 +172,7 @@ Page({
       })
     }
 
-    //优质新品
+    //优质新品 首页的探索
     if (options.from == "highQualityList") {
       wx.setNavigationBarTitle({ title: "优质新品" })
       this.getHighQuality()
@@ -154,7 +182,7 @@ Page({
       })
     }
 
-    // 特惠好设计 getGoodDesign
+    // 特惠好设计 首页的探索
     if (options.from == "goodDesign") {
       wx.setNavigationBarTitle({ title: "特惠好设计" })
       this.getGoodDesign()
@@ -163,31 +191,15 @@ Page({
         touchBottomInfo: options.from
       })
     }
+    
+    // 最近查看 个人中心
+    if (options.from == "userBrowses"){
+      wx.setNavigationBarTitle({ title: "浏览记录" })
+      this.getBrowse()
 
-
-
-
-    console.log(options)
-    switch (options.from) {
-      case 'userBrowses':
-        wx.setNavigationBarTitle({ title: "浏览记录"})
-        //最近查看
-        http.fxGet(api.user_browses, {}, (result) => {
-          if (result.success) {
-            console.log(result)
-            this.setData({
-              productList: result.data
-            })
-          } else {
-            utils.fxShowToast(result.status.message)
-          }
-        })
-        break;
-      case 2:
-        
-        break;
-      default:
-        
+      this.setData({
+        touchBottomInfo: options.from
+      })
     }
   },
 
@@ -225,14 +237,20 @@ Page({
     }
 
     //触底加载优质新品
-    if (options.from == "highQualityList") {
+    if (this.data.touchBottomInfo == "highQualityList") {
       this.getHighQuality()
     }
 
-    //触底加载特惠好设计 goodDesign
-    if (options.from == "goodDesign") {
+    //触底加载特惠好设计 
+    if (this.data.touchBottomInfo == "goodDesign") {
       this.getGoodDesign()
     }
+
+    // 触底加载最近查看
+    if (this.data.touchBottomInfo == "userBrowses") {
+      this.getBrowse()
+    }
+
   },
 
 
