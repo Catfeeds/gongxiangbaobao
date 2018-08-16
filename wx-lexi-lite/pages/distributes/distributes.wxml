@@ -16,7 +16,7 @@
       <input class="search-input" type="text" placeholder="商品名称、关键词"></input>
     </view>
   </view>
-  
+
   <!-- tabs -->
   <view class="page-section fx-tabs">
     <view class="tab-item {{ pageActiveTab == 'stick' ? 'active' : '' }}" bindtap="handleChangePage" data-name="stick">
@@ -32,26 +32,12 @@
 
     <!-- 推荐图幻灯片 -->
     <view class="page-section swiper">
-      <swiper 
-        class="distribute-swiper"  
-        previous-margin="86rpx"
-        next-margin="86rpx"
-        autoplay="true"
-        circular="{{true}}"
-        interval="3000"
-        bindchange="handleswiperItemCheng"
-        autoplay="{{ autoplay }}" 
-        circular="{{ circular }}" 
-        interval="{{ interval }}" 
-        duration="{{ duration }}">
+      <swiper class="distribute-swiper" previous-margin="86rpx" next-margin="86rpx" autoplay="true" circular="{{true}}" interval="3000" bindchange="handleswiperItemCheng" autoplay="{{ autoplay }}" circular="{{ circular }}" interval="{{ interval }}" duration="{{ duration }}">
 
-        <swiper-item  
-          wx:for="{{ advertises }}"
-           wx:for-item="adv"
-           wx:key="*this">
-            <view class="swiper-item fx-column--center" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
-              <image src="{{ adv.image }}" class='{{swiperIndex==index?"swiperActive":""}} {{index==swiperIndex-1?"transtion-right":""}} {{index==swiperIndex+1?"transtion-left":""}}'></image>
-            </view>
+        <swiper-item wx:for="{{ advertises }}" wx:for-item="adv" wx:key="*this">
+          <view class="swiper-item fx-column--center" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
+            <image src="{{ adv.image }}" class='{{swiperIndex==index?"swiperActive":""}} {{index==swiperIndex-1?"transtion-right":""}} {{index==swiperIndex+1?"transtion-left":""}}'></image>
+          </view>
         </swiper-item>
 
       </swiper>
@@ -65,14 +51,18 @@
           <text>生活馆</text>
           <text>头条</text>
         </view>
-        <view class="headline-line"></view>
+        <view class="headline-line">
+          <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
+        </view>
         <view class="headline-body">
-          <view class="headline-item">
-            <label class="store-green">设计馆A</label> 20 秒前成功售出3单成为正式馆主
-          </view>
-          <view class="headline-item">
-            「玮峰」的生活馆1 小时
-            <label class="order-yellow">售出200单</label>
+          <view class="headline-group" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
+            <view class="headline-item" wx:if="{{ headline.event == 1 }}">
+              <label class="store-green">{{ headline.username }}</label> {{ headline.time }} 小时前开通了自己的设计馆
+            </view>
+            <view class="headline-item" wx:if="{{ headline.event == 4 }}">
+              「{{ headline.username }}」的生活馆 {{ headline.time }} 小时
+              <label class="order-yellow">售出{{ headline.quantity }}单</label>
+            </view>
           </view>
         </view>
       </view>
@@ -134,17 +124,20 @@
 
     <!-- 筛选器 -->
     <view class="page-section fx-filter">
-      <view class="filter-item">
+      <view class="filter-item" bindtap="handleShowSortModal">
         <text>综合排序</text>
-        <image src="../../images/arrowhead.png" class="icon-arrow-down"></image>
+        <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showSortModal }}"></image>
+        <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
       </view>
-      <view class="filter-item">
+      <view class="filter-item" bindtap="handleShowIncomeModal">
         <text>利润</text>
-        <image src="../../images/arrowhead.png" class="icon-arrow-down"></image>
+        <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showIncomeModal }}"></image>
+        <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
       </view>
-      <view class="filter-item">
+      <view class="filter-item" bindtap="handleShowFilterModal">
         <text>筛选</text>
-        <image src="../../images/arrowhead.png" class="icon-arrow-down"></image>
+        <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showFilterModal }}"></image>
+        <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
       </view>
     </view>
 
@@ -167,7 +160,7 @@
           </view>
           <view class="income">
             赚
-            <text>￥10</text>
+            <text>￥{{ product.commission_price }}</text>
           </view>
         </view>
         <view class="distribute-card__actions">
@@ -187,15 +180,13 @@
   </view>
 
   <!-- 筛选弹出层 -->
-  <view class="fx-mask"></view>
-  <!-- 排序 -->
-  <view class="fx-modal fixed-bottom" wx:if="{{ showSortModal }}">
-    <view class="fx-modal__head">
-      <image src="../../images/icon-close@2x.png" class="close"></image>
-      <text class="title">排序</text>
-    </view>
 
-    <view class="fx-modal__body">
+  <!-- 排序 -->
+  <fx-modal 
+    title="排序" 
+    bind:closeEvent="handleCloseSortModal" 
+    visible="{{ showSortModal }}">
+    <view class="fx-modal__main" slot="main">
       <view class="filter-item">
         <text class="text">综合排序</text>
         <label class="icon"></label>
@@ -212,16 +203,14 @@
         <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
       </view>
     </view>
-  </view>
+  </fx-modal>
 
   <!-- 利润 -->
-  <view class="fx-modal fixed-bottom" wx:if="{{ showIncomeModal }}">
-    <view class="fx-modal__head">
-      <image src="../../images/icon-close@2x.png" class="close"></image>
-      <text class="title">利润</text>
-    </view>
-
-    <view class="fx-modal__body">
+  <fx-modal 
+    title="利润" 
+    bind:closeEvent="handleCloseIncomeModal" 
+    visible="{{ showIncomeModal }}">
+    <view class="fx-modal__main" slot="main">
       <view class="filter-item">
         <text class="text">不限</text>
         <label class="icon"></label>
@@ -235,17 +224,16 @@
         <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
       </view>
     </view>
-  </view>
+  </fx-modal>
 
   <!-- 筛选 -->
-  <view class="fx-modal fixed-bottom" wx:if="{{ showFilterModal }}">
-    <view class="fx-modal__head">
-      <image src="../../images/icon-close@2x.png" class="close"></image>
-      <text class="title">筛选</text>
-      <text class="reset">重置</text>
-    </view>
-
-    <view class="fx-modal__body">
+  <fx-modal 
+    title="利润"
+    reset="重置"
+    showFoot="true"
+    bind:closeEvent="handleCloseFilterModal" 
+    visible="{{ showFilterModal }}">
+    <view class="fx-modal__main" slot="main">
       <view class="block-title">价格区间</view>
       <view class=""></view>
       <view class="block-title">分类
@@ -260,9 +248,7 @@
         </view>
       </view>
     </view>
-    <view class="fx-modal__foot">
-      <button class="fx-button primary">查看商品（234件）</button>
-    </view>
-  </view>
+    <button class="fx-button primary" slot="foot">查看商品（234件）</button>
+  </fx-modal>
 
 </view>

@@ -16,8 +16,6 @@
     <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
       <text>{{ pageTab.title }}</text>
     </view>
-
-
   </view>
 
   <!-- 生活馆 -->
@@ -82,7 +80,7 @@
 
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
-      <view></view>
+      <view class=""></view>
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
@@ -211,13 +209,13 @@
           <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
         </view>
         <view class="headline-body">
-          <view class="headline-group" wx:for="{{ storeHeadlines[0] }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
-            <view class="headline-item" >
-              <label class="store-green">{{ headline[0].username }}</label> {{ headline[0].time }} 小时前开通了自己的设计馆
+          <view class="headline-group" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
+            <view class="headline-item" wx:if="{{ headline.event == 1 }}">
+              <label class="store-green">{{ headline.username }}</label> {{ headline.time }} 小时前开通了自己的设计馆
             </view>
-            <view class="headline-item">
-              「{{ headline[1].username }}」的生活馆 {{ headline[1].hour }} 小时
-              <label class="order-yellow">售出{{ headline[1].quantity }}单</label>
+            <view class="headline-item" wx:if="{{ headline.event == 4 }}">
+              「{{ headline.username }}」的生活馆 {{ headline.time }} 小时
+              <label class="order-yellow">售出{{ headline.quantity }}单</label>
             </view>
           </view>
         </view>

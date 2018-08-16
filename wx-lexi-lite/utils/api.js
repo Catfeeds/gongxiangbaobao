@@ -44,7 +44,6 @@ module.exports = {
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
   life_store_headlines: 'store/store_headline', // GET 
 
-
   // 分销
 
   // GET 分销池
@@ -57,9 +56,11 @@ module.exports = {
   get_new_distribution: 'fx_distribute/latest',
   // PUT 已经上架
   distribution_sell: 'core_platforms/fx_distribute/publish',
+  // GET 最新分销商品
+  distribute_newest: 'core_platforms/fx_distribute/latest',
   // GET 本周最受欢迎的分销商品
   distribution_week_popular: 'fx_distribute/week_popular',
-
+  
   // Product
   products: 'products/by_store', // GET 产品列表---
   latest_products: 'products/latest', // GET 最新产品---
