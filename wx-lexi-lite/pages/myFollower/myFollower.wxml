@@ -1,6 +1,6 @@
 <!--pages/myFollower/myFollower.wxml-->
 <view class='container'>
-  <view class='time-top font-m relation-item'  wx:for="{{peopleList.user_fans}}" wx:key="{{index}}">
+  <view class='time-top font-m relation-item'  wx:for="{{peopleList}}" wx:key="{{index}}">
     <view class='flex_row relation-avater'>  
       <image src='{{item.avatar}}'></image>
       <text>{{item.username}}</text>
@@ -12,7 +12,13 @@
         catchtap='hanleDeleteWatch' 
         data-uid="{{item.uid}}" 
         data-index="{{index}}">互相关注</view>
-      <!-- <view>已关注</view> -->
+
+      <view 
+        catchtap='hanleDeleteWatch' 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        wx:if="{{item.followed_status==1}}">已关注</view>
+
       <view 
         class='relation-icon__add' 
         data-uid="{{item.uid}}" 

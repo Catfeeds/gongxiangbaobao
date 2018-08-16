@@ -1,0 +1,28 @@
+/* pages/gatherInfo/gatherInfo.wxss */
+@import "../user/user.wxss";
+
+.container {
+  height: auto;
+}
+
+.gather-hander__photo {
+  position: relative;
+  width: 750rpx;
+  height: 400rpx;
+  overflow: hidden;
+  color: white;
+}
+
+.gather-hander__photo .gather-hander__text--big,
+.gather-hander__photo .gather-hander__text--min {
+  position: absolute;
+  left: 40rpx;
+}
+
+.gather-hander__photo .gather-hander__text--big {
+  top: 270rpx;
+}
+
+.gather-hander__photo .gather-hander__text--min {
+  bottom: 34rpx;
+}

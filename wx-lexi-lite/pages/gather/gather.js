@@ -100,6 +100,21 @@ Page({
     this.getGather()
   },
 
+  // 跳转到集合详情
+  handleToGatherInfo(e){
+    console.log(e)
+    wx.navigateTo({
+      url: '../gatherInfo/gatherInfo?rid='+e.currentTarget.dataset.rid
+    })
+  },
+
+  // 跳转到商品详情
+  handleProductInfo (e){
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid
+    })
+  },
+
   /**
    * 用户点击右上角分享
    */

@@ -16,6 +16,8 @@ Page({
       rid: '', //必须	 	商品编号
     }
   },
+
+  // 喜欢该商品的人
   getinfo(e) {
     console.log(this.data.parmas)
     http.fxGet(api.product_userlike, this.data.parmas,(result)=>{
@@ -123,12 +125,20 @@ Page({
 
   // 跳转到其他人地主页
   handleToPeopleTap(e){
+    
     console.log(e.currentTarget.dataset.uid)
-    wx.navigateTo({
-      url: '../people/people?uid='+e.currentTarget.dataset.uid,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
+    if (e.currentTarget.dataset.index == 0){
+
+      wx.switchTab({
+        url: '../user/user',
+      })
+
+    }else{
+      wx.navigateTo({
+        url: '../people/people?uid=' + e.currentTarget.dataset.uid,
+      })
+    }
+
+
   }
 })

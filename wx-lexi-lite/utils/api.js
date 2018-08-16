@@ -44,7 +44,6 @@ module.exports = {
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
   life_store_headlines: 'store/store_headline', // GET 
 
-
   // 分销
 
   // GET 分销池
@@ -57,9 +56,11 @@ module.exports = {
   get_new_distribution: 'fx_distribute/latest',
   // PUT 已经上架
   distribution_sell: 'core_platforms/fx_distribute/publish',
+  // GET 最新分销商品
+  distribute_newest: 'core_platforms/fx_distribute/latest',
   // GET 本周最受欢迎的分销商品
   distribution_week_popular: 'fx_distribute/week_popular',
-
+  
   // Product
   products: 'products/by_store', // GET 产品列表---
   latest_products: 'products/latest', // GET 最新产品---
@@ -83,28 +84,35 @@ module.exports = {
 
   // 核心 product
   banners_explore: 'banners/explore', //探索的头部广告h
+  banners_handpick: 'banners/handpick', // 精选区域的头部广告
+  category_products: 'category/products', // 分类商品列表
+  column_collections: 'column/collections', // 集合
+  column_explore_new: 'column/explore_new', // 优质新品
+  life_records_recommend: 'life_records/recommend', // 种草清单
+  column_daily_recommends: "column/daily_recommends", //今日推荐
+  column_affordable_goods: 'column/affordable_goods', //百元好物
   column_explore_recommend:'column/explore_recommend', // 编辑推荐h
-  column_explore_new:'column/explore_new', // 优质新品
-  column_collections:'column/collections', // 集合
-  column_preferential_design:'column/preferential_design', // 特惠好设计
-  column_affordable_goods:'column/affordable_goods', //百元好物
+  column_collections_detail:'column/collections/detail', //集合详情
+  banners_handpick_content: 'banners/handpick_content', // 精选的中间广告
   column_handpick_recommend:'column/handpick_recommend', // 人气推荐
-  banners_handpick_content:'banners/handpick_content', // 精选的中间广告
-  banners_handpick:'banners/handpick', // 精选区域的头部广告
+  column_preferential_design: 'column/preferential_design', // 特惠好设计
   column_handpick_optimization:'column/handpick_optimization', // 乐喜优选
-  life_records_recommend:'life_records/recommend', // 种草清单
-  column_daily_recommends:"column/daily_recommends", //今日推荐
-
-
+ 
   // 核心 store
-  column_feature_store:'column/feature_store', // 特色品牌管h
-  users_other_user_center: 'users/get_other_user_center', // 获取别人个人中心
-  users_other_followed_stores:'users/other_followed_stores', // 获取用户关注地店铺列表
-  other_userlike:'other_userlike', //其他人喜欢的商品
+  users_user_dynamic:"users/user_dynamic", // 获取自己的动态
+  column_feature_store: 'column/feature_store', // 特色品牌管h
+  column_browse_records:'column/browse_records', // 浏览过乐喜优选，优质新品……人数以及头像
+  users_other_followed_stores: 'users/other_followed_stores', // 获取用户关注地店铺列表
+
+  // people 核心
+  users_other_followed_users: "users/other_followed_users", //获取别人的关注
+  other_userlike: 'other_userlike', //其他人喜欢的商品
   other_wishlist: 'other_wishlist', // 其他人心愿单
   users_other_followed_life_stores: 'users/other_followed_stores', //别人收藏的设计管
-  users_other_user_dynamic:"users/other_user_dynamic", // 其他人的动态
-  users_user_dynamic:"users/user_dynamic", // 获取自己的动态
+  users_other_user_dynamic: "users/other_user_dynamic", // 其他人的动态
+  users_other_user_center: 'users/get_other_user_center', // 获取别人个人中心
+  users_other_user_fans:'users/other_user_fans', // 获取别人的粉丝
+  other_user_browses:'other_user_browses',// 别人的浏览记录
 
   // Cart
   cart: 'cart', // GET 加入购物车---

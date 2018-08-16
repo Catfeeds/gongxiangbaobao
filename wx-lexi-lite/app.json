@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/branderStore/branderStore",
     "pages/index/index",
+    "pages/gatherInfo/gatherInfo",
     "pages/search/search",
     "pages/dynamic/dynamic",
     "pages/people/people",
@@ -40,7 +42,9 @@
     "pages/checkout/checkout",
     "pages/find/find",
     "pages/distributes/distributes",
+    "pages/categoryList/categoryList",
     "pages/gather/gather"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

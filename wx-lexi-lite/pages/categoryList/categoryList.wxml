@@ -1,0 +1,46 @@
+<!--pages/categoryList/categoryList.wxml-->
+<view class="container">
+  <!-- 搜索框 -->
+  <view class="bg-white search-input" catchtap="handleToSearch">
+    <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
+    <view class='infput-search__btn'>
+      <image src='../../images/sear-icon@2.png'></image>
+    </view>
+
+  </view>
+
+  <!-- 排序 筛选 -->
+  <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+    <view catchtap="handleSortShow" class='flex_row'>
+      筛选
+      <image src='../../images/arrowhead.png'></image>
+    </view>
+    <view catchtap='handelOffPick' class='flex_row'>
+      综合排序
+      <image src='../../images/arrowhead.png'></image>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="goodsList">
+    <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+      <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
+    </view>
+  </view>
+
+  <!-- 筛选 -->
+  <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
+    <fx-pick 
+      bind:handlePickOff="handelOffPickBox"
+      bind:handlePickOff="handelOffPickBox"
+      pickQuantity="{{pickQuantity}}"
+      bind:handlePickProduct="handlePickProduct"></fx-pick>
+  </view>
+
+  <!-- 排序 -->
+  <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
+  </view>
+
+
+</view>

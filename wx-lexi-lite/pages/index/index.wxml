@@ -16,8 +16,6 @@
     <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
       <text>{{ pageTab.title }}</text>
     </view>
-
-
   </view>
 
   <!-- 生活馆 -->
@@ -82,7 +80,7 @@
 
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
-
+<!-- 
       <view class='float'>
         <view style='z-index={{aIamge-2}}' animation="{{e}}">
           <image src='{{photo[aIamge-1].img}}'></image>
@@ -99,8 +97,9 @@
         <view style='z-index={{aIamge-2}}' animation="{{a}}">
           <image src='{{photo[eIamge-1].img}}'></image>
         </view>
-      </view>
-      
+      </view> -->
+      <view class=""></view>
+
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
@@ -229,13 +228,15 @@
           <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
         </view>
         <view class="headline-body">
-          <view class="headline-group" wx:for="{{ storeHeadlines[0] }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
-            <view class="headline-item">
-              <label class="store-green">{{ headline[0].username }}</label> {{ headline[0].time }} 小时前开通了自己的设计馆
+
+          <view class="headline-group" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
+            <view class="headline-item" wx:if="{{ headline.event == 1 }}">
+              <label class="store-green">{{ headline.username }}</label> {{ headline.time }} 小时前开通了自己的设计馆
+
             </view>
-            <view class="headline-item">
-              「{{ headline[1].username }}」的生活馆 {{ headline[1].hour }} 小时
-              <label class="order-yellow">售出{{ headline[1].quantity }}单</label>
+            <view class="headline-item" wx:if="{{ headline.event == 4 }}">
+              「{{ headline.username }}」的生活馆 {{ headline.time }} 小时
+              <label class="order-yellow">售出{{ headline.quantity }}单</label>
             </view>
           </view>
         </view>
@@ -396,7 +397,12 @@
     <!-- 分类的 -->
     <view class='product-category-box '>
       <scroll-view scroll-x class='flex_row slither-box'>
-        <view class='fx-column--center inline-block padding--27rpx {{index==0?"padding-left--40rpx":""}} {{index==categoryList.categories.length-1?"padding-right--40rpx":""}}' wx:for="{{categoryList.categories}}" wx:key='{{index}}'>
+        <view class='fx-column--center inline-block padding--27rpx {{index==0?"padding-left--40rpx":""}} {{index==categoryList.categories.length-1?"padding-right--40rpx":""}}' 
+          catchtap="handleTocategoryList"
+          data-title-name="{{item.name}}"
+          data-id="{{item.id}}"
+          wx:for="{{categoryList.categories}}" 
+          wx:key='{{index}}'>
           <image class='product-category-icon' src='{{item.cover}}'></image>
           <view class='font-s'>{{item.name}}</view>
           <view class='font-ss qian-hui'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
@@ -485,7 +491,12 @@
           class='hui-zi-m' catchtap="hanleToGatherPage" >查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
-        <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-id="{{item.id}}" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
+        <view 
+          class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' 
+          data-rid="{{item.id}}" 
+          catchtap="handleToGatherInfo"
+          wx:for="{{gatherList.collections}}" 
+          wx:key="{{index}}">
           <image class='border-radius--8' src="{{item.cover}}-p30"></image>
           <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
           <view class='all-product_geishei font--white black-font'>{{item.name}}</view>

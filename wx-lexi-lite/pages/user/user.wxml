@@ -32,7 +32,7 @@
         <text wx:if='{{ userInfo.profile.username != null }}'>{{ userInfo.profile.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
-      <view class='is-login font-ss' wx:if='{{ !is_mobile }}'>
+      <view class='is-login font-ss' wx:if='{{ is_mobile }}'>
         <button open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">你还未绑定手机号,仅能浏览</button>
       </view>
     </view>
@@ -130,6 +130,7 @@
     <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
+        <text class=' hui-zi margin--15rpx' data-from='xinYuanOrder' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
