@@ -92,8 +92,8 @@ Page({
 
     // 已经申请过则不能重复申请
     if (lifeStore.isSmallB) {
-      wx.redirectTo({
-        url: '/pages/lifeStore/lifeStore'
+      wx.switchTab({
+        url: '../index/index'
       })
     }
   },

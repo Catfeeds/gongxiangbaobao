@@ -1,0 +1,3 @@
+<view class="container">
+  <web-view src="https://fx.taihuoniao.com/#/demo"></web-view>
+</view>

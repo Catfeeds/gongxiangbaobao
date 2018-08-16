@@ -2,15 +2,16 @@
 <view class='container'>
   <!-- 背景 -->
   <view class="dynamic-hander__photo">
-    <image mode="widthFix" src="{{dynamicList.lines[0].shop_window.user_avatar}}"></image>
+    <image mode="widthFix" src="{{dynamicList.bg_cover}}"></image>
+    
   </view>
 
   <!-- 添加橱窗栏目 -->
   <view class='dynamic-add__box fx-broadwise-e bg-white'>
     <view class='dynamic-owner'>
-      <image src="{{dynamicList.lines[0].shop_window.user_avatar}}"></image>
+      <image src="{{dynamicList.bg_cover}}"></image>
     </view>
-    <view class='black-font designer-name'>{{dynamicList.lines[0].shop_window.user_name}}</view>
+    <view class='black-font designer-name'>{{dynamicList.username}}</view>
     <!-- 拼接橱窗 -->
     <view class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==1}}">
       <text >拼贴橱窗</text>

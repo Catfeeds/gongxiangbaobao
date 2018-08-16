@@ -39,7 +39,9 @@
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
-    "pages/find/find"
+    "pages/find/find",
+    "pages/gather/gather",
+    "pages/lifeStoreGuide/lifeStoreGuide"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
@@ -54,8 +56,8 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/icon-home@3x.png",
-        "selectedIconPath": "images/icon-home-active@3x.png"
+        "iconPath": "./images/icon-home@3x.png",
+        "selectedIconPath": "./images/icon-home-active@3x.png"
       },
       {
         "pagePath": "pages/find/find",

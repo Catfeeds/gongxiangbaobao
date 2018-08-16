@@ -101,9 +101,9 @@ module.exports = {
   column_feature_store:'column/feature_store', // 特色品牌管h
   users_other_user_center: 'users/get_other_user_center', // 获取别人个人中心
   users_other_followed_stores:'users/other_followed_stores', // 获取用户关注地店铺列表
-  other_userlike:'userlike', //其他人喜欢的商品
+  other_userlike:'other_userlike', //其他人喜欢的商品
   other_wishlist: 'other_wishlist', // 其他人心愿单
-  users_other_followed_life_stores: 'users/other_followed_life_stores', //别人收藏的设计管
+  users_other_followed_life_stores: 'users/other_followed_stores', //别人收藏的设计管
   users_other_user_dynamic:"users/other_user_dynamic", // 其他人的动态
   users_user_dynamic:"users/user_dynamic", // 获取自己的动态
 

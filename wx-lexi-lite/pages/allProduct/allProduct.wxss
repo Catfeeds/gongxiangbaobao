@@ -1,2 +1,64 @@
 /* pages/allProduct/allProduct.wxss */
-@import "../user/user.wxss"
+@import "../user/user.wxss";
+
+.top-bg__photo {
+  height: 320rpx;
+  width: 750rpx;
+  position: relative;
+}
+
+.top-bg__photo .shade, .top-bg__photo .top__bg image, .top-bg__photo .top__bg {
+  height: 100%;
+  width: 100%;
+}
+
+.shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.top-bg__photo .browse-record__box {
+  position: absolute;
+  bottom: 0rpx;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 6;
+  width: 610rpx;
+  height: 130rpx;
+  background-color: white;
+  border-radius: 8rpx;
+  /* border: 1rpx solid red; */
+  padding: 22rpx 40rpx 24rpx;
+  box-shadow:0px 5px 10px 0px rgba(0,0,0,0.08);
+}
+
+.top-bg__photo .browse-record__box image,
+.browse-record__box .round{
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+}
+
+.top-bg__photo .browse-record__box image {
+
+  border: 3rpx solid white;
+  box-sizing: border-box;
+  margin-right: -15rpx
+}
+.browse-item__photo{
+  margin-top: 24rpx;
+  margin-bottom: 30rpx;
+  width: 550rpx;
+  flex-direction: row-reverse;
+}
+
+.browse-record__box .round{
+  background-color: black;
+  color: white;
+}
+
+.padding-top--105rpx {
+  padding-top: 105rpx;
+}
