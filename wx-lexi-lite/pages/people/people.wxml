@@ -32,13 +32,13 @@
 
     <!-- 粉丝 -->
     <view class='flex_row follow'>
-      <view catchtap='handleWatchTap'>
+      <view catchtap='handleWatchTap' data-uid="{{otherPeopleUid}}">
         <text class='font-s'> 
           <text class='hui-zi' > 关注 </text>
         <text class='wacth-follower'>{{otherPeopleInfo.followed_users_counts}}</text>
         </text>
       </view>
-      <view catchtap='handleFollowerTap'>
+      <view catchtap='handleFollowerTap' data-uid="{{otherPeopleUid}}">
         <text class='font-s'> <text class='hui-zi'> 粉丝 </text>
         <text class='wacth-follower'>{{otherPeopleInfo.fans_counts}}</text> </text>
       </view>
@@ -81,7 +81,8 @@
         <text>喜欢的商品</text>
         <text 
           class=' hui-zi margin--15rpx' 
-          data-from='userBrowses' 
+          data-from='otherLike'
+          data-uid="{{otherPeopleUid}}" 
           catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox'>
@@ -153,7 +154,8 @@
         <text 
           wx:if="{{userBrowsesProduct.products.length>9}}"
           class=' hui-zi margin--15rpx' 
-          data-from='userBrowses' 
+          data-from='otherBrowses'
+          data-uid="{{otherPeopleUid}}"
           catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
@@ -169,7 +171,8 @@
         <text 
           wx:if="{{desireOrderProduct.products.length>9}}"
           class=' hui-zi margin--15rpx' 
-          data-from='userBrowses' 
+          data-from='otherXinYuan'
+          data-uid="{{otherPeopleUid}}"
           catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>

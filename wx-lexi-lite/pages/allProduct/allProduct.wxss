@@ -33,14 +33,15 @@
   padding: 22rpx 40rpx 24rpx;
   box-shadow:0px 5px 10px 0px rgba(0,0,0,0.08);
 }
-
+.top-bg__photo .browse-record__box .open-data,
 .top-bg__photo .browse-record__box image,
 .browse-record__box .round{
   height: 60rpx;
   width: 60rpx;
   border-radius: 50%;
+  overflow: hidden;
 }
-
+.top-bg__photo .browse-record__box .open-data,
 .top-bg__photo .browse-record__box image {
 
   border: 3rpx solid white;
@@ -61,4 +62,14 @@
 
 .padding-top--105rpx {
   padding-top: 105rpx;
+}
+
+.pick-box{
+  position: fixed;
+  top: 10000rpx;
+  left: 0;
+  height: 100%;
+  width: 750rpx;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
 }

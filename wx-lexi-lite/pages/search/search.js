@@ -36,7 +36,6 @@ Page({
     this.setData({
       inputText: e.detail.value
     })
-
   },
 
   // 关闭输入框

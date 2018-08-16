@@ -132,7 +132,7 @@ Page({
         break;
       case 2:
         //最近查看
-        http.fxGet(api.user_browses, {
+        http.fxGet(api.other_user_browses, {
           uid: this.data.otherPeopleUid
         }, (result) => {
           if (result.success) {
@@ -340,4 +340,55 @@ Page({
     })
     this.getProduct(e.currentTarget.dataset.rid)
   },
+
+  // 关注页面跳转
+  handleWatchTap(e) {
+    console.log(e.currentTarget.dataset.uid)
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    wx.navigateTo({
+      url: '../watch/watch?uid=' + e.currentTarget.dataset.uid,
+    })
+  },
+
+  //粉丝页面的跳转
+  handleFollowerTap(e) {
+    console.log(e.currentTarget.dataset.uid)
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    wx.navigateTo({
+      url: '../myFollower/myFollower?uid=' +e.currentTarget.dataset.uid,
+    })
+  },
+
+  // 查看全部
+  handleAllProduct(e) {
+
+    console.log(e.currentTarget.dataset.from)
+    console.log(e.currentTarget.dataset.uid)
+    wx.navigateTo({
+      url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from + "&&uid=" + e.currentTarget.dataset.uid,
+    })
+  },
+
+  // 跳转到商品详情---
+  handleToProductInfoTap(e) {
+    console.log(e.currentTarget.dataset.rid)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid
+    })
+  },
+
 })

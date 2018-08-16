@@ -2,20 +2,21 @@
 <view class="container">
 
   <!-- 筛选和排序 -->
+  <block wx:if="{{!isPersonal}}">
   <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
     <view catchtap="handleSortShow" class='flex_row'>
-      综合排序
+      筛选
       <image src='../../images/arrowhead.png'></image>
     </view>
     <view catchtap='handelOffPick' class='flex_row'>
-      筛选
+       综合排序
       <image src='../../images/arrowhead.png'></image>
     </view>
   </view>
 
   <view class="top-bg__photo">
     <view class="top__bg">
-      <image src="../../images/timg.jpg"></image>
+      <image src="{{browseRecordOfThis}}"></image>
     </view>
 
     <view class="top-bg__photo shade"></view>
@@ -28,20 +29,37 @@
           <image 
             wx:key="{{index}}" 
             wx:if="{{index<12}}"
-            wx:for="{{[1,2,3,4,5,6,7,8,9,1,2,3,4,5]}}" 
-            src="../../images/timg.jpg"></image>
+            wx:for="{{browseRecordOfThis.users}}" 
+            src="{{item.avatar}}"></image>
+            <view class="open-data" wx:if="{{browseRecordOfThis.count==0}}">
+              <open-data type="userAvatarUrl"></open-data>
+          </view>
         </view>
-        <view class="flex_row--middle font-xss round">999+</view>
+        <view class="flex_row--middle font-xss round" wx:if="{{browseRecordOfThis.count==0}}">1</view>
+        <view class="flex_row--middle font-xss round" wx:else>{{browseRecordOfThis.count>=999?"999+":browseRecordOfThis.count}}</view>
       </view>
     </view>
 
   </view>
-
-
+  </block>
 
   <view class="goodsList padding-top--105rpx">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
       <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
+  </view>
+
+  <!-- 筛选 -->
+  <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
+    <fx-pick 
+      bind:handlePickOff="handelOffPickBox"
+      bind:handlePickOff="handelOffPickBox"
+      pickQuantity="{{pickQuantity}}"
+      bind:handlePickProduct="handlePickProduct"></fx-pick>
+  </view>
+
+  <!-- 排序 -->
+  <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
   </view>
 </view>

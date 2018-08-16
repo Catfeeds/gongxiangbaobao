@@ -72,80 +72,6 @@ Page({
       }
     ],
 
-    a: [], //动画
-    b: [], //动画
-    c: [], //动画
-    d: [], //动画
-    e: [], //动画
-
-    aIamge: 16, // 图片索引
-    bIamge: 17, // 图片索引
-    cIamge: 18, // 图片索引
-    dIamge: 19, // 图片索引
-    eIamge: 20, // 图片索引
-
-    photo: [{
-        img: "../../image/1.jpg"
-      },
-      {
-        img: "../../image/2.jpg"
-      },
-      {
-        img: "../../image/3.jpg"
-      },
-      {
-        img: "../../image/4.jpg"
-      },
-      {
-        img: "../../image/5.jpg"
-      },
-      {
-        img: "../../image/6.jpg"
-      },
-      {
-        img: "../../image/7.jpg"
-      },
-      {
-        img: "../../image/8.jpg"
-      },
-      {
-        img: "../../image/9.jpg"
-      },
-      {
-        img: "../../image/10.jpg"
-      },
-      {
-        img: "../../image/11.jpg"
-      },
-      {
-        img: "../../image/12.jpg"
-      },
-      {
-        img: "../../image/13.jpg"
-      },
-      {
-        img: "../../image/14.jpg"
-      },
-      {
-        img: "../../image/15.jpg"
-      },
-      {
-        img: "../../image/16.jpg"
-      },
-      {
-        img: "../../image/17.jpg"
-      },
-      {
-        img: "../../image/18.jpg"
-      },
-      {
-        img: "../../image/19.png"
-      },
-      {
-        img: "../../image/20.png"
-      },
-
-    ]
   },
 
   /**
@@ -785,7 +711,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.one()
+  
   },
 
   /**
@@ -852,212 +778,18 @@ Page({
     })
   },
 
-
-  /////////
-  one() {
-    let animation = wx.createAnimation({
-      duration: 5000,
-      timingFunction: 'ease',
+  handleTocategoryList(e){
+    console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../categoryList/categoryList?categryId=' + e.currentTarget.dataset.id + "&&titleName=" + e.currentTarget.dataset.titleName,
     })
-
-    animation.left(40).scale(0.1, 0.1).step()
-
-    this.setData({
-      a: animation.export()
-    })
-
-    setTimeout(() => {
-      this.two()
-    }, 2500)
-
-    // 恢复
-    setTimeout(() => {
-      let orgin = wx.createAnimation({
-        duration: 0,
-        timingFunction: 'ease',
-      })
-      orgin.right(0).scale(1, 1).step()
-      this.setData({
-        a: orgin.export()
-      })
-
-      if (this.data.aIamge == 0) {
-        this.setData({
-          aIamge: 20
-        })
-      } else {
-        this.setData({
-          aIamge: this.data.aIamge - 5
-        })
-      }
-
-    }, 5000)
   },
 
-  /////////
-  two() {
-    let animation = wx.createAnimation({
-      duration: 5000,
-      timingFunction: 'ease',
+  // 跳转到集合详情
+  handleToGatherInfo(e){
+    wx.navigateTo({
+      url: '../gatherInfo/gatherInfo?rid=' + e.currentTarget.dataset.rid
     })
 
-    animation.left(40).scale(0.1, 0.1).step()
-
-    this.setData({
-      b: animation.export()
-    })
-
-    //调取下一个
-    setTimeout(() => {
-      this.three()
-    }, 2500)
-
-    // 恢复
-    setTimeout(() => {
-      let orgin = wx.createAnimation({
-        duration: 0,
-        timingFunction: 'ease',
-      })
-      orgin.right(0).scale(1, 1).step()
-      this.setData({
-        b: orgin.export()
-      })
-
-      if (this.data.bIamge == 1) {
-        this.setData({
-          bIamge: 19
-        })
-      } else {
-        this.setData({
-          bIamge: this.data.bIamge - 5
-        })
-      }
-
-    }, 5000)
-
-  },
-
-  /////
-  three() {
-    let animation = wx.createAnimation({
-      duration: 5000,
-      timingFunction: 'ease',
-    })
-
-    animation.left(40).scale(0.1, 0.1).step()
-
-    this.setData({
-      c: animation.export()
-    })
-
-    setTimeout(() => {
-      this.four()
-    }, 2500)
-
-
-    // 恢复
-    setTimeout(() => {
-      let orgin = wx.createAnimation({
-        duration: 0,
-        timingFunction: 'ease',
-      })
-      orgin.right(0).scale(1, 1).step()
-      this.setData({
-        c: orgin.export()
-      })
-
-      if (this.data.cIamge == 2) {
-        this.setData({
-          cIamge: 18
-        })
-      } else {
-        this.setData({
-          cIamge: this.data.cIamge - 5
-        })
-      }
-
-    }, 5000)
-  },
-
-  /////
-  four() {
-    let animation = wx.createAnimation({
-      duration: 5000,
-      timingFunction: 'ease',
-    })
-
-    animation.left(40).scale(0.1, 0.1).step()
-
-    this.setData({
-      d: animation.export()
-    })
-
-    setTimeout(() => {
-      this.five()
-    }, 2500)
-
-    // 恢复
-    setTimeout(() => {
-      let orgin = wx.createAnimation({
-        duration: 0,
-        timingFunction: 'ease',
-      })
-      orgin.right(0).scale(1, 1).step()
-      this.setData({
-        d: orgin.export()
-      })
-
-      if (this.data.dIamge == 3) {
-        this.setData({
-          dIamge: 17
-        })
-      } else {
-        this.setData({
-          dIamge: this.data.dIamge - 5
-        })
-      }
-
-    }, 5000)
-  },
-  /////
-  five() {
-    let animation = wx.createAnimation({
-      duration: 5000,
-      timingFunction: 'ease',
-    })
-
-    animation.left(40).scale(0.1, 0.1).step()
-
-    this.setData({
-      e: animation.export()
-    })
-
-    setTimeout(() => {
-      this.one()
-    }, 2500)
-
-    // 恢复
-    setTimeout(() => {
-      let orgin = wx.createAnimation({
-        duration: 0,
-        timingFunction: 'ease',
-      })
-      orgin.right(0).scale(1, 1).step()
-      this.setData({
-        e: orgin.export()
-      })
-
-      if (this.data.eIamge == 4) {
-        this.setData({
-          eIamge: 16
-        })
-      } else {
-        this.setData({
-          eIamge: this.data.eIamge - 5
-        })
-      }
-
-    }, 5000)
-  },
-
+  }
 })

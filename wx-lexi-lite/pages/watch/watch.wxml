@@ -1,7 +1,10 @@
 <!--pages/watch/watch.wxml 关注的人-->
 <view class='container'>
-  <view class='time-top font-m relation-item' wx:for="{{peopleList.followed_users}}" wx:key="{{index}}">
-    <view class='flex_row relation-avater' catchtap="">  
+  <view class='time-top font-m relation-item' wx:for="{{peopleList}}" wx:key="{{index}}">
+    <view 
+      class='flex_row relation-avater' 
+      data-uid="{{item.uid}}"
+      catchtap="handleToPeopleTap">  
       <image src="{{item.avatar}}"></image>
       <text>{{item.username}}</text>
     </view>
