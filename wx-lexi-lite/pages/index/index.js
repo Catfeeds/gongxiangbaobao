@@ -202,7 +202,7 @@ Page({
    */
   handleSubmitUpdateStore (e) {
     let data = e.detail.value
-    data.rid = app.globalData.storeRid
+    data.rid = this.data.sid
     http.fxPost(api.life_store_edit, data, (res) => {
       console.log(res, '更新生活馆')
       if (res.success) {
