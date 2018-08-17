@@ -59,6 +59,17 @@
 .owner-info-text_info {
   flex: 1;
 }
+.owner-info-text_info .store-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.owner-info-text_info .store-title .icon-edit {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+}
+
 
 .owner-info-text_info image {
   margin-right: 10rpx;
@@ -814,4 +825,41 @@ display: block;
 }
 .float view:nth-child(4){
   background-color: yellow;
+}
+
+.fx-form .fx-input {
+  margin-bottom: 30rpx;
+}
+.fx-form .fx-input .field-label {
+  font-size: 28rpx;
+  color: #666;
+}
+.fx-form .fx-input .fx-input__inner {
+  position: relative;
+  border: 1rpx solid #eee;
+  padding: 24rpx 15rpx;
+  border-radius: 8rpx;
+  margin-top: 20rpx;
+}
+.fx-form .fx-input .fx-input__inner .field {
+  font-size: 28rpx;
+  color: #333;
+}
+.fx-form .fx-input .fx-input__inner .field-text {
+  font-size: 28rpx;
+  color: #333;
+  height: 140rpx;
+  width: 100%;
+  display: block;
+}
+.fx-form .fx-input .fx-input__inner .word-length {
+  position: absolute;
+  right: 10rpx;
+  bottom: 10rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.fx-form .btn-area {
+  margin-top: 50rpx;
 }

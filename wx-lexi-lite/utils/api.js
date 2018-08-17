@@ -43,6 +43,8 @@ module.exports = {
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
   life_store_headlines: 'store/store_headline', // GET 
+  life_store_edit: 'store/edit_store', // GET
+  life_store_update_logo: 'store/update_life_store_logo', // POST 
 
   // 分销
 
