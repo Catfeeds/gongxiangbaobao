@@ -1,1 +1,274 @@
 /* pages/branderStore/branderStore.wxss */
+@import "../user/user.wxss";
+@import '../couponTemplate/couponTemplate.wxss';
+
+.container {
+  height: auto;
+  background-color: white;
+}
+
+.store-info {
+  padding: 30rpx 40rpx 40rpx;
+  box-shadow:0px 15px 24px 0px rgba(0,0,0,0.1);
+}
+
+.store-info .top-photo__box>image {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 8rpx;
+  margin-right: 55rpx;
+}
+
+.store-info .category__item {
+  padding: 0 40rpx;
+  font-size: 40rpx;
+  color: #949ea6;
+}
+
+.store-icon {
+  height: 32rpx;
+  width: 32rpx;
+  margin: 0 10rpx;
+}
+
+.agree-icon {
+  width: 118rpx;
+  height: 36rpx;
+}
+
+.store-info .address {
+  color: #949ea6;
+}
+
+.follow .follow-btn {
+  padding: 12rpx 48rpx 12rpx 36rpx;
+  background-color: #5fe4b1;
+  color: white;
+  margin-right: 30rpx;
+}
+
+.store-info .address image {
+  width: 16rpx;
+  height: 22rpx;
+}
+
+.follow .follow-btn image {
+  width: 28rpx;
+  height: 24rpx;
+}
+
+.follow .about {
+  padding: 12rpx 20rpx;
+  background-color: #f5f7f9;
+}
+
+
+
+.coupon-box {
+  background-color: #fbf7f3;
+  border-radius: 10rpx;
+  padding: 10rpx 20rpx;
+  margin-bottom: 50rpx;
+}
+
+.coupon-message {
+  font-size: 24rpx;
+  color: #555;
+}
+
+.coupon-message>view {
+  margin: 10rpx 0;
+}
+
+.coupon-message .coupon-icon image {
+  height: 30rpx;
+  width: 60rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+
+.coupon-message .get-btn {
+  width: 90rpx;
+  height: 54rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #dadada;
+  line-height: 54rpx;
+  text-align: center;
+}
+
+.coupon-message .reduced-price {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.coupon-message .reduced-price image {
+  height: 30rpx;
+  width: 30rpx;
+  vertical-align: middle;
+}
+
+.coupon-message .reduced-price text {
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+.coupon-message .get-btn {
+  width: 90rpx;
+  height: 54rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #dadada;
+  line-height: 54rpx;
+  text-align: center;
+}
+.reduced-price_text {
+  line-height: 40rpx !important;
+}
+.reduced-price__last {
+  width: 160rpx;
+  height: 30rpx;
+  padding-left: 10rpx;
+  background-color: #fbf7f3;
+  position: absolute;
+  right: 0;
+  top: 2rpx;
+}
+
+.announcement-coupon{
+  padding: 40rpx 40rpx 0rpx;
+}
+
+.notice {
+  position: relative;
+}
+
+.notice-box {
+  padding: 40rpx 30rpx;
+  border: 1rpx solid #e9e9e9;
+  border-radius: 10rpx;
+  position: relative;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.notice-box>view {
+  overflow: hidden;
+}
+
+.notice-title {
+  width: 130rpx;
+  font-size: 22rpx;
+  background-color: white;
+  font-weight: 700;
+  position: absolute;
+  top: -16rpx;
+  left: 80rpx;
+  z-index: 9;
+  text-align: center;
+}
+
+.notice-info {
+  position: absolute;
+  font-size: 24rpx;
+  right: 84rpx;
+  bottom: 42rpx;
+  background-color: white;
+}
+
+.announcement-coupon .off-announcement{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid #e9e9e9;
+  padding-bottom: 22rpx;
+  margin-bottom: 24rpx;
+}
+.announcement-detail__box .round,
+.announcement-coupon .off-announcement .round {
+  height: 10rpx;
+  width: 10rpx;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 5rpx;
+}
+
+.off-announcement .off-announcement__icon {
+  width: 104rpx;
+  height: 36rpx;
+  color: white;
+  margin-right: 30rpx;
+  background-color: #FEA100;
+}
+
+.off-announcement .off-time {
+  color: #555;
+}
+.off-announcement .open-time {
+  color: #FEA100;
+}
+
+.announcement-detail__box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 30rpx 40rpx;
+  height: 100%;
+  width: 670rpx;
+  background-color: white;
+  z-index: 9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.active {
+  color: #5fe4b1 !important;
+}
+
+.margin-right--28rpx {
+  margin-right: 28rpx;
+}
+
+.margin-right--10rpx {
+  margin-right: 10rpx;
+}
+
+
+.margin-bottom--6rpx {
+  margin-bottom: 6rpx;
+}
+.margin-bottom--18rpx {
+  margin-bottom: 18rpx;
+}
+.margin-bottom--22rpx {
+  margin-bottom: 22rpx;
+}
+.margin-bottom--25rpx {
+  margin-bottom: 25rpx;
+}
+.margin-bottom--30rpx {
+  margin-bottom: 30rpx;
+}
+.border-radius--30rpx {
+  border-radius: 30rpx;
+  
+}
+.padding-bottom-34rpx{
+padding-bottom: 34rpx;
+}
+.padding-top-32rpx{
+padding-top: 32rpx;
+}
+
+
+.border-bottom{
+  border-bottom: 1rpx solid #e9e9e9;
+}

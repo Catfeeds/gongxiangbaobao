@@ -435,7 +435,12 @@
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
-        <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' wx:for="{{characteristicStoreList.stores}}" wx:for-item="items" wx:key="{{ index }}">
+        <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' 
+          wx:for="{{characteristicStoreList.stores}}" 
+          wx:for-item="items"
+          data-rid="{{items.rid}}"
+          catchtap="handleTobrandStore" 
+          wx:key="{{ index }}">
           <image src='{{items.bgcover}}-p50'></image>
           <view class='characteristic-info border-radius--8'>
             <view class='flex_row characteristic-box__title border-radius--8'>

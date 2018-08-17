@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/branderStore/branderStore",
-    "pages/index/index",
+    
+    "pages/branderStore/branderStore","pages/index/index",
     "pages/gatherInfo/gatherInfo",
     "pages/search/search",
     "pages/dynamic/dynamic",
