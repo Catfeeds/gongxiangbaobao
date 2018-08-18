@@ -19,13 +19,24 @@ Page({
 
     // 生活馆
     sid: '', // 生活馆rid
+    uploadParams: {}, // 上传所需参数
     lifeStore: {}, // 生活馆信息
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
+    isEmpty: false, // 是否为空
     isSmallB: false, // 当前用户是否为小B
     canAdmin: false, // 是否具备管理生活馆
+    showEditModal: false, // 生活馆编辑
+    showConfirmModal: false, // 删除上架商品确认
     popularProducts: [], // 本周最受欢迎
     latestDistributeProducts: [], // 最新分销商品
+    storeForm: {
+      rid: '',
+      name: '',
+      description: '',
+      nameLength: 0,
+      descLength: 0
+    },
 
     // 探索
     characteristicStoreList: [], // 特色品牌商店
@@ -97,6 +108,116 @@ Page({
   },
 
   /**
+   * 改变生活馆logo
+   */
+  handleChangeLogo () {
+    wx.chooseImage({
+      success: (res) => {
+        let tempFilePaths = res.tempFilePaths
+        wx.uploadFile({
+          url: this.data.uploadParams.up_endpoint,
+          filePath: tempFilePaths[0],
+          name: 'file',
+          formData: {
+            'x:directory_id': this.data.uploadParams.directory_id,
+            'x:user_id': this.data.uploadParams.user_id,
+            'token': this.data.uploadParams.up_token
+          },
+          success: (res) => {
+            let data = JSON.parse(res.data)
+            if (data.ids.length > 0) {
+              this.getAssetInfo(data.ids[0])
+
+              // 更新logo
+              this.handleUpdateStoreLogo(data.ids[0])
+            }
+          }
+        })
+      }
+    })
+  },
+
+  /**
+   * 更新生活馆logo
+   */
+  handleUpdateStoreLogo (logo_id) {
+    http.fxPut(api.life_store_update_logo, { rid: this.data.sid, logo_id: logo_id }, (res) => {
+      console.log(res, '更新生活馆logo')
+      if (!res.success) {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 编辑生活馆信息
+   */
+  handleEditStore () {
+    let nameLength = 0
+    let descLength = 0
+    if (this.data.lifeStore.name) {
+      nameLength = common.strLength(this.data.lifeStore.name)
+    }
+    if (this.data.lifeStore.description) {
+      descLength = common.strLength(this.data.lifeStore.description)
+    }
+    this.setData({
+      showEditModal: true,
+      'storeForm.nameLength': nameLength,
+      'storeForm.descLength': descLength
+    })
+  },
+
+  /**
+   * 名称获取焦点事件
+   */
+  handleNameChange (e) {
+    console.log(e)
+    let nameLength = 0
+    if (e.detail.value) {
+      nameLength = common.strLength(e.detail.value)
+    }
+    this.setData({
+      'storeForm.nameLength': nameLength
+    })
+  },
+
+  /**
+   * 简介获取焦点事件
+   */
+  handleDescChange(e) {
+    console.log(e)
+    let descLength = 0
+    if (e.detail.value) {
+      descLength = common.strLength(e.detail.value)
+    }
+    this.setData({
+      'storeForm.descLength': descLength
+    })
+  },
+
+
+  /**
+   * 提交更新生活馆信息
+   */
+  handleSubmitUpdateStore (e) {
+    let data = e.detail.value
+    data.rid = app.globalData.storeRid
+    http.fxPost(api.life_store_edit, data, (res) => {
+      console.log(res, '更新生活馆')
+      if (res.success) {
+        this.setData({
+          'lifeStore.name': res.data.name,
+          'lifeStore.description': res.data.description,
+          showEditModal: false
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
    * 跳转分销中心
    */
   handleGoDistribute() {
@@ -141,13 +262,14 @@ Page({
       })
       return
     }
+
     // 已是小B用户,则不能再申请
     if (this.data.isSmallB) {
-      return
+      // return
     }
 
     wx.navigateTo({
-      url: '../applyLifeStore/applyLifeStore',
+      url: '../lifeStoreGuide/lifeStoreGuide',
     })
   },
 
@@ -178,19 +300,45 @@ Page({
   handleRemoveFromStore(e) {
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
-    console.log(this.data.sid)
-    http.fxDelete(api.life_store_delete_product, {
+    let data = {
       sid: this.data.sid,
       rid: rid
-    }, (result) => {
-      console.log(result, "删除商品")
-      if (result.success) {
-        let _storeProducts = this.data.storeProducts
-        this.setData({
-          storeProducts: _storeProducts.splice(idx, 1)
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
+    }
+    console.log('Delete, rid: ' + rid + ', idx: ' + idx)
+
+    wx.showModal({
+      content: '你确认要下架此件商品',
+      cancelText: '删除',
+      cancelColor: '#666',
+      confirmText: '取消',
+      confirmColor: '#5fe4b1',
+      success: (res) => {
+        if (res.cancel) { // 取消 与 确认 互换
+          console.log('Delete, rid: ' + rid + ', idx: ' + idx)
+          http.fxDelete(api.life_store_delete_product, data, (result) => {
+            console.log(result, "删除商品")
+            if (result.success) {
+              let _storeProducts = this.data.storeProducts
+              let isEmpty = false
+              console.log(_storeProducts)
+              
+              if (_storeProducts.length <= 1) {
+                _storeProducts = []
+                isEmpty = true
+              } else {
+                _storeProducts.splice(idx, 1)
+              }
+
+              this.setData({
+                storeProducts: _storeProducts,
+                isEmpty: isEmpty
+              })
+              
+            } else {
+              utils.fxShowToast(result.status.message)
+            }
+          })
+        }
       }
     })
   },
@@ -526,8 +674,14 @@ Page({
           _products = res.data.products
         }
 
+        let isEmpty = false
+        if (_products.length == 0) {
+          isEmpty = true
+        }
+
         this.setData({
-          storeProducts: _products
+          storeProducts: _products,
+          isEmpty: isEmpty
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -592,6 +746,38 @@ Page({
   },
 
   /**
+   * 获取单个附件信息
+   */
+  getAssetInfo(rid) {
+    http.fxGet(api.asset_detail, { rid: rid }, (result) => {
+      if (result.success) {
+        console.log(result, '附件信息')
+        this.setData({
+          'lifeStore.logo': result.data.view_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+   * 获取上传所需Token
+   */
+  getUploadToken() {
+    http.fxGet(api.user_upload_token, {}, (result) => {
+      if (result.success) {
+        console.log(result, '上传Token')
+        this.setData({
+          uploadParams: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
    * 激活页面Tab
    */
   _swtichActivePageTab(name) {
@@ -601,6 +787,7 @@ Page({
         this.getDistributeNewest() // 选品中心入口
         this.getStoreProducts() // 生活馆商品
         this.getWeekPopular() // 本周最受欢迎商品
+        this.getUploadToken()
         break;
       case 'featured': // 精选
         this.handleSetNavigationTitle('精选')

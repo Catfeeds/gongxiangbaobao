@@ -20,6 +20,25 @@ const getAllPlaces = (country_id = 1, province_oid = 0) => {
   })
 }
 
+/**
+ * 获取字符串实际长度(包含汉字)
+ */
+const strLength = (s, isChinese=false) => {
+  let l = s.length
+  let blen = 0
+  for (let i=0; i<l; i++) {
+    // 识别中文
+    if (isChinese) {
+      if ((s.charCodeAt(i) & 0xff00) != 0) {
+        blen++
+      }
+    }
+    blen++
+  }
+  return blen
+}
+
 module.exports = {
-  getReceivePlaces: getAllPlaces
+  getReceivePlaces: getAllPlaces,
+  strLength
 }

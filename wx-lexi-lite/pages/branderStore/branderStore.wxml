@@ -126,12 +126,12 @@
   <view class="announcement-detail__box">
 
         <view class="off-announcement border-bottom padding-bottom-34rpx" >
-          <view class="font-ss flex_row--middle border-radius--30rpx off-announcement__icon">
+          <view class="font-ss flex_row--middle border-radius--30rpx margin-bottom--25rpx off-announcement__icon">
             <view class="round"></view>
             <text>休馆中</text>
           </view>
           <view class="font-s">
-            <view class="off-time">休管时间：{{storeInfo.begin_date}}—{{storeInfo.end_date}}</view>
+            <view class="off-time margin-bottom--10rpx">休管时间：{{storeInfo.begin_date}}—{{storeInfo.end_date}}</view>
             <view class="open-time">恢复发货时间：{{storeInfo.delivery_date}}</view>
           </view>
         </view>
@@ -142,14 +142,15 @@
           <text>体制喜欢的颜色！即日起才5/13可以选择自己喜欢的 颜色留购馆内所有的款式的饰品，请撒娇和代姐阿斯是 撒娇的环境卡黑色打底裤就</text>
           </view>
 
-          
-        
-        
         </view>
 
-  
-  
-  
+        <view></view>
+
+        <view class="announcement-off__btn">
+          <image src="../../images/icon-close@2x.png"></image>
+        </view>
+
+
   </view>
 
 </view>

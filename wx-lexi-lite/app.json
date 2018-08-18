@@ -1,11 +1,12 @@
 {
   "pages": [
-    
-    "pages/branderStore/branderStore","pages/index/index",
+    "pages/index/index",
+    "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
     "pages/search/search",
     "pages/dynamic/dynamic",
     "pages/people/people",
+    "pages/distributes/distributes",
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
     "pages/distributeSubmit/distributeSubmit",
@@ -41,10 +42,9 @@
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
     "pages/find/find",
-    "pages/distributes/distributes",
-    "pages/categoryList/categoryList",
-    "pages/gather/gather"
-    
+    "pages/gather/gather",
+    "pages/lifeStoreGuide/lifeStoreGuide",
+    "pages/categoryList/categoryList"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
@@ -59,8 +59,8 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/icon-home@3x.png",
-        "selectedIconPath": "images/icon-home-active@3x.png"
+        "iconPath": "./images/icon-home@3x.png",
+        "selectedIconPath": "./images/icon-home-active@3x.png"
       },
       {
         "pagePath": "pages/find/find",
