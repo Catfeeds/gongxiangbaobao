@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "提现",
+  "navigationBarTitleText": "账单详情",
   "usingComponents": {
     "fx-modal-v": "/components/FxModalV/FxModalV"
   }

@@ -1,0 +1,165 @@
+<view class='container'>
+  <!--账单汇总-->
+  <view class="bill-total">
+    <view class="bill-store">
+      <image src="../../images/lexi-logo.png" class="store-logo"></image>
+      <text>乐喜生活馆</text>
+    </view>
+    <view class="bill-amount">
+      1000.00
+    </view>
+    <view class="bill-status">
+      提现成功
+    </view>
+
+    <view class="fx-items">
+      <view class="fx-item">
+        <label class="label">技术服务费</label>
+        <text class="value">0.00</text>
+      </view>
+      <view class="fx-item no-border xs">
+        <label class="label">提现到</label>
+        <text class="value">微信零钱包</text>
+      </view>
+      <view class="fx-item xs">
+        <label class="label">提现时间</label>
+        <text class="value">2018-08-15 20：44</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!--提现明细-->
+  <view class="withdraw-bill-list">
+    <view class="title">提现明细</view>
+    <view class="bill-month">
+      <view class="withdraw-date">
+        <label>8月</label>
+      </view>
+
+      <view class="bill-order">
+        <view class="order-income">
+          <label class="income">
+            收益：<text class="amount">￥30.08</text>
+          </label>
+          <label class="detail" bindtap="handleIncomeDetail">详情</label>
+        </view>
+        <view class="order-info">
+          <view>订单编号：202222222222</view>
+          <view class="date">2018-08-07 12:39:21</view>
+        </view>
+      </view>
+
+      <view class="bill-order">
+        <view class="order-income">
+          <label class="income">
+            收益：<text class="amount">￥30.08</text>
+          </label>
+          <label class="detail">详情</label>
+        </view>
+        <view class="order-info">
+          <view>订单编号：202222222222</view>
+          <view class="date">2018-08-07 12:39:21</view>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+
+  <!--收益明细-->
+  <fx-modal-v
+    title="收益详情"
+    close="true"
+    visible="{{ showModal }}">
+    <view class="modal-body">
+      <view class="bill-order">
+        <view class="order-income">
+          <label class="income">
+            收益：<text class="amount">￥30.08</text>
+          </label>
+        </view>
+        <view class="order-info">
+          <view>订单编号：202222222222</view>
+          <view class="date">2018-08-07 12:39:21</view>
+        </view>
+      </view>
+
+      <view class="order-items">
+
+        <view class="order-item">
+          <view class="order">
+            <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="cover"></image>
+            <view class="content">
+              <view class="name">
+                个性创意
+              </view>
+              <view class="sku">
+                黑色/36码
+              </view>
+              <view class="price">
+                ￥145
+              </view>
+            </view>
+            <view class="quantity">
+              x2
+            </view>
+          </view>
+          <view class="income">
+            预计收益：<text>￥2.90</text>
+          </view>
+        </view>
+
+        <view class="order-item">
+          <view class="order">
+            <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="cover"></image>
+            <view class="content">
+              <view class="name">
+                个性创意
+              </view>
+              <view class="sku">
+                黑色/36码
+              </view>
+              <view class="price">
+                ￥145
+              </view>
+            </view>
+            <view class="quantity">
+              x2
+            </view>
+          </view>
+          <view class="income">
+            预计收益：<text>￥2.90</text>
+          </view>
+        </view>
+
+        <view class="order-item">
+          <view class="order">
+            <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="cover"></image>
+            <view class="content">
+              <view class="name">
+                个性创意
+              </view>
+              <view class="sku">
+                黑色/36码
+              </view>
+              <view class="price">
+                ￥145
+              </view>
+            </view>
+            <view class="quantity">
+              x2
+            </view>
+          </view>
+          <view class="income">
+            预计收益：<text>￥2.90</text>
+          </view>
+        </view>
+
+        
+
+      </view>
+
+    </view>
+  </fx-modal-v>
+</view>

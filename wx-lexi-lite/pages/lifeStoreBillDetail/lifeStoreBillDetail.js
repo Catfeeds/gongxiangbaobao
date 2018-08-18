@@ -1,4 +1,4 @@
-// pages/lifeStoreTransaction/lifeStoreTransaction.js
+// pages/lifeStoreBillDetail/lifeStoreBillDetail.js
 Page({
 
   /**
@@ -9,14 +9,14 @@ Page({
   },
 
   /**
-   * 显示弹出框
+   * 查看收益详情
    */
-  handleShowModal () {
+  handleIncomeDetail () {
     this.setData({
       showModal: true
     })
   },
-
+  
   /**
    * 生命周期函数--监听页面加载
    */

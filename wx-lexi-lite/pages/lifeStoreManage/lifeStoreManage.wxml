@@ -54,7 +54,7 @@
         <view class="today-income settlement">
           <text>待结算：</text>
           <text>180.00</text>
-          <image src="../../images/icon-info@2.png" class="icon-info"></image>
+          <image src="../../images/icon-info@2x.png" class="icon-info"></image>
         </view>
       </view>
     </view>

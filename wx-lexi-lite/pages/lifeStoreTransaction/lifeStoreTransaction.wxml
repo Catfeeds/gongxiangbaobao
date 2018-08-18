@@ -1,28 +1,39 @@
 <view class='container'>
-  <view class="store-income">
-    
-    <text>生活馆累计收益</text><text>(元)</text>
-    <view class="amount">2230.00</view>
 
-    <view class="foot">
-      <view class="today-income">
-        <text>今日：</text> 180.00
-      </view>
-      <view class="today-income">
-        <text>待结算：</text> 180.00 
+  <view class="store-income__wrapper">
+
+    <view class="store-income">
+      <text>生活馆累计收益</text>
+      <text class="unit">(元)</text>
+      <view class="amount">2230.00</view>
+
+      <view class="foot">
+        <view class="today-income">
+          <text>今日：</text> 180.00
+        </view>
+        <view class="today-income settlement">
+          <text>待结算：</text>
+          <text>180.00</text>
+          <image src="../../images/icon-info@2x.png" class="icon-info" bindtap="handleShowModal"></image>
+        </view>
       </view>
     </view>
+
   </view>
 
   <view class="transactions">
+    <view class="block-title">交易记录</view>
     <view class="choose-date">
-      <view class="dropdown">选择日期</view>
-      <text class="date">近7天</text>
+      <view class="dropdown">
+        <text>选择日期</text>
+        <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down"></image>  
+      </view>
+      <text class="date active">近7天</text>
       <text class="date">近30天</text>
     </view>
     
     <view class="trade-status">
-      <label>全部</label>
+      <label class="active">全部</label>
       <label>待结算</label>
       <label>
         成功 <i class="badge">2</i>
@@ -38,11 +49,42 @@
         </view>
         <view class="trade-income">
           <text class="amount">+4.96</text>
-          <text class="success">成功</text>
+          <text class="status success">成功</text>
         </view>
       </view>
+
+      <view class="trade-item">
+        <view class="trade-order">
+          <text class="order-sn">订单编号： 2021808090023</text>
+          <text class="order-date">2018-08-07 12:39:21</text>
+        </view>
+        <view class="trade-income">
+          <text class="amount">+4.96</text>
+          <text class="status pending">成功</text>
+        </view>
+      </view>
+
+      <view class="trade-item">
+        <view class="trade-order">
+          <text class="order-sn">订单编号： 2021808090023</text>
+          <text class="order-date">2018-08-07 12:39:21</text>
+        </view>
+        <view class="trade-income">
+          <text class="amount">+4.96</text>
+          <text class="status">成功</text>
+        </view>
+      </view>
+
     </view>
 
   </view>
+
+  <!--待结算提示-->
+  <fx-modal-v 
+    visible="{{ showModal }}">
+    <view class="modal-body">
+      待结算金额需用户确认签收订单后，7个工作日内未发生退款，则可入账并提现。如在7日内有退款行为，扣除相应收益。
+    </view>
+  </fx-modal-v>
 
 </view>

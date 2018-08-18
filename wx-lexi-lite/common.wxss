@@ -2,6 +2,7 @@
 button::after {
   border: none;
 }
+
 .fx-button {
   border-radius: 8rpx;
   padding: 25rpx 0rpx;
@@ -254,4 +255,38 @@ button::after {
 }
 .fx-window .fx-window__body .keywords label {
   margin-right: 21rpx;
+}
+
+/* 菜单块 */
+
+.fx-block {
+  padding-left: 40rpx;
+  background-color: #fff;
+}
+.fx-block .fx-block__item {
+  font-size: 28rpx;
+  color: #333;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #E9E9E9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fx-block .fx-block__item:last-child {
+  border-bottom: none;
+}
+.fx-block .fx-block__item .icon-bill {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 20rpx;
+}
+.fx-block .fx-block__item .title {
+  flex: 1;
+  font-size: 28rpx;
+}
+.fx-block .fx-block__item .icon-arrow {
+  flex: 0 0 auto;
+  font-size: 24rpx;
+  margin-right: 40rpx;
+  color: #C1C1C1;
 }

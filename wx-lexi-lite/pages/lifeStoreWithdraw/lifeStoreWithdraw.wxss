@@ -24,15 +24,39 @@
   background-color: #fff;
   padding: 0 90rpx 30rpx;
   text-align: center;
+  margin-bottom: 20rpx;
 }
 .withdraw-action .fx-button--withdraw {
-  background-color: #CCCCCC;
+  background-color: #5fe4b1;
   font-size: 32rpx;
   color: #fff;
   padding: 24rpx 0;
-  margin-bottom: 35rpx;
+  margin-bottom: 30rpx;
+}
+.withdraw-action .fx-button--withdraw.disabled {
+  background-color: #CCCCCC;
+  cursor: not-allowed;
 }
 .withdraw-action .notice {
   font-size: 24rpx;
   color: #999;
+}
+
+.withdraw-modal {
+  text-align: center;
+}
+.withdraw-modal .icon-money {
+  width: 114rpx;
+  height: 114rpx;
+}
+.withdraw-modal .amount {
+  font-size: 48rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 18rpx;
+}
+.withdraw-modal .tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 96rpx;
 }

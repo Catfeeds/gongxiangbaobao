@@ -5,7 +5,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    showModal: false
+  },
+
+  /**
+   * 点击提现
+   */
+  handleShowWithdraw () {
+    this.setData({
+      showModal: true
+    })
+  },
+
+  /**
+   * 提交提现命令
+   */
+  handleSubmitWithdraw () {
+
+  },
+
+  /**
+   * 查看对账单
+   */
+  handleViewBill () {
+    wx.navigateTo({
+      url: '../lifeStoreBill/lifeStoreBill',
+    })
   },
 
   /**

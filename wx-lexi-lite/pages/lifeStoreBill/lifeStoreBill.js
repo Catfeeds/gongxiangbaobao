@@ -9,6 +9,15 @@ Page({
   },
 
   /**
+   * 账单详情
+   */
+  handleViewDetail () {
+    wx.navigateTo({
+      url: '../lifeStoreBillDetail/lifeStoreBillDetail',
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
