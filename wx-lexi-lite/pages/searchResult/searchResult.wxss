@@ -1,1 +1,2 @@
 /* pages/searchResult/searchResult.wxss */
+@import "../user/user.wxss"

@@ -215,12 +215,12 @@ Page({
     this.data.shoppingCart.items.forEach((v, i) => {
       quantity = v.quantity - 0 + quantity
       let sellPrice = v.product.sale_price == 0 ? v.product.price : v.product.sale_price
-      aggregatePrice = aggregatePrice + sellPrice * v.quantity
+      aggregatePrice = (aggregatePrice*1000 + sellPrice * v.quantity*1000)/1000
     })
 
     this.setData({
       carQuantity: quantity,
-      payment: aggregatePrice
+      payment: aggregatePrice.toFixed(2)
     })
 
     //更新数量

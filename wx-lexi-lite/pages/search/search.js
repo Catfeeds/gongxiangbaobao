@@ -5,15 +5,51 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+let WxParse = require("../../wxParse/wxParse.js")
+let searchTime
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    searchHistory:[], // 搜索历史
     inputText: '', // 输入框的内容
-    highQualityList: [] // 最近查看
+    highQualityList: [], // 最近查看
+    recommendText:[], // 搜索时候推荐的词汇
+    html:[],
+    // 关键词请求到参数
+    hingeParams:{
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
+      qk: "", //必须	 	关键词
+    },
+  },
 
+  // 记录历时 跳转页面
+  handleRecordLast(){
+    console.log(this.data.inputText,"保存历史")
+    let data = this.data.searchHistory
+    data.unshift(this.data.inputText)
+    let newData = Array.from(new Set(data)) // 去重后转为数组 
+    console.log(newData)
+    wx.setStorageSync('searchHistory', newData)
+
+    this.setData({
+      searchHistory: newData
+    })
+
+    wx.navigateTo({
+      url: '../searchResult/searchResult?text='+this.data.inputText,
+    })
+  },
+
+//清空历史
+  handleClearHistory(){
+    wx.setStorageSync('searchHistory', [])
+    this.setData({
+      searchHistory:[]
+    })
   },
 
   // 优质新品
@@ -32,10 +68,60 @@ Page({
 
   // 输入框输入信息
   handleInput(e) {
-    console.log(e.detail.value)
+    console.log(e.detail.value, "输入的内容")
+    
+    
     this.setData({
-      inputText: e.detail.value
+      inputText: e.detail.value,
+      ['hingeParams.qk']: e.detail.value
     })
+
+    clearTimeout(searchTime)
+    searchTime = setTimeout(()=>{
+      http.fxGet(api.core_platforms_search, this.data.hingeParams, (result) => {
+        console.log(result, "搜索结果")
+        if (result.success) {
+          result.data.search_items.forEach((v,i)=>{
+            v.matches.forEach((o,n)=>{
+              v.name =  v.name.replace(o,`<text style=color:#5FE4B1>`+o+`</text>`) 
+            })
+            // 处理html数据---
+            console.log(v)
+            // v.search_items=JSON.parse(v)
+            if (result.data.search_items.length-1==i){
+              WxParse.wxParseTemArray("html", v.search_items, result.data.search_items.length, this)
+              console.log(this.data.html)
+              this.setData({
+                recommendText: result.data
+              })
+            }
+          })
+
+          
+
+        } else {
+
+        }
+      })
+    },3000)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   },
 
   // 关闭输入框
@@ -45,12 +131,23 @@ Page({
     })
   },
 
+  getSearchHistory(){
+    let data = wx.getStorageSync("searchHistory") || []
+    this.setData({
+      searchHistory:data
+    })
+
+    console.log(data,"历史记录")
+
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.getHighQuality()
+    this.getSearchHistory()
   },
 
   /**
