@@ -5,7 +5,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    sid: '', // 当前生活馆rid
+    activeSubMenu: 'lifeStore',
+  },
+
+  /**
+   * 切换个人中心
+   */
+  handleGoUser() {
+    wx.switchTab({
+      url: '../user/user',
+    })
   },
 
   /**
@@ -30,7 +40,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    const lifeStore = wx.getStorageSync('lifeStore')
+    // 小B商家获取自己生活馆
+    if (lifeStore.isSmallB) {
+      this.setData({
+        sid: lifeStore.lifeStoreRid
+      })
+    }
   },
 
   /**

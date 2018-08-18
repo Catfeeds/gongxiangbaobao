@@ -145,6 +145,42 @@ App({
 
     wx.setStorageSync('lifeStore', lifeStore)
   },
+
+  /**
+   * 更新用户最后访问的生活馆信息
+   */
+  updateLifeStoreLastVisit (sid) {
+    wx.setStorageSync('lastVisitLifeStoreRid', sid)
+
+    // 登录用户，更新至服务端；
+    // 未登录用户，临时保存至客户端
+    if (this.globalData.isLogin) {
+      // 同步更新至服务端
+      http.fxPost(api.life_store_update_rid, {
+        last_store_rid: sid
+      }, (result) => {
+        console.log(result, '更新最近的生活馆')
+        if (!result.success) {
+          utils.fxShowToast(result.status.message)
+        } else {
+          console.log('已成功更新最近的生活馆！')
+        }
+      })
+    }
+  },
+  
+  /**
+   * 获取用户最后访问的生活馆rid
+   */
+  getLastVisitLifeStore () {
+    http.fxGet(api.life_store_last_visit, {}, function (result) {
+      if (result.success) {
+        lastVisitLifeStoreRid = result.data.last_store_rid
+
+        wx.setStorageSync('lastVisitLifeStoreRid', lastVisitLifeStoreRid)
+      }
+    })
+  },
   
   /**
    * 支付订单
@@ -208,7 +244,7 @@ App({
         this.globalData.cartTotalCount = res.data.item_count
         if (this.globalData.cartTotalCount > 0) {
           wx.showTabBarRedDot({
-            index: 1
+            index: 2
           })
         }
       }
@@ -250,6 +286,8 @@ App({
     storeInfo: [],
     // 当前登录用户的生活馆
     lifeStore: {},
+    // 当前用户最后访问的生活馆
+    lastVisitLifeStoreRid: '',
     // 登录用户信息
     userInfo: null,
     // 地址位置

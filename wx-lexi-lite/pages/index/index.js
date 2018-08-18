@@ -343,22 +343,6 @@ Page({
     })
   },
 
-  /**
-   * 更新最近访问的生活馆
-   */
-  handleUpdateLastStoreRid(sid) {
-    http.fxPost(api.life_store_update_rid, {
-      last_store_rid: sid
-    }, (result) => {
-      console.log(result, '更新最近的生活馆')
-      if (!result.success) {
-        utils.fxShowToast(result.status.message)
-      } else {
-        console.log('已成功更新最近的生活馆！')
-      }
-    })
-  },
-
   /** 探索页面start **/
 
   // 广告位置
@@ -837,12 +821,9 @@ Page({
         wx.setStorageSync('uid', customer_rid)
       }
     }
-    // 从某个生活馆点击进入
-    if (sid != '') {
-      // 更新当前用户的last_store_rid
-      this.handleUpdateLastStoreRid(sid)
-    } else {
-      // 小B商家获取自己生活馆
+
+    // 验证是否为小B商家
+    if (sid == '') {
       if (lifeStore.isSmallB) {
         sid = lifeStore.lifeStoreRid
 
@@ -862,6 +843,9 @@ Page({
         pageActiveTab: 'lifeStore',
         storeOwner: userInfo
       })
+
+      // 更新当前用户的last_store_rid
+      app.updateLifeStoreLastVisit(sid)
     } else {
       this.setData({
         'pageTabs[0].disabled': true

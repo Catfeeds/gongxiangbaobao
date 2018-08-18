@@ -1,10 +1,10 @@
 <view class='container'>
   <view class="fx-submenu">
-    <view class="submenu">
+    <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}" bindtap="handleGoUser">
       <text>个人主页</text>
       <view class="arrow"></view>
     </view>
-    <view class="submenu active">
+    <view class="submenu  {{ activeSubMenu == 'lifeStore' ? 'active' : ''}}">
       <text>生活馆管理</text>
       <view class="arrow"></view>
     </view>
