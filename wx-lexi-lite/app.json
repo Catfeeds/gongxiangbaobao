@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/branderStore/branderStore",
+    "pages/branderStoreList/branderStoreList",
     "pages/gatherInfo/gatherInfo",
     "pages/search/search",
     "pages/dynamic/dynamic",

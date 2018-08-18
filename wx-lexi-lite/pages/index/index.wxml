@@ -390,8 +390,8 @@
         <swiper-item wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
-            <text class='explore-advertisement__title'>{{item.title}}</text>
-            <text class='explore-advertisement__info'>{{item.description}}</text>
+            <!-- <text class='explore-advertisement__title'>{{item.title}}</text> -->
+            <!-- <text class='explore-advertisement__info'>{{item.description}}</text> -->
           </view>
         </swiper-item>
       </swiper>
@@ -426,7 +426,10 @@
     <view class='border-bottom'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特色品牌馆</text>
-        <text wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text 
+          catchtap="handelTobrandList"
+          wx:if="{{editRecommendList.products.length>9}}" 
+          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>

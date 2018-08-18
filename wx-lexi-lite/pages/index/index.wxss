@@ -667,7 +667,6 @@ height: 280rpx;
 border-radius: 8rpx;
 margin: 0 auto;
 display: block;
-
 }
 
 .swiper-photo image.active {

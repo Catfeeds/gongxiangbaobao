@@ -983,5 +983,11 @@ Page({
     wx.navigateTo({
       url: '../branderStore/branderStore?rid='+e.currentTarget.dataset.rid,
     })
+  },
+  // 跳转到品牌管详情
+  handelTobrandList(e){
+    wx.navigateTo({
+      url: '../branderStoreList/branderStoreList?rid='+e.currentTarget.dataset.rid,
+    })
   }
 })
