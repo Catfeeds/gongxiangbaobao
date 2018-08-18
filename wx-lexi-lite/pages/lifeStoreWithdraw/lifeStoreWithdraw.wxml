@@ -1,0 +1,25 @@
+<view class='container'>
+
+  <view class="withdraw-wallet">
+    <view class="withdraw-title">
+      可提现金额<text>（元）</text>
+    </view>
+    <view class="withdraw-amount">
+      8.00
+    </view>
+    <view class="withdraw-sum">
+      累计已提现：6890.00
+    </view>
+  </view>
+
+  <view class="withdraw-action">
+    <button class="fx-button fx-button--withdraw">提现</button>
+    <text class="notice">可提现金额超过10元才可提现，每日最多可提现3次</text>
+  </view>
+
+  <view class="fx-block">
+    <label>对账单</label>
+    <text>无提现记录 ></text>
+  </view>
+
+</view>

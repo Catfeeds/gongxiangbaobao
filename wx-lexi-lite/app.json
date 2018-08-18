@@ -1,6 +1,8 @@
 {
   "pages": [
-    
+    "pages/lifeStoreWithdraw/lifeStoreWithdraw",
+    "pages/lifeStoreManage/lifeStoreManage", 
+    "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/index/index",
     "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
@@ -45,7 +47,11 @@
     "pages/find/find",
     "pages/gather/gather",
     "pages/lifeStoreGuide/lifeStoreGuide",
-    "pages/categoryList/categoryList"
+    "pages/categoryList/categoryList",
+    
+    
+    "pages/lifeStoreBalance/lifeStoreBalance",
+    "pages/lifeStoreBill/lifeStoreBill"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
