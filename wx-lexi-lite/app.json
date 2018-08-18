@@ -1,8 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/branderStore/branderStore",
+    "pages/lifeStoreWithdraw/lifeStoreWithdraw",
+    "pages/lifeStoreManage/lifeStoreManage", 
+    "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/branderStoreList/branderStoreList",
+    "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
     "pages/search/search",
     "pages/dynamic/dynamic",
@@ -45,7 +48,10 @@
     "pages/find/find",
     "pages/gather/gather",
     "pages/lifeStoreGuide/lifeStoreGuide",
-    "pages/categoryList/categoryList"
+    "pages/categoryList/categoryList",
+    "pages/lifeStoreBalance/lifeStoreBalance",
+    "pages/lifeStoreBill/lifeStoreBill",
+    "pages/searchResult/searchResult"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

@@ -1,0 +1,12 @@
+<view class="fx-modal-v-container" catchtouchmove="handleDoNothing" hidden="{{ !visible }}" bindtap="hideModal">
+  <view class="fx-mask" catchtouchmove="handleDoNothing"></view>
+  <view class="fx-modal-v" catchtap="handleDoNothing">
+    <image bindtap="hideModal" src="../../images/icon-close-bold@2x.png" class="icon-close"></image>
+    <view class="fx-modal__title">
+      {{ title }}
+    </view>
+    <view class="fx-modal__body">
+      <slot></slot>
+    </view>
+  </view>
+</view>

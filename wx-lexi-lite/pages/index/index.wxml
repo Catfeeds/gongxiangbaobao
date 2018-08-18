@@ -1,15 +1,15 @@
 <!--index.wxml-->
 
 <view class="container">
-
+<view class="c-middle sear-top">
   <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
-    <image src='../../images/sear@2.png'></image>
+    
     <view class='search-box_text flex_row'>
       <image src='../../images/sear-icon@2.png'></image>
       <text>关键字/礼物/品牌馆/人</text>
     </view>
   </view>
-
+</view>
   <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
   <view class='fx-tabs navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>

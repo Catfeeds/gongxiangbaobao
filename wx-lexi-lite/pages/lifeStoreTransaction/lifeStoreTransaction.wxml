@@ -1,0 +1,48 @@
+<view class='container'>
+  <view class="store-income">
+    
+    <text>生活馆累计收益</text><text>(元)</text>
+    <view class="amount">2230.00</view>
+
+    <view class="foot">
+      <view class="today-income">
+        <text>今日：</text> 180.00
+      </view>
+      <view class="today-income">
+        <text>待结算：</text> 180.00 
+      </view>
+    </view>
+  </view>
+
+  <view class="transactions">
+    <view class="choose-date">
+      <view class="dropdown">选择日期</view>
+      <text class="date">近7天</text>
+      <text class="date">近30天</text>
+    </view>
+    
+    <view class="trade-status">
+      <label>全部</label>
+      <label>待结算</label>
+      <label>
+        成功 <i class="badge">2</i>
+      </label>
+      <label>退款</label>
+    </view>
+
+    <view class="trade-list">
+      <view class="trade-item">
+        <view class="trade-order">
+          <text class="order-sn">订单编号： 2021808090023</text>
+          <text class="order-date">2018-08-07 12:39:21</text>
+        </view>
+        <view class="trade-income">
+          <text class="amount">+4.96</text>
+          <text class="success">成功</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+</view>

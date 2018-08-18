@@ -1,0 +1,38 @@
+.withdraw-wallet {
+  background-color: #fff;
+  text-align: center;
+  font-size: 28rpx;
+  color: #333;
+  padding: 85rpx 0;
+}
+
+.withdraw-wallet .withdraw-title text {
+  font-size: 24rpx;
+}
+.withdraw-wallet .withdraw-amount {
+  font-size: 48rpx;
+  color: #FF6767;
+  margin-top: 36rpx;
+  font-weight: 600;
+}
+.withdraw-wallet .withdraw-sum {
+  margin-top: 44rpx;
+  color: #FB9013;
+  font-size: 24rpx;
+}
+.withdraw-action {
+  background-color: #fff;
+  padding: 0 90rpx 30rpx;
+  text-align: center;
+}
+.withdraw-action .fx-button--withdraw {
+  background-color: #CCCCCC;
+  font-size: 32rpx;
+  color: #fff;
+  padding: 24rpx 0;
+  margin-bottom: 35rpx;
+}
+.withdraw-action .notice {
+  font-size: 24rpx;
+  color: #999;
+}

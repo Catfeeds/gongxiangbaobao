@@ -1,0 +1,133 @@
+<view class='container'>
+  <view class="fx-submenu">
+    <view class="submenu">
+      <text>个人主页</text>
+      <view class="arrow"></view>
+    </view>
+    <view class="submenu active">
+      <text>生活馆管理</text>
+      <view class="arrow"></view>
+    </view>
+  </view>
+
+  <view class="store-owner__wrapper">
+    <view class="blur"></view>
+    <view class="mask"></view>
+    <view class="store-owner-container">
+      <view class="store-owner">
+        <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="avatar"></image>
+        <view class="store-content">
+          <view class="title">
+            <image src="../../images/shixicon@2.png" class="icon-store"></image>
+            <text class="name">欧阳娜娜</text>
+            <label class="status-label">实习馆主</label>
+          </view>
+          <view class="owner-uid">
+            ID:800098245
+          </view>
+        </view>
+      </view>
+      <view class="practice-timer">
+        <label>实习倒计时</label>
+        <label class="number day">28</label>
+        <label class="unit day">天</label>
+        <label class="number">23</label>
+        <label class="unit">时</label>
+        <label class="number">08</label>
+        <label class="unit">分</label>
+        <label class="number">34</label>
+        <label class="unit">秒</label>
+      </view>
+    </view>
+  </view>
+
+  <view class="store-income__wrapper">
+    <view class="store-income">
+      <text>生活馆累计收益</text>
+      <text class="unit">(元)</text>
+      <view class="amount">2230.00</view>
+
+      <view class="foot">
+        <view class="today-income">
+          <text>今日：</text> 180.00
+        </view>
+        <view class="today-income settlement">
+          <text>待结算：</text>
+          <text>180.00</text>
+          <image src="../../images/icon-info@2.png" class="icon-info"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="store-dashboard">
+      <view class="order-total-count" bindtap="handleGoTrade">
+        <view class="title">
+          总计成交订单
+          <text>（笔）</text>
+        </view>
+        <label class="count">
+          123
+        </label>
+        <view class="label-count">
+          今日：
+          <text>3</text>
+        </view>
+      </view>
+
+      <view class="order-total-amount" bindtap="handleGoWithdraw">
+        <view class="title">
+          可提现金额
+          <text>（元）</text>
+        </view>
+        <label class="count">
+          123.00
+        </label>
+        <view class="label-count">
+          累计已提现：
+          <text class="yellow">6890.00</text>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+
+  <view class="store-helper__wrapper">
+    <view class="store-helper">
+      <view class="title">
+        成功在30天内售出3笔订单即可成为正式馆主
+      </view>
+      <view class="item">
+        未达销售指标，生活馆将被冻结并关闭。
+      </view>
+      <view class="item">
+        已产生交易的订单收益将无法提现。
+      </view>
+
+      <view class="follow">
+        <text>关注“乐喜生活馆”公众号，随时接收订单和收益通知</text> 
+        <i class="fx-icon-nothing-right"></i>
+      </view>
+    </view>
+  </view>
+
+  <view class="fx-block">
+    <view class="fx-block__item">
+      <text class="title">邀请好友开馆赚钱</text>
+      <label class="icon-arrow">
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
+    <view class="fx-block__item">
+      <text>加入馆主群，获取赚钱攻略</text>
+      <label class="icon-arrow">
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
+  </view>
+
+  <view class="store-phone">
+    客服电话：400-2345-0000
+  </view>
+
+</view>

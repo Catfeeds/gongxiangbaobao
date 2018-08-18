@@ -144,13 +144,11 @@
 
         </view>
 
-        <view></view>
+        <view class="shim"></view>
 
         <view class="announcement-off__btn">
           <image src="../../images/icon-close@2x.png"></image>
         </view>
-
-
   </view>
 
 </view>
