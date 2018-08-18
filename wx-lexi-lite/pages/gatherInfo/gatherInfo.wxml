@@ -1,9 +1,9 @@
 <!--pages/gatherInfo/gatherInfo.wxml-->
 <view class="container">
   <view class="gather-hander__photo">
-    <image mode="widthFix" src="../../images/timg.jpg"></image>
-    <text class="gather-hander__text--big">给父亲的个性化礼物</text>
-    <text class="font-s gather-hander__text--min">55件商品</text>
+    <image mode="widthFix" src="{{product.cover}}"></image>
+    <text class="gather-hander__text--big">{{product.name}}</text>
+    <text class="font-s gather-hander__text--min">{{product.products.length==0?"":product.products.length+"件商品"}}</text>
   </view>
 
   <view class="goodsList">

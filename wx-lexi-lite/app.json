@@ -7,6 +7,7 @@
     "pages/lifeStoreBill/lifeStoreBill",
     "pages/lifeStoreWithdraw/lifeStoreWithdraw",
     "pages/index/index",
+    "pages/branderStoreList/branderStoreList",
     "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
     "pages/search/search",
@@ -50,7 +51,8 @@
     "pages/find/find",
     "pages/gather/gather",
     "pages/lifeStoreGuide/lifeStoreGuide",
-    "pages/categoryList/categoryList"
+    "pages/categoryList/categoryList",
+    "pages/searchResult/searchResult"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

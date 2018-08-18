@@ -103,6 +103,7 @@ module.exports = {
   // 核心 store
   users_user_dynamic:"users/user_dynamic", // 获取自己的动态
   column_feature_store: 'column/feature_store', // 特色品牌管h
+  column_handpick_store:'column/handpick_store', // 特色品牌馆精选
   column_browse_records:'column/browse_records', // 浏览过乐喜优选，优质新品……人数以及头像
   users_other_followed_stores: 'users/other_followed_stores', // 获取用户关注地店铺列表
 

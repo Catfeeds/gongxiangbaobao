@@ -9,6 +9,9 @@
 .fx-mini-btn--xs {
   padding: 12rpx 48rpx;
 }
+.fx-mini-btn--s {
+  padding: 18rpx 20rpx;
+}
 .fx-mini-btn--md {
   padding: 18rpx 48rpx;
 }
@@ -32,7 +35,9 @@
   background-color: #FF6666;
   color: #ffffff;
 }
-
+.fx-mini-btn--store {
+  background-color: #F5F7F9;
+}
 .fx-mini-btn.follow {
   padding: 12rpx 30rpx;
 }

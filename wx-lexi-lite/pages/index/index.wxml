@@ -1,15 +1,15 @@
 <!--index.wxml-->
 
 <view class="container">
-
+<view class="c-middle sear-top">
   <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
-    <image src='../../images/sear@2.png'></image>
+    
     <view class='search-box_text flex_row'>
       <image src='../../images/sear-icon@2.png'></image>
       <text>关键字/礼物/品牌馆/人</text>
     </view>
   </view>
-
+</view>
   <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
   <view class='fx-tabs navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
@@ -390,8 +390,8 @@
         <swiper-item wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
-            <text class='explore-advertisement__title'>{{item.title}}</text>
-            <text class='explore-advertisement__info'>{{item.description}}</text>
+            <!-- <text class='explore-advertisement__title'>{{item.title}}</text> -->
+            <!-- <text class='explore-advertisement__info'>{{item.description}}</text> -->
           </view>
         </swiper-item>
       </swiper>
@@ -426,11 +426,19 @@
     <view class='border-bottom'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特色品牌馆</text>
-        <text wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text 
+          catchtap="handelTobrandList"
+          wx:if="{{editRecommendList.products.length>9}}" 
+          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
-        <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' wx:for="{{characteristicStoreList.stores}}" wx:for-item="items" wx:key="{{ index }}">
+        <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' 
+          wx:for="{{characteristicStoreList.stores}}" 
+          wx:for-item="items"
+          data-rid="{{items.rid}}"
+          catchtap="handleTobrandStore" 
+          wx:key="{{ index }}">
           <image src='{{items.bgcover}}-p50'></image>
           <view class='characteristic-info border-radius--8'>
             <view class='flex_row characteristic-box__title border-radius--8'>

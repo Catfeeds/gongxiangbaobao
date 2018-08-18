@@ -1,0 +1,87 @@
+<!--pages/branderStoreList/branderStoreList.wxml 品牌管列表-->
+<view class="container">
+
+  <!-- nav-bar -->
+  <view class="flex_row nav-bar">
+    <view wx:for="{{categoryList}}" catchtap="handleChangeCategory" data-id="{{item.id}}" class="font-xxl c-middle nav-bar__text {{categoryId==item.id?'active':''}}" wx:key="{{index}}">{{item.name}}</view>
+  </view>
+
+  <!-- brand-item -->
+  <view 
+    class="bg-white border-bottom" 
+    wx:if="{{categoryId==1}}" 
+    data-rid="{{items.rid}}"
+    catchtap="handleTobrandStore" 
+    wx:key="{{index}}" 
+    wx:for-item="store" 
+    wx:for="{{storeList}}">
+    <view class="flex_row brand-store__info">
+      <image src="{{store.logo}}" class="log"></image>
+      <view>
+        <view class="black-font font-width--medium">{{store.name}}</view>
+        <view class="flex_row">
+          <image class="address-icon" src="../../images/indexAdrees@2.png"></image>
+          <text class="font-ss">{{store.delivery_country}},{{store.delivery_province}}</text>
+        </view>
+        <view class="font-s qian-hui one-line-text depict">
+          <text>{{store.tag_line}}</text>
+        </view>
+      </view>
+    </view>
+
+    <scroll-view scroll-x class="high-bottom__scroll">
+      <view class="brand-product__item {{index==0?'margin-left--40rpx':''}} {{store.products.length-1==index?'margin-right--40rpx':''}}" wx:for="{{store.products}}" wx:key="{{index}}">
+        <fx-product 
+          photoSize="16" 
+          photo="{{2}}" 
+          bind:triggerEvent_product="handleInfomation"
+          product="{{item}}"></fx-product>
+
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 精选 -->
+  <view class="bg-white" wx:if="{{categoryId==2}}">
+    <view class="big-photo">
+      <swiper 
+        indicator-dots="{{indicatorDots}}" 
+        autoplay="{{autoplay}}" 
+        interval="{{interval}}" 
+        duration="{{duration}}">
+        <block wx:for="{{HighStoreList.handpick_store}}" wx:key="{{index}}">
+          <swiper-item>
+            <image src="../../images/timg.jpg" class="slide-image" width="355" height="150" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+    <view class="high-bottom">
+      <scroll-view scroll-x class="high-bottom__scroll">
+        <view 
+          class="fx-column--center high-bottom__item {{index==0?'margin-left--40rpx':''}} {{HighStoreList.handpick_store.length-1==index?'margin-right--40rpx':''}}" 
+          wx:key="{{index}}"
+          data-rid="{{item.rid}}"
+          catchtap="handleTobrandStore"
+          wx:for="{{HighStoreList.handpick_store}}">
+          <image src="{{item.logo}}"></image>
+          <view><text class="font-s">{{item.name}}</text></view>
+          <view class="one-line-text"><text class='font-ss qian-hui'>{{item.store_products_counts==0?"":store_products_counts+"件商品"}}</text></view>
+        </view>
+      </scroll-view>
+
+    </view>
+
+
+
+
+
+
+
+  </view>
+
+
+
+
+</view>

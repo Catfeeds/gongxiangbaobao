@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    product:[], //详情
     isNext: false, // 是否有下一页
     productList: [],
     params: {
@@ -32,7 +33,8 @@ Page({
 
         this.setData({
           isNext: result.data.next,
-          productList: data
+          productList: data,
+          product: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)

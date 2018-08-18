@@ -22,7 +22,7 @@
       </view>
 
       <view class='font-xl font-width--medium margin-top--22rpx'> <text>给她的礼物</text> </view>
-      <view class='font-s qian-hui'>55件商品</view>
+      <view class='font-s qian-hui'>{{item.products.length==0?"":item.products.length+"件商品"}}</view>
     </view>
   </view>
 </view>
