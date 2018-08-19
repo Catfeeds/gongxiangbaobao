@@ -13,12 +13,29 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sid: '', //  生活馆rid
     showModal: false,
+    activeStatus: 0,
+    statusPanels: [
+      { rid: 's0', name: '全部', status: 0, count: 0 },
+      { rid: 's1', name: '待结算', status: 1, count: 0 },
+      { rid: 's2', name: '成功', status: 2, count: 0 },
+      { rid: 's3', name: '退款', status: 3, count: 0 }
+    ],
+    params: {
+      store_rid: '', // 当前生活馆
+      date_range: 'week', // 日期区间
+      status: 0,
+      page: 1, 
+      per_page: 10
+    },
     collect: {
       pending_commission_price: 0, // 待结算金额
       today_commission_price: 0, // 今日收益
       total_commission_price: 0 // 累计收益
-    }
+    },
+    totalCount: 0, // 总记录数
+    orderList: [] // 交易订单列表
   },
 
   /**
@@ -27,6 +44,49 @@ Page({
   handleShowModal () {
     this.setData({
       showModal: true
+    })
+  },
+
+  /**
+   * 改变日期
+   */
+  handleChangeDate (e) {
+    let d = e.currentTarget.dataset.date
+    this.setData({
+      'params.date_range': d,
+      'params.page': 1
+    }) 
+
+    this.getStoreOrders()
+  },
+  
+  /**
+   * 改变状态
+   */
+  handleChangeStatus (e) {
+    let status = e.currentTarget.dataset.status
+    this.setData({
+      'activeStatus': parseInt(status),
+      'params.status': status,
+      'params.page': 1
+    })
+
+    this.getStoreOrders()
+  },
+
+  /**
+   * 获取交易订单列表
+   */
+  getStoreOrders () {
+    http.fxGet(api.life_store_transactions, this.data.params, (res) => {
+      console.log(res, '交易订单')
+      if (!res.success) {
+        utils.fxShowToast(res.status.message)
+      }
+      this.setData({
+        'totalCount': res.data.count,
+        'orderList': res.data.transactions
+      })
     })
   },
 
@@ -40,9 +100,9 @@ Page({
         utils.fxShowToast(res.status.message)
       }
       this.setData({
-        'collect.pending_commission_price': res.data.pending_commission_price,
-        'collect.today_commission_price': res.data.today_commission_price,
-        'collect.total_commission_price': res.data.total_commission_price
+        'collect.pending_commission_price': res.data.pending_commission_price.toFixed(2),
+        'collect.today_commission_price': res.data.today_commission_price.toFixed(2),
+        'collect.total_commission_price': res.data.total_commission_price.toFixed(2)
       })
     })
   },
@@ -55,10 +115,12 @@ Page({
     // 小B商家获取自己生活馆
     if (lifeStore.isSmallB) {
       this.setData({
-        sid: lifeStore.lifeStoreRid
+        sid: lifeStore.lifeStoreRid,
+        'params.store_rid': lifeStore.lifeStoreRid
       })
 
       this.getStoreIncomeCollect()
+      this.getStoreOrders()
     } else {
       // 如不是小B商家，则跳转至首页
       wx.switchTab({

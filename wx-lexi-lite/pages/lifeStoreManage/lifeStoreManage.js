@@ -15,7 +15,18 @@ Page({
   data: {
     sid: '', // 当前生活馆rid
     activeSubMenu: 'lifeStore',
-    lifeStore: {}, // 生活馆信息
+    lifeStore: { // 生活馆信息
+      phases: 1
+    },
+    createdAt: 0, // 生活馆创建日期
+    timer: null,
+    expired: false, // 是否已过实习期
+    leftTimer: { // 剩余时间
+      days: 0,
+      hours: 0, 
+      minutes: 0,
+      seconds: 0,
+    },
     collect: {
       all_count: 0, // 总计成交订单
       today_count: 0, // 今日成交数
@@ -55,6 +66,38 @@ Page({
   },
 
   /**
+   * 计算剩余时间
+   */
+  practiceLeftTimer () {
+    let endTs = this.data.createdAt + 30 * 24 * 60 * 60 // 30天内
+    let leftTime = endTs - utils.timestamp() // 计算剩余的毫秒数 
+    console.log('Left time: ' + leftTime)
+    if (leftTime < 0) {
+      clearInterval(this.data.timer)
+      this.setData({
+        expired: true,
+        timer: null
+      })
+      return
+    }
+    let days = parseInt(leftTime / 60 / 60 / 24, 10) // 计算剩余的天数 
+    let hours = parseInt(leftTime / 60 / 60 % 24, 10) // 计算剩余的小时 
+    let minutes = parseInt(leftTime / 60 % 60, 10) // 计算剩余的分钟 
+    let seconds = parseInt(leftTime % 60, 10) // 计算剩余的秒数 
+
+    this.setData({
+      leftTimer: {
+        days: utils.checkTimeNumber(days),
+        hours: utils.checkTimeNumber(hours),
+        minutes: utils.checkTimeNumber(minutes),
+        seconds: utils.checkTimeNumber(seconds),
+      }
+    })
+
+    console.log(this.data.leftTimer)
+  },
+
+  /**
    * 获取生活馆提现汇总
    */
   getStoreCashCollect () {
@@ -64,8 +107,8 @@ Page({
         utils.fxShowToast(res.status.message)
       }
       this.setData({
-        'collect.cash_price': res.data.cash_price,
-        'collect.total_cash_price': res.data.total_cash_price
+        'collect.cash_price': res.data.cash_price.toFixed(2),
+        'collect.total_cash_price': res.data.total_cash_price.toFixed(2)
       })
     })
   },
@@ -80,9 +123,9 @@ Page({
         utils.fxShowToast(res.status.message)
       }
       this.setData({
-        'collect.pending_commission_price': res.data.pending_commission_price,
-        'collect.today_commission_price': res.data.today_commission_price,
-        'collect.total_commission_price': res.data.total_commission_price
+        'collect.pending_commission_price': res.data.pending_commission_price.toFixed(2),
+        'collect.today_commission_price': res.data.today_commission_price.toFixed(2),
+        'collect.total_commission_price': res.data.total_commission_price.toFixed(2)
       })
     })
   },
@@ -113,8 +156,10 @@ Page({
       console.log(res, '生活馆信息')
       if (res.success) {
         this.setData({
-          lifeStore: res.data
+          lifeStore: res.data,
+          createdAt: res.data.created_at
         })
+        this.practiceLeftTimer()
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -155,21 +200,27 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let timer = setInterval(() => {
+      this.practiceLeftTimer()
+    }, 1000)
+
+    this.setData({
+      timer: timer
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    clearInterval(this.data.timer)
   },
 
   /**

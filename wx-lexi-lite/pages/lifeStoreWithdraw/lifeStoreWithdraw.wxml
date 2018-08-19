@@ -6,15 +6,15 @@
       <text>（元）</text>
     </view>
     <view class="withdraw-amount">
-      8.00
+      {{ collect.cash_price }}
     </view>
     <view class="withdraw-sum">
-      累计已提现：6890.00
+      累计已提现：{{ collect.total_cash_price }}
     </view>
   </view>
 
   <view class="withdraw-action">
-    <button class="fx-button fx-button--withdraw" bindtap="handleShowWithdraw">提现</button>
+    <button class="fx-button fx-button--withdraw {{ collect.cash_price < 10 ? 'disabled' : '' }}" bindtap="handleShowWithdraw">提现</button>
     <text class="notice">可提现金额超过10元才可提现，每日最多可提现3次</text>
   </view>
 
@@ -34,7 +34,7 @@
     <view class="withdraw-modal">
       <image src="../../images/icon-money@2x.png" class="icon-money"></image>
       <view class="amount">
-        110.00
+        {{ collect.cash_price }}
       </view>
       <view class="tip">
         技术服务费：0.00

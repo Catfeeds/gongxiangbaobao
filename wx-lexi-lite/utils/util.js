@@ -76,6 +76,16 @@ const timestamp = () => {
   return Date.parse(new Date()) / 1000
 }
 
+/**
+ * 修正数字
+ */
+const checkTimeNumber = (val) => {
+  if (val < 10) {
+    val = '0' + val
+  }
+  return val
+}
+
 const Base64 = {
 
   enKey: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
@@ -239,6 +249,7 @@ module.exports = {
   randomString,
   timestamp,
   sortParams,
+  checkTimeNumber,
   orderStatusTitle,
   Base64
 }

@@ -20,22 +20,22 @@
           <view class="title">
             <image src="../../images/shixicon@2.png" class="icon-store"></image>
             <text class="name">{{ lifeStore.name }}</text>
-            <label class="status-label">实习馆主</label>
+            <label class="status-label" wx:if="{{ lifeStore.phases == 1 }}">实习馆主</label>
           </view>
           <view class="owner-uid">
-            ID:800098245
+            ID: {{ lifeStore.ID }}
           </view>
         </view>
       </view>
-      <view class="practice-timer">
+      <view class="practice-timer" wx:if="{{ lifeStore.phases == 1 || !expired }}">
         <label>实习倒计时</label>
-        <label class="number day">28</label>
+        <label class="number day">{{ leftTimer.days }}</label>
         <label class="unit day">天</label>
-        <label class="number">23</label>
+        <label class="number">{{ leftTimer.hours }}</label>
         <label class="unit">时</label>
-        <label class="number">08</label>
+        <label class="number">{{ leftTimer.minutes }}</label>
         <label class="unit">分</label>
-        <label class="number">34</label>
+        <label class="number">{{ leftTimer.seconds }}</label>
         <label class="unit">秒</label>
       </view>
     </view>

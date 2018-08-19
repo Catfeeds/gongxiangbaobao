@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/lifeStoreManage/lifeStoreManage",
+    "pages/index/index",
+    
     "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/lifeStoreBalance/lifeStoreBalance",
     "pages/lifeStoreBillDetail/lifeStoreBillDetail",

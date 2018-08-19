@@ -38,6 +38,7 @@ const strLength = (s, isChinese=false) => {
   return blen
 }
 
+
 module.exports = {
   getReceivePlaces: getAllPlaces,
   strLength

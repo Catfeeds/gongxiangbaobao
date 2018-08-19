@@ -2,28 +2,34 @@
   <!--账单汇总-->
   <view class="bill-total">
     <view class="bill-store">
-      <image src="../../images/lexi-logo.png" class="store-logo"></image>
-      <text>乐喜生活馆</text>
+      <image src="{{ lifeStore.logo }}" class="store-logo"></image>
+      <text>{{ lifeStore.name }}</text>
     </view>
     <view class="bill-amount">
-      1000.00
+      {{ cashRecord.actual_amount }}
     </view>
-    <view class="bill-status">
+    <view class="bill-status" wx:if="{{ cashRecord.status == 2 }}">
       提现成功
+    </view>
+    <view class="bill-status" wx:if="{{ cashRecord.status == 1 }}">
+      审核中
+    </view>
+    <view class="bill-status" wx:if="{{ cashRecord.status == 3 }}">
+      失败
     </view>
 
     <view class="fx-items">
       <view class="fx-item">
         <label class="label">技术服务费</label>
-        <text class="value">0.00</text>
+        <text class="value">{{ cashRecord.service_fee }}</text>
       </view>
       <view class="fx-item no-border xs">
         <label class="label">提现到</label>
-        <text class="value">微信零钱包</text>
+        <text class="value" wx:if="{{ cashRecord.receive_target == 1 }}">微信零钱包</text>
       </view>
       <view class="fx-item xs">
         <label class="label">提现时间</label>
-        <text class="value">2018-08-15 20：44</text>
+        <text class="value">{{ cashRecord.created_at }}</text>
       </view>
     </view>
 
@@ -32,6 +38,7 @@
   <!--提现明细-->
   <view class="withdraw-bill-list">
     <view class="title">提现明细</view>
+    
     <view class="bill-month">
       <view class="withdraw-date">
         <label>8月</label>
@@ -43,19 +50,6 @@
             收益：<text class="amount">￥30.08</text>
           </label>
           <label class="detail" bindtap="handleIncomeDetail">详情</label>
-        </view>
-        <view class="order-info">
-          <view>订单编号：202222222222</view>
-          <view class="date">2018-08-07 12:39:21</view>
-        </view>
-      </view>
-
-      <view class="bill-order">
-        <view class="order-income">
-          <label class="income">
-            收益：<text class="amount">￥30.08</text>
-          </label>
-          <label class="detail">详情</label>
         </view>
         <view class="order-info">
           <view>订单编号：202222222222</view>

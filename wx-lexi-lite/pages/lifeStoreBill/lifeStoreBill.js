@@ -1,11 +1,20 @@
-// pages/lifeStoreBill/lifeStoreBill.js
+/**
+ * 生活馆管理
+ */
+const app = getApp()
+
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    sid: '',
+    statements: {}
   },
 
   /**
@@ -18,10 +27,38 @@ Page({
   },
 
   /**
+   * 获取对账单
+   */
+  getStoreBills() {
+    http.fxGet(api.life_store_statements, { store_rid: this.data.sid }, (res) => {
+      console.log(res, '对账单')
+      if (!res.success) {
+        utils.fxShowToast(res.status.message)
+      }
+      this.setData({
+        'statements': res.data.statements
+      })
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    const lifeStore = wx.getStorageSync('lifeStore')
+    // 小B商家获取自己生活馆
+    if (lifeStore.isSmallB) {
+      this.setData({
+        sid: lifeStore.lifeStoreRid
+      })
+
+      this.getStoreBills()
+    } else {
+      // 如不是小B商家，则跳转至首页
+      wx.switchTab({
+        url: '../index/index'
+      })
+    }
   },
 
   /**

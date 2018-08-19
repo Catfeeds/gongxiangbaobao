@@ -28,50 +28,38 @@
         <text>选择日期</text>
         <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down"></image>  
       </view>
-      <text class="date active">近7天</text>
-      <text class="date">近30天</text>
+      <text class="date {{ params.date_range == 'week' ? 'active' : '' }}" data-date="week" bindtap="handleChangeDate">近7天</text>
+      <text class="date {{ params.date_range == 'month' ? 'active' : '' }}" data-date="month" bindtap="handleChangeDate">近30天</text>
     </view>
     
     <view class="trade-status">
-      <label class="active">全部</label>
-      <label>待结算</label>
-      <label>
-        成功 <i class="badge">2</i>
+      <label 
+        wx:for="{{ statusPanels }}"
+        wx:for-item="panel"
+        wx:key="{{ panel.rid }}"
+        data-status="{{ panel.status }}"
+        bindtap="handleChangeStatus"
+        class="{{ panel.status == activeStatus ? 'active' : '' }}">
+        {{ panel.name }} <i class="badge" wx:if="{{ panel.count > 0 }}">2</i>
       </label>
-      <label>退款</label>
     </view>
 
     <view class="trade-list">
-      <view class="trade-item">
-        <view class="trade-order">
-          <text class="order-sn">订单编号： 2021808090023</text>
-          <text class="order-date">2018-08-07 12:39:21</text>
-        </view>
-        <view class="trade-income">
-          <text class="amount">+4.96</text>
-          <text class="status success">成功</text>
-        </view>
-      </view>
 
-      <view class="trade-item">
+      <view 
+        class="trade-item" 
+        wx:for="{{ orderList }}"
+        wx:for-item="trade"
+        wx:key="{{ trade.order_rid }}">
         <view class="trade-order">
-          <text class="order-sn">订单编号： 2021808090023</text>
-          <text class="order-date">2018-08-07 12:39:21</text>
+          <text class="order-sn">订单编号： {{ trade.order_rid }}</text>
+          <text class="order-date">{{ trade.payed_at }}</text>
         </view>
         <view class="trade-income">
           <text class="amount">+4.96</text>
-          <text class="status pending">成功</text>
-        </view>
-      </view>
-
-      <view class="trade-item">
-        <view class="trade-order">
-          <text class="order-sn">订单编号： 2021808090023</text>
-          <text class="order-date">2018-08-07 12:39:21</text>
-        </view>
-        <view class="trade-income">
-          <text class="amount">+4.96</text>
-          <text class="status">成功</text>
+          <text class="status pending" wx:if="{{ trade.status == 1 }}">待结算</text>
+          <text class="status success" wx:if="{{ trade.status == 2 }}">成功</text>
+          <text class="status" wx:if="{{ trade.status == 3 }}">退款</text>
         </view>
       </view>
 
