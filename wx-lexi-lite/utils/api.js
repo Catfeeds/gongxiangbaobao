@@ -47,6 +47,14 @@ module.exports = {
   life_store_edit: 'store/edit_store', // GET
   life_store_update_logo: 'store/update_life_store_logo', // POST 
 
+  life_store_orders_collect: 'stats/life_orders_collect', // GET 生活馆订单汇总
+  life_store_income_collect: 'stats/life_orders_sale_collect', // GET 生活馆收益汇总
+  life_store_cash_collect: 'stats/life_cash_collect', // GET 生活馆提现汇总
+  life_store_transactions: 'stats/life_orders/transactions', // GET 生活馆订单交易记录
+  life_store_orders: 'orders/life_orders', // GET 生活馆订单列表
+  life_store_statements: 'stats/life_orders/statements', // GET 生活馆对账单
+  life_store_statement_detail: 'stats/life_orders/statement_items', // GET 生活馆对账单详情
+
   // 分销
 
   // GET 分销池

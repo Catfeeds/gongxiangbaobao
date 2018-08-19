@@ -5,15 +5,15 @@
     <view class="store-income">
       <text>生活馆累计收益</text>
       <text class="unit">(元)</text>
-      <view class="amount">2230.00</view>
+      <view class="amount">{{ collect.total_commission_price }}</view>
 
       <view class="foot">
         <view class="today-income">
-          <text>今日：</text> 180.00
+          <text>今日：</text> {{ collect.today_commission_price }}
         </view>
         <view class="today-income settlement">
           <text>待结算：</text>
-          <text>180.00</text>
+          <text>{{ collect.pending_commission_price }}</text>
           <image src="../../images/icon-info@2x.png" class="icon-info" bindtap="handleShowModal"></image>
         </view>
       </view>

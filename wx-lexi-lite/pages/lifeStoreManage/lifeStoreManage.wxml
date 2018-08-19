@@ -15,11 +15,11 @@
     <view class="mask"></view>
     <view class="store-owner-container">
       <view class="store-owner">
-        <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="avatar"></image>
+        <image src="{{ lifeStore.logo }}" class="avatar"></image>
         <view class="store-content">
           <view class="title">
             <image src="../../images/shixicon@2.png" class="icon-store"></image>
-            <text class="name">欧阳娜娜</text>
+            <text class="name">{{ lifeStore.name }}</text>
             <label class="status-label">实习馆主</label>
           </view>
           <view class="owner-uid">
@@ -45,15 +45,15 @@
     <view class="store-income">
       <text>生活馆累计收益</text>
       <text class="unit">(元)</text>
-      <view class="amount">2230.00</view>
+      <view class="amount">{{ collect.total_commission_price }}</view>
 
       <view class="foot">
         <view class="today-income">
-          <text>今日：</text> 180.00
+          <text>今日：</text> {{ collect.today_commission_price }}
         </view>
         <view class="today-income settlement">
           <text>待结算：</text>
-          <text>180.00</text>
+          <text>{{ collect.pending_commission_price }}</text>
           <image src="../../images/icon-info@2x.png" class="icon-info"></image>
         </view>
       </view>
@@ -66,11 +66,11 @@
           <text>（笔）</text>
         </view>
         <label class="count">
-          123
+          {{ collect.all_count }}
         </label>
         <view class="label-count">
           今日：
-          <text>3</text>
+          <text>{{ collect.today_count }}</text>
         </view>
       </view>
 
@@ -80,11 +80,11 @@
           <text>（元）</text>
         </view>
         <label class="count">
-          123.00
+          {{ collect.cash_price }}
         </label>
         <view class="label-count">
           累计已提现：
-          <text class="yellow">6890.00</text>
+          <text class="yellow">{{ collect.total_cash_price }}</text>
         </view>
       </view>
 
