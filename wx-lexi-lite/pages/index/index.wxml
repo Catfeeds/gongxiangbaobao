@@ -259,13 +259,13 @@
           <view class='all-product'>
             <image class='border-radius--8' src="{{item.cover}}"></image>
           </view>
-          <view class='recommend-text theme-green'>
+          <view class='recommend-text padding-bottom--10rpx theme-green'>
             <text class='font-ss'>{{item.recommend_label}}</text>
           </view>
-          <view class='recommend-text'>
+          <view class='recommend-text padding-bottom--10rpx'>
             <text class='font-m'>{{item.recommend_title}}</text>
           </view>
-          <view class='recommend-text qian-hui'>
+          <view class='recommend-text qian-hui padding-bottom--46rpx'>
             <text class='font-ss'>{{item.recommend_description}}</text>
           </view>
         </view>

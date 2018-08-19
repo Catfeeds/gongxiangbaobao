@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/findInfo/findInfo",
     "pages/index/index",
+    "pages/findInfo/findInfo",
     "pages/find/find",
     "pages/lifeStoreWithdraw/lifeStoreWithdraw",
     "pages/lifeStoreManage/lifeStoreManage",

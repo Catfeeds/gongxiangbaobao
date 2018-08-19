@@ -88,20 +88,126 @@
     </view>
 
   <!-- 评论 -->
-  <view class="comment-item bg-white border-bottom">
+  <view class="comment-item bg-white border-bottom" >
     <view>评论</view>
 
     <!-- 每一个评论 -->
-    <view class='bg-white comment-item__item'>
+    <view 
+      class='bg-white comment-item__item ' 
+      wx:key="{{index}}"
+      wx:for-item="items"
+      wx:for="{{[1,2,3]}}">
       <image src="../../images/timg.jpg" class="comment-photo"></image>
-      <view>
+      <view class="flex-direction--column">
+        <!-- 顶部名字 -->
+        <view class="time-top">
+          <view class="flex-direction--column">
+            <text class="font-s">玮峰</text>
+            <text class="font-ss qian-hui">刚刚</text>
+          </view>
+
+          <view class="flex_row font-s qian-hui">
+            <view class="reply-tap">回复</view>
+            <text> · </text>
+            <view wx:if="{{true}}">
+              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
+              <text>赞</text>
+            </view>
+
+            <view wx:else class="quantity-color ">
+              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
+              <text>123</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 别人评论 -->
+        <view class="black-font">
+          <text>哈教科姐啊代姐哈空间大代姐啊代姐哈空间大代姐大声疾。</text>
+        </view>
+
+        <!-- 回复她的盒子 -->
+        <view class="font-s reply-text__box">
+          <!-- 回复她的每一条 -->
+          <view 
+            wx:for="{{[1,2]}}" 
+            wx:if="{{items!=3}}"
+            wx:key="{{index}}" 
+            class="{{index!=1?'margin-bottom--20rpx':''}}">
+            <text>设计师ricky(作者）</text> : <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
+          </view>
+
+          <view wx:if="{{items==3}}" >
+            <text>喵喵灯 等人</text> 
+            <text class='theme-green'>共3条回复</text>
+          
+          </view>
+        
+        
+        </view>
       
       </view>
     
     
     </view>
-  
-  
+
+  </view>
+
+      <!-- 查看全部 -->
+    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn">
+      查看全部33条评论
+    </view>
+
+    <!-- 相关故事推荐 -->
+  <view class="bg-white margin-bottom--50rpx border-bottom">
+    <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
+      <text class='font-xxl font-width--semibold'>相关故事推荐</text>
+      <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
+    </view>
+    <view class='production new-goods_box '>
+      <view 
+        wx:if="{{index<4}}" 
+        class='flex-direction--column productionGoods ' 
+        wx:for="{{[1,2,3,4,5,6,7,8,9,0,1]}}" 
+        wx:key='{{index}}'>
+        <image src="../../images/timg.jpg" class="img--style"></image>
+        <text class="font-s font-width--semibold text-two_line">手做教学</text>
+        <text class='font-ss shen-hui text-two_line'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
+        <view class='plant-owner__box flex_row'>
+          <image src="../../images/timg.jpg" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">赵高尚</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部评论 -->
+  <view class='bg-white time-top bottom-comment__input'>
+
+    <!-- input -->
+    <view class='comment__input font-m'>
+      <input placeholder='添加评论' placeholder-class="input-placeholder"></input>
+    </view>
+
+    <!-- 心 -->
+    <view class='flex_row--middle flex-2'>
+      <image src='../../images/icons/icon-like-active@3x.png' wx:if="{{}}"></image>
+      <image src='../../images/icons/icon-like@3x.png' wx:else></image>
+      <text class='font-ss'>2222</text>
+    </view>
+
+    <!-- 评论 -->
+    <view class='flex_row--middle flex-2'>
+      <image src='../../images/icons/icon-comment@3x.png'></image>
+      <text class='font-ss'>1234</text>
+    </view>
+
+    <!-- 分享 -->
+    <view class='flex-1 time-top share-tap'>
+      <image src='../../images/icons/icon-share@3x.png'></image>
+    </view>
+
+
   </view>
 
 
