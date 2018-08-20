@@ -30,13 +30,14 @@ module.exports = {
   brand_list: 'brands', // GET 品牌列表
   brand_detail: 'brands/:rid', // GET 品牌详情
   shop_info: 'store/info', // 获取店铺信息--h
-  store_announcement: 'store/announcement', //获取店铺公告---
+  official_store_info: 'official_store/info', // 获取店铺信息--h
+  store_announcement: 'store/announcement', //获取店铺公告---已弃用
+  official_store_announcement: 'official_store/announcement', //获取店铺公告---
   BrowseQuantityNumber: 'store/:rid/visitor', //浏览过的人数---
   brand_info: 'store/detail', // 品牌故事
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
 
   // 生活馆
-
   life_store: 'store/life_store', // GET 生活馆信息
   life_store_apply: 'store/apply_life_store', // POST 申请生活馆
   life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品

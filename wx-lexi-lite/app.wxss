@@ -525,7 +525,7 @@ image {
 /* 背景 */
 
 .bg-white {
-  background-color: white;
+  background-color: white !important;
 }
 
 .c-theme-bg {

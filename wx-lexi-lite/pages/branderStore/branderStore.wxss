@@ -47,6 +47,11 @@
   margin-right: 30rpx;
 }
 
+.follow .dlete-follow{
+  background-color:#f5f7f9;
+  color: #333;
+}
+
 .store-info .address image {
   width: 16rpx;
   height: 22rpx;
@@ -171,7 +176,7 @@
 .notice-info {
   position: absolute;
   font-size: 24rpx;
-  right: 84rpx;
+  right: 32rpx;
   bottom: 42rpx;
   background-color: white;
 }
@@ -210,7 +215,7 @@
 
 .announcement-detail__box {
   position: fixed;
-  top: 0;
+  top: 10000rpx;
   left: 0;
   padding: 30rpx 40rpx;
   height: 100%;

@@ -49,9 +49,13 @@
     <view class="bg-white last-record hot-recommend">
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>热门推荐</view>
       <view class=" hot-recommend__bottom c-crosswise-a">
-        <view class="fx-column--center font-s" wx:for="{{'1234'}}" wx:key="{{index}}">
+        <view class="fx-column--center font-s">
           <image src="../../imagees/timg.jpg"></image>
           <view>接单订制</view>
+        </view>
+        <view class="fx-column--center font-s" wx:for="{{'124'}}" wx:key="{{index}}">
+          <image src="../../imagees/timg.jpg"></image>
+          <view>接口待完成</view>
         </view>
       </view>
     </view>

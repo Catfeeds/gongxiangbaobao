@@ -118,6 +118,14 @@ Page({
 
     // })
   },
+  
+  // 热门推荐 -- 接单定制
+  getCustomMade(){
+        // http.fxGet(api.,(result)=>{
+
+    // })
+
+  },
 
 
   // 获取搜索历史
