@@ -77,13 +77,13 @@
     </view>
   </block>
 
-  <!-- 输入的时候 -->
+  <!-- 输入的时候 wx:for="{{recommendText.search_items}}"-->
   <block wx:if="{{inputText}}">
-    <view class="black-font padding-left--40rpx flex-direction__column--center one-line-text hot-search" wx:for="{{recommendText.search_items}}" wx:key="{{index}}">
-      <view>{{item.name}}</view>
+    <view class="black-font padding-left--40rpx flex-direction__column--center one-line-text hot-search" wx:for="{{html}}" wx:key="{{index}}">
+      <!-- <view>{{item.name}}</view>
       
-      <view>台湾手工轻珠宝</view>
-      <template is="wxParse" data="{{wxParseData:html.name}}" />
+      <view>台湾手工轻珠宝</view> -->
+      <template is="wxParse" data="{{wxParseData:item}}" />
     </view>
   </block>
 </view>

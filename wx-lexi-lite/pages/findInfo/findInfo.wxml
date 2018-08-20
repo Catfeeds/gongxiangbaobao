@@ -1,0 +1,215 @@
+<!--pages/findInfo/findInfo.wxml-->
+<view class="container">
+  <!-- 详细的盒子 -->
+  <view class="bg-white border-bottom margin-bottom--30rpx">
+    <!-- 头部图片 -->
+    <view class='top-photo'>
+      <image src='../../images/timg.jpg'></image>
+    </view>
+
+    <!-- 店铺的信息 -->
+    <view class='margin-left--40rpx margin-right--40rpx'>
+      <view class="font-s font-width--medium">生活记事</view>
+
+      <view class="font-width--semibold font-xxxl">
+        <text>旧衣服改造成暖心好物，双11为单身汪 送上终极关怀狗粮！</text>
+      </view>
+
+      <view class="font-s flex_row">
+        <view>2017.08.12</view>
+        <view>
+          <image src="../../images/tabuser.png" class="browse-quantity__icon"></image>
+          <text>1234</text>
+        </view>
+      </view>
+
+      <view class="time-top">
+        <view>
+          <image src="../../images/timg.jpg" class="store-logo"></image>
+          <text>一个手作</text>
+        </view>
+
+        <view>
+          关注
+        </view>
+      </view>
+
+
+      <view class="font-s theme-green">
+        <text>#夏天的女孩</text>
+        <text>#夏天的女孩</text>
+        <text>#夏天的女孩</text>
+      </view>
+
+    </view>
+
+    <!-- 详情 占位，后续用wxParse 替换-->
+    <view>
+      在以前读设计的时候，就很喜欢手工制作各种东西。在制作喜欢的东西的时候，时间总是做得很快，当时就想那就是我一辈子要做得事情。
+    </view>
+
+    <!-- 店铺的信息 -->
+    <view class="margin-left--40rpx margin-right--40rpx time-top store-info__box">
+      <view class="flex_row">
+        <image src="../../images/timg.jpg" class="store-icon"></image>
+        <view class="fx-column-b">
+          <view class="font-ss qian-hui">乐喜原创品牌设计馆</view>
+          <view class="font-xl font-width--medium">乐喜原创品牌设计馆</view>
+          <view class="font-ss qian-hui">乐喜原创品牌设计馆</view>
+        </view>
+      </view>
+
+      <view class=" black-font flex_row follow-btn">
+        <image src="../../images/shop1.png"></image>
+        <text>关注</text>
+      </view>
+
+
+
+
+
+
+
+
+    </view>
+  </view>
+
+  <!-- 猜你喜欢 -->
+    <view class='border-bottom bg-white margin-bottom--30rpx'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx recommend-product-box'>
+        <text>猜你喜欢</text>
+        <text catchtap="handleToProductList" data-from="editRecommend" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+      </view>
+      <view class='c-importantGoodsBox margin-top--34rpx'>
+        <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{product}}" wx:key="{{index}}">
+          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+        </scroll-view>
+      </view>
+    </view>
+
+  <!-- 评论 -->
+  <view class="comment-item bg-white border-bottom" >
+    <view>评论</view>
+
+    <!-- 每一个评论 -->
+    <view 
+      class='bg-white comment-item__item ' 
+      wx:key="{{index}}"
+      wx:for-item="items"
+      wx:for="{{[1,2,3]}}">
+      <image src="../../images/timg.jpg" class="comment-photo"></image>
+      <view class="flex-direction--column">
+        <!-- 顶部名字 -->
+        <view class="time-top">
+          <view class="flex-direction--column">
+            <text class="font-s">玮峰</text>
+            <text class="font-ss qian-hui">刚刚</text>
+          </view>
+
+          <view class="flex_row font-s qian-hui">
+            <view class="reply-tap">回复</view>
+            <text> · </text>
+            <view wx:if="{{true}}">
+              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
+              <text>赞</text>
+            </view>
+
+            <view wx:else class="quantity-color ">
+              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
+              <text>123</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 别人评论 -->
+        <view class="black-font">
+          <text>哈教科姐啊代姐哈空间大代姐啊代姐哈空间大代姐大声疾。</text>
+        </view>
+
+        <!-- 回复她的盒子 -->
+        <view class="font-s reply-text__box">
+          <!-- 回复她的每一条 -->
+          <view 
+            wx:for="{{[1,2]}}" 
+            wx:if="{{items!=3}}"
+            wx:key="{{index}}" 
+            class="{{index!=1?'margin-bottom--20rpx':''}}">
+            <text>设计师ricky(作者）</text> : <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
+          </view>
+
+          <view wx:if="{{items==3}}" >
+            <text>喵喵灯 等人</text> 
+            <text class='theme-green'>共3条回复</text>
+          
+          </view>
+        
+        
+        </view>
+      
+      </view>
+    
+    
+    </view>
+
+  </view>
+
+      <!-- 查看全部 -->
+    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn">
+      查看全部33条评论
+    </view>
+
+    <!-- 相关故事推荐 -->
+  <view class="bg-white margin-bottom--50rpx border-bottom">
+    <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
+      <text class='font-xxl font-width--semibold'>相关故事推荐</text>
+      <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
+    </view>
+    <view class='production new-goods_box '>
+      <view 
+        wx:if="{{index<4}}" 
+        class='flex-direction--column productionGoods ' 
+        wx:for="{{[1,2,3,4,5,6,7,8,9,0,1]}}" 
+        wx:key='{{index}}'>
+        <image src="../../images/timg.jpg" class="img--style"></image>
+        <text class="font-s font-width--semibold text-two_line">手做教学</text>
+        <text class='font-ss shen-hui text-two_line'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
+        <view class='plant-owner__box flex_row'>
+          <image src="../../images/timg.jpg" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">赵高尚</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部评论 -->
+  <view class='bg-white time-top bottom-comment__input'>
+
+    <!-- input -->
+    <view class='comment__input font-m'>
+      <input placeholder='添加评论' placeholder-class="input-placeholder"></input>
+    </view>
+
+    <!-- 心 -->
+    <view class='flex_row--middle flex-2'>
+      <image src='../../images/icons/icon-like-active@3x.png' wx:if="{{}}"></image>
+      <image src='../../images/icons/icon-like@3x.png' wx:else></image>
+      <text class='font-ss'>2222</text>
+    </view>
+
+    <!-- 评论 -->
+    <view class='flex_row--middle flex-2'>
+      <image src='../../images/icons/icon-comment@3x.png'></image>
+      <text class='font-ss'>1234</text>
+    </view>
+
+    <!-- 分享 -->
+    <view class='flex-1 time-top share-tap'>
+      <image src='../../images/icons/icon-share@3x.png'></image>
+    </view>
+
+
+  </view>
+
+
+
+</view>

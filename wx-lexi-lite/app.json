@@ -2,7 +2,8 @@
   "pages": [
     "pages/lifeStoreManage/lifeStoreManage",
     "pages/index/index",
-    
+    "pages/findInfo/findInfo",
+    "pages/find/find",
     "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/lifeStoreBalance/lifeStoreBalance",
     "pages/lifeStoreBillDetail/lifeStoreBillDetail",
@@ -50,7 +51,6 @@
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
-    "pages/find/find",
     "pages/gather/gather",
     "pages/lifeStoreGuide/lifeStoreGuide",
     "pages/categoryList/categoryList",
