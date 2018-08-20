@@ -354,7 +354,7 @@
 }
 .product-category-box scroll-view{
   width: 750rpx;
-  height: 180rpx;
+  /* height: 180rpx; */
   overflow: hidden;
   white-space: nowrap;
 }
@@ -902,4 +902,10 @@ display: block;
 
 .line-height--28rpx{
   line-height: 28rpx;
+}
+.height-22rpx::after{
+  content: "1";
+  width: 0;
+  font-size: 22rpx;
+  visibility: hidden;
 }

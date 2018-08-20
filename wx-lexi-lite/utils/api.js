@@ -95,13 +95,15 @@ module.exports = {
   life_records_recommend: 'life_records/recommend', // 种草清单
   column_daily_recommends: "column/daily_recommends", //今日推荐
   column_affordable_goods: 'column/affordable_goods', //百元好物
-  column_explore_recommend:'column/explore_recommend', // 编辑推荐h
-  column_collections_detail:'column/collections/detail', //集合详情
+  column_explore_recommend: 'column/explore_recommend', // 编辑推荐h
+  column_collections_detail: 'column/collections/detail', //集合详情
   banners_handpick_content: 'banners/handpick_content', // 精选的中间广告
-  column_handpick_recommend:'column/handpick_recommend', // 人气推荐
+  column_handpick_recommend: 'column/handpick_recommend', // 人气推荐
   column_preferential_design: 'column/preferential_design', // 特惠好设计
   column_handpick_optimization:'column/handpick_optimization', // 乐喜优选
- 
+  core_platforms_search_week_hot:'core_platforms/search/week_hot', // 热门搜索
+  core_platforms_search_hot_recommend:'core_platforms/search/hot_recommend', // 热门推荐
+
   // 核心 store
   users_user_dynamic:"users/user_dynamic", // 获取自己的动态
   column_feature_store: 'column/feature_store', // 特色品牌管h
@@ -200,11 +202,13 @@ module.exports = {
   // add_browse : 'store/visitor', //添加访问者---
   userlike: 'userlike', //添加喜欢---
   usetIsLike: 'products_userlike', // 查看用户是否喜欢
+
   // 查询运费模板详情
   logisitcs: 'logistics/freight_template/:rid',
   logistics_product_express: 'logistics/product/express', //post获取每件商品的物流公司列表
   cheapLogisitcs: 'logistics/freight/available', // post合适的运费模板---
   calculate_logisitcs: 'logistics/freight/calculate', // post计算运费---
+
   //店铺的主人的
   store_owner_info: 'users/authenticate',
   masterInfo: 'store/master_info',

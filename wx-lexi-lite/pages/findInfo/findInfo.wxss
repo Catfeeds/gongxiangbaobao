@@ -171,3 +171,46 @@
 .margin-bottom--50rpx {
   margin-bottom: 50rpx;
 }
+
+
+/* 字体大小 */
+
+.font-xss {
+  line-height: 20rpx;
+}
+
+.font-ss {
+  line-height: 22rpx;
+}
+
+.font-s {
+  line-height: 24rpx;
+}
+
+.font-m {
+  line-height: 26rpx;
+}
+
+.black-font {
+  line-height: 28rpx;
+}
+
+.font-sxl {
+  line-height: 30rpx;
+}
+
+.font-xl {
+  line-height: 32rpx;
+}
+
+.font-xxl {
+  line-height: 34rpx;
+}
+
+.font-xxxl {
+  line-height: 40rpx;
+}
+
+.line-height--40rpx{
+  line-height: 40rpx;
+}

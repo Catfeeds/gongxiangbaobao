@@ -12,10 +12,15 @@
   overflow: hidden;
   margin: 20rpx 40rpx;
   background-color: red;
+  margin-bottom: 60rpx;
+}
+.category-title__big{
+  margin-bottom: 20rpx;
 }
 
 .category-title__min {
   color: #555;
+  margin-bottom: 40rpx;
 }
 
 .live-records__box{
@@ -38,6 +43,9 @@
   margin-bottom: 10rpx;
 }
 
+.category__title{
+  margin-top: 60rpx;
+}
 
 .margin-left--40rpx {
   margin-left: 40rpx;
@@ -49,9 +57,57 @@
 .margin-bottom--34rpx{
   margin-bottom: 34rpx;
 }
+.margin-bottom--40rpx{
+  margin-bottom: 40rpx;
+}
 .margin-bottom--10rpx{
   margin-bottom: 10rpx;
 }
+.margin-top--8rpx{
+  margin-top: 8rpx;
+}
 .margin-bottom--36rpx{
   margin-bottom: 36rpx;
+}
+
+image{
+  background-color: red;
+}
+
+/* 字体大小 */
+
+.font-xss {
+  line-height: 20rpx;
+}
+
+.font-ss {
+  line-height: 22rpx;
+}
+
+.font-s {
+  line-height: 24rpx;
+}
+
+.font-m {
+  line-height: 26rpx;
+}
+
+.black-font {
+  line-height: 28rpx;
+}
+
+.font-sxl {
+  line-height: 30rpx;
+}
+
+.font-xl {
+  line-height: 32rpx;
+}
+
+.font-xxl {
+  line-height: 34rpx;
+}
+
+.line-height--40rpx{
+  line-height: 40rpx;
 }

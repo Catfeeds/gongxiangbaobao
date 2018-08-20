@@ -403,7 +403,7 @@
           wx:for="{{categoryList.categories}}" wx:key='{{index}}'>
           <image class='product-category-icon' src='{{item.cover}}'></image>
           <view class='font-s'>{{item.name}}</view>
-          <view class='font-ss qian-hui'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
+          <view class='font-ss qian-hui height-22rpx'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
         </view>
       </scroll-view>
     </view>

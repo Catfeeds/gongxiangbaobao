@@ -13,6 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hotSearchList:[], // 热门搜索的
+    recommendList:[], // 热门推荐的其他三个
     searchHistory: [], // 搜索历史
     inputText: '', // 输入框的内容
     highQualityList: [], // 最近查看
@@ -26,15 +28,25 @@ Page({
     },
   },
 
+  // 搜索热词
+  handleSearchWord(e){
+    e.currentTarget.dataset.text
+    wx.navigateTo({
+      url: '../searchResult/searchResult?text=' + e.currentTarget.dataset.text,
+    })
+  },
+
   // 记录历时 跳转页面
   handleRecordLast() {
     console.log(this.data.inputText, "保存历史")
     let data = this.data.searchHistory
     data.unshift(this.data.inputText)
     let newData = Array.from(new Set(data)) // 去重后转为数组 
-    console.log(newData)
-    wx.setStorageSync('searchHistory', newData)
 
+    if (this.data.inputText.length!=0){
+      wx.setStorageSync('searchHistory', newData)
+    }
+    
     this.setData({
       searchHistory: newData
     })
@@ -70,10 +82,9 @@ Page({
   handleInput(e) {
     console.log(e.detail.value, "输入的内容")
 
-
     this.setData({
       inputText: e.detail.value,
-      ['hingeParams.qk']: e.detail.value
+      ['hingeParams.qk']: e.detail.value.replace(/(^\s*)|(\s*$)/g, "")
     })
 
     clearTimeout(searchTime)
@@ -112,14 +123,63 @@ Page({
     })
   },
 
-  // 搜索热门推荐
-  getHotRecommend(){
-    // http.fxGet(api.,(result)=>{
+  // 跳转
+  handleToSkip(e){
+    console.log(e.currentTarget.dataset.targetType)
+    let target 
+    let rid = e.currentTarget.dataset.rid
+    switch (e.currentTarget.dataset.targetType){
+      case 1:
+        target = "product"
+      break;
+      case 2:
+        target = "branderStore"
+      break;
+      default:
 
-    // })
+    }
+
+    wx.navigateTo({
+      url: '../' + target + '/' + target + "?rid = " + rid
+    })
+
+
   },
   
-  // 热门推荐 -- 接单定制
+  // 搜索热门搜索 core_platforms/search/week_hot
+  getHotSearch(){
+    http.fxGet(api.core_platforms_search_week_hot,{},(result)=>{
+      console.log(result,"热门搜索")
+      if (result.success) {
+        this.setData({
+          hotSearchList:result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+
+    })
+  },
+
+  // 搜索热门推荐 其他的3个
+  getHotRecommend(){
+    http.fxGet(api.core_platforms_search_hot_recommend,{},(result)=>{
+      console.log(result,"热门推荐3个")
+      if (result.success) {
+        result.data.hot_recommends.forEach((v,i)=>{
+          v.recommend_title = common.sliceString(v.recommend_title,4)
+        })
+          
+        this.setData({
+          recommendList: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+  
+  // 热门推荐 -- 接单定制  
   getCustomMade(){
         // http.fxGet(api.,(result)=>{
 
@@ -136,7 +196,6 @@ Page({
     })
 
     console.log(data, "历史记录")
-
   },
 
 
@@ -144,8 +203,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getHighQuality()
-    this.getSearchHistory()
+    this.getHighQuality() // 优质新品
+    this.getSearchHistory() // 搜索历史
+    this.getHotRecommend() // 热门推荐 其他三个
+    this.getCustomMade() // 热门推荐的第一个
+    this.getHotSearch() // 热门搜索
   },
 
   /**
