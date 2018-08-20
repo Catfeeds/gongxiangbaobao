@@ -25,7 +25,7 @@
     <view class="flex_row margin-bottom--30rpx font-m address ">
       <view class="margin-right--28rpx">
         <image class="margin-right--10rpx" src="../../images/location@2.png"></image>
-        <text>{{storeInfo.delivery_country}}.{{storeInfo.delivery_province}}</text>
+        <text>{{storeInfo.country}}.{{storeInfo.province}}</text>
       </view>
       <view wx:if="{{storeInfo.fans_count!=0}}">
         <text class="margin-right--10rpx">粉丝</text>
@@ -40,9 +40,15 @@
 
     <!-- 关注 -->
     <view class=" flex_row black-font follow ">
-      <view class="border-radius--30rpx follow-btn">
+      <view 
+        class="border-radius--30rpx follow-btn" 
+        catchtap="handelAddfollow"
+        wx:if="{{!storeInfo.is_followed}}">
         <image src="../../images/icon@2.png"></image>
         <text>关注</text>
+      </view>
+      <view class="border-radius--30rpx follow-btn dlete-follow" catchtap='handeldeleteFollow' wx:else>
+        <text>已关注</text>
       </view>
 
       <view class="border-radius--30rpx c-middle about">
@@ -81,20 +87,23 @@
     <view class='notice'>
       <view class='notice-title'>设计馆公告</view>
       <view class='notice-box'>
-        <view class="off-announcement" wx:if="{{storeInfo.is_closed}}">
+        <view class="off-announcement" wx:if="{{announcement.is_closed}}">
           <view class="font-ss flex_row--middle border-radius--30rpx off-announcement__icon">
             <view class="round"></view>
             <text>休馆中</text>
           </view>
           <view class="font-s">
-            <view class="off-time">休管时间：{{storeInfo.begin_date}}—{{storeInfo.end_date}}</view>
-            <view class="open-time">恢复发货时间：{{storeInfo.delivery_date}}</view>
+            <view class="off-time">休管时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
+            <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
           </view>
         </view>
 
-        <view>垃圾筐反动势力看肌肤抵抗力给但是风口浪尖上的给对方公司决定房价过快的分类是根据看来管理的反馈高的楼房东法兰克攻击对方看了几个来的咖啡馆东法兰克感觉对法轮功登陆东法兰克结果来颠覆国家l'k</view>
+        <view class="two-line-text"> <text>{{announcement.announcement}}</text> </view>
       </view>
-      <view class='notice-info theme-green'>...阅读更多</view>
+      <view 
+        catchtap="handleAnnouncementShow"
+        class='notice-info theme-green' 
+        wx:if="{{announcement.announcement.length>=100}}">...阅读更多</view>
     </view>
   </view>
 
@@ -123,30 +132,30 @@
   </view>
 
   <!-- 公告详情 -->
-  <view class="announcement-detail__box">
+  <view class="announcement-detail__box" animation="{{announcementShow}}">
 
-        <view class="off-announcement border-bottom padding-bottom-34rpx" >
+        <view class="off-announcement border-bottom padding-bottom-34rpx" wx:if="{{announcement.is_closed}}">
           <view class="font-ss flex_row--middle border-radius--30rpx margin-bottom--25rpx off-announcement__icon">
             <view class="round"></view>
             <text>休馆中</text>
           </view>
           <view class="font-s">
-            <view class="off-time margin-bottom--10rpx">休管时间：{{storeInfo.begin_date}}—{{storeInfo.end_date}}</view>
-            <view class="open-time">恢复发货时间：{{storeInfo.delivery_date}}</view>
+            <view class="off-time margin-bottom--10rpx">休管时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
+            <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
           </view>
         </view>
 
         <view>
           <view class="font-m font-width--medium padding-bottom-34rpx padding-top-32rpx">设计馆公告</view>
           <view class="black-font shen-hui">
-          <text>体制喜欢的颜色！即日起才5/13可以选择自己喜欢的 颜色留购馆内所有的款式的饰品，请撒娇和代姐阿斯是 撒娇的环境卡黑色打底裤就</text>
+          <text>{{announcement.announcement}}</text>
           </view>
 
         </view>
 
         <view class="shim"></view>
 
-        <view class="announcement-off__btn">
+        <view class="announcement-off__btn" catchtap="handleAnnouncementHidden">
           <image src="../../images/icon-close@2x.png"></image>
         </view>
   </view>

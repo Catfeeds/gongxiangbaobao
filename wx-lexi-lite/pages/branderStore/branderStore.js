@@ -18,6 +18,7 @@ Page({
     productList: [], // 店铺商品列表
     announcement: [], // 店铺的公告
     categoryId: 1, // 分类的id
+    announcementShow:'', // 详细信息动画盒子
     fullSubtractionList: [], // 满减
     categoryList: [{
         name: "商品",
@@ -50,7 +51,6 @@ Page({
   },
 
   // 切换分类
-
   handleChangeCategory(e) {
     console.log(e.currentTarget.dataset.id)
     this.setData({
@@ -60,6 +60,65 @@ Page({
     if (e.currentTarget.dataset.id == 2) {
 
     }
+  },
+
+  // 详情的盒子显示
+  handleAnnouncementShow(){
+    // announcementShow
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: "ease",
+      delay: 0
+    })
+    animation.top(0).step()
+
+    this.setData({
+      announcementShow: animation
+    })
+  },
+
+  // 关注店铺
+  handelAddfollow(){
+    http.fxPost(api.add_watch, { rid: this.data.storeRid},(result)=>{
+      if(result.success){
+
+        this.setData({
+          ['storeInfo.is_followed']:true
+        })
+
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 取消关注店铺
+  handeldeleteFollow(){
+    http.fxPost(api.delete_watch, { rid: this.data.storeRid},(result)=>{
+      if(result.success){
+
+        this.setData({
+          ['storeInfo.is_followed']:false
+        })
+
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 详情的盒子隐藏
+  handleAnnouncementHidden(){
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: "ease",
+      delay: 0
+    })
+    animation.top(10000).step()
+
+    this.setData({
+      announcementShow: animation
+    })
   },
 
   // 获取店铺的商品列表 life_store_products
@@ -188,17 +247,13 @@ Page({
     })
   },
 
-  // 获取店铺的信息
+  // 获取店铺的信息 official_store/info
   getStoreInfo() {
-    http.fxGet(api.shop_info, {
+    http.fxGet(api.official_store_info, {
       rid: this.data.storeRid
     }, (result) => {
       console.log(result, "店铺的详情")
       if (result.success) {
-        result.data.delivery_date = utils.timestamp2string(result.data.delivery_date, "date") //发货时间
-        result.data.end_date = utils.timestamp2string(result.data.delivery_date, "date") // 休馆结束
-        result.data.begin_date = utils.timestamp2string(result.data.delivery_date, "date") // 休馆开始
-
 
         this.setData({
           ['categoryList[0].num']: result.data.product_count,
@@ -212,19 +267,21 @@ Page({
     })
   },
 
-  // 获取店铺公告---
+  // 获取店铺公告---official_store_announcement
   getAnnouncement() {
-    http.fxGet(api.store_announcement, {
-      status: 2
+    http.fxGet(api.official_store_announcement, {
+      rid: this.data.storeRid
     }, (result) => {
       console.log(result, "店铺的公告")
       if (result.success) {
-        if (result.data.content !== undefined) {
+                result.data.delivery_date = utils.timestamp2string(result.data.delivery_date, "date") //发货时间
+        result.data.end_date = utils.timestamp2string(result.data.end_date, "date") // 休馆结束
+        result.data.begin_date = utils.timestamp2string(result.data.begin_date, "date") // 休馆开始
 
           this.setData({
-            announcement: result.data.content
+            announcement: result.data
           })
-        }
+        
       } else {
         utils.fxShowToast(result.status.message)
       }

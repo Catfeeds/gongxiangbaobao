@@ -303,6 +303,14 @@ button-hover {
   padding: 0 40rpx;
 }
 
+.login-bind_box--style {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .wacth-follower {
   font-weight: 500;
 }
