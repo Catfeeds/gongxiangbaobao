@@ -67,16 +67,19 @@ button::after {
   font-size: 22rpx;
   color: #999;
 }
-.fx-modal__main .categories {
+.fx-modal__main .scroll-view__container {
+  width: 100%;
+  overflow: hidden;
+  padding: 0rpx;
+  white-space: nowrap;
   background-color: #fff;
-  padding-left: 40rpx; 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
+}
+.fx-modal__main .categories { 
   padding-bottom: 60rpx;
+  height: 75rpx;
 }
 .fx-modal__main .categories .category {
-  flex: 0 0 auto;
+  display: inline-block;
   background-color: #F5F7F9;
   border: 1rpx solid #e9e9e9;
   border-radius: 8rpx;
@@ -84,7 +87,12 @@ button::after {
   color: #333;
   padding: 18rpx;
   margin-right: 20rpx;
+  width: auto;
+  height: auto;
 }
+.fx-modal__main .categories .category:first-child {
+  margin-left: 40rpx;
+} 
 .fx-modal__main .categories .category.active {
   background:rgba(95,228,177, 0.1);
   border-color: rgba(95,228,177, 0.7);

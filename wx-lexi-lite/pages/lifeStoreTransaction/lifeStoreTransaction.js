@@ -78,6 +78,7 @@ Page({
    * 获取交易订单列表
    */
   getStoreOrders () {
+    console.log(this.data.params)
     http.fxGet(api.life_store_transactions, this.data.params, (res) => {
       console.log(res, '交易订单')
       if (!res.success) {

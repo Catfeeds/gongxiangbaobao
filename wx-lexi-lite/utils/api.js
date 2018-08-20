@@ -71,6 +71,8 @@ module.exports = {
   distribute_newest: 'core_platforms/fx_distribute/latest',
   // GET 本周最受欢迎的分销商品
   distribution_week_popular: 'fx_distribute/week_popular',
+  // GET 选品中心-全部商品
+  distribute_products: 'fx_distribute/choose_center',
   
   // Product
   products: 'products/by_store', // GET 产品列表---
