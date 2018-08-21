@@ -53,9 +53,15 @@
           <image src="../../imagees/timg.jpg"></image>
           <view>接单订制</view>
         </view>
-        <view class="fx-column--center font-s" wx:for="{{'124'}}" wx:key="{{index}}">
-          <image src="../../imagees/timg.jpg"></image>
-          <view>接口待完成</view>
+        <view 
+          class="fx-column--center font-s" 
+          data-target-type="{{item.target_type}}"
+          data-rid="{{item.rid}}"
+          catchtap="handleToSkip"
+          wx:for="{{recommendList.hot_recommends}}" 
+          wx:key="{{index}}">
+          <image src="{{item.cover}}"></image>
+          <view class="two-line-text"><text> {{item.recommend_title}} </text></view>
         </view>
       </view>
     </view>
@@ -66,16 +72,17 @@
       <view class="padding-left--40rpx">
 
         <!-- 数字序列 -->
-        <view class="black-font flex_row one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
-          <view class="c-middle hot-search__list {{index==0?'bgc--red':''}} {{index==2?'bgc--blue':''}} {{index==1?'bgc--yellow':''}}">{{index+1}}</view>
-          <text>台湾手工轻珠宝</text>
+        <view class="black-font flex_row one-line-text hot-search" wx:for="{{hotSearchList.search_items}}" wx:key="{{index}}" data-text="{{item.query_word}}" catchtap="handleSearchWord">
+          <view wx:if="{{index<3}}" class="c-middle hot-search__list {{index==0?'bgc--red':''}} {{index==2?'bgc--blue':''}} {{index==1?'bgc--yellow':''}}">{{index+1}}</view>
+          <image wx:if="{{index>2}}" src='../../images/set-up-shop-suona@2.png'></image>
+          <text>{{item.query_word}}</text>
         </view>
 
         <!-- 上声榜 -->
-        <view class="black-font flex_row one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
+        <!-- <view class="black-font flex_row one-line-text hot-search" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
           <image src='../../images/set-up-shop-suona@2.png'></image>
           <text>台湾手工轻珠宝</text>
-        </view>
+        </view> -->
 
       </view>
     </view>

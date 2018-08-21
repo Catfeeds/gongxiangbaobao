@@ -8,6 +8,13 @@ Page({
   
   },
 
+  //
+  xiangqing(){
+wx.navigateTo({
+  url: '../findInfo/findInfo'
+})
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

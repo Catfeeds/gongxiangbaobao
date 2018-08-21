@@ -1,9 +1,10 @@
 <!--pages/find/find.wxml-->
 <view class="container">
+  <!-- <button catchtap='xiangqing'>转到详情</button> -->
   <!-- 轮播图 -->
-  <view class="find-swiper margin-bottom--34rpx">
+  <view class="find-swiper">
     <swiper indicator-dots="{{true}}" interval="{{interval}}" duration="{{duration}}">
-      <swiper-item wx:for="{{[1,2,3,4,56,6]}}">
+      <swiper-item wx:for="{{[1,2,3,4,56,6]}}" wx:key="{{index}}">
         <image src="../../images/timg.jpg" class="slide-image" />
       </swiper-item>
     </swiper>
@@ -11,8 +12,8 @@
 
   <!-- 生活志主题 -->
   <view>
-    <view class="font-xxl font-width--semibold margin-left--40rpx margin-bottom--10rpx category-title__big">生活志主题</view>
-    <view class="font-s margin-left--40rpx margin-bottom--36rpx category-title__min">我们用贴日子里的大小事。</view>
+    <view class="font-xxl font-width--semibold margin-left--40rpx category-title__big">生活志主题</view>
+    <view class="font-s margin-left--40rpx category-title__min">我们用贴日子里的大小事。</view>
     <scroll-view scroll-x class="live-records__box">
       <view 
         wx:for="{{[1,2,3,4,5,6]}}" 
@@ -34,11 +35,11 @@
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
     <view class='production new-goods_box '>
-      <view wx:if="{{index<4}}" class='flex-direction--column productionGoods ' wx:for="{{[1,2,3,4,5,6,7,8,9,0,1]}}" wx:key='{{index}}'>
+      <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' wx:for="{{[1,2,3,4,5,6,7,8,9,0,1]}}" wx:key='{{index}}'>
 
         <image src="../../images/timg.jpg" class="img--style"></image>
-        <text class="font-s font-width--semibold text-two_line">手做教学</text>
-        <text class='font-ss shen-hui text-two_line'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
+        <text class="font-s font-width--semibold text-two_line margin-bottom--10rpx">手做教学</text>
+        <text class='font-ss shen-hui text-two_line line-height--40rpx'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
         <view class='plant-owner__box flex_row'>
           <image src="../../images/timg.jpg" class='plant-owner__photo'></image>
           <text class="font-s shen-hui">赵高尚</text>
@@ -61,8 +62,8 @@
         wx:key='{{index}}'>
         <image src="../../images/timg.jpg" class="img--style"></image>
         <text class="font-s font-width--semibold text-two_line">手做教学</text>
-        <text class='font-ss shen-hui text-two_line'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
-        <view class='plant-owner__box flex_row'>
+        <text class='font-ss shen-hui text-two_line line-height--40rpx'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
+        <view class='margin-top--8rpx flex_row'>
           <image src="../../images/timg.jpg" class='plant-owner__photo'></image>
           <text class="font-s shen-hui">赵高尚</text>
         </view>

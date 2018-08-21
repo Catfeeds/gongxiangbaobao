@@ -22,7 +22,7 @@ Page({
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
       view_more:	1,//Number	可选	0	是否查看更多: 0 = 否, 1= 是
-      cids:	'',//String	可选	 	分类Id, 多个用, 分割
+      cids: '',//String	可选 分类Id  编辑推荐=e_recommend, 优质精品=e_new, 特惠好设计=preferential_design, 百元好物=affordable_goods
       min_price:	'',//Number	可选	 	价格区间： 最小价格
       max_price:	'',//Number	可选	 	价格区间： 最大价格
       sort_type:	'',//Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
@@ -132,6 +132,7 @@ Page({
     http.fxGet(api.column_preferential_design, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "特惠好设计")
       wx.hideLoading()
+      this.getBrowsePeopleOne("preferential_design")
 
       if (result.success) {
         let data = this.data.productList
@@ -144,6 +145,7 @@ Page({
           isLoadingNextPage: result.data.next,
           pickQuantity: result.data.count
         })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -306,6 +308,8 @@ Page({
         title: "百元好物"
       })
       this.getOneHundred()
+
+      this.getBrowsePeopleOne("affordable_goods")
 
       this.setData({
         touchBottomInfo: options.from

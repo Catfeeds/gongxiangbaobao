@@ -38,8 +38,19 @@ const strLength = (s, isChinese=false) => {
   return blen
 }
 
+// 截取符合要求的字符串
+const sliceString = (data,num) => {
+  let originData = data
+  if(data.length>num){
+    originData = originData.slice(0,num)
+    originData = originData + "..."
+  }
+
+  return originData
+}
 
 module.exports = {
   getReceivePlaces: getAllPlaces,
-  strLength
+  strLength,
+  sliceString: sliceString, // 字符串切片
 }
