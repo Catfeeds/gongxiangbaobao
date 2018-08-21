@@ -61,10 +61,10 @@
   <!-- 优惠券和设计管公告 -->
   <view class="announcement-coupon">
     <!-- 领取优惠券 -->
-    <view class='coupon-box ' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
+    <view class='coupon-box ' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
         <!-- 优惠券 -->
-        <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
+        <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
           <view class=''>
             <image src='../../images/coupon-icon@2.png'></image>
             <text>领取设计馆优惠红包</text>
@@ -111,11 +111,11 @@
       <!-- 筛选和排序 -->
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
       <view catchtap='handelOffPick' class='flex_row'>
-        筛选
+        排序
         <image src='../../images/arrowhead.png'></image>
        </view>
       <view catchtap="handleSortShow" class='flex_row'>
-        排序
+        筛选
         <image src='../../images/arrowhead.png'></image>
        </view>
     </view>
@@ -158,6 +158,20 @@
         <view class="announcement-off__btn" catchtap="handleAnnouncementHidden">
           <image src="../../images/icon-close@2x.png"></image>
         </view>
+  </view>
+
+  <!-- 筛选 -->
+  <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
+    <fx-pick 
+      bind:handlePickOff="handelOffPickBox"
+      bind:handlePickOff="handelOffPickBox"
+      pickQuantity="{{pickQuantity}}"
+      bind:handlePickProduct="handlePickProduct"></fx-pick>
+  </view>
+
+  <!-- 排序 -->
+  <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
   </view>
 
 </view>

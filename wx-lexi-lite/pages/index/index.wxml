@@ -195,16 +195,22 @@
   <view wx:if="{{ pageActiveTab == 'featured' }}" class='bg-white'>
     <!-- 手动旋转木马 -->
     <view class='swiper-photo list'>
-      <swiper autoplay="{{false}}" previous-margin="{{'64rpx'}}" next-margin="{{'64rpx'}}" bindchange="swiperChange">
+      <swiper autoplay="{{false}}"  previous-margin="{{'64rpx'}}" next-margin="{{'64rpx'}}" bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
-          <swiper-item bindtap='card_click' data-id="{{item.id}}" data-sort="{{item.sort}}">
-            <image src="{{item.image}}" class="slide-image {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
+          <swiper-item 
+            bindtap='card_click' 
+            class="flex_row--middle"
+            data-id="{{item.id}}" 
+            data-sort="{{item.sort}}">
+            <view class="slide-image slide-item__box {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
+            <image src="{{item.image}}" >
               <view class="prompt-textwrap">
                 <view class="prompt-text">{{item.title}}</view>
                 <view class='prompt-destext'>{{item.subTitle}}</view>
               </view>
               <text class="slogan">{{item.slogan}}</text>
             </image>
+            </view>
           </swiper-item>
         </block>
       </swiper>
@@ -248,24 +254,24 @@
 
     <!-- 今日推荐 {{themeProduct.designs}} -->
     <view class=' '>
-      <view class='c-importantGoodsTitle time-top font-xl margin-top--40rpx category__title'>
+      <view class='c-importantGoodsTitle time-top font-xl margin-top--60rpx category__title'>
         <text>今日推荐</text>
         <text wx:if="{{todayRecommendList.daily_recommends.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
-      <scroll-view scroll-x class='c-importantGoodsBox  today-recommend-box'>
+      <scroll-view scroll-x class='c-importantGoodsBox margin-top--30rpx today-recommend-box'>
         <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" wx:key="{{index}}">
           <view class='all-product'>
             <image class='border-radius--8' src="{{item.cover}}"></image>
           </view>
-          <view class='recommend-text padding-bottom--10rpx theme-green'>
-            <text class='font-ss'>{{item.recommend_label}}</text>
+          <view class='recommend-text line-height--22rpx theme-green margin-top--4rpx padding-bottom--10rpx'>
+            <text class='font-ss line-height--22rpx'>{{item.recommend_label}}</text>
           </view>
-          <view class='recommend-text padding-bottom--10rpx'>
-            <text class='font-m'>{{item.recommend_title}}</text>
+          <view class='recommend-text line-height--26rpx padding-bottom--10rpx'>
+            <text class='font-m line-height--26rpx'>{{item.recommend_title}}</text>
           </view>
-          <view class='recommend-text qian-hui padding-bottom--46rpx'>
-            <text class='font-ss'>{{item.recommend_description}}</text>
+          <view class='recommend-text qian-hui line-height--22rpx padding-bottom--50rpx'>
+            <text class='font-ss line-height--22rpx'>{{item.recommend_description}}</text>
           </view>
         </view>
       </scroll-view>

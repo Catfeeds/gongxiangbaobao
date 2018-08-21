@@ -14,11 +14,14 @@ Page({
     storeRid: "", //店铺的rid
     isNext: [], // 是否有下一页面
     storeInfo: [], // 店铺的详情
-    couponList: [], // 优惠券列表---couponList
+    couponList: {
+      coupons:[]
+    }, // 优惠券列表---couponList
     productList: [], // 店铺商品列表
     announcement: [], // 店铺的公告
     categoryId: 1, // 分类的id
-    announcementShow:'', // 详细信息动画盒子
+    announcementShow: '', // 详细信息动画盒子
+    openPickBox: false, // 筛选的模态框
     fullSubtractionList: [], // 满减
     categoryList: [{
         name: "商品",
@@ -35,12 +38,19 @@ Page({
     params: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
-      sid: "", //String	必须	 	店铺编号
-      cid: "", //Number	可选	 	分类Id
-      status: "", //Number	可选	1	商品状态 -1: 所有 0: 仓库中; 1: 出售中; 2: 下架中; 3: 已售罄
-      is_distributed: "", //Number	可选	 	商品类别 0: 全部; 1：自营商品；2：分销商品
-      qk: "", //String	可选	 	搜索关键字
+      sid: '', //String	必须	 	店铺编号
+      cid: '', //Number	可选	 	分类Id
+      status: '', //Number	可选	1	商品状态 -1: 所有 0: 仓库中; 1: 出售中; 2: 下架中; 3: 已售罄
+      is_distributed: '', //Number	可选	 	商品类别 0: 全部; 1：自营商品；2：分销商品
+      qk: '', //String	可选	 	搜索关键字
+      min_price: '', //Number	可选	 	价格区间： 最小价格
+      max_price: '', //Number	可选	 	价格区间： 最大价格
+      sort_type: '', //Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
+      is_free_postage: '', //Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
+      is_preferential: '', //Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
+      is_custom_made: '', //Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
     },
+    //
     // 优惠券的请求参数
     couponParams: {
       page: 1,
@@ -62,8 +72,97 @@ Page({
     }
   },
 
+  // 打开排序的盒子
+  handelOffPick() {
+    let animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+
+    animation.top(0).step()
+
+    this.setData({
+      sortBox: animation.export()
+    })
+
+  },
+
+  // 打开筛选的模态框
+  handleSortShow() {
+    let animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+
+    animation.top(0).step()
+
+    this.setData({
+      openPickBox: animation.export()
+    })
+
+  },
+
+  // 关闭排序的盒子
+  handleSortOff() {
+    let animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+
+    animation.top(10000).step()
+
+    this.setData({
+      sortBox: animation.export()
+    })
+  },
+
+  // 关闭筛选的模态框
+  handelOffPickBox() {
+    let animationOff = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+
+    animationOff.top(10000).step()
+
+    this.setData({
+      openPickBox: animationOff.export()
+    })
+
+  },
+
+  // 获取排序的产品
+  handleSort(e = 0) {
+    console.log(e.detail.rid)
+    if (e.detail.rid != undefined) {
+      this.setData({
+        productList: [],
+        ['params.page']: 1,
+        ['params.sort_type']: e.detail.rid
+      })
+    }
+    this.products()
+  },
+
+  // 获取筛选
+  handlePickProduct(e) {
+    console.log(e)
+    let rids = e.detail.category
+    let minPrice = e.detail.minPrice
+    let maxPrice = e.detail.maxPrice
+    this.setData({
+      productList: [],
+      ['params.page']: e.detail.page ? e.detail.page : this.data.page,
+      ['params.cids']: rids == undefined ? "" : rids.join(','),
+      ['params.min_price']: minPrice,
+      ['params.max_price']: maxPrice
+    })
+
+    this.products()
+  },
+
   // 详情的盒子显示
-  handleAnnouncementShow(){
+  handleAnnouncementShow() {
     // announcementShow
     var animation = wx.createAnimation({
       duration: 1000,
@@ -78,37 +177,41 @@ Page({
   },
 
   // 关注店铺
-  handelAddfollow(){
-    http.fxPost(api.add_watch, { rid: this.data.storeRid},(result)=>{
-      if(result.success){
+  handelAddfollow() {
+    http.fxPost(api.add_watch, {
+      rid: this.data.storeRid
+    }, (result) => {
+      if (result.success) {
 
         this.setData({
-          ['storeInfo.is_followed']:true
+          ['storeInfo.is_followed']: true
         })
 
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
   // 取消关注店铺
-  handeldeleteFollow(){
-    http.fxPost(api.delete_watch, { rid: this.data.storeRid},(result)=>{
-      if(result.success){
+  handeldeleteFollow() {
+    http.fxPost(api.delete_watch, {
+      rid: this.data.storeRid
+    }, (result) => {
+      if (result.success) {
 
         this.setData({
-          ['storeInfo.is_followed']:false
+          ['storeInfo.is_followed']: false
         })
 
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
   // 详情的盒子隐藏
-  handleAnnouncementHidden(){
+  handleAnnouncementHidden() {
     var animation = wx.createAnimation({
       duration: 1000,
       timingFunction: "ease",
@@ -209,7 +312,7 @@ Page({
   // 用户未登录时获取店铺优惠券 or 满减活动列表
   getCoupons(e) {
     http.fxGet(api.noCouponsList, {
-      store_rid: this.data.originalStoreRid
+      store_rid: this.data.storeRid
     }, (result) => {
       console.log(result, '没有登陆获取优惠券')
       if (result.success) {
@@ -274,14 +377,14 @@ Page({
     }, (result) => {
       console.log(result, "店铺的公告")
       if (result.success) {
-                result.data.delivery_date = utils.timestamp2string(result.data.delivery_date, "date") //发货时间
+        result.data.delivery_date = utils.timestamp2string(result.data.delivery_date, "date") //发货时间
         result.data.end_date = utils.timestamp2string(result.data.end_date, "date") // 休馆结束
         result.data.begin_date = utils.timestamp2string(result.data.begin_date, "date") // 休馆开始
 
-          this.setData({
-            announcement: result.data
-          })
-        
+        this.setData({
+          announcement: result.data
+        })
+
       } else {
         utils.fxShowToast(result.status.message)
       }

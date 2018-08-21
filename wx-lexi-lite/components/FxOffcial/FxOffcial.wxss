@@ -23,6 +23,8 @@
   width: 100%;
 }
 .middle-line{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
   height: 40rpx;
   width: 1rpx;
   background-color: #dadada;
