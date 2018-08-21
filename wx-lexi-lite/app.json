@@ -1,10 +1,9 @@
 {
   "pages": [
-    
+    "pages/distributes/distributes",
     "pages/index/index",
     "pages/findInfo/findInfo",
     "pages/find/find",
-    "pages/distributes/distributes",
     "pages/lifeStoreManage/lifeStoreManage",
     "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/lifeStoreBalance/lifeStoreBalance",

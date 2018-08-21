@@ -67,11 +67,11 @@ Page({
     categoryList: [], // 分类列表
 
     isDisabled: false, // 是否禁用
-    lineLeft: 0, // 线距离左边的距离
+    
     lineWhite: 520, // 线的长度
     xLeft: 0, // 
     xRight: 600,
-    windowWidth: 375, // 屏幕的宽度(真机)
+    
     movableLeftRight: 37.5, // 滑块的左右距离（真机）
     movableRight: 560, // 右面滑块的偏移
     movableLeft: 0, // 左面滑块的偏移
@@ -80,6 +80,18 @@ Page({
 
     leftLastTime: 0, // 左边滑块上次距离
     rightLastTime: 560, // 右边边滑块上次距离
+
+
+    lineLeft: 40, // 线距离左边的距离
+    lineWidth: 520, // 绿色线框的长度
+    windowWidth: 375, // 屏幕的宽度(真机)
+    currentLeftX: 0, // 左侧滑块当前x位置
+    currentRightX: 560, // 右侧滑块当前x位置
+    minPrice: 0,
+    maxPrice: 0,
+    disabledLeft: false,
+    disabledRight: false,
+    
 
     loadingMore: true
   },
@@ -185,47 +197,50 @@ Page({
    * 左边滑块
    */
   handleMovableLeft(e) {
-    console.log(e)
     console.log(e.detail.x, '左面')
-    console.log(750 * e.detail.x / this.data.windowWidth + 75, '在设计稿上左边移动的宽度')
-    console.log(750 * e.detail.x / this.data.windowWidth, '左边滑块的偏移')
-    console.log(this.data.lineWhite - 750 * e.detail.x / this.data.windowWidth, '线的长')
+    let _currentLeftX = 750 * e.detail.x / this.data.windowWidth // 设计稿的左边距离长度
+    console.log('left: ' + _currentLeftX, '左间距')
+    if (_currentLeftX + 80 > this.data.currentRightX) { // 禁止拖动
+      this.setData({
+        disabledLeft: true
+      })
+      return
+    } else {
+      this.setData({
+        disabledLeft: false
+      })
+    }
+    let _lineWidth = this.data.currentRightX - _currentLeftX
 
-    let left = 750 * e.detail.x / this.data.windowWidth // 设计稿的左边距离长度
     this.setData({
-      leftLastTime: left,
-      lineWhite: this.data.lineWhite - (left - this.data.leftLastTime), // 线的长度
-      movableLeft: left,
-      offsetLeft: 750 * e.detail.x / this.data.windowWidth + 40
+      currentLeftX: _currentLeftX,
+      lineLeft: _currentLeftX,
+      lineWidth: _lineWidth
     })
-
-    // 检查是否禁用
 
     // 设置金额
     let price = 0
 
-    if (left > 0 && left <= 80) {
-
-    }
-    if (left > 80 && left <= 160) {
+    if (_currentLeftX > 80 && _currentLeftX <= 160) {
       price = 150
     }
-    if (left > 160 && left <= 240) {
+    if (_currentLeftX > 160 && _currentLeftX <= 240) {
       price = 300
     }
-    if (left > 240 && left <= 320) {
+    if (_currentLeftX > 240 && _currentLeftX <= 320) {
       price = 400
     }
-    if (left > 320 && left <= 400) {
+    if (_currentLeftX > 320 && _currentLeftX <= 400) {
       price = 500
     }
-    if (left > 400 && left <= 480) {
+    if (_currentLeftX > 400 && _currentLeftX <= 480) {
       price = 800
     }
-    if (left > 480) {
-
+    if (_currentLeftX > 480) {
+      price = 800
     }
 
+    console.log('min price: ' + price, '左侧最小价格')
     this.setData({
       minPrice: price
     })
