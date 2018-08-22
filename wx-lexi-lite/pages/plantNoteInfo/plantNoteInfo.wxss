@@ -1,0 +1,58 @@
+/* pages/plantNoteInfo/plantNoteInfo.wxss */
+@import "../index/index.wxss";
+@import "../../wxParse/wxParse.wxss";
+@import "../findInfo/findInfo.wxss";
+
+.product-max__box {
+  margin: 0 40rpx 40rpx 40rpx;
+  padding-bottom: 48rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+  position: relative;
+}
+
+.product-max__photo {
+  width: 670rpx;
+  height: 500rpx;
+  margin-bottom: 12rpx;
+}
+
+.product-max__photo image {
+  border-radius: 8rpx;
+  height: 100%;
+}
+
+.line-height--42rpx {
+  line-height: 58rpx;
+}
+
+.nowPrice {
+  font-weight: 700;
+  margin-right: 10rpx;
+}
+
+.oldPrice {
+  font-size: 24rpx;
+}
+.productPrice{
+  margin-top: 16rpx;
+}
+
+.info-btn {
+  width: 150rpx;
+  height: 56rpx;
+  background: rgba(95, 228, 177, 1);
+  border-radius: 28rpx;
+  color: white;
+}
+.product-min__box{
+  position: relative;
+  margin: 0 40rpx 40rpx 40rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.position-btn{
+  position: absolute;
+   bottom: 30rpx;
+   right: 0;
+}

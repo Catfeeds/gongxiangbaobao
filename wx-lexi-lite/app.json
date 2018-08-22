@@ -54,7 +54,12 @@
     "pages/gather/gather",
     "pages/lifeStoreGuide/lifeStoreGuide",
     "pages/categoryList/categoryList",
-    "pages/searchResult/searchResult"
+    "pages/searchResult/searchResult",
+    "pages/teachList/teachList",
+    "pages/designerAffair/designerAffair",
+    "pages/liveNoteList/liveNoteList",
+    "pages/plantNoteList/plantNoteList",
+    "pages/plantNoteInfo/plantNoteInfo"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

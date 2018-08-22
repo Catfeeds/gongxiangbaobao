@@ -11,7 +11,7 @@
   border-radius: 8rpx;
   overflow: hidden;
   margin: 20rpx 40rpx;
-  background-color: red;
+  /* background-color: red; */
   margin-bottom: 60rpx;
 }
 .find-swiper swiper {
@@ -74,7 +74,7 @@
 }
 
 image{
-  background-color: red;
+  /* background-color: red; */
 }
 
 /* 字体大小 */

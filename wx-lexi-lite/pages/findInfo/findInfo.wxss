@@ -1,5 +1,6 @@
 /* pages/findInfo/findInfo.wxss */
 @import "../index/index.wxss";
+@import "../../wxParse/wxParse.wxss";
 
 .container {
   background: rgba(247, 249, 251, 1);
@@ -129,17 +130,18 @@
   font-size: 26rpx;
   color: #999;
 }
-.info-title{
+
+.info-title {
   line-height: 50rpx;
   margin-bottom: 16rpx;
 }
 
-.follow-owner__btn{
+.follow-owner__btn {
   width: 114rpx;
   height: 50rpx;
   border-radius: 30rpx;
   color: white;
-  background-color: #5FE4B1;
+  background-color: #5fe4b1;
 }
 
 .flex-1 {
@@ -161,9 +163,11 @@
 .margin-right--40rpx {
   margin-right: 40rpx;
 }
+
 .margin-right--20rpx {
   margin-right: 20rpx;
 }
+
 .margin-right--10rpx {
   margin-right: 10rpx;
 }
@@ -175,6 +179,7 @@
 .margin-bottom--6rpx {
   margin-bottom: 6rpx;
 }
+
 .margin-bottom--10rpx {
   margin-bottom: 10rpx;
 }
@@ -186,6 +191,7 @@
 .margin-bottom--20rpx {
   margin-bottom: 20rpx;
 }
+
 .margin-bottom--26rpx {
   margin-bottom: 26rpx;
 }
@@ -193,6 +199,7 @@
 .margin-bottom--36rpx {
   margin-bottom: 36rpx;
 }
+
 .margin-bottom--6rpx {
   margin-bottom: 6rpx;
 }
@@ -204,10 +211,10 @@
 .margin-bottom--50rpx {
   margin-bottom: 50rpx;
 }
+
 .margin-top--40rpx {
   margin-top: 40rpx;
 }
-
 
 /* 字体大小 */
 
@@ -243,26 +250,59 @@
   line-height: 34rpx;
 }
 
-.line-height--40rpx{
+.line-height--40rpx {
   line-height: 40rpx;
 }
-.line-height--46rpx{
+
+.line-height--46rpx {
   line-height: 46rpx;
 }
-.line-height--48rpx{
+
+.line-height--48rpx {
   line-height: 48rpx;
 }
 
-image{
-  background-color: red;
+image {
+  /* background-color: red; */
 }
 
-.line-heiht-46rpx{
+.line-heiht-46rpx {
   line-height: 46rpx;
 }
-.line-heiht-32rpx{
+
+.line-heiht-32rpx {
   line-height: 32rpx;
 }
-.line-heiht-normal{
+
+.line-heiht-normal {
   line-height: normal;
+}
+
+.bg--hui {
+  background-color: #949ea6;
+  /* color:#333; */
+}
+
+.wxParse-p {
+  width: 750rpx;
+}
+
+.wxParse-p image{
+  margin-bottom: 26rpx;
+  width: 100% !important;
+}
+
+.wxParse-p view {
+  display: flex;
+  flex-direction: row;
+  width: 670rpx;
+  margin: 0 40rpx !important;
+  line-height: 44rpx !important;
+  white-space: wrap;
+  margin-bottom: 30rpx !important;
+  text-indent:2em;
+}
+
+.wxParse-p image {
+  width: 100%;
 }

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "发现详情",
+  "navigationBarTitleText": "文章详情",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",

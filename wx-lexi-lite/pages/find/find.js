@@ -13,14 +13,59 @@ Page({
     youLike: [], // 猜你喜欢
     advertisement: [], // 广告
     wonderfulStories: [], // 精彩故事
+    liveTheme:[
+      { name: "创作人故事",target:1, img:"../../images/other/designer_routine.jpg"},
+      { name: "种草笔记", target: 2, img:"../../images/other/teach.jpg"},
+      { name: "生活记事", target: 3, img:"../../images/other/plant_note.jpg"},
+      { name: "手作教学", target: 4, img:"../../images/other/live_note.jpg"}
+    ]
+  },
+
+  // "pages/teachList/teachList",
+  // "pages/designerAffair/designerAffair",
+  // "pages/liveNoteList/liveNoteList",
+  // "pages/plantNoteList/plantNoteList"
+
+  handleToListPage(e){
+    console.log(e.currentTarget.dataset.target)
+    let data 
+    switch (e.currentTarget.dataset.target) {
+      case 1:
+        data = 'designerAffair';
+        break;
+      case 2:
+        data = 'plantNoteList';
+        break;
+      case 3:
+        data = 'liveNoteList';
+        break;
+      case 4:
+        data = 'teachList';
+        break;
+
+    }
+
+    wx.navigateTo({
+      url: '../'+data+'/'+data,
+    })
   },
 
   // 生活志愿详情
   handleLiveInfo(e) {
     let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../findInfo/findInfo?rid=' + rid + "&&category=" + e.currentTarget.dataset.category
-    })
+
+    if (e.currentTarget.dataset.type == 1) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid + "&&category=" + e.currentTarget.dataset.category
+      })
+    }
+
+    if (e.currentTarget.dataset.type == 2) {
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid
+      })
+    }
+
   },
 
   //猜你喜欢
