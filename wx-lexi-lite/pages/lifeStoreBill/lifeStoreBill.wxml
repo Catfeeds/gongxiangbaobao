@@ -1,2 +1,36 @@
-<!--pages/lifeStoreBill/lifeStoreBill.wxml-->
-<text>pages/lifeStoreBill/lifeStoreBill.wxml</text>
+<view class='container'>
+
+  <view class="withdraw-bills">
+    <view class="withdraw-date">
+      <label>8月</label>
+      <label class="subtotal">提现：110.01</label>
+    </view>
+
+    <view class="withdraw-list">
+
+      <view class="withdraw-item" bindtap="handleViewDetail">
+        <view class="event">
+          <label class="remark">提现金额</label>
+          <text>08.10 20:45</text>
+        </view>
+        <view class="subtotal">
+          <label class="amount">110.01</label>
+          <text class="status yellow">审核中</text>
+        </view>
+      </view>
+
+      <view class="withdraw-item">
+        <view class="event">
+          <label class="remark">提现金额</label>
+          <text>08.10 20:45</text>
+        </view>
+        <view class="subtotal">
+          <label class="amount">110.01</label>
+          <text class="status red">提现失败</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+</view>

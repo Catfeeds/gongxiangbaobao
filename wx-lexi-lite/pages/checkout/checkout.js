@@ -380,9 +380,8 @@ Page({
 
     Object.keys(skus.data).forEach((key) => {
       store_items[key] = {
-        store_rid: app.globalData.storeRid, // String	必需	 	当前店铺rid
+        store_rid: key, // String	必需	 	当前店铺rid
         is_distribute: app.globalData.storeRid == key ? 0 : 1, // Integer	可选	0	是否分销 0、否 1、是
-        original_store_rid: key, // String	可选	 	原店铺rid
         buyer_remark: '', // String	可选	 	买家备注
         blessing_utterance: '', // String	可选	 	买家寄语
         coupon_codes: '', // String	可选	 	优惠券码
@@ -573,6 +572,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
+    if (lastVisitLifeStoreRid) { // 如存在，直接放入
+      app.globalData.orderParams.last_store_rid = lastVisitLifeStoreRid
+    }
+
     this.getStoreInfo()
     this.getIsFirstOrder() // 查看是否属于首单
     this.getReceiveAddress() // 收货地址---

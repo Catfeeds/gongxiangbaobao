@@ -497,9 +497,9 @@ Page({
   },
 
   // 获取商品原店铺信息
-  getstoreInfo() {
+  getStoreInfo() {
     console.log(this.data.originalStoreRid)
-    http.fxGet(api.shop_info, { rid: this.data.originalStoreRid}, (result) => {
+    http.fxGet(api.shop_info, { rid: this.data.originalStoreRid }, (result) => {
       console.log(result, '原店铺信息')
       if (result.success) {
         app.globalData.storeInfo = result.data
@@ -556,7 +556,7 @@ Page({
       })
     }
 
-    this.getstoreInfo() // 店铺信息---
+    this.getStoreInfo() // 店铺信息---
     this.getProductInfomation() // 获取商品详情---
     this.getCouponsByUser() // 获取登陆用户地优惠券
     this.getCouponsByUser(3) // 获取满减

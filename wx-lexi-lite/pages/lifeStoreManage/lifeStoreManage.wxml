@@ -1,10 +1,10 @@
 <view class='container'>
   <view class="fx-submenu">
-    <view class="submenu">
+    <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}" bindtap="handleGoUser">
       <text>个人主页</text>
       <view class="arrow"></view>
     </view>
-    <view class="submenu active">
+    <view class="submenu  {{ activeSubMenu == 'lifeStore' ? 'active' : ''}}">
       <text>生活馆管理</text>
       <view class="arrow"></view>
     </view>
@@ -15,27 +15,27 @@
     <view class="mask"></view>
     <view class="store-owner-container">
       <view class="store-owner">
-        <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="avatar"></image>
+        <image src="{{ lifeStore.logo }}" class="avatar"></image>
         <view class="store-content">
           <view class="title">
             <image src="../../images/shixicon@2.png" class="icon-store"></image>
-            <text class="name">欧阳娜娜</text>
-            <label class="status-label">实习馆主</label>
+            <text class="name">{{ lifeStore.name }}</text>
+            <label class="status-label" wx:if="{{ lifeStore.phases == 1 }}">实习馆主</label>
           </view>
           <view class="owner-uid">
-            ID:800098245
+            ID: {{ lifeStore.ID }}
           </view>
         </view>
       </view>
-      <view class="practice-timer">
+      <view class="practice-timer" wx:if="{{ lifeStore.phases == 1 || !expired }}">
         <label>实习倒计时</label>
-        <label class="number day">28</label>
+        <label class="number day">{{ leftTimer.days }}</label>
         <label class="unit day">天</label>
-        <label class="number">23</label>
+        <label class="number">{{ leftTimer.hours }}</label>
         <label class="unit">时</label>
-        <label class="number">08</label>
+        <label class="number">{{ leftTimer.minutes }}</label>
         <label class="unit">分</label>
-        <label class="number">34</label>
+        <label class="number">{{ leftTimer.seconds }}</label>
         <label class="unit">秒</label>
       </view>
     </view>
@@ -45,16 +45,16 @@
     <view class="store-income">
       <text>生活馆累计收益</text>
       <text class="unit">(元)</text>
-      <view class="amount">2230.00</view>
+      <view class="amount">{{ collect.total_commission_price }}</view>
 
       <view class="foot">
         <view class="today-income">
-          <text>今日：</text> 180.00
+          <text>今日：</text> {{ collect.today_commission_price }}
         </view>
         <view class="today-income settlement">
           <text>待结算：</text>
-          <text>180.00</text>
-          <image src="../../images/icon-info@2.png" class="icon-info"></image>
+          <text>{{ collect.pending_commission_price }}</text>
+          <image src="../../images/icon-info@2x.png" class="icon-info"></image>
         </view>
       </view>
     </view>
@@ -66,11 +66,11 @@
           <text>（笔）</text>
         </view>
         <label class="count">
-          123
+          {{ collect.all_count }}
         </label>
         <view class="label-count">
           今日：
-          <text>3</text>
+          <text>{{ collect.today_count }}</text>
         </view>
       </view>
 
@@ -80,11 +80,11 @@
           <text>（元）</text>
         </view>
         <label class="count">
-          123.00
+          {{ collect.cash_price }}
         </label>
         <view class="label-count">
           累计已提现：
-          <text class="yellow">6890.00</text>
+          <text class="yellow">{{ collect.total_cash_price }}</text>
         </view>
       </view>
 

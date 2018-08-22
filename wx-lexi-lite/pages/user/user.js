@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    activeSubMenu: 'user',
+    haveSmallB: false,
     watchStoreList: [], // 关注店铺的列表
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
@@ -52,6 +54,15 @@ Page({
       is_free_postage: 0, //Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential: '', //Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
     }
+  },
+
+  /**
+   * 切换生活馆管理
+   */
+  handleGoStoreManage () {
+    wx.navigateTo({
+      url: '../lifeStoreManage/lifeStoreManage',
+    })
   },
 
   /**
@@ -312,9 +323,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
     this.getUserInfo() // 获取用户的信息
     
+    const lifeStore = wx.getStorageSync('lifeStore')
+    // 小B商家获取自己生活馆
+    if (lifeStore.isSmallB) {
+      this.setData({
+        haveSmallB: true
+      })
+    }
   },
 
   /**

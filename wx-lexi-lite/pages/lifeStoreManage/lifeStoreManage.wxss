@@ -1,34 +1,4 @@
 /* pages/lifeStoreManage/lifeStoreManage.wxss */
-.fx-submenu {
-  display: flex;
-  justify-content: space-around;
-  padding: 26rpx 0 0;
-  background-color: #fff;
-}
-.fx-submenu .submenu {
-  flex: 0 0 auto;
-  font-size: 28rpx;
-  color: #555;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.fx-submenu .submenu text {
-  margin-bottom: 26rpx;
-}
-.fx-submenu .submenu .arrow {
-  width: 40rpx;
-  height: 4rpx;
-  display: inline-block;
-}
-.fx-submenu .submenu.active,
-.fx-submenu .submenu:hover {
-  color: #5FE4B1;
-}
-.fx-submenu .submenu.active .arrow {
-  background-color: #5FE4B1;
-}
-
 .store-owner__wrapper {
   padding: 40rpx;
   position: relative;
@@ -100,7 +70,7 @@
   border-radius: 18rpx;
   font-size: 22rpx;
   color: #fff;
-  padding: 2rpx 6rpx;
+  padding: 2rpx 10rpx;
   margin-left: 10rpx;
 }
 .store-owner .store-content .owner-uid {
@@ -270,27 +240,6 @@
   margin-right: 10rpx;
 }
 
-.fx-block {
-  padding-left: 40rpx;
-  background-color: #fff;
-}
-.fx-block .fx-block__item {
-  font-size: 28rpx;
-  color: #333;
-  padding: 30rpx 0;
-  border-bottom: 1rpx solid #E9E9E9;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.fx-block .fx-block__item .title {
-  flex: 1;
-}
-.fx-block .fx-block__item .icon-arrow {
-  flex: 0 0 auto;
-  margin-right: 40rpx;
-  color: #C1C1C1;
-}
 .store-phone {
   font-size: 32rpx;
   color: #5FE4B1;

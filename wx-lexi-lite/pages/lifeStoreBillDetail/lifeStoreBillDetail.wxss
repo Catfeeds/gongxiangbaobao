@@ -1,0 +1,165 @@
+.bill-total {
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+}
+.bill-total .bill-store {
+  margin-top: 56rpx;
+  font-size: 28rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bill-total .bill-store .store-logo {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 18rpx;
+}
+.bill-total .bill-amount {
+  font-size: 48rpx;
+  font-weight: 600;
+  margin: 27rpx 0 36rpx;
+}
+.bill-total .bill-status {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.fx-items {
+  
+}
+.fx-items .fx-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 40rpx 37rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+.fx-items .fx-item.no-border {
+  border-bottom: none;
+}
+.fx-items .fx-item.xs {
+  padding: 20rpx 40rpx 0rpx;
+}
+.fx-items .fx-item.xs:last-child {
+  padding-bottom: 20rpx;
+}
+.fx-items .fx-item .label {
+  flex: 1;
+  text-align: left;
+  color: #999;
+}
+.fx-items .fx-item .value {
+  flex: 0 0 auto;
+}
+
+.withdraw-bill-list {
+  margin-top: 20rpx;
+  margin-bottom: 100rpx;
+}
+
+.withdraw-bill-list .title {
+  font-size: 28rpx;
+  color: #333;
+  padding: 30rpx 40rpx;
+  background-color: #fff;
+  font-weight: 500;
+}
+
+.bill-month .withdraw-date {
+  padding: 16rpx 40rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+.bill-month .bill-order {
+  background-color: #fff;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+.bill-month .order-income {
+  font-size: 28rpx;
+  padding: 38rpx 40rpx;
+  display: flex;
+  align-items: center;
+}
+.bill-month .order-income .income {
+  flex: 1;
+}
+.bill-month .order-income .income .amount {
+  font-weight: 600;
+}
+.bill-month .order-income .detail {
+  flex: 0 0 auto;
+  font-size: 28rpx;
+  color: #5FE4B1;
+}
+.bill-month .order-info {
+  font-size: 22rpx;
+  color: #333;
+  padding: 0 40rpx;
+}
+.bill-month .order-info .date {
+  color: #999;
+  font-size: 24rpx;
+}
+
+/* 收益弹出框 */
+.modal-body {
+  max-height: 750rpx;
+  overflow: auto;
+  margin: 0rpx -30rpx;
+}
+.modal-body .bill-order {
+  font-size: 28rpx;
+  color: #333;
+  padding: 0 30rpx 30rpx; 
+}
+.modal-body .bill-order .order-income {
+  margin-bottom: 22rpx;
+}
+.modal-body .bill-order .order-income .amount {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.modal-body .bill-order .order-info {
+  font-size: 22rpx;
+}
+.modal-body .bill-order .order-info .date {
+  color: #999;
+}
+.modal-body .order-items .order-item {
+  border-top: 1rpx solid #e9e9e9;
+  padding: 20rpx 30rpx;
+}
+.modal-body .order-items .order-item .order {
+  display: flex;
+  align-items: center;
+}
+.modal-body .order-items .order-item .order .cover {
+  width: 110rpx;
+  height: 110rpx;
+  margin-right: 20rpx;
+  flex: 0 0 auto;
+}
+.modal-body .order-items .order-item .order .content {
+  flex: 1;
+  font-size: 28rpx;
+}
+.modal-body .order-items .order-item .order .content .sku {
+  font-size: 24rpx;
+  color: #999;
+}
+.modal-body .order-items .order-item .order .quantity {
+  flex: 0 0 auto;
+  font-size: 24rpx;
+  color: #999;
+}
+.modal-body .order-items .order-item .income {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 26rpx;
+}
+.modal-body .order-items .order-item .income text {
+  color: #ff6666;
+}

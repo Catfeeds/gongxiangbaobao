@@ -2,24 +2,46 @@
 
   <view class="withdraw-wallet">
     <view class="withdraw-title">
-      可提现金额<text>（元）</text>
+      可提现金额
+      <text>（元）</text>
     </view>
     <view class="withdraw-amount">
-      8.00
+      {{ collect.cash_price }}
     </view>
     <view class="withdraw-sum">
-      累计已提现：6890.00
+      累计已提现：{{ collect.total_cash_price }}
     </view>
   </view>
 
   <view class="withdraw-action">
-    <button class="fx-button fx-button--withdraw">提现</button>
+    <button class="fx-button fx-button--withdraw {{ collect.cash_price < 10 ? 'disabled' : '' }}" bindtap="handleShowWithdraw">提现</button>
     <text class="notice">可提现金额超过10元才可提现，每日最多可提现3次</text>
   </view>
 
-  <view class="fx-block">
-    <label>对账单</label>
-    <text>无提现记录 ></text>
+  <view class="fx-block store-bill">
+    <view class="fx-block__item" bindtap="handleViewBill">
+      <image src="../../images/icon-bill@2x.png" class="icon-bill"></image>
+      <text class="title">对账单</text>
+      <label class="icon-arrow">
+        无提现记录
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
   </view>
+
+  <!-- 提现弹出窗 -->
+  <fx-modal-v visible="{{ showModal }}">
+    <view class="withdraw-modal">
+      <image src="../../images/icon-money@2x.png" class="icon-money"></image>
+      <view class="amount">
+        {{ collect.cash_price }}
+      </view>
+      <view class="tip">
+        技术服务费：0.00
+      </view>
+
+      <button class="fx-button primary" bindtap="handleSubmitWithdraw">提现到微信零钱包</button>
+    </view>
+  </fx-modal-v>
 
 </view>
