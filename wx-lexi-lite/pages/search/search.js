@@ -126,23 +126,20 @@ Page({
   // 跳转
   handleToSkip(e){
     console.log(e.currentTarget.dataset.targetType)
-    let target 
+    let target = e.currentTarget.dataset.targetType
     let rid = e.currentTarget.dataset.rid
-    switch (e.currentTarget.dataset.targetType){
-      case 1:
-        target = "product"
-      break;
-      case 2:
-        target = "branderStore"
-      break;
-      default:
 
+    if (target==1){
+      wx.navigateTo({
+        url: "../product/product?rid=" + rid
+      })
     }
 
-    wx.navigateTo({
-      url: '../' + target + '/' + target + "?rid = " + rid
-    })
-
+    if (target==2){
+      wx.navigateTo({
+        url: '../branderStore/branderStore?rid=' + rid
+      })
+    }
 
   },
   

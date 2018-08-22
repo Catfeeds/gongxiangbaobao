@@ -39,14 +39,17 @@ module.exports = {
 
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
+  life_store_edit: 'store/edit_store', // GET
   life_store_apply: 'store/apply_life_store', // POST 申请生活馆
   life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
-  life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
-  life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
+  life_records_detail:'life_records/detail', // get 生活志详情
   life_store_headlines: 'store/store_headline', // GET 
-  life_store_edit: 'store/edit_store', // GET
+  life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
   life_store_update_logo: 'store/update_life_store_logo', // POST 
-
+  life_records_guess_likes: 'life_records/guess_likes', //get 发现的猜你喜欢
+  life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
+  life_records_wonderful_stories:'life_records/wonderful_stories', //get精彩故事
+  
   // 分销
 
   // GET 分销池

@@ -1,11 +1,15 @@
 <!--pages/find/find.wxml-->
 <view class="container">
-  <!-- <button catchtap='xiangqing'>转到详情</button> -->
   <!-- 轮播图 -->
   <view class="find-swiper">
-    <swiper indicator-dots="{{true}}" interval="{{interval}}" duration="{{duration}}">
-      <swiper-item wx:for="{{[1,2,3,4,56,6]}}" wx:key="{{index}}">
-        <image src="../../images/timg.jpg" class="slide-image" />
+    <swiper 
+      class="advertisement-swiper"
+      indicator-dots="{{true}}" 
+      interval="{{5000}}" 
+      autoplay="{{true}}"
+      duration="{{500}}">
+      <swiper-item wx:for="{{advertisement.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
+        <image src="{{item.image}}" class="slide-image" />
       </swiper-item>
     </swiper>
   </view>
@@ -35,14 +39,21 @@
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
     <view class='production new-goods_box '>
-      <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' wx:for="{{[1,2,3,4,5,6,7,8,9,0,1]}}" wx:key='{{index}}'>
+      <view 
+        wx:if="{{index<4}}" 
+        data-category="猜你喜欢"
+        data-rid="{{item.rid}}"
+        catchtap="handleLiveInfo"
+        class='flex-direction--column productionGoods' 
+        wx:for="{{youLike.life_records}}" 
+        wx:key='{{index}}'>
 
-        <image src="../../images/timg.jpg" class="img--style"></image>
-        <text class="font-s font-width--semibold text-two_line margin-bottom--10rpx">手做教学</text>
-        <text class='font-ss shen-hui text-two_line line-height--40rpx'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
+        <image src="{{item.cover}}" class="img--style"></image>
+        <text class="font-s font-width--semibold text-two_line margin-bottom--10rpx">{{item.title}}</text>
+        <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
         <view class='plant-owner__box flex_row'>
-          <image src="../../images/timg.jpg" class='plant-owner__photo'></image>
-          <text class="font-s shen-hui">赵高尚</text>
+          <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{item.user_name}}</text>
         </view>
       </view>
     </view>
@@ -57,20 +68,21 @@
     <view class='production new-goods_box '>
       <view 
         wx:if="{{index<4}}" 
+        data-category="精彩故事"
+        data-rid="{{item.rid}}"
+        catchtap="handleLiveInfo"
         class='flex-direction--column productionGoods ' 
-        wx:for="{{[1,2,3,4,5,6,7,8,9,0,1]}}" 
+        wx:for="{{wonderfulStories.life_records}}" 
         wx:key='{{index}}'>
-        <image src="../../images/timg.jpg" class="img--style"></image>
-        <text class="font-s font-width--semibold text-two_line">手做教学</text>
-        <text class='font-ss shen-hui text-two_line line-height--40rpx'>将余生用于创作爱上三卡聚合 撒娇开始即可进口红酒快结...</text>
+        <image src="{{item.cover}}" class="img--style"></image>
+        <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
+        <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
         <view class='margin-top--8rpx flex_row'>
-          <image src="../../images/timg.jpg" class='plant-owner__photo'></image>
-          <text class="font-s shen-hui">赵高尚</text>
+          <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{item.user_name}}</text>
         </view>
       </view>
     </view>
   </view>
-
-
 
 </view>

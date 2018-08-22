@@ -14,6 +14,9 @@
   background-color: red;
   margin-bottom: 60rpx;
 }
+.find-swiper swiper {
+  height: 100%;
+}
 .category-title__big{
   margin-bottom: 20rpx;
 }

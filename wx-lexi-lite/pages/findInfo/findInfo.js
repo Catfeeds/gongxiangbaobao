@@ -1,10 +1,19 @@
 // pages/findInfo/findInfo.js
+const app = getApp()
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
+let wxparse = require("../../wxParse/wxParse.js")
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    rid:'', // rid
+    category:'', // 频道的名字
+    liveInfo:'',// 详情
     product: [
       {
         category_id: 148,
@@ -274,11 +283,37 @@ Page({
     ]
   },
 
+
+
+
+  // 获取生活志详情
+  getLiveInfo(){
+    http.fxGet(api.life_records_detail, {rid:this.data.rid},(result)=>{
+      console.log(result,"生活志详情")
+      if (result.success) {
+        result.data.published_at = utils.timestamp2string(result.data.published_at,"date")
+
+        this.setData({
+          liveInfo: result.data
+        })
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
+    this.setData({
+      rid: options.rid,
+      category: options.category,
+    })
 
+    this.getLiveInfo() // 生活志详情
   },
 
   /**

@@ -4,44 +4,49 @@
   <view class="bg-white border-bottom margin-bottom--30rpx">
     <!-- 头部图片 -->
     <view class='top-photo'>
-      <image src='../../images/timg.jpg'></image>
+      <image src='{{liveInfo.cover}}'></image>
     </view>
 
     <!-- 店铺的信息 -->
     <view class='margin-left--40rpx margin-right--40rpx'>
-      <view class="font-s font-width--medium margin-bottom--6rpx">生活记事</view>
+      <view class="font-s font-width--medium margin-bottom--6rpx">{{category}}</view>
 
       <view class="font-width--semibold font-xxxl info-title">
-        <text>旧衣服改造成暖心好物，双11为单身汪 送上终极关怀狗粮！</text>
+        <text>{{liveInfo.title}}</text>
       </view>
 
       <view class="font-s flex_row margin-bottom--20rpx">
-        <view class='margin-right--20rpx'>2017.08.12</view>
+        <view class='margin-right--20rpx'>{{liveInfo.published_at}}</view>
         <view>
           <image 
             class='margin-right--10rpx' 
             src="../../images/tabuser.png" 
             class="browse-quantity__icon"></image>
-          <text>1234</text>
+          <text>{{liveInfo.browse_count}}</text>
         </view>
       </view>
 
       <view class="time-top margin-bottom--30rpx">
         <view class="flex_row">
-          <image src="../../images/timg.jpg" class="store-logo"></image>
-          <text class="font-s font-width--medium">一个手作</text>
+          <image src="{{liveInfo.user_avator}}" class="store-logo"></image>
+          <text class="font-s font-width--medium">{{liveInfo.user_name}}</text>
         </view>
 
-        <view class="font-s flex_row--middle follow-owner__btn">
+        <view class="font-s flex_row--middle follow-owner__btn" wx:if="{{!is_follow}}">
           <text>关注</text>
         </view>
+
+        <view class="font-s flex_row--middle follow-owner__btn" wx:else>
+          <text>已关注</text>
+        </view>
+
       </view>
 
-      <view class="font-s theme-green margin-bottom--50rpx">
+      <!-- <view class="font-s theme-green margin-bottom--50rpx">
         <text>#夏天的女孩</text>
         <text>#夏天的女孩</text>
         <text>#夏天的女孩</text>
-      </view>
+      </view> -->
 
     </view>
 
