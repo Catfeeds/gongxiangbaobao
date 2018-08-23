@@ -90,7 +90,7 @@
 }
 
 .hot-recommend__bottom image {
-  background-color: red;
+  /* background-color: red; */
   height: 90rpx;
   width: 90rpx;
   border-radius: 50%;
