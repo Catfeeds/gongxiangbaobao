@@ -336,6 +336,7 @@ Page({
 
   // 获取商品详情
   getProductInfomation() {
+    console.log(this.data.rid,"rid")
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
       user_record: "1"
     }, (result) => {

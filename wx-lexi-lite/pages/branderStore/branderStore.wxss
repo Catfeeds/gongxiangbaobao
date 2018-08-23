@@ -4,6 +4,7 @@
 
 .container {
   height: auto;
+  /* display: initial; */
   background-color: white;
 }
 
@@ -47,8 +48,8 @@
   margin-right: 30rpx;
 }
 
-.follow .dlete-follow{
-  background-color:#f5f7f9;
+.follow .dlete-follow {
+  background-color: #f5f7f9;
   color: #333;
 }
 
@@ -232,21 +233,33 @@
   background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
   font-size: 50rpx;
 }
-.announcement-off__btn .announcement-off__icon{
 
+.announcement-off__btn .announcement-off__icon {
 }
+
 .announcement-off__btn image {
-    position: absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%);
-  height:34rpx;
+  height: 34rpx;
   width: 34rpx;
+}
+
+.pick-box {
+  position: fixed;
+  top: 10000rpx;
+  left: 0;
+  height: 100%;
+  width: 750rpx;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .shim {
   height: 270rpx;
 }
+
 .active {
   color: #5fe4b1 !important;
 }

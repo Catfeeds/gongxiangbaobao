@@ -1,0 +1,23 @@
+<!--pages/designerAffair/designerAffair.wxml-->
+<view class="">
+  <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
+  </view>
+  <view class='production new-goods_box'>
+    <view 
+      class='flex-direction--column productionGoods'
+      catchtap="handleToInfo"
+      data-rid="{{item.rid}}"
+      data-type="{{item.type}}" 
+      wx:for="{{dataList}}" 
+      wx:key='{{index}}'>
+
+      <image src="{{item.cover}}" class="img--style"></image>
+      <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
+      <text class='font-ss shen-hui text-two_line'>{{item.description}}</text>
+      <view class='plant-owner__box flex_row'>
+        <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+        <text class="font-s shen-hui">{{item.user_name}}</text>
+      </view>
+    </view>
+  </view>
+</view>

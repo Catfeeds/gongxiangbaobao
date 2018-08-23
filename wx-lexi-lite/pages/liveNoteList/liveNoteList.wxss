@@ -1,0 +1,2 @@
+/* pages/liveNoteList/liveNoteList.wxss */
+@import "../index/index.wxss";
