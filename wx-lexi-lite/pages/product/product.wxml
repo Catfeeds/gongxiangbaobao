@@ -177,7 +177,7 @@
   </view>
 
   <!-- 产品的详细介绍 -->
-  <view class='goods-info'>
+  <view class='goods-info bg-white'>
     <view>
       <view class='title-text'>作品详情</view>
       <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}" />

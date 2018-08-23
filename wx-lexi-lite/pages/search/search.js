@@ -7,19 +7,20 @@ const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
 let WxParse = require("../../wxParse/wxParse.js")
 let searchTime
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    hotSearchList:[], // 热门搜索的
-    recommendList:[], // 热门推荐的其他三个
+    hotSearchList: [], // 热门搜索的
+    recommendList: [], // 热门推荐的其他三个
     searchHistory: [], // 搜索历史
     inputText: '', // 输入框的内容
     highQualityList: [], // 最近查看
     recommendText: [], // 搜索时候推荐的词汇
-    html: [],
+    replyTemArray: [],
     // 关键词请求到参数
     hingeParams: {
       page: 1, //Number	可选	1	当前页码
@@ -29,8 +30,9 @@ Page({
   },
 
   // 搜索热词
-  handleSearchWord(e){
+  handleSearchWord(e) {
     e.currentTarget.dataset.text
+
     wx.navigateTo({
       url: '../searchResult/searchResult?text=' + e.currentTarget.dataset.text,
     })
@@ -39,14 +41,15 @@ Page({
   // 记录历时 跳转页面
   handleRecordLast() {
     console.log(this.data.inputText, "保存历史")
+    clearTimeout(searchTime)
     let data = this.data.searchHistory
     data.unshift(this.data.inputText)
     let newData = Array.from(new Set(data)) // 去重后转为数组 
 
-    if (this.data.inputText.length!=0){
+    if (this.data.inputText.length != 0) {
       wx.setStorageSync('searchHistory', newData)
     }
-    
+
     this.setData({
       searchHistory: newData
     })
@@ -78,6 +81,25 @@ Page({
     })
   },
 
+  // 输入框输入时 点击的文字
+  handleSearchText(e){
+    let index = e.currentTarget.dataset.index
+
+    console.log(this.data.data[index],"选中的")
+    console.log(typeof (this.data.data[index]),"选中的")
+    let replaceData = this.data.data[index]
+    console.log(replaceData)
+    replaceData =replaceData.replace('<text style=color:#5FE4B1>','')
+    replaceData = replaceData.replace("</text>",'')
+    console.log(replaceData)
+
+    this.setData({
+      inputText: replaceData
+    })
+
+    this.handleRecordLast()
+  },
+
   // 输入框输入信息
   handleInput(e) {
     console.log(e.detail.value, "输入的内容")
@@ -89,25 +111,33 @@ Page({
 
     clearTimeout(searchTime)
     searchTime = setTimeout(() => {
+      let data = []
       http.fxGet(api.core_platforms_search, this.data.hingeParams, (result) => {
         console.log(result, "搜索结果")
         if (result.success) {
-          result.data.search_items.forEach((v, i) => {
+          result.data.search_items.forEach((v, n) => {
             v.matches.forEach((o, n) => {
               v.name = v.name.replace(o, `<text style=color:#5FE4B1>` + o + `</text>`)
+              data.push(v.name)
             })
+
             // 处理html数据---
-            console.log(v)
-            if (result.data.search_items.length - 1 == i) {
-              // WxParse.wxParseTemArray("html", v.search_items, result.data.search_items.length, this)
-              console.log(this.data.html)
+            if (result.data.search_items.length - 1 == n) {
+              console.log(data, "拼接的")
+              for (let i = 0; i < data.length; i++) {
+                WxParse.wxParse('data' + i, 'html', data[i], this);
+                if (i == data.length - 1) {
+                  WxParse.wxParseTemArray("replyTemArray", 'data', data.length, this)
+                }
+              }
+
+              console.log(this.data.replyTemArray)
               this.setData({
+                data:data,
                 recommendText: result.data
               })
             }
-            WxParse.wxParse('html', 'html', v.name, this);
           })
-
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -124,32 +154,32 @@ Page({
   },
 
   // 跳转
-  handleToSkip(e){
+  handleToSkip(e) {
     console.log(e.currentTarget.dataset.targetType)
     let target = e.currentTarget.dataset.targetType
     let rid = e.currentTarget.dataset.rid
 
-    if (target==1){
+    if (target == 1) {
       wx.navigateTo({
         url: "../product/product?rid=" + rid
       })
     }
 
-    if (target==2){
+    if (target == 2) {
       wx.navigateTo({
         url: '../branderStore/branderStore?rid=' + rid
       })
     }
 
   },
-  
+
   // 搜索热门搜索 core_platforms/search/week_hot
-  getHotSearch(){
-    http.fxGet(api.core_platforms_search_week_hot,{},(result)=>{
-      console.log(result,"热门搜索")
+  getHotSearch() {
+    http.fxGet(api.core_platforms_search_week_hot, {}, (result) => {
+      console.log(result, "热门搜索")
       if (result.success) {
         this.setData({
-          hotSearchList:result.data
+          hotSearchList: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -159,14 +189,14 @@ Page({
   },
 
   // 搜索热门推荐 其他的3个
-  getHotRecommend(){
-    http.fxGet(api.core_platforms_search_hot_recommend,{},(result)=>{
-      console.log(result,"热门推荐3个")
+  getHotRecommend() {
+    http.fxGet(api.core_platforms_search_hot_recommend, {}, (result) => {
+      console.log(result, "热门推荐3个")
       if (result.success) {
-        result.data.hot_recommends.forEach((v,i)=>{
-          v.recommend_title = common.sliceString(v.recommend_title,4)
+        result.data.hot_recommends.forEach((v, i) => {
+          v.recommend_title = common.sliceString(v.recommend_title, 4)
         })
-          
+
         this.setData({
           recommendList: result.data
         })
@@ -175,10 +205,10 @@ Page({
       }
     })
   },
-  
+
   // 热门推荐 -- 接单定制  
-  getCustomMade(){
-        // http.fxGet(api.,(result)=>{
+  getCustomMade() {
+    // http.fxGet(api.,(result)=>{
 
     // })
 

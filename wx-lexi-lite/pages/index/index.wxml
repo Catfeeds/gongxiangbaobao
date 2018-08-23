@@ -260,7 +260,13 @@
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--30rpx today-recommend-box'>
-        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" wx:key="{{index}}">
+        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' 
+        wx:for="{{todayRecommendList.daily_recommends}}" 
+        catchtap="handleToInfo"
+        data-type="{{item.target_type}}"
+        data-id="{{item.id}}"
+        data-rid="{{item.rid}}"
+        wx:key="{{index}}">
           <view class='all-product'>
             <image class='border-radius--8' src="{{item.cover}}"></image>
           </view>
@@ -278,7 +284,7 @@
     </view>
 
     <!-- "免运，奖励，优惠生活" -->
-    <view class='material-benefits'>
+    <view class='material-benefits' wx:if="{{}}">
       <view class='material-benefits-top qian-hui font-s'>免运，奖励，优惠生活</view>
       <view class='material-benefits_bottom c-crosswise-a'>
         <view class='font-s fx-column--center'>
@@ -341,7 +347,7 @@
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}} -->
-    <view class='c-importantGoods box--margin border-top'>
+    <view class='c-importantGoods box--margin border-top' wx:if="{{}}">
       <view class='c-importantGoodsTitle line-height--28rpx'>发现生活美学</view>
       <view class='c-importantGoodsBox  today-recommend-box'>
         <view class="life-beautiful-box" wx:for="123456790" wx:key="{{index}}">
@@ -367,10 +373,19 @@
     <view class="border-top margin-left--40rpx">
       <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
         <text>种草清单</text>
-        <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text 
+          wx:if="{{plantOrderList.life_records.length>4}}" 
+          catchtap="handleToPlantNoteList"
+          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='production new-goods_box padding-left--0rpx'>
-        <view wx:if="{{index<4}}" class='flex-direction--column productionGoods ' wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
+        <view 
+          wx:if="{{index<4}}" 
+          class='flex-direction--column productionGoods' 
+          catchtap="handleToPlantNoteInfo"
+          data-rid="{{item.rid}}"
+          wx:for="{{plantOrderList.life_records}}" 
+          wx:key='{{index}}'>
 
           <image src="{{item.cover}}" class="img--style"></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
@@ -529,8 +544,6 @@
 
   </view>
 
-  <!-- 官方信息 -->
-  <fx-offcial></fx-offcial>
 
   <!-- 登陆注册模态框 -->
   <view wx:if="{{is_mobile}}" class='login-bind_box--style'>

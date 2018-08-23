@@ -1,37 +1,131 @@
 <!--pages/searchResult/searchResult.wxml-->
-  <!-- 以喜欢里面的内容 -->
-  <view class='bottom__info'>
-    <!-- 定位垫片 -->
-    <view class='Fshim' wx:if="{{sotrF}}"></view>
-    <!-- 筛选和排序 -->
-    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
-      <view catchtap='handelOffPick' class='flex_row'>
-        筛选
-        <image src='../../images/arrowhead.png'></image>
-       </view>
-      <view catchtap="handleSortShow" class='flex_row'>
-        排序
-        <image src='../../images/arrowhead.png'></image>
-       </view>
+<view>
+  <!-- 搜索框 -->
+  <view class="bg-white search-input" catchtap="handleToSearch">
+    <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
+    <view class='infput-search__btn'>
+      <image src='../../images/sear-icon@2.png'></image>
     </view>
-    <!-- 下面的产品列表 -->
-    <view class='goodsList' wx:if="{{likeProduct.products.length!=0}}">
-      <view wx:for="{{likeProduct.products}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
-      </view>
-    </view>
-
-    <!-- 缺省图片 -->
-    <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">
-      <view>
-        <image src='../../images/user-xin.png'></image>
-      </view>
-      <view class='black-font no-like__title'> <text>你还未喜欢过任何东西</text></view>
-      <view class='flex_row font-s qian-hui hui-xin'>
-        <view>点击商品和橱窗上的</view>
-        <image src='../../images/dLike@2.png'></image>
-        <view>即可添加到您的喜欢列表中</view>
-      </view>
-    </view>
-
   </view>
+
+  <!-- 中间的分类切换 -->
+  <view class="flex_row font-xxl font-width--medium bg-white category-box">
+    <view class='flex_row--middle {{item.id==navbarCategoryId?"active":""}}' wx:for="{{navbarCategory}}" wx:key="{{index}}" catchtap="handleCategoryChange" data-id="{{item.id}}">
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 商品 -->
+  <block wx:if="{{navbarCategoryId==1}}">
+    <view class='bottom__info'>
+
+      <!-- 筛选和排序 -->
+      <view class='time-top sotr black-font'>
+        <view catchtap='handelOffPick' class='flex_row'>
+          筛选
+          <image src='../../images/arrowhead.png'></image>
+        </view>
+        <view catchtap="handleSortShow" class='flex_row'>
+          排序
+          <image src='../../images/arrowhead.png'></image>
+        </view>
+      </view>
+      <!-- 下面的产品列表 -->
+      <view class='goodsList'>
+        <view wx:for="{{prodctList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+          <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        </view>
+      </view>
+
+    </view>
+  </block>
+
+  <!-- 品牌管 -->
+  <block wx:if="{{navbarCategoryId==2}}">
+    <!-- 店铺其他产品信息 -->
+    <view 
+      class='shopInfo' 
+      wx:for="{{storeList}}" 
+      data-store-rid="{{item.rid}}"
+      wx:key="{{index}}">
+      <view class='shopInfoT' 
+        data-store-rid="{{item.rid}}" 
+        catchtap="handleTobrandStore">
+        <view class='userIcon'>
+          <image src='{{ item.logo }}'></image>
+        </view>
+        <view 
+          class='shopMiddle'>
+          <view class='hui-zi'>原创品牌馆</view>
+          <view class='shop-name'>{{ item.name }}</view>
+        </view>
+        <view 
+          class='with' 
+          catchtap='handleAddWatch' 
+          wx:if="{{!item.is_follow_store}}" 
+          data-rid="{{item.rid}}" 
+          data-index="{{index}}">
+          <image src='../../images/shop1.png'></image>
+          <view>关注</view>
+        </view>
+        <view 
+          class='with' 
+          data-rid="{{item.rid}}" 
+          catchtap='handleDeleteWatch' 
+          wx:if="{{item.is_follow_store}}" 
+          data-index="{{index}}">
+          <!-- <image src='../../images/shop1.png'></image> -->
+          <view>已关注</view>
+        </view>
+      </view>
+      <view class='shop-other-goods'>
+        <view 
+          wx:for='{{ item.products }}' 
+          wx:key="{{ index }}" 
+          wx:for-item="value" 
+          data-rid='{{ value.rid }}' 
+          catchtap='handleToProductInfoTap'>
+          <image src='{{ value.cover }}-p16'></image>
+        </view>
+      </view>
+    </view>
+
+  </block>
+
+  <!-- 用户 -->
+<block wx:if="{{navbarCategoryId==3}}">
+  <view class='container'>
+  <view class='time-top font-m relation-item' wx:for="{{userList}}" wx:key="{{index}}">
+    <view 
+      class='flex_row relation-avater' 
+      data-uid="{{item.uid}}"
+      catchtap="handleToPeopleTap">  
+      <image src="{{item.avatar}}"></image>
+      <text>{{item.username}}</text>
+    </view>
+
+    <view class='relation-icon'>
+      <view 
+        catchtap='hanleDeleteWatch' 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        wx:if="{{item.follow_status==2}}">互相关注
+      </view>
+      <view 
+        catchtap='hanleDeleteWatch' 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        wx:if="{{item.follow_status==1}}">已关注
+      </view>
+      <view 
+        data-uid="{{item.uid}}" 
+        data-index="{{index}}"
+        catchtap='hanleAddWatch' 
+        class='relation-icon__add' 
+        wx:if="{{item.follow_status==0}}">+ 关注
+      </view>
+    </view>
+  </view>
+</view>
+  </block>
+</view>

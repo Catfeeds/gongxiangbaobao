@@ -11,7 +11,7 @@
     <view class='logistics' wx:if='{{product.is_free_postage}}'>
       <image src='../../images/logistics@2.png'></image>
     </view>
-    <view class='material-quality-text'>{{product.name}}</view>
+    <view class='material-quality-text'> <text>{{product.name}}</text> </view>
   </view>
 
   <view class='productPrice'>
