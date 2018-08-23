@@ -2,6 +2,7 @@
   "navigationBarTitleText": "选品中心",
   "usingComponents": {
     "fx-mini-btn": "/components/FxMiniBtn/FxMiniBtn",
-    "fx-modal": "/components/FxModal/FxModal"
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-slider": "/components/FxSlider/FxSlider"
   }
 }

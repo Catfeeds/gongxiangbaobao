@@ -18,6 +18,7 @@ module.exports = {
   user_authorize: 'accounts/wxa_authorize', //openid---
   user_avatar_upload: '', // POST 
   user_upload_token: 'assets/user_upload_token', // GET 获取上传Token
+  user_withdraw: 'pay_account/life_cash_money', // 提现至微信
 
   // Asset
   asset_detail: 'assets/show_asset', // GET 获取附件 
@@ -61,11 +62,13 @@ module.exports = {
   life_store_orders: 'orders/life_orders', // GET 生活馆订单列表
   life_store_statements: 'stats/life_orders/statements', // GET 生活馆对账单
   life_store_statement_detail: 'stats/life_orders/statement_items', // GET 生活馆对账单详情
+
   life_records_recommend_products:'life_records/recommend_products', // get 生活值详情 推荐
   life_records_creator_story:'life_records/creator_story',// 创作人故事列表
   life_records_hand_teach:'life_records/hand_teach', // 手做教学列表
   life_records_grass_note:'life_records/grass_note', // 种草笔记频道列表
   life_records_life_remember:'life_records/life_remember',// 生活记事频道列表
+  
   // 分销
 
   // GET 分销池
@@ -82,6 +85,8 @@ module.exports = {
   distribute_newest: 'core_platforms/fx_distribute/latest',
   // GET 本周最受欢迎的分销商品
   distribution_week_popular: 'fx_distribute/week_popular',
+  // GET 选品中心-全部商品
+  distribute_products: 'fx_distribute/choose_center',
   
   // Product
   products: 'products/by_store', // GET 产品列表---

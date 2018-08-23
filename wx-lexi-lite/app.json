@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/lifeStoreManage/lifeStoreManage",
     "pages/index/index",
     "pages/findInfo/findInfo",
     "pages/find/find",
+    "pages/distributes/distributes",
+    "pages/lifeStoreManage/lifeStoreManage",
     "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/lifeStoreBalance/lifeStoreBalance",
     "pages/lifeStoreBillDetail/lifeStoreBillDetail",
@@ -16,7 +17,7 @@
     "pages/search/search",
     "pages/dynamic/dynamic",
     "pages/people/people",
-    "pages/distributes/distributes",
+    
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
     "pages/distributeSubmit/distributeSubmit",

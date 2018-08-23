@@ -199,7 +199,7 @@ Component({
     },
 
     //左边滑块
-    handleMovableLeft(e) {
+    handleMovableLeft (e) {
       console.log(e)
       console.log(e.detail.x, '左面')
       console.log(750 * e.detail.x / this.data.windowWidth + 75, '在设计稿上左边移动的宽度')

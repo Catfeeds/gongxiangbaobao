@@ -41,9 +41,7 @@
   height: 360rpx;
   margin: 0 auto;
 }
-
-
-.distribute-swiper .swiper-item image{
+.distribute-swiper .swiper-item image {
   height: 218rpx;
   width: 452rpx;
 }
@@ -145,6 +143,11 @@
   height: 10rpx;
 }
 
+.price-range {
+  position: relative;
+  padding: 20rpx 40rpx 0;
+  background-color: #fff;
+}
 
 .fx-distribute-cards {
   display: flex;

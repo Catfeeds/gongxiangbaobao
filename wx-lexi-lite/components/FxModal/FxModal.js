@@ -73,6 +73,13 @@ Component({
 
     },
 
+    /**
+     * 重置事件
+     */
+    resetModal (e) {
+      this.triggerEvent('resetEvent', e)
+    },
+    
     // 触发点击事件
     handleViewTap(e) {
       this.triggerEvent('tapEvent', e)

@@ -78,16 +78,30 @@ Page({
    * 获取交易订单列表
    */
   getStoreOrders () {
+    console.log(this.data.params)
     http.fxGet(api.life_store_transactions, this.data.params, (res) => {
       console.log(res, '交易订单')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
+      let transactions = this._rebuildTradeData(res.data.transactions)
       this.setData({
         'totalCount': res.data.count,
-        'orderList': res.data.transactions
+        'orderList': transactions
       })
     })
+  },
+
+  /**
+   * 修正数据
+   */
+  _rebuildTradeData (transactions) {
+    let _transactions = transactions.map((trade) => {
+      trade.payed_at = utils.timestamp2string(trade.payed_at) 
+      return trade
+    })
+
+    return _transactions
   },
 
   /**

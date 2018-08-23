@@ -1,4 +1,3 @@
-
 /**
  * 选品中心
  */
@@ -25,15 +24,27 @@ Page({
     pageActiveTab: 'stick', // stick, all
 
     panelActiveTab: 'hot',
-    panelTabs: [
-      { rid: 't1', name: 'hot', title: '热门单品' },
-      { rid: 't2', name: 'sticked', title: '官方精选' },
-      { rid: 't3', name: 'newest', title: '新品首发' }
+    panelTabs: [{
+        rid: 't1',
+        name: 'hot',
+        title: '热门单品'
+      },
+      {
+        rid: 't2',
+        name: 'sticked',
+        title: '官方精选'
+      },
+      {
+        rid: 't3',
+        name: 'newest',
+        title: '新品首发'
+      }
     ],
     stickedProducts: {}, // 推荐分销-官方
     advertises: [], // 推荐广告图
     storeHeadlines: [], // 生活馆头条
 
+    totalCount: 0, // 商品总数
     allProducts: {}, // 全部分销商品
 
     showSortModal: false, // 排序
@@ -42,6 +53,23 @@ Page({
 
     page: 1,
     perPage: 20,
+    // 全部商品
+    params: {
+      sort_type: 1, // 0=默认排序, 1=综合排序, 2=价格由低至高, 3=价格由高至低
+      profit_type: 0, // 利润排序 0=不限, 1=由低至高, 2=由高至低
+      cids: '', // 分类Id, 多个用, 分割
+      page: 1,
+      per_page: 10,
+      min_price: 0, // 价格区间: 最小价格
+      max_price: -1 // 价格区间: 最大价格
+    },
+    checkedCids: [], // 选择的分类
+    categoryList: [], // 分类列表
+
+    isDisabled: false, // 是否禁用
+    leftTimer: null, // 延迟句柄
+    rightTimer: null, // 延迟句柄
+    
     loadingMore: true
   },
 
@@ -55,7 +83,14 @@ Page({
       page: 1
     })
 
-    this.getAllProducts()
+    if (pageName == 'all') {
+      this.getAllProducts()
+      this.getCategories()
+    } else { // 推荐
+      this.getAdvertises()
+      this.getStoreHeadlines()
+      this.getHotDistribution()
+    }
   },
 
   /**
@@ -71,10 +106,19 @@ Page({
     this._watchPanelChange(panelName)
   },
 
+  // 轮播图发生变化的时候
+  handleswiperItemCheng(e) {
+    console.log(e, "轮播图发生变化的时候")
+
+    this.setData({
+      swiperIndex: e.detail.current
+    })
+  },
+
   /**
    * 排序
    */
-  handleShowSortModal (e) {
+  handleShowSortModal(e) {
     console.log(e)
     this.setData({
       showSortModal: true
@@ -84,7 +128,7 @@ Page({
   /**
    * 关闭弹窗回调
    */
-  handleCloseSortModal (e) {
+  handleCloseSortModal(e) {
     this.setData({
       showSortModal: false
     })
@@ -93,7 +137,7 @@ Page({
   /**
    * 利润
    */
-  handleShowIncomeModal (e) {
+  handleShowIncomeModal(e) {
     this.setData({
       showIncomeModal: true
     })
@@ -124,6 +168,140 @@ Page({
     this.setData({
       showFilterModal: false
     })
+  },
+
+  /**
+   * 重置回调事件
+   */
+  handleResetFilterCondition (e) {
+    this.selectComponent('#fx-slider').reset()
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      cate.checked = false
+      return cate
+    })
+    
+    this.setData({
+      'categoryList': _categories,
+      'params.min_price': 0,
+      'params.max_price': -1,
+      'params.cids': ''
+    })
+  },
+
+  /**
+   * 滑块最低价格
+   */
+  handleChangeMinPrice (e) {
+    let minPrice = e.detail.lowValue
+    if (this.data.params.max_price == -1) {
+      if (minPrice == '不限') {
+        minPrice = 800
+      }
+    }
+    this.setData({
+      'params.min_price': minPrice
+    })
+
+    if (this.data.leftTimer) {
+      clearTimeout(this.data.leftTimer)
+    }
+    
+    let _t = setTimeout(()=>{
+      this.getAllProducts()
+    }, 2000)
+
+    this.setData({
+      leftTimer: _t
+    })
+
+  },
+
+  /**
+   * 滑块最高价格
+   */
+  handleChangeMaxPrice (e) {
+    console.log(e.detail.highValue)
+    let maxPrice = e.detail.highValue
+    if (maxPrice == '不限') {
+      maxPrice = -1
+    }
+    this.setData({
+      'params.max_price': maxPrice
+    })
+
+    if (this.data.rightTimer) {
+      clearTimeout(this.data.rightTimer)
+    }
+
+    let _t = setTimeout(() => {
+      this.getAllProducts()
+    }, 2000)
+
+    this.setData({
+      rightTimer: _t
+    })
+  },
+
+  /**
+   * 改变排序
+   */
+  handleChangeSorted(e) {
+    let sort = e.currentTarget.dataset.sort
+    this.setData({
+      'params.sort_type': sort,
+      'params.profit_type': 0,
+      showSortModal: false
+    })
+
+    this.getAllProducts()
+  },
+
+  /**
+   * 改变利润
+   */
+  handleChangeProfit(e) {
+    let profit = e.currentTarget.dataset.profit
+    console.log('profit: ' + profit)
+    this.setData({
+      'params.sort_type': 1,
+      'params.profit_type': parseInt(profit),
+      showIncomeModal: false
+    })
+
+    this.getAllProducts()
+  },
+
+  /**
+   * 改变分类
+   */
+  handleToggleCategory(e) {
+    let cid = e.currentTarget.dataset.cid
+
+    let _checkedCids = this.data.checkedCids
+    if (_checkedCids.indexOf(cid) == -1) { // 不存在，则增加
+      _checkedCids.push(cid)
+    } else { // 存在，则删除
+      let idx = _checkedCids.indexOf(cid)
+      _checkedCids.splice(idx, 1)
+    }
+
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      if (_checkedCids.indexOf(cate.id) != -1) {
+        cate.checked = true
+      } else {
+        cate.checked = false
+      }
+      return cate
+    })
+
+    this.setData({
+      categoryList: _categories,
+      'params.cids': _checkedCids.join(',')
+    })
+
+    this.getAllProducts()
   },
 
   /**
@@ -164,7 +342,9 @@ Page({
    * 获取生活馆头条
    */
   getStoreHeadlines() {
-    http.fxGet(api.life_store_headlines, { type: 2 }, (res) => {
+    http.fxGet(api.life_store_headlines, {
+      type: 2
+    }, (res) => {
       console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
@@ -293,16 +473,11 @@ Page({
    * 获取全部分销商品
    */
   getAllProducts() {
-    let params = {
-      page: this.data.page,
-      per_page: this.data.perPage
-    }
-
     wx.showLoading({
       title: '加载中',
     })
-
-    http.fxGet(api.get_all_distribution, params, (res) => {
+    console.log(this.data.params)
+    http.fxGet(api.distribute_products, this.data.params, (res) => {
       console.log(res, '全部分销商品')
       wx.hideLoading()
       if (res.success) {
@@ -314,7 +489,7 @@ Page({
         }
         let pageProducts = this._rebuildProducts(res.data.products)
         let _products = this.data.allProducts
-        if (this.data.page > 1) {
+        if (this.data.params.page > 1) {
           // 合并数组
           _products.push.apply(_products, pageProducts)
         } else {
@@ -322,10 +497,27 @@ Page({
         }
 
         this.setData({
+          totalCount: res.data.count,
           allProducts: _products
         })
       } else {
         utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 分类列表
+   */
+  getCategories() {
+    http.fxGet(api.categories, {}, (result) => {
+      console.log(result, '分类列表')
+      if (result.success) {
+        this.setData({
+          categoryList: result.data.categories
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -359,83 +551,89 @@ Page({
    */
   _rebuildProducts(products) {
     let _mockProducts = products.map(product => {
-      product.name = this.truncate(product.name, 12)
+      let maxLen = 12
+      if (product.is_free_postage) {
+        maxLen = 10
+      }
+      product.name = this.truncate(product.name, maxLen)
       return product
     })
     return _mockProducts
   },
 
-  // 轮播图发生变化的时候
-  handleswiperItemCheng(e) {
-    console.log(e, "轮播图发生变化的时候")
-
-    this.setData({
-      swiperIndex: e.detail.current
-    })
-
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          windowWidth: res.windowWidth
+        })
+      }
+    })
+
     if (this.data.pageActiveTab == 'stick') {
       this.getAdvertises()
       this.getStoreHeadlines()
       this.getHotDistribution()
     } else {
       this.getAllProducts()
+      this.getCategories()
     }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     if (this.data.loadingMore) {
-      let page = this.data.page + 1
-      this.setData({
-        page: page
-      })
-
       if (this.data.pageActiveTab == 'stick') {
+        let page = this.data.page + 1
+        this.setData({
+          page: page
+        })
         this._watchPanelChange(this.data.panelActiveTab)
       } else {
+        let page = this.data.params.page + 1
+        this.setData({
+          'params.page': page
+        })
         this.getAllProducts()
       }
     }
@@ -444,8 +642,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
-
