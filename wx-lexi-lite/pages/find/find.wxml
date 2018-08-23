@@ -4,14 +4,21 @@
   <view class="find-swiper">
     <swiper 
       class="advertisement-swiper"
-      indicator-dots="{{true}}" 
       interval="{{5000}}" 
       autoplay="{{true}}"
+      bindchange="handleSwiperChange"
       duration="{{500}}">
       <swiper-item wx:for="{{advertisement.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
         <image src="{{item.image}}" class="slide-image" />
       </swiper-item>
     </swiper>
+
+    <view class="flex_row find-swiper__round">
+      <view 
+        wx:for="{{advertisement.banner_images}}" 
+        class="{{swiperMark==index?'swiperActive':''}}"
+        wx:key="{{index}}"></view>
+    </view>
   </view>
 
   <!-- 生活志主题 -->

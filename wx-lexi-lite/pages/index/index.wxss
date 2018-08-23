@@ -166,6 +166,7 @@
 }
 
 .probation-box {
+  position: relative;
   width: 650rpx;
   height: 180rpx;
   margin: 0 auto;
@@ -877,6 +878,10 @@ to {  width: 100%;
   box-shadow: 0 0 0 #fff;
 }
 
+.find-swiper__round {
+  position: absolute;
+}
+
 .fx-form .btn-area {
   margin-top: 50rpx;
 }
@@ -975,4 +980,29 @@ to {  width: 100%;
 }
 .line-height--26rpx{
   line-height: 26rpx;
+}
+
+.find-swiper__round .swiperActive {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.find-swiper__round view {
+  height: 14rpx;
+  width: 14rpx;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-right: 18rpx;
+}
+.find-swiper__round{
+  right: 10rpx;
+  bottom: -66rpx;
+}
+
+.swiper-false{
+  height: 100rpx;
+  width: 140rpx;
+}
+.swiper-false image{
+  height: 100%;
+  width: 100%;
 }

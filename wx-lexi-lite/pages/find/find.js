@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    swiperMark:0, // 轮播图的标记
     youLike: [], // 猜你喜欢
     advertisement: [], // 广告
     wonderfulStories: [], // 精彩故事
@@ -47,6 +48,13 @@ Page({
 
     wx.navigateTo({
       url: '../'+data+'/'+data,
+    })
+  },
+
+  //swiper 变化触发
+  handleSwiperChange(e){
+    this.setData({
+      swiperMark: e.detail.current
     })
   },
 

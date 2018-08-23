@@ -15,6 +15,7 @@ Page({
   data: {
     page: 1,
     perPage: 10,
+    swiperMark:0, // 轮播图标记
     loadingMore: true, // 加载更多标记
 
     // 生活馆
@@ -85,6 +86,12 @@ Page({
 
   },
 
+  //swiper 变化触发
+  handleSwiperChange(e) {
+    this.setData({
+      swiperMark: e.detail.current
+    })
+  },
 
   /**
    * 分类的选择

@@ -104,7 +104,9 @@
       
 =======
       </view> -->
-      <view class=""></view>
+      <view class="swiper-false">
+        <image src='../../images/other/sweiper.png'></image>
+      </view>
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
@@ -337,13 +339,24 @@
 
     <!--中间 广告 -->
     <view class='probation-box  advertisement-box margin-bottom--40rpx bg-white'>
-      <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
+      <swiper 
+        autoplay="{{true}}" 
+        indicator-color="rgba(0, 0, 0, .3)" 
+        indicator-active-color='#fff' 
+        bindchange="handleSwiperChange">
         <block wx:for="{{middleAdvertisementList.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <swiper-item>
             <image src="{{item.image}}" class="slide-image" width="355" height="150" />
           </swiper-item>
         </block>
       </swiper>
+
+    <view class="flex_row find-swiper__round">
+      <view 
+        wx:for="{{middleAdvertisementList.banner_images}}" 
+        class="{{swiperMark==index?'swiperActive':''}}"
+        wx:key="{{index}}"></view>
+    </view>
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}} -->
