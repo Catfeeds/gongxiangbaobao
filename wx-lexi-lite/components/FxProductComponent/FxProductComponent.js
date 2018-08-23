@@ -1,4 +1,5 @@
 // components/FxProductComponent/FxProductComponent.js
+
 Component({
   /**
    * 组件的属性列表
@@ -35,7 +36,27 @@ Component({
    * 组件的初始数据
    */
   data: {
-  
+    product:'',
+  },
+
+  /**
+   *初始化 
+  */
+  ready(e) {
+
+    let data = this.properties.product
+    if (data.is_free_postage){
+      data.name = data.name.replace(0,10)
+    }else{
+      data.name = data.name.replace(0, 12)
+    }
+
+    data.name = data.name + "..."
+    
+    this.setData({
+      product:data
+    })
+    
   },
 
   /**
