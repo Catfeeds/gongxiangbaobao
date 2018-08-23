@@ -60,39 +60,16 @@ Page({
       cids: '', // 分类Id, 多个用, 分割
       page: 1,
       per_page: 10,
-      min_price: '', // 价格区间: 最小价格
-      max_price: '' // 价格区间: 最大价格
+      min_price: 0, // 价格区间: 最小价格
+      max_price: -1 // 价格区间: 最大价格
     },
     checkedCids: [], // 选择的分类
     categoryList: [], // 分类列表
 
     isDisabled: false, // 是否禁用
+    leftTimer: null, // 延迟句柄
+    rightTimer: null, // 延迟句柄
     
-    lineWhite: 520, // 线的长度
-    xLeft: 0, // 
-    xRight: 600,
-    
-    movableLeftRight: 37.5, // 滑块的左右距离（真机）
-    movableRight: 560, // 右面滑块的偏移
-    movableLeft: 0, // 左面滑块的偏移
-    offsetLeft: 40, // 设计稿--左边滑块的移动距离
-    offsetRight: 40, //
-
-    leftLastTime: 0, // 左边滑块上次距离
-    rightLastTime: 560, // 右边边滑块上次距离
-
-
-    lineLeft: 40, // 线距离左边的距离
-    lineWidth: 520, // 绿色线框的长度
-    windowWidth: 375, // 屏幕的宽度(真机)
-    currentLeftX: 0, // 左侧滑块当前x位置
-    currentRightX: 560, // 右侧滑块当前x位置
-    minPrice: 0,
-    maxPrice: 0,
-    disabledLeft: false,
-    disabledRight: false,
-    
-
     loadingMore: true
   },
 
@@ -194,110 +171,76 @@ Page({
   },
 
   /**
-   * 左边滑块
+   * 重置回调事件
    */
-  handleMovableLeft(e) {
-    console.log(e.detail.x, '左面')
-    let _currentLeftX = 750 * e.detail.x / this.data.windowWidth // 设计稿的左边距离长度
-    console.log('left: ' + _currentLeftX, '左间距')
-    if (_currentLeftX + 80 > this.data.currentRightX) { // 禁止拖动
-      this.setData({
-        disabledLeft: true
-      })
-      return
-    } else {
-      this.setData({
-        disabledLeft: false
-      })
-    }
-    let _lineWidth = this.data.currentRightX - _currentLeftX
-
+  handleResetFilterCondition (e) {
+    this.selectComponent('#fx-slider').reset()
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      cate.checked = false
+      return cate
+    })
+    
     this.setData({
-      currentLeftX: _currentLeftX,
-      lineLeft: _currentLeftX,
-      lineWidth: _lineWidth
+      'categoryList': _categories,
+      'params.min_price': 0,
+      'params.max_price': -1,
+      'params.cids': ''
+    })
+  },
+
+  /**
+   * 滑块最低价格
+   */
+  handleChangeMinPrice (e) {
+    let minPrice = e.detail.lowValue
+    if (this.data.params.max_price == -1) {
+      if (minPrice == '不限') {
+        minPrice = 800
+      }
+    }
+    this.setData({
+      'params.min_price': minPrice
     })
 
-    // 设置金额
-    let price = 0
+    if (this.data.leftTimer) {
+      clearTimeout(this.data.leftTimer)
+    }
+    
+    let _t = setTimeout(()=>{
+      this.getAllProducts()
+    }, 2000)
 
-    if (_currentLeftX > 80 && _currentLeftX <= 160) {
-      price = 150
-    }
-    if (_currentLeftX > 160 && _currentLeftX <= 240) {
-      price = 300
-    }
-    if (_currentLeftX > 240 && _currentLeftX <= 320) {
-      price = 400
-    }
-    if (_currentLeftX > 320 && _currentLeftX <= 400) {
-      price = 500
-    }
-    if (_currentLeftX > 400 && _currentLeftX <= 480) {
-      price = 800
-    }
-    if (_currentLeftX > 480) {
-      price = 800
-    }
-
-    console.log('min price: ' + price, '左侧最小价格')
     this.setData({
-      minPrice: price
+      leftTimer: _t
     })
 
   },
 
   /**
-   * 右面滑块
+   * 滑块最高价格
    */
-  handleMovableRight(e) {
-    console.log(e)
-    console.log(e.detail.x, '右面')
-    console.log(560 - 750 * e.detail.x / this.data.windowWidth, '在设计稿上右边移动的宽度')
-    console.log(750 * e.detail.x / this.data.windowWidth, '右边滑块的偏移')
-
-    let right = 750 * e.detail.x / this.data.windowWidth
-
+  handleChangeMaxPrice (e) {
+    console.log(e.detail.highValue)
+    let maxPrice = e.detail.highValue
+    if (maxPrice == '不限') {
+      maxPrice = -1
+    }
     this.setData({
-      rightLastTime: right,
-      lineWhite: this.data.lineWhite - (this.data.rightLastTime - right), // 线的长度
-      movableRight: right,
-      offsetRight: 750 * e.detail.x / this.data.windowWidth + 75
-    })
-    console.log(this.data.movableRight, 33)
-
-    // 检查是否禁用
-
-    let price = -1
-
-    if (right > 0 && right <= 80) {
-
-    }
-    if (right > 80 && right <= 160) {
-      price = 150
-    }
-    if (right > 160 && right <= 240) {
-      price = 300
-    }
-    if (right > 240 && right <= 320) {
-      price = 400
-    }
-    if (right > 320 && right <= 400) {
-      price = 500
-    }
-    if (right > 400 && right <= 480) {
-      price = 800
-    }
-    if (right > 480) {
-      price = -1
-    }
-
-    console.log('Right: '+ right +', Max price: ' + price)
-
-    this.setData({
-      maxPrice: price
+      'params.max_price': maxPrice
     })
 
+    if (this.data.rightTimer) {
+      clearTimeout(this.data.rightTimer)
+    }
+
+    let _t = setTimeout(() => {
+      this.getAllProducts()
+    }, 2000)
+
+    this.setData({
+      rightTimer: _t
+    })
   },
 
   /**
@@ -530,7 +473,6 @@ Page({
    * 获取全部分销商品
    */
   getAllProducts() {
-
     wx.showLoading({
       title: '加载中',
     })

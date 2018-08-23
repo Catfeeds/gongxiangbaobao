@@ -1,0 +1,22 @@
+<view class="fx-slider">
+  <view class="slider-item min" style="left:{{leftValue}}rpx;" catchtouchmove="_minMove"></view>
+  <view class="slider-item max" style="left:{{rightValue}}rpx;" catchtouchmove="_maxMove"></view>
+
+  <view class="slider-lines">
+    <view class="slider-body left" style="flex:{{leftPercent}}%; background-color:{{backgroundColor}};"></view>
+    <view class="slider-body body" style="flex:{{bodyPercent}}%; background-color:{{selectedColor}};"></view>
+    <view class="slider-body right" style="flex:{{rightPercent}}%; background-color:{{backgroundColor}};"></view>
+  </view>
+
+  <view class="slider-values">
+    <text class="slider-value {{ minPrice == 0 ? 'active' : '' }}">￥0</text>
+    <text class="slider-value {{ (minPrice == 150 || maxPrice == 150) ? 'active' : '' }}">￥150</text>
+    <text class="slider-value {{ (minPrice == 300 || maxPrice == 300) ? 'active' : '' }}">¥300</text>
+    <text class="slider-value {{ (minPrice == 400 || maxPrice == 400) ? 'active' : '' }}">¥400</text>
+    <text class="slider-value {{ (minPrice == 500 || maxPrice == 500) ? 'active' : '' }}">¥500</text>
+    <text class="slider-value {{ (minPrice == 800 || maxPrice == 800) ? 'active' : '' }}">¥800</text>
+    <text class="slider-value {{ maxPrice == '不限' ? 'active' : '' }}">不限</text>
+  </view>
+
+  <slot></slot>
+</view>

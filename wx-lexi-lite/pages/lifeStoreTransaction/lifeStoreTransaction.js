@@ -84,11 +84,24 @@ Page({
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
+      let transactions = this._rebuildTradeData(res.data.transactions)
       this.setData({
         'totalCount': res.data.count,
-        'orderList': res.data.transactions
+        'orderList': transactions
       })
     })
+  },
+
+  /**
+   * 修正数据
+   */
+  _rebuildTradeData (transactions) {
+    let _transactions = transactions.map((trade) => {
+      trade.payed_at = utils.timestamp2string(trade.payed_at) 
+      return trade
+    })
+
+    return _transactions
   },
 
   /**

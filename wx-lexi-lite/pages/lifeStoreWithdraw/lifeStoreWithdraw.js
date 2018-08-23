@@ -36,7 +36,15 @@ Page({
    * 提交提现命令
    */
   handleSubmitWithdraw () {
-
+    const openid = wx.getStorageSync('jwt').openid
+    http.fxPost(api.user_withdraw, { store_rid: this.data.sid, open_id: openid, user_name: '田孝义' }, (res) => {
+      console.log(res, '提现汇总')
+      if (!res.success) {
+        utils.fxShowToast(res.status.message)
+        return
+      }
+      utils.fxShowToast('已提现成功')
+    })
   },
 
   /**

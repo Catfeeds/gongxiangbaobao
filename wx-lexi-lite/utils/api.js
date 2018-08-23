@@ -18,6 +18,7 @@ module.exports = {
   user_authorize: 'accounts/wxa_authorize', //openid---
   user_avatar_upload: '', // POST 
   user_upload_token: 'assets/user_upload_token', // GET 获取上传Token
+  user_withdraw: 'pay_account/life_cash_money', // 提现至微信
 
   // Asset
   asset_detail: 'assets/show_asset', // GET 获取附件 
@@ -55,7 +56,7 @@ module.exports = {
   life_store_orders: 'orders/life_orders', // GET 生活馆订单列表
   life_store_statements: 'stats/life_orders/statements', // GET 生活馆对账单
   life_store_statement_detail: 'stats/life_orders/statement_items', // GET 生活馆对账单详情
-
+  
   // 分销
 
   // GET 分销池

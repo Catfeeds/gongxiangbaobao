@@ -6,7 +6,7 @@
     <view class="fx-modal__head">
       <image src="../../images/icon-close@2x.png" class="close" wx:if="{{ close }}" bindtap="hideModal"></image>
       <text class="title" wx:if="{{ title }}">{{ title }}</text>
-      <text class="reset" wx:if="{{ reset }}">{{ reset }}</text>
+      <text class="reset" wx:if="{{ reset }}" bindtap="resetModal">{{ reset }}</text>
     </view>
 
     <view class="fx-modal__body">
