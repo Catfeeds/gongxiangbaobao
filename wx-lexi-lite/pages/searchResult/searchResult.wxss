@@ -1,2 +1,23 @@
 /* pages/searchResult/searchResult.wxss */
-@import "../user/user.wxss"
+@import "../user/user.wxss";
+@import "../categoryList/categoryList.wxss";
+@import "../watch/watch.wxss";
+.category-box{
+  height: 80rpx;
+  padding: 0 10rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.category-box>view{
+  height: 100%;
+  padding: 0 30rpx;
+}
+
+.category-box text{
+  line-height: 34rpx;
+}
+
+.active{
+  font-size: 40rpx;
+  color: #5FE4B1;
+}

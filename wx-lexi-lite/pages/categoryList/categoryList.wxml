@@ -6,7 +6,6 @@
     <view class='infput-search__btn'>
       <image src='../../images/sear-icon@2.png'></image>
     </view>
-
   </view>
 
   <!-- 排序 筛选 -->

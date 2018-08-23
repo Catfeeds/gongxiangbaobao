@@ -38,7 +38,6 @@ const strLength = (s, isChinese=false) => {
   return blen
 }
 
-
 // 截取符合要求的字符串
 const sliceString = (data,num) => {
   let originData = data

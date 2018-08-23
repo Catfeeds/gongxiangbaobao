@@ -119,10 +119,13 @@ module.exports = {
   banners_handpick_content: 'banners/handpick_content', // 精选的中间广告
   column_handpick_recommend: 'column/handpick_recommend', // 人气推荐
   column_preferential_design: 'column/preferential_design', // 特惠好设计
+  core_platforms_search_users: 'core_platforms/search/users',// 搜索落地页用户列表
+  core_platforms_search_stores: 'core_platforms/search/stores', // 获取搜索品牌馆
   column_handpick_optimization:'column/handpick_optimization', // 乐喜优选
+  core_platforms_search_products: 'core_platforms/search/products', // 搜索商品的结果
   core_platforms_search_week_hot:'core_platforms/search/week_hot', // 热门搜索
   core_platforms_search_hot_recommend:'core_platforms/search/hot_recommend', // 热门推荐
-
+ 
   // 核心 store
   users_user_dynamic:"users/user_dynamic", // 获取自己的动态
   column_feature_store: 'column/feature_store', // 特色品牌管h

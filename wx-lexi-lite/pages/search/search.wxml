@@ -31,7 +31,12 @@
           src='../../images/delete-icon@2.png'></image>
       </view>
       <view class="flex_row black-font padding-left--40rpx padding-right--40rpx history-record__text">
-        <view class="one-line-text" wx:for="{{searchHistory}}" wx:key="{{index}}">{{item}}</view>
+        <view 
+          class="one-line-text" 
+          wx:for="{{searchHistory}}" 
+          data-text="{{item}}" 
+          catchtap="handleSearchWord"
+          wx:key="{{index}}">{{item}}</view>
       </view>
     </view>
 
@@ -90,10 +95,16 @@
 
   <!-- 输入的时候 wx:for="{{recommendText.search_items}}"-->
   <block wx:if="{{inputText}}">
-    <view class="black-font padding-left--40rpx flex-direction__column--center one-line-text hot-search" wx:for="{{html}}" wx:key="{{index}}">
+    <view 
+      catchtap="handleSearchText"
+      data-index="{{index}}"
+      class="black-font padding-left--40rpx flex_row one-line-text hot-search" 
+      wx:for="{{replyTemArray}}" 
+      wx:key="{{index}}">
       <!-- <view>{{item.name}}</view>
       
       <view>台湾手工轻珠宝</view> -->
+
       <template is="wxParse" data="{{wxParseData:item}}" />
     </view>
   </block>

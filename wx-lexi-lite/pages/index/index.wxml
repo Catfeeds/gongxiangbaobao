@@ -260,7 +260,13 @@
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--30rpx today-recommend-box'>
-        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" wx:key="{{index}}">
+        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' 
+        wx:for="{{todayRecommendList.daily_recommends}}" 
+        catchtap="handleToInfo"
+        data-type="{{item.target_type}}"
+        data-id="{{item.id}}"
+        data-rid="{{item.rid}}"
+        wx:key="{{index}}">
           <view class='all-product'>
             <image class='border-radius--8' src="{{item.cover}}"></image>
           </view>
@@ -367,10 +373,19 @@
     <view class="border-top margin-left--40rpx">
       <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
         <text>种草清单</text>
-        <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text 
+          wx:if="{{plantOrderList.life_records.length>4}}" 
+          catchtap="handleToPlantNoteList"
+          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='production new-goods_box padding-left--0rpx'>
-        <view wx:if="{{index<4}}" class='flex-direction--column productionGoods ' wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
+        <view 
+          wx:if="{{index<4}}" 
+          class='flex-direction--column productionGoods' 
+          catchtap="handleToPlantNoteInfo"
+          data-rid="{{item.rid}}"
+          wx:for="{{plantOrderList.life_records}}" 
+          wx:key='{{index}}'>
 
           <image src="{{item.cover}}" class="img--style"></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>

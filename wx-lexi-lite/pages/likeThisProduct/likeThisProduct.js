@@ -125,20 +125,16 @@ Page({
 
   // 跳转到其他人地主页
   handleToPeopleTap(e){
-    
     console.log(e.currentTarget.dataset.uid)
     if (e.currentTarget.dataset.index == 0){
-
       wx.switchTab({
         url: '../user/user',
       })
-
     }else{
       wx.navigateTo({
         url: '../people/people?uid=' + e.currentTarget.dataset.uid,
       })
     }
-
 
   }
 })
