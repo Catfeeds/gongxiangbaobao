@@ -224,6 +224,15 @@ Page({
     })
   },
 
+  // 跳转到品牌故事
+  handelToBrandInfo(e){
+
+    wx.navigateTo({
+      url: '../brandInformation/brandInformation?rid='+e.currentTarget.dataset.rid
+    })
+
+  },
+
   // 获取店铺的商品列表 life_store_products
   products() {
     wx.showLoading()

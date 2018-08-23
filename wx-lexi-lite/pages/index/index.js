@@ -847,15 +847,14 @@ Page({
         this.getChoiceMiddleAdvertisement() // 中间广告
         this.getLitePick() // 乐喜优选
         this.getPlantOrder() // 种草清单
-        this.getEditRecommend() // 编辑推荐---优惠体验预加载
-        this.getCharacteristicBranderStore() // 特色品牌管---优惠体验预加载
         break;
       case 'explore': // 探索
         if (this.data.exploreAdvertisementList.length != 0) {
           return
         }
         this.handleSetNavigationTitle('探索')
-
+        this.getEditRecommend() // 编辑推荐
+        this.getCharacteristicBranderStore() // 特色品牌管
         this.getExploreAdvertisement() // 广告位
         this.getCategory() // 分类
         this.getHighQuality() // 优质新品

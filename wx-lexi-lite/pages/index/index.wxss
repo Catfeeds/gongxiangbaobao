@@ -409,9 +409,14 @@
 }
 
 .characteristic-log {
+
+}
+
+.characteristic-log image{
   width: 90rpx;
   height: 90rpx;
-  border: 4rpx solid white;
+  border:2rpx solid white;
+  border-radius: 8rpx;
 }
 
 .characteristic-box__title {
@@ -641,7 +646,7 @@
 } */
 
 .category__title {
-  margin: 0 40rpx;
+  margin: 0 16rpx 0 40rpx;
   line-height: 28rpx;
 }
 
@@ -1005,4 +1010,8 @@ to {  width: 100%;
 .swiper-false image{
   height: 100%;
   width: 100%;
+}
+
+.brand-quantity--color {
+  color: #dadada;
 }

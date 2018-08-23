@@ -443,7 +443,7 @@
 
     <!-- 编辑推荐 {{themeProduct.designs}} -->
     <view class='border-bottom '>
-      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx recommend-product-box'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>编辑推荐</text>
         <text catchtap="handleToProductList" data-from="editRecommend" wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
@@ -474,12 +474,12 @@
           <image src='{{items.bgcover}}-p50'></image>
           <view class='characteristic-info border-radius--8'>
             <view class='flex_row characteristic-box__title border-radius--8'>
-              <view class='characteristic-log border-radius--8'>
+              <view class='characteristic-log'>
                 <image class='border-radius--8' src='{{items.logo}}'></image>
               </view>
               <view class='characteristic-title__text'>
                 <text class='font--white font-xl text--hidden'>{{items.name}}</text>
-                <view class='font-s shen-hui'>{{items.store_products_counts>0?items.store_products_counts+"件":""}}</view>
+                <view class='font-s brand-quantity--color'>{{items.store_products_counts>0?items.store_products_counts+"件":""}}</view>
               </view>
             </view>
             <view class='time-top characteristic-box__middle'>
