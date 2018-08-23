@@ -46,13 +46,13 @@ Component({
 
     let data = this.properties.product
     if (data.is_free_postage){
-      data.name = data.name.replace(0,10)
+      data.name = data.name.replace(0,9)
     }else{
-      data.name = data.name.replace(0, 12)
+      data.name = data.name.replace(0, 11)
     }
 
     data.name = data.name + "..."
-    
+
     this.setData({
       product:data
     })
