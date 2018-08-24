@@ -31,7 +31,7 @@
   border-radius: 8rpx;
   /* border: 1rpx solid red; */
   padding: 22rpx 40rpx 24rpx;
-  box-shadow:0px 5px 10px 0px rgba(0,0,0,0.08);
+  box-shadow:0rpx 5rpx 10rpx 0rpx rgba(0,0,0,0.08);
 }
 .top-bg__photo .browse-record__box .open-data,
 .top-bg__photo .browse-record__box image,
@@ -60,10 +60,6 @@
   color: white;
 }
 
-.padding-top--105rpx {
-  padding-top: 105rpx;
-}
-
 .pick-box{
   position: fixed;
   top: 10000rpx;
@@ -72,4 +68,9 @@
   width: 750rpx;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.shim {
+  height: 94rpx;
+  background-color: white;
 }

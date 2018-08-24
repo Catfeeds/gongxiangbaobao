@@ -2,6 +2,7 @@
 <view class="container">
   <view class="gather-hander__photo">
     <image mode="widthFix" src="{{product.cover}}"></image>
+    <view class='bg-black__half'></view>
     <text class="gather-hander__text--big">{{product.name}}</text>
     <text class="font-s gather-hander__text--min">{{product.products.length==0?"":product.products.length+"件商品"}}</text>
   </view>

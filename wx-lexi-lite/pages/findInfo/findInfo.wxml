@@ -10,7 +10,10 @@
 
     <!-- 店铺的信息 -->
     <view class='margin-left--40rpx margin-right--40rpx'>
-      <view class="font-s font-width--medium margin-bottom--6rpx">{{category}}</view>
+      <view class="font-s font-width--medium margin-bottom--6rpx color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--6rpx color--huilan" wx:if="{{liveInfo.channel_name=='创作人故事'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--6rpx color--huihong" wx:if="{{liveInfo.channel_name=='手作教学'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--6rpx color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}">{{liveInfo.channel_name}}</view>
 
       <view class="font-width--semibold font-xxxl info-title">
         <text>{{liveInfo.title}}</text>
@@ -18,10 +21,10 @@
 
       <view class="font-s flex_row margin-bottom--20rpx">
         <view class='margin-right--20rpx'>{{liveInfo.published_at}}</view>
-        <view>
+        <view class='flex_row'>
           <image 
             class='margin-right--10rpx' 
-            src="../../images/icon-eye@2x.png" 
+            src="../../images/yanjing.png" 
             class="browse-quantity__icon"></image>
           <text>{{liveInfo.browse_count}}</text>
         </view>
@@ -91,7 +94,10 @@
       </view>
       <view class='c-importantGoodsBox margin-top--34rpx'>
         <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product 
+          product="{{item}}" 
+          photo="{{2}}"
+          bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </scroll-view>
       </view>
     </view>

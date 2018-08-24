@@ -17,6 +17,7 @@ Page({
     perPage: 10,
     swiperMark:0, // 轮播图标记
     loadingMore: true, // 加载更多标记
+    exploreSwiperMark:0,// 探索轮播图的点
 
     // 生活馆
     sid: '', // 生活馆rid
@@ -90,6 +91,13 @@ Page({
   handleSwiperChange(e) {
     this.setData({
       swiperMark: e.detail.current
+    })
+  },
+
+//探索轮播图
+  handleExploreSwiperChange(){
+    this.setData({
+      exploreSwiperMark: e.detail.current
     })
   },
 

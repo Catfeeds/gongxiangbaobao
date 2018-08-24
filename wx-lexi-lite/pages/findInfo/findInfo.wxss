@@ -307,3 +307,17 @@ image {
 .wxParse-p image {
   width: 100%;
 }
+
+.color--huilv {
+  color: #75ab9a;
+}
+
+.color--huihong {
+  color: #e3b395;
+}
+.color--huilan {
+  color: #829D7A;
+}
+.color--kafei {
+  color: #8C7A6E;
+}

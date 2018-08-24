@@ -12,7 +12,7 @@
 </view>
   <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
-  <view class='fx-tabs navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
+  <view class='fx-tabs  navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
     <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
       <text>{{ pageTab.title }}</text>
     </view>
@@ -269,8 +269,8 @@
         data-id="{{item.id}}"
         data-rid="{{item.rid}}"
         wx:key="{{index}}">
-          <view class='all-product'>
-            <image class='border-radius--8' src="{{item.cover}}"></image>
+          <view class='all-product height---236rpx'>
+            <image class='border-radius--8 ' src="{{item.cover}}"></image>
           </view>
           <view class='recommend-text line-height--22rpx theme-green margin-top--4rpx padding-bottom--10rpx'>
             <text class='font-ss line-height--22rpx'>{{item.recommend_label}}</text>
@@ -314,7 +314,11 @@
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx '>
             <view class='productionGoods {{index==2||index==3||index==4?"one-row-three":""}}' wx:if="{{index<5}}" wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-user-defined 
+                product="{{item}}" 
+                like_number="{{true}}" 
+                photo="{{index==0 || index==1?4:1}}"
+                bind:triggerEvent_product='handleInfomation'></fx-user-defined>
             </view>
           </view>
         </swiper-item>
@@ -322,7 +326,11 @@
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx'>
             <view wx:if="{{4<index && index<10}}" class='productionGoods {{index==7||index==8||index==9?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-user-defined 
+                product="{{item}}" 
+                like_number="{{true}}" 
+                photo="{{index==5 || index==6?4:1}}"
+                bind:triggerEvent_product='handleInfomation'></fx-user-defined>
             </view>
           </view>
         </swiper-item>
@@ -330,7 +338,11 @@
         <swiper-item class="">
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx'>
             <view wx:if="{{9<index && index<15}}" class='productionGoods {{index==12||index==13||index==14?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-user-defined
+                product="{{item}}" 
+                like_number="{{true}}" 
+                photo="{{index==11 || index==10?4:1}}"
+                bind:triggerEvent_product='handleInfomation'></fx-user-defined>
             </view>
           </view>
         </swiper-item>
@@ -338,7 +350,7 @@
     </view>
 
     <!--中间 广告 -->
-    <view class='probation-box  advertisement-box margin-bottom--40rpx bg-white'>
+    <view class='probation-box advertisement-box margin-bottom--40rpx bg-white'>
       <swiper 
         autoplay="{{true}}" 
         indicator-color="rgba(0, 0, 0, .3)" 
@@ -418,8 +430,11 @@
 
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
-      <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' indicator-dots="{{true}}">
-        <swiper-item wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
+      <swiper autoplay="{{true}}" >
+        <swiper-item 
+          wx:for="{{exploreAdvertisementList.banner_images}}" 
+          bindchange="handleExploreSwiperChange"
+          wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
             <!-- <text class='explore-advertisement__title'>{{item.title}}</text> -->
@@ -427,6 +442,14 @@
           </view>
         </swiper-item>
       </swiper>
+
+    <view class="flex_row find-swiper__round bottom--86rpx">
+      <view 
+        wx:for="{{exploreAdvertisementList.banner_images}}" 
+        class="{{exploreSwiperMark==index?'swiperActive':''}}"
+        wx:key="{{index}}"></view>
+    </view>
+
     </view>
 
     <!-- 分类的 -->
@@ -435,8 +458,8 @@
         <view class='fx-column--center inline-block padding--27rpx {{index==0?"padding-left--40rpx":""}} {{index==categoryList.categories.length-1?"padding-right--40rpx":""}}' catchtap="handleTocategoryList" data-title-name="{{item.name}}" data-id="{{item.id}}"
           wx:for="{{categoryList.categories}}" wx:key='{{index}}'>
           <image class='product-category-icon' src='{{item.cover}}'></image>
-          <view class='font-s'>{{item.name}}</view>
-          <view class='font-ss qian-hui height-22rpx'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
+          <view class='flex_row--middle font-s'>{{item.name}}</view>
+          <view class=' flex_row--middle font-ss qian-hui height-22rpx'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
         </view>
       </scroll-view>
     </view>
@@ -449,7 +472,11 @@
       </view>
       <view class='c-importantGoodsBox margin-top--34rpx'>
         <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{editRecommendList.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product 
+            product="{{item}}" 
+            bind:triggerEvent_product="handleInfomation" 
+            photo="{{2}}"
+            oldPrice="{{true}}"></fx-product>
         </scroll-view>
       </view>
     </view>
@@ -484,7 +511,7 @@
             </view>
             <view class='time-top characteristic-box__middle'>
               <view class='characteristic-photo' wx:for="{{items.products_cover}}" wx:key="{{index}}" wx:for-item="item" wx:if="{{index<3}}">
-                <image src='{{item}}' class='border-radius--8'></image>
+                <image src='{{item}}'></image>
               </view>
 
             </view>
@@ -508,7 +535,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto {{index==0?"padding-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{item}}" photo="{{2}}"bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>
@@ -522,6 +549,7 @@
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-rid="{{item.id}}" catchtap="handleToGatherInfo" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
           <image class='border-radius--8' src="{{item.cover}}-p30"></image>
+          <view class='bg-black__half'></view>
           <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
           <view class='all-product_geishei font--white black-font'>{{item.name}}</view>
           <view class='all-product_miaoshu font--white black-font'>{{item.sub_name}}</view>
@@ -602,4 +630,5 @@
     </form>
   </fx-modal-v>
 
+<view class="shm"></view>
 </view>

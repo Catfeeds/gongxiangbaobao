@@ -43,7 +43,8 @@
   </view>
   </block>
 
-  <view class="goodsList padding-top--105rpx">
+  <view class='shim'></view>
+  <view class="goodsList">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
       <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
