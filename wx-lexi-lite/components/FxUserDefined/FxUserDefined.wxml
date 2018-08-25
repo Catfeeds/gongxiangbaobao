@@ -6,12 +6,11 @@
     </view>
     <image 
       mode="widthFix" 
-      class='{{photo==1?"":"phpto--sm"}} {{photo==5?"photo--oblong":""}}' 
+      class='{{photo==1?"phpto--sm":""}} {{photo==4?"photo--oblong":""}}' 
       src='{{ product.cover }}-p{{photoSize}}'></image>
   </view>
 
   <view class='material-quality'>
-    
       <image 
         class='logistics' 
         wx:if='{{product.is_free_postage}}' 

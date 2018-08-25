@@ -45,20 +45,18 @@
   <view class="bg-white" wx:if="{{categoryId==2}}">
     <view class="big-photo">
       <swiper 
-        indicator-dots="{{indicatorDots}}" 
-        autoplay="{{autoplay}}" 
-        interval="{{interval}}" 
-        duration="{{duration}}">
-        <block wx:for="{{HighStoreList.handpick_store}}" wx:key="{{index}}">
+      interval="{{3600}}"
+        autoplay="{{true}}">
+        <block wx:for="{{HighStoreList.banner_images}}" wx:key="{{index}}">
           <swiper-item>
-            <image src="../../images/timg.jpg" class="slide-image" width="355" height="150" />
+            <image src="{{item}}" class="slide-image big-photo"  />
           </swiper-item>
         </block>
       </swiper>
     </view>
 
     <view class="high-bottom">
-      <scroll-view scroll-x class="high-bottom__scroll">
+      <scroll-view scroll-x class=" high-bottom__scroll">
         <view 
           class="fx-column--center high-bottom__item {{index==0?'margin-left--40rpx':''}} {{HighStoreList.handpick_store.length-1==index?'margin-right--40rpx':''}}" 
           wx:key="{{index}}"
@@ -67,21 +65,12 @@
           wx:for="{{HighStoreList.handpick_store}}">
           <image src="{{item.logo}}"></image>
           <view><text class="font-s">{{item.name}}</text></view>
-          <view class="one-line-text"><text class='font-ss qian-hui'>{{item.store_products_counts==0?"":store_products_counts+"件商品"}}</text></view>
+          <view class="one-line-text"><text class='font-ss qian-hui quantity-box__style'>{{item.store_products_counts==0?"":item.store_products_counts+"件商品"}}</text></view>
         </view>
       </scroll-view>
 
     </view>
 
-
-
-
-
-
-
   </view>
-
-
-
 
 </view>

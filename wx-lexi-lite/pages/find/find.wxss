@@ -32,7 +32,6 @@
   right: 30rpx;
 }
 
-
 .category-title__big {
   margin-bottom: 20rpx;
 }
@@ -139,10 +138,25 @@ image {
 .find-swiper__round .swiperActive {
   background-color: rgba(255, 255, 255, 1);
 }
+
 .find-swiper__round view {
   height: 14rpx;
   width: 14rpx;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.5);
   margin-right: 18rpx;
+}
+
+.color--huilv {
+  color: #75ab9a;
+}
+
+.color--huihong {
+  color: #e3b395;
+}
+.color--huilan {
+  color: #829D7A;
+}
+.color--kafei {
+  color: #8C7A6E;
 }

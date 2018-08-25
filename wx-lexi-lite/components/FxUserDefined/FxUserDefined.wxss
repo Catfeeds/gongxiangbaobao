@@ -1,27 +1,24 @@
+
 /* components/FxProductComponent/FxProductComponent.wxss */
 .direction{
   display: flex;
   flex-direction: column;
 }
 .photoBox{
-  width: 100%;
-  padding-bottom: 100%;
-   height: 0; 
   position: relative;
-  border-radius: 8rpx; 
-   overflow: hidden; 
+
 }
 .photoBox image{ 
 }
 .phpto--sm{
-  height: 280rpx ;
-  width: 280rpx ;
+  height: 210rpx;
+  width: 210rpx;
+  border-radius: 8rpx;
 }
 .sellInfo{
   position: absolute;
   width: 62rpx;
   height: 36rpx;
-  /* background-color: #858583; */
   font-size: 20rpx;
   border-radius: 5rpx;
   color: white;
@@ -52,6 +49,7 @@ display: inline-block;
   flex: 1;
   font-size: 24rpx;
   vertical-align: middle;
+  line-height: 24rpx;
 }
 .material-quality{
   white-space: nowrap;
@@ -60,7 +58,7 @@ display: inline-block;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 20rpx;
+  margin-top: 8rpx;
 }
 .productPrice{
   margin-top: -10rpx;
@@ -68,7 +66,11 @@ display: inline-block;
 .oldPrice,
 .nowPrice{
   font-size: 24rpx;
+  line-height: 24rpx;
   margin-right: 10rpx;
+}
+.nowPrice {
+  font-weight: 500;
 }
 .oldPrice{
   text-decoration: line-through;
@@ -80,8 +82,9 @@ display: inline-block;
 }
 
 .photo--oblong {
-  height: 260rpx;
-  width: 325rpx;
+  height: 260rpx !important;
+  width: 325rpx !important;
+  border-radius: 8rpx;
 }
 
  .sellInfo>image{

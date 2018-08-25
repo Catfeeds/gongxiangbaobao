@@ -51,7 +51,10 @@
         <text>已关注</text>
       </view>
 
-      <view class="border-radius--30rpx c-middle about">
+      <view
+        catchtap="handelToBrandInfo" 
+        data-rid="{{storeInfo.rid}}"
+        class="border-radius--30rpx c-middle about">
         <text>关于设计管</text>
       </view>
 

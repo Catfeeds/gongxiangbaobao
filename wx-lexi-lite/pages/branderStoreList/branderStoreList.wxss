@@ -102,3 +102,11 @@
 [class="bg-white border-bottom"] {
   margin-bottom: 20rpx;
 }
+
+.quantity-box__style::before {
+  content: " ";
+  display:inline-block;
+  width: 0rpx;
+  font-size: 22rpx;
+  visibility: hidden;
+}

@@ -9,7 +9,7 @@
     <swiper bindchange='handleSwiperChange'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image src="{{item.view_url}}-p50" />
+          <image src="{{item.view_url}}-p50"/>
         </swiper-item>
       </block>
     </swiper>

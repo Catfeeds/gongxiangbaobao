@@ -56,7 +56,10 @@
         wx:key='{{index}}'>
 
         <image src="{{item.cover}}" class="img--style"></image>
-        <text class="font-s font-width--semibold text-two_line margin-bottom--10rpx">{{item.title}}</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
         <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
         <view class='plant-owner__box flex_row'>
           <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
@@ -83,7 +86,10 @@
         wx:for="{{wonderfulStories.life_records}}" 
         wx:key='{{index}}'>
         <image src="{{item.cover}}" class="img--style"></image>
-        <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
         <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
         <view class='margin-top--8rpx flex_row'>
           <image src="{{item.user_avator}}" class='plant-owner__photo'></image>

@@ -20,6 +20,8 @@
   width: 670rpx;
   height: 80rpx;
   box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 8rpx;
+  border: 1rpx solid #e9e9e9;
   /* border-top: 1rpx solid #e9e9e9; */
 }
 
@@ -335,6 +337,7 @@
   margin-top: 30rpx;
   padding: 0;
   border-radius: 8rpx;
+  position: relative;
 }
 
 .advertisement-item {
@@ -409,9 +412,13 @@
 }
 
 .characteristic-log {
+}
+
+.characteristic-log image {
   width: 90rpx;
   height: 90rpx;
-  border: 4rpx solid white;
+  border: 2rpx solid white;
+  border-radius: 8rpx;
 }
 
 .characteristic-box__title {
@@ -434,6 +441,8 @@
 .characteristic-photo {
   height: 140rpx;
   width: 140rpx;
+  border: 2rpx solid white;
+  box-sizing: border-box;
 }
 
 .characteristic-watch_btn {
@@ -447,6 +456,7 @@
 .characteristic-watch_btn image {
   height: 24rpx;
   width: 28rpx;
+  margin-right: 10rpx;
 }
 
 .all-product {
@@ -560,7 +570,7 @@
 }
 
 .one-row-three {
-  width: 200rpx;
+  width: 210rpx;
 }
 
 .life-beautiful-box {
@@ -599,7 +609,7 @@
 }
 
 .gratefulList-box {
-  height: 810rpx;
+  height: 714rpx;
 }
 
 .category-title {
@@ -641,7 +651,7 @@
 } */
 
 .category__title {
-  margin: 0 40rpx;
+  margin: 0 16rpx 0 40rpx;
   line-height: 28rpx;
 }
 
@@ -701,23 +711,26 @@ swiper-photo .slide-item__box image {
 .swiper-photo .slide-item__box.active {
   /* transform: scaleX(1),scaleY(1.4);
   transition: all 0.2s ease-in 0s; */
-
   width: 76%;
   height: 280rpx;
   border-radius: 8rpx;
   margin: 0 auto;
   display: block;
   overflow: hidden;
-  animation: myfirst .3s;
-  animation-fill-mode :forwards;
+  animation: myfirst 0.3s;
+  animation-fill-mode: forwards;
 }
 
-@keyframes myfirst
-{
-from {  width: 86%;
-  height: 280rpx;}
-to {  width: 100%;
-  height: 100%;}
+@keyframes myfirst {
+  from {
+    width: 86%;
+    height: 280rpx;
+  }
+
+  to {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .swiper-photo .slide-item__box .active .prompt-textwrap {
@@ -738,8 +751,8 @@ to {  width: 100%;
 }
 
 .fx-tabs {
-  height: 90rpx;
-  /* border-top: 1rpx solid red; */
+  /* margin-top: 22rpx; */
+  padding-top: 22rpx;
 }
 
 /* .navbar-txet{
@@ -749,6 +762,10 @@ to {  width: 100%;
 .navbar-txet .active {
   font-size: 40rpx;
 } */
+
+.tab-item text {
+  margin-bottom: 14rpx !important;
+}
 
 .fx-icon-nothing-right {
   font-size: 20rpx;
@@ -811,7 +828,7 @@ to {  width: 100%;
 }
 
 .float view image {
-  height: 100% ;
+  height: 100%;
   width: 100%;
   border-radius: 8rpx;
   border: 4rpx solid red;
@@ -897,6 +914,7 @@ to {  width: 100%;
 .margin-top--40rpx {
   margin-top: 40rpx;
 }
+
 .margin-top--60rpx {
   margin-top: 60rpx;
 }
@@ -944,6 +962,7 @@ to {  width: 100%;
 .margin-top--34rpx {
   margin-top: 34rpx;
 }
+
 .margin-top--4rpx {
   margin-top: 4rpx;
 }
@@ -975,10 +994,11 @@ to {  width: 100%;
   visibility: hidden;
 }
 
-.line-height--22rpx{
+.line-height--22rpx {
   line-height: 22rpx;
 }
-.line-height--26rpx{
+
+.line-height--26rpx {
   line-height: 26rpx;
 }
 
@@ -990,19 +1010,46 @@ to {  width: 100%;
   height: 14rpx;
   width: 14rpx;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   margin-right: 18rpx;
 }
-.find-swiper__round{
+
+.find-swiper__round {
   right: 10rpx;
   bottom: -66rpx;
 }
 
-.swiper-false{
+.swiper-false {
   height: 100rpx;
   width: 140rpx;
 }
-.swiper-false image{
+
+.swiper-false image {
   height: 100%;
   width: 100%;
+}
+
+.brand-quantity--color {
+  color: #dadada;
+}
+
+.fx-tabs .tab-item {
+  margin-right: 80rpx;
+}
+
+.bottom--86rpx {
+  bottom: -86rpx;
+}
+
+.bg-black__half {
+  height: 50%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0rpx !important;
+  background: linear-gradient(to top,rgba(0, 0, 0, .5) ,rgba(255, 255, 255, 0)) !important;
+}
+
+.height---236rpx {
+  height: 236rpx;
 }

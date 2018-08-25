@@ -12,7 +12,7 @@
       <view class="flex_row--middle gather-min__photo">
         <image 
           wx:for="{{item.products}}" 
-          data-rid="{{val.rid}}"
+          data-rid="{{val.rid}}" 
           wx:for-item="val" 
           wx:key="{{index}}" 
           wx:if="{{index<4}}"

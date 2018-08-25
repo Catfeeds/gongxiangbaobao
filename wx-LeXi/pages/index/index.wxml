@@ -58,9 +58,9 @@
         <view class='joinNumberlBox'>
 
           <view class='number-visits'>
-            
+
             <image class='middle_shadou' src='../../images/shadow.png'></image>
-            
+
             <view class='joinNumberR-box c-middle'>
               <view class='joinNumberR'>
                 {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
