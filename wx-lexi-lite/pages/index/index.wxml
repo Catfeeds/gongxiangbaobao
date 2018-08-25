@@ -45,7 +45,7 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber'>
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 浏览过设计馆</view>
+          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 浏览过生活馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>

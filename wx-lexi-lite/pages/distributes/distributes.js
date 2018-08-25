@@ -365,13 +365,8 @@ Page({
       per_page: this.data.perPage
     }
 
-    wx.showLoading({
-      title: '加载中',
-    })
-
     http.fxGet(api.get_hot_distribution, params, (res) => {
       console.log(res, '热门分销单品')
-      wx.hideLoading()
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -402,12 +397,8 @@ Page({
       page: this.data.page,
       per_page: this.data.perPage
     }
-    wx.showLoading({
-      title: '加载中',
-    })
     http.fxGet(api.get_sticked_distribution, params, (res) => {
       console.log(res, '官方精选分销商品')
-      wx.hideLoading()
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -438,13 +429,9 @@ Page({
       page: this.data.page,
       per_page: this.data.perPage
     }
-    wx.showLoading({
-      title: '加载中',
-    })
 
     http.fxGet(api.get_new_distribution, params, (res) => {
       console.log(res, '最新分销商品')
-      wx.hideLoading()
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -473,13 +460,9 @@ Page({
    * 获取全部分销商品
    */
   getAllProducts() {
-    wx.showLoading({
-      title: '加载中',
-    })
     console.log(this.data.params)
     http.fxGet(api.distribute_products, this.data.params, (res) => {
       console.log(res, '全部分销商品')
-      wx.hideLoading()
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
