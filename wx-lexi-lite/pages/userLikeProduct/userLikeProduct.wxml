@@ -1,0 +1,34 @@
+<!--pages/userLikeProduct/userLikeProduct.wxml-->
+
+    <!-- 筛选和排序 -->
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+      <view catchtap='handelOffPick' class='flex_row'>
+        筛选
+        <image src='../../images/arrowhead.png'></image>
+      </view>
+      <view catchtap="handleSortShow" class='flex_row'>
+        排序
+        <image src='../../images/arrowhead.png'></image>
+      </view>
+    </view>
+    <!-- 下面的产品列表 -->
+    <view class='goodsList'>
+      <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+      </view>
+    </view>
+
+    <!-- 缺省图片 -->
+    <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">
+      <view>
+        <image src='../../images/user-xin.png'></image>
+      </view>
+      <view class='black-font no-like__title'>
+        <text>你还未喜欢过任何东西</text>
+      </view>
+      <view class='flex_row font-s qian-hui hui-xin'>
+        <view>点击商品和橱窗上的</view>
+        <image src='../../images/dLike@2.png'></image>
+        <view>即可添加到您的喜欢列表中</view>
+      </view>
+    </view>

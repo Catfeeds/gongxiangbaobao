@@ -1,0 +1,2 @@
+/* pages/userLikeProduct/userLikeProduct.wxss */
+@import "../user/user.wxss";

@@ -65,6 +65,14 @@ Page({
     })
   },
 
+  /***
+   * 我喜欢的商品列表 
+  */
+  handleUserlikeList(){
+    wx.navigateTo({
+      url: '../userLikeProduct/userLikeProduct'
+    })
+  },
   /**
    * 获取用户授权手机号
    */
