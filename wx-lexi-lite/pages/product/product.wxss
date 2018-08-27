@@ -660,3 +660,15 @@ swiper-item, swiper-item>image, swiper {
 .margin-bottom--4rpx {
   margin-bottom: 4rpx;
 }
+
+.baoyou-icon {
+flex-direction:row;
+align-items:center;
+margin-bottom:8rpx;
+}
+
+.baoyou-icon__bg {
+  background: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png") no-repeat;
+  background-size: 100% 100%;
+  vertical-align: middle;
+}

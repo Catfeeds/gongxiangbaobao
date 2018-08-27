@@ -67,7 +67,7 @@ Page({
         })
 
       } else {
-
+        utils.fxShowToast(result.status.message)
       }
 
     })

@@ -69,18 +69,22 @@
         </view>
         <view class='transmission black-font' catchtap='handleToOrderTap'>
           <text>我的订单</text>
-          <text class='red-round'></text>
+          <text class='red-round' wx:if="{{orderList.length!=0}}"></text>
         </view>
       </view>
       <view class=' time-top '>
-        <view class='service coupon' catchtap='couponTap'>
+        <view class='flex_row--middle service coupon' catchtap='couponTap'>
           <image class='setings' src='../../images/coupon_icon@2.png'></image>
-          <text class='red-round'></text>
+          <text class='red-round' wx:if="{{couponList.length!=0}}"></text>
         </view>
-        <button open-type="contact" class="service">
-          <image class='setings sms' src='../../images/set.png'></image>
+
+        <view class=" flex_row--middle service">
+        <button open-type="contact" class="ke-fu__btn">
         </button>
-        <view class='service seting--left' catchtap='setTap'>
+        <image class='setings' src='../../images/set.png'></image>
+        </view>
+
+        <view class=' flex_row--middle service seting--left' catchtap='setTap'>
           <image class='setings' src='../../images/setings.png'></image>
         </view>
       </view>

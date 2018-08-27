@@ -6,7 +6,7 @@
     </view>
     <image 
       mode="widthFix" 
-      class='{{photo==1?"":"phpto--sm"}} {{photo==5?"photo--oblong":""}}' 
+      class='{{photo==1?"":"phpto--sm"}}' 
       src='{{ product.cover }}-p{{photoSize}}'></image>
   </view>
 

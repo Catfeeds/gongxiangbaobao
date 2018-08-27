@@ -28,7 +28,7 @@
   width: 30rpx;
 }
 
-.search-input view {
+.search-input image {
   padding: 0 10rpx;
   position: absolute;
   top: 50%;

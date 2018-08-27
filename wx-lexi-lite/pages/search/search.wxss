@@ -24,7 +24,7 @@
   width: 30rpx;
 }
 
-.search-input view {
+.search-input image {
   padding: 0 10rpx;
   position: absolute;
   top: 50%;
@@ -145,4 +145,43 @@
 
 .margin-right--40rpx {
   margin-right: 40rpx;
+}
+
+.last-browse__photo {
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 8rpx;
+}
+
+.material-quality{
+  width: 200rpx;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+display:flex;
+flex-direction:row;
+align-items:center;
+}
+
+.logistics {
+  height:24rpx;
+width:40rpx;
+border-radius:5rpx;
+background:url("https://kg.erp.taihuoniao.com/image/static/icon-free.png") no-repeat;
+background-size:100% 100%;
+vertical-align:middle;
+margin-right:10rpx;
+
+}
+
+.nowPrice{
+  font-size: 24rpx;
+  margin-right: 10rpx;
+  line-height: 24rpx;
+}
+
+.material-quality-text{
+  flex: 1;
+  font-size: 24rpx;
+  vertical-align: middle;
 }

@@ -98,6 +98,7 @@ button-hover {
   line-height: 60rpx;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
 }
 
 .service-intercalate {
@@ -383,4 +384,10 @@ button-hover {
 
 .follow-icon__home{
   margin-right: 6rpx;
+}
+.ke-fu__btn{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
 }

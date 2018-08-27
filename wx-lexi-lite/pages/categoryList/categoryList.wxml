@@ -3,9 +3,9 @@
   <!-- 搜索框 -->
   <view class="bg-white search-input" catchtap="handleToSearch">
     <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
-    <view class='infput-search__btn'>
-      <image src='../../images/sear-icon@2.png'></image>
-    </view>
+
+    <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
+
   </view>
 
   <!-- 排序 筛选 -->

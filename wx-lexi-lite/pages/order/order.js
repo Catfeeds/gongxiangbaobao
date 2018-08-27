@@ -84,7 +84,6 @@ Page({
   },
 
   // 付款
-
   paymentBtn(e){
     console.log(e.currentTarget.dataset.order)
     let order = this.data.orderList.orders[e.currentTarget.dataset.order]
