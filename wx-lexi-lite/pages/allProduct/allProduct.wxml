@@ -3,44 +3,44 @@
 
   <!-- 筛选和排序 -->
   <block wx:if="{{!isPersonal}}">
-  <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-    <view catchtap="handleSortShow" class='flex_row'>
-      筛选
-      <image src='../../images/arrowhead.png'></image>
-    </view>
-    <view catchtap='handelOffPick' class='flex_row'>
-       综合排序
-      <image src='../../images/arrowhead.png'></image>
-    </view>
-  </view>
-
-  <view class="top-bg__photo">
-    <view class="top__bg">
-      <image src="{{browseRecordOfThis}}"></image>
-    </view>
-
-    <view class="top-bg__photo shade"></view>
-
-    <view class="browse-record__box">
-      <view class="black-font">品质与设计并存的精选好物</view>
-
-      <view class='flex_row'>
-        <view class="fx-broadwise-e browse-item__photo">
-          <image 
-            wx:key="{{index}}" 
-            wx:if="{{index<12}}"
-            wx:for="{{browseRecordOfThis.users}}" 
-            src="{{item.avatar}}"></image>
-            <view class="open-data" wx:if="{{browseRecordOfThis.count==0}}">
-              <open-data type="userAvatarUrl"></open-data>
-          </view>
-        </view>
-        <view class="flex_row--middle font-xss round" wx:if="{{browseRecordOfThis.count==0}}">1</view>
-        <view class="flex_row--middle font-xss round" wx:else>{{browseRecordOfThis.count>=999?"999+":browseRecordOfThis.count}}</view>
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+      <view catchtap='handelOffPick' class='flex_row'>
+        综合排序
+        <image src='../../images/arrowhead.png'></image>
+      </view>
+      <view catchtap="handleSortShow" class='flex_row'>
+        筛选
+        <image src='../../images/arrowhead.png'></image>
       </view>
     </view>
 
-  </view>
+    <view class="top-bg__photo">
+      <view class="top__bg">
+        <image src="../../images/other/live_note.jpg"></image>
+      </view>
+
+      <view class="top-bg__text">
+        <text>{{topPhotoText}}</text>
+      </view>
+
+      <view class="top-bg__photo shade"></view>
+
+      <view class="browse-record__box">
+        <view class="black-font">品质与设计并存的精选好物</view>
+
+        <view class='flex_row'>
+          <view class="fx-broadwise-e browse-item__photo">
+            <image wx:key="{{index}}" wx:if="{{index<12}}" wx:for="{{browseRecordOfThis.users}}" src="{{item.avatar}}"></image>
+            <view class="open-data" wx:if="{{browseRecordOfThis.count==0}}">
+              <open-data type="userAvatarUrl"></open-data>
+            </view>
+          </view>
+          <view class="flex_row--middle font-xss round" wx:if="{{browseRecordOfThis.count==0}}">1</view>
+          <view class="flex_row--middle font-xss round" wx:else>{{browseRecordOfThis.count>=999?"999+":browseRecordOfThis.count}}</view>
+        </view>
+      </view>
+
+    </view>
   </block>
 
   <view class='shim'></view>
@@ -51,16 +51,73 @@
   </view>
 
   <!-- 筛选 -->
-  <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
+  <!-- <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
     <fx-pick 
       bind:handlePickOff="handelOffPickBox"
       bind:handlePickOff="handelOffPickBox"
       pickQuantity="{{pickQuantity}}"
       bind:handlePickProduct="handlePickProduct"></fx-pick>
+  </view> -->
+  <view class="pick-box" catchtap="handelOffPickBox">
+    <!-- 筛选 tian-->
+    <!-- 筛选 -->
+    <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
+      <view class="fx-modal__main" slot="main">
+        <view class="block-title">价格区间</view>
+        <view class="price-range">
+          <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
+        </view>
+
+          <!-- 分类 -->
+        <view>
+        <view class="block-title">分类
+          <small>可多选</small>
+        </view>
+        <view class="scroll-view__container">
+          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+            <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+              {{ category.name }}
+            </view>
+          </scroll-view>
+        </view>
+        </view>
+
+        <!-- 推荐 -->
+        <view>
+        <view class="block-title">推荐
+          <small>可多选</small>
+        </view>
+        <view class="scroll-view__container">
+          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+            <view 
+              class="category {{ category.isActive ? 'active' : '' }}" 
+              wx:for="{{ recommendList }}" 
+              wx:for-item="category" 
+              wx:key="{{ category.id }}" 
+              data-cid="{{ category.id }}" 
+              data-index="{{index}}"
+              bindtap="handleToggleRecommendList">
+              {{ category.name }}
+            </view>
+          </scroll-view>
+        </view>
+        </view>
+
+
+
+      </view>
+      <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
+        查看商品
+        <text>（{{ totalCount }}件）</text>
+      </button>
+    </fx-modal>
   </view>
+
+
+
 
   <!-- 排序 -->
   <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
-    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
   </view>
 </view>

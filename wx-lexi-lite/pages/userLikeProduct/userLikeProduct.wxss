@@ -1,2 +1,17 @@
 /* pages/userLikeProduct/userLikeProduct.wxss */
 @import "../user/user.wxss";
+
+.pick-box{
+  position: fixed;
+  top: 10000rpx;
+  left: 0;
+  height: 100%;
+  width: 750rpx;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.price-range {
+position:relative;
+padding:20rpx 40rpx 0;
+background-color:#fff;
+}

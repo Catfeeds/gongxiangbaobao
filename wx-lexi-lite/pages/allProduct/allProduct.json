@@ -6,6 +6,8 @@
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
     "fx-login": "/components/FxLogin/FxLogin",
     "fx-pick": "/components/FxPickProduct/FxPickProduct",
-    "fx-sort":"/components/FxSortProduct/FxSortProduct"
+    "fx-sort":"/components/FxSortProduct/FxSortProduct",
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-slider": "/components/FxSlider/FxSlider"
   }
 }

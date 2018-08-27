@@ -26,7 +26,7 @@ Page({
     classList: [{
         rid: 1,
         num: 0,
-        name: "喜欢"
+        name: "已喜欢"
       },
       {
         rid: 2,
@@ -128,7 +128,7 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores' + index + '.watch']: false
+          ['watchStoreList.stores[' + index + '].followed_status']: 1
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -148,7 +148,7 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores' + index +'.watch']:true
+          ['watchStoreList.stores[' + index + '].followed_status']: 0
         })
       } else {
         utils.fxShowToast(result.status.message)

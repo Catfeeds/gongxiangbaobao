@@ -55,6 +55,7 @@
 .fx-modal .fx-modal__body {
   padding-bottom: 100rpx;
   max-height: 500rpx;
+  overflow: auto;
 }
 
 .fx-modal .fx-modal__foot {

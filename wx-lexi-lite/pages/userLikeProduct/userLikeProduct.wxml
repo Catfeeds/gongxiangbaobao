@@ -1,34 +1,85 @@
 <!--pages/userLikeProduct/userLikeProduct.wxml-->
 
-    <!-- 筛选和排序 -->
-    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-      <view catchtap='handelOffPick' class='flex_row'>
-        筛选
-        <image src='../../images/arrowhead.png'></image>
-      </view>
-      <view catchtap="handleSortShow" class='flex_row'>
-        排序
-        <image src='../../images/arrowhead.png'></image>
-      </view>
-    </view>
-    <!-- 下面的产品列表 -->
-    <view class='goodsList'>
-      <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
-      </view>
-    </view>
+<view class='container'>
 
-    <!-- 缺省图片 -->
-    <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">
-      <view>
-        <image src='../../images/user-xin.png'></image>
-      </view>
-      <view class='black-font no-like__title'>
-        <text>你还未喜欢过任何东西</text>
-      </view>
-      <view class='flex_row font-s qian-hui hui-xin'>
-        <view>点击商品和橱窗上的</view>
-        <image src='../../images/dLike@2.png'></image>
-        <view>即可添加到您的喜欢列表中</view>
-      </view>
+
+
+
+
+  <!-- 筛选和排序 -->
+  <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+    <view catchtap='handelOffPick' class='flex_row'>
+      筛选
+      <image src='../../images/arrowhead.png'></image>
     </view>
+    <view catchtap="handleSortShow" class='flex_row'>
+      排序
+      <image src='../../images/arrowhead.png'></image>
+    </view>
+  </view>
+  <!-- 下面的产品列表 -->
+  <view class='goodsList'>
+    <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+      <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+    </view>
+  </view>
+
+  <!-- 缺省图片 -->
+  <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">
+    <view>
+      <image src='../../images/user-xin.png'></image>
+    </view>
+    <view class='black-font no-like__title'>
+      <text>你还未喜欢过任何东西</text>
+    </view>
+    <view class='flex_row font-s qian-hui hui-xin'>
+      <view>点击商品和橱窗上的</view>
+      <image src='../../images/dLike@2.png'></image>
+      <view>即可添加到您的喜欢列表中</view>
+    </view>
+  </view>
+
+  <!-- 筛选 -->
+
+  <!-- <fx-pick bind:handlePickOff="handelOffPickBox" bind:handlePickOff="handelOffPickBox" pickQuantity="{{pickQuantity}}" bind:handlePickProduct="handlePickProduct"></fx-pick> -->
+
+
+  <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
+    <!-- 筛选 tian-->
+    <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
+      <view class="fx-modal__main" slot="main">
+        <view class="block-title">价格区间</view>
+        <view class="price-range">
+          <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
+        </view>
+
+        <view class="block-title">分类
+          <small>可多选</small>
+        </view>
+        <view class="scroll-view__container">
+          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+            <view 
+              class="category {{ category.isActive ? 'active' : '' }}" 
+              wx:for="{{ recommendList }}" 
+              wx:for-item="category" 
+              wx:key="{{ category.id }}" 
+              data-index="{{index}}"
+              data-cid="{{ category.id }}" 
+              bindtap="handleToggleCategory">
+              {{ category.name }}
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+      <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
+        查看商品
+        <text>（{{ totalCount }}件）</text>
+      </button>
+    </fx-modal>
+  </view>
+
+  <!-- 排序 -->
+  <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
+  </view>
+</view>
