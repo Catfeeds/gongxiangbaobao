@@ -60,7 +60,8 @@
     "pages/designerAffair/designerAffair",
     "pages/liveNoteList/liveNoteList",
     "pages/plantNoteList/plantNoteList",
-    "pages/plantNoteInfo/plantNoteInfo"
+    "pages/plantNoteInfo/plantNoteInfo",
+    "pages/userLikeProduct/userLikeProduct"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

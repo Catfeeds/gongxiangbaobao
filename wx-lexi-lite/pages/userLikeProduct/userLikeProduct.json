@@ -1,12 +1,13 @@
 {
+  "navigationBarTitleText": "喜欢的商品",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
     "fx-login": "/components/FxLogin/FxLogin",
-    "fx-pick": "/components/FxPickProduct/FxPickProduct",
-    "fx-sort":"/components/FxSortProduct/FxSortProduct",
+    "fx-sort": "/components/FxSortProduct/FxSortProduct",
+    "fx-pick-product": "/components/FxPickProduct/FxPickProduct",
     "fx-modal": "/components/FxModal/FxModal",
     "fx-slider": "/components/FxSlider/FxSlider"
   }

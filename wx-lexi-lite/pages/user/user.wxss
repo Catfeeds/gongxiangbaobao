@@ -255,10 +255,6 @@ button-hover {
   border-radius: 10rpx;
   font-size: 24rpx;
   color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
 }
 
 .with>image {
@@ -290,7 +286,7 @@ button-hover {
   font-weight: 500;
 }
 
-.user__status{
+.user__status {
   padding: 10rpx 178rpx;
   border: 1rpx solid #ededef;
   font-size: 28rpx;
@@ -333,33 +329,58 @@ button-hover {
   margin-top: 34rpx;
 }
 
-.user-null__product{
+.user-null__product {
   height: 100%;
 }
 
-.user-null__product image{
+.user-null__product image {
   height: 120rpx;
   width: 120rpx;
-
 }
 
-.bottom__info{
+.bottom__info {
   flex: 1;
 }
 
-.no-like__title{
-margin:35rpx 0 20rpx 0;
+.no-like__title {
+  margin: 35rpx 0 20rpx 0;
 }
 
-.hui-xin image{
+.hui-xin image {
   width: 26rpx;
   height: 24rpx;
 }
 
-.margin-left--40rpx{
+.margin-left--40rpx {
   margin-left: 40rpx;
 }
 
-.margin-right--40rpx{
+.margin-right--40rpx {
   margin-right: 40rpx;
+}
+
+.padding-left--0rpx {
+  padding-left: 0rpx;
+}
+
+.browse-all__icon {
+  width: 10rpx;
+  height: 18rpx;
+  margin-left: 20rpx;
+}
+
+.pseudo-element::after {
+  content: "z";
+  display: inline-block;
+  width: 0rpx;
+  font-size: 24rpx;
+  visibility: hidden;
+}
+
+.bg--hui {
+  background-color: #949ea6;
+}
+
+.follow-icon__home{
+  margin-right: 6rpx;
 }

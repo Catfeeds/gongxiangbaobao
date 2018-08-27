@@ -254,6 +254,4 @@ module.exports = {
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',
 
-
-
 }

@@ -9,6 +9,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isDisabled: false, // 是否禁用
+    leftTimer: null, // 延迟句柄
+    rightTimer: null, // 延迟句柄
+    categoryList: [], // 分类列表
+    checkedCids: [], // 选择的分类
+    showFilterModal: false,// 筛选
+    openPickBox: false, // 筛选的模态框
+    sortBox: false, // 筛选的模态框
+
+    topPhotoText:"", // 背景文字
     pickQuantity:"", // 商品的数量
     openPickBox:false, // 筛选的模态框
     sortBox:false, // 排序的模态框
@@ -26,11 +36,274 @@ Page({
       min_price:	'',//Number	可选	 	价格区间： 最小价格
       max_price:	'',//Number	可选	 	价格区间： 最大价格
       sort_type:	'',//Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
-      is_free_postage:	'',//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
-      is_preferential:	'',//Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
-      is_custom_made:	'',//Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+      is_free_postage:	0,//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
+      is_preferential:	0,//Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
+      is_custom_made:	0,//Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+    },
+
+    // 推荐
+    recommendList: [
+      { name: "包邮", id: '1', isActive: false },
+      { name: "特惠", id: "2", isActive: false },
+      { name: "可定制", id: "3", isActive: false },
+    ]
+  },
+
+  /**
+* 滑块最低价格
+*/
+  handleChangeMinPrice(e) {
+    let minPrice = e.detail.lowValue
+    if (this.data.editRecommendRequestParams.max_price == -1) {
+      if (minPrice == '不限') {
+        minPrice = 800
+      }
+    }
+    this.setData({
+      ['editRecommendRequestParams.min_price']: minPrice
+    })
+
+    if (this.data.leftTimer) {
+      clearTimeout(this.data.leftTimer)
+    }
+
+    let _t = setTimeout(() => {
+      // 加载编辑推荐
+      if (this.data.touchBottomInfo == "editRecommend") {
+        this.editRecommend()
+      }
+
+      //加载百元好物
+      if (this.data.touchBottomInfo == "oneHundred") {
+        this.getOneHundred()
+      }
+
+      //加载优质新品
+      if (this.data.touchBottomInfo == "highQualityList") {
+        this.getHighQuality()
+      }
+
+      //加载特惠好设计 
+      if (this.data.touchBottomInfo == "goodDesign") {
+        this.getGoodDesign()
+      }
+      this.setData({
+        productList: []
+      })
+    }, 2000)
+
+    this.setData({
+      leftTimer: _t
+    })
+
+  },
+
+  /**
+ * 重置回调事件
+ */
+  handleResetFilterCondition(e) {
+    this.selectComponent('#fx-slider').reset()
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      cate.checked = false
+      return cate
+    })
+
+    this.setData({
+      'categoryList': _categories,
+      'params.min_price': 0,
+      'params.max_price': -1,
+      'params.cids': ''
+    })
+  },
+
+  /**
+   * 滑块最高价格
+   */
+  handleChangeMaxPrice(e) {
+    console.log(e.detail.highValue)
+    let maxPrice = e.detail.highValue
+    if (maxPrice == '不限') {
+      maxPrice = -1
+    }
+    this.setData({
+      ['editRecommendRequestParams.max_price']: maxPrice
+    })
+
+    if (this.data.rightTimer) {
+      clearTimeout(this.data.rightTimer)
+    }
+
+    let _t = setTimeout(() => {
+      // 加载编辑推荐
+      if (this.data.touchBottomInfo == "editRecommend") {
+        this.editRecommend()
+      }
+
+      //加载百元好物
+      if (this.data.touchBottomInfo == "oneHundred") {
+        this.getOneHundred()
+      }
+
+      //加载优质新品
+      if (this.data.touchBottomInfo == "highQualityList") {
+        this.getHighQuality()
+      }
+
+      //加载特惠好设计 
+      if (this.data.touchBottomInfo == "goodDesign") {
+        this.getGoodDesign()
+      }
+      this.setData({
+        productList: []
+      })
+    }, 2000)
+
+    this.setData({
+      rightTimer: _t
+    })
+  },
+
+  /**
+* 关闭弹窗回调
+*/
+  handleCloseFilterModal(e) {
+    this.setData({
+      showFilterModal: false
+    })
+  },
+
+  /**
+ * 分类列表
+ */
+  getCategories() {
+    http.fxGet(api.categories, {}, (result) => {
+      console.log(result, '分类列表')
+      if (result.success) {
+        this.setData({
+          categoryList: result.data.categories
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+ * 改变分类
+ */
+  handleToggleCategory(e) {
+    let cid = e.currentTarget.dataset.cid
+
+    let _checkedCids = this.data.checkedCids
+    if (_checkedCids.indexOf(cid) == -1) { // 不存在，则增加
+      _checkedCids.push(cid)
+    } else { // 存在，则删除
+      let idx = _checkedCids.indexOf(cid)
+      _checkedCids.splice(idx, 1)
+    }
+
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      if (_checkedCids.indexOf(cate.id) != -1) {
+        cate.checked = true
+      } else {
+        cate.checked = false
+      }
+      return cate
+    })
+
+    this.setData({
+      categoryList: _categories,
+      productList:[],
+      'editRecommendRequestParams.cids': _checkedCids.join(','),
+      'editRecommendRequestParams.page': 1
+    })
+
+    // 加载编辑推荐
+    if (this.data.touchBottomInfo == "editRecommend") {
+      this.editRecommend()
+    }
+
+    //加载百元好物
+    if (this.data.touchBottomInfo == "oneHundred") {
+      this.getOneHundred()
+    }
+
+    //加载优质新品
+    if (this.data.touchBottomInfo == "highQualityList") {
+      this.getHighQuality()
+    }
+
+    //加载特惠好设计 
+    if (this.data.touchBottomInfo == "goodDesign") {
+      this.getGoodDesign()
+    }
+
+  },
+
+  /**
+* 选择推荐
+*/
+  handleToggleRecommendList(e) {
+    console.log(e.currentTarget.dataset.index)
+    let index = e.currentTarget.dataset.index
+    let id = e.currentTarget.dataset.cid
+    console.log(id)
+
+    if (this.data.recommendList[index].isActive) {
+      this.setData({
+        ['recommendList[' + index + '].isActive']: false
+      })
+    } else {
+      this.setData({
+        ['recommendList[' + index + '].isActive']: true
+      })
+    }
+
+    if (id == 1) {
+      this.setData({
+        productList: [], // 商品列表
+        ['editRecommendRequestParams.is_free_postage']: this.data.editRecommendRequestParams.is_free_postage == 0 ? 1 : 0
+      })
+    } 
+
+    if (id == 2) {
+      this.setData({
+        productList: [], // 商品列表
+        ['editRecommendRequestParams.is_preferential']: this.data.editRecommendRequestParams.is_preferential == 0 ? 1 : 0
+      })
+    }
+
+    if (id == 3) {
+      this.setData({
+        productList: [], // 商品列表
+        ['editRecommendRequestParams.is_custom_made']: this.data.editRecommendRequestParams.is_custom_made== 0 ? 1 : 0
+      })
+    }
+
+    // 加载编辑推荐
+    if (this.data.touchBottomInfo == "editRecommend") {
+      this.editRecommend()
+    }
+
+    //加载百元好物
+    if (this.data.touchBottomInfo == "oneHundred") {
+      this.getOneHundred()
+    }
+
+    //加载优质新品
+    if (this.data.touchBottomInfo == "highQualityList") {
+      this.getHighQuality()
+    }
+
+    //加载特惠好设计 
+    if (this.data.touchBottomInfo == "goodDesign") {
+      this.getGoodDesign()
     }
   },
+
+
 
   /**来自首页探索页面里面的 start**/
 
@@ -67,7 +340,8 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
-          pickQuantity: result.data.count
+          pickQuantity: result.data.count,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -92,7 +366,8 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
-          pickQuantity: result.data.count
+          pickQuantity: result.data.count,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -117,7 +392,8 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
-          pickQuantity: result.data.count
+          pickQuantity: result.data.count,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -143,7 +419,8 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
-          pickQuantity: result.data.count
+          pickQuantity: result.data.count,
+          totalCount: result.data.count,
         })
 
       } else {
@@ -171,6 +448,7 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -193,6 +471,7 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
+          totalCount: result.data.count,
         })
 
       } else {
@@ -222,6 +501,7 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -246,6 +526,7 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -270,13 +551,13 @@ Page({
         this.setData({
           productList: data,
           isLoadingNextPage: result.data.next,
+          totalCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
-
 
 
 /** 他的个人中心 end **/
@@ -291,6 +572,7 @@ Page({
     //编辑推荐 首页的探索
     if (options.from == "editRecommend") {
       wx.setNavigationBarTitle({
+        
         title: "编辑推荐"
       })
 
@@ -298,6 +580,7 @@ Page({
       this.editRecommend() // 获取商品
 
       this.setData({
+        topPhotoText: "编辑推荐",
         touchBottomInfo: options.from
       })
     }
@@ -312,6 +595,7 @@ Page({
       this.getBrowsePeopleOne("affordable_goods")
 
       this.setData({
+        topPhotoText: "百元好物",
         touchBottomInfo: options.from
       })
     }
@@ -326,6 +610,7 @@ Page({
       this.getHighQuality() // 获取商品
 
       this.setData({
+        topPhotoText: "优质新品",
         touchBottomInfo: options.from
       })
     }
@@ -338,6 +623,7 @@ Page({
       this.getGoodDesign()
 
       this.setData({
+        topPhotoText: "特惠好设计",
         touchBottomInfo: options.from
       })
     }
@@ -350,6 +636,7 @@ Page({
       this.getBrowse()
 
       this.setData({
+        topPhotoText: "我的浏览记录",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -363,6 +650,7 @@ Page({
       this.getXinYuanOrder()
 
       this.setData({
+        topPhotoText: "我的心愿单",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -381,6 +669,7 @@ Page({
       this.getOtherBrowses(options.uid)
 
       this.setData({
+        topPhotoText: "ta的浏览记录",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -399,6 +688,7 @@ Page({
       this.getOtherLike(options.uid)
 
       this.setData({
+        topPhotoText: "ta的喜欢",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -417,6 +707,7 @@ Page({
       this.getOtherXinYuan(options.uid)
 
       this.setData({
+        topPhotoText: "ta的心愿单",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -604,6 +895,7 @@ Page({
   onShareAppMessage: function() {
 
   },
+
   // 打开筛选的模态框
   handleSortShow(){
     let animation = wx.createAnimation({
@@ -614,9 +906,11 @@ Page({
     animation.top(0).step()
 
     this.setData({
-      openPickBox: animation.export()
+      openPickBox: animation.export(),
+      showFilterModal:true
     })
 
+    this.getCategories()
   },
 
   // 关闭筛选的模态框

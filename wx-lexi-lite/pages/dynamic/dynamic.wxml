@@ -80,11 +80,9 @@
     
   </view>
 
-  
-
   <view wx:if="{{dynamicList.lines.length==0}}" class="fx-column--center null-photo">
-      <image src='../../images/user-star.png'></image>
-      <view class='black-font'>ta还没有任何动态信息</view>
+      <image src='../../images/dynamic-null@2.png'></image>
+      <view class='black-font'>还没有任何动态信息</view>
   </view>
 
   <view class='shm'></view>
