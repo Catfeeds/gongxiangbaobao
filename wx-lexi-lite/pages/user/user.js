@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    orderList:[], // 有没有订单
+    couponList:[],// 有没有优惠券
     activeSubMenu: 'user',
     haveSmallB: false,
     watchStoreList: [], // 关注店铺的列表
@@ -189,6 +191,34 @@ Page({
     this.getPick()
   },
 
+  // 获取是否有优惠券
+  getRedBag(){
+    http.fxGet(api.authority_coupon, {}, (result) =>{
+      if(result.success){
+        console.log(result,"有没有优惠券")
+        this.setData({
+          couponList: result.data.coupons
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 获取是否有订单
+  getOrderList() {
+    http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
+      console.log(result, '订单列表')
+      if (result.success) {
+        this.setData({
+          orderList: result.data.orders
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   //获取筛选和排序的公用接口
   getPick(){
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
@@ -332,6 +362,8 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfo() // 获取用户的信息
+    this.getRedBag() // 获取有没有优惠券
+    this.getOrderList() // 获取是否有订单
     
     const lifeStore = wx.getStorageSync('lifeStore')
     // 小B商家获取自己生活馆

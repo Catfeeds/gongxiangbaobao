@@ -18,8 +18,10 @@
 
   <!--轮播图 产品底部信息 -->
   <view class='goodsInfoBox'>
-    <view class='branderInfo  font-with--600'>
-      <text class='logistics' wx:if="{{ productInfomation.is_free_postage }}">包邮</text>
+    <view class='baoyou-icon  font-with--600'>
+      <image 
+        class='logistics baoyou-icon__bg' 
+        wx:if="{{ productInfomation.is_free_postage }}"></image>
       <text class='product-info__title'>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo margin-bottom--22rpx'>

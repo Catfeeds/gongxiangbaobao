@@ -4,14 +4,15 @@
   <!-- 筛选和排序 -->
   <block wx:if="{{!isPersonal}}">
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-      <view catchtap='handelOffPick' class='flex_row'>
-        综合排序
-        <image src='../../images/arrowhead.png'></image>
-      </view>
       <view catchtap="handleSortShow" class='flex_row'>
         筛选
         <image src='../../images/arrowhead.png'></image>
       </view>
+      <view catchtap='handelOffPick' class='flex_row'>
+        综合排序
+        <image src='../../images/arrowhead.png'></image>
+      </view>
+
     </view>
 
     <view class="top-bg__photo">
