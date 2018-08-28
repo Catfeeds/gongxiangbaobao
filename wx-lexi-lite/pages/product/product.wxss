@@ -594,6 +594,18 @@ swiper-item, swiper-item>image, swiper {
   overflow: auto;
 }
 
+.bg--red{
+  background-color: #f66; 
+}
+.border-left__radius--null{
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.border-right__radius--null{
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
 .reduced-price_text {
   line-height: 40rpx !important;
 }
@@ -646,6 +658,10 @@ swiper-item, swiper-item>image, swiper {
 
 .margin-bottom--50rpx {
   margin-bottom: 50rpx;
+}
+
+.margin-right--20rpx {
+  margin-bottom: 20rpx;
 }
 
 .font-with--600 {

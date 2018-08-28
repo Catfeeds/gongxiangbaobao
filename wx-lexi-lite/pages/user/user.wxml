@@ -108,6 +108,7 @@
         <view 
           catchtap='handleToProductInfoTap' 
           data-rid='{{item.rid}}' 
+          data-store-id="{{item.store_rid}}"
           class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}' 
           wx:for="{{likeProduct.products}}" 
           wx:key="{{index}}">
@@ -115,7 +116,6 @@
         </view>
       </scroll-view>
     </view>
-
   </view>
 
   <!-- 收藏里面的内容 -->
@@ -135,7 +135,13 @@
         </view>
       </view>
       <view class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct.products}}" wx:key="{{index}}">
+        <view 
+          catchtap='handleToProductInfoTap' 
+          data-rid='{{item.rid}}' 
+          class='c-importantGoodsPhoto GoodsPhoto' 
+          wx:for="{{userBrowsesProduct.products}}" 
+          data-store-id="{{item.store_rid}}"
+          wx:key="{{index}}">
           <image src='{{item.cover}}-p16'></image>
         </view>
       </view>
@@ -152,7 +158,13 @@
         </view>
       </view>
       <view class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
+        <view 
+          catchtap='handleToProductInfoTap' 
+          data-rid="{{item.rid}}" 
+          class='c-importantGoodsPhoto GoodsPhoto' 
+          data-store-id="{{item.store_rid}}"
+          wx:for="{{desireOrderProduct.products}}" 
+          wx:key="{{index}}">
           <image src='{{item.cover}}-p16'></image>
         </view>
       </view>

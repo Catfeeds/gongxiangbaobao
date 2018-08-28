@@ -30,7 +30,7 @@ module.exports = {
   // Brand
   brand_list: 'brands', // GET 品牌列表
   brand_detail: 'brands/:rid', // GET 品牌详情
-  shop_info: 'store/info', // 获取店铺信息--h
+  shop_info: 'official_store/info', // 获取店铺信息--h
   official_store_info: 'official_store/info', // 获取店铺信息--h
   store_announcement: 'store/announcement', //获取店铺公告---已弃用
   official_store_announcement: 'official_store/announcement', //获取店铺公告---
@@ -226,7 +226,7 @@ module.exports = {
   add_watch: 'follow/store', // 添加
   delete_watch: 'unfollow/store', // 取消关注
   examine_watch: 'follow/get_status', // 查看是否关注
-  // add_browse : 'store/visitor', //添加访问者---
+  add_browse : 'store/visitor', //添加访问者---
   userlike: 'userlike', //添加喜欢---
   usetIsLike: 'products_userlike', // 查看用户是否喜欢
 

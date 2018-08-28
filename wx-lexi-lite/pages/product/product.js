@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isSmallB:false, // 是不是小b商家
     originalStoreRid:"", // 原店铺的rid
     rid: '', // 商品的rid---
     productInfomation: [], // 商品详情列表---
@@ -317,8 +318,8 @@ Page({
 
   // 交货时间
   getLogisticsTime(e,rid) {
-    http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:rid}, (result)=>{
-      console.log(result.data,'交货时间')
+    http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:this.data.rid}, (result)=>{
+      console.log(result,'交货时间数据')
       if(result.success){
         let min = result.data.items[0].min_days
         let max = result.data.items[0].max_days
@@ -528,6 +529,7 @@ Page({
   onLoad: function(options, product) {
     console.log(options, product,"上一页穿的参数")
 
+    
     utils.handleShowLoading()
     // scene格式：rid + '#' + customer_rid
     let scene = decodeURIComponent(options.scene)
@@ -553,6 +555,13 @@ Page({
     if (app.globalData.isLogin){
       this.setData({
         userPhoto: app.globalData.userInfo.avatar
+      })
+    }
+
+    // 判断是否是小B
+    if (wx.getStorageSync("jwt").is_small_b){
+      this.setData({
+        isSmallB:true
       })
     }
 

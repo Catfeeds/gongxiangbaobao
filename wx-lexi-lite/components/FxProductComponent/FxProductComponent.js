@@ -11,7 +11,10 @@ Component({
       value:"30"
     },
 
-    // 图片的大小 1 为没有设置，是默认值； 2是小图片 3是中图 4是大图 5是长方形
+    // 图片的大小 1是最小图片(每排3个半) 
+    // 图片的大小 2是小图片(每排2个半)
+    // 图片的大小 3是中图（每排2个）
+    // 图片的大小 4是大图 (每排1个)
     photo:{
       type: Number,
       value: 1
@@ -36,7 +39,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    product:'',
+    productItem:'',
   },
 
   /**
@@ -44,17 +47,45 @@ Component({
   */
   ready(e) {
 
-    let data = this.properties.product
-    if (data.is_free_postage){
-      data.name = data.name.replace(0,9)
-    }else{
-      data.name = data.name.replace(0, 11)
+    let NewData = this.properties.product
+    let dataLength = this.properties.product.name.length
+  
+    // 最小图片
+    if (this.properties.photo == 1 && NewData.is_free_postage){
+      NewData.name = dataLength > 4 ? NewData.name.substr(0, 3) + '...' : NewData.name
+    }
+    if (this.properties.photo == 1 && !NewData.is_free_postage){
+      NewData.name = dataLength > 8 ? NewData.name.substr(0, 7) + '...' : NewData.name
     }
 
-    data.name = data.name + "..."
+    // 小图片
+    if (this.properties.photo == 2 && NewData.is_free_postage){
+      
+      NewData.name = dataLength > 8 ? NewData.name.substr(0, 7) + '...' : NewData.name
+    } 
+    if (this.properties.photo == 2 && !NewData.is_free_postage){
+    
+      NewData.name = dataLength > 12 ? NewData.name.substr(0, 11) + '...' : NewData.name
+    }
+
+    // 中图
+    if (this.properties.photo == 3 && NewData.is_free_postage){
+      NewData.name = dataLength > 10 ? NewData.name.substr(0, 9) + '...' : NewData.name
+    } 
+    if (this.properties.photo == 3 && !NewData.is_free_postage) {
+      NewData.name = dataLength > 12 ? NewData.name.slice(0, 11) + '...' : NewData.name
+    }
+
+    // 大图
+    if (this.properties.photo == 4 && NewData.is_free_postage){
+      NewData.name = dataLength > 25 ? NewData.name.substr(0, 24) + '...' : NewData.name
+    } 
+    if (this.properties.photo == 4 && !NewData.is_free_postage) {
+      NewData.name = dataLength > 30 ? NewData.name.substr(0, 29) + '...' : NewData.name
+    }
 
     this.setData({
-      product:data
+      productItem: NewData
     })
     
   },

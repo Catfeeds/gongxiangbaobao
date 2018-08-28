@@ -9,12 +9,28 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isDisabled: false, // 是否禁用
+    leftTimer: null, // 延迟句柄
+    rightTimer: null, // 延迟句柄
+    categoryList: [], // 分类列表
+    checkedCids: [], // 选择的分类
+    showFilterModal: false,// 筛选
+    openPickBox: false, // 筛选的模态框
+    sortBox: false, // 筛选的模态框
+
     isNext:false, // 是否有分页
     productList: [], // 商品列表
 
     pickQuantity: "", // 商品的数量
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 排序的模态框
+
+    // 获取分类的参数
+    categoryParams:{
+      page:1	,//Number	可选	1	当前页码
+      per_page:10	,//Number	可选	100	每页数量
+      pid:''	,//Number	可选	0	父级ID
+    },
 
     params: {
       page: 1, //Number	可选	1	当前页码
@@ -28,9 +44,199 @@ Page({
       is_free_postage: '',//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential: '',//Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
       is_custom_made: '',//Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
-    }
+    },
+
+    // 推荐
+    recommendList: [
+      { name: "包邮", id: '1', isActive: false },
+      { name: "特惠", id: "2", isActive: false },
+      { name: "可定制", id: "3", isActive: false },
+    ]
   },
 
+  /**
+* 滑块最低价格
+*/
+  handleChangeMinPrice(e) {
+    let minPrice = e.detail.lowValue
+    if (this.data.params.max_price == -1) {
+      if (minPrice == '不限') {
+        minPrice = 800
+      }
+    }
+    this.setData({
+      ['params.min_price']: minPrice
+    })
+
+    if (this.data.leftTimer) {
+      clearTimeout(this.data.leftTimer)
+    }
+
+    let _t = setTimeout(() => {
+      this.getcategoryList()
+      this.setData({
+        productList: []
+      })
+    }, 2000)
+
+    this.setData({
+      leftTimer: _t
+    })
+
+  },
+
+  /**
+ * 重置回调事件
+ */
+  handleResetFilterCondition(e) {
+    this.selectComponent('#fx-slider').reset()
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      cate.checked = false
+      return cate
+    })
+
+    this.setData({
+      'categoryList': _categories,
+      'params.min_price': 0,
+      'params.max_price': -1,
+      'params.cids': ''
+    })
+  },
+
+  /**
+   * 滑块最高价格
+   */
+  handleChangeMaxPrice(e) {
+    console.log(e.detail.highValue)
+    let maxPrice = e.detail.highValue
+    if (maxPrice == '不限') {
+      maxPrice = -1
+    }
+    this.setData({
+      ['params.max_price']: maxPrice
+    })
+
+    if (this.data.rightTimer) {
+      clearTimeout(this.data.rightTimer)
+    }
+
+    let _t = setTimeout(() => {
+      this.getcategoryList()
+      this.setData({
+        productList: []
+      })
+    }, 2000)
+
+    this.setData({
+      rightTimer: _t
+    })
+  },
+
+  /**
+* 关闭弹窗回调
+*/
+  handleCloseFilterModal(e) {
+    this.setData({
+      showFilterModal: false
+    })
+  },
+
+  /**
+ * 分类列表
+ */
+  getCategories() {
+    http.fxGet(api.categories, this.data.categoryParams, (result) => {
+      console.log(result, '分类列表')
+      if (result.success) {
+        this.setData({
+          categoryList: result.data.categories
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+ * 改变分类
+ */
+  handleToggleCategory(e) {
+    let cid = e.currentTarget.dataset.cid
+
+    let _checkedCids = this.data.checkedCids
+    if (_checkedCids.indexOf(cid) == -1) { // 不存在，则增加
+      _checkedCids.push(cid)
+    } else { // 存在，则删除
+      let idx = _checkedCids.indexOf(cid)
+      _checkedCids.splice(idx, 1)
+    }
+
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      if (_checkedCids.indexOf(cate.id) != -1) {
+        cate.checked = true
+      } else {
+        cate.checked = false
+      }
+      return cate
+    })
+
+    this.setData({
+      categoryList: _categories,
+      productList: [],
+      'params.cids': _checkedCids.join(','),
+      'params.page': 1
+    })
+
+    this.getcategoryList()
+  },
+
+  /**
+* 选择推荐
+*/
+  handleToggleRecommendList(e) {
+    console.log(e.currentTarget.dataset.index)
+    let index = e.currentTarget.dataset.index
+    let id = e.currentTarget.dataset.cid
+    console.log(id)
+
+    if (this.data.recommendList[index].isActive) {
+      this.setData({
+        ['recommendList[' + index + '].isActive']: false
+      })
+    } else {
+      this.setData({
+        ['recommendList[' + index + '].isActive']: true
+      })
+    }
+
+    if (id == 1) {
+      this.setData({
+        productList: [], // 商品列表
+        ['params.is_free_postage']: this.data.params.is_free_postage == 0 ? 1 : 0
+      })
+    }
+
+    if (id == 2) {
+      this.setData({
+        productList: [], // 商品列表
+        ['params.is_preferential']: this.data.params.is_preferential == 0 ? 1 : 0
+      })
+    }
+
+    if (id == 3) {
+      this.setData({
+        productList: [], // 商品列表
+        ['params.is_custom_made']: this.data.params.is_custom_made == 0 ? 1 : 0
+      })
+    }
+
+    this.getcategoryList()
+  },
+
+
+// 列表
 getcategoryList(){
   wx.showLoading()
   http.fxGet(api.category_products, this.data.params,(result)=>{
@@ -46,7 +252,8 @@ getcategoryList(){
       this.setData({
         isNext: result.data.next,
         productList: data,
-        pickQuantity: result.data.count
+        pickQuantity: result.data.count,
+        totalCount: result.data.count,
       })
 
     }else{
@@ -65,7 +272,8 @@ getcategoryList(){
     })
 
     this.setData({
-      ["params.id"]: options.categryId
+      ["params.id"]: options.categryId,
+      ['categoryParams.pid']: options.categryId,
     })
 
     this.getcategoryList()
@@ -104,6 +312,7 @@ getcategoryList(){
 
   // 打开筛选的模态框
   handleSortShow() {
+    console.log("打开筛选")
     let animation = wx.createAnimation({
       duration: 1000,
       timingFunction: 'ease',
@@ -112,8 +321,11 @@ getcategoryList(){
     animation.top(0).step()
 
     this.setData({
+      showFilterModal:true,
       openPickBox: animation.export()
     })
+
+    this.getCategories()
 
   },
 

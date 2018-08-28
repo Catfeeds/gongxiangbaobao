@@ -127,7 +127,7 @@ Page({
   handleInfomation(e) {
     console.log(e)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&&storeRid=" + e.detail.storeRid
     })
   },
 

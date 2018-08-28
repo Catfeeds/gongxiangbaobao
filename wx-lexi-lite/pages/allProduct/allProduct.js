@@ -18,6 +18,7 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
+    shim:true, // 垫片是否显示
     topPhotoText:"", // 背景文字
     pickQuantity:"", // 商品的数量
     openPickBox:false, // 筛选的模态框
@@ -111,9 +112,9 @@ Page({
 
     this.setData({
       'categoryList': _categories,
-      'params.min_price': 0,
-      'params.max_price': -1,
-      'params.cids': ''
+      'editRecommendRequestParams.min_price': 0,
+      'editRecommendRequestParams.max_price': -1,
+      'editRecommendRequestParams.cids': ''
     })
   },
 
@@ -302,8 +303,6 @@ Page({
       this.getGoodDesign()
     }
   },
-
-
 
   /**来自首页探索页面里面的 start**/
 
@@ -636,6 +635,7 @@ Page({
       this.getBrowse()
 
       this.setData({
+        shim:false,
         topPhotoText: "我的浏览记录",
         touchBottomInfo: options.from,
         isPersonal: true
@@ -650,6 +650,7 @@ Page({
       this.getXinYuanOrder()
 
       this.setData({
+        shim: false,
         topPhotoText: "我的心愿单",
         touchBottomInfo: options.from,
         isPersonal: true
@@ -669,6 +670,7 @@ Page({
       this.getOtherBrowses(options.uid)
 
       this.setData({
+        shim: false,
         topPhotoText: "ta的浏览记录",
         touchBottomInfo: options.from,
         isPersonal: true
@@ -959,8 +961,9 @@ Page({
 
   // 跳转到商品详情---
   handleInfomation(e) {
+    console.log(e)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&&storeRid=" + e.detail.storeRid
     })
   },
 

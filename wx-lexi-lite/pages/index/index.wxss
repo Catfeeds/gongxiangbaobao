@@ -978,6 +978,9 @@ swiper-photo .slide-item__box image {
 .margin-bottom--40rpx {
   padding-bottom: 40rpx;
 }
+.margin-bottom--0rpx {
+  margin-bottom: 0rpx;
+}
 
 .padding-top--0rpx {
   padding-top: 0rpx;
