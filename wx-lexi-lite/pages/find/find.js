@@ -15,10 +15,10 @@ Page({
     advertisement: [], // 广告
     wonderfulStories: [], // 精彩故事
     liveTheme:[
-      { name: "创作人故事",target:1, img:"../../images/other/designer_routine.jpg"},
-      { name: "种草笔记", target: 2, img:"../../images/other/teach.jpg"},
-      { name: "生活记事", target: 3, img:"../../images/other/plant_note.jpg"},
-      { name: "手作教学", target: 4, img:"../../images/other/live_note.jpg"}
+      { name: "创作人故事", target: 1, img:"https://kg.erp.taihuoniao.com/static/img/designer_routine.jpg"},
+      { name: "种草笔记", target: 2, img:"https://kg.erp.taihuoniao.com/static/img/teach.jpg"},
+      { name: "生活记事", target: 3, img:"https://kg.erp.taihuoniao.com/static/img/plant_note.jpg"},
+      { name: "手作教学", target: 4, img:"https://kg.erp.taihuoniao.com/static/img/live_note.jpg"}
     ]
   },
 
