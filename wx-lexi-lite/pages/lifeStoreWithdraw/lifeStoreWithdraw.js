@@ -18,7 +18,9 @@ Page({
     collect: {
       cash_price: 0, // 可提现金额
       total_cash_price: 0 // 累计已提现
-    }
+    },
+    hasWithdraw: false,
+    lastWithdraw: {} // 最近一次的提现
   },
 
   /**
@@ -57,6 +59,28 @@ Page({
   },
 
   /**
+   * 最近一次提现记录
+   */
+  getLastWithdraw () {
+    http.fxGet(api.life_store_last_withdraw, { store_rid: this.data.sid }, (res) => {
+      console.log(res, '提现记录')
+      if (!res.success) {
+        utils.fxShowToast(res.status.message)
+        return
+      }
+      let hasWithdraw = false
+      if (Object.keys(res.data).length > 0) {
+        hasWithdraw = true
+      }
+
+      this.setData({
+        'lastWithdraw': res.data,
+        'hasWithdraw': hasWithdraw
+      })
+    })
+  },
+
+  /**
    * 获取生活馆提现汇总
    */
   getStoreCashCollect() {
@@ -64,6 +88,7 @@ Page({
       console.log(res, '提现汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
+        return
       }
       this.setData({
         'collect.cash_price': res.data.cash_price.toFixed(2),
@@ -84,6 +109,7 @@ Page({
       })
       
       this.getStoreCashCollect()
+      this.getLastWithdraw()
     } else {
       // 如不是小B商家，则跳转至首页
       wx.switchTab({

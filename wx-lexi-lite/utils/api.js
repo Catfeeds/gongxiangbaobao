@@ -58,11 +58,12 @@ module.exports = {
   life_store_orders_collect: 'stats/life_orders_collect', // GET 生活馆订单汇总
   life_store_income_collect: 'stats/life_orders_sale_collect', // GET 生活馆收益汇总
   life_store_cash_collect: 'stats/life_cash_collect', // GET 生活馆提现汇总
+  life_store_last_withdraw: 'stats/life_cash_recent', // GET 最近一次提现记录
   life_store_transactions: 'stats/life_orders/transactions', // GET 生活馆订单交易记录
   life_store_orders: 'orders/life_orders', // GET 生活馆订单列表
   life_store_statements: 'stats/life_orders/statements', // GET 生活馆对账单
   life_store_statement_detail: 'stats/life_orders/statement_items', // GET 生活馆对账单详情
-
+  life_store_income_detail: 'stats/life_orders/:rid', // GET 收益详情
   life_records_recommend_products:'life_records/recommend_products', // get 生活值详情 推荐
   life_records_creator_story:'life_records/creator_story',// 创作人故事列表
   life_records_hand_teach:'life_records/hand_teach', // 手做教学列表

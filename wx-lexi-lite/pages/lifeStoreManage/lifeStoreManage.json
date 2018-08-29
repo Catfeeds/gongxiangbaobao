@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "生活馆管理"
+  "navigationBarTitleText": "生活馆管理",
+  "usingComponents": {
+    "fx-image-modal": "/components/FxImageModal/FxImageModal",
+    "fx-modal-v": "/components/FxModalV/FxModalV"
+  }
 }

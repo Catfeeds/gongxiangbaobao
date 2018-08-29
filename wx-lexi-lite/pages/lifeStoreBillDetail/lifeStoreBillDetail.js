@@ -25,15 +25,46 @@ Page({
       record_id: 1, // 记录id
       service_fee: 0, // 服务费
       status: 1 // 提现状态 1、审核中 2、成功 3、失败
-    }
+    },
+    dateKeys: [],
+    ordersList: {},
+
+    // 收益详情
+    currentOrder: {},
+    incomeDetail: {}
   },
 
   /**
    * 查看收益详情
    */
-  handleIncomeDetail () {
+  handleIncomeDetail (e) {
+    let rid = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+    let dkey = e.currentTarget.dataset.dkey
+    console.log(dkey)
+    console.log(this.data.ordersList)
     this.setData({
-      showModal: true
+      showModal: true,
+      currentOrder: this.data.ordersList[dkey][idx]
+    })
+
+    http.fxGet(api.life_store_income_detail.replace(/:rid/, rid), {
+      store_rid: this.data.sid
+    }, (res) => {
+      console.log(res, '收益详情')
+      if (res.success) {
+
+        let _items = res.data.items.map(item => {
+          item.product_name = utils.truncate(item.product_name, 12)
+          return item
+        })
+        res.data.items = _items
+        this.setData({
+          incomeDetail: res.data
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
     })
   },
   
@@ -47,8 +78,34 @@ Page({
         utils.fxShowToast(res.status.message)
         return
       }
+      let record = res.data.life_cash_record_dict
+      let dateKeys = []
+      let _orderList = {}
+      if (record) {
+        record['created_at'] = utils.timestamp2string(record['created_at'])
+        record['actual_account_amount'] = record['actual_account_amount'].toFixed(2)
+        record['service_fee'] = record['service_fee'].toFixed(2)
+
+        dateKeys = Object.keys(record.order_info)
+
+        Object.keys(record.order_info).map(month => {
+          let _orders = Object.keys(record.order_info[month]).map(o => {
+            let _order = {
+              rid: o,
+              commission_price: record.order_info[month][o].commission_price, // 收益
+              created_at: utils.timestamp2string(record.order_info[month][o].created_at, 'second') // 创建时间
+            }
+            return _order
+          })
+          _orderList[month] = _orders
+        })
+      }
+      console.log(_orderList)
+
       this.setData({
-        'cashRecord': res.data.life_cash_record_dict
+        'dateKeys': dateKeys,
+        'cashRecord': record,
+        'ordersList': _orderList
       })
     })
   },

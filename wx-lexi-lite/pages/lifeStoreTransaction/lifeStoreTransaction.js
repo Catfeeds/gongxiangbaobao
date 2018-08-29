@@ -16,6 +16,7 @@ Page({
     sid: '', //  生活馆rid
     showModal: false,
     activeStatus: 0,
+    setIncomeStar: false,
     statusPanels: [
       { rid: 's0', name: '全部', status: 0, count: 0 },
       { rid: 's1', name: '待结算', status: 1, count: 0 },
@@ -75,6 +76,16 @@ Page({
   },
 
   /**
+   * 加密
+   */
+  handleSecretIncome() {
+    wx.setStorageSync('setIncomeStar', !this.data.setIncomeStar)
+    this.setData({
+      setIncomeStar: !this.data.setIncomeStar
+    })
+  },
+
+  /**
    * 获取交易订单列表
    */
   getStoreOrders () {
@@ -130,6 +141,7 @@ Page({
     if (lifeStore.isSmallB) {
       this.setData({
         sid: lifeStore.lifeStoreRid,
+        setIncomeStar: wx.getStorageSync('setIncomeStar') || false,
         'params.store_rid': lifeStore.lifeStoreRid
       })
 

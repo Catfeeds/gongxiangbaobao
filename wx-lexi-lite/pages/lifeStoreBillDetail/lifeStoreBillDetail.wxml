@@ -6,7 +6,7 @@
       <text>{{ lifeStore.name }}</text>
     </view>
     <view class="bill-amount">
-      {{ cashRecord.actual_amount }}
+      {{ cashRecord.actual_account_amount }}
     </view>
     <view class="bill-status" wx:if="{{ cashRecord.status == 2 }}">
       提现成功
@@ -39,21 +39,27 @@
   <view class="withdraw-bill-list">
     <view class="title">提现明细</view>
     
-    <view class="bill-month">
+    <view class="bill-month" wx:for="{{ dateKeys }}" wx:for-item="dkey" wx:key="{{ dkey }}">
+
       <view class="withdraw-date">
-        <label>8月</label>
+        <label>{{ dkey }}</label>
       </view>
 
-      <view class="bill-order">
+      <view 
+        class="bill-order" 
+        wx:for="{{ ordersList[dkey] }}" 
+        wx:for-item="order" 
+        wx:for-index="idx"
+        wx:key="{{ order }}">
         <view class="order-income">
           <label class="income">
-            收益：<text class="amount">￥30.08</text>
+            收益：<text class="amount">￥{{ order.commission_price }}</text>
           </label>
-          <label class="detail" bindtap="handleIncomeDetail">详情</label>
+          <label class="detail" data-dkey="{{ dkey }}" data-idx="{{ idx }}" data-rid="{{ order.rid }}" bindtap="handleIncomeDetail">详情</label>
         </view>
         <view class="order-info">
-          <view>订单编号：202222222222</view>
-          <view class="date">2018-08-07 12:39:21</view>
+          <view>订单编号：{{ order.rid }}</view>
+          <view class="date">{{ order.created_at }}</view>
         </view>
       </view>
 
@@ -70,87 +76,43 @@
       <view class="bill-order">
         <view class="order-income">
           <label class="income">
-            收益：<text class="amount">￥30.08</text>
+            收益：<text class="amount">￥{{ currentOrder.commission_price }}</text>
           </label>
         </view>
         <view class="order-info">
-          <view>订单编号：202222222222</view>
-          <view class="date">2018-08-07 12:39:21</view>
+          <view>订单编号：{{ currentOrder.rid }}</view>
+          <view class="date">{{ currentOrder.created_at }}</view>
         </view>
       </view>
 
       <view class="order-items">
 
-        <view class="order-item">
+        <view 
+          class="order-item" 
+          wx:for="{{ incomeDetail.items }}"
+          wx:for-item="item"
+          wx:key="{{ item.rid }}">
           <view class="order">
-            <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="cover"></image>
+            <image src="{{ item.cover }}" class="cover"></image>
             <view class="content">
               <view class="name">
-                个性创意
+                {{ item.product_name }}
               </view>
               <view class="sku">
-                黑色/36码
+                {{ item.mode }}
               </view>
               <view class="price">
-                ￥145
+                ￥{{ item.deal_price }}
               </view>
             </view>
             <view class="quantity">
-              x2
+              x{{ item.quantity }}
             </view>
           </view>
           <view class="income">
-            预计收益：<text>￥2.90</text>
+            预计收益：<text>￥{{ item.order_sku_commission_price }}</text>
           </view>
         </view>
-
-        <view class="order-item">
-          <view class="order">
-            <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="cover"></image>
-            <view class="content">
-              <view class="name">
-                个性创意
-              </view>
-              <view class="sku">
-                黑色/36码
-              </view>
-              <view class="price">
-                ￥145
-              </view>
-            </view>
-            <view class="quantity">
-              x2
-            </view>
-          </view>
-          <view class="income">
-            预计收益：<text>￥2.90</text>
-          </view>
-        </view>
-
-        <view class="order-item">
-          <view class="order">
-            <image src="https://kg.erp.taihuoniao.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg" class="cover"></image>
-            <view class="content">
-              <view class="name">
-                个性创意
-              </view>
-              <view class="sku">
-                黑色/36码
-              </view>
-              <view class="price">
-                ￥145
-              </view>
-            </view>
-            <view class="quantity">
-              x2
-            </view>
-          </view>
-          <view class="income">
-            预计收益：<text>￥2.90</text>
-          </view>
-        </view>
-
-        
 
       </view>
 

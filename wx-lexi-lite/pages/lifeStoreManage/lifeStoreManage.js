@@ -35,7 +35,11 @@ Page({
       total_commission_price: 0, // 累计收益
       cash_price: 0, // 可提现金额
       total_cash_price: 0 // 累计已提现
-    }
+    },
+    showModal: false,
+    showQrcodeModal: false,
+    setIncomeStar: false,
+    setWithdrawStar: false
   },
 
   /**
@@ -62,6 +66,74 @@ Page({
   handleGoWithdraw () {
     wx.navigateTo({
       url: '../lifeStoreWithdraw/lifeStoreWithdraw'
+    })
+  },
+
+  /**
+   * 显示公众号二维码图片
+   */
+  handleShowQrcodeModal () {
+    this.setData({
+      showQrcodeModal: true
+    })
+  },
+
+  /**
+   * 提示弹出框
+   */
+  handleShowModal () {
+    console.log('d')
+    this.setData({
+      showModal: true
+    })
+  },
+
+  /**
+   * 保存二维码图片
+   */
+  handleSaveQrcode (e) {
+    let qrcodeUrl = e.currentTarget.dataset.url
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: qrcodeUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              wx.showToast({
+                title: '图片保存成功',
+              })
+            },
+            fail(res) {
+              wx.showToast({
+                title: '图片保存失败',
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+   * 加密
+   */
+  handleSecretIncome () {
+    wx.setStorageSync('setIncomeStar', !this.data.setIncomeStar)
+    this.setData({
+      setIncomeStar: !this.data.setIncomeStar
+    })
+  },
+
+  /**
+   * 加密
+   */
+  handleSecretWithdraw () {
+    wx.setStorageSync('setWithdrawStar', !this.data.setWithdrawStar)
+    this.setData({
+      setWithdrawStar: !this.data.setWithdrawStar
     })
   },
 
@@ -174,7 +246,9 @@ Page({
     // 小B商家获取自己生活馆
     if (lifeStore.isSmallB) {
       this.setData({
-        sid: lifeStore.lifeStoreRid
+        sid: lifeStore.lifeStoreRid,
+        setIncomeStar: wx.getStorageSync('setIncomeStar') || false,
+        setWithdrawStar: wx.getStorageSync('setWithdrawStar') || false,
       })
 
       this.getStoreInfo()

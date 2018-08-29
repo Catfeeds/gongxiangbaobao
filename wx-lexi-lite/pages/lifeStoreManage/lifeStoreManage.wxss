@@ -111,10 +111,18 @@
   font-size: 28rpx;
   color: #fff;
   background: linear-gradient(#2785FA, #539EFB);
-  border-radius:8px;
-  box-shadow:0px 8px 15px 0px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0px 8px 15px 0px rgba(0,0,0,0.1);
   margin: -40rpx 40rpx 40rpx;
-  
+  position: relative;
+}
+.store-income .icon-eye {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 40rpx;
+  z-index: 10;
 }
 .store-income .unit {
   font-size: 24rpx;
@@ -157,9 +165,20 @@
   justify-content: space-between;
   border-top: 1rpx solid #E9E9E9; 
 }
+.store-dashboard .title {
+  position: relative;
+}
 .store-dashboard .title text {
   color: #999;
   font-size: 24rpx;
+}
+.store-dashboard .title .icon-eye {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 0rpx;
+  top: 5rpx;
+  z-index: 10;
 }
 .store-dashboard .count {
   font-size: 40rpx;
@@ -249,4 +268,13 @@
   margin: 40rpx 40rpx 80rpx;
   padding: 30rpx 0;
   text-align: center;
+}
+.lifestore-qrcode {
+  width: 460rpx;
+  height: 568rpx;
+  margin-bottom: 60rpx;
+}
+.modal-body {
+  font-size: 24rpx;
+  margin-top: 50rpx;
 }

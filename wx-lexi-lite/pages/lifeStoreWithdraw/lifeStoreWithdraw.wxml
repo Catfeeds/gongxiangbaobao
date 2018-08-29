@@ -22,7 +22,11 @@
     <view class="fx-block__item" bindtap="handleViewBill">
       <image src="../../images/icon-bill@2x.png" class="icon-bill"></image>
       <text class="title">对账单</text>
-      <label class="icon-arrow">
+      <label class="icon-arrow" wx:if="{{ hasWithdraw }}">
+        最近一笔提现 {{ lastWithdraw.actual_account_amount }}
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+      <label class="icon-arrow" wx:else>
         无提现记录
         <i class="fx-icon-nothing-right"></i>
       </label>

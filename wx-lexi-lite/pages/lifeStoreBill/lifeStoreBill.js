@@ -14,15 +14,17 @@ Page({
    */
   data: {
     sid: '',
+    dateKeys: [], // 月份keys
     statements: {}
   },
 
   /**
    * 账单详情
    */
-  handleViewDetail () {
+  handleViewDetail (e) {
+    let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '../lifeStoreBillDetail/lifeStoreBillDetail',
+      url: '../lifeStoreBillDetail/lifeStoreBillDetail?record_id=' + rid,
     })
   },
 
@@ -31,13 +33,43 @@ Page({
    */
   getStoreBills() {
     http.fxGet(api.life_store_statements, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '对账单')
+      console.log(res.data, '对账单')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
+
       this.setData({
-        'statements': res.data.statements
+        'dateKeys': Object.keys(res.data.statements)
       })
+      
+      this._rebuildStatementData(res.data.statements)
+    })
+  },
+
+  /**
+   * 修正对账单数据
+   */
+  _rebuildStatementData(data) {
+    let allStatements = {}
+    Object.keys(data).map(month => {
+      let statements = data[month]['statements']
+      let _statementList = []
+      if (statements && statements.length > 0) {
+        _statementList = statements.map(statement => {
+          statement.created_at = utils.timestamp2dateStr(statement.created_at)
+          statement.actual_account_amount = statement.actual_account_amount.toFixed(2)
+          return statement
+        })
+      }
+      
+      allStatements[month] = {
+        total_amount: data[month]['total_amount'].toFixed(2),
+        statements: _statementList
+      }
+    })
+
+    this.setData({
+      'statements': allStatements
     })
   },
 

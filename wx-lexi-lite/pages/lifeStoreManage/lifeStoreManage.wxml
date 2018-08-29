@@ -43,9 +43,12 @@
 
   <view class="store-income__wrapper">
     <view class="store-income">
+      <image src="../../images/icon-eye-white@3x.png" wx:if="{{ setIncomeStar }}" class="icon-eye" bindtap="handleSecretIncome"></image>
+      <image src="../../images/icon-eye-white-close@3x.png" wx:else class="icon-eye" bindtap="handleSecretIncome"></image>
       <text>生活馆累计收益</text>
       <text class="unit">(元)</text>
-      <view class="amount">{{ collect.total_commission_price }}</view>
+      <view class="amount" wx:if="{{ !setIncomeStar }}">{{ collect.total_commission_price }}</view>
+      <view class="amount" wx:else>***</view>
 
       <view class="foot">
         <view class="today-income">
@@ -54,7 +57,7 @@
         <view class="today-income settlement">
           <text>待结算：</text>
           <text>{{ collect.pending_commission_price }}</text>
-          <image src="../../images/icon-info@2x.png" class="icon-info"></image>
+          <image src="../../images/icon-info@2x.png" class="icon-info" bindtap="handleShowModal"></image>
         </view>
       </view>
     </view>
@@ -78,8 +81,13 @@
         <view class="title">
           可提现金额
           <text>（元）</text>
+          <image src="../../images/icon-eye@3x.png" wx:if="{{ setWithdrawStar }}" class="icon-eye" catchtap="handleSecretWithdraw"></image>
+          <image src="../../images/icon-eye-close@3x.png" wx:else class="icon-eye" catchtap="handleSecretWithdraw"></image>
         </view>
-        <label class="count">
+        <label class="count" wx:if="{{ setWithdrawStar }}">
+          ***
+        </label>
+        <label class="count" wx:else>
           {{ collect.cash_price }}
         </label>
         <view class="label-count">
@@ -104,8 +112,8 @@
         已产生交易的订单收益将无法提现。
       </view>
 
-      <view class="follow">
-        <text>关注“乐喜生活馆”公众号，随时接收订单和收益通知</text> 
+      <view class="follow" bindtap="handleShowQrcodeModal">
+        <text>关注“乐喜生活馆”公众号，随时接收订单和收益通知</text>
         <i class="fx-icon-nothing-right"></i>
       </view>
     </view>
@@ -129,5 +137,21 @@
   <view class="store-phone">
     客服电话：400-2345-0000
   </view>
+
+  <!-- 乐喜生活馆公众号 -->
+  <fx-image-modal visible="{{ showQrcodeModal }}" close="{{ false }}">
+    <image src="https://kg.erp.taihuoniao.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
+    <view class="btn-area">
+      <button class="fx-button primary" data-url="https://kg.erp.taihuoniao.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
+    </view>
+  </fx-image-modal>
+
+  <!--待结算提示-->
+  <fx-modal-v 
+    visible="{{ showModal }}">
+    <view class="modal-body">
+      待结算金额需用户确认签收订单后，7个工作日内未发生退款，则可入账并提现。如在7日内有退款行为，扣除相应收益。
+    </view>
+  </fx-modal-v>
 
 </view>

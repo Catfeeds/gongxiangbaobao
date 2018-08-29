@@ -11,7 +11,15 @@
   border-radius:8px;
   box-shadow:0px 8px 15px 0px rgba(0,0,0,0.1);
   margin: 20rpx 40rpx 40rpx;
-  
+  position: relative;
+}
+.store-income .icon-eye {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 40rpx;
+  z-index: 10;
 }
 .store-income .unit {
   font-size: 24rpx;

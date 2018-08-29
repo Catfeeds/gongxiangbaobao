@@ -1,36 +1,30 @@
 <view class='container'>
 
   <view class="withdraw-bills">
-    <view class="withdraw-date">
-      <label>8月</label>
-      <label class="subtotal">提现：110.01</label>
-    </view>
 
-    <view class="withdraw-list">
-
-      <view class="withdraw-item" bindtap="handleViewDetail">
-        <view class="event">
-          <label class="remark">提现金额</label>
-          <text>08.10 20:45</text>
-        </view>
-        <view class="subtotal">
-          <label class="amount">110.01</label>
-          <text class="status yellow">审核中</text>
-        </view>
+    <view class="withdraw-group" wx:for="{{ dateKeys }}" wx:for-item="month" wx:key="{{ month }}">
+      <view class="withdraw-date">
+        <label>{{ month }}</label>
+        <label class="subtotal">提现：{{ statements[month].total_amount }}</label>
       </view>
 
-      <view class="withdraw-item">
-        <view class="event">
-          <label class="remark">提现金额</label>
-          <text>08.10 20:45</text>
-        </view>
-        <view class="subtotal">
-          <label class="amount">110.01</label>
-          <text class="status red">提现失败</text>
-        </view>
-      </view>
+      <view class="withdraw-list" wx:if="{{ statements[month].statements.length > 0 }}">
 
+        <view class="withdraw-item" bindtap="handleViewDetail" wx:for="{{ statements[month].statements }}" wx:for-item="statement" wx:key="{{ statement.record_id }}" data-rid="{{ statement.record_id }}">
+          <view class="event">
+            <label class="remark">提现金额</label>
+            <text>08.10 20:45</text>
+          </view>
+          <view class="subtotal">
+            <label class="amount">{{ statement.actual_account_amount }}</label>
+            <text class="status yellow" wx:if="{{ statement.status == 1 }}">审核中</text>
+            <text class="status red" wx:if="{{ statement.status == 3 }}">提现失败</text>
+          </view>
+        </view>
+
+      </view>
     </view>
+
   </view>
 
 </view>
