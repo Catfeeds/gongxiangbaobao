@@ -55,8 +55,8 @@
 }
 
 .store-info .address image {
-  width: 16rpx;
-  height: 22rpx;
+  width: 20rpx;
+  height: 20rpx;
 }
 
 .follow .follow-btn image {
@@ -166,7 +166,6 @@
 .notice-title {
   width: 130rpx;
   font-size: 22rpx;
-  background-color: white;
   font-weight: 700;
   position: absolute;
   top: -16rpx;
@@ -213,6 +212,7 @@
 
 .off-announcement .open-time {
   color: #fea100;
+  margin-top: 10rpx;
 }
 
 .announcement-detail__box {

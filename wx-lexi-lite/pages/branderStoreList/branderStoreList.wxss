@@ -32,8 +32,9 @@
 }
 
 .address-icon {
-  width: 12rpx;
-  height: 20rpx;
+  width: 15rpx;
+  height: 22rpx;
+  margin-right: 8rpx;
 }
 
 .address-icon + text {
