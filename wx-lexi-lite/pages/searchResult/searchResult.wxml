@@ -3,9 +3,8 @@
   <!-- 搜索框 -->
   <view class="bg-white search-input" catchtap="handleToSearch">
     <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
-    <view class='infput-search__btn'>
-      <image src='../../images/sear-icon@2.png'></image>
-    </view>
+
+      <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
   </view>
 
   <!-- 中间的分类切换 -->
@@ -33,7 +32,9 @@
       <!-- 下面的产品列表 -->
       <view class='goodsList'>
         <view wx:for="{{prodctList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-          <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+          <fx-product product="{{item}}" 
+            photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'
+            bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>
 

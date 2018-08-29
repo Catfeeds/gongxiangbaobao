@@ -4,15 +4,14 @@
   <!-- 筛选和排序 -->
   <block wx:if="{{!isPersonal}}">
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-      <view catchtap="handleSortShow" class='flex_row'>
-        筛选
-        <image src='../../images/arrowhead.png'></image>
-      </view>
       <view catchtap='handelOffPick' class='flex_row'>
         综合排序
         <image src='../../images/arrowhead.png'></image>
       </view>
-
+      <view catchtap="handleSortShow" class='flex_row'>
+        筛选
+        <image src='../../images/arrowhead.png'></image>
+      </view>
     </view>
 
     <view class="top-bg__photo">
@@ -44,10 +43,14 @@
     </view>
   </block>
 
-  <view class='shim'></view>
+  <view class='shim' wx:if="{{shim}}"></view>
   <view class="goodsList">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
+      <fx-product 
+        like_number="{{true}}"  
+        product="{{item}}" 
+        photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'
+        photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
   </view>
 
@@ -59,9 +62,9 @@
       pickQuantity="{{pickQuantity}}"
       bind:handlePickProduct="handlePickProduct"></fx-pick>
   </view> -->
-  <view class="pick-box" catchtap="handelOffPickBox">
-    <!-- 筛选 tian-->
+      <!-- 筛选 tian-->
     <!-- 筛选 -->
+  <view class="pick-box" catchtap="handelOffPickBox">
     <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
       <view class="fx-modal__main" slot="main">
         <view class="block-title">价格区间</view>
@@ -113,9 +116,6 @@
       </button>
     </fx-modal>
   </view>
-
-
-
 
   <!-- 排序 -->
   <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">

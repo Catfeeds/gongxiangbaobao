@@ -1,28 +1,28 @@
 <!--components/FxProductComponent/FxProductComponent.wxml {{product.img}}-->
-<view catchtap='handleProductInfo' class='direction' data-store-rid="{{product.store_rid}}" data-rid='{{product.rid}}'>
+<view catchtap='handleProductInfo' class='direction' data-store-rid="{{productItem.store_rid}}" data-rid='{{productItem.rid}}'>
   <view class='photoBox'>
-    <view class='sellInfo' wx:if='{{product.is_sold_out}}'>
-      <image src='{{product.cover}}'></image>
+    <view class='sellInfo' wx:if='{{productItem.is_sold_out}}'>
+      <image src='{{productItem.cover}}'></image>
     </view>
     <image 
       mode="widthFix" 
-      class='{{photo==1?"":"phpto--sm"}}' 
-      src='{{ product.cover }}-p{{photoSize}}'></image>
+      class='product-photo {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}}' 
+      src='{{ productItem.cover }}-p{{photoSize}}'></image>
   </view>
 
   <view class='material-quality'>
     
       <image 
         class='logistics' 
-        wx:if='{{product.is_free_postage}}' 
+        wx:if='{{productItem.is_free_postage}}' 
         src=''></image>
     
-    <text class='material-quality-text'>{{product.name}}</text> 
+    <text class='material-quality-text'>{{productItem.name}}</text> 
   </view>
 
   <view class='productPrice'>
-    <text class='nowPrice'>￥{{product.min_sale_price>0?product.min_sale_price:product.min_price}}</text>
-    <text class='oldPrice' wx:if="{{oldPrice&&product.oldPrice}}">￥{{product.oldPrice}}</text>
-    <text class='like-number' wx:if="{{like_number}}">{{product.like_count==0 || product.like_count==null?"":"喜欢 +"+product.like_count}}</text>
+    <text class='nowPrice'>￥{{productItem.min_sale_price>0?productItem.min_sale_price:productItem.min_price}}</text>
+    <text class='oldPrice' wx:if="{{oldPrice&&productItem.oldPrice}}">￥{{productItem.oldPrice}}</text>
+    <text class='like-number' wx:if="{{like_number}}">{{productItem.like_count==0 || productItem.like_count==null?"":"喜欢 +"+productItem.like_count}}</text>
   </view>
 </view>

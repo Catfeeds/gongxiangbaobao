@@ -129,9 +129,17 @@ Page({
       console.log(result, "种草笔记详情")
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
-        // 处理html数据---
-        wxparse.wxParse('dkcontent', 'html', result.data.content, this, 5)
 
+      let newData =''
+        result.data.deal_content.forEach((v)=>{
+          newData = newData + v.content
+        })
+
+        console.log(newData)
+        // 处理html数据---
+        wxparse.wxParse('dkcontent', 'html', newData, this, 5)
+        console.log(dkcontent)
+        
         this.setData({
           liveInfo: result.data
         })

@@ -13,6 +13,9 @@ button::after {
   background-color: #5FE4B1;
   color: #fff;
 }
+.fx-button.primary.disabled {
+  opacity: .5;
+}
 
 .fx-button--text {
   border-radius: 0rpx;

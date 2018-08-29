@@ -2,25 +2,22 @@
 
 <view class='container'>
 
-
-
-
-
   <!-- 筛选和排序 -->
   <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
-    <view catchtap='handelOffPick' class='flex_row'>
-      筛选
-      <image src='../../images/arrowhead.png'></image>
-    </view>
+
     <view catchtap="handleSortShow" class='flex_row'>
       排序
+      <image src='../../images/arrowhead.png'></image>
+    </view>
+    <view catchtap='handelOffPick' class='flex_row'>
+      筛选
       <image src='../../images/arrowhead.png'></image>
     </view>
   </view>
   <!-- 下面的产品列表 -->
   <view class='goodsList'>
     <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+      <fx-product photo='{{ (index+1)%5 == 0 ? "4" : "3" }}' product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
     </view>
   </view>
 

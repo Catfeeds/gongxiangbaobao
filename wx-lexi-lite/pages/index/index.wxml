@@ -45,11 +45,11 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber'>
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 浏览过生活馆</view>
+          <text class='theme-color'>{{ shopInfo.count+1 }}</text> 浏览过设计馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
-              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ BrowseQuantityInfo.user_parties }}'>
+              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
                 <image src='{{ item.avatar }}'></image>
               </view>
               <view class='photo-round joinNumberlPhoto'>
@@ -59,7 +59,7 @@
           </view>
           <view class='browse-number-box fx-broadwise-e'>
             <view class='joinNumberR'>
-              {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
+              {{ shopInfo.count > 999 ? '999+' : shopInfo.count+1 }}
             </view>
           </view>
         </view>
@@ -181,12 +181,12 @@
     </view>
 
     <view>
-      <view class='human new-goods '>
+      <view class='human new-goods margin-top--40rpx margin-bottom--0rpx'>
         本周最受欢迎
       </view>
       <view class='production new-goods_box'>
         <view class='productionGoods {{ (index+1)%5 == 0 ? "productionGoodsFive" : "" }}' wx:for="{{ popularProducts }}" wx:key='{{ item.rid }}'>
-          <fx-product product="{{ item }}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ item.rid }}"></fx-product>
+          <fx-product product="{{ item }}" photo="{{3}}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ item.rid }}"></fx-product>
         </view>
       </view>
     </view>
@@ -389,7 +389,7 @@
       </view>
       <view class='production new-goods_box'>
         <view wx:if="{{index<4}}" class='productionGoods' wx:for="{{lexiPick.products}}" wx:key='{{index}}'>
-          <fx-product product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+          <fx-product product="{{item}}" photo="{{3}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>
     </view>
@@ -565,7 +565,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==goodDesignList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{goodDesignList.products}}" wx:key="{{index}}">
-          <fx-product photoSize="16" photo="{{0}}" product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product photoSize="16" photo="{{2}}" product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>
@@ -578,7 +578,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='c-importantGoodsPhoto height--372rpx {{index==0?"margin-left--40rpx":""}} {{index==oneHundredList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{oneHundredList.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" photoSize="16" photo="2" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{item}}" photoSize="16" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>

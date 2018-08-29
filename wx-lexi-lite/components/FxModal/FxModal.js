@@ -20,6 +20,16 @@ Component({
       type: Boolean,
       value: true
     },
+    // 是否显示头部
+    showHead: {
+      type: Boolean,
+      value: true
+    },
+    // 是否显示重置按钮
+    showReset: {
+      type: Boolean,
+      value: false
+    },
     reset: {
       type: String,
       value: ''
@@ -27,6 +37,11 @@ Component({
     visible: {
       type: Boolean,
       value: false
+    },
+    // 是否需要动画
+    animation: {
+      type: Boolean,
+      value: true
     },
     showFoot: {
       type: Boolean,
@@ -70,7 +85,7 @@ Component({
      * 弹出框蒙层截断touchmove事件
      */
     preventTouchMove () {
-
+      return false
     },
 
     /**
@@ -86,4 +101,5 @@ Component({
     }
 
   }
+
 })

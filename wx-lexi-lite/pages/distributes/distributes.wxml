@@ -13,7 +13,7 @@
   <view class="search-box">
     <view class='search-box__text'>
       <image src='../../images/icon-search@2x.png' class="icon"></image>
-      <input class="search-input" type="text" placeholder="商品名称、关键词"></input>
+      <input class="search-input" type="text" bindinput="handleQueryChange" placeholder="商品名称、关键词"></input>
     </view>
   </view>
 
@@ -80,7 +80,7 @@
     <view class="page-section fx-distributes">
       <!-- 商品项 -->
       <view class="product-distribute-item" wx:for="{{ stickedProducts }}" wx:for-item="product" wx:for-index="idx" wx:key="{{ product.rid }}">
-        <view class="product-item">
+        <view class="product-item" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <view class="product-item__cover">
             <image src="{{ product.cover }}-p30" class="image"></image>
             <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
@@ -102,7 +102,7 @@
         </view>
         <view class="product-item__actions">
           <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
-          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleShareDistribute">卖</fx-mini-btn>
         </view>
       </view>
 
@@ -125,17 +125,17 @@
     <!-- 筛选器 -->
     <view class="page-section fx-filter">
       <view class="filter-item" bindtap="handleShowSortModal">
-        <text>综合排序</text>
+        <text>{{ filter.sortTitle }}</text>
         <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showSortModal }}"></image>
         <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
       </view>
       <view class="filter-item" bindtap="handleShowIncomeModal">
-        <text>利润</text>
+        <text>{{ filter.incomeTitle }}</text>
         <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showIncomeModal }}"></image>
         <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
       </view>
       <view class="filter-item" bindtap="handleShowFilterModal">
-        <text>筛选</text>
+        <text>{{ filter.conditionTitle }}</text>
         <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showFilterModal }}"></image>
         <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
       </view>
@@ -145,11 +145,11 @@
     <view class="page-section fx-distribute-cards">
 
       <view class="distribute-card" wx:for="{{ allProducts }}" wx:for-item="product" wx:key="{{ product.rid }}">
-        <view class="distribute-card__cover">
+        <view class="distribute-card__cover" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <image src="{{ product.cover }}" class="image"></image>
           <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
         </view>
-        <view class="distribute-card__body">
+        <view class="distribute-card__body" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">
             {{ product.name }}
           </view>
@@ -166,7 +166,7 @@
         <view class="distribute-card__actions">
           <button class="fx-mini-btn round black" bindtap=""></button>
           <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
-          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleSellShare">卖</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleShareDistribute">卖</fx-mini-btn>
         </view>
       </view>
 
@@ -180,6 +180,43 @@
   </view>
 
   <!-- 筛选弹出层 -->
+
+  <!-- 卖 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-commission">
+        <text>赚</text> <text class="amount">￥20.00</text>
+      </view>
+      <view class="distribute-message">
+        朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
+      </view>
+      <view class="distribute-style">
+        <view class="wxa-card">
+          <image src="../../images/wx-icon@2.png" class="cover"></image>
+          <text>点击直接分享好友样式</text>
+        </view>
+
+        <view class="wxa-poster">
+          <image src="../../images/wx-icon@2.png" class="cover"></image>
+          <text>保存分享朋友圈海报</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <view class="share-friend">
+          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </view>
+        <view class="share-save">
+          <image src="../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
+
 
   <!-- 排序 -->
   <fx-modal title="排序" bind:closeEvent="handleCloseSortModal" visible="{{ showSortModal }}">
@@ -221,7 +258,7 @@
   </fx-modal>
 
   <!-- 筛选 -->
-  <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
+  <fx-modal title="筛选" reset="重置" showReset="{{ filter.showReset }}" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
     <view class="fx-modal__main" slot="main">
       <view class="block-title">价格区间</view>
       <view class="price-range">
@@ -239,9 +276,9 @@
         </scroll-view>
       </view>
     </view>
-    <button class="fx-button primary" bindtap="handleCloseFilterModal"  slot="foot">
+    <button class="fx-button primary {{ filter.showReset && filter.totalCount == 0 ? 'disabled' : '' }}" bindtap="handleViewFilterResult"  slot="foot">
       查看商品
-      <text>（{{ totalCount }}件）</text>
+      <text>（{{ filter.conditionCount > 0 ? filter.totalCount : totalCount }}件）</text>
     </button>
   </fx-modal>
 

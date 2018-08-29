@@ -42,6 +42,7 @@
 }
 
 .live-records__box {
+  height: 300rpx;
   white-space: nowrap;
   overflow: auto;
   border-bottom: 1rpx solid #e9e9e9;

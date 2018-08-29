@@ -61,10 +61,10 @@
     </view>
 
     <!-- 领取优惠券 -->
-    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
+    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
         <!-- 优惠券 -->
-        <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
+        <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
           <view class=''>
             <image src='../../images/coupon-icon@2.png'></image>
             <text>领取设计馆优惠红包</text>
@@ -130,7 +130,7 @@
     <!-- 发货地点 -->
     <view class='otherInfo-describe location '>
       <view class='titleText'>发货地</view>
-      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}·{{ storeInfo.delivery_city }}</view>
+      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.country }}·{{ storeInfo.province }}·{{ storeInfo.city }}</view>
     </view>
 
     <!-- 交货时间 -->
@@ -236,8 +236,8 @@
     </view>
   </view>
 
-  <!-- 接单定制按钮 -->
-  <view class='bottom-btn bg-white c-crosswise-a'>
+  <!-- 不是小B 接单定制按钮 -->
+  <view class='bottom-btn bg-white c-crosswise-a' wx:if="{{!isSmallB}}">
     <view class='btn-bg-color shop-cart'>
       <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
       <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
@@ -248,6 +248,26 @@
     <view class='add_cart' catchtap='handleAddCartShow'>加入购物车</view>
     <view class=' crated_btn--style btn-bg-color' catchtap='handlePickShow'>接单订制</view>
   </view>
+
+<!-- 是小b -->
+  <view class='bottom-btn bg-white flex_row' wx:else>
+    <view class='btn-bg-color shop-cart'>
+      <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
+      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
+        <image src='../../images/carticon@2x.png'></image>
+        <text>购物车</text>
+      </view>
+    </view>
+    
+      <view class='add_cart c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
+      <view class=' crated_btn--style bg--red border-left__radius--null'>
+        <text>卖</text>
+        <text>赚 ￥ 12.5</text>
+      </view>
+    
+  </view>
+
+
 
   <!-- 垫片 -->
   <view class='shm'></view>
@@ -284,7 +304,7 @@
       <!-- 发货地点 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>发货地</view>
-        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.delivery_country}}·{{storeInfo.delivery_province}}·{{storeInfo.delivery_city}}</view>
+        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.country}}·{{storeInfo.province}}·{{storeInfo.city}}</view>
       </view>
 
       <!-- 交货时间 -->

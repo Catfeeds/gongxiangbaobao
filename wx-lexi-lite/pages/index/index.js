@@ -19,8 +19,10 @@ Page({
     loadingMore: true, // 加载更多标记
     exploreSwiperMark:0,// 探索轮播图的点
 
+
     // 生活馆
     sid: '', // 生活馆rid
+    openId:'', // openId
     uploadParams: {}, // 上传所需参数
     lifeStore: {}, // 生活馆信息
     storeOwner: {}, // 生活馆馆长
@@ -517,6 +519,30 @@ Page({
     })
   },
 
+  // 添加浏览记录
+  handleAddBrowce() {
+    let openId = wx.getStorageSync("jwt").openid
+    http.fxPost(api.add_browse, { openid: openId, rid: this.data.sid},(result)=>{
+      console.log(result,"添加浏览者")
+      this.getBrowsePeople()
+    })
+  },
+
+  // 获取浏览记录
+  getBrowsePeople(){
+    let openId = wx.getStorageSync("jwt").openid
+    http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.sid), { openid: openId},(result)=>{
+      console.log(result,"获取的浏览者")
+      if(result.success){
+        this.setData({
+          shopInfo:result.data
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 优质新品
   getHighQuality() {
     http.fxGet(api.column_explore_new, {}, (result) => {
@@ -843,6 +869,7 @@ Page({
         this.getStoreProducts() // 生活馆商品
         this.getWeekPopular() // 本周最受欢迎商品
         this.getUploadToken()
+        this.handleAddBrowce() //添加浏览者
         break;
       case 'featured': // 精选
         this.handleSetNavigationTitle('精选')

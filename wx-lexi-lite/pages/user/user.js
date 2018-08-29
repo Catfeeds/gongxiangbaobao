@@ -308,7 +308,7 @@ Page({
     switch (e) {
       case 1:
         http.fxGet(api.userlike, this.data.getProductParams, (result) => {
-          console.log(result)
+          console.log(result,"喜欢的商品")
           if (result.success) {
             this.setData({
               likeProduct: result.data
@@ -523,9 +523,9 @@ Page({
 
   // 跳转到商品详情---
   handleToProductInfoTap(e) {
-    console.log(e.currentTarget.dataset.rid)
+    console.log(e.currentTarget.dataset)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.currentTarget.dataset.rid
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeId
     })
   },
 

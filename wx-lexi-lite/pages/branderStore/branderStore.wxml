@@ -55,7 +55,7 @@
         catchtap="handelToBrandInfo" 
         data-rid="{{storeInfo.rid}}"
         class="border-radius--30rpx c-middle about">
-        <text>关于设计管</text>
+        <text>关于品牌馆</text>
       </view>
 
     </view>

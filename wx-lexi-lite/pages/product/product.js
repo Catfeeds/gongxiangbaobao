@@ -10,7 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    originalStoreRid:"", // 原店铺的rid
+    isSmallB: false, // 是不是小b商家
+    originalStoreRid: '', // 原店铺的rid
     rid: '', // 商品的rid---
     productInfomation: [], // 商品详情列表---
     product: {},
@@ -317,8 +318,8 @@ Page({
 
   // 交货时间
   getLogisticsTime(e,rid) {
-    http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:rid}, (result)=>{
-      console.log(result.data,'交货时间')
+    http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:this.data.rid}, (result)=>{
+      console.log(result,'交货时间数据')
       if(result.success){
         let min = result.data.items[0].min_days
         let max = result.data.items[0].max_days
@@ -344,12 +345,15 @@ Page({
         console.log(result, '产品详情')
         this.setData({
           productInfomation: result.data,
+          originalStoreRid: result.data.store_rid, // 原店铺的rid
           dkcontent: result.data.content
         })
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
         // 交货时间
         this.getLogisticsTime(result.data.fid, result.data.rid)
+
+        this.getStoreInfo() // 店铺信息---
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -528,6 +532,7 @@ Page({
   onLoad: function(options, product) {
     console.log(options, product,"上一页穿的参数")
 
+    
     utils.handleShowLoading()
     // scene格式：rid + '#' + customer_rid
     let scene = decodeURIComponent(options.scene)
@@ -545,7 +550,6 @@ Page({
     }
 
     this.setData({
-      originalStoreRid: options.storeRid, // 原店铺的rid
       rid: options.rid,
       // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
@@ -556,7 +560,13 @@ Page({
       })
     }
 
-    this.getStoreInfo() // 店铺信息---
+    // 判断是否是小B
+    if (wx.getStorageSync("jwt").is_small_b){
+      this.setData({
+        isSmallB:true
+      })
+    }
+
     this.getProductInfomation() // 获取商品详情---
     this.getCouponsByUser() // 获取登陆用户地优惠券
     this.getCouponsByUser(3) // 获取满减

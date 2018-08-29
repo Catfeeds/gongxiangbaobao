@@ -21,7 +21,7 @@ Page({
 
     swiperIndex: 0, // 轮播图的index
 
-    pageActiveTab: 'stick', // stick, all
+    pageActiveTab: 'all', // stick, all
 
     panelActiveTab: 'hot',
     panelTabs: [{
@@ -51,6 +51,9 @@ Page({
     showIncomeModal: false, // 利润
     showFilterModal: false, // 筛选
 
+    showShareModal: false, // 卖
+    shareProduct: '', // 分享某个商品
+
     page: 1,
     perPage: 20,
     // 全部商品
@@ -59,12 +62,26 @@ Page({
       profit_type: 0, // 利润排序 0=不限, 1=由低至高, 2=由高至低
       cids: '', // 分类Id, 多个用, 分割
       page: 1,
+      qk: '',
       per_page: 10,
       min_price: 0, // 价格区间: 最小价格
       max_price: -1 // 价格区间: 最大价格
     },
     checkedCids: [], // 选择的分类
     categoryList: [], // 分类列表
+
+    // 筛选器
+    filter: {
+      showReset: false,
+      sortTitle: '综合排序',
+      incomeTitle: '利润',
+      conditionTitle: '筛选',
+      conditionCount: 0, // 条件数
+      totalCount: 0,
+      cids: '', // 分类Id, 多个用, 分割
+      min_price: 0, // 价格区间: 最小价格
+      max_price: -1 // 价格区间: 最大价格
+    },
 
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
@@ -116,10 +133,20 @@ Page({
   },
 
   /**
+   * 搜索词变化
+   */
+  handleQueryChange (e) {
+    this.setData({
+      'params.qk': e.detail.value
+    })
+    
+    this.getAllProducts()
+  },
+
+  /**
    * 排序
    */
   handleShowSortModal(e) {
-    console.log(e)
     this.setData({
       showSortModal: true
     })
@@ -183,10 +210,20 @@ Page({
     
     this.setData({
       'categoryList': _categories,
+      'filter.min_price': 0,
+      'filter.max_price': -1,
+      'filter.cids': '',
+      'filter.showReset': false,
+      'filter.conditionCount': 0,
+      'filter.conditionTitle': '筛选',
+      'filter.totalCount': 0,
+      'params.cids': '',
+      'params.page': 1,
       'params.min_price': 0,
-      'params.max_price': -1,
-      'params.cids': ''
+      'params.max_price': -1
     })
+
+    this.getAllProducts()
   },
 
   /**
@@ -200,7 +237,8 @@ Page({
       }
     }
     this.setData({
-      'params.min_price': minPrice
+      'filter.min_price': minPrice,
+      'filter.showReset': true
     })
 
     if (this.data.leftTimer) {
@@ -208,7 +246,7 @@ Page({
     }
     
     let _t = setTimeout(()=>{
-      this.getAllProducts()
+      this.getFilterProducts()
     }, 2000)
 
     this.setData({
@@ -227,7 +265,8 @@ Page({
       maxPrice = -1
     }
     this.setData({
-      'params.max_price': maxPrice
+      'filter.max_price': maxPrice,
+      'filter.showReset': true
     })
 
     if (this.data.rightTimer) {
@@ -235,7 +274,7 @@ Page({
     }
 
     let _t = setTimeout(() => {
-      this.getAllProducts()
+      this.getFilterProducts()
     }, 2000)
 
     this.setData({
@@ -245,12 +284,16 @@ Page({
 
   /**
    * 改变排序
+   * 0=默认排序, 1=综合排序, 2=价格由低至高, 3=价格由高至低
    */
   handleChangeSorted(e) {
     let sort = e.currentTarget.dataset.sort
+    
     this.setData({
       'params.sort_type': sort,
       'params.profit_type': 0,
+      'filter.sortTitle': this._getSortTitle(sort),
+      'filter.incomeTitle': this._getIncomeTitle(0),
       showSortModal: false
     })
 
@@ -259,6 +302,7 @@ Page({
 
   /**
    * 改变利润
+   * 利润排序 0=不限, 1=由低至高, 2=由高至低
    */
   handleChangeProfit(e) {
     let profit = e.currentTarget.dataset.profit
@@ -266,10 +310,79 @@ Page({
     this.setData({
       'params.sort_type': 1,
       'params.profit_type': parseInt(profit),
+      'filter.sortTitle': this._getSortTitle(1),
+      'filter.incomeTitle': this._getIncomeTitle(profit),
       showIncomeModal: false
     })
 
     this.getAllProducts()
+  },
+
+  /**
+   * 查看筛选器结果
+   */
+  handleViewFilterResult () {
+    if (this.data.filter.showReset && this.data.filter.totalCount == 0) {
+      return false
+    }
+    let conditionCount = this._getFilterConditionCount()
+    this.setData({
+      'params.cids': this.data.filter.cids,
+      'params.min_price': this.data.filter.min_price,
+      'params.max_price': this.data.filter.max_price,
+      'params.page': 1,
+      'filter.conditionCount': conditionCount,
+      'filter.conditionTitle': '筛选 ' + conditionCount,
+      showFilterModal: false
+    })
+
+    this.getAllProducts()
+  },
+
+  /**
+   * 获取条件数
+   */
+  _getFilterConditionCount () {
+    let count = this.data.checkedCids.length
+    if (this.data.filter.min_price > 0) {
+      count += 1
+    }
+    if (this.data.filter.max_price) {
+      count += 1
+    }
+    return count
+  },
+
+  /**
+   * 排序标题
+   */
+  _getSortTitle (sort) {
+    sort = parseInt(sort)
+    switch (sort) {
+      case 1:
+        return '综合排序'
+      case 2:
+        return '价格由低至高'
+      case 3:
+        return '价格由高至低'
+      default:
+        return '综合排序'
+    }
+  },
+
+  /**
+   * 利润标题
+   */
+  _getIncomeTitle (profit) {
+    profit = parseInt(profit)
+    switch (profit) {
+      case 1:
+        return '由低至高'
+      case 2:
+        return '由高至低'
+      default:
+        return '不限'
+    }
   },
 
   /**
@@ -298,10 +411,22 @@ Page({
 
     this.setData({
       categoryList: _categories,
-      'params.cids': _checkedCids.join(',')
+      checkedCids: _checkedCids,
+      'filter.showReset': true,
+      'filter.cids': _checkedCids.join(',')
     })
 
-    this.getAllProducts()
+    this.getFilterProducts()
+  },
+
+  /**
+   * 跳转商品页
+   */
+  handleGoProduct (e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '/pages/product/product?rid=' + rid
+    })
   },
 
   /**
@@ -315,11 +440,24 @@ Page({
   },
 
   /**
+   * 取消分享-销售
+   */
+  handleCancelShare (e) {
+    this.setData({
+      showShareModal: false,
+      shareProduct: {}
+    })
+  },
+
+  /**
    * 分享-销售
    */
   handleShareDistribute(e) {
     let rid = e.currentTarget.dataset.rid
 
+    this.setData({
+      showShareModal: true
+    })
   },
 
   /**
@@ -449,6 +587,29 @@ Page({
         }
         this.setData({
           stickedProducts: _products
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 获取某筛选条件下商品
+   */
+  getFilterProducts () {
+    let params = {
+      cids: this.data.filter.cids, // 分类Id, 多个用, 分割
+      min_price: this.data.filter.min_price, // 价格区间: 最小价格
+      max_price: this.data.filter.max_price // 价格区间: 最大价格
+    }
+
+    http.fxGet(api.distribute_product_count, params, (res) => {
+      console.log(res, '筛选商品')
+      if (res.success) {
+        this.setData({
+          'filter.conditionCount': this._getFilterConditionCount(),
+          'filter.totalCount': res.data.count
         })
       } else {
         utils.fxShowToast(res.status.message)
