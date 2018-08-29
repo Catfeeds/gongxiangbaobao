@@ -79,9 +79,6 @@
           </scroll-view>
         </view>
         </view>
-
-
-
       </view>
       <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
         查看商品
@@ -90,12 +87,9 @@
     </fx-modal>
   </view>
 
-
-
   <!-- 排序 -->
   <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
     <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
   </view>
-
 
 </view>

@@ -324,7 +324,9 @@ Page({
 
   //编辑推荐
   editRecommend() {
-    wx.showLoading()
+    wx.showLoading(
+      { mask: true, title:"加载中"}
+    )
 
     http.fxGet(api.column_explore_recommend, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "编辑 推荐")

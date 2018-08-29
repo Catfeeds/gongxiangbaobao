@@ -11,6 +11,7 @@ Page({
   data: {
     orderList:[], // 有没有订单
     couponList:[],// 有没有优惠券
+    is_login:false, // 是否登陆
     activeSubMenu: 'user',
     haveSmallB: false,
     watchStoreList: [], // 关注店铺的列表
@@ -193,6 +194,10 @@ Page({
 
   // 获取是否有优惠券
   getRedBag(){
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
+    }
     http.fxGet(api.authority_coupon, {}, (result) =>{
       if(result.success){
         console.log(result,"有没有优惠券")
@@ -207,6 +212,10 @@ Page({
 
   // 获取是否有订单
   getOrderList() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
+    }
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       console.log(result, '订单列表')
       if (result.success) {
@@ -364,7 +373,12 @@ Page({
     this.getUserInfo() // 获取用户的信息
     this.getRedBag() // 获取有没有优惠券
     this.getOrderList() // 获取是否有订单
-    
+
+    // 是否登陆
+    this.setData({
+      is_login: app.globalData.isLogin
+    })
+
     const lifeStore = wx.getStorageSync('lifeStore')
     // 小B商家获取自己生活馆
     if (lifeStore.isSmallB) {
@@ -650,6 +664,14 @@ Page({
 
   // 去动态页面
   handleDynamicTap(){
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     wx.navigateTo({
       url: '../dynamic/dynamic',
     })

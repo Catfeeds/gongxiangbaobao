@@ -13,7 +13,7 @@
         </swiper-item>
       </block>
     </swiper>
-    <text class='subscript black-font'>{{swiperIndex}}/{{productInfomation.assets.length}}</text>
+    <text class='subscript black-font' wx:if="{{productInfomation.assets.length!=0}}">{{swiperIndex}}/{{productInfomation.assets.length}}</text>
   </view>
 
   <!--轮播图 产品底部信息 -->
@@ -166,7 +166,7 @@
         <view class='hui-zi'>原创品牌馆</view>
         <view class='shou'>{{ storeInfo.name }}</view>
       </view>
-      <view class='with '>
+      <view class='with flex-row-middel'>
         <image src='../../images/shop1.png'></image>
         <view>{{ isWatch ? '已关注' : '关注' }}</view>
       </view>
@@ -261,13 +261,10 @@
     
       <view class='add_cart c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
       <view class=' crated_btn--style bg--red border-left__radius--null'>
-        <text>卖</text>
-        <text>赚 ￥ 12.5</text>
+        <text>卖 </text>
+        <text class="font-ss">赚 ￥ {{productInfomation.commission_price}}</text>
       </view>
-    
   </view>
-
-
 
   <!-- 垫片 -->
   <view class='shm'></view>

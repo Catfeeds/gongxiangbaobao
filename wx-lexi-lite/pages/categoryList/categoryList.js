@@ -343,7 +343,6 @@ getcategoryList(){
     })
   },
 
-
   // 打开排序的盒子
   handelOffPick() {
     let animation = wx.createAnimation({

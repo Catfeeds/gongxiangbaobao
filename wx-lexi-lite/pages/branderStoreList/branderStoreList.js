@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    seiperIndex:0, // 轮播图选中的点
     HighStoreList:[], // 精选品牌列表
     categoryId: 1, // 分类的id
     isNext:false, // 是否有下一页
@@ -41,6 +42,13 @@ Page({
     if (e.currentTarget.dataset.id == 2) {
       this.getHighStore()
     }
+  },
+
+  // 轮播图发生改变
+  handleChangeSwiper (e) {
+    this.setData({
+      seiperIndex: e.detail.current
+    })
   },
 
   // 品牌馆 -- 特色

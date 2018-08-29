@@ -62,7 +62,7 @@ module.exports = {
   life_store_orders: 'orders/life_orders', // GET 生活馆订单列表
   life_store_statements: 'stats/life_orders/statements', // GET 生活馆对账单
   life_store_statement_detail: 'stats/life_orders/statement_items', // GET 生活馆对账单详情
-
+  core_platforms_life_records:'core_platforms/life_records', // 获取生活志文章列表
   life_records_recommend_products:'life_records/recommend_products', // get 生活值详情 推荐
   life_records_creator_story:'life_records/creator_story',// 创作人故事列表
   life_records_hand_teach:'life_records/hand_teach', // 手做教学列表

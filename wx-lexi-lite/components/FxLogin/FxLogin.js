@@ -18,6 +18,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    pickAddress:0,//选择好国家
 
     prompt: false, // 验证码错误提示
     mobaile_number: '', // 手机号码
@@ -54,7 +55,9 @@ Component({
     //选择国家的id
     pickCountryTap(e) {
       this.setData({
-        country_code: e.currentTarget.dataset.code
+        pickAddress: e.currentTarget.dataset.index,
+        country_code: e.currentTarget.dataset.code,
+        is_country:false
       })
     },
 

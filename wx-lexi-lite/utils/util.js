@@ -214,12 +214,12 @@ const showToast = (v, typeText ="none") => {
 
 // 隐藏tabbar
 const handleHideTabBar = () => {
-  wx.hideTabBar(OBJECT)
+  wx.hideTabBar()
 }
 
 // 显示tabbar
 const handleShowTabBar = () => {
-  wx.showTabBar(OBJECT)
+  wx.showTabBar()
 }
 
 // 显示加载

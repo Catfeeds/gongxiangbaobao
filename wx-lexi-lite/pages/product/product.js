@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isDistributed:false, // 是否属于分销
     isSmallB:false, // 是不是小b商家
     originalStoreRid:"", // 原店铺的rid
     rid: '', // 商品的rid---

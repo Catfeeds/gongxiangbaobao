@@ -1,7 +1,7 @@
 <!--pages/branderStore/branderStore.wxml-->
 <import src="../couponTemplate/couponTemplate.wxml" />
 <view class="container">
-  <view class="store-info">
+  <view class="store-info border-bottom">
     <!-- 图片 分类-->
     <view class="flex_row margin-bottom--22rpx top-photo__box">
       <image src="{{storeInfo.logo}}"></image>
@@ -9,7 +9,6 @@
         <view class="font-width--bold margin-bottom--6rpx">{{item.num}}</view>
         <view class="font-s ">{{item.name}}</view>
       </view>
-
     </view>
 
     <!-- name -->
@@ -62,7 +61,8 @@
   </view>
 
   <!-- 优惠券和设计管公告 -->
-  <view class="announcement-coupon">
+<block wx:if="{{categoryId==1}}">
+  <view class="announcement-coupon" wx:if="{{couponList.coupons.length != 0||fullSubtractionList.length != 0 || announcement.announcement.length!=0}}">
     <!-- 领取优惠券 -->
     <view class='coupon-box ' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
@@ -87,7 +87,7 @@
 
 
     <!-- 公告 wx:if="{{ announcement }}"-->
-    <view class='notice'>
+    <view class='notice' wx:if="{{announcement.announcement.length!=0}}"> 
       <view class='notice-title'>设计馆公告</view>
       <view class='notice-box'>
         <view class="off-announcement" wx:if="{{announcement.is_closed}}">
@@ -110,7 +110,6 @@
     </view>
   </view>
 
-  <!-- 筛选排序 -->
       <!-- 筛选和排序 -->
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
       <view catchtap='handelOffPick' class='flex_row'>
@@ -125,9 +124,41 @@
     <!-- 下面的产品列表 -->
     <view class='goodsList' wx:if="{{productList.length!=0}}">
       <view wx:for="{{productList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product 
+          product="{{item}}" 
+          photo="{{(index+1)%5==0?4:3}}"
+          bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
+
+</block>
+
+<!-- 文章 -->
+<block wx:if="{{categoryId==2}}">
+    <view class='production new-goods_box '>
+      <view 
+        data-category="精彩故事"
+        data-rid="{{item.rid}}"
+        data-type="{{item.type}}"
+        catchtap="handleLiveInfo"
+        class='flex-direction--column productionGoods ' 
+        wx:for="{{wonderfulStories}}" 
+        wx:key='{{index}}'>
+        <image src="{{item.cover}}" class="img--style"></image>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
+        <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
+        <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
+        <view class='margin-top--8rpx flex_row'>
+          <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{item.user_name}}</text>
+        </view>
+      </view>
+    </view>
+
+</block>
+
 
       <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='handleOffCouponTap'>

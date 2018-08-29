@@ -45,13 +45,14 @@
 }
 
  .brand-product__item{
-  height: 280rpx;
   width: 280rpx;
   margin-right: 20rpx;
   display: inline-block;
+  padding-bottom: 30rpx;
 }
 
 .big-photo{
+  position: relative;
   height: 750rpx;
   width: 750rpx;
 }
@@ -61,6 +62,7 @@
 }
 
 .high-bottom{
+  position: relative;
   padding: 40rpx 0 90rpx 0;
 }
 
@@ -109,4 +111,23 @@
   width: 0rpx;
   font-size: 22rpx;
   visibility: hidden;
+}
+
+.swiper-round__box {
+  position: absolute;
+  bottom: 40rpx;
+  right: 40rpx;
+}
+
+.swiper-round__box view{
+  display: inline-block;
+  margin-left: 20rpx;
+  height: 14rpx;
+  width: 14rpx;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.swiper-round__box .swiper-active{
+  background-color: rgba(255, 255, 255, .5);
 }

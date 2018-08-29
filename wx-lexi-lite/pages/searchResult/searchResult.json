@@ -1,12 +1,14 @@
 {
   "navigationBarTitleText": "搜索结果",
-    "usingComponents": {
-      "fx-product": "/components/FxProductComponent/FxProductComponent",
-      "fx-approve": "/components/FxApprove/FxApprove",
-      "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
-      "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
-      "fx-login": "/components/FxLogin/FxLogin",
-      "fx-sort": "/components/FxSortProduct/FxSortProduct",
-      "fx-pick-product": "/components/FxPickProduct/FxPickProduct"
-    }
+  "usingComponents": {
+    "fx-product": "/components/FxProductComponent/FxProductComponent",
+    "fx-approve": "/components/FxApprove/FxApprove",
+    "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
+    "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-sort": "/components/FxSortProduct/FxSortProduct",
+    "fx-pick-product": "/components/FxPickProduct/FxPickProduct",
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-slider": "/components/FxSlider/FxSlider"
+  }
 }

@@ -11,10 +11,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 58rpx;
+  height: 68rpx;
   width: 510rpx;
   background-color: #eaedf0;
-  border-radius: 28rpx;
+  border-radius: 34rpx;
   padding: 0 80rpx;
   font-size: 28rpx;
 }
@@ -37,6 +37,8 @@
 
 .input-off__btn {
   right: 60rpx;
+  height: 36rpx !important;
+  width: 36rpx !important;
 }
 
 .history-record {
@@ -74,7 +76,7 @@
 }
 
 .last-record {
-  padding: 40rpx 0rpx;
+  padding: 20rpx 0rpx;
   /* color: #949ea6; */
 }
 

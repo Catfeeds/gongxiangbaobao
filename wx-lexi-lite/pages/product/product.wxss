@@ -7,8 +7,11 @@
   position: relative;
 }
 
-swiper-item, swiper-item>image, swiper {
+swiper-item, swiper-item>image, 
+swiper {
   height: 100%;
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 .logistics + text {
@@ -236,6 +239,8 @@ swiper-item, swiper-item>image, swiper {
 .userIcon>image {
   height: 100%;
   width: 100%;
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 .shou {
@@ -259,6 +264,8 @@ swiper-item, swiper-item>image, swiper {
 .with>image {
   height: 26rpx;
   width: 26rpx;
+  margin-right: 10rpx;
+
 }
 
 .shopMiddle {
@@ -517,6 +524,8 @@ swiper-item, swiper-item>image, swiper {
 .off-info {
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   height: 80rpx;
   width: 100%;
   background-color: white;
@@ -612,6 +621,11 @@ swiper-item, swiper-item>image, swiper {
 
 .product-info__title {
   font-size: 32rpx;
+  vertical-align: middle;
+}
+
+.flex-row-middel {
+  justify-content: center;
 }
 
 .category-box__right {
@@ -684,7 +698,7 @@ margin-bottom:8rpx;
 }
 
 .baoyou-icon__bg {
-  background: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png") no-repeat;
-  background-size: 100% 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
+  background-size: 100%;
   vertical-align: middle;
 }

@@ -1,6 +1,7 @@
 /* pages/branderStore/branderStore.wxss */
 @import "../user/user.wxss";
 @import '../couponTemplate/couponTemplate.wxss';
+@import '../find/find.wxss';
 
 .container {
   height: auto;
@@ -311,3 +312,4 @@
 .border-bottom {
   border-bottom: 1rpx solid #e9e9e9;
 }
+

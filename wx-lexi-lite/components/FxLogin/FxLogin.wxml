@@ -7,13 +7,12 @@
         <view class='binding-title'>登录/注册{{mobileCode}}</view>
         <!-- 输入手机号码 -->
         <view class='mobile-number paymentFnTextB'>
+
           <view class='paymentFnTextB country' catchtap='countryTap'>
-            <input value='{{country_code}}' class='country_code'></input>
-            <view class='jian'>
-              <image src='../../images/bottom@2.png'></image>
-            </view>
+            <text class='country_code'>{{country_code}}</text>
+            <image class='jian' src='../../images/bottom@2.png'></image>
           </view>
-          <view class='input-number'>
+          
             <input 
               placeholder-class='number' 
               placeholder='输入手机号码' 
@@ -25,8 +24,8 @@
               bindinput="inputText" 
               value='{{mobaile_number}}'>
             </input>
-          </view>
-          <view class='cha' catchtap='mobileNumberNullTap'>x</view>
+          
+          <image class='cha' src="../../images/bg-hui-off@icon.png" catchtap='mobileNumberNullTap'>x</image>
           <view wx:if="{{!is_time}}" class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}' catchtap='getNumberTap'>获取验证码</view>
 
           <view class='button-style font-ss c-middle' wx:if="{{is_time}}">{{time}}s</view>
@@ -51,12 +50,13 @@
   </view>
   <!-- 选择国家的弹出框 -->
   <view class='pick-country-box bg-white black-font' wx:if="{{is_country}}">
-    <view class='componentTwo'>常用</view>
+    <view class='componentTwo margin-left--30rpx'>常用</view>
     <view class='pick-country-btm'>
       <view 
-        class='time-top' 
+        class='time-top {{index==pickAddress?"pick-addrses":""}}' 
         wx:for="{{country_pick}}" 
         wx:key="{{item.rid}}" 
+        data-index="{{index}}"
         catchtap='pickCountryTap' 
         wx:if="{{item.areacode!=null}}"
         data-code="{{item.areacode}}">
