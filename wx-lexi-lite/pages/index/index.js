@@ -17,6 +17,7 @@ Page({
     perPage: 10,
     swiperMark:0, // 轮播图标记
     loadingMore: true, // 加载更多标记
+    gratefulSwiper:0, // 热气推荐的的轮播图的点
     exploreSwiperMark:0,// 探索轮播图的点
 
 
@@ -97,7 +98,7 @@ Page({
   },
 
 //探索轮播图
-  handleExploreSwiperChange(){
+  handleExploreSwiperChange(e){
     this.setData({
       exploreSwiperMark: e.detail.current
     })
@@ -309,9 +310,10 @@ Page({
    * 跳转商品详情
    */
   handleGoProduct(e) {
-    let rid = e.currentTarget.dataset.rid
+    console.log(e)
+    let rid = e.detail.rid
     wx.navigateTo({
-      url: '/pages/product/product?rid=' + rid
+      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.detail.storeRid
     })
   },
 
@@ -526,6 +528,15 @@ Page({
       console.log(result,"添加浏览者")
       this.getBrowsePeople()
     })
+  },
+
+  // 人气推荐的轮播点
+  handleGratefulSwiper(e){
+    console.log(e.detail.current)
+    this.setData({
+      gratefulSwiper: e.detail.current
+    })
+
   },
 
   // 获取浏览记录
@@ -872,6 +883,7 @@ Page({
         this.handleAddBrowce() //添加浏览者
         break;
       case 'featured': // 精选
+        wx.setNavigationBarTitle({title:"精选"})
         this.handleSetNavigationTitle('精选')
 
         this.getStoreHeadlines() // 开馆头条
@@ -884,6 +896,7 @@ Page({
         this.getPlantOrder() // 种草清单
         break;
       case 'explore': // 探索
+        wx.setNavigationBarTitle({ title: "探索" })
         if (this.data.exploreAdvertisementList.length != 0) {
           return
         }

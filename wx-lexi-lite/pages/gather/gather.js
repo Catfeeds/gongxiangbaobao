@@ -111,7 +111,7 @@ Page({
   // 跳转到商品详情
   handleProductInfo (e){
     wx.navigateTo({
-      url: '../product/product?rid=' + e.currentTarget.dataset.rid
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
     })
   },
 

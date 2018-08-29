@@ -13,6 +13,7 @@
         <image 
           wx:for="{{item.products}}" 
           data-rid="{{val.rid}}" 
+          data-store-rid="{{val.store_rid}}"
           wx:for-item="val" 
           wx:key="{{index}}" 
           wx:if="{{index<4}}"

@@ -11,6 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 文章
+    liveIsNext: false, // 是否有下一页
+    wonderfulStories:[], // 列表
+
     storeRid: "", //店铺的rid
     isNext: [], // 是否有下一页面
     storeInfo: [], // 店铺的详情
@@ -34,6 +38,13 @@ Page({
         id: 2
       }
     ],
+    // 获取生活志文章的列表
+    liveParams:{
+      page:	1,//Number	可选	1	当前页码
+      per_page:10	,//Number	可选	10	每页数量
+      sid:	'',//String	必须	 	店铺编号
+      type:0	,//Number	可选	0	生活志类型: 0 = 全部, 1= 文章, 2= 种草清单
+    },
     // 请求商品的
     params: {
       page: 1, //Number	可选	1	当前页码
@@ -68,8 +79,34 @@ Page({
     })
 
     if (e.currentTarget.dataset.id == 2) {
-
+      this.getArticle()
     }
+  },
+
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
+    })
+  },
+
+  // 生活志愿详情
+  handleLiveInfo(e) {
+    let rid = e.currentTarget.dataset.rid
+
+    if (e.currentTarget.dataset.type == 1) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid + "&&category=" + e.currentTarget.dataset.category
+      })
+    }
+
+    if (e.currentTarget.dataset.type == 2) {
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid
+      })
+    }
+
   },
 
   // 打开排序的盒子
@@ -231,6 +268,27 @@ Page({
       url: '../brandInformation/brandInformation?rid='+e.currentTarget.dataset.rid
     })
 
+  },
+
+  // 获取文章列表
+  getArticle(){
+    http.fxGet(api.core_platforms_life_records,this.data.liveParams,(result)=>{
+      console.log(result,"生活志文章列表")
+      if(result.success){
+
+        let newData = this.data.wonderfulStories
+        result.data.life_records.forEach((v)=>{
+          newData.push(v)
+        })
+
+        this.setData({
+          liveIsNext: result.data.next,
+          wonderfulStories: newData
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 获取店铺的商品列表 life_store_products
@@ -408,7 +466,8 @@ Page({
     console.log(options)
     this.setData({
       ['params.sid']: options.rid,
-      storeRid: options.rid
+      storeRid: options.rid,
+      ['liveParams.sid']: options.rid
     })
 
     this.getStoreInfo() // 店铺详情
@@ -423,16 +482,31 @@ Page({
    */
   onReachBottom: function() {
 
-    if (!this.data.isNext) {
-      utils.fxShowToast("没有更多商品了")
-      return
+    if (this.data.categoryId==1){
+      if (!this.data.isNext) {
+        utils.fxShowToast("没有更多商品了")
+        return
+      }
+
+      this.setData({
+        ['params.page']: this.data.params.page + 1
+      })
+      this.products()
     }
 
-    this.setData({
-      ['params.page']: this.data.params.page + 1
-    })
 
-    this.products()
+    if (this.data.categoryId == 2) {
+      if (!this.data.liveIsNext) {
+        utils.fxShowToast("没有更多了")
+        return
+      }
+
+      this.setData({
+        ['liveParams.page']: this.data.liveParams.page + 1
+      })
+      this.getArticle()
+    }
+
   },
 
   // 优惠卷隐藏和显示

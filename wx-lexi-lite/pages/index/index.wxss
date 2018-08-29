@@ -1,8 +1,7 @@
 /**index.wxss**/
 
 .delete-icon image, .no-sell-product_icon_box image, .characteristic-log image,
-.joinNumberlPhoto image, .characteristic-photo image, .all-product image,
-.setUpShop-guide__suona image {
+.joinNumberlPhoto image, .all-product image, .setUpShop-guide__suona image {
   height: 100%;
   width: 100%;
 }
@@ -441,8 +440,15 @@
 .characteristic-photo {
   height: 140rpx;
   width: 140rpx;
+}
+
+.characteristic-photo image {
+  height: 140rpx;
+  width: 140rpx;
   border: 2rpx solid white;
   box-sizing: border-box;
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 .characteristic-watch_btn {
@@ -728,7 +734,7 @@ swiper-photo .slide-item__box image {
   }
 
   to {
-    width: 100%;
+    width: 93%;
     height: 100%;
   }
 }
@@ -978,6 +984,7 @@ swiper-photo .slide-item__box image {
 .margin-bottom--40rpx {
   padding-bottom: 40rpx;
 }
+
 .margin-bottom--0rpx {
   margin-bottom: 0rpx;
 }
@@ -1005,16 +1012,16 @@ swiper-photo .slide-item__box image {
   line-height: 26rpx;
 }
 
-.find-swiper__round .swiperActive {
-  background-color: rgba(255, 255, 255, 1);
-}
-
 .find-swiper__round view {
   height: 14rpx;
   width: 14rpx;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   margin-right: 18rpx;
+}
+
+.find-swiper__round .swiperActive {
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .find-swiper__round {
@@ -1050,9 +1057,44 @@ swiper-photo .slide-item__box image {
   position: absolute;
   bottom: 0;
   left: 0rpx !important;
-  background: linear-gradient(to top,rgba(0, 0, 0, .5) ,rgba(255, 255, 255, 0)) !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0)) !important;
 }
 
 .height---236rpx {
   height: 236rpx;
+}
+
+.position-r {
+  position: relative;
+}
+
+.round-right {
+  position: absolute;
+  top: -16rpx;
+  right: 48rpx;
+}
+
+.round-right view {
+  height: 14rpx;
+  width: 14rpx;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-left: 18rpx;
+}
+
+.round-right .bg--green {
+  background-color: #5fe4b1;
+}
+
+.min-height--400 {
+  min-height: 400rpx;
+}
+
+.min-height--300 {
+  min-height: 300rpx;
+}
+
+.min-height--570 {
+  min-height: 500rpx;
 }

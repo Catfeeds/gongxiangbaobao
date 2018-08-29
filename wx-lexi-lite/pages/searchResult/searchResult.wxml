@@ -1,5 +1,5 @@
 <!--pages/searchResult/searchResult.wxml-->
-<view>
+<view class="container">
   <!-- 搜索框 -->
   <view class="bg-white search-input" catchtap="handleToSearch">
     <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
@@ -20,18 +20,18 @@
 
       <!-- 筛选和排序 -->
       <view class='time-top sotr black-font'>
-        <view catchtap='handelOffPick' class='flex_row'>
-          筛选
+        <view catchtap="handleSortShow" class='flex_row'>
+          综合排序
           <image src='../../images/arrowhead.png'></image>
         </view>
-        <view catchtap="handleSortShow" class='flex_row'>
-          排序
+        <view catchtap='handelOffPick' class='flex_row'>
+          筛选
           <image src='../../images/arrowhead.png'></image>
         </view>
       </view>
       <!-- 下面的产品列表 -->
       <view class='goodsList'>
-        <view wx:for="{{prodctList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+        <view wx:for="{{productList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
           <fx-product product="{{item}}" 
             photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'
             bind:triggerEvent_product='handleInfomation'></fx-product>
@@ -49,7 +49,7 @@
       wx:for="{{storeList}}" 
       data-store-rid="{{item.rid}}"
       wx:key="{{index}}">
-      <view class='shopInfoT' 
+      <view class='shopInfoT padding-left--40rpx' 
         data-store-rid="{{item.rid}}" 
         catchtap="handleTobrandStore">
         <view class='userIcon'>
@@ -61,16 +61,16 @@
           <view class='shop-name'>{{ item.name }}</view>
         </view>
         <view 
-          class='with' 
+          class='with flex_row--middle' 
           catchtap='handleAddWatch' 
           wx:if="{{!item.is_follow_store}}" 
           data-rid="{{item.rid}}" 
           data-index="{{index}}">
-          <image src='../../images/shop1.png'></image>
+          <image class='margin-right--10rpx' src='../../images/shop1.png'></image>
           <view>关注</view>
         </view>
         <view 
-          class='with' 
+          class='with flex_row--middle bg--hui' 
           data-rid="{{item.rid}}" 
           catchtap='handleDeleteWatch' 
           wx:if="{{item.is_follow_store}}" 
@@ -79,16 +79,17 @@
           <view>已关注</view>
         </view>
       </view>
-      <view class='shop-other-goods'>
-        <view 
-          wx:for='{{ item.products }}' 
-          wx:key="{{ index }}" 
-          wx:for-item="value" 
-          data-rid='{{ value.rid }}' 
-          catchtap='handleToProductInfoTap'>
-          <image src='{{ value.cover }}-p16'></image>
-        </view>
-      </view>
+      <scroll-view scroll-x class='shop-other-goods'>
+          <image 
+            class="brander-store__product--item {{index==0?'margin-left--40rpx':''}} {{index==item.products.length-1?'margin-right--40rpx':''}}"
+            src='{{ value.cover }}-p16'
+            wx:for='{{ item.products }}' 
+            wx:key="{{ index }}" 
+            wx:for-item="value" 
+            data-rid='{{ value.rid }}' 
+            data-store-rid="{{value.store_rid}}"
+            catchtap='handleToProductInfoTap'></image>
+      </scroll-view>
     </view>
 
   </block>
@@ -129,4 +130,64 @@
   </view>
 </view>
   </block>
+
+<!-- 筛选 -->
+<!-- 筛选 -->
+<!-- 筛选  catchtap="handelOffPickBox"-->
+  <view class="pick-box" >
+    <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
+      <view class="fx-modal__main" slot="main">
+        <view class="block-title">价格区间</view>
+        <view class="price-range">
+          <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
+        </view>
+
+          <!-- 分类 -->
+        <view>
+        <view class="block-title">分类
+          <small>可多选</small>
+        </view>
+        <view class="scroll-view__container">
+          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+            <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+              {{ category.name }}
+            </view>
+          </scroll-view>
+        </view>
+        </view>
+
+        <!-- 推荐 -->
+        <view>
+        <view class="block-title">推荐
+          <small>可多选</small>
+        </view>
+        <view class="scroll-view__container">
+          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+            <view 
+              class="category {{ category.isActive ? 'active' : '' }}" 
+              wx:for="{{ recommendList }}" 
+              wx:for-item="category" 
+              wx:key="{{ category.id }}" 
+              data-cid="{{ category.id }}" 
+              data-index="{{index}}"
+              bindtap="handleToggleRecommendList">
+              {{ category.name }}
+            </view>
+          </scroll-view>
+        </view>
+        </view>
+      </view>
+      <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
+        查看商品
+        <text>（{{ totalCount }}件）</text>
+      </button>
+    </fx-modal>
+  </view>
+
+  <!-- 排序 openPickBox-->
+  <view class="pick-box" animation="{{openPickBox}}" catchtap="handleSortOff">
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
+  </view>
+
+
 </view>

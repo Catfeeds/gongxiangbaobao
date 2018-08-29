@@ -177,6 +177,14 @@ Page({
 
   },
 
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
+    })
+  },
+
   // 搜索热门搜索 core_platforms/search/week_hot
   getHotSearch() {
     http.fxGet(api.core_platforms_search_week_hot, {}, (result) => {

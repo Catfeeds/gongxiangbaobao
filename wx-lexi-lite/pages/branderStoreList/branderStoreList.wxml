@@ -2,7 +2,7 @@
 <view class="container">
 
   <!-- nav-bar -->
-  <view class="flex_row nav-bar">
+  <view class="flex_row border-bottom nav-bar">
     <view wx:for="{{categoryList}}" catchtap="handleChangeCategory" data-id="{{item.id}}" class="font-xxl c-middle nav-bar__text {{categoryId==item.id?'active':''}}" wx:key="{{index}}">{{item.name}}</view>
   </view>
 
@@ -30,7 +30,9 @@
     </view>
 
     <scroll-view scroll-x class="high-bottom__scroll">
-      <view class="brand-product__item {{index==0?'margin-left--40rpx':''}} {{store.products.length-1==index?'margin-right--40rpx':''}}" wx:for="{{store.products}}" wx:key="{{index}}">
+      <view 
+        class="brand-product__item {{index==0?'margin-left--40rpx':''}} {{store.products.length-1==index?'margin-right--40rpx':''}}" 
+        wx:for="{{store.products}}" wx:key="{{index}}">
         <fx-product 
           photoSize="16" 
           photo="{{2}}" 
@@ -46,6 +48,7 @@
     <view class="big-photo">
       <swiper 
       interval="{{3600}}"
+        bindchange="handleChangeSwiper"
         autoplay="{{true}}">
         <block wx:for="{{HighStoreList.banner_images}}" wx:key="{{index}}">
           <swiper-item>
@@ -53,6 +56,14 @@
           </swiper-item>
         </block>
       </swiper>
+      
+      <view class="swiper-round__box">
+        <view 
+          class="{{seiperIndex==index?'swiper-active':''}}" 
+          wx:for="{{HighStoreList.banner_images}}" 
+          wx:key="{{index}}"></view>
+      </view>
+
     </view>
 
     <view class="high-bottom">
@@ -65,10 +76,9 @@
           wx:for="{{HighStoreList.handpick_store}}">
           <image src="{{item.logo}}"></image>
           <view><text class="font-s">{{item.name}}</text></view>
-          <view class="one-line-text"><text class='font-ss qian-hui quantity-box__style'>{{item.store_products_counts==0?"":item.store_products_counts+"件商品"}}</text></view>
+          <view class="one-line-text"><text class='font-ss qian-hui quantity-box__style'>{{item.store_products_counts==0?"":item.store_products_counts+" 件商品"}}</text></view>
         </view>
       </scroll-view>
-
     </view>
 
   </view>

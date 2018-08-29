@@ -11,7 +11,7 @@
   height: 400rpx;
   overflow: hidden;
   color: white;
-  background-color: red;
+  /* background-color: red; */
 }
 
 .gather-hander__photo .gather-hander__text--big,

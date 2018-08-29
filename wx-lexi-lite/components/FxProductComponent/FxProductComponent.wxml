@@ -6,7 +6,7 @@
     </view>
     <image 
       mode="widthFix" 
-      class='product-photo {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}}' 
+      class='product-photo {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}} {{photo==5?"photo--oblong":""}}' 
       src='{{ productItem.cover }}-p{{photoSize}}'></image>
   </view>
 

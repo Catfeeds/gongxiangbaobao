@@ -2,22 +2,73 @@
 @import "../user/user.wxss";
 @import "../categoryList/categoryList.wxss";
 @import "../watch/watch.wxss";
-.category-box{
+
+.category-box {
   height: 80rpx;
   padding: 0 10rpx;
   border-bottom: 1rpx solid #e9e9e9;
 }
 
-.category-box>view{
+.category-box>view {
   height: 100%;
   padding: 0 30rpx;
 }
 
-.category-box text{
+.category-box text {
   line-height: 34rpx;
 }
 
-.active{
+.active {
   font-size: 40rpx;
-  color: #5FE4B1;
+  color: #5fe4b1;
+}
+
+.search-input input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 68rpx;
+  width: 510rpx;
+  background-color: #eaedf0;
+  border-radius: 34rpx;
+  padding: 0 80rpx;
+  font-size: 28rpx;
+}
+
+.margin-right--10rpx {
+  margin-right: 10rpx;
+}
+
+.margin-right--40rpx {
+  margin-right: 40rpx !important;
+}
+
+.margin-left--40rpx {
+  margin-left: 40rpx;
+}
+
+.bg--hui {
+  background-color: #949ea6;
+}
+
+.shopInfo {
+  padding-left: 0;
+}
+
+.padding-left--40rpx {
+  padding-left: 40rpx;
+}
+
+.shop-other-goods .brander-store__product--item {
+  height: 200rpx;
+  width: 200rpx;
+  margin-right: 20rpx;
+}
+
+.price-range {
+position:relative;
+padding:20rpx 40rpx 0;
+background-color:#fff;
+
 }

@@ -10,15 +10,12 @@
       bindinput="handleInput" 
       bindconfirm="handleRecordLast"
       placeholder-class="input-font" auto-focus/>
-
       <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
-  
       <image 
         class='input-off__btn' 
         catchtap='handleDeleteInput' 
         wx:if="{{inputText}}"
-        src="../../images/icon-close@2x.png"></image>
-  
+        src="../../images/bg-hui-off@icon.png"></image>
   </view>
 
   <!-- 没有输入的时候 -->
@@ -46,7 +43,7 @@
     <view class='bg-white last-record'>
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>最近查看</view>
       <scroll-view scroll-x>
-        <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
+        <!-- <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
 
         <image class='last-browse__photo' src="{{item.cover}}"></image>
         <view class='material-quality'>
@@ -54,7 +51,13 @@
           <text class='material-quality-text'>{{item.name}}</text>
         </view>
         <text class='last-browse__product--price nowPrice'>￥{{item.min_sale_price>0?item.min_sale_price:item.min_price}}</text>
+        </view> -->
+
+        <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
+        
+          <fx-product product="{{item}}" photo="{{1}}"bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
+        
       </scroll-view>
     </view>
 
