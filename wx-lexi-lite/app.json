@@ -1,25 +1,21 @@
 {
   "pages": [
-    "pages/lifeStoreManage/lifeStoreManage",
-    "pages/lifeStoreWithdraw/lifeStoreWithdraw",
     "pages/index/index",
     "pages/findInfo/findInfo",
     "pages/find/find",
     "pages/distributes/distributes",
-    
+    "pages/lifeStoreManage/lifeStoreManage",
+    "pages/lifeStoreWithdraw/lifeStoreWithdraw",
     "pages/lifeStoreTransaction/lifeStoreTransaction",
     "pages/lifeStoreBalance/lifeStoreBalance",
     "pages/lifeStoreBillDetail/lifeStoreBillDetail",
     "pages/lifeStoreBill/lifeStoreBill",
-    
-    
     "pages/branderStoreList/branderStoreList",
     "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
     "pages/search/search",
     "pages/dynamic/dynamic",
     "pages/people/people",
-    
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
     "pages/distributeSubmit/distributeSubmit",
