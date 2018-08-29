@@ -21,7 +21,7 @@ Page({
 
     swiperIndex: 0, // 轮播图的index
 
-    pageActiveTab: 'all', // stick, all
+    pageActiveTab: 'stick', // stick, all
 
     panelActiveTab: 'hot',
     panelTabs: [{
@@ -452,11 +452,14 @@ Page({
   /**
    * 分享-销售
    */
-  handleShareDistribute(e) {
+  handleShareDistribute (e) {
     let rid = e.currentTarget.dataset.rid
-
+    let idx = e.currentTarget.dataset.idx
+    console.log(idx)
+    console.log(this.data.allProducts[idx])
     this.setData({
-      showShareModal: true
+      showShareModal: true,
+      shareProduct: this.data.allProducts[idx]
     })
   },
 

@@ -78,8 +78,6 @@
   margin-top: -100rpx;
 }
 
-
-
 @-webkit-keyframes slideInUp {
   from {
     opacity: 0;

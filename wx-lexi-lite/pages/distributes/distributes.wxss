@@ -272,6 +272,9 @@
 .distribute-style .wxa-card .cover {
   width: 290rpx;
   height: 248rpx;
+  padding: 2rpx;
+  border: 1rpx solid #E9E9E9;
+  border-radius: 4rpx;
 }
 .distribute-style .wxa-poster {
   flex: 1;
