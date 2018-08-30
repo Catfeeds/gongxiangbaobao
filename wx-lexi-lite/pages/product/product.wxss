@@ -1,5 +1,6 @@
 /* pages/product/product.wxss */
 @import '../couponTemplate/couponTemplate.wxss';
+@import "../distributes/distributes.wxss";
 @import "../../wxParse/wxParse.wxss";
 
 .swiperBox {

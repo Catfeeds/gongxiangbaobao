@@ -288,7 +288,7 @@ image {
   width: 750rpx;
 }
 
-.wxParse-p image{
+.wxParse-p image {
   margin-bottom: 26rpx;
   width: 100% !important;
 }
@@ -296,12 +296,10 @@ image {
 .wxParse-p view {
   display: flex;
   flex-direction: row;
-  width: 670rpx;
   margin: 0 40rpx !important;
   line-height: 44rpx !important;
   white-space: wrap;
   margin-bottom: 30rpx !important;
-  text-indent:2em;
 }
 
 .wxParse-p image {
@@ -320,4 +318,12 @@ image {
 }
 .color--kafei {
   color: #8C7A6E;
+}
+
+
+.wxParse-p.fx-text {
+  font-size: 28rpx;
+  font-weight: 300;
+  color: #333;
+  line-height: 43rpx;
 }

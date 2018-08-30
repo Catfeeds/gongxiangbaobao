@@ -1,6 +1,6 @@
-<!--pages/plantNoteInfo/plantNoteInfo.wxml-->
-<!--pages/findInfo/findInfo.wxml-->
+<!-- 种草详情 -->
 <import src="../../wxParse/wxParse.wxml" />
+
 <view class="container">
   <!-- 详细的盒子 -->
   <view class="bg-white border-bottom margin-bottom--30rpx">
@@ -11,7 +11,7 @@
 
     <!-- 店铺的信息 -->
     <view class='margin-left--40rpx margin-right--40rpx'>
-            <view class="font-s font-width--medium margin-bottom--6rpx color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--6rpx color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}">{{liveInfo.channel_name}}</view>
       <view class="font-s font-width--medium margin-bottom--6rpx color--huilan" wx:if="{{liveInfo.channel_name=='创作人故事'}}">{{liveInfo.channel_name}}</view>
       <view class="font-s font-width--medium margin-bottom--6rpx color--huihong" wx:if="{{liveInfo.channel_name=='手作教学'}}">{{liveInfo.channel_name}}</view>
       <view class="font-s font-width--medium margin-bottom--6rpx color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}">{{liveInfo.channel_name}}</view>
@@ -41,36 +41,30 @@
         <view class="font-s flex_row--middle follow-owner__btn {{liveInfo.is_follow?'bg--hui':''}}" data-uid="{{liveInfo.uid}}" catchtap="handleDeleteFollow" wx:else>
           <text>已关注</text>
         </view>
-
       </view>
-
-      <!-- <view class="font-s theme-green margin-bottom--50rpx">
-        <text>#夏天的女孩</text>
-        <text>#夏天的女孩</text>
-        <text>#夏天的女孩</text>
-      </view> -->
 
     </view>
 
     <!-- 详情 占位，后续用wxParse 替换-->
     <view class="black-font  margin-bottom--50rpx">
+
       <!-- <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}" /> -->
       <!-- 文本 -->
 
-      <view wx:for="{{liveInfo.deal_content}}" wx:key="{{index}}">
+      <!-- <view wx:for="{{liveInfo.deal_content}}" wx:key="{{index}}"> -->
 
         <!-- 文本 -->
-        <view class='ql-align-justify wxParse-p' wx:if="{{item.type=='text'}}">
+        <!-- <view class='ql-align-justify wxParse-p' wx:if="{{item.type=='text'}}">
           <view class='WxEmojiView wxParse-inline'> {{item.content}} </view>
-        </view>
+        </view> -->
 
         <!-- 图片 -->
-        <view wx:if="{{item.type=='image'}}" class='wxParse-p'>
+        <!-- <view wx:if="{{item.type=='image'}}" class='wxParse-p'>
           <image class='wxParse-img' src='{{item.content}}'></image>
-        </view>
+        </view> -->
 
         <!-- 商品 大图-->
-        <view wx:if="{{item.type=='product'}}" class='product-max__box two-line-text'>
+        <!-- <view wx:if="{{item.type=='product'}}" class='product-max__box two-line-text'>
           <view class='product-max__photo'>
             <image src='{{item.content.cover}}'></image>
           </view>
@@ -80,7 +74,7 @@
           <view class='productPrice time-top'>
             <view>
               <text class='nowPrice'>￥{{item.content.min_sale_price>0?item.content.min_sale_price:item.content.min_price}}</text>
-              <!-- <text class='oldPrice' wx:if="{{item.content.oldPrice}}">￥{{item.content.oldPrice}}</text> -->
+
               <text class='oldPrice'>{{item.content.min_sale_price>0?"￥"+item.content.min_price:""}}</text>
             </view>
             <view 
@@ -89,10 +83,10 @@
               class=' flex_row--middle black-font info-btn' 
               catchtap='handleGoProduct'> 查看详情 </view>
           </view>
-        </view>
+        </view> -->
 
         <!-- 商品 小图-->
-        <view wx:if="{{item.type=='product'}}" class='product-min__box'>
+        <!-- <view wx:if="{{item.type=='product'}}" class='product-min__box'>
           <fx-product-middleM 
           product="{{item.content}}" 
           price="true" 
@@ -104,12 +98,9 @@
             class=' flex_row--middle black-font info-btn position-btn' 
             catchtap='handleGoProduct'> 查看详情 </view>
         </view>
+      </view> -->
 
-      </view>
-
-
-
-
+      <template is="wxParse" data="{{ wxParseData:dkcontent.nodes }}" />
 
     </view>
 
@@ -139,13 +130,8 @@
       <text catchtap="handleToProductList" data-from="editRecommend" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
     </view>
     <view class='c-importantGoodsBox margin-top--34rpx'>
-      <scroll-view 
-        class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' 
-        wx:for="{{recommendProduct.products}}" 
-        wx:key="{{index}}">
-        <fx-product product="{{item}}" 
-        photo="{{2}}"
-        bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+      <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
+        <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
       </scroll-view>
     </view>
   </view>

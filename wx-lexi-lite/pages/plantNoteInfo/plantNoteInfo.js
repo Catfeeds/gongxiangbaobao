@@ -1,8 +1,10 @@
 // pages/findInfo/findInfo.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 let wxparse = require("../../wxParse/wxParse.js")
 
 Page({
@@ -24,11 +26,11 @@ Page({
       per_page: 10, //Number	可选	10	每页数量
       sort_type: '', //Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
       rid: '', //Number	必须	 	橱窗编号
-    },
+    }
   },
 
-  //点击相关推荐
-  handlesAgainLoading(e) {
+  // 点击相关推荐
+  handlesAgainLoading (e) {
     console.log(e)
     console.log(e.currentTarget.dataset.rid)
     wx.pageScrollTo({
@@ -46,6 +48,7 @@ Page({
     this.getRecommend() // 相关故事推荐
   },
 
+
   // 关闭
   hanleOffLoginBox(e) {
     console.log(e)
@@ -62,7 +65,6 @@ Page({
       })
       return false
     }
-
 
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
@@ -87,7 +89,6 @@ Page({
       return false
     }
 
-
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -100,8 +101,6 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
-
   },
 
   // 跳转到商品详情---
@@ -119,7 +118,6 @@ Page({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
   },
-  
 
   // 推荐的产品
   getRecommendProduct() {
@@ -150,34 +148,92 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   // 获取生活志详情
   getLiveInfo() {
-    http.fxGet(api.life_records_detail, {
-      rid: this.data.rid
-    }, (result) => {
-      console.log(result, "种草笔记详情")
+    http.fxGet(api.life_records_detail, { rid: this.data.rid }, (result) => {
+      console.log(result, '种草笔记详情')
       if (result.success) {
-        result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
+        result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
-      let newData =''
-        result.data.deal_content.forEach((v)=>{
-          newData = newData + v.content
-        })
-
+        let newData = this._rebuildArticleContent(result.data.deal_content)
         console.log(newData)
+
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', newData, this, 5)
         
         this.setData({
           liveInfo: result.data
         })
+
         this.getComment() // 获取生活志评论
+
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  /**
+   * 重建文章内容
+   */
+  _rebuildArticleContent(deal_content) {
+    let htmlAry = []
+
+    deal_content.map(item => {
+      if (item.type == 'text') {
+        htmlAry.push('<p>' + item.content + '</p>')
+      } else if (item.type == 'image') {
+        htmlAry.push('<p><img src="' + item.content + '" /></p>')
+      } else if (item.type == 'product') {
+
+        let show_price = item.content.min_price
+        if (item.content.min_sale_price > 0) {
+          show_price = item.content.min_sale_price
+        }
+
+        let isLogisticsPrice = ''
+        if (!item.content.is_free_postage) {
+          isLogisticsPrice = "<div class='logistics-price__icon'></div>"
+        }
+
+        let productHtml = ''
+        if (!item.big_picture) {
+          productHtml = '<div class="product-max__box">' +
+            '<div class="product-max__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
+            '<div class="product-max__title ">' + isLogisticsPrice + item.content.name  + '</div>' +
+            '<div class="product-max__price">' +
+            '<span class="now-price">￥' + show_price + '</span>' +
+            '<a class="product-max__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
+            '</div>' +
+            '</div>'
+        } else {
+          console.log(item,"每一个商品is_free_postage")
+          productHtml = '<div class="product-min__box">' +
+            '<div class="product-min__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
+            '<div class="product-min__content">' + 
+            '<div class="product-min__title">' + isLogisticsPrice+ item.content.name + '</div>' +
+            '<div class="product-min__price"><span class="now-price">￥' + show_price + '</span></div>' +
+            '<a class="product-min__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
+            '</div>' +
+            '</div>'
+        }
+        
+        htmlAry.push(productHtml)
+      }
+    })
+
+    return htmlAry.join('')
+  },
+
+  /**
+   * 查看商品详情
+   */
+  wxParseTagATap (e) {
+    console.log(e)
+    wx.navigateTo({
+      url: e.currentTarget.dataset.src,
     })
   },
 
@@ -201,11 +257,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    let category = options.category || ''
     this.setData({
       rid: options.rid,
-      ['params.rid']: options.rid,
-      category: options.category,
+      'params.rid': options.rid,
+      category: category,
     })
 
     this.getLiveInfo() // 生活志详情

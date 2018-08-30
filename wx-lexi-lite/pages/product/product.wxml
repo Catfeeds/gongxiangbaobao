@@ -54,7 +54,9 @@
           <text class='hui-zi' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
           <text class='hui-zi' wx:else>已添加</text>
         </view>
-        <view class='like-quantity-l transmissionInfo'>
+        <view 
+          catchtap="handleShareTap"
+          class='like-quantity-l transmissionInfo'>
           <image class='fen' src='../../images/share@2.png'></image>
         </view>
       </view>
@@ -334,14 +336,51 @@
     </view>
   </view>
 
-  <!-- 绑定手机的模板 -->
-  <!-- <view wx:if="{{is_mobile}}" class='login-bind_box--style' catchtap='handelOffTap'>
-    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view> -->
-
     <fx-modal visible="{{ is_mobile }}" showFoot="true">
     <view slot="main">
       <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    </view>
+  </fx-modal>
+
+    <!-- 卖 -->
+  <fx-modal 
+    showHead="{{ false }}" 
+    visible="{{ showShareModal }}" 
+    bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-commission">
+        <text>赚</text> <text class="amount">￥20.00</text>
+      </view>
+      <view class="distribute-message">
+        朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
+      </view>
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" open-type="share">
+          <image src="{{ productInfomation.cover }}" class="cover"></image>
+          <text>点击直接分享好友样式</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+          </view>
+          <text>保存分享朋友圈海报</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" open-type="share">
+          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
     </view>
   </fx-modal>
 </view>

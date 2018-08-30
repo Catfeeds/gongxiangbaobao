@@ -108,6 +108,7 @@ module.exports = {
   wishlist_addto: 'wishlist/addto', // POST 添加收藏
   wishlist_remove: 'wishlist/remove', // POST 移除收藏
   wxacode: 'market/wxacode', // POST 生成小程序码
+  wxa_poster: 'market/wxa_poster', // POST 生成分享海报
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme: 'wx_app_design/collections', //Get 主题---
   marketBanners: 'banners/:rid', //广告--

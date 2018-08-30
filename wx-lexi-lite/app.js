@@ -181,6 +181,45 @@ App({
       }
     })
   },
+
+  /**
+   * 分享小程序至好友
+   * 验证生活馆或其他分销信息
+   */
+  getDistributeLifeStoreRid () {
+    let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
+
+    if (!lastVisitLifeStoreRid) {
+      const lifeStore = wx.getStorageSync('lifeStore')
+      if (lifeStore && lifeStore.isSmallB) {
+        lastVisitLifeStoreRid = lifeStore.lifeStoreRid
+      }
+    }
+
+    return lastVisitLifeStoreRid
+  },
+
+  /**
+   * 分享商品详情页
+   */
+  shareWxaProduct (rid, title, imageUrl) {
+    let lastVisitLifeStoreRid = this.getDistributeLifeStoreRid()
+
+    // scene格式：rid + '#' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene +=  '#' + lastVisitLifeStoreRid
+    }
+
+    return {
+      title: title,
+      path: 'pages/product/product?scene=' + scene,
+      imageUrl: imageUrl,
+      success: (res) => {
+        console.log(res, '分享商品成功!')
+      }
+    }
+  },
   
   /**
    * 支付订单

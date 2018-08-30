@@ -3,56 +3,115 @@
 @import "../../wxParse/wxParse.wxss";
 @import "../findInfo/findInfo.wxss";
 
+.wxParse-p .wxParse-img {
+  width: 670rpx !important;
+  margin-left: 40rpx;
+}
 .product-max__box {
   margin: 0 40rpx 40rpx 40rpx;
-  padding-bottom: 48rpx;
+  padding-bottom: 30rpx;
   border-bottom: 1rpx solid #e9e9e9;
   position: relative;
 }
-
-.product-max__photo {
+.product-max__box .product-max__photo {
   width: 670rpx;
+  margin-bottom: 29rpx;
+  overflow: hidden;
   height: 500rpx;
-  margin-bottom: 12rpx;
-}
-
-.product-max__photo image {
   border-radius: 8rpx;
-  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
-
-.line-height--42rpx {
-  line-height: 58rpx;
+.product-max__title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color:#333;
+  line-height: 37rpx;
+  margin-bottom: 10rpx;
+  vertical-align: middle;
 }
-
-.nowPrice {
-  font-weight: 700;
-  margin-right: 10rpx;
+.product-max__price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-.oldPrice {
-  font-size: 24rpx;
+.product-max__price .now-price {
+  font-size: 28rpx;
+  font-weight:bold;
+  color:#333;
+  line-height: 29rpx;
 }
-.productPrice{
-  margin-top: 16rpx;
-}
-
-.info-btn {
-  width: 150rpx;
-  height: 56rpx;
-  background: rgba(95, 228, 177, 1);
+.product-max__price .product-max__btn {
   border-radius: 28rpx;
-  color: white;
+  background-color: #5FE4B1;
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 29rpx;
+  color: #fff;
+  padding: 19rpx 20rpx;
 }
-.product-min__box{
+
+.product-min__box {
   position: relative;
   margin: 0 40rpx 40rpx 40rpx;
   padding-bottom: 30rpx;
   border-bottom: 1rpx solid #e9e9e9;
+  display: flex;
+}
+.product-min__box .product-min__photo {
+  flex: 0 0 200rpx;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 8rpx;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.product-min__box .product-min__content {
+  flex: 1;
+  padding-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+.product-min__box .product-min__content .product-min__title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color:#333;
+  line-height: 37rpx;
+  margin-bottom: 10rpx;
+}
+.product-min__box .product-min__content .product-min__price {
+  font-size: 28rpx;
+  font-weight:bold;
+  color:#333;
+  line-height: 29rpx;
+}
+.product-min__box .product-min__content .product-min__btn {
+  border-radius: 28rpx;
+  background-color: #5FE4B1;
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 29rpx;
+  color: #fff;
+  padding: 15rpx 20rpx;
+  align-self: flex-end;
 }
 
-.position-btn{
+.logistics-price__icon {
+  display: inline-block;
+  width:40rpx;
+height:24rpx;
+margin-right: 10rpx;
+border-radius:4rpx;
+background-size: 100%;
+background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
+vertical-align: middle;
+}
+
+.product-min__content .product-min__btn{
   position: absolute;
-   bottom: 30rpx;
-   right: 0;
+  bottom: 30rpx;
+  right: 0rpx;
 }

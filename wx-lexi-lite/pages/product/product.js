@@ -10,6 +10,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showShareModal:false, // 分享模态框
+    shareProduct: '', // 分享某个商品
+    posterUrl: '', // 海报图url
+
     isDistributed: false, // 是否属于分销
     isSmallB: false, // 是不是小b商家
     originalStoreRid: "", // 原店铺的rid
@@ -68,6 +72,77 @@ Page({
       'type': '' // 是否满减活动 3、满减
     },
   },
+
+  /**
+ * 保存当前海报到相册
+ */
+  handleSaveShare() {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              wx.showToast({
+                title: '海报保存成功',
+              })
+            },
+            fail(res) {
+              wx.showToast({
+                title: '海报保存失败',
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+ * 取消分享-销售
+ */
+  handleCancelShare(e) {
+    this.setData({
+      showShareModal: false,
+      posterUrl: '',
+      shareProduct: {}
+    })
+  },
+
+  /**
+ * 生成推广海报图
+ */
+  getWxaPoster() {
+    let rid = this.data.rid
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+    // scene格式：rid + '#' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '#' + lastVisitLifeStoreRid
+    }
+
+    let params = {
+      rid: rid,
+      type: 4,
+      path: 'pages/product/product?scene=' + scene,
+      auth_app_id: app.globalData.app_id
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      console.log(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
 
   // 获取与登录用户相关的店铺优惠券 or 满减
   getCouponsByUser(type = ' ') {
@@ -142,6 +217,17 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+/**
+ * 分享的模态框弹出
+ * **/
+  handleShareTap(){
+    this.setData({
+      showShareModal:true
+    })
+
+    this.getWxaPoster()
   },
 
   /**
@@ -554,16 +640,16 @@ Page({
     console.log(options, product, "上一页穿的参数")
 
     utils.handleShowLoading()
-    // scene格式：rid + '#' + customer_rid
+    // scene格式：rid + '#' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
     if (scene && scene != 'undefined') {
-      let scene_ary = scene.split('#')
-      rid = scene_ary[0]
-      // 分销商ID
-      if (scene_ary.length == 2) {
-        let customer_rid = scene_ary[1]
-        wx.setStorageSync('customer_rid', customer_rid)
+      let sceneAry = scene.split('#')
+      rid = sceneAry[0]
+      // 生活馆ID
+      if (sceneAry.length == 2) {
+        let lifeStoreRid = scene_ary[1]
+        app.updateLifeStoreLastVisit(lifeStoreRid)
       }
     } else {
       rid = options.rid
@@ -576,6 +662,7 @@ Page({
       isWatch: app.globalData.isWatchstore,
     })
 
+
     if (app.globalData.isLogin) {
       this.setData({
         userPhoto: app.globalData.userInfo.avatar
@@ -583,7 +670,9 @@ Page({
     }
 
     // 判断是否是小B
+
     if (wx.getStorageSync("jwt").is_small_b) {
+
       this.setData({
         isSmallB: true
       })
@@ -1033,18 +1122,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    if (res.target.dataset.from == 3) {
-      return {
-        title: "转发的标题",
-        path: '/pages/share/share',
-        success: function(e) {
-          console.log(e)
-        },
-        fail: function(e) {
-          console.log(e)
-        }
-      }
-    }
+    
+    let title = this.data.productInfomation.name
+    return app.shareWxaProduct(this.data.rid, title, this.data.productInfomation.cover)
+
+    console.log(this.data.rid, title, this.data.productInfomation.cover)
   },
 
   watchTap() {

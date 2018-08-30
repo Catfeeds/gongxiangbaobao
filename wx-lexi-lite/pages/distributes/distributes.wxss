@@ -149,6 +149,9 @@
   background-color: #fff;
 }
 
+.fx-distributes {
+  min-height: 500rpx;
+}
 .fx-distribute-cards {
   display: flex;
   flex-flow: row wrap;
@@ -269,6 +272,13 @@
   padding: 20rpx 0;
   text-align: center;
 }
+.distribute-style .wxa-card.share-friend {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #666666;
+  background-color: #fff;
+}
+
 .distribute-style .wxa-card .cover {
   width: 290rpx;
   height: 248rpx;
@@ -285,6 +295,23 @@
 .distribute-style .wxa-poster .cover {
   width: 148rpx;
   height: 262rpx;
+  margin: 0 auto;
+  background-image: url('https://kg.erp.taihuoniao.com/static/img/null-product.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.distribute-style .wxa-poster .cover .image {
+  width: 148rpx;
+  height: 262rpx;
+}
+.distribute-style .wxa-poster .cover .loading {
+  width: 16rpx;
+  height: 16rpx;
 }
 .distribute-action {
   display: flex;
@@ -296,6 +323,10 @@
   flex: 1;
   text-align: center;
   margin-top: 20rpx;
+}
+.distribute-action .share-friend:hover,
+.distribute-action .share-friend:focus {
+  background-color: transparent;
 }
 .distribute-action text {
   display: block;
