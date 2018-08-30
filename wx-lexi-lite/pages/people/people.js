@@ -177,8 +177,24 @@ Page({
     }
   },
 
+  // 关闭登陆框
+  hanleOffLoginBox(e) {
+    this.setData({
+      // is_mobile: e.detail.offBox
+      is_mobile: false
+    })
+  },
+
   // 添加关注店铺---
   handleAddWatch(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     console.log(e)
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
@@ -206,8 +222,15 @@ Page({
 
   // 取消关注店铺---
   handleDeleteWatch(e) {
-    console.log(e.currentTarget.dataset.rid)
-    console.log(e.currentTarget.dataset.index)
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 
@@ -235,6 +258,14 @@ Page({
 
   //添加关注 人!
   hanleAddWatch(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
 
     http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
       console.log(result)
@@ -250,6 +281,14 @@ Page({
 
   //取消关注 人!
   hanleDeleteWatch(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
     
     http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
       console.log(result)
@@ -327,7 +366,25 @@ Page({
   onShareAppMessage: function() {
 
   },
+
+  // 关闭登陆
+  handelOffTap() {
+    utils.handleShowTabBar()
+    this.setData({
+      is_mobile: false
+    })
+  },
+
   handleDynamicTap(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
     wx.navigateTo({
       url: '../dynamic/dynamic?from=people&uid=' + this.data.otherPeopleUid
     })
@@ -387,7 +444,7 @@ Page({
   handleToProductInfoTap(e) {
     console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.currentTarget.dataset.rid
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
     })
   },
 

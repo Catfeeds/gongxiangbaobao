@@ -232,9 +232,11 @@
   </view>
 
   <!-- //登陆注册 -->
-  <view catchtap='handelOffTap' wx:if="{{is_mobile}}" class='login-bind_box--style'>
-    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view>
+  <fx-modal visible="{{ is_mobile }}" showFoot="true">
+    <view slot="main">
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    </view>
+  </fx-modal>
 
   <!-- 排序的呼出框 -->
   <view class='login-bind_box--style' catchtap='handleSortOff' wx:if="{{isSortShow}}">

@@ -92,13 +92,17 @@
   </view>
 
   <!-- 有多少人喜欢 -->
-  <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
+  <view 
+    class='likeBox' 
+    catchtap='handelToLikeThisProductTap' 
+    data-rid='{{productInfomation.rid}}' 
+    wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
       <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image>
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
 
     </view>
-    <view class='roundR' data-rid='{{productInfomation.rid}}' catchtap='handelToLikeThisProductTap'>
+    <view class='roundR'>
       <image src='../../images/sandian.png'></image>
     </view>
 
@@ -168,7 +172,7 @@
       </view>
       <view class='with flex-row-middel'>
         <image src='../../images/shop1.png'></image>
-        <view>{{ isWatch ? '已关注' : '关注' }}</view>
+        <view class=''>{{ isWatch ? '已关注' : '关注' }}</view>
       </view>
     </view>
     <view class='shop-other-goods'>
@@ -329,8 +333,15 @@
       </view>
     </view>
   </view>
+
   <!-- 绑定手机的模板 -->
-  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+  <!-- <view wx:if="{{is_mobile}}" class='login-bind_box--style' catchtap='handelOffTap'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view>
+  </view> -->
+
+    <fx-modal visible="{{ is_mobile }}" showFoot="true">
+    <view slot="main">
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    </view>
+  </fx-modal>
 </view>

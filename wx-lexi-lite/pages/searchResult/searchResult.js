@@ -180,31 +180,17 @@ Page({
 
   // 打开排序的模态框
   handleSortShow() {
-    console.log("打开排序")
-    let animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-
-    animation.top(0).step()
 
     this.setData({
-      openPickBox: animation.export()
+      sortBox: true
     })
     // this.getCategories()
   },
 
   // 关闭排序的盒子
   handleSortOff() {
-    let animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-
-    animation.top(10000).step()
-
     this.setData({
-      openPickBox: animation.export()
+      sortBox: false
     })
   },
 

@@ -46,8 +46,24 @@ Page({
     this.getRecommend() // 相关故事推荐
   },
 
+  // 关闭
+  hanleOffLoginBox(e) {
+    console.log(e)
+    this.setData({
+      is_mobile: false
+    })
+  },
+  
   //添加关注 -- 关注人 uid
   handleAddFollow(e) {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
+
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -64,6 +80,14 @@ Page({
 
   //取消关注关注 -- 关注人
   handleDeleteFollow(e) {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
+
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -84,7 +108,15 @@ Page({
   handleGoProduct(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '/pages/product/product?rid=' + rid
+      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
+    })
+  },
+
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
   },
   
@@ -138,7 +170,6 @@ Page({
         console.log(newData)
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', newData, this, 5)
-        console.log(dkcontent)
         
         this.setData({
           liveInfo: result.data

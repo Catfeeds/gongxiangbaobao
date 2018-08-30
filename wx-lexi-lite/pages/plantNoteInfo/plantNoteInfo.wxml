@@ -83,7 +83,11 @@
               <!-- <text class='oldPrice' wx:if="{{item.content.oldPrice}}">￥{{item.content.oldPrice}}</text> -->
               <text class='oldPrice'>{{item.content.min_sale_price>0?"￥"+item.content.min_price:""}}</text>
             </view>
-            <view data-rid="{{item.rid}}" class=' flex_row--middle black-font info-btn' catchtap='handleGoProduct'> 查看详情 </view>
+            <view 
+              data-rid="{{item.rid}}" 
+              data-store-rid="{{item.store_rid}}"
+              class=' flex_row--middle black-font info-btn' 
+              catchtap='handleGoProduct'> 查看详情 </view>
           </view>
         </view>
 
@@ -96,6 +100,7 @@
     
           <view 
             data-rid="{{item.rid}}" 
+            data-store-rid="{{item.store_rid}}"
             class=' flex_row--middle black-font info-btn position-btn' 
             catchtap='handleGoProduct'> 查看详情 </view>
         </view>
@@ -247,10 +252,12 @@
     <view class='flex-1 time-top share-tap'>
       <image src='../../images/icons/icon-share@3x.png'></image>
     </view>
-
-
   </view>
 
-
+  <fx-modal visible="{{ is_mobile }}" showFoot="true">
+    <view slot="main">
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    </view>
+  </fx-modal>
 
 </view>
