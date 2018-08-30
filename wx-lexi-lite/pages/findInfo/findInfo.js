@@ -1,9 +1,11 @@
 // pages/findInfo/findInfo.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-let wxparse = require("../../wxParse/wxParse.js")
+
+let wxparse = require('../../wxParse/wxParse.js')
 
 Page({
 
@@ -14,9 +16,9 @@ Page({
     rid: '', // rid
     category: '', // 频道的名字
     liveInfo: '', // 详情
-    recommend:'', // 相关故事推荐
-    recommendProduct:'', // 相关故事推荐
-    dkcontent:'', // 故事详情
+    recommend: '', // 相关故事推荐
+    recommendProduct: '', // 相关故事推荐
+    dkcontent: '', // 故事详情
     commentList:'', //评论的列表
     // 获取评论的参数
     params: {
@@ -28,8 +30,8 @@ Page({
     product: []
   },
 
-//点击相关推荐
-  handlesAgainLoading(e){
+  //点击相关推荐
+  handlesAgainLoading (e) {
     console.log(e)
     console.log(e.currentTarget.dataset.rid)
     wx.pageScrollTo({
@@ -47,8 +49,8 @@ Page({
     this.getRecommend() // 相关故事推荐
   },
 
-  //添加关注 -- 关注人 uid
-  handleAddFollow(e){
+  // 添加关注 -- 关注人 uid
+  handleAddFollow (e) {
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -63,8 +65,8 @@ Page({
     })
   },
 
-  //取消关注关注 -- 关注人
-  handleDeleteFollow(e){
+  // 取消关注关注 -- 关注人
+  handleDeleteFollow (e) {
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -77,12 +79,10 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
-
   },
 
   // 跳转到商品详情---
-  handleInfomation(e) {
+  handleInfomation (e) {
     console.log(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
@@ -90,7 +90,7 @@ Page({
   },
 
   // 推荐的产品
-  getRecommendProduct(){
+  getRecommendProduct () {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
       console.log(result, "商品推荐")
       if (result.success) {
@@ -123,20 +123,23 @@ Page({
   },
 
   // 获取生活志详情
-  getLiveInfo() {
+  getLiveInfo () {
     http.fxGet(api.life_records_detail, {
       rid: this.data.rid
     }, (result) => {
       console.log(result, "生活志详情")
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
+        
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', result.data.content, this, 5)
 
         this.setData({
           liveInfo: result.data
         })
+
         this.getComment() // 获取生活志评论
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -144,7 +147,7 @@ Page({
   },
 
   // 相关故事推荐
-  getRecommend(){
+  getRecommend () {
     http.fxGet(api.life_records_similar, this.data.params, (result) => {
       console.log(result, "相关故事推荐")
       if (result.success) {
@@ -166,10 +169,10 @@ Page({
     console.log(options)
     this.setData({
       rid: options.rid,
-      ['params.rid']: options.rid,
+      'params.rid': options.rid,
       category: options.category,
     })
-
+    
     this.getLiveInfo() // 生活志详情
     this.getRecommend() // 相关故事推荐
     this.getRecommendProduct() // 推荐商品

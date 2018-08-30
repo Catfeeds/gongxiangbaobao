@@ -531,20 +531,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
-    console.log(options, product,"上一页穿的参数")
+    console.log(options, product, "上一页穿的参数")
 
-    
     utils.handleShowLoading()
-    // scene格式：rid + '#' + customer_rid
+    // scene格式：rid + '#' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
     if (scene && scene != 'undefined') {
-      let scene_ary = scene.split('#')
-      rid = scene_ary[0]
-      // 分销商ID
-      if (scene_ary.length == 2) {
-        let customer_rid = scene_ary[1]
-        wx.setStorageSync('customer_rid', customer_rid)
+      let sceneAry = scene.split('#')
+      rid = sceneAry[0]
+      // 生活馆ID
+      if (sceneAry.length == 2) {
+        let lifeStoreRid = scene_ary[1]
+        app.updateLifeStoreLastVisit(lifeStoreRid)
       }
     } else {
       rid = options.rid
@@ -555,6 +554,7 @@ Page({
       // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
+
     if (app.globalData.isLogin){
       this.setData({
         userPhoto: app.globalData.userInfo.avatar
@@ -562,9 +562,9 @@ Page({
     }
 
     // 判断是否是小B
-    if (wx.getStorageSync("jwt").is_small_b){
+    if (wx.getStorageSync('jwt').is_small_b){
       this.setData({
-        isSmallB:true
+        isSmallB: true
       })
     }
 

@@ -53,6 +53,7 @@ Page({
 
     showShareModal: false, // 卖
     shareProduct: '', // 分享某个商品
+    posterUrl: '', // 海报图url
 
     page: 1,
     perPage: 20,
@@ -445,8 +446,24 @@ Page({
   handleCancelShare (e) {
     this.setData({
       showShareModal: false,
+      posterUrl: '',
       shareProduct: {}
     })
+  },
+
+  /**
+   * 推荐分享-销售
+   */
+  handleStickShareDistribute (e) {
+    let rid = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+
+    this.setData({
+      showShareModal: true,
+      shareProduct: this.data.stickedProducts[idx]
+    })
+
+    this.getWxaPoster(rid)
   },
 
   /**
@@ -455,11 +472,69 @@ Page({
   handleShareDistribute (e) {
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
-    console.log(idx)
-    console.log(this.data.allProducts[idx])
     this.setData({
       showShareModal: true,
       shareProduct: this.data.allProducts[idx]
+    })
+
+    this.getWxaPoster(rid)
+  },
+
+  /**
+   * 保存当前海报到相册
+   */
+  handleSaveShare () {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              wx.showToast({
+                title: '海报保存成功',
+              })
+            },
+            fail(res) {
+              wx.showToast({
+                title: '海报保存失败',
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+   * 生成推广海报图
+   */
+  getWxaPoster (rid) {
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+    // scene格式：rid + '#' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '#' + lastVisitLifeStoreRid
+    }
+    
+    let params = {
+      rid: rid,
+      type: 4,
+      path: 'pages/product/product?scene=' + scene,
+      auth_app_id: app.globalData.app_id
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      console.log(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
@@ -789,7 +864,11 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage (o) {
+    console.log('分享商品从选品中心')
 
+    let title = this.data.shareProduct.name
+    return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
   }
+
 })

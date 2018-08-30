@@ -1,8 +1,10 @@
 // pages/findInfo/findInfo.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 let wxparse = require("../../wxParse/wxParse.js")
 
 Page({
@@ -24,11 +26,11 @@ Page({
       per_page: 10, //Number	可选	10	每页数量
       sort_type: '', //Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
       rid: '', //Number	必须	 	橱窗编号
-    },
+    }
   },
 
-  //点击相关推荐
-  handlesAgainLoading(e) {
+  // 点击相关推荐
+  handlesAgainLoading (e) {
     console.log(e)
     console.log(e.currentTarget.dataset.rid)
     wx.pageScrollTo({
@@ -46,8 +48,8 @@ Page({
     this.getRecommend() // 相关故事推荐
   },
 
-  //添加关注 -- 关注人 uid
-  handleAddFollow(e) {
+  // 添加关注 -- 关注人 uid
+  handleAddFollow (e) {
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -62,8 +64,8 @@ Page({
     })
   },
 
-  //取消关注关注 -- 关注人
-  handleDeleteFollow(e) {
+  // 取消关注关注 -- 关注人
+  handleDeleteFollow (e) {
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -76,8 +78,6 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
-
   },
 
   // 跳转到商品详情---
@@ -87,7 +87,6 @@ Page({
       url: '/pages/product/product?rid=' + rid
     })
   },
-  
 
   // 推荐的产品
   getRecommendProduct() {
@@ -118,36 +117,66 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   // 获取生活志详情
   getLiveInfo() {
-    http.fxGet(api.life_records_detail, {
-      rid: this.data.rid
-    }, (result) => {
-      console.log(result, "种草笔记详情")
+    http.fxGet(api.life_records_detail, { rid: this.data.rid }, (result) => {
+      console.log(result, '种草笔记详情')
       if (result.success) {
-        result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
+        result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
-      let newData =''
-        result.data.deal_content.forEach((v)=>{
-          newData = newData + v.content
-        })
-
+        let newData = this._rebuildArticleContent(result.data.deal_content)
         console.log(newData)
+
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', newData, this, 5)
-        console.log(dkcontent)
         
         this.setData({
           liveInfo: result.data
         })
+
         this.getComment() // 获取生活志评论
+
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  /**
+   * 重建文章内容
+   */
+  _rebuildArticleContent(deal_content) {
+    let htmlAry = []
+
+    deal_content.map(item => {
+      if (item.type == 'text') {
+        htmlAry.push('<p>' + item.content + '</p>')
+      } else if (item.type == 'image') {
+        htmlAry.push('<p><img src="' + item.content + '" /></p>')
+      } else if (item.type == 'product') {
+        let show_price = item.content.min_price
+        if (item.content.min_sale_price > 0) {
+          show_price = item.content.min_sale_price
+        }
+        let product = '<view class="product-max__box two-line-text">' +
+                      '<view class="product-max__photo">' +
+                      '<image src="' + item.content.cover +'" ></image>' +
+                      '</view>' +
+                      '<view class="black-font font-width--medium">' +
+                      '<text class="line-height--42rpx">' + item.content.name + '</text>' +
+                      '</view>' +
+                      '<view class="productPrice time-top">' +
+                      '<view><text class="nowPrice">￥' + show_price + '</text></view>' +
+                      '<view data-rid="' + item.rid + '" class="flex_row--middle black-font info-btn" catchtap="handleGoProduct">查看详情< /view>' +
+                      '</view>' + 
+                      '</view>'
+        htmlAry.push(product)
+      }
+    })
+
+    return htmlAry.join('')
   },
 
   // 相关故事推荐
@@ -170,11 +199,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    let category = options.category || ''
     this.setData({
       rid: options.rid,
-      ['params.rid']: options.rid,
-      category: options.category,
+      'params.rid': options.rid,
+      category: category,
     })
 
     this.getLiveInfo() // 生活志详情

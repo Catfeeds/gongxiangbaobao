@@ -102,7 +102,7 @@
         </view>
         <view class="product-item__actions">
           <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
-          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleShareDistribute">卖</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleStickShareDistribute">卖</fx-mini-btn>
         </view>
       </view>
 
@@ -182,7 +182,7 @@
   <!-- 筛选弹出层 -->
 
   <!-- 卖 -->
-  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}">
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
       <view class="distribute-commission">
         <text>赚</text> <text class="amount">￥20.00</text>
@@ -191,22 +191,25 @@
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
       </view>
       <view class="distribute-style">
-        <view class="wxa-card">
+        <button class="share-friend wxa-card" open-type="share">
           <image src="{{ shareProduct.cover }}" class="cover"></image>
           <text>点击直接分享好友样式</text>
-        </view>
+        </button>
 
-        <view class="wxa-poster">
-          <image src="../../images/wx-icon@2.png" class="cover"></image>
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+          </view>
           <text>保存分享朋友圈海报</text>
         </view>
       </view>
       <view class="distribute-action">
-        <view class="share-friend">
+        <button class="share-friend" open-type="share">
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
-        </view>
-        <view class="share-save">
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
           <image src="../../images/save@2.png" class="icon-save"></image>
           <text>保存分享</text>
         </view>

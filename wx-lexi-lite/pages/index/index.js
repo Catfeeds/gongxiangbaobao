@@ -928,7 +928,7 @@ Page({
       // 分销商uid
       if (scene_ary.length == 2) {
         let customer_rid = scene_ary[1]
-        wx.setStorageSync('uid', customer_rid)
+        wx.setStorageSync('customer_uid', customer_rid)
       }
     }
 

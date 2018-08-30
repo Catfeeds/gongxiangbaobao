@@ -1,11 +1,12 @@
-<!--pages/findInfo/findInfo.wxml-->
+<!-- 文章详情 -->
 <import src="../../wxParse/wxParse.wxml" />
+
 <view class="container">
   <!-- 详细的盒子 -->
   <view class="bg-white border-bottom margin-bottom--30rpx">
     <!-- 头部图片 -->
     <view class='top-photo'>
-      <image src='{{liveInfo.cover}}'></image>
+      <image src='{{ liveInfo.cover }}'></image>
     </view>
 
     <!-- 店铺的信息 -->
@@ -16,39 +17,28 @@
       <view class="font-s font-width--medium margin-bottom--6rpx color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}">{{liveInfo.channel_name}}</view>
 
       <view class="font-width--semibold font-xxxl info-title">
-        <text>{{liveInfo.title}}</text>
+        <text>{{ liveInfo.title }}</text>
       </view>
 
       <view class="font-s flex_row margin-bottom--20rpx">
-        <view class='margin-right--20rpx'>{{liveInfo.published_at}}</view>
+        <view class='margin-right--20rpx'>{{ liveInfo.published_at }}</view>
         <view class='flex_row'>
-          <image 
-            class='margin-right--10rpx' 
-            src="../../images/yanjing.png" 
-            class="browse-quantity__icon"></image>
-          <text>{{liveInfo.browse_count}}</text>
+          <image class='margin-right--10rpx' src="../../images/yanjing.png" class="browse-quantity__icon"></image>
+          <text>{{ liveInfo.browse_count }}</text>
         </view>
       </view>
 
       <view class="time-top margin-bottom--50rpx">
         <view class="flex_row">
           <image src="{{liveInfo.user_avator}}" class="store-logo"></image>
-          <text class="font-s font-width--medium">{{liveInfo.user_name}}</text>
+          <text class="font-s font-width--medium">{{ liveInfo.user_name }}</text>
         </view>
 
-        <view 
-          class="font-s flex_row--middle follow-owner__btn" 
-          data-uid="{{liveInfo.uid}}"
-          catchtap="handleAddFollow"
-          wx:if="{{!liveInfo.is_follow}}">
+        <view class="font-s flex_row--middle follow-owner__btn" data-uid="{{liveInfo.uid}}" catchtap="handleAddFollow" wx:if="{{!liveInfo.is_follow}}">
           <text>关注</text>
         </view>
 
-        <view 
-          class="font-s flex_row--middle follow-owner__btn {{liveInfo.is_follow?'bg--hui':''}}" 
-          data-uid="{{liveInfo.uid}}"
-          catchtap="handleDeleteFollow"
-          wx:else>
+        <view class="font-s flex_row--middle follow-owner__btn {{liveInfo.is_follow?'bg--hui':''}}" data-uid="{{liveInfo.uid}}" catchtap="handleDeleteFollow" wx:else>
           <text>已关注</text>
         </view>
 
@@ -64,7 +54,7 @@
 
     <!-- 详情 占位，后续用wxParse 替换-->
     <view class="black-font  margin-bottom--50rpx">
-      <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}" />
+      <template is="wxParse" data="{{ wxParseData:dkcontent.nodes }}" />
     </view>
 
     <!-- 店铺的信息 -->
@@ -87,31 +77,24 @@
   </view>
 
   <!-- 猜你喜欢 -->
-    <view class='border-bottom bg-white margin-bottom--30rpx'>
-      <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx recommend-product-box'>
-        <text>推荐商品</text>
-        <text catchtap="handleToProductList" data-from="editRecommend" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
-      </view>
-      <view class='c-importantGoodsBox margin-top--34rpx'>
-        <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
-          <fx-product 
-          product="{{item}}" 
-          photo="{{2}}"
-          bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
-        </scroll-view>
-      </view>
+  <view class='border-bottom bg-white margin-bottom--30rpx'>
+    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx recommend-product-box'>
+      <text>推荐商品</text>
+      <text catchtap="handleToProductList" data-from="editRecommend" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
     </view>
+    <view class='c-importantGoodsBox margin-top--34rpx'>
+      <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
+        <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+      </scroll-view>
+    </view>
+  </view>
 
   <!-- 评论 -->
   <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
     <view class="black-font font-width--medium">评论</view>
 
     <!-- 每一个评论 -->
-    <view 
-      class='bg-white comment-item__item ' 
-      wx:key="{{index}}"
-      wx:for-item="items"
-      wx:for="{{[1,2,3]}}">
+    <view class='bg-white comment-item__item ' wx:key="{{index}}" wx:for-item="items" wx:for="{{[1,2,3]}}">
       <image src="../../images/timg.jpg" class="comment-photo"></image>
       <view class="flex-direction--column">
         <!-- 顶部名字 -->
@@ -144,43 +127,34 @@
         <!-- 回复她的盒子 -->
         <view class="font-s reply-text__box">
           <!-- 回复她的每一条 -->
-          <view 
-            wx:for="{{[1,2]}}" 
-            wx:if="{{items!=3}}"
-            wx:key="{{index}}" 
-            class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
-            <text>设计师ricky(作者）</text> : <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
+          <view wx:for="{{[1,2]}}" wx:if="{{items!=3}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
+            <text>设计师ricky(作者）</text> :
+            <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
           </view>
 
-          <view wx:if="{{items==3}}" >
-            <text>喵喵灯 等人</text> 
+          <view wx:if="{{items==3}}">
+            <text>喵喵灯 等人</text>
             <text class='theme-green'>共3条回复</text>
           </view>
         </view>
       </view>
-    
+
     </view>
   </view>
 
-      <!-- 查看全部 -->
-    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
-      查看全部{{liveInfo.comment_count}}条评论
-    </view>
+  <!-- 查看全部 -->
+  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
+    查看全部{{liveInfo.comment_count}}条评论
+  </view>
 
-    <!-- 相关故事推荐 -->
+  <!-- 相关故事推荐 -->
   <view class="bg-white margin-bottom--50rpx border-bottom">
     <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
       <text class='font-xxl font-width--semibold margin-top--40rpx'>相关故事推荐</text>
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
     <view class='production new-goods_box '>
-      <view 
-        wx:if="{{index<4}}" 
-        class='flex-direction--column productionGoods ' 
-        wx:for="{{recommend.life_records}}" 
-        data-rid="{{item.rid}}"
-        catchtap="handlesAgainLoading"
-        wx:key='{{index}}'>
+      <view wx:if="{{index<4}}" class='flex-direction--column productionGoods ' wx:for="{{recommend.life_records}}" data-rid="{{item.rid}}" catchtap="handlesAgainLoading" wx:key='{{index}}'>
         <image src="{{item.cover}}" class="img--style"></image>
         <text class="font-s font-width--semibold text-two_line margin-bottom--14rpx">{{item.title}}</text>
         <text class='font-ss shen-hui text-two_line line-heiht-normal'>{{item.description}}</text>
@@ -218,9 +192,6 @@
       <image src='../../images/icons/icon-share@3x.png'></image>
     </view>
 
-
   </view>
-
-
 
 </view>
