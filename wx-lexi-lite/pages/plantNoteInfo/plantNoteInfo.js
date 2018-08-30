@@ -160,23 +160,42 @@ Page({
         if (item.content.min_sale_price > 0) {
           show_price = item.content.min_sale_price
         }
-        let product = '<view class="product-max__box two-line-text">' +
-                      '<view class="product-max__photo">' +
-                      '<image src="' + item.content.cover +'" ></image>' +
-                      '</view>' +
-                      '<view class="black-font font-width--medium">' +
-                      '<text class="line-height--42rpx">' + item.content.name + '</text>' +
-                      '</view>' +
-                      '<view class="productPrice time-top">' +
-                      '<view><text class="nowPrice">￥' + show_price + '</text></view>' +
-                      '<view data-rid="' + item.rid + '" class="flex_row--middle black-font info-btn" catchtap="handleGoProduct">查看详情< /view>' +
-                      '</view>' + 
-                      '</view>'
-        htmlAry.push(product)
+        let productHtml = ''
+        if (!item.big_picture) {
+          productHtml = '<div class="product-max__box">' +
+            '<div class="product-max__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
+            '<div class="product-max__title">' + item.content.name + '</div>' +
+            '<div class="product-max__price">' +
+            '<span class="now-price">￥' + show_price + '</span>' +
+            '<a class="product-max__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
+            '</div>' +
+            '</div>'
+        } else {
+          productHtml = '<div class="product-min__box">' +
+            '<div class="product-min__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
+            '<div class="product-min__content">' +
+            '<div class="product-min__title">' + item.content.name + '</div>' +
+            '<div class="product-min__price"><span class="now-price">￥' + show_price + '</span></div>' +
+            '<a class="product-min__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
+            '</div>' +
+            '</div>'
+        }
+        
+        htmlAry.push(productHtml)
       }
     })
 
     return htmlAry.join('')
+  },
+
+  /**
+   * 查看商品详情
+   */
+  wxParseTagATap (e) {
+    console.log(e)
+    wx.navigateTo({
+      url: e.currentTarget.dataset.src,
+    })
   },
 
   // 相关故事推荐
