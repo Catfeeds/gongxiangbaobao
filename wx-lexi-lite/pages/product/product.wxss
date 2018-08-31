@@ -353,7 +353,9 @@ swiper {
   margin-right: 5rpx;
 }
 
+.small-bottom__style>view,
 .bottom-btn>view {
+  height: 80rpx;
   width: 270rpx;
   border-radius: 10rpx;
   font-size: 32rpx;
@@ -557,9 +559,9 @@ swiper {
   background-color: #2d343a;
 }
 
-.add_cart, .crated_btn--style {
+/* .add_cart, .crated_btn--style {
   line-height: 80rpx;
-}
+} */
 
 .add_cart--number {
   position: absolute;
@@ -711,4 +713,11 @@ margin-bottom:8rpx;
   background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
   background-size: 100%;
   vertical-align: middle;
+}
+
+.bottom-btn__position {
+  position: fixed;
+  bottom: 0rpx;
+  height: 100rpx;
+  width: 100%;
 }
