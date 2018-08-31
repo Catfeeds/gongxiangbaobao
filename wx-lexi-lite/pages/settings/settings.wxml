@@ -16,10 +16,10 @@
     <view class='item component padding-bottom--20rpx'>
       <view class='font-m itemP'>连接</view>
       <view class=' time-top' catchtap='bindMobileTap'>
-        <view class=' time-top'>
+        <view class='time-top'>
           <view>
-            <image src='../../images/my@3.png'></image>
-          </view>
+            <image class="bind-mobile__icon" src='../../images/icon-users@3x.png'></image>
+          </view> 
           <view class='font-size'>手机绑定</view>
         </view>
         <view class='time-top'>
@@ -35,7 +35,7 @@
       <view class=' time-top' catchtap='orderTap'>
         <view class=' time-top'>
           <view>
-            <image src='../../images/order@2.png'></image>
+            <image class="my-order__icon" src='../../images/order@2.png'></image>
           </view>
           <view class='font-size'>我的订单</view>
         </view>
@@ -51,7 +51,7 @@
     <view class=' time-top'>
       <view class=' time-top'>
         <view>
-          <image src='../../images/location@2.png'></image>
+          <image class="receive-address__icon" src='../../images/location@2.png'></image>
         </view>
         <view class='font-size'>收货地址</view>
       </view>
@@ -67,7 +67,7 @@
     <view class=' time-top'>
       <view class=' time-top'>
         <view>
-          <image src='../../images/join@2.png'></image>
+          <image class="open-store__icon" src='../../images/join@2.png'></image>
         </view>
         <view class='font-size'>申请开馆</view>
       </view>
@@ -82,7 +82,7 @@
     <view class=' time-top'>
       <view class=' time-top'>
         <view>
-          <image src='../../images/lexi@2.png'></image>
+          <image class="about-lexi__icon" src='../../images/lexi@2.png'></image>
         </view>
         <view class='font-size'>关于乐喜</view>
       </view>

@@ -18,7 +18,9 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
+    
     shim:true, // 垫片是否显示
+    topBGPhoto:'', // 头部背景图片
     topPhotoText:"", // 背景文字
     pickQuantity:"", // 商品的数量
     openPickBox:false, // 筛选的模态框
@@ -36,7 +38,7 @@ Page({
       cids: '',//String	可选 分类Id  编辑推荐=e_recommend, 优质精品=e_new, 特惠好设计=preferential_design, 百元好物=affordable_goods
       min_price:	'',//Number	可选	 	价格区间： 最小价格
       max_price:	'',//Number	可选	 	价格区间： 最大价格
-      sort_type:	'',//Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
+      sort_type:	1,//Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
       is_free_postage:	0,//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential:	0,//Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
       is_custom_made:	0,//Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
@@ -582,7 +584,8 @@ Page({
 
       this.setData({
         topPhotoText: "编辑推荐",
-        touchBottomInfo: options.from
+        touchBottomInfo: options.from,
+        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/editor-feature.png"
       })
     }
 
@@ -597,7 +600,8 @@ Page({
 
       this.setData({
         topPhotoText: "百元好物",
-        touchBottomInfo: options.from
+        touchBottomInfo: options.from,
+        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/yuan-100.png"
       })
     }
 
@@ -612,7 +616,8 @@ Page({
 
       this.setData({
         topPhotoText: "优质新品",
-        touchBottomInfo: options.from
+        touchBottomInfo: options.from,
+        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/newest-products.png"
       })
     }
 
@@ -625,7 +630,8 @@ Page({
 
       this.setData({
         topPhotoText: "特惠好设计",
-        touchBottomInfo: options.from
+        touchBottomInfo: options.from,
+        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/good-design.png"
       })
     }
 
@@ -756,16 +762,19 @@ Page({
   },
 
   // 获取排序的产品
-  handleSort(e = 0) {
+  handleSort(e) {
+    console.log(e.currentTarget.dataset.rid)
     console.log(e.detail.rid)
-    if (e.detail.rid != undefined) {
+   
       this.setData({
         productList: [],
         ['editRecommendRequestParams.page']: 1,
-        ['editRecommendRequestParams.sort_type']: e.detail.rid
+        ['editRecommendRequestParams.sort_type']: e.currentTarget.dataset.rid
       })
-    }
+    
+    this.handleSortOff()
 
+    console.log(this.data.editRecommendRequestParams.sort_type)
     // 加载编辑推荐
     if (this.data.touchBottomInfo == "editRecommend") {
       this.editRecommend()

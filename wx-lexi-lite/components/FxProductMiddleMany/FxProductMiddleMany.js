@@ -70,7 +70,8 @@ Component({
   methods: {
     handleProductInfo(e) {
       this.triggerEvent("triggerEvent_product", {
-        rid: e.currentTarget.dataset.rid
+        rid: e.currentTarget.dataset.rid,
+        storeRid: e.currentTarget.dataset.storeRid
       })
     }
   }

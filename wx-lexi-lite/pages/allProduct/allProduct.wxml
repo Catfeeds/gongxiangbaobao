@@ -16,14 +16,15 @@
 
     <view class="top-bg__photo">
       <view class="top__bg">
-        <image src="https://kg.erp.taihuoniao.com/20180828/0927FtFp8fmNc_5lOkgitNnlQFj_lrD1.jpg"></image>
+        <image src="{{topBGPhoto}}"></image>
       </view>
 
-      <view class="top-bg__text">
-        <text>{{topPhotoText}}</text>
+      <view class="top-bg__photo shade">
+        <view class="top-bg__text flex_row">
+          <image class="hui-zhang" src="../../images/hui-zhang.png"></image>
+          <text>{{topPhotoText}}</text>
+        </view>
       </view>
-
-      <view class="top-bg__photo shade"></view>
 
       <view class="browse-record__box">
         <view class="black-font">品质与设计并存的精选好物</view>
@@ -118,10 +119,31 @@
   </view>
 
   <!-- 排序 -->
-<fx-modal visible="{{ sortBox }}">
+<!-- <fx-modal visible="{{ sortBox }}">
   <view  slot="main" catchtap="handleSortOff">
     <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
   </view>
-</fx-modal>
+</fx-modal> -->
+
+  <!-- 排序 -->
+  <fx-modal title="排序" bind:closeEvent="handleSortOff" visible="{{ sortBox }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="filter-item {{ editRecommendRequestParams.sort_type == 1 ? 'active' : '' }}" data-rid="1" bindtap="handleSort">
+        <text class="text">综合排序</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item-line">
+        价格
+      </view>
+      <view class="filter-item {{ editRecommendRequestParams.sort_type == 2 ? 'active' : '' }}" data-rid="2" bindtap="handleSort">
+        <text class="text">由低至高</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ editRecommendRequestParams.sort_type == 3 ? 'active' : '' }}" data-rid="3" bindtap="handleSort">
+        <text class="text">由高至低</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+    </view>
+  </fx-modal>
   
 </view>

@@ -1,15 +1,22 @@
 /* pages/editInfo/editInfo.wxss */
+
+.container {
+  background-color: white;
+}
+
 .userPhoto {
   height: 520rpx;
   width: 100%;
   position: relative;
   margin-bottom: 10rpx;
 }
+
 .userPhoto image {
   height: 100%;
   width: 100%;
 }
-.register-time{
+
+.register-time {
   position: absolute;
   bottom: 24rpx;
   left: 30rpx;
@@ -17,41 +24,41 @@
   font-size: 28rpx;
   font-weight: 500;
 }
+
 .bottomInfo{
   padding-left: 30rpx;
+
 }
-.placeholder{
+
+.placeholder {
   font-size: 26rpx;
-  color:#B2B2B2;
+  color: #b2b2b2;
 }
-label{
+
+label {
   display: flex;
   flex-direction: column;
 }
-label>view{
+
+label>view {
   font-size: 26rpx;
-  color: #999999;
+  color: #999;
   margin-bottom: 10rpx;
 }
-.userInput{
+
+.userInput {
   font-size: 28rpx;
 }
-.camera{
+
+.camera {
   position: absolute;
-  bottom: 30rpx ;
+  bottom: 0rpx;
   right: 30rpx;
-  height: 80rpx;
-  width: 80rpx;
-  border-radius: 50%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 80rpx !important;
+  width: 80rpx !important;
+
 }
-.camera>image{
-  height: 40rpx !important;
-  width: 40rpx !important;
-}
+
 .bottom-btn-box {
   height: 100rpx;
   position: fixed;
@@ -72,39 +79,53 @@ label>view{
   color: white;
   font-size: 28rpx;
 }
-.picker-box{
+
+.picker-box {
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 999;
   width: 750rpx;
-  background-color:white;
+  background-color: white;
   opacity: 1;
   text-align: center;
 }
-.over-or-delete{
+
+.over-or-delete {
   padding: 20rpx 40rpx;
   border-bottom: 2rpx solid #e9e9e9;
   border-top: 2rpx solid #e9e9e9;
 }
 
-.componentTwo{
+.componentTwo {
   padding-bottom: 20rpx;
   padding-top: 24rpx;
 }
-.margin-bottom--10rpx{
+
+.margin-bottom--10rpx {
   margin-bottom: 10rpx;
 }
-.margin-bottom--16rpx{
+
+.margin-bottom--16rpx {
   margin-bottom: 16rpx;
 }
-.margin-bottom--22rpx{
+
+.margin-bottom--22rpx {
   margin-bottom: 22rpx;
 }
-.padding-bottom--16rpx{
+
+.padding-bottom--16rpx {
   padding-bottom: 16rpx;
 }
-.pading-bottom--14rpx{
+
+.pading-bottom--14rpx {
   padding-bottom: 14rpx;
 }
 
+.btn-bg-color {
+  background-color: #5fe4b1;
+}
+
+.seting-date {
+  /* color: #5fe4b1; */
+}

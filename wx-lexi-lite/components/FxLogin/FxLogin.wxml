@@ -18,9 +18,7 @@
               placeholder='输入手机号码' 
               maxlength="11" 
               type="number" 
-              focus="{{!is_time}}"
               cursor-spacing="120"
-              adjust-position="{{true}}"
               bindinput="inputText" 
               value='{{mobaile_number}}'>
             </input>

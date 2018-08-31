@@ -65,11 +65,11 @@
 }
 
 .font-size, .fx-icon-nothing-right {
-  margin: 0 20rpx;
+  margin: 0 30rpx;
 }
 
 .more {
-  padding-left: 30rpx;
+  padding-left: 40rpx;
 }
 
 .binding-box {
@@ -226,4 +226,29 @@
 }
 .padding-bottom--30rpx{
   padding-bottom: 30rpx;
+}
+
+.bind-mobile__icon {
+  height: 26rpx;
+  width: 29rpx;
+}
+
+.my-order__icon {
+  height: 30rpx;
+  width: 27rpx;
+}
+
+.receive-address__icon {
+  width: 29rpx;
+  height: 30rpx;
+}
+
+.open-store__icon {
+  width: 30rpx;
+  height: 27rpx;
+}
+
+.about-lexi__icon{
+  height: 30rpx;
+  width: 30rpx;
 }
