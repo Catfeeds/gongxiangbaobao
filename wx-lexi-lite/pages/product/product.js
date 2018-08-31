@@ -10,9 +10,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isDistributed:false, // 是否属于分销
-    isSmallB:false, // 是不是小b商家
-    originalStoreRid:"", // 原店铺的rid
+    showShareModal:false, // 分享模态框
+    shareProduct: '', // 分享某个商品
+    posterUrl: '', // 海报图url
+
+    isDistributed: false, // 是否属于分销
+    isSmallB: false, // 是不是小b商家
+    originalStoreRid: "", // 原店铺的rid
+    storeRid:'', // 店铺的id
     rid: '', // 商品的rid---
     productInfomation: [], // 商品详情列表---
     product: {},
@@ -68,13 +73,86 @@ Page({
     },
   },
 
+  /**
+ * 保存当前海报到相册
+ */
+  handleSaveShare() {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              wx.showToast({
+                title: '海报保存成功',
+              })
+            },
+            fail(res) {
+              wx.showToast({
+                title: '海报保存失败',
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+ * 取消分享-销售
+ */
+  handleCancelShare(e) {
+    this.setData({
+      showShareModal: false,
+      posterUrl: '',
+      shareProduct: {}
+    })
+  },
+
+  /**
+ * 生成推广海报图
+ */
+  getWxaPoster() {
+    let rid = this.data.rid
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+    // scene格式：rid + '#' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '#' + lastVisitLifeStoreRid
+    }
+
+    let params = {
+      rid: rid,
+      type: 4,
+      path: 'pages/product/product?scene=' + scene,
+      auth_app_id: app.globalData.app_id
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      console.log(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+
   // 获取与登录用户相关的店铺优惠券 or 满减
   getCouponsByUser(type = ' ') {
     this.setData({
       ['couponParams.type']: type
     })
     // 优惠券
-    http.fxGet(api.user_login_coupon, { ...this.data.couponParams, store_rid: this.data.originalStoreRid}, (result) => {
+    http.fxGet(api.user_login_coupon, { ...this.data.couponParams,
+      store_rid: this.data.originalStoreRid
+    }, (result) => {
       if (result.success) {
         if (type != 3) {
           console.log(result, '登陆的优惠券')
@@ -89,7 +167,7 @@ Page({
           })
           app.globalData.couponList = result.data
         } else {
-          
+
           // 调取满减
           this.getCoupons('loginFullSubtractionList')
 
@@ -102,7 +180,9 @@ Page({
 
   // 用户未登录时获取店铺优惠券 or 满减活动列表
   getCoupons(e) {
-    http.fxGet(api.noCouponsList, { store_rid: this.data.originalStoreRid}, (result) => {
+    http.fxGet(api.noCouponsList, {
+      store_rid: this.data.originalStoreRid
+    }, (result) => {
       console.log(result, '没有登陆获取优惠券')
       if (result.success) {
         let coupon = [] // 优惠券
@@ -115,7 +195,7 @@ Page({
             coupon.push(v)
           }
         })
-        console.log(full,"满减")
+        console.log(full, "满减")
         // 如果是登陆状态下调取直接赋值满减
         if (e == "loginFullSubtractionList") {
           this.setData({
@@ -139,10 +219,21 @@ Page({
     })
   },
 
+/**
+ * 分享的模态框弹出
+ * **/
+  handleShareTap(){
+    this.setData({
+      showShareModal:true
+    })
+
+    this.getWxaPoster()
+  },
+
   /**
    * 滑块变化
    */
-  handleSwiperChange: function (e) {
+  handleSwiperChange: function(e) {
     this.setData({
       swiperIndex: e.detail.current - 0 + 1
     })
@@ -180,7 +271,9 @@ Page({
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
 
-      http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
+      http.fxGet(api.by_store_sku, {
+        rids: this.data.choosed.rid
+      }, (result) => {
         if (result.success) {
           Object.keys(result.data).forEach((key) => {
             console.log(result.data[key]) // 每个店铺
@@ -231,8 +324,8 @@ Page({
         if (result.success) {
           console.log(result)
           this.setData({
-            ['productInfomation.is_like']:false,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count-1
+            ['productInfomation.is_like']: false,
+            ['productInfomation.like_count']: this.data.productInfomation.like_count - 1
           })
 
         } else {
@@ -247,7 +340,7 @@ Page({
         if (result.success) {
           this.setData({
             ['productInfomation.is_like']: true,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count-0 + 1,
+            ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
             ['productInfomation.product_like_users']: this.data.productInfomation.product_like_users.push({})
           })
         } else {
@@ -273,7 +366,7 @@ Page({
       })
       return false
     }
-    if (!this.data.productInfomation.is_wish){
+    if (!this.data.productInfomation.is_wish) {
       http.fxPost(api.wishlist, {
         rids: [this.data.rid]
       }, (result) => {
@@ -302,7 +395,14 @@ Page({
         }
       })
     }
+  },
 
+  //关闭登陆框
+  handelOffTap() {
+    utils.handleShowTabBar()
+    this.setData({
+      is_mobile: false
+    })
   },
 
   // 商品详情
@@ -318,14 +418,18 @@ Page({
   },
 
   // 交货时间
-  getLogisticsTime(e,rid) {
-    http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:this.data.rid}, (result)=>{
-      console.log(result,'交货时间数据')
-      if(result.success){
+  getLogisticsTime(e, rid) {
+    console.log(e, rid, "交货时间的数据")
+    http.fxGet(api.logistics_core_freight_template.replace(/:rid/g, e), {
+      product_rid: this.data.rid,
+      store_rid: this.data.storeRid
+    }, (result) => {
+      console.log(result, '交货时间数据')
+      if (result.success) {
         let min = result.data.items[0].min_days
         let max = result.data.items[0].max_days
-        result.data.items.forEach((v,i)=>{
-          if (v.is_default){
+        result.data.items.forEach((v, i) => {
+          if (v.is_default) {
             //循环完毕
             this.setData({
               logisticsTime: v
@@ -338,7 +442,7 @@ Page({
 
   // 获取商品详情
   getProductInfomation() {
-    console.log(this.data.rid,"rid")
+    console.log(this.data.rid, "rid")
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
       user_record: "1"
     }, (result) => {
@@ -412,7 +516,7 @@ Page({
   // 查看全部的盒子信息的盒子打开
   animationOnFn() {
     this.setData({
-      allInfo:true
+      allInfo: true
     })
   },
 
@@ -455,9 +559,9 @@ Page({
         // let topPagePath = topPage[topPage.length - 2]
 
         // this.getCouponAndFullSubtraction()
-        setTimeout(()=>{
+        setTimeout(() => {
           this.getCouponsByUser()
-        },200)
+        }, 200)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -466,7 +570,7 @@ Page({
 
   // 优惠券，满减 originalStoreRid 商品店铺地 rid
   // getCouponAndFullSubtraction() {
-    
+
   //   console.log(app.globalData.couponList, app.globalData.fullSubtractionList, )
 
   //   let full = []
@@ -504,7 +608,9 @@ Page({
   // 获取商品原店铺信息
   getStoreInfo() {
     console.log(this.data.originalStoreRid)
-    http.fxGet(api.shop_info, { rid: this.data.originalStoreRid }, (result) => {
+    http.fxGet(api.shop_info, {
+      rid: this.data.originalStoreRid
+    }, (result) => {
       console.log(result, '原店铺信息')
       if (result.success) {
         app.globalData.storeInfo = result.data
@@ -551,18 +657,22 @@ Page({
 
     this.setData({
       rid: options.rid,
+      storeRid:options.storeRid,
       // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
 
-    if (app.globalData.isLogin){
+
+    if (app.globalData.isLogin) {
       this.setData({
         userPhoto: app.globalData.userInfo.avatar
       })
     }
 
     // 判断是否是小B
-    if (wx.getStorageSync('jwt').is_small_b){
+
+    if (wx.getStorageSync("jwt").is_small_b) {
+
       this.setData({
         isSmallB: true
       })
@@ -572,7 +682,7 @@ Page({
     this.getCouponsByUser() // 获取登陆用户地优惠券
     this.getCouponsByUser(3) // 获取满减
     this.getSkus()
-    
+
     // this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
   },
@@ -911,7 +1021,7 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.posterImage,
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
@@ -971,12 +1081,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    wx.hideLoading() 
+    wx.hideLoading()
     console.log(app.globalData.storeInfo)
     this.setData({
-      
+
       cartTotalCount: app.globalData.cartTotalCount,
-      
+
     })
   },
 
@@ -1012,18 +1122,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    if (res.target.dataset.from == 3) {
-      return {
-        title: "转发的标题",
-        path: '/pages/share/share',
-        success: function(e) {
-          console.log(e)
-        },
-        fail: function(e) {
-          console.log(e)
-        }
-      }
-    }
+    
+    let title = this.data.productInfomation.name
+    return app.shareWxaProduct(this.data.rid, title, this.data.productInfomation.cover)
+
+    console.log(this.data.rid, title, this.data.productInfomation.cover)
   },
 
   watchTap() {
@@ -1049,6 +1152,12 @@ Page({
 
   // 跳转到购物车
   handleToCartTap() {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     console.log("cart")
     wx.switchTab({
       url: '../cart/cart',
@@ -1059,17 +1168,12 @@ Page({
   hanleOffLoginBox(e) {
     console.log(e)
     this.setData({
-      is_mobile:false
+      is_mobile: false
     })
   },
 
-  handelToLikeThisProductTap(e){
-    if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
-      return false
-    }
+  handelToLikeThisProductTap(e) {
+
     // console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
       url: '../likeThisProduct/likeThisProduct?rid=' + e.currentTarget.dataset.rid

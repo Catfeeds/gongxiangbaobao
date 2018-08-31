@@ -19,7 +19,8 @@ Page({
     recommend: '', // 相关故事推荐
     recommendProduct: '', // 相关故事推荐
     dkcontent: '', // 故事详情
-    commentList:'', //评论的列表
+    commentList: '', //评论的列表
+
     // 获取评论的参数
     params: {
       page: 1, //Number	可选	1	当前页码
@@ -31,7 +32,7 @@ Page({
   },
 
   //点击相关推荐
-  handlesAgainLoading (e) {
+  handlesAgainLoading(e) {
     console.log(e)
     console.log(e.currentTarget.dataset.rid)
     wx.pageScrollTo({
@@ -40,8 +41,8 @@ Page({
 
     this.setData({
       rid: e.currentTarget.dataset.rid,
-      ['params.page']:1,
-      ['params.per_page']:10,
+      ['params.page']: 1,
+      ['params.per_page']: 10,
       ['params.rid']: e.currentTarget.dataset.rid
     })
 
@@ -49,15 +50,24 @@ Page({
     this.getRecommend() // 相关故事推荐
   },
 
-  // 添加关注 -- 关注人 uid
-  handleAddFollow (e) {
+
+  //添加关注 -- 关注人 uid
+  handleAddFollow(e) {
+
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result,"添加关注")
+      console.log(result, "添加关注")
       if (result.success) {
         this.setData({
-          ['liveInfo.is_follow']:true
+          ['liveInfo.is_follow']: true
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -65,12 +75,21 @@ Page({
     })
   },
 
-  // 取消关注关注 -- 关注人
-  handleDeleteFollow (e) {
+
+  //取消关注关注 -- 关注人
+  handleDeleteFollow(e) {
+
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result,"取消关注")
+      console.log(result, "取消关注")
       if (result.success) {
         this.setData({
           ['liveInfo.is_follow']: false
@@ -90,7 +109,8 @@ Page({
   },
 
   // 推荐的产品
-  getRecommendProduct () {
+
+  getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
       console.log(result, "商品推荐")
       if (result.success) {
@@ -148,6 +168,7 @@ Page({
 
   // 相关故事推荐
   getRecommend () {
+
     http.fxGet(api.life_records_similar, this.data.params, (result) => {
       console.log(result, "相关故事推荐")
       if (result.success) {

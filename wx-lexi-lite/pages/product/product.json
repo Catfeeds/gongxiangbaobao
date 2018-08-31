@@ -1,7 +1,8 @@
 {
   "navigationBarTitleText": "商品详情",
-    "usingComponents": {
-      "fx-coupon": "/components/FxCoupon/coupon",
-      "fx-login": "/components/FxLogin/FxLogin"
-    }
+  "usingComponents": {
+    "fx-coupon": "/components/FxCoupon/coupon",
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-modal": "/components/FxModal/FxModal"
+  }
 }

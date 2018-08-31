@@ -113,6 +113,7 @@ module.exports = {
   theme: 'wx_app_design/collections', //Get 主题---
   marketBanners: 'banners/:rid', //广告--
   products_index:'products/index', // 首页作品的排序---
+  logistics_core_freight_template:'logistics/core_freight_template/:rid', // 商品对应的物流模板
 
   // 核心 product
   banners_explore: 'banners/explore', //探索的头部广告h

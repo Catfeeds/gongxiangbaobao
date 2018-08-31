@@ -185,9 +185,12 @@
   </view>
 
   <!-- 排序 openPickBox-->
-  <view class="pick-box" animation="{{openPickBox}}" catchtap="handleSortOff">
-    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff" ></fx-sort>
+  <!-- 排序 -->
+<fx-modal visible="{{ sortBox }}">
+  <view  slot="main" catchtap="handleSortOff">
+    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
   </view>
+</fx-modal>
 
 
 </view>

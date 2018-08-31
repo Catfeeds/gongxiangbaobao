@@ -551,15 +551,16 @@ Page({
     })
   },
 
-  // 关闭
+  // 关闭登陆框
   hanleOffLoginBox(e) {
     console.log(e)
-    utils.handleShowTabBar()
+    wx.showTabBar()
     this.setData({
       // is_mobile: e.detail.offBox
        is_mobile: false
     })
   },
+  
   // 关注页面跳转
   handleWatchTap() {
     // 是否登陆
@@ -655,6 +656,8 @@ Page({
   //     handelOffPick: true
   //   })
   // },
+
+  //关闭登陆框
   handelOffTap(){
     utils.handleShowTabBar()
     this.setData({

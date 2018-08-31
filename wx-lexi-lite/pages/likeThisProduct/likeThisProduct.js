@@ -33,9 +33,13 @@ Page({
   },
 //添加关注
   hanleAddWatch(e){
-    console.log(this.data.peopleList.product_like_users)
-    console.log(e.currentTarget.dataset.uid)
-    console.log(e.currentTarget.dataset.index)
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     let index = e.currentTarget.dataset.index
     http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid },(result)=>{
       console.log(result)
@@ -51,8 +55,14 @@ Page({
 
   //取消关注
   hanleDeleteWatch(e){
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     let index = e.currentTarget.dataset.index
-    console.log(index)
     http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid },(result)=>{
       console.log(e)
       if(result.success){
@@ -64,6 +74,30 @@ Page({
       }
     }) 
   },
+
+  //关闭登陆框
+  handelOffTap() {
+    utils.handleShowTabBar()
+    this.setData({
+      is_mobile: false
+    })
+  },
+
+  // 跳转到其他人地主页
+  handleToPeopleTap(e) {
+    console.log(e.currentTarget.dataset.uid)
+    if (e.currentTarget.dataset.index == 0) {
+      // wx.switchTab({
+      //   url: '../user/user',
+      // })
+    } else {
+      wx.navigateTo({
+        url: '../people/people?uid=' + e.currentTarget.dataset.uid,
+      })
+    }
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -123,18 +157,5 @@ Page({
 
   },
 
-  // 跳转到其他人地主页
-  handleToPeopleTap(e){
-    console.log(e.currentTarget.dataset.uid)
-    if (e.currentTarget.dataset.index == 0){
-      wx.switchTab({
-        url: '../user/user',
-      })
-    }else{
-      wx.navigateTo({
-        url: '../people/people?uid=' + e.currentTarget.dataset.uid,
-      })
-    }
 
-  }
 })

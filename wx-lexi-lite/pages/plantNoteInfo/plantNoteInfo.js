@@ -48,8 +48,24 @@ Page({
     this.getRecommend() // 相关故事推荐
   },
 
-  // 添加关注 -- 关注人 uid
-  handleAddFollow (e) {
+
+  // 关闭
+  hanleOffLoginBox(e) {
+    console.log(e)
+    this.setData({
+      is_mobile: false
+    })
+  },
+  
+  //添加关注 -- 关注人 uid
+  handleAddFollow(e) {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -64,8 +80,15 @@ Page({
     })
   },
 
-  // 取消关注关注 -- 关注人
-  handleDeleteFollow (e) {
+  //取消关注关注 -- 关注人
+  handleDeleteFollow(e) {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -84,7 +107,15 @@ Page({
   handleGoProduct(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '/pages/product/product?rid=' + rid
+      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
+    })
+  },
+
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
   },
 
@@ -155,25 +186,33 @@ Page({
       } else if (item.type == 'image') {
         htmlAry.push('<p><img src="' + item.content + '" /></p>')
       } else if (item.type == 'product') {
+
         let show_price = item.content.min_price
         if (item.content.min_sale_price > 0) {
           show_price = item.content.min_sale_price
         }
+
+        let isLogisticsPrice = ''
+        if (!item.content.is_free_postage) {
+          isLogisticsPrice = "<div class='logistics-price__icon'></div>"
+        }
+
         let productHtml = ''
         if (!item.big_picture) {
           productHtml = '<div class="product-max__box">' +
             '<div class="product-max__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
-            '<div class="product-max__title">' + item.content.name + '</div>' +
+            '<div class="product-max__title ">' + isLogisticsPrice + item.content.name  + '</div>' +
             '<div class="product-max__price">' +
             '<span class="now-price">￥' + show_price + '</span>' +
             '<a class="product-max__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
             '</div>' +
             '</div>'
         } else {
+          console.log(item,"每一个商品is_free_postage")
           productHtml = '<div class="product-min__box">' +
             '<div class="product-min__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
-            '<div class="product-min__content">' +
-            '<div class="product-min__title">' + item.content.name + '</div>' +
+            '<div class="product-min__content">' + 
+            '<div class="product-min__title">' + isLogisticsPrice+ item.content.name + '</div>' +
             '<div class="product-min__price"><span class="now-price">￥' + show_price + '</span></div>' +
             '<a class="product-min__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
             '</div>' +

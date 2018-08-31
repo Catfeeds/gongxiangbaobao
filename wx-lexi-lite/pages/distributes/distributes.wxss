@@ -278,6 +278,7 @@
   color: #666666;
   background-color: #fff;
 }
+
 .distribute-style .wxa-card .cover {
   width: 290rpx;
   height: 248rpx;

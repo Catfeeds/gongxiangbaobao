@@ -41,20 +41,67 @@
         <view class="font-s flex_row--middle follow-owner__btn {{liveInfo.is_follow?'bg--hui':''}}" data-uid="{{liveInfo.uid}}" catchtap="handleDeleteFollow" wx:else>
           <text>已关注</text>
         </view>
-
       </view>
-
-      <!-- <view class="font-s theme-green margin-bottom--50rpx">
-        <text>#夏天的女孩</text>
-        <text>#夏天的女孩</text>
-        <text>#夏天的女孩</text>
-      </view> -->
 
     </view>
 
     <!-- 详情 占位，后续用wxParse 替换-->
     <view class="black-font  margin-bottom--50rpx">
+
+      <!-- <template is="wxParse" data="{{wxParseData:dkcontent.nodes}}" /> -->
+      <!-- 文本 -->
+
+      <!-- <view wx:for="{{liveInfo.deal_content}}" wx:key="{{index}}"> -->
+
+        <!-- 文本 -->
+        <!-- <view class='ql-align-justify wxParse-p' wx:if="{{item.type=='text'}}">
+          <view class='WxEmojiView wxParse-inline'> {{item.content}} </view>
+        </view> -->
+
+        <!-- 图片 -->
+        <!-- <view wx:if="{{item.type=='image'}}" class='wxParse-p'>
+          <image class='wxParse-img' src='{{item.content}}'></image>
+        </view> -->
+
+        <!-- 商品 大图-->
+        <!-- <view wx:if="{{item.type=='product'}}" class='product-max__box two-line-text'>
+          <view class='product-max__photo'>
+            <image src='{{item.content.cover}}'></image>
+          </view>
+          <view class='black-font font-width--medium '>
+            <text class='line-height--42rpx'>{{item.content.name}}</text>
+          </view>
+          <view class='productPrice time-top'>
+            <view>
+              <text class='nowPrice'>￥{{item.content.min_sale_price>0?item.content.min_sale_price:item.content.min_price}}</text>
+
+              <text class='oldPrice'>{{item.content.min_sale_price>0?"￥"+item.content.min_price:""}}</text>
+            </view>
+            <view 
+              data-rid="{{item.rid}}" 
+              data-store-rid="{{item.store_rid}}"
+              class=' flex_row--middle black-font info-btn' 
+              catchtap='handleGoProduct'> 查看详情 </view>
+          </view>
+        </view> -->
+
+        <!-- 商品 小图-->
+        <!-- <view wx:if="{{item.type=='product'}}" class='product-min__box'>
+          <fx-product-middleM 
+          product="{{item.content}}" 
+          price="true" 
+          repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
+    
+          <view 
+            data-rid="{{item.rid}}" 
+            data-store-rid="{{item.store_rid}}"
+            class=' flex_row--middle black-font info-btn position-btn' 
+            catchtap='handleGoProduct'> 查看详情 </view>
+        </view>
+      </view> -->
+
       <template is="wxParse" data="{{ wxParseData:dkcontent.nodes }}" />
+
     </view>
 
     <!-- 店铺的信息 -->
@@ -191,10 +238,12 @@
     <view class='flex-1 time-top share-tap'>
       <image src='../../images/icons/icon-share@3x.png'></image>
     </view>
-
-
   </view>
 
-
+  <fx-modal visible="{{ is_mobile }}" showFoot="true">
+    <view slot="main">
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    </view>
+  </fx-modal>
 
 </view>

@@ -564,7 +564,9 @@
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-rid="{{item.id}}" catchtap="handleToGatherInfo" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
           <image class='border-radius--8' src="{{item.cover}}-p30"></image>
-          <view class='bg-black__half'></view>
+          <view class='bg-black__half'>
+            <image src='../../images/bg-hei.png'></image>
+          </view>
           <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
           <view class='all-product_geishei font--white black-font'>{{item.name}}</view>
           <view class='all-product_miaoshu font--white black-font'>{{item.sub_name}}</view>

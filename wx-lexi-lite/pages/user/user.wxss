@@ -207,6 +207,8 @@ button-hover {
   height: 100%;
   width: 100%;
   border-radius: 10rpx;
+  background-size: 100%;
+  background-image:url("https://kg.erp.taihuoniao.com/static/img/null-product.png") ;
 }
 
 .see-all {

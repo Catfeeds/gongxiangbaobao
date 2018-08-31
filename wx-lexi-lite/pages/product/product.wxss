@@ -1,5 +1,6 @@
 /* pages/product/product.wxss */
 @import '../couponTemplate/couponTemplate.wxss';
+@import "../distributes/distributes.wxss";
 @import "../../wxParse/wxParse.wxss";
 
 .swiperBox {
@@ -622,6 +623,15 @@ swiper {
 .product-info__title {
   font-size: 32rpx;
   vertical-align: middle;
+}
+
+.login-bind_box--style {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
 }
 
 .flex-row-middel {

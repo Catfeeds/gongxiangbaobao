@@ -182,7 +182,10 @@
   <!-- 筛选弹出层 -->
 
   <!-- 卖 -->
-  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+  <fx-modal 
+    showHead="{{ false }}" 
+    visible="{{ showShareModal }}" 
+    bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
       <view class="distribute-commission">
         <text>赚</text> <text class="amount">￥20.00</text>

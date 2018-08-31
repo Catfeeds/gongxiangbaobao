@@ -41,16 +41,9 @@ Page({
 
   // 打开筛选的模态框
   handleSortShow() {
-    console.log(123)
-    let animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-
-    animation.top(0).step()
 
     this.setData({
-      sortBox: animation.export()
+      sortBox: true
     })
 
   },
@@ -69,15 +62,9 @@ Page({
   },
   // 关闭排序的盒子
   handleSortOff() {
-    let animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-
-    animation.top(10000).step()
 
     this.setData({
-      sortBox: animation.export()
+      sortBox: false
     })
   },
 

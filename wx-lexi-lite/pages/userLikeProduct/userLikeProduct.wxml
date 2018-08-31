@@ -76,7 +76,9 @@
   </view>
 
   <!-- 排序 -->
-  <view class="pick-box" animation="{{sortBox}}" catchtap="handleSortOff">
+<fx-modal visible="{{ sortBox }}">
+  <view  slot="main" catchtap="handleSortOff">
     <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
   </view>
+</fx-modal>
 </view>
