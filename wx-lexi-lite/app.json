@@ -1,9 +1,8 @@
 {
   "pages": [
-    "pages/find/find",
     "pages/index/index",
+    "pages/find/find",
     "pages/findInfo/findInfo",
-    
     "pages/distributes/distributes",
     "pages/lifeStoreManage/lifeStoreManage",
     "pages/lifeStoreWithdraw/lifeStoreWithdraw",
