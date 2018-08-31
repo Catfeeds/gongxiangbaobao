@@ -581,6 +581,7 @@
   height: 26rpx;
   width: 30rpx;
   background-color: #5fe4b1;
+  margin-right: 10rpx;
 }
 
 .suspend-share button {

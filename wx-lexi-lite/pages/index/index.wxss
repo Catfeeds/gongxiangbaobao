@@ -1,5 +1,5 @@
 /**index.wxss**/
-
+@import "../distributes/distributes.wxss";
 .delete-icon image, .no-sell-product_icon_box image, .characteristic-log image,
 .joinNumberlPhoto image, .all-product image, .setUpShop-guide__suona image {
   height: 100%;
@@ -57,7 +57,7 @@
 
 .owner-info_box {
   width: 670rpx;
-  padding: 60rpx 40rpx;
+  padding: 60rpx 40rpx 30rpx 40rpx;
   border-bottom-right-radius: 20rpx;
   border-bottom-left-radius: 20rpx;
   box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
@@ -183,6 +183,7 @@
   background-color: #2785fa;
   border-radius: 18rpx;
   color: white;
+  margin-right: 10rpx;
 }
 
 .probation-success-text {
@@ -191,8 +192,8 @@
 }
 
 .off-icon--style {
-  height: 50rpx;
-  width: 50rpx;
+  height: 20rpx;
+  width: 20rpx;
 }
 
 .pick-product-box {
@@ -208,7 +209,7 @@
   border-bottom: 2rpx solid #f7f9fb;
   border-top: 2rpx solid #f7f9fb;
   margin-bottom: 30rpx;
-  padding: 40rpx;
+  padding:20rpx 40rpx 40rpx 40rpx;
   background-color: white;
 }
 
@@ -219,15 +220,15 @@
 
 .shopMaster {
   position: relative;
-  margin-top: 40rpx;
-  margin-bottom: 40rpx;
+  margin-bottom: 34rpx;
   font-size: 24rpx;
 }
 
 .shopRecommend {
   position: relative;
-  padding: 40rpx;
+  padding: 24rpx 30rpx 26rpx;
   font-size: 26rpx;
+  border-radius: 8rpx;
 }
 
 .triangle {
@@ -286,9 +287,12 @@
 }
 
 .examine-more-box {
-  margin-top: -30rpx;
   height: 80rpx;
   background-color: white;
+}
+
+.examine-more-box text{
+  margin-left: 10rpx;
 }
 
 .human {
@@ -928,6 +932,9 @@ swiper-photo .slide-item__box image {
 .margin-top--30rpx {
   margin-top: 30rpx;
 }
+.margin-top--20rpx {
+  margin-top: 20rpx;
+}
 
 .padding--27rpx {
   padding: 0 27rpx;
@@ -956,6 +963,7 @@ swiper-photo .slide-item__box image {
 .padding-bottom--26rpx {
   padding-bottom: 26rpx;
 }
+
 
 .padding-bottom--10rpx {
   padding-bottom: 10rpx;
@@ -991,6 +999,10 @@ swiper-photo .slide-item__box image {
 
 .padding-top--0rpx {
   padding-top: 0rpx;
+}
+
+.padding-top--40rpx {
+  padding-top: 40rpx;
 }
 
 .line-height--28rpx {
@@ -1102,4 +1114,64 @@ swiper-photo .slide-item__box image {
 
 .min-height--570 {
   min-height: 500rpx;
+}
+
+.probation-box__white {
+  width: 630rpx;
+}
+
+.right-jian__bai {
+  height: 20rpx;
+  width: 10rpx;
+  margin-left: 10rpx;
+}
+
+.height--120rpx {
+  height: 120rpx;
+}
+
+.margin-bottom--44rpx {
+  margin-bottom: 44rpx;
+}
+
+.padding-bottom--20rpx {
+  padding-bottom: 20rpx;
+}
+
+
+.suspend-share {
+  position: fixed;
+  right: 0;
+  top: 216rpx;
+  height: 54rpx;
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  padding: 0 0rpx 0 4rpx;
+  color: rgb(51, 51, 51);
+  box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  padding-right: 10rpx;
+}
+
+
+.suspend-share_box {
+  height: 46rpx;
+  width: 46rpx;
+  border-radius: 50%;
+   background-color: #5fe4b1;
+   margin-right: 10rpx;
+}
+
+.suspend-share_box image {
+  height: 26rpx;
+  width: 30rpx;
+  background-color: #5fe4b1;
+}
+
+.suspend-share button {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
 }

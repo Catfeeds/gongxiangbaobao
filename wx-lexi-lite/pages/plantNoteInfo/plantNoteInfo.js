@@ -215,7 +215,7 @@ Page({
             '<div class="product-min__content">' + 
             '<div class="product-min__title">' + isLogisticsPrice+ item.content.name + '</div>' +
             '<div class="product-min__price"><span class="now-price">￥' + show_price + '</span></div>' +
-            '<a class="product-min__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
+            '<a class="product-min__btn" href="/pages/product/product?rid=' + item.rid + '&&storeRid=' + item.content.store_rid + '">查看详情</a>' +
             '</div>' +
             '</div>'
         }

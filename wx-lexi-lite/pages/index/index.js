@@ -14,12 +14,15 @@ Page({
    */
   data: {
     page: 1,
-    perPage: 10,
+    perPage: 3,
     swiperMark:0, // 轮播图标记
     loadingMore: true, // 加载更多标记
     gratefulSwiper:0, // 热气推荐的的轮播图的点
     exploreSwiperMark:0,// 探索轮播图的点
 
+    // 分享
+    shareProduct: '', // 分享某个商品
+    posterUrl: '', // 海报图url
 
     // 生活馆
     sid: '', // 生活馆rid
@@ -28,6 +31,7 @@ Page({
     lifeStore: {}, // 生活馆信息
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
+    isNextRecommend:false, // 推荐是否有下一页
     isEmpty: false, // 是否为空
     isSmallB: false, // 当前用户是否为小B
     canAdmin: false, // 是否具备管理生活馆
@@ -87,7 +91,145 @@ Page({
         disabled: false
       }
     ],
+  },
 
+  // 加载更多的推荐
+  handleLoadingRecommend(){
+    this.setData({
+      page: this.data.page+1
+    })
+    this.getStoreProducts()
+  },
+
+  /**
+ * 推荐分享-销售
+ */
+  handleStickShareDistribute(e) {
+    
+    let rid = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+    console.log(this.data.storeProducts[idx])
+    this.setData({
+      showShareModal: true,
+      shareProduct: this.data.storeProducts[idx]
+    })
+
+    this.getWxaPoster(rid)
+  },
+
+  /**
+ * 生成推广海报图
+ */
+  getWxaPoster(rid) {
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+    // scene格式：rid + '#' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '#' + lastVisitLifeStoreRid
+    }
+
+    let params = {
+      rid: rid,
+      type: 4,
+      path: 'pages/product/product?scene=' + scene,
+      auth_app_id: app.globalData.app_id
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      console.log(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+ * 保存当前海报到相册
+ */
+  handleSaveShare() {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              wx.showToast({
+                title: '海报保存成功',
+              })
+            },
+            fail(res) {
+              wx.showToast({
+                title: '海报保存失败',
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+ * 取消分享-销售
+ */
+  handleCancelShare(e) {
+    this.setData({
+      showShareModal: false,
+      posterUrl: '',
+      shareProduct: {}
+    })
+  },
+
+  // 点击喜欢或者删除喜欢
+  handleBindLike(e) {
+    console.log(e,"点击心")
+    console.log(e.currentTarget.dataset.index)
+
+    let idx = e.currentTarget.dataset.index
+    let rid = e.currentTarget.dataset.id
+    let isLike = e.currentTarget.dataset.islike
+
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    if (isLike) {
+      // 喜欢，则删除
+      http.fxDelete(api.userlike, {
+        rid: rid
+      }, (result) => {
+        if (result.success) {
+          this.setData({
+            ['storeProducts[' + idx +'].is_like']:false
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      // 未喜欢，则添加
+      http.fxPost(api.userlike, {
+        rid: rid
+      }, (result) => {
+        if (result.success) {
+          this.setData({
+            ['storeProducts[' + idx + '].is_like']: true
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
   },
 
   //swiper 变化触发
@@ -97,7 +239,7 @@ Page({
     })
   },
 
-//探索轮播图
+  //探索轮播图
   handleExploreSwiperChange(e){
     this.setData({
       exploreSwiperMark: e.detail.current
@@ -738,7 +880,8 @@ Page({
       page: this.data.page,
       per_page: this.data.perPage,
       sid: this.data.sid,
-      is_distributed: 2
+      is_distributed: 2,
+      user_record:1
     }
 
     wx.showLoading({
@@ -746,6 +889,7 @@ Page({
     })
 
     http.fxGet(api.life_store_products, params, (res) => {
+      console.log(res.data.products, '全部分销商品')
       console.log(res, '全部分销商品')
       wx.hideLoading()
       if (res.success) {
@@ -771,7 +915,8 @@ Page({
 
         this.setData({
           storeProducts: _products,
-          isEmpty: isEmpty
+          isEmpty: isEmpty,
+          isNextRecommend: res.data.next
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -1023,9 +1168,25 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * 用户点击右上角分享 data-from
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(e) {
+    console.log(e)
+
+    if (e.target.dataset.from==1){
+
+      // 分享小程序
+      return {
+        title: '乐喜社区',
+        path: '/pages/index/index'
+      }
+
+    }else{
+
+      // 分享产品
+      let title = this.data.shareProduct.name
+      return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
+    }
 
   },
 

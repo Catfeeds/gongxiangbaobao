@@ -57,7 +57,7 @@ Component({
   
     // 最小图片
     if (this.properties.photo == 1 && NewData.is_free_postage){
-      NewData.name = dataLength > 4 ? NewData.name.substr(0, 3) + '...' : NewData.name
+      NewData.name = dataLength > 5 ? NewData.name.substr(0,5 ) + '...' : NewData.name
     }
     if (this.properties.photo == 1 && !NewData.is_free_postage){
       NewData.name = dataLength > 8 ? NewData.name.substr(0, 7) + '...' : NewData.name

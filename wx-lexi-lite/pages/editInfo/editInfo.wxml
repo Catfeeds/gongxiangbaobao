@@ -3,9 +3,7 @@
   <view class='userPhoto'>
     <image src='{{ userInfo.profile.avatar }}'></image>
     <view class='register-time'>注册时间：{{ userInfo.profile.created_at }}</view>
-    <view class='camera' bindtap='handleUploadAvatar'>
-      <image src='../../images/icon-camera@2x.png'></image>
-    </view>
+    <image class='camera' bindtap='handleUploadAvatar' src='../../images/xiangji@2.png'></image>
   </view>
 
   <view class='bottomInfo'>
@@ -33,10 +31,17 @@
           {{ provinceList[addressIndex[0]].name }}·{{ cityList[addressIndex[1]].name }}·{{ countyList[addressIndex[2]].name }}
         </view>
       </label>
+
       <!-- 出生日期 -->
       <label class='componentTwo'>
         <view class='margin-bottom--16rpx'>出生日期</view>
-        <picker mode="date" value="{{ editUserInfo.date }}" start="1990-01-01" end="2017-09-01" bindchange="bindDateChange">
+        <picker 
+          mode="date" 
+          value="{{ editUserInfo.date }}" 
+          start="1990-01-01" 
+          end="2017-09-01" 
+          class="seting-date"
+          bindchange="bindDateChange">
           <view class="black-font" wx:if="{{ editUserInfo.date }}">
             {{ editUserInfo.date }}
           </view>
@@ -48,17 +53,23 @@
       <!-- 性别 -->
       <label class='componentTwo margin-bottom--22rpx'>
         <view class='margin-bottom--16rpx'>性别</view>
-        <picker bindchange="bindGenderChange" mode='selector' range="{{gender}}" value="{{gender}}">
+        <picker 
+          bindchange="bindGenderChange" 
+          mode='selector' 
+          range="{{gender}}" 
+          value="{{gender}}">
           <view class="black-font">
             {{ gender[editUserInfo.gender] }}
             <picker-view></picker-view>
           </view>
         </picker>
       </label>
-      <view class='bottom-btn-box bg-white '>
-        <button class='btn-bg-color' catchtap='handlePreserveTap'>保存</button>
-      </view>
+
     </form>
+  </view>
+
+  <view class='bottom-btn-box bg-white '>
+    <button class='btn-bg-color' catchtap='handlePreserveTap'>保存</button>
   </view>
 
   <view wx:if="{{isPicker}}" class='picker-box'>

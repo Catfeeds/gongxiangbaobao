@@ -224,7 +224,7 @@ Page({
    */
   onLoad: function(options) {
     console.log(app.globalData.userInfo)
-    this.getUserInfo() // 获取用户信息
+    
   },
 
   /**
@@ -238,7 +238,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getUserInfo() // 获取用户信息
   },
 
   /**

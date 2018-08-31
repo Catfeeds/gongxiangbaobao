@@ -28,7 +28,7 @@ Page({
       per_page: 10, //Number	可选	10	每页数量
       min_price:'', //Number	可选	 	价格区间： 最小价格
       max_price:'', //Number	可选	 	价格区间： 最大价格
-      sort_type:'' , //Number	可选	0	排序: 0= 不限, 2= 价格由低至高, 3= 价格由高至低
+      sort_type:1 , //Number	可选	0	排序: 0= 不限, 2= 价格由低至高, 3= 价格由高至低
       is_free_postage:0 , //Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential:0 , //Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
     },
@@ -49,17 +49,20 @@ Page({
   },
 
   // 获取排序的产品
-  handleSort(e = 0) {
+  handleSort(e) {
     console.log(e.detail.rid)
-    if (e.detail.rid != undefined) {
+    
       this.setData({
-        productList: [],
+        likeProduct: [],
         ['getProductParams.page']: 1,
-        ['getProductParams.sort_type']: e.detail.rid
+        ['getProductParams.sort_type']: e.currentTarget.dataset.rid
       })
-    }
+
+    this.handleSortOff()
+    
     this.getUserLikeProduct()
   },
+
   // 关闭排序的盒子
   handleSortOff() {
 

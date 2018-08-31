@@ -84,10 +84,16 @@
 
 .top-bg__text {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
   font-size: 46rpx;
   font-weight: 500;
   color: white;
+}
+
+.hui-zhang {
+  width: 46rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
 }

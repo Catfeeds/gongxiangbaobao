@@ -25,7 +25,7 @@
       <view class=' flex_row'>
         <!-- 店主信息 -->
         <view class='owner-avatar_box'>
-          <image src="{{ lifeStore.logo }}"></image>
+          <image style="border-radius:8rpx" src="{{ lifeStore.logo }}"></image>
           <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" ></image>
         </view>
 
@@ -43,9 +43,9 @@
       </view>
 
       <!-- 浏览过的人数 -->
-      <view class='joinNumber'>
+      <view class='joinNumber height--120rpx'>
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.count+1 }}</text> 浏览过设计馆</view>
+          <text class='theme-color'>{{ shopInfo.count+1 + " 人" }}</text>浏览过生活馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
@@ -67,13 +67,15 @@
     </view>
 
     <!-- 实习馆长 -->
-    <view class="probation-box font-ss">
+    <view class="probation-box font-ss probation-box__white">
       <view class='time-top'>
         <view class='time-top '>
-          <view class='probation-icon c-middle'>实习</view>
+          <view class='probation-icon c-middle '>实习</view>
           <view class='shen-hui'>当前为实习馆主</view>
         </view>
-        <view class='off-icon--style qian-hui font-s'>x</view>
+        <image 
+          src="../../images/icon-close-bold@3x.png"
+          class='off-icon--style qian-hui font-s'></image>
       </view>
       <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
       </view>
@@ -111,7 +113,10 @@
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
       </view>
-      <view class='font-m'>选品中心 ></view>
+      <view class='font-m flex_row'> 
+        <text>选品中心</text>  
+        <image class="right-jian__bai" src="../../images/right-jian-bai.png"></image>
+      </view>
     </view>
 
     <!-- 商品展示区域 -->
@@ -126,14 +131,25 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <view class='tuijian' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ !isEmpty }}">
+      <view 
+        class='tuijian border-bottom padding-bottom--20rpx {{idx==0?"padding-top--40rpx":""}} {{idx==storeProducts.length-1?"margin-bottom--0rpx":""}}' 
+        wx:for="{{ storeProducts }}" 
+        wx:for-index="idx" 
+        wx:for-item="product" 
+        wx:key="{{ product.rid }}" 
+        wx:if="{{ !isEmpty }}">
 
         <!-- 店长头相 -->
         <view class='shopMaster'>
           <image src='{{ storeOwner.avatar }}' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
-          <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ product.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
+          <view 
+            class="delete-icon" 
+            data-idx="{{ idx }}" 
+            data-rid="{{ product.rid }}" 
+            bindtap="handleRemoveFromStore" 
+            wx:if="{{ canAdmin }}">
             <image src='../../images/delete-icon@2.png'></image>
           </view>
         </view>
@@ -145,15 +161,27 @@
         </view>
 
         <!-- 物品的详情 -->
-        <view class='shopRecommendGoods-box'>
-          <fx-product-middleM originPric="{{ true }}" is_likeNumber="{{ true }}" price="{{ true }}" product="{{ product }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ product.rid }}"></fx-product-middleM>
+        <view class='margin-top--20rpx margin-bottom--44rpx'>
+          <fx-product-middleM 
+            originPric="{{ true }}" 
+            is_likeNumber="{{ true }}" 
+            price="{{ true }}" 
+            product="{{ product }}" 
+            bind:triggerEvent_product="handleGoProduct" 
+            data-rid="{{ product.rid }}"></fx-product-middleM>
         </view>
 
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view data-id='{{item.rid}}' data-isLike='{{item.is_like}}' class='recommendbottomText {{item.is_like?"likeActive":""}}' catchtap='handleBindLike'>
+          <view 
+            data-id='{{product.rid}}' 
+            data-rid='{{product.rid}}' 
+            class='recommendbottomText {{item.is_like?"likeActive":""}}'
+            data-index="{{idx}}"
+            data-islike="{{product.is_like}}"
+            catchtap='handleBindLike'>
             <view class='icon-like'>
-              <image src='{{item.is_like?"../../images/Like@2.png":"../../images/dLike@2.png"}}'>
+              <image src='{{product.is_like?"../../images/Like@2.png":"../../images/dLike@2.png"}}'>
               </image>
             </view>
             <view>喜欢</view>
@@ -162,7 +190,12 @@
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view catchtap='handleShareBox' data-shareStore='{{item}}' data-from="2">分享</view>
+            <view 
+              catchtap='handleStickShareDistribute' 
+              data-shareStore='{{item}}' 
+              data-rid='{{product.rid}}' 
+              data-idx="{{idx}}"
+              data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image src='{{logo}}' class='photo-round'></image>
@@ -173,7 +206,10 @@
       </view>
 
       <!-- 查看更多 -->
-      <view class="c-middle shen-hui font-s examine-more-box" wx:if="{{ loadingMore }}">
+      <view 
+        class="c-middle border-bottom shen-hui font-s examine-more-box" 
+        catchtap="handleLoadingRecommend"
+        wx:if="{{isNextRecommend}}">
         查看更多好物
         <text class='fx-icon-nothing-lower'></text>
       </view>
@@ -204,7 +240,10 @@
         bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
           <swiper-item 
-            bindtap='card_click' 
+            catchtap="handleToInfo"
+            data-type="{{item.type}}"
+            data-id="{{item.id}}"
+            data-rid="{{item.rid}}"
             class="flex_row--middle"
             data-id="{{item.id}}" 
             data-sort="{{item.sort}}">
@@ -643,9 +682,59 @@
       <view class="btn-area">
         <button class="fx-button primary" formType="submit">保存</button>
       </view>
-
     </form>
   </fx-modal-v>
+
+    <!-- 卖 -->
+  <fx-modal 
+    showHead="{{ false }}" 
+    visible="{{ showShareModal }}" 
+    bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-commission">
+        <text>赚</text> <text class="amount">￥20.00</text>
+      </view>
+      <view class="distribute-message">
+        朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
+      </view>
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" open-type="share">
+          <image src="{{ shareProduct.cover }}" class="cover"></image>
+          <text>点击直接分享好友样式</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+          </view>
+          <text>保存分享朋友圈海报</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" open-type="share">
+          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
+
+    <!-- 分享的悬浮按钮 -->
+  <view class='time-top suspend-share bg-white font-s'>
+    <view class='suspend-share_box c-theme-bg c-middle'>
+      <image src='../../images/fei@2.png'></image>
+    </view>
+    <text class='suspend-share__text'>分享</text>
+    <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button>
+  </view>
 
 <view class="shm"></view>
 </view>
