@@ -13,24 +13,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    rid: '',
+    needUserCustom: 0, // 是否需要海关身份信息
+    userCustom: {}, // 用户的海关身份信息
     addressIndex: [0, 1, 1], // 地址的下表
     isPicker: false, // 省市呼出框---
-    country: [], //所有的国家的--
-    countryIndex: [], //所有的国家的index--
+    country: [], // 所有的国家的--
+    countryIndex: [], // 所有的国家的index--
 
-    provinceList: [], //省地址列表---
-    cityList: [], //市地址列表---
-    countyList: [], //县地址列表---
+    provinceList: [], // 省地址列表---
+    cityList: [], // 市地址列表---
+    countyList: [], // 县地址列表---
 
-    provinceOid: 0, //省地址oid---
-    cityOid: 0, //市oid---
-    countyOid: 0, //县oid---
+    provinceOid: 0, // 省地址oid---
+    cityOid: 0, // 市oid---
+    countyOid: 0, // 县oid---
 
-    addressList:'', //地址列表
-    provinceIndex:0, 
-    cityIndex:0,
-    countyIndex:0,
+    addressList: '', // 地址列表
+    provinceIndex: 0, 
+    cityIndex: 0,
+    countyIndex: 0,
 
     is_cameraOrPhoto: false,
     is_template: 0,
@@ -63,8 +65,6 @@ Page({
     }
   },
 
-
-
   // 获取省
   getAddressPick() {
     this.setData({
@@ -75,7 +75,6 @@ Page({
     // 市
     this.getAllPlaces(1, addressData.k_1_0[0].oid)
   },
-
 
   //获取市和县
   getAllPlaces(country_id = 1, province_oid = 0,cb){
@@ -107,8 +106,6 @@ Page({
     
   },
   
-
-
   // 地址变化选择器
   provinceChange(e){
 
@@ -166,8 +163,6 @@ Page({
     }
     
     console.log(this.data.provinceOid,this.data.cityOid,this.data.countyOid,this.data.addressList,this.data.provinceIndex,this.data.cityIndex,this.data.countyIndex)
-
-
 
   },
 
@@ -244,7 +239,7 @@ Page({
 
   // 获取所有的国家---
   getCountry() {
-    http.fxGet(api.get_country, {}, (result) => {
+    http.fxGet(api.get_country, { status: 1 }, (result) => {
       console.log(result, '国家列表')
       if (result.success) {
         this.setData({
@@ -259,9 +254,46 @@ Page({
   // 国家选择器发生变化
   bindPickerChange(e) {
     console.log(e.detail.value)
+    let country_id = this.data.country.area_codes[e.detail.value].id
+    let deliveryCountries = app.globalData.deliveryCountries
+    if (deliveryCountries && deliveryCountries.indexOf(country_id) == -1) {
+      this.setData({
+        'form.is_overseas': true,
+        needUserCustom: 1
+      })
+      // 此地址为跨境，需验证身份信息
+      this.getUserIdCard()
+    } else {
+      this.setData({
+        'form.is_overseas': false,
+        needUserCustom: 0
+      })
+    }
+
     this.setData({
       countryIndex: e.detail.value,
-      ['form.country_id']: this.data.country.area_codes[e.detail.value].id
+      'form.country_id': country_id
+    })
+  },
+
+  // 获取海关所需身份证信息
+  getUserIdCard() {
+    http.fxGet(api.address_user_custom, { user_name: this.data.form.first_name, mobile: this.data.form.mobile }, (result) => {
+      console.log(result, '海关身份证')
+      if (result.success) {
+        if (Object.keys(result.data).length > 0) {
+          this.setData({
+            userCustom: result.data,
+            id_card_front_image: result.data.id_card_front.view_url, // 身份证正面
+            id_card_back_image: result.data.id_card_back.view_url, // 身份证背面
+            'form.id_card': result.data.id_card, // 海关-身份证号码
+            'form.id_card_front': result.data.id_card_front.id, // 海关-身份证正面-ID
+            'form.id_card_back': result.data.id_card_back.id // 海关-身份证背面-ID
+          })
+        }
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
@@ -308,12 +340,12 @@ Page({
         if (this.data.uploadType == 'front') {
           this.setData({
             id_card_front_image: result.data.view_url,
-            ['form.id_card_front']: rid
+            'form.id_card_front': rid
           })
         } else {
           this.setData({
             id_card_back_image: result.data.view_url,
-            ['form.id_card_back']: rid
+            'form.id_card_back': rid
           })
         }
       } else {
@@ -340,6 +372,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let rid = options.rid // 编辑地址
+    // 验证是否需要设置海关信息
+    let needUserCustom = options.need_custom || 0
+    let is_overseas = false
+    if (needUserCustom == 1) {
+      is_overseas = true
+    }
+    this.setData({
+      rid: rid,
+      needUserCustom: needUserCustom,
+      'form.is_overseas': is_overseas
+    })
+
     this.getCountry() // 获取所有的国家---
     this.getAddressPick() // 地址获取---
 

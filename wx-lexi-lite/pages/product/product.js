@@ -275,9 +275,16 @@ Page({
         rids: this.data.choosed.rid
       }, (result) => {
         if (result.success) {
+          let deliveryCountries = [] // 发货的国家列表
+
           Object.keys(result.data).forEach((key) => {
-            console.log(result.data[key]) // 每个店铺
-            result.data[key].forEach((v, i) => { //每个sku
+
+            result.data[key].forEach((v, i) => { // 每个sku
+              // 收集所有发货国家或地区，验证是否跨境
+              if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
+                deliveryCountries.push(v.delivery_country_id)
+              }
+
               // 当前店铺的rid
               v.current_store_rid = app.globalData.storeInfo.rid
               // 是否为分销商品
@@ -286,12 +293,15 @@ Page({
               } else {
                 v.is_distribute = 0
               }
+
               // 需求数量
               v.quantity = 1
             })
           })
 
           app.globalData.orderSkus = result
+          app.globalData.deliveryCountries = deliveryCountries
+          
           // 设置当前商品的物流模板
           wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
           wx.navigateTo({

@@ -429,6 +429,11 @@ swiper {
   border: 1rpx solid #b2b2b2;
   color: #b2b2b2;
 }
+.color-item.active.disabled {
+  border: 1rpx solid #b2b2b2;
+  color: #b2b2b2;
+  background-color: transparent;
+}
 
 .pick {
   height: 152rpx;
