@@ -127,8 +127,7 @@ Page({
         result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
         let newData = this._rebuildArticleContent(result.data.deal_content)
-        console.log(newData)
-
+        
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', newData, this, 5)
         
