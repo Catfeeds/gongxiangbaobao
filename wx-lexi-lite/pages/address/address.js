@@ -1,11 +1,10 @@
 // pages/address/address.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
-
-const addressData = wx.getStorageSync('allPlaces')
 
 Page({
 
@@ -14,48 +13,45 @@ Page({
    */
   data: {
     rid: '',
-    needUserCustom: 0, // 是否需要海关身份信息
-    userCustom: {}, // 用户的海关身份信息
-    addressIndex: [0, 1, 1], // 地址的下表
-    isPicker: false, // 省市呼出框---
-    country: [], // 所有的国家的--
-    countryIndex: [], // 所有的国家的index--
+    isEditing: false, // 是否为编辑状态
+    currentAddress: {}, // 地址详情信息
+    from_ref: '', // 来源
+    countryList: [], // 所有的国家的--
+    countryIndex: 0, // 所有的国家的index--
 
-    provinceList: [], // 省地址列表---
-    cityList: [], // 市地址列表---
-    countyList: [], // 县地址列表---
-
-    provinceOid: 0, // 省地址oid---
-    cityOid: 0, // 市oid---
-    countyOid: 0, // 县oid---
-
-    addressList: '', // 地址列表
-    provinceIndex: 0, 
-    cityIndex: 0,
-    countyIndex: 0,
+    loaded: false, // 地点数据是否加载完毕
+    regions: [ // 三列数组，省，市，区
+      [],
+      [],
+      []
+    ],
+    multiIndex: [0, 0, 0], // 三列数组对应的索引
+    allPlaces: {}, // 全部地点
 
     is_cameraOrPhoto: false,
     is_template: 0,
+    needUserCustom: 0, // 是否需要海关身份信息
+    userCustom: {}, // 用户的海关身份信息
     uploadParams: {}, // 上传所需参数
     uploadType: 'front', // 上传类型（正面、背面）
     id_card_front_image: '', // 身份证正面
     id_card_back_image: '', // 身份证背面
 
-    //表单信息---
+    // 表单信息---
     form: {
       first_name: '', //String	必需	 	姓
-      mobile: "", //String	必需	 	手机号码
-      province_id: '', //Number	必需	 	省市
-      city_id: '', //Number	必需	 	城区
-      street_address: '', //String	必需	 	详细街道
+      last_name: '', // String	可选	 	名
+      mobile: '', // String	必需	 	手机号码
+      phone: '', // String	可选	 	电话
+      country_id: '', // Number	可选	1	国家
+      province_id: '', // Number	必需	 	省市
+      city_id: '', // Number	必需	 	城区
+      town_id: '', // Number	可选	 	镇/地区
+      area_id: '', // Number	可选	 	村/ 区域
+      street_address: '', // String	必需	 	详细街道
+      street_address_two: '', // String	可选	 	 
+      zipcode: '', // Number	可选	 	邮编
 
-      last_name: '', //String	可选	 	名
-      phone: '', //String	可选	 	电话
-      country_id: '', //Number	可选	1	国家
-      town_id: '', //Number	可选	 	镇/地区
-      area_id: '', //Number	可选	 	村/ 区域
-      street_address_two: '', //String	可选	 	 
-      zipcode: '', //Number	可选	 	邮编
       is_default: false, // Bool	可选	False	是否默认地址
       is_overseas: '', // Bool	可选	False	是否海外地址
       user_custom_id: '', // Integer	可选	 海关信息id
@@ -65,198 +61,149 @@ Page({
     }
   },
 
-  // 获取省
-  getAddressPick() {
+  /**
+   * 上传选择
+   */
+  pickCameraOrPhoto() {
     this.setData({
-      provinceOid: addressData.k_1_0[0].oid, // 省的oid
-      provinceList: addressData.k_1_0, // 省地址列表--
-    })
-
-    // 市
-    this.getAllPlaces(1, addressData.k_1_0[0].oid)
-  },
-
-  //获取市和县
-  getAllPlaces(country_id = 1, province_oid = 0,cb){
-
-    console.log(province_oid,"省的id")
-    http.fxGet(api.all_places, {
-      country_id: country_id,
-      province_oid: province_oid
-    }, (result) => {
-        console.log(result,"sheng,shi,qu")
-
-        // 获取市区
-      if (result.success) {
-        this.setData({
-          addressList:result.data, 
-          cityList: result.data["k_2_" + province_oid],// 市的列表
-          cityOid: result.data["k_2_" + province_oid][this.data.cityIndex].oid, //市的id
-          countyList: result.data["k_3_"+[result.data["k_2_" + province_oid][0].oid]], //县的列表
-          countyOid: result.data["k_3_" + [result.data["k_2_" + province_oid][0].oid]][0].oid
-        },()=>{
-          if (cb){
-            cb()
-          }
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-    
-  },
-  
-  // 地址变化选择器
-  provinceChange(e){
-
-    // provinceIndex: 0, 记录省份的下表
-    //   cityIndex: 0, 记录市的下表
-    //     countyIndex: 0, 记录县的下标
-
-    console.log(e)
-
-    console.log(e.detail.value)
-
-
-    if (e.detail.value[0] != this.data.provinceIndex){
-      console.log(this.data.provinceList[e.detail.value[0]].oid)
-      this.setData({
-        provinceIndex: e.detail.value[0],// 设置坐标
-        provinceOid: this.data.provinceList[e.detail.value[0]].oid // 设置省的oid
-      })
-      this.getAllPlaces(1,this.data.provinceList[e.detail.value[0]].oid)
-    }
-
-    if (e.detail.value[1] != this.data.cityIndex){
-      this.data.cityList[e.detail.value[1]].oid //市oid
-
-      this.setData({
-        cityIndex: e.detail.value[1],
-        cityOid: this.data.cityList[e.detail.value[1]].oid
-      })
-      console.log(this.data.cityList[e.detail.value[1]].oid )
-      console.log(this.data.addressList)
-
-      console.log(this.data.addressList["k_2_" + [this.data.provinceOid]])
-      console.log(this.data.addressList["k_2_" + [this.data.cityList[e.detail.value[1]].oid]])
-
-     let v= this.data.addressList["k_2_" + [this.data.provinceOid]][e.detail.value[1]].oid
-     console.log(v)
-      console.log(this.data.addressList["k_3_" + v])
-
-     this.setData({
-       countyList: this.data.addressList["k_3_" + v]
-     })
-
-    }
-
-    if (e.detail.value[2] != this.data.countyIndex){
-
-      console.log(this.data.countyList[[e.detail.value[2]].oid])
-      console.log(e.detail.value[2])
-      console.log(this.data.countyList[e.detail.value[2]].oid)
-
-      this.setData({
-        countyIndex: e.detail.value[2],
-        countyOid: this.data.countyList[e.detail.value[2]].oid
-      })
-    }
-    
-    console.log(this.data.provinceOid,this.data.cityOid,this.data.countyOid,this.data.addressList,this.data.provinceIndex,this.data.cityIndex,this.data.countyIndex)
-
-  },
-
-
-  // 确定选择地址
-  handlePickAdressOver() {
-    this.setData({
-      ['form.country_id']: this.data.countyOid, //县
-      ['form.province_id']: this.data.provinceOid, //省份
-      ['form.city_id']: this.data.cityOid, //Integer 市
-      isPicker: false
-    })
-  },
-
-  // 设置为默认的收货地址
-  switch1Change(e) {
-    console.log(e)
-    this.setData({
-      ['form.is_default']: e.detail.value
+      is_cameraOrPhoto: false
     })
   },
 
   // 保存新增地址
-  storageTap() {
-    console.log(this.data.form)
-    this.setData({
-      ['form.province_id']: this.data.provinceOid, //Number	必需	 	省市
-      ['city_id']: this.data.cityOid , //Number	必需	 	城区
-    })
+  handleSubmitAddress() {
+    if (!this.data.isEditing) {
+      http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
+        console.log(result, '新增地址')
+        if (result.success) {
+          if (this.data.from_ref == 'checkout') {
+            wx.navigateBack({
+              delta: 1
+            })
+          } else {
+            wx.redirectTo({
+              url: '../receiveAddress/receiveAddress',
+            })
+          }
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      this.setData({
+        'form.rid': this.data.rid
+      })
+      console.log(this.data.form)
+      http.fxPut(api.address_addto, { ...this.data.form }, (result) => {
+        console.log(result, '更新地址')
+        if (result.success) {
+          if (this.data.from_ref == 'checkout') {
+            wx.navigateBack({
+              delta: 1
+            })
+          } else {
+            wx.redirectTo({
+              url: '../receiveAddress/receiveAddress',
+            })
+          }
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+    
+  },
 
-    http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
-      console.log(result, '新增地址')
-      if (result.success) {
-        wx.navigateBack({
-          delta: 1
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+  // 删除地址
+  handleDeleteAddress() {
+    if (this.data.isEditing) { // 编辑地址时
+      http.fxDelete(api.address_delete.replace(/:rid/g, this.data.rid), {}, (result) => {
+        if (result.success) {
+          wx.redirectTo({
+            url: '../receiveAddress/receiveAddress',
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else { // 直接调回列表
+      wx.redirectTo({
+        url: '../receiveAddress/receiveAddress',
+      })
+    }
+  },
+
+  // 姓名
+  handleUserName (e) {
+    this.setData({
+      'form.first_name': e.detail.value
+    })
+  },
+
+  // 填写手机号码
+  handleMobile (e) {
+    this.setData({
+      'form.mobile': e.detail.value
     })
   },
 
   // 邮政编号
-  handleAdressCode(e) {
-    console.log(e.detail.value)
+  handleZipCode (e) {
     this.setData({
-      ['form.zipcode']: e.detail.value
+      'form.zipcode': e.detail.value
     })
   },
 
   // 详细的地址
-  handleAddressInfo(e) {
-    console.log(e.detail.value)
+  handleStreetInfo (e) {
     this.setData({
-      ['form.street_address']: e.detail.value
+      'form.street_address': e.detail.value
     })
   },
 
-  // 姓名填写---
-  ahndleUserName(e) {
-    console.log(e.detail.value)
+  // 设置为默认的收货地址
+  handleDefaultChange (e) {
     this.setData({
-      ['form.first_name']: e.detail.value
+      'form.is_default': e.detail.value
     })
   },
 
-  // 填写手机号码---
-  handleMobileCode(e) {
-    console.log(e.detail.value)
+  // 设置身份证号
+  handleIdCardChange (e) {
     this.setData({
-      ['form.mobile']: e.detail.value
-    })
-  },
-
-  // 获取所有的国家---
-  getCountry() {
-    http.fxGet(api.get_country, { status: 1 }, (result) => {
-      console.log(result, '国家列表')
-      if (result.success) {
-        this.setData({
-          country: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+      'form.id_card': e.detail.value
     })
   },
 
   // 国家选择器发生变化
-  bindPickerChange(e) {
-    console.log(e.detail.value)
-    let country_id = this.data.country.area_codes[e.detail.value].id
+  handleChangeCountry (e) {
+    let countryIndex = e.detail.value
+    let country_id = this.data.countryList[countryIndex].id
+    if (this.data.isEditing) { // 编辑状态，改变国家，需恢复省市区默认值
+       if (country_id != this.data.form.country_id) {
+         this.setData({
+           'form.province_id': '',
+           'form.city_id': '',
+           'form.town_id': ''
+         })
+       }
+    }
+    this.setData({
+      countryIndex: countryIndex,
+      'form.country_id': country_id
+    })
+
+    this._validateCrossBorder(country_id)
+
+    // 重新获取国家下地点
+    this.getAllPlaces()
+  },
+
+  // 验证是否为跨境订单
+  _validateCrossBorder (country_id) {
+    // 验证是否为跨境地址
     let deliveryCountries = app.globalData.deliveryCountries
-    if (deliveryCountries && deliveryCountries.indexOf(country_id) == -1) {
+    if (deliveryCountries.length > 0 && deliveryCountries.indexOf(country_id) == -1) {
       this.setData({
         'form.is_overseas': true,
         needUserCustom: 1
@@ -269,42 +216,76 @@ Page({
         needUserCustom: 0
       })
     }
+  },
+
+  // 省市区选择器
+  handleRegionsChange (e) {
+    console.log(e, '省市区选择器')
+
+    let town_id = 0
+    if (this.data.regions.length == 3) {
+      town_id = this.data.regions[2][this.data.multiIndex[2]].oid
+    }
 
     this.setData({
-      countryIndex: e.detail.value,
-      'form.country_id': country_id
+      'form.province_id': this.data.regions[0][this.data.multiIndex[0]].oid,
+      'form.city_id': this.data.regions[1][this.data.multiIndex[1]].oid,
+      'form.town_id': town_id
     })
   },
 
-  // 获取海关所需身份证信息
-  getUserIdCard() {
-    http.fxGet(api.address_user_custom, { user_name: this.data.form.first_name, mobile: this.data.form.mobile }, (result) => {
-      console.log(result, '海关身份证')
-      if (result.success) {
-        if (Object.keys(result.data).length > 0) {
-          this.setData({
-            userCustom: result.data,
-            id_card_front_image: result.data.id_card_front.view_url, // 身份证正面
-            id_card_back_image: result.data.id_card_back.view_url, // 身份证背面
-            'form.id_card': result.data.id_card, // 海关-身份证号码
-            'form.id_card_front': result.data.id_card_front.id, // 海关-身份证正面-ID
-            'form.id_card_back': result.data.id_card_back.id // 海关-身份证背面-ID
-          })
-        }
+  // 省市区列选择器
+  handleRegionColumnChange (e) {
+    console.log(e, '省市区列选择器')
+    let column = e.detail.column
+    let idx = e.detail.value
+
+    if (column == 0) { // 第1列，省级
+      let province = this.data.regions[0][idx]
+      let newCities = this.data.allPlaces['k_2_' + province.oid]
+      let cityIndex = 0
+      let city = newCities[cityIndex]
+      if (this.data.regions.length == 3) {
+        let newTowns = this.data.allPlaces['k_3_' + city.oid]
+        this.setData({
+          'regions[1]': newCities,
+          'regions[2]': newTowns,
+          'multiIndex': [idx, cityIndex, 0]
+        })
       } else {
-        utils.fxShowToast(result.status.message)
+        this.setData({
+          'regions[1]': newCities,
+          'multiIndex': [idx, cityIndex]
+        })
       }
-    })
-  },
+    }
 
-  pickCameraOrPhoto() {
-    this.setData({
-      is_cameraOrPhoto: false
-    })
+    if (column == 1) { // 第2列，市级
+      if (this.data.regions.length == 3) {
+        let city = this.data.regions[1][idx]
+        let newTowns = this.data.allPlaces['k_3_' + city.oid]
+
+        this.setData({
+          'regions[2]': newTowns,
+          'multiIndex[1]': idx,
+          'multiIndex[2]': 0
+        })
+      } else {
+        this.setData({
+          'multiIndex[1]': idx
+        })
+      }
+    }
+
+    if (column == 2) { // 第3列，区级
+      this.setData({
+        'multiIndex[2]': idx
+      })
+    }
   },
 
   // 上传身份证
-  handleUploadIdCard (e) {
+  handleUploadIdCard(e) {
     let type = e.currentTarget.dataset.type
     this.setData({
       uploadType: type
@@ -332,9 +313,38 @@ Page({
     })
   },
 
+  // 获取海关所需身份证信息
+  getUserIdCard() {
+    if (!this.data.form.first_name || !this.data.form.mobile) {
+      return
+    }
+    http.fxGet(api.address_user_custom, {
+      user_name: this.data.form.first_name,
+      mobile: this.data.form.mobile
+    }, (result) => {
+      console.log(result, '海关身份证')
+      if (result.success) {
+        if (Object.keys(result.data).length > 0) {
+          this.setData({
+            userCustom: result.data,
+            id_card_front_image: result.data.id_card_front.view_url, // 身份证正面
+            id_card_back_image: result.data.id_card_back.view_url, // 身份证背面
+            'form.id_card': result.data.id_card, // 海关-身份证号码
+            'form.id_card_front': result.data.id_card_front.id, // 海关-身份证正面-ID
+            'form.id_card_back': result.data.id_card_back.id // 海关-身份证背面-ID
+          })
+        }
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 获取单个附件信息
   getAssetInfo(rid) {
-    http.fxGet(api.asset_detail, { rid: rid }, (result) => {
+    http.fxGet(api.asset_detail, {
+      rid: rid
+    }, (result) => {
       if (result.success) {
         console.log(result, '附件信息')
         if (this.data.uploadType == 'front') {
@@ -354,6 +364,140 @@ Page({
     })
   },
 
+  // 获取所有的国家
+  getCountry() {
+    http.fxGet(api.get_country, { status: 1 }, (result) => {
+      console.log(result, '国家列表')
+      if (result.success) {
+        let countries = result.data.area_codes
+        this.setData({
+          countryList: countries
+        })
+        // 设置默认值
+        let defaultCountryId = countries[0].id
+        if (!this.data.isEditing) { // 新增状态
+          this.setData({
+            countryIndex: 0,
+            'form.country_id': defaultCountryId
+          })
+          
+        } else {
+          let countryIndex = 0
+          defaultCountryId = this.data.form.country_id
+          countries.map((item, index) => {
+            if (item.id == this.data.form.country_id) {
+              countryIndex = index
+            }
+          })
+          this.setData({
+            countryIndex: countryIndex
+          })
+        }
+
+        // 验证默认值是否为跨境
+        this._validateCrossBorder(defaultCountryId)
+
+        // 获取某个国家的省市区
+        this.getAllPlaces()
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 获取市和区
+  getAllPlaces() {
+    // 恢复默认值
+    this.setData({
+      loaded: false,
+      multiIndex: [0, 0, 0]
+    })
+    http.fxGet(api.provinces_cities, {
+      country_id: this.data.form.country_id
+    }, (result) => {
+      console.log(result, '省市区')
+      if (result.success) {
+        let allPlaces = result.data
+        let regions = this.data.regions
+        let provinceIndex = 0
+        let cityIndex = 0
+        let townIndex = 0
+
+        regions[0] = allPlaces['k_1_0']
+        if (this.data.isEditing) { // 编辑状态
+          provinceIndex = this._getCurrentIndex(regions[0], this.data.form.province_id)
+          // 获取市级
+          regions[1] = allPlaces['k_2_' + regions[0][provinceIndex].oid]
+          cityIndex = this._getCurrentIndex(regions[1], this.data.form.city_id)
+          // 获取区级
+          let townKey = 'k_3_' + regions[1][cityIndex].oid
+          if (Object.keys(allPlaces).indexOf(townKey) !== -1) {
+            regions[2] = allPlaces[townKey]
+            townIndex = this._getCurrentIndex(regions[2], this.data.form.town_id)
+            // 设置默认值
+            this.setData({
+              loaded: true,
+              allPlaces: allPlaces,
+              regions: regions,
+              multiIndex: [provinceIndex, cityIndex, townIndex]
+            })
+          } else { // 区级不存在
+            this.setData({
+              loaded: true,
+              allPlaces: allPlaces,
+              regions: [regions[0], regions[1]],
+              multiIndex: [provinceIndex, cityIndex]
+            })
+          }
+        } else { // 新增状态
+          // 获取默认值
+          let province = regions[0][0]
+          // 获取市级
+          regions[1] = allPlaces['k_2_' + province.oid]
+          let city = regions[1][0]
+          // 获取区级
+          let townKey = 'k_3_' + city.oid
+          if (Object.keys(allPlaces).indexOf(townKey) !== -1) {
+            regions[2] = allPlaces[townKey]
+            // 设置默认值
+            this.setData({
+              loaded: true,
+              allPlaces: allPlaces,
+              regions: regions,
+              'form.province_id': province.oid,
+              'form.city_id': city.oid,
+              'form.town_id': regions[2][0].oid
+            })
+          } else { // 区级不存在
+            this.setData({
+              loaded: true,
+              allPlaces: allPlaces,
+              regions: [regions[0], regions[1]],
+              multiIndex: [0, 0],
+              'form.province_id': province.oid,
+              'form.city_id': city.oid,
+              'form.town_id': 0
+            })
+          }
+        }
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 获取当前索引
+  _getCurrentIndex (list, v) {
+    let currentIndex = 0
+    list.map((item, index) => {
+      if (item.id == v) {
+        currentIndex = index
+      }
+    })
+    return currentIndex
+  },
+
   // 获取上传所需Token
   getUploadToken() {
     http.fxGet(api.user_upload_token, {}, (result) => {
@@ -368,26 +512,63 @@ Page({
     })
   },
 
+  // 获取当前地址信息
+  getAddressInfo () {
+    http.fxGet(api.address_info.replace(/:rid/, this.data.rid), {}, (result) => {
+      if (result.success) {
+        console.log(result, '地址详情')
+        let _address = result.data
+        this.setData({
+          currentAddress: _address,
+          'form.first_name': _address.first_name,
+          'form.mobile': _address.mobile,
+          'form.country_id': _address.country_id,
+          'form.province_id': _address.province_id,
+          'form.city_id': _address.city_id,
+          'form.town_id': _address.town_id,
+          'form.street_address': _address.street_address,
+          'form.zipcode': _address.zipcode,
+          'form.is_default': _address.is_default
+        })
+        // 获取所有国家
+        this.getCountry()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let rid = options.rid // 编辑地址
+    let rid = options.rid || '' // 编辑地址
     // 验证是否需要设置海关信息
     let needUserCustom = options.need_custom || 0
     let is_overseas = false
     if (needUserCustom == 1) {
       is_overseas = true
     }
+    // 是否为编辑状态
+    let isEditing = false
+    if (rid) {
+      isEditing = true
+    }
+
     this.setData({
       rid: rid,
+      isEditing: isEditing,
       needUserCustom: needUserCustom,
-      'form.is_overseas': is_overseas
+      'form.is_overseas': is_overseas,
+      from_ref: options.from_ref || '' // 来源
     })
 
-    this.getCountry() // 获取所有的国家---
-    this.getAddressPick() // 地址获取---
-
+    if (isEditing) {
+      this.getAddressInfo()
+    } else {
+      this.getCountry() // 获取所有的国家
+    }
+    
     this.getUploadToken()
   },
 

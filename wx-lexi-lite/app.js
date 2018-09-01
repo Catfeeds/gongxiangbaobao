@@ -220,6 +220,13 @@ App({
       }
     }
   },
+
+  /**
+   * 订单成功后，清除订单相关全局变量
+   */
+  cleanOrderGlobalData () {
+    this.globalData.deliveryCountries = []
+  },
   
   /**
    * 支付订单
