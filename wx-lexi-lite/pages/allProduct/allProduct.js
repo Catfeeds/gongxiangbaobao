@@ -673,13 +673,13 @@ Page({
       })
 
       wx.setNavigationBarTitle({
-        title: "ta的浏览记录"
+        title: "Ta的浏览记录"
       })
       this.getOtherBrowses(options.uid)
 
       this.setData({
         shim: false,
-        topPhotoText: "ta的浏览记录",
+        topPhotoText: "Ta的浏览记录",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -693,13 +693,13 @@ Page({
       })
 
       wx.setNavigationBarTitle({
-        title: "ta的喜欢"
+        title: "Ta的喜欢"
       })
       this.getOtherLike(options.uid)
 
       this.setData({
         shim:false,
-        topPhotoText: "ta的喜欢",
+        topPhotoText: "Ta的喜欢",
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -713,12 +713,12 @@ Page({
       })
 
       wx.setNavigationBarTitle({
-        title: "ta的心愿单"
+        title: "Ta的心愿单"
       })
       this.getOtherXinYuan(options.uid)
 
       this.setData({
-        topPhotoText: "ta的心愿单",
+        topPhotoText: "Ta的心愿单",
         touchBottomInfo: options.from,
         isPersonal: true
       })

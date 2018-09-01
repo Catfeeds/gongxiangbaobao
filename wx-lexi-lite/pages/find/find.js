@@ -60,6 +60,8 @@ Page({
 
   // 生活志愿详情
   handleLiveInfo(e) {
+    console.log(e)
+    
     let rid = e.currentTarget.dataset.rid
 
     if (e.currentTarget.dataset.type == 1) {

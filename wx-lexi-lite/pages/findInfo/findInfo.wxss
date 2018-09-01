@@ -280,7 +280,7 @@ image {
 }
 
 .bg--hui {
-  background-color: #949ea6;
+  background-color: #949ea6 !important;
   /* color:#333; */
 }
 

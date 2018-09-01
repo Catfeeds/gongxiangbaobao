@@ -548,7 +548,7 @@ swiper {
 }
 
 .pick__button {
-  width: 335rpx !important;
+  width: 346rpx !important;
 }
 
 .shim {
@@ -725,4 +725,8 @@ margin-bottom:8rpx;
   bottom: 0rpx;
   height: 100rpx;
   width: 100%;
+}
+
+.with--690rpx{
+  width: 690rpx;
 }

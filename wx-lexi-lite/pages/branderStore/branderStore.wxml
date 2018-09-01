@@ -253,14 +253,32 @@
     </fx-modal>
   </view>
 
-
-
-
   <!-- 排序 -->
-<fx-modal visible="{{ sortBox }}">
+<!-- <fx-modal visible="{{ sortBox }}">
   <view  slot="main" catchtap="handleSortOff">
     <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
   </view>
-</fx-modal>
+</fx-modal> -->
+
+  <!-- 排序 -->
+  <fx-modal title="排序" bind:closeEvent="handleSortOff" visible="{{ sortBox }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="filter-item {{ params.sort_type == 1 ? 'active' : '' }}" data-rid="1" bindtap="handleSort">
+        <text class="text">综合排序</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item-line">
+        价格
+      </view>
+      <view class="filter-item {{ params.sort_type == 2 ? 'active' : '' }}" data-rid="2" bindtap="handleSort">
+        <text class="text">由低至高</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ params.sort_type == 3 ? 'active' : '' }}" data-rid="3" bindtap="handleSort">
+        <text class="text">由高至低</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+    </view>
+  </fx-modal>
 
 </view>

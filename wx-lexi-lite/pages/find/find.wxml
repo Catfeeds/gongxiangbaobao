@@ -8,7 +8,13 @@
       autoplay="{{true}}"
       bindchange="handleSwiperChange"
       duration="{{500}}">
-      <swiper-item wx:for="{{advertisement.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
+      <swiper-item 
+        wx:for="{{advertisement.banner_images}}"
+        data-rid="{{item.rid}}"
+        data-type="{{item.type}}"
+        catchtap="handleLiveInfo" 
+        data-rid="{{item.rid}}" 
+        wx:key="{{index}}">
         <image src="{{item.image}}" class="slide-image" />
       </swiper-item>
     </swiper>

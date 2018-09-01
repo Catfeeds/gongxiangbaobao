@@ -9,7 +9,7 @@
 
       <view>
         <view class='flex_row'>
-          <view wx:for="{{ classList }}" wx:key="{{ index }}" data-rid='{{ item.rid }}' class="user__like" catchtap='classTap'>
+          <view wx:for="{{ classList }}" wx:key="{{ index }}" data-rid='{{ item.rid }}' class="fx-column--center user__like" catchtap='classTap'>
             <view class='number {{ classInfo == item.rid ? "green" : "" }}'>{{ item.num }}</view>
             <view class='hui-zi {{ classInfo == item.rid ? "green" : ""}}'>{{ item.name }}</view>
           </view>

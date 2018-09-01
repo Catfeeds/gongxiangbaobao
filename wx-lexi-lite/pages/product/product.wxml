@@ -57,7 +57,7 @@
         <view 
           catchtap="handleShareTap"
           class='like-quantity-l transmissionInfo'>
-          <image class='fen' src='../../images/share@2.png'></image>
+          <image class='fen' src='{{isSmallB?"../../images/sell-icon@2.png":"../../images/share@2.png"}}'></image>
         </view>
       </view>
     </view>
@@ -231,9 +231,9 @@
           </view>
         </view>
       </view>
-      <view class='bottom-btn bg-white c-crosswise-a pick '>
-        <view class='add_cart pick__button' catchtap='handleAddCart'>加入购物车</view>
-        <view class='btn-bg-color pick__button' catchtap='handleQuickBuy'>选好了</view>
+      <view class='bottom-btn bg-white flex_row--middle pick with--690rpx'>
+        <view class='add_cart pick__button border-right__radius--null' catchtap='handleAddCart'>加入购物车</view>
+        <view class='btn-bg-color pick__button border-left__radius--null' catchtap='handleQuickBuy'>选好了</view>
       </view>
 
       <!-- 垫片 -->
@@ -266,7 +266,7 @@
     </view>
     
     <view class='small-bottom__style flex_row bg-white'>
-      <view class='flex_row--middle add_cart c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
+      <view class='flex_row--middle c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
       <view 
         catchtap="handleShareTap"
         class='flex_row--middle crated_btn--style bg--red border-left__radius--null '>

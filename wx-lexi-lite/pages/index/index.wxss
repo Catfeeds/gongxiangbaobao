@@ -992,6 +992,9 @@ swiper-photo .slide-item__box image {
 .margin-bottom--40rpx {
   padding-bottom: 40rpx;
 }
+.page-section .margin-bottom--0rpx {
+  margin-bottom: 0rpx;
+}
 
 .margin-bottom--0rpx {
   margin-bottom: 0rpx;
@@ -1174,4 +1177,11 @@ swiper-photo .slide-item__box image {
   height: 100%;
   width: 100%;
   opacity: 0;
+}
+
+.open-store__swiper {
+  height: 134rpx;
+}
+.open-store__swiper swiper-item{
+  height: 100%;
 }

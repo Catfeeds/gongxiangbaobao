@@ -74,9 +74,9 @@
         data-rid="{{item.rid}}" 
         data-itemProdact='{{item}}' 
         catchtap='addCartTap'>
-        <view class='addgoodscart'>
-          <image src='../../images/shoping-car.png'></image>
-        </view>
+
+        <image class='addgoodscart' src='../../images/shoping-car.png'></image>
+  
         <view class='jia-hao'>+</view>
       </view>
     </view>
