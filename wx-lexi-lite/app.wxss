@@ -214,11 +214,22 @@
   justify-content: space-around;
   align-items: center;
 }
+.c-line-around {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
 .fx-column-b {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.fx-column-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .fx-column--center {

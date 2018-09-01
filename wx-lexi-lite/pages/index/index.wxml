@@ -29,7 +29,7 @@
           <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" ></image>
         </view>
 
-        <view class="owner-info-text_info">
+        <view class="fx-column-start owner-info-text_info">
           <view class="store-title">
             <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
             <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
@@ -263,7 +263,7 @@
 
     <!-- 开店指引 -->
     <view class="setUpShop-guide border-radius--8" >
-      <view class='time-top setUpShop-guide__top' wx:if="{{ !isSmallB }}">
+      <view class='time-top setUpShop-guide__top border-bottom' wx:if="{{ isSmallB }}">
         <view class=''>
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
@@ -272,8 +272,8 @@
       </view>
 
           <!-- 头条动态 -->
-    <view class="page-section {{!isSmallB?'border-top':''}}">
-      <view class="headline">
+    <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
+      <view class="flex_row headline padding-top--0rpx margin-bottom--0rpx">
         <view class="headline-side">
           <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
           <text>开馆</text>
@@ -282,17 +282,29 @@
         <view class="headline-line">
           <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
         </view>
-        <view class="headline-body">
-          <view class="headline-group" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
-            <view class="headline-item" wx:if="{{ headline.event == 1 }}">
-              <label class="store-green">{{ headline.username }}</label> {{ headline.time }} 小时前开通了自己的设计馆
+        <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
+          <swiper-item  
+            class="flex-direction__column--center"
+            wx:for="{{ storeHeadlines }}"
+             wx:for-index="idx" 
+             wx:for-item="headline" 
+             wx:key="{{ idx }}">
+          <view 
+            wx:for="{{headline}}"
+            wx:key="{{index}}"
+            class="headline-group">
+            <view class="headline-item one-line-text margin-bottom--0rpx" wx:if="{{ item.event == 1 }}">
+              <label class="store-green">{{ item.username }}</label> {{ item.time }} 小时前开通了自己的设计馆
             </view>
-            <view class="headline-item" wx:if="{{ headline.event == 4 }}">
-              「{{ headline.username }}」的生活馆 {{ headline.time }} 小时
-              <label class="order-yellow">售出{{ headline.quantity }}单</label>
+            <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
+              「{{ item.username }}」的生活馆 {{ item.time }} 小时
+              <label class="order-yellow">售出{{ item.quantity }}单</label>
             </view>
           </view>
-        </view>
+
+
+          </swiper-item>
+        </swiper>
       </view>
     </view>
     </view>
@@ -407,7 +419,10 @@
         indicator-active-color='#fff' 
         bindchange="handleSwiperChange">
         <block wx:for="{{middleAdvertisementList.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
-          <swiper-item>
+          <swiper-item
+            data-rid="{{item.rid}}"
+            data-type="{{item.type}}"
+            catchtap="handleToInfo">
             <image src="{{item.image}}" class="slide-image" width="355" height="150" />
           </swiper-item>
         </block>
@@ -482,6 +497,9 @@
     <view class='probation-box advertisement-box'>
       <swiper autoplay="{{true}}" bindchange="handleExploreSwiperChange">
         <swiper-item 
+          data-rid="{{item.rid}}"
+          data-type="{{item.type}}"
+          catchtap="handleToInfo"
           wx:for="{{exploreAdvertisementList.banner_images}}" 
           wx:key="{{index}}">
           <view class='advertisement-item'>

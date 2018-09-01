@@ -75,7 +75,7 @@ page {
   /* height: 30rpx; */
   width: 30rpx;
 }
-.addgoodscart image{
+.addgoodscart {
   width: 30rpx;
   height: 30rpx;
 }

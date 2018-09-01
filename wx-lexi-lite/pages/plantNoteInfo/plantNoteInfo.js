@@ -119,6 +119,54 @@ Page({
     })
   },
 
+  // 点击去推荐品牌馆
+  handleGoBrandStore(e){
+    console.log(e)
+    wx.navigateTo({
+      url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
+    })
+  },
+
+  // 添加关注---
+  handleAddWatch(e) {
+    console.log(e)
+    let rid = e.currentTarget.dataset.rid
+    let index = e.currentTarget.dataset.index
+
+    http.fxPost(api.add_watch, {
+      rid: rid
+    }, (result) => {
+      if (result.success) {
+        this.setData({
+          ['liveInfo.recommend_store.is_follow_store']: true
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 取消关注---
+  handleDeleteWatch(e) {
+    console.log(e.currentTarget.dataset.rid)
+    console.log(e.currentTarget.dataset.index)
+    let rid = e.currentTarget.dataset.rid
+    let index = e.currentTarget.dataset.index
+
+    http.fxPost(api.delete_watch, {
+      rid: rid
+    }, (result) => {
+      if (result.success) {
+        this.setData({
+          ['liveInfo.recommend_store.is_follow_store']: false
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
