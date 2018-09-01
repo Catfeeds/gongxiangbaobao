@@ -10,7 +10,7 @@
   <view 
     class="bg-white border-bottom" 
     wx:if="{{categoryId==1}}" 
-    data-rid="{{items.rid}}"
+    data-rid="{{store.rid}}"
     catchtap="handleTobrandStore" 
     wx:key="{{index}}" 
     wx:for-item="store" 
