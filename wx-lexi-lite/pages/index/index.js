@@ -39,6 +39,7 @@ Page({
     showConfirmModal: false, // 删除上架商品确认
     popularProducts: [], // 本周最受欢迎
     latestDistributeProducts: [], // 最新分销商品
+    isDistributed:false, // 是否属于分销
     storeForm: {
       rid: '',
       name: '',
@@ -105,11 +106,12 @@ Page({
  * 推荐分享-销售
  */
   handleStickShareDistribute(e) {
-    
+    let isDistributed = e.currentTarget.dataset.isDistributed
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
     console.log(this.data.storeProducts[idx])
     this.setData({
+      isDistributed: isDistributed,
       showShareModal: true,
       shareProduct: this.data.storeProducts[idx]
     })

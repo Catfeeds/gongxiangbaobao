@@ -57,7 +57,7 @@
         <view 
           catchtap="handleShareTap"
           class='like-quantity-l transmissionInfo'>
-          <image class='fen' src='{{isSmallB?"../../images/sell-icon@2.png":"../../images/share@2.png"}}'></image>
+          <image class='fen' src='{{isSmallB && isDistributed?"../../images/sell-icon@2.png":"../../images/share@2.png"}}'></image>
         </view>
       </view>
     </view>
@@ -168,10 +168,10 @@
       class='shopInfoT' 
       catchtap='handleTobrandStore'
       data-rid="{{productInfomation.store_rid}}" >
-      <view class='userIcon' catchtap='handleGoIndex'>
+      <view class='userIcon' >
         <image src='{{ productInfomation.store_logo }}'></image>
       </view>
-      <view class='shopMiddle' catchtap='handleGoIndex'>
+      <view class='shopMiddle'>
         <view class='hui-zi'>原创品牌馆</view>
         <view class='shou'>{{ productInfomation.store_name }}</view>
       </view>
@@ -245,21 +245,8 @@
     </view>
   </view>
 
-  <!-- 不是小B 接单定制按钮 -->
-  <view class='bottom-btn bg-white c-crosswise-a' wx:if="{{!isSmallB}}">
-    <view class='btn-bg-color shop-cart'>
-      <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
-      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
-        <image src='../../images/carticon@2x.png'></image>
-        <text>购物车</text>
-      </view>
-    </view>
-    <view class='flex_row--middle add_cart' catchtap='handleAddCartShow'>加入购物车</view>
-    <view class='flex_row--middle crated_btn--style btn-bg-color' catchtap='handlePickShow'>接单订制</view>
-  </view>
-
 <!-- 是小b -->
-  <view class=' bg-white c-crosswise-a bottom-btn__position' wx:else>
+  <view class=' bg-white c-crosswise-a bottom-btn__position' wx:if="{{isSmallB && isDistributed}}">
     <view class='btn-bg-color shop-cart'>
       <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
       <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
@@ -277,6 +264,19 @@
         <text class="font-ss"> 赚 ￥{{productInfomation.commission_price}}</text>
       </view>
     </view>
+  </view>
+
+    <!-- 不是小B 接单定制按钮 -->
+  <view class='bottom-btn bg-white c-crosswise-a' wx:else>
+    <view class='btn-bg-color shop-cart'>
+      <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
+      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
+        <image src='../../images/carticon@2x.png'></image>
+        <text>购物车</text>
+      </view>
+    </view>
+    <view class='flex_row--middle add_cart' catchtap='handleAddCartShow'>加入购物车</view>
+    <view class='flex_row--middle crated_btn--style btn-bg-color' catchtap='handlePickShow'>接单订制</view>
   </view>
 
   <!-- 垫片 -->
@@ -355,9 +355,13 @@
     visible="{{ showShareModal }}" 
     bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
-      <view class="distribute-commission">
-        <text>赚</text> <text class="amount">￥20.00</text>
-      </view>
+
+        <view class="distribute-commission">
+          <block wx:if="{{isSmallB && isDistributed}}">
+            <text>赚</text> <text class="amount">￥{{productInfomation.commission_price}}</text>
+          </block>
+        </view>
+      
       <view class="distribute-message">
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
       </view>

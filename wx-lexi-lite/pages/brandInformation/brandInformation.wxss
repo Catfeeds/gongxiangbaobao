@@ -1,5 +1,9 @@
 /* pages/brandInformation/brandInformation.wxss */
 @import "../../wxParse/wxParse.wxss";
+
+.container {
+  background-color: white;
+}
 .userPhotoBox {
   margin: 0 40rpx 20rpx;
 }
@@ -140,10 +144,12 @@
   height: 150rpx;
   width: 150rpx;
   border-radius: 10rpx;
-  background-color: green;
+  /* background-color: green; */
   margin-right: 20rpx;
   margin-left: 30rpx;
   border: 1px solid #ffffff;
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 .addressInfoBoxR {
@@ -200,3 +206,7 @@
   width: 100%;
 }
 
+.recommendgoodsText image {
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+}
