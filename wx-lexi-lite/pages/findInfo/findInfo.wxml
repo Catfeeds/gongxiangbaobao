@@ -58,13 +58,13 @@
     </view>
 
     <!-- 店铺的信息 -->
-    <view class="margin-left--40rpx margin-right--40rpx time-top store-info__box">
+    <view class="margin-left--40rpx margin-right--40rpx time-top store-info__box" wx:if="{{ liveInfo.recommend_store }}">
       <view class="flex_row">
-        <image src="../../images/timg.jpg" class="store-icon"></image>
+        <image src="{{ liveInfo.recommend_store.store_logo }}" class="store-icon"></image>
         <view class="fx-column-b ">
           <view class="font-ss qian-hui margin-bottom--20rpx">乐喜原创品牌设计馆</view>
-          <view class="font-xl font-width--medium margin-bottom--26rpx">乐喜原创品牌设计馆</view>
-          <view class="font-ss qian-hui">乐喜原创品牌设计馆</view>
+          <view class="font-xl font-width--medium margin-bottom--26rpx">{{ liveInfo.recommend_store.store_name }}</view>
+          <view class="font-ss qian-hui">{{ liveInfo.recommend_store.product_counts }}件商品</view>
         </view>
       </view>
 

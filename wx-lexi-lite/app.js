@@ -346,6 +346,7 @@ App({
     logisticsMould: '',
     // 订单页面的sku信息
     orderInfoSkus: '',
+    deliveryCountries: [],
     // 优惠卷
     couponList: {},
     // 满减

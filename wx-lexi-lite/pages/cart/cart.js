@@ -803,12 +803,18 @@ Page({
     }, (result) => {
       console.log(result, '购物车-去结算')
       if (result.success) {
+        let deliveryCountries = [] // 发货的国家列表
+
         // 添加每件sku的需求数量
         Object.keys(result.data).forEach((key) => {
-          console.log(result.data[key]) // 每个店铺
 
           result.data[key].forEach((v, i) => { // 每个sku
-            console.log(v)
+
+            // 收集所有发货国家或地区，验证是否跨境
+            if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
+              deliveryCountries.push(v.delivery_country_id)
+            }
+
             // 当前店铺的rid
             v.current_store_rid = app.globalData.storeRid
 
@@ -818,11 +824,10 @@ Page({
             } else {
               v.is_distribute = 0
             }
-
+            
             // 需求数量
             skusNeedQuantity.forEach((item, n) => {
               let newArray = item.split(':')
-              console.log(newArray)
               if (v.rid == newArray[0]) {
                 v.quantity = newArray[1]
               }
@@ -831,7 +836,10 @@ Page({
         })
 
         app.globalData.orderSkus = result
-        console.log(app.globalData.orderSkus)
+        app.globalData.deliveryCountries = deliveryCountries
+
+        console.log(app.globalData.orderSkus, '结算SKU')
+        console.log(app.globalData.deliveryCountries, '发货国家s')
 
         wx.navigateTo({
           url: '../receiveAddress/receiveAddress?from_ref=cart',
