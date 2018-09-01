@@ -1,5 +1,6 @@
 // pages/checkout/checkout.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -43,6 +44,7 @@ Page({
       alstPrice: 0, //订单总计
     },
   },
+
   // 获取店铺的详情
   getStoreInfo() {
     this.setData({
@@ -62,9 +64,6 @@ Page({
       }else{
         utils.fxShowToast(result.status.message)
       }
-
-
-
     })
   },
 
@@ -82,7 +81,7 @@ Page({
     })
   },
 
-  // 祝福y语录
+  // 祝福语录
   handleUtterance(e) {
     this.setData({
       ['orderInfomation.' + e.target.dataset.rid + '.blessing_utterance']: e.detail.value
@@ -96,7 +95,7 @@ Page({
     })
   },
 
-  // 订单总计isFirstOrder
+  // 订单总计
   orderLastPrice() {
     var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 -  this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000)/1000
 
@@ -234,14 +233,7 @@ Page({
       item[key].coupon_codes=""
     })
 
-    // this.setData({
-    //   authoritativeCouponPrice: e.detail.amount,
-      
-    // })
-
     console.log(this.data.orderInfomation, "选择后的优惠卷")
-
-    
 
     let option = e.detail.value
     let coupon = JSON.parse(option)
@@ -558,7 +550,9 @@ Page({
         
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
-
+        
+        // 清除下单过程相关全局变量
+        app.cleanOrderGlobalData()
 
         let currentOrder = result.data.orders[0]
         app.wxpayOrder(currentOrder.rid, result.data.pay_params)

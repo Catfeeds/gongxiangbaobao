@@ -214,6 +214,7 @@ module.exports = {
   place_towns: 'places/:pid/towns', // GET 获取所有区镇级列表---
   place_areas: 'places/:pid/areas', // GET 获取所有村或区域级列表
   all_places: 'places', // 获取所有的地址---
+  provinces_cities: 'places/provinces_cities', // GET 省/市/区 列表
   get_country: 'auth/area_code', // 获取所有的国家---
   address_user_custom: 'address/custom', // 获取海关身份证信息
 
