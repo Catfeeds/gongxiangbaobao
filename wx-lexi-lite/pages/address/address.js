@@ -179,6 +179,15 @@ Page({
   handleChangeCountry (e) {
     let countryIndex = e.detail.value
     let country_id = this.data.countryList[countryIndex].id
+    if (this.data.isEditing) { // 编辑状态，改变国家，需恢复省市区默认值
+       if (country_id != this.data.form.country_id) {
+         this.setData({
+           'form.province_id': '',
+           'form.city_id': '',
+           'form.town_id': ''
+         })
+       }
+    }
     this.setData({
       countryIndex: countryIndex,
       'form.country_id': country_id
@@ -306,6 +315,9 @@ Page({
 
   // 获取海关所需身份证信息
   getUserIdCard() {
+    if (!this.data.form.first_name || !this.data.form.mobile) {
+      return
+    }
     http.fxGet(api.address_user_custom, {
       user_name: this.data.form.first_name,
       mobile: this.data.form.mobile
@@ -416,10 +428,10 @@ Page({
         if (this.data.isEditing) { // 编辑状态
           provinceIndex = this._getCurrentIndex(regions[0], this.data.form.province_id)
           // 获取市级
-          regions[1] = allPlaces['k_2_' + this.data.form.province_id]
+          regions[1] = allPlaces['k_2_' + regions[0][provinceIndex].oid]
           cityIndex = this._getCurrentIndex(regions[1], this.data.form.city_id)
           // 获取区级
-          let townKey = 'k_3_' + this.data.form.city_id
+          let townKey = 'k_3_' + regions[1][cityIndex].oid
           if (Object.keys(allPlaces).indexOf(townKey) !== -1) {
             regions[2] = allPlaces[townKey]
             townIndex = this._getCurrentIndex(regions[2], this.data.form.town_id)

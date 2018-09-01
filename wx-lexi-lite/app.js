@@ -225,7 +225,7 @@ App({
    * 订单成功后，清除订单相关全局变量
    */
   cleanOrderGlobalData () {
-    app.globalData.deliveryCountries = []
+    this.globalData.deliveryCountries = []
   },
   
   /**
