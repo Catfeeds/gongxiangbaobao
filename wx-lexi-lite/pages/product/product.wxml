@@ -164,13 +164,16 @@
 
   <!-- 店铺其他产品信息 -->
   <view class='shopInfo'>
-    <view class='shopInfoT'>
+    <view 
+      class='shopInfoT' 
+      catchtap='handleTobrandStore'
+      data-rid="{{productInfomation.store_rid}}" >
       <view class='userIcon' catchtap='handleGoIndex'>
-        <image src='{{ storeInfo.logo }}'></image>
+        <image src='{{ productInfomation.store_logo }}'></image>
       </view>
       <view class='shopMiddle' catchtap='handleGoIndex'>
         <view class='hui-zi'>原创品牌馆</view>
-        <view class='shou'>{{ storeInfo.name }}</view>
+        <view class='shou'>{{ productInfomation.store_name }}</view>
       </view>
       <view class='with flex-row-middel'>
         <image src='../../images/shop1.png'></image>

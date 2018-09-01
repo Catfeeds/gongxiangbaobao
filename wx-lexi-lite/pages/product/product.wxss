@@ -294,6 +294,8 @@ swiper {
 .shop-other-goods image {
   height: 100%;
   width: 100%;
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 [class='PTRT black-font theme-green'] {

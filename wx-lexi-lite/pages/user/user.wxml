@@ -185,12 +185,18 @@
   <!-- 设计管里面 -->
   <view wx:if="{{classInfo==3}}" class='shou bottom__info'>
     <!-- 店铺其他产品信息 -->
-    <view class='shopInfo' wx:if="{{watchStoreList.stores.length!=0}}" wx:for="{{watchStoreList.stores}}" wx:key="{{index}}">
+    <view 
+      class='shopInfo' 
+      wx:if="{{watchStoreList.stores.length!=0}}" 
+      wx:for="{{watchStoreList.stores}}" 
+      catchtap='handleTobrandStore'
+      data-rid="{{item.rid}}"
+      wx:key="{{index}}">
       <view class='shopInfoT'>
-        <view class='userIcon' catchtap='handleGoIndex'>
+        <view class='userIcon' >
           <image src='{{ item.logo }}'></image>
         </view>
-        <view class='shopMiddle' catchtap='handleGoIndex'>
+        <view class='shopMiddle' >
           <view class='shop-name'>{{ item.name }}</view>
           <view class='hui-zi pseudo-element'>{{item.store_products_counts==0?"":item.store_products_counts+"件商品"}}</view>
         </view>

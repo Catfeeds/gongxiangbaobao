@@ -427,6 +427,13 @@ Page({
     this.getProductInfomation() // 获取商品详情---
   },
 
+  // 跳转到品牌管详情
+  handleTobrandStore(e) {
+    wx.navigateTo({
+      url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
+    })
+  },
+
   // 交货时间
   getLogisticsTime(e, rid) {
     console.log(e, rid, "交货时间的数据")
@@ -463,12 +470,16 @@ Page({
           originalStoreRid: result.data.store_rid, // 原店铺的rid
           dkcontent: result.data.content
         })
+        
+        // 获取想过的产品
+        this.getNewProduct(result.data.store_rid) 
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
         // 交货时间
         this.getLogisticsTime(result.data.fid, result.data.rid)
 
         this.getStoreInfo() // 店铺信息---
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -535,9 +546,10 @@ Page({
     app.globalData.orderParams.store_items[0].items[0].rid = e
   },
 
-  // 获取最新的商品
-  getNewProduct() {
-    http.fxGet(api.latest_products, this.data.newProductParams, (result) => {
+  // 获取本店铺的相关商品
+  getNewProduct(e) {
+    http.fxGet(api.life_store_products, {sid:e}, (result) => {
+      console.log(result,"获取店铺的相关产品")
       if (result.success) {
         console.log(result)
         this.setData({
@@ -694,7 +706,7 @@ Page({
     this.getSkus()
 
     // this.getCouponAndFullSubtraction() // 获取优惠券---
-    this.getNewProduct() // 获取最新的商品---
+    // this.getNewProduct() // 获取最新的商品---
   },
 
   // 初始化sku

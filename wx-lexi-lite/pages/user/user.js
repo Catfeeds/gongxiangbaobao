@@ -68,6 +68,13 @@ Page({
     })
   },
 
+  // 跳转到品牌管详情
+  handleTobrandStore(e) {
+    wx.navigateTo({
+      url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
+    })
+  },
+
   /***
    * 我喜欢的商品列表 
   */
