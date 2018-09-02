@@ -15,13 +15,9 @@
     <!-- 是否绑定手机号码 -->
     <view class='item component padding-bottom--20rpx'>
       <view class='font-m itemP'>连接</view>
-      <view class=' time-top' catchtap='bindMobileTap'>
-        <view class='time-top'>
-          <view>
-            <image class="bind-mobile__icon" src='../../images/icon-users@3x.png'></image>
-          </view> 
-          <view class='font-size'>手机绑定</view>
-        </view>
+      <view class=' flex_row' catchtap='bindMobileTap'>
+        <image class="bind-mobile__icon" src='../../images/icon-users@3x.png'></image>
+        <view class='font-size flex--1'>手机绑定</view>
         <view class='time-top'>
           <view class="ft-gray" wx:if="{{ userInfo.profile.mobile }}">已绑定</view>
           <view class='font-size-red' wx:else>未绑定</view>
@@ -32,13 +28,9 @@
     <!-- 账户 -->
     <view class='item component padding-top--24rpx padding-bottom--20rpx'>
       <view class='font-m itemP margin-bottom--26rpx'>账户</view>
-      <view class=' time-top' catchtap='orderTap'>
-        <view class=' time-top'>
-          <view>
-            <image class="my-order__icon" src='../../images/order@2.png'></image>
-          </view>
-          <view class='font-size'>我的订单</view>
-        </view>
+      <view class=' flex_row' catchtap='orderTap'>
+        <image class="my-order__icon" src='../../images/order@2.png'></image>
+        <view class='font-size flex--1'>我的订单</view>
         <view class='time-top'>
           <view class='fx-icon-nothing-right'></view>
         </view>
@@ -48,13 +40,9 @@
 
   <!-- 收货地址 -->
   <view class='more item component padding-top--20rpx padding-bottom--20rpx' catchtap='handleToAddressTap'>
-    <view class=' time-top'>
-      <view class=' time-top'>
-        <view>
-          <image class="receive-address__icon" src='../../images/location@2.png'></image>
-        </view>
-        <view class='font-size'>收货地址</view>
-      </view>
+    <view class=' flex_row'>
+      <image class="receive-address__icon" src='../../images/location@2.png'></image>
+      <view class='font-size flex--1'>收货地址</view>
       <view class='time-top'>
         <view class='fx-icon-nothing-right'></view>
       </view>
@@ -64,13 +52,11 @@
   <!-- 申请开馆 -->
   <view class='item component more padding-top--24rpx padding-bottom--20rpx'>
     <view class='hui-zi qian-hui padding-bottom--30rpx'>更多</view>
-    <view class=' time-top'>
-      <view class=' time-top'>
-        <view>
-          <image class="open-store__icon" src='../../images/join@2.png'></image>
-        </view>
-        <view class='font-size'>申请开馆</view>
-      </view>
+    <view class=' flex_row'>
+      
+      <image class="open-store__icon" src='../../images/join@2.png'></image>
+      <view class='font-size flex--1'>申请开馆</view>
+      
       <view class='time-top'>
         <view class='fx-icon-nothing-right'></view>
       </view>
@@ -79,13 +65,9 @@
 
   <!-- 关于乐喜 -->
   <view class='more item component padding-top--24rpx padding-bottom--14rpx'>
-    <view class=' time-top'>
-      <view class=' time-top'>
-        <view>
-          <image class="about-lexi__icon" src='../../images/lexi@2.png'></image>
-        </view>
-        <view class='font-size'>关于乐喜</view>
-      </view>
+    <view class=' flex_row'>
+      <image class="about-lexi__icon" src='../../images/lexi@2.png'></image>
+      <view class='font-size flex--1'>关于乐喜</view>
       <view class='time-top'>
         <view class='fx-icon-nothing-right'></view>
       </view>

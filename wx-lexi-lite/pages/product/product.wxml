@@ -248,7 +248,7 @@
 <!-- 是小b -->
   <view class=' bg-white c-crosswise-a bottom-btn__position' wx:if="{{isSmallB && isDistributed}}">
     <view class='btn-bg-color shop-cart'>
-      <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
+      <view class='flex_row--middle add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
       <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
         <image src='../../images/carticon@2x.png'></image>
         <text>购物车</text>
