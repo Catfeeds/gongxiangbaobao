@@ -19,7 +19,7 @@ Page({
     originalStoreRid: "", // 原店铺的rid
     storeRid:'', // 店铺的id
     rid: '', // 商品的rid---
-    productInfomation: [], // 商品详情列表---
+    productInfomation: [], // 商品详情---
     product: {},
     productContent: {},
     skus: {
@@ -468,10 +468,11 @@ Page({
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid
-          dkcontent: result.data.content
+          dkcontent: result.data.content,
+          isDistributed: result.data.is_distributed
         })
         
-        // 获取想过的产品
+        // 获取本店铺的产品
         this.getNewProduct(result.data.store_rid) 
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
@@ -645,15 +646,6 @@ Page({
     })
   },
 
-  // getstoreInfo() {
-  //   // http.fxGet(api.)
-  //     // 获取店铺的信息
-
-
-  //   this.setData({
-  //     storeInfo: app.globalData.storeInfo
-  //   })
-  // },
 
   /**
    * 生命周期函数--监听页面加载
@@ -1162,13 +1154,6 @@ Page({
     // handleGoIndex
     this.setData({
       coupon_show: true
-    })
-  },
-
-  // 回到首页
-  handleGoIndex() {
-    wx.navigateBack({
-      delta: 1
     })
   },
 

@@ -37,7 +37,7 @@ module.exports = {
   BrowseQuantityNumber: 'store/:rid/visitor', //浏览过的人数---
   brand_info: 'store/detail', // 品牌故事
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
-
+  official_store_detail:'official_store/detail', // 品牌故事h
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
   life_store_edit: 'store/edit_store', // GET
@@ -70,7 +70,7 @@ module.exports = {
   life_records_hand_teach:'life_records/hand_teach', // 手做教学列表
   life_records_grass_note:'life_records/grass_note', // 种草笔记频道列表
   life_records_life_remember:'life_records/life_remember',// 生活记事频道列表
-  
+  official_store_master_info:'official_store/master_info', // 店铺主人信息
   // 分销
 
   // GET 分销池
@@ -175,6 +175,7 @@ module.exports = {
   order_prepay_sign: 'orders/wx_prepay_sign', // POST 获取prepay_id和支付签名验证paySign
   critique_product: 'orders/product/comment/create', //post 评论商品---
   orders_delete: 'orders/delete', // 删除订单---
+  core_orders_rid:'core_orders/:rid', // 订单详情h
 
   // Market
   is_first_order:"market/coupons/new_user_discount", // 查看是否属于首单

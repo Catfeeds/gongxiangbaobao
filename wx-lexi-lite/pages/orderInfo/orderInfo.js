@@ -60,7 +60,7 @@ Page({
 
   },
 
-  // 获取订单详情
+  // 获取订单详情 core_orders_rid
   getOrderDetail () {
     http.fxGet(api.order_detail.replace(/:rid/, this.data.rid), {}, (result) => {
       console.log(result, '订单详情')
