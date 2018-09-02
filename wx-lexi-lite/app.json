@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/cart/cart",
     "pages/index/index",
     "pages/find/find",
+    "pages/cart/cart",
     "pages/findInfo/findInfo",
     "pages/distributes/distributes",
     "pages/lifeStoreManage/lifeStoreManage",
