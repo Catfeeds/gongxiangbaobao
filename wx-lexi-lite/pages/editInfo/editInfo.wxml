@@ -24,34 +24,39 @@
         <view>邮箱</view>
         <input bindinput='hanleOwnerMail' value='{{ editUserInfo.mail }}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
       </label>
+
       <!-- 位置 -->
-      <label class='componentTwo pading-bottom--14rpx' >
-        <view class='margin-bottom--16rpx'>位置</view>
+      <!-- <label class='componentTwo pading-bottom--14rpx' >
+        <view class='margin-bottom--16rpx'>位置</view> -->
 
               <!-- 国家 -->
-      <view class="adress-pick--style qian-hui">
+      <!-- <view class="adress-pick--style qian-hui">
         <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}"  range-key='name'>
           <view class="picker">
             选择国家：{{ countryList[countryIndex].name }}
           </view>
         </picker>
-      </view>
+      </view> -->
 
-      <view class="adress-pick--style qian-hui">
+      <!-- <view class="adress-pick--style qian-hui"> -->
         <!-- 省/市/区 -->
-        <picker mode="multiSelector" bindchange="handleRegionsChange" bindcolumnchange="handleRegionColumnChange" value="{{ multiIndex }}" range="{{ regions }}" range-key="name">
+        <!-- <picker mode="multiSelector" bindchange="handleRegionsChange" bindcolumnchange="handleRegionColumnChange" value="{{ multiIndex }}" range="{{ regions }}" range-key="name">
           <view class="picker">
             省/市/区：<text wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
           </view>
         </picker>
-      </view>
-
-
+      </view> -->
 
 
         <!-- <view class="black-font">
           {{ provinceList[addressIndex[0]].name }}·{{ cityList[addressIndex[1]].name }}·{{ countyList[addressIndex[2]].name }}
         </view> -->
+      <!-- </label> -->
+
+
+      <label class='componentTwo padding-bottom--16rpx' wx:if="{{}}">
+        <view>位置</view>
+        <input bindinput='handleNameInput' placeholder-class='placeholder' value='{{ editUserInfo.username }}' class='userInput' placeholder='输入位置'></input>
       </label>
 
       <!-- 出生日期 -->
@@ -68,7 +73,7 @@
             {{ editUserInfo.date }}
           </view>
           <view class="black-font" wx:else>
-            设置日期
+            设置日期 
           </view>
         </picker>
       </label>

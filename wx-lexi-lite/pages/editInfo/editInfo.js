@@ -448,58 +448,52 @@ Page({
 
   // 获取用户信息 ---
   getUserInfo() {
+
+    http.fxGet(api.users_profile,{},(result)=>{
+      console.log(result,"用户的个人资料")
+      if (result.success) {
+        this.setData({
+          userInfo: result.data
+        })
+
+        let userProfile = this.data.userInfo.profile
+        console.log(this.data.userInfo, "用户的资料")
+
+        if (userProfile.country_id == null) {
+          this.getAddressInfo()
+        } else {
+          this.getCountry() // 获取所有的国家
+        }
+
+        let time = utils.timestamp2string(userProfile.created_at, 'cn')
+
+        this.setData({
+          ['editUserInfo.avatar_id']: userProfile.avatar_id, // Integer 可选 用户头像ID
+          ['editUserInfo.username']: userProfile.username, // String  昵称 - 必须保持唯一
+          ['editUserInfo.mail']: userProfile.mail, // String 可选 邮箱
+          'editUserInfo.country_id': userProfile.country_id,
+          'editUserInfo.province_id': userProfile.province_id,
+          'editUserInfo.city_id': userProfile.city_id,
+          ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
+          ['editUserInfo.date']: userProfile.data,
+
+          // 'editUserInfo.first_name': userProfile.first_name,
+          'editUserInfo.mobile': userProfile.mobile,
+
+          'editUserInfo.town_id': userProfile.town_id,
+          'editUserInfo.street_address': userProfile.street_address,
+          'editUserInfo.zipcode': userProfile.zipcode,
+          'editUserInfo.is_default': userProfile.is_default
+        })
+
+        console.log(this.data.editUserInfo, "初始信息")
+
+        // 获取所有国家
+        this.getCountry()
+
+      }
+    })
     
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
-
-    console.log(app.globalData.userInfo,"用户的资料")
-
-    let userProfile = app.globalData.userInfo.profile
-
-    if (userProfile.country_id==null) {
-      this.getAddressInfo()
-    } else {
-      this.getCountry() // 获取所有的国家
-    }
-
-    let time = utils.timestamp2string(userProfile.created_at, 'cn')
-
-    // this.setData({
-    //   
-    //   
-    //   
-    //   ['editUserInfo.gender']: userProfile.gender, // Integer 可选 0 性别
-    //   ['editUserInfo.country_id']: userProfile.country_id, //Integer 可选 国家ID
-    //   ['editUserInfo.province_id']: userProfile.province_id, // Integer 可选 省ID
-    //   ['editUserInfo.city_id']: userProfile.city_id, // Integer 可选 市ID
-    //   
-    //   ['editUserInfo.date']: userProfile.date, // String 可选 出生日期
-    // })
-
-    this.setData({
-      ['editUserInfo.avatar_id']: userProfile.avatar_id, // Integer 可选 用户头像ID
-      ['editUserInfo.username']: userProfile.username, // String  昵称 - 必须保持唯一
-      ['editUserInfo.mail']: userProfile.mail, // String 可选 邮箱
-      'editUserInfo.country_id': userProfile.country_id,
-      'editUserInfo.province_id': userProfile.province_id,
-      'editUserInfo.city_id': userProfile.city_id,
-      ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
-      'editUserInfo.date': userProfile.data,
-      
-      // 'editUserInfo.first_name': userProfile.first_name,
-      'editUserInfo.mobile': userProfile.mobile,
-      
-      'editUserInfo.town_id': userProfile.town_id,
-      'editUserInfo.street_address': userProfile.street_address,
-      'editUserInfo.zipcode': userProfile.zipcode,
-      'editUserInfo.is_default': userProfile.is_default
-    })
-
-    console.log(this.data.editUserInfo,"初始信息")
-
-    // 获取所有国家
-    this.getCountry()
   },
 
   /**
@@ -507,7 +501,6 @@ Page({
    */
   onLoad: function(options) {
     console.log(options,"uid")
-
 
     let rid = options.rid
     this.setData({
