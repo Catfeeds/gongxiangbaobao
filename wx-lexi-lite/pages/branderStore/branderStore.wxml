@@ -43,7 +43,9 @@
         class="border-radius--30rpx follow-btn" 
         catchtap="handelAddfollow"
         wx:if="{{!storeInfo.is_followed}}">
-        <image src="../../images/icon@2.png"></image>
+        <image 
+          src="../../images/icon@2.png" 
+          class='margin-right--10rpx'></image>
         <text>关注</text>
       </view>
       <view class="border-radius--30rpx follow-btn dlete-follow" catchtap='handeldeleteFollow' wx:else>

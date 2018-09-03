@@ -19,7 +19,9 @@ Page({
     originalStoreRid: "", // 原店铺的rid
     storeRid:'', // 店铺的id
     rid: '', // 商品的rid---
-    productInfomation: [], // 商品详情---
+    productInfomation: {
+      is_distributed:true
+    }, // 商品详情---
     product: {},
     productContent: {},
     skus: {
@@ -69,7 +71,8 @@ Page({
       page: 1,
       per_page: 10,
       status: 1, // 优惠券状态 -1: 禁用；1：正常；2：已结束
-      'type': '' // 是否满减活动 3、满减
+      'type': '', // 是否满减活动 3、满减
+      
     },
   },
 
@@ -146,6 +149,8 @@ Page({
 
   // 获取与登录用户相关的店铺优惠券 or 满减
   getCouponsByUser(type = ' ') {
+    console.log(this.data.originalStoreRid)
+
     this.setData({
       ['couponParams.type']: type
     })
@@ -480,6 +485,9 @@ Page({
         this.getLogisticsTime(result.data.fid, result.data.rid)
 
         this.getStoreInfo() // 店铺信息---
+
+        this.getCouponsByUser() // 获取登陆用户地优惠券
+        this.getCouponsByUser(3) // 获取满减
         
       } else {
         utils.fxShowToast(result.status.message)
@@ -575,7 +583,8 @@ Page({
 
     let idx = e.currentTarget.dataset.index
     http.fxPost(api.coupon_grant, {
-      rid: e.currentTarget.dataset.rid
+      rid: e.currentTarget.dataset.rid,
+      store_rid: this.data.storeRid
     }, (result) => {
       console.log(result)
       if (result.success) {
@@ -590,11 +599,10 @@ Page({
         // }, 200)
         console.log("领取成功")
 
-      // this.setData({
-      //   ['couponList[' + idx + '].status']:1
-      // })
-        
-
+      this.setData({
+        ['couponList.coupons[' + idx + '].status']:1
+      })
+      
       return 
       } else {
 
@@ -705,8 +713,6 @@ Page({
     }
 
     this.getProductInfomation() // 获取商品详情---
-    this.getCouponsByUser() // 获取登陆用户地优惠券
-    this.getCouponsByUser(3) // 获取满减
     this.getSkus()
 
     // this.getCouponAndFullSubtraction() // 获取优惠券---

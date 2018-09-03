@@ -697,6 +697,9 @@ swiper {
 .margin-right--20rpx {
   margin-bottom: 20rpx;
 }
+.margin-right--30rpx {
+  margin-right: 30rpx;
+}
 
 .font-with--600 {
   font-weight: 600;
@@ -732,4 +735,8 @@ margin-bottom:8rpx;
 
 .with--690rpx{
   width: 690rpx;
+}
+
+.color-hui {
+  color: #949EA6;
 }

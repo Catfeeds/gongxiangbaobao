@@ -34,7 +34,9 @@ Page({
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
     isShowOrder:true, // 心愿单是否可见
-    shoppingCart: [], // 添加到购物车的内容产品内容---
+    shoppingCart: { // 添加到购物车的内容产品内容---
+      items:[]
+    }, 
     payment: 0, // 应该支付的总金额---
 
     // 添加购物车和修改购买数量的时候参数
@@ -45,7 +47,9 @@ Page({
       open_id: '', //	独立小程序openid
     },
 
-    thinkOrder: [], // 心愿单的内容---
+    thinkOrder: {
+      products:[]
+    }, // 心愿单的内容---
   },
 
   // 是否登陆
