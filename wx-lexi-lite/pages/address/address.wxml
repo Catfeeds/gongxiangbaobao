@@ -43,16 +43,36 @@
       </view>
       <view class='identificationPhoto'>
         <view class='userPhotoNullBox' data-type='front' bindtap='handleUploadIdCard'>
-          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_front_image }}">+</view>
-          <view class='userPhotoNull userPhotoHave' wx:else>
+          <view 
+            class='userPhotoNull theme-bg-color' 
+            wx:if="{{ !id_card_front_image }}">+</view>
+          <view 
+            class='userPhotoNull userPhotoHave' 
+            wx:if="{{ id_card_front_image }}">
+
+            <!-- 进度条 -->
+            <view 
+              class="upload-status__box" 
+              wx:if="{{uploadFrontStatus}}">
+                <view style="width:{{uploadFrontStatus}}%"></view>
+            </view>
+            
             <image src='{{ id_card_front_image }}'></image>
           </view>
           <view>清晰正面照片</view>
         </view>
 
-        <view class='userPhotoNullBox' data-type='back' bindtap='handleUploadIdCard'>
+        <view 
+          class='userPhotoNullBox' 
+          data-type='back' 
+          bindtap='handleUploadIdCard'>
           <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_back_image }}">+</view>
           <view class='userPhotoNull userPhotoHave' wx:else>
+            <view 
+              class="upload-status__box" 
+              wx:if="{{uploadBackStatus}}">
+              <view style='width:{{uploadBackStatus}}%'> </view>  
+            </view>
             <image src='{{ id_card_back_image }}'></image>
           </view>
           <view>

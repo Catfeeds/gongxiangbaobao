@@ -13,7 +13,13 @@
       <view class='ct-bottom'>
         <view class='black-font'>品牌馆优惠红包</view>
         <!-- 优惠券 -->
-        <view class='ct-coupon time-top' wx:key='{{index}}' wx:for='{{couponList}}'>
+        <view 
+          class='ct-coupon time-top' 
+          wx:key='{{index}}' 
+          data-index="{{index}}"
+          data-rid='{{item.code}}' 
+          catchtap='getReceiveCoupon'
+          wx:for='{{couponList}}'>
           <view class='ct-line ct-line-l'></view>
           <view class='ct-line ct-line-r'></view>
           <view class='ct-round ct-round-top'></view>
@@ -33,10 +39,7 @@
           </view>
           <view 
             class='ct-item-r' 
-            wx:else 
-            data-index="{{index}}"
-            data-rid='{{item.code}}' 
-            catchtap='getReceiveCoupon'>
+            wx:else >
             <view>
               <view>分享</view>
               <view>领取</view>

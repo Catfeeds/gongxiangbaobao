@@ -47,23 +47,33 @@
       <view class='like-quantity-l' catchtap='handleBindLike' wx:if="{{!productInfomation.is_like}}">
         <image src='../../images/like@2.png' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
-        <text class='hui-zi like-icon-add' wx:else>喜欢</text>
+        <text class='hui-zi like-icon-add line-height--24rpx' wx:else>喜欢</text>
       </view>
 
       <view class='like-quantity-l bg-hui' wx:else catchtap='handleBindLike'>
-        <text class='hui-zi like-icon-add'>已喜欢</text>
+        <text class='hui-zi like-icon-add line-height--24rpx'>已喜欢</text>
       </view>
 
       <view class='transmission'>
-        <view class='like-quantity-l' catchtap='handleaddDesireTap'>
+        <view class='like-quantity-l  margin-right--30rpx' catchtap='handleaddDesireTap'>
           <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>
-          <text class='hui-zi' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
+          <text class='hui-zi line-height--28rpx' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
           <text class='hui-zi' wx:else>已添加</text>
         </view>
+
         <view 
+          wx:if="{{isSmallB && productInfomation.is_distributed}}"
           catchtap="handleShareTap"
-          class='like-quantity-l transmissionInfo'>
-          <image class='fen' src='{{isSmallB && isDistributed?"../../images/sell-icon@2.png":"../../images/share@2.png"}}'></image>
+          class='like-quantity-l border-null font-m color-hui'>
+          <image class='fen' src='../../images/sell-icon@2.png'></image>
+          <text class='like-icon-add'> 上架 </text>
+        </view>
+
+        <view 
+          wx:else
+          catchtap="handleShareTap"
+          class='c-middle like-quantity-l transmissionInfo margin-left--0'>
+          <image class='fen-xiang' src='../../images/share@2.png'></image>
         </view>
       </view>
     </view>
@@ -152,7 +162,7 @@
     <!-- 发货地点 -->
     <view class='otherInfo-describe location' wx:if="{{storeInfo.country}}">
       <view class='titleText'>发货地</view>
-      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.country }}·{{ storeInfo.province }}·{{ storeInfo.city }}</view>
+      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.country }}·{{ storeInfo.province }}</view>
     </view>
 
     <!-- 交货时间 -->
@@ -338,7 +348,7 @@
       <!-- 发货地点 -->
       <view class='otherInfo-describe location' wx:if="{{storeInfo.country}}">
         <view class='titleText'>发货地</view>
-        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.country}}·{{storeInfo.province}}·{{storeInfo.city}}</view>
+        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.country}}·{{storeInfo.province}}</view>
       </view>
 
       <!-- 交货时间 -->

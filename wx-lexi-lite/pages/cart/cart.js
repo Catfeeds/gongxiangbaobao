@@ -46,7 +46,7 @@ Page({
       option: '', // 其他选项
       open_id: '', //	独立小程序openid
     },
-
+    
     thinkOrder: {  // 心愿单的内容---
       products: []
     },

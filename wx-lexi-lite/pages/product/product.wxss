@@ -454,7 +454,10 @@ swiper {
   height: 28rpx;
   width: 32rpx;
 }
-
+.fen-xiang {
+    height: 26rpx;
+  width: 30rpx;
+}
 .fx-icon-nothing-plus {
   margin: 0 10rpx;
   color: #949ea6;
@@ -697,6 +700,9 @@ swiper {
 .margin-right--20rpx {
   margin-bottom: 20rpx;
 }
+.margin-right--30rpx {
+  margin-right: 30rpx;
+}
 
 .font-with--600 {
   font-weight: 600;
@@ -732,4 +738,20 @@ margin-bottom:8rpx;
 
 .with--690rpx{
   width: 690rpx;
+}
+
+.color-hui {
+  color: #949EA6;
+}
+
+.line-height--28rpx{
+  line-height: 28rpx;
+}
+
+.line-height--24rpx{
+  line-height: 24rpx;
+}
+
+.margin-left--0 {
+  margin-left: 0rpx;
 }

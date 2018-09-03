@@ -301,7 +301,7 @@ Page({
   _getCurrentIndex(list, v) {
     let currentIndex = 0
     list.map((item, index) => {
-      if (item.id == v) {
+      if (item.oid == v) {
         currentIndex = index
       }
     })
@@ -398,6 +398,12 @@ Page({
             'token': this.data.uploadParams.up_token
           },
           success: (res) => {
+            console.log(res,"上传后的图片")
+
+            this.setData({
+              'editUserInfo.avatar_id':res.ids
+            })
+
             let data = JSON.parse(res.data)
             if (data.ids.length > 0) {
               this.getAssetInfo(data.ids[0])
@@ -460,23 +466,30 @@ Page({
     let time = utils.timestamp2string(userProfile.created_at, 'cn')
 
     // this.setData({
-    //   ['editUserInfo.username']: userProfile.username, // String  昵称 - 必须保持唯一
-    //   ['editUserInfo.avatar_id']: userProfile.avatar_id, // Integer 可选 用户头像ID
-    //   ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
+    //   
+    //   
+    //   
     //   ['editUserInfo.gender']: userProfile.gender, // Integer 可选 0 性别
     //   ['editUserInfo.country_id']: userProfile.country_id, //Integer 可选 国家ID
     //   ['editUserInfo.province_id']: userProfile.province_id, // Integer 可选 省ID
     //   ['editUserInfo.city_id']: userProfile.city_id, // Integer 可选 市ID
-    //   ['editUserInfo.mail']: userProfile.mail, // String 可选 邮箱
+    //   
     //   ['editUserInfo.date']: userProfile.date, // String 可选 出生日期
     // })
 
     this.setData({
-      'editUserInfo.first_name': userProfile.first_name,
-      'editUserInfo.mobile': userProfile.mobile,
+      ['editUserInfo.avatar_id']: userProfile.avatar_id, // Integer 可选 用户头像ID
+      ['editUserInfo.username']: userProfile.username, // String  昵称 - 必须保持唯一
+      ['editUserInfo.mail']: userProfile.mail, // String 可选 邮箱
       'editUserInfo.country_id': userProfile.country_id,
       'editUserInfo.province_id': userProfile.province_id,
       'editUserInfo.city_id': userProfile.city_id,
+      ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
+      'editUserInfo.date': userProfile.data,
+      
+      // 'editUserInfo.first_name': userProfile.first_name,
+      'editUserInfo.mobile': userProfile.mobile,
+      
       'editUserInfo.town_id': userProfile.town_id,
       'editUserInfo.street_address': userProfile.street_address,
       'editUserInfo.zipcode': userProfile.zipcode,

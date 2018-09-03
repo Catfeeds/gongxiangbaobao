@@ -14,20 +14,20 @@
         catchtap='hanleDeleteWatch' 
         data-uid="{{item.uid}}" 
         data-index="{{index}}"
-        wx:if="{{item.followed_status==2}}">互相关注
+        wx:if="{{item.followed_status==2&&myIndex!=index}}">互相关注
       </view>
       <view 
         catchtap='hanleDeleteWatch' 
         data-uid="{{item.uid}}" 
         data-index="{{index}}"
-        wx:if="{{item.followed_status==1}}">已关注
+        wx:if="{{item.followed_status==1&&myIndex!=index}}">已关注
       </view>
       <view 
         data-uid="{{item.uid}}" 
         data-index="{{index}}"
         catchtap='hanleAddWatch' 
         class='relation-icon__add' 
-        wx:if="{{item.followed_status==0}}">+ 关注
+        wx:if="{{item.followed_status==0&&myIndex!=index}}">+ 关注
       </view>
     </view>
   </view>
