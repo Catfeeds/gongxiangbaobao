@@ -33,6 +33,7 @@ Page({
     falseheckbox: false, // falseheckbox---
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
+    isShowOrder:true, // 心愿单是否可见
     shoppingCart: [], // 添加到购物车的内容产品内容---
     payment: 0, // 应该支付的总金额---
 
@@ -149,6 +150,11 @@ Page({
       console.log(result, '删除购物车商品')
       if (result.success) {
         this.getCartProduct()
+        if (this.data.thinkOrder.products.length!=0){
+          this.setData({
+            isShowOrder:true
+          })
+        }
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -198,11 +204,13 @@ Page({
     console.log(e.currentTarget.dataset.change)
     if (status == 'start') {
       this.setData({
-        changeCart: true
+        changeCart: true,
+        isShowOrder:false
       })
     } else if (status == 'over') {
       this.setData({
-        changeCart: false
+        changeCart: false,
+        isShowOrder:true
       })
     }
   },
@@ -703,16 +711,6 @@ Page({
       title: '加载中'
     })
 
-    // 未登录
-    if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
-      return
-    }
-
-    // 已登录
-    this.getDesireOrder() // 获取心愿单
   },
 
   /**
@@ -726,14 +724,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // 未登陆
+
+    // 未登录
     if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
       return
     }
 
+    // 已登录
+    this.getDesireOrder() // 获取心愿单
     this.getCartProduct() // 获取购物车商品
   },
 

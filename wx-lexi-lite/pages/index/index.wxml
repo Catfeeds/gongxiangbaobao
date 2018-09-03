@@ -274,6 +274,8 @@
 
           <!-- 头条动态 -->
     <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
+      <view class="prevent-click__box"></view>
+
       <view class="flex_row headline padding-top--0rpx margin-bottom--0rpx">
         <view class="headline-side">
           <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>

@@ -66,8 +66,8 @@ Page({
       per_page: 10, //Number	可选	10	每页数量
       sid: '', //String	必须	 	店铺编号
       cid: '', //Number	可选	 	分类Id
-      status: '', //Number	可选	1	商品状态 -1: 所有 0: 仓库中; 1: 出售中; 2: 下架中; 3: 已售罄
-      is_distributed: '', //Number	可选	 	商品类别 0: 全部; 1：自营商品；2：分销商品
+      status: 1, //Number	可选	1	商品状态 -1: 所有 0: 仓库中; 1: 出售中; 2: 下架中; 3: 已售罄
+      is_distributed: 1, //Number	必选	 	商品类别 0: 全部; 1：自营商品；2：分销商品
       qk: '', //String	可选	 	搜索关键字
       min_price: '', //Number	可选	 	价格区间： 最小价格
       max_price: '', //Number	可选	 	价格区间： 最大价格
@@ -177,18 +177,18 @@ Page({
   /**
  * 分类列表
  */
-  getCategories() {
-    http.fxGet(api.categories,{}, (result) => {
-      console.log(result, '分类列表')
-      if (result.success) {
-        this.setData({
-          categoryList: result.data.categories
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
+  // getCategories() {
+  //   http.fxGet(api.categories,{}, (result) => {
+  //     console.log(result, '分类列表')
+  //     if (result.success) {
+  //       this.setData({
+  //         categoryList: result.data.categories
+  //       })
+  //     } else {
+  //       utils.fxShowToast(result.status.message)
+  //     }
+  //   })
+  // },
 
   /**
  * 改变分类
@@ -315,7 +315,7 @@ Page({
 
   // 打开筛选的模态框
   handleSortShow() {
-    this.getCategories()
+    // this.getCategories()
 
     this.setData({
       showFilterModal:true
@@ -595,17 +595,29 @@ Page({
     })
   },
 
-  // 获取店铺的信息 official_store/info
+  // 获取店铺的信息 official_store/info categoryList
   getStoreInfo() {
     http.fxGet(api.official_store_info, {
       rid: this.data.storeRid
     }, (result) => {
       console.log(result, "店铺的详情")
+
       if (result.success) {
+        let categoryList = []
+        result.data.categories.forEach((v, i) => {
+          let categoryItem = {}
+          categoryItem.id = v[0]
+          categoryItem.name = v[1]
+          
+          categoryList.push(categoryItem)
+        })
+
+        console.log(categoryList,'分类的信息')
 
         this.setData({
-          ['categoryList[0].num']: result.data.product_count,
-          ['categoryList[1].num']: result.data.life_record_count,
+          categoryList:categoryList,
+          ['titleCategoryList[0].num']: result.data.product_count,
+          ['titleCategoryList[1].num']: result.data.life_record_count,
           storeInfo: result.data
         })
 
