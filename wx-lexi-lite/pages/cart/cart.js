@@ -150,6 +150,11 @@ Page({
       console.log(result, '删除购物车商品')
       if (result.success) {
         this.getCartProduct()
+        if (this.data.thinkOrder.products.length!=0){
+          this.setData({
+            isShowOrder:true
+          })
+        }
       } else {
         utils.fxShowToast(result.status.message)
       }
