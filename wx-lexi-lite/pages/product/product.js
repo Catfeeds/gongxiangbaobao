@@ -571,6 +571,9 @@ Page({
       return false
     }
     console.log(e.currentTarget.dataset.rid)
+    console.log(e.currentTarget.dataset.index)
+
+    let idx = e.currentTarget.dataset.index
     http.fxPost(api.coupon_grant, {
       rid: e.currentTarget.dataset.rid
     }, (result) => {
@@ -582,10 +585,19 @@ Page({
         // let topPagePath = topPage[topPage.length - 2]
 
         // this.getCouponAndFullSubtraction()
-        setTimeout(() => {
-          this.getCouponsByUser()
-        }, 200)
+        // setTimeout(() => {
+        //   this.getCouponsByUser()
+        // }, 200)
+        console.log("领取成功")
+
+      // this.setData({
+      //   ['couponList[' + idx + '].status']:1
+      // })
+        
+
+      return 
       } else {
+
         utils.fxShowToast(result.status.message)
       }
     })
