@@ -58,7 +58,7 @@
   <view class='orderInfoBox' wx:for="{{ order }}" wx:key="{{ index }}" wx:for-item="items">
     <view class='shopName'>
       <text>{{ items[0].store_name }}</text>
-      <text class='shopNameR'>从{{storeInfo.delivery_country}}{{storeInfo.delivery_province}}发货</text>
+      <text class='shopNameR'>从{{ storeInfo.delivery_country }}{{ storeInfo.delivery_province }}发货</text>
     </view>
     <view class='OtherInfomation'>
       <!-- 购买信息 -->
@@ -67,12 +67,11 @@
           <fx-product-middle 
             shopingNumber="true" 
             product="{{ item }}" 
-            height="{{130}}"
-            width="{{130}}"
+            height="{{ 130 }}"
+            width="{{ 130 }}"
             color="true"></fx-product-middle>
 
           <view class='shopGoodsInfoR'>
-            <!-- <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.key.sale_price }}</text> -->
             <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.sale_price }}</text>
             <text class='shopNameR old-price-text' wx:if='{{ item.sale_price != 0 }}'>￥{{ item.price }}</text>
           </view>
@@ -106,7 +105,6 @@
               </view>
               <view class='logistics__time'>物流时长：{{ logisticsItem.min_days }}至{{ logisticsItem.max_days }}天送达</view>
             </view>
-            <!-- <view class='receiveFn_line'></view> -->
           </view>
         </view>
       </view>
@@ -139,8 +137,7 @@
         catchtap='couponTap'>
         <view class='black-font'>运费</view>
         <view class='font-s'>
-          <text class=''>￥{{itemOrderLogisticsPrice[items[0].store_rid]}}</text>
-          <!-- <text class='fx-icon-nothing-right'></text> -->
+          <text class=''>￥{{ itemOrderLogisticsPrice[items[0].store_rid ]}}</text>
         </view>
       </view>
 
@@ -150,7 +147,7 @@
           <image src='../../images/reduced-price@2.png'></image>
           <text>满减促销</text>
         </view>
-        <text class='font-s coupon--color'>已享满{{fullReductionList[items[0].store_rid].reach_amount}}减{{fullReductionList[items[0].store_rid].amount}}</text>
+        <text class='font-s coupon--color'>已享满{{ fullReductionList[items[0].store_rid].reach_amount }}减{{ fullReductionList[items[0].store_rid].amount }}</text>
       </view>
 
       <!-- 优惠券 -->
@@ -179,7 +176,7 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' wx:if='{{paymentBtn}}'>
+  <view class='conservation' wx:if='{{ paymentBtn }}'>
     <button catchtap='paymentSuccess'>提交订单</button>
   </view>
 
