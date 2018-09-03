@@ -1023,7 +1023,7 @@ Page({
       path: 'pages/product/product',
       auth_app_id: extConfig.authAppid
     }
-
+    
     http.fxPost(api.wxacode, params, (res) => {
       if (res.success) {
         that.setData({
