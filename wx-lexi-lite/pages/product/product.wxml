@@ -43,11 +43,17 @@
     </view>
     <!-- 喜欢心愿单 -->
     <view class='branderInfo like-quantity margin-bottom--30rpx'>
-      <view class='like-quantity-l' catchtap='handleBindLike'>
-        <image src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
+
+      <view class='like-quantity-l' catchtap='handleBindLike' wx:if="{{!productInfomation.is_like}}">
+        <image src='../../images/like@2.png' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
         <text class='hui-zi like-icon-add' wx:else>喜欢</text>
       </view>
+
+      <view class='like-quantity-l bg-hui' wx:else catchtap='handleBindLike'>
+        <text class='hui-zi like-icon-add'>已喜欢</text>
+      </view>
+
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
           <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>

@@ -108,7 +108,7 @@ border-radius:4rpx;
 background-size: 100%;
 background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
 vertical-align: middle;
-margin-top: -6rpx;
+margin-top: -4rpx;
 }
 
 .product-min__content .product-min__btn{
