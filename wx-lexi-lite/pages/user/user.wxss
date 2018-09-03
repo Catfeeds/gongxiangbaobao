@@ -393,3 +393,8 @@ button-hover {
   width: 100%;
   opacity: 0;
 }
+
+.product-null__photo  image{
+  background-size: 100%;
+  background-image:url("https://kg.erp.taihuoniao.com/static/img/null-product.png") ;
+}

@@ -84,7 +84,10 @@
         <image class='setings' src='../../images/set.png'></image>
         </view>
 
-        <view class=' flex_row--middle service seting--left' catchtap='setTap'>
+        <view 
+          class='flex_row--middle service seting--left' 
+          data-uid="{{userInfo.uid}}" 
+          catchtap='setTap'>
           <image class='setings' src='../../images/setings.png'></image>
         </view>
       </view>
@@ -219,7 +222,7 @@
           <view>已关注</view>
         </view>
       </view>
-      <view class='shop-other-goods'>
+      <view class='shop-other-goods product-null__photo'>
         <view wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-rid='{{ value.rid }}' catchtap='handleToProductInfoTap'>
           <image src='{{ value.cover }}-p16'></image>
         </view>

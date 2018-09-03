@@ -580,6 +580,7 @@ swiper {
   border-radius: 50%;
   font-size: 16rpx;
   overflow: hidden;
+  color: white;
 }
 
 .cart_text--color {

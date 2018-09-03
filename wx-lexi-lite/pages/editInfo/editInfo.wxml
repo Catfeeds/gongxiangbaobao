@@ -25,11 +25,33 @@
         <input bindinput='hanleOwnerMail' value='{{ editUserInfo.mail }}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
       </label>
       <!-- 位置 -->
-      <label class='componentTwo pading-bottom--14rpx' catchtap='handleShowPick'>
+      <label class='componentTwo pading-bottom--14rpx' >
         <view class='margin-bottom--16rpx'>位置</view>
-        <view class="black-font">
+
+              <!-- 国家 -->
+      <view class="adress-pick--style qian-hui">
+        <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}"  range-key='name'>
+          <view class="picker">
+            选择国家：{{ countryList[countryIndex].name }}
+          </view>
+        </picker>
+      </view>
+
+      <view class="adress-pick--style qian-hui">
+        <!-- 省/市/区 -->
+        <picker mode="multiSelector" bindchange="handleRegionsChange" bindcolumnchange="handleRegionColumnChange" value="{{ multiIndex }}" range="{{ regions }}" range-key="name">
+          <view class="picker">
+            省/市/区：<text wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
+          </view>
+        </picker>
+      </view>
+
+
+
+
+        <!-- <view class="black-font">
           {{ provinceList[addressIndex[0]].name }}·{{ cityList[addressIndex[1]].name }}·{{ countyList[addressIndex[2]].name }}
-        </view>
+        </view> -->
       </label>
 
       <!-- 出生日期 -->
@@ -72,38 +94,7 @@
     <button class='btn-bg-color' catchtap='handlePreserveTap'>保存</button>
   </view>
 
-  <view wx:if="{{isPicker}}" class='picker-box'>
-    <view class='time-top over-or-delete'>
-      <view catchtap='handledeletePick'>取消</view>
-      <view catchtap='handlePickAdressOver'>确定</view>
-    </view>
-    <picker-view 
-      bindchange='provinceChange' 
-      indicator-style="height: 50px;" 
-      style="width: 100%; height: 400rpx;">
-      <!-- 省 -->
-      <picker-view-column value='province'>
-        <view 
-          wx:key='{{index}}' 
-          wx:for="{{provinceList}}" 
-          style="line-height: 50px">{{item.name}}</view>
-      </picker-view-column>
-      <!-- 市 -->
-      <picker-view-column>
-        <view 
-          wx:key='{{index}}' 
-          wx:for="{{cityList}}" 
-          style="line-height: 50px">{{item.name}}</view>
-      </picker-view-column>
-      <!-- 县 -->
-      <picker-view-column>
-        <view 
-          wx:key='{{index}}' 
-          wx:for="{{countyList}}" 
-          style="line-height: 50px">{{item.name}}</view>
-      </picker-view-column>
-    </picker-view>
-  </view>
+
   <view class='shm'></view>
   <view class='shm'></view>
 

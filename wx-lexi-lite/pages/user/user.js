@@ -484,6 +484,7 @@ Page({
 
   // 跳转到设置页面
   setTap(e) {
+    console.log(e)
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -493,7 +494,7 @@ Page({
       return
     }
     wx.navigateTo({
-      url: '../settings/settings'
+      url: '../settings/settings?rid=' + e.currentTarget.dataset.id
     })
   },
 
