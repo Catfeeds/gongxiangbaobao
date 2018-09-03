@@ -454,7 +454,10 @@ swiper {
   height: 28rpx;
   width: 32rpx;
 }
-
+.fen-xiang {
+    height: 26rpx;
+  width: 30rpx;
+}
 .fx-icon-nothing-plus {
   margin: 0 10rpx;
   color: #949ea6;
@@ -739,4 +742,16 @@ margin-bottom:8rpx;
 
 .color-hui {
   color: #949EA6;
+}
+
+.line-height--28rpx{
+  line-height: 28rpx;
+}
+
+.line-height--24rpx{
+  line-height: 24rpx;
+}
+
+.margin-left--0 {
+  margin-left: 0rpx;
 }

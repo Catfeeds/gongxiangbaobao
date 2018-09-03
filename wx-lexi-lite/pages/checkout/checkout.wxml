@@ -99,12 +99,14 @@
           <view>
             <view class='receiveFn_photo time-top font-s'>
               <view class='time-top'>
-                <view class="receiveFnBottomBox">
-                  <image src='../../images/logistics-icon@2.png'></image>
-                </view>
+               
+                  <image class="receiveFnBottomBox" src='../../images/logistics-icon@2.png'></image>
+                
                 <text>{{ logisticsItem.express_name }}</text>
               </view>
-              <view class='logistics__time'>物流时长：{{ logisticsItem.min_days }}至{{ logisticsItem.max_days }}天送达</view>
+              <view 
+                class='logistics__time' 
+                wx:if="{{logisticsItem.min_days!=0&&logisticsItem.max_days!=0}}">物流时长：{{ logisticsItem.min_days }}至{{ logisticsItem.max_days }}天送达</view>
             </view>
             <!-- <view class='receiveFn_line'></view> -->
           </view>
@@ -113,17 +115,17 @@
 
       <!-- 给商家的注意事项 -->
       <view class='merchant voice'>
-        <view class='receiveFnBottomBox'>
-          <image src='../../images/shop-icon@2.png'></image>
-        </view>
+        
+        <image class='receiveFnBottomBox' src='../../images/shop-icon@2.png'></image>
+        
         <input data-rid="{{items[0].store_rid}}" bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
       <view class='merchant voice'>
-        <view class='receiveFnBottomBox'>
-          <image src='../../images/see-icon@2.png'></image>
-        </view>
+        
+          <image class='receiveFnBottomBox' src='../../images/see-icon@2.png'></image>
+   
         <textarea 
           value='' 
           data-rid="{{items[0].store_rid}}" 

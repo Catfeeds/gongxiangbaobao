@@ -258,6 +258,7 @@ Page({
       }
 
       http.fxPost(api.cart_addon, cartParams, (result) => {
+        console.log(result,"加入购物车")
         if (result.success) {
           // 隐藏弹出层
           this.hideSkuModal()
@@ -470,6 +471,7 @@ Page({
     }, (result) => {
       if (result.success) {
         console.log(result, '产品详情')
+        console.log(result.data.store_rid, 'rid')
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid

@@ -36,7 +36,8 @@ Page({
     uploadType: 'front', // 上传类型（正面、背面）
     id_card_front_image: '', // 身份证正面
     id_card_back_image: '', // 身份证背面
-
+    uploadFrontStatus:false, // 上传正面的进度
+    uploadBackStatus:false, // 上传背面的进度
     // 表单信息---
     form: {
       first_name: '', //String	必需	 	姓
@@ -293,7 +294,7 @@ Page({
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
-        wx.uploadFile({
+        const uploadTask =  wx.uploadFile({
           url: this.data.uploadParams.up_endpoint,
           filePath: tempFilePaths[0],
           name: 'file',
@@ -309,6 +310,33 @@ Page({
             }
           }
         })
+
+        uploadTask.onProgressUpdate((res) => {
+          console.log('上传进度', res.progress)
+          console.log('已经上传的数据长度', res.totalBytesSent)
+          console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+          
+          let jindu = res.progress
+          if (type =="front"){
+            this.setData({
+              uploadFrontStatus: jindu == 100 ? false : jindu
+            })
+          }
+          
+          if (type == "back"){
+            
+            this.setData({
+              uploadBackStatus: jindu == 100 ? false : jindu
+            })
+          }
+
+
+
+
+
+        })
+
+
       }
     })
   },

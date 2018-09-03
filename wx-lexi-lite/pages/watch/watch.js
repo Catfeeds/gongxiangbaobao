@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    myIndex:'', // 我的index
     // isWatch:true,//是否关注
     peopleList: [], // 关注的数量
     isNext:false,
@@ -23,9 +23,8 @@ Page({
   // 获取我的关注
   getFollower() {
     http.fxGet(api.users_followed_users, this.data.params, (result) => {
-      console.log(result, "我的关注")
+     
       if (result.success) {
-
         let data = this.data.peopleList
         result.data.followed_users.forEach((v) => {
           data.push(v)
@@ -51,6 +50,23 @@ Page({
         result.data.followed_users.forEach((v)=>{
           data.push(v)
         })
+
+        if (app.globalData.isLogin){
+          let myData = wx.getStorageSync("jwt")
+          let myUid = myData.uid
+          let myIndex
+
+          result.data.followed_users.forEach((v, i) => {
+            if (v.uid == myUid) {
+              myIndex = i
+            }
+          })
+
+          this.setData({
+            myIndex: myIndex
+          })
+          
+        }
 
         this.setData({
           isNext: result.data.next,
