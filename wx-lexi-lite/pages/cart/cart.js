@@ -74,6 +74,8 @@ Page({
     http.fxGet(api.cart, { open_id: wx.getStorageSync('jwt').openid }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
+        this.updateCartTotalCount(result.item_count)
+        
         result.data.items.forEach((v,i) => {
           v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 19) + ' ...' : v.product.product_name
         })
@@ -83,7 +85,7 @@ Page({
             changeCart: false
           })
         }
-        
+
         this.setData({
           shoppingCart: result.data
         }, () => {
@@ -717,7 +719,10 @@ Page({
     wx.showLoading({
       title: '加载中'
     })
-
+    
+    this.setData({
+      cartTotalCount: app.globalData.cartTotalCount
+    })
   },
 
   /**
