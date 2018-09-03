@@ -721,7 +721,7 @@ Page({
   onShow: function() {
 
     // 未登录
-    if (app.globalData.isLogin) {
+    if (!app.globalData.isLogin) {
       return
     }
 
