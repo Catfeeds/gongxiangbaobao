@@ -29,7 +29,9 @@
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox value="{{item.product.rid}}" checked="{{falseheckbox}}" data-rid='{{1234}}' />
+              <checkbox 
+                value="{{item.rid}}" 
+                checked="{{falseheckbox}}"/>
             </block>
             <!-- 中间的产品信息 -->
             <view>

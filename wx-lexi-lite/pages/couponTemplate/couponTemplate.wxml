@@ -11,7 +11,7 @@
       </view>
       <!-- 优惠券图案 -->
       <view class='ct-bottom'>
-        <view class='black-font'>品牌管优惠红包</view>
+        <view class='black-font'>品牌馆优惠红包</view>
         <!-- 优惠券 -->
         <view class='ct-coupon time-top' wx:key='{{index}}' wx:for='{{couponList}}'>
           <view class='ct-line ct-line-l'></view>
@@ -31,7 +31,12 @@
           <view class='ct-item-r item.status==1?"lose-efficacy_bg--color' wx:if="{{item.status==1}}">
             <view>已领取</view>
           </view>
-          <view class='ct-item-r' wx:else data-rid='{{item.code}}' catchtap='getReceiveCoupon'>
+          <view 
+            class='ct-item-r' 
+            wx:else 
+            data-index="{{index}}"
+            data-rid='{{item.code}}' 
+            catchtap='getReceiveCoupon'>
             <view>
               <view>分享</view>
               <view>领取</view>

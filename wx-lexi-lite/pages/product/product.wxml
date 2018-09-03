@@ -352,7 +352,9 @@
       <!-- 退货政策 -->
       <view class='otherInfo-describe location borN' wx:if="{{productInfomation.product_return_policy!=null}}">
         <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
-        <view class='goodstext flex_row margin-bottom--12rpx'>
+        <view 
+          class='goodstext flex_row margin-bottom--12rpx' 
+          wx:if="{{productInfomation.return_policy_title&&productInfomation.return_policy_title!=null}}">
           <view class='dian'></view>
           <text>{{productInfomation.return_policy_title}}</text>
         </view>
