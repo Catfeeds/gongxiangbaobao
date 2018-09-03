@@ -119,28 +119,38 @@
   <!-- 描述,发货地，时间 -->
   <view class='otherInfo'>
     <!-- 描述 -->
-    <view class='otherInfo-describe'>
+    <view 
+      class='otherInfo-describe' 
+      wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
       <view class='titleText'>描述</view>
-      <view class='goodstext two-line-text margin-bottom--12rpx'>
+      <view 
+        class='goodstext two-line-text margin-bottom--12rpx' 
+        wx:if="{{productInfomation.features && productInfomation.features!=null}}">
         <text class='titlemini'>亮点：</text>
         <text>{{ productInfomation.features }}</text>
       </view>
-      <view class='goodstext margin-bottom--12rpx'>
+      <view 
+        class='goodstext margin-bottom--12rpx' 
+        wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
         <text class='titlemini'>材质：</text>
         <text>{{ productInfomation.material_id }}</text>
       </view>
-      <view class='goodstext margin-bottom--12rpx' wx:if='{{ productInfomation.is_custom_service }}'>
+      <view 
+        class='goodstext margin-bottom--12rpx' 
+        wx:if='{{ productInfomation.is_custom_service }}'>
         <text class='titlemini'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
-      <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
+      <view 
+        class='goodstext margin-bottom--30rpx' 
+        wx:if="{{productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
         <text class='titlemini'>数量：</text>
         <text>仅剩最后{{ productInfomation.stock_count }}件</text>
       </view>
     </view>
 
     <!-- 发货地点 -->
-    <view class='otherInfo-describe location '>
+    <view class='otherInfo-describe location' wx:if="{{storeInfo.country}}">
       <view class='titleText'>发货地</view>
       <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.country }}·{{ storeInfo.province }}·{{ storeInfo.city }}</view>
     </view>
@@ -148,12 +158,12 @@
     <!-- 交货时间 -->
     <view class='otherInfo-describe location '>
       <view class='titleText'>交货时间</view>
-      <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
+      <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
       </view>
     </view>
 
     <!-- 退货政策 -->
-    <view class='otherInfo-describe location borN'>
+    <view class='otherInfo-describe location borN' wx:if="{{productInfomation.product_return_policy!=null}}">
       <view class='titleText flex_row margin-bottom--4rpx'>退货政策</view>
       <view class='goodstext flex_row margin-bottom--4rpx'>
         <view class='dian'></view>
@@ -297,13 +307,19 @@
   <view wx:if="{{allInfo}}" class='product-all-info'>
     <view class='otherInfo'>
       <!-- 描述 -->
-      <view class='otherInfo-describe'>
+      <view 
+        class='otherInfo-describe'
+        wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
         <view class='titleText'>描述</view>
-        <view class='goodstext two-line-text margin-bottom--12rpx'>
+        <view 
+          class='goodstext two-line-text margin-bottom--12rpx'
+          wx:if="{{productInfomation.features && productInfomation.features!=null}}">>
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
-        <view class='goodstext margin-bottom--12rpx'>
+        <view 
+          class='goodstext margin-bottom--12rpx'
+          wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
           <text class='titlemini'>材质：</text>
           <text>{{productInfomation.material_id}}</text>
         </view>
@@ -311,14 +327,16 @@
           <text class='titlemini'>特点： </text>
           <text>可提供定制化服务</text>
         </view>
-        <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
+        <view 
+          class='goodstext margin-bottom--30rpx' 
+          wx:if="{{productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null}}">
           <text class='titlemini'>数量：</text>
           <text>仅剩最后{{ productInfomation.stock_count }}件</text>
         </view>
       </view>
 
       <!-- 发货地点 -->
-      <view class='otherInfo-describe location'>
+      <view class='otherInfo-describe location' wx:if="{{storeInfo.country}}">
         <view class='titleText'>发货地</view>
         <view class='goodstext margin-bottom--30rpx'>{{storeInfo.country}}·{{storeInfo.province}}·{{storeInfo.city}}</view>
       </view>
@@ -326,13 +344,13 @@
       <!-- 交货时间 -->
       <view class='otherInfo-describe location'>
         <view class='titleText'>交货时间</view>
-        <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
+        <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
           <!-- <text class='theme-green'> 遵义</text> -->
         </view>
       </view>
 
       <!-- 退货政策 -->
-      <view class='otherInfo-describe location borN'>
+      <view class='otherInfo-describe location borN' wx:if="{{productInfomation.product_return_policy!=null}}">
         <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
         <view class='goodstext flex_row margin-bottom--12rpx'>
           <view class='dian'></view>

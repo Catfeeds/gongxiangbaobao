@@ -16,6 +16,7 @@
             <input 
               placeholder-class='number' 
               placeholder='输入手机号码' 
+              class="input-mobaile"
               maxlength="11" 
               type="number" 
               cursor-spacing="120"
@@ -23,7 +24,14 @@
               value='{{mobaile_number}}'>
             </input>
           
-          <image class='cha' src="../../images/bg-hui-off@icon.png" catchtap='mobileNumberNullTap'>x</image>
+        <view class="delete-input__btn"> 
+          <image 
+            class='cha' 
+            wx:if="{{isDeleteBtn}}"
+            src="../../images/off-btn@3.png" 
+            catchtap='mobileNumberNullTap'></image>
+        </view>
+
           <view wx:if="{{!is_time}}" class='button-style font-ss c-middle {{getBtnStyle?"border-green":""}}' catchtap='getNumberTap'>获取验证码</view>
 
           <view class='button-style font-ss c-middle' wx:if="{{is_time}}">{{time}}s</view>

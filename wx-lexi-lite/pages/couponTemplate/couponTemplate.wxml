@@ -11,7 +11,7 @@
       </view>
       <!-- 优惠券图案 -->
       <view class='ct-bottom'>
-        <view class='black-font'>设计馆优惠红包</view>
+        <view class='black-font'>品牌管优惠红包</view>
         <!-- 优惠券 -->
         <view class='ct-coupon time-top' wx:key='{{index}}' wx:for='{{couponList}}'>
           <view class='ct-line ct-line-l'></view>

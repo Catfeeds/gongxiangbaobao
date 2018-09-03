@@ -26,7 +26,7 @@
         <image class="margin-right--10rpx" src="../../images/location@2.png"></image>
         <text>{{storeInfo.country}}.{{storeInfo.province}}</text>
       </view>
-      <view wx:if="{{storeInfo.fans_count!=0}}">
+      <view wx:if="{{storeInfo.fans_count!=0 && storeInfo.fans_count!=null}}">
         <text class="margin-right--10rpx">粉丝</text>
         <text class="font-width--medium theme-color">{{storeInfo.fans_count}}</text>
       </view>

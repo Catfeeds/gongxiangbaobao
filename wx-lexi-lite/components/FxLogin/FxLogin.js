@@ -19,7 +19,7 @@ Component({
    */
   data: {
     pickAddress:0,//选择好国家
-
+    isDeleteBtn:false, // 删除按钮是否显示
     prompt: false, // 验证码错误提示
     mobaile_number: '', // 手机号码
     getBtnStyle: '', // 输入框的的颜色
@@ -74,7 +74,9 @@ Component({
     // 清空手机号码的按钮
     mobileNumberNullTap() {
       this.setData({
-        mobaile_number: ''
+        mobaile_number: '',
+        getBtnStyle:false,
+        isDeleteBtn:false
       })
     },
 
@@ -82,6 +84,7 @@ Component({
     inputText(e) {
       console.log(e.detail.value)
       var buttonStyle
+      var deleteBtn
       this.setData({
         mobaile_number: e.detail.value,
         prompt: false
@@ -89,11 +92,14 @@ Component({
 
       if (this.data.mobaile_number) {
         buttonStyle = true
+        deleteBtn =true
       } else {
         buttonStyle = false
+        deleteBtn = false
       }
       this.setData({
-        getBtnStyle: buttonStyle
+        getBtnStyle: buttonStyle,
+        isDeleteBtn: deleteBtn
       })
     },
 

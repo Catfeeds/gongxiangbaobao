@@ -58,7 +58,7 @@
   </view>
 
   <!-- 心愿单 -->
-  <view class='thinkOrderBox' wx:if="{{thinkOrder.products.length!=0 && !changeCart}}">
+  <view class='thinkOrderBox' wx:if="{{thinkOrder.products.length!=0 && isShowOrder}}">
     <view class='thinkOrdertext'>心愿单</view>
     <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}">
       <view class='cart-L'>

@@ -40,23 +40,11 @@
   font-size: 34rpx;
 }
 
-.number {
-  font-size: 34rpx;
-  color: #b2b2b2;
-  padding-left: 20rpx;
-}
+
 
 .cha {
   width: 40rpx;
   height: 40rpx;
-  border-radius: 50%;
-  background-color: #dadada;
-  opacity: 0.5;
-  color: white;
-  margin-right: 10rpx;
-  text-align: center;
-  line-height: 36rpx;
-  margin-bottom: 10rpx;
 }
 
 .button-style {
@@ -90,7 +78,7 @@
 .jian {
   position: absolute;
   bottom: 10rpx;
-  right: -14rpx;
+  right: -10rpx;
   height: 13rpx;
   width: 15rpx;
   margin-left: 6rpx;
@@ -101,16 +89,21 @@
   height: 100%;
   font-size: 34rpx;
   margin-right: 20rpx;
+  text-align: left;
 }
 
 .number {
   font-size: 34rpx;
   color: #b2b2b2;
-  margin-left: 20rpx;
   font-weight: 300;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.number {
+  font-size: 34rpx;
+  color: #b2b2b2;
 }
 
 .button-style {
@@ -123,7 +116,7 @@
 }
 
 .input-number input {
-  padding: 20rpx;
+  padding: 20rpx 20rpx 20rpx 0rpx;
   padding-bottom: 10rpx;
   font-size: 34rpx;
 }
@@ -199,7 +192,7 @@
 
 .country_code {
   width: 86rpx;
-  text-align: right;
+  text-align: left;
 }
 
 .off-btn_box {
@@ -245,9 +238,20 @@
 }
 
 .pick-addrses {
-  background-color: #999 !important;
+  background-color: #f7f9fb !important;
 }
 
 .margin-left--30rpx{
   margin-left: 30rpx;
 }
+
+.delete-input__btn {
+  height: 40rpx;
+  width: 40rpx;
+  padding-right:20rpx;
+}
+
+.input-mobaile {
+  padding-left: 20rpx;
+}
+
