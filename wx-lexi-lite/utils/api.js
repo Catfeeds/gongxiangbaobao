@@ -15,6 +15,7 @@ module.exports = {
   // User
   user: 'users', // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
+  users_profile:'users/profile', // GET 获取用户资料（当前登录用户）
   user_authorize: 'accounts/wxa_authorize', //openid---
   user_avatar_upload: '', // POST 
   user_upload_token: 'assets/user_upload_token', // GET 获取上传Token

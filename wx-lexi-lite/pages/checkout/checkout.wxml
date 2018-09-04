@@ -122,7 +122,7 @@
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
       <view class='merchant voice'>
         
-          <image class='receiveFnBottomBox' src='../../images/see-icon@2.png'></image>
+        <image class='receiveFnBottomBox' src='../../images/see-icon@2.png'></image>
    
         <textarea 
           value='' 

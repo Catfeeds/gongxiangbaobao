@@ -98,7 +98,7 @@
             <text>休馆中</text>
           </view>
           <view class="font-s">
-            <view class="off-time">休管时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
+            <view class="off-time">休馆时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
             <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
           </view>
         </view>
