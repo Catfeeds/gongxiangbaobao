@@ -33,10 +33,10 @@ Page({
     falseheckbox: false, // falseheckbox---
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
-    isShowOrder:true, // 心愿单是否可见
-    shoppingCart: { // 添加到购物车的内容产品内容---
-      items:[]
-    }, 
+    isShowOrder: true, // 心愿单是否可见
+    shoppingCart: {  // 添加到购物车的内容产品内容---
+      items: []
+    },
     payment: 0, // 应该支付的总金额---
 
     // 添加购物车和修改购买数量的时候参数
@@ -46,10 +46,10 @@ Page({
       option: '', // 其他选项
       open_id: '', //	独立小程序openid
     },
-
-    thinkOrder: {
-      products:[]
-    }, // 心愿单的内容---
+    
+    thinkOrder: {  // 心愿单的内容---
+      products: []
+    },
   },
 
   // 是否登陆
@@ -71,21 +71,21 @@ Page({
 
   // 获取购物车 ---
   getCartProduct() {
-    http.fxGet(api.cart, {
-      open_id: wx.getStorageSync('jwt').openid
-    }, (result) => {
+    http.fxGet(api.cart, { open_id: wx.getStorageSync('jwt').openid }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
+        this.updateCartTotalCount(result.data.item_count)
 
-        result.data.items.forEach((v,i)=>{
-          v.product.product_name = v.product.product_name.length > 21 ? v.product.product_name.substr(0, 19) + " ..." : v.product.product_name
+        result.data.items.forEach((v,i) => {
+          v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 19) + ' ...' : v.product.product_name
         })
 
-        if (result.data.items.length==0){
+        if (result.data.items.length == 0){
           this.setData({
-            changeCart:false
+            changeCart: false
           })
         }
+
         this.setData({
           shoppingCart: result.data
         }, () => {
@@ -719,7 +719,10 @@ Page({
     wx.showLoading({
       title: '加载中'
     })
-
+    
+    this.setData({
+      cartTotalCount: app.globalData.cartTotalCount
+    })
   },
 
   /**

@@ -203,6 +203,7 @@ Page({
   // 验证是否为跨境订单
   _validateCrossBorder (country_id) {
     // 验证是否为跨境地址
+    console.log(app.globalData.deliveryCountries, '发货国家')
     let deliveryCountries = app.globalData.deliveryCountries
     if (deliveryCountries.length > 0 && deliveryCountries.indexOf(country_id) == -1) {
       this.setData({
@@ -401,6 +402,7 @@ Page({
         this.setData({
           countryList: countries
         })
+
         // 设置默认值
         let defaultCountryId = countries[0].id
         if (!this.data.isEditing) { // 新增状态
@@ -413,7 +415,7 @@ Page({
           let countryIndex = 0
           defaultCountryId = this.data.form.country_id
           countries.map((item, index) => {
-            if (item.id == this.data.form.country_id) {
+            if (item.oid == this.data.form.country_id) {
               countryIndex = index
             }
           })
@@ -519,7 +521,7 @@ Page({
   _getCurrentIndex (list, v) {
     let currentIndex = 0
     list.map((item, index) => {
-      if (item.id == v) {
+      if (item.oid == v) {
         currentIndex = index
       }
     })

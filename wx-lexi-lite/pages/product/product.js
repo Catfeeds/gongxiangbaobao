@@ -694,7 +694,7 @@ Page({
     this.setData({
       rid: options.rid,
       storeRid:options.storeRid,
-      // cartTotalCount: app.globalData.cartTotalCount,
+      cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
 
@@ -1031,7 +1031,7 @@ Page({
       path: 'pages/product/product',
       auth_app_id: extConfig.authAppid
     }
-
+    
     http.fxPost(api.wxacode, params, (res) => {
       if (res.success) {
         that.setData({
