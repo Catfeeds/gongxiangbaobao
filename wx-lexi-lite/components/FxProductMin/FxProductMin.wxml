@@ -6,7 +6,7 @@
   <view class='shopRecommendGoodsR'>
     <view>
       <view class='nowarp'>
-        <text class='logistics logistics' wx:if="{{product.logisticsExpenses==0}}">包邮</text>
+        <image class='logistics logistics' wx:if="{{product.logisticsExpenses==0||product.logisticsExpenses}}"></image>
         <view class='line-ine'>{{product.product_name}}</view>
       </view>
       <!-- 颜色 -->

@@ -67,15 +67,12 @@ Page({
     })
   },
 
-  // 优质新品
+  // 浏览记录
   getHighQuality() {
-    http.fxGet(api.column_explore_new, {}, (result) => {
+    http.fxGet(api.user_browses, {}, (result) => {
       console.log(result, "优质新品")
       if (result.success) {
-        result.data.products.forEach((v)=>{
-          v.name = v.name.slice(0,4)+"..."
-        })
-
+        
         this.setData({
           highQualityList: result.data
         })

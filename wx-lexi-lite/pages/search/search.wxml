@@ -43,15 +43,6 @@
     <view class='bg-white last-record'>
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>最近查看</view>
       <scroll-view scroll-x>
-        <!-- <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
-
-        <image class='last-browse__photo' src="{{item.cover}}"></image>
-        <view class='material-quality'>
-          <image class='logistics' wx:if='{{item.is_free_postage}}'></image>
-          <text class='material-quality-text'>{{item.name}}</text>
-        </view>
-        <text class='last-browse__product--price nowPrice'>￥{{item.min_sale_price>0?item.min_sale_price:item.min_price}}</text>
-        </view> -->
 
         <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
         

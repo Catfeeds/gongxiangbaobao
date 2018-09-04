@@ -239,7 +239,7 @@
         </view>
       </view>
 
-      <view class='category-max__box' wx:if="{{skus.items.length!=1}}">
+      <view class='category-max__box'>
         <!-- 颜色 -->
         <view class='goods-color-box category-box__right' wx:if="{{ hasColor }}">
           <view class='black-font color-title'>颜色</view>
@@ -292,8 +292,28 @@
     </view>
   </view>
 
+  <!-- 不是小b -->
+  <view class=' bg-white c-crosswise-a bottom-btn__position' wx:else>
+    <view class='btn-bg-color shop-cart'>
+      <view class='flex_row--middle add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
+      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
+        <image src='../../images/carticon@2x.png'></image>
+        <text>购物车</text>
+      </view>
+    </view>
+    
+    <view class='small-bottom__style flex_row bg-white'>
+      <view class='flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
+      <view 
+        catchtap="handlePickShow"
+        class='flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
+        <text>接单订制</text>
+      </view>
+    </view>
+  </view>
+
     <!-- 不是小B 接单定制按钮 -->
-  <view class='bottom-btn bg-white c-crosswise-a' wx:else>
+  <!-- <view class='bottom-btn bg-white c-crosswise-a' wx:else>
     <view class='btn-bg-color shop-cart'>
       <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
       <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
@@ -301,9 +321,16 @@
         <text>购物车</text>
       </view>
     </view>
-    <view class='flex_row--middle add_cart' catchtap='handleAddCartShow'>加入购物车</view>
-    <view class='flex_row--middle crated_btn--style btn-bg-color' catchtap='handlePickShow'>接单订制</view>
-  </view>
+    
+    <block>
+    <view 
+      class='flex_row--middle add_cart' 
+      catchtap='handleAddCartShow'>加入购物车</view>
+    <view 
+      class='flex_row--middle crated_btn--style btn-bg-color' 
+      catchtap='handlePickShow'>接单订制</view>
+    </block>
+  </view> -->
 
   <!-- 垫片 -->
   <view class='shm'></view>

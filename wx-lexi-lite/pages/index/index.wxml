@@ -82,7 +82,6 @@
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
       <!-- 
->>>>>>> origin/zhaogaoshang
       <view class='float'>
         <view style='z-index={{aIamge-2}}' animation="{{e}}">
           <image src='{{photo[aIamge-1].img}}'></image>
@@ -99,10 +98,6 @@
         <view style='z-index={{aIamge-2}}' animation="{{a}}">
           <image src='{{photo[eIamge-1].img}}'></image>
         </view>
-<<<<<<< HEAD
-      </view>
-      
-=======
       </view> -->
       <view class="swiper-false">
         <image src='../../images/other/sweiper.png'></image>
@@ -228,31 +223,38 @@
       </view>
 
       <!-- 头条动态 -->
-      <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
+      <view class="page-section padding-top--0rpx ">
         <view class="prevent-click__box"></view>
 
-        <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
-          <view class="headline-side">
-            <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
-            <text>开馆</text>
-            <text>头条</text>
-          </view>
-          <view class="headline-line">
-            <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
-          </view>
-          <swiper circular vertical interval="{{5000}}" class="headline-body open-store__swiper">
-            <swiper-item class="flex-direction__column--center" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
-              <view wx:for="{{headline}}" wx:key="{{index}}" class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
-                <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
-                  <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
-                </view>
-                <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
-                  「{{ item.username }}」的生活馆 {{ item.time }}
-                  <label class="order-yellow">售出{{ item.quantity }}单</label>
-                </view>
-              </view>
+      <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
+        <view class="headline-side">
+          <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
+          <text>开馆</text>
+          <text>头条</text>
+        </view>
+        <view class="headline-line">
+          <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
+        </view>
 
-
+        <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
+          <swiper-item  
+            class="flex-direction__column--center"
+            wx:for="{{ storeHeadlines }}"
+             wx:for-index="idx" 
+             wx:for-item="headline" 
+             wx:key="{{ idx }}">
+          <view 
+            wx:for="{{headline}}"
+            wx:key="{{index}}"
+            class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
+            <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
+              <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
+            </view>
+            <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
+              「{{ item.username }}」的生活馆 {{ item.time }} 
+              <label class="order-yellow">售出{{ item.quantity }}单</label>
+            </view>
+          </view>
             </swiper-item>
           </swiper>
         </view>

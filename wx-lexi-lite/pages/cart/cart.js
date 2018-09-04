@@ -77,7 +77,7 @@ Page({
         this.updateCartTotalCount(result.data.item_count)
 
         result.data.items.forEach((v,i) => {
-          v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 19) + ' ...' : v.product.product_name
+          v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 16) + ' ...' : v.product.product_name
         })
 
         if (result.data.items.length == 0){

@@ -42,12 +42,9 @@
   height: 26rpx;
   width: 42rpx;
   border-radius: 5rpx;
-  background-color: #d4af86;
-  color: white;
-  font-size: 20rpx;
-  line-height: 26rpx;
-  text-align: center;
   margin-right: 6rpx;
+  background-size: 100%;
+  background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
 }
 
 textarea {

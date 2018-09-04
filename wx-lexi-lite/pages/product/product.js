@@ -149,6 +149,11 @@ Page({
     }, (result) => {
       console.log(result,'登陆的优惠券')
 
+      result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+        v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+      })
+
       if (result.success) {
         this.setData({
           couponList: result.data
@@ -166,6 +171,11 @@ Page({
       store_rid: this.data.originalStoreRid
     }, (result) => {
       console.log(result, '没有登陆获取优惠券')
+
+      result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+        v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+      })
 
       let coupon = [] // 优惠券
       let full = [] // 满减券
