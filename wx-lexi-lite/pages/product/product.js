@@ -1186,7 +1186,6 @@ Page({
 
   // 关闭
   hanleOffLoginBox(e) {
-    console.log(e)
     this.setData({
       is_mobile: false
     })

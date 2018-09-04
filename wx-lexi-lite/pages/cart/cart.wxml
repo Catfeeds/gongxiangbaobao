@@ -145,8 +145,8 @@
 
   <!-- 底部垫片 -->
   <view class='Bottom-shim'></view>
-  <!-- 注册登陆 -->
-  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
-    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view>
+  
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+
 </view>
