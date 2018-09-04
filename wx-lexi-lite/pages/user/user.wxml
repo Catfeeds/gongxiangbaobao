@@ -69,13 +69,13 @@
         </view>
         <view class='transmission black-font' catchtap='handleToOrderTap'>
           <text>我的订单</text>
-          <text class='red-round' wx:if="{{orderList.length!=0}}"></text>
+          <text class='red-round' wx:if="{{orderSum>0}}"></text>
         </view>
       </view>
       <view class=' time-top '>
         <view class='flex_row--middle service coupon' catchtap='couponTap'>
           <image class='setings' src='../../images/coupon_icon@2.png'></image>
-          <text class='red-round' wx:if="{{couponList.length!=0}}"></text>
+          <text class='red-round' wx:if="{{couponSum>0}}"></text>
         </view>
 
         <view class=" flex_row--middle service">

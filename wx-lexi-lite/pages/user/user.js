@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderList:[], // 有没有订单
-    couponList:[],// 有没有优惠券
+    orderSum:0, // 有没有订单
+    couponSum:0,// 有没有优惠券
     is_login:false, // 是否登陆
     activeSubMenu: 'user',
     haveSmallB: false,
@@ -199,37 +199,20 @@ Page({
     this.getPick()
   },
 
-  // 获取是否有优惠券
-  getRedBag(){
+  // 获取是否有未使用的优惠券和订单
+  getCouponAddOrder(){
     // 是否登陆
     if (!app.globalData.isLogin) {
       return
     }
-    http.fxGet(api.authority_coupon, {}, (result) =>{
+    http.fxGet(api.orders_order_coupon_count, {}, (result) =>{
       if(result.success){
-        console.log(result,"有没有优惠券")
+        console.log(result,"订单，优惠券的数量")
         this.setData({
-          couponList: result.data.coupons
+          orderSum: result.data.order_count, // 有没有订单
+          couponSum: result.data.coupon_count,// 有没有优惠券
         })
       }else{
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 获取是否有订单
-  getOrderList() {
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      return
-    }
-    http.fxGet(api.orders,{}, (result) => {
-      console.log(result, '订单列表')
-      if (result.success) {
-        this.setData({
-          orderList: result.data.orders
-        })
-      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -378,9 +361,7 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfo() // 获取用户的信息
-    this.getRedBag() // 获取有没有优惠券
-    this.getOrderList() // 获取是否有订单
-
+    this.getCouponAddOrder() // 获取没有使用的优惠券和订单
     // 是否登陆
     this.setData({
       is_login: app.globalData.isLogin

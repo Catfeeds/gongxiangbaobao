@@ -139,7 +139,6 @@ Page({
     })
   },
 
-
   // 用户登录优惠券
   getCouponsByUser() {
     console.log(this.data.originalStoreRid,"原店铺的rid")
@@ -251,6 +250,8 @@ Page({
 
           // 更新数量
           this.updateCartTotalCount(result.data.item_count)
+        }else{
+          utils.fxShowToast(result.status.message)
         }
       })
     }
@@ -436,7 +437,7 @@ Page({
       store_rid: this.data.storeRid
     }, (result) => {
       console.log(result, '交货时间数据')
-      if (result.success) {
+      if (result.success && result.data.items.length!=0) {
         let min = result.data.items[0].min_days
         let max = result.data.items[0].max_days
         result.data.items.forEach((v, i) => {
@@ -476,17 +477,14 @@ Page({
 
         this.getStoreInfo() // 店铺信息---
 
-
         if (!app.globalData.isLogin){
           // 未登录
-          this.data.getCoupons()
-          
+          this.getCoupons()
         }else{
           // 登陆
           this.getCouponsByUser()
           this.getCoupons("manjian")
         }
-
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -714,8 +712,6 @@ Page({
     this.getProductInfomation() // 获取商品详情---
     this.getSkus()
 
-    // this.getCouponAndFullSubtraction() // 获取优惠券---
-    // this.getNewProduct() // 获取最新的商品---
   },
 
   // 初始化sku

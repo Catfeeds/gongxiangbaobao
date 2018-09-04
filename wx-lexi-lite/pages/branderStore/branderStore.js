@@ -392,6 +392,14 @@ Page({
 
   // 关注店铺
   handelAddfollow() {
+
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
     }, (result) => {
@@ -409,6 +417,14 @@ Page({
 
   // 取消关注店铺
   handeldeleteFollow() {
+
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
+
     http.fxPost(api.delete_watch, {
       rid: this.data.storeRid
     }, (result) => {
@@ -444,7 +460,17 @@ Page({
     wx.navigateTo({
       url: '../brandInformation/brandInformation?rid='+e.currentTarget.dataset.rid
     })
+  },
 
+  // 关闭登陆框
+  hanleOffLoginBox(e) {
+    console.log(e)
+    wx.showTabBar()
+    this.setData({
+      // is_mobile: e.detail.offBox
+      is_mobile: false
+    })
+    app.globalData.isLogin = true
   },
 
   // 获取文章列表
@@ -500,13 +526,15 @@ Page({
       return false
     }
     console.log(e.currentTarget.dataset.rid)
+    console.log(e.currentTarget.dataset.index)
     http.fxPost(api.coupon_grant, {
-      rid: e.currentTarget.dataset.rid
+      rid: e.currentTarget.dataset.rid,
+      store_rid: this.data.storeRid
     }, (result) => {
       console.log(result)
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
-        // this.getCouponAndFullSubtraction()
+        // this.getCouponAndFullSubtraction() 
         // let topPage = getCurrentPages()
         // let topPagePath = topPage[topPage.length - 2]
 
@@ -514,72 +542,69 @@ Page({
         setTimeout(() => {
           this.getCouponsByUser()
         }, 200)
+
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  // 获取与登录用户相关的店铺优惠券 or 满减
-  getCouponsByUser(type = ' ') {
-    this.setData({
-      ['couponParams.type']: type
-    })
-    // 优惠券
-    http.fxGet(api.user_login_coupon, { ...this.data.couponParams,
+  // 用户登录优惠券
+  getCouponsByUser() {
+    console.log(this.data.storeRid, "原店铺的rid")
+
+    http.fxGet(api.user_login_coupon, {
       store_rid: this.data.storeRid
     }, (result) => {
+      console.log(result, '登陆的优惠券')
+
       if (result.success) {
-        if (type != 3) {
-          console.log(result, '登陆的优惠券')
-          let parms = result.data
-          parms.coupons.forEach((v, i) => {
-            v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
-            v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
-          })
+        this.setData({
+          couponList: result.data
+        })
 
-          this.setData({
-            couponList: result.data
-          })
-          app.globalData.couponList = result.data
-        } else {
-
-          // 调取满减
-          this.getCoupons('loginFullSubtractionList')
-
-        }
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  // 用户未登录时获取店铺优惠券 or 满减活动列表
+  // 未登录的优惠群 和 满减
   getCoupons(e) {
     http.fxGet(api.noCouponsList, {
       store_rid: this.data.storeRid
     }, (result) => {
       console.log(result, '没有登陆获取优惠券')
+
+      let coupon = [] // 优惠券
+      let full = [] // 满减券
+
       if (result.success) {
-        let coupon = [] // 优惠券
-        let full = [] // 满减券
-        result.data.coupons.forEach((v, i) => {
-          console.log(v)
-          if (v.type == 3) {
-            full.push(v)
-          } else {
-            coupon.push(v)
-          }
-        })
-        console.log(full, "满减")
-        // 如果是登陆状态下调取直接赋值满减
-        if (e == "loginFullSubtractionList") {
+        if (e == "manjian") {
+          // 登陆， 筛选满减
+          result.data.coupons.forEach((v, i) => {
+            console.log(v)
+            if (v.type == 3) {
+              full.push(v)
+            }
+          })
+
           this.setData({
             fullSubtractionList: full
           })
           app.globalData.fullSubtractionList = result.data
-          console.log(result.data, "满减")
+
         } else {
+          // 未登录
+          result.data.coupons.forEach((v, i) => {
+            console.log(v)
+            if (v.type == 3) {
+              full.push(v)
+            } else {
+              coupon.push(v)
+            }
+          })
+
           this.setData({
             ['couponList.coupons']: coupon, // 优惠券列表---couponList
             fullSubtractionList: full, // 满减---
@@ -587,13 +612,13 @@ Page({
           app.globalData.fullSubtractionList.coupons = full
           app.globalData.couponList.coupons = coupon
         }
-        console.log(full, '满减')
-        console.log(full, '满减')
+
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
+
 
   // 获取店铺的信息 official_store/info categoryList
   getStoreInfo() {
@@ -620,6 +645,15 @@ Page({
           ['titleCategoryList[1].num']: result.data.life_record_count,
           storeInfo: result.data
         })
+
+        if (!app.globalData.isLogin) {
+          // 未登录
+          this.getCoupons()
+        } else {
+          // 登陆
+          this.getCouponsByUser()
+          this.getCoupons("manjian")
+        }
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -663,8 +697,7 @@ Page({
     this.getStoreInfo() // 店铺详情
     this.getAnnouncement() // 店铺的公告
     this.products() // 获取店铺的商品列表
-    this.getCouponsByUser() // 获取登陆用户地优惠券
-    this.getCouponsByUser(3) // 获取满减
+
   },
 
   /**
