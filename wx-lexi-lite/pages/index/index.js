@@ -15,6 +15,7 @@ Page({
   data: {
     page: 1,
     perPage: 3,
+    firstTime: true,
     swiperMark:0, // 轮播图标记
     loadingMore: true, // 加载更多标记
     gratefulSwiper:0, // 热气推荐的的轮播图的点
@@ -1121,33 +1122,7 @@ Page({
         })
       }
     }
-  },
 
-  /**
-   * 监听页面滚动
-   * **/
-  onPageScroll(e) {
-    if (e.scrollTop > 59) {
-      this.setData({
-        isNavbarAdsorb: true
-      })
-    } else if (e.scrollTop < 60) {
-      this.setData({
-        isNavbarAdsorb: false
-      })
-    }
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
     // 验证登录用户是否为小B商家
     if (this.data.sid == '') {
       app.login().then(res => {
@@ -1175,7 +1150,7 @@ Page({
 
           // 请求当前数据
           this._swtichActivePageTab(this.data.pageActiveTab)
-          
+
         } else {
           this.setData({ // 无生活馆显示
             'pageTabs[0].disabled': true
@@ -1185,7 +1160,7 @@ Page({
           this._swtichActivePageTab(this.data.pageActiveTab)
         }
       })
-    } else { 
+    } else {
       this.setData({
         pageActiveTab: 'lifeStore'
       })
@@ -1196,6 +1171,34 @@ Page({
       // 请求当前数据
       this._swtichActivePageTab(this.data.pageActiveTab)
     }
+  },
+
+  /**
+   * 监听页面滚动
+   * **/
+  onPageScroll(e) {
+    if (e.scrollTop > 59) {
+      this.setData({
+        isNavbarAdsorb: true
+      })
+    } else if (e.scrollTop < 60) {
+      this.setData({
+        isNavbarAdsorb: false
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    
   },
 
   /**
