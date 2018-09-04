@@ -18,7 +18,7 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
-    
+    isLoadPageShow:true, // 加载数据的Loadig图片
     shim:true, // 垫片是否显示
     topBGPhoto:'', // 头部背景图片
     topPhotoText:"", // 背景文字
@@ -326,13 +326,11 @@ Page({
 
   //编辑推荐
   editRecommend() {
-    wx.showLoading(
-      { mask: true, title:"加载中"}
-    )
+
 
     http.fxGet(api.column_explore_recommend, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "编辑 推荐")
-      wx.hideLoading()
+
 
       if (result.success) {
         let data = this.data.productList
@@ -354,11 +352,9 @@ Page({
 
   // 百元好物
   getOneHundred() {
-    wx.showLoading()
 
     http.fxGet(api.column_affordable_goods, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "百元好物")
-      wx.hideLoading()
 
       if (result.success) {
         let data = this.data.productList
@@ -380,11 +376,9 @@ Page({
 
   // 优质新品
   getHighQuality() {
-    wx.showLoading()
 
     http.fxGet(api.column_explore_new, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "优质新品")
-      wx.hideLoading()
 
       if (result.success) {
         let data = this.data.productList
@@ -406,11 +400,9 @@ Page({
 
   // 特惠好设计 
   getGoodDesign() {
-    wx.showLoading()
 
     http.fxGet(api.column_preferential_design, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "特惠好设计")
-      wx.hideLoading()
       this.getBrowsePeopleOne("preferential_design")
 
       if (result.success) {
@@ -436,11 +428,9 @@ Page({
   /** 我的个人中心 start**/
   //我的浏览记录
   getBrowse() {
-    wx.showLoading()
 
     http.fxGet(api.user_browses, this.data.editRecommendRequestParams, (result) => {
       console.log(result, "我的浏览记录")
-      wx.hideLoading()
 
       if (result.success) {
         let data = this.data.productList
@@ -462,9 +452,7 @@ Page({
 
   // 我的心愿单
   getXinYuanOrder() {
-    wx.showLoading()
     http.fxGet(api.wishlist, this.data.editRecommendRequestParams, (result) => {
-      wx.hideLoading()
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -489,11 +477,9 @@ Page({
 
   //他的浏览记录
   getOtherBrowses(e){
-    wx.showLoading()
 
     http.fxGet(api.other_user_browses, { ...this.data.editRecommendRequestParams, uid: this.data.otherUid} , (result) => {
       console.log(result, "他的浏览记录")
-      wx.hideLoading()
 
       if (result.success) {
         let data = this.data.productList
@@ -514,11 +500,9 @@ Page({
 
   // 他的喜欢
   getOtherLike(){
-    wx.showLoading()
 
     http.fxGet(api.other_userlike, { ...this.data.editRecommendRequestParams, uid: this.data.otherUid }, (result) => {
       console.log(result, "他的喜欢")
-      wx.hideLoading()
 
       if (result.success) {
         let data = this.data.productList
@@ -539,11 +523,9 @@ Page({
 
   //他的心愿单
   getOtherXinYuan(){
-    wx.showLoading()
 
     http.fxGet(api.other_wishlist, { ...this.data.editRecommendRequestParams, uid: this.data.otherUid }, (result) => {
       console.log(result, "他的心愿单")
-      wx.hideLoading()
 
       if (result.success) {
         let data = this.data.productList
@@ -879,7 +861,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      isLoadPageShow: false
+    })
   },
 
   /**

@@ -557,6 +557,11 @@ Page({
       store_rid: this.data.storeRid
     }, (result) => {
       console.log(result, '登陆的优惠券')
+      
+      result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date,"date")
+        v.user_coupon_end = utils.timestamp2string(v.end_date,"date")
+      })
 
       if (result.success) {
         this.setData({
@@ -580,6 +585,12 @@ Page({
       let full = [] // 满减券
 
       if (result.success) {
+
+        result.data.coupons.forEach((v,i)=>{
+          v.user_coupon_start = utils.timestamp2string(v.start_date,"date")
+          v.user_coupon_end = utils.timestamp2string(v.end_date,"date")
+        })
+
         if (e == "manjian") {
           // 登陆， 筛选满减
           result.data.coupons.forEach((v, i) => {

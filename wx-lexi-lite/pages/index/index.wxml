@@ -273,7 +273,7 @@
       </view>
 
           <!-- 头条动态 -->
-    <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
+    <view class="page-section padding-top--0rpx ">
       <view class="prevent-click__box"></view>
 
       <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
@@ -285,7 +285,7 @@
         <view class="headline-line">
           <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
         </view>
-        <swiper circular  vertical interval="{{5000}}" class="headline-body open-store__swiper">
+        <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
           <swiper-item  
             class="flex-direction__column--center"
             wx:for="{{ storeHeadlines }}"

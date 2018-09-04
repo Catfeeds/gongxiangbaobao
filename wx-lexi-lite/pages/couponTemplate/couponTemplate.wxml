@@ -31,7 +31,7 @@
             </view>
             <view class='ce-price-r '>
               <view class='ct-price-icon ce-green {{item.status==1?"lose-efficacy_price--color":""}}'>满{{item.min_amount}}使用</view>
-              <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期: {{item.user_coupon_start}} 至 {{item.user_coupon_start}}</view>
+              <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期: {{item.user_coupon_start}} 至 {{item.user_coupon_end}}</view>
             </view>
           </view>
           <view class='ct-item-r item.status==1?"lose-efficacy_bg--color' wx:if="{{item.status==1}}">
