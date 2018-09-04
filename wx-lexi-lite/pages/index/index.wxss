@@ -385,6 +385,7 @@
   width: 108rpx;
   border-radius: 50%;
   margin-bottom: 8rpx;
+  background:rgba(245,247,249,1);
 }
 
 .characteristic-box {
@@ -995,6 +996,7 @@ swiper-photo .slide-item__box image {
 .page-section {
   position: relative;
 }
+.flex-direction__column--center .headline-group .margin-bottom--0rpx,
 .page-section .margin-bottom--0rpx {
   margin-bottom: 0rpx;
 }
@@ -1194,4 +1196,18 @@ swiper-photo .slide-item__box image {
   height: 100%;
   width: 100%;
   z-index: 10;
+}
+
+.headline-body .headline-item {
+  margin-bottom: 8rpx;
+}
+
+.padding-top-bottom--0rpx{
+  padding-top: 0rpx !important;
+  padding-bottom: 0rpx !important;
+}
+
+.product-category-icon__item {
+  height: 70rpx;
+  width: 70rpx;
 }

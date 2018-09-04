@@ -276,7 +276,7 @@
     <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
       <view class="prevent-click__box"></view>
 
-      <view class="flex_row headline padding-top--0rpx margin-bottom--0rpx">
+      <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
         <view class="headline-side">
           <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
           <text>开馆</text>
@@ -285,7 +285,7 @@
         <view class="headline-line">
           <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
         </view>
-        <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
+        <swiper circular  vertical interval="{{5000}}" class="headline-body open-store__swiper">
           <swiper-item  
             class="flex-direction__column--center"
             wx:for="{{ storeHeadlines }}"
@@ -295,12 +295,12 @@
           <view 
             wx:for="{{headline}}"
             wx:key="{{index}}"
-            class="headline-group">
-            <view class="headline-item one-line-text margin-bottom--0rpx" wx:if="{{ item.event == 1 }}">
-              <label class="store-green">{{ item.username }}</label> {{ item.time }} 小时前开通了自己的设计馆
+            class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
+            <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
+              <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
             </view>
             <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
-              「{{ item.username }}」的生活馆 {{ item.time }} 小时
+              「{{ item.username }}」的生活馆 {{ item.time }} 
               <label class="order-yellow">售出{{ item.quantity }}单</label>
             </view>
           </view>
@@ -527,7 +527,9 @@
       <scroll-view scroll-x class='flex_row slither-box'>
         <view class='fx-column--center inline-block padding--27rpx {{index==0?"padding-left--40rpx":""}} {{index==categoryList.categories.length-1?"padding-right--40rpx":""}}' catchtap="handleTocategoryList" data-title-name="{{item.name}}" data-id="{{item.id}}"
           wx:for="{{categoryList.categories}}" wx:key='{{index}}'>
-          <image class='product-category-icon' src='{{item.cover}}-p16'></image>
+          <view class='c-middle product-category-icon'>
+            <image class="product-category-icon__item" src='{{item.cover}}'></image>
+          </view>
           <view class='flex_row--middle font-s'>{{item.name}}</view>
           <view class=' flex_row--middle font-ss qian-hui height-22rpx'>{{item.browse_count>0?item.browse_count+"人":" "}}</view>
         </view>

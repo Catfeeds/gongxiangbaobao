@@ -961,6 +961,11 @@ Page({
         res.data.headlines.forEach((v,i)=>{
           // console.log(v)
           // console.log(v.username - 0)
+          if(v.time>24){
+            v.time = Math.ceil(v.time%24) + "天"
+          }else{
+            v.time = v.time + "小时"
+          }
 
           if (v.username - 0 != NaN && v.username.length>9){
             console.log(v)
