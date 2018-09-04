@@ -166,7 +166,7 @@
     </view>
 
     <!-- 交货时间 -->
-    <view class='otherInfo-describe location '>
+    <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=null&&productInfomation.py_intro!=null}}">
       <view class='titleText'>交货时间</view>
       <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
       </view>
@@ -175,7 +175,7 @@
     <!-- 退货政策 -->
     <view class='otherInfo-describe location borN' wx:if="{{productInfomation.product_return_policy!=null}}">
       <view class='titleText flex_row margin-bottom--4rpx'>退货政策</view>
-      <view class='goodstext flex_row margin-bottom--4rpx'>
+      <view class='goodstext flex_row margin-bottom--4rpx' wx:if="{{productInfomation.return_policy_title&&productInfomation.return_policy_title!=null}}">
         <view class='dian'></view>
         <text>{{productInfomation.return_policy_title}}</text>
       </view>
