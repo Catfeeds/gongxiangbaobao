@@ -48,7 +48,7 @@ Page({
       city_id: '', // Integer 可选 市ID
       town_id:'', // 镇
       mail: '', // String 可选 邮箱
-      date: '', // String 可选 出生日期
+      date: 2018, // String 可选 出生日期
     }
   },
 
@@ -457,7 +457,7 @@ Page({
         })
 
         let userProfile = this.data.userInfo.profile
-        console.log(this.data.userInfo, "用户的资料")
+        console.log(this.data.userInfo.profile, userProfile.date, "用户的资料")
 
         if (userProfile.country_id == null) {
           this.getAddressInfo()
@@ -475,7 +475,7 @@ Page({
           'editUserInfo.province_id': userProfile.province_id,
           'editUserInfo.city_id': userProfile.city_id,
           ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
-          ['editUserInfo.date']: userProfile.data,
+          ['editUserInfo.date']: userProfile.date,
 
           // 'editUserInfo.first_name': userProfile.first_name,
           'editUserInfo.mobile': userProfile.mobile,

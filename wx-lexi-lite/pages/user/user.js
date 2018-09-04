@@ -223,7 +223,7 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
-    http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
+    http.fxGet(api.orders,{}, (result) => {
       console.log(result, '订单列表')
       if (result.success) {
         this.setData({
