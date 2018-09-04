@@ -115,16 +115,17 @@ Page({
     let rid = this.data.rid
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
-    // scene格式：rid + '#' + sid
+    // scene格式：rid + '-' + sid
     let scene = rid
     if (lastVisitLifeStoreRid) {
-      scene += '#' + lastVisitLifeStoreRid
+      scene += '-' + lastVisitLifeStoreRid
     }
 
     let params = {
       rid: rid,
       type: 4,
-      path: 'pages/product/product?scene=' + scene,
+      path: 'pages/product/product',
+      scene: scene,
       auth_app_id: app.globalData.app_id
     }
     http.fxPost(api.wxa_poster, params, (result) => {
@@ -671,11 +672,11 @@ Page({
     console.log(options, product, "上一页穿的参数")
 
     utils.handleShowLoading()
-    // scene格式：rid + '#' + sid
+    // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
     if (scene && scene != 'undefined') {
-      let sceneAry = scene.split('#')
+      let sceneAry = scene.split('-')
       rid = sceneAry[0]
       // 生活馆ID
       if (sceneAry.length == 2) {

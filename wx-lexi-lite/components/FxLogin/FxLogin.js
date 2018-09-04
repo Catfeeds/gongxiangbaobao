@@ -217,7 +217,7 @@ Component({
         })
       } else {
         // 用户点击拒绝按钮
-
+        utils.fxShowToast('拒绝授权，你可以选择微信一键快捷授权')
       }
     },
 
@@ -257,7 +257,7 @@ Component({
 
                 // 触发关闭回调
                 this.triggerEvent('closeEvent')
-                
+
               } else {
                 utils.fxShowToast(res.status.message)
               }

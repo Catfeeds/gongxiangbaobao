@@ -59,51 +59,61 @@ App({
     this.getUserLocation()
   },
 
-  login: function (cb) {
-    // 调用login获取code
-    wx.login({
-      success: (res) => {
-        // 发送 res.code 到后台换取 openId
-        const code = res.code
-        console.log('Login code: ' + code)
+  /**
+   * 登录
+   */
+  login: function () {
+    return new Promise((resolve, reject) => {
 
-        // 发送请求获取 jwt
-        http.fxPost(api.user_authorize, {
-          auth_app_id: this.globalData.app_id,
-          code: code
-        }, (res) => {
-          console.log(res, '自动登录')
-          if (res.success) {
-            let isBind = res.data.is_bind
-            // 登录成功，得到jwt后存储到storage
-            wx.setStorageSync('jwt', res.data)
-            console.log(res.data, 'jwt信息')
-            if (isBind) {
-              this.globalData.isLogin = true
-              this.globalData.token = res.data.token
-              this.globalData.uid = res.data.uid
-              //更新用户信息
-              this.updateUserInfo(res.data)
-              // 更新小B身份
-              this.updateLifeStoreInfo(res.data)
-
-              // 回调函数
-              this.hookLoginCallBack()
-
-              if (cb) {
-                return typeof cb == 'function' && cb(true)
-              }
-            }
-          } else {
-            // 显示错误信息
-            wx.showToast({
-              title: res.status.message,
-              icon: 'none',
-              duration: 2000
-            })
-          }
-        })
+      if (this.globalData.userLoaded) {
+        return resolve({ success: true })
       }
+
+      // 调用login获取code
+      wx.login({
+        success: (res) => {
+          // 发送 res.code 到后台换取 openId
+          const code = res.code
+          console.log('Login code: ' + code)
+
+          // 发送请求获取 jwt
+          http.fxPost(api.user_authorize, {
+            auth_app_id: this.globalData.app_id,
+            code: code
+          }, (res) => {
+            console.log(res, '自动登录')
+            if (res.success) {
+              let isBind = res.data.is_bind
+              // 登录成功，得到jwt后存储到storage
+              wx.setStorageSync('jwt', res.data)
+              console.log(res.data, 'jwt信息')
+              if (isBind) {
+                this.globalData.isLogin = true
+                this.globalData.token = res.data.token
+                this.globalData.uid = res.data.uid
+                //更新用户信息
+                this.updateUserInfo(res.data)
+                // 更新小B身份
+                this.updateLifeStoreInfo(res.data)
+
+                // 回调函数
+                this.hookLoginCallBack()
+
+                resolve({ success: true })
+              }
+            } else {
+              // 显示错误信息
+              wx.showToast({
+                title: res.status.message,
+                icon: 'none',
+                duration: 2000
+              })
+
+              reject({ success: false })
+            }
+          })
+        }
+      })
     })
   },
 
@@ -122,6 +132,8 @@ App({
       mobile: jwt.mobile,
       username: jwt.username
     }
+
+    this.globalData.userLoaded = true
     
     wx.setStorageSync('userInfo', this.globalData.userInfo)
   },
@@ -204,12 +216,12 @@ App({
   shareWxaProduct (rid, title, imageUrl) {
     let lastVisitLifeStoreRid = this.getDistributeLifeStoreRid()
 
-    // scene格式：rid + '#' + sid
+    // scene格式：rid + '-' + sid
     let scene = rid
     if (lastVisitLifeStoreRid) {
-      scene +=  '#' + lastVisitLifeStoreRid
+      scene +=  '-' + lastVisitLifeStoreRid
     }
-
+    
     return {
       title: title,
       path: 'pages/product/product?scene=' + scene,
@@ -318,6 +330,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 检测用户加载是否完成，异步问题
+    userLoaded: false,
     // 支付成功后的订单
     paymentSuccessOrder: {},
     // 登录相关信息
