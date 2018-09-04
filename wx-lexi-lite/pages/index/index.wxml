@@ -1,15 +1,15 @@
 <!--index.wxml-->
 
 <view class="container">
-<view class="c-middle sear-top">
-  <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
-    
-    <view class='search-box_text flex_row'>
-      <image src='../../images/sear-icon@2.png'></image>
-      <text>关键字/礼物/品牌馆/人</text>
+  <view class="c-middle sear-top">
+    <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
+
+      <view class='search-box_text flex_row'>
+        <image src='../../images/sear-icon@2.png'></image>
+        <text>关键字/礼物/品牌馆/人</text>
+      </view>
     </view>
   </view>
-</view>
   <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
   <view class='fx-tabs  navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
@@ -26,7 +26,7 @@
         <!-- 店主信息 -->
         <view class='owner-avatar_box'>
           <image style="border-radius:8rpx" src="{{ lifeStore.logo }}"></image>
-          <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" ></image>
+          <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo"></image>
         </view>
 
         <view class="fx-column-start owner-info-text_info">
@@ -73,9 +73,7 @@
           <view class='probation-icon c-middle '>实习</view>
           <view class='shen-hui'>当前为实习馆主</view>
         </view>
-        <image 
-          src="../../images/icon-close-bold@3x.png"
-          class='off-icon--style qian-hui font-s'></image>
+        <image src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
       </view>
       <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
       </view>
@@ -113,8 +111,8 @@
         <view>挑选乐喜优质商品上架</view>
         <view>品位生活，由此开启</view>
       </view>
-      <view class='font-m flex_row'> 
-        <text>选品中心</text>  
+      <view class='font-m flex_row'>
+        <text>选品中心</text>
         <image class="right-jian__bai" src="../../images/right-jian-bai.png"></image>
       </view>
     </view>
@@ -131,25 +129,14 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <view 
-        class='tuijian border-bottom padding-bottom--20rpx {{idx==0?"padding-top--40rpx":""}} {{idx==storeProducts.length-1?"margin-bottom--0rpx":""}}' 
-        wx:for="{{ storeProducts }}" 
-        wx:for-index="idx" 
-        wx:for-item="product" 
-        wx:key="{{ product.rid }}" 
-        wx:if="{{ !isEmpty }}">
+      <view class='tuijian border-bottom padding-bottom--20rpx {{idx==0?"padding-top--40rpx":""}} {{idx==storeProducts.length-1?"margin-bottom--0rpx":""}}' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ !isEmpty }}">
 
         <!-- 店长头相 -->
         <view class='shopMaster'>
           <image src='{{ storeOwner.avatar }}' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
-          <view 
-            class="delete-icon" 
-            data-idx="{{ idx }}" 
-            data-rid="{{ product.rid }}" 
-            bindtap="handleRemoveFromStore" 
-            wx:if="{{ canAdmin }}">
+          <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ product.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
             <image src='../../images/delete-icon@2.png'></image>
           </view>
         </view>
@@ -162,24 +149,12 @@
 
         <!-- 物品的详情 -->
         <view class='margin-top--20rpx margin-bottom--44rpx'>
-          <fx-product-middleM 
-            originPric="{{ true }}" 
-            is_likeNumber="{{ true }}" 
-            price="{{ true }}" 
-            product="{{ product }}" 
-            bind:triggerEvent_product="handleGoProduct" 
-            data-rid="{{ product.rid }}"></fx-product-middleM>
+          <fx-product-middleM originPric="{{ true }}" is_likeNumber="{{ true }}" price="{{ true }}" product="{{ product }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ product.rid }}"></fx-product-middleM>
         </view>
 
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view 
-            data-id='{{product.rid}}' 
-            data-rid='{{product.rid}}' 
-            class='recommendbottomText {{item.is_like?"likeActive":""}}'
-            data-index="{{idx}}"
-            data-islike="{{product.is_like}}"
-            catchtap='handleBindLike'>
+          <view data-id='{{product.rid}}' data-rid='{{product.rid}}' class='recommendbottomText {{item.is_like?"likeActive":""}}' data-index="{{idx}}" data-islike="{{product.is_like}}" catchtap='handleBindLike'>
             <view class='icon-like'>
               <image src='{{product.is_like?"../../images/Like@2.png":"../../images/dLike@2.png"}}'>
               </image>
@@ -190,13 +165,7 @@
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view 
-              catchtap='handleStickShareDistribute' 
-              data-shareStore='{{item}}' 
-              data-rid='{{product.rid}}' 
-              data-idx="{{idx}}"
-              data-is-distributed="{{product.is_distributed}}"
-              data-from="2">分享</view>
+            <view catchtap='handleStickShareDistribute' data-shareStore='{{item}}' data-rid='{{product.rid}}' data-idx="{{idx}}" data-is-distributed="{{product.is_distributed}}" data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image src='{{logo}}' class='photo-round'></image>
@@ -207,10 +176,7 @@
       </view>
 
       <!-- 查看更多 -->
-      <view 
-        class="c-middle border-bottom shen-hui font-s examine-more-box" 
-        catchtap="handleLoadingRecommend"
-        wx:if="{{isNextRecommend}}">
+      <view class="c-middle border-bottom shen-hui font-s examine-more-box" catchtap="handleLoadingRecommend" wx:if="{{isNextRecommend}}">
         查看更多好物
         <text class='fx-icon-nothing-lower'></text>
       </view>
@@ -234,28 +200,17 @@
   <view wx:if="{{ pageActiveTab == 'featured' }}" class='bg-white'>
     <!-- 手动旋转木马 -->
     <view class='swiper-photo list'>
-      <swiper 
-        autoplay="{{false}}"  
-        previous-margin="{{'20rpx'}}" 
-        next-margin="{{'64rpx'}}"
-        bindchange="swiperChange">
+      <swiper autoplay="{{false}}" previous-margin="{{'20rpx'}}" next-margin="{{'64rpx'}}" bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
-          <swiper-item 
-            catchtap="handleToInfo"
-            data-type="{{item.type}}"
-            data-id="{{item.id}}"
-            data-rid="{{item.rid}}"
-            class="flex_row--middle"
-            data-id="{{item.id}}" 
-            data-sort="{{item.sort}}">
+          <swiper-item catchtap="handleToInfo" data-type="{{item.type}}" data-id="{{item.id}}" data-rid="{{item.rid}}" class="flex_row--middle" data-id="{{item.id}}" data-sort="{{item.sort}}">
             <view class="slide-image slide-item__box {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
-            <image src="{{item.image}}" >
-              <view class="prompt-textwrap">
-                <view class="prompt-text">{{item.title}}</view>
-                <view class='prompt-destext'>{{item.subTitle}}</view>
-              </view>
-              <text class="slogan">{{item.slogan}}</text>
-            </image>
+              <image src="{{item.image}}">
+                <view class="prompt-textwrap">
+                  <view class="prompt-text">{{item.title}}</view>
+                  <view class='prompt-destext'>{{item.subTitle}}</view>
+                </view>
+                <text class="slogan">{{item.slogan}}</text>
+              </image>
             </view>
           </swiper-item>
         </block>
@@ -263,8 +218,8 @@
     </view>
 
     <!-- 开店指引 -->
-    <view class="setUpShop-guide border-radius--8" >
-      <view class='time-top setUpShop-guide__top border-bottom' wx:if="{{ isSmallB }}">
+    <view class="setUpShop-guide border-radius--8">
+      <view class='time-top setUpShop-guide__top border-bottom' wx:if="{{ !isSmallB }}">
         <view class=''>
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
@@ -272,44 +227,36 @@
         <view class='black-font font--white c-middle border-radius--8 c-theme-bg setUpshop-guide__btn' bindtap="handleApplyLifeStore">开馆指引</view>
       </view>
 
-          <!-- 头条动态 -->
-    <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
-      <view class="prevent-click__box"></view>
+      <!-- 头条动态 -->
+      <view class="page-section padding-top--0rpx {{!isSmallB?'border-top':''}}">
+        <view class="prevent-click__box"></view>
 
-      <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
-        <view class="headline-side">
-          <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
-          <text>开馆</text>
-          <text>头条</text>
-        </view>
-        <view class="headline-line">
-          <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
-        </view>
-        <swiper circular  vertical interval="{{5000}}" class="headline-body open-store__swiper">
-          <swiper-item  
-            class="flex-direction__column--center"
-            wx:for="{{ storeHeadlines }}"
-             wx:for-index="idx" 
-             wx:for-item="headline" 
-             wx:key="{{ idx }}">
-          <view 
-            wx:for="{{headline}}"
-            wx:key="{{index}}"
-            class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
-            <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
-              <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
-            </view>
-            <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
-              「{{ item.username }}」的生活馆 {{ item.time }} 
-              <label class="order-yellow">售出{{ item.quantity }}单</label>
-            </view>
+        <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
+          <view class="headline-side">
+            <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
+            <text>开馆</text>
+            <text>头条</text>
           </view>
+          <view class="headline-line">
+            <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
+          </view>
+          <swiper circular vertical interval="{{5000}}" class="headline-body open-store__swiper">
+            <swiper-item class="flex-direction__column--center" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
+              <view wx:for="{{headline}}" wx:key="{{index}}" class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
+                <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
+                  <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
+                </view>
+                <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
+                  「{{ item.username }}」的生活馆 {{ item.time }}
+                  <label class="order-yellow">售出{{ item.quantity }}单</label>
+                </view>
+              </view>
 
 
-          </swiper-item>
-        </swiper>
+            </swiper-item>
+          </swiper>
+        </view>
       </view>
-    </view>
     </view>
 
     <!-- 今日推荐 {{themeProduct.designs}} -->
@@ -320,13 +267,8 @@
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--30rpx today-recommend-box'>
-        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' 
-        wx:for="{{todayRecommendList.daily_recommends}}" 
-        catchtap="handleToInfo"
-        data-type="{{item.target_type}}"
-        data-id="{{item.id}}"
-        data-rid="{{item.rid}}"
-        wx:key="{{index}}">
+        <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" catchtap="handleToInfo" data-type="{{item.target_type}}"
+          data-id="{{item.id}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <view class='all-product height---236rpx'>
             <image class='border-radius--8 ' src="{{item.cover}}"></image>
           </view>
@@ -368,22 +310,16 @@
         人气推荐
       </view>
 
-      <view class="round-right"> 
+      <view class="round-right">
         <view class="{{item==gratefulSwiper?'bg--green':''}}" wx:for="{{[0,1,2]}}" wx:key="{{index}}"></view>
       </view>
 
-      <swiper 
-        bindchange="handleGratefulSwiper"
-        class='gratefulList-box margin-left--40rpx  margin-right--40rpx border-bottom'>
+      <swiper bindchange="handleGratefulSwiper" class='gratefulList-box margin-left--40rpx  margin-right--40rpx border-bottom'>
         <!-- 1 -->
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx '>
             <view class='productionGoods {{index==2||index==3||index==4?"one-row-three":""}}' wx:if="{{index<5}}" wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product
-                product="{{item}}" 
-                like_number="{{true}}" 
-                photo="{{index==0 || index==1?5:1}}"
-                bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-product product="{{item}}" like_number="{{true}}" photo="{{index==0 || index==1?5:1}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
@@ -391,11 +327,7 @@
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx'>
             <view wx:if="{{4<index && index<10}}" class='productionGoods {{index==7||index==8||index==9?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product 
-                product="{{item}}" 
-                like_number="{{true}}" 
-                photo="{{index==5 || index==6?5:1}}"
-                bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-product product="{{item}}" like_number="{{true}}" photo="{{index==5 || index==6?5:1}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
@@ -403,11 +335,7 @@
         <swiper-item class="">
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx'>
             <view wx:if="{{9<index && index<15}}" class='productionGoods {{index==12||index==13||index==14?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product
-                product="{{item}}" 
-                like_number="{{true}}" 
-                photo="{{index==11 || index==10?5:1}}"
-                bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-product product="{{item}}" like_number="{{true}}" photo="{{index==11 || index==10?5:1}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
@@ -416,27 +344,17 @@
 
     <!--中间 广告 -->
     <view class='probation-box advertisement-box margin-bottom--40rpx bg-white'>
-      <swiper 
-        autoplay="{{true}}" 
-        indicator-color="rgba(0, 0, 0, .3)" 
-        indicator-active-color='#fff' 
-        bindchange="handleSwiperChange">
+      <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' bindchange="handleSwiperChange">
         <block wx:for="{{middleAdvertisementList.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
-          <swiper-item
-            data-rid="{{item.rid}}"
-            data-type="{{item.type}}"
-            catchtap="handleToInfo">
+          <swiper-item data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleToInfo">
             <image src="{{item.image}}" class="slide-image" width="355" height="150" />
           </swiper-item>
         </block>
       </swiper>
 
-    <view class="flex_row find-swiper__round">
-      <view 
-        wx:for="{{middleAdvertisementList.banner_images}}" 
-        class="{{swiperMark==index?'swiperActive':''}}"
-        wx:key="{{index}}"></view>
-    </view>
+      <view class="flex_row find-swiper__round">
+        <view wx:for="{{middleAdvertisementList.banner_images}}" class="{{swiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
+      </view>
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}} -->
@@ -466,19 +384,10 @@
     <view class="border-top margin-left--40rpx">
       <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
         <text>种草清单</text>
-        <text 
-          wx:if="{{plantOrderList.life_records.length>4}}" 
-          catchtap="handleToPlantNoteList"
-          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text wx:if="{{plantOrderList.life_records.length>4}}" catchtap="handleToPlantNoteList" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='production new-goods_box padding-left--0rpx'>
-        <view 
-          wx:if="{{index<4}}" 
-          class='flex-direction--column productionGoods' 
-          catchtap="handleToPlantNoteInfo"
-          data-rid="{{item.rid}}"
-          wx:for="{{plantOrderList.life_records}}" 
-          wx:key='{{index}}'>
+        <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' catchtap="handleToPlantNoteInfo" data-rid="{{item.rid}}" wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
           <image src="{{item.cover}}" class="img--style"></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
@@ -499,12 +408,7 @@
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
       <swiper autoplay="{{true}}" bindchange="handleExploreSwiperChange">
-        <swiper-item 
-          data-rid="{{item.rid}}"
-          data-type="{{item.type}}"
-          catchtap="handleToInfo"
-          wx:for="{{exploreAdvertisementList.banner_images}}" 
-          wx:key="{{index}}">
+        <swiper-item data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleToInfo" wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
             <!-- <text class='explore-advertisement__title'>{{item.title}}</text> -->
@@ -513,12 +417,9 @@
         </swiper-item>
       </swiper>
 
-    <view class="flex_row find-swiper__round bottom--86rpx">
-      <view 
-        wx:for="{{exploreAdvertisementList.banner_images}}" 
-        class="{{exploreSwiperMark==index?'swiperActive':''}}"
-        wx:key="{{index}}"></view>
-    </view>
+      <view class="flex_row find-swiper__round bottom--86rpx">
+        <view wx:for="{{exploreAdvertisementList.banner_images}}" class="{{exploreSwiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
+      </view>
 
     </view>
 
@@ -544,11 +445,7 @@
       </view>
       <view class='c-importantGoodsBox margin-top--34rpx '>
         <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{editRecommendList.products}}" wx:key="{{index}}">
-          <fx-product 
-            product="{{item}}" 
-            bind:triggerEvent_product="handleInfomation" 
-            photo="{{2}}"
-            oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
         </scroll-view>
       </view>
     </view>
@@ -557,18 +454,11 @@
     <view class='border-bottom min-height--570'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特色品牌馆</text>
-        <text 
-          catchtap="handelTobrandList"
-          wx:if="{{editRecommendList.products.length>9}}" 
-          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text catchtap="handelTobrandList" wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
-        <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' 
-          wx:for="{{characteristicStoreList.stores}}" 
-          wx:for-item="items"
-          data-rid="{{items.rid}}"
-          catchtap="handleTobrandStore" 
+        <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' wx:for="{{characteristicStoreList.stores}}" wx:for-item="items" catchtap="handleTobrandStore" data-rid="{{items.rid}}"
           wx:key="{{ index }}">
           <image src='{{items.bgcover}}-p50'></image>
           <view class='characteristic-info border-radius--8'>
@@ -582,12 +472,7 @@
               </view>
             </view>
             <view class='time-top characteristic-box__middle'>
-              <view 
-                class='characteristic-photo' 
-                wx:for="{{items.products_cover}}" 
-                wx:key="{{index}}" 
-                wx:for-item="item" 
-                wx:if="{{index<3}}">
+              <view class='characteristic-photo' wx:for="{{items.products_cover}}" wx:key="{{index}}" wx:for-item="item" wx:if="{{index<3}}">
                 <image src='{{item}}-p16'></image>
               </view>
 
@@ -612,7 +497,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
         <view class='c-importantGoodsPhoto {{index==0?"padding-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" photo="{{2}}"bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>
@@ -664,11 +549,8 @@
 
   </view>
 
-
   <!-- 登陆注册模态框 -->
-  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
-    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view>
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="handleCloseLogin"></fx-login>
 
   <view class="fx-back-home" bindtap="handleBackLifeStore" wx:if="{{ isSmallB && pageActiveTab != 'lifeStore' }}">
     <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
@@ -676,9 +558,7 @@
   </view>
 
   <!-- 编辑生活馆信息 -->
-  <fx-modal-v 
-    visible="{{ showEditModal }}"
-    title="编辑生活馆">
+  <fx-modal-v visible="{{ showEditModal }}" title="编辑生活馆">
     <form class="fx-form edit-form" bindsubmit="handleSubmitUpdateStore">
       <view class="fx-input">
         <label class="field-label">名称</label>
@@ -708,15 +588,13 @@
     </form>
   </fx-modal-v>
 
-    <!-- 卖 -->
-  <fx-modal 
-    showHead="{{ false }}" 
-    visible="{{ showShareModal }}" 
-    bind:closeEvent="handleCancelShare">
+  <!-- 卖 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
       <view class="distribute-commission">
         <block wx:if="{{isDistributed&&isSmallB}}">
-          <text>赚</text> <text class="amount">￥{{shareProduct.commission_price}}</text>
+          <text>赚</text>
+          <text class="amount">￥{{shareProduct.commission_price}}</text>
         </block>
       </view>
       <view class="distribute-message">
@@ -752,7 +630,7 @@
     </view>
   </fx-modal>
 
-    <!-- 分享的悬浮按钮 -->
+  <!-- 分享的悬浮按钮 -->
   <view class='time-top suspend-share bg-white font-s'>
     <view class='suspend-share_box c-theme-bg c-middle'>
       <image src='../../images/fei@2.png'></image>
@@ -761,5 +639,5 @@
     <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button>
   </view>
 
-<view class="shm"></view>
+  <view class="shm"></view>
 </view>

@@ -13,8 +13,15 @@ button::after {
   background-color: #5FE4B1;
   color: #fff;
 }
+.fx-button.default {
+  background-color: #E9E9E9;
+  color: #333;
+}
 .fx-button.primary.disabled {
   opacity: .5;
+}
+.fx-button--round {
+  border-radius: 44rpx;
 }
 
 .fx-button--text {

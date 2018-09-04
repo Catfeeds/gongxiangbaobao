@@ -68,8 +68,6 @@ Page({
     todayRecommendList: [], // 今日推荐
     storeHeadlines: [], // 生活馆头条
 
-
-    is_mobile: false, // 验证是否登陆
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
@@ -92,6 +90,17 @@ Page({
         disabled: false
       }
     ],
+
+    is_mobile: false, // 验证是否登陆
+  },
+
+  /**
+   * 登录完成回调
+   */
+  handleCloseLogin () {
+    this.setData({
+      is_mobile: false
+    })
   },
 
   // 加载更多的推荐
@@ -607,7 +616,7 @@ Page({
   // 特色品牌馆
   getCharacteristicBranderStore() {
     http.fxGet(api.column_feature_store, {}, (result) => {
-      console.log(result, "特色品牌管")
+      console.log(result, "特色品牌馆")
       if (result.success) {
         this.setData({
           characteristicStoreList: result.data
@@ -620,6 +629,7 @@ Page({
 
   // 关注特色品牌馆
   handleAddFollowed(e) {
+    console.log(e)
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
 
@@ -1093,6 +1103,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    // 查看是否授权
+    wx.getSetting({
+      success: function (res) {
+        console.log(res, '授权结果')
+
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function (res) {
+              console.log(res.userInfo)
+            }
+          })
+        }
+      }
+    })
+
     const lifeStore = wx.getStorageSync('lifeStore')
     // scene格式：sid + '#' + uid
     let scene = decodeURIComponent(options.scene)

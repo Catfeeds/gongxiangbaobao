@@ -2,9 +2,8 @@
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
 const util = require('./utils/util.js')
-const common = require('./utils/common.js')
 
-// global.regenerator = require('./utils/regenerator/runtime.js')
+const common = require('./utils/common.js')
 
 App({
   onLaunch: function () {

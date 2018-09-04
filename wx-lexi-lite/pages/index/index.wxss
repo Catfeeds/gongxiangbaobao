@@ -1,5 +1,6 @@
 /**index.wxss**/
 @import "../distributes/distributes.wxss";
+
 .delete-icon image, .no-sell-product_icon_box image, .characteristic-log image,
 .joinNumberlPhoto image, .all-product image, .setUpShop-guide__suona image {
   height: 100%;
