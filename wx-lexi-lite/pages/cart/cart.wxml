@@ -101,7 +101,7 @@
           </text>
         </view>
       </view>
-      <view class='category-max__box'>
+      <view class='category-max__box' wx:if="{{skus.items.length!=1}}">
         <view class='pickBox' wx:if="{{ hasColor }}">
           <view class='pick'>颜色</view>
           <view class='flex_row pick-color__box'>

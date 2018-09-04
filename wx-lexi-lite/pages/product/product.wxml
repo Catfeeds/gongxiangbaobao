@@ -143,7 +143,7 @@
         class='goodstext margin-bottom--12rpx' 
         wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
         <text class='titlemini'>材质：</text>
-        <text>{{ productInfomation.material_id }}</text>
+        <text>{{ productInfomation.material_name }}</text>
       </view>
       <view 
         class='goodstext margin-bottom--12rpx' 
@@ -239,7 +239,7 @@
         </view>
       </view>
 
-      <view class='category-max__box'>
+      <view class='category-max__box' wx:if="{{skus.items.length!=1}}">
         <!-- 颜色 -->
         <view class='goods-color-box category-box__right' wx:if="{{ hasColor }}">
           <view class='black-font color-title'>颜色</view>

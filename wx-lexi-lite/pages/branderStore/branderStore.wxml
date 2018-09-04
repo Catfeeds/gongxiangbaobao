@@ -283,4 +283,12 @@
     </view>
   </fx-modal>
 
+    <!-- 登陆注册模态框 -->
+  <!-- //登陆注册 -->
+  <fx-modal visible="{{ is_mobile }}" showFoot="true">
+    <view slot="main">
+      <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
+    </view>
+  </fx-modal>
+
 </view>

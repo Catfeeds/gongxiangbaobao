@@ -20,6 +20,7 @@ module.exports = {
   user_avatar_upload: '', // POST 
   user_upload_token: 'assets/user_upload_token', // GET 获取上传Token
   user_withdraw: 'pay_account/life_cash_money', // 提现至微信
+  orders_order_coupon_count:'orders/order_coupon_count',// 订单的数量和未使用优惠券的额数量
 
   // Asset
   asset_detail: 'assets/show_asset', // GET 获取附件 
@@ -39,6 +40,7 @@ module.exports = {
   brand_info: 'store/detail', // 品牌故事
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
   official_store_detail:'official_store/detail', // 品牌故事h
+
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
   life_store_edit: 'store/edit_store', // GET
