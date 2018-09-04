@@ -249,7 +249,7 @@ Page({
   },
 
   /**
-   * 分类的选择
+   * 分类的选择 
    */
   handlePickCategory(e) {
     let name = e.currentTarget.dataset.name
@@ -1061,10 +1061,17 @@ Page({
         wx.setNavigationBarTitle({title:"精选"})
         this.handleSetNavigationTitle('精选')
 
+        this.setData({
+          swiperIndex: 0
+        })
+        this.getChoiceHanderAdvertisement() // 头部广告
+
+        if (this.data.handerAdvertisementList.length!=0){
+          return
+        }
         this.getStoreHeadlines() // 开馆头条
         this.getOpenStoreGuide() // 开馆指引
         this.getTodayRecommend() // 今日推荐
-        this.getChoiceHanderAdvertisement() // 头部广告
         this.getGrateful() // 人气推荐
         this.getChoiceMiddleAdvertisement() // 中间广告
         this.getLitePick() // 乐喜优选
@@ -1145,11 +1152,15 @@ Page({
    * 监听页面滚动
    * **/
   onPageScroll(e) {
-    if (e.scrollTop > 59) {
+    console.log(e)
+    if (e.scrollTop >= 50) {
+      console.log(e,"下拉")
       this.setData({
         isNavbarAdsorb: true
       })
-    } else if (e.scrollTop < 60) {
+    } 
+    if (e.scrollTop <51) {
+      console.log(e, "上啦")
       this.setData({
         isNavbarAdsorb: false
       })

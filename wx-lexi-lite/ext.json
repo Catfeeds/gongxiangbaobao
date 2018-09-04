@@ -12,7 +12,7 @@
       ]
     },
     "api": {
-      "host": "https://wx.taihuoniao.com",
+      "host": "https://wx.taihuoniao.com/api/v1.0",
       "version": "v1.0",
       "appKey": "zXIPN0ftRj6dlrKFOZpH",
       "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"

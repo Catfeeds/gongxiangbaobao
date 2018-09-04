@@ -304,8 +304,6 @@
               <label class="order-yellow">售出{{ item.quantity }}单</label>
             </view>
           </view>
-
-
           </swiper-item>
         </swiper>
       </view>

@@ -241,7 +241,7 @@
 
       <view class='category-max__box'>
         <!-- 颜色 -->
-        <view class='goods-color-box category-box__right' wx:if="{{ hasColor }}">
+        <view class='goods-color-box category-box__right' wx:if="{{ hasColor && skus.colors[0].name != '默认' }}">
           <view class='black-font color-title'>颜色</view>
           <view class='goods-color goods-color-box'>
             <label wx:for="{{ skus.colors }}" wx:for-index="idx" wx:for-item="color" wx:key="{{ color.rid }}" class="color-item {{ activeColorIdx == idx ? 'active': ''  }} {{ !color.valid ? 'disabled': '' }}" catchtap="handleChooseColor" data-idx="{{ idx }}" data-valid="{{ color.valid }}">
@@ -251,7 +251,7 @@
         </view>
 
         <!-- 尺寸 -->
-        <view class='goods-color-box category-box__right' wx:if="{{ hasMode }}">
+        <view class='goods-color-box category-box__right' wx:if="{{ hasMode && skus.modes[0].name != '默认' }}">
           <view class='black-font color-title'>规格</view>
           <view class='goods-color goods-color-box'>
             <label wx:for="{{ skus.modes }}" wx:for-index="idx" wx:for-item="mode" wx:key="{{ mode.rid }}" class="color-item {{ activeModeIdx == idx ? 'active': '' }} {{ !mode.valid ? 'disabled': '' }}" catchtap="handleChooseMode" data-idx="{{ idx }}" data-valid="{{ mode.valid }}">

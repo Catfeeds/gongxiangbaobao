@@ -31,20 +31,34 @@ Page({
 
   // 搜索热词
   handleSearchWord(e) {
-    e.currentTarget.dataset.text
-
+    let text = e.currentTarget.dataset.text
     wx.navigateTo({
-      url: '../searchResult/searchResult?text=' + e.currentTarget.dataset.text,
+      url: '../searchResult/searchResult?text=' + text,
     })
   },
 
   // 记录历时 跳转页面
   handleRecordLast() {
+
     console.log(this.data.inputText, "保存历史")
+    let inputDetail = this.data.inputText.replace(/\s/g, "").length
+    console.log(inputDetail)
+
+    if (inputDetail==0) {
+        utils.fxShowToast("不能为空")
+        
+        this.setData({
+          inputText:''
+        })
+
+      clearTimeout(searchTime)
+      return
+    }
+
     clearTimeout(searchTime)
     let data = this.data.searchHistory
     data.unshift(this.data.inputText)
-    let newData = Array.from(new Set(data)) // 去重后转为数组 
+    let newData = Array.from(new Set(data)) // 去重后转为数组 .replace(/\s/g,"")
 
     if (this.data.inputText.length != 0) {
       wx.setStorageSync('searchHistory', newData)
@@ -53,6 +67,8 @@ Page({
     this.setData({
       searchHistory: newData
     })
+
+
 
     wx.navigateTo({
       url: '../searchResult/searchResult?text=' + this.data.inputText,
