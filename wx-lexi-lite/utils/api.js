@@ -179,7 +179,7 @@ module.exports = {
   critique_product: 'orders/product/comment/create', //post 评论商品---
   orders_delete: 'orders/delete', // 删除订单---
   core_orders_rid:'core_orders/:rid', // 订单详情h
-
+  logistics_information:'logistics/information', // 查询物流
   // Market
   is_first_order:"market/coupons/new_user_discount", // 查看是否属于首单
   user_login_coupon:'market/user_master_coupons',//用户登陆时候的优惠券

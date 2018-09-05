@@ -55,7 +55,7 @@
   </view>
 
   <!-- 订单信息 -->
-  <view class='orderInfoBox' wx:for="{{ order }}" wx:key="{{ index }}" wx:for-item="items">
+  <view class='orderInfoBox textarea--position' wx:for="{{ order }}" wx:key="{{ index }}" wx:for-item="items">
     <view class='shopName'>
       <text>{{ items[0].store_name }}</text>
       <text class='shopNameR'>从{{ storeInfo.delivery_country }}{{ storeInfo.delivery_province }}发货</text>
@@ -112,7 +112,7 @@
       </view>
 
       <!-- 给商家的注意事项 -->
-      <view class='merchant voice'>
+      <view class='merchant voice textarea--position'>
         
         <image class='receiveFnBottomBox' src='../../images/shop-icon@2.png'></image>
         
@@ -130,6 +130,8 @@
           bindinput='handleUtterance' 
           placeholder-class='goods-blessing' 
           auto-height='{{true}}'
+          class="textarea--position"
+          wx:if="{{!authorityCouponShow&&!coupon}}"
           placeholder='我的语录'></textarea>
       </view>
       <!-- 运费 -->
@@ -178,9 +180,9 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' wx:if='{{ paymentBtn }}'>
+  <cover-view class='conservation' wx:if='{{ paymentBtn }}'>
     <button catchtap='paymentSuccess'>提交订单</button>
-  </view>
+  </cover-view>
 
   <!-- 优惠券弹框 -->
   <view class='coupon-box' wx:if="{{coupon}}" catchtap='couponTap'>

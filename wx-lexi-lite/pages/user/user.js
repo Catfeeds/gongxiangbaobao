@@ -361,7 +361,6 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfo() // 获取用户的信息
-    this.getCouponAddOrder() // 获取没有使用的优惠券和订单
     // 是否登陆
     this.setData({
       is_login: app.globalData.isLogin
@@ -387,7 +386,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getCouponAddOrder() // 获取没有使用的优惠券和订单
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
   },

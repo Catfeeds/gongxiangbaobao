@@ -423,6 +423,7 @@ background-color: #dab867;
 .lx-coupon{
   
 }
-.conservation{
-  z-index: 6;
+
+.textarea-opacity{
+  visibility: hidden;
 }

@@ -2,16 +2,18 @@
 <view class='container theme-bg-color'>
   <view class='orderNumber font-s'>
     <view class='time-top'>
-      <text>运单编号：2017100240</text>
-      <text>物流状态:配送中</text>
+      <text>运单编号：{{location.LogisticCode}}</text>
+      <text wx:if="{{location.State==2}}">物流状态:运输途中</text>
+      <text wx:if="{{location.State==3}}">物流状态:已签收</text>
+      <text wx:if="{{location.State==4}}">物流状态:问题包裹</text>
     </view>
-    <view>物流状态:配送中</view>
+    <view>配送方式：{{expressName}}</view>
     <!-- 物流提示 -->
     <view class='logisticsPhoto'>
       <view class='logisticsIcon'>
-        <image src='../../images/orderok.png'></image>
-        <image src='../../images/bagcart.png'></image>
-        <image src='../../images/yes.png'></image>
+        <image src='../../images/tijao@3x.png' class='{{location.State>=2?"opacity":""}}'></image>
+        <image src='../../images/logistice-car@3x.png' class='{{location.State>=2?"opacity":""}}'></image>
+        <image src='../../images/yes.png' class='{{location.State==3?"opacity":""}}'></image>
       </view>
       <view class='middle-line'>
         <view class='line lineTwo'></view>
@@ -50,16 +52,12 @@
     </view>
 
 
-
-
-
-
   </view>
 
   <!-- 有信息的时候 -->
   <view class='have-Info bg-white'>
     <!-- 快件目前的位置 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:if="{{}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round left-round-line-green'></view>
@@ -73,7 +71,7 @@
       </view>
     </view>
     <!-- 已经签收的状态 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:if="{{location.State==3}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round'></view>
@@ -89,7 +87,7 @@
     </view>
 
     <!-- 派件员电话 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:if="{{}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round'></view>
@@ -105,18 +103,16 @@
     </view>
 
     <!-- 其他时候的物品位置信息 -->
-    <!-- 派件员电话 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:for="{{location.Traces}}" wx:key="{{index}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round'></view>
         <view class='left-line'></view>
       </view>
       <view class='locationInfoR'>
-        <view class='black-font theme-hui-color'> 正在派送途中,请您准备签收【派件员:和自然】</view>
+        <view class='black-font theme-hui-color'> {{item.AcceptStation}}</view>
         <view class='hui-zi'>
-          <text>1017-1-1</text>
-          <text>01:00:01</text> </view>
+          <text>{{item.AcceptTime}}</text> </view>
       </view>
     </view>
 

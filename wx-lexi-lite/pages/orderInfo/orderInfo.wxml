@@ -1,4 +1,5 @@
 <view class='container theme-bg-color'>
+  <block>
   <!-- 上部 -->
   <view class='topInfo bg-white'>
     <view class='orderNumber padding-top--24rpx padding-bottom--22rpx'>
@@ -35,9 +36,7 @@
     </view>
 
   </view>
-
   <!-- 下部 -->
-
   <view class='BotBox bg-white'>
     <view class='shopName'>
       <text class='black-font'>{{orderInfo.store.store_name}}</text>
@@ -116,4 +115,6 @@
   </view>
   <!-- 垫片 -->
   <view class='shm'></view>
+  </block>
+
 </view>

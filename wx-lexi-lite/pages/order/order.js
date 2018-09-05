@@ -6,7 +6,7 @@ const utils = require('./../../utils/util.js')
 
 Page({
   /**
-   * 页面的初始数据
+   * 页面的初始数据 orders
    */
   data: {
     // 订单列表
@@ -50,7 +50,7 @@ Page({
       currentStatus: status,
       ['getOrderListParams.status']: status
     }, () => {
-      this.getOrderList()
+      // this.getOrderList()
     })
   },
 
@@ -62,19 +62,27 @@ Page({
     })
   },
 
-  // 获取订单列表---
+  // 获取订单列表--- 
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       console.log(result, '订单列表')
       if (result.success) {
         result.data.orders.forEach((v,i)=>{
+          //时间格式化
           v.created_item = utils.timestamp2string(v.created_at,"cn")
           
-          //时间格式化
           if (result.data.orders.length-1==i){
-            this.setData({
-              orderList: result.data
+            let newData = this.data.orderList
+
+            result.data.orders.forEach((v)=>{
+              newData.push(v)
             })
+
+            this.setData({
+              orderList: newData,
+              isNext: result.data.next
+            })
+
           }
         })
       } else {
@@ -104,6 +112,30 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  handleReceive(e){
+    let rid = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.index
+    console.log(idx, rid)
+
+    http.fxPost(api.order_signed,{rid:rid}, (result)=>{
+      console.log(result,"确认收货")
+
+      if(result.success){
+        
+        this.setData({
+          // ['orderList[' + idx + '].user_order_status']: 3
+          orderList:[],
+        })
+
+        this.getOrderList()
+
+      }else{
+
+      }
+    })
+
   },
 
   /**
@@ -179,7 +211,15 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if(this.data.isNext==null){
+      utils.fxShowToast('没有更多了')
+      return
+    }
+    this.setData({
+      ['getOrderListParams.page']: this.data.getOrderListParams.page + 1
+    })
 
+    this.getOrderList()
   },
 
   /**
@@ -200,9 +240,14 @@ Page({
   },
 
   // 物流跟踪
-  logTop() {
+  logTop(e) {
+    console.log(e)
+    let code = e.currentTarget.dataset.code
+    let logisticsNumber = e.currentTarget.dataset.logisticsNumber
+    let expressName = e.currentTarget.dataset.expressName
+
     wx.navigateTo({
-      url: '../logisticsWatch/logisticsWatch'
+      url: '../logisticsWatch/logisticsWatch?code=' + code + '&&logisticsNumber=' + logisticsNumber + '&&expressName=' + expressName
     })
   }
 })
