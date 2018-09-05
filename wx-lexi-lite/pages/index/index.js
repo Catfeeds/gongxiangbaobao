@@ -1267,13 +1267,15 @@ Page({
    */
   onShareAppMessage: function(e) {
     console.log(e)
+    
 
-    if (e.target.dataset.from == 1 || e.from == "menu"){
+    if (e.from == "menu" || e.target.dataset.from == 1 ){
 
       let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
       // scene格式：rid + '-' + sid
-      let scene = rid
+      let uid = wx.getStorageSync("jwt")
+      let scene = uid.uid
       if (lastVisitLifeStoreRid) {
         scene += '-' + lastVisitLifeStoreRid
       }
