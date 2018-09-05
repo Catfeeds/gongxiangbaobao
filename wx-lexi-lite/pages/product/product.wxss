@@ -758,3 +758,6 @@ margin-bottom:8rpx;
   margin-left: 0rpx;
 }
 
+.font-color--white {
+  color: white;
+}

@@ -45,13 +45,14 @@
     <view class='branderInfo like-quantity margin-bottom--30rpx'>
 
       <view class='like-quantity-l' catchtap='handleBindLike' wx:if="{{!productInfomation.is_like}}">
-        <image src='../../images/like@2.png' class='like-icon'></image>
+        <image src='../../images/dLike@2.png' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
         <text class='hui-zi like-icon-add line-height--24rpx' wx:else>喜欢</text>
       </view>
 
-      <view class='like-quantity-l bg-hui' wx:else catchtap='handleBindLike'>
-        <text class='hui-zi like-icon-add line-height--24rpx'>已喜欢</text>
+      <view class='like-quantity-l bg-hui c-theme-bg' wx:else catchtap='handleBindLike'>
+        <image src='../../images/already-like@3.png' class='like-icon'></image>
+          <text class='like-icon-add font-s font-color--white'> +{{productInfomation.like_count}}</text>
       </view>
 
       <view class='transmission'>
