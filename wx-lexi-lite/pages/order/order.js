@@ -47,10 +47,7 @@ Page({
   handleStatus(e) {
     let status = e.currentTarget.dataset.status
     this.setData({
-      currentStatus: status,
-      ['getOrderListParams.status']: status
-    }, () => {
-      // this.getOrderList()
+      currentStatus: status
     })
   },
 
@@ -160,6 +157,10 @@ Page({
           }, (result) => {
             console.log(result, '删除订单')
             if (result.success) {
+              this.setData({
+                orderList: [],
+              })
+
               this.getOrderList()
             } else {
               utils.fxShowToast(result.status.message)
@@ -183,6 +184,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      'getOrderListParams.page':1,
+      orderList: [],
+    })
     this.getOrderList() // 获取订单列表---
   },
 

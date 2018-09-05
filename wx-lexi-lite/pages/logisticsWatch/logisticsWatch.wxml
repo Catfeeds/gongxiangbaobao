@@ -33,7 +33,7 @@
   </view>
 
   <!-- 没有任何信息的时候 -->
-  <view class='none-info' wx:if="{{}}">
+  <view class='none-info' wx:if="{{location.Reason=='暂无轨迹信息'}}">
     <view class='logistcsIcon'>
       <image src='../../images/ji.png'></image>
     </view>
@@ -44,10 +44,10 @@
 
     <view class='font-s'>
       <view>运单编号 </view>
-      <view>20171002450</view>
+      <view>{{parmas.logistic_code}}</view>
     </view>
     <view class='hui-zi'>
-      <view>您可选择长按复制运单编号 </view>
+      <view>您可选择长按复制运单编号</view>
       <view>到物流公司官网查询</view>
     </view>
 

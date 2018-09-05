@@ -33,11 +33,9 @@ Page({
           location: result.data
         })
       } else {
-
+        utils.fxShowToast(result.status.message)
       }
-
     })
-
   },
 
   /**

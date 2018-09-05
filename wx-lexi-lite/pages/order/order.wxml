@@ -84,7 +84,7 @@
         <view 
                   data-code="{{order.items[0].express_code}}"
                   data-express-name="{{order.items[0].express_name}}"
-          data-number="{{order.items[0].express_no}}"
+          data-logistics-number="{{order.items[0].express_no}}"
           wx:if="{{ order.user_order_status == 2 }}" 
           class='delleteOrder hui-zi' 
           catchtap='logTop'>
@@ -381,7 +381,7 @@
         <view 
           data-code="{{order.items[0].express_code}}"
           data-express-name="{{order.items[0].express_name}}"
-          data-number="{{order.items[0].express_no}}"
+          data-logistics-number="{{order.items[0].express_no}}"
           class='delleteOrder hui-zi' 
           catchtap='logTop'>
           物流跟踪
