@@ -149,6 +149,16 @@ Page({
 
 
   /**
+* 取消分享-销售
+*/
+  handleCancelShare(e) {
+    this.setData({
+      showShareModal: false,
+    })
+  },
+
+
+  /**
    * 保存二维码图片
    */
   handleSaveQrcode (e) {
