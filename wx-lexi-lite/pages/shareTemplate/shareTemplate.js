@@ -62,6 +62,6 @@ Page({
    */
   onShareAppMessage: function (res) {
 
-  
+    return app.shareLeXi()
   }
 })

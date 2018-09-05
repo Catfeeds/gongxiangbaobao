@@ -26,6 +26,7 @@ Page({
     posterUrl: '', // 海报图url
 
     // 生活馆
+    lifePhotoUrl:'', // 分享生活馆的图片
     sid: '', // 生活馆rid
     openId:'', // openId
     uploadParams: {}, // 上传所需参数
@@ -1107,6 +1108,25 @@ Page({
     }
   },
 
+  // 分享的生活馆图片
+  getLifePhotoUrl() {
+    let rid = app.getDistributeLifeStoreRid()
+
+    http.fxPost(api.market_share_life_store, {
+      rid: rid
+    }, (result) => {
+      console.log(result, rid, "分享生活馆图片的地址")
+      if (result.success) {
+
+        this.setData({
+          lifePhotoUrl: result.data.image_url
+        })
+      } else {
+
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -1184,15 +1204,15 @@ Page({
    * 监听页面滚动
    * **/
   onPageScroll(e) {
-    console.log(e)
+    // console.log(e)
     if (e.scrollTop >= 50) {
-      console.log(e,"下拉")
+      // console.log(e,"下拉")
       this.setData({
         isNavbarAdsorb: true
       })
     } 
     if (e.scrollTop <51) {
-      console.log(e, "上啦")
+      // console.log(e, "上啦")
       this.setData({
         isNavbarAdsorb: false
       })
@@ -1202,7 +1222,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.getLifePhotoUrl()
   },
 
   /**
@@ -1240,18 +1260,31 @@ Page({
 
   },
 
+
+
   /**
    * 用户点击右上角分享 data-from
    */
   onShareAppMessage: function(e) {
     console.log(e)
 
-    if (e.target.dataset.from==1){
+    if (e.target.dataset.from == 1 || e.from == "menu"){
 
-      // 分享小程序
+      let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+      // scene格式：rid + '-' + sid
+      let scene = rid
+      if (lastVisitLifeStoreRid) {
+        scene += '-' + lastVisitLifeStoreRid
+      }
+
       return {
-        title: '乐喜社区',
-        path: '/pages/index/index'
+        title: this.data.lifeStore.name+"的生活馆",
+        path: 'pages/index/index?scene=' + scene,
+        imageUrl: this.data.lifePhotoUrl,
+        success: (res) => {
+          console.log(res, '分享商品成功!')
+        }
       }
 
     }else{

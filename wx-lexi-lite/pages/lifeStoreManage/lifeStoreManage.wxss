@@ -1,4 +1,5 @@
 /* pages/lifeStoreManage/lifeStoreManage.wxss */
+@import "../distributes/distributes.wxss";
 .store-owner__wrapper {
   padding: 40rpx;
   position: relative;

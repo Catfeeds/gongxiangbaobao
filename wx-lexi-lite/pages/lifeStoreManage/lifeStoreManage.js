@@ -13,6 +13,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    posterUrl:'', // 生成海报的url
+    cardPhoto:'', // 开馆的卡片
+
     sid: '', // 当前生活馆rid
     activeSubMenu: 'lifeStore',
     lifeStore: { // 生活馆信息
@@ -39,7 +42,8 @@ Page({
     showModal: false,
     showQrcodeModal: false,
     setIncomeStar: false,
-    setWithdrawStar: false
+    setWithdrawStar: false,
+    showShareModal:false
   },
 
   /**
@@ -87,6 +91,62 @@ Page({
       showModal: true
     })
   },
+
+  // 邀请好友弹出框
+  handleShareShow(e) {
+    this.setData({
+      showShareModal: true,
+    })
+
+   
+    this.getOpenStorePhoto() // 开馆的卡片
+ this.getWxaPoster(this.data.uid) // 开馆的海报
+  },
+
+  // 邀请好友开馆的卡片
+  getOpenStorePhoto(){
+    http.fxPost(api.market_share_invite_carde, {}, (result) => {
+      console.log(result, '邀请好友开馆的卡片')
+      if (result.success) {
+        this.setData({
+          cardPhoto: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+* 生成推广海报图
+*/
+  getWxaPoster(rid) {
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+    // scene格式：rid + '#' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '#' + lastVisitLifeStoreRid
+    }
+
+    let params = {
+      scene: scene,
+      path: 'pages/index/index?scene=' + scene,
+      auth_app_id: app.globalData.app_id
+    }
+    console.log(params,"海报参数")
+    http.fxPost(api.market_share_invite_poster, params, (result) => {
+      console.log(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
 
   /**
    * 保存二维码图片
@@ -143,7 +203,7 @@ Page({
   practiceLeftTimer () {
     let endTs = this.data.createdAt + 30 * 24 * 60 * 60 // 30天内
     let leftTime = endTs - utils.timestamp() // 计算剩余的毫秒数 
-    console.log('Left time: ' + leftTime)
+    // console.log('Left time: ' + leftTime)
     if (leftTime < 0) {
       clearInterval(this.data.timer)
       this.setData({
@@ -166,7 +226,7 @@ Page({
       }
     })
 
-    console.log(this.data.leftTimer)
+    // console.log(this.data.leftTimer)
   },
 
   /**
@@ -243,9 +303,12 @@ Page({
    */
   onLoad: function (options) {
     const lifeStore = wx.getStorageSync('lifeStore')
+    const userInfo = wx.getStorageSync('jwt')
     // 小B商家获取自己生活馆
     if (lifeStore.isSmallB) {
       this.setData({
+        uid: userInfo.uid,
+        userName: userInfo.username,
         sid: lifeStore.lifeStoreRid,
         setIncomeStar: wx.getStorageSync('setIncomeStar') || false,
         setWithdrawStar: wx.getStorageSync('setWithdrawStar') || false,
@@ -320,7 +383,28 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function (e) {
+    // console.log(e.target.dataset.card)
+    console.log(e)
+    console.log(e.from)
+    if (e.target.dataset.card == 1 || e.from =="menu"){
+      let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+      // scene格式：rid + '-' + sid
+      let scene = this.data.uid
+      if (lastVisitLifeStoreRid) {
+        scene += '-' + lastVisitLifeStoreRid
+      }
+
+      return {
+        title: this.data.userName + '邀请你一起来来乐喜开个',
+        path: 'pages/index/index?scene=' + scene,
+        imageUrl: this.data.cardPhoto,
+        success: (res) => {
+          console.log(res, '分享商品成功!')
+        }
+      }
+
+    }
   }
 })

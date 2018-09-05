@@ -202,7 +202,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return app.shareLeXi()
   },
   // 跳转到其他人地主页
   handleToPeopleTap(e) {

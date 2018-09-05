@@ -230,7 +230,25 @@ App({
         console.log(res, '分享商品成功!')
       }
     }
+    
   },
+
+ /**
+   * 分享平台
+   */
+
+  shareLeXi(){
+    let uid = wx.getStorageSync("jwt")
+    return {
+      title: "乐喜",
+      path: 'pages/index/index?uid=' + uid.uid,
+      imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
+      success: (res) => {
+        console.log(res, '分享商品成功!')
+      }
+    }
+  },
+
 
   /**
    * 订单成功后，清除订单相关全局变量

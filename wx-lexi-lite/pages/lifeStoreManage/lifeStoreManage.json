@@ -2,6 +2,7 @@
   "navigationBarTitleText": "生活馆管理",
   "usingComponents": {
     "fx-image-modal": "/components/FxImageModal/FxImageModal",
-    "fx-modal-v": "/components/FxModalV/FxModalV"
+    "fx-modal-v": "/components/FxModalV/FxModalV",
+    "fx-modal": "/components/FxModal/FxModal"
   }
 }

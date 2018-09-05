@@ -29,6 +29,11 @@ module.exports = {
   categories: 'categories', // GET 获取产品分类
   siblings_categories: 'categories/siblings', // GET 同级分类
 
+  //share 
+  market_share_store:'market/share/store', // 分享品牌管换取图片
+  market_share_life_store:'market/share/life_store', // 分享生活馆卡片
+  market_share_invite_poster:'market/share/invite_poster', // 邀请好友生成海报
+  market_share_invite_carde:'market/share/invite_card', // 邀请好友开馆的卡片
   // Brand
   brand_list: 'brands', // GET 品牌列表
   brand_detail: 'brands/:rid', // GET 品牌详情

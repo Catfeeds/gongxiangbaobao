@@ -120,7 +120,7 @@
   </view>
 
   <view class="fx-block">
-    <view class="fx-block__item">
+    <view class="fx-block__item" catchtap='handleShareShow'>
       <text class="title">邀请好友开馆赚钱</text>
       <label class="icon-arrow">
         <i class="fx-icon-nothing-right"></i>
@@ -153,5 +153,42 @@
       待结算金额需用户确认签收订单后，7个工作日内未发生退款，则可入账并提现。如在7日内有退款行为，扣除相应收益。
     </view>
   </fx-modal-v>
+
+  <!-- 卖 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-commission">
+          
+      </view>
+
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" data-card="1" open-type="share">
+          <image src="{{ cardPhoto }}" class="cover"></image>
+          <text>点击直接分享好友样式</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+          </view>
+          <text>保存分享朋友圈海报</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" data-card="1" open-type="share">
+          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
 
 </view>

@@ -16,19 +16,20 @@ Page({
     rightTimer: null, // 延迟句柄
     categoryList: [], // 分类列表
     checkedCids: [], // 选择的分类
-    showFilterModal: false,// 筛选
+    showFilterModal: false, // 筛选
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
     // 文章
     liveIsNext: false, // 是否有下一页
-    wonderfulStories:[], // 列表
+    wonderfulStories: [], // 列表
 
+    shareBrandUrl: '', // 品牌管的url
     storeRid: "", //店铺的rid
     isNext: [], // 是否有下一页面
     storeInfo: [], // 店铺的详情
     couponList: {
-      coupons:[]
+      coupons: []
     }, // 优惠券列表---couponList
     productList: [], // 店铺商品列表
     announcement: [], // 店铺的公告
@@ -37,10 +38,21 @@ Page({
     openPickBox: false, // 筛选的模态框
     fullSubtractionList: [], // 满减
     // 推荐
-    recommendList: [
-      { name: "包邮", id: '1', isActive: false },
-      { name: "特惠", id: "2", isActive: false },
-      { name: "可定制", id: "3", isActive: false },
+    recommendList: [{
+        name: "包邮",
+        id: '1',
+        isActive: false
+      },
+      {
+        name: "特惠",
+        id: "2",
+        isActive: false
+      },
+      {
+        name: "可定制",
+        id: "3",
+        isActive: false
+      },
     ],
     titleCategoryList: [{
         name: "商品",
@@ -54,11 +66,11 @@ Page({
       }
     ],
     // 获取生活志文章的列表
-    liveParams:{
-      page:	1,//Number	可选	1	当前页码
-      per_page:10	,//Number	可选	10	每页数量
-      sid:	'',//String	必须	 	店铺编号
-      type:0	,//Number	可选	0	生活志类型: 0 = 全部, 1= 文章, 2= 种草清单
+    liveParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
+      sid: '', //String	必须	 	店铺编号
+      type: 0, //Number	可选	0	生活志类型: 0 = 全部, 1= 文章, 2= 种草清单
     },
     // 请求商品的
     params: {
@@ -87,8 +99,8 @@ Page({
   },
 
   /**
-* 滑块最低价格
-*/
+   * 滑块最低价格
+   */
   handleChangeMinPrice(e) {
     let minPrice = e.detail.lowValue
     if (this.data.params.max_price == -1) {
@@ -118,8 +130,8 @@ Page({
   },
 
   /**
- * 重置回调事件
- */
+   * 重置回调事件
+   */
   handleResetFilterCondition(e) {
     this.selectComponent('#fx-slider').reset()
     let _categories = this.data.categoryList
@@ -166,8 +178,8 @@ Page({
   },
 
   /**
-* 关闭弹窗回调
-*/
+   * 关闭弹窗回调
+   */
   handleCloseFilterModal(e) {
     this.setData({
       showFilterModal: false
@@ -175,8 +187,8 @@ Page({
   },
 
   /**
- * 分类列表
- */
+   * 分类列表
+   */
   // getCategories() {
   //   http.fxGet(api.categories,{}, (result) => {
   //     console.log(result, '分类列表')
@@ -191,8 +203,8 @@ Page({
   // },
 
   /**
- * 改变分类
- */
+   * 改变分类
+   */
   handleToggleCategory(e) {
     let cid = e.currentTarget.dataset.cid
 
@@ -225,8 +237,8 @@ Page({
   },
 
   /**
-* 选择推荐
-*/
+   * 选择推荐
+   */
   handleToggleRecommendList(e) {
     console.log(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
@@ -318,7 +330,7 @@ Page({
     // this.getCategories()
 
     this.setData({
-      showFilterModal:true
+      showFilterModal: true
     })
 
   },
@@ -348,11 +360,11 @@ Page({
   // 获取排序的产品
   handleSort(e) {
 
-      this.setData({
-        productList: [],
-        ['params.page']: 1,
-        ['params.sort_type']: e.currentTarget.dataset.rid
-      })
+    this.setData({
+      productList: [],
+      ['params.page']: 1,
+      ['params.sort_type']: e.currentTarget.dataset.rid
+    })
 
     this.handleSortOff()
     this.products()
@@ -455,10 +467,10 @@ Page({
   },
 
   // 跳转到品牌故事
-  handelToBrandInfo(e){
+  handelToBrandInfo(e) {
 
     wx.navigateTo({
-      url: '../brandInformation/brandInformation?rid='+e.currentTarget.dataset.rid
+      url: '../brandInformation/brandInformation?rid=' + e.currentTarget.dataset.rid
     })
   },
 
@@ -474,13 +486,13 @@ Page({
   },
 
   // 获取文章列表
-  getArticle(){
-    http.fxGet(api.core_platforms_life_records,this.data.liveParams,(result)=>{
-      console.log(result,"生活志文章列表")
-      if(result.success){
+  getArticle() {
+    http.fxGet(api.core_platforms_life_records, this.data.liveParams, (result) => {
+      console.log(result, "生活志文章列表")
+      if (result.success) {
 
         let newData = this.data.wonderfulStories
-        result.data.life_records.forEach((v)=>{
+        result.data.life_records.forEach((v) => {
           newData.push(v)
         })
 
@@ -488,7 +500,7 @@ Page({
           liveIsNext: result.data.next,
           wonderfulStories: newData
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -557,10 +569,10 @@ Page({
       store_rid: this.data.storeRid
     }, (result) => {
       console.log(result, '登陆的优惠券')
-      
+
       result.data.coupons.forEach((v, i) => {
-        v.user_coupon_start = utils.timestamp2string(v.start_date,"date")
-        v.user_coupon_end = utils.timestamp2string(v.end_date,"date")
+        v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+        v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
       })
 
       if (result.success) {
@@ -586,9 +598,9 @@ Page({
 
       if (result.success) {
 
-        result.data.coupons.forEach((v,i)=>{
-          v.user_coupon_start = utils.timestamp2string(v.start_date,"date")
-          v.user_coupon_end = utils.timestamp2string(v.end_date,"date")
+        result.data.coupons.forEach((v, i) => {
+          v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+          v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
         })
 
         if (e == "manjian") {
@@ -644,14 +656,14 @@ Page({
           let categoryItem = {}
           categoryItem.id = v[0]
           categoryItem.name = v[1]
-          
+
           categoryList.push(categoryItem)
         })
 
-        console.log(categoryList,'分类的信息')
+        console.log(categoryList, '分类的信息')
 
         this.setData({
-          categoryList:categoryList,
+          categoryList: categoryList,
           ['titleCategoryList[0].num']: result.data.product_count,
           ['titleCategoryList[1].num']: result.data.life_record_count,
           storeInfo: result.data
@@ -694,6 +706,22 @@ Page({
     })
   },
 
+  // 分享的品牌管图片
+  getSharePhotoUrl(rid) {
+    http.fxPost(api.market_share_store, {
+      rid: rid
+    }, (result) => {
+      console.log(result, "分享品牌管图片的地址")
+      if (result.success) {
+
+        this.setData({
+          shareBrandUrl: result.data.image_url
+        })
+      } else {
+
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -716,7 +744,7 @@ Page({
    */
   onReachBottom: function() {
 
-    if (this.data.categoryId==1){
+    if (this.data.categoryId == 1) {
       if (!this.data.isNext) {
         utils.fxShowToast("没有更多商品了")
         return
@@ -769,7 +797,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getSharePhotoUrl(this.data.storeRid)
   },
 
   /**
@@ -797,6 +825,27 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    // 分享小程序
+    let title = this.data.storeInfo.name
+    let imageUrl = this.data.shareBrandUrl
 
-  }
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    // scene格式：rid + '-' + sid
+    let scene = this.data.storeRid
+    if (lastVisitLifeStoreRid) {
+      scene += '-' + lastVisitLifeStoreRid
+    }
+    console.log('pages/branderStore/branderStore?scene=' + scene, "分享的连接")
+    return {
+      title: title,
+      path: 'pages/branderStore/branderStore?scene=' + scene + "&&rid=" + this.data.storeRid,
+      imageUrl: imageUrl,
+      success:(res) => {
+       console.log("分享成功")
+      }
+    }
+  },
+
+
+
 })
