@@ -1212,3 +1212,10 @@ swiper-photo .slide-item__box image {
   height: 70rpx;
   width: 70rpx;
 }
+
+.navbar-adsorb{
+  position: fixed;
+  top: 0rpx;
+  z-index: 99;
+  width: 670rpx;
+}

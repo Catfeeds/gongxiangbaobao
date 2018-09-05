@@ -221,7 +221,7 @@ App({
     if (lastVisitLifeStoreRid) {
       scene +=  '-' + lastVisitLifeStoreRid
     }
-    
+
     return {
       title: title,
       path: 'pages/product/product?scene=' + scene,
@@ -295,7 +295,7 @@ App({
    * 获取购物车数量
    */
   getCartTotalCount() {
-    http.fxGet(api.cart_item_count, { params: { open_id: this.globalData.jwt.openid } }, (res) => {
+    http.fxGet(api.cart_item_count, { open_id: this.globalData.jwt.openid }, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
         this.globalData.cartTotalCount = res.data.item_count
