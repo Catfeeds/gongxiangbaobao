@@ -82,14 +82,10 @@ Page({
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              wx.showToast({
-                title: '海报保存成功',
-              })
+              utils.fxShowToast("保存成功", "success")
             },
             fail(res) {
-              wx.showToast({
-                title: '海报保存失败',
-              })
+              utils.fxShowToast("保存失败")
             }
           })
         }

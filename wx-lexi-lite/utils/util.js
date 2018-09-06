@@ -245,7 +245,8 @@ const handleShowTabBar = () => {
 // 显示加载
 const handleShowLoading = () => {
   wx.showLoading({
-    title: '加载中'
+    title: '加载中',
+    mask:false
   }) 
 }
 

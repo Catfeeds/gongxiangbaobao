@@ -100,7 +100,7 @@ Page({
 
    
     this.getOpenStorePhoto() // 开馆的卡片
- this.getWxaPoster(this.data.uid) // 开馆的海报
+    this.getWxaPoster(this.data.uid) // 开馆的海报
   },
 
   // 邀请好友开馆的卡片
@@ -126,12 +126,12 @@ Page({
     // scene格式：rid + '#' + sid
     let scene = rid
     if (lastVisitLifeStoreRid) {
-      scene += '#' + lastVisitLifeStoreRid
+      scene += '-' + lastVisitLifeStoreRid
     }
 
     let params = {
       scene: scene,
-      path: 'pages/index/index?scene=' + scene,
+      path: 'pages/index/index',
       auth_app_id: app.globalData.app_id
     }
     console.log(params,"海报参数")
@@ -143,6 +143,31 @@ Page({
         })
       } else {
         utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+* 保存当前海报到相册
+*/
+  handleSaveShare() {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              utils.fxShowToast('海报保存成功',"success")
+            },
+            fail(res) {
+
+              utils.fxShowToast('海报保存失败')
+            }
+          })
+        }
       }
     })
   },
@@ -397,7 +422,7 @@ Page({
     // console.log(e.target.dataset.card)
     console.log(e)
     console.log(e.from)
-    if (e.target.dataset.card == 1 || e.from =="menu"){
+    if (e.from == "menu" || e.target.dataset.card == 1 ){
       let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
       // scene格式：rid + '-' + sid
@@ -405,7 +430,8 @@ Page({
       if (lastVisitLifeStoreRid) {
         scene += '-' + lastVisitLifeStoreRid
       }
-
+      console.log('pages/index/index?scene=' + scene,"分享的参数")
+      
       return {
         title: this.data.userName + '邀请你一起来来乐喜开个',
         path: 'pages/index/index?scene=' + scene,

@@ -127,26 +127,28 @@ Page({
       shareProduct: this.data.storeProducts[idx]
     })
 
-    this.getWxaPoster(rid)
+    this.getWxaPoster()
   },
 
   /**
  * 生成推广海报图
  */
-  getWxaPoster(rid) {
+  getWxaPoster() {
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    let rid = this.data.shareProduct.rid
 
     // scene格式：rid + '#' + sid
     let scene = rid
     if (lastVisitLifeStoreRid) {
-      scene += '#' + lastVisitLifeStoreRid
+      scene += '-' + lastVisitLifeStoreRid
     }
 
     let params = {
       rid: rid,
       type: 4,
-      path: 'pages/product/product?scene=' + scene,
-      auth_app_id: app.globalData.app_id
+      path: 'pages/product/product',
+      auth_app_id: app.globalData.app_id,
+      scene: scene
     }
     http.fxPost(api.wxa_poster, params, (result) => {
       console.log(result, '生成海报图')
@@ -173,14 +175,10 @@ Page({
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              wx.showToast({
-                title: '海报保存成功',
-              })
+              utils.fxShowToast("保存成功","success")
             },
             fail(res) {
-              wx.showToast({
-                title: '海报保存失败',
-              })
+              utils.fxShowToast("保存失败")
             }
           })
         }
