@@ -137,7 +137,7 @@
   </view>
 
   <!-- 合计金额 -->
-  <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart}}">
+  <view class='clearDndthinkBox paymentBtn' wx:if="{{!changeCart&&shoppingCart.items.length!=0}}">
     <view class='payPrice'>合计:<text>￥{{payment}}</text>
     </view>
     <view class='addThinkOrder' catchtap='chekoutTap'>结算</view>

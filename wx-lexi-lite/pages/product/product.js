@@ -59,8 +59,8 @@ Page({
     animationData: [], //动画
     window_height: app.globalData.system.screenHeight * 2, // 屏幕的高度
     coupon_show: false,
-    newProductList: [], // 最新的商品列表---
     userPhoto: "", // 用户的头像
+    newProductList: { products: [{}, {}, {},{}, {}, {}]}, // 最新的商品列表---
     // 最新产品的请求参数
     newProductParams: {
       page: 1,

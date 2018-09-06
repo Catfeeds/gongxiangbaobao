@@ -2,7 +2,7 @@
 <view class='container theme-bg-color'>
   <view class='orderNumber font-s'>
     <view class='time-top'>
-      <text>运单编号：{{location.LogisticCode}}</text>
+      <text wx:if="{{location.LogisticCode!=null}}">运单编号：{{location.LogisticCode}}</text>
       <text wx:if="{{location.State==2}}">物流状态:运输途中</text>
       <text wx:if="{{location.State==3}}">物流状态:已签收</text>
       <text wx:if="{{location.State==4}}">物流状态:问题包裹</text>
@@ -42,11 +42,12 @@
       <view>暂未查询到礼物包裹进展 </view>
     </view>
 
-    <view class='font-s'>
+  
+    <view class='font-s' wx:if="{{parmas.logistic_code!=null}}">
       <view>运单编号 </view>
       <view>{{parmas.logistic_code}}</view>
     </view>
-    <view class='hui-zi'>
+    <view class='hui-zi' wx:if="{{parmas.logistic_code!=null}}">
       <view>您可选择长按复制运单编号</view>
       <view>到物流公司官网查询</view>
     </view>

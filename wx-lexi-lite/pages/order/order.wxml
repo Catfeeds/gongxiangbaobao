@@ -82,8 +82,8 @@
           删除订单
         </view>
         <view 
-                  data-code="{{order.items[0].express_code}}"
-                  data-express-name="{{order.items[0].express_name}}"
+          data-code="{{order.items[0].express_code}}"
+          data-express-name="{{order.items[0].express_name}}"
           data-logistics-number="{{order.items[0].express_no}}"
           wx:if="{{ order.user_order_status == 2 }}" 
           class='delleteOrder hui-zi' 

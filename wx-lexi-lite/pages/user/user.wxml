@@ -115,7 +115,7 @@
           class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}' 
           wx:for="{{likeProduct.products}}" 
           wx:key="{{index}}">
-          <image src='{{item.cover}}-p16'></image>
+          <image class='loading-bg' src='{{item.cover}}-p16'></image>
         </view>
       </scroll-view>
     </view>
@@ -145,7 +145,7 @@
           wx:for="{{userBrowsesProduct.products}}" 
           data-store-id="{{item.store_rid}}"
           wx:key="{{index}}">
-          <image src='{{item.cover}}-p16'></image>
+          <image class='loading-bg' src='{{item.cover}}-p16'></image>
         </view>
       </view>
     </view>
@@ -168,7 +168,7 @@
           data-store-id="{{item.store_rid}}"
           wx:for="{{desireOrderProduct.products}}" 
           wx:key="{{index}}">
-          <image src='{{item.cover}}-p16'></image>
+          <image class='loading-bg' src='{{item.cover}}-p16'></image>
         </view>
       </view>
       <view class='shm'></view>
@@ -224,7 +224,7 @@
       </view>
       <view class='shop-other-goods product-null__photo'>
         <view wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-rid='{{ value.rid }}' catchtap='handleToProductInfoTap'>
-          <image src='{{ value.cover }}-p16'></image>
+          <image class='loading-bg' src='{{ value.cover }}-p16'></image>
         </view>
       </view>
     </view>

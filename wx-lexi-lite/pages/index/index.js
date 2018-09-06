@@ -39,9 +39,14 @@ Page({
     canAdmin: false, // 是否具备管理生活馆
     showEditModal: false, // 生活馆编辑
     showConfirmModal: false, // 删除上架商品确认
-    popularProducts: [], // 本周最受欢迎
     latestDistributeProducts: [], // 最新分销商品
     isDistributed:false, // 是否属于分销
+    popularProducts: [  // 本周最受欢迎
+      { cover: '', name: '乐喜' },
+      { cover: '', name: '乐喜' },
+      { cover: '', name: '乐喜' },
+      { cover: '', name: '乐喜' },
+    ], 
     storeForm: {
       rid: '',
       name: '',
@@ -51,24 +56,83 @@ Page({
     },
 
     // 探索
-    characteristicStoreList: [], // 特色品牌商店
+    characteristicStoreList: {
+      stores:[
+        { logo: '', name: '乐喜' },
+        { logo: '', name: '乐喜' },
+    ]}, // 特色品牌商店
     exploreAdvertisementList: [], // 广告位置
     categoryList: [], // 分类
-    editRecommendList: [], // 编辑推荐
-    highQualityList: [], // 优质新品
-    gatherList: [], // 集合
-    goodDesignList: [], // 特惠好设计
-    oneHundredList: [], // 百元好物
-
+    editRecommendList: [  // 编辑推荐
+        { cover:'',name:'乐喜'},
+        { cover:'',name:'乐喜'},
+        { cover:'',name:'乐喜'}
+      ], 
+    highQualityList: { // 优质新品
+      products: [
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+      ]
+      }, 
+    goodDesignList: { // 特惠好设计
+      products: [
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+      ]
+    }, 
+    oneHundredList: { // 百元好物
+      products: [
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+      ]
+    }, 
+    gatherList: { // 集合
+      collections:[
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+      ]
+    }, 
     // 精选
-    gratefulList: [], // 人气推荐
     handerAdvertisementList: [], // 头部广告
     middleAdvertisementList: [], // 精选的中间广告
-    lexiPick: [], // 乐喜优选
-    plantOrderList: [], //种草清单
     swiperIndex: 0, // 旋转木马当前选中项目
-    todayRecommendList: [], // 今日推荐
     storeHeadlines: [], // 生活馆头条
+    plantOrderList: { // 种草清单
+      life_records: [
+        { cover: '', recommend_label: '乐喜' },
+        { cover: '', recommend_label: '乐喜' },
+      ]
+    },
+    todayRecommendList: { // 今日推荐
+      daily_recommends: [
+        { cover: '', recommend_label: '乐喜' },
+        { cover: '', recommend_label: '乐喜' },
+        { cover: '', recommend_label: '乐喜' },
+        { cover: '', recommend_label: '乐喜' },
+      ]
+    },
+    gratefulList: { // 人气推荐
+      products: [
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+      ]
+    },
+    lexiPick: { // 乐喜优选
+      products: [
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+        { cover: '', name: '乐喜' },
+      ]
+    }, 
+
 
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
@@ -605,7 +669,11 @@ Page({
       console.log(result, "编辑 推荐")
       if (result.success) {
         this.setData({
-          editRecommendList: result.data
+          editRecommendList: [],
+        })
+        
+        this.setData({
+          editRecommendList: result.data.products
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -713,6 +781,11 @@ Page({
     http.fxGet(api.column_explore_new, {}, (result) => {
       console.log(result, "优质新品")
       if (result.success) {
+
+        this.setData({
+          highQualityList: []
+        })
+
         this.setData({
           highQualityList: result.data
         })
@@ -742,6 +815,10 @@ Page({
       console.log(result, "特惠好设计")
       if (result.success) {
         this.setData({
+          goodDesignList: []
+        })
+
+        this.setData({
           goodDesignList: result.data
         })
       } else {
@@ -755,6 +832,9 @@ Page({
     http.fxGet(api.column_affordable_goods, {}, (result) => {
       console.log(result, "百元好物")
       if (result.success) {
+        this.setData({
+          oneHundredList: []
+        })
         this.setData({
           oneHundredList: result.data
         })
@@ -795,6 +875,9 @@ Page({
     }, (result) => {
       console.log(result, "人气推荐")
       if (result.success) {
+        this.setData({
+          gratefulList: []
+        })
         this.setData({
           gratefulList: result.data
         })
@@ -841,6 +924,9 @@ Page({
       console.log(result, "乐喜优选")
       if (result.success) {
         this.setData({
+          lexiPick: []
+        })
+        this.setData({
           lexiPick: result.data
         })
       } else {
@@ -875,6 +961,9 @@ Page({
     }, (res) => {
       console.log(res, '最受欢迎商品')
       if (res.success) {
+        this.setData({
+          popularProducts: []
+        })
         this.setData({
           popularProducts: res.data.products
         })

@@ -272,7 +272,7 @@
         <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" catchtap="handleToInfo" data-type="{{item.target_type}}"
           data-id="{{item.id}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <view class='all-product height---236rpx'>
-            <image class='border-radius--8 ' src="{{item.cover}}"></image>
+            <image class='border-radius--8 loading-bg' src="{{item.cover}}"></image>
           </view>
           <view class='recommend-text line-height--22rpx theme-green margin-top--4rpx padding-bottom--10rpx'>
             <text class='font-ss line-height--22rpx'>{{item.recommend_label}}</text>
@@ -391,7 +391,7 @@
       <view class='production new-goods_box padding-left--0rpx'>
         <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' catchtap="handleToPlantNoteInfo" data-rid="{{item.rid}}" wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
-          <image src="{{item.cover}}" class="img--style"></image>
+          <image src="{{item.cover}}" class="img--style loading-bg "></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='font-ss shen-hui text-two_line'>{{item.description}}</text>
           <view class='plant-owner__box flex_row'>
@@ -443,10 +443,10 @@
     <view class='border-bottom min-height--400'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>编辑推荐</text>
-        <text catchtap="handleToProductList" data-from="editRecommend" wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text catchtap="handleToProductList" data-from="editRecommend" wx:if="{{editRecommendList.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='c-importantGoodsBox margin-top--34rpx '>
-        <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{editRecommendList.products}}" wx:key="{{index}}">
+        <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==editRecommendList.length-1?"margin-right--40rpx":""}}' wx:for="{{editRecommendList}}" wx:key="{{index}}">
           <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
         </scroll-view>
       </view>
@@ -456,7 +456,7 @@
     <view class='border-bottom min-height--570'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特色品牌馆</text>
-        <text catchtap="handelTobrandList" wx:if="{{editRecommendList.products.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text catchtap="handelTobrandList" wx:if="{{editRecommendList.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
@@ -512,7 +512,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-rid="{{item.id}}" catchtap="handleToGatherInfo" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
-          <image class='border-radius--8' src="{{item.cover}}-p30"></image>
+          <image class='border-radius--8 loading-bg' src="{{item.cover}}-p30"></image>
           <view class='bg-black__half'>
             <image src='../../images/bg-hei.png'></image>
           </view>

@@ -600,6 +600,17 @@ image {
   z-index: 999999;
 }
 
+/* // 加载中图片 */
+.wxParse-p image,
+.loading-bg {
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/throbber.gif"),
+                    url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+  background-repeat: no-repeat, no-repeat; 
+  background-size: 10%,100%; 
+  background-position: 50%,0;
+}
+
+
 /* 轮播图的点 */
 @font-face {
   font-family: 'Fineix';

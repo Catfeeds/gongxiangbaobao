@@ -12,6 +12,7 @@ Page({
   data: {
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
+    desireOrderProductRid:'', // 移除心愿单的rid
     skus: {
       modes: [],
       colors: []
@@ -118,6 +119,7 @@ Page({
     console.log(e.currentTarget.dataset.rid)
 
     this.setData({
+      desireOrderProductRid: e.currentTarget.dataset.rid,
       productInfomation:[]
     })
     let select = e.currentTarget.dataset.rid
@@ -152,6 +154,11 @@ Page({
 
   // 当点击移除---
   clearCart() {
+    if (this.data.checkboxPick.length==0){
+      utils.fxShowToast('请选择')
+      return
+    }
+
     http.fxPost(api.clearCart, {
       open_id: wx.getStorageSync('jwt').openid,
       rids: this.data.checkboxPick
@@ -159,7 +166,7 @@ Page({
       console.log(result, '删除购物车商品')
       if (result.success) {
         this.getCartProduct()
-        if (this.data.thinkOrder.products.length!=0){
+        if (this.data.thinkOrder.products.length != 0 && this.data.shoppingCart.items.length!=0){
           this.setData({
             isShowOrder:true
           })
@@ -175,6 +182,11 @@ Page({
 
   // 放入心愿单--
   addDesire() {
+    if (this.data.checkboxPick.length == 0) {
+      utils.fxShowToast('请选择')
+      return
+    }
+    
     console.log(this.data.addDesireOrder)
     let rid = this.data.addDesireOrder.map((v, i) => {
       console.log(v)
@@ -187,15 +199,17 @@ Page({
       console.log(result)
       if (result.success) {
         this.getDesireOrder()
-        this.getCartProduct()
+        // this.getCartProduct()
+        this.clearCart()
         this.paymentPrice()
+
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  // 购物车点击移除按钮和放入心愿单按钮---
+  // 点击移除按钮和放入心愿单按钮---
   cartClearTap(e) {
     let cartAllInfo = []
     let btnType = e.currentTarget.dataset.type
@@ -622,6 +636,22 @@ Page({
     return true
   },
 
+  // 移除心愿单
+  handleDeleteDesireOrder(e){
+    http.fxDelete(api.wishlist, {
+      rids: [e]
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('成功', "success")
+        this.getDesireOrder()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
   /**
    * 加入购物车
    */
@@ -645,6 +675,9 @@ Page({
 
           // 更新数量
           this.updateCartTotalCount(result.data.item_count)
+
+          // 心愿单产品放入购物车后，在心愿单删除产品
+          this.handleDeleteDesireOrder(this.data.desireOrderProductRid)
 
           this.setData({
             skus: {
@@ -696,6 +729,9 @@ Page({
             choosed:{},
             productInfomation: [],
           })
+          // 心愿单产品放入购物车后，在心愿单删除产品
+          this.handleDeleteDesireOrder(this.data.desireOrderProductRid)
+
           wx.navigateTo({
             url: './../receiveAddress/receiveAddress?from_ref=cart&&rid=' + this.data.choosed.rid,
           })

@@ -11,9 +11,26 @@ Page({
    */
   data: {
     swiperMark:0, // 轮播图的标记
-    youLike: [], // 猜你喜欢
-    advertisement: [], // 广告
-    wonderfulStories: [], // 精彩故事
+    advertisement: { // 广告
+      banner_images: [
+        { image: "" }
+      ]
+    }, 
+    wonderfulStories: { // 精彩故事
+      life_records: [
+        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
+        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
+        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
+        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
+      ]
+    },
+    youLike: {// 猜你喜欢
+      life_records:[ 
+        { cover: '', description: '乐喜', user_avator: '', user_name:''},
+        { cover: '', description: '乐喜', user_avator: '', user_name:''},
+        { cover: '', description: '乐喜', user_avator: '', user_name:''},
+        { cover: '', description: '乐喜', user_avator: '', user_name:''},
+    ]}, 
     liveTheme:[
       { name: "创作人故事", target: 1, img:"https://kg.erp.taihuoniao.com/static/img/designer_routine.jpg"},
       { name: "种草笔记", target: 2, img:"https://kg.erp.taihuoniao.com/static/img/teach.jpg"},

@@ -107,10 +107,17 @@ Page({
   onShareAppMessage: function () {
     return app.shareLeXi()
   },
-  //
-  logisticsTap() {
+
+  // 物流跟踪
+  logisticsTap(e) {
+
+    let code = e.currentTarget.dataset.code
+    let logisticsNumber = e.currentTarget.dataset.logisticsNumber
+    let expressName = e.currentTarget.dataset.expressName
+
     wx.navigateTo({
-      url: '../logisticsWatch/logisticsWatch',
+      url: '../logisticsWatch/logisticsWatch?code=' + code + '&&logisticsNumber=' + logisticsNumber + '&&expressName=' + expressName
     })
+
   }
 })

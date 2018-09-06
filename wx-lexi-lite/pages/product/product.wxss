@@ -64,7 +64,7 @@ swiper {
 
 .like-quantity-l {
   padding: 15rpx 20rpx;
-  border: 2rpx solid #ededef;
+  border: 1rpx solid #ededef;
   box-sizing: border-box;
   border-radius: 60rpx;
   display: flex;
@@ -240,8 +240,6 @@ swiper {
 .userIcon>image {
   height: 100%;
   width: 100%;
-  background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 .shou {
@@ -294,8 +292,6 @@ swiper {
 .shop-other-goods image {
   height: 100%;
   width: 100%;
-  background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 [class='PTRT black-font theme-green'] {

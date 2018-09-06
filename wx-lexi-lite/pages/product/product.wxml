@@ -6,10 +6,10 @@
 
   <!-- 轮播图 123-->
   <view class='swiperBox'>
-    <swiper bindchange='handleSwiperChange'>
+    <swiper  bindchange='handleSwiperChange'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image src="{{item.view_url}}-p50"/>
+          <image class='loading-bg' src="{{item.view_url}}-p50"/>
         </swiper-item>
       </block>
     </swiper>
@@ -196,7 +196,7 @@
       catchtap='handleTobrandStore'
       data-rid="{{productInfomation.store_rid}}" >
       <view class='userIcon' >
-        <image src='{{ productInfomation.store_logo }}'></image>
+        <image class="loading-bg" src='{{ productInfomation.store_logo }}'></image>
       </view>
       <view class='shopMiddle'>
         <view class='hui-zi'>原创品牌馆</view>
@@ -209,7 +209,7 @@
     </view>
     <view class='shop-other-goods'>
       <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
-        <image src='{{ item.cover }}-p16'></image>
+        <image class="loading-bg" src='{{ item.cover }}-p16'></image>
       </view>
     </view>
   </view>
