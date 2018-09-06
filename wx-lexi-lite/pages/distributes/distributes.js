@@ -91,6 +91,35 @@ Page({
     loadingMore: true
   },
 
+  // 轮播图跳转
+  handleLiveInfo(e) {
+
+    let targetType = e.currentTarget.dataset.type
+    let link = e.currentTarget.dataset.link
+
+    if (targetType == 1) {
+
+    }
+
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../product/product?rid=' + link
+      })
+    }
+
+    if (targetType == 3) {
+      wx.navigateTo({
+        url: '../categoryList/categoryList?categryId=' + link
+      })
+    }
+
+    if (targetType == 4) {
+      wx.navigateTo({
+        url: '../branderStore/branderStore?rid=' + link
+      })
+    }
+  },
+
   /**
    * 切换页面
    */

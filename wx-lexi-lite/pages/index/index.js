@@ -42,10 +42,10 @@ Page({
     latestDistributeProducts: [], // 最新分销商品
     isDistributed:false, // 是否属于分销
     popularProducts: [  // 本周最受欢迎
-      { cover: '', name: '乐喜' },
-      { cover: '', name: '乐喜' },
-      { cover: '', name: '乐喜' },
-      { cover: '', name: '乐喜' },
+      { cover: '', name: '' },
+      { cover: '', name: '' },
+      { cover: '', name: '' },
+      { cover: '', name: '' },
     ], 
     storeForm: {
       rid: '',
@@ -56,44 +56,44 @@ Page({
     },
 
     // 探索
-    characteristicStoreList: {
+    characteristicStoreList: { // 特色品牌商店
       stores:[
-        { logo: '', name: '乐喜' },
-        { logo: '', name: '乐喜' },
-    ]}, // 特色品牌商店
+        { logo: '', name: '', products_cover:[{},{},{}]},
+        { logo: '', name: '', products_cover: [{},{},{}] },
+    ]}, 
     exploreAdvertisementList: [], // 广告位置
     categoryList: [], // 分类
     editRecommendList: [  // 编辑推荐
-        { cover:'',name:'乐喜'},
-        { cover:'',name:'乐喜'},
-        { cover:'',name:'乐喜'}
+        { cover:'',name:''},
+        { cover:'',name:''},
+        { cover:'',name:''}
       ], 
     highQualityList: { // 优质新品
       products: [
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
       ]
       }, 
     goodDesignList: { // 特惠好设计
       products: [
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
       ]
     }, 
     oneHundredList: { // 百元好物
       products: [
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
       ]
     }, 
     gatherList: { // 集合
       collections:[
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
       ]
     }, 
     // 精选
@@ -103,33 +103,33 @@ Page({
     storeHeadlines: [], // 生活馆头条
     plantOrderList: { // 种草清单
       life_records: [
-        { cover: '', recommend_label: '乐喜' },
-        { cover: '', recommend_label: '乐喜' },
+        { cover: '', recommend_label: '' },
+        { cover: '', recommend_label: '' },
       ]
     },
     todayRecommendList: { // 今日推荐
       daily_recommends: [
-        { cover: '', recommend_label: '乐喜' },
-        { cover: '', recommend_label: '乐喜' },
-        { cover: '', recommend_label: '乐喜' },
-        { cover: '', recommend_label: '乐喜' },
+        { cover: '', recommend_label: '' },
+        { cover: '', recommend_label: '' },
+        { cover: '', recommend_label: '' },
+        { cover: '', recommend_label: '' },
       ]
     },
     gratefulList: { // 人气推荐
       products: [
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
       ]
     },
     lexiPick: { // 乐喜优选
       products: [
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
-        { cover: '', name: '乐喜' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
+        { cover: '', name: '' },
       ]
     }, 
 
@@ -261,6 +261,33 @@ Page({
     })
   },
 
+  // 今日推荐跳转category
+  handleTodyRecommend(e){
+    console.log(e)
+    let targetType = e.currentTarget.dataset.type
+    let rid = e.currentTarget.dataset.rid
+
+    if (targetType==1){
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid,
+      })
+    }
+
+    if (targetType==2){
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
+      })
+    }
+
+    if (targetType == 3) {
+      wx.navigateTo({
+        url: '../gatherInfo/gatherInfo?rid=' + rid,
+      })
+    }
+
+
+  },
+
   // 点击喜欢或者删除喜欢
   handleBindLike(e) {
     console.log(e,"点击心")
@@ -341,23 +368,29 @@ Page({
     console.log(e.currentTarget.dataset.rid)
     console.log(e.currentTarget.dataset.type)
 
-    let rid = e.currentTarget.dataset.rid || e.currentTarget.dataset.id
+    
     let targetType = e.currentTarget.dataset.type
+    let link = e.currentTarget.dataset.link
 
     if (targetType == 1) {
-      wx.navigateTo({
-        url: '../findInfo/findInfo?rid=' + rid
-      })
+      
     }
 
     if (targetType == 2) {
       wx.navigateTo({
-        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid
+        url: '../product/product?rid=' + link
       })
     }
+
     if (targetType == 3) {
       wx.navigateTo({
-        url: '../gatherInfo/gatherInfo?rid=' + rid
+        url: '../categoryList/categoryList?categryId=' + link
+      })
+    }
+
+    if (targetType == 4) {
+      wx.navigateTo({
+        url: '../branderStore/branderStore?rid=' + link
       })
     }
 
@@ -638,7 +671,7 @@ Page({
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
-      console.log(result, "广告位置")
+      console.log(result, "广告位置===============================")
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data
@@ -1395,6 +1428,12 @@ Page({
   handleToSearch() {
     wx.navigateTo({
       url: '../search/search',
+    })
+  },
+
+  handleToLexiPick(){
+    wx.navigateTo({
+      url: '../leXiHighPick/leXiHighPick',
     })
   },
 

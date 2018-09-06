@@ -202,10 +202,17 @@
         <view class='hui-zi'>原创品牌馆</view>
         <view class='shou'>{{ productInfomation.store_name }}</view>
       </view>
-      <view class='with flex-row-middel'>
-        <image src='../../images/shop1.png'></image>
-        <view class=''>{{ isWatch ? '已关注' : '关注' }}</view>
+
+
+      <view class='with flex-row-middel bg--hui' wx:if="{{isWatch}}" catchtap='handleDeleteWatch'>
+        <view class=''>已关注</view>
       </view>
+
+      <view class='with flex-row-middel' wx:else catchtap='handleAddWatch'>
+        <image src='../../images/shop1.png'></image>
+        <view class=''>关注</view>
+      </view>
+
     </view>
     <view class='shop-other-goods'>
       <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>

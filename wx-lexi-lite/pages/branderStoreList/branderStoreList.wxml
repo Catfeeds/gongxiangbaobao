@@ -50,9 +50,13 @@
       interval="{{3600}}"
         bindchange="handleChangeSwiper"
         autoplay="{{true}}">
-        <block wx:for="{{HighStoreList.banner_images}}" wx:key="{{index}}">
-          <swiper-item>
-            <image src="{{item}}" class="slide-image big-photo"  />
+        <block wx:for="{{HighStoreAdvList.banner_images}}" wx:key="{{index}}">
+          <swiper-item 
+            data-type="{{item.type}}" 
+            data-rid="{{item.rid}}"  
+            data-link="{{item.link}}"  
+            catchtap="handleAdvLine">
+            <image src="{{item.image}}" class="slide-image big-photo"  />
           </swiper-item>
         </block>
       </swiper>
@@ -60,7 +64,7 @@
       <view class="swiper-round__box">
         <view 
           class="{{seiperIndex==index?'swiper-active':''}}" 
-          wx:for="{{HighStoreList.banner_images}}" 
+          wx:for="{{HighStoreAdvList.banner_images}}" 
           wx:key="{{index}}"></view>
       </view>
 

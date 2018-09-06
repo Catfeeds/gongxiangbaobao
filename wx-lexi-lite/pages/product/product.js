@@ -19,9 +19,9 @@ Page({
     originalStoreRid: "", // 原店铺的rid
     storeRid:'', // 店铺的id
     rid: '', // 商品的rid---
-    productInfomation: {
+    productInfomation: { // 商品详情---
       is_distributed:true
-    }, // 商品详情---
+    }, 
     product: {},
     productContent: {},
     skus: {
@@ -67,6 +67,42 @@ Page({
       per_page: 10
     },
 
+  },
+
+  // 添加关注---
+  handleAddWatch(e) {
+    console.log(e)
+
+    http.fxPost(api.add_watch, {
+      rid: this.data.storeRid
+    }, (result) => {
+      console.log(result,"添加关注店铺")
+
+      if (result.success) {
+        this.setData({
+          isWatch: true
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 取消关注---
+  handleDeleteWatch() {
+
+    http.fxPost(api.delete_watch, {
+      rid: this.data.storeRid
+    }, (result) => {
+      console.log(result,"取消关注店铺")
+      if (result.success) {
+        this.setData({
+          isWatch: false
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   /**
@@ -472,7 +508,9 @@ Page({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid
           dkcontent: result.data.content,
-          isDistributed: result.data.is_distributed
+          isDistributed: result.data.is_distributed,
+          storeRid: result.data.store_rid
+
         })
         
         // 获取本店铺的产品

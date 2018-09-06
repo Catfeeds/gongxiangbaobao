@@ -424,8 +424,6 @@
   height: 90rpx;
   border: 2rpx solid white;
   border-radius: 8rpx;
-  background-size: 10%;
-  background: url("https://kg.erp.taihuoniao.com/static/img/throbber.gif") 50%  no-repeat ;
 }
 
 .characteristic-box__title {
@@ -455,8 +453,6 @@
   width: 140rpx;
   border: 2rpx solid white;
   box-sizing: border-box;
-  background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
 }
 
 .characteristic-watch_btn {

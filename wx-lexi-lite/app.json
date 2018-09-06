@@ -35,7 +35,7 @@
     "pages/order/order",
     "pages/receiveAddress/receiveAddress",
     "pages/address/address",
-    
+    "pages/leXiHighPick/leXiHighPick",
     "pages/brandInformation/brandInformation",
     "pages/logs/logs",
     "pages/addressTemplate/addressTemplate",

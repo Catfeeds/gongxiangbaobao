@@ -11,6 +11,7 @@
       <swiper-item 
         wx:for="{{advertisement.banner_images}}"
         data-rid="{{item.rid}}"
+        data-link="{{item.link}}"
         data-type="{{item.type}}"
         catchtap="handleLiveInfo" 
         data-rid="{{item.rid}}" 
@@ -57,7 +58,7 @@
         data-rid="{{item.rid}}"
         data-type="{{item.type}}"
         catchtap="handleLiveInfo"
-        class='flex-direction--column productionGoods' 
+        class='flex-direction--column productionGoods ' 
         wx:for="{{youLike.life_records}}" 
         wx:key='{{index}}'>
 

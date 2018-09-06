@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    HighStoreAdvList:[], // 特色品牌管的头部广告
     seiperIndex:0, // 轮播图选中的点
     HighStoreList:[], // 精选品牌列表
     categoryId: 1, // 分类的id
@@ -28,7 +29,11 @@ Page({
     ],
     params: {
       page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      per_page: 5, //Number	可选	10	每页数量
+    },
+    highParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 5, //Number	可选	10	每页数量
     }
   },
 
@@ -41,7 +46,18 @@ Page({
 
     if (e.currentTarget.dataset.id == 2) {
       this.getHighStore()
+      this.getHanderAdv()
     }
+  },
+
+  //跳转 
+  handleAdvLine(e){
+    
+    let link = e.currentTarget.dataset.link
+    wx.navigateTo({
+      url: '../branderStore/branderStore?rid=' + link
+    })
+
   },
 
   // 轮播图发生改变
@@ -54,7 +70,7 @@ Page({
   // 品牌馆 -- 特色
   getCharacteristicBranderStore() {
     wx.showLoading()
-    http.fxGet(api.column_feature_store, this.data.params, (result) => {
+    http.fxGet(api.column_feature_store_all, this.data.params, (result) => {
       console.log(result, "特色品牌管")
       wx.hideLoading()
       if (result.success) {
@@ -75,11 +91,25 @@ Page({
 
   // 品牌馆 -- 精选
   getHighStore() {
-    http.fxGet(api.column_handpick_store, this.data.params, (result) => {
+    http.fxGet(api.column_handpick_store, this.data.highParams, (result) => {
       console.log(result, "特色品牌管中的精选")
       if (result.success) {
         this.setData({
           HighStoreList:result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 品牌管--精选 头部
+  getHanderAdv(){
+    http.fxGet(api.banners_rid.replace(/:rid/g,"store_ad"), {}, (result) => {
+      console.log(result, "特色品牌管中头部广告")
+      if (result.success) {
+        this.setData({
+          HighStoreAdvList: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)

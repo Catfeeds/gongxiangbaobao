@@ -610,6 +610,16 @@ image {
   background-position: 50%,0;
 }
 
+/* // 伪元素 */
+
+.false-element::after{
+  content: " ";
+  width: 0;
+  display: inline-block;
+  line-height: 24rpx;
+}
+
+
 
 /* 轮播图的点 */
 @font-face {

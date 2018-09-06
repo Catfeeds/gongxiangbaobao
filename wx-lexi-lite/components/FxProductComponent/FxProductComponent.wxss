@@ -4,8 +4,7 @@
   flex-direction: column;
 }
 .photoBox{
-  width: 100%;
-
+ 
   position: relative;
   border-radius: 8rpx; 
    overflow: hidden; 
@@ -50,6 +49,14 @@ display: inline-block;
   font-size: 24rpx;
   vertical-align: middle;
 }
+
+.material-quality-text::after{
+  content: " ";
+  line-height: 24rpx;
+  display: inline-block;
+  width: 0rpx;
+}
+
 .material-quality{
   white-space: nowrap;
   overflow: hidden;

@@ -18,18 +18,18 @@ Page({
     }, 
     wonderfulStories: { // 精彩故事
       life_records: [
-        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
-        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
-        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
-        { cover: '', description: '乐喜', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
       ]
     },
     youLike: {// 猜你喜欢
       life_records:[ 
-        { cover: '', description: '乐喜', user_avator: '', user_name:''},
-        { cover: '', description: '乐喜', user_avator: '', user_name:''},
-        { cover: '', description: '乐喜', user_avator: '', user_name:''},
-        { cover: '', description: '乐喜', user_avator: '', user_name:''},
+        { cover: '', description: '', user_avator: '', user_name:''},
+        { cover: '', description: '', user_avator: '', user_name:''},
+        { cover: '', description: '', user_avator: '', user_name:''},
+        { cover: '', description: '', user_avator: '', user_name:''},
     ]}, 
     liveTheme:[
       { name: "创作人故事", target: 1, img:"https://kg.erp.taihuoniao.com/static/img/designer_routine.jpg"},
@@ -77,22 +77,31 @@ Page({
 
   // 生活志愿详情
   handleLiveInfo(e) {
-    console.log(e)
-    
-    let rid = e.currentTarget.dataset.rid
 
-    if (e.currentTarget.dataset.type == 1) {
+    let targetType = e.currentTarget.dataset.type
+    let link = e.currentTarget.dataset.link
+
+    if (targetType == 1) {
+
+    }
+
+    if (targetType == 2) {
       wx.navigateTo({
-        url: '../findInfo/findInfo?rid=' + rid + "&&category=" + e.currentTarget.dataset.category
+        url: '../product/product?rid=' + link
       })
     }
 
-    if (e.currentTarget.dataset.type == 2) {
+    if (targetType == 3) {
       wx.navigateTo({
-        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid
+        url: '../categoryList/categoryList?categryId=' + link
       })
     }
 
+    if (targetType == 4) {
+      wx.navigateTo({
+        url: '../branderStore/branderStore?rid=' + link
+      })
+    }
   },
 
   //猜你喜欢

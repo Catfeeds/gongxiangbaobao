@@ -778,8 +778,6 @@ Page({
     }
     
   },
-  // 
-
 
   /**
    * onReachBottom 触底加载
