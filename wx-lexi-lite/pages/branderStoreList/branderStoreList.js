@@ -15,7 +15,18 @@ Page({
     HighStoreList:[], // 精选品牌列表
     categoryId: 1, // 分类的id
     isNext:false, // 是否有下一页
-    storeList:[], // 店铺的列表
+    storeList: [ // 店铺的列表
+      {
+        products: [{ name: "" }, { name: "" }, { name: ""}]
+      },
+      {
+        products: [{ name: "" }, { name: "" }, { name: ""}]
+      },
+      {
+        products: [{ name: "" }, { name: "" }, { name: "" }]
+      }
+
+    ], 
     categoryList: [{
         name: "特色",
         num: 0,
@@ -72,6 +83,13 @@ Page({
     wx.showLoading()
     http.fxGet(api.column_feature_store_all, this.data.params, (result) => {
       console.log(result, "特色品牌管")
+
+      if (this.data.params.page==1){
+        this.setData({
+          storeList: []
+        })
+      }
+
       wx.hideLoading()
       if (result.success) {
         let data = this.data.storeList

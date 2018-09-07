@@ -371,6 +371,7 @@ Page({
     
     let targetType = e.currentTarget.dataset.type
     let link = e.currentTarget.dataset.link
+    let title = e.currentTarget.dataset.title
 
     if (targetType == 1) {
       
@@ -384,7 +385,7 @@ Page({
 
     if (targetType == 3) {
       wx.navigateTo({
-        url: '../categoryList/categoryList?categryId=' + link
+        url: '../categoryList/categoryList?categryId=' + link + "&&titleName=" + title
       })
     }
 
@@ -1091,8 +1092,7 @@ Page({
 
         let newData = []
         res.data.headlines.forEach((v,i)=>{
-          // console.log(v)
-          // console.log(v.username - 0)
+
           if(v.time>24){
             v.time = Math.ceil(v.time%24) + "天"
           }else{
@@ -1110,10 +1110,7 @@ Page({
             newObj.push(res.data.headlines[i-1])
             newData.push(newObj)
           }
-
         })
-
-        console.log(newData,"处理后的数据--开馆头条")
 
         // 暂时展示2条
         this.setData({

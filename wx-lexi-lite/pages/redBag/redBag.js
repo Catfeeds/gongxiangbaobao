@@ -1,4 +1,11 @@
 // pages/redBag/redBag.js
+const app = getApp()
+
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
+const common = require('./../../utils/common.js')
+
 Page({
 
   /**
@@ -8,7 +15,7 @@ Page({
     //活动内容呼出框
     rule_show:[],
     //获取红包的呼出框
-    get_bonus:[],
+    get_bonus:false,
     item:[{},{},{}],
     rule_text:[
       { text:'红包的使用期限为7天，一周内未使用则失效， 仅授权微信和绑定手机用户才有参与资格领取。'},
@@ -51,10 +58,6 @@ Page({
    */
   onLoad: function (options) {
 
-    wx.showToast({
-      title: '已经领取过了',
-      icon: 'none'
-    })
   },
 
   /**
@@ -70,7 +73,7 @@ Page({
   onShow: function () {
     this.animation = wx.createAnimation({
       transformOrigin: "50% 50%",
-      duration: 1000,
+      duration: 500,
       timingFunction: "ease",
       delay: 0
     })
@@ -108,7 +111,41 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (e) {
-    this.getBonusShow()
+
+    return {
+      title: '分享领取红包',
+      path: '/pages/redBag/redBag',
+      imageUrl: "/images/accept.png",
+      success: (res) => {
+        
+        if (!this.data.get_bonus){
+          this.getBonusShow()
+        }
+
+        http.fxPost(api.market_bonus_grant,{},(result)=>{
+          console.log(result,"分享后领取红包")
+          if(result.success){
+
+          }else{
+            utils.fxShowToast(result.status.message)
+          }
+
+        })
+        
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
+
+
+
+
+
+
+
+
+    
   },
   //跳转到首页
   handleToIndexTap(){

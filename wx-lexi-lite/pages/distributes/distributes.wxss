@@ -61,6 +61,7 @@
 
 /* 生活馆头条 */
 .headline-wrapper {
+  position: relative;
   background-color: #fff;
   padding-bottom: 20rpx;
 }
@@ -71,7 +72,8 @@
   border: 1rpx solid #E9E9E9;
   box-shadow: 8rpx 0rpx 15rpx rgba(0, 0, 0, 0.1);
   border-radius: 8rpx;
-  padding: 21rpx 20rpx;
+  /* padding: 21rpx 20rpx; */
+  padding: 0rpx 20rpx;
 }
 .headline-side {
   flex: 0 0 auto;
@@ -96,11 +98,21 @@
 }
 .headline-body {
   flex: 1;
+  height: 134rpx;
 }
+.headline-body swiper,
+.headline-body swiper-item{
+height: 100%;
+}
+
+/* .headline-body swiper-item>view {
+  line-height: 24rpx;
+} */
+
 .headline-body .headline-item {
   font-size: 24rpx;
   color:rgba(51,51,51,1);
-  margin-bottom: 18rpx;
+  margin-bottom: 0rpx;
 }
 .headline-body .headline-item .store-green {
   color: #5fe4b1;
@@ -347,4 +359,11 @@
   line-height: 32rpx;
   padding: 24rpx 0;
   text-align: center;
+}
+
+.prevent-click__box {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
 }

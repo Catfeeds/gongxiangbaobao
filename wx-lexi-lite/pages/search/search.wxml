@@ -67,7 +67,7 @@
           catchtap="handleToSkip"
           wx:for="{{recommendList.hot_recommends}}" 
           wx:key="{{index}}">
-          <image src="{{item.cover}}"></image>
+          <image class="loading-bg " src="{{item.cover}}"></image>
           <view class="two-line-text"><text> {{item.recommend_title}} </text></view>
         </view>
       </view>

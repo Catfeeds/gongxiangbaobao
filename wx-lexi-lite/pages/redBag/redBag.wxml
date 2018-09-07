@@ -29,8 +29,8 @@
     </view>
   </view>
   <!-- 活动规则 呼出框-->
-  <view class='rule-box' animation="{{rule_show}}">
-    <view class='bg-white rule-info'>
+  <view class='rule-box' animation="{{rule_show}}" catchtap='ruleHidTap'>
+    <view class='bg-white rule-info' catchtap='false'>
       <view class='fx-broadwise-e rle-title black-font'>
         <view class='c-middle'>活动规则</view>
         <view class='fx-icon-nothing-close-error' catchtap='ruleHidTap'></view>
@@ -46,10 +46,14 @@
   <view class='rule-box get-reward' animation="{{get_bonus}}">
     <view class='receive-price '>
       <image src='../../images/redbag-success.png' class='receive-price_photo'></image>
-      <button class='rule-btn font-xl continue-share fx-bg-hong'>继续分享</button>
+      <button 
+        open-type='share' 
+        class='rule-btn font-xl continue-share fx-bg-hong'>继续分享</button>
       <button class='rule-btn font-xl bg-white shen-hui go-shopping' catchtap='handleToIndexTap'>去使用</button>
+
+      <view class='fx-icon-close-error off_shop' catchtap='getHidShow'></view>
     </view>
-    <view class='fx-icon-close-error off_shop' catchtap='getHidShow'></view>
+    
   </view>
 
   

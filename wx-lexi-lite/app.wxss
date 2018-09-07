@@ -606,7 +606,7 @@ image {
   background-image: url("https://kg.erp.taihuoniao.com/static/img/throbber.gif"),
                     url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
   background-repeat: no-repeat, no-repeat; 
-  background-size: 10%,100%; 
+  background-size: 32rpx,100%; 
   background-position: 50%,0;
 }
 

@@ -203,6 +203,7 @@ module.exports = {
   full_reduction: 'market/user_order_full_reduction', //满减
   first_order_reduction: 'market/coupons/new_user_discount', //满减
   noLoginFullSubtraction: 'market/coupons', //没有登陆下的满减
+  market_bonus_grant:'market/bonus/grant', // 分享领红包
 
   // Search  
   search: 'search/products', // POST 搜索商品

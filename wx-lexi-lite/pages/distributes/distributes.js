@@ -134,6 +134,10 @@ Page({
       this.getAllProducts()
       this.getCategories()
     } else { // 推荐
+
+      this.setData({
+        swiperIndex:0
+      })
       this.getAdvertises()
       this.getStoreHeadlines()
       this.getHotDistribution()
@@ -590,10 +594,38 @@ Page({
       console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
+
+
+        let newData = []
+        res.data.headlines.forEach((v, i) => {
+
+          if (v.time > 24) {
+            v.time = Math.ceil(v.time % 24) + "天"
+          } else {
+            v.time = v.time + "小时"
+          }
+
+          if (v.username - 0 != NaN && v.username.length > 9) {
+            console.log(v)
+            v.username = v.username.substr(0, 3) + "****" + v.username.substr(7, 4)
+          }
+
+          let newObj = []
+          if ((i + 1) % 2 == 0) {
+            newObj.push(v)
+            newObj.push(res.data.headlines[i - 1])
+            newData.push(newObj)
+          }
+        })
+
         // 暂时展示2条
         this.setData({
-          storeHeadlines: res.data.headlines.splice(0, 2)
+          // storeHeadlines: res.data.headlines.splice(0, 2)
+          storeHeadlines: newData
         })
+
+        console.log(this.data.storeHeadlines,"开馆头条的处理数据")
+
       } else {
         utils.fxShowToast(res.status.message)
       }

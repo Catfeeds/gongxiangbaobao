@@ -201,6 +201,7 @@
             catchtap="handleToInfo" 
             data-type="{{item.type}}"
             data-link="{{item.link}}"
+            data-title="{{item.title}}"
             data-rid="{{item.rid}}" 
             class="flex_row--middle" data-id="{{item.id}}" data-sort="{{item.sort}}">
             <view class="slide-image slide-item__box {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
