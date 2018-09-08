@@ -197,7 +197,7 @@ height: 100%;
   margin-bottom: 9rpx;
 }
 .distribute-card .distribute-card__body .title.icon-free {
-  background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
+  background-image: url("https://static.moebeast.com/image/static/icon-free.png");
   background-repeat: no-repeat; 
   background-size: 40rpx 24rpx;
   background-position: left 6rpx;
@@ -308,7 +308,7 @@ height: 100%;
   width: 148rpx;
   height: 262rpx;
   margin: 0 auto;
-  background-image: url('https://kg.erp.taihuoniao.com/static/img/null-product.png');
+  background-image: url('https://static.moebeast.com/static/img/null-product.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

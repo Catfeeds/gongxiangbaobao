@@ -2,7 +2,7 @@
 <view class="container">
   <!-- 搜索框 -->
   <view class="bg-white search-input" catchtap="handleToSearch">
-    <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
+    <input value="{{productParams.qk}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
 
       <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
   </view>
@@ -34,6 +34,7 @@
         <view wx:for="{{productList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
           <fx-product product="{{item}}" 
             photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'
+            photoSize="{{(index+1)%5==0?50:30}}"
             bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>

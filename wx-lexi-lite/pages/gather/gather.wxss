@@ -23,7 +23,7 @@
   border-radius: 8rpx;
   margin-right: 20rpx;
   background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+  background-image: url("https://static.moebeast.com/static/img/null-product.png");
 }
 
 .padding--30rpx {

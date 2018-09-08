@@ -187,6 +187,7 @@ module.exports = {
   orders_delete: 'orders/delete', // 删除订单---
   core_orders_rid:'core_orders/:rid', // 订单详情h
   logistics_information:'logistics/information', // 查询物流
+
   // Market
   is_first_order:"market/coupons/new_user_discount", // 查看是否属于首单
   user_login_coupon:'market/user_master_coupons',//用户登陆时候的优惠券
@@ -204,6 +205,7 @@ module.exports = {
   first_order_reduction: 'market/coupons/new_user_discount', //满减
   noLoginFullSubtraction: 'market/coupons', //没有登陆下的满减
   market_bonus_grant:'market/bonus/grant', // 分享领红包
+  market_bonus_lines:'market/bonus_lines', // 分享领取红包的人
 
   // Search  
   search: 'search/products', // POST 搜索商品

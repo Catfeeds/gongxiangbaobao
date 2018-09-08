@@ -1,21 +1,19 @@
 <!--pages/redBag/redBag.wxml 红包页面-->
 <view class='container'>
-  <image src='../../images/timg.jpg'></image>
+  <image src='https://static.moebeast.com/static/img/bg1010.jpeg'></image>
   <view class='red-bag_box'>
     <!-- 左边领取红包的提示 -->
     <view class='receive-box'>
-      <view class='receive-item time-top' wx:for="{{item}}" wx:key="{{index}}">
-        <view>
-          <image src='../../images/timg.jpg'></image>
-        </view>
-        <text>赵高尚...领取了10元红包</text>
+      <view class='receive-item time-top' wx:for="{{bonusCount.bonus_lines}}" wx:key="{{index}}">
+        <image src='../../images/timg.jpg'></image>
+        <text>{{bonusCount.user_name}}...领取了10元红包</text>
       </view>
     </view>
     <!-- 领取红包的盒子 -->
     <view class='receive-info'>
       <view class='receive-number font-s'>
         <view class='receive-number_top c-middle'>现金红包天天领</view>
-        <view class='receive-number_bottom c-middle'>4203人领取红包</view>
+        <view class='receive-number_bottom c-middle'>{{bonusCount.bonus_count}}人领取红包</view>
       </view>
       <view class='red-bag_photo'>
         <image src='../../images/red-bagPhoto@2.png'></image>

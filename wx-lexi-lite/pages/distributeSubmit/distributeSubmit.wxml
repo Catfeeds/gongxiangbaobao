@@ -27,7 +27,7 @@
         <view class="product-item">
           <view class="product-item__cover">
             <image src="{{ product.cover }}" class="image"></image>
-            <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
+            <image src="https://static.moebeast.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
           </view>
           <view class="product-item__body">
             <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">

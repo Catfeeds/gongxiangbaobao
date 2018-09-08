@@ -167,7 +167,7 @@
     </view>
 
     <!-- 交货时间 -->
-    <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=null&&productInfomation.py_intro!=null}}">
+    <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=null||productInfomation.py_intro!=null}}">
       <view class='titleText'>交货时间</view>
       <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
       </view>
@@ -190,7 +190,7 @@
   </view>
 
   <!-- 店铺其他产品信息 -->
-  <view class='shopInfo'>
+  <view class='shopInfo margin-bottom--30rpx'>
     <view 
       class='shopInfoT' 
       catchtap='handleTobrandStore'
@@ -387,7 +387,7 @@
       </view>
 
       <!-- 交货时间 -->
-      <view class='otherInfo-describe location'>
+      <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=null||productInfomation.py_intro!=null}}">
         <view class='titleText'>交货时间</view>
         <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
           <!-- <text class='theme-green'> 遵义</text> -->
@@ -442,7 +442,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
           </view>
           <text>保存分享朋友圈海报</text>
         </view>

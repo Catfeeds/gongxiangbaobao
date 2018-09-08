@@ -149,7 +149,7 @@
   margin-left: 30rpx;
   border: 1px solid #ffffff;
   background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+  background-image: url("https://static.moebeast.com/static/img/null-product.png");
 }
 
 .addressInfoBoxR {
@@ -208,5 +208,5 @@
 
 .recommendgoodsText image {
   background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+  background-image: url("https://static.moebeast.com/static/img/null-product.png");
 }

@@ -1,0 +1,6 @@
+/**index.wxss**/
+
+.le-xi__old {
+  height: 100%;
+  width: 750rpx;
+}

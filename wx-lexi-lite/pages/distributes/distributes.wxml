@@ -109,7 +109,7 @@
         <view class="product-item" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <view class="product-item__cover">
             <image src="{{ product.cover }}-p30" class="image"></image>
-            <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
+            <image src="https://static.moebeast.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
           </view>
           <view class="product-item__body">
             <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">
@@ -173,7 +173,7 @@
       <view class="distribute-card" wx:for="{{ allProducts }}" wx:for-item="product" wx:for-index="idx" wx:key="{{ product.rid }}">
         <view class="distribute-card__cover" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <image src="{{ product.cover }}" class="image"></image>
-          <image src="https://kg.erp.taihuoniao.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
+          <image src="https://static.moebeast.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
         </view>
         <view class="distribute-card__body" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">
@@ -228,7 +228,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
           </view>
           <text>保存分享朋友圈海报</text>
         </view>

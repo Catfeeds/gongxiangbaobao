@@ -140,9 +140,9 @@
 
   <!-- 乐喜生活馆公众号 -->
   <fx-image-modal visible="{{ showQrcodeModal }}" close="{{ false }}">
-    <image src="https://kg.erp.taihuoniao.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
+    <image src="https://static.moebeast.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
     <view class="btn-area">
-      <button class="fx-button primary" data-url="https://kg.erp.taihuoniao.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
+      <button class="fx-button primary" data-url="https://static.moebeast.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
     </view>
   </fx-image-modal>
 
@@ -170,7 +170,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="https://kg.erp.taihuoniao.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
           </view>
           <text>保存分享朋友圈海报</text>
         </view>

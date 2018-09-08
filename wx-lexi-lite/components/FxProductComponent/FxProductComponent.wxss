@@ -38,7 +38,7 @@ display: inline-block;
   height: 24rpx;
   width: 40rpx;
   border-radius: 5rpx;
-  background: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png") no-repeat;
+  background: url("https://static.moebeast.com/image/static/icon-free.png") no-repeat;
   background-size: 100% 100%;
   vertical-align: middle;
   margin-right: 10rpx;
@@ -108,8 +108,8 @@ display: inline-block;
 }
 
  .photoBox>image{
-  background-image: url("https://kg.erp.taihuoniao.com/static/img/throbber.gif"),
-                    url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+  background-image: url("https://static.moebeast.com/static/img/throbber.gif"),
+                    url("https://static.moebeast.com/static/img/null-product.png");
   background-repeat: no-repeat, no-repeat; 
   background-size: 32rpx,100%; 
   background-position: 50%,0;

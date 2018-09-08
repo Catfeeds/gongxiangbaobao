@@ -12,11 +12,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //活动内容呼出框
-    rule_show:[],
-    //获取红包的呼出框
-    get_bonus:false,
-    item:[{},{},{}],
+    bonusCount:[], // 奖金计数
+    rule_show: [], //活动内容呼出框
+    get_bonus: false,//获取红包的呼出框
     rule_text:[
       { text:'红包的使用期限为7天，一周内未使用则失效， 仅授权微信和绑定手机用户才有参与资格领取。'},
       { text:'每人每日限领一次，分享到群与微信好友即可 获得10元红包。'},
@@ -53,11 +51,37 @@ Page({
       get_bonus: this.animation.export()
     })
   },
+
+  // 获取获奖的人
+  getAward(){
+    http.fxGet(api.market_bonus_lines,{},(result)=>{
+      console.log(result,"领取红包的人数")
+      if(result.success){
+        result.data.bonus_lines.forEach((v)=>{
+
+          if (typeof (v.user_name) == string){
+            v.user_name = v.user_name.substr(0, 3)
+          }
+        })
+
+        this.setData({
+          bonusCount:result.data
+        })
+
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getAward()
   },
 
   /**

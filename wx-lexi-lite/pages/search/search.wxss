@@ -57,6 +57,8 @@
 
 .history-record__text {
   flex-wrap: wrap;
+  max-height: 150rpx;
+  overflow: hidden;
 }
 
 .history-record__text view {
@@ -169,7 +171,7 @@ align-items:center;
   height:24rpx;
 width:40rpx;
 border-radius:5rpx;
-background:url("https://kg.erp.taihuoniao.com/image/static/icon-free.png") no-repeat;
+background:url("https://static.moebeast.com/image/static/icon-free.png") no-repeat;
 background-size:100% 100%;
 vertical-align:middle;
 margin-right:10rpx;

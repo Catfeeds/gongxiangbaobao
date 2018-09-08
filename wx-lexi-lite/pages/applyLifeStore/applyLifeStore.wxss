@@ -11,7 +11,7 @@
 
 .apply-container {
   position: relative;
-  background-image: url('https://kg.erp.taihuoniao.com/image/static/apply-headimg@2.png');
+  background-image: url('https://static.moebeast.com/image/static/apply-headimg@2.png');
   background-size: auto 452rpx;
   background-repeat: no-repeat;
   background-color: #fff;
@@ -88,7 +88,7 @@
   text-align: center;
 }
 .apply-result .success {
-  background-image: url('https://kg.erp.taihuoniao.com/image/static/icon-flower@2x.png');
+  background-image: url('https://static.moebeast.com/image/static/icon-flower@2x.png');
   background-size: 100% 90rpx;
   background-position: center center;
   font-size: 40rpx;

@@ -41,7 +41,7 @@ Component({
    */
   data: {
     productItem:{
-      cover:"https://kg.erp.taihuoniao.com/static/img/null-product.png",
+      cover:"https://static.moebeast.com/static/img/null-product.png",
       name:"乐喜平台",
       min_sale_price:0
     },

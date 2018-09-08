@@ -48,7 +48,7 @@ Page({
     // 品牌馆搜索
     brandStoreParams: {
       page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      per_page: 5, //Number	可选	10	每页数量
       qk: "", //必须	 	关键词
     },
     // 用户搜索

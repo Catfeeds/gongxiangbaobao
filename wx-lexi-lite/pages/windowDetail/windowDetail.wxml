@@ -15,35 +15,35 @@
 
       <view class="fx-window__images five" wx:if="{{ imagesLength == 5 }}">
         <view class="image-container">
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
         </view>
         <view class="image-container half">
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-head-bg.jpg' }});"></view>
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});"></view>
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-head-bg.jpg' }});"></view>
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});"></view>
         </view>
         <view class="image-container half-h">
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});">
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});">
           </view>
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});">
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});">
           </view>
         </view>
       </view>
 
       <view class="fx-window__images seven"  wx:if="{{ imagesLength == 7 }}">
         <view class="image-container three">
-          <view class="image-item of2-1" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
-          <view class="image-item of2-1" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
-          <view class="image-item " style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item of2-1" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item of2-1" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item " style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
         </view>
         <view class="image-container one">
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-head-bg.jpg' }});"></view>
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-head-bg.jpg' }});"></view>
         </view>
         <view class="image-container three-h">
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});">
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});">
           </view>
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-01.jpg' }});">
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});">
           </view>
-          <view class="image-item" style="background-image:url({{ 'https://kg.erp.taihuoniao.com/image/static/window-holder-02.jpg' }});">
+          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});">
           </view>
         </view>
       </view>

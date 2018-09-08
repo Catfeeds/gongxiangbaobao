@@ -45,7 +45,7 @@
   border-radius: 5rpx;
   margin-right: 6rpx;
   background-size: 100%;
-  background-image: url("https://kg.erp.taihuoniao.com/image/static/icon-free.png");
+  background-image: url("https://static.moebeast.com/image/static/icon-free.png");
   vertical-align: middle;
 }
 

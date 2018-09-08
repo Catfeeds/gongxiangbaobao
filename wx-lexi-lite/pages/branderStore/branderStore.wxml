@@ -34,7 +34,7 @@
 
     <!-- 简介 -->
     <view class="two-line-text font-s margin-bottom--25rpx">
-      <text>{{storeInfo.description}}</text>
+      <text>{{storeInfo.tag_line}}</text>
     </view>
 
     <!-- 关注 -->
@@ -129,6 +129,7 @@
         <fx-product 
           product="{{item}}" 
           photo="{{(index+1)%5==0?4:3}}"
+          photoSize="{{(index+1)%5==0?50:30}}"
           bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>

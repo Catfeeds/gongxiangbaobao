@@ -567,7 +567,7 @@ Page({
       this.setData({
         topPhotoText: "编辑推荐",
         touchBottomInfo: options.from,
-        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/editor-feature.png"
+        topBGPhoto:"https://static.moebeast.com/static/img/editor-feature.png"
       })
     }
 
@@ -583,7 +583,7 @@ Page({
       this.setData({
         topPhotoText: "百元好物",
         touchBottomInfo: options.from,
-        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/yuan-100.png"
+        topBGPhoto:"https://static.moebeast.com/static/img/yuan-100.png"
       })
     }
 
@@ -599,7 +599,7 @@ Page({
       this.setData({
         topPhotoText: "优质新品",
         touchBottomInfo: options.from,
-        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/newest-products.png"
+        topBGPhoto:"https://static.moebeast.com/static/img/newest-products.png"
       })
     }
 
@@ -613,7 +613,7 @@ Page({
       this.setData({
         topPhotoText: "特惠好设计",
         touchBottomInfo: options.from,
-        topBGPhoto:"https://kg.erp.taihuoniao.com/static/img/good-design.png"
+        topBGPhoto:"https://static.moebeast.com/static/img/good-design.png"
       })
     }
 
