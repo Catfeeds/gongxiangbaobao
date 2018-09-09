@@ -226,6 +226,17 @@
     </view>
   </view>
 
+  <!-- 相似产品 -->
+  <view class='shopInfo margin-bottom--30rpx' wx:if="{{}}">
+    <text>相似产品</text>
+
+    <view class='shop-other-goods'>
+      <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
+        <image class="loading-bg" src='{{ item.cover }}-p16'></image>
+      </view>
+    </view>
+  </view>
+
   <!-- 产品的详细介绍 -->
   <view class='goods-info bg-white'>
     <view>
