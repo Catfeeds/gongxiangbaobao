@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoadPageShow:true, // 加载页面的三个点
     orderSum:0, // 有没有订单
     couponSum:0,// 有没有优惠券
     is_login:false, // 是否登陆
@@ -379,7 +380,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    wx.hideLoading() 
+    this.setData({
+      isLoadPageShow: false
+    })
   },
 
   /**

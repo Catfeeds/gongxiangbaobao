@@ -3,48 +3,48 @@
 <!--components/FxProductMiddle/FxProductMiddle.wxml-->
 <view 
   class='productMiddleBox' 
-  data-rid='{{product.rid}}' 
-  data-store-rid="{{product.store_rid}}"
+  data-rid='{{productItem.rid}}' 
+  data-store-rid="{{productItem.store_rid}}"
 catchtap='handleProductInfo'>
   <view class='productMiddleBoxPhoto' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx'>
-    <image src='{{ product.cover }}-p16' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo {{product?'position-image':'active'}}" wx:if="{{ !round }}"></image>
-    <image src='{{ product.cover }}-p16' style='height:{{}}rpx;width:{{}}rpx' class="shopRecommendGoods-photo round" wx:if="{{ round }}"></image>
-    <view class='sell_up_text' wx:if="{{product.total_stock==0}}">售 罄</view>
+    <image src='{{ productItem.cover }}-p16' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo {{!productItem?'position-image':'active'}}" wx:if="{{ !round }}"></image>
+    <image src='{{ productItem.cover }}-p16' style='height:{{}}rpx;width:{{}}rpx' class="shopRecommendGoods-photo round" wx:if="{{ round }}"></image>
+    <view class='sell_up_text' wx:if="{{productItem.total_stock==0}}">售 罄</view>
   </view>
   <view class='shopRecommendGoodsR' style='height:{{ photoHeight }}rpx;'>
     <view>
       <view class='two-line'>
-        <image class='logistics logistics' wx:if="{{product.is_free_postage}}"></image>
-        <text class='{{photoHeight==140?"line-two":""}}'>{{ product.name ? product.name : product.product_name }}</text>
+        <image class='logistics logistics' wx:if="{{productItem.is_free_postage}}"></image>
+        <text class='{{photoHeight==140?"line-two":""}}'>{{ productItem.name ? productItem.name : productItem.product_name }}</text>
       </view>
       <block wx:if="{{ color }}">
-        <view class='goodsColor' wx:if="{{product.color||product.size }}">
-          <text>{{product.color}}</text>
-          <text wx:if="{{product.color&&product.size}}">/</text>
-          <text>{{product.size}}</text>
+        <view class='goodsColor' wx:if="{{productItem.color||productItem.size }}">
+          <text>{{productItem.color}}</text>
+          <text wx:if="{{productItem.color&&productItem.size}}">/</text>
+          <text>{{productItem.size}}</text>
         </view>
       </block>
 
       <!-- 购买的数量 -->
-      <view class='shopingNumber' wx:if="{{shopingNumber}}">x {{product.quantity}}</view>
+      <view class='shopingNumber' wx:if="{{shopingNumber}}">x {{productItem.quantity}}</view>
     </view>
     <!-- 颜色 -->
 
     <!-- 店铺名称 -->
     <view class='shopingName' wx:if="{{shopName}}">
       <image src='../../images/shop.png'></image>
-      <text>{{product.shopName}}</text>
+      <text>{{productItem.shopName}}</text>
     </view>
 
     <!-- 价格和喜欢的人数 -->
     <view wx:if="{{price}}" class='price-like-box'>
-      <text class='current_price'>¥{{product.min_price}}</text>
-      <text wx:if="{{product.min_price==product.min_sale_price}}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{product.min_price}}</text>
-      <text wx:if="{{product.like_count!=0}}" class='shopRecommendGoodsR-old '>喜欢+{{product.like_count}}</text>
+      <text class='current_price'>¥{{productItem.min_price}}</text>
+      <text wx:if="{{productItem.min_price==productItem.min_sale_price}}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{productItem.min_price}}</text>
+      <text wx:if="{{productItem.like_count!=0}}" class='shopRecommendGoodsR-old '>喜欢+{{productItem.like_count}}</text>
     </view>
 
     <!-- 库存数量 是否售罄 -->
-    <view wx:if="{{repertoryNumber&&product.total_stock==0}}" class='repertoryNumber'>该商品已售馨</view>
+    <view wx:if="{{repertoryNumber&&productItem.total_stock==0}}" class='repertoryNumber'>该商品已售馨</view>
 
   </view>
 </view>

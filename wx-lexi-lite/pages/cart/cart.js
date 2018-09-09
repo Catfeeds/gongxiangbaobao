@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoadPageShow:true, // 加载的三个点
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
     desireOrderProductRid:'', // 移除心愿单的rid
@@ -752,9 +753,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中'
-    })
     
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount
@@ -765,7 +763,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    wx.hideLoading() 
+    this.setData({
+      isLoadPageShow: false
+    })
   },
 
   /**

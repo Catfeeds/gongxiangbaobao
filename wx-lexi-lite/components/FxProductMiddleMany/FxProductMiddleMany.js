@@ -61,7 +61,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    product:''
+    productItem:''
   },
 
 
@@ -71,7 +71,7 @@ Component({
   ready(e) {
     let NewData = this.properties.product
     this.setData({
-      product: NewData
+      productItem: NewData
     })
   },
 
