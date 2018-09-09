@@ -40,11 +40,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    productItem:{
-      cover:"https://static.moebeast.com/static/img/null-product.png",
-      name:"乐喜平台",
-      min_sale_price:0
-    },
+    productItem:'',
   },
 
   /**

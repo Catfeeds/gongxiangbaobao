@@ -590,6 +590,7 @@ image {
   z-index: 99;
 }
 
+/* 页面加载的图片（三个点） */
 .load-page__icon {
   position: fixed;
   top: 50%;

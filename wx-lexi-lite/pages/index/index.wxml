@@ -1,6 +1,12 @@
 <!--index.wxml-->
 
 <view class="container">
+  <!-- 页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <view class="c-middle sear-top">
     <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
 

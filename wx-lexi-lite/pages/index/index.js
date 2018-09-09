@@ -18,6 +18,7 @@ Page({
     firstTime: true,
     swiperMark:0, // 轮播图标记
     loadingMore: true, // 加载更多标记
+    isLoadPageShow:true, // 加载页面的点
     gratefulSwiper:0, // 热气推荐的的轮播图的点
     exploreSwiperMark:0,// 探索轮播图的点
 
@@ -672,7 +673,6 @@ Page({
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
-      console.log(result, "广告位置===============================")
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data
@@ -719,8 +719,10 @@ Page({
   getCharacteristicBranderStore() {
     http.fxGet(api.column_feature_store, {}, (result) => {
       console.log(result, "特色品牌馆")
+
       if (result.success) {
         this.setData({
+          isLoadPageShow: false,
           characteristicStoreList: result.data
         })
       } else {
@@ -910,7 +912,8 @@ Page({
       console.log(result, "人气推荐")
       if (result.success) {
         this.setData({
-          gratefulList: []
+          gratefulList: [],
+          isLoadPageShow:false
         })
         this.setData({
           gratefulList: result.data
@@ -1019,14 +1022,11 @@ Page({
       user_record:1
     }
 
-    wx.showLoading({
-      title: '加载中',
-    })
+
 
     http.fxGet(api.life_store_products, params, (res) => {
       console.log(res.data.products, '全部分销商品')
       console.log(res, '全部分销商品')
-      wx.hideLoading()
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -1193,11 +1193,16 @@ Page({
         this.setData({
           swiperIndex: 0
         })
-        this.getChoiceHanderAdvertisement() // 头部广告
 
+        this.getChoiceHanderAdvertisement() // 头部广告
         if (this.data.handerAdvertisementList.length!=0){
           return
         }
+
+        this.setData({
+          isLoadPageShow: true
+        })
+
         this.getStoreHeadlines() // 开馆头条
         this.getOpenStoreGuide() // 开馆指引
         this.getTodayRecommend() // 今日推荐
@@ -1211,6 +1216,9 @@ Page({
         if (this.data.exploreAdvertisementList.length != 0) {
           return
         }
+        this.setData({
+          isLoadPageShow:true
+        })
         this.handleSetNavigationTitle('探索')
         this.getEditRecommend() // 编辑推荐
         this.getCharacteristicBranderStore() // 特色品牌管
@@ -1340,6 +1348,9 @@ Page({
    */
   onReady: function() {
     this.getLifePhotoUrl()
+    this.setData({
+      isLoadPageShow:false
+    })
   },
 
   /**
