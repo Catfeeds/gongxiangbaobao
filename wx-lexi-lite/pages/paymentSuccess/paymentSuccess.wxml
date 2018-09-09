@@ -1,5 +1,11 @@
 <!--pages/paymentSuccess/paymentSuccess.wxml-->
 <view class='container theme-bg-color'>
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <!-- 支付成功的提示 -->
   <view class='successBG'>
     <icon type='success' color="white" size="60"></icon>

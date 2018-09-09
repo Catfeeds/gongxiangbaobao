@@ -1,5 +1,11 @@
 <!--pages/logisticsWatch/logisticsWatch.wxml  物流跟踪页面-->
 <view class='container theme-bg-color'>
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <view class='orderNumber font-s'>
     <view class='time-top'>
       <text wx:if="{{location.LogisticCode!=null}}">运单编号：{{location.LogisticCode}}</text>

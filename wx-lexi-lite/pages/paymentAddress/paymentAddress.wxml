@@ -1,5 +1,12 @@
 <!--pages/paymentAddress/paymentAddress.wxml-->
 <view class='container theme-bg-color'>
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
+
   <!-- 上面的进度条 -->
   <view>
     <view class='paymentList'>

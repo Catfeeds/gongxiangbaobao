@@ -1,6 +1,11 @@
 <!--pages/userLikeProduct/userLikeProduct.wxml-->
 
 <view class='container'>
+    <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 筛选和排序 -->
   <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>

@@ -1,4 +1,9 @@
 <view class="container">
+    <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 头图 -->
   <view class="page-section headline">

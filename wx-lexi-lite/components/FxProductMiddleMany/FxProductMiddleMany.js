@@ -6,7 +6,7 @@ Component({
   properties: {
     product: {
       type: Object,
-      value: {}
+      value: false
     },
     //购买的数量
     shopingNumber:{
@@ -61,7 +61,18 @@ Component({
    * 组件的初始数据
    */
   data: {
+    product:''
+  },
 
+
+  /**
+ *初始化 
+*/
+  ready(e) {
+    let NewData = this.properties.product
+    this.setData({
+      product: NewData
+    })
   },
 
   /**

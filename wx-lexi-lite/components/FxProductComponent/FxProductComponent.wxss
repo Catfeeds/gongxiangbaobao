@@ -121,8 +121,8 @@ display: inline-block;
 }
 
 .photoBox>.active {
-    background-image: url("https://static.moebeast.com/static/img/null-product.png");
-    /* background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png"); */
+    /* background-image: url("https://static.moebeast.com/static/img/null-product.png"); */
+    background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
   background-repeat: no-repeat; 
   background-size: 100%;
 }

@@ -1,5 +1,11 @@
 <!--pages/order/order.wxml 订单状态-->
 <view class='container theme-bg-color'>
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <!-- 头部导航 -->
   <view class="page-order__nav">
     <block wx:for="{{ navList }}" wx:key="{{ item.status }}">

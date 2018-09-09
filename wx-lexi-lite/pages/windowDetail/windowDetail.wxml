@@ -1,4 +1,11 @@
 <view class="container fixed-bottom">
+
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <!-- 橱窗列表 -->
   <view class="page-section fx-windows">
 

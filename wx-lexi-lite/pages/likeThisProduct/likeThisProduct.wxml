@@ -1,5 +1,11 @@
 <!--pages/likeThisProduct/likeThisProduct.wxml-->
 <view class='container'>
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <view 
     class='time-top font-m relation-item' 
     wx:for="{{peopleList.product_like_users}}"

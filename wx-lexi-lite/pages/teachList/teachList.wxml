@@ -1,5 +1,11 @@
 <!--pages/teachList/teachList.wxml-->
 <view class="">
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
   </view>
   <view class='production new-goods_box'>

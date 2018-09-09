@@ -1,5 +1,11 @@
 <!--pages/find/find.wxml-->
 <view class="container">
+
+  <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <!-- 轮播图 -->
   <view class="find-swiper">
     <swiper 

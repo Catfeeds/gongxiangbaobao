@@ -2,6 +2,13 @@
 <import src="../../wxParse/wxParse.wxml" />
 
 <view class="container">
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
+
   <!-- 详细的盒子 -->
   <view class="bg-white border-bottom margin-bottom--30rpx">
     <!-- 头部图片 -->

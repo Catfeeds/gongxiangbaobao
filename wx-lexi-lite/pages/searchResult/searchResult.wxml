@@ -1,5 +1,11 @@
 <!--pages/searchResult/searchResult.wxml-->
 <view class="container">
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <!-- 搜索框 -->
   <view class="bg-white search-input" catchtap="handleToSearch">
     <input value="{{productParams.qk}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>

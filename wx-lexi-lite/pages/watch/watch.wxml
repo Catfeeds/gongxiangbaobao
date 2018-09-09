@@ -1,5 +1,12 @@
 <!--pages/watch/watch.wxml 关注的人-->
 <view class='container'>
+    <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
+
   <view class='time-top font-m relation-item' wx:for="{{peopleList}}" wx:key="{{index}}">
     <view 
       class='flex_row relation-avater' 

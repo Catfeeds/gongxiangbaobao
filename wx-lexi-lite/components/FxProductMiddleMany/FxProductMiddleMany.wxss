@@ -135,11 +135,32 @@ textarea {
 }
 
 
- .productMiddleBoxPhoto>image{
+
+ /* .productMiddleBoxPhoto>image{
     background-image: url("https://static.moebeast.com/static/img/throbber.gif"),
                     url("https://static.moebeast.com/static/img/null-product.png");
   background-repeat: no-repeat, no-repeat; 
   background-size: 32rpx,100%; 
   background-position: 50%,0;
  
+} */
+
+ .position-image{
+  /* background-image: url("https://static.moebeast.com/static/img/throbber.gif"),
+                    url("https://static.moebeast.com/static/img/null-product.png");
+  background-repeat: no-repeat, no-repeat; 
+  background-size: 32rpx,100%; 
+  background-position: 50%,0; */
+  background-image: url("https://static.moebeast.com/static/img/throbber.gif");
+  background-repeat: no-repeat; 
+  background-size: 32rpx; 
+  background-position: 50%;
+  background-color: #D4DAD0;
+}
+
+.active {
+    /* background-image: url("https://static.moebeast.com/static/img/null-product.png"); */
+  background-image: url("https://kg.erp.taihuoniao.com/static/img/null-product.png");
+  background-repeat: no-repeat; 
+  background-size: 100%;
 }

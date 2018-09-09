@@ -1,4 +1,9 @@
 <view class='container'>
+  <!-- 页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
 
   <view class="withdraw-wallet">
     <view class="withdraw-title">

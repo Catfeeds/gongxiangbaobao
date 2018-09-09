@@ -1,5 +1,11 @@
 <!--pages/redBag/redBag.wxml 红包页面-->
 <view class='container'>
+    <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <image src='https://static.moebeast.com/static/img/bg1010.jpeg'></image>
   <view class='red-bag_box'>
     <!-- 左边领取红包的提示 -->
