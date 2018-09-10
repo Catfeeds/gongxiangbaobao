@@ -422,9 +422,15 @@
         <text wx:if="{{plantOrderList.life_records.length>4}}" catchtap="handleToPlantNoteList" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='production new-goods_box padding-left--0rpx'>
-        <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' catchtap="handleToPlantNoteInfo" data-rid="{{item.rid}}" wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
+        <view 
+          wx:if="{{index<4}}" 
+          class='flex-direction--column productionGoods'
+          catchtap="handleToPlantNoteInfo" 
+          data-rid="{{item.rid}}" 
+          data-type="{{item.type}}"
+          wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
-          <image src="{{item.cover}}-p326x216" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}} "></image>
+          <image src="{{item.cover}}-p326x216" class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='font-ss shen-hui text-two_line'>{{item.description}}</text>
           <view class='plant-owner__box flex_row'>

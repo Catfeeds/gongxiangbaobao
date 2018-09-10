@@ -66,12 +66,10 @@ Page({
             v.user_name = v.user_name.length > 3 ? v.user_name.substr(0, 3) + "···" : v.user_name
           }
           this.setData({
-            bonusCount: result.data
+            bonusLines: result.data.bonus_lines,
+            bonusCount: result.data.bonus_count
           })
 
-          // 做动画
-          this.handelAnimation()
-          
         })
 
       }else{
@@ -79,31 +77,6 @@ Page({
       }
     })
   },
-
-//做动画
-  handelAnimation(){
-    let deleteAnimation = wx.createAnimation({
-      transformOrigin: "50% 50%",
-      duration: 5000,
-      timingFunction: "ease",
-      delay: 0
-    })
-
-    deleteAnimation.translateY(-100).opacity(0).step()
-
-    this.setData({
-      deleteAnima: deleteAnimation.export()
-    })
-
-    setTimeout((v)=>{
-
-      this.setData({
-        // 'bonusCount.bonus_lines':
-      })
-
-    },5000)
-  },
-
 
 
   /**
@@ -117,7 +90,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+   
   },
 
   /**
@@ -168,8 +141,8 @@ Page({
 
     return {
       title: '分享领取红包',
-      path: '/pages/redBag/redBag',
-      imageUrl: "/images/accept.png",
+      path: '/pages/index/index',
+      imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {
         
         if (!this.data.get_bonus){
@@ -179,6 +152,15 @@ Page({
         http.fxPost(api.market_bonus_grant,{},(result)=>{
           console.log(result,"分享后领取红包")
           if(result.success){
+            console.log(app.globalData)
+            let addObject = {
+              user_name: app.globalData.jwt.username
+            }
+
+            this.setData({
+              bonusCount: this.data.bonusCount + 1,
+              bonusLines: bonusLines.push(addObject)
+            })
 
           }else{
             utils.fxShowToast(result.status.message)
@@ -193,13 +175,6 @@ Page({
     }
 
 
-
-
-
-
-
-
-    
   },
   //跳转到首页
   handleToIndexTap(){

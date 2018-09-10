@@ -1,21 +1,12 @@
 <!--pages/plantNoteList/plantNoteList.wxml-->
 <view class="">
   <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
   </view>
   <view class='production new-goods_box'>
-    <view 
-      catchtap="handleToInfo"
-      data-rid="{{item.rid}}"
-      data-type="{{item.type}}"
-      class='flex-direction--column productionGoods' 
-      wx:for="{{dataList}}" 
-      wx:key='{{index}}'>
+    <view catchtap="handleToInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" class='flex-direction--column productionGoods' wx:for="{{dataList}}" wx:key='{{index}}'>
 
       <image src="{{item.cover}}" class="img--style"></image>
       <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
@@ -26,4 +17,14 @@
       </view>
     </view>
   </view>
+
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
+
+  </block>
 </view>

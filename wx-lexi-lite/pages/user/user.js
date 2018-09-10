@@ -240,35 +240,7 @@ Page({
       }
     })
   },
-
-  //获取喜欢 收藏 设计管
-  getCategoryQuantity() {
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      return
-    }
-    http.fxGet(api.users_user_center, {}, (result) => {
-      console.log(result)
-      let category = this.data.classList
-      category.forEach((v) => {
-        console.log(v)
-        if (v.rid == 1) {
-          v.num = result.data.user_like_counts
-        }
-        if (v.rid == 2) {
-          v.num = result.data.wish_list_counts
-        }
-        if (v.rid == 3) {
-          v.num = result.data.followed_stores_counts
-        }
-      })
-      this.setData({
-        classList: category,
-        followerAddWatch: result.data
-      })
-    })
-  },
-
+  
   // 获取用户信息---
   getUserInfo() {
     // 是否登陆
@@ -288,6 +260,34 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  //获取喜欢 收藏 设计管
+  getCategoryQuantity() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
+    }
+    http.fxGet(api.users_user_center, {}, (result) => {
+      console.log(result,"获取喜欢 收藏 设计管")
+      let category = this.data.classList
+      category.forEach((v) => {
+        console.log(v)
+        if (v.rid == 1) {
+          v.num = result.data.user_like_counts
+        }
+        if (v.rid == 2) {
+          v.num = result.data.wish_list_counts
+        }
+        if (v.rid == 3) {
+          v.num = result.data.followed_stores_counts
+        }
+      })
+      this.setData({
+        classList: category,
+        followerAddWatch: result.data
+      })
     })
   },
 
