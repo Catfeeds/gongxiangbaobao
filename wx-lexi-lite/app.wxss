@@ -595,8 +595,8 @@ image {
   position: fixed;
   top: 50%;
   left: 50%;
-  height: 128rpx;
-  width: 128rpx;
+  height: 100rpx;
+  width: 100rpx;
   transform: translate(-50%,-50%);
   z-index: 999999;
 }
