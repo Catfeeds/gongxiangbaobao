@@ -18,8 +18,9 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
-    isLoadProductShow:false, // 加载更多产品的loading图片
+    isLoadProductShow:true, // 加载更多产品的loading图片
     isLoadPageShow:true, // 加载数据的Loadig图片
+
     shim:true, // 垫片是否显示
     topBGPhoto:'', // 头部背景图片
     topPhotoText:"", // 背景文字
@@ -797,17 +798,13 @@ Page({
   onReachBottom() {
     console.log(this.data.touchBottomInfo)
 
-    this.setData({
-      ['editRecommendRequestParams.page']: this.data.editRecommendRequestParams.page - 0 + 1
-    })
-
     if (!this.data.isLoadingNextPage) {
-      utils.fxShowToast("没有更多了")
       return
     }
 
     this.setData({
-      isLoadProductShow:true
+      isLoadProductShow: true,
+      ['editRecommendRequestParams.page']: this.data.editRecommendRequestParams.page - 0 + 1
     })
 
     // 触底加载编辑推荐
