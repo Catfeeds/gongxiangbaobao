@@ -20,7 +20,7 @@
     </view>
   </view>
   <!-- 下面的产品列表 -->
-  <view class='goodsList'>
+  <view class='goodsList border-bottom'>
     <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
       <fx-product 
         photo='{{ (index+1)%5 == 0 ? "4" : "3" }}' 
@@ -28,6 +28,18 @@
         product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
     </view>
   </view>
+
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
+  
+  </block>
 
   <!-- 缺省图片 -->
   <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">

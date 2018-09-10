@@ -58,10 +58,13 @@ Page({
       console.log(result,"领取红包的人数")
       if(result.success){
         result.data.bonus_lines.forEach((v)=>{
-
-          if (typeof (v.user_name) == string){
-            v.user_name = v.user_name.substr(0, 3)
+          console.log(v.user_name - 0 != NaN)
+          if (v.user_name - 0 != NaN){
+            v.user_name = v.user_name.substr(0, 3) + "***" + v.user_name.substr(7, 4)
+          }else{
+            v.user_name = v.user_name.length > 3 ? v.user_name.substr(0, 3) + "···" : v.user_name
           }
+          
         })
 
         this.setData({

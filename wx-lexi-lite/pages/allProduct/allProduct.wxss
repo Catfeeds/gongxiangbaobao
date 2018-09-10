@@ -97,3 +97,7 @@
   height: 50rpx;
   margin-right: 20rpx;
 }
+
+.border-bottom--0 {
+  border-bottom: 0rpx !important;
+}

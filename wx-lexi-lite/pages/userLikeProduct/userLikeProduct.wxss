@@ -15,3 +15,7 @@ position:relative;
 padding:20rpx 40rpx 0;
 background-color:#fff;
 }
+
+.border-bottom {
+  border-bottom: 0rpx;
+}

@@ -18,6 +18,7 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
+    isLoadProductShow:false, // 加载更多产品的loading图片
     isLoadPageShow:true, // 加载数据的Loadig图片
     shim:true, // 垫片是否显示
     topBGPhoto:'', // 头部背景图片
@@ -343,6 +344,8 @@ Page({
           isLoadingNextPage: result.data.next,
           pickQuantity: result.data.count,
           totalCount: result.data.count,
+          isLoadProductShow: false
+          
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -367,6 +370,7 @@ Page({
           isLoadingNextPage: result.data.next,
           pickQuantity: result.data.count,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -391,6 +395,7 @@ Page({
           isLoadingNextPage: result.data.next,
           pickQuantity: result.data.count,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -416,6 +421,7 @@ Page({
           isLoadingNextPage: result.data.next,
           pickQuantity: result.data.count,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
 
       } else {
@@ -442,6 +448,7 @@ Page({
           productList: data,
           isLoadingNextPage: result.data.next,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -463,6 +470,7 @@ Page({
           productList: data,
           isLoadingNextPage: result.data.next,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
 
       } else {
@@ -491,6 +499,7 @@ Page({
           productList: data,
           isLoadingNextPage: result.data.next,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -514,6 +523,7 @@ Page({
           productList: data,
           isLoadingNextPage: result.data.next,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -537,6 +547,7 @@ Page({
           productList: data,
           isLoadingNextPage: result.data.next,
           totalCount: result.data.count,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -794,6 +805,10 @@ Page({
       utils.fxShowToast("没有更多了")
       return
     }
+
+    this.setData({
+      isLoadProductShow:true
+    })
 
     // 触底加载编辑推荐
     if (this.data.touchBottomInfo == "editRecommend") {

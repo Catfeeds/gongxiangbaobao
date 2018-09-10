@@ -9,7 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoadProductShow:true, // 加载更多商品
     isLoadPageShow:true, // 加载页面的点
+
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
@@ -19,7 +21,7 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
-    isNext:false, // 是否有分页
+    isNext:true, // 是否有分页
     productList: [], // 商品列表
 
     pickQuantity: "", // 商品的数量
@@ -239,10 +241,8 @@ Page({
 
 // 列表
 getcategoryList(){
-  wx.showLoading()
   http.fxGet(api.category_products, this.data.params,(result)=>{
     console.log(result,"分类产品的列表")
-    wx.hideLoading()
     if(result.success){
 
       let data = this.data.productList
@@ -255,6 +255,7 @@ getcategoryList(){
         productList: data,
         pickQuantity: result.data.count,
         totalCount: result.data.count,
+        isLoadProductShow:false
       })
 
     }else{
@@ -375,6 +376,10 @@ getcategoryList(){
       utils.fxShowToast("没有更多了")
       return
     }
+
+    this.setData({
+      isLoadProductShow:true
+    })
 
     this.getcategoryList()
 

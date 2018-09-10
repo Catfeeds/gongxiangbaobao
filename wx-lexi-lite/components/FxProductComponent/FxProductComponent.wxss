@@ -113,10 +113,10 @@ display: inline-block;
   background-repeat: no-repeat, no-repeat; 
   background-size: 32rpx,100%; 
   background-position: 50%,0; */
-  background-image: url("https://static.moebeast.com/static/img/throbber.gif");
+  /* background-image: url("https://static.moebeast.com/static/img/throbber.gif");
   background-repeat: no-repeat; 
   background-size: 32rpx; 
-  background-position: 50%;
+  background-position: 50%; */
   background-color: #D4DAD0;
 }
 

@@ -11,8 +11,8 @@
     <!-- 左边领取红包的提示 -->
     <view class='receive-box'>
       <view class='receive-item time-top' wx:for="{{bonusCount.bonus_lines}}" wx:key="{{index}}">
-        <image src='../../images/timg.jpg'></image>
-        <text>{{bonusCount.user_name}}...领取了10元红包</text>
+        <image src='{{item.user_logo}}'></image>
+        <text>{{item.user_name}} 领取了10元红包</text>
       </view>
     </view>
     <!-- 领取红包的盒子 -->

@@ -49,7 +49,7 @@
   </block>
 
   <view class='shim' wx:if="{{shim}}"></view>
-  <view class="goodsList">
+  <view class="goodsList border-bottom--0">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
       <fx-product 
         like_number="{{true}}"  
@@ -58,6 +58,18 @@
         photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
   </view>
+
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isLoadingNextPage}}"> END </view>
+  
+  </block>
 
   <!-- 筛选 -->
   <!-- <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
@@ -150,5 +162,5 @@
     </view>
   </fx-modal>
 
-
+<view class='shm'></view>
 </view>

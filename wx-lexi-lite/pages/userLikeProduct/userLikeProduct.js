@@ -19,11 +19,13 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
     // 是否有下一页
-    isNext: false,
+    isNext: true,
     // 喜欢的列表
     likeProduct: [],
     // 页面加载的三个点
     isLoadPageShow:true,
+    // 加载更多的三个点
+    isLoadProductShow:true,
     // 获取商品的参数
     getProductParams: {
       page: 1, //Number	可选	1	当前页码
@@ -253,9 +255,8 @@ Page({
 
   // 获取商品列表
   getUserLikeProduct() {
-    wx.showLoading()
+    
     http.fxGet(api.userlike, this.data.getProductParams, (result) => {
-      wx.hideLoading()
       console.log(result, "喜欢的商品列表")
       if (result.success) {
         let data = this.data.likeProduct
@@ -267,6 +268,7 @@ Page({
           likeProduct: data,
           isNext: result.data.next,
           totalCount: result.data.count,
+          isLoadProductShow:false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -290,7 +292,6 @@ Page({
 
     //判断是否有下一页
     if (!this.data.isNext) {
-      utils.fxShowToast("没有更多产品了")
       return
     }
     this.setData({

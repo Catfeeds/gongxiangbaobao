@@ -1,5 +1,5 @@
 <!--pages/teachList/teachList.wxml-->
-<view class="">
+<view class="container">
   <!-- 添加页面加载 -->
     <image 
     src='../../images/jiazai.gif' 
@@ -26,4 +26,16 @@
       </view>
     </view>
   </view>
+
+    <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
+  
+  </block>
 </view>

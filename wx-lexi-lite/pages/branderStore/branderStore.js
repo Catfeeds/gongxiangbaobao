@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoadProductShow:true, // 加载商品
+
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
@@ -26,7 +28,7 @@ Page({
 
     shareBrandUrl: '', // 品牌管的url
     storeRid: "", //店铺的rid
-    isNext: [], // 是否有下一页面
+    isNext: true, // 是否有下一页面
     storeInfo: [], // 店铺的详情
     couponList: {
       coupons: []
@@ -508,9 +510,7 @@ Page({
 
   // 获取店铺的商品列表 life_store_products
   products() {
-    wx.showLoading()
     http.fxGet(api.life_store_products, this.data.params, (result) => {
-      wx.hideLoading()
       console.log(result, "店铺商品列表")
       if (result.success) {
         let data = this.data.productList
@@ -521,7 +521,8 @@ Page({
         this.setData({
           isNext: result.data.next,
           productList: data,
-          totalCount: result.data.count
+          totalCount: result.data.count,
+          isLoadProductShow:false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -746,12 +747,12 @@ Page({
 
     if (this.data.categoryId == 1) {
       if (!this.data.isNext) {
-        utils.fxShowToast("没有更多商品了")
         return
       }
 
       this.setData({
-        ['params.page']: this.data.params.page + 1
+        ['params.page']: this.data.params.page + 1,
+        isLoadProductShow:true
       })
       this.products()
     }
