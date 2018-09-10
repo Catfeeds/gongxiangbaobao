@@ -552,7 +552,7 @@ Page({
     console.log(e)
     wx.showTabBar()
     this.setData({
-      // is_mobile: e.detail.offBox
+      // is_mobile: e.detail.offBox,
        is_mobile: false
     })
   },

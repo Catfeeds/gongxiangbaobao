@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    deleteAnima:'', // 
     bonusCount:[], // 奖金计数
     rule_show: [], //活动内容呼出框
     get_bonus: false,//获取红包的呼出框
@@ -64,11 +65,13 @@ Page({
           }else{
             v.user_name = v.user_name.length > 3 ? v.user_name.substr(0, 3) + "···" : v.user_name
           }
-          
-        })
+          this.setData({
+            bonusCount: result.data
+          })
 
-        this.setData({
-          bonusCount:result.data
+          // 做动画
+          this.handelAnimation()
+          
         })
 
       }else{
@@ -77,6 +80,29 @@ Page({
     })
   },
 
+//做动画
+  handelAnimation(){
+    let deleteAnimation = wx.createAnimation({
+      transformOrigin: "50% 50%",
+      duration: 5000,
+      timingFunction: "ease",
+      delay: 0
+    })
+
+    deleteAnimation.translateY(-100).opacity(0).step()
+
+    this.setData({
+      deleteAnima: deleteAnimation.export()
+    })
+
+    setTimeout((v)=>{
+
+      this.setData({
+        // 'bonusCount.bonus_lines':
+      })
+
+    },5000)
+  },
 
 
 
@@ -91,7 +117,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -104,6 +130,7 @@ Page({
       timingFunction: "ease",
       delay: 0
     })
+
   },
 
   /**

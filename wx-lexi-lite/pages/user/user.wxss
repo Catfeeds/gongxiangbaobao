@@ -392,6 +392,10 @@ button-hover {
   opacity: 0;
 }
 
+.border-bottom--0 {
+  border-bottom: 0rpx;
+}
+
 .product-null__photo  image{
 
 }
