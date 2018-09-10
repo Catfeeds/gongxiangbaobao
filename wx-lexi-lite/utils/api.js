@@ -127,6 +127,7 @@ module.exports = {
   banners_rid:'banners/:rid', // 特色品牌馆广告列表
   banners_explore: 'banners/explore', //探索的头部广告h
   banners_handpick: 'banners/handpick', // 精选区域的头部广告
+  products_similar:'products/similar', // 相似的产品
   category_products: 'category/products', // 分类商品列表
   column_collections: 'column/collections', // 集合
   column_explore_new: 'column/explore_new', // 优质新品

@@ -604,11 +604,18 @@ image {
 /* // 加载中图片 */
 .wxParse-p image,
 .loading-bg {
-  background-image: url("https://static.moebeast.com/static/img/throbber.gif"),
+  /* background-image: url("https://static.moebeast.com/static/img/throbber.gif"),
                     url("https://static.moebeast.com/static/img/null-product.png");
   background-repeat: no-repeat, no-repeat; 
   background-size: 32rpx,100%; 
-  background-position: 50%,0;
+  background-position: 50%,0; */
+  background-color: #D4DAD0;
+}
+
+.load-over__null--photo{
+  background-image:url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat:no-repeat; 
+  background-size:100%; 
 }
 
 /* // 伪元素 */

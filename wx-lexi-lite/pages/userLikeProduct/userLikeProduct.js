@@ -22,6 +22,8 @@ Page({
     isNext: false,
     // 喜欢的列表
     likeProduct: [],
+    // 页面加载的三个点
+    isLoadPageShow:true,
     // 获取商品的参数
     getProductParams: {
       page: 1, //Number	可选	1	当前页码
@@ -303,6 +305,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    this.setData({
+      isLoadPageShow:false
+    })
 
   },
 

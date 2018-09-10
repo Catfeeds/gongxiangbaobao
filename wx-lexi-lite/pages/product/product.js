@@ -13,6 +13,7 @@ Page({
     showShareModal:false, // 分享模态框
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
+    readyOver:false, // 加载是否完成
 
     isDistributed: false, // 是否属于分销
     isSmallB: false, // 是不是小b商家
@@ -61,8 +62,8 @@ Page({
     coupon_show: false,
     userPhoto: "", // 用户的头像
     newProductList: { products: [{}, {}, {},{}, {}, {}]}, // 最新的商品列表---
-    // 最新产品的请求参数
-    newProductParams: {
+    similarList:[], // 相似产品的列表
+    newProductParams: {// 最新产品的请求参数
       page: 1,
       per_page: 10
     },
@@ -465,6 +466,18 @@ Page({
     this.getProductInfomation() // 获取商品详情---
   },
 
+  // 相似产品的详情
+  handleSimilarInfo(e){
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+    this.setData({
+      rid: e.currentTarget.dataset.rid
+    })
+
+    this.getProductInfomation() // 获取商品详情---
+  },
+
   // 跳转到品牌管详情
   handleTobrandStore(e) {
     wx.navigateTo({
@@ -495,6 +508,21 @@ Page({
     })
   },
 
+  // 相似的商品 products/similar
+  getSimilar(){
+    http.fxGet(api.products_similar,{page:1,per_page:10,rid:this.data.rid},(result)=>{
+      console.log(result,"相似的产品")
+      if(result.success){
+          this.setData({
+            similarList:result.data
+          })
+
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 获取商品详情
   getProductInfomation() {
     console.log(this.data.rid, "rid")
@@ -521,6 +549,9 @@ Page({
         this.getLogisticsTime(result.data.fid, result.data.rid)
 
         this.getStoreInfo() // 店铺信息---
+
+        //获取相似
+        this.getSimilar()
 
         if (!app.globalData.isLogin){
           // 未登录
@@ -1146,6 +1177,10 @@ Page({
       transformOrigin: "bottom bottom",
       duration: 500,
       timingFunction: 'linear',
+    })
+    
+    this.setData({
+      readyOver:true
     })
   },
 

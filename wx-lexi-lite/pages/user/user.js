@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    readyOver:false, // 页面加载是否完成
     isLoadPageShow:true, // 加载页面的三个点
     orderSum:0, // 有没有订单
     couponSum:0,// 有没有优惠券
@@ -381,7 +382,8 @@ Page({
    */
   onReady: function() {
     this.setData({
-      isLoadPageShow: false
+      isLoadPageShow: false,
+      readyOver:true
     })
   },
 

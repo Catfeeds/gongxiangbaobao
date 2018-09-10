@@ -22,7 +22,7 @@
         catchtap="handleLiveInfo" 
         data-rid="{{item.rid}}" 
         wx:key="{{index}}">
-        <image src="{{item.image}}" class="slide-image loading-bg" />
+        <image src="{{item.image}}" class="slide-image {{readyOver?'load-over__null--photo':'loading-bg'}}" />
       </swiper-item>
     </swiper>
 
@@ -45,7 +45,7 @@
         catchtap="handleToListPage"
         data-target="{{item.target}}"
         class="live-records {{index==0?'margin-left--40rpx':''}}">
-        <image class='loading-bg' src="{{item.img}}"></image>
+        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.img}}"></image>
         <view class="font-m font-width--medium">{{item.name}}</view>
       </view>
     </scroll-view>
@@ -68,7 +68,7 @@
         wx:for="{{youLike.life_records}}" 
         wx:key='{{index}}'>
 
-        <image src="{{item.cover}}" class="img--style loading-bg"></image>
+        <image src="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
@@ -98,7 +98,7 @@
         class='flex-direction--column productionGoods ' 
         wx:for="{{wonderfulStories.life_records}}" 
         wx:key='{{index}}'>
-        <image src="{{item.cover}}" class="img--style loading-bg"></image>
+        <image src="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>

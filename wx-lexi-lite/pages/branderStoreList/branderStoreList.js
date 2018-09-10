@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    readyOver:false, // 加载是否完成
     HighStoreAdvList:[], // 特色品牌管的头部广告
     seiperIndex:0, // 轮播图选中的点
     HighStoreList:[], // 精选品牌列表
@@ -162,6 +163,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    this.setData({
+      readyOver:true
+    })
 
   },
 

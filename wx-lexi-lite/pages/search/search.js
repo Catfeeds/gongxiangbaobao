@@ -14,6 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    readyOver:false, // 页面加载是否完成
     hotSearchList: [], // 热门搜索的
     recommendList: [], // 热门推荐的其他三个
     searchHistory: [], // 搜索历史
@@ -266,7 +267,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.setData({
+      readyOver:true
+    })
   },
 
   /**

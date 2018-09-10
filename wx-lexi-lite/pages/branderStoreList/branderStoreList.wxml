@@ -16,7 +16,7 @@
     wx:for-item="store" 
     wx:for="{{storeList}}">
     <view class="flex_row brand-store__info">
-      <image src="{{store.logo}}" class="log loading-bg"></image>
+      <image src="{{store.logo}}" class="log {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
       <view>
         <view class="black-font font-width--medium">{{store.name}}</view>
         <view class="flex_row">

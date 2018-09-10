@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    readyOver:false, // 渲染是否完成
     isLoadPageShow:true, // 页面加载的三个点
     swiperMark:0, // 轮播图的标记
     advertisement: { // 广告
@@ -33,10 +34,10 @@ Page({
         { cover: '', description: '', user_avator: '', user_name:''},
     ]}, 
     liveTheme:[
-      { name: "创作人故事", target: 1, img:"https://kg.erp.taihuoniao.com/static/img/designer_routine.jpg"},
-      { name: "种草笔记", target: 2, img:"https://kg.erp.taihuoniao.com/static/img/teach.jpg"},
-      { name: "生活记事", target: 3, img:"https://kg.erp.taihuoniao.com/static/img/plant_note.jpg"},
-      { name: "手作教学", target: 4, img:"https://kg.erp.taihuoniao.com/static/img/live_note.jpg"}
+      { name: "创作人故事", target: 1, img:"https://static.moebeast.com/static/img/designer_routine.jpg"},
+      { name: "种草笔记", target: 2, img:"https://static.moebeast.com/static/img/teach.jpg"},
+      { name: "生活记事", target: 3, img:"https://static.moebeast.com/static/img/plant_note.jpg"},
+      { name: "手作教学", target: 4, img:"https://static.moebeast.com/static/img/live_note.jpg"}
     ]
   },
 
@@ -184,7 +185,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.setData({
+      readyOver:true
+    })
   },
 
   /**

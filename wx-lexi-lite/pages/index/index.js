@@ -21,6 +21,7 @@ Page({
     isLoadPageShow:true, // 加载页面的点
     gratefulSwiper:0, // 热气推荐的的轮播图的点
     exploreSwiperMark:0,// 探索轮播图的点
+    readyOver:false, // 页面加载是否完成
 
     // 分享
     shareProduct: '', // 分享某个商品
@@ -1349,7 +1350,8 @@ Page({
   onReady: function() {
     this.getLifePhotoUrl()
     this.setData({
-      isLoadPageShow:false
+      isLoadPageShow:false,
+      readyOver:true,
     })
   },
 
