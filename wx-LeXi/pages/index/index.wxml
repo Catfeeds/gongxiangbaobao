@@ -218,10 +218,22 @@
       </view>
     </view>
     <view class='production'>
-      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' wx:for="{{myProduct.products}}" wx:key='{{index}}'>
+      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":" "}}' wx:for="{{myProduct}}" wx:key='{{index}}'>
         <fx-product product='{{item}}' photoSize="{{(index+1)%5==0?'50':'30'}}" like_number='{{true}}' bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
+
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isProductNext}}"> END </view>
+  
+  </block>
   </view>
 
   <!-- 人气里面的内容 -->
@@ -243,10 +255,22 @@
       最新作品
     </view>
     <view class='production new-goods_box'>
-      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct.products}}' wx:key='{{index}}'>
+      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct}}' wx:key='{{index}}'>
         <fx-product photoSize="{{(index+1)%5==0?'50':'30'}}" product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
+
+    <block>
+      <!-- 底部加载 -->
+      <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+        <image 
+          src='../../images/jiazai.gif' 
+          class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
+    </block>
+
   </view>
 
   <!-- 优惠券的模板 -->
@@ -277,12 +301,15 @@
   </view>
 
   <!-- 排序的呼出框 -->
-  <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap='handleSortOff'>
+  <!-- <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap='handleSortOff'>
     <fx-sort bind:handleSortOff="handleSortOff" bind:handlePickOver="handleSort"></fx-sort>
-  </view>
+  </view> -->
 
   <!-- 筛选的产品 -->
-  <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
+  <!-- <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
     <fx-pick-product pickQuantity="{{pickQuantity}}" bind:handlePickOff="handelOffPick" bind:handlePickProduct="handlePickProduct" category="{{shopInfo.categories}}"></fx-pick-product>
-  </view>
+  </view> -->
+
+
+
 </view>

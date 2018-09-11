@@ -25,10 +25,9 @@ Page({
     rid: [], // 店铺的rid---
     shareWhat: '', // 分享什么东西---
     ShopOwner: [], // 店铺主人的信息---
-    currentNewProduct: [], // 人气里面最新---
+    
     highQualityProduct: [], // 优质精品---
     popularProductTheme: [], // 人气里面的主题---
-    myProduct: [], //作品列表---
     recommendProductList: [], // 推荐好物品---
     themeProduct: [], //主打设计---
     openid: '', // openid---
@@ -39,6 +38,14 @@ Page({
     is_share: false, //分享 ---
     coupon_show: false, //优惠券是否显示
     catgoryActive: 1, //分类的选项-切换---
+
+    currentNewProduct: [], // 人气里面最新---
+    isNewProductNext: true, // 是否有下一页 
+
+    myProduct: [], //作品列表---
+    isLoadProductShow:true, // 加载作品load图
+    isProductNext:true, // 是否有下一页 
+
     // 优惠券的请求参数
     couponParams: {
       page: 1,
@@ -111,7 +118,8 @@ Page({
         }]
       }]
     },
-    sortParams: {
+    
+    sortParams: { // 我的作品参数 
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //N	可选	10	每页数量
       sort_type: 0, //0	排序: 0 = 默认排序, 1= 最新, 2= 价格由低至高, 3= 价格由高至低
@@ -150,33 +158,23 @@ Page({
     }
     this.getPick()
   },
-  // 排序和筛选公共的接口
+
+  // 调取我的作品
   getPick() {
     console.log(this.data.sortParams)
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
-      console.log(result)
+      console.log(result,"我的作品")
       if (result.success) {
-        if (this.data.myProduct.length==0){
+
+        let data = this.data.myProduct
+        
           this.setData({
-            myProduct: result.data,
-            pickQuantity: result.data.products.length
+            myProduct: result.data.products.concat(data),
+            pickQuantity: result.data.count,
+            isLoadProductShow: false,
+            isProductNext:result.data.next
           })
-        }else{
-          let newProduct = this.data.myProduct.products
-          //把触底加载的数据添加进去
-          result.data.products.forEach((v,i)=>{
-            newProduct.push(v)
-            if (result.data.products.length-1==i){
-              this.setData({
-                ['myProduct.products']: newProduct,
-                ['myProduct.next']: result.data.next
-              })
-            }
-          })
-        }
-        this.setData({
-          pickQuantity: result.data.products.length
-        })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -406,23 +404,14 @@ Page({
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
       if (result.success) {
         console.log(result.data,"最新的商品")
-        if (this.data.currentNewProduct.length==0){
+
+        let data = this.data.currentNewProduct
           this.setData({
-            currentNewProduct: result.data
+            currentNewProduct: result.data.products.concat(data),
+            isNewProductNext: result.data.next,
+            isLoadProductShow:false,
           })
-        }else{
-          let newProduct = this.data.currentNewProduct.products
-          // newProduct
-          result.data.products.forEach((v,i)=>{
-            newProduct.push(v)
-            if (result.data.products.length-1==i){
-              this.setData({
-                ['currentNewProduct.products']: newProduct,
-                ['currentNewProduct.next']: result.data.next
-              })
-            }
-          })
-        }
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -522,9 +511,12 @@ Page({
   // 获取店铺商品列表
   getStoreProducts() {
     http.fxGet(api.products, this.data.productCategoryParams, (result) => {
+      console.log(result,"首页的作品列表----------------------------------")
       if (result.success) {
+        let data = this.data.myProduct
+
         this.setData({
-          myProduct: result.data
+          // myProduct: result.data.,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -719,31 +711,35 @@ Page({
    */
   onReachBottom: function () {
     
+    
     switch (this.data.catgoryActive) {
       case 1:
 
         break;
       case 2:
-        if (!this.data.myProduct.next) {
-          utils.fxShowToast("没有更多产品了")
+        if (!this.data.isProductNext) {
           return
         }
-        
+        console.log("触底加载")
         this.setData({
-          ['sortParams.page']: this.data.sortParams.page+1
+          'sortParams.page': this.data.sortParams.page+1,
+          isLoadProductShow:true
         })
 
         this.getPick() //获取作品
         break;
       default:
-        this.setData({
-          ['currentNewParams.page']: this.data.currentNewParams.page+1
-        })
-        if (!this.data.currentNewParams.next){
-          utils.fxShowToast("没有更多产品了")
+
+        if (!this.data.isNewProductNext){
           return
         }
-        this.getNewestProdcts()// 
+
+        this.setData({
+          ['currentNewParams.page']: this.data.currentNewParams.page + 1,
+          isLoadProductShow: true,
+        })
+
+        this.getNewestProdcts()
     }
   },
   /**

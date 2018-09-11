@@ -474,6 +474,29 @@ button::after {
 }
 view::-webkit-scrollbar {display:none}
 
+/* 加载列表 */
+.load-many__box,
+.not-have__load--bottom{
+  height: 100rpx;
+  background-color: white;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+/* 加载更多 */
+.load-many__box {
+  position: relative;
+}
+
+.load-many__photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100rpx;
+  width: 100rpx;
+  transform: translate(-50%,-50%);
+}
+
+
 
 @font-face {
   font-family: 'Fineix';
