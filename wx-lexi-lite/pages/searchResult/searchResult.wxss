@@ -67,8 +67,11 @@
 }
 
 .price-range {
-position:relative;
-padding:20rpx 40rpx 0;
-background-color:#fff;
+  position: relative;
+  padding: 20rpx 40rpx 0;
+  background-color: #fff;
+}
 
+.border-bottom--0{
+  border-bottom: 0rpx;
 }

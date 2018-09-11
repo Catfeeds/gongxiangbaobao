@@ -15,19 +15,9 @@ Page({
     seiperIndex:0, // 轮播图选中的点
     HighStoreList:[], // 精选品牌列表
     categoryId: 1, // 分类的id
-    isNext:false, // 是否有下一页
-    storeList: [ // 店铺的列表
-      {
-        products: [{ name: "" }, { name: "" }, { name: ""}]
-      },
-      {
-        products: [{ name: "" }, { name: "" }, { name: ""}]
-      },
-      {
-        products: [{ name: "" }, { name: "" }, { name: "" }]
-      }
-
-    ], 
+    isLoadProductShow:true, // 加载图片
+    isNext:true, // 是否有下一页
+    storeList: [], // 店铺的列表
     categoryList: [{
         name: "特色",
         num: 0,
@@ -81,17 +71,10 @@ Page({
 
   // 品牌馆 -- 特色
   getCharacteristicBranderStore() {
-    wx.showLoading()
+
     http.fxGet(api.column_feature_store_all, this.data.params, (result) => {
       console.log(result, "特色品牌管")
 
-      if (this.data.params.page==1){
-        this.setData({
-          storeList: []
-        })
-      }
-
-      wx.hideLoading()
       if (result.success) {
         let data = this.data.storeList
         result.data.stores.forEach((v)=>{
@@ -100,7 +83,8 @@ Page({
 
         this.setData({
           isNext: result.data.next,
-          storeList:data
+          storeList:data,
+          isLoadProductShow:false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -154,7 +138,8 @@ Page({
     }
 
     this.setData({
-      ['params.page']: this.data.params.page + 1
+      ['params.page']: this.data.params.page + 1,
+      isLoadProductShow: true
     })
 
     this.getCharacteristicBranderStore()

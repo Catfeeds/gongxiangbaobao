@@ -494,7 +494,7 @@
     <view class='border-bottom min-height--570'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>特色品牌馆</text>
-        <text catchtap="handelTobrandList" wx:if="{{editRecommendList.length>9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+        <text catchtap="handelTobrandList" wx:if="{{characteristicStoreList.stores.length==10}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>

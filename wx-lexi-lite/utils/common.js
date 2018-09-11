@@ -40,6 +40,7 @@ const strLength = (s, isChinese=false) => {
 
 // 截取符合要求的字符串
 const sliceString = (data,num) => {
+  console.log(data, num,"截取的")
   let originData = data
   if(data.length>num){
     originData = originData.slice(0,num)
