@@ -143,7 +143,7 @@ Page({
         rid: 'p1',
         name: 'lifeStore',
         title: '生活馆',
-        disabled: false
+        disabled: true
       },
       {
         rid: 'p2',
@@ -1324,6 +1324,8 @@ Page({
       // 请求当前数据
       this._swtichActivePageTab(this.data.pageActiveTab)
     }
+
+    console.log(this.data.pageActiveTab)
   },
 
   /**
