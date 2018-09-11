@@ -117,6 +117,12 @@ Page({
       })
 
       if (result.success) {
+
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, "")
+        })
+
         this.setData({
           youLike: result.data
         })
@@ -160,6 +166,11 @@ Page({
     http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
       console.log(result, "精彩故事")
       if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, "")
+        })
+
         this.setData({
           wonderfulStories: result.data
         })

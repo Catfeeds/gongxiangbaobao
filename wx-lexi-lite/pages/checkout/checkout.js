@@ -111,12 +111,13 @@ Page({
 
     let option = e.detail.value
     let coupon = JSON.parse(option)
- 
+    couponAmount = coupon.amount-0
+    
     this.setData({
       orderInfomation: item,
-      authoritativeCouponPrice: coupon.amount,
+      authoritativeCouponPrice: couponAmount.toFixed(2),
       storeOrAuthoritativeCouponPick: false,
-      ['pageOrderInfo.couponPrice']: coupon.amount - 0
+      ['pageOrderInfo.couponPrice']: couponAmount.toFixed(2)
     })
 
     this.orderLastPrice() // 计算最后金额
@@ -160,7 +161,7 @@ Page({
           this.setData({
             paymentBtn: true,
             itemOrderLogisticsPrice: result.data,
-            ['pageOrderInfo.logisticsPrice']: sum
+            ['pageOrderInfo.logisticsPrice']: sum.toFixed(2)
           }, () => {
             this.orderLastPrice() //计算总额
           })
@@ -445,7 +446,7 @@ Page({
 
         this.setData({
           fullReductionList: result.data,
-          'pageOrderInfo.fullSubtraction': fullSubtractionPrice
+          'pageOrderInfo.fullSubtraction': fullSubtractionPrice.toFixed(2)
         }, () => {
           this.orderLastPrice() // 订单总计
         })
