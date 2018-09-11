@@ -414,9 +414,28 @@ Page({
   handleToPlantNoteInfo(e){
     console.log(e)
     let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../plantNoteInfo/plantNoteInfo?rid='+rid,
-    })
+    let targetType = e.currentTarget.dataset.type
+    // wx.navigateTo({
+    //   url: '../plantNoteInfo/plantNoteInfo?rid='+rid,
+    // })
+    // 1是文章
+    if (targetType == 1) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid,
+      })
+    }
+
+    // 2是种草笔记
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
+      })
+    }
+
+    // 跳转视频
+    if (targetType == 3) {
+
+    }
   },
 
   /**
@@ -1022,8 +1041,6 @@ Page({
       is_distributed: 2,
       user_record:1
     }
-
-
 
     http.fxGet(api.life_store_products, params, (res) => {
       console.log(res.data.products, '全部分销商品')

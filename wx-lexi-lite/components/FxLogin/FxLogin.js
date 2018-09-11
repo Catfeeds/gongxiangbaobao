@@ -199,6 +199,9 @@ Component({
           app.updateUserInfo(res.data)
           // 更新小B身份
           app.updateLifeStoreInfo(res.data)
+
+          // 触发关闭回调
+          this.triggerEvent('closeEvent')
         } else {
           utils.fxShowToast(result.status.message)
         }

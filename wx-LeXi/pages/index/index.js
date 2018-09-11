@@ -566,7 +566,7 @@ Page({
 
   // 用户未登录时获取店铺优惠券 or 满减活动列表
   getCoupons(e) {
-    http.fxGet(api.noCouponsList, {}, (result) => {
+    http.fxGet(api.n, {}, (result) => {
       console.log(result, '没有登陆获取优惠券')
       if (result.success) {
         let coupon = [] // 优惠券

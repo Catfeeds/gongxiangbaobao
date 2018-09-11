@@ -21,14 +21,15 @@ Page({
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
-    prductIsNext:false, // 商品是否有下一页
+    isLoadProductShow: true, // 加载更多产品的loading图片
+    prductIsNext:true, // 商品是否有下一页
     productList:[], // 商品列表
 
-    storeIsNext:false, // 品牌馆是否有下一页
+    storeIsNext:true, // 品牌馆是否有下一页
     storeList:[], // 品牌馆列表
 
     userList: [], // 用户的的列表
-    userIsNext: false,
+    userIsNext: true,
 
     navbarCategoryId: 1,
     navbarCategory: [{
@@ -308,8 +309,16 @@ Page({
     console.log(e.currentTarget.dataset.id)
 
     this.setData({
-      navbarCategoryId: e.currentTarget.dataset.id
+      navbarCategoryId: e.currentTarget.dataset.id,
+      isLoadProductShow:true,
+      prductIsNext: true, // 商品是否有下一页
+      storeIsNext: true, // 品牌馆是否有下一页
+      userIsNext: true,
     })
+
+    if (this.data.navbarCategoryId == 1) {
+      this.getSearch()
+    }
 
     if (this.data.navbarCategoryId == 2) {
       if (this.data.storeList.length==0){
@@ -444,9 +453,8 @@ Page({
 
   // 搜索商品 
   getSearch() {
-    wx.showLoading()
     http.fxGet(api.core_platforms_search_products, this.data.productParams, (result) => {
-      wx.hideLoading()
+      
       console.log(result, "商品搜索结果")
       let data = this.data.productList
       result.data.products.forEach((v)=>{
@@ -457,7 +465,8 @@ Page({
         this.setData({
           productList: data,
           prductIsNext:result.data.next,
-          totalCount: result.data.count
+          totalCount: result.data.count,
+          isLoadProductShow:false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -467,9 +476,8 @@ Page({
 
   // 搜索品牌商店 
   getBrandStore(){
-    wx.showLoading()
     http.fxGet(api.core_platforms_search_stores, this.data.brandStoreParams, (result) => {
-      wx.hideLoading()
+      
       console.log(result, "品牌店结果")
       let data = this.data.storeList
       result.data.stores.forEach((v) => {
@@ -479,7 +487,8 @@ Page({
       if (result.success) {
         this.setData({
           storeList: data,
-          storeIsNext: result.data.next
+          storeIsNext: result.data.next,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -489,9 +498,8 @@ Page({
 
   // 搜索用户的列表
   getUser(){
-    wx.showLoading()
     http.fxGet(api.core_platforms_search_users, this.data.userParams, (result) => {
-      wx.hideLoading()
+    
       console.log(result, "搜获用户结果")
       let data = this.data.userList
       result.data.users.forEach((v) => {
@@ -502,7 +510,8 @@ Page({
       if (result.success) {
         this.setData({
           userList:data ,
-          userIsNext: result.data.next
+          userIsNext: result.data.next,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -533,12 +542,12 @@ Page({
     // 商品的触底加载
     if (this.data.navbarCategoryId==1){
       if (!this.data.prductIsNext){
-        utils.fxShowToast("没有更多商品了")
         return
       }
 
       this.setData({
-        ['productParams.page']: this.data.productParams.page + 1
+        ['productParams.page']: this.data.productParams.page + 1,
+        isLoadProductShow: true, // 加载更多产品的loading图片
       })
 
       this.getSearch() 
@@ -547,12 +556,12 @@ Page({
     // 商品的触底加载
     if (this.data.navbarCategoryId==2){
       if (!this.data.storeIsNext){
-        utils.fxShowToast("没有更多商品了")
         return
       }
 
       this.setData({
-        ['brandStoreParams.page']: this.data.brandStoreParams.page + 1
+        ['brandStoreParams.page']: this.data.brandStoreParams.page + 1,
+        isLoadProductShow: true, // 加载更多产品的loading图片
       })
 
       this.getBrandStore() 
@@ -561,12 +570,12 @@ Page({
     // 用户列表
     if (this.data.navbarCategoryId == 3) {
       if (!this.data.userIsNext) {
-        utils.fxShowToast("没有更多了")
         return
       }
 
       this.setData({
-        ['userParams.page']: this.data.userParams.page + 1
+        ['userParams.page']: this.data.userParams.page + 1,
+        isLoadProductShow: true, // 加载更多产品的loading图片
       })
 
       this.getUser()

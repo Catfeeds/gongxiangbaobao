@@ -61,7 +61,6 @@ Page({
  */
   onReachBottom: function () {
     if (!this.data.isNext) {
-      utils.fxShowToast("没有更多商品了")
       return
     }
 

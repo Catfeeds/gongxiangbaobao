@@ -373,7 +373,6 @@ getcategoryList(){
     })
 
     if (!this.data.isNext) {
-      utils.fxShowToast("没有更多了")
       return
     }
 

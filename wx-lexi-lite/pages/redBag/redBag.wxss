@@ -38,7 +38,8 @@
   height: 48rpx;
   width: 48rpx;
   border-radius: 50%;
-  background-color: red;
+  /* background-color: red; */
+  
   margin-right: 10rpx;
 }
 

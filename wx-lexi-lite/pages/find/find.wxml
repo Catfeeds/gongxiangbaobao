@@ -63,12 +63,12 @@
         data-category="猜你喜欢"
         data-rid="{{item.rid}}"
         data-type="{{item.type}}"
-        catchtap="handleLiveInfo"
+        catchtap="handleToliveNote"
         class='flex-direction--column productionGoods ' 
         wx:for="{{youLike.life_records}}" 
         wx:key='{{index}}'>
 
-        <image src="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+        <image src="{{item.cover}}-p326x216" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
@@ -94,11 +94,11 @@
         data-category="精彩故事"
         data-rid="{{item.rid}}"
         data-type="{{item.type}}"
-        catchtap="handleLiveInfo"
+        catchtap="handleToliveNote"
         class='flex-direction--column productionGoods ' 
         wx:for="{{wonderfulStories.life_records}}" 
         wx:key='{{index}}'>
-        <image src="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+        <image src="{{item.cover}}-p326x216" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>

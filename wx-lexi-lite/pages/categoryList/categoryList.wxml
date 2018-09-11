@@ -27,7 +27,7 @@
   </view>
 
   <!-- 商品列表 -->
-  <view class="goodsList">
+  <view class="goodsList border-bottom--0">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
       <fx-product product="{{item}}" 
       photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'

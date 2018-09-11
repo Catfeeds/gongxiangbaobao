@@ -9,7 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isNext: false, // 是否有下一页
+    isLoadProductShow: true, // 加载的loading
+    isNext: true, // 是否有下一页
     dataList: [], // 创作人故事列表
     params: {
       page: 1, //Number	可选	1	当前页码
@@ -39,7 +40,8 @@ Page({
       if (result.success) {
         this.setData({
           dataList: result.data.life_records,
-          isNext: result.data.next
+          isNext: result.data.next,
+          isLoadProductShow:false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -58,12 +60,12 @@ Page({
  */
   onReachBottom: function () {
     if (!this.data.isNext) {
-      utils.fxShowToast("没有更多商品了")
       return
     }
 
     this.setData({
-      ['params.page']: this.data.params.page + 1
+      ['params.page']: this.data.params.page + 1,
+      isLoadProductShow:true
     })
 
     this.data.getData()

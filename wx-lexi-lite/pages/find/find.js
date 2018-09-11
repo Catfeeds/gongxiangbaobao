@@ -79,6 +79,7 @@ Page({
 
   // 生活志愿详情
   handleLiveInfo(e) {
+    console.log(e)
 
     let targetType = e.currentTarget.dataset.type
     let link = e.currentTarget.dataset.link
@@ -124,6 +125,34 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  // 精彩故事和猜你喜欢跳转
+  handleToliveNote(e){
+    console.log(e)
+    let targetType = e.currentTarget.dataset.type
+    let rid = e.currentTarget.dataset.rid
+
+    // 1是文章
+    if (targetType == 1) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid,
+      })
+    }
+
+    // 2是种草笔记
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
+      })
+    }
+
+    // 跳转视频
+    if (targetType == 3) {
+
+    }
+
+
   },
 
   // 精彩故事

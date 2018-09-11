@@ -36,7 +36,7 @@
         </view>
       </view>
       <!-- 下面的产品列表 -->
-      <view class='goodsList'>
+      <view class='goodsList border-bottom--0'>
         <view wx:for="{{productList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
           <fx-product product="{{item}}" 
             photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'
@@ -199,5 +199,16 @@
   </view>
 </fx-modal>
 
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!prductIsNext || !storeIsNext||!userIsNext}}"> END </view>
+  
+  </block>
 
 </view>

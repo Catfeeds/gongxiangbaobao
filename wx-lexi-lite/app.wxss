@@ -607,7 +607,6 @@ image {
   height: 100rpx;
   background-color: white;
   border-bottom: 1rpx solid #e9e9e9;
-  border-top: 1rpx solid #e9e9e9;
 }
 
 /* 加载更多 */
@@ -639,6 +638,14 @@ image {
   background-image:url("https://static.moebeast.com/image/static/null-product.png");
   background-repeat:no-repeat; 
   background-size:100%; 
+  background-position: center center;
+}
+
+.load-over__photo--juxing{
+  background-image:url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat:no-repeat; 
+  background-size:100%; 
+  background-position: center center;
 }
 
 /* // 伪元素 */
