@@ -17,12 +17,14 @@
   height: 29rpx;
   position: absolute;
   left: 33rpx;
-  top: 34rpx;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 9;
 }
 .search-box__text .search-input {
+  height: 68rpx;
   background-color: rgba(246,245,245,1);
-  padding: 20rpx 20rpx 18rpx 83rpx;
+  padding: 0rpx 20rpx 0rpx 83rpx;
   border-radius: 50rpx;
   color: #555555;
 }

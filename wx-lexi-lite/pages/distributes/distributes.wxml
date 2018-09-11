@@ -133,10 +133,11 @@
       </view>
 
       <!-- 更多 -->
-      <view class="open-more" wx:if="{{ loadingMore }}">
-        查看更多好物
-        <i class="fx-icon-nothing-lower"></i>
-      </view>
+    <view class="load-many__box" wx:if="{{loadingMore}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
       <view class="ending" wx:else>
         End
       </view>
@@ -199,7 +200,13 @@
     </view>
 
     <!-- 结束底部 -->
-    <view class="ending" wx:if="{{ !loadingMore }}">
+
+    <view class="load-many__box" wx:if="{{loadingMoreAll}}">
+      <image 
+      src='../../images/jiazai.gif' 
+      class="load-many__photo"></image>
+    </view>
+    <view class="ending" wx:if="{{ !loadingMoreAll }}">
       End
     </view>
 

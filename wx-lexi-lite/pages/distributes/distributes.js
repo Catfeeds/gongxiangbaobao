@@ -56,7 +56,7 @@ Page({
     posterUrl: '', // 海报图url
 
     page: 1,
-    perPage: 20,
+    perPage: 10,
     // 全部商品
     params: {
       sort_type: 1, // 0=默认排序, 1=综合排序, 2=价格由低至高, 3=价格由高至低
@@ -88,7 +88,8 @@ Page({
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
     
-    loadingMore: true
+    loadingMore: true,
+    loadingMoreAll:true
   },
 
   // 轮播图跳转
@@ -764,7 +765,7 @@ Page({
         // 没有下一页了
         if (!res.data.next) {
           this.setData({
-            loadingMore: false
+            loadingMoreAll: false
           })
         }
         let pageProducts = this._rebuildProducts(res.data.products)
