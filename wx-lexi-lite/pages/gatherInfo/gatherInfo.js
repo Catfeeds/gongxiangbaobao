@@ -11,8 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoadProductShow:true, // 加载动画
     product:[], //详情
-    isNext: false, // 是否有下一页
+    isNext: true, // 是否有下一页
     productList: [],
     params: {
       id: "", //Number	必须	 	集合编号
@@ -26,6 +27,11 @@ Page({
     http.fxGet(api.column_collections_detail, this.data.params, (result) => {
       console.log(result,"集合详情")
       if (result.success) {
+
+        wx.setNavigationBarTitle({
+          title: result.data.name,
+        })
+
         let data = this.data.productList
         result.data.products.forEach((v) => {
           data.push(v)
@@ -34,8 +40,10 @@ Page({
         this.setData({
           isNext: result.data.next,
           productList: data,
-          product: result.data
+          product: result.data,
+          isLoadProductShow:false
         })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -64,7 +72,8 @@ Page({
     }
 
     this.setData({
-      ['params.page']: this.data.params.page + 1
+      ['params.page']: this.data.params.page + 1,
+      isLoadProductShow:true
     })
 
     this.getProducts()

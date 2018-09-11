@@ -856,6 +856,10 @@ Page({
     http.fxGet(api.column_collections, {}, (result) => {
       console.log(result, "集合")
       if (result.success) {
+        result.data.collections.forEach((v,i)=>{
+          v.sub_name = v.sub_name.length > 7 ? v.sub_name.substr(0, 8) + " ..." : v.sub_name
+        })
+
         this.setData({
           gatherList: result.data
         })
@@ -997,6 +1001,11 @@ Page({
     http.fxGet(api.life_records_recommend, {}, (result) => {
       console.log(result, "种草清单")
       if (result.success) {
+        
+        result.data.life_records.forEach((v)=>{
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g,"")
+        })
+
         this.setData({
           plantOrderList: result.data
         })
