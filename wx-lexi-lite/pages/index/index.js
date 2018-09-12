@@ -143,7 +143,7 @@ Page({
         rid: 'p1',
         name: 'lifeStore',
         title: '生活馆',
-        disabled: true
+        disabled: false
       },
       {
         rid: 'p2',
@@ -610,7 +610,7 @@ Page({
 
     // 已是小B用户,则不能再申请
     if (this.data.isSmallB) {
-      // return
+      return
     }
 
     wx.navigateTo({
@@ -1211,10 +1211,10 @@ Page({
         this.getStoreProducts() // 生活馆商品
         this.getWeekPopular() // 本周最受欢迎商品
         this.getUploadToken()
-        this.handleAddBrowce() //添加浏览者
+        this.handleAddBrowce() // 添加浏览者
         break;
       case 'featured': // 精选
-        wx.setNavigationBarTitle({title:"精选"})
+        wx.setNavigationBarTitle({ title: '精选' })
         this.handleSetNavigationTitle('精选')
 
         this.setData({
@@ -1222,7 +1222,7 @@ Page({
         })
 
         this.getChoiceHanderAdvertisement() // 头部广告
-        if (this.data.handerAdvertisementList.length!=0){
+        if (this.data.handerAdvertisementList.length != 0){
           return
         }
 
@@ -1301,9 +1301,12 @@ Page({
         })
       }
     }
+    console.log('来源生活馆： ' + this.data.sid)
 
     // 验证登录用户是否为小B商家
     if (this.data.sid == '') {
+      console.log('验证登录用户是否为小B')
+      
       app.login().then(res => {
         console.log(res, '异步请求')
         const lifeStore = wx.getStorageSync('lifeStore')

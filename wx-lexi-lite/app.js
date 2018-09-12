@@ -98,9 +98,9 @@ App({
 
                 // 回调函数
                 this.hookLoginCallBack()
-
-                resolve({ success: true })
               }
+              
+              resolve({ success: true })
             } else {
               // 显示错误信息
               wx.showToast({

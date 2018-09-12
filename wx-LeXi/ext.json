@@ -1,21 +1,21 @@
 {
   "extEnable": true,
-  "extAppid": "wx60ed17bfd850985d",
+  "extAppid": "wx3cc0ea5d2c601f30",
   "directCommit": false,
   "ext": {
-    "name": "乐喜小馆",
-    "authAppid": "wx60ed17bfd850985d",
-    "storeRid": "91984703",
+    "name": "小灵兽",
+    "authAppid": "wx3cc0ea5d2c601f30",
+    "storeRid": "90842619",
     "attr": {
       "users": [
         "purpen"
       ]
     },
     "api": {
-      "host": "https://wx.taihuoniao.com",
+      "host": "https://wxapi.lexivip.com",
       "version": "v1.0",
-      "appKey": "zXIPN0ftRj6dlrKFOZpH",
-      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
+      "appKey": "khtKw7qsMzlZSLvQoij3",
+      "appSecret": "6a3729f295c026b60a675ed04785b0f90c0d6375"
     }
   },
   "networkTimeout": {
