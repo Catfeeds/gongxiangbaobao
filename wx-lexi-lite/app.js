@@ -269,6 +269,7 @@ App({
       signType: 'MD5',
       paySign: payParams.pay_sign,
       success: function (res) {
+        console.log(res,"支付成功返回参数")
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
             title: '支付成功',
