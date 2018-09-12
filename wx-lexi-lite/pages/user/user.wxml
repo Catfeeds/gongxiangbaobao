@@ -103,7 +103,7 @@
   <view wx:if="{{classInfo==1}}" class='bottom__info'>
 
         <!-- 最近查看 -->
-    <view class='c-importantGoods p-null padding-left--0rpx' wx:if="{{likeProduct!=[]&&likeProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null padding-left--0rpx' wx:if="{{likeProduct.length!=0&&likeProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all margin-left--40rpx'>
         <text>喜欢的商品</text>
         <view 
@@ -129,12 +129,22 @@
         </view>
       </scroll-view>
     </view>
+
+        <!-- 缺省图片 -->
+    <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.length==0||likeProduct.products.length==0}}">
+      <view class='padding-top--150rpx'>
+        <image src='../../images/user-xin.png'></image>
+      </view>
+      <view class='black-font no-like__title'>
+        <text>你当前还没有喜欢的商品</text>
+      </view>
+    </view>
   </view>
 
   <!-- 收藏里面的内容 -->
   <view class='shou bottom__info' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
-    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct!=[]&&userBrowsesProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.length!=0&&userBrowsesProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>最近查看</text>
         <view 
@@ -161,7 +171,7 @@
       </view>
     </view>
     <!-- 心愿单 -->
-    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct!=[]&&desireOrderProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.length!=0&&desireOrderProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
         <view 
@@ -189,8 +199,8 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' fx-column--center user-null__product' wx:if="{{desireOrderProduct.products.length==0 && userBrowsesProduct.length==0}}">
-      <view>
+    <view class=' fx-column--center user-null__product' wx:if="{{desireOrderProduct.length==0||desireOrderProduct.products.length==0 && userBrowsesProduct.length==0||userBrowsesProduct.products.length==0}}">
+      <view class='padding-top--150rpx'>
         <image src='../../images/user-star.png'></image>
       </view>
       <view class='black-font no-like__title'>
@@ -244,8 +254,8 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' fx-column--center user-null__product' wx:if="{{watchStoreList.stores.length==0}}">
-      <view>
+    <view class=' fx-column--center user-null__product' wx:if="{{watchStoreList.stores.length==0||watchStoreList.length==0}}">
+      <view class='padding-top--150rpx'>
         <image src='../../images/user-store.png'></image>
       </view>
       <view class='black-font no-like__title'>

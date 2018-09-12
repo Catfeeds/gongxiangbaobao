@@ -1331,9 +1331,8 @@ Page({
         this.handleAddBrowce() // 添加浏览者
         break;
       case 'featured': // 精选
-        wx.setNavigationBarTitle({
-          title: "精选"
-        })
+        wx.setNavigationBarTitle({ title: '精选' })
+
         this.handleSetNavigationTitle('精选')
 
         this.setData({
@@ -1341,6 +1340,7 @@ Page({
         })
 
         this.getChoiceHanderAdvertisement() // 头部广告
+
         if (this.data.handerAdvertisementList.length != 0) {
           return
         }
@@ -1383,8 +1383,11 @@ Page({
 
   // 分享的生活馆图片
   getLifePhotoUrl() {
-    let rid = app.getDistributeLifeStoreRid()
+    if (!this.data.sid){
+      return
+    }
 
+    let rid = app.getDistributeLifeStoreRid()
     http.fxPost(api.market_share_life_store, {
       rid: rid
     }, (result) => {

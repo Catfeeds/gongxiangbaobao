@@ -218,3 +218,12 @@
 .null-coupon__box {
   padding-top: 200rpx;
 }
+
+.noll-coupon image{
+  height: 250rpx;
+  width: 510rpx;
+  margin: 200rpx 0 20rpx 0;
+}
+.noll-coupon view{
+  color: #666666;
+}

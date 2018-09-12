@@ -61,7 +61,8 @@
     "pages/liveNoteList/liveNoteList",
     "pages/plantNoteList/plantNoteList",
     "pages/plantNoteInfo/plantNoteInfo",
-    "pages/userLikeProduct/userLikeProduct"
+    "pages/userLikeProduct/userLikeProduct",
+    "pages/networkError/networkError"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
