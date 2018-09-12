@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "fx-modal": "/components/FxModal/FxModal"
+  }
 }

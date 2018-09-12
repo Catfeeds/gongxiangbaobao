@@ -489,7 +489,7 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  border-bottom: 40rpx solid #f7f9fb;
+  /* border-bottom: 40rpx solid #f7f9fb; */
 }
 
 .productionGoods {
