@@ -28,8 +28,9 @@ Page({
     posterUrl: '', // 海报图url
 
     // 生活馆
+    shopInfo:'', // 生活馆信息
     lifePhotoUrl: '', // 分享生活馆的图片
-    sid: '', // 生活馆rid
+    sid: '', // 生活馆sid
     openId: '', // openId
     uploadParams: {}, // 上传所需参数
     lifeStore: {}, // 生活馆信息
@@ -74,12 +75,12 @@ Page({
       stores: [{
           logo: '',
           name: '',
-          products_cover: [{}, {}, {}]
+          products_cover: ['', '', '']
         },
         {
           logo: '',
           name: '',
-          products_cover: [{}, {}, {}]
+          products_cover: ['', '', '']
         },
       ]
     },
@@ -271,6 +272,7 @@ Page({
     this.setData({
       is_mobile: false
     })
+    wx.showTabBar()
   },
 
   // 加载更多的推荐
@@ -903,6 +905,10 @@ Page({
 
   // 添加浏览记录
   handleAddBrowce() {
+    if (!this.data.sid){
+      return
+    }
+
     let openId = wx.getStorageSync("jwt").openid
     http.fxPost(api.add_browse, {
       openid: openId,
@@ -924,6 +930,10 @@ Page({
 
   // 获取浏览记录
   getBrowsePeople() {
+    if (!this.data.sid){
+      return
+    }
+
     let openId = wx.getStorageSync("jwt").openid
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.sid), {
       openid: openId

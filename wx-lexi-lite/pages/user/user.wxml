@@ -6,7 +6,6 @@
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
 
-
   <view class="fx-submenu" wx:if="{{ haveSmallB }}">
     <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}">
       <text>个人主页</text>
@@ -104,10 +103,14 @@
   <view wx:if="{{classInfo==1}}" class='bottom__info'>
 
         <!-- 最近查看 -->
-    <view class='c-importantGoods p-null padding-left--0rpx' wx:if="{{userBrowsesProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null padding-left--0rpx' wx:if="{{likeProduct!=[]&&likeProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all margin-left--40rpx'>
         <text>喜欢的商品</text>
-        <view class='hui-zi margin--15rpx' data-from='userBrowses' catchtap='handleUserlikeList'>
+        <view 
+          class='hui-zi margin--15rpx' 
+          data-from='userBrowses' 
+          wx:if="{{likeProduct.products.length==10}}"
+          catchtap='handleUserlikeList'>
           <text>查看全部</text> 
           <image 
           class="browse-all__icon"
@@ -131,12 +134,13 @@
   <!-- 收藏里面的内容 -->
   <view class='shou bottom__info' wx:if="{{classInfo==2}}">
     <!-- 最近查看 -->
-    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct!=[]&&userBrowsesProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>最近查看</text>
         <view 
           class=' hui-zi margin--15rpx' 
           data-from='userBrowses' 
+          wx:if="{{userBrowsesProduct.products.length==10}}"
           catchtap='handleAllProduct'> 
         <text>查看全部</text> 
         <image 
@@ -157,10 +161,13 @@
       </view>
     </view>
     <!-- 心愿单 -->
-    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct!=[]&&desireOrderProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
-        <view class=' hui-zi margin--15rpx' data-from='xinYuanOrder' catchtap='handleAllProduct'> 
+        <view 
+          class=' hui-zi margin--15rpx' 
+          wx:if="{{desireOrderProduct.products.length==10}}"
+          data-from='xinYuanOrder' catchtap='handleAllProduct'> 
         <text>查看全部</text> 
         <image 
           class="browse-all__icon"

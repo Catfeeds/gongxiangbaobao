@@ -320,8 +320,12 @@ Page({
         })
         break;
       case 2:
+        console.log(app.globalData,"globalData")
+        let jwt = wx.getStorageSync("jwt")
+        let openid = jwt.openid
+
         //最近查看
-        http.fxGet(api.user_browses, { page: 1, per_page: 10}, (result) => {
+        http.fxGet(api.user_browses, { page: 1, per_page: 10, openid: openid}, (result) => {
           if (result.success) {
             console.log(result,"用户最近查看")
             this.setData({
