@@ -1301,12 +1301,12 @@ Page({
         })
       }
     }
-    console.log('来源生活馆： ' + this.data.sid)
+    console.log('来源生活馆：' + this.data.sid)
 
     // 验证登录用户是否为小B商家
     if (this.data.sid == '') {
       console.log('验证登录用户是否为小B')
-      
+
       app.login().then(res => {
         console.log(res, '异步请求')
         const lifeStore = wx.getStorageSync('lifeStore')
