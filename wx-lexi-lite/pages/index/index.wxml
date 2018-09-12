@@ -284,7 +284,14 @@
         <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" catchtap="handleTodyRecommend" data-type="{{item.target_type}}"
           data-id="{{item.id}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <view class='all-product height---236rpx'>
-            <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.cover}}-p315x236"></image>
+            <image 
+              wx:if="{{item.cover}}"
+              class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" 
+              src="{{item.cover}}-p315x236"></image>
+
+            <image 
+              wx:else
+              class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           </view>
           <view class='recommend-text line-height--22rpx theme-green margin-top--4rpx padding-bottom--10rpx'>
             <text class='font-ss line-height--22rpx'>{{item.recommend_label}}</text>
@@ -430,7 +437,15 @@
           data-type="{{item.type}}"
           wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
-          <image src="{{item.cover}}-p326x216" class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
+          <image 
+            src="{{item.cover}}-p326x216" 
+            wx:if="{{item.cover}}"
+            class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
+
+          <image 
+            src="" 
+            wx:else
+            class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='font-ss shen-hui text-two_line'>{{item.description}}</text>
           <view class='plant-owner__box flex_row'>
@@ -500,7 +515,8 @@
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
         <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' wx:for="{{characteristicStoreList.stores}}" wx:for-item="items" catchtap="handleTobrandStore" data-rid="{{items.rid}}"
           wx:key="{{ index }}">
-          <image src='{{items.bgcover}}-p50'></image>
+          <image src='{{items.bgcover}}-p50' wx:if="{{items.bgcover}}"></image>
+          <image wx:else></image>
           <view class='characteristic-info border-radius--8'>
             <view class='flex_row characteristic-box__title border-radius--8'>
               <view class='characteristic-log'>
@@ -513,7 +529,14 @@
             </view>
             <view class='time-top characteristic-box__middle'>
               <view class='characteristic-photo' wx:for="{{items.products_cover}}" wx:key="{{index}}" wx:for-item="item" wx:if="{{index<3}}">
-                <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item}}-p16'></image>
+                <image 
+                  wx:if="{{item}}"
+                  class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
+                  src='{{item}}-p16'></image>
+
+                <image 
+                  class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
+                  wx:else></image>
               </view>
 
             </view>
@@ -550,7 +573,14 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-rid="{{item.id}}" catchtap="handleToGatherInfo" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
-          <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.cover}}-p30"></image>
+          <image 
+            class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" 
+            wx:if="{{item.cover}}"
+            src="{{item.cover}}-p30"></image>
+
+          <image 
+            wx:else
+            class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           <view class='bg-black__half'>
             <image src='../../images/bg-hei.png'></image>
           </view>

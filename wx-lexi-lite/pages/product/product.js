@@ -526,8 +526,12 @@ Page({
   // 获取商品详情
   getProductInfomation() {
     console.log(this.data.rid, "rid")
+    let jwt = wx.getStorageSync("jwt")
+    let openid = jwt.openid
+    
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
-      user_record: "1"
+      user_record: "1",
+      openid: openid
     }, (result) => {
       if (result.success) {
         console.log(result, '产品详情')

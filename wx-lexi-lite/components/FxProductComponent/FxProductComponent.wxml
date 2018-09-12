@@ -5,9 +5,16 @@
       <image src='{{productItem.cover}}'></image>
     </view>
     <image 
+      wx:if="{{productItem.cover}}"
       class='photoBox product-photo {{productItem.cover?"active":"position-image"}} {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}} {{photo==5?"photo--oblong":""}}' 
       mode="widthFix" 
-      src='{{ productItem.cover }}-p{{photoSize}}' ></image>
+      src='{{ productItem.cover }}-p{{photoSize}}'></image>
+
+    <image 
+      wx:else
+      class='photoBox product-photo {{productItem.cover?"active":"position-image"}} {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}} {{photo==5?"photo--oblong":""}}' 
+      mode="widthFix" 
+      src=''></image>
   </view>
 
   <view class='material-quality'>

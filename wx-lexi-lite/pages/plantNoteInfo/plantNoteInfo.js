@@ -246,7 +246,7 @@ Page({
         }
 
         let productHtml = ''
-        if (!item.big_picture) {
+        if (item.big_picture) {
           productHtml = '<div class="product-max__box">' +
             '<div class="product-max__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
             '<div class="product-max__title ">' + isLogisticsPrice + item.content.name  + '</div>' +

@@ -221,7 +221,15 @@
     </view>
     <view class='shop-other-goods'>
       <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ item.cover }}-p16'></image>
+
+        <image 
+          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
+          src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
+
+        <image 
+          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
+          wx:else></image>
+
       </view>
     </view>
   </view>
@@ -232,7 +240,15 @@
 
     <view class='shop-other-goods'>
       <view wx:for='{{ similarList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleSimilarInfo'>
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ item.cover }}-p16'></image>
+
+        <image 
+          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
+          src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
+
+        <image 
+          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
+          wx:else></image>
+
       </view>
     </view>
   </view>

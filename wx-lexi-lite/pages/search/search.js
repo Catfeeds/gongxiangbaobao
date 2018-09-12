@@ -86,8 +86,10 @@ Page({
 
   // 浏览记录
   getHighQuality() {
-    http.fxGet(api.user_browses, {}, (result) => {
-      console.log(result, "优质新品")
+    let jwt = wx.getStorageSync("jwt")
+    let openid = jwt.openid
+    http.fxGet(api.user_browses, { openid: openid}, (result) => {
+      console.log(result, "最近浏览记录")
       if (result.success) {
         
         this.setData({
