@@ -11,8 +11,8 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.2",
-	"appid": "wx60ed17bfd850985d",
+	"libVersion": "2.2.4",
+	"appid": "wx3cc0ea5d2c601f30",
 	"projectname": "wx-LeXi",
 	"condition": {
 		"search": {

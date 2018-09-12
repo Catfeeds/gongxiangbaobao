@@ -1,0 +1,17 @@
+/* pages/networkError/networkError.wxss */
+
+.font-size--36rpx {
+  font-size: 36rpx;
+}
+
+.loading-btn {
+  width: 290rpx;
+  height: 80rpx;
+  background-color: #5fe4b1;
+  border-radius: 8rpx;
+  color: white;
+}
+
+.margin-top--26rpx {
+  margin-top: 26rpx;
+}

@@ -18,7 +18,6 @@
   </view>
 
   <view class='material-quality'>
-    
       <image 
         class='logistics' 
         wx:if='{{productItem.is_free_postage}}' 

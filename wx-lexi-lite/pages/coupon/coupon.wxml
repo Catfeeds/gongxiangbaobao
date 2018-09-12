@@ -146,14 +146,14 @@
     </view>
   </view>
 
-  <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
+  <!-- <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
     <image src='../../images/coupon@2.png'></image>
     <view class='black-font '>你当没有任何优惠卷红包</view>
+  </view> -->
 
-  </view>
-
-  <view class='null-coupon__box' wx:if="{{authorityExceedCouponList.length==0&&authorityNormalCouponList.length==0&&exceedCouponList.length==0&&normalCouponList.length==0}}">
+  <view class='line-D noll-coupon' wx:if="{{authorityExceedCouponList.length==0&&authorityNormalCouponList.length==0&&exceedCouponList.length==0&&normalCouponList.length==0}}">
     <image src='../../images/coupon@2.png'></image>
+    <view class='black-font '>您还没有优惠券哦~</view>
 
   </view>
 

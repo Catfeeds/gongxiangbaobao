@@ -19,6 +19,7 @@
     "pages/people/people",
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
+    "pages/lifeStoreGuide/lifeStoreGuide",
     "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
@@ -52,7 +53,7 @@
     "pages/allProduct/allProduct",
     "pages/checkout/checkout",
     "pages/gather/gather",
-    "pages/lifeStoreGuide/lifeStoreGuide",
+
     "pages/categoryList/categoryList",
     "pages/searchResult/searchResult",
     "pages/teachList/teachList",
@@ -60,7 +61,8 @@
     "pages/liveNoteList/liveNoteList",
     "pages/plantNoteList/plantNoteList",
     "pages/plantNoteInfo/plantNoteInfo",
-    "pages/userLikeProduct/userLikeProduct"
+    "pages/userLikeProduct/userLikeProduct",
+    "pages/networkError/networkError"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
