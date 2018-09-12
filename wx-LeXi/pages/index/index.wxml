@@ -300,6 +300,11 @@
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
 
+    <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+
+
+
   <!-- 排序的呼出框 -->
   <!-- <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap='handleSortOff'>
     <fx-sort bind:handleSortOff="handleSortOff" bind:handlePickOver="handleSort"></fx-sort>

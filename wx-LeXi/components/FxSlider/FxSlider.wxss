@@ -1,0 +1,49 @@
+.fx-slider {
+  width: 100%;
+  height: 100rpx;
+  position: relative;
+}
+.slider-lines {
+  display: flex;
+}
+.slider-body {
+  height: 8rpx;
+  background-color: #ddd;
+}
+.slider-body.body {
+  background-color: #5fe4b1;
+  flex: 100%;
+}
+.slider-body.left {
+  flex: 0%;
+}
+.slider-body.right {
+  flex: 0%;
+}
+
+.slider-item {
+  border-radius: 50%;
+  width: 50rpx;
+  height: 50rpx;
+  border: 4rpx solid #5fe4b1;
+  background-color: #fff;
+  z-index: 1003;
+}
+.min {
+  position: absolute;
+  top: -25rpx;
+}
+.max {
+  position: absolute;
+  top: -25rpx;
+}
+.slider-values {
+  font-size: 28rpx;
+  color: #B2B2B2;
+  margin-top: 40rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.slider-values .active {
+  color: #5fe4b1;
+}

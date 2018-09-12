@@ -274,22 +274,28 @@ App({
             title: '支付成功',
           })
 
-          // 支付成功，更新订单状态
-          http.fxPost(api.order_paid_status, {
-            rid: rid
-          }, function (result) {
-            if (result.success) {
-
-              // 跳转至详情
-              wx.redirectTo({
-                url: './../paymentSuccess/paymentSuccess?rid=' + rid,
-              })
-            }
+          // 跳转至详情
+          wx.redirectTo({
+            url: './../paymentSuccess/paymentSuccess?rid=' + rid,
           })
+
+          // 支付成功，更新订单状态
+          // http.fxPost(api.order_paid_status, {
+          //   rid: rid
+          // }, function (result) {
+          //   console.log(result,"修改订单状态=============")
+          //   if (result.success) {
+
+          //     // 跳转至详情
+          //     wx.redirectTo({
+          //       url: './../paymentSuccess/paymentSuccess?rid=' + rid,
+          //     })
+          //   }
+          // })
         }
       },
       fail: function (res) {
-        console.log(res.errMsg)
+        console.log(res.errMsg,'支付失败了')
         if (res.errMsg == 'requestPayment:fail') {
           wx.showToast({
             title: res.err_desc,
