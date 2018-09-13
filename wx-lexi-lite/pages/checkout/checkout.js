@@ -310,7 +310,7 @@ Page({
         app.cleanOrderGlobalData()
 
         let currentOrder = result.data.orders[0]
-        app.wxpayOrder(currentOrder.rid, result.data.pay_params)
+        app.wxpayOrder(result.data.order_rid, result.data.pay_params)
       } else {
         utils.fxShowToast(result.status.message)
       }

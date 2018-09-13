@@ -9,8 +9,8 @@ Page({
    */
   data: {
     order: [],// 订单
-    logisticsPriceSum:0
-
+    logisticsPriceSum:0,
+    orderRid:'',
 
     
   },
@@ -19,7 +19,7 @@ Page({
   examineOrder(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '../orderInfo/orderInfo?rid='+rid
+      url: '../orderInfo/orderInfo?rid=' + this.data.orderRid
     })
   },
 
@@ -27,9 +27,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options,"支付页面，上一页的参数")
+
     let order = app.globalData.paymentSuccessOrder
     this.setData({
-      order: order
+      order: order,
+      orderRid: options.rid
     })
     order.orders.forEach((v,i)=>{
       this.setData({
