@@ -39,7 +39,7 @@
   </view>
 
   <!-- 没有任何信息的时候 -->
-  <view class='none-info' wx:if="{{location.Reason=='暂无轨迹信息'}}">
+  <view class='none-info' wx:if="{{!location.Success}}">
     <view class='logistcsIcon'>
       <image src='../../images/ji.png'></image>
     </view>
@@ -57,7 +57,6 @@
       <view>您可选择长按复制运单编号</view>
       <view>到物流公司官网查询</view>
     </view>
-
 
   </view>
 

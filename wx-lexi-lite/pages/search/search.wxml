@@ -64,7 +64,7 @@
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>热门推荐</view>
       <view class=" hot-recommend__bottom c-crosswise-a">
         <view class="fx-column--center font-s">
-          <image src="../../images/other/jiedan.png"></image>
+          <image src="https://static.moebeast.com/static/img/jiedan.png"></image>
           <view>接单订制</view>
         </view>
         <view 

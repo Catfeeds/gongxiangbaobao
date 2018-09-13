@@ -9,7 +9,7 @@ catchtap='handleProductInfo'>
   <view class='productMiddleBoxPhoto' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx'>
     <image src='{{ productItem.cover }}-p16' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo {{!productItem?'position-image':'active'}}" wx:if="{{ productItem.cover }}"></image>
 
-    <image style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo {{!productItem?'position-image':'active'}}" else></image>
+    <image style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo {{!productItem?'position-image':'active'}}" wx:else></image>
 
     <!-- <image src='{{ productItem.cover }}-p16' style='height:{{}}rpx;width:{{}}rpx' class="shopRecommendGoods-photo round" wx:if="{{ round }}"></image> -->
     <view class='sell_up_text' wx:if="{{productItem.total_stock==0}}">售 罄</view>

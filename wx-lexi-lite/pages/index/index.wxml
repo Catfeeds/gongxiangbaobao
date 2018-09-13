@@ -106,7 +106,7 @@
         </view>
       </view> -->
       <view class="swiper-false">
-        <image src='../../images/other/sweiper.png'></image>
+        <image src='https://static.moebeast.com/static/img/sweiper.png'></image>
       </view>
       <view class='font-s'>
         <view>挑选乐喜优质商品上架</view>

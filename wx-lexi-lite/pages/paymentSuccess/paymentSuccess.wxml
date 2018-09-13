@@ -42,7 +42,7 @@
         </view>
         <view>
           <text class='hui-zi'>配送 : </text>
-          <text class='price_logistics--color'>{{logisticsPriceSum==0?"包邮":order.orders.freight}}</text>
+          <text class='price_logistics--color'>{{logisticsPriceSum==0?"包邮":"￥"+logisticsPriceSum}}</text>
         </view>
         <view>
           <text class='black-font'>订单总计 </text>
