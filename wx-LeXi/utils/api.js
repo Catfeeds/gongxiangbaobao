@@ -33,6 +33,7 @@ module.exports = {
   BrowseQuantityNumber: 'store/:rid/visitor', //浏览过的人数---
   brand_info: 'store/detail', // 品牌故事
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
+  market_share_store: 'market/share/store', // 分享品牌管换取图片
   // Product
   products: 'products/by_store', // GET 产品列表---
   latest_products: 'products/latest', // GET 最新产品---
@@ -51,7 +52,11 @@ module.exports = {
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme: 'wx_app_design/collections', //Get 主题---
   marketBanners: 'banners/:rid', //广告--
-  products_index:'products/index', // 首页作品的排序---
+  products_index: 'products/index', // 首页作品的排序---
+  store_categories: 'store/categories', // 店铺的的产品分类
+  wxacode: 'market/wxacode', // POST 生成小程序码
+  wxa_poster: 'market/wxa_poster', // POST 生成分享海报
+
   // Cart
   cart: 'cart', // GET 加入购物车---
   cart_addon: 'cart', // POST 添加产品至购物车
@@ -74,8 +79,8 @@ module.exports = {
   orders_delete: 'orders/delete', // 删除订单---
 
   // Market
-  is_first_order:"market/coupons/new_user_discount", // 查看是否属于首单
-  user_login_coupon:'market/user_master_coupons',//用户登陆时候的优惠券
+  is_first_order: "market/coupons/new_user_discount", // 查看是否属于首单
+  user_login_coupon: 'market/user_master_coupons', //用户登陆时候的优惠券
   coupons: 'market/coupons', // get 优惠券列表---
   checkout_authority_couponList: 'market/user_official_fill', // get 优惠券列表---
   noCouponsList: 'market/not_login_coupons', // get 优惠券列表---
@@ -84,7 +89,7 @@ module.exports = {
   available_coupons: 'market/coupons/available', // POST 用户可用优惠券
   coupon_grant: 'market/coupons/grant', // POST 领取优惠券---
   red_bag: 'market/bonus', //GET红包列表---
-  authority_coupon:'market/user_official', //官方的优惠券
+  authority_coupon: 'market/user_official', //官方的优惠券
   order_info_page_coupon: 'market/user_order_coupons', //订单页面优惠券
   full_reduction: 'market/user_order_full_reduction', //满减
   first_order_reduction: 'market/coupons/new_user_discount', //满减
@@ -149,5 +154,6 @@ module.exports = {
   users_followed_users: 'users/followed_users', // 获取关注
   follow_user: 'follow/user', // 添加关注
   unfollow_user: 'unfollow/user', // 取消关注
-  users_followed_stores: 'users/followed_life_stores' // 获取关注店铺的列表
+  users_followed_stores: 'users/followed_life_stores', // 获取关注店铺的列表
+  wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
 }

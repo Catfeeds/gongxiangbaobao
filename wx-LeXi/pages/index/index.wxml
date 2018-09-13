@@ -51,7 +51,7 @@
   <!-- 浏览过的人数 -->
   <view class='joinNumber'>
     <view class='theme-hui-color h40px'>
-      <text class='theme-color'>{{ shopInfo.browse_number }} 人</text>浏览过设计馆
+      <text class='theme-color'>{{ shopInfo.browse_number+1 }} 人</text>浏览过设计馆
     </view>
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
@@ -63,7 +63,7 @@
 
             <view class='joinNumberR-box c-middle'>
               <view class='joinNumberR'>
-                {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
+                {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number+1 }}
               </view>
             </view>
           </view>
@@ -148,7 +148,7 @@
       <view class='tuijian' wx:for='{{recommendProductList.products}}' wx:key="{{index}}">
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image src='{{ShopOwner.avatar.view_url}}' class='photo-round'></image>
+          <image src='{{ShopOwner.avatar}}' class='photo-round'></image>
           <text>馆长极力推荐</text>
         </view>
         <!-- 推荐理由介绍 -->
@@ -171,11 +171,11 @@
             </view>
             <view>喜欢</view>
           </view>
-          <view class='recommendbottomText'>
+          <view class='recommendbottomText' catchtap='handleShareBox' data-shareStore='{{item}}' data-from="2">
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view catchtap='handleShareBox' data-shareStore='{{item}}' data-from="2">分享</view>
+            <view >分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image src='{{item.product_like_users[0].avatar}}' class='photo-round'></image>
@@ -223,17 +223,15 @@
       </view>
     </view>
 
-  <block>
-    <!-- 底部加载 -->
-    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
-    </view>
-    <!-- 没有商品加载的底部 -->
-    <view class="c-middle not-have__load--bottom" wx:if="{{!isProductNext}}"> END </view>
-  
-  </block>
+    <block>
+      <!-- 底部加载 -->
+      <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{!isProductNext}}"> END </view>
+
+    </block>
   </view>
 
   <!-- 人气里面的内容 -->
@@ -263,12 +261,10 @@
     <block>
       <!-- 底部加载 -->
       <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-        <image 
-          src='../../images/jiazai.gif' 
-          class="load-many__photo"></image>
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
       </view>
       <!-- 没有商品加载的底部 -->
-    <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
+      <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
     </block>
 
   </view>
@@ -281,10 +277,45 @@
   </view>
 
   <!-- 分享模板 -->
-  <view class='share-Tempate' catchtap='handleOffBox' wx:if="{{is_share}}">
-    <template is="share" />
-    <view catchtap='shareTap' data-is_share="0" class='share-Tempate-delete bg-white c-middle'>取 消</view>
-  </view>
+  <fx-modal 
+    showHead="{{ false }}" 
+    visible="{{ is_share }}" 
+    bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+        <view class="distribute-commission">
+        </view>
+      <view class="distribute-message">
+        
+      </view>
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" open-type="share">
+          <image src="{{ shareWhat.sharestore.cover }}" class="cover"></image>
+          <text>点击直接分享好友样式</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
+          </view>
+          <text>保存分享朋友圈海报</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" open-type="share">
+          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
 
   <!-- 分享的悬浮按钮 -->
   <view class='time-top suspend-share bg-white font-s'>
@@ -292,28 +323,85 @@
       <image src='../../images/fei@2.png'></image>
     </view>
     <text class='suspend-share__text'>分享</text>
-    <button catchtap='handleShareBox' data-shareStore='{{rid}}' data-from="1"></button>
+    <button open-type='share' ></button>
   </view>
 
   <!-- 登陆注册模态框 -->
-  <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
+  <!-- <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view>
+  </view> -->
 
-    <!-- 登陆注册模态框 -->
+  <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
+  <!-- 筛选 -->
+  <view class="pick-box">
+    <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ handelOffPick }}" bind:resetEvent="handleResetFilterCondition">
+      <view class="fx-modal__main" slot="main">
+        <view class="block-title">价格区间</view>
+        <view class="price-range">
+          <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
+        </view>
 
+        <!-- 分类 -->
+        <view>
+          <view class="block-title">分类
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.checked ? 'sortActive' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
+        </view>
 
-  <!-- 排序的呼出框 -->
-  <!-- <view class='login-bind_box--style' wx:if="{{isSortShow}}" catchtap='handleSortOff'>
-    <fx-sort bind:handleSortOff="handleSortOff" bind:handlePickOver="handleSort"></fx-sort>
-  </view> -->
+        <!-- 推荐 -->
+        <!-- <view>
+          <view class="block-title">推荐
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.isActive ? 'active' : '' }}" wx:for="{{ recommendList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" data-index="{{index}}" bindtap="handleToggleRecommendList">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
+        </view> -->
+      </view>
+      <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
+        查看商品
+        <text>（{{ totalCount }}件）</text>
+      </button>
+    </fx-modal>
+  </view>
 
-  <!-- 筛选的产品 -->
-  <!-- <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
-    <fx-pick-product pickQuantity="{{pickQuantity}}" bind:handlePickOff="handelOffPick" bind:handlePickProduct="handlePickProduct" category="{{shopInfo.categories}}"></fx-pick-product>
-  </view> -->
+  <!-- 排序 -->
+  <fx-modal title="排序" bind:closeEvent="handleSortOff" visible="{{ isSortShow }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="filter-item {{ sortParams.sort_type == 0 ? 'sortActive' : '' }}" data-rid="0" bindtap="handleSort">
+        <text class="text">综合排序</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ sortParams.sort_type == 1 ? 'sortActive' : '' }}" data-rid="1" bindtap="handleSort">
+        <text class="text">最新</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item-line">
+        价格
+      </view>
+      <view class="filter-item {{ sortParams.sort_type == 2 ? 'sortActive' : '' }}" data-rid="2" bindtap="handleSort">
+        <text class="text">由低至高</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ sortParams.sort_type == 3 ? 'sortActive' : '' }}" data-rid="3" bindtap="handleSort">
+        <text class="text">由高至低</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+    </view>
+  </fx-modal>
 
 
 

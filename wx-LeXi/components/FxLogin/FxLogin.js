@@ -186,7 +186,7 @@ Component({
       }
 
       http.fxPost(api.bind_mobile, params, (res) => {
-        console.log(res)
+        console.log(res, '登录成功',)
         if (res.success) {
           utils.fxShowToast('登录成功', 'success')
 
@@ -197,8 +197,6 @@ Component({
           app.globalData.uid = res.data.uid
           //更新用户信息
           app.updateUserInfo(res.data)
-          // 更新小B身份
-          app.updateLifeStoreInfo(res.data)
 
           // 触发关闭回调
           this.triggerEvent('closeEvent')
@@ -253,8 +251,7 @@ Component({
                 app.globalData.uid = res.data.uid
                 //更新用户信息
                 app.updateUserInfo(res.data)
-                // 更新小B身份
-                app.updateLifeStoreInfo(res.data)
+
                 // 回调函数
                 app.hookLoginCallBack()
 

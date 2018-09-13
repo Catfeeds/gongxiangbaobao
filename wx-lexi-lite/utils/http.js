@@ -99,8 +99,6 @@ function fxGet(url, data = {}, cb) {
 
       wx.hideNavigationBarLoading()
       return typeof cb == 'function' && cb(false)
-
-
     }
   })
 }

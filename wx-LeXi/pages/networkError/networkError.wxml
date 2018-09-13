@@ -1,0 +1,13 @@
+<!--pages/networkError/networkError.wxml-->
+<view class="container ">
+
+  <image src="../../images/network-error@3.png"></image>
+  <view class="line-D">
+    <view class='hui-zi font-size--36rpx margin-top--26rpx'>网络连接失败</view>
+    <view class='hui-zi margin-top--26rpx'>请检查网络设置后重试</view>
+    <view 
+      catchtap="handleLoading"
+      class='c-middle font-xl margin-top--26rpx loading-btn'>重新加载</view>
+  </view>
+
+</view>

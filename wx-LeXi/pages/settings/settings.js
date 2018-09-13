@@ -273,7 +273,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
 
   // 跳转到编辑信息页面

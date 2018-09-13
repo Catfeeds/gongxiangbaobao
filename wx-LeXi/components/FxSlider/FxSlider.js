@@ -199,7 +199,7 @@ Component({
           let _w = res.width / that.data.ratio
 
           that.setData({
-            totalLength: _w - 40*2 - that.data.sliderLength,
+            totalLength: _w - 40 * 2 - that.data.sliderLength,
             bigLength: _w - 40 * 2 - that.data.sliderLength * 2,
             rightValue: _w - 40 * 2 - that.data.sliderLength,
             containerLeft: res.left / that.data.ratio

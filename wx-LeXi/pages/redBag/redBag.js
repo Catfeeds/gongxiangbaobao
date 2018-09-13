@@ -109,6 +109,7 @@ Page({
    */
   onShareAppMessage: function (e) {
     this.getBonusShow()
+    
   },
   //跳转到首页
   handleToIndexTap(){

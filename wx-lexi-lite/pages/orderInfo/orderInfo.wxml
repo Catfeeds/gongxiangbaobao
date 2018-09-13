@@ -61,7 +61,7 @@
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  4 }}">待付款</text>
 
               </text>
-              <text class='hui-zi'>从上海发货</text>
+              <text class='hui-zi'>{{item.store.delivery_province}}</text>
             </view>
 
             <!-- 购买的产品 -->

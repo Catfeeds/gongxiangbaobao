@@ -105,6 +105,31 @@ App({
   },
 
   // 登录后回调事件
+  hookLoginCallBack() {
+    console.log('登录后，执行回调函数')
+    // 获取购物车数量
+    this.getCartTotalCount()
+  },
+
+
+  /**
+ * 分享小程序至好友
+ * 验证生活馆或其他分销信息
+ */
+  getDistributeLifeStoreRid() {
+    let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
+
+    if (!lastVisitLifeStoreRid) {
+      const lifeStore = wx.getStorageSync('lifeStore')
+      if (lifeStore && lifeStore.isSmallB) {
+        lastVisitLifeStoreRid = lifeStore.lifeStoreRid
+      }
+    }
+
+    return lastVisitLifeStoreRid
+  },
+
+  // 登录后回调事件
   hookLoginCallBack () {
     console.log('登录后，执行回调函数')
     // 获取购物车数量
@@ -120,7 +145,7 @@ App({
       username: jwt.username
     }
   },
-
+  
   /**
    * 支付订单
    */
@@ -212,6 +237,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 分享品牌馆的图片路径
+    shareBrandUrl:'',
     // 支付成功后的订单
     paymentSuccessOrder:{},
     // 登录相关信息

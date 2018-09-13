@@ -755,7 +755,7 @@ Page({
     let scene = decodeURIComponent(options.scene)
     let rid = ''
     console.log(scene, 'scene')
-    if (scene && scene != undefined) {
+    if (scene && scene != undefined && scene != 'undefined') {
       let sceneAry = scene.split('-')
       console.log(sceneAry.length)
       rid = sceneAry[0]
