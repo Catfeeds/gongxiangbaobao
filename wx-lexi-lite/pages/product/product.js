@@ -754,12 +754,14 @@ Page({
     // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
-    if (scene && scene != 'undefined') {
+    console.log(scene, 'scene')
+    if (scene && scene != undefined) {
       let sceneAry = scene.split('-')
+      console.log(sceneAry.length)
       rid = sceneAry[0]
       // 生活馆ID
       if (sceneAry.length == 2) {
-        let lifeStoreRid = scene_ary[1]
+        let lifeStoreRid = sceneAry[1]
         app.updateLifeStoreLastVisit(lifeStoreRid)
       }
     } else {
@@ -767,13 +769,12 @@ Page({
     }
 
     this.setData({
-      rid: options.rid,
-      storeRid:options.storeRid,
+      rid: rid,
+      storeRid: options.storeRid,
       cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
-
-
+    
     if (app.globalData.isLogin) {
       this.setData({
         userPhoto: app.globalData.userInfo.avatar
