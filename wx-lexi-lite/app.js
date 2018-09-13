@@ -222,6 +222,7 @@ App({
       scene +=  '-' + lastVisitLifeStoreRid
     }
 
+    console.log('pages/product/product?scene=' + scene)
     return {
       title: title,
       path: 'pages/product/product?scene=' + scene,

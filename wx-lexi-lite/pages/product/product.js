@@ -759,7 +759,7 @@ Page({
       rid = sceneAry[0]
       // 生活馆ID
       if (sceneAry.length == 2) {
-        let lifeStoreRid = scene_ary[1]
+        let lifeStoreRid = sceneAry[1]
         app.updateLifeStoreLastVisit(lifeStoreRid)
       }
     } else {
@@ -767,7 +767,7 @@ Page({
     }
 
     this.setData({
-      rid: options.rid,
+      rid: rid,
       storeRid:options.storeRid,
       cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
