@@ -141,12 +141,14 @@ module.exports = {
   logistics_product_express: 'logistics/product/express', //post获取每件商品的物流公司列表
   cheapLogisitcs: 'logistics/freight/available', // post合适的运费模板---
   calculate_logisitcs: 'logistics/freight/calculate', // post计算运费---
+  logistics_information: 'logistics/information', // 查询物流
   //店铺的主人的
   store_owner_info: 'users/authenticate',
   masterInfo: 'store/master_info',
   users_user_center: 'users/user_center', // 获取用户的收藏 喜欢 设计管
 
   // user
+  orders_order_coupon_count: 'orders/order_coupon_count',// 订单的数量和未使用优惠券的额数量
   users_profile: 'users/profile', //get 获取用户的信息---
   user_browses: 'user_browses', // post添加浏览记录/get获取浏览记录---
   product_userlike: 'product/userlike', // 获取添加喜欢商品的用户
@@ -154,6 +156,6 @@ module.exports = {
   users_followed_users: 'users/followed_users', // 获取关注
   follow_user: 'follow/user', // 添加关注
   unfollow_user: 'unfollow/user', // 取消关注
-  users_followed_stores: 'users/followed_life_stores', // 获取关注店铺的列表
+  users_followed_stores: 'users/followed_stores', // 获取关注店铺的列表
   wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
 }

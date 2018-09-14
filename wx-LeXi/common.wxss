@@ -121,7 +121,7 @@ button::after {
   margin-left: 40rpx;
 }
 
-.fx-modal__main .categories .category.active {
+.fx-modal__main .categories .category.sortActive {
   background: rgba(95, 228, 177, 0.1);
   border-color: rgba(95, 228, 177, 0.7);
 }

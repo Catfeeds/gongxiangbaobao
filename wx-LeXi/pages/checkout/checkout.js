@@ -58,13 +58,11 @@ Page({
         console.log(result.data,"是否属于首单")
         this.setData({
           isFirstOrder:result.data.is_new_user
+          
         })
       }else{
         utils.fxShowToast(result.status.message)
       }
-
-
-
     })
   },
 
@@ -101,14 +99,15 @@ Page({
     var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 -  this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000)/1000
 
     if (this.data.isFirstOrder){
-      lastPrice = lastPrice *0.9
+      
       this.setData({
-        ['pageOrderInfo.firstOrderPrice']:lastPrice*0.1
+        ['pageOrderInfo.firstOrderPrice']: (lastPrice * 0.1).toFixed(2)
       })
+      lastPrice = lastPrice * 0.9
     }
 
     this.setData({
-      ['pageOrderInfo.alstPrice']: lastPrice
+      ['pageOrderInfo.alstPrice']: lastPrice.toFixed(2)
     })
   },
 
@@ -120,7 +119,7 @@ Page({
       console.log(result, '首单优惠')
       if (result) {
         this.setData({
-          ['pageOrderInfo.firstOrderPrice']: result.data.discount_amount
+          ['pageOrderInfo.firstOrderPrice']: result.data.discount_amount.toFixed(2)
         }, () => {
           this.orderLastPrice() // 订单总计
         })
@@ -175,7 +174,7 @@ Page({
 
           this.setData({
             fullReductionList: result.data,
-            ['pageOrderInfo.fullSubtraction']: fullSubtractionPrice
+            ['pageOrderInfo.fullSubtraction']: fullSubtractionPrice.toFixed(2)
           }, () => {
             this.orderLastPrice() // 订单总计
           })
@@ -240,9 +239,6 @@ Page({
     // })
 
     console.log(this.data.orderInfomation, "选择后的优惠卷")
-
-    
-
     let option = e.detail.value
     let coupon = JSON.parse(option)
  
@@ -250,7 +246,7 @@ Page({
       orderInfomation: item,
       authoritativeCouponPrice: coupon.amount,
       storeOrAuthoritativeCouponPick: false,
-      ['pageOrderInfo.couponPrice']: coupon.amount - 0
+      ['pageOrderInfo.couponPrice']: (coupon.amount - 0).toFixed(2)
     })
 
     this.orderLastPrice() // 计算最后金额
@@ -294,7 +290,7 @@ Page({
           this.setData({
             paymentBtn: true,
             itemOrderLogisticsPrice: result.data,
-            ['pageOrderInfo.logisticsPrice']: sum
+            ['pageOrderInfo.logisticsPrice']: sum.toFixed(2)
           }, () => {
             this.orderLastPrice() //计算总额
           })
@@ -409,7 +405,7 @@ Page({
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
-      ['pageOrderInfo.firstPrice']: generalPrice
+      ['pageOrderInfo.firstPrice']: generalPrice.toFixed(2)
     }, () => {
       this.getFullReduction() // 获取满减
       this.getCouponList() // 获取优惠券
@@ -436,7 +432,7 @@ Page({
       })
 
       this.setData({
-        ['pageOrderInfo.couponPrice']: couponPriceSum
+        ['pageOrderInfo.couponPrice']: couponPriceSum.toFixed(2)
       }, () => {
         this.orderLastPrice() // 计算最后金额
       })
@@ -559,7 +555,6 @@ Page({
         
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
-
 
         let currentOrder = result.data.orders[0]
         app.wxpayOrder(currentOrder.rid, result.data.pay_params)

@@ -150,6 +150,7 @@ App({
    * 支付订单
    */
   wxpayOrder: function(rid, payParams, cb) {
+    console.log(rid, payParams,"支付参数")
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),

@@ -783,6 +783,7 @@ Page({
             themeProduct: result.data
           })
         } else {
+          console.log(result.data, '优质精选')
           this.setData({
             highQualityProduct: result.data
           })
@@ -810,69 +811,148 @@ Page({
   },
 
   // 获取与登录用户相关的店铺优惠券 or 满减
-  getCouponsByUser(type = ' ') {
-    this.setData({
-      ['couponParams.type']: type
-    })
-    // 优惠券
-    http.fxGet(api.user_login_coupon, this.data.couponParams, (result) => {
+  // getCouponsByUser(type = ' ') {
+  //   this.setData({
+  //     ['couponParams.type']: type
+  //   })
+  //   // 优惠券
+  //   http.fxGet(api.user_login_coupon, this.data.couponParams, (result) => {
+  //     if (result.success) {
+  //       if (type != 3) {
+  //         console.log(result, '登陆的优惠券')
+  //         let parms = result.data
+  //         parms.coupons.forEach((v,i)=>{
+  //           v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+  //           v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+  //         })
+
+  //         this.setData({
+  //           couponList: result.data
+  //         })
+  //         app.globalData.couponList = result.data
+  //       } else {
+  //         console.log(result, '登陆的满减')
+  //         // 调取满减
+  //         this.getCoupons('loginFullSubtractionList')
+
+  //       }
+  //     } else {
+  //       utils.fxShowToast(result.status.message)
+  //     }
+  //   })
+  // },
+
+  // 用户未登录时获取店铺优惠券 or 满减活动列表
+  // getCoupons(e) {
+  //   http.fxGet(api.coupons, {}, (result) => {
+  //     console.log(result, '没有登陆获取优惠券')
+  //     if (result.success) {
+  //       let coupon = [] // 优惠券
+  //       let full = [] // 满减券
+  //       result.data.coupons.forEach((v, i) => {
+  //         console.log(v)
+  //         if (v.type == 3) {
+  //           full.push(v)
+  //         } else {
+  //           coupon.push(v)
+  //         }
+  //       })
+  //       // 如果是登陆状态下调取直接赋值满减
+  //       if (e == "loginFullSubtractionList") {
+  //         this.setData({
+  //           ['fullSubtractionList.coupons']: full
+  //         })
+  //         app.globalData.fullSubtractionList = result.data
+  //         console.log(result.data,"满减")
+  //       } else {
+  //         this.setData({
+  //           ['couponList.coupons']: coupon, // 优惠券列表---couponList
+  //           ['fullSubtractionList.coupons']: full, // 满减---
+  //         })
+  //         app.globalData.fullSubtractionList.coupons = full
+  //         app.globalData.couponList.coupons = coupon
+  //       }
+  //       console.log(full,'满减')
+  //       console.log(full,'满减')
+  //     } else {
+  //       utils.fxShowToast(result.status.message)
+  //     }
+  //   })
+  // },
+
+  // 用户登录优惠券
+  getCouponsByUser() {
+    console.log(this.data.originalStoreRid, "原店铺的rid")
+
+    http.fxGet(api.user_login_coupon, {}, (result) => {
+      console.log(result, '登陆的优惠券')
+
+      result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+        v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+      })
+
       if (result.success) {
-        if (type != 3) {
-          console.log(result, '登陆的优惠券')
-          let parms = result.data
-          parms.coupons.forEach((v,i)=>{
-            v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
-            v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
-          })
-
-          this.setData({
-            couponList: result.data
-          })
-          app.globalData.couponList = result.data
-        } else {
-          console.log(result, '登陆的满减')
-          // 调取满减
-          this.getCoupons('loginFullSubtractionList')
-
-        }
+        this.setData({
+          couponList: result.data
+        })
+        app.globalData.couponList = result.data
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  // 用户未登录时获取店铺优惠券 or 满减活动列表
+  // 未登录的优惠群 和 满减
   getCoupons(e) {
-    http.fxGet(api.n, {}, (result) => {
+    http.fxGet(api.noCouponsList, {}, (result) => {
       console.log(result, '没有登陆获取优惠券')
+
       if (result.success) {
+        result.data.coupons.forEach((v, i) => {
+          v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
+          v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+        })
+
         let coupon = [] // 优惠券
         let full = [] // 满减券
-        result.data.coupons.forEach((v, i) => {
-          console.log(v)
-          if (v.type == 3) {
-            full.push(v)
-          } else {
-            coupon.push(v)
-          }
-        })
-        // 如果是登陆状态下调取直接赋值满减
-        if (e == "loginFullSubtractionList") {
-          this.setData({
-            ['fullSubtractionList.coupons']: full
+
+        if (e == "manjian") {
+          console.log("满减")
+          // 登陆， 筛选满减
+          result.data.coupons.forEach((v, i) => {
+            console.log(v)
+            if (v.type == 3) {
+              full.push(v)
+            }
           })
+
+          this.setData({
+            'fullSubtractionList.coupons': full
+          })
+
+          console.log(this.data.fullSubtractionList,"满减")
           app.globalData.fullSubtractionList = result.data
-          console.log(result.data,"满减")
+
         } else {
+          // 未登录
+          result.data.coupons.forEach((v, i) => {
+            console.log(v)
+            if (v.type == 3) {
+              full.push(v)
+            } else {
+              coupon.push(v)
+            }
+          })
+
           this.setData({
             ['couponList.coupons']: coupon, // 优惠券列表---couponList
-            ['fullSubtractionList.coupons']: full, // 满减---
+            'fullSubtractionList.coupons': full, // 满减---
           })
           app.globalData.fullSubtractionList.coupons = full
           app.globalData.couponList.coupons = coupon
         }
-        console.log(full,'满减')
-        console.log(full,'满减')
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -992,8 +1072,11 @@ Page({
       // 查看是否关注
       this.getIsWatch()
 
+      // this.getCouponsByUser()
+      // this.getCouponsByUser(3)
+
       this.getCouponsByUser()
-      this.getCouponsByUser(3)
+      this.getCoupons("manjian")
     } else { 
       // 用户未登录时
       this.getCoupons()

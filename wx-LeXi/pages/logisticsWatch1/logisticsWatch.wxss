@@ -22,13 +22,9 @@
   padding: 20rpx 0;
 }
 
-.logisticsPhoto image {
-  opacity: 0.5,
-}
-
 .logisticsPhoto image:nth-child(1) {
   height: 40rpx;
-  width: 34rpx;
+  width: 36rpx;
 }
 
 .logisticsPhoto image:nth-child(2) {
@@ -37,8 +33,8 @@
 }
 
 .logisticsPhoto image:nth-child(3) {
-  height: 40rpx;
-  width: 40rpx;
+  height: 42rpx;
+  width: 42rpx;
 }
 
 .logisticsIcon {
@@ -144,8 +140,4 @@
 }
 .textR{
   color: #FF6666;
-}
-
-.opacity {
-  opacity: 1;
 }

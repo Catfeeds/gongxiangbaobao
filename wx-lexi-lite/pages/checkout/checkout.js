@@ -65,10 +65,12 @@ Page({
     var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 -  this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000)/1000
 
     if (this.data.isFirstOrder){
-      lastPrice = lastPrice *0.9
+      
       this.setData({
-        ['pageOrderInfo.firstOrderPrice']: lastPrice*0.1
+        ['pageOrderInfo.firstOrderPrice']: (lastPrice * 0.1).toFixed(2)
       })
+      lastPrice = lastPrice * 0.9
+
     }
 
     this.setData({
@@ -79,7 +81,7 @@ Page({
   // 首单优惠
   getFirst() {
     http.fxPost(api.first_order_reduction, {
-      pay_amount: this.data.pageOrderInfo.firstPrice
+      pay_amount: this.data.pageOrderInfo.firstPrice.toFixed(2)
     }, (result) => {
       console.log(result, '首单优惠')
       if (result) {
@@ -300,6 +302,7 @@ Page({
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
+
       console.log(result, '新增订单')
       if (result.success) {
         
@@ -498,7 +501,7 @@ Page({
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
-      'pageOrderInfo.firstPrice': generalPrice
+      'pageOrderInfo.firstPrice': generalPrice.toFixed(2)
     }, () => {
       this.getFullReduction() // 获取满减
       this.getCouponList() // 获取优惠券

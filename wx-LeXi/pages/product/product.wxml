@@ -62,7 +62,7 @@
     <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
       <view class='coupon-message'>
         <!-- 优惠券 -->
-        <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
+        <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
           <view class=''>
             <image src='../../images/coupon-icon@2.png'></image>
             <text>领取设计馆优惠红包</text>
@@ -71,7 +71,7 @@
         </view>
 
         <!-- 满减 -->
-        <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
+        <view class='reduced-price' wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
           <image src='../../images/reduced-price@2.png'></image>
           <text class="reduced-price_text" wx:for="{{ fullSubtractionList }}" wx:key="{{ index }}">{{ item.type_text }}</text>
           <view class='reduced-price__last' wx:if="{{fullSubtractionList.length>2&&couponList.coupons.length != 0}}"> ... </view>
@@ -113,7 +113,7 @@
       </view>
       <view class='goodstext margin-bottom--12rpx'>
         <text class='titlemini'>材质：</text>
-        <text>{{ productInfomation.material_id }}</text>
+        <text>{{ productInfomation.material_name }}</text>
       </view>
       <view class='goodstext margin-bottom--12rpx' wx:if='{{ productInfomation.is_custom_service }}'>
         <text class='titlemini'>特点： </text>
@@ -132,9 +132,9 @@
     </view>
 
     <!-- 交货时间 -->
-    <view class='otherInfo-describe location '>
+    <view class='otherInfo-describe location' wx:if="{{productInfomation.py_intro!=null||logisticsTime.min_days}}">
       <view class='titleText'>交货时间</view>
-      <view class='goodstext margin-bottom--30rpx'>预计{{logisticsTime.min_days}}-{{logisticsTime.max_days}}天到达
+      <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
       </view>
     </view>
 
