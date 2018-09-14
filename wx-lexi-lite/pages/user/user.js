@@ -6,7 +6,7 @@ const utils = require('./../../utils/util.js')
 
 Page({
   /**
-   * 页面的初始数据
+   * 页面的初始数
    */
   data: {
     readyOver:false, // 页面加载是否完成
