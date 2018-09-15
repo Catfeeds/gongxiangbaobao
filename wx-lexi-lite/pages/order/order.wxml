@@ -1,7 +1,6 @@
 <!--pages/order/order.wxml 订单状态-->
 <view class='container theme-bg-color'>
-  <!-- 添加页面加载 -->
-  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
+
 
   <!-- 头部导航 -->
   <view class="page-order__nav">
@@ -14,11 +13,11 @@
   <view class='orderInfoBox bg-white'>
 
     <!-- 全部订单 -->
-    <block wx:if="{{currentStatus==0}}">
+    <view wx:if="{{currentStatus==0}}">
       <!-- 每一笔订单 -->
-      <view wx:for="{{ orderList }}" data-rid='{{ order.rid }}' bindtap='handleViewDetail'  wx:key="{{ index }}" wx:for-item="order" class='component productAndShopInfoBox'>
+      <view wx:for="{{ allOrderList }}" data-rid='{{ order.rid }}' bindtap='handleViewDetail' wx:key="{{ index }}" wx:for-item="order" class='component productAndShopInfoBox 1'>
         <!-- 每一家商家  -->
-        <view >
+        <view>
           <!-- 每一家商家  -->
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
@@ -42,14 +41,19 @@
                 <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==5 }}">已完成</text>
                 <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==6 }}">已取消</text>
 
-                <!-- <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==90 }}">已退款</text> -->
                 </text>
                 <text class='price'>￥{{ order.pay_amount }}</text>
               </view>
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
-                <fx-product-middleM photoHeight="{{120}}" photoWidth="{{120}}" shopingNumber='{{ true }}' product="{{ item }}">
-                </fx-product-middleM>
+
+                <view class='flex-row'>
+                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <view class='margin-left--20'>
+                    <view class='order-product__name'>{{item.product_name}}</view>
+                    <view class='order-product__shuliang'>x{{item.quantity}}</view>
+                  </view>
+                </view>
               </view>
             </view>
           </view>
@@ -75,14 +79,14 @@
           </view>
         </view>
       </view>
-    </block>
+    </view>
 
     <!-- 待付款订单 -->
-    <block wx:if="{{currentStatus==4}}">
+    <view wx:if="{{currentStatus==4}}">
       <!-- 每一笔订单 -->
-      <view wx:for="{{ orderList }}" data-rid='{{ order.rid }}' bindtap='handleViewDetail' wx:key="{{ index }}" wx:for-item="order" wx:if="{{ order.user_order_status == 4 }}" class='component productAndShopInfoBox'>
+      <view wx:for="{{ daifu }}" data-rid='{{ order.rid }}' bindtap='handleViewDetail' wx:key="{{ index }}" wx:for-item="order" class='component productAndShopInfoBox 2'>
         <!-- 每一家商家  -->
-        <view >
+        <view>
           <!-- 每一家商家  -->
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
@@ -95,24 +99,21 @@
                 <text class='shopName'>{{ order.store.store_name }}</text>
                 <text class='order-aggregate hui-zi order_sum'>订单总计</text>
               </view>
-
               <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
                 <text>
               <text class='hui-zi order-aggregate'>{{order.created_item}}·状态：</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 1 }}">待发货</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 2 }}">待收货</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 3 }}">待评价</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 4 }}">待付款</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 5 }}">已完成</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 6 }}">已取消</text>
-                <!-- <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==90 }}">已退款</text> -->
+                <text class='nonePayment theme-green'>待付款</text>
                 </text>
                 <text class='price'>￥{{ order.pay_amount }}</text>
               </view>
-
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
-                <fx-product-middleM photoHeight="{{120}}" photoWidth="{{120}}" shopingNumber='{{ true }}' product="{{ item }}">
-                </fx-product-middleM>
+                <view class='flex-row'>
+                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <view class='margin-left--20'>
+                    <view class='order-product__name'>{{item.product_name}}</view>
+                    <view class='order-product__shuliang'>x{{item.quantity}}</view>
+                  </view>
+                </view>
               </view>
             </view>
           </view>
@@ -126,68 +127,116 @@
           </view>
         </view>
       </view>
-    </block>
+    </view>
 
-    <!-- 代发货订单 -->
-    <block wx:if="{{currentStatus==1}}">
+    <!-- 待发货订单 -->
+    <view wx:if="{{currentStatus===1}}">
       <!-- 每一笔订单 -->
-      <view wx:for="{{ orderList }}" wx:key="{{ index }}" data-rid='{{ order.rid }}' bindtap='handleViewDetail' wx:for-item="order" wx:if="{{ order.user_order_status == 1 }}
-      class='component productAndShopInfoBox'>
-      <!-- 每一家商家  -->
-      <view >
+      <view wx:for="{{daifa}}" wx:key="{{ index }}" data-rid='{{order.rid }}' wx:for-item="product" bindtap='handleViewDetail' class='component productAndShopInfoBox'>
         <!-- 每一家商家  -->
-        <view class='productAndShopInfo'>
-          <!-- 店铺头像 -->
-          <view class='shopPhoto'>
-            <image src='{{ order.store.store_logo }}'></image>
-          </view>
-          <!-- 右面的信息 -->
-          <view class='productinfo'>
-            <view class='shopNameBox'>
-              <text class='shopName'>{{ order.store.store_name }}</text>
-              <text class='order-aggregate hui-zi order_sum'>订单总计</text>
+        <view>
+          <!-- 每一家商家  -->
+          <view class='productAndShopInfo'>
+            <!-- 店铺头像 -->
+            <view class='shopPhoto'>
+              <image src='{{ product.store.store_logo }}'></image>
             </view>
+            <!-- 右面的信息 -->
+            <view class='productinfo'>
+              <view class='shopNameBox'>
+                <text class='shopName'>{{ product.store.store_name }}</text>
+                <text class='order-aggregate hui-zi order_sum'>订单总计</text>
+              </view>
 
-            <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
-              <text>
-              <text class='hui-zi order-aggregate'>{{order.created_item}}·状态：</text>
-              <text class='nonePayment theme-green' wx:if=" {{ order.user_order_status==1 }} ">待发货</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==2 }} ">待收货</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==3 }} ">待评价</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==4 }} ">待付款</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==5 }} ">已完成</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==6 }} ">已取消</text>
-              <!-- <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==90 }} ">已退款</text> -->
-              </text>
-              <text class='price'>￥{{ order.pay_amount }}</text>
-            </view>
+              <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
+                <text>
+              <text class='hui-zi order-aggregate'>{{product.created_item}}·状态：</text>
+                <text class='nonePayment theme-green'>待发货</text>
 
-            <view class='goodsBox' wx:key="{{ index }} " wx:for="{{ order.items }} ">
-              <fx-product-middleM 
-                photoHeight="{{120}} "
-                photoWidth="{{120}} "
-                shopingNumber='{{ true }}'
-                product="{{ item }} ">
-              </fx-product-middleM>
+                </text>
+                <text class='price'>￥{{ product.pay_amount }}</text>
+              </view>
+
+              <view class='goodsBox' wx:for="{{ product.items}}" wx:key="{{ index }} " wx:for-item="itm">
+
+                <view class='flex-row'>
+                  <image class="order-product__photo" src='{{itm.cover}}'></image>
+                  <view class='margin-left--20'>
+                    <view class='order-product__name'>{{itm.product_name}}</view>
+                    <view class='order-product__shuliang'>x{{itm.quantity}}</view>
+
+                  </view>
+                </view>
+              </view>
             </view>
           </view>
         </view>
+
       </view>
-
     </view>
-  </block>
 
-  <!-- 待收货订单 -->
-  <block wx:if="{{currentStatus==2}} "> 
-    <!-- 每一笔订单 -->
-    <view 
-      wx:for="{{ orderList }} " 
-      wx:key="{{ index }} " 
-      wx:for-item="order " 
-      data-rid='{{ order.rid }}' bindtap='handleViewDetail'
-      wx:if="{{ order.user_order_status==2 }}" class='component productAndShopInfoBox'>
+    <!-- 待收货订单 -->
+    <view wx:if="{{currentStatus===2}}">
+      <!-- 每一笔订单 -->
+      <view wx:for="{{daishou}}" wx:key="{{ index }}" data-rid='{{ item.rid }}' bindtap='handleViewDetail' class='component productAndShopInfoBox 3'>
         <!-- 每一家商家  -->
-        <view >
+        <view>
+          <!-- 每一家商家  -->
+          <view class='productAndShopInfo'>
+            <!-- 店铺头像 -->
+            <view class='shopPhoto'>
+              <image src='{{ item.store.store_logo }}'></image>
+            </view>
+            <!-- 右面的信息 -->
+            <view class='productinfo'>
+              <view class='shopNameBox'>
+                <text class='shopName'>{{ item.store.store_name }}</text>
+                <text class='order-aggregate hui-zi order_sum'>订单总计</text>
+              </view>
+
+              <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
+                <text>
+              <text class='hui-zi order-aggregate'>{{item.created_item}}·状态：</text>
+
+                <text class='nonePayment theme-green'>待收货</text>
+                </text>
+                <text class='price'>￥{{ item.pay_amount }}</text>
+              </view>
+
+              <view class='goodsBox' wx:key="{{ index }} " wx:for="{{ item.items }}" wx:for-item="itm">
+                <view class='flex-row'>
+                  <image class="order-product__photo" src='{{itm.cover}}'></image>
+                  <view class='margin-left--20'>
+                    <view class='order-product__name'>{{itm.product_name}}</view>
+                    <view class='order-product__shuliang'>x{{itm.quantity}}</view>
+                  </view>
+                </view>
+              </view>
+
+            </view>
+          </view>
+        </view>
+
+        <!-- 付款和其他按钮 -->
+        <view class='fnBtn'>
+
+          <view data-code="{{order.items[0].express_code}} " data-express-name="{{order.items[0].express_name}} " data-logistics-number="{{order.items[0].express_no}} " class='delleteOrder hui-zi' catchtap='logTop'>
+            物流跟踪
+          </view>
+          <view data-index="{{index}} " data-rid="{{order.rid}} " catchtap="handleReceive " class='critiqueBtn'>
+            确认收货
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 待评价订单 -->
+    <view wx:if="{{currentStatus==3}}">
+      <!-- 每一笔订单 -->
+
+      <view wx:for="{{ daiping }}" wx:key="{{ index }} " wx:for-item="order" data-rid='{{ order.rid }}' bindtap='handleViewDetail' class='component productAndShopInfoBox 4'>
+        <!-- 每一家商家  -->
+        <view>
           <!-- 每一家商家  -->
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
@@ -204,20 +253,22 @@
               <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
                 <text>
               <text class='hui-zi order-aggregate'>{{order.created_item}}·状态：</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 1 }}">待发货</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 2 }}">待收货</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 3 }}">待评价</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 4 }}">待付款</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 5 }}">已完成</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 6 }}">已取消</text>
-                <!-- <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==90 }}">已退款</text> -->
+
+                <text class='nonePayment theme-green'>待评价</text>
+
                 </text>
                 <text class='price'>￥{{ order.pay_amount }}</text>
               </view>
 
-              <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
-                <fx-product-middleM photoHeight="{{120}}" photoWidth="{{120}}" shopingNumber='{{ true }}' product="{{ item }}">
-                </fx-product-middleM>
+              <view class='goodsBox' wx:key="{{ index }} " wx:for="{{ order.items }}">
+                <view class='flex-row'>
+                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <view class='margin-left--20'>
+                    <view class='order-product__name'>{{item.product_name}}</view>
+                    <view class='order-product__shuliang'>x{{item.quantity}}</view>
+
+                  </view>
+                </view>
               </view>
             </view>
           </view>
@@ -225,89 +276,18 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-
-          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
+          <view catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
+            删除订单
+          </view>
+          <view data-code="{{order.items[0].express_code}} " data-express-name="{{order.items[0].express_name}} " data-logistics-number="{{order.items[0].express_no}} " class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
           </view>
-          <view data-index="{{index}}" data-rid="{{order.rid}}" catchtap="handleReceive" class='critiqueBtn'>
-            确认收货
+          <view data-product='{{ order }}' class='critiqueBtn' catchtap='critiqueTap'>
+            去评价
           </view>
-        </view>
-      </view>
-    </block>
-
-    <!-- 待评价订单 -->
-    <block wx:if="{{currentStatus==3}}">
-      <!-- 每一笔订单 -->
-      
-      <view wx:for="{{ orderList }}" wx:key="{{ index }}" wx:for-item="order" data-rid='{{ order.rid }}' bindtap='handleViewDetail' wx:if="{{ order.user_order_status == 3 }}
-      class='component productAndShopInfoBox'>
-      <!-- 每一家商家  -->
-      <view >
-        <!-- 每一家商家  -->
-        <view class='productAndShopInfo'>
-          <!-- 店铺头像 -->
-          <view class='shopPhoto'>
-            <image src='{{ order.store.store_logo }}'></image>
-          </view>
-          <!-- 右面的信息 -->
-          <view class='productinfo'>
-            <view class='shopNameBox'>
-              <text class='shopName'>{{ order.store.store_name }}</text>
-              <text class='order-aggregate hui-zi order_sum'>订单总计</text>
-            </view>
-
-            <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
-              <text>
-              <text class='hui-zi order-aggregate'>{{order.created_item}}·状态：</text>
-              <text class='nonePayment theme-green' wx:if=" {{ order.user_order_status==1 }} ">待发货</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==2 }} ">待收货</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==3 }} ">待评价</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==4 }} ">待付款</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==5 }} ">已完成</text>
-              <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==6 }} ">已取消</text>
-              <!-- <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==90 }} ">已退款</text> -->
-              </text>
-              <text class='price'>￥{{ order.pay_amount }}</text>
-            </view>
-
-            <view class='goodsBox' wx:key="{{ index }} " wx:for="{{ order.items }} ">
-              <fx-product-middleM 
-                photoHeight="{{120}} "
-                photoWidth="{{120}} "
-                shopingNumber='{{ true }}'
-                product="{{ item }} ">
-              </fx-product-middleM>
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <!-- 付款和其他按钮 -->
-      <view class='fnBtn'>
-        <view 
-          catchtap='deleteOrderTap' 
-          class='delleteOrder hui-zi' 
-          data-rid="{{ order.rid }} ">
-          删除订单
-        </view>
-        <view 
-          data-code="{{order.items[0].express_code}} "
-          data-express-name="{{order.items[0].express_name}} "
-          data-logistics-number="{{order.items[0].express_no}} "
-          class='delleteOrder hui-zi' 
-          catchtap='logTop'>
-          物流跟踪
-        </view>
-        <view 
-          data-product='{{ order }}' 
-          class='critiqueBtn' 
-          catchtap='critiqueTap'>
-          去评价
         </view>
       </view>
     </view>
-  </block>
 
   </view>
 </view>

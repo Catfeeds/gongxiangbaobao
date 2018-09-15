@@ -1,5 +1,7 @@
 /**app.wxss**/
 @import 'common.wxss';
+@import 'iphone6.wxss';
+@import 'samsung.wxss';
 
 /* 布局 */
 .m-r-30 {

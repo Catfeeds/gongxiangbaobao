@@ -25,7 +25,9 @@
           </view>
           <view class="line"></view>
           <input type="text" class="input-inner" bindblur="handleChangeMobile" name="mobile" placeholder="你的手机号" />
-          <button bindtap="handleGotCode" class="fetch-verify-code fx-button--text">获取验证码</button>
+          <button bindtap="handleGotCode" wx:if="{{ isShowMessage}}" class="fetch-verify-code fx-button--text">获取验证码</button>
+          <button wx:if="{{ !isShowMessage}}"  class="fetch-verify-code fx-button--text">{{time}}s</button>
+
         </view>
 
         <view class="fx-input">

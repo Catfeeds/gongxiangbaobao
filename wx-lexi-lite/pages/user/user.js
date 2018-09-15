@@ -140,7 +140,8 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores[' + index + '].followed_status']: 1
+          ['watchStoreList.stores[' + index + '].followed_status']: 1,
+          ['classList[' + 2 + '].num']: this.data.classList[2].num+1
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -160,7 +161,8 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores[' + index + '].followed_status']: 0
+          ['watchStoreList.stores[' + index + '].followed_status']: 0,
+          ['classList[' + 2 + '].num']: this.data.classList[2] .num-1
         })
       } else {
         utils.fxShowToast(result.status.message)

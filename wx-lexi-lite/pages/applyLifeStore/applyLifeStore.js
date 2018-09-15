@@ -3,6 +3,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+let interval
 
 Page({
 
@@ -10,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowMessage: true, // 验证码和读秒
+    time: 60, // 时间
     activePage: 'apply-form', // apply-result
     form: {
       name: '',
@@ -27,7 +30,7 @@ Page({
   /**
    * 跳转至生活馆
    */
-  handGoLifeStore () {
+  handGoLifeStore() {
     wx.redirectTo({
       url: '/pages/lifeStore/lifeStore'
     })
@@ -36,7 +39,7 @@ Page({
   /**
    * 提交申请
    */
-  handleSubmitApply (e) {
+  handleSubmitApply(e) {
     http.fxPost(api.life_store_apply, e.detail.value, (res) => {
       console.log(res, '开通生活馆')
       if (res.success) {
@@ -52,7 +55,7 @@ Page({
   /**
    * 输入手机号
    */
-  handleChangeMobile (e) {
+  handleChangeMobile(e) {
     this.setData({
       'form.mobile': e.detail.value
     })
@@ -61,7 +64,7 @@ Page({
   /**
    * 获取验证码
    */
-  handleGotCode () {
+  handleGotCode() {
     if (!this.data.form.mobile) {
       utils.fxShowToast('请先输入你的手机号')
       return
@@ -76,17 +79,39 @@ Page({
     }, (res) => {
       console.log(res, '发送验证码')
       if (res.success) {
-        
+        this.setData({
+          isShowMessage: false // 隐藏获取验证码显示读秒
+        })
+
+        this.handleInterval() // 处理倒计时
+
       } else {
         utils.fxShowToast(res.status.message)
       }
     })
   },
 
+// 处理倒计时
+  handleInterval() {
+    interval= setInterval(() => {
+      console.log(11)
+      if (this.data.time > 0) {
+        this.setData({
+          time:this.data.time-1
+        })
+      }else{
+        clearInterval(interval)
+        this.setData({
+          isShowMessage:true,
+          time:60
+        })
+      }
+    }, 1000)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // 从本地缓存中获取数据
     const lifeStore = wx.getStorageSync('lifeStore')
 
@@ -101,49 +126,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   }
 })
