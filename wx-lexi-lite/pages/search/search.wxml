@@ -47,7 +47,7 @@
     </view>
 
     <!-- 最近记录 -->
-    <view class='bg-white last-record' wx:if="{{highQualityList.products.length!=0}}">
+    <view class='bg-white last-record' wx:if="{{highQualityList.products.length!=0&&highQualityList.length!=0}}">
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>最近查看</view>
       <scroll-view scroll-x>
 
@@ -63,7 +63,7 @@
     <view class="bg-white last-record hot-recommend">
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>热门推荐</view>
       <view class=" hot-recommend__bottom c-crosswise-a">
-        <view class="fx-column--center font-s">
+        <view class="fx-column--center font-s" catchtap="handleToCustomized">
           <image src="https://static.moebeast.com/static/img/jiedan.png"></image>
           <view>接单订制</view>
         </view>

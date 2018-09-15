@@ -560,6 +560,12 @@ Page({
        is_mobile: false
     })
   },
+  // 关闭登陆框
+  hanleOffLogin(e) {
+    console.log(e)
+    wx.showTabBar()
+
+  },
   
   // 关注页面跳转
   handleWatchTap() {
@@ -659,7 +665,7 @@ Page({
 
   //关闭登陆框
   handelOffTap(){
-    utils.handleShowTabBar()
+    wx.showTabBar()
     this.setData({
       is_mobile:false
     })

@@ -86,6 +86,8 @@ Page({
 
   // 浏览记录
   getHighQuality() {
+    // 是否登陆
+
     let jwt = wx.getStorageSync("jwt")
     let openid = jwt.openid
     http.fxGet(api.user_browses, { openid: openid}, (result) => {
@@ -191,6 +193,13 @@ Page({
       })
     }
 
+  },
+
+  // 跳转接单定做
+  handleToCustomized(){
+    wx.navigateTo({
+      url: '../customized/customized',
+    })
   },
 
   // 跳转到商品详情---

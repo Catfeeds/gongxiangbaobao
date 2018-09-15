@@ -27,8 +27,8 @@
 }
 
 .critique-star image {
-  height: 38rpx;
-  width: 42rpx;
+  height: 40rpx;
+  width: 40rpx;
   margin: 0 10rpx;
 }
 

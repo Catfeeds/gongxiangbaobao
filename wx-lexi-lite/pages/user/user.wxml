@@ -265,7 +265,9 @@
   </view>
 
   <!-- 登陆注册模态框 -->
+   <view catchtap='hanleOffLogin'>
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+  </view>
 
   <!-- 排序的呼出框 -->
   <view class='login-bind_box--style' catchtap='handleSortOff' wx:if="{{isSortShow}}">

@@ -16,7 +16,6 @@
       <view class='critique-top '>
         <view class='critique-star'>
           <image 
-            
             wx:for="{{star_list}}" 
             wx:for-item='star_item'
             wx:key="{{star_item}}" 
