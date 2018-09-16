@@ -1,0 +1,2 @@
+/* pages/customized/customized.wxss */
+@import "../user/user.wxss";

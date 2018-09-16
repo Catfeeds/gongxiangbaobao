@@ -140,7 +140,8 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores[' + index + '].followed_status']: 1
+          ['watchStoreList.stores[' + index + '].followed_status']: 1,
+          ['classList[' + 2 + '].num']: this.data.classList[2].num+1
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -160,7 +161,8 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores[' + index + '].followed_status']: 0
+          ['watchStoreList.stores[' + index + '].followed_status']: 0,
+          ['classList[' + 2 + '].num']: this.data.classList[2] .num-1
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -560,6 +562,12 @@ Page({
        is_mobile: false
     })
   },
+  // 关闭登陆框
+  hanleOffLogin(e) {
+    console.log(e)
+    wx.showTabBar()
+
+  },
   
   // 关注页面跳转
   handleWatchTap() {
@@ -659,7 +667,7 @@ Page({
 
   //关闭登陆框
   handelOffTap(){
-    utils.handleShowTabBar()
+    wx.showTabBar()
     this.setData({
       is_mobile:false
     })
