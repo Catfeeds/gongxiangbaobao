@@ -34,7 +34,7 @@
     </view>
     <view class='time-top margin-bottom--18rpx'>
       <text class='hui-zi'>配送：</text>
-      <text class='logistics_text font-s'>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : pageOrderInfo.logisticsPrice }}</text>
+      <text class='logistics_text font-s'>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : "￥"+pageOrderInfo.logisticsPrice }}</text>
     </view>
     <view class='time-top margin-bottom--14rpx' wx:if="{{isFirstOrder}}">
       <text class='hui-zi'>首单优惠：</text>

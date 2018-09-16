@@ -39,7 +39,7 @@
     <!-- 海关照片信息 -->
     <view wx:if="{{ needUserCustom == 1 }}">
       <view class='title'>海关政策要求，请填写身份证。加密保存，仅用于海关清关</view>
-      <view class='identificationText'>
+      <view class='identificationText flex-direction__column--center'>
         <input bindinput="handleIdCardChange" placeholder-class="phcolor" placeholder="填写收件人身份证" value='{{ form.id_card }}' type='number'></input>
       </view>
       <view class='identificationPhoto'>
