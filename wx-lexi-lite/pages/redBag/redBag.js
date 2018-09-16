@@ -5,6 +5,7 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+let scrollInterval
 
 Page({
 
@@ -28,9 +29,10 @@ Page({
 
   //处理获得红包box卷曲
   handleTimeScroll(){
-    console.log(1)
-    setInterval(()=>{
-      if (this.data.topKey==-440){
+    clearInterval(scrollInterval)
+    
+    scrollInterval = setInterval(()=>{
+      if (this.data.topKey==-384){
         this.setData({
           topKey: 0
         })
@@ -40,7 +42,7 @@ Page({
         })
       }
       
-    },100000)
+    },80)
 
   },
   //活动规则内容呼出
@@ -86,6 +88,9 @@ Page({
           }
           this.setData({
             bonusLines: result.data.bonus_lines,
+            'bonusLines[10]': result.data.bonus_lines[0],
+            'bonusLines[11]': result.data.bonus_lines[1],
+            'bonusLines[12]': result.data.bonus_lines[2],
             bonusCount: result.data.bonus_count
           })
 
@@ -179,7 +184,7 @@ Page({
 
             this.setData({
               bonusCount: this.data.bonusCount + 1,
-              bonusLines: bonusLines.push(addObject)
+              // bonusLines: bonusLines.push(addObject)
             })
 
           }else{
