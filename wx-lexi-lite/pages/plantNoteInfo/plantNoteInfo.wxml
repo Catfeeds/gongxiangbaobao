@@ -8,7 +8,6 @@
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
 
-
   <!-- 详细的盒子 -->
   <view class="bg-white border-bottom margin-bottom--30rpx">
     <!-- 头部图片 -->

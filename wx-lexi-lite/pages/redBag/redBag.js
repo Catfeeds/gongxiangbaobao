@@ -12,7 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    deleteAnima:'', // 
+    topKey:0,
+
     bonusCount:[], // 奖金计数
     rule_show: [], //活动内容呼出框
     get_bonus: false,//获取红包的呼出框

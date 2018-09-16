@@ -464,7 +464,7 @@
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
       <swiper autoplay="{{true}}" bindchange="handleExploreSwiperChange">
-        <swiper-item data-rid="{{item.rid}}"  data-type="{{item.type}}" catchtap="handleToInfo" wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
+        <swiper-item data-rid="{{item.rid}}" data-link="{{item.link}}"  data-type="{{item.type}}" catchtap="handleToInfo" wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
             <!-- <text class='explore-advertisement__title'>{{item.title}}</text> -->

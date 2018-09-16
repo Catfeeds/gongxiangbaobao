@@ -125,14 +125,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getUserCoupon() // N01: 未使用
-    this.getUserCoupon('N02') // N02: 已使用
-    this.getUserCoupon('N03') // N03: 已过期
-    this.getRedBag() // 红包列表
-    console.log(app.globalData.storeInfo)
-    this.setData({
-      storeInfo: app.globalData.storeInfo
-    })
+
   },
 
   /**
@@ -146,7 +139,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getUserCoupon() // N01: 未使用
+    this.getUserCoupon('N02') // N02: 已使用
+    this.getUserCoupon('N03') // N03: 已过期
+    this.getRedBag() // 红包列表
+    console.log(app.globalData.storeInfo)
+    this.setData({
+      storeInfo: app.globalData.storeInfo
+    })
   },
 
   /**
