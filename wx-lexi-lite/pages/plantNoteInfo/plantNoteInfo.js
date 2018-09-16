@@ -289,6 +289,9 @@ Page({
     http.fxGet(api.life_records_similar, this.data.params, (result) => {
       console.log(result, "相关故事推荐")
       if (result.success) {
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, "")
+        })
 
         this.setData({
           recommend: result.data

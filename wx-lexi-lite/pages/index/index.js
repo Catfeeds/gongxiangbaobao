@@ -797,6 +797,7 @@ Page({
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
+      console.log(result,"探索头部广告")
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data

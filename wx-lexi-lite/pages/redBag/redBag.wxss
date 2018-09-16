@@ -21,7 +21,16 @@
   position: absolute;
   top: 100rpx;
   left: 0;
-  padding-left: 10rpx;
+  margin-left: 10rpx;
+  height: 230rpx;
+  overflow: hidden;
+  width: 312rpx
+}
+
+.scroll-box {
+  position: absolute;
+  left: 0rpx;
+  width: 100%;
 }
 
 .receive-item {

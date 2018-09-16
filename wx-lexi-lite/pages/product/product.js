@@ -73,6 +73,12 @@ Page({
   // 添加关注---
   handleAddWatch(e) {
     console.log(e)
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
 
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
