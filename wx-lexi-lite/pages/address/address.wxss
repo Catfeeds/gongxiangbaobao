@@ -72,6 +72,10 @@ switch {
 .identificationText {
   background-color: white;
 }
+.identificationText input {
+  line-height: 94rpx;
+  height: 94rpx;
+}
 
 .identificationTextL {
   font-size: 28rpx;
@@ -99,7 +103,10 @@ switch {
   border-radius: 10rpx;
   text-align: center;
   line-height: 210rpx;
-  font-size: 120rpx;
+  font-size: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .userPhotoNullBox {
@@ -196,22 +203,16 @@ switch {
   border-top: 2rpx solid #e9e9e9;
 }
 
-.upload-status__box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  height: 10rpx;
+.userPhotoNull .upload-status__box {
+  height: 8rpx;
   width: 250rpx;
-  border-radius: 60rpx;
+  border-radius: 30rpx;
   border: 1rpx solid #e9e9e9;
   background-color: #999;
-  
 }
 
-.upload-status__box view {
+.userPhotoNull .upload-status__box .progress {
   height: 100%;
-  /* background-color: white; */
   border-radius: 60rpx;
   background-color: rgba(95,228,177,1) 
 }
