@@ -1,8 +1,10 @@
 // pages/coupon/coupon.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -18,6 +20,7 @@ Page({
     useCouponList: [], // 已经使用的 
     red_bag: []
   },
+
   // 官方优惠券 红包列表 
   getRedBag() {
     http.fxGet(api.authority_coupon, {}, (result) => {
@@ -28,7 +31,9 @@ Page({
       })
 
       if (result.success) {
-
+        
+        let normalCouponList = []
+        let exceedCouponList = []
         let authorityNormalCouponList = []
         let authorityExceedCouponList = []
 
@@ -60,18 +65,21 @@ Page({
           // 设置data
           if (result.data.coupons.length - 1 == i) {
             this.setData({
+              normalCouponList: normalCouponList,
+              exceedCouponList: exceedCouponList,
               authorityNormalCouponList: authorityNormalCouponList,
               authorityExceedCouponList: authorityExceedCouponList
             })
           }
         })
-
+        console.log(this.data.normalCouponList)
       } else {
         utils.fxShowToast(result.status.message)
       }
 
     })
   },
+
   // 未使用// 已经过期 优惠券
   getUserCoupon(o = 'N01', v = 1, i = 10) {
     var params = {
