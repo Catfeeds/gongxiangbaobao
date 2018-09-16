@@ -119,7 +119,7 @@ Page({
       orderInfomation: item,
       authoritativeCouponPrice: couponAmount.toFixed(2),
       storeOrAuthoritativeCouponPick: false,
-      ['pageOrderInfo.couponPrice']: couponAmount.toFixed(2)
+      ['pageOrderInfo.couponPrice']: (couponAmount-0).toFixed(2)
     })
 
     this.orderLastPrice() // 计算最后金额
@@ -216,7 +216,7 @@ Page({
       })
 
       this.setData({
-        ['pageOrderInfo.couponPrice']: couponPriceSum
+        ['pageOrderInfo.couponPrice']: couponPriceSum-0
       }, () => {
         this.orderLastPrice() // 计算最后金额
       })
@@ -442,14 +442,15 @@ Page({
 
         // 计算满减的总共金额
         Object.keys(result.data).forEach((key) => {
-          if (result.data[key].length != 0) {
+          console.log(result.data[key].length,"manjian")
+          if (result.data[key].length != 0 && result.data[key].length != undefined && result.data[key].length != 'undefined') {
             fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
           }
         })
 
         this.setData({
           fullReductionList: result.data,
-          'pageOrderInfo.fullSubtraction': fullSubtractionPrice.toFixed(2)
+          'pageOrderInfo.fullSubtraction': (fullSubtractionPrice-0).toFixed(2)
         }, () => {
           this.orderLastPrice() // 订单总计
         })
