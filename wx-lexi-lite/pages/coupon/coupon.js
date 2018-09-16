@@ -23,10 +23,6 @@ Page({
     http.fxGet(api.authority_coupon, {}, (result) => {
       console.log(result, '红包列表')
 
-      this.setData({
-        couponList: result.data.coupons
-      })
-
       if (result.success) {
 
         let authorityNormalCouponList = []

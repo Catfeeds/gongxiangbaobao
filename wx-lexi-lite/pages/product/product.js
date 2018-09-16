@@ -449,7 +449,7 @@ Page({
       }, (result) => {
         console.log(result)
         if (result.success) {
-          utils.fxShowToast('移除添加', "success")
+          utils.fxShowToast('移除心愿单', "success")
           this.setData({
             ['productInfomation.is_wish']: false
           })

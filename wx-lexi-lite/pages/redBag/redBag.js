@@ -25,6 +25,24 @@ Page({
     ]
   
   },
+
+  //处理获得红包box卷曲
+  handleTimeScroll(){
+    console.log(1)
+    setInterval(()=>{
+      if (this.data.topKey==-440){
+        this.setData({
+          topKey: 0
+        })
+      }else{
+        this.setData({
+          topKey: this.data.topKey - 1
+        })
+      }
+      
+    },100000)
+
+  },
   //活动规则内容呼出
   ruleShowTap() {
     this.animation.bottom(0).step()
@@ -105,6 +123,7 @@ Page({
       delay: 0
     })
 
+    this.handleTimeScroll()
   },
 
   /**

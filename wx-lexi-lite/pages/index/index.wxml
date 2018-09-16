@@ -409,12 +409,15 @@
 
     <!-- 乐喜优选 -->
     <view>
-      <view catchtap="handleToLexiPick" class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx'>
+      <view  class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx'>
         <text>乐喜优选</text>
         <text 
           wx:if="{{lexiPick.products.length>3}}" 
-          catchtap="handleToLexiPick"
-          class='hui-zi-m flex_row'><text catchtap="handleToLexiPick"> 查看全部  </text><text class='fx-icon-nothing-right'></text> </text>
+          bindtap="handleToLexiPick"
+          class='hui-zi-m flex_row z-index-100'>
+            <text bindtap="handleToLexiPick">查看全部  </text>
+            <text class='fx-icon-nothing-right'></text> 
+            </text>
       </view>
       <view class='production new-goods_box'>
         <view wx:if="{{index<4}}" class='productionGoods' wx:for="{{lexiPick.products}}" wx:key='{{index}}'>
