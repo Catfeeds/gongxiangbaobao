@@ -5,6 +5,7 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+let scrollInterval
 
 Page({
 
@@ -24,6 +25,25 @@ Page({
       { text:'通过不正当手段，恶意刷卷，批量注册，机器 模拟获得奖励，官方有权封号和收回全部所获得 优惠奖励'},
     ]
   
+  },
+
+  //处理获得红包box卷曲
+  handleTimeScroll(){
+    clearInterval(scrollInterval)
+    
+    scrollInterval = setInterval(()=>{
+      if (this.data.topKey==-384){
+        this.setData({
+          topKey: 0
+        })
+      }else{
+        this.setData({
+          topKey: this.data.topKey - 1
+        })
+      }
+      
+    },80)
+
   },
   //活动规则内容呼出
   ruleShowTap() {
@@ -68,6 +88,9 @@ Page({
           }
           this.setData({
             bonusLines: result.data.bonus_lines,
+            'bonusLines[10]': result.data.bonus_lines[0],
+            'bonusLines[11]': result.data.bonus_lines[1],
+            'bonusLines[12]': result.data.bonus_lines[2],
             bonusCount: result.data.bonus_count
           })
 
@@ -105,6 +128,7 @@ Page({
       delay: 0
     })
 
+    this.handleTimeScroll()
   },
 
   /**
@@ -160,7 +184,7 @@ Page({
 
             this.setData({
               bonusCount: this.data.bonusCount + 1,
-              bonusLines: bonusLines.push(addObject)
+              // bonusLines: bonusLines.push(addObject)
             })
 
           }else{
