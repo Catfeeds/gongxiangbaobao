@@ -381,18 +381,11 @@ Page({
 
   // 优惠券，满减
   getCouponAndFullSubtraction() {
-    console.log(app.globalData.couponList, app.globalData.fullSubtractionList, )
-
-    let full = []
-    app.globalData.fullSubtractionList.coupons.forEach((v,i)=>{
-      if (v.type==3){
-        full.push(v)
-      }
-    })
+    console.log(app.globalData.couponList, app.globalData.fullSubtractionList,"满减优惠券" )
 
     this.setData({
       couponList: app.globalData.couponList, // 优惠券列表
-      fullSubtractionList: full, // 满减---
+      fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
     })
     console.log(this.data.fullSubtractionList)
   },

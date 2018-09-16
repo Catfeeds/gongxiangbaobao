@@ -147,7 +147,7 @@ Page({
             'token': this.data.uploadParams.up_token
           },
           success: (res) => {
-            console.log(res,"上传后的图片")
+            console.log(res,"上传后的图片")  
 
             this.setData({
               'editUserInfo.avatar_id':res.ids

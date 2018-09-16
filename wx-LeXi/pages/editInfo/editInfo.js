@@ -40,7 +40,17 @@ Page({
       city_id: '', // Integer 可选 市ID
       mail: '', // String 可选 邮箱
       date: '', // String 可选 出生日期
+      street_address:'', // 地址
     }
+  },
+
+  //地址
+  handleEditAddress(e){
+    console.log(e.detail.value)
+    this.setData({
+      street_address: e.detail.value
+    })
+
   },
 
   // name 输入时候
@@ -169,74 +179,14 @@ Page({
     })
   },
 
-  // 地址选择器
-  getAddressPick() {
-    var provinceOid = adressData.k_1_0[this.data.addressIndex[0]].oid
-    var countyOid = adressData['k_2_' + provinceOid][this.data.addressIndex[1]].oid
-    this.setData({
-      provinceList: adressData.k_1_0, //省地址列表---
-      cityList: adressData['k_2_' + provinceOid], //市地址列表---
-      countyList: adressData['k_3_' + countyOid], //县地址列表--
-    })
-  },
-
-
-  // 省发生变化
-  provinceChange(e) {
-    this.setData({
-      isEdited: true,
-      addressIndex: e.detail.value
-    })
-    this.cityChange(adressData.k_1_0[e.detail.value[0]].oid)
-  },
-
-  // 市
-  cityChange(e) {
-    this.setData({
-      provinceOid: e,
-      isEdited: true,
-      cityList: adressData['k_2_' + e]
-    })
-
-    if (!adressData['k_3_' + adressData['k_2_' + e][0].oid]) {
-      this.setData({
-        countyList: [],
-        countyOid: ''
-      })
-      return false
-    }
-
-    this.countyChange(adressData['k_2_' + e][this.data.addressIndex[1]].oid)
-  },
-
-  // 县发生变化
-  countyChange(e) {
-    this.setData({
-      isEdited: true,
-      cityOid: e,
-      countyList: adressData['k_3_' + e],
-      countyOid: adressData['k_3_' + e][this.data.addressIndex[2]].oid
-    })
-    console.log(this.data.countyOid)
-  },
-
-  // 确定选择地址
-  handlePickAdressOver() {
-    this.setData({
-      isEdited: true,
-      ['editUserInfo.country_id']: this.data.countyOid,//Integer 可选 市ID
-      ['editUserInfo.province_id']: this.data.provinceOid,//Integer 可选 国家ID
-      ['editUserInfo.city_id']: this.data.cityOid,//Integer 可选 省ID
-      isPicker: false
-    })
-  },
-
 
   // 获取用户信息 ---
   getUserInfo() {
     this.setData({
       userInfo: app.globalData.userInfo
     })
+
+    console.log(app.globalData.userInfo,"用户信息")
 
     let userProfile = app.globalData.userInfo.profile
     let time = utils.timestamp2string(userProfile.created_at, 'cn')
@@ -250,6 +200,7 @@ Page({
       ['editUserInfo.city_id']: userProfile.city_id, // Integer 可选 市ID
       ['editUserInfo.mail']: userProfile.mail, // String 可选 邮箱
       ['editUserInfo.date']: userProfile.date, // String 可选 出生日期
+      ['editUserInfo.street_address']: userProfile.street_address // 地址
     })
   },
 
@@ -258,7 +209,6 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfo() // 获取用户信息
-    this.getAddressPick() // 地址获取
     this.getUploadToken()
   },
 
@@ -309,7 +259,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
   //呼出框取消
   handledeletePick(){

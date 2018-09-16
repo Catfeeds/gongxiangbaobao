@@ -39,7 +39,7 @@
   </view>
 
   <!-- 没有任何信息的时候 -->
-  <view class='none-info' wx:if="{{!location.Success}}">
+  <view class='none-info' wx:if="{{!location.Success||location.Reason=='暂无轨迹信息'}}">
     <view class='logistcsIcon'>
       <image src='../../images/ji.png'></image>
     </view>

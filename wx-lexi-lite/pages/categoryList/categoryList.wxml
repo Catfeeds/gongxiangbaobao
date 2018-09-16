@@ -44,17 +44,9 @@
     </view>
     <!-- 没有商品加载的底部 -->
     <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
-  
   </block>
 
   <!-- 筛选 -->
-  <!-- <view class="pick-box" animation="{{openPickBox}}" catchtap="handelOffPickBox">
-    <fx-pick 
-      bind:handlePickOff="handelOffPickBox"
-      bind:handlePickOff="handelOffPickBox"
-      pickQuantity="{{pickQuantity}}"
-      bind:handlePickProduct="handlePickProduct"></fx-pick>
-  </view> -->
   <view class="pick-box" catchtap="handelOffPickBox">
     <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
       <view class="fx-modal__main" slot="main">
@@ -104,13 +96,6 @@
       </button>
     </fx-modal>
   </view>
-
-  <!-- 排序
-<fx-modal visible="{{ sortBox }}">
-  <view  slot="main" catchtap="handleSortOff">
-    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
-  </view>
-</fx-modal> -->
 
   <!-- 排序 -->
   <fx-modal title="排序" bind:closeEvent="handleSortOff" visible="{{ sortBox }}">

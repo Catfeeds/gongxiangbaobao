@@ -30,7 +30,8 @@
     "pages/myFollower/myFollower",
     "pages/likeThisProduct/likeThisProduct",
     "pages/allProduct/allProduct",
-    "pages/checkout/checkout"
+    "pages/checkout/checkout",
+    "pages/networkError/networkError"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

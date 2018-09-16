@@ -13,30 +13,50 @@ const formatTime = date => {
 
 // 时间戳转换为时间格式字符串
 const timestamp2string = (ts, format = 'time') => {
-  let date = new Date();
-  date.setTime(ts * 1000);
-  let y = date.getFullYear();
-  let m = date.getMonth() + 1;
-  m = m < 10 ? ('0' + m) : m;
-  let d = date.getDate();
-  d = d < 10 ? ('0' + d) : d;
-  let h = date.getHours();
-  h = h < 10 ? ('0' + h) : h;
-  let minute = date.getMinutes();
-  let second = date.getSeconds();
-  minute = minute < 10 ? ('0' + minute) : minute;
-  second = second < 10 ? ('0' + second) : second;
+  let date = new Date()
+  date.setTime(ts * 1000)
+  let y = date.getFullYear()
+  let m = date.getMonth() + 1
+  m = m < 10 ? ('0' + m) : m
+  let d = date.getDate()
+  d = d < 10 ? ('0' + d) : d
+  let h = date.getHours()
+  h = h < 10 ? ('0' + h) : h
+  let minute = date.getMinutes()
+  let second = date.getSeconds()
+  minute = minute < 10 ? ('0' + minute) : minute
+  second = second < 10 ? ('0' + second) : second
 
+  if (format == 'second') {
+    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second
+  }
   if (format == 'time') {
-    return y + '-' + m + '-' + d + ' ' + h + ':' + minute;  // + ':' + second
+    return y + '-' + m + '-' + d + ' ' + h + ':' + minute
   }
   if (format == 'date') {
-    return y + '.' + m + '.' + d;  // + ':' + second
+    return y + '.' + m + '.' + d
   }
   if (format == 'cn') {
-    return y + '年' + m + '月' + d + '日';  // + ':' + second
+    return y + '年' + m + '月' + d + '日'
   }
+}
 
+/**
+ * 时间戳转换为时间格式字符串2
+ */
+const timestamp2dateStr = (ts) => {
+  let date = new Date()
+  date.setTime(ts * 1000)
+  let m = date.getMonth() + 1
+  m = m < 10 ? ('0' + m) : m
+  let d = date.getDate()
+  d = d < 10 ? ('0' + d) : d
+  let h = date.getHours()
+  h = h < 10 ? ('0' + h) : h
+  let minute = date.getMinutes()
+  minute = minute < 10 ? ('0' + minute) : minute
+
+  return m + '.' + d + ' ' + h + ':' + minute
 }
 
 const formatNumber = n => {
@@ -74,6 +94,16 @@ const randomString = len => {
 // 当前时间戳
 const timestamp = () => {
   return Date.parse(new Date()) / 1000
+}
+
+/**
+ * 修正数字
+ */
+const checkTimeNumber = (val) => {
+  if (val < 10) {
+    val = '0' + val
+  }
+  return val
 }
 
 const Base64 = {
@@ -192,7 +222,7 @@ const orderStatusTitle = (status) => {
   return tmp ? tmp[0].title : ''
 }
 // 提示信息
-const showToast = (v, typeText ="none") => {
+const showToast = (v, typeText = "none") => {
   wx.showToast({
     title: v,
     icon: typeText,
@@ -201,28 +231,59 @@ const showToast = (v, typeText ="none") => {
 }
 //预先加载地址
 
+
 // 隐藏tabbar
 const handleHideTabBar = () => {
-  wx.hideTabBar(OBJECT)
+  wx.hideTabBar()
 }
 
 // 显示tabbar
 const handleShowTabBar = () => {
-  wx.showTabBar(OBJECT)
+  wx.showTabBar()
 }
 
 // 显示加载
 const handleShowLoading = () => {
   wx.showLoading({
-    title: '加载中'
-  }) 
+    title: '加载中',
+    mask: false
+  })
 }
 
 // 隐藏加载
 const handleHideLoading = () => {
-  wx.hideLoading() 
+  wx.hideLoading()
 }
 
+/**
+ * 截取字符
+ */
+const truncate = (s, max = 10) => {
+  if (s.length > max) {
+    return s.substr(0, max) + '...'
+  }
+  return s
+}
+
+/**
+ * 将小程序的API封装成支持Promise的API
+ * @params fn {Function} 小程序原始API，如wx.login
+ */
+const wxPromisify = fn => {
+  return function (obj = {}) {
+    return new Promise((resolve, reject) => {
+      obj.success = function (res) {
+        resolve(res)
+      }
+
+      obj.fail = function (res) {
+        reject(res)
+      }
+
+      fn(obj)
+    })
+  }
+}
 
 module.exports = {
   handleHideLoading: handleHideLoading,
@@ -232,12 +293,16 @@ module.exports = {
   fxShowToast: showToast,
   formatTime: formatTime,
   timestamp2string,
+  timestamp2dateStr,
   checkTokenIsExpired,
   isEmptyObject,
   fixedAmount,
+  truncate,
   randomString,
   timestamp,
   sortParams,
+  checkTimeNumber,
   orderStatusTitle,
-  Base64
+  Base64,
+  wxPromisify: wxPromisify
 }

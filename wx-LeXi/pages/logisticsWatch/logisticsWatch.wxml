@@ -1,17 +1,25 @@
 <!--pages/logisticsWatch/logisticsWatch.wxml  物流跟踪页面-->
 <view class='container theme-bg-color'>
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
   <view class='orderNumber font-s'>
     <view class='time-top'>
-      <text>运单编号：2017100240</text>
-      <text>物流状态:配送中</text>
+      <text wx:if="{{location.LogisticCode!=null}}">运单编号：{{location.LogisticCode}}</text>
+      <text wx:if="{{location.State==2}}">物流状态:运输途中</text>
+      <text wx:if="{{location.State==3}}">物流状态:已签收</text>
+      <text wx:if="{{location.State==4}}">物流状态:问题包裹</text>
     </view>
-    <view>物流状态:配送中</view>
+    <view>配送方式：{{expressName}}</view>
     <!-- 物流提示 -->
     <view class='logisticsPhoto'>
       <view class='logisticsIcon'>
-        <image src='../../images/orderok.png'></image>
-        <image src='../../images/bagcart.png'></image>
-        <image src='../../images/yes.png'></image>
+        <image src='../../images/tijao@3x.png' class='{{location.State>=2?"opacity":""}}'></image>
+        <image src='../../images/logistice-car@3x.png' class='{{location.State>=2?"opacity":""}}'></image>
+        <image src='../../images/yes.png' class='{{location.State==3?"opacity":""}}'></image>
       </view>
       <view class='middle-line'>
         <view class='line lineTwo'></view>
@@ -31,7 +39,7 @@
   </view>
 
   <!-- 没有任何信息的时候 -->
-  <view class='none-info' wx:if="{{}}">
+  <view class='none-info' wx:if="{{!location.Success||location.Reason=='暂无轨迹信息'}}">
     <view class='logistcsIcon'>
       <image src='../../images/ji.png'></image>
     </view>
@@ -40,26 +48,22 @@
       <view>暂未查询到礼物包裹进展 </view>
     </view>
 
-    <view class='font-s'>
+  
+    <view class='font-s' wx:if="{{parmas.logistic_code!=null}}">
       <view>运单编号 </view>
-      <view>20171002450</view>
+      <view>{{parmas.logistic_code}}</view>
     </view>
-    <view class='hui-zi'>
-      <view>您可选择长按复制运单编号 </view>
+    <view class='hui-zi' wx:if="{{parmas.logistic_code!=null}}">
+      <view>您可选择长按复制运单编号</view>
       <view>到物流公司官网查询</view>
     </view>
-
-
-
-
-
 
   </view>
 
   <!-- 有信息的时候 -->
   <view class='have-Info bg-white'>
     <!-- 快件目前的位置 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:if="{{}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round left-round-line-green'></view>
@@ -73,7 +77,7 @@
       </view>
     </view>
     <!-- 已经签收的状态 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:if="{{location.State==3}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round'></view>
@@ -89,7 +93,7 @@
     </view>
 
     <!-- 派件员电话 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:if="{{}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round'></view>
@@ -105,18 +109,16 @@
     </view>
 
     <!-- 其他时候的物品位置信息 -->
-    <!-- 派件员电话 -->
-    <view class='newLocation'>
+    <view class='newLocation' wx:for="{{location.Traces}}" wx:key="{{index}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
         <view class='left-round'></view>
         <view class='left-line'></view>
       </view>
       <view class='locationInfoR'>
-        <view class='black-font theme-hui-color'> 正在派送途中,请您准备签收【派件员:和自然】</view>
+        <view class='black-font theme-hui-color'> {{item.AcceptStation}}</view>
         <view class='hui-zi'>
-          <text>1017-1-1</text>
-          <text>01:00:01</text> </view>
+          <text>{{item.AcceptTime}}</text> </view>
       </view>
     </view>
 

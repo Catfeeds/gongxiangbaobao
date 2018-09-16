@@ -365,6 +365,10 @@ Page({
     console.log(isLike)
     if (isLike) {
       console.log("删除喜欢")
+      this.setData({
+        ['productInfomation.is_like']: false,
+        ['productInfomation.like_count']: this.data.productInfomation.like_count - 1
+      })
       // 喜欢，则删除
       http.fxDelete(api.userlike, {
         rid: rid
@@ -382,6 +386,11 @@ Page({
       })
     } else {
       console.log(this.data.productInfomation,"添加")
+      this.setData({
+        ['productInfomation.is_like']: true,
+        ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
+      })
+      
       // 未喜欢，则添加
       http.fxPost(api.userlike, {
         rid: rid
@@ -390,7 +399,6 @@ Page({
           this.setData({
             ['productInfomation.is_like']: true,
             ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
-            // ['productInfomation.product_like_users']: this.data.productInfomation.product_like_users.push({})
           })
         } else {
           utils.fxShowToast(result.status.message)
@@ -755,7 +763,7 @@ Page({
     let scene = decodeURIComponent(options.scene)
     let rid = ''
     console.log(scene, 'scene')
-    if (scene && scene != undefined) {
+    if (scene && scene != undefined && scene != 'undefined') {
       let sceneAry = scene.split('-')
       console.log(sceneAry.length)
       rid = sceneAry[0]

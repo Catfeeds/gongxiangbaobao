@@ -71,6 +71,7 @@ swiper {
   align-items: center;
   justify-content: center;
   font-size: 28rpx;
+  height: 62rpx;
 }
 
 .like-icon-add {
@@ -761,3 +762,4 @@ margin-bottom:8rpx;
 .bg--hui {
 background-color:#949ea6;
 }
+

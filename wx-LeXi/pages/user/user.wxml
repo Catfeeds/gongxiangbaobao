@@ -49,13 +49,13 @@
         </view>
         <view class='transmission black-font' catchtap='handleToOrderTap'>
           <text>我的订单</text>
-          <text class='red-round'></text>
+          <text class='red-round' wx:if="{{orderSum!=0}}"></text>
         </view>
       </view>
       <view class=' time-top '>
         <view class='service coupon' catchtap='couponTap'>
           <image class='setings' src='../../images/coupon_icon@2.png'></image>
-          <text class='red-round'></text>
+          <text class='red-round' wx:if="{{couponSum!=0}}"></text>
         </view>
         <button open-type="contact" class="service">
           <image class='setings sms' src='../../images/set.png'></image>
@@ -71,7 +71,7 @@
     <!-- 定位垫片 -->
     <view class='Fshim' wx:if="{{sotrF}}"></view>
     <!-- 筛选和排序 -->
-    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.length!=0}}">
       <view catchtap='handelOffPick' class='flex_row'>
         筛选
         <image src='../../images/arrowhead.png'></image>
@@ -82,14 +82,14 @@
        </view>
     </view>
     <!-- 下面的产品列表 -->
-    <view class='goodsList' wx:if="{{likeProduct.products.length!=0}}">
-      <view wx:for="{{likeProduct.products}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+    <view class='goodsList padding-bottom--0' wx:if="{{likeProduct.length!=0}}">
+      <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
         <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.products.length==0}}">
+    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.length==0}}">
       <view>
         <image src='../../images/user-xin.png'></image>
       </view>
@@ -112,13 +112,13 @@
         <text class=' hui-zi margin--15rpx' data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct}}" wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct.products}}" wx:key="{{index}}">
           <image src='{{item.cover}}-p16'></image>
         </view>
       </view>
     </view>
     <!-- 心愿单 -->
-    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0&&desireOrderProduct.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
       </view>
@@ -196,13 +196,11 @@
     </view>
 </view>
 
-  <!-- //登陆注册 -->
-  <view catchtap='handelOffTap' wx:if="{{is_mobile}}" class='login-bind_box--style'>
-    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view>
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
     <!-- 排序的呼出框 -->
-  <view 
+  <!-- <view 
     class='login-bind_box--style' 
     catchtap='handleSortOff'
     wx:if="{{isSortShow}}">
@@ -210,15 +208,86 @@
       teHuiShow="{{true}}"      
       bind:handleSortOff="handleSortOff" 
       bind:handlePickOver="handleSort"></fx-sort>
-  </view>
+  </view> -->
 
     <!-- 筛选的产品 -->
-  <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
+  <!-- <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
     <fx-pick-product 
       bind:logisticsPrice="handlePick"
       bind:handlePickOff="handelOffPick"
       recommend="{{true}}"
       bind:handlePickProduct="handlePickProduct"
       category="{{shopInfo.categories}}"></fx-pick-product>
+  </view> -->
+
+  <!-- 筛选 -->
+  <view class="pick-box">
+    <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ handelOffPick }}" bind:resetEvent="handleResetFilterCondition">
+      <view class="fx-modal__main" slot="main">
+        <view class="block-title">价格区间</view>
+        <view class="price-range">
+          <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
+        </view>
+
+        <!-- 分类 -->
+        <view>
+          <view class="block-title">分类
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.checked ? 'sortActive' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
+        </view>
+
+        <!-- 推荐 -->
+        <!-- <view>
+          <view class="block-title">推荐
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.isActive ? 'active' : '' }}" wx:for="{{ recommendList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" data-index="{{index}}" bindtap="handleToggleRecommendList">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
+        </view> -->
+      </view>
+      <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
+        查看商品
+        <text>（{{ totalCount }}件）</text>
+      </button>
+    </fx-modal>
   </view>
+
+  <!-- 排序 -->
+  <fx-modal title="排序" bind:closeEvent="handleSortOff" visible="{{ isSortShow }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="filter-item {{ sortParams.sort_type == 0 ? 'sortActive' : '' }}" data-rid="0" bindtap="handleSort">
+        <text class="text">综合排序</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ sortParams.sort_type == 1 ? 'sortActive' : '' }}" data-rid="1" bindtap="handleSort">
+        <text class="text">最新</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item-line">
+        价格
+      </view>
+      <view class="filter-item {{ sortParams.sort_type == 2 ? 'sortActive' : '' }}" data-rid="2" bindtap="handleSort">
+        <text class="text">由低至高</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ sortParams.sort_type == 3 ? 'sortActive' : '' }}" data-rid="3" bindtap="handleSort">
+        <text class="text">由高至低</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+    </view>
+  </fx-modal>
+
+
 </view>

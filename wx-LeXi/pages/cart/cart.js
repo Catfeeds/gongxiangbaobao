@@ -703,16 +703,13 @@ Page({
       title: '加载中'
     })
 
+    console.log(app.globalData)
+
     // 未登录
     if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
       return
     }
 
-    // 已登录
-    this.getDesireOrder() // 获取心愿单
   },
 
   /**
@@ -728,12 +725,10 @@ Page({
   onShow: function() {
     // 未登陆
     if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
       return
     }
-
+    // 已登录
+    this.getDesireOrder() // 获取心愿单
     this.getCartProduct() // 获取购物车商品
   },
 
@@ -769,7 +764,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
 
   // 去首页

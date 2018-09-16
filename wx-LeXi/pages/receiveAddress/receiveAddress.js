@@ -126,7 +126,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
 
   // 选择地址

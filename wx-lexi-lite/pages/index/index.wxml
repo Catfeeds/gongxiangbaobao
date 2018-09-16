@@ -379,7 +379,7 @@
     </view>
 
     <!--中间 广告 -->
-    <view class='probation-box advertisement-box margin-bottom--40rpx bg-white'>
+    <view class='probation-box advertisement-box height--680rpx margin-bottom--40rpx bg-white'>
       <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' bindchange="handleSwiperChange">
         <block wx:for="{{middleAdvertisementList.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <swiper-item 
@@ -413,7 +413,8 @@
         <text>乐喜优选</text>
         <text 
           wx:if="{{lexiPick.products.length>3}}" 
-          class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+          catchtap="handleToLexiPick"
+          class='hui-zi-m flex_row'><text catchtap="handleToLexiPick"> 查看全部  </text><text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='production new-goods_box'>
         <view wx:if="{{index<4}}" class='productionGoods' wx:for="{{lexiPick.products}}" wx:key='{{index}}'>

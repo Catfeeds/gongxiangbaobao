@@ -1217,3 +1217,6 @@ swiper-photo .slide-item__box image {
   z-index: 99;
   width: 670rpx;
 }
+.height--680rpx {
+  height: 280rpx;
+}

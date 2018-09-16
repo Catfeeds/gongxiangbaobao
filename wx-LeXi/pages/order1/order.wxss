@@ -1,0 +1,132 @@
+/* pages/order/order.wxss */
+
+.page-order__nav {
+  background: #fff;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  border-top: 1rpx solid #e2e3e4;
+  margin-bottom: 20rpx;
+}
+
+.page-order__nav .item {
+  line-height: 80rpx;
+  color: #6b6b6b;
+  font-weight: 400;
+}
+
+.page-order__nav .item.active {
+  color: #6ed7af;
+  border-bottom: 4rpx solid #6ed7af;
+}
+
+.orderInfoBox {
+  padding-left: 30rpx;
+}
+
+.productAndShopInfo {
+  display: flex;
+  flex-direction: row;
+  /* border-bottom: 1rpx solid #e9e9e9; */
+  padding: 30rpx 30rpx 30rpx 0rpx;
+}
+
+.productAndShopInfoN {
+  border-bottom: none;
+}
+
+.shopPhoto {
+  height: 46rpx;
+  width: 46rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.shopPhoto image {
+  height: 100%;
+  width: 100%;
+}
+
+.productinfo {
+  flex-direction: column;
+  margin-left: 20rpx;
+  flex: 1;
+}
+
+.goodsBox {
+  padding: 16rpx 30rpx 0rpx 0;
+}
+
+.fnBtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0rpx 30rpx 0 0;
+}
+
+.fnBtn view {
+  width: 158rpx;
+  height: 58rpx;
+  text-align: center;
+  font-size: 24rpx;
+  border-radius: 10rpx;
+  line-height: 58rpx;
+  margin-left: 20rpx;
+}
+
+.productAndShopInfoBox {
+  flex-direction: column;
+  padding-right: 0rpx;
+  padding-top: 0rpx;
+  padding-bottom: 20rpx;
+}
+
+.paymentBtn {
+  background-color: #f66;
+  color: white;
+}
+
+.delleteOrder {
+  border: 1rpx solid #999;
+}
+
+.critiqueBtn {
+  background-color: #6ed7af;
+  color: white;
+  font-size: 24rpx;
+}
+
+.shopNameBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-aggregate {
+  color: #999;
+}
+
+.shopName {
+  font-size: 26rpx;
+}
+
+.nonePayment {
+  font-size: 24rpx;
+}
+
+.price {
+  font-size: 28rpx;
+  padding-top:13rpx;
+}
+
+.margin-top---13rpx {
+  margin-top: -13rpx;
+}
+
+.margin-bottom--2rpx {
+  margin-bottom: 2rpx;
+}
+.order_sum{
+  /* padding-bottom: 6rpx; */
+}
