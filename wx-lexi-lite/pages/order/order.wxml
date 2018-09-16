@@ -61,7 +61,7 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-          <view wx:if="{{ order.user_order_status == 4 }}" catchtap='paymentBtn' class='paymentBtn' data-order="{{index}}">
+          <view wx:if="{{ order.user_order_status == 4 }}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}"  data-order="{{index}}">
             <text>付款</text>
             <text>{{ items_order.orderTime }}</text>
           </view>
@@ -121,7 +121,7 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-          <view catchtap='paymentBtn' class='paymentBtn' data-order="{{index}}">
+          <view catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
             <text>付款</text>
             <text>{{ items_order.orderTime }}</text>
           </view>
@@ -157,7 +157,7 @@
                 <text class='price'>￥{{ product.pay_amount }}</text>
               </view>
 
-              <view class='goodsBox' wx:for="{{ product.items}}" wx:key="{{ index }} " wx:for-item="itm">
+              <view class='goodsBox' wx:for="{{ product.items}}" wx:key="{{ index }}" wx:for-item="itm">
 
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{itm.cover}}'></image>
@@ -203,7 +203,7 @@
                 <text class='price'>￥{{ item.pay_amount }}</text>
               </view>
 
-              <view class='goodsBox' wx:key="{{ index }} " wx:for="{{ item.items }}" wx:for-item="itm">
+              <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ item.items }}" wx:for-item="itm">
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{itm.cover}}'></image>
                   <view class='margin-left--20'>
@@ -220,10 +220,10 @@
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
 
-          <view data-code="{{order.items[0].express_code}} " data-express-name="{{order.items[0].express_name}} " data-logistics-number="{{order.items[0].express_no}} " class='delleteOrder hui-zi' catchtap='logTop'>
+          <view data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
           </view>
-          <view data-index="{{index}} " data-rid="{{order.rid}} " catchtap="handleReceive " class='critiqueBtn'>
+          <view data-index="{{index}}" data-rid="{{item.rid}}" catchtap="handleReceive" class='critiqueBtn'>
             确认收货
           </view>
         </view>
@@ -234,7 +234,7 @@
     <view wx:if="{{currentStatus==3}}">
       <!-- 每一笔订单 -->
 
-      <view wx:for="{{ daiping }}" wx:key="{{ index }} " wx:for-item="order" data-rid='{{ order.rid }}' bindtap='handleViewDetail' class='component productAndShopInfoBox 4'>
+      <view wx:for="{{ daiping }}" wx:key="{{ index }}" wx:for-item="order" data-rid='{{ order.rid }}' bindtap='handleViewDetail' class='component productAndShopInfoBox 4'>
         <!-- 每一家商家  -->
         <view>
           <!-- 每一家商家  -->
@@ -260,7 +260,7 @@
                 <text class='price'>￥{{ order.pay_amount }}</text>
               </view>
 
-              <view class='goodsBox' wx:key="{{ index }} " wx:for="{{ order.items }}">
+              <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{item.cover}}'></image>
                   <view class='margin-left--20'>
@@ -279,7 +279,7 @@
           <view catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
             删除订单
           </view>
-          <view data-code="{{order.items[0].express_code}} " data-express-name="{{order.items[0].express_name}} " data-logistics-number="{{order.items[0].express_no}} " class='delleteOrder hui-zi' catchtap='logTop'>
+          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
           </view>
           <view data-product='{{ order }}' class='critiqueBtn' catchtap='critiqueTap'>

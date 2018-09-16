@@ -160,11 +160,11 @@ Page({
         })
 
         let daifaList = this.data.daifa
-
         this.setData({
           daifa: daifaList.concat(result.data.orders),
           isNextDaifa: result.data.next
         })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -182,11 +182,11 @@ Page({
         })
 
         let daishouList = this.data.daishou
-
         this.setData({
           daishou: daishouList.concat(result.data.orders),
           isNextdaishou: result.data.next
         })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -204,7 +204,6 @@ Page({
         })
 
         let daipingList = this.data.daiping
-
         this.setData({
           daiping: daipingList.concat(result.data.orders),
           isNextDaiping: result.data.next
@@ -217,9 +216,12 @@ Page({
 
   // 付款
   paymentBtn(e) {
-    console.log(e.currentTarget.dataset.order)
-    let order = this.data.orderList.orders[e.currentTarget.dataset.order]
-    console.log(order)
+    console.log(e)
+    console.log(e.currentTarget.dataset)
+    // let order = this.data.orderList.orders[e.currentTarget.dataset.order]
+    let order = e.currentTarget.dataset
+    let rid = order.rid
+    console.log(order.rid)
 
     // 补充参数
     app.globalData.orderParams.rid = order.rid
@@ -230,15 +232,38 @@ Page({
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
       console.log(result)
       if (result.success) {
+        
         app.wxpayOrder(order.rid, result.data)
-        this.getOrderList()
+        let allshouhuoData = this.data.allOrderList
+        allshouhuoData.forEach((v, i) => {
+          if (v.rid == rid) {
+            allshouhuoData.splice(i, 1)
+            this.setData({
+              allOrderList: allshouhuoData
+            })
+          }
+        })
+
+        let daifuData = this.data.daifu
+        daifuData.forEach((v, i) => {
+          if (v.rid == rid) {
+            daifuData.splice(i, 1)
+            this.setData({
+              daifu: daifuData
+            })
+          }
+        })
+
+        this.getDaishouList() // 获取待收货列表---
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
+  //确认收货
   handleReceive(e) {
+    console.log(e, "确认收货的e")
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.index
     console.log(idx, rid)
@@ -249,16 +274,29 @@ Page({
       console.log(result, "确认收货")
 
       if (result.success) {
-
-        this.setData({
-          // ['orderList[' + idx + '].user_order_status']: 3
-          orderList: [],
+        let allshouhuoData = this.data.allOrderList
+        allshouhuoData.forEach((v, i) => {
+          if (v.rid == rid) {
+            allshouhuoData.splice(i, 1)
+            this.setData({
+              allOrderList: allshouhuoData
+            })
+          }
         })
 
-        this.getOrderList()
+        let daishouData = this.data.daishou
+        daishouData.forEach((v, i) => {
+          if (v.rid == rid) {
+            daishouData.splice(i, 1)
+            this.setData({
+              daishou: daishouData
+            })
+          }
+        })
 
+        this.getPingjiaList() // 评价
       } else {
-
+        utils.fxShowToast(result.status.message)
       }
     })
 
@@ -286,11 +324,26 @@ Page({
           }, (result) => {
             console.log(result, '删除订单')
             if (result.success) {
-              this.setData({
-                daiping: [],
+              let allshouhuoData = this.data.allOrderList
+              allshouhuoData.forEach((v, i) => {
+                if (v.rid == rid) {
+                  allshouhuoData.splice(i, 1)
+                  this.setData({
+                    allOrderList: allshouhuoData
+                  })
+                }
               })
-              
-              this.getPingjiaList() // 评价
+
+              let daipingData = this.data.daiping
+              daipingData.forEach((v, i) => {
+                if (v.rid == rid) {
+                  daipingData.splice(i, 1)
+                  this.setData({
+                    daiping: daipingData
+                  })
+                }
+              })
+
             } else {
               utils.fxShowToast(result.status.message)
             }
