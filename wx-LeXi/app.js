@@ -57,6 +57,9 @@ App({
 
     // 获取地理位置
     this.getUserLocation()
+
+    // 获取设备信息
+    this.getSystemInfo()
   },
 
   login: function(cb) {
@@ -237,11 +240,24 @@ App({
     })
   },
 
+  // 获取设备获取设备
+  getSystemInfo(){
+    wx.getSystemInfo({
+      success:  (res)=> {
+        console.log(res,"设备信息")
+        this.globalData.windowWidth = res.windowWidth
+       },
+    })
+  },
+
+
   globalData: {
     isLogin: false,
     app_id: null,
     token: null,
     uid: 0,
+    //设备信息
+    windowWidth:375,
     // 分享品牌馆的图片路径
     shareBrandUrl: '',
     // 支付成功后的订单
@@ -332,7 +348,6 @@ App({
           town: "三环以内",
         }]
       }]
-
 
     },
     // 登录相关信息

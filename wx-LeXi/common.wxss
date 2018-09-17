@@ -515,7 +515,12 @@ button::after {
 .distribute-action .icon-save {
   width: 80rpx;
   height: 80rpx;
+  
 }
+/* .icon-save+text{
+  padding-top: 50rpx;
+} */
+
 .distribute-cancle {
   background-color: #fff;
   font-size: 32rpx;

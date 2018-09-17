@@ -116,7 +116,7 @@
         <view class='receiveFnBottomBox'>
           <image src='../../images/shop-icon@2.png'></image>
         </view>
-        <input data-rid="{{items[0].store_rid}}" bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
+        <textarea data-rid="{{items[0].store_rid}}" maxlength="100" bindinput='handleGiveShop' placeholder-class='input'  placeholder-class='goods-blessing' auto-height='{{true}}'  placeholder='给商家的说明和注意事项'></textarea>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
@@ -130,6 +130,7 @@
           bindinput='handleUtterance' 
           placeholder-class='goods-blessing' 
           auto-height='{{true}}'
+          maxlength="100"
           placeholder='我的语录'></textarea>
       </view>
       <!-- 运费 -->

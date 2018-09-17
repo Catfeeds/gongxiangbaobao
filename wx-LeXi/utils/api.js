@@ -51,6 +51,7 @@ module.exports = {
   wxacode: 'market/wxacode', // POST 生成小程序码
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme: 'wx_app_design/collections', //Get 主题---
+  theme_list: 'wx_app_design/collection', //Get 主题list---
   marketBanners: 'banners/:rid', //广告--
   products_index: 'products/index', // 首页作品的排序---
   store_categories: 'store/categories', // 店铺的的产品分类

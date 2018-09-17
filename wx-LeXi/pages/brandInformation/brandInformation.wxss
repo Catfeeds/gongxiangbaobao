@@ -187,8 +187,6 @@
   line-height: 40rpx;
 }
 .recommendgoodsText > view{
-  margin-bottom: 20rpx;
-  font-weight: 500;
   letter-spacing:4rpx;
 }
 .ren-icon{

@@ -106,7 +106,7 @@
   font-weight: 400;
 }
 
-.receiveFnBottomBox {
+.receiveFnBottomBox  {
   height: 36rpx;
   width: 36rpx;
   border-radius: 50%;
@@ -195,11 +195,10 @@
 .merchant {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin-right: 30rpx;
   padding: 30rpx;
   border: 1rpx solid #e9e9e9;
-  height: 90rpx;
+  min-height: 30rpx;
   border-radius: 6rpx;
 }
 
