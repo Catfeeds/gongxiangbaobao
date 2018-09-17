@@ -658,6 +658,7 @@ Page({
 
     let rid = e.currentTarget.dataset.id
     let isLike = e.currentTarget.dataset.islike
+    let idx = e.currentTarget.dataset.index
 
     if (isLike) {
       // 喜欢，则删除
@@ -665,7 +666,10 @@ Page({
         rid: rid
       }, (result) => {
         if (result.success) {
-          this.getRecommendProducts()
+          this.setData({
+            ["recommendProductList.products["+idx +"].is_like"]:false
+          })
+
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -676,7 +680,10 @@ Page({
         rid: rid
       }, (result) => {
         if (result.success) {
-          this.getRecommendProducts()
+          this.setData({
+            ["recommendProductList.products[" + idx + "].is_like"]: true
+          })
+          
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -1038,7 +1045,7 @@ Page({
 
   // 乐喜平台的分享卡片
   getLexiShare(){
-    console.log(app.globalData.storeInfo.rid)
+    console.log(app.globalData)
     http.fxPost(api.market_share_store, {
       rid: app.globalData.storeInfo.rid
     }, (result) => {

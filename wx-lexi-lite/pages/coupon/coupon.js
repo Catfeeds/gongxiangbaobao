@@ -69,7 +69,7 @@ Page({
     })
   },
   // 未使用// 已经过期 优惠券
-  getUserCoupon(o = 'N01', v = 1, i = 10) {
+  getUserCoupon(o = 'N01', v = 1, i = 1000) {
     var params = {
       page: v, //Number	可选	1	当前页码
       per_page: i, //Number	可选	10	每页数量

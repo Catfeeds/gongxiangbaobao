@@ -36,8 +36,8 @@
 
       <view class="time-top margin-bottom--50rpx">
         <view class="flex_row">
-          <image src="{{liveInfo.user_avator}}" class="store-logo"></image>
-          <text class="font-s font-width--medium">{{liveInfo.user_name}}</text>
+          <image src="{{liveInfo.store_logo}}" class="store-logo"></image>
+          <text class="font-s font-width--medium">{{liveInfo.store_name}}</text>
         </view>
 
         <view class="font-s flex_row--middle follow-owner__btn" data-uid="{{liveInfo.uid}}" catchtap="handleAddFollow" wx:if="{{!liveInfo.is_follow}}">
@@ -155,6 +155,8 @@
     </view>
   </view>
 
+  <block wx:if="{{}}">
+
   <!-- 评论 -->
   <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
     <view class="black-font font-width--medium">评论</view>
@@ -212,6 +214,8 @@
   <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
     查看全部{{liveInfo.comment_count}}条评论
   </view>
+
+  </block>
 
   <!-- 相关故事推荐 -->
   <view class="bg-white margin-bottom--50rpx border-bottom">

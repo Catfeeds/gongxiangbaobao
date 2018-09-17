@@ -368,6 +368,7 @@ Page({
         this.getCouponAndFullSubtraction()
         let topPage = getCurrentPages()
         let topPagePath = topPage[topPage.length - 2]
+        console.log(topPagePath,"index Page")
 
         topPagePath.getCouponsByUser()
         setTimeout(()=>{

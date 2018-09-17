@@ -71,7 +71,7 @@
     <!-- 定位垫片 -->
     <view class='Fshim' wx:if="{{sotrF}}"></view>
     <!-- 筛选和排序 -->
-    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.length!=0}}">
+    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{ classList[0].num!=0}}">
       <view catchtap='handelOffPick' class='flex_row'>
         筛选
         <image src='../../images/arrowhead.png'></image>
@@ -89,7 +89,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.length==0}}">
+    <view class=' column-row--middle user-null__product' wx:if="{{classList[0].num==0}}">
       <view>
         <image src='../../images/user-xin.png'></image>
       </view>
@@ -158,7 +158,7 @@
         <view class='shop-name'>{{ item.name }}</view>
       </view>
       <view 
-        class='with' 
+        class='with column-row--middle ' 
         catchtap='handleAddWatch' 
         wx:if="{{item.watch}}" 
         data-rid="{{item.rid}}"
@@ -167,7 +167,7 @@
         <view>关注</view>
       </view>
       <view 
-        class='with' 
+        class='with already-follow' 
         data-rid="{{item.rid}}"
         catchtap='handleDeleteWatch' 
         wx:if="{{!item.watch}}" 
@@ -188,7 +188,7 @@
   </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{watchStoreList.stores.length==0}}">
+    <view class=' column-row--middle user-null__product' wx:if="{{classList[2].num==0&&watchStoreList.stores.length==0}}">
       <view>
         <image src='../../images/user-store.png'></image>
       </view>

@@ -555,6 +555,7 @@ Page({
         
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
+        
 
         let currentOrder = result.data.orders[0]
         app.wxpayOrder(currentOrder.rid, result.data.pay_params)

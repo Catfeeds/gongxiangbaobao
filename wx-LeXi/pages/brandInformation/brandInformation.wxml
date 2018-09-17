@@ -6,11 +6,11 @@
     <view class='userinfo'>
       <view class='userinfoL'>
         <view class='userinfoO'>创作人</view>
-        <view class='userinfoT'>{{ shopOwner.brand_name }}</view>
+        <view class='userinfoT'>{{ shopOwner.username }}</view>
         <view class='userinfoS btn-bg-color'>{{ shopOwner.user_label }}</view>
       </view>
       <view class='userPhoto'>
-        <image src='{{ shopOwner.avatar.view_url }}'></image>
+        <image src='{{ shopOwner.user_avatar }}'></image>
       </view>
     </view>
 

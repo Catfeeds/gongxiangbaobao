@@ -1,119 +1,117 @@
 <view class='container theme-bg-color'>
-  <!-- 上部 -->
-  <view class='topInfo bg-white'>
-    <view class='orderNumber padding-top--24rpx padding-bottom--22rpx'>
-      <view class='hui-zi padding-bottom--10rpx'>订单编号</view>
-      <view class='black-font'># {{ orderInfo.rid }}</view>
-    </view>
+  <!-- 添加页面加载 -->
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
-    <view class='orderNumber paymentFn padding-top--24rpx padding-bottom--16rpx'>
-      <view class='hui-zi '>支付方式</view>
-      <view class='black-font paymentFnTextB'>
-        <view>微信在线支付</view>
-        <view class='payment-icon'>
-          <image src='../../images/weixinpay.png'></image>
-        </view>
-      </view>
-    </view>
+  <block>
 
-    <view class='orderNumber padding-top--22rpx'>
-      <view class='prceInfo padding-bottom--4rpx'>
-        <text> 
-        <text class='hui-zi'>小计：</text>
-        <text class='black-font'>￥{{orderInfo.total_amount}}</text>
-        </text>
-        <text class='hui-zi'>总计</text>
-      </view>
-      <view class='prceInfo'>
-        <text>  
-        <text class='hui-zi'>配送：</text>
-        <text class='expenses' wx:if="{{orderInfo.freight==0}}">免费</text>
-        <text class='expenses' wx:else>{{orderInfo.freight}}</text>
-        </text>
-        <text class='redtext'>￥{{orderInfo.pay_amount}}</text>
-      </view>
-    </view>
-
-  </view>
-
-  <!-- 下部 -->
-
-  <view class='BotBox bg-white'>
-    <view class='shopName'>
-      <text class='black-font'>{{orderInfo.store.store_name}}</text>
-      <view class='photo-round btn-bg-color'>
-        <image src='{{orderInfo.store.store_logo}}'></image>
-      </view>
-    </view>
-
-    <view class='PL'>
-      <view class='component item-product padding-top--10rpx padding-bottom--10rpx'>
-        <view class='time-top startAddress padding-bottom--22rpx'>
-          <text>  
-              <text class='hui-zi'>{{orderInfo.created_item}}·状态：</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==-1 }}">已关闭</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status == 1 }}">待支付</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==5 }}">待审核</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==10 }}">待发货</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==12 }}">配送中</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==3 }}">待打印</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==16 }}">已发货</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==17 }}">待签收</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==20 }}">已签收</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==30 }}">订单完成</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==40 }}">待评价</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.status==45 }}">评价完成</text>
-              <text class='font-s theme-green' wx:if="{{ orderInfo.user_order_status==90 }}">已退款</text>
-          </text>
-          <text class='hui-zi'>从上海发货</text>
+    <block wx:for="{{orderInfo.orders}}" wx:key="{{index}}">
+      <!-- 上部 -->
+      <view class='topInfo bg-white'>
+        <view class='orderNumber padding-top--24rpx padding-bottom--22rpx'>
+          <view class='hui-zi padding-bottom--10rpx'>订单编号</view>
+          <view class='black-font'># {{ item.rid }}</view>
         </view>
 
-        <!-- 购买的产品 -->
-        <view class='productBox' wx:for="{{orderInfo.items}}" wx:key="{{index}}" wx:for-item='sku'>
-          <view class='productComBoxL'>
-            <fx-product-middleM 
-              photoWidth="{{130}}" 
-              photoHeight="{{130}}" 
-              product="{{sku}}"></fx-product-middleM>
-          </view>
-          <text class='sku__price'>{{sku.mode}}</text>
-          <view class='needNumber hui-zi-m'>X{{sku.quantity}}</view>
-          <view class='productComBoxR'>
-            <view class='black-font'>￥{{sku.deal_price}}</view>
-            <view class='old-price-text' wx:if="{{sku.price!=sku.deal_price}}">￥{{sku.price}}</view>
-          </view>
-        </view>
-      </view>
-
-
-      <!-- 物流跟踪 -->
-      <view class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
-        <view class=' colimn-B'>
-          <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
-          <view class='time-top'>
-            <view class='logistics-icon'>
-              <image></image>
+        <view class='orderNumber paymentFn padding-top--24rpx padding-bottom--16rpx'>
+          <view class='hui-zi '>支付方式</view>
+          <view class='black-font paymentFnTextB'>
+            <view>微信在线支付</view>
+            <view class='payment-icon'>
+              <image src='../../images/weixinpay.png'></image>
             </view>
-            <view>第三方直邮</view>
           </view>
         </view>
-        <view class='green-btn' catchtap='logisticsTap'>
-          物流跟踪
+
+        <view class='orderNumber padding-top--22rpx'>
+          <view class='prceInfo padding-bottom--4rpx'>
+            <text> 
+        <text class='hui-zi'>小计：</text>
+            <text class='black-font'>￥{{item.total_amount}}</text>
+            </text>
+            <text class='hui-zi'>总计</text>
+          </view>
+          <view class='prceInfo'>
+            <text>  
+        <text class='hui-zi'>配送：</text>
+            <text class='expenses' wx:if="{{item.freight==0}}">免费</text>
+            <text class='expenses' wx:else>{{item.freight}}</text>
+            </text>
+            <text class='redtext'>￥{{item.pay_amount}}</text>
+          </view>
+        </view>
+
+      </view>
+      <!-- 下部 -->
+      <view class='BotBox bg-white margin-bottom--50rpx'>
+        <view class='shopName'>
+          <text class='black-font'>{{item.store.store_name}}</text>
+          <view class='photo-round btn-bg-color'>
+            <image src='{{item.store.store_logo}}'></image>
+          </view>
+        </view>
+
+        <view class='PL'>
+          <view class='component item-product padding-top--10rpx padding-bottom--10rpx'>
+            <view class='time-top startAddress padding-bottom--22rpx'>
+              <text>  
+              <text class='hui-zi'>{{item.created_item}}·状态：</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  1 }}">待发货</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  2 }}">待收货</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  3 }}">待评价</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  4 }}">待付款</text>
+
+              </text>
+              <text class='hui-zi'>{{item.store.delivery_province}}</text>
+            </view>
+
+            <!-- 购买的产品 -->
+            <view class='productBox' wx:for="{{item.items}}" wx:key="{{index}}" wx:for-item='sku'>
+              <view class='productComBoxL'>
+                <fx-product-middleM photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middleM>
+              </view>
+              <text class='sku__price'>{{sku.mode}}</text>
+              <view class='needNumber hui-zi-m'>X{{sku.quantity}}</view>
+              <view class='productComBoxR'>
+                <view class='black-font'>￥{{sku.deal_price}}</view>
+                <view class='old-price-text' wx:if="{{sku.price!=sku.deal_price}}">￥{{sku.price}}</view>
+              </view>
+            </view>
+          </view>
+
+
+          <!-- 物流跟踪 -->
+          <view catchtap='logisticsTap' data-code="{{sku.items[0].express_code}}" data-express-name="{{sku.items[0].express_name}}" data-logistics-number="{{sku.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
+            <view class=' colimn-B'>
+              <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
+              <view class='time-top'>
+                <view class='logistics-icon'>
+                  <image></image>
+                </view>
+                <view>第三方直邮</view>
+              </view>
+            </view>
+            <view class='green-btn'>
+              物流跟踪
+            </view>
+          </view>
+
+          <!-- 寄送地址 -->
+          <view class='PTRT time-top padding-top--24rpx padding-bottom--24rpx'>
+            <view class='hui-zi userLocation'>
+              <view class='padding-bottom--10rpx'>寄送地址</view>
+              <view class='black-font theme-color padding-bottom--10rpx'>{{item.buyer_name}}</view>
+              <view class='padding-bottom--10rpx'>{{item.buyer_city}}{{item.buyer_address}}</view>
+              <view class=''>{{item.buyer_country}},{{item.buyer_province}},{{item.buyer_city}} {{item.buyer_zipcode}}</view>
+            </view>
+            <view class='black-font'>{{item.buyer_phone}}</view>
+          </view>
         </view>
       </view>
 
-      <!-- 寄送地址 -->
-      <view class='PTRT time-top padding-top--24rpx padding-bottom--24rpx'>
-        <view class='hui-zi userLocation'>
-          <view class='padding-bottom--10rpx'>寄送地址</view>
-          <view class='black-font theme-color padding-bottom--10rpx'>{{orderInfo.buyer_name}}</view>
-          <view class='padding-bottom--10rpx'>{{orderInfo.buyer_city}}{{orderInfo.buyer_address}}</view>
-          <view class=''>{{orderInfo.buyer_country}},{{orderInfo.buyer_province}},{{orderInfo.buyer_city}}  {{orderInfo.buyer_zipcode}}</view>
-        </view>
-        <view class='black-font'>{{orderInfo.buyer_phone}}</view>
-      </view>
-    </view>
-  </view>
-  <!-- 垫片 -->
-  <view class='shm'></view>
+    </block>
+  
+    <!-- 垫片 -->
+    <view class='shm'></view>
+  </block>
+
 </view>

@@ -6,8 +6,7 @@
   <image src='https://static.moebeast.com/static/img/bg1010.jpeg'></image>
   <view class='red-bag_box'>
     <!-- 左边领取红包的提示 -->
-    <view class='receive-box'>
-
+    <view class='receive-box'> 
       <view class='scroll-box' style='top:{{topKey}}rpx'>
 
         <view class='receive-item time-top' wx:for="{{bonusLines}}"

@@ -21,25 +21,35 @@
   position: absolute;
   top: 100rpx;
   left: 0;
-  padding-left: 10rpx;
+  margin-left: 10rpx;
+  height: 230rpx;
+  overflow: hidden;
+  width: 312rpx
+}
+
+.scroll-box {
+  position: absolute;
+  left: 0rpx;
+  width: 100%;
 }
 
 .receive-item {
   height: 52rpx;
-  width: 248rpx;
   font-size: 18rpx;
   color: white;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, .7);
   border-radius: 30rpx;
-  padding: 4rpx;
   margin-bottom: 12rpx;
+  padding: 6rpx 10rpx;
 }
 
 .receive-item image {
   height: 48rpx;
   width: 48rpx;
   border-radius: 50%;
-  background-color: red;
+  /* background-color: red; */
+  
+  margin-right: 10rpx;
 }
 
 .receive-info {
@@ -141,8 +151,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -310rpx;
-  margin-left: -280rpx;
+  transform: translate(-50%,-50%)
 
 }
 .receive-price_photo{
@@ -166,7 +175,7 @@
 .off_shop{
   position: absolute;
   left: 50%;
-  top: 950rpx; 
+  bottom: -100rpx; 
   transform: translateX(-50%);
   font-size: 78rpx;
   color: white;
