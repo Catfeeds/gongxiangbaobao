@@ -80,7 +80,7 @@ Page({
     let exceedCouponList = this.data.exceedCouponList // 已经过期 不可用红包 非官方
 
     http.fxPost(api.user_coupons, params, (result) => {
-      console.log(result.data, o)
+      console.log(result.data, o,"all")
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
