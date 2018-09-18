@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "申请生活馆"
+  "navigationBarTitleText": "申请生活馆",
+  "fx-modal": "/components/FxModal/FxModal"
 }

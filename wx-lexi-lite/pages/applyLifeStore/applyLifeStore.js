@@ -11,6 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    quhao: false,
+    CountryCodeList: [], // 地区编号列表
+
     isShowMessage: true, // 验证码和读秒
     time: 60, // 时间
     activePage: 'apply-form', // apply-result
@@ -25,6 +28,29 @@ Page({
     counter: 0, // 计数器
     timer: '', // 间隔事务
     verifyCode: '', // 后端发送后，返回的验证码，用于前端验证
+  },
+
+  // 打开选择国家的呼出框
+  handleCountryPickOpen() {
+    this.setData({
+      quhao: true
+    })
+  },
+
+//选择国家
+  handlePickCountry(e) {
+    console.log(e.currentTarget.dataset.name)
+    this.setData({
+      "form.areacode": e.currentTarget.dataset.name,
+      quhao:false
+    })
+  },
+
+// 关闭选择国家
+  handleOffCountryPick(){
+    this.setData({
+      quhao: false
+    })
   },
 
   /**
@@ -75,7 +101,8 @@ Page({
     })
     http.fxPost(api.auth_sms_code, {
       mobile: this.data.form.mobile,
-      area_code: this.data.form.areacode
+      area_code: this.data.form.areacode,
+      areacode: this.data.form.areacode
     }, (res) => {
       console.log(res, '发送验证码')
       if (res.success) {
@@ -91,23 +118,34 @@ Page({
     })
   },
 
-// 处理倒计时
+  // 处理倒计时
   handleInterval() {
-    interval= setInterval(() => {
+    interval = setInterval(() => {
       console.log(11)
       if (this.data.time > 0) {
         this.setData({
-          time:this.data.time-1
+          time: this.data.time - 1
         })
-      }else{
+      } else {
         clearInterval(interval)
         this.setData({
-          isShowMessage:true,
-          time:60
+          isShowMessage: true,
+          time: 60
         })
       }
     }, 1000)
   },
+
+  // 获取地区编号
+  getCountryCode() {
+    http.fxGet(api.countries, {}, (result) => {
+      console.log(result, "地区编号列表")
+      this.setData({
+        CountryCodeList: result.data
+      })
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -121,6 +159,8 @@ Page({
         url: '../index/index'
       })
     }
+
+    this.getCountryCode()
   },
 
   /**

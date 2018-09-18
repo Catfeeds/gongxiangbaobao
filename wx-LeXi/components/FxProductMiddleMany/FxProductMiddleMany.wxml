@@ -10,7 +10,7 @@
   <view class='shopRecommendGoodsR' style='height:{{ photoHeight }}rpx;'>
     <view>
       <view class='two-line'>
-        <text class='logistics logistics' wx:if="{{product.is_free_postage}}">包邮</text>
+        <text class='logistics logistics' wx:if="{{product.is_free_postage}}"></text>
         <text class='{{photoHeight==140?"line-two":""}}'>{{ product.name ? product.name : product.product_name }}</text>
       </view>
       <block wx:if="{{ color }}">

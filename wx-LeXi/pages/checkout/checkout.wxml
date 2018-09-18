@@ -34,7 +34,7 @@
     </view>
     <view class='time-top margin-bottom--18rpx'>
       <text class='hui-zi'>配送：</text>
-      <text class='logistics_text font-s'>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : pageOrderInfo.logisticsPrice }}</text>
+      <text class='logistics_text font-s'>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : "￥"+pageOrderInfo.logisticsPrice }}</text>
     </view>
     <view class='time-top margin-bottom--14rpx' wx:if="{{isFirstOrder}}">
       <text class='hui-zi'>首单优惠：</text>
@@ -74,7 +74,7 @@
           <view class='shopGoodsInfoR'>
             <!-- <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.key.sale_price }}</text> -->
             <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.sale_price }}</text>
-            <text class='shopNameR old-price-text' wx:if='{{ item.sale_price != 0 }}'>￥{{ item.price }}</text>
+            <text class='shopNameR old-price-text' wx:if='{{ item.sale_price != 0&&item.price!=item.sale_price }}'>￥{{ item.price }}</text>
           </view>
           <text class='otherInfo'>x{{ item.quantity }}</text>
         </view>
@@ -99,9 +99,8 @@
           <view>
             <view class='receiveFn_photo time-top font-s'>
               <view class='time-top'>
-                <view class="receiveFnBottomBox">
-                  <image src='../../images/logistics-icon@2.png'></image>
-                </view>
+                  <image class='input-left__icon' src='../../images/logistics-icon@2.png'></image>
+                
                 <text>{{ logisticsItem.express_name }}</text>
               </view>
               <view class='logistics__time'>物流时长：{{ logisticsItem.min_days }}至{{ logisticsItem.max_days }}天送达</view>
@@ -113,17 +112,16 @@
 
       <!-- 给商家的注意事项 -->
       <view class='merchant voice'>
-        <view class='receiveFnBottomBox'>
-          <image src='../../images/shop-icon@2.png'></image>
-        </view>
+        <!-- <view class='receiveFnBottomBox {{systemWidth==375?"":""}}'> -->
+          <image class='input-left__icon  {{systemWidth==375?"margin-top--18rpx":""}}' src='../../images/shop-icon@2.png'></image>
+        <!-- </view> -->
         <textarea data-rid="{{items[0].store_rid}}" maxlength="100" bindinput='handleGiveShop' placeholder-class='input'  placeholder-class='goods-blessing' auto-height='{{true}}'  placeholder='给商家的说明和注意事项'></textarea>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
       <view class='merchant voice'>
-        <view class='receiveFnBottomBox'>
-          <image src='../../images/see-icon@2.png'></image>
-        </view>
+          <image class='input-left__icon {{systemWidth==375?"margin-top--18rpx":""}}' src='../../images/see-icon@2.png'></image>
+ 
         <textarea 
           value='' 
           data-rid="{{items[0].store_rid}}" 
@@ -180,9 +178,9 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' wx:if='{{paymentBtn}}'>
+  <cover-view class='conservation' wx:if='{{paymentBtn}}'>
     <button catchtap='paymentSuccess'>提交订单</button>
-  </view>
+  </cover-view>
 
   <!-- 优惠券弹框 -->
   <view class='coupon-box' wx:if="{{coupon}}" catchtap='couponTap'>

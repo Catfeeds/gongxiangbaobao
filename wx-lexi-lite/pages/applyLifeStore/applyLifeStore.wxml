@@ -20,13 +20,13 @@
         </view>
 
         <view class="fx-input verify-mobile">
-          <view class="areacode">
-            +86
+          <view class="areacode" catchtap='handleCountryPickOpen'>
+            {{form.areacode}}
           </view>
           <view class="line"></view>
           <input type="text" class="input-inner" bindblur="handleChangeMobile" name="mobile" placeholder="你的手机号" />
           <button bindtap="handleGotCode" wx:if="{{ isShowMessage}}" class="fetch-verify-code fx-button--text">获取验证码</button>
-          <button wx:if="{{ !isShowMessage}}"  class="fetch-verify-code fx-button--text">{{time}}s</button>
+          <button wx:if="{{ !isShowMessage}}" class="fetch-verify-code fx-button--text">{{time}}s</button>
 
         </view>
 
@@ -59,10 +59,27 @@
     </view>
 
     <view class="follow">
-      获取快速销售秘诀，关注微信公众号：<text>乐喜生活馆</text>
+      获取快速销售秘诀，关注微信公众号：
+      <text>乐喜生活馆</text>
     </view>
-    
-    <button bindtap="handGoLifeStore" class="fx-button primary">进入生活馆</button>
 
+    <button bindtap="handGoLifeStore" class="fx-button primary">进入生活馆</button>
   </view>
+
+  <!-- 电话选择 -->
+  <cover-view class=' flex-direction--column quhao-box  {{quhao?"pick-quhao":""}}'>
+    <cover-view class='block-title'>常用</cover-view>
+    <cover-view class='hui-line'></cover-view>
+
+    <cover-view class='time-top padding-15rpx {{item.areacode==form.areacode?"bgc--hui":""}}' wx:for="{{CountryCodeList}}" wx:key="{{index}}" catchtap='handlePickCountry' data-name="{{item.areacode}}">
+      <cover-view>{{item.name}}</cover-view>
+      <cover-view class='theme-hui-color'>{{item.areacode}}</cover-view>
+    </cover-view>
+
+    <cover-view class='off-pick__icon' catchtap='handleOffCountryPick'>
+    <cover-image src='../../images/off@2.png'></cover-image>
+    </cover-view>
+    <cover-view class='shm'></cover-view>
+  </cover-view>
+
 </view>

@@ -389,9 +389,16 @@ Page({
   // 切换类别
   classTap(e) {
     console.log(e.currentTarget.dataset.rid)
+    if (this.data.classInfo == e.currentTarget.dataset.rid) {
+      return
+    }
+
     this.setData({
+      likeProduct:[],
+      'sortParams.page': 1,
       classInfo: e.currentTarget.dataset.rid
     })
+
     this.getProduct(e.currentTarget.dataset.rid)
   },
 
@@ -536,7 +543,10 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this.setData({
+      'sortParams.page': 1,
+      likeProduct: []
+    })
   },
 
   /**

@@ -37,7 +37,7 @@ Page({
     http.fxGet(api.orders_after_payment_rid.replace(/:rid/, this.data.rid), {}, (result) => {
       console.log(result, '订单详情')
       if (result.success) {
-        result.data.created_item = utils.timestamp2string(result.data.created_at, "cn")
+        result.data.orders[0].created_item = utils.timestamp2string(result.data.orders[0].created_at, "cn")
         this.setData({
           orderInfo: result.data
         })

@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    systemWidth:"", // 设备的宽度
+
     isFirstOrder: false, // 是否属于首单
     storeOrAuthoritativeCouponPick: true, // true为选择了商家的优惠券，false为选择了官方优惠，2选1
     authoritativeCouponPrice: 0, // 官方优惠券折扣
@@ -167,14 +169,14 @@ Page({
 
           // 计算满减的总共金额
           Object.keys(result.data).forEach((key) => {
-            if (result.data[key].length != 0) {
+            if (result.data[key].length != 0 && result.data[key].length != undefined && result.data[key].length != 'undefined') {
               fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
             }
           })
-
+          
           this.setData({
             fullReductionList: result.data,
-            ['pageOrderInfo.fullSubtraction']: fullSubtractionPrice.toFixed(2)
+            ['pageOrderInfo.fullSubtraction']: (fullSubtractionPrice-0).toFixed(2)
           }, () => {
             this.orderLastPrice() // 订单总计
           })
@@ -578,10 +580,18 @@ Page({
     })
   },
 
+  // 获取屏幕宽度
+  getSystemWidth(){
+    this.setData({
+      systemWidth:app.globalData.windowWidth
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getSystemWidth()
     this.getStoreInfo()
     this.getIsFirstOrder() // 查看是否属于首单
     this.getReceiveAddress() // 收货地址---

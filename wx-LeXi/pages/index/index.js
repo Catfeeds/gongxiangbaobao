@@ -159,6 +159,7 @@ Page({
     this.setData({
       is_share: false,
     })
+    wx.showTabBar()
   },
 
   // 打开公告
@@ -403,7 +404,7 @@ Page({
         let data = this.data.myProduct
         
           this.setData({
-            myProduct: result.data.products.concat(data),
+            myProduct: data.concat(result.data.products),
             pickQuantity: result.data.count,
             isLoadProductShow: false,
             isProductNext:result.data.next,
@@ -465,7 +466,7 @@ Page({
       shareWhat: e.currentTarget.dataset,
       shareProductPhotoUrl: e.currentTarget.dataset.sharestore.cover
     })
-
+    wx.hideTabBar()
     this.getWxaPoster(ProductRid) // 保存商品的海报
   },
 
@@ -819,7 +820,7 @@ Page({
   // 获取店铺商品列表
   getStoreProducts() {
     http.fxGet(api.products, this.data.productCategoryParams, (result) => {
-      console.log(result,"首页的作品列表----------------------------------")
+      console.log(result,"首页的作品列表")
       if (result.success) {
         let data = this.data.myProduct
 
@@ -945,6 +946,7 @@ Page({
           result.data.coupons.forEach((v, i) => {
             console.log(v)
             if (v.type == 3) {
+              console.log(v)
               full.push(v)
             }
           })
@@ -954,7 +956,7 @@ Page({
           })
 
           console.log(this.data.fullSubtractionList,"满减")
-          app.globalData.fullSubtractionList = result.data
+          app.globalData.fullSubtractionList = full
 
         } else {
           // 未登录
@@ -1332,6 +1334,7 @@ Page({
     this.setData({
       is_share:false
     })
+    wx.showTabBar()
   },
   // 阻止滑动穿透
   hanlePreventScroll(){

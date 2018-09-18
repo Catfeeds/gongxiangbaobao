@@ -59,15 +59,17 @@
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  2 }}">待收货</text>
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  3 }}">待评价</text>
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  4 }}">待付款</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  5 }}">已完成</text>
+              <text class='font-s theme-green color--red' wx:if="{{ item.user_order_status ==  6 }}">交易取消</text>
 
               </text>
-              <text class='hui-zi'>{{item.store.delivery_province}}</text>
+              <text class='hui-zi'>从{{item.items[0].delivery_country}}{{item.items[0].delivery_province}}发货</text>
             </view>
 
             <!-- 购买的产品 -->
             <view class='productBox' wx:for="{{item.items}}" wx:key="{{index}}" wx:for-item='sku'>
               <view class='productComBoxL'>
-                <fx-product-middleM photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middleM>
+                <fx-product-middle photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middle>
               </view>
               <text class='sku__price'>{{sku.mode}}</text>
               <view class='needNumber hui-zi-m'>X{{sku.quantity}}</view>
@@ -78,14 +80,13 @@
             </view>
           </view>
 
-
           <!-- 物流跟踪 -->
-          <view catchtap='logisticsTap' data-code="{{sku.items[0].express_code}}" data-express-name="{{sku.items[0].express_name}}" data-logistics-number="{{sku.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
+          <view catchtap='logisticsTap' wx:if="{{item.user_order_status!=4&&item.user_order_status!=6}}" data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
             <view class=' colimn-B'>
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>
                 <view class='logistics-icon'>
-                  <image></image>
+                  <image src='../../images/logistics-icon@2.png'> </image>
                 </view>
                 <view>第三方直邮</view>
               </view>
@@ -97,19 +98,21 @@
 
           <!-- 寄送地址 -->
           <view class='PTRT time-top padding-top--24rpx padding-bottom--24rpx'>
-            <view class='hui-zi userLocation'>
+            <view class='hui-zi userLocation flex--1'>
               <view class='padding-bottom--10rpx'>寄送地址</view>
-              <view class='black-font theme-color padding-bottom--10rpx'>{{item.buyer_name}}</view>
+              <view class='black-font theme-color padding-bottom--10rpx time-top'>{{item.buyer_name}}
+                <view class='black-font'>{{item.buyer_phone}}</view>
+              </view>
               <view class='padding-bottom--10rpx'>{{item.buyer_city}}{{item.buyer_address}}</view>
               <view class=''>{{item.buyer_country}},{{item.buyer_province}},{{item.buyer_city}} {{item.buyer_zipcode}}</view>
             </view>
-            <view class='black-font'>{{item.buyer_phone}}</view>
+
           </view>
         </view>
       </view>
 
     </block>
-  
+
     <!-- 垫片 -->
     <view class='shm'></view>
   </block>

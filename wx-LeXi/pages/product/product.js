@@ -10,8 +10,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    posterUrl:'', // 海报的url
+    shareProductPhotoUrl:'', // 分享产品的url
+    is_share:false,
+
     rid: '', // 商品的rid---
-    productInfomation: [], // 商品详情列表---
+    productInfomation: [], // 商品详情---
     product: {},
     productContent: {},
     skus: {
@@ -40,7 +44,9 @@ Page({
     swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
     couponList: [], // 优惠券列表---couponList
-    fullSubtractionList: [], // 满减---
+    fullSubtractionList: {
+      coupons: []
+    }, // 满减---
     isWatch: false, // 是否关注过店铺
     storeInfo: [], // 店铺的信息---
 
@@ -56,6 +62,67 @@ Page({
       page: 1,
       per_page: 10
     }
+  },
+
+  // 分享模板弹出
+  handleShareBox(e) {
+    let ProductRid = this.data.rid
+
+    this.setData({
+      is_share: true,
+      shareProductPhotoUrl: this.data.productInfomation.cover,
+    })
+
+    this.getWxaPoster(ProductRid) // 保存商品的海报
+  },
+
+  /**
+* 生成推广海报图
+*/
+  getWxaPoster(e) {
+
+    let params = {
+      rid: e,
+      type: 3,
+      path: 'pages/product/product',
+      scene: e + "-" + app.globalData.storeInfo.rid,
+      auth_app_id: app.globalData.app_id
+    }
+    console.log(params)
+    http.fxPost(api.wxa_poster, params, (result) => {
+      console.log(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+* 保存当前海报到相册
+*/
+  handleSaveShare() {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              utils.fxShowToast("保存成功", "success")
+            },
+            fail(res) {
+              utils.fxShowToast("保存失败")
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -382,11 +449,11 @@ Page({
 
   // 优惠券，满减
   getCouponAndFullSubtraction() {
-    console.log(app.globalData.couponList, app.globalData.fullSubtractionList,"满减优惠券" )
+    console.log(app.globalData.fullSubtractionList,"满减优惠券" )
 
     this.setData({
       couponList: app.globalData.couponList, // 优惠券列表
-      fullSubtractionList: app.globalData.fullSubtractionList, // 满减---
+      'fullSubtractionList.coupons': app.globalData.fullSubtractionList, // 满减---
     })
     console.log(this.data.fullSubtractionList)
   },
@@ -890,18 +957,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    if (res.target.dataset.from == 3) {
+    
       return {
-        title: "转发的标题",
-        path: '/pages/share/share',
-        success: function(e) {
-          console.log(e)
-        },
-        fail: function(e) {
-          console.log(e)
-        }
+        title: this.data.productInfomation.name,
+        imageUrl: this.shareProductPhotoUrl,
+        path: '/pages/product/product?rid=' + this.data.rid
       }
-    }
+    
   },
 
   watchTap() {

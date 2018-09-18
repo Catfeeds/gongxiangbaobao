@@ -111,7 +111,7 @@
 .sku__price{
   position: absolute;
   top: 44rpx;
-  left: 150rpx;
+  left: 194rpx;
   font-size: 24rpx;
   color: #999999;
 }
@@ -145,5 +145,12 @@
 
 .margin-bottom--50rpx {
   margin-bottom: 50rpx
+}
 
+.color--red {
+  color: #ff6666;
+}
+
+.flex--1 {
+  flex: 1;
 }
