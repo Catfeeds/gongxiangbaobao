@@ -23,13 +23,36 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "支付成功",
+					"pathName": "pages/paymentSuccess/paymentSuccess",
+					"query": "rid=OD1809179610845"
+				},
+				{
+					"id": 1,
+					"name": "物流信息",
+					"pathName": "pages/logisticsWatch/logisticsWatch",
+					"query": "code=YD&&logisticsNumber=3832915032604&&expressName=韵达快递"
+				},
+				{
+					"id": -1,
+					"name": "物流信息",
+					"pathName": "pages/index/index",
+					"query": ""
+				}
+			]
 		}
 	}
 }

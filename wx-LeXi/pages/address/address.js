@@ -39,6 +39,7 @@ Page({
     id_card_front_image: '', // 身份证正面
     id_card_back_image: '', // 身份证背面
 
+    jieliu:1,// 保存地址节流阀
     //表单信息---
     form: {
       first_name: '', //String	必需	 	姓
@@ -187,6 +188,14 @@ Page({
       ['city_id']: this.data.cityOid , //Number	必需	 	城区
     })
 
+    if (this.data.jieliu==1){
+      this.setData({
+        jieliu: 0
+      })
+    }else{
+      return
+    }
+    
     http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
       console.log(result, '新增地址')
       if (result.success) {
@@ -196,6 +205,7 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
+
     })
   },
 
@@ -353,7 +363,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this.setData({
+      jieliu: 1
+    })
   },
 
   /**

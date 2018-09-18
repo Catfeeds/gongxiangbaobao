@@ -1,6 +1,6 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../shareTemplate/shareTemplate.wxml" />
-<view class='container {{coupon_show?"prevent__penetrate":""}} index-page'>
+<view class='container index-page'>
   <!-- 背景图片 -->
   <view class='index-bg'>
     <image src='{{ shopInfo.bgcover }}'></image>
@@ -79,12 +79,14 @@
   </view>
 
   <!-- 公告 wx:if="{{ announcement }}"-->
-  <view class='notice' wx:if="{{  }}">
+  <view class='notice' wx:if="{{ announcement.length!=0 }}">
     <view class='notice-title'>设计馆公告</view>
     <view class='notice-box'>
-      <view>{{ announcement }}</view>
+      <view class='{{lookMany?"":"three-line-text"}}'>{{ announcement }}</view>
     </view>
-    <view class='notice-info theme-green' wx:if="{{announcement.length>66}}">...阅读更多</view>
+    <view class='notice-info theme-green' catchtap='handleLookMany' wx:if="{{announcement.length>66&&!lookMany}}">...阅读更多</view>
+    <view class='notice-info theme-green' catchtap='handleOffLook' wx:if="{{lookMany}}">收起</view>
+    
   </view>
 
   <!-- 优惠券 -->
@@ -164,7 +166,9 @@
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view data-id='{{item.rid}}' data-isLike='{{item.is_like}}' class='recommendbottomText {{item.is_like?"likeActive":""}}' catchtap='handleBindLike'>
+          <view data-id='{{item.rid}}' data-isLike='{{item.is_like}}' 
+            data-index="{{index}}"
+          class='recommendbottomText {{item.is_like?"likeActive":""}}' catchtap='handleBindLike'>
             <view class='icon-like'>
               <image src='{{item.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}'>
               </image>
@@ -242,8 +246,9 @@
       </view>
       <view class='themeBottomPhoto' data-id='{{item.id}}' wx:for='{{popularProductTheme}}' wx:key='{{index}}' data-index='{{index}}' catchtap='handlethemeTap'>
         <image src='{{item.cover}}'></image>
-        <view class='theme-text theme-text__name'>{{item.name}}</view>
-        <view class='theme-text theme-sub__name'>{{item.sub_name}}</view>
+        <view class='theme-text theme-text__name '><text class='one-line-text '>{{item.name}}</text> </view>
+        <view class='theme-text theme-sub__name  '> 
+        <text class='one-line-text'> {{item.sub_name}}</text></view>
         <view class='theme-shade' style="background: linear-gradient(to bottom, rgba(255,255,255,0) , {{item.mask_color}});">
         </view>
       </view>
@@ -306,10 +311,10 @@
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
         </button>
-        <view class="share-save" bindtap="handleSaveShare">
+        <button class="share-save" bindtap="handleSaveShare">
           <image src="../../images/save@2.png" class="icon-save"></image>
           <text>保存分享</text>
-        </view>
+        </button>
       </view>
       <view class="distribute-cancle" bindtap="handleCancelShare">
         取消

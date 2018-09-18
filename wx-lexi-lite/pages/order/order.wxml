@@ -96,12 +96,12 @@
             <!-- 右面的信息 -->
             <view class='productinfo'>
               <view class='shopNameBox'>
-                <text class='shopName'>{{ order.store.store_name }}</text>
+                <text class='shopName' data-store-rid="{{order.items[0].store_rid}}" catchtap='hadleToBrand'>{{ order.store.store_name }}</text>
                 <text class='order-aggregate hui-zi order_sum'>订单总计</text>
               </view>
               <view class='time-top margin-top---13rpx margin-bottom--2rpx'>
                 <text>
-              <text class='hui-zi order-aggregate'>{{order.created_item}}·状态：</text>
+              <text class='hui-zi order-aggregate' data-store-rid="{{order.items[0].store_rid}}" catchtap='hadleToBrand'>{{order.created_item}}·状态：</text>
                 <text class='nonePayment theme-green'>待付款</text>
                 </text>
                 <text class='price'>￥{{ order.pay_amount }}</text>

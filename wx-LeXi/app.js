@@ -56,7 +56,10 @@ App({
     }
 
     // 获取地理位置
-    this.getUserLocation() 
+    this.getUserLocation()
+
+    // 获取设备信息
+    this.getSystemInfo()
   },
 
   login: function(cb) {
@@ -86,7 +89,7 @@ App({
               this.updateUserInfo(res.data)
               // 回调函数
               this.hookLoginCallBack()
-              
+
               if (cb) {
                 return typeof cb == 'function' && cb(true)
               }
@@ -113,9 +116,9 @@ App({
 
 
   /**
- * 分享小程序至好友
- * 验证生活馆或其他分销信息
- */
+   * 分享小程序至好友
+   * 验证生活馆或其他分销信息
+   */
   getDistributeLifeStoreRid() {
     let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
 
@@ -130,7 +133,7 @@ App({
   },
 
   // 登录后回调事件
-  hookLoginCallBack () {
+  hookLoginCallBack() {
     console.log('登录后，执行回调函数')
     // 获取购物车数量
     this.getCartTotalCount()
@@ -145,12 +148,12 @@ App({
       username: jwt.username
     }
   },
-  
+
   /**
    * 支付订单
    */
   wxpayOrder: function(rid, payParams, cb) {
-    console.log(rid, payParams,"支付参数")
+    console.log(rid, payParams, "支付参数")
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -203,7 +206,11 @@ App({
    * 获取购物车数量
    */
   getCartTotalCount() {
-    http.fxGet(api.cart_item_count, { params: { open_id: this.globalData.jwt.openid }}, (res) => {
+    http.fxGet(api.cart_item_count, {
+      params: {
+        open_id: this.globalData.jwt.openid
+      }
+    }, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
         this.globalData.cartTotalCount = res.data.item_count
@@ -233,21 +240,122 @@ App({
     })
   },
 
+  // 获取设备获取设备
+  getSystemInfo(){
+    wx.getSystemInfo({
+      success:  (res)=> {
+        console.log(res,"设备信息")
+        this.globalData.windowWidth = res.windowWidth
+       },
+    })
+  },
+
+
   globalData: {
     isLogin: false,
     app_id: null,
     token: null,
     uid: 0,
+    //设备信息
+    windowWidth:375,
     // 分享品牌馆的图片路径
-    shareBrandUrl:'',
+    shareBrandUrl: '',
     // 支付成功后的订单
-    paymentSuccessOrder:{},
+    paymentSuccessOrder: {
+      actual_payment: 0.1,
+      bonus_amount: 0,
+      order_rid: "D18091760153274",
+      orders: [{
+        store: {
+          store_logo: "https://s3.moebeast.com/20180911/3627FisHBLN-lKi5OhYTsC2INNAmFQ-D.jpg",
+          store_name: "正式环境的赵高尚店",
+          store_rid: "99240861"
+        },
+        official_order_id: null,
+        order_total_commission_price: 0,
+        outside_target_id: "D18091760153274",
+        pay_amount: 0.1,
+        payed_at: 0,
+        payment_sn: null,
+        reach_minus: 0,
+        received_at: 0,
+        refund_amount: 0,
+        remark: null,
+        rid: "D18091760153274",
+        ship_mode: 1,
+        signed_at: 0,
+        status: 5,
+        blessing_utterance: "",
+        buyer_address: "太火鸟bei'ji北京bei'jing北京bei'jng北京",
+        buyer_area: "",
+        buyer_city: "东城区",
+        buyer_country: "中国",
+        buyer_name: "赵高尚",
+        buyer_phone: "13716171560",
+        buyer_province: "北京",
+        buyer_remark: "",
+        buyer_tel: "",
+        buyer_town: "内环到三环里",
+        buyer_zipcode: "",
+        coupon_amount: 0,
+        created_at: 1537165440,
+        current_time: 1537165440,
+        customer_order_id: null,
+        discount_amount: 0,
+        distributed: false,
+        first_discount: 0,
+        freight: 0,
+        is_many_express: false,
+        items: [{
+          bgcover: "https://s3.moebeast.com/20180911/3757FjpOpB6CDXw32dchEVzTivNCBv4Z.jpg",
+          city: "朝阳区",
+          country: "中国",
+          cover: "https://s3.moebeast.com/20180911/4446FjfjZO_3ZOJsuALw7fvKTNh1NrKd.jpg",
+          cover_id: 21804,
+          deal_price: 0.1,
+          delivery_city: "",
+          delivery_country: "中国",
+          delivery_country_id: 1,
+          delivery_province: "",
+          distribution_type: 0,
+          express: 75,
+          express_at: 0,
+          express_code: "YD",
+          express_name: "韵达快递",
+          express_no: null,
+          fans_count: 0,
+          freight: 0,
+          freight_name: "赵高尚运费模板1",
+          mode: "黄色 ",
+          order_sku_commission_price: 0,
+          order_sku_commission_rate: 0,
+          price: 0.1,
+          product_name: "乾隆年间茶壶，官窑",
+          product_rid: "8416598237",
+          province: "北京",
+          quantity: 1,
+          rid: "8519064283",
+          s_color: "黄色",
+          s_model: "",
+          s_weight: 1,
+          sale_price: 0,
+          stock_count: 81,
+          stock_quantity: 81,
+          store_logo: "https://s3.moebeast.com/20180911/3627FisHBLN-lKi5OhYTsC2INNAmFQ-D.jpg",
+          store_name: "正式环境的赵高尚店",
+          store_rid: "99240861",
+          tag_line: "这里是宣传语，，正式环境测试用的",
+          town: "三环以内",
+        }]
+      }]
+
+    },
     // 登录相关信息
     jwt: {},
     // 第三方配置信息
     configInfo: '',
     // 店铺主人信息
-    storeOwnerInfo:'',
+    storeOwnerInfo: '',
     // 店铺的信息
     storeRid: '',
     storeInfo: [],

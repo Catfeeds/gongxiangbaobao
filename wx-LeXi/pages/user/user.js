@@ -28,8 +28,7 @@ Page({
       { name: "可定制", id: "3", isActive: false },
     ],
 
-
-    watchStoreList: [], // 关注店铺的列表
+    watchStoreList: { stores:[]}, // 关注店铺的列表
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
@@ -88,7 +87,7 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores' + index + '.watch']: false
+          ['watchStoreList.stores[' + index + '].watch']: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -96,7 +95,6 @@ Page({
     })
   },
 
-  
   // 取消关注---
   handleDeleteWatch(e) {
     console.log(e.currentTarget.dataset.rid)
@@ -109,7 +107,8 @@ Page({
     }, (result) => {
       if (result.success) {
         this.setData({
-          ['watchStoreList.stores' + index +'.watch']:true
+          "classList[2].num": this.data.classList[2].num-1,
+          ['watchStoreList.stores[' + index +'].watch']:true
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -407,7 +406,7 @@ Page({
     switch (e) {
       case 1:
         http.fxGet(api.userlike, this.data.sortParams, (result) => {
-          console.log(result)
+          console.log(result,"喜欢")
           if (result.success) {
 
             let data = this.data.likeProduct
@@ -488,7 +487,7 @@ Page({
    */
   onLoad: function(options) {
 
-    this.getUserInfo() // 获取用户的信息
+  
     
   },
 
@@ -503,6 +502,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getUserInfo() // 获取用户的信息
 
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---

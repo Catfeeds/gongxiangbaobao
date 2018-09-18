@@ -257,13 +257,14 @@ button-hover {
   color: white;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content:center;
   align-items: center;
 }
 
 .with>image {
   height: 26rpx;
   width: 26rpx;
+  margin-right: 10rpx;
 }
 
 .shop-other-goods {
@@ -316,29 +317,34 @@ button-hover {
   margin-top: 34rpx;
 }
 
-.user-null__product{
+.user-null__product {
   height: 100%;
+  margin-top: 50rpx;
 }
 
-.user-null__product image{
+.user-null__product image {
   height: 120rpx;
   width: 120rpx;
-
 }
 
-.bottom__info{
+.bottom__info {
   flex: 1;
 }
 
-.no-like__title{
-margin:35rpx 0 20rpx 0;
+.no-like__title {
+  margin: 35rpx 0 20rpx 0;
 }
 
-.hui-xin image{
+.hui-xin image {
   width: 26rpx;
   height: 24rpx;
 }
 
 .padding-bottom--0 {
   padding-bottom: 0rpx;
+}
+
+.already-follow {
+  background-color: rgb(245, 247, 249);
+  color: rgb(153, 153, 153);
 }

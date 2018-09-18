@@ -51,6 +51,7 @@ Page({
 
   // 获取店铺休息，和店铺主人的信息
   getAllInfo () {
+    console.log(app.globalData.storeInfo)
     this.setData({
       storeInfo: app.globalData.storeInfo,
       isAuthentication: app.globalData.isAuthenticationStore,

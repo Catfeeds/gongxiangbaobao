@@ -35,7 +35,7 @@
     <!-- 价格和喜欢的人数 -->
     <view wx:if="{{price}}" class='price-like-box'>
       <text class='current_price'>¥{{product.min_price}}</text>
-      <text wx:if="{{product.min_price==product.min_sale_price}}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{product.min_price}}</text>
+      <text wx:if="{{product.min_price!=product.min_sale_price&&product.min_sale_price!=0}}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{product.min_price}}</text>
       <text wx:if="{{product.like_count!=0}}" class='shopRecommendGoodsR-old '>喜欢+{{product.like_count}}</text>
     </view>
 

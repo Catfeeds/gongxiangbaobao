@@ -28,6 +28,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options,"支付页面，上一页的参数")
+    console.log(app.globalData.paymentSuccessOrder)
 
     let order = app.globalData.paymentSuccessOrder
     this.setData({

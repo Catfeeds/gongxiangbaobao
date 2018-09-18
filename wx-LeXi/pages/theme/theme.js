@@ -9,7 +9,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    product: [{}],  
+    productOther:"",
+    product: [],  
+    params:{
+      id:"",
+    }
   },
   //跳转到商品详情---
   handleInfomation(e) {
@@ -18,14 +22,32 @@ Page({
     })
   },
 
+  getThemeList(){
+    http.fxGet(api.theme_list, this.data.params, (result) => {
+      console.log(result, '人气里面的主题')
+      if (result.success) {
+        this.setData({
+          product: this.data.product.concat(result.data.products),
+          productOther: result.data ,
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.themeProdct)
+    // console.log(app.globalData.themeProdct)
     this.setData({
-      product: app.globalData.themeProdct
+      'params.id': options.id
     })
+
+    this.getThemeList()
+
   },
 
   /**

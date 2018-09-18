@@ -9,10 +9,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isFirstOrder:false, // 是否属于首单
-    storeOrAuthoritativeCouponPick:true, // true为选择了商家的优惠券，false为选择了官方优惠，2选1
-    authoritativeCouponPrice:0, // 官方优惠券折扣
-    paymentBtn: false,// 支付按钮
+    isFirstOrder: false, // 是否属于首单
+    storeOrAuthoritativeCouponPick: true, // true为选择了商家的优惠券，false为选择了官方优惠，2选1
+    authoritativeCouponPrice: 0, // 官方优惠券折扣
+    paymentBtn: false, // 支付按钮
     order: [], // 所有的订单信息---
     itemOrderLogisticsPrice: {}, // 每笔订单运费
     receiveAddress: [], // 收货地址---
@@ -20,8 +20,8 @@ Page({
     logisticsCompany: [], // 物流公司及模板信息---
     shoppingCart: [{}], // 添加到购物车的内容产品内容
 
-    authorityCouponShow:false, // 官方优惠券模态框
-    authorityCouponList:[], // 官方优惠券列表
+    authorityCouponShow: false, // 官方优惠券模态框
+    authorityCouponList: [], // 官方优惠券列表
     coupon: false,
     couponList: [], // 所有的优惠券列表
     pickCoupon: [], // 选择后每一项里面的优惠券列表
@@ -31,7 +31,7 @@ Page({
     fullReductionList: '', // 满减活动列表
 
     //店铺信息
-    storeInfo:'',
+    storeInfo: '',
 
     // 页面的订单明细
     pageOrderInfo: {
@@ -52,15 +52,15 @@ Page({
   },
 
   // 获取是否属于首单
-  getIsFirstOrder(){
-    http.fxGet(api.is_first_order,{},(result)=>{
-      if(result.success){
-        console.log(result.data,"是否属于首单")
+  getIsFirstOrder() {
+    http.fxGet(api.is_first_order, {}, (result) => {
+      if (result.success) {
+        console.log(result.data, "是否属于首单")
         this.setData({
-          isFirstOrder:result.data.is_new_user
-          
+          isFirstOrder: result.data.is_new_user
+
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -96,10 +96,10 @@ Page({
 
   // 订单总计isFirstOrder
   orderLastPrice() {
-    var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 -  this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000)/1000
+    var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 - this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000) / 1000
 
-    if (this.data.isFirstOrder){
-      
+    if (this.data.isFirstOrder) {
+
       this.setData({
         ['pageOrderInfo.firstOrderPrice']: (lastPrice * 0.1).toFixed(2)
       })
@@ -133,7 +133,7 @@ Page({
   getFullReduction() {
     let params = this.data.orderInfomation
     let items = []
-    
+
     Object.keys(params).forEach((key) => {
       let item = {
         rid: params[key].store_rid,
@@ -160,16 +160,16 @@ Page({
         items: items
       }, (result) => {
         console.log(items)
-        console.log(result,"满减金额")
+        console.log(result, "满减金额")
         if (result.success) {
-          
+
           let fullSubtractionPrice = 0
 
           // 计算满减的总共金额
           Object.keys(result.data).forEach((key) => {
-            if (result.data[key].length!=0){
-                fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
-              }
+            if (result.data[key].length != 0) {
+              fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
+            }
           })
 
           this.setData({
@@ -219,29 +219,29 @@ Page({
       }
     })
   },
-  
+
   // 领取官方优惠券按钮后
   handleAuthoritativeCoupon(e) {
-    console.log(e,"官方优惠券领取")
-    console.log(this.data.orderInfomation,"订单参数")
+    console.log(e, "官方优惠券领取")
+    console.log(this.data.orderInfomation, "订单参数")
 
     app.globalData.orderParams.bonus_code = e.detail.value.code
 
     let item = this.data.orderInfomation
-    Object.keys(item).forEach((key)=>{
+    Object.keys(item).forEach((key) => {
       console.log(item[key])
-      item[key].coupon_codes=""
+      item[key].coupon_codes = ""
     })
 
     // this.setData({
     //   authoritativeCouponPrice: e.detail.amount,
-      
+
     // })
 
     console.log(this.data.orderInfomation, "选择后的优惠卷")
     let option = e.detail.value
     let coupon = JSON.parse(option)
- 
+
     this.setData({
       orderInfomation: item,
       authoritativeCouponPrice: coupon.amount,
@@ -400,7 +400,7 @@ Page({
 
       skusList.push(skus.data[key])
     })
-    console.log(skusList,"订单的产品详情")
+    console.log(skusList, "订单的产品详情")
     console.log(store_items)
     this.setData({
       order: skusList, // 订单页面渲染
@@ -417,12 +417,12 @@ Page({
 
   // 选择优惠券后 店铺
   radioChange(e) {
-    app.globalData.orderParams.bonus_code=''
+    app.globalData.orderParams.bonus_code = ''
     let params = JSON.parse(e.detail.value)
     console.log(this.data.orderInfomation[params.store_rid].coupon_price)
-    
+
     this.setData({
-      storeOrAuthoritativeCouponPick:true,
+      storeOrAuthoritativeCouponPick: true,
       ['orderInfomation.' + params.store_rid + '.coupon_price']: params.price,
       ['orderInfomation.' + params.store_rid + '.coupon_codes']: params.code
     }, () => {
@@ -458,6 +458,13 @@ Page({
       })
     }
 
+    console.log(this.data.couponList[e.currentTarget.dataset.order_rid])
+    let couponStatus = this.data.couponList[e.currentTarget.dataset.order_rid]
+    if (couponStatus!=undefined&& couponStatus.length== 0) {
+      utils.fxShowToast("没有可用的优惠券")
+      return
+    }
+
     let i
     if (e.currentTarget.dataset.is_coupon == 1) {
       i = true
@@ -471,40 +478,46 @@ Page({
   },
 
   // 获取官方优惠
-  getAuthorityCoupon(e){
-    console.log(e,"总额度")
+  getAuthorityCoupon(e) {
+    console.log(e, "总额度")
     // 获取官方的券
-    http.fxGet(api.checkout_authority_couponList, { amount:e}, (result) => {
-        console.log(result, '官方优惠券')
+    http.fxGet(api.checkout_authority_couponList, {
+      amount: e
+    }, (result) => {
+      console.log(result, '官方优惠券')
 
-        if (result.success) {
-          result.data.coupons.forEach((v, i) => {
-            console.log(v)
-            v.start_time = utils.timestamp2string(v.start_at, 'date')
-            v.end_time = utils.timestamp2string(v.expired_at, 'date')
+      if (result.success) {
+        result.data.coupons.forEach((v, i) => {
+          console.log(v)
+          v.start_time = utils.timestamp2string(v.start_at, 'date')
+          v.end_time = utils.timestamp2string(v.expired_at, 'date')
 
-            // 设置data
-            if (result.data.coupons.length - 1 == i) {
-              this.setData({
-                authorityCouponList: result.data
-              })
-            }
-          })
+          // 设置data
+          if (result.data.coupons.length - 1 == i) {
+            this.setData({
+              authorityCouponList: result.data
+            })
+          }
+        })
 
-        } else {
-          utils.fxShowToast(result.status.message)
-        }
-      })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
 
   // 官方的优惠券
-  handleAuthorityCoupon(){
+  handleAuthorityCoupon() {
+    console.log(this.data.authorityCouponList)
+    if (this.data.authorityCouponList.length == 0) {
+      return
+    }
 
     let optine = this.data.authorityCouponShow
-    if (optine){
+    if (optine) {
       optine = false
-    }else{
+    } else {
       optine = true
     }
 
@@ -552,9 +565,10 @@ Page({
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
       console.log(result, '新增订单')
       if (result.success) {
-        
+
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
+
 
         let currentOrder = result.data.orders[0]
         app.wxpayOrder(currentOrder.rid, result.data.pay_params)
@@ -567,7 +581,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getStoreInfo()
     this.getIsFirstOrder() // 查看是否属于首单
     this.getReceiveAddress() // 收货地址---
@@ -577,7 +591,7 @@ Page({
   /**
    * 加载订单相关
    */
-  loadOrder () {
+  loadOrder() {
     // const do1 = await 
     this.getOrderProdectInfo() // 获取订单详情
   },
@@ -585,49 +599,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
 

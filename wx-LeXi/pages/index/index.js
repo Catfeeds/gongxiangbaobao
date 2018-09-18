@@ -16,6 +16,7 @@ Page({
     shareProductPhotoUrl:'', // 分享商品的url
     posterUrl:"", // 海报的url
 
+    lookMany:false,  // 查看更多的公告
     pickQuantity: "", // 商品的数量
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
@@ -85,7 +86,7 @@ Page({
       is_distributed: '', // 商品类别 0: 全部; 1：自营商品；2：分销商品
       qk: '', // 搜索关键字
       out_of_stock: '', // 商品库存 0: 全部; 1: 数量不足
-      user_record: true //用户是否喜欢
+      user_record: 1, //用户是否喜欢
     },
     //分类 精选 作品 人气---
     catgory: [{
@@ -157,6 +158,20 @@ Page({
   handleCancelShare(e) {
     this.setData({
       is_share: false,
+    })
+  },
+
+  // 打开公告
+  handleLookMany(){
+    this.setData({
+      lookMany :true
+    })
+  },
+
+  // 关闭公告
+  handleOffLook(){
+    this.setData({
+      lookMany: false
     })
   },
   
@@ -658,6 +673,7 @@ Page({
 
     let rid = e.currentTarget.dataset.id
     let isLike = e.currentTarget.dataset.islike
+    let idx = e.currentTarget.dataset.index
 
     if (isLike) {
       // 喜欢，则删除
@@ -665,7 +681,10 @@ Page({
         rid: rid
       }, (result) => {
         if (result.success) {
-          this.getRecommendProducts()
+          this.setData({
+            ["recommendProductList.products["+idx +"].is_like"]:false
+          })
+
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -676,7 +695,10 @@ Page({
         rid: rid
       }, (result) => {
         if (result.success) {
-          this.getRecommendProducts()
+          this.setData({
+            ["recommendProductList.products[" + idx + "].is_like"]: true
+          })
+          
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -1038,7 +1060,7 @@ Page({
 
   // 乐喜平台的分享卡片
   getLexiShare(){
-    console.log(app.globalData.storeInfo.rid)
+    console.log(app.globalData)
     http.fxPost(api.market_share_store, {
       rid: app.globalData.storeInfo.rid
     }, (result) => {

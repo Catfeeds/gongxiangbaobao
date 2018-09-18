@@ -130,24 +130,3 @@
 .order_sum{
   /* padding-bottom: 6rpx; */
 }
-.order-product__photo{
-  height: 120rpx;
-  width: 120rpx;
-}
-
-.flex-row{
-  display: flex;
-  flex-direction: row;
-}
-
-.order-product__name {
-  font-size: 26rpx
-}
-.order-product__shuliang {
-  font-size:24rpx;
-  color:#999;
-}
-
-.margin-left--20{
-  margin-left: 20rpx;
-}

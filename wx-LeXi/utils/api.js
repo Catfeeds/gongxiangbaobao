@@ -51,6 +51,7 @@ module.exports = {
   wxacode: 'market/wxacode', // POST 生成小程序码
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme: 'wx_app_design/collections', //Get 主题---
+  theme_list: 'wx_app_design/collection', //Get 主题list---
   marketBanners: 'banners/:rid', //广告--
   products_index: 'products/index', // 首页作品的排序---
   store_categories: 'store/categories', // 店铺的的产品分类
@@ -77,7 +78,7 @@ module.exports = {
   order_prepay_sign: 'orders/wx_prepay_sign', // POST 获取prepay_id和支付签名验证paySign
   critique_product: 'orders/product/comment/create', //post 评论商品---
   orders_delete: 'orders/delete', // 删除订单---
-
+  orders_after_payment_rid: 'orders/after_payment/:rid', // 订单详情
   // Market
   is_first_order: "market/coupons/new_user_discount", // 查看是否属于首单
   user_login_coupon: 'market/user_master_coupons', //用户登陆时候的优惠券
@@ -158,4 +159,5 @@ module.exports = {
   unfollow_user: 'unfollow/user', // 取消关注
   users_followed_stores: 'users/followed_stores', // 获取关注店铺的列表
   wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
+  market_bonus_lines: 'market/bonus_lines', // 分享领取红包的人
 }

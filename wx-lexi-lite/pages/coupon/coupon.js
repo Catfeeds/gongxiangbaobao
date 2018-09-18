@@ -77,7 +77,7 @@ Page({
   },
 
   // 未使用// 已经过期 优惠券
-  getUserCoupon(o = 'N01', v = 1, i = 10) {
+  getUserCoupon(o = 'N01', v = 1, i = 1000) {
     var params = {
       page: v, //Number	可选	1	当前页码
       per_page: i, //Number	可选	10	每页数量
@@ -88,7 +88,7 @@ Page({
     let exceedCouponList = this.data.exceedCouponList // 已经过期 不可用红包 非官方
 
     http.fxPost(api.user_coupons, params, (result) => {
-      console.log(result.data, o)
+      console.log(result.data, o,"all")
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
