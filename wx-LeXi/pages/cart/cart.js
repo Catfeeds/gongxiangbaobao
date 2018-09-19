@@ -33,7 +33,7 @@ Page({
     falseheckbox: false, // falseheckbox---
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
-    shoppingCart: [], // 添加到购物车的内容产品内容---
+    shoppingCart: { items:[]}, // 添加到购物车的内容产品内容---
     payment: 0, // 应该支付的总金额---
 
     // 添加购物车和修改购买数量的时候参数
@@ -44,7 +44,7 @@ Page({
       open_id: '', //	独立小程序openid
     },
 
-    thinkOrder: [], // 心愿单的内容---
+    thinkOrder: { count:0}, // 心愿单的内容---
   },
 
   // 是否登陆
@@ -71,6 +71,7 @@ Page({
     }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
+        app.globalData.cartTotalCount = result.data.item_count
         if (result.data.items.length==0){
           this.setData({
             changeCart:false
@@ -167,7 +168,7 @@ Page({
       productRid.push(v.rid)
       return v.product.product_rid
     })
-    
+
     this.setData({
       checkboxPick: productRid
     })

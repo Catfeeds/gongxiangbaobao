@@ -1,8 +1,8 @@
 <!--pages/editInfo/editInfo.wxml-->
 <view class='container'>
   <view class='userPhoto'>
-    <image src='{{ userInfo.profile.avatar }}'></image>
-    <view class='register-time'>注册时间：{{ userInfo.profile.created_at }}</view>
+    <image src='{{ userInfo.avatar }}'></image>
+    <view class='register-time'>注册时间：{{ userInfo.created_at }}</view>
     <view class='camera' bindtap='handleUploadAvatar'>
       <image src='../../images/icon-camera@2x.png'></image>
     </view>
@@ -29,7 +29,9 @@
       <!-- 位置 -->
       <label class='componentTwo padding-bottom--16rpx'>
         <view>位置</view>
-        <input bindinput='handleEditAddress'  placeholder-class='placeholder' class='userInput' placeholder='请输入您的位置'></input>
+        <input bindinput='handleEditAddress'  
+        value='{{editUserInfo.street_address}}'
+        placeholder-class='placeholder' class='userInput' placeholder='请输入您的位置'></input>
       </label>
       <!-- 出生日期 -->
       <label class='componentTwo'>

@@ -215,7 +215,7 @@ Page({
   // 获取用户信息
   getUserInfo() {
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userDetail
     })
   },
 
@@ -224,21 +224,21 @@ Page({
    */
   onLoad: function(options) {
     console.log(app.globalData.userInfo)
-    this.getUserInfo() // 获取用户信息
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    wx.getStorageSync('allPlaces') || common.getReceivePlaces() // 加载收货地址
+    // wx.getStorageSync('allPlaces') || common.getReceivePlaces() // 加载收货地址
   },
   
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getUserInfo() // 获取用户信息
   },
 
   /**

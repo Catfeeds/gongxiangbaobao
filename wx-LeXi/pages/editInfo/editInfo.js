@@ -48,7 +48,7 @@ Page({
   handleEditAddress(e){
     console.log(e.detail.value)
     this.setData({
-      street_address: e.detail.value
+      'editUserInfo.street_address': e.detail.value
     })
 
   },
@@ -183,12 +183,12 @@ Page({
   // 获取用户信息 ---
   getUserInfo() {
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userDetail
     })
 
-    console.log(app.globalData.userInfo,"用户信息")
+    console.log(app.globalData.userDetail,"用户信息")
 
-    let userProfile = app.globalData.userInfo.profile
+    let userProfile = app.globalData.userDetail
     let time = utils.timestamp2string(userProfile.created_at, 'cn')
     this.setData({
       ['editUserInfo.username']: userProfile.username, // String  昵称 - 必须保持唯一
