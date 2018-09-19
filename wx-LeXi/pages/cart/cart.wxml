@@ -29,7 +29,7 @@
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
-              <checkbox value="{{item.product.rid}}" checked="{{falseheckbox}}" data-rid='{{1234}}' />
+              <checkbox value="{{item.rid}}" checked="{{falseheckbox}}" />
             </block>
             <!-- 中间的产品信息 -->
             <view>
@@ -58,7 +58,7 @@
   </view>
 
   <!-- 心愿单 -->
-  <view class='thinkOrderBox' wx:if="{{thinkOrder.products.length!=0 && !changeCart}}">
+  <view class='thinkOrderBox' wx:if="{{thinkOrder.count!=0 && !changeCart}}">
     <view class='thinkOrdertext'>心愿单</view>
     <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}">
       <view class='cart-L'>
