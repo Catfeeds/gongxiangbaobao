@@ -118,7 +118,7 @@ module.exports = {
   place_areas: 'places/:pid/areas', // GET 获取所有村或区域级列表
   all_places: 'places', // 获取所有的地址---
   get_country: 'auth/area_code', //获取所有的国家---
-
+  provinces_cities: 'places/provinces_cities', // GET 省/市/区 列表
   // Pay
   pay_wechat: 'pay/wechat', // POST 微信支付
 

@@ -49,7 +49,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    
+
     // 选择国家的模态框是否弹出
     handleShowCountryModal() {
       this.setData({
@@ -186,7 +186,7 @@ Component({
       }
 
       http.fxPost(api.bind_mobile, params, (res) => {
-        console.log(res, '登录成功',)
+        console.log(res, '登录成功', )
         if (res.success) {
           utils.fxShowToast('登录成功', 'success')
 
@@ -201,7 +201,7 @@ Component({
           // 触发关闭回调
           this.triggerEvent('closeEvent')
         } else {
-          utils.fxShowToast(result.status.message)
+          utils.fxShowToast(res.status.message)
         }
       })
     },

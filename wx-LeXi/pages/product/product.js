@@ -160,6 +160,19 @@ Page({
   },
 
   /**
+ * 验证是否选择sku
+ */
+  validateChooseSku() {
+    if (!this.data.choosed) {
+      return false
+    }
+    if (!this.data.quantity) {
+      return false
+    }
+    return true
+  },
+
+  /**
    * 直接购买
    */
   handleQuickBuy(e) {
@@ -167,12 +180,18 @@ Page({
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
 
       http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
+        console.log(result,"每个商品")
         if (result.success) {
           let deliveryCountries = [] // 发货的国家列表
 
           Object.keys(result.data).forEach((key) => {
             console.log(result.data[key]) // 每个店铺
             result.data[key].forEach((v, i) => { //每个sku
+              // 收集所有发货国家或地区，验证是否跨境
+              if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
+                deliveryCountries.push(v.delivery_country_id)
+              }
+
               // 当前店铺的rid
               v.current_store_rid = app.globalData.storeInfo.rid
               // 是否为分销商品
@@ -187,6 +206,8 @@ Page({
           })
 
           app.globalData.orderSkus = result
+          app.globalData.deliveryCountries = deliveryCountries
+
           // 设置当前商品的物流模板
           wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
           wx.navigateTo({
@@ -984,8 +1005,9 @@ Page({
 
   // 回到首页
   handleGoIndex() {
-    wx.navigateBack({
-      delta: 1
+
+    wx.switchTab({
+      url: '../index/index',
     })
   },
 
