@@ -168,6 +168,8 @@ Page({
 
       http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
         if (result.success) {
+          let deliveryCountries = [] // 发货的国家列表
+
           Object.keys(result.data).forEach((key) => {
             console.log(result.data[key]) // 每个店铺
             result.data[key].forEach((v, i) => { //每个sku

@@ -23,6 +23,27 @@ Page({
     this.setData({
       address_rid: e.detail.value
     })
+
+    // this.validateUserCustom()
+  },
+
+  // 验证海关用户信息
+  validateUserCustom() {
+    let currentAddress = {}
+    this.data.addressList.map(item => {
+      if (item.rid == this.data.address_rid) {
+        currentAddress = item
+      }
+    })
+    let deliveryCountries = app.globalData.deliveryCountries
+    if (deliveryCountries.length > 0 && deliveryCountries.indexOf(currentAddress.country_id) == -1) {
+      // 此地址为跨境，需验证身份信息
+      this.getUserIdCard(currentAddress)
+    } else {
+      this.setData({
+        validateCustom: true
+      })
+    }
   },
 
   // 在没有选择的时候去设置订单参数

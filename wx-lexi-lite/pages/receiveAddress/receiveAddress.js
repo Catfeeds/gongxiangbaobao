@@ -27,7 +27,7 @@ Page({
     this.setData({
       address_rid: e.detail.value
     })
-
+  
     this.validateUserCustom()
   },
 

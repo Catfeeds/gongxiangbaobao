@@ -141,6 +141,7 @@ App({
 
   // 更新用户信息
   updateUserInfo(jwt) {
+    console.log(jwt,"index用户的信息")
     this.globalData.userInfo = {
       avatar: jwt.avatar,
       username: jwt.username,
@@ -359,8 +360,10 @@ App({
     // 店铺的信息
     storeRid: '',
     storeInfo: [],
-    // 登录用户信息
+    // 登录用户基本信息
     userInfo: null,
+    // 用户的详细信息
+    userDetail:{}, 
     // 地址位置
     location: {},
     // 购物车数量

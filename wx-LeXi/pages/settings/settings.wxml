@@ -4,12 +4,12 @@
     <!-- 查看并编辑 -->
     <view class='user-name-edit time-top' catchtap='editInfoTap'>
       <view>
-        <text wx:if='{{ userInfo.profile.username != null }}' class='user__name'>{{ userInfo.profile.username }}</text>
+        <text wx:if='{{ userInfo.username != null }}' class='user__name'>{{ userInfo.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
         <view class='edit-user'>查看并编辑个人资料</view>
       </view>
       <view class='userPhoto'>
-        <image src='{{ userInfo.profile.avatar }}'></image>
+        <image src='{{ userInfo.avatar }}'></image>
       </view>
     </view>
     <!-- 是否绑定手机号码 -->
@@ -23,7 +23,7 @@
           <view class='font-size'>手机绑定</view>
         </view>
         <view class='time-top'>
-          <view class="ft-gray" wx:if="{{ userInfo.profile.mobile }}">已绑定</view>
+          <view class="ft-gray" wx:if="{{ userInfo.mobile }}">已绑定</view>
           <view class='font-size-red' wx:else>未绑定</view>
           <view class='fx-icon-nothing-right'></view>
         </view>
