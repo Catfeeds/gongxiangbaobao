@@ -38,8 +38,8 @@
                 <text class='nonePayment theme-green' wx:if="{{ order.user_order_status == 2 }}">待收货</text>
                 <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==3 }}">待评价</text>
                 <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==4 }}">待付款</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==5 }}">已完成</text>
-                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==6 }}">已取消</text>
+                <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==5 }}">交易成功</text>
+                <text class='nonePayment theme-green color--red ' wx:if="{{ order.user_order_status==6 }}">交易取消</text>
 
                 </text>
                 <text class='price'>￥{{ order.pay_amount }}</text>
@@ -65,7 +65,7 @@
             <text>付款</text>
             <text>{{ items_order.orderTime }}</text>
           </view>
-          <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
+          <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 || order.user_order_status == 6 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">  
             删除订单
           </view>
           <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" wx:if="{{ order.user_order_status == 2 }}" class='delleteOrder hui-zi' catchtap='logTop'>
@@ -279,9 +279,9 @@
           <view catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
             删除订单
           </view>
-          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
+          <!-- <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
-          </view>
+          </view> -->
           <view data-product='{{ order }}' class='critiqueBtn' catchtap='critiqueTap'>
             去评价
           </view>

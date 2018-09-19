@@ -57,7 +57,7 @@ swiper-item, swiper-item>image, swiper {
 }
 
 .like-quantity-l {
-  padding: 15rpx 20rpx;
+  padding: 13rpx 20rpx;
   border: 2rpx solid #ededef;
   box-sizing: border-box;
   border-radius: 60rpx;
@@ -87,8 +87,8 @@ swiper-item, swiper-item>image, swiper {
 
 .transmissionInfo {
   padding: 0;
-  height: 58rpx;
-  width: 59rpx;
+  height: 62rpx;
+  width: 62rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -606,4 +606,16 @@ swiper-item, swiper-item>image, swiper {
 
 .margin-bottom--4rpx {
   margin-bottom: 4rpx;
+}
+
+.pick .sell-over__btn,
+.bottom-btn>.sell-over__btn {
+  width: 550rpx ;
+  background: rgba(95,228,177,0.5);
+  
+}
+
+.pick .sell-over__btn{
+width: 670rpx !important;
+margin: 0 auto;
 }

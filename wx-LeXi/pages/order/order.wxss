@@ -151,3 +151,7 @@
 .margin-left--20{
   margin-left: 20rpx;
 }
+
+.color--red {
+  color: #ff6666;
+}

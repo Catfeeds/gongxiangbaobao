@@ -537,3 +537,12 @@ button::after {
   width: 100%;
   z-index: 10;
 }
+
+.distribute-action__box {
+  padding: 6rpx 0;
+}
+
+.share-save__button {
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
