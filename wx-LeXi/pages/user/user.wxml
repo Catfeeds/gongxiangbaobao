@@ -1,5 +1,5 @@
 <!--pages/user/user.wxml-->
-<view class='container {{is_mobile?"prevent__penetrate":""}}'>
+<view class='container '>
   <view class='top-box'>
     <!-- 头像 -->
     <view class='user-photo'>
@@ -24,7 +24,7 @@
         <open-data wx:else type="userNickName"></open-data>
       </view>
       <view class='is-login font-ss' wx:if='{{ is_mobile }}'>
-        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">你还未绑定手机号</button>
+        <button open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">你还未绑定手机号</button>
       </view>
     </view>
     <!-- 粉丝 -->
@@ -196,8 +196,6 @@
     </view>
 </view>
 
-  <!-- 登陆注册模态框 -->
-  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
     <!-- 排序的呼出框 -->
   <!-- <view 
@@ -289,5 +287,7 @@
     </view>
   </fx-modal>
 
-
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+  
 </view>

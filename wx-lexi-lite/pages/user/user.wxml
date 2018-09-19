@@ -1,5 +1,5 @@
 <!--pages/user/user.wxml-->
-<view class='container {{is_mobile?"prevent__penetrate":""}}'>
+<view class='container '>
 
     <image 
     src='../../images/jiazai.gif' 
@@ -254,7 +254,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' fx-column--center user-null__product' wx:if="{{watchStoreList.stores.length==0||watchStoreList.length==0}}">
+    <view class=' fx-column--center user-null__product' wx:if="{{classList[2].num==0}}">
       <view class='padding-top--150rpx'>
         <image src='../../images/user-store.png'></image>
       </view>
@@ -265,9 +265,8 @@
   </view>
 
   <!-- 登陆注册模态框 -->
-   <view catchtap='hanleOffLogin'>
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
-  </view>
+ 
 
   <!-- 排序的呼出框 -->
   <view class='login-bind_box--style' catchtap='handleSortOff' wx:if="{{isSortShow}}">

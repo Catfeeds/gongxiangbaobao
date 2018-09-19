@@ -179,6 +179,7 @@ Component({
         mobile: this.data.loginForm.mobile_number, // 	手机号
         verify_code: this.data.loginForm.verify_code //	手机验证码
       }
+      console.log(params,"提交授权后端传参")
 
       if (!this.data.canSubmit) {
         utils.fxShowToast('请先完成输入')
@@ -260,7 +261,6 @@ Component({
 
                 // 触发关闭回调
                 this.triggerEvent('closeEvent')
-
               } else {
                 utils.fxShowToast(res.status.message)
               }

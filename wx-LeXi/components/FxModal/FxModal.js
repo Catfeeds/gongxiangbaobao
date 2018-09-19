@@ -65,11 +65,14 @@ Component({
      * 隐藏弹窗
      */
     hideModal() {
+
+      wx.showTabBar()
       this.setData({
         visible: false
       })
       // 触发关闭回调
       this.triggerEvent('closeEvent')
+      
     },
 
     /**

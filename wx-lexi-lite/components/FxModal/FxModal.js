@@ -70,6 +70,7 @@ Component({
       })
       // 触发关闭回调
       this.triggerEvent('closeEvent')
+      wx.showTabBar()
     },
 
     /**

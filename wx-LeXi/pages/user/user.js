@@ -630,6 +630,50 @@ Page({
     })
   },
 
+  /**
+ * 获取用户授权手机号
+ */
+  handleGotPhoneNumber(e) {
+    console.log(e)
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
+      // 调用login获取code
+      wx.login({
+        success: (res) => {
+          // 发送 res.code 到后台换取 openId
+          const code = res.code
+          console.log('Login code: ' + code)
+
+          http.fxPost(api.wxa_authorize_bind_mobile, {
+            code: code,
+            auth_app_id: app.globalData.app_id,
+            encrypted_data: e.detail.encryptedData,
+            iv: e.detail.iv,
+          }, (res) => {
+            console.log(res, '微信授权手机号')
+            if (res.success) {
+              // 登录成功，得到jwt后存储到storage
+              wx.setStorageSync('jwt', res.data)
+              console.log(res.data, 'jwt信息')
+              app.globalData.isLogin = true
+              app.globalData.token = res.data.token
+              app.globalData.uid = res.data.uid
+              //更新用户信息
+              app.updateUserInfo(res.data)
+              // 更新小B身份
+              app.updateLifeStoreInfo(res.data)
+              // 回调函数
+              app.hookLoginCallBack()
+            } else {
+              utils.fxShowToast(res.status.message)
+            }
+          })
+        }
+      })
+    } else {
+      utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
+    }
+  },
+
   // 跳转到订单页面 
   handleToOrderTap() {
     // 是否登陆
@@ -664,11 +708,11 @@ Page({
   // 关闭
   hanleOffLoginBox(e) {
     console.log(e)
-    wx.showTabBar()
     this.setData({
       // is_mobile: e.detail.offBox
        is_mobile: false
     })
+    wx.showTabBar()
   },
   // 关注页面跳转
   handleWatchTap() {
@@ -700,7 +744,6 @@ Page({
   },
   // 查看全部
   handleAllProduct(e) {
-
     console.log(e.currentTarget.dataset.from)
     wx.navigateTo({
       url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from,
@@ -719,14 +762,17 @@ Page({
     this.setData({
       isSortShow: true
     })
+    wx.hideTabBar()
   },
   // 排序的盒子关闭
   handleSortOff() {
     var params = this.data.isSortShow
     if (params) {
       params = false
+      wx.showTabBar()
     } else {
       params = true
+      wx.hideTabBar()
     }
     this.setData({
       isSortShow: params
@@ -753,6 +799,7 @@ Page({
     this.setData({
       handelOffPick: true
     })
+    wx.hideTabBar()
     this.getCategories()
   },
   // 打开筛选的盒子

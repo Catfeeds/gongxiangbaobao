@@ -142,6 +142,7 @@ Page({
 
   // 当点击移除---
   clearCart() {
+    console.log(this.data.checkboxPick,"选择好的商品rid")
     http.fxPost(api.clearCart, {
       open_id: wx.getStorageSync('jwt').openid,
       rids: this.data.checkboxPick
@@ -161,19 +162,23 @@ Page({
   // 放入心愿单--
   addDesire() {
     console.log(this.data.addDesireOrder)
+    let productRid = []
     let rid = this.data.addDesireOrder.map((v, i) => {
-      console.log(v)
+      productRid.push(v.rid)
       return v.product.product_rid
     })
-    console.log(rid)
+    
+    this.setData({
+      checkboxPick: productRid
+    })
     http.fxPost(api.wishlist, {
       rids: rid
     }, (result) => {
       console.log(result)
       if (result.success) {
         this.getDesireOrder()
-        this.getCartProduct()
         this.paymentPrice()
+        this.clearCart()
       } else {
         utils.fxShowToast(result.status.message)
       }
