@@ -14,7 +14,8 @@ Page({
     path: true, // 页面来源
     addressList: [], // 地址列表---
     address_rid: '', // 选择的rid
-    order: ''
+    order: '',
+    validateCustom: false, // 未验证海关信息前，不能确认
   },
 
   // 选择的地址
@@ -24,7 +25,7 @@ Page({
       address_rid: e.detail.value
     })
 
-    // this.validateUserCustom()
+    this.validateUserCustom()
   },
 
   // 验证海关用户信息
@@ -44,6 +45,51 @@ Page({
         validateCustom: true
       })
     }
+  },
+
+  // 获取海关所需身份证信息
+  getUserIdCard(currentAddress) {
+    console.log(currentAddress.full_name + ',' + currentAddress.mobile)
+    http.fxGet(api.address_user_custom, { user_name: currentAddress.full_name, mobile: currentAddress.mobile }, (result) => {
+      console.log(result, '海关身份证')
+      if (result.success) {
+        if (Object.keys(result.data).length == 0) {
+          // 没有身份证信息
+          wx.showModal({
+            title: '提示',
+            content: '此订单为跨境订单，需上传清关所需身份证信息',
+            cancelColor: '#333333',
+            confirmColor: '#5FE4B1',
+            success: function (res) {
+              if (res.confirm) {
+                // 跳转补全信息
+                wx.navigateTo({
+                  url: '../address/address?rid=' + currentAddress.rid + '&need_custom=1&from_ref=checkout',
+                })
+              }
+            }
+          })
+          return
+        }
+        this.setData({
+          validateCustom: true
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 继续提交订单
+  submitOrderTap() {
+    if (!this.data.validateCustom) {
+      utils.fxShowToast('请先选定地址')
+      return
+    }
+
+    wx.redirectTo({
+      url: '../checkout/checkout'
+    })
   },
 
   // 在没有选择的时候去设置订单参数
@@ -153,15 +199,15 @@ Page({
   // 选择地址
   addAddressTap() {
     wx.navigateTo({
-      url: '../address/address'
+      url: '../address/address?from_ref=checkout'
     })
   },
 
   // 继续提交订单
-  submitOrderTap() {
-    wx.redirectTo({
-      url: '../checkout/checkout'
-    })
-  }
+  // submitOrderTap() {
+  //   wx.redirectTo({
+  //     url: '../checkout/checkout'
+  //   })
+  // }
   
 })

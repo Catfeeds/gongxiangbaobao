@@ -136,6 +136,10 @@ switch {
   font-size: 32rpx;
 }
 
+.userPhotoHave {
+  position: relative;
+}
+
 .userPhotoHave>image {
   height: 100%;
   width: 100%;
@@ -190,4 +194,24 @@ switch {
   padding: 20rpx 40rpx;
   border-bottom: 2rpx solid #e9e9e9;
   border-top: 2rpx solid #e9e9e9;
+}
+
+.upload-status__box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 10rpx;
+  width: 250rpx;
+  border-radius: 60rpx;
+  border: 1rpx solid #e9e9e9;
+  background-color: #999;
+  
+}
+
+.upload-status__box view {
+  height: 100%;
+  /* background-color: white; */
+  border-radius: 60rpx;
+  background-color: rgba(95,228,177,1) 
 }

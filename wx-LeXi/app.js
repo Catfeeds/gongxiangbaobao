@@ -257,6 +257,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 发货国家
+    deliveryCountries:[],
     //设备信息
     windowWidth:375,
     // 分享品牌馆的图片路径
@@ -361,7 +363,7 @@ App({
     storeRid: '',
     storeInfo: [],
     // 登录用户基本信息
-    userInfo: null,
+    userInfo: {},
     // 用户的详细信息
     userDetail:{}, 
     // 地址位置

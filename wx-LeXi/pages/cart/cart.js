@@ -64,6 +64,13 @@ Page({
     }
   },
 
+  // 跳转到商品详情---
+  handleInfomation(e) {
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+    })
+  },
+
   // 获取购物车 ---
   getCartProduct() {
     http.fxGet(api.cart, {
