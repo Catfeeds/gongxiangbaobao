@@ -18,6 +18,10 @@ App({
 
     this.globalData.app_id = extConfig.authAppid
     this.globalData.storeRid = extConfig.storeRid
+    this.globalData.storeInfo = {
+      rid: extConfig.storeRid,
+      name: extConfig.name
+    }
 
     console.log(extConfig, '第三方拓展信息')
 

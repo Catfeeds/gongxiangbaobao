@@ -565,23 +565,29 @@ Page({
 
   // 添加访问者---
   addBrowse() {
-    let params = {
-      openid: app.globalData.jwt.openid, // String	必须	 	用户唯一标识
-      rid: app.globalData.storeRid, // String	必须	 	店铺编号
-      ip_addr: '', // String	可选	 	访问时IP
-      agent: '', // String	可选	 	访问时代理
-    }
-
-    console.log(params,"添加浏览者的参数")
-
-    http.fxPost(api.add_browse, params, (result) => {
-      console.log(result,"添加浏览人数")
-      if (result.success) {
-        this.getBrowseQuantity() // 浏览浏览人数---
-      } else {
-        utils.fxShowToast(result.status.message)
+    const jwt = wx.getStorageSync('jwt')
+    if (!jwt.openid) {
+      console.log('等待openid返回')
+      return
+    } else {
+      let params = {
+        openid: jwt.openid, // String	必须	 	用户唯一标识
+        rid: app.globalData.storeRid, // String	必须	 	店铺编号
+        ip_addr: '', // String	可选	 	访问时IP
+        agent: '', // String	可选	 	访问时代理
       }
-    })
+
+      console.log(params, "添加浏览者的参数")
+
+      http.fxPost(api.add_browse, params, (result) => {
+        console.log(result, "添加浏览人数")
+        if (result.success) {
+          this.getBrowseQuantity() // 浏览浏览人数---
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
   },
 
   // 添加关注---
@@ -745,11 +751,13 @@ Page({
 
   // 获取浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
+    const jwt = wx.getStorageSync('jwt')
+
     let params = {
       rid: app.globalData.storeRid,
       page: page,
       per_page: per_page,
-      openid: app.globalData.jwt.openid
+      openid: jwt.openid
     }
     console.log(params)
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, app.globalData.storeRid), params, (result) => {
