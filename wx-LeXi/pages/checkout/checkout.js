@@ -571,9 +571,17 @@ Page({
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
 
-
         let currentOrder = result.data.orders[0]
-        app.wxpayOrder(currentOrder.rid, result.data.pay_params)
+
+        // 如下单成功，返回支付参数为空，则跳转至订单列表
+        if (Object.keys(result.data.pay_params).length == 0) {
+          // 跳转至详情
+          wx.redirectTo({
+            url: './../order/order',
+          })
+        } else {
+          app.wxpayOrder(currentOrder.rid, result.data.pay_params)
+        }
       } else {
         utils.fxShowToast(result.status.message)
       }

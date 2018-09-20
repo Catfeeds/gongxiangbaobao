@@ -148,7 +148,7 @@ Page({
       cids: '', //	 	分类编号， 多个用, 隔开
       min_price: '', //	 	价格区间： 最小价格
       max_price: '', //	 	价格区间： 最大价格
-      status: '', //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
+      status: 1, //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
     }
   },
 
@@ -566,28 +566,23 @@ Page({
   // 添加访问者---
   addBrowse() {
     const jwt = wx.getStorageSync('jwt')
-    if (!jwt.openid) {
-      console.log('等待openid返回')
-      return
-    } else {
-      let params = {
-        openid: jwt.openid, // String	必须	 	用户唯一标识
-        rid: app.globalData.storeRid, // String	必须	 	店铺编号
-        ip_addr: '', // String	可选	 	访问时IP
-        agent: '', // String	可选	 	访问时代理
-      }
-
-      console.log(params, "添加浏览者的参数")
-
-      http.fxPost(api.add_browse, params, (result) => {
-        console.log(result, "添加浏览人数")
-        if (result.success) {
-          this.getBrowseQuantity() // 浏览浏览人数---
-        } else {
-          utils.fxShowToast(result.status.message)
-        }
-      })
+    let params = {
+      openid: jwt.openid, // String	必须	 	用户唯一标识
+      rid: app.globalData.storeRid, // String	必须	 	店铺编号
+      ip_addr: '', // String	可选	 	访问时IP
+      agent: '', // String	可选	 	访问时代理
     }
+
+    console.log(params, "添加浏览者的参数")
+
+    http.fxPost(api.add_browse, params, (result) => {
+      console.log(result, "添加浏览人数")
+      if (result.success) {
+        this.getBrowseQuantity() // 浏览浏览人数---
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 添加关注---
@@ -1074,8 +1069,9 @@ Page({
   // 乐喜平台的分享卡片
   getLexiShare(){
     console.log(app.globalData)
+   
     http.fxPost(api.market_share_store, {
-      rid: app.globalData.storeInfo.rid
+       rid: app.globalData.storeInfo.rid
     }, (result) => {
       console.log(result, "分享品牌管图片的地址")
       if (result.success) {
@@ -1097,9 +1093,14 @@ Page({
 
     this.getShopInfo() // 获取店铺的信息
     this.getAnnouncement() // 获取店铺公告---
-    this.addBrowse() // 添加浏览
-
     this.getStoreOwner()//获取主人信息
+    
+    app.login().then(res => {
+      console.log(res, '异步请求')
+      
+      this.getLexiShare()
+      this.addBrowse() // 添加浏览
+    })
    
     if (app.globalData.isLogin) { // 用户已登录时
       // 查看是否关注
@@ -1164,7 +1165,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成   
    */
   onReady: function() {
-    this.getLexiShare()
+    
     console.log(app.globalData.storeInfo.name)
   },
 

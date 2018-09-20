@@ -103,7 +103,7 @@
   <view wx:if="{{classInfo==1}}" class='bottom__info'>
 
         <!-- 最近查看 -->
-    <view class='c-importantGoods p-null padding-left--0rpx' wx:if="{{likeProduct.length!=0&&likeProduct.products.length!=0}}">
+    <view class='c-importantGoods p-null padding-left--0rpx shou' wx:if="{{likeProduct.length!=0&&likeProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all margin-left--40rpx'>
         <text>喜欢的商品</text>
         <view 

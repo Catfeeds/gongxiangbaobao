@@ -7,7 +7,7 @@ const common = require('./utils/common.js')
 
 App({
   onLaunch: function () {
-    wx.clearStorageSync()
+    // wx.clearStorageSync()
     // 展示本地存储能力
     let logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
