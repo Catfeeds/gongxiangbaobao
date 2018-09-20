@@ -137,7 +137,7 @@
     <!-- 缺省图片 -->
     <view 
       class=' column-row--middle user-null__product' 
-      wx:if="{{desireOrderProduct.products.length==0 && userBrowsesProduct.length==0}}">
+      wx:if="{{desireOrderProduct.count==0 && userBrowsesProduct.count==0}}">
       <view>
         <image src='../../images/user-star.png'></image>
       </view>

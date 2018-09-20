@@ -332,7 +332,7 @@ Page({
   // 交货时间
   getLogisticsTime(e,rid) {
     http.fxGet(api.logisitcs.replace(/:rid/g,e), {product_rid:rid}, (result)=>{
-      console.log(result.data,'交货时间')
+      console.log(result,'交货时间')
       if(result.success){
         let min = result.data.items[0].min_days
         let max = result.data.items[0].max_days

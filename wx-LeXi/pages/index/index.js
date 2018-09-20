@@ -148,7 +148,7 @@ Page({
       cids: '', //	 	分类编号， 多个用, 隔开
       min_price: '', //	 	价格区间： 最小价格
       max_price: '', //	 	价格区间： 最大价格
-      status: '', //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
+      status: 1, //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
     }
   },
 
@@ -565,6 +565,7 @@ Page({
 
   // 添加访问者---
   addBrowse() {
+    console.log(app.globalData.storeRid)
     let params = {
       openid: app.globalData.jwt.openid, // String	必须	 	用户唯一标识
       rid: app.globalData.storeRid, // String	必须	 	店铺编号
@@ -1024,6 +1025,8 @@ Page({
         this.setData({
           shopInfo: app.globalData.storeInfo
         })
+        this.getLexiShare()
+        this.addBrowse() // 添加浏览
       } else {
         util.fxShowToast(result.status.message)
       }
@@ -1066,8 +1069,9 @@ Page({
   // 乐喜平台的分享卡片
   getLexiShare(){
     console.log(app.globalData)
+   
     http.fxPost(api.market_share_store, {
-      rid: app.globalData.storeInfo.rid
+       rid: app.globalData.storeInfo.rid
     }, (result) => {
       console.log(result, "分享品牌管图片的地址")
       if (result.success) {
@@ -1089,7 +1093,7 @@ Page({
 
     this.getShopInfo() // 获取店铺的信息
     this.getAnnouncement() // 获取店铺公告---
-    this.addBrowse() // 添加浏览
+    
 
     this.getStoreOwner()//获取主人信息
    
@@ -1156,7 +1160,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成   
    */
   onReady: function() {
-    this.getLexiShare()
+    
     console.log(app.globalData.storeInfo.name)
   },
 

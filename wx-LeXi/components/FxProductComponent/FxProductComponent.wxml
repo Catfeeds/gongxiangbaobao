@@ -17,6 +17,6 @@
   <view class='productPrice'>
     <text class='nowPrice'>￥{{product.min_sale_price>0?product.min_sale_price:product.min_price}}</text>
     <text class='oldPrice' wx:if="{{oldPrice&&product.oldPrice}}">￥{{product.oldPrice}}</text>
-    <text class='like-number' wx:if="{{like_number}}">喜欢 +{{product.like_count}}</text>
+    <text class='like-number' wx:if="{{like_number&&product.like_number!=0}}">喜欢 +{{product.like_count}}</text>
   </view>
 </view>
