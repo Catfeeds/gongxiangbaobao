@@ -21,7 +21,7 @@
 
         <view class="fx-input verify-mobile">
           <view class="areacode" catchtap='handleCountryPickOpen'>
-            {{form.verify_code}}
+            {{form.area_code}}
           </view>
           <view class="line"></view>
           <input type="text" class="input-inner" bindinput="handleChangeMobile" name="mobile" placeholder="你的手机号" />

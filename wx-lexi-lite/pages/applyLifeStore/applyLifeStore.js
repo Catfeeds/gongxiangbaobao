@@ -20,10 +20,10 @@ Page({
     form: {
       name: '',
       profession: '',
-      area_code:"",
-      areacode:"",
+      area_code:"+86",
+      areacode:"+86",
       mobile: '',
-      verify_code: '+86'
+      verify_code: ''
     },
     sending: false,
     counter: 0, // 计数器
@@ -75,7 +75,8 @@ Page({
    * 提交申请
    */
   handleSubmitApply(e) {
-    http.fxPost(api.life_store_apply, e.detail.value, (res) => {
+
+    http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code}, (res) => {
       console.log(res, '开通生活馆')
       if (res.success) {
         this.setData({

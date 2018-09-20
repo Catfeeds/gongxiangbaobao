@@ -198,7 +198,9 @@
         <view class='tuijian'>
           <!-- 物品的详情 -->
           <view class='recommend-goods-box' wx:for='{{highQualityProduct.designs}}' wx:key='{{index}}'>
-            <fx-product-middleM bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
+            <fx-product-middleM 
+            is_likeNumber="{{true}}"
+            bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
             </fx-product-middleM>
           </view>
         </view>
@@ -238,7 +240,7 @@
 
   <!-- 人气里面的内容 -->
   <view wx:if="{{ catgoryActive == 3 }}">
-    <view>
+    <view wx:if="{{popularProductTheme.length!=0}}">
       <view class='human themeGoods'>
         主题
       </view>
@@ -254,6 +256,7 @@
       </view>
     </view>
 
+  <block wx:if="{{currentNewProduct.length!=0}}">
     <view class='human new-goods'>
       最新作品
     </view>
@@ -271,6 +274,7 @@
       <!-- 没有商品加载的底部 -->
       <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
     </block>
+</block>
 
   </view>
 

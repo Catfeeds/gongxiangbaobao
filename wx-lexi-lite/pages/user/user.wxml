@@ -79,19 +79,19 @@
         </view>
       </view>
       <view class=' time-top '>
-        <view class='flex_row--middle service coupon' catchtap='couponTap'>
+        <view class='flex_row--middle service coupon c-middle' catchtap='couponTap'>
           <image class='setings' src='../../images/coupon_icon@2.png'></image>
           <text class='red-round' wx:if="{{couponSum>0}}"></text>
         </view>
 
-        <view class=" flex_row--middle service">
+        <view class=" flex_row--middle service c-middle">
         <button open-type="contact" class="ke-fu__btn">
         </button>
         <image class='setings' src='../../images/set.png'></image>
         </view>
 
         <view 
-          class='flex_row--middle service seting--left' 
+          class='flex_row--middle service seting--left c-middle' 
           data-uid="{{userInfo.uid}}" 
           catchtap='setTap'>
           <image class='setings' src='../../images/setings.png'></image>
