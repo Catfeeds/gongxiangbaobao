@@ -572,7 +572,10 @@ Page({
       agent: '', // String	可选	 	访问时代理
     }
 
+    console.log(params,"添加浏览者的参数")
+
     http.fxPost(api.add_browse, params, (result) => {
+      console.log(result,"添加浏览人数")
       if (result.success) {
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
@@ -1081,17 +1084,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // 设置头部信息
-    this.getNavigationBarTitleText()
+   
+    this.getNavigationBarTitleText() // 设置头部信息
 
-    // 获取店铺的信息
-    this.getShopInfo()
-    //获取主人信息
-    this.getStoreOwner()
+    this.getShopInfo() // 获取店铺的信息
     this.getAnnouncement() // 获取店铺公告---
+    this.addBrowse() // 添加浏览
 
-    this.getBrowseQuantity() // 浏览浏览人数---
-
+    this.getStoreOwner()//获取主人信息
+   
     if (app.globalData.isLogin) { // 用户已登录时
       // 查看是否关注
       this.getIsWatch()

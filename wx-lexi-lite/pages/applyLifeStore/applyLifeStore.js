@@ -20,9 +20,10 @@ Page({
     form: {
       name: '',
       profession: '',
-      areacode: '+86',
+      area_code:"",
+      areacode:"",
       mobile: '',
-      verify_code: ''
+      verify_code: '+86'
     },
     sending: false,
     counter: 0, // 计数器
@@ -41,6 +42,7 @@ Page({
   handlePickCountry(e) {
     console.log(e.currentTarget.dataset.name)
     this.setData({
+      "form.area_code": e.currentTarget.dataset.name,
       "form.areacode": e.currentTarget.dataset.name,
       quhao:false
     })
@@ -50,6 +52,13 @@ Page({
   handleOffCountryPick(){
     this.setData({
       quhao: false
+    })
+  },
+
+  // 验证码
+  handleVerifyCode(e){
+    this.setData({
+      verify_code: e.detail.value
     })
   },
 
@@ -101,8 +110,7 @@ Page({
     })
     http.fxPost(api.auth_sms_code, {
       mobile: this.data.form.mobile,
-      area_code: this.data.form.areacode,
-      areacode: this.data.form.areacode
+      area_code: this.data.form.area_code,
     }, (res) => {
       console.log(res, '发送验证码')
       if (res.success) {
