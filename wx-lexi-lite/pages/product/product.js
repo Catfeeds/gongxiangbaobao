@@ -381,10 +381,10 @@ Page({
       }, (result) => {
         if (result.success) {
           console.log(result)
-          this.setData({
-            ['productInfomation.is_like']: false,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count - 1
-          })
+          // this.setData({
+          //   ['productInfomation.is_like']: false,
+          //   ['productInfomation.like_count']: this.data.productInfomation.like_count - 1
+          // })
 
         } else {
           utils.fxShowToast(result.status.message)
@@ -402,10 +402,10 @@ Page({
         rid: rid
       }, (result) => {
         if (result.success) {
-          this.setData({
-            ['productInfomation.is_like']: true,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
-          })
+          // this.setData({
+          //   ['productInfomation.is_like']: true,
+          //   ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
+          // })
         } else {
           utils.fxShowToast(result.status.message)
         }

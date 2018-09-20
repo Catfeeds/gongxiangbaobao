@@ -84,9 +84,9 @@
     <view class='notice-box'>
       <view class='{{lookMany?"":"three-line-text"}}'>{{ announcement }}</view>
     </view>
-    <view class='notice-info theme-green' catchtap='handleLookMany' wx:if="{{announcement.length>66&&!lookMany}}">...阅读更多</view>
+    <view class='notice-info theme-green black-font' catchtap='handleLookMany' wx:if="{{announcement.length>66&&!lookMany}}">...阅读更多</view>
     <view class='notice-info theme-green' catchtap='handleOffLook' wx:if="{{lookMany}}">收起</view>
-    
+
   </view>
 
   <!-- 优惠券 -->
@@ -124,7 +124,7 @@
   <!-- 精选 里面的内容-->
   <view wx:if="{{catgoryActive==1}}">
     <!-- 主打设计 -->
-    <view class='c-importantGoods'>
+    <view class='c-importantGoods' wx:if="{{themeProduct.designs.length!=0}}">
       <view class='c-importantGoodsTitle'>主打设计</view>
       <view class='c-importantGoodsBox'>
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
@@ -145,7 +145,7 @@
       </view>
     </view>
     <!-- 推荐好物 -->
-    <view class=''>
+    <view class='' wx:if="{{recommendProductList.products.length!=0}}">
       <view class='importantGoodsTitle goodgoods'>推荐好物</view>
       <view class='tuijian' wx:for='{{recommendProductList.products}}' wx:key="{{index}}">
         <!-- 店长头相 -->
@@ -166,9 +166,7 @@
         </view>
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view data-id='{{item.rid}}' data-isLike='{{item.is_like}}' 
-            data-index="{{index}}"
-          class='recommendbottomText {{item.is_like?"likeActive":""}}' catchtap='handleBindLike'>
+          <view data-id='{{item.rid}}' data-isLike='{{item.is_like}}' data-index="{{index}}" class='recommendbottomText {{item.is_like?"likeActive":""}}' catchtap='handleBindLike'>
             <view class='icon-like'>
               <image src='{{item.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}'>
               </image>
@@ -179,7 +177,7 @@
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view >分享</view>
+            <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image src='{{item.product_like_users[0].avatar}}' class='photo-round'></image>
@@ -193,14 +191,16 @@
     </view>
 
     <!-- 首页优质精选 -->
-    <view>
+    <view wx:if="{{highQualityProduct.designs.length!=0}}">
       <view>
         <view class='importantGoodsTitle goodgoods'>优质精选</view>
         <!-- 推荐好物品的内容s -->
         <view class='tuijian'>
           <!-- 物品的详情 -->
           <view class='recommend-goods-box' wx:for='{{highQualityProduct.designs}}' wx:key='{{index}}'>
-            <fx-product-middleM bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
+            <fx-product-middleM 
+            is_likeNumber="{{true}}"
+            bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
             </fx-product-middleM>
           </view>
         </view>
@@ -240,20 +240,23 @@
 
   <!-- 人气里面的内容 -->
   <view wx:if="{{ catgoryActive == 3 }}">
-    <view>
+    <view wx:if="{{popularProductTheme.length!=0}}">
       <view class='human themeGoods'>
         主题
       </view>
       <view class='themeBottomPhoto' data-id='{{item.id}}' wx:for='{{popularProductTheme}}' wx:key='{{index}}' data-index='{{index}}' catchtap='handlethemeTap'>
         <image src='{{item.cover}}'></image>
-        <view class='theme-text theme-text__name '><text class='one-line-text '>{{item.name}}</text> </view>
-        <view class='theme-text theme-sub__name  '> 
-        <text class='one-line-text'> {{item.sub_name}}</text></view>
+        <view class='theme-text theme-text__name '>
+          <text class='one-line-text '>{{item.name}}</text> </view>
+        <view class='theme-text theme-sub__name  '>
+          <text class='one-line-text'> {{item.sub_name}}</text>
+        </view>
         <view class='theme-shade' style="background: linear-gradient(to bottom, rgba(255,255,255,0) , {{item.mask_color}});">
         </view>
       </view>
     </view>
 
+  <block wx:if="{{currentNewProduct.length!=0}}">
     <view class='human new-goods'>
       最新作品
     </view>
@@ -271,6 +274,7 @@
       <!-- 没有商品加载的底部 -->
       <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
     </block>
+</block>
 
   </view>
 
@@ -282,15 +286,12 @@
   </view>
 
   <!-- 分享模板 -->
-  <fx-modal 
-    showHead="{{ false }}" 
-    visible="{{ is_share }}" 
-    bind:closeEvent="handleCancelShare">
+  <fx-modal showHead="{{ false }}" visible="{{ is_share }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
-        <view class="distribute-commission">
-        </view>
+      <view class="distribute-commission">
+      </view>
       <view class="distribute-message">
-        
+
       </view>
       <view class="distribute-style">
         <button class="share-friend wxa-card" open-type="share">
@@ -328,7 +329,7 @@
       <image src='../../images/fei@2.png'></image>
     </view>
     <text class='suspend-share__text'>分享</text>
-    <button open-type='share' ></button>
+    <button open-type='share'></button>
   </view>
 
   <!-- 登陆注册模态框 -->

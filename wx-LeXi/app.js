@@ -66,6 +66,7 @@ App({
     // 调用login获取code
     wx.login({
       success: (res) => {
+        console.log(res,"res")
         // 发送 res.code 到后台换取 openId
         const code = res.code
         console.log('Login code: ' + code)

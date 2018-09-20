@@ -2,7 +2,7 @@
 
 // 配置API接口文件
 module.exports = {
-  // Auth
+  // AuthhandleCountryPickOpenhandleCountryPickOpenhandleCountryPickOpen
   auth_login: 'accounts/wxa_login', // POST 登录
   auth_logout: 'auth/logout', // POST 退出登录
   auth_register: 'auth/register', // POST 注册

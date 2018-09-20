@@ -231,6 +231,7 @@ Page({
     }
     let isLike = this.data.productInfomation.is_like
     let rid = this.data.productInfomation.rid
+    let browssPhoto = this.data.productInfomation.product_like_users
     console.log(isLike)
     if (isLike) {
       // 喜欢，则删除
@@ -240,6 +241,7 @@ Page({
         if (result.success) {
           console.log(result)
           this.setData({
+            ['productInfomation.product_like_users']: browssPhoto.splice(0,browssPhoto.length-1),
             ['productInfomation.is_like']:false,
             ['productInfomation.like_count']: this.data.productInfomation.like_count-1
           })
@@ -257,8 +259,9 @@ Page({
           this.setData({
             ['productInfomation.is_like']: true,
             ['productInfomation.like_count']: this.data.productInfomation.like_count-0 + 1,
-            ['productInfomation.product_like_users']: this.data.productInfomation.product_like_users.push({})
+            ['productInfomation.product_like_users[' + browssPhoto.length + ']']: { avatar: app.globalData.jwt.avatar}
           })
+          console.log(this.data.productInfomation.product_like_users)
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -352,6 +355,8 @@ Page({
     }, (result) => {
       if (result.success) {
         console.log(result, '产品详情')
+        result.data.product_like_users = result.data.product_like_users.reverse()
+
         this.setData({
           productInfomation: result.data,
           dkcontent: result.data.content

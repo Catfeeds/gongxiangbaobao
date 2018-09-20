@@ -41,11 +41,38 @@
     </view>
     <!-- 喜欢心愿单 -->
     <view class='branderInfo like-quantity margin-bottom--30rpx'>
-      <view class='like-quantity-l' catchtap='handleBindLike'>
-        <image src='{{productInfomation.is_like?"../../images/like@2.png":"../../images/dLike@2.png"}}' class='like-icon'></image>
+
+
+    <!-- 喜欢 -->
+      <view class='like-quantity-l bg-green' catchtap='handleBindLike' wx:if="{{productInfomation.is_like}}">
+        <image src='../../images/already-like@3.png' class='like-icon'></image>
+        <text class='font-s like-icon__text--white  like-icon-add'> +{{productInfomation.like_count}}</text>
+
+      </view>
+
+    <!-- 喜欢 -->
+      <view class='like-quantity-l' catchtap='handleBindLike' wx:else>
+        <image src='../../images/dLike@2.png' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
         <text class='hui-zi like-icon-add' wx:else>喜欢</text>
       </view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
           <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>
@@ -92,7 +119,6 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image>
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
 
     </view>
@@ -164,7 +190,7 @@
         <view class='hui-zi'>原创品牌馆</view>
         <view class='shou'>{{ storeInfo.name }}</view>
       </view>
-      <view class='with '>
+      <view class='with-store c-middle '>
         <image src='../../images/shop1.png'></image>
         <view>{{ isWatch ? '已关注' : '关注' }}</view>
       </view>

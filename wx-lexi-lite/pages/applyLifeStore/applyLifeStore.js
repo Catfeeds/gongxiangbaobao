@@ -20,7 +20,8 @@ Page({
     form: {
       name: '',
       profession: '',
-      areacode: '+86',
+      area_code:"+86",
+      areacode:"+86",
       mobile: '',
       verify_code: ''
     },
@@ -41,6 +42,7 @@ Page({
   handlePickCountry(e) {
     console.log(e.currentTarget.dataset.name)
     this.setData({
+      "form.area_code": e.currentTarget.dataset.name,
       "form.areacode": e.currentTarget.dataset.name,
       quhao:false
     })
@@ -50,6 +52,13 @@ Page({
   handleOffCountryPick(){
     this.setData({
       quhao: false
+    })
+  },
+
+  // 验证码
+  handleVerifyCode(e){
+    this.setData({
+      verify_code: e.detail.value
     })
   },
 
@@ -66,7 +75,8 @@ Page({
    * 提交申请
    */
   handleSubmitApply(e) {
-    http.fxPost(api.life_store_apply, e.detail.value, (res) => {
+
+    http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code}, (res) => {
       console.log(res, '开通生活馆')
       if (res.success) {
         this.setData({
@@ -101,8 +111,7 @@ Page({
     })
     http.fxPost(api.auth_sms_code, {
       mobile: this.data.form.mobile,
-      area_code: this.data.form.areacode,
-      areacode: this.data.form.areacode
+      area_code: this.data.form.area_code,
     }, (res) => {
       console.log(res, '发送验证码')
       if (res.success) {

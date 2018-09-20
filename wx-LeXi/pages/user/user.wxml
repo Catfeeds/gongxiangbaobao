@@ -53,14 +53,18 @@
         </view>
       </view>
       <view class=' time-top '>
-        <view class='service coupon' catchtap='couponTap'>
+        <view class='service coupon c-middle' catchtap='couponTap'>
           <image class='setings' src='../../images/coupon_icon@2.png'></image>
           <text class='red-round' wx:if="{{couponSum!=0}}"></text>
         </view>
-        <button open-type="contact" class="service">
-          <image class='setings sms' src='../../images/set.png'></image>
+
+        <view class='service c-middle'>
+        <button open-type="contact" class="huihua-btn">
         </button>
-        <view class='service seting--left' catchtap='setTap'>
+                  <image class='setings' src='../../images/set.png'></image>
+        </view>
+
+        <view class='service seting--left c-middle' catchtap='setTap'>
           <image class='setings' src='../../images/setings.png'></image>
         </view>
       </view>
