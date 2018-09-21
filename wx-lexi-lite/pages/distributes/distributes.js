@@ -530,7 +530,21 @@ Page({
               utils.fxShowToast("保存成功", "success")
             },
             fail(res) {
-              utils.fxShowToast("保存失败")
+              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+                wx.openSetting({
+                  success(settingdata) {
+                    console.log(settingdata)
+                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                      console.log("获取权限成功，再次点击图片保存到相册")
+                      utils.fxShowToast("保存成功")
+                    } else {
+                      utils.fxShowToast("保存失败")
+                    }
+                  }
+                })
+              } else {
+                utils.fxShowToast("保存失败")
+              }
             }
           })
         }

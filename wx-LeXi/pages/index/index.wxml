@@ -312,7 +312,7 @@
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
         </button>
-        <button class="share-save share-save__button" bindtap="handleSaveShare">
+        <button class="share-save share-save__button" bindtap="handleSaveShare" hover-class="none">
           <image src="../../images/save@2.png" class="icon-save"></image>
           <text>保存分享</text>
         </button>
