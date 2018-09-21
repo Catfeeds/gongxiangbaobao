@@ -224,9 +224,11 @@ Page({
     console.log(order.rid)
 
     // 补充参数
+    const jwt = wx.getStorageSync('jwt')
+
     app.globalData.orderParams.rid = order.rid
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
-    app.globalData.orderParams.openid = app.globalData.jwt.openid
+    app.globalData.orderParams.openid = jwt.openid
 
     // 获取订单签名
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {

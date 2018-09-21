@@ -3,8 +3,9 @@
   <!-- 商家劝 -->
   <view 
     class='coupon-box' 
-    wx:for='{{normalCouponList}}' 
-    wx:key="{{index}}" wx:if="{{!item.is_used &&! item.is_expired}}">
+    wx:for='{{ normalCouponList }}' 
+    wx:key="{{ index }}" 
+    wx:if="{{ !item.is_used && !item.is_expired }}">
     <!-- left -->
     <view class='info-box-left'>
       <view class='line-L theme-bg-color line-out'></view>
@@ -14,22 +15,22 @@
       <view class='price-info-box'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>{{item.coupon.amount}}</text>
+          <text>{{ item.amount }}</text>
         </view>
-        <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
+        <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{ item.min_amount }}使用</view>
       </view>
     </view>
     <!-- right 信息 -->
     <view class='info-box-R'>
       <view class='quadrate paymentFnTextB'>
         <view class='quadrate-view'></view>
-        <text>{{item.start_time}}至{{item.end_time}}</text>
+        <text>{{ item.start_time }}至{{ item.end_time }}</text>
       </view>
-      <view class='shop-icon paymentFnTextB'>
+      <view class='shop-icon paymentFnTextB' wx:if="{{ item.store_info }}">
         <view>
-          <image src='{{storeInfo.logo}}'></image>
+          <image src='{{ item.store_info.logo }}'></image>
         </view>
-        <text>{{storeInfo.name}}..红包</text>
+        <text>{{ item.store_info.name }}..红包</text>
       </view>
     </view>
     <!-- 去使用的按钮 -->
@@ -49,7 +50,7 @@
           <image src='../../images/￥@2-.png'></image>
           <text>{{item.amount}}</text>
         </view>
-        <view class='price-text'>满{{item.min_amount}}使用</view>
+        <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
       </view>
     </view>
     <!-- right 信息 -->
@@ -86,9 +87,9 @@
       <view class='price-info-box exceed_coupon--right'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>{{item.coupon.amount}}</text>
+          <text>{{item.amount}}</text>
         </view>
-        <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
+        <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
       </view>
     </view>
     <!-- right 信息 -->
@@ -97,11 +98,11 @@
         <view class='quadrate-view none-bg'></view>
         <text>{{item.start_time}}至{{item.end_time}}</text>
       </view>
-      <view class='shop-icon paymentFnTextB hui'>
+      <view class='shop-icon paymentFnTextB hui' wx:if="{{ item.store_info }}">
         <view>
-          <image src='{{storeInfo.logo}}'></image>
+          <image src='{{ item.store_info.logo }}'></image>
         </view>
-        <text>{{storeInfo.name}}..红包</text>
+        <text>{{ item.store_info.name }}..红包</text>
       </view>
     </view>
     <!-- 去使用的按钮 -->
@@ -121,9 +122,9 @@
       <view class='price-info-box lx-coupon--style exceed_coupon--right'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>{{item.coupon.amount}}</text>
+          <text>{{item.amount}}</text>
         </view>
-        <view class='price-text'>满{{item.min_amount}}使用</view>
+        <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
       </view>
     </view>
     <!-- right 信息 -->

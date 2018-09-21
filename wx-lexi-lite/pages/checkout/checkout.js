@@ -297,8 +297,10 @@ Page({
     })
 
     // 补充参数
+    const jwt = wx.getStorageSync('jwt')
+
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
-    app.globalData.orderParams.openid = app.globalData.jwt.openid
+    app.globalData.orderParams.openid = jwt.openid
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {

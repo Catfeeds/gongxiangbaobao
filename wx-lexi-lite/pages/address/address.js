@@ -36,8 +36,10 @@ Page({
     uploadType: 'front', // 上传类型（正面、背面）
     id_card_front_image: '', // 身份证正面
     id_card_back_image: '', // 身份证背面
-    uploadFrontStatus:false, // 上传正面的进度
-    uploadBackStatus:false, // 上传背面的进度
+    isUploadingFront: false, // 是否正在上传
+    isUploadingBack: false, // 是否正在上传
+    uploadFrontStatus: 0, // 上传正面的进度
+    uploadBackStatus: 0, // 上传背面的进度
     // 表单信息---
     form: {
       first_name: '', //String	必需	 	姓
@@ -307,37 +309,35 @@ Page({
           success: (res) => {
             let data = JSON.parse(res.data)
             if (data.ids.length > 0) {
-              this.getAssetInfo(data.ids[0])
+              
+              if (this.data.uploadType == 'front') {
+                this.getAssetFrontInfo(data.ids[0])
+              } else {
+                this.getAssetBackInfo(data.ids[0])
+              }
             }
           }
         })
 
         uploadTask.onProgressUpdate((res) => {
           console.log('上传进度', res.progress)
-          console.log('已经上传的数据长度', res.totalBytesSent)
-          console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
           
-          let jindu = res.progress
-          if (type =="front"){
+          let percent = res.progress
+          if (type == 'front'){
             this.setData({
-              uploadFrontStatus: jindu == 100 ? false : jindu
+              isUploadingFront: percent == 100 ? false : true,
+              uploadFrontStatus: percent
             })
           }
           
-          if (type == "back"){
-            
+          if (type == 'back'){
             this.setData({
-              uploadBackStatus: jindu == 100 ? false : jindu
+              isUploadingBack: percent == 100 ? false : true,
+              uploadBackStatus: percent
             })
           }
-
-
-
-
 
         })
-
-
       }
     })
   },
@@ -370,23 +370,33 @@ Page({
   },
 
   // 获取单个附件信息
-  getAssetInfo(rid) {
+  getAssetFrontInfo(rid) {
     http.fxGet(api.asset_detail, {
       rid: rid
     }, (result) => {
       if (result.success) {
         console.log(result, '附件信息')
-        if (this.data.uploadType == 'front') {
-          this.setData({
-            id_card_front_image: result.data.view_url,
-            'form.id_card_front': rid
-          })
-        } else {
-          this.setData({
-            id_card_back_image: result.data.view_url,
-            'form.id_card_back': rid
-          })
-        }
+        this.setData({
+          id_card_front_image: result.data.view_url,
+          'form.id_card_front': rid
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 获取身份证背面信息
+  getAssetBackInfo(rid) {
+    http.fxGet(api.asset_detail, {
+      rid: rid
+    }, (result) => {
+      if (result.success) {
+        console.log(result, '附件信息')
+        this.setData({
+          id_card_back_image: result.data.view_url,
+          'form.id_card_back': rid
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -438,6 +448,9 @@ Page({
 
   // 获取市和区
   getAllPlaces() {
+    wx.showLoading({
+      title: '加载中...',
+    })
     // 恢复默认值
     this.setData({
       loaded: false,
@@ -446,6 +459,7 @@ Page({
     http.fxGet(api.provinces_cities, {
       country_id: this.data.form.country_id
     }, (result) => {
+      wx.hideLoading()
       console.log(result, '省市区')
       if (result.success) {
         let allPlaces = result.data

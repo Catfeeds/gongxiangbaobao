@@ -565,18 +565,18 @@ Page({
 
   // 添加访问者---
   addBrowse() {
-    console.log(app.globalData.storeRid)
+    const jwt = wx.getStorageSync('jwt')
     let params = {
-      openid: app.globalData.jwt.openid, // String	必须	 	用户唯一标识
+      openid: jwt.openid, // String	必须	 	用户唯一标识
       rid: app.globalData.storeRid, // String	必须	 	店铺编号
       ip_addr: '', // String	可选	 	访问时IP
       agent: '', // String	可选	 	访问时代理
     }
 
-    console.log(params,"添加浏览者的参数")
+    console.log(params, "添加浏览者的参数")
 
     http.fxPost(api.add_browse, params, (result) => {
-      console.log(result,"添加浏览人数")
+      console.log(result, "添加浏览人数")
       if (result.success) {
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
@@ -746,11 +746,13 @@ Page({
 
   // 获取浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
+    const jwt = wx.getStorageSync('jwt')
+
     let params = {
       rid: app.globalData.storeRid,
       page: page,
       per_page: per_page,
-      openid: app.globalData.jwt.openid
+      openid: jwt.openid
     }
     console.log(params)
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, app.globalData.storeRid), params, (result) => {
@@ -1025,8 +1027,6 @@ Page({
         this.setData({
           shopInfo: app.globalData.storeInfo
         })
-        this.getLexiShare()
-        this.addBrowse() // 添加浏览
       } else {
         util.fxShowToast(result.status.message)
       }
@@ -1093,9 +1093,14 @@ Page({
 
     this.getShopInfo() // 获取店铺的信息
     this.getAnnouncement() // 获取店铺公告---
-    
-
     this.getStoreOwner()//获取主人信息
+    
+    app.login().then(res => {
+      console.log(res, '异步请求')
+      
+      this.getLexiShare()
+      this.addBrowse() // 添加浏览
+    })
    
     if (app.globalData.isLogin) { // 用户已登录时
       // 查看是否关注

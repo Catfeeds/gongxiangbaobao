@@ -11,7 +11,7 @@
 
       <!-- 国家 -->
       <view class="adress-pick--style qian-hui">
-        <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}"  range-key='name'>
+        <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}" range-key='name'>
           <view class="picker">
             选择国家：{{ countryList[countryIndex].name }}
           </view>
@@ -22,7 +22,8 @@
         <!-- 省/市/区 -->
         <picker mode="multiSelector" bindchange="handleRegionsChange" bindcolumnchange="handleRegionColumnChange" value="{{ multiIndex }}" range="{{ regions }}" range-key="name">
           <view class="picker">
-            省/市/区：<text wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
+            省/市/区：
+            <text wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
           </view>
         </picker>
       </view>
@@ -43,36 +44,27 @@
       </view>
       <view class='identificationPhoto'>
         <view class='userPhotoNullBox' data-type='front' bindtap='handleUploadIdCard'>
-          <view 
-            class='userPhotoNull theme-bg-color' 
-            wx:if="{{ !id_card_front_image }}">+</view>
-          <view 
-            class='userPhotoNull userPhotoHave' 
-            wx:if="{{ id_card_front_image }}">
-
+          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_front_image }}">
             <!-- 进度条 -->
-            <view 
-              class="upload-status__box" 
-              wx:if="{{uploadFrontStatus}}">
-                <view style="width:{{uploadFrontStatus}}%"></view>
+            <view class="upload-status__box" wx:if="{{ isUploadingFront }}">
+              <view class="progress" style="width:{{ uploadFrontStatus }}%"></view>
             </view>
-            
+            <text wx:if="{{ !isUploadingFront }}">+</text>
+          </view>
+          <view class='userPhotoNull userPhotoHave' wx:if="{{ id_card_front_image }}">
             <image src='{{ id_card_front_image }}'></image>
           </view>
           <view>清晰正面照片</view>
         </view>
 
-        <view 
-          class='userPhotoNullBox' 
-          data-type='back' 
-          bindtap='handleUploadIdCard'>
-          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_back_image }}">+</view>
-          <view class='userPhotoNull userPhotoHave' wx:else>
-            <view 
-              class="upload-status__box" 
-              wx:if="{{uploadBackStatus}}">
-              <view style='width:{{uploadBackStatus}}%'> </view>  
+        <view class='userPhotoNullBox' data-type='back' bindtap='handleUploadIdCard'>
+          <view class='userPhotoNull theme-bg-color' wx:if="{{ !id_card_back_image }}">
+            <view class="upload-status__box" wx:if="{{ isUploadingBack }}">
+              <view class="progress" style='width:{{ uploadBackStatus }}%'> </view>
             </view>
+            <text wx:if="{{ !isUploadingBack }}">+</text>
+          </view>
+          <view class='userPhotoNull userPhotoHave' wx:else>
             <image src='{{ id_card_back_image }}'></image>
           </view>
           <view>

@@ -246,7 +246,7 @@ Page({
         rid: 'p1',
         name: 'lifeStore',
         title: '生活馆',
-        disabled: false
+        disabled: true
       },
       {
         rid: 'p2',
@@ -1469,6 +1469,7 @@ Page({
       })
     } else {
       this.setData({
+        'pageTabs[0].disabled': false,
         pageActiveTab: 'lifeStore'
       })
 
