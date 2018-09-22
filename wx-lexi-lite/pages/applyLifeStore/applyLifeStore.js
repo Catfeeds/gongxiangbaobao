@@ -82,6 +82,7 @@ Page({
         this.setData({
           activePage: 'apply-result'
         })
+        
       } else {
         utils.fxShowToast(res.status.message)
       }

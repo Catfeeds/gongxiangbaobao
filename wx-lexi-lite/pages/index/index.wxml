@@ -307,18 +307,18 @@
     </view>
 
     <!-- "免运，奖励，优惠生活" -->
-    <view class='material-benefits' wx:if="{{}}">
+    <view class='material-benefits' >
       <view class='material-benefits-top qian-hui font-s'>免运，奖励，优惠生活</view>
       <view class='material-benefits_bottom c-crosswise-a'>
         <view class='font-s fx-column--center'>
           <image src='../../images/guess-and-win-cash@2.png'></image>
           <view>猜图赢现金</view>
         </view>
-        <view class='font-s fx-column--center'>
+        <view class='font-s fx-column--center' catchtap="handleToreceiveCoupon">
           <image src='../../images/receiv-coupon@2x.png'></image>
           <view>领劵中心</view>
         </view>
-        <view class='font-s fx-column--center'>
+        <view class='font-s fx-column--center' catchtap="handleToExemptionFromPostage">
           <image src='../../images/no-logistics-icon@2x.png'></image>
           <view>包邮专区</view>
         </view>

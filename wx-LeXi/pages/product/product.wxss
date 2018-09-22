@@ -637,3 +637,8 @@ swiper-item, swiper-item>image, swiper {
 .like-icon__text--white {
   color: white;
 }
+
+.is_with {
+background-color:rgb(245, 247, 249);
+color:rgb(153, 153, 153);
+}

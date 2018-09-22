@@ -339,7 +339,7 @@ Page({
     this.setData({
       rid: e.currentTarget.dataset.rid
     })
-
+  
     this.getProductInfomation() // 获取商品详情---
   },
 
@@ -448,7 +448,7 @@ Page({
   getNewProduct() {
     http.fxGet(api.latest_products, this.data.newProductParams, (result) => {
       if (result.success) {
-        console.log(result)
+        console.log(result,"最新的产品")
         this.setData({
           newProductList: result.data
         })
@@ -546,7 +546,6 @@ Page({
 
     this.setData({
       rid: rid,
-      // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
 

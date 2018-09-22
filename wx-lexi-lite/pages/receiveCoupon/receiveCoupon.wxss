@@ -1,0 +1,504 @@
+/* pages/receiveCoupon/receiveCoupon.wxss */
+
+.container {
+  /* background-color: #ffb28f; */
+}
+
+.top-photo {
+  position: relative;
+  background-color: #999;
+  height: 300rpx;
+}
+
+.receive-box {
+  position: absolute;
+  left: 0;
+  bottom: 0rpx;
+}
+
+.item-receive {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  padding-right: 30rpx;
+}
+
+.receive-poupon__photo {
+  height: 50rpx;
+  width: 50rpx;
+  border-radius: 50%;
+  margin: 10rpx;
+  background-color: red;
+}
+
+.receive-name__text {
+  font-size: 18rpx;
+  line-height: 18rpx;
+  margin-bottom: 6rpx;
+}
+
+.receive-price__text {
+  font-size: 20rpx;
+  line-height: 20rpx;
+}
+
+.text--red {
+  color: #f66;
+}
+
+.category-box {
+  white-space: nowrap;
+  background-color: white;
+}
+
+.category-box  view {
+  display: inline-block;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  padding: 0rpx 25rpx;
+}
+
+.category-item__text {
+  display: block;
+  padding: 30rpx 0;
+}
+
+.margin-left--15rpx {
+  margin-left: 15rpx;
+}
+
+.active {
+  border-bottom: 6rpx solid #5fe4b1;
+  box-sizing: border-box;
+}
+
+.cloud-photo {
+  height: 40rpx;
+  width: 80rpx;
+  background-color: red;
+}
+
+.coupon-title {
+}
+
+.coupon-title__text {
+  margin: 0 20rpx;
+  font-size: 40rpx;
+  line-height: 40rpx;
+}
+
+.lexi-coupon__scroll {
+  margin-top: 52rpx;
+  white-space: nowrap;
+}
+
+.lexi-coupon__item {
+  height: 256rpx;
+  width: 200rpx;
+}
+
+.lexi-coupon__item--top {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 2;
+  background: linear-gradient(to right, #ff655c, #fea26b);
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.receive-over__img {
+  position: absolute;
+  height: 100rpx;
+  width: 100rpx;
+  top: -20rpx;
+  right: -20rpx;
+}
+
+.lexi-coupon__item--bottom {
+  flex: 1;
+  background: linear-gradient(to right, #ff655c, #fea26b);
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.lexi-coupon__item--title {
+  font-size: 18rpx;
+  color: #fff;
+  margin-top: 10rpx;
+}
+
+.lexi-coupon__item--title view {
+  width: 32rpx;
+  height: 1rpx;
+  background-color: #fff;
+}
+
+.lexi-coupon__item--title text {
+  margin: 0 6rpx;
+  line-height: 18rpx;
+}
+
+.coupon-price__text--white {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+  margin: 20rpx 0 10rpx;
+}
+
+.coupon-price__text--white .lexi-coupon__price--icon {
+  font-size: 34rpx;
+  line-height: 34rpx;
+  padding-top: 8rpx;
+}
+
+.coupon-price__text--white .lexi-coupon__price--text {
+  font-size: 66rpx;
+  line-height: 66rpx;
+}
+
+.astrict-info {
+  width: 160rpx;
+  border-top: 1rpx solid #fff;
+  border-bottom: 1rpx solid #fff;
+  text-align: center;
+  font-size: 22rpx;
+  color: white;
+  line-height: 22rpx;
+  padding: 6rpx 0;
+}
+
+.use-poupon__btn {
+  height: 48rpx;
+  width: 160rpx;
+  border: 2rpx solid white;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+}
+
+.use-poupon__receive {
+  background-color: white;
+  color: #fd7162;
+}
+
+.btn-opacity {
+  opacity: 0.5;
+}
+
+.to-use__coupon {
+  color: white;
+}
+
+.adv-box {
+  width: 100%;
+  border-radius: 8rpx;
+  margin-top: 50rpx;
+}
+
+.adv-coupon-swiper {
+  height: 260rpx;
+  width: 690rpx;
+}
+
+.adv-coupon-swiper swiper-item {
+  overflow: hidden;
+  border-radius: 8rpx;
+}
+
+.adv-coupon-swiper swiper-item image {
+  border-radius: 8rpx;
+}
+
+.padding-top--60rpx {
+  padding-top: 60rpx;
+}
+
+.brand-coupon {
+}
+
+.brand-coupon__box {
+  margin: 0 30rpx;
+  flex-wrap: wrap;
+}
+
+.brand-coupon__big, .brand-coupon__min {
+  margin-bottom: 30rpx;
+}
+
+.brand-coupon__big {
+  height: 520rpx;
+  width: 690rpx;
+  border-radius: 8rpx;
+  background-color: #fff;
+}
+
+.brand-coupon__big .hander {
+  height: 150rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx dashed #ff6b34;
+  background: linear-gradient(to right, #fff0ea, #ffd1c0);
+  /* border-radius: 8rpx; */
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+}
+
+.brand-coupon__big .hander .brand-log {
+  height: 110rpx;
+  width: 110rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.brand-coupon__big .hander .middle-text {
+  height: 100%;
+}
+
+.brand-coupon__big .hander .brand-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.brand-coupon__price .brand-coupon__limit, .brand-coupon__price .icon {
+  font-size: 24rpx;
+  line-height: 24rpx;
+}
+
+.brand-coupon__big .hander .brand-coupon__limit--text {
+  font-size: 56rpx;
+  font-weight: 700;
+  line-height: 56rpx;
+}
+
+.brand-coupon__big .hander .right-icon {
+  height: 22rpx;
+  width: 22rpx;
+}
+
+.line-22rpx {
+  line-height: 22rpx;
+}
+
+.brand-coupon__big .join-brand__receive--icon {
+  border-radius: 30rpx;
+  background-color: #ff6b34;
+  color: white;
+  padding: 10rpx 30rpx;
+  margin-top: 20rpx;
+}
+
+.brand-coupon__big .join-brand__receive--icon .right-icon {
+  margin-left: 6rpx;
+}
+
+.brand-coupon__big .join-brand__receive--icon {
+  padding: 10rpx 30rpx;
+}
+
+.brand-coupon__big .coupon-big__bottom {
+  height: 370rpx;
+  padding: 0 20rpx;
+}
+
+.brand-coupon__big .coupon-big__bottom .coupon-join__product image {
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 8rpx;
+}
+
+.brand-coupon__min {
+  width: 336rpx;
+  height: 454rpx;
+  background-color: white;
+  border-radius: 8rpx;
+}
+
+.brand-coupon__min  .hander {
+  position: relative;
+  height: 130rpx;
+  width: 100%;
+}
+
+.brand-coupon__min .hander .log-bg {
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+  height: 130rpx;
+  width: 100%;
+  background-color: red;
+}
+
+.brand-coupon__min .hander .log-icon {
+  position: absolute;
+  left: 50%;
+  bottom: -50rpx;
+  transform: translateX(-50%);
+  height: 100rpx;
+  width: 100rpx;
+  background-color: pink;
+  border-radius: 8rpx;
+}
+
+.brand-coupon__min .strore-name {
+  line-height: 28rpx;
+  margin-top: 70rpx;
+}
+
+.brand-coupon__min .coupon-limit {
+  position: relative;
+  width: 256rpx;
+  height: 86rpx;
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+
+.brand-coupon__min .coupon-limit .round {
+  height: 20rpx;
+  width: 20rpx;
+  border-radius: 50%;
+  border: 1rpx dashed #f66;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+}
+
+.brand-coupon__min .coupon-limit .coupon-limit__box {
+  height: 100%;
+  width: 100%;
+  border: 1rpx dashed #f66;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  background-color: #ffefef;
+  color: #f66;
+}
+
+.brand-coupon__min .receive-coupon__btn {
+  height: 60rpx;
+  width: 266rpx;
+  line-height: 28rpx;
+  color: white;
+  background-color: #ff6b34;
+  border-radius: 30rpx;
+  margin-top: 40rpx;
+}
+
+.brand-coupon__min .receive-coupon__btn image {
+  width: 26rpx;
+  height: 26rpx;
+  margin-left: 8rpx;
+}
+
+.round--left {
+  left: -10rpx;
+}
+
+.round--right {
+  right: -12rpx;
+}
+
+.high-pick__product--coupon {
+  width: 336rpx;
+  height: 528rpx;
+  background-color: white;
+  border-radius: 8rpx;
+  margin-bottom: 30rpx;
+}
+
+.high-pick__product--coupon .hander {
+  height: 62rpx;
+  border-bottom: 1rpx dashed #ff6b34;
+  padding: 12rpx 20rpx;
+}
+
+.high-pick__product--coupon .receive-coupon__btn {
+  font-size: 24rpx;
+  border: 2rpx solid #ff6b34;
+  border-radius: 30rpx;
+  font-weight: 500;
+  padding: 8rpx 20rpx;
+}
+
+.high-pick__product--coupon .body {
+  margin: 20rpx;
+}
+
+.high-pick__product--coupon .body .product-photo {
+  margin-bottom: 24rpx;
+}
+
+.high-pick__product--coupon .body image {
+  height: 296rpx;
+  width: 296rpx;
+  border-radius: 8rpx;
+}
+
+.high-pick__product--coupon  .use-coupon {
+  color: #ff6b34;
+}
+
+.high-pick__product--coupon  .current-receive__coupon {
+  color: white;
+  background-color: #ff6b34;
+}
+
+.high-pick__product--coupon .body .sale-price {
+  font-size: 20rpx;
+  color: white;
+  padding: 4rpx ;
+  background-color: #FF6666;
+  border-radius: 8rpx;
+  margin-left: 10rpx;
+}
+
+.high-pick__product--coupon .body .flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.flex-row--b {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.high-pick__product--coupon .body .icon {
+  margin-right: 6rpx;
+
+}
+
+.bg-red {
+  background-color: #ffbd9f;
+}
+
+.text-color {
+  color: #f66;
+}
+
+.font--12rpx {
+  font-size: 12rpx;
+}
+
+.bg-shenhong {
+  background-color: #ffb28f;
+}
+
+.font--40rpx {
+  font-size: 40rpx;
+  line-height: 40rpx;
+}
+
+.font--16rpx {
+  font-size: 16rpx;
+}
+
+.font--30rpx {
+  font-size: 30rpx;
+  line-height: 30rpx;
+}

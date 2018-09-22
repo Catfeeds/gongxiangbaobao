@@ -1258,7 +1258,7 @@ Page({
             v.time = v.time + "小时"
           }
 
-          if (v.username - 0 != NaN && v.username.length > 9) {
+          if (v.username !=null&&v.username - 0 != NaN && v.username.length > 9 ) {
             console.log(v)
             v.username = v.username.substr(0, 3) + "****" + v.username.substr(7, 4)
           }
@@ -1422,6 +1422,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(app,"app")
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
@@ -1615,6 +1616,20 @@ Page({
     wx.navigateTo({
       url: '../search/search',
     })
+  },
+
+  // 包邮专区
+  handleToExemptionFromPostage(){
+    wx.navigateTo({
+      url: '../exemptionFromPostage/exemptionFromPostage',
+    })
+  },
+
+  // 领券中心
+  handleToreceiveCoupon(){
+wx.navigateTo({
+  url: '../receiveCoupon/receiveCoupon',
+  })
   },
 
   handleToLexiPick() {

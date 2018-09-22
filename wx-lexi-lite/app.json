@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/receiveCoupon/receiveCoupon",
     "pages/index/index",
     "pages/find/find",
     "pages/cart/cart",
@@ -62,7 +63,8 @@
     "pages/plantNoteList/plantNoteList",
     "pages/plantNoteInfo/plantNoteInfo",
     "pages/userLikeProduct/userLikeProduct",
-    "pages/networkError/networkError"
+    "pages/networkError/networkError",
+    "pages/exemptionFromPostage/exemptionFromPostage"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",
