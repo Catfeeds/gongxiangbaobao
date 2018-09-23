@@ -445,28 +445,8 @@ Page({
         })
         break;
       case 2:
-        //最近查看
-        http.fxGet(api.user_browses, {}, (result) => {
-          if (result.success) {
-            console.log(result, "最近 查看")
-            this.setData({
-              userBrowsesProduct: result.data
-            })
-          } else {
-            utils.fxShowToast(result.status.message)
-          }
-        })
-        //心愿单
-        http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
-          if (result.success) {
-            console.log(result)
-            this.setData({
-              desireOrderProduct: result.data
-            })
-          } else {
-            utils.fxShowToast(result.status.message)
-          }
-        })
+        this.getBrowss() // 浏览记录
+        this.getDesireOrderProduct()
         break;
       default:
         // 设计管 users/followed_life_stores
@@ -481,6 +461,37 @@ Page({
           }
         });
     }
+  },
+
+  // 浏览记录
+  getBrowss(){
+
+    //最近查看
+    http.fxGet(api.user_browses, {}, (result) => {
+      if (result.success) {
+        console.log(result, "最近 查看")
+        this.setData({
+          userBrowsesProduct: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+  // 心愿单列表
+  getDesireOrderProduct() {
+    http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
+      if (result.success) {
+        console.log(result,"心愿单")
+        this.setData({
+          desireOrderProduct: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 获取是否有未使用的优惠券和订单

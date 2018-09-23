@@ -306,6 +306,7 @@ Page({
         console.log(result)
         if (result.success) {
           utils.fxShowToast('成功添加', "success")
+          this._upUserPageData()
           this.setData({
             ['productInfomation.is_wish']: true
           })
@@ -320,6 +321,7 @@ Page({
         console.log(result)
         if (result.success) {
           utils.fxShowToast('移除添加', "success")
+          this._upUserPageData()
           this.setData({
             ['productInfomation.is_wish']: false
           })
@@ -329,6 +331,18 @@ Page({
       })
     }
 
+  },
+
+  // 更新心愿单
+  _upUserPageData(){
+    // 获取页面来源
+    var pages = getCurrentPages() //获取加载的页面
+    var currentPage = pages[pages.length - 2] //获取当前页面的对象
+    console.log(currentPage, '路径')
+
+    if (currentPage.route == "pages/user/user") {
+      currentPage.getDesireOrderProduct()
+    }
   },
 
   // 商品详情

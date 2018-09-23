@@ -424,6 +424,12 @@ Page({
     })
   },
 
+// 跳转广告相关页面
+  handleToAdvInfo(e){
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + '&product=' + this.data.myProduct
+    })
+  },
   // 创建订单参数 并且设置店铺的id
   createdOrderParams() {
     this.setData({
@@ -706,6 +712,7 @@ Page({
         if (result.success) {
           this.setData({
             ["recommendProductList.products["+idx +"].is_like"]:false,
+            ["recommendProductList.products[" + idx + "].like_count"]: this.data.recommendProductList.products[ idx ].like_count-1,
             ["recommendProductList.products[" + idx + "].product_like_users[0].avatar"]:''
           })
           console.log(this.data.recommendProductList.products, "头像")
@@ -721,6 +728,7 @@ Page({
         if (result.success) {
           this.setData({
             ["recommendProductList.products[" + idx + "].is_like"]: true,
+            ["recommendProductList.products[" + idx + "].like_count"]: this.data.recommendProductList.products[idx].like_count +1,
             ["recommendProductList.products[" + idx + "].product_like_users[0].avatar"]: app.globalData.userInfo.avatar
           })
           

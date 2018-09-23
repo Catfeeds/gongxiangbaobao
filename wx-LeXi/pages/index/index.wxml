@@ -132,7 +132,11 @@
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color c-middle' wx:if='{{ advertisement.banners.length != 0 }}'>
       <swiper autoplay='{{ true }}' bindchange="handleRoundActive" scroll-x style="width: 100%">
-        <swiper-item class="swiper-item" wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
+        <swiper-item 
+          class="swiper-item" 
+          catchtap="handleToAdvInfo"
+          data-rid="{{item.link}}"
+          wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
           <image src='{{ item.image }}'></image>
         </swiper-item>
       </swiper>
