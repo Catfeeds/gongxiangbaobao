@@ -117,7 +117,21 @@ Page({
               utils.fxShowToast("保存成功", "success")
             },
             fail(res) {
-              utils.fxShowToast("保存失败")
+              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+                wx.openSetting({
+                  success(settingdata) {
+                    console.log(settingdata)
+                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                      console.log("获取权限成功，再次点击图片保存到相册")
+                      utils.fxShowToast("保存成功")
+                    } else {
+                      utils.fxShowToast("保存失败")
+                    }
+                  }
+                })
+              } else {
+                utils.fxShowToast("保存失败")
+              }
             }
           })
         }
@@ -292,6 +306,7 @@ Page({
         console.log(result)
         if (result.success) {
           utils.fxShowToast('成功添加', "success")
+          this._upUserPageData()
           this.setData({
             ['productInfomation.is_wish']: true
           })
@@ -306,6 +321,7 @@ Page({
         console.log(result)
         if (result.success) {
           utils.fxShowToast('移除添加', "success")
+          this._upUserPageData()
           this.setData({
             ['productInfomation.is_wish']: false
           })
@@ -317,6 +333,18 @@ Page({
 
   },
 
+  // 更新心愿单
+  _upUserPageData(){
+    // 获取页面来源
+    var pages = getCurrentPages() //获取加载的页面
+    var currentPage = pages[pages.length - 2] //获取当前页面的对象
+    console.log(currentPage, '路径')
+
+    if (currentPage.route == "pages/user/user") {
+      currentPage.getDesireOrderProduct()
+    }
+  },
+
   // 商品详情
   handleProductInfoTap(e) {
     wx.pageScrollTo({
@@ -325,7 +353,7 @@ Page({
     this.setData({
       rid: e.currentTarget.dataset.rid
     })
-
+  
     this.getProductInfomation() // 获取商品详情---
   },
 
@@ -434,7 +462,7 @@ Page({
   getNewProduct() {
     http.fxGet(api.latest_products, this.data.newProductParams, (result) => {
       if (result.success) {
-        console.log(result)
+        console.log(result,"最新的产品")
         this.setData({
           newProductList: result.data
         })
@@ -532,7 +560,6 @@ Page({
 
     this.setData({
       rid: rid,
-      // cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
 
@@ -901,10 +928,29 @@ Page({
               },
               fail(res) {
                 console.log(res)
-                that.setData({
-                  posterSaving: false,
-                  posterBtnText: '保存图片'
-                })
+                if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+                  wx.openSetting({
+                    success(settingdata) {
+                      console.log(settingdata)
+                      if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                        console.log("获取权限成功，再次点击图片保存到相册")
+                        utils.fxShowToast("保存成功")
+                      } else {
+                        utils.fxShowToast("保存失败")
+                        that.setData({
+                          posterSaving: false,
+                          posterBtnText: '保存图片'
+                        })
+                      }
+                    }
+                  })
+                }else{
+                  utils.fxShowToast("保存失败")
+                  that.setData({
+                    posterSaving: false,
+                    posterBtnText: '保存图片'
+                  })
+                }
               }
             })
           }

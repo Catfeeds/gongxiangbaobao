@@ -124,6 +124,7 @@ module.exports = {
   products_index:'products/index', // 首页作品的排序---
   logistics_core_freight_template:'logistics/core_freight_template/:rid', // 商品对应的物流模板
   products_custom_made:'products/custom_made',// 接单定制
+  products_free_postage:'products/free_postage',// 包邮专区
 
   // 核心 product
   banners_rid:'banners/:rid', // 特色品牌馆广告列表

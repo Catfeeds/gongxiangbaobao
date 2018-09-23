@@ -1,45 +1,18 @@
-const app = getApp()
-const http = require('./../../utils/http.js')
-const api = require('./../../utils/api.js')
-const utils = require('./../../utils/util.js')
-
+// pages/exemptionFromPostage.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    order: [],// 订单
-    logisticsPriceSum: 0,
-    orderRid: '',
-  },
 
-  // 查看订单
-  examineOrder(e) {
-    let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../orderInfo/orderInfo?rid=' + this.data.orderRid
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options, "支付页面，上一页的参数")
 
-    let order = app.globalData.paymentSuccessOrder
-    console.log(order,"支付成功后的参数")
-
-    this.setData({
-      order: order,
-      orderRid: options.rid
-    })
-    order.orders.forEach((v, i) => {
-      this.setData({
-        logisticsPriceSum: this.data.logisticsPriceSum + v.freight
-      })
-
-    })
   },
 
   /**
@@ -88,6 +61,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return app.shareLeXi()
+
   }
 })

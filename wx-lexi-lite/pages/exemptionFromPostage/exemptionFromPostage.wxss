@@ -1,0 +1,3 @@
+/* pages/exemptionFromPostage/exemptionFromPostage.wxss */
+@import "../user/user.wxss";
+@import "../categoryList/categoryList.wxss";

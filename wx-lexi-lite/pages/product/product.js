@@ -128,7 +128,21 @@ Page({
               utils.fxShowToast("保存成功", "success")
             },
             fail(res) {
-              utils.fxShowToast("保存失败")
+              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+                wx.openSetting({
+                  success(settingdata) {
+                    console.log(settingdata)
+                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                      console.log("获取权限成功，再次点击图片保存到相册")
+                      utils.fxShowToast("保存成功")
+                    } else {
+                      utils.fxShowToast("保存失败")
+                    }
+                  }
+                })
+              } else {
+                utils.fxShowToast("保存失败")
+              }
             }
           })
         }
@@ -283,6 +297,7 @@ Page({
    * 加入购物车
    */
   handleAddCart(e) {
+    let jwt = wx.getStorageSync('jwt')
     if (this.validateChooseSku()) {
       const jwt = wx.getStorageSync('jwt')
 
@@ -1161,11 +1176,31 @@ Page({
                 })
               },
               fail(res) {
-                console.log(res)
-                that.setData({
-                  posterSaving: false,
-                  posterBtnText: '保存图片'
-                })
+
+                if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+                  wx.openSetting({
+                    success(settingdata) {
+                      console.log(settingdata)
+                      if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                        console.log("获取权限成功，再次点击图片保存到相册")
+                        utils.fxShowToast("保存成功")
+                      } else {
+                        utils.fxShowToast("保存失败")
+                        that.setData({
+                          posterSaving: false,
+                          posterBtnText: '保存图片'
+                        })
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast("保存失败")
+                  that.setData({
+                    posterSaving: false,
+                    posterBtnText: '保存图片'
+                  })
+                }
+
               }
             })
           }

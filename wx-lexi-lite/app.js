@@ -7,7 +7,6 @@ const common = require('./utils/common.js')
 
 App({
   onLaunch: function () {
-    // wx.clearStorageSync()
     // 展示本地存储能力
     let logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -297,7 +296,6 @@ App({
       }
     }
   },
-
 
   /**
    * 订单成功后，清除订单相关全局变量

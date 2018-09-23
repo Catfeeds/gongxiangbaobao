@@ -56,11 +56,8 @@
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
         <view class='joinNumberlBox'>
-
           <view class='number-visits'>
-
             <image class='middle_shadou' src='../../images/shadow.png'></image>
-
             <view class='joinNumberR-box c-middle'>
               <view class='joinNumberR'>
                 {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number+1 }}
@@ -135,7 +132,11 @@
     <!-- 主打下面的图片 -->
     <view class='goodsPhotoInfo theme-bg-color c-middle' wx:if='{{ advertisement.banners.length != 0 }}'>
       <swiper autoplay='{{ true }}' bindchange="handleRoundActive" scroll-x style="width: 100%">
-        <swiper-item class="swiper-item" wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
+        <swiper-item 
+          class="swiper-item" 
+          catchtap="handleToAdvInfo"
+          data-rid="{{item.link}}"
+          wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
           <image src='{{ item.image }}'></image>
         </swiper-item>
       </swiper>
@@ -312,7 +313,7 @@
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
         </button>
-        <button class="share-save share-save__button" bindtap="handleSaveShare">
+        <button class="share-save share-save__button" bindtap="handleSaveShare" hover-class="none">
           <image src="../../images/save@2.png" class="icon-save"></image>
           <text>保存分享</text>
         </button>

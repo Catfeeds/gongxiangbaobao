@@ -131,13 +131,13 @@
   <!-- 描述,发货地，时间 -->
   <view class='otherInfo'>
     <!-- 描述 -->
-    <view class='otherInfo-describe'>
+    <view class='otherInfo-describe' wx:if="{{productInfomation.features&&productInfomation.features!=null || productInfomation.material_name&productInfomation.material_name!=null || productInfomation.is_custom_service || productInfomation.stock_count<=10}}">
       <view class='titleText'>描述</view>
-      <view class='goodstext two-line-text margin-bottom--12rpx'>
+      <view class='goodstext two-line-text margin-bottom--12rpx' wx:if="{{productInfomation.features&&productInfomation.features!=null}}">
         <text class='titlemini'>亮点：</text>
         <text>{{ productInfomation.features }}</text>
       </view>
-      <view class='goodstext margin-bottom--12rpx'>
+      <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_name&productInfomation.material_name!=null}}">
         <text class='titlemini'>材质：</text>
         <text>{{ productInfomation.material_name }}</text>
       </view>
@@ -147,7 +147,7 @@
       </view>
       <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10}}">
         <text class='titlemini'>数量：</text>
-        <text>仅剩最后{{ productInfomation.stock_count }}件</text>
+        <text>{{productInfomation.stock_count>0?"仅剩最后"+ productInfomation.stock_count +"件":"已售罄"}}</text>
       </view>
     </view>
 
@@ -181,7 +181,7 @@
   </view>
 
   <!-- 店铺其他产品信息 -->
-  <view class='shopInfo'>
+  <view class='shopInfo' wx:if="{{newProductList.count!=0}}">
     <view class='shopInfoT'>
       <view class='userIcon' catchtap='handleGoIndex'>
         <image src='{{ storeInfo.logo }}'></image>
@@ -190,10 +190,16 @@
         <view class='hui-zi'>原创品牌馆</view>
         <view class='shou'>{{ storeInfo.name }}</view>
       </view>
-      <view class='with-store c-middle '>
-        <image src='../../images/shop1.png'></image>
-        <view>{{ isWatch ? '已关注' : '关注' }}</view>
+
+      <view class='with-store c-middle is_with' wx:if="{{isWatch}}">
+        <view>已关注</view>
       </view>
+
+      <view class='with-store c-middle bg-green' wx:if="{{!isWatch}}">
+        <image src='../../images/shop1.png'></image>
+        <view>关注</view>
+      </view>
+      
     </view>
     <view class='shop-other-goods'>
       <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>

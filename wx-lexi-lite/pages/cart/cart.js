@@ -73,7 +73,8 @@ Page({
 
   // 获取购物车 ---
   getCartProduct() {
-    http.fxGet(api.cart, { open_id: wx.getStorageSync('jwt').openid }, (result) => {
+    let jwt = wx.getStorageSync('jwt')
+    http.fxGet(api.cart, { open_id: jwt.openid }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
@@ -159,9 +160,10 @@ Page({
       utils.fxShowToast('请选择')
       return
     }
+    let jwt = wx.getStorageSync('jwt')
 
     http.fxPost(api.clearCart, {
-      open_id: wx.getStorageSync('jwt').openid,
+      open_id: jwt.openid,
       rids: this.data.checkboxPick
     }, (result) => {
       console.log(result, '删除购物车商品')
@@ -266,9 +268,10 @@ Page({
     let index = e.currentTarget.dataset.index
 
     let rid = e.currentTarget.dataset.rid
+    let jwt = wx.getStorageSync('jwt')
     this.setData({
       ['addCartParams.rid']: rid,
-      ['addCartParams.open_id']: wx.getStorageSync('jwt').openid,
+      ['addCartParams.open_id']: jwt.openid,
     })
 
     if (is_function == 'add') {
@@ -657,13 +660,14 @@ Page({
    * 加入购物车
    */
   handleAddCart(e) {
+    let jtw = wx.getStorageSync('jwt')
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
       let cartParams = {
         rid: this.data.choosed.rid, // String	必填	 商品sku
         quantity: this.data.quantity, // Integer	可选	1	购买数量
         option: '', // String	可选	 	其他选项
-        open_id: wx.getStorageSync('jwt').openid // String	独立小程序端必填/openid
+        open_id: jtw.openid // String	独立小程序端必填/openid
       }
 
       http.fxPost(api.cart_addon, cartParams, (result) => {

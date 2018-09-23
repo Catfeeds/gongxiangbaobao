@@ -85,13 +85,12 @@ Page({
         this.setData({
           activePage: 'apply-result'
         })
-
+        
         // 更新小B身份
         app.updateLifeStoreInfo(res.data)
 
         // 合并小B身份到登录用户
         app.mergeLifeStoreToJwt(res.data)
-
       } else {
         utils.fxShowToast(res.status.message)
       }

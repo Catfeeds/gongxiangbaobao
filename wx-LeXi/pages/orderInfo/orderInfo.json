@@ -1,7 +1,7 @@
 {
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "订单详情",
-  "navigationBarBackgroundColor": "black",
+  "navigationBarBackgroundColor": "white",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",
