@@ -85,7 +85,7 @@
     <!-- 广告轮播图 -->
     <view class="flex_row--middle adv-box">
       <swiper class="adv-coupon-swiper">
-        <swiper-item wx:for="{{[1,2,3,4]}}">
+        <swiper-item wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
           <image src="../../images/accept.png" />
         </swiper-item>
       </swiper>
@@ -102,7 +102,7 @@
 
       <view class="time-top brand-coupon__box">
 
-        <view class="brand-coupon" wx:for="{{[1,6]}}">
+        <view class="brand-coupon" wx:for="{{[1,6]}}" wx:key="{{index}}">
           <!-- 大图 -->
           <view class="brand-coupon__big">
             <!-- 头部 -->
@@ -187,7 +187,7 @@
       </view>
 
       <view class="time-top brand-coupon__box">
-        <view class="high-pick__product--coupon" wx:for="{{[1,2,3,4]}}">
+        <view class="high-pick__product--coupon" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
         <!-- 头部 -->
           <view class="time-top hander">
             <view class="flex-direction--column text-color">
