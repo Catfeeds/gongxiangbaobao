@@ -44,7 +44,7 @@ Page({
       min_price: '',//Number	可选	 	价格区间： 最小价格
       max_price: '',//Number	可选	 	价格区间： 最大价格
       sort_type: 1,//Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
-      is_free_postage: '',//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
+      is_free_postage: 1,//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential: '',//Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
       is_custom_made: '',//Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
     },
@@ -241,7 +241,7 @@ Page({
 
   // 列表
   getcategoryList() {
-    http.fxGet(api.column_explore_new, this.data.params, (result) => {
+    http.fxGet(api.products_free_postage, this.data.params, (result) => {
       console.log(result, "分类产品的列表")
       if (result.success) {
 

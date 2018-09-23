@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/receiveCoupon/receiveCoupon",
     "pages/index/index",
+    "pages/receiveCoupon/receiveCoupon",
     "pages/find/find",
     "pages/cart/cart",
     "pages/findInfo/findInfo",
