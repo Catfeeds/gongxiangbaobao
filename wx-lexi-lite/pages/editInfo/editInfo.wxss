@@ -15,6 +15,22 @@
   height: 100%;
   width: 100%;
 }
+.userPhoto .upload-status__box {
+  height: 8rpx;
+  width: 90%;
+  border-radius: 30rpx;
+  border: 1rpx solid #e9e9e9;
+  background-color: #999;
+  position: absolute;
+  left: 5%;
+  top: 256rpx;
+  z-index: 99;
+}
+.userPhoto .upload-status__box .progress {
+  height: 100%;
+  border-radius: 60rpx;
+  background-color: rgba(95,228,177,1) 
+}
 
 .register-time {
   position: absolute;

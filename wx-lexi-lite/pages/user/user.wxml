@@ -2,9 +2,9 @@
 <view class='container '>
 
     <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+      src='../../images/jiazai.gif' 
+      class="load-page__icon" 
+      wx:if="{{isLoadPageShow}}"></image>
 
   <view class="fx-submenu" wx:if="{{ haveSmallB }}">
     <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}">

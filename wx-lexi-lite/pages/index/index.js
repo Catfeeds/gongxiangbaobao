@@ -14,7 +14,7 @@ Page({
    */
   data: {
     page: 1,
-    perPage: 3,
+    perPage: 5,
     firstTime: true,
     swiperMark: 0, // 轮播图标记
     loadingMore: true, // 加载更多标记
@@ -28,11 +28,12 @@ Page({
     posterUrl: '', // 海报图url
 
     // 生活馆
+    isUploading: false,
+    uploadStatus: 0,
     shopInfo:'', // 生活馆信息
     lifePhotoUrl: '', // 分享生活馆的图片
     sid: '', // 生活馆sid
     openId: '', // openId
-    uploadParams: {}, // 上传所需参数
     lifeStore: {}, // 生活馆信息
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
@@ -559,25 +560,26 @@ Page({
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
-        wx.uploadFile({
-          url: this.data.uploadParams.up_endpoint,
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'x:directory_id': this.data.uploadParams.directory_id,
-            'x:user_id': this.data.uploadParams.user_id,
-            'token': this.data.uploadParams.up_token
-          },
-          success: (res) => {
-            let data = JSON.parse(res.data)
-            if (data.ids.length > 0) {
-              this.getAssetInfo(data.ids[0])
+        const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
+          console.log(result)
+          if (result.data.length > 0) {
+            this.getAssetInfo(result.data[0])
 
-              // 更新logo
-              this.handleUpdateStoreLogo(data.ids[0])
-            }
+            // 更新logo
+            this.handleUpdateStoreLogo(result.data[0].id)
           }
         })
+
+        uploadTask.onProgressUpdate((res) => {
+          console.log('上传进度', res.progress)
+
+          let percent = res.progress
+          this.setData({
+            isUploading: percent == 100 ? false : true,
+            uploadStatus: percent
+          })
+        })
+
       }
     })
   },
@@ -659,6 +661,9 @@ Page({
           'lifeStore.description': res.data.description,
           showEditModal: false
         })
+        // 更新标题
+        let lifeStoreName = res.data.name + '的生活馆'
+        this.handleSetNavigationTitle(lifeStoreName)
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -690,6 +695,16 @@ Page({
     let rid = e.detail.rid
     wx.navigateTo({
       url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.detail.storeRid
+    })
+  },
+
+  /**
+   * 查看商品详情
+   */
+  handleViewProduct(e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
     })
   },
 
@@ -1170,16 +1185,9 @@ Page({
     }
 
     http.fxGet(api.life_store_products, params, (res) => {
-      console.log(res.data.products, '全部分销商品')
       console.log(res, '全部分销商品')
+      console.log(this.data.page, '分销商品当前页')
       if (res.success) {
-        // 没有下一页了
-        if (!res.data.next) {
-          this.setData({
-            loadingMore: false
-          })
-        }
-
         let _products = this.data.storeProducts
         if (this.data.page > 1) {
           // 合并数组
@@ -1196,7 +1204,7 @@ Page({
         this.setData({
           storeProducts: _products,
           isEmpty: isEmpty,
-          isNextRecommend: res.data.next
+          isNextRecommend: res.data.next // 没有下一页了
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -1287,34 +1295,9 @@ Page({
   /**
    * 获取单个附件信息
    */
-  getAssetInfo(rid) {
-    http.fxGet(api.asset_detail, {
-      rid: rid
-    }, (result) => {
-      if (result.success) {
-        console.log(result, '附件信息')
-        this.setData({
-          'lifeStore.logo': result.data.view_url
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  /**
-   * 获取上传所需Token
-   */
-  getUploadToken() {
-    http.fxGet(api.user_upload_token, {}, (result) => {
-      if (result.success) {
-        console.log(result, '上传Token')
-        this.setData({
-          uploadParams: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+  getAssetInfo(asset) {
+    this.setData({
+      'lifeStore.logo': asset.view_url
     })
   },
 
@@ -1324,16 +1307,16 @@ Page({
   _swtichActivePageTab(name) {
     switch (name) {
       case 'lifeStore':
+        this.setData({
+          page: 1 // 恢复默认值
+        })
         this.getLifeStore() // 生活馆信息
         this.getDistributeNewest() // 选品中心入口
         this.getStoreProducts() // 生活馆商品
         this.getWeekPopular() // 本周最受欢迎商品
-        this.getUploadToken()
         this.handleAddBrowce() // 添加浏览者
         break;
       case 'featured': // 精选
-        wx.setNavigationBarTitle({ title: '精选' })
-
         this.handleSetNavigationTitle('精选')
 
         this.setData({
@@ -1359,9 +1342,6 @@ Page({
         this.getPlantOrder() // 种草清单
         break;
       case 'explore': // 探索
-        wx.setNavigationBarTitle({
-          title: "探索"
-        })
         if (this.data.exploreAdvertisementList.length != 0) {
           return
         }
@@ -1437,7 +1417,42 @@ Page({
     }
 
     console.log('来源生活馆：' + this.data.sid)
+  },
 
+  /**
+   * 监听页面滚动
+   * **/
+  onPageScroll(e) {
+    // console.log(e)
+    if (e.scrollTop >= 50) {
+      // console.log(e,"下拉")
+      this.setData({
+        isNavbarAdsorb: true
+      })
+    }
+    if (e.scrollTop < 51) {
+      // console.log(e, "上啦")
+      this.setData({
+        isNavbarAdsorb: false
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+    this.getLifePhotoUrl()
+    this.setData({
+      isLoadPageShow: false,
+      readyOver: true,
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    console.log('index---onShow')
     // 验证登录用户是否为小B商家
     if (this.data.sid == '') {
       console.log('验证登录用户是否为小B')
@@ -1491,42 +1506,6 @@ Page({
     }
 
     console.log(this.data.pageActiveTab)
-  },
-
-  /**
-   * 监听页面滚动
-   * **/
-  onPageScroll(e) {
-    // console.log(e)
-    if (e.scrollTop >= 50) {
-      // console.log(e,"下拉")
-      this.setData({
-        isNavbarAdsorb: true
-      })
-    }
-    if (e.scrollTop < 51) {
-      // console.log(e, "上啦")
-      this.setData({
-        isNavbarAdsorb: false
-      })
-    }
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-    this.getLifePhotoUrl()
-    this.setData({
-      isLoadPageShow: false,
-      readyOver: true,
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    console.log('index---onShow')
   },
 
   /**

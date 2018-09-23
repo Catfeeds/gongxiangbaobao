@@ -1,9 +1,10 @@
 // pages/editInfo/editInfo.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-const adressData = wx.getStorageSync('allPlaces')
+
 Page({
 
   /**
@@ -34,8 +35,9 @@ Page({
     date:'',// pick的日期---
 
     userInfo: {}, // 用户的信息---
-    uploadParams: {}, // 上传所需参数
     avatar: '', // 用户头像
+    isUploading: false,
+    uploadStatus: 0,
 
     // 修改过的信息
     isEdited: false, // 是否编辑过信息
@@ -137,67 +139,49 @@ Page({
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
-        wx.uploadFile({
-          url: this.data.uploadParams.up_endpoint,
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'x:directory_id': this.data.uploadParams.directory_id,
-            'x:user_id': this.data.uploadParams.user_id,
-            'token': this.data.uploadParams.up_token
-          },
-          success: (res) => {
-            console.log(res,"上传后的图片")  
-
-            this.setData({
-              'editUserInfo.avatar_id':res.ids
-            })
-
-            let data = JSON.parse(res.data)
-            if (data.ids.length > 0) {
-              this.getAssetInfo(data.ids[0])
-            }
+        const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
+          console.log(result)
+          if (result.data.length > 0) {
+            this.getAssetInfo(result.data[0])
           }
+        })
+
+        uploadTask.onProgressUpdate((res) => {
+          console.log('上传进度', res.progress)
+
+          let percent = res.progress
+          this.setData({
+            isUploading: percent == 100 ? false : true,
+            uploadStatus: percent
+          })
         })
       }
     })
   },
 
   // 获取单个附件信息
-  getAssetInfo (rid) {
-    http.fxGet(api.asset_detail, { rid: rid }, (result) => {
-      if (result.success) {
-        console.log(result, '附件信息')
-        app.globalData.userInfo.profile.avatar = result.data.view_url
-        this.setData({
-          isEdited: true,
-          userInfo: app.globalData.userInfo,
-          ['editUserInfo.avatar_id']: rid
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
+  getAssetInfo (asset) {
+    if (asset) {
+      let userInfo = wx.getStorageSync('userInfo')
+      userInfo.avatar = asset.view_url
+      wx.setStorageSync('userInfo', userInfo)
 
-  // 获取上传所需Token
-  getUploadToken () {
-    http.fxGet(api.user_upload_token, {}, (result) => {
-      if (result.success) {
-        console.log(result, '上传Token')
-        this.setData({
-          uploadParams: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
+      let jwt = wx.getStorageSync('jwt')
+      jwt.avatar = asset.view_url
+      wx.setStorageSync('jwt', jwt)
 
+      this.setData({
+        isEdited: true,
+        'userInfo.profile.avatar': userInfo.avatar,
+        ['editUserInfo.avatar_id']: asset.id
+      })
+
+      app.globalData.userInfo.profile.avatar = userInfo.avatar
+    }
+  },
 
   // 获取用户信息 ---
   getUserInfo() {
-
     http.fxGet(api.users_profile,{},(result)=>{
       console.log(result,"用户的个人资料")
       if (result.success) {
@@ -226,8 +210,8 @@ Page({
           'editUserInfo.mobile': userProfile.mobile,
           'editUserInfo.town_id': userProfile.town_id,
           'editUserInfo.street_address': userProfile.street_address,
-          'editUserInfo.zipcode': userProfile.zipcode,
-          'editUserInfo.is_default': userProfile.is_default
+          'editUserInfo.zipcode': userProfile.zipcode || '',
+          'editUserInfo.is_default': userProfile.is_default || ''
         })
 
         console.log(this.data.editUserInfo, "初始信息")
@@ -241,16 +225,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options,"uid")
+    console.log(options, "uid")
 
-    let rid = options.rid
+    let rid = options.rid || ''
     this.setData({
       rid: rid,
     })
 
     this.getUserInfo() // 获取用户信息
-    this.getUploadToken()
-
   },
 
   /**

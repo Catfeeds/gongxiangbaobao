@@ -4,6 +4,10 @@
     <image src='{{ userInfo.profile.avatar }}'></image>
     <view class='register-time'>注册时间：{{ joinTime }}</view>
     <image class='camera' bindtap='handleUploadAvatar' src='../../images/xiangji@2.png'></image>
+    <!-- 进度条 -->
+    <view class="upload-status__box" wx:if="{{ isUploading }}">
+      <view class="progress" style="width:{{ uploadStatus }}%"></view>
+    </view>
   </view>
 
   <view class='bottomInfo'>
@@ -33,29 +37,19 @@
       <!-- 出生日期 -->
       <label class='componentTwo'>
         <view class='margin-bottom--16rpx'>出生日期</view>
-        <picker 
-          mode="date" 
-          value="{{ editUserInfo.date }}" 
-          start="1990-01-01" 
-          end="2017-09-01" 
-          class="seting-date"
-          bindchange="bindDateChange">
+        <picker mode="date" value="{{ editUserInfo.date }}" start="1990-01-01" end="2017-09-01" class="seting-date" bindchange="bindDateChange">
           <view class="black-font" wx:if="{{ editUserInfo.date }}">
             {{ editUserInfo.date }}
           </view>
           <view class="black-font" wx:else>
-            设置日期 
+            设置日期
           </view>
         </picker>
       </label>
       <!-- 性别 -->
       <label class='componentTwo margin-bottom--22rpx'>
         <view class='margin-bottom--16rpx'>性别</view>
-        <picker 
-          bindchange="bindGenderChange" 
-          mode='selector' 
-          range="{{gender}}" 
-          value="{{gender}}">
+        <picker bindchange="bindGenderChange" mode='selector' range="{{gender}}" value="{{gender}}">
           <view class="black-font">
             {{ gender[editUserInfo.gender] }}
             <picker-view></picker-view>

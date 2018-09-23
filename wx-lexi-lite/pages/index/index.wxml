@@ -2,10 +2,7 @@
 
 <view class="container">
   <!-- 页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <view class="c-middle sear-top">
     <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
@@ -33,6 +30,10 @@
         <view class='owner-avatar_box'>
           <image style="border-radius:8rpx" src="{{ lifeStore.logo }}"></image>
           <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo"></image>
+          <!-- 进度条 -->
+          <view class="upload-status__box" wx:if="{{ isUploading }}">
+            <view class="progress" style="width:{{ uploadStatus }}%"></view>
+          </view>
         </view>
 
         <view class="fx-column-start owner-info-text_info">
@@ -130,14 +131,14 @@
         <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
 
-      <view class='tuijian border-bottom padding-bottom--20rpx {{idx==0?"padding-top--40rpx":""}} {{idx==storeProducts.length-1?"margin-bottom--0rpx":""}}' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="product" wx:key="{{ product.rid }}" wx:if="{{ !isEmpty }}">
-
+      <view class='tuijian border-bottom padding-bottom--20rpx {{ idx == 0 ?"padding-top--40rpx" : "" }} {{ idx == storeProducts.length - 1 ? "margin-bottom--0rpx" : "" }}' wx:if="{{ !isEmpty }}" wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="distributeProduct"
+        wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
         <!-- 店长头相 -->
         <view class='shopMaster'>
           <image src='{{ storeOwner.avatar }}' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
-          <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ product.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
+          <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
             <image src='../../images/delete-icon@2.png'></image>
           </view>
         </view>
@@ -145,19 +146,44 @@
         <!-- 推荐理由介绍 -->
         <view class='shopRecommend theme-bg-color'>
           <view class='triangle theme-bg-color'></view>
-          <text> {{ product.stick_text }} </text>
+          <text> {{ distributeProduct.stick_text }} </text>
         </view>
 
         <!-- 物品的详情 -->
         <view class='margin-top--20rpx margin-bottom--44rpx'>
-          <fx-product-middleM originPric="{{ true }}" is_likeNumber="{{ true }}" price="{{ true }}" product="{{ product }}" bind:triggerEvent_product="handleGoProduct" data-rid="{{ product.rid }}"></fx-product-middleM>
+          <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
+
+            <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
+              <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}"></image>
+
+              <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
+              <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>
+            </view>
+
+            <view class="shopRecommendGoodsR" style='height:180rpx;'>
+              <view>
+                <view class='two-line'>
+                  <image class='logistics logistics' wx:if="{{ distributeProduct.is_free_postage }}"></image>
+                  <text class='{{ photoHeight == 140 ? "line-two" : ""}}'>{{ distributeProduct.name }}</text>
+                </view>
+              </view>
+
+              <!-- 价格和喜欢的人数 -->
+              <view class='price-like-box'>
+                <text class='current_price'>¥{{ distributeProduct.min_price }}</text>
+                <text wx:if="{{ distributeProduct.min_price == distributeProduct.min_sale_price }}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{ distributeProduct.min_price }}</text>
+                <text wx:if="{{ distributeProduct.like_count != 0 }}" class='shopRecommendGoodsR-old'>喜欢+{{ distributeProduct.like_count }}</text>
+              </view>
+
+            </view>
+          </view>
         </view>
 
         <!-- 底部的喜欢和分享 -->
         <view class='recommendbottom'>
-          <view data-id='{{product.rid}}' data-rid='{{product.rid}}' class='recommendbottomText {{item.is_like?"likeActive":""}}' data-index="{{idx}}" data-islike="{{product.is_like}}" catchtap='handleBindLike'>
+          <view data-id='{{ distributeProduct.rid }}' data-rid='{{ distributeProduct.rid }}' class='recommendbottomText {{ distributeProduct.is_like ? "likeActive" : "" }}' data-index="{{ idx }}" data-islike="{{ distributeProduct.is_like }}" catchtap='handleBindLike'>
             <view class='icon-like'>
-              <image src='{{product.is_like?"../../images/Like@2.png":"../../images/dLike@2.png"}}'>
+              <image src='{{ distributeProduct.is_like ? "../../images/like@2.png" : "../../images/dLike@2.png" }}'>
               </image>
             </view>
             <view>喜欢</view>
@@ -166,18 +192,18 @@
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view catchtap='handleStickShareDistribute' data-shareStore='{{item}}' data-rid='{{product.rid}}' data-idx="{{idx}}" data-is-distributed="{{product.is_distributed}}" data-from="2">分享</view>
+            <view catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image src='{{logo}}' class='photo-round'></image>
-            <image src='{{logo}}' class='photo-round'></image>
-            <image src='{{logo}}' class='photo-round'></image>
+            <image src='{{ logo }}' class='photo-round'></image>
+            <image src='{{ logo }}' class='photo-round'></image>
+            <image src='{{ logo }}' class='photo-round'></image>
           </view>
         </view>
       </view>
 
       <!-- 查看更多 -->
-      <view class="c-middle border-bottom shen-hui font-s examine-more-box" catchtap="handleLoadingRecommend" wx:if="{{isNextRecommend}}">
+      <view class="c-middle border-bottom shen-hui font-s examine-more-box" catchtap="handleLoadingRecommend" wx:if="{{ isNextRecommend }}">
         查看更多好物
         <text class='fx-icon-nothing-lower'></text>
       </view>
@@ -203,13 +229,7 @@
     <view class='swiper-photo list'>
       <swiper autoplay="{{false}}" previous-margin="{{'20rpx'}}" next-margin="{{'64rpx'}}" bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
-          <swiper-item 
-            catchtap="handleToInfo" 
-            data-type="{{item.type}}"
-            data-link="{{item.link}}"
-            data-title="{{item.title}}"
-            data-rid="{{item.rid}}" 
-            class="flex_row--middle" data-id="{{item.id}}" data-sort="{{item.sort}}">
+          <swiper-item catchtap="handleToInfo" data-type="{{item.type}}" data-link="{{item.link}}" data-title="{{item.title}}" data-rid="{{item.rid}}" class="flex_row--middle" data-id="{{item.id}}" data-sort="{{item.sort}}">
             <view class="slide-image slide-item__box {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
               <image src="{{item.image}}">
                 <view class="prompt-textwrap">
@@ -238,35 +258,27 @@
       <view class="page-section padding-top--0rpx ">
         <view class="prevent-click__box"></view>
 
-      <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
-        <view class="headline-side">
-          <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
-          <text>开馆</text>
-          <text>头条</text>
-        </view>
-        <view class="headline-line">
-          <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
-        </view>
-
-        <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
-          <swiper-item  
-            class="flex-direction__column--center"
-            wx:for="{{ storeHeadlines }}"
-             wx:for-index="idx" 
-             wx:for-item="headline" 
-             wx:key="{{ idx }}">
-          <view 
-            wx:for="{{headline}}"
-            wx:key="{{index}}"
-            class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
-            <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
-              <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
-            </view>
-            <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
-              「{{ item.username }}」的生活馆 {{ item.time }} 
-              <label class="order-yellow">售出{{ item.quantity }}单</label>
-            </view>
+        <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
+          <view class="headline-side">
+            <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
+            <text>开馆</text>
+            <text>头条</text>
           </view>
+          <view class="headline-line">
+            <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
+          </view>
+
+          <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
+            <swiper-item class="flex-direction__column--center" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
+              <view wx:for="{{headline}}" wx:key="{{index}}" class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
+                <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
+                  <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
+                </view>
+                <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
+                  「{{ item.username }}」的生活馆 {{ item.time }}
+                  <label class="order-yellow">售出{{ item.quantity }}单</label>
+                </view>
+              </view>
             </swiper-item>
           </swiper>
         </view>
@@ -284,14 +296,9 @@
         <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" catchtap="handleTodyRecommend" data-type="{{item.target_type}}"
           data-id="{{item.id}}" data-rid="{{item.rid}}" wx:key="{{index}}">
           <view class='all-product height---236rpx'>
-            <image 
-              wx:if="{{item.cover}}"
-              class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" 
-              src="{{item.cover}}-p315x236"></image>
+            <image wx:if="{{item.cover}}" class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.cover}}-p315x236"></image>
 
-            <image 
-              wx:else
-              class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+            <image wx:else class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           </view>
           <view class='recommend-text line-height--22rpx theme-green margin-top--4rpx padding-bottom--10rpx'>
             <text class='font-ss line-height--22rpx'>{{item.recommend_label}}</text>
@@ -340,12 +347,7 @@
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx '>
             <view class='productionGoods {{index==2||index==3||index==4?"one-row-three":""}}' wx:if="{{index<5}}" wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product 
-                product="{{item}}" 
-                like_number="{{true}}" 
-                photo="{{index==0 || index==1?5:1}}" 
-                photoSize="{{index==0 || index==1?'325x260':'30'}}" 
-                bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-product product="{{item}}" like_number="{{true}}" photo="{{index==0 || index==1?5:1}}" photoSize="{{index==0 || index==1?'325x260':'30'}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
@@ -353,12 +355,7 @@
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx'>
             <view wx:if="{{4<index && index<10}}" class='productionGoods {{index==7||index==8||index==9?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product 
-                product="{{item}}" 
-                like_number="{{true}}" 
-                photo="{{index==5 || index==6?5:1}}"
-                photoSize="{{index==5 || index==6?'325x260':'30'}}"
-                bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-product product="{{item}}" like_number="{{true}}" photo="{{index==5 || index==6?5:1}}" photoSize="{{index==5 || index==6?'325x260':'30'}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
@@ -366,12 +363,7 @@
         <swiper-item class="">
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx'>
             <view wx:if="{{9<index && index<15}}" class='productionGoods {{index==12||index==13||index==14?"one-row-three":""}}' wx:for="{{gratefulList.products}}" wx:key='{{index}}'>
-              <fx-product 
-                product="{{item}}" 
-                like_number="{{true}}" 
-                photo="{{index==11 || index==10?5:1}}" 
-                photoSize="{{index==11 || index==10?'325x260':'30'}}"
-                bind:triggerEvent_product='handleInfomation'></fx-product>
+              <fx-product product="{{item}}" like_number="{{true}}" photo="{{index==11 || index==10?5:1}}" photoSize="{{index==11 || index==10?'325x260':'30'}}" bind:triggerEvent_product='handleInfomation'></fx-product>
             </view>
           </view>
         </swiper-item>
@@ -382,11 +374,7 @@
     <view class='probation-box advertisement-box height--680rpx margin-bottom--40rpx bg-white'>
       <swiper autoplay="{{true}}" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color='#fff' bindchange="handleSwiperChange">
         <block wx:for="{{middleAdvertisementList.banner_images}}" data-rid="{{item.rid}}" wx:key="{{index}}">
-          <swiper-item 
-            data-rid="{{item.rid}}" 
-            data-link="{{item.link}}" 
-            data-type="{{item.type}}" 
-            catchtap="handleToInfo">
+          <swiper-item data-rid="{{item.rid}}" data-link="{{item.link}}" data-type="{{item.type}}" catchtap="handleToInfo">
             <image src="{{item.image}}" class="slide-image" width="355" height="150" />
           </swiper-item>
         </block>
@@ -409,15 +397,12 @@
 
     <!-- 乐喜优选 -->
     <view>
-      <view  class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx'>
         <text>乐喜优选</text>
-        <text 
-          wx:if="{{lexiPick.products.length>3}}" 
-          bindtap="handleToLexiPick"
-          class='hui-zi-m flex_row z-index-100'>
+        <text wx:if="{{lexiPick.products.length>3}}" bindtap="handleToLexiPick" class='hui-zi-m flex_row z-index-100'>
             <text bindtap="handleToLexiPick">查看全部  </text>
-            <text class='fx-icon-nothing-right'></text> 
-            </text>
+        <text class='fx-icon-nothing-right'></text>
+        </text>
       </view>
       <view class='production new-goods_box'>
         <view wx:if="{{index<4}}" class='productionGoods' wx:for="{{lexiPick.products}}" wx:key='{{index}}'>
@@ -433,23 +418,11 @@
         <text wx:if="{{plantOrderList.life_records.length>4}}" catchtap="handleToPlantNoteList" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
       </view>
       <view class='production new-goods_box padding-left--0rpx'>
-        <view 
-          wx:if="{{index<4}}" 
-          class='flex-direction--column productionGoods'
-          catchtap="handleToPlantNoteInfo" 
-          data-rid="{{item.rid}}" 
-          data-type="{{item.type}}"
-          wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
+        <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' catchtap="handleToPlantNoteInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
-          <image 
-            src="{{item.cover}}-p326x216" 
-            wx:if="{{item.cover}}"
-            class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
+          <image src="{{item.cover}}-p326x216" wx:if="{{item.cover}}" class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
 
-          <image 
-            src="" 
-            wx:else
-            class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
+          <image src="" wx:else class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
           <text class="font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='font-ss shen-hui text-two_line'>{{item.description}}</text>
           <view class='plant-owner__box flex_row'>
@@ -467,7 +440,7 @@
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
       <swiper autoplay="{{true}}" bindchange="handleExploreSwiperChange">
-        <swiper-item data-rid="{{item.rid}}" data-link="{{item.link}}"  data-type="{{item.type}}" catchtap="handleToInfo" wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
+        <swiper-item data-rid="{{item.rid}}" data-link="{{item.link}}" data-type="{{item.type}}" catchtap="handleToInfo" wx:for="{{exploreAdvertisementList.banner_images}}" wx:key="{{index}}">
           <view class='advertisement-item'>
             <image src="{{item.image}}" class="slide-image" />
             <!-- <text class='explore-advertisement__title'>{{item.title}}</text> -->
@@ -533,14 +506,9 @@
             </view>
             <view class='time-top characteristic-box__middle'>
               <view class='characteristic-photo' wx:for="{{items.products_cover}}" wx:key="{{index}}" wx:for-item="item" wx:if="{{index<3}}">
-                <image 
-                  wx:if="{{item}}"
-                  class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
-                  src='{{item}}-p16'></image>
+                <image wx:if="{{item}}" class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item}}-p16'></image>
 
-                <image 
-                  class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
-                  wx:else></image>
+                <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" wx:else></image>
               </view>
 
             </view>
@@ -577,14 +545,9 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-rid="{{item.id}}" catchtap="handleToGatherInfo" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
-          <image 
-            class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" 
-            wx:if="{{item.cover}}"
-            src="{{item.cover}}-p30"></image>
+          <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" wx:if="{{item.cover}}" src="{{item.cover}}-p30"></image>
 
-          <image 
-            wx:else
-            class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+          <image wx:else class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           <view class='bg-black__half'>
             <image src='../../images/bg-hei.png'></image>
           </view>

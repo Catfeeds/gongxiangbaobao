@@ -249,6 +249,7 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
+
     http.fxGet(api.users_profile, {}, (result) => {
       if (result.success) {
         console.log(result, '用户的信息')
@@ -256,9 +257,18 @@ Page({
         result.data.profile.created_at = utils.timestamp2string(result.data.profile.created_at, 'cn')
         // 设置全局变量
         app.globalData.userInfo.profile = result.data.profile
+
         this.setData({
           userInfo: app.globalData.userInfo
         })
+
+        // 设置常用信息更新至缓存
+        wx.setStorageSync('userInfo', {
+          avatar: result.data.profile.avatar,
+          username: result.data.profile.username,
+          mobile: result.data.profile.mobile
+        })
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -368,11 +378,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getUserInfo() // 获取用户的信息
     // 是否登陆
     this.setData({
       is_login: app.globalData.isLogin
     })
+
+    this.getUserInfo() // 获取用户的信息
 
     const lifeStore = wx.getStorageSync('lifeStore')
     // 小B商家获取自己生活馆
@@ -397,6 +408,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // 本地存储
+    const userInfo = wx.getStorageSync('userInfo')
+    if (userInfo) {
+      this.setData({
+        'userInfo.profile.avatar': userInfo.avatar,
+        'userInfo.profile.username': userInfo.username,
+        'userInfo.profile.mobile': userInfo.mobile
+      })
+    }
+
     this.getCouponAddOrder() // 获取没有使用的优惠券和订单
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---

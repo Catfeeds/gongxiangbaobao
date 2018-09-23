@@ -162,6 +162,20 @@ App({
   },
 
   /**
+   * 当登录用户获得小B身份后，同步更新本地缓存的Jwt信息
+   */
+  mergeLifeStoreToJwt(lifeStore) {
+    const jwt = wx.getStorageSync('jwt')
+
+    if (lifeStore && lifeStore.is_small_b) {
+      jwt.is_small_b = lifeStore.is_small_b
+      jwt.store_rid = lifeStore.store_rid
+
+      wx.setStorageSync('jwt', jwt)
+    }
+  },
+
+  /**
    * 更新用户最后访问的生活馆信息
    */
   updateLifeStoreLastVisit (sid) {

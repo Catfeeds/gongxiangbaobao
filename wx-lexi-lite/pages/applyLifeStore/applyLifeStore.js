@@ -16,7 +16,7 @@ Page({
     quhao: false,
     countryCodeList: [], // 地区编号列表
 
-    isShowMessage: true, // 验证码和读秒
+    sending: false,
     time: 60, // 时间
     activePage: 'apply-form', // apply-result
     form: {
@@ -27,9 +27,6 @@ Page({
       mobile: '',
       verify_code: ''
     },
-    sending: false,
-    counter: 0, // 计数器
-    timer: '', // 间隔事务
     verifyCode: '', // 后端发送后，返回的验证码，用于前端验证
   },
 
@@ -68,24 +65,21 @@ Page({
    * 跳转至生活馆
    */
   handleGoLifeStore() {
-    // 从本地缓存中获取数据
-    const lifeStore = wx.getStorageSync('lifeStore')
-    if (lifeStore.isSmallB) {
-      wx.switchTab({
-        url: '../index/index?sid=' + lifeStore.store_rid
-      })
-    } else {
-      wx.switchTab({
-        url: '../index/index'
-      })
-    }
+    wx.switchTab({
+      url: '../index/index'
+    })
   },
 
   /**
    * 提交申请
    */
   handleSubmitApply(e) {
+    wx.showLoading({
+      title: '正在提交...',
+    })
+
     http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code }, (res) => {
+      wx.hideLoading()
       console.log(res, '开通生活馆')
       if (res.success) {
         this.setData({
@@ -94,6 +88,9 @@ Page({
 
         // 更新小B身份
         app.updateLifeStoreInfo(res.data)
+
+        // 合并小B身份到登录用户
+        app.mergeLifeStoreToJwt(res.data)
 
       } else {
         utils.fxShowToast(res.status.message)
@@ -120,42 +117,36 @@ Page({
     }
 
     this.setData({
-      sending: true
+      sending: true,
+      time: 60
     })
+
+    if (this.data.sending == true) {
+      let pageTime = setInterval(() => {
+        console.log(this.data.time, '验证码倒计时')
+        
+        this.setData({
+          time: --this.data.time
+        })
+        if (this.data.time == 0) {
+          clearInterval(pageTime)
+          this.setData({
+            sending: false,
+            time: 60
+          })
+        }
+      }, 1000)
+    }
+
     http.fxPost(api.auth_sms_code, {
       mobile: this.data.form.mobile,
       area_code: this.data.form.area_code,
     }, (res) => {
       console.log(res, '发送验证码')
-      if (res.success) {
-        this.setData({
-          isShowMessage: false // 隐藏获取验证码显示读秒
-        })
-
-        this.handleInterval() // 处理倒计时
-
-      } else {
+      if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
     })
-  },
-
-  // 处理倒计时
-  handleInterval() {
-    interval = setInterval(() => {
-      console.log(11)
-      if (this.data.time > 0) {
-        this.setData({
-          time: this.data.time - 1
-        })
-      } else {
-        clearInterval(interval)
-        this.setData({
-          isShowMessage: true,
-          time: 60
-        })
-      }
-    }, 1000)
   },
 
   // 获取地区编号
@@ -178,10 +169,10 @@ Page({
     // 已经申请过则不能重复申请
     if (lifeStore.isSmallB) {
       wx.switchTab({
-        url: '../index/index?sid=' + lifeStore.store_rid
+        url: '../index/index'
       })
     }
-
+    
     this.getCountryCode()
   },
 
