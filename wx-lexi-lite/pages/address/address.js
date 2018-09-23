@@ -297,24 +297,13 @@ Page({
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
-        const uploadTask =  wx.uploadFile({
-          url: this.data.uploadParams.up_endpoint,
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'x:directory_id': this.data.uploadParams.directory_id,
-            'x:user_id': this.data.uploadParams.user_id,
-            'token': this.data.uploadParams.up_token
-          },
-          success: (res) => {
-            let data = JSON.parse(res.data)
-            if (data.ids.length > 0) {
-              
-              if (this.data.uploadType == 'front') {
-                this.getAssetFrontInfo(data.ids[0])
-              } else {
-                this.getAssetBackInfo(data.ids[0])
-              }
+        const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
+          console.log(result)
+          if (result.data.length > 0) {
+            if (this.data.uploadType == 'front') {
+              this.getAssetFrontInfo(result.data[0])
+            } else {
+              this.getAssetBackInfo(result.data[0])
             }
           }
         })
@@ -370,36 +359,18 @@ Page({
   },
 
   // 获取单个附件信息
-  getAssetFrontInfo(rid) {
-    http.fxGet(api.asset_detail, {
-      rid: rid
-    }, (result) => {
-      if (result.success) {
-        console.log(result, '附件信息')
-        this.setData({
-          id_card_front_image: result.data.view_url,
-          'form.id_card_front': rid
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+  getAssetFrontInfo(asset) {
+    this.setData({
+      id_card_front_image: asset.view_url,
+      'form.id_card_front': asset.id
     })
   },
 
   // 获取身份证背面信息
-  getAssetBackInfo(rid) {
-    http.fxGet(api.asset_detail, {
-      rid: rid
-    }, (result) => {
-      if (result.success) {
-        console.log(result, '附件信息')
-        this.setData({
-          id_card_back_image: result.data.view_url,
-          'form.id_card_back': rid
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+  getAssetBackInfo(asset) {
+    this.setData({
+      id_card_back_image: asset.view_url,
+      'form.id_card_back': asset.id
     })
   },
 
@@ -451,18 +422,16 @@ Page({
     wx.showLoading({
       title: '加载中...',
     })
+
     // 恢复默认值
     this.setData({
       loaded: false,
       multiIndex: [0, 0, 0]
     })
-    http.fxGet(api.provinces_cities, {
-      country_id: this.data.form.country_id
-    }, (result) => {
+
+    app.getAddressPlaces(this.data.form.country_id, (allPlaces) => {
       wx.hideLoading()
-      console.log(result, '省市区')
-      if (result.success) {
-        let allPlaces = result.data
+      if (allPlaces) {
         let regions = this.data.regions
         let provinceIndex = 0
         let cityIndex = 0
@@ -526,7 +495,7 @@ Page({
           }
         }
       } else {
-        utils.fxShowToast(result.status.message)
+        utils.fxShowToast('地址加载有误！')
       }
     })
   },
@@ -540,20 +509,6 @@ Page({
       }
     })
     return currentIndex
-  },
-
-  // 获取上传所需Token
-  getUploadToken() {
-    http.fxGet(api.user_upload_token, {}, (result) => {
-      if (result.success) {
-        console.log(result, '上传Token')
-        this.setData({
-          uploadParams: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
   },
 
   // 获取当前地址信息
@@ -612,8 +567,6 @@ Page({
     } else {
       this.getCountry() // 获取所有的国家
     }
-    
-    this.getUploadToken()
   },
 
   /**

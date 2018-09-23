@@ -23,6 +23,7 @@ module.exports = {
   orders_order_coupon_count:'orders/order_coupon_count',// 订单的数量和未使用优惠券的额数量
 
   // Asset
+  asset_upload: 'assets/upload', // POST 上传附件
   asset_detail: 'assets/show_asset', // GET 获取附件 
 
   // Category

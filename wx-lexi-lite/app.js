@@ -56,6 +56,9 @@ App({
       }
     }
 
+    // 预先加载大陆地址
+    this.getAddressPlaces()
+
     // 获取地理位置
     this.getUserLocation()
   },
@@ -178,6 +181,36 @@ App({
           console.log('已成功更新最近的生活馆！')
         }
       })
+    }
+  },
+
+  /**
+   * 获取国家或地区下所有省市区
+   * 默认值：1，为中国大陆
+   */
+  getAddressPlaces(country_id=1, cb) {
+    let cacheKey = 'places_'+ country_id
+    let allPlaces = wx.getStorageSync(cacheKey)
+    if (!allPlaces || Object.keys(allPlaces).length == 0) {
+      http.fxGet(api.provinces_cities, {
+        country_id: country_id
+      }, (result) => {
+        console.log(result, '省市区')
+        if (result.success) {
+          let places = result.data
+          if (places && Object.keys(places).length > 0) {
+            // 设置到本地缓存
+            console.log(cacheKey, '缓存Key')
+            wx.setStorageSync(cacheKey, places)
+          }
+          return typeof cb == 'function' && cb(places)
+        } else {
+          console.log(result.status.message, '预加载地址出错！！！')
+          return typeof cb == 'function' && cb(false)
+        }
+      })
+    } else {
+      return typeof cb == 'function' && cb(allPlaces)
     }
   },
   
@@ -322,7 +355,9 @@ App({
    * 获取购物车数量
    */
   getCartTotalCount() {
-    http.fxGet(api.cart_item_count, { open_id: this.globalData.jwt.openid }, (res) => {
+    const jwt = wx.getStorageSync('jwt')
+
+    http.fxGet(api.cart_item_count, { open_id: jwt.openid }, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
         this.globalData.cartTotalCount = res.data.item_count

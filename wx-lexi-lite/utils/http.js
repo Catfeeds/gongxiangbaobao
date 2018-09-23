@@ -72,6 +72,28 @@ function fxUrl(url) {
   return urlAry.join('/')
 }
 
+// Upload请求
+function fxUpload(url, tempFile, data = {}, cb) {
+  let formData = { ...data, ...appendSystemParams() }
+
+  const uploadTask = wx.uploadFile({
+    url: fxUrl(url),
+    filePath: tempFile,
+    name: 'file',
+    formData: formData,
+    header: fxHeader(),
+    success: (res) => {
+      let result_data = JSON.parse(res.data)
+      return typeof cb == 'function' && cb(result_data)
+    },
+    fail(res) {
+      return typeof cb == 'function' && cb(false)
+    }
+  })
+
+  return uploadTask
+}
+
 // Get请求
 function fxGet(url, data = {}, cb) {
   // wx.showNavigationBarLoading()
@@ -175,5 +197,6 @@ module.exports = {
   fxGet,
   fxPost,
   fxPut,
-  fxDelete
+  fxDelete,
+  fxUpload
 }

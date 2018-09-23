@@ -1,8 +1,10 @@
 // pages/applyLifeStore/applyLifeStore.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 let interval
 
 Page({
@@ -12,7 +14,7 @@ Page({
    */
   data: {
     quhao: false,
-    CountryCodeList: [], // 地区编号列表
+    countryCodeList: [], // 地区编号列表
 
     isShowMessage: true, // 验证码和读秒
     time: 60, // 时间
@@ -38,25 +40,25 @@ Page({
     })
   },
 
-//选择国家
+  // 选择国家
   handlePickCountry(e) {
     console.log(e.currentTarget.dataset.name)
     this.setData({
-      "form.area_code": e.currentTarget.dataset.name,
-      "form.areacode": e.currentTarget.dataset.name,
-      quhao:false
+      'form.area_code': e.currentTarget.dataset.name,
+      'form.areacode': e.currentTarget.dataset.name,
+      quhao: false
     })
   },
 
 // 关闭选择国家
-  handleOffCountryPick(){
+  handleOffCountryPick() {
     this.setData({
       quhao: false
     })
   },
 
   // 验证码
-  handleVerifyCode(e){
+  handleVerifyCode(e) {
     this.setData({
       verify_code: e.detail.value
     })
@@ -65,23 +67,34 @@ Page({
   /**
    * 跳转至生活馆
    */
-  handGoLifeStore() {
-    wx.redirectTo({
-      url: '/pages/lifeStore/lifeStore'
-    })
+  handleGoLifeStore() {
+    // 从本地缓存中获取数据
+    const lifeStore = wx.getStorageSync('lifeStore')
+    if (lifeStore.isSmallB) {
+      wx.switchTab({
+        url: '../index/index?sid=' + lifeStore.store_rid
+      })
+    } else {
+      wx.switchTab({
+        url: '../index/index'
+      })
+    }
   },
 
   /**
    * 提交申请
    */
   handleSubmitApply(e) {
-
-    http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code}, (res) => {
+    http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code }, (res) => {
       console.log(res, '开通生活馆')
       if (res.success) {
         this.setData({
           activePage: 'apply-result'
         })
+
+        // 更新小B身份
+        app.updateLifeStoreInfo(res.data)
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -150,7 +163,7 @@ Page({
     http.fxGet(api.countries, {}, (result) => {
       console.log(result, "地区编号列表")
       this.setData({
-        CountryCodeList: result.data
+        countryCodeList: result.data
       })
     })
   },
@@ -165,7 +178,7 @@ Page({
     // 已经申请过则不能重复申请
     if (lifeStore.isSmallB) {
       wx.switchTab({
-        url: '../index/index'
+        url: '../index/index?sid=' + lifeStore.store_rid
       })
     }
 

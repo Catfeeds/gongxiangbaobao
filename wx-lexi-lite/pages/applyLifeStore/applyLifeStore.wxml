@@ -63,7 +63,7 @@
       <text>乐喜生活馆</text>
     </view>
 
-    <button bindtap="handGoLifeStore" class="fx-button primary">进入生活馆</button>
+    <button bindtap="handleGoLifeStore" class="fx-button primary">进入生活馆</button>
   </view>
 
   <!-- 电话选择 -->
@@ -71,7 +71,7 @@
     <cover-view class='block-title'>常用</cover-view>
     <cover-view class='hui-line'></cover-view>
 
-    <cover-view class='time-top padding-15rpx {{item.areacode==form.areacode?"bgc--hui":""}}' wx:for="{{CountryCodeList}}" wx:key="{{index}}" catchtap='handlePickCountry' data-name="{{item.areacode}}">
+    <cover-view class='time-top padding-15rpx {{item.areacode==form.areacode?"bgc--hui":""}}' wx:for="{{countryCodeList}}" wx:key="{{index}}" catchtap='handlePickCountry' data-name="{{item.areacode}}">
       <cover-view>{{item.name}}</cover-view>
       <cover-view class='theme-hui-color'>{{item.areacode}}</cover-view>
     </cover-view>

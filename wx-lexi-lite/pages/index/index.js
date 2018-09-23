@@ -1408,9 +1408,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log('index---onLoad')
+
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
+    // 传参数里有生活馆
+    if (options.sid) {
+      this.setData({
+        sid: sid
+      })
+    }
+    // 场景参数优先级高
     if (scene && scene != 'undefined') {
       let scene_ary = scene.split('-')
       sid = scene_ary[0]
@@ -1426,6 +1435,7 @@ Page({
         })
       }
     }
+
     console.log('来源生活馆：' + this.data.sid)
 
     // 验证登录用户是否为小B商家
@@ -1516,7 +1526,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    console.log('index---onShow')
   },
 
   /**

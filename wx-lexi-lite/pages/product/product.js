@@ -284,12 +284,14 @@ Page({
    */
   handleAddCart(e) {
     if (this.validateChooseSku()) {
+      const jwt = wx.getStorageSync('jwt')
+
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
       let cartParams = {
         rid: this.data.choosed.rid, // String	必填	 商品sku
         quantity: this.data.quantity, // Integer	可选	1	购买数量
         option: '', // String	可选	 	其他选项
-        open_id: app.globalData.jwt.openid // String	独立小程序端必填/独立小程序openid
+        open_id: jwt.openid // String	独立小程序端必填/独立小程序openid
       }
 
       http.fxPost(api.cart_addon, cartParams, (result) => {
