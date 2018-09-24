@@ -11,7 +11,7 @@
   </view>
 
   <view class="store-owner__wrapper">
-    <view class="blur"></view>
+    <view class="blur" style="background-image:url('{{ lifeStore.logo }}');"></view>
     <view class="mask"></view>
     <view class="store-owner-container">
       <view class="store-owner">

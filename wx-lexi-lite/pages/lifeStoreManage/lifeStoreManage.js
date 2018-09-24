@@ -98,7 +98,6 @@ Page({
       showShareModal: true,
     })
 
-   
     this.getOpenStorePhoto() // 开馆的卡片
     this.getWxaPoster(this.data.uid) // 开馆的海报
   },
@@ -121,20 +120,15 @@ Page({
 * 生成推广海报图
 */
   getWxaPoster(rid) {
-    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
-
-    // scene格式：rid + '#' + sid
-    let scene = rid
-    if (lastVisitLifeStoreRid) {
-      scene += '-' + lastVisitLifeStoreRid
-    }
-
+    // scene格式：sid + '-' + uid
+    let scene = this.data.sid
     let params = {
       scene: scene,
       path: 'pages/index/index',
       auth_app_id: app.globalData.app_id
     }
-    console.log(params,"海报参数")
+
+    console.log(params, '海报参数')
     http.fxPost(api.market_share_invite_poster, params, (result) => {
       console.log(result, '生成海报图')
       if (result.success) {
@@ -148,8 +142,8 @@ Page({
   },
 
   /**
-* 保存当前海报到相册
-*/
+   * 保存当前海报到相册
+   */
   handleSaveShare() {
     // 下载网络文件至本地
     wx.downloadFile({
@@ -445,18 +439,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (e) {
-    // console.log(e.target.dataset.card)
-    console.log(e)
-    console.log(e.from)
     if (e.from == "menu" || e.target.dataset.card == 1 ){
-      let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
-
-      // scene格式：rid + '-' + sid
-      let scene = this.data.uid
-      if (lastVisitLifeStoreRid) {
-        scene += '-' + lastVisitLifeStoreRid
-      }
-      console.log('pages/index/index?scene=' + scene,"分享的参数")
+      // scene格式：sid + '-' + uid
+      let scene = this.data.sid
+      console.log('pages/index/index?scene=' + scene, '分享的参数')
       
       return {
         title: this.data.userName + '邀请你一起来来乐喜开个',
@@ -466,7 +452,6 @@ Page({
           console.log(res, '分享商品成功!')
         }
       }
-
     }
   }
 })

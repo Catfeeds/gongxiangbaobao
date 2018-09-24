@@ -1,7 +1,7 @@
 //app.js
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
-const util = require('./utils/util.js')
+const utils = require('./utils/util.js')
 
 const common = require('./utils/common.js')
 
@@ -32,9 +32,9 @@ App({
       this.login()
     } else {
       // 验证token是否过期
-      console.log(util.checkTokenIsExpired(jwt), 'Token expired')
+      console.log(utils.checkTokenIsExpired(jwt), 'Token expired')
 
-      if (util.checkTokenIsExpired(jwt)) {
+      if (utils.checkTokenIsExpired(jwt)) {
         this.globalData.isLogin = false
         // 过期重新登录
         this.login()
@@ -372,14 +372,25 @@ App({
     http.fxGet(api.cart_item_count, { open_id: jwt.openid }, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
-        this.globalData.cartTotalCount = res.data.item_count
-        if (this.globalData.cartTotalCount > 0) {
-          wx.showTabBarRedDot({
-            index: 2
-          })
-        }
+        this.updateCartTotalCount(res.data.item_count)
       }
     })
+  },
+
+  /**
+   * 更新购物车数量
+   */
+  updateCartTotalCount(cnt) {
+    this.globalData.cartTotalCount = cnt
+    if (this.globalData.cartTotalCount > 0) {
+      wx.showTabBarRedDot({
+        index: 2
+      })
+    } else {
+      wx.hideTabBarRedDot({
+        index: 2
+      })
+    }
   },
 
   /**

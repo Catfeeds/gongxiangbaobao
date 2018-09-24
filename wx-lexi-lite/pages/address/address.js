@@ -301,8 +301,18 @@ Page({
           console.log(result)
           if (result.data.length > 0) {
             if (this.data.uploadType == 'front') {
+              this.setData({
+                isUploadingFront: false,
+                uploadFrontStatus: 100
+              })
+
               this.getAssetFrontInfo(result.data[0])
             } else {
+              this.setData({
+                isUploadingBack: false,
+                uploadBackStatus: 100
+              })
+              
               this.getAssetBackInfo(result.data[0])
             }
           }

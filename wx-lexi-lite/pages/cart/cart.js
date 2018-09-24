@@ -79,7 +79,7 @@ Page({
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
 
-        result.data.items.forEach((v,i) => {
+        result.data.items.forEach((v, i) => {
           v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 16) + ' ...' : v.product.product_name
         })
 
@@ -87,6 +87,8 @@ Page({
           this.setData({
             changeCart: false
           })
+          // 更新全局购物车数量
+          app.updateCartTotalCount(result.data.item_count)
         }
 
         this.setData({
@@ -257,8 +259,9 @@ Page({
       payment: aggregatePrice.toFixed(2)
     })
 
-    //更新数量
-    app.globalData.cartTotalCount = quantity
+    // 更新数量
+    app.updateCartTotalCount(quantity)
+    
   },
 
   // 增加数量或者减少数量---

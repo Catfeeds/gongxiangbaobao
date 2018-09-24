@@ -577,6 +577,11 @@ Page({
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
           console.log(result)
           if (result.data.length > 0) {
+            this.setData({
+              isUploading: false,
+              uploadStatus: 100
+            })
+
             this.getAssetInfo(result.data[0])
 
             // 更新logo

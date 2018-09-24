@@ -7,7 +7,6 @@
   height: 302rpx;
 }
 .store-owner__wrapper .blur {
-  background-image: url('https://static.moebeast.com/20180817/0615FrUvfqbyfnc-lnOdommJAqHw1Oh3.jpeg');
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center center;
