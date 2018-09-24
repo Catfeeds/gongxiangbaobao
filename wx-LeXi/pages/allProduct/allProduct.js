@@ -1,26 +1,27 @@
 // pages/allProduct/allProduct.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    productList:[]
+    productList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     switch (options.from) {
       case 'userBrowses':
-        wx.setNavigationBarTitle({ title: "浏览记录"})
-        //最近查看
+        wx.setNavigationBarTitle({ title: '浏览记录' })
+        // 最近查看
         http.fxGet(api.user_browses, {}, (result) => {
           if (result.success) {
             console.log(result)
@@ -33,18 +34,17 @@ Page({
         })
         break;
       case 2:
-        
         break;
-      default:
-        
     }
   },
+
   // 跳转到商品详情---
   handleInfomation(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -93,4 +93,5 @@ Page({
   onShareAppMessage: function () {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

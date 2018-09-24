@@ -1,8 +1,10 @@
 // pages/coupon/coupon.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -18,13 +20,12 @@ Page({
     useCouponList: [], // 已经使用的 
     red_bag: []
   },
+
   // 红包列表 官方优惠券
   getRedBag() {
     http.fxGet(api.authority_coupon, {}, (result) => {
       console.log(result, '红包列表')
-
       if (result.success) {
-
         let authorityNormalCouponList = []
         let authorityExceedCouponList = []
 
@@ -67,15 +68,15 @@ Page({
       } else {
 
       }
-
     })
   },
-  // 未使用// 已经过期 优惠券
+
+  // 未使用 已经过期 优惠券
   getUserCoupon(o = 'N01', v = 1, i = 10) {
     var params = {
-      page: v, //Number	可选	1	当前页码
-      per_page: i, //Number	可选	10	每页数量
-      status: o, //String	可选	N01	N01: 未使用;N02: 已使用; N03: 已过期
+      page: v, // Number	可选	1	当前页码
+      per_page: i, // Number	可选	10	每页数量
+      status: o // String	可选	N01	N01: 未使用;N02: 已使用; N03: 已过期
     }
 
     let normalCouponList = this.data.normalCouponList // 未使用的 可用红包 非官方
@@ -88,7 +89,6 @@ Page({
         v.end_time = utils.timestamp2string(v.end_at, 'date')
 
         if (o == 'N01') {
-          console.log(v,"1")
           this.setData({
             normalCouponList: normalCouponList.push(v)
           })
@@ -101,35 +101,28 @@ Page({
         }
 
         if (result.data.coupons.length-1 ==i){
-          console.log(normalCouponList, exceedCouponList,"商家")
+          console.log(normalCouponList, exceedCouponList, '商家')
           this.setData({
             normalCouponList: normalCouponList,
             exceedCouponList: exceedCouponList
           })
         }
       })
-
-
-      // if (o == 'N03') {
-      //   this.setData({
-      //     exceedCouponList: result.data
-      //   })
-      // }
     })
   },
 
-  //乐喜优惠券
+  // 乐喜优惠券
   getLxCoupon() {
 
   },
+
   // 使用优惠券
   handleUseCouponTap(e) {
-    console.log(e.currentTarget.dataset.rid)
     wx.switchTab({
       url: '../index/index',
     })
-
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -138,7 +131,7 @@ Page({
     this.getUserCoupon('N02') // N02: 已使用
     this.getUserCoupon('N03') // N03: 已过期
     this.getRedBag() // 红包列表
-    console.log(app.globalData.storeInfo)
+
     this.setData({
       storeInfo: app.globalData.storeInfo
     })
@@ -192,4 +185,5 @@ Page({
   onShareAppMessage: function() {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

@@ -1,21 +1,24 @@
 // pages/theme/theme.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    productOther:"",
+    productOther: '',
     product: [],  
-    params:{
-      id:"",
+    params: {
+      id: ''
     }
   },
-  //跳转到商品详情---
+
+  // 跳转到商品详情---
   handleInfomation(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
@@ -34,20 +37,17 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log(app.globalData.themeProdct)
     this.setData({
       'params.id': options.id
     })
 
     this.getThemeList()
-
   },
 
   /**
@@ -98,4 +98,5 @@ Page({
   onShareAppMessage: function () {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

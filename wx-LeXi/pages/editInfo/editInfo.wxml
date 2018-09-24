@@ -3,8 +3,10 @@
   <view class='userPhoto'>
     <image src='{{ userInfo.avatar }}'></image>
     <view class='register-time'>注册时间：{{ userInfo.created_at }}</view>
-    <view class='camera' bindtap='handleUploadAvatar'>
-      <image src='../../images/icon-camera@2x.png'></image>
+    <image class='camera' bindtap='handleUploadAvatar' src='../../images/icon-camera@2x.png'></image>
+    <!-- 进度条 -->
+    <view class="upload-status__box" wx:if="{{ isUploading }}">
+      <view class="progress" style="width:{{ uploadStatus }}%"></view>
     </view>
   </view>
 

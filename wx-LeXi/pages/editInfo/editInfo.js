@@ -1,16 +1,17 @@
 // pages/editInfo/editInfo.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-const adressData = wx.getStorageSync('allPlaces')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isPicker: false,// 地址呼出框是否显示
+    isPicker: false, // 地址呼出框是否显示
 
     provinceList: [], // 省地址列表---
     cityList: [], // 市地址列表---
@@ -18,15 +19,16 @@ Page({
     provinceOid: [], // 省地址列表oid---
     cityOid: [], // 市地址列表oid---
     countyOid: [], // 县地址列表oid---
-    addressIndex: [0, 0, 0],// 地址的下表
+    addressIndex: [0, 0, 0], // 地址的下表
 
     gender: ['女', '男'], // 性别选择器---
     region: ['北京市', '北京市', '朝阳区'], // 地址的pick---
-    date:'',// pick的日期---
+    date:'', // pick的日期---
 
     userInfo: {}, // 用户的信息---
-    uploadParams: {}, // 上传所需参数
     avatar: '', // 用户头像
+    isUploading: false,
+    uploadStatus: 0,
 
     // 修改过的信息
     isEdited: false, // 是否编辑过信息
@@ -40,17 +42,16 @@ Page({
       city_id: '', // Integer 可选 市ID
       mail: '', // String 可选 邮箱
       date: '', // String 可选 出生日期
-      street_address:'', // 地址
+      street_address:'' // 地址
     }
   },
 
-  //地址
+  // 地址
   handleEditAddress(e){
     console.log(e.detail.value)
     this.setData({
       'editUserInfo.street_address': e.detail.value
     })
-
   },
 
   // name 输入时候
@@ -124,69 +125,61 @@ Page({
   },
 
   // 上传头像
-  handleUploadAvatar () {
+  handleUploadAvatar() {
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
-        wx.uploadFile({
-          url: this.data.uploadParams.up_endpoint,
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'x:directory_id': this.data.uploadParams.directory_id,
-            'x:user_id': this.data.uploadParams.user_id,
-            'token': this.data.uploadParams.up_token
-          },
-          success: (res) => {
-            let data = JSON.parse(res.data)
-            if (data.ids.length > 0) {
-              this.getAssetInfo(data.ids[0])
-            }
+        const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
+          console.log(result)
+          if (result.data.length > 0) {
+            this.setData({
+              isUploading: false,
+              uploadStatus: 100
+            })
+
+            this.getAssetInfo(result.data[0])
           }
+        })
+
+        uploadTask.onProgressUpdate((res) => {
+          console.log('上传进度', res.progress)
+
+          let percent = res.progress
+          this.setData({
+            isUploading: percent == 100 ? false : true,
+            uploadStatus: percent
+          })
         })
       }
     })
   },
 
   // 获取单个附件信息
-  getAssetInfo (rid) {
-    http.fxGet(api.asset_detail, { rid: rid }, (result) => {
-      if (result.success) {
-        console.log(result, '附件信息')
-        app.globalData.userInfo.profile.avatar = result.data.view_url
-        this.setData({
-          isEdited: true,
-          userInfo: app.globalData.userInfo,
-          ['editUserInfo.avatar_id']: rid
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
+  getAssetInfo(asset) {
+    if (asset) {
+      let userInfo = wx.getStorageSync('userInfo')
+      userInfo.avatar = asset.view_url
+      wx.setStorageSync('userInfo', userInfo)
 
-  // 获取上传所需Token
-  getUploadToken () {
-    http.fxGet(api.user_upload_token, {}, (result) => {
-      if (result.success) {
-        console.log(result, '上传Token')
-        this.setData({
-          uploadParams: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
+      let jwt = wx.getStorageSync('jwt')
+      jwt.avatar = asset.view_url
+      wx.setStorageSync('jwt', jwt)
 
+      this.setData({
+        isEdited: true,
+        'userInfo.avatar': userInfo.avatar,
+        ['editUserInfo.avatar_id']: asset.id
+      })
+
+      app.globalData.userDetail.avatar = userInfo.avatar
+    }
+  },
 
   // 获取用户信息 ---
   getUserInfo() {
     this.setData({
       userInfo: app.globalData.userDetail
     })
-
-    console.log(app.globalData.userDetail,"用户信息")
 
     let userProfile = app.globalData.userDetail
     let time = utils.timestamp2string(userProfile.created_at, 'cn')
@@ -209,7 +202,6 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfo() // 获取用户信息
-    this.getUploadToken()
   },
 
   /**
@@ -230,7 +222,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-    console.log(5)
 
   },
 
@@ -261,16 +252,19 @@ Page({
   onShareAppMessage: function() {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
-  //呼出框取消
-  handledeletePick(){
+
+  // 呼出框取消
+  handledeletePick() {
     this.setData({
       isPicker:false
     })
   },
+
   //呼出框显示
   handleShowPick(){
     this.setData({
       isPicker: true
     })
   }
+
 })

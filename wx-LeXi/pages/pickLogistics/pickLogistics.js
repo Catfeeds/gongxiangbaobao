@@ -23,7 +23,6 @@ Page({
     this.setData({
       storeInfo: app.globalData.storeInfo
     })
-    console.log(this.data.storeInfo,"店铺信息")
   },
 
 
@@ -81,7 +80,7 @@ Page({
 
     logisticsMould[e.detail.value].is_default = true
 
-    console.log(logisticsMould[e.detail.value],"运费模板")
+    console.log(logisticsMould[e.detail.value], '运费模板')
 
     this.setData({
       freight: logisticsMould[e.detail.value]
@@ -94,7 +93,7 @@ Page({
     let store_rid = this.data.store_rid
     let sku_rid = this.data.sku_rid
     prevPage.setData({
-      ['logisticsCompany.' + store_rid + "." + sku_rid +'.express']:logisticsMould // 当前选择的好友名字赋值给编辑款项中的姓名临时变量
+      ['logisticsCompany.' + store_rid + '.' + sku_rid +'.express']: logisticsMould // 当前选择的好友名字赋值给编辑款项中的姓名临时变量
     },() => {
       prevPage.handleLogisticsSetingOrder()
       this.currentPagePriceSum(this.data.logisticsMould[e.detail.value].express_id)
@@ -175,4 +174,5 @@ Page({
   onShareAppMessage: function() {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

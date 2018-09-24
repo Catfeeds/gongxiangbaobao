@@ -1,8 +1,10 @@
 // pages/myFollower/myFollower.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -12,8 +14,8 @@ Page({
     // isWatch:true,//是否关注
     peopleList: [], // 粉丝的数量
     params: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
@@ -31,7 +33,7 @@ Page({
     })
   },
   
-  //取消关注
+  // 取消关注
   hanleDeleteWatch(e) {
     let index = e.currentTarget.dataset.index
     console.log(index)
@@ -48,7 +50,7 @@ Page({
     })
   },
 
-  //添加关注
+  // 添加关注
   hanleAddWatch(e) {
     console.log(this.data.peopleList.product_like_users)
     console.log(e.currentTarget.dataset.uid)
@@ -65,6 +67,7 @@ Page({
       }
     })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -120,4 +123,5 @@ Page({
   onShareAppMessage: function() {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

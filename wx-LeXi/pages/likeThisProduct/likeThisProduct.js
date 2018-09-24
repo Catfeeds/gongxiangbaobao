@@ -1,8 +1,10 @@
 // pages/likeThisProduct/likeThisProduct.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -13,55 +15,59 @@ Page({
     parmas: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
-      rid: '', //必须	 	商品编号
+      rid: '' //必须	 	商品编号
     }
   },
+
   getinfo(e) {
     console.log(this.data.parmas)
-    http.fxGet(api.product_userlike, this.data.parmas,(result)=>{
+    http.fxGet(api.product_userlike, this.data.parmas, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
           peopleList: result.data
         })
-      }else{
+      } else {
 
       }
     })
   },
-//添加关注
-  hanleAddWatch(e){
-    console.log(this.data.peopleList.product_like_users)
-    console.log(e.currentTarget.dataset.uid)
-    console.log(e.currentTarget.dataset.index)
+
+  // 添加关注
+  hanleAddWatch(e) {
     let index = e.currentTarget.dataset.index
-    http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid },(result)=>{
+    http.fxPost(api.follow_user, {
+      uid: e.currentTarget.dataset.uid
+    }, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
-          ['peopleList.product_like_users[' + index + '].followed_status']:result.data.followed_status
+          ['peopleList.product_like_users[' + index + '].followed_status']: result.data.followed_status
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  //取消关注
-  hanleDeleteWatch(e){
+  // 取消关注
+  hanleDeleteWatch(e) {
     let index = e.currentTarget.dataset.index
     console.log(index)
-    http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid },(result)=>{
+    http.fxPost(api.unfollow_user, {
+      uid: e.currentTarget.dataset.uid
+    }, (result) => {
       console.log(e)
-      if(result.success){
+      if (result.success) {
         this.setData({
           ['peopleList.product_like_users[' + index + '].followed_status']: 0
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
-    }) 
+    })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -69,6 +75,7 @@ Page({
     this.setData({
       ['parmas.rid']: options.rid
     })
+
     this.getinfo()
   },
 
@@ -120,4 +127,5 @@ Page({
   onShareAppMessage: function() {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

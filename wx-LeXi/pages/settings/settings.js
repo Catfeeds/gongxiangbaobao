@@ -1,12 +1,12 @@
 // pages/settings/settings.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-const common= require('./../../utils/common.js')
+const common = require('./../../utils/common.js')
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -23,48 +23,49 @@ Page({
     verification_code: [], //验证码输入---
     over_button: false, // 完成按钮---
     // 选择国家
-    country_pick: [{
-        country_name: "中国大陆",
+    country_pick: [
+      {
+        country_name: '中国大陆',
         code: 86,
         rid: 1
       },
       {
-        country_name: "中国台湾",
+        country_name: '中国台湾',
         code: 886,
         rid: 2
       },
       {
-        country_name: "中国香港",
+        country_name: '中国香港',
         code: 852,
         rid: 3
       },
       {
-        country_name: "中国澳门",
+        country_name: '中国澳门',
         code: 853,
         rid: 4
       },
       {
-        country_name: "日本",
+        country_name: '日本',
         code: 81,
         rid: 5
       },
       {
-        country_name: "泰国",
+        country_name: '泰国',
         code: 66,
         rid: 6
-      },
+      }
     ]
   },
 
-  //选择国家的id
-  pickCountryTap (e) {
+  // 选择国家的id
+  pickCountryTap(e) {
     this.setData({
       country_code: e.currentTarget.dataset.code
     })
   },
 
   // 清空手机号码的按钮
-  mobileNumberNullTap () {
+  mobileNumberNullTap() {
     this.setData({
       mobaile_number: ''
     })
@@ -74,9 +75,9 @@ Page({
   getNumberTap() {
     let mobileNumber = this.data.mobaile_number - 0
     let getMobalCode = {
-      mobile: '', //String	必须	 	手机号
-      area_code: '+86', //String	可选	+86	区号
-      page: 'phone_verify_code' //String	必须	 	接口请求地址(如注册页面就是register)
+      mobile: '', // String	必须	 	手机号
+      area_code: '+86', // String	可选	+86	区号
+      page: 'phone_verify_code' // String	必须	 	接口请求地址(如注册页面就是register)
     }
 
     if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(mobileNumber))) {
@@ -85,10 +86,12 @@ Page({
     }
 
     getMobalCode.mobile = mobileNumber.toString()
+
     this.setData({
       is_time: true,
       time: 60
     })
+
     if (this.data.is_time == true) {
       let pageTime = setInterval(() => {
         this.setData({
@@ -116,7 +119,7 @@ Page({
   },
 
   // 输入手机号码时候出发users/register_verify_code
-  inputText (e) {
+  inputText(e) {
     console.log(e.detail.cursor)
     this.setData({
       mobaile_number: e.detail.value
@@ -134,7 +137,7 @@ Page({
   },
 
   // 验证码的输入框
-  serveNumber (e) {
+  serveNumber(e) {
     this.setData({
       verification_code: e.detail.value
     })
@@ -142,7 +145,7 @@ Page({
   },
 
   // 手机号码绑定是否弹出
-  bindMobileTap () {
+  bindMobileTap() {
     // 已绑定，则跳过
     if (this.data.userInfo.profile.mobile) {
       return
@@ -153,10 +156,7 @@ Page({
   },
 
   // 点击关闭呼出框---
-  countryHidTap () {
-    // this.setData({
-    //   is_mobile: false
-    // })
+  countryHidTap() {
     wx.navigateBack({
       delta: 1
     })
@@ -173,7 +173,7 @@ Page({
   },
 
   // 校验绑定手机号码的完成按钮是否y颜色
-  verification () {
+  verification() {
     console.log(this.data.verification_code)
     console.log(this.data.mobaile_number)
     if (this.data.verification_code != false && this.data.mobaile_number != false) {
@@ -188,9 +188,9 @@ Page({
   },
 
   // 完成按钮
-  handleVerifyOverTap () {
+  handleVerifyOverTap() {
     var params = {
-      auth_app_id: wx.getStorageSync('fx').app_id, //	 	小程序ID
+      auth_app_id: app.globalData.app_id, //	 	小程序ID
       openid: wx.getStorageSync('jwt').openid, //	用户标识
       mobile: this.data.mobaile_number, // 	手机号
       verify_code: this.data.testCode, //	手机验证码
@@ -223,17 +223,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(app.globalData.userInfo)
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    // wx.getStorageSync('allPlaces') || common.getReceivePlaces() // 加载收货地址
+
   },
-  
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -277,35 +276,36 @@ Page({
   },
 
   // 跳转到编辑信息页面
-  editInfoTap () {
+  editInfoTap() {
     wx.navigateTo({
       url: '../editInfo/editInfo',
     })
   },
 
   // orderTap 我的订单
-  orderTap () {
+  orderTap() {
     wx.navigateTo({
       url: '../order/order',
     })
   },
 
   // 阻止返回，防止点击穿透
-  returnTap () {
+  returnTap() {
     return
   },
 
   // 关闭按钮
-  offBtnTap () {
+  offBtnTap() {
     this.setData({
       is_country: false
     })
   },
 
   // 跳转到我的额收获地址
-  handleToAddressTap () {
+  handleToAddressTap() {
     wx.navigateTo({
       url: '../receiveAddress/receiveAddress',
     })
   }
+  
 })

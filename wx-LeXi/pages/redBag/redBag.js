@@ -5,6 +5,7 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+
 let scrollInterval
 
 Page({
@@ -43,32 +44,35 @@ Page({
       }
 
     }, 80)
-
   },
-  //活动规则内容呼出
+
+  // 活动规则内容呼出
   ruleShowTap() {
     this.animation.bottom(0).step()
     this.setData({
       rule_show: this.animation.export()
     })
   },
-  //活动规则内容关闭
+
+  // 活动规则内容关闭
   ruleHidTap() {
-    this.animation.bottom(-2000 + "rpx").step()
+    this.animation.bottom(-2000 + 'rpx').step()
     this.setData({
       rule_show: this.animation.export()
     })
   },
-  //获得红包 呼出框
+
+  // 获得红包 呼出框
   getBonusShow() {
     this.animation.bottom(0).step()
     this.setData({
       get_bonus: this.animation.export()
     })
   },
-  //获得红包 关闭
+
+  // 获得红包 关闭
   getHidShow() {
-    this.animation.bottom(-2000 + "rpx").step()
+    this.animation.bottom(-2000 + 'rpx').step()
     this.setData({
       get_bonus: this.animation.export()
     })
@@ -77,14 +81,14 @@ Page({
   // 获取获奖的人
   getAward() {
     http.fxGet(api.market_bonus_lines, {}, (result) => {
-      console.log(result, "领取红包的人数")
+      console.log(result, '领取红包的人数')
       if (result.success) {
         result.data.bonus_lines.forEach((v) => {
           console.log(v.user_name - 0 != NaN)
           if (v.user_name - 0 != NaN) {
-            v.user_name = v.user_name.substr(0, 3) + "***" + v.user_name.substr(7, 4)
+            v.user_name = v.user_name.substr(0, 3) + '***' + v.user_name.substr(7, 4)
           } else {
-            v.user_name = v.user_name.length > 3 ? v.user_name.substr(0, 3) + "···" : v.user_name
+            v.user_name = v.user_name.length > 3 ? v.user_name.substr(0, 3) + '···' : v.user_name
           }
           this.setData({
             bonusLines: result.data.bonus_lines,
@@ -95,7 +99,6 @@ Page({
           })
 
         })
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -122,9 +125,9 @@ Page({
    */
   onShow: function () {
     this.animation = wx.createAnimation({
-      transformOrigin: "50% 50%",
+      transformOrigin: '50% 50%',
       duration: 500,
-      timingFunction: "ease",
+      timingFunction: 'ease',
       delay: 0
     })
 
@@ -163,19 +166,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (e) {
-
     return {
       title: '分享领取红包',
-      path: '/pages/index/index',
+      path: 'pages/index/index',
       imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {
-
         if (!this.data.get_bonus) {
           this.getBonusShow()
         }
 
         http.fxPost(api.market_bonus_grant, {}, (result) => {
-          console.log(result, "分享后领取红包")
+          console.log(result, '分享后领取红包')
           if (result.success) {
             console.log(app.globalData)
             let addObject = {
@@ -184,27 +185,24 @@ Page({
 
             this.setData({
               bonusCount: this.data.bonusCount + 1,
-              // bonusLines: bonusLines.push(addObject)
             })
 
           } else {
             utils.fxShowToast(result.status.message)
           }
-
         })
-
       },
       fail: (res) => {
-        console.log("转发失败", res);
+        console.log('转发失败', res);
       }
     }
-
-
   },
-  //跳转到首页
+
+  // 跳转到首页
   handleToIndexTap() {
     wx.switchTab({
       url: '../index/index',
     })
   }
+  
 })

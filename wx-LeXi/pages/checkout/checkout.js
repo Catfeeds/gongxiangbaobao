@@ -1,5 +1,6 @@
 // pages/checkout/checkout.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -9,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    systemWidth:"", // 设备的宽度
+    systemWidth: '', // 设备的宽度
 
     isFirstOrder: false, // 是否属于首单
     storeOrAuthoritativeCouponPick: true, // true为选择了商家的优惠券，false为选择了官方优惠，2选1
@@ -32,32 +33,32 @@ Page({
     fullReductionParams: '', // 满减活动的参数
     fullReductionList: '', // 满减活动列表
 
-    //店铺信息
+    // 店铺信息
     storeInfo: '',
 
     // 页面的订单明细
     pageOrderInfo: {
-      firstPrice: 0, //小计
-      logisticsPrice: 0, //配送
-      firstOrderPrice: 0, //首单优惠
-      fullSubtraction: 0, //满减
-      couponPrice: 0, //优惠券
-      alstPrice: 0, //订单总计
+      firstPrice: 0, // 小计
+      logisticsPrice: 0, // 配送
+      firstOrderPrice: 0, // 首单优惠
+      fullSubtraction: 0, // 满减
+      couponPrice: 0, // 优惠券
+      alstPrice: 0, // 订单总计
     },
   },
+
   // 获取店铺的详情
   getStoreInfo() {
     this.setData({
       storeInfo: app.globalData.storeInfo
     })
-    console.log(this.data.storeInfo, "店铺信息")
   },
 
   // 获取是否属于首单
   getIsFirstOrder() {
     http.fxGet(api.is_first_order, {}, (result) => {
       if (result.success) {
-        console.log(result.data, "是否属于首单")
+        console.log(result.data, '是否属于首单')
         this.setData({
           isFirstOrder: result.data.is_new_user
 
@@ -101,7 +102,6 @@ Page({
     var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 - this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000) / 1000
 
     if (this.data.isFirstOrder) {
-
       this.setData({
         ['pageOrderInfo.firstOrderPrice']: (lastPrice * 0.1).toFixed(2)
       })
@@ -151,7 +151,6 @@ Page({
       })
 
       items.push(item)
-
     })
 
     // 发送请求获取满减
@@ -161,8 +160,7 @@ Page({
       http.fxPost(api.full_reduction, {
         items: items
       }, (result) => {
-        console.log(items)
-        console.log(result, "满减金额")
+        console.log(result, '满减金额')
         if (result.success) {
 
           let fullSubtractionPrice = 0
@@ -224,23 +222,16 @@ Page({
 
   // 领取官方优惠券按钮后
   handleAuthoritativeCoupon(e) {
-    console.log(e, "官方优惠券领取")
-    console.log(this.data.orderInfomation, "订单参数")
-
     app.globalData.orderParams.bonus_code = e.detail.value.code
 
     let item = this.data.orderInfomation
     Object.keys(item).forEach((key) => {
       console.log(item[key])
-      item[key].coupon_codes = ""
+      item[key].coupon_codes = ''
     })
 
-    // this.setData({
-    //   authoritativeCouponPrice: e.detail.amount,
+    console.log(this.data.orderInfomation, '选择后的优惠卷')
 
-    // })
-
-    console.log(this.data.orderInfomation, "选择后的优惠卷")
     let option = e.detail.value
     let coupon = JSON.parse(option)
 
@@ -281,6 +272,7 @@ Page({
     })
 
     console.log(params)
+
     setTimeout(() => {
       http.fxPost(api.calculate_logisitcs, params, (result) => {
         console.log(result)
@@ -323,6 +315,7 @@ Page({
     })
 
     console.log(params)
+
     http.fxPost(api.logistics_product_express, {
       items: params
     }, (result) => {
@@ -337,7 +330,6 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
-
     })
   },
 
@@ -373,7 +365,6 @@ Page({
     let store_items = {}
     let generalPrice = 0
 
-
     console.log(skus)
 
     Object.keys(skus.data).forEach((key) => {
@@ -392,18 +383,17 @@ Page({
         store_items[key].items[v.rid] = {
           rid: v.rid, //String	必需	 	sku
           quantity: v.quantity, //Number	必需	1	购买数量
-          express_id: "", //Integer	必需	 	物流公司ID
-          warehouse_id: "", //Number	可选	 	发货的仓库ID
+          express_id: '', //Integer	必需	 	物流公司ID
+          warehouse_id: '', //Number	可选	 	发货的仓库ID
           sku_price: v.sale_price == 0 ? v.price : v.sale_price
         }
-        var price = v.sale_price == 0 ? v.price : v.sale_price
+        let price = v.sale_price == 0 ? v.price : v.sale_price
         generalPrice = price * v.quantity + generalPrice
       })
 
       skusList.push(skus.data[key])
     })
-    console.log(skusList, "订单的产品详情")
-    console.log(store_items)
+    
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
@@ -439,14 +429,12 @@ Page({
         this.orderLastPrice() // 计算最后金额
       })
     })
-    console.log(this.data.orderInfomation, "选择后的优惠卷")
+
+    console.log(this.data.orderInfomation, '选择后的优惠卷')
   },
 
   // 优惠券弹框里面的内容couponList
   couponTap(e) {
-
-    console.log(this.data.couponList)
-    console.log(e.currentTarget.dataset.order_rid)
     if (e.currentTarget.dataset.order_rid) {
       let coupon = this.data.couponList[e.currentTarget.dataset.order_rid]
       coupon.forEach((v, i) => {
@@ -463,7 +451,7 @@ Page({
     console.log(this.data.couponList[e.currentTarget.dataset.order_rid])
     let couponStatus = this.data.couponList[e.currentTarget.dataset.order_rid]
     if (couponStatus!=undefined&& couponStatus.length== 0) {
-      utils.fxShowToast("没有可用的优惠券")
+      utils.fxShowToast('没有可用的优惠券')
       return
     }
 
@@ -481,7 +469,6 @@ Page({
 
   // 获取官方优惠
   getAuthorityCoupon(e) {
-    console.log(e, "总额度")
     // 获取官方的券
     http.fxGet(api.checkout_authority_couponList, {
       amount: e
@@ -526,7 +513,6 @@ Page({
     this.setData({
       authorityCouponShow: optine
     })
-
   },
 
   // 支付,并跳转到支付成功页面---
@@ -559,15 +545,16 @@ Page({
       store_items.push(store_item)
     })
 
+    const jwt = wx.getStorageSync('jwt')
+
     // 补充参数
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
-    app.globalData.orderParams.openid = app.globalData.jwt.openid
+    app.globalData.orderParams.openid = jwt.openid
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
       console.log(result, '新增订单')
       if (result.success) {
-
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
 
@@ -591,7 +578,7 @@ Page({
   // 获取屏幕宽度
   getSystemWidth(){
     this.setData({
-      systemWidth:app.globalData.windowWidth
+      systemWidth: app.globalData.windowWidth
     })
   },
 
@@ -610,7 +597,6 @@ Page({
    * 加载订单相关
    */
   loadOrder() {
-    // const do1 = await 
     this.getOrderProdectInfo() // 获取订单详情
   },
 
@@ -667,10 +653,9 @@ Page({
   otherLogisticsTap(e) {
     app.globalData.logisticsMould = e.currentTarget.dataset.item.express
     app.globalData.pickLogistics = e.currentTarget.dataset.product
-
-
+    
     wx.navigateTo({
-      url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&&sku_rid=" + e.currentTarget.dataset.sku_rid
+      url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&sku_rid=" + e.currentTarget.dataset.sku_rid
     })
   }
 

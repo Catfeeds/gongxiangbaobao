@@ -1,5 +1,6 @@
 // pages/brandInformation/brandInformation.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -11,12 +12,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    createdTime:[], // 开馆时间---
-    storeInfo:[], // 店铺的信息---
-    shopOwner:[], // 店铺主人的信息---
+    createdTime: [], // 开馆时间---
+    storeInfo: [], // 店铺的信息---
+    shopOwner: [], // 店铺主人的信息---
     isAuthentication: '',
     createdTime: '', // 开馆时间
-    dkcontent:'',
+    dkcontent: ''
   },
 
   getUserIdentityLabel (val) {
@@ -125,4 +126,5 @@ Page({
   onShareAppMessage: function () {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

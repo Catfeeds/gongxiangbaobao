@@ -1,8 +1,10 @@
 // pages/myFollower/myFollower.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -11,8 +13,8 @@ Page({
   data: {
     peopleList: [], // 粉丝的数量
     params: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
@@ -30,11 +32,8 @@ Page({
     })
   },
 
-  //添加关注
+  // 添加关注
   hanleAddWatch(e) {
-    console.log(this.data.peopleList.product_like_users)
-    console.log(e.currentTarget.dataset.uid)
-    console.log(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
       console.log(result)
@@ -48,11 +47,9 @@ Page({
     })
   },
 
-  //取消关注
+  // 取消关注
   hanleDeleteWatch(e) {
     let index = e.currentTarget.dataset.index
-    console.log(index)
-    console.log(this.data.peopleList)
     http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
       console.log(result)
       if (result.success) {
@@ -120,4 +117,5 @@ Page({
   onShareAppMessage: function () {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
+  
 })

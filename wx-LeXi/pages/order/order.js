@@ -1,5 +1,6 @@
 // pages/order/order.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -10,7 +11,6 @@ Page({
    */
   data: {
     // 订单列表
-    // orderList:[],
     allOrderList: [], //全部订单
     isNextAll: true, //全部是否有下页
 
@@ -28,7 +28,8 @@ Page({
 
     // navbar
     currentStatus: 0,
-    navList: [{
+    navList: [
+      {
         title: '全部',
         status: 0
       },
@@ -134,7 +135,7 @@ Page({
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
-          v.created_item = utils.timestamp2string(v.created_at, "cn")
+          v.created_item = utils.timestamp2string(v.created_at, 'cn')
         })
 
         let daifuList = this.data.daifu
@@ -156,7 +157,7 @@ Page({
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
-          v.created_item = utils.timestamp2string(v.created_at, "cn")
+          v.created_item = utils.timestamp2string(v.created_at, 'cn')
         })
 
         let daifaList = this.data.daifa
@@ -178,7 +179,7 @@ Page({
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
-          v.created_item = utils.timestamp2string(v.created_at, "cn")
+          v.created_item = utils.timestamp2string(v.created_at, 'cn')
         })
 
         let daishouList = this.data.daishou
@@ -200,7 +201,7 @@ Page({
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
-          v.created_item = utils.timestamp2string(v.created_at, "cn")
+          v.created_item = utils.timestamp2string(v.created_at, 'cn')
         })
 
         let daipingList = this.data.daiping
@@ -216,8 +217,6 @@ Page({
 
   // 付款
   paymentBtn(e) {
-    console.log(e)
-    console.log(e.currentTarget.dataset)
     // let order = this.data.orderList.orders[e.currentTarget.dataset.order]
     let order = e.currentTarget.dataset
     let rid = order.rid
@@ -226,7 +225,7 @@ Page({
     // 补充参数
     app.globalData.orderParams.rid = order.rid
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
-    app.globalData.orderParams.openid = app.globalData.jwt.openid
+    app.globalData.orderParams.openid = wx.getStorageSync('jwt').openid
 
     // 获取订单签名
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
@@ -234,6 +233,7 @@ Page({
       if (result.success) {
         
         app.wxpayOrder(order.rid, result.data)
+
         let allshouhuoData = this.data.allOrderList
         allshouhuoData.forEach((v, i) => {
           if (v.rid == rid) {
@@ -261,17 +261,15 @@ Page({
     })
   },
 
-  //确认收货
+  // 确认收货
   handleReceive(e) {
-    console.log(e, "确认收货的e")
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.index
-    console.log(idx, rid)
 
     http.fxPost(api.order_signed, {
       rid: rid
     }, (result) => {
-      console.log(result, "确认收货")
+      console.log(result, '确认收货')
 
       if (result.success) {
         let allshouhuoData = this.data.allOrderList
@@ -299,7 +297,6 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   /**
@@ -366,10 +363,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // this.setData({
-    //   'getOrderListParams.page': 1,
-    //   orderList: [],
-    // })
     this.getOrderList() // 获取订单列表---
     this.getDaifaList() // 获取待发列表---
     this.getDaishouList() // 获取待收货列表---
@@ -402,7 +395,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    //全部
+    // 全部
     if (this.data.currentStatus == 0) {
       if (this.data.isNextAll == null) {
         utils.fxShowToast('没有更多了')
@@ -439,7 +432,6 @@ Page({
       })
 
       this.getDaishouList() // 获取待收货列表---
-
     }
 
     if (this.data.currentStatus == 3) {
@@ -487,13 +479,13 @@ Page({
 
   // 物流跟踪
   logTop(e) {
-    console.log(e)
     let code = e.currentTarget.dataset.code
     let logisticsNumber = e.currentTarget.dataset.logisticsNumber
     let expressName = e.currentTarget.dataset.expressName
 
     wx.navigateTo({
-      url: '../logisticsWatch/logisticsWatch?code=' + code + '&&logisticsNumber=' + logisticsNumber + '&&expressName=' + expressName
+      url: '../logisticsWatch/logisticsWatch?code=' + code + '&logisticsNumber=' + logisticsNumber + '&expressName=' + expressName
     })
   }
+
 })

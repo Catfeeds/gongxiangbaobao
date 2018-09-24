@@ -1,4 +1,5 @@
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -10,7 +11,7 @@ Page({
   data: {
     order: [],// 订单
     logisticsPriceSum: 0,
-    orderRid: '',
+    orderRid: ''
   },
 
   // 查看订单
@@ -25,20 +26,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options, "支付页面，上一页的参数")
+    console.log(options, '支付页面，上一页的参数')
 
     let order = app.globalData.paymentSuccessOrder
-    console.log(order,"支付成功后的参数")
+    console.log(order, '支付成功后的参数')
 
     this.setData({
       order: order,
       orderRid: options.rid
     })
+
     order.orders.forEach((v, i) => {
       this.setData({
         logisticsPriceSum: this.data.logisticsPriceSum + v.freight
       })
-
     })
   },
 
@@ -90,4 +91,5 @@ Page({
   onShareAppMessage: function () {
     return app.shareLeXi()
   }
+  
 })
