@@ -33,7 +33,7 @@ Page({
     falseheckbox: false, // falseheckbox---
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
-    shoppingCart: { items:[]}, // 添加到购物车的内容产品内容---
+    shoppingCart: { items:[] }, // 添加到购物车的内容产品内容---
     payment: 0, // 应该支付的总金额---
 
     // 添加购物车和修改购买数量的时候参数
@@ -44,7 +44,7 @@ Page({
       open_id: '', //	独立小程序openid
     },
 
-    thinkOrder: { count:0}, // 心愿单的内容---
+    thinkOrder: { count: 0 }, // 心愿单的内容---
   },
 
   // 是否登陆
@@ -78,10 +78,10 @@ Page({
     }, (result) => {
       console.log(result, '获取购物车')
       if (result.success) {
-        app.globalData.cartTotalCount = result.data.item_count
-        if (result.data.items.length==0){
+        this.updateCartTotalCount(result.data.item_count)
+        if (result.data.items.length == 0){
           this.setData({
-            changeCart:false
+            changeCart: false
           })
         }
         this.setData({
@@ -150,7 +150,7 @@ Page({
 
   // 当点击移除---
   clearCart() {
-    console.log(this.data.checkboxPick,"选择好的商品rid")
+    console.log(this.data.checkboxPick, '选择好的商品rid')
     http.fxPost(api.clearCart, {
       open_id: wx.getStorageSync('jwt').openid,
       rids: this.data.checkboxPick
@@ -235,9 +235,6 @@ Page({
       carQuantity: quantity,
       payment: aggregatePrice
     })
-
-    //更新数量
-    app.globalData.cartTotalCount = quantity
   },
 
   // 增加数量或者减少数量---
@@ -599,7 +596,7 @@ Page({
    * 更新购物车数量
    */
   updateCartTotalCount(item_count) {
-    app.globalData.cartTotalCount = item_count
+    app.updateCartTotalCount(item_count)
     this.setData({
       cartTotalCount: item_count
     })
@@ -664,9 +661,16 @@ Page({
 
       http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
         if (result.success) {
+          let deliveryCountries = [] // 发货的国家列表
+
           Object.keys(result.data).forEach((key) => {
-            console.log(result.data[key]) // 每个店铺
-            result.data[key].forEach((v, i) => { //每个sku
+            result.data[key].forEach((v, i) => { // 每个sku
+
+              // 收集所有发货国家或地区，验证是否跨境
+              if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
+                deliveryCountries.push(v.delivery_country_id)
+              }
+
               // 当前店铺的rid
               v.current_store_rid = app.globalData.storeInfo.rid
               // 是否为分销商品
@@ -675,12 +679,15 @@ Page({
               } else {
                 v.is_distribute = 0
               }
+
               // 需求数量
               v.quantity = 1
             })
           })
 
           app.globalData.orderSkus = result
+          app.globalData.deliveryCountries = deliveryCountries
+
           // 设置当前商品的物流模板
           wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
 
@@ -692,6 +699,7 @@ Page({
             choosed:{},
             productInfomation: [],
           })
+
           wx.navigateTo({
             url: './../receiveAddress/receiveAddress?from_ref=cart&&rid=' + this.data.choosed.rid,
           })
@@ -706,6 +714,7 @@ Page({
   setOrderParamsProductId(e) {
     app.globalData.orderParams.store_items[0].items[0].rid = e
   },
+
   /** end 后续抽离 **/
 
   /**
@@ -716,13 +725,10 @@ Page({
       title: '加载中'
     })
 
-    console.log(app.globalData)
-
     // 未登录
     if (!app.globalData.isLogin) {
       return
     }
-
   },
 
   /**
@@ -802,7 +808,7 @@ Page({
     let skusNeedQuantity = []
 
     this.data.shoppingCart.items.forEach((v, i) => {
-      skusNeedQuantity.push(v.product.rid + ":" + v.quantity) // 每个sku需求数量
+      skusNeedQuantity.push(v.product.rid + ':' + v.quantity) // 每个sku需求数量
       skus.push(v.product.rid)
     })
 
@@ -811,12 +817,17 @@ Page({
     }, (result) => {
       console.log(result, '购物车-去结算')
       if (result.success) {
+        let deliveryCountries = [] // 发货的国家列表
+
         // 添加每件sku的需求数量
         Object.keys(result.data).forEach((key) => {
-          console.log(result.data[key]) // 每个店铺
-
           result.data[key].forEach((v, i) => { // 每个sku
-            console.log(v)
+
+            // 收集所有发货国家或地区，验证是否跨境
+            if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
+              deliveryCountries.push(v.delivery_country_id)
+            }
+
             // 当前店铺的rid
             v.current_store_rid = app.globalData.storeRid
 
@@ -839,7 +850,10 @@ Page({
         })
 
         app.globalData.orderSkus = result
-        console.log(app.globalData.orderSkus)
+        app.globalData.deliveryCountries = deliveryCountries
+
+        console.log(app.globalData.orderSkus, '结算SKU')
+        console.log(app.globalData.deliveryCountries, '发货国家s')
 
         wx.navigateTo({
           url: '../receiveAddress/receiveAddress?from_ref=cart',
@@ -882,7 +896,6 @@ Page({
 
   // 点击sku层，不触发隐藏
   handleSkuModal() {
-    console.log(123)
     return 
   },
 

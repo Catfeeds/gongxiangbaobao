@@ -32,12 +32,13 @@ Page({
     is_template: 0,
     needUserCustom: 0, // 是否需要海关身份信息
     userCustom: {}, // 用户的海关身份信息
-    uploadParams: {}, // 上传所需参数
     uploadType: 'front', // 上传类型（正面、背面）
     id_card_front_image: '', // 身份证正面
     id_card_back_image: '', // 身份证背面
-    uploadFrontStatus:false, // 上传正面的进度
-    uploadBackStatus:false, // 上传背面的进度
+    isUploadingFront: false, // 是否正在上传
+    isUploadingBack: false, // 是否正在上传
+    uploadFrontStatus: 0, // 上传正面的进度
+    uploadBackStatus: 0, // 上传背面的进度
     // 表单信息---
     form: {
       first_name: '', //String	必需	 	姓
@@ -58,7 +59,7 @@ Page({
       user_custom_id: '', // Integer	可选	 海关信息id
       id_card: '', // 海关-身份证号码
       id_card_front: '', // 海关-身份证正面-ID
-      id_card_back: '', // 海关-身份证背面-ID
+      id_card_back: '' // 海关-身份证背面-ID
     }
   },
 
@@ -112,7 +113,6 @@ Page({
         }
       })
     }
-    
   },
 
   // 删除地址
@@ -215,7 +215,7 @@ Page({
     } else {
       this.setData({
         'form.is_overseas': false,
-        needUserCustom: 0
+        needUserCustom: 1
       })
     }
   },
@@ -295,49 +295,46 @@ Page({
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
-        const uploadTask =  wx.uploadFile({
-          url: this.data.uploadParams.up_endpoint,
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'x:directory_id': this.data.uploadParams.directory_id,
-            'x:user_id': this.data.uploadParams.user_id,
-            'token': this.data.uploadParams.up_token
-          },
-          success: (res) => {
-            let data = JSON.parse(res.data)
-            if (data.ids.length > 0) {
-              this.getAssetInfo(data.ids[0])
+        const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
+          console.log(result)
+          if (result.data.length > 0) {
+            if (this.data.uploadType == 'front') {
+              this.setData({
+                isUploadingFront: false,
+                uploadFrontStatus: 100
+              })
+
+              this.getAssetFrontInfo(result.data[0])
+            } else {
+              this.setData({
+                isUploadingBack: false,
+                uploadBackStatus: 100
+              })
+
+              this.getAssetBackInfo(result.data[0])
             }
           }
         })
 
         uploadTask.onProgressUpdate((res) => {
           console.log('上传进度', res.progress)
-          console.log('已经上传的数据长度', res.totalBytesSent)
-          console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-          
-          let jindu = res.progress
-          if (type =="front"){
+
+          let percent = res.progress
+          if (type == 'front') {
             this.setData({
-              uploadFrontStatus: jindu == 100 ? false : jindu
-            })
-          }
-          
-          if (type == "back"){
-            
-            this.setData({
-              uploadBackStatus: jindu == 100 ? false : jindu
+              isUploadingFront: percent == 100 ? false : true,
+              uploadFrontStatus: percent
             })
           }
 
-
-
-
+          if (type == 'back') {
+            this.setData({
+              isUploadingBack: percent == 100 ? false : true,
+              uploadBackStatus: percent
+            })
+          }
 
         })
-
-
       }
     })
   },
@@ -370,26 +367,18 @@ Page({
   },
 
   // 获取单个附件信息
-  getAssetInfo(rid) {
-    http.fxGet(api.asset_detail, {
-      rid: rid
-    }, (result) => {
-      if (result.success) {
-        console.log(result, '附件信息')
-        if (this.data.uploadType == 'front') {
-          this.setData({
-            id_card_front_image: result.data.view_url,
-            'form.id_card_front': rid
-          })
-        } else {
-          this.setData({
-            id_card_back_image: result.data.view_url,
-            'form.id_card_back': rid
-          })
-        }
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+  getAssetFrontInfo(asset) {
+    this.setData({
+      id_card_front_image: asset.view_url,
+      'form.id_card_front': asset.id
+    })
+  },
+
+  // 获取身份证背面信息
+  getAssetBackInfo(asset) {
+    this.setData({
+      id_card_back_image: asset.view_url,
+      'form.id_card_back': asset.id
     })
   },
 
@@ -438,17 +427,19 @@ Page({
 
   // 获取市和区
   getAllPlaces() {
+    wx.showLoading({
+      title: '加载中...',
+    })
+
     // 恢复默认值
     this.setData({
       loaded: false,
       multiIndex: [0, 0, 0]
     })
-    http.fxGet(api.provinces_cities, {
-      country_id: this.data.form.country_id
-    }, (result) => {
-      console.log(result, '省市区')
-      if (result.success) {
-        let allPlaces = result.data
+
+    app.getAddressPlaces(this.data.form.country_id, (allPlaces) => {
+      wx.hideLoading()
+      if (allPlaces) {
         let regions = this.data.regions
         let provinceIndex = 0
         let cityIndex = 0
@@ -512,7 +503,7 @@ Page({
           }
         }
       } else {
-        utils.fxShowToast(result.status.message)
+        utils.fxShowToast('地址加载有误！')
       }
     })
   },
@@ -526,20 +517,6 @@ Page({
       }
     })
     return currentIndex
-  },
-
-  // 获取上传所需Token
-  getUploadToken() {
-    http.fxGet(api.user_upload_token, {}, (result) => {
-      if (result.success) {
-        console.log(result, '上传Token')
-        this.setData({
-          uploadParams: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
   },
 
   // 获取当前地址信息
@@ -598,8 +575,6 @@ Page({
     } else {
       this.getCountry() // 获取所有的国家
     }
-    
-    this.getUploadToken()
   },
 
   /**

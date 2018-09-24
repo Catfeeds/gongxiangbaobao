@@ -19,6 +19,7 @@ module.exports = {
   user_upload_token: 'assets/user_upload_token', // GET 获取上传Token
 
   // Asset
+  asset_upload: 'assets/upload', // POST 上传附件
   asset_detail: 'assets/show_asset', // GET 获取附件 
 
   // Category

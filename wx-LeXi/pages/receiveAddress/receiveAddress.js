@@ -15,7 +15,7 @@ Page({
     addressList: [], // 地址列表---
     address_rid: '', // 选择的rid
     order: '',
-    validateCustom: false, // 未验证海关信息前，不能确认
+    validateCustom: false // 未验证海关信息前，不能确认
   },
 
   // 选择的地址
@@ -151,14 +151,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.getStorageSync('allPlaces') || common.getReceivePlaces() // 加载收货地址
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-      this.getAddressList() // 获取地址列表
+    this.getAddressList() // 获取地址列表
   },
 
   /**
@@ -201,13 +201,6 @@ Page({
     wx.navigateTo({
       url: '../address/address?from_ref=checkout'
     })
-  },
-
-  // 继续提交订单
-  // submitOrderTap() {
-  //   wx.redirectTo({
-  //     url: '../checkout/checkout'
-  //   })
-  // }
+  }
   
 })

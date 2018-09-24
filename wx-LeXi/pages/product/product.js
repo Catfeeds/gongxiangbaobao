@@ -1,18 +1,20 @@
 // pages/product/product.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
-let wxparse = require("../../wxParse/wxParse.js")
+
+let wxparse = require('../../wxParse/wxParse.js')
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    posterUrl:'', // 海报的url
-    shareProductPhotoUrl:'', // 分享产品的url
-    is_share:false,
+    posterUrl: '', // 海报的url
+    shareProductPhotoUrl: '', // 分享产品的url
+    is_share: false,
 
     rid: '', // 商品的rid---
     productInfomation: [], // 商品详情---
@@ -44,9 +46,9 @@ Page({
     swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
     couponList: [], // 优惠券列表---couponList
-    fullSubtractionList: {
+    fullSubtractionList: { // 满减---
       coupons: []
-    }, // 满减---
+    },
     isWatch: false, // 是否关注过店铺
     storeInfo: [], // 店铺的信息---
 
@@ -56,7 +58,7 @@ Page({
     window_height: app.globalData.system.screenHeight * 2, // 屏幕的高度
     coupon_show: false,
     newProductList: [], // 最新的商品列表---
-    userPhoto: "", // 用户的头像
+    userPhoto: '', // 用户的头像
     // 最新产品的请求参数
     newProductParams: {
       page: 1,
@@ -66,29 +68,40 @@ Page({
 
   // 分享模板弹出
   handleShareBox(e) {
-    let ProductRid = this.data.rid
+    let productRid = this.data.rid
 
     this.setData({
       is_share: true,
       shareProductPhotoUrl: this.data.productInfomation.cover,
     })
 
-    this.getWxaPoster(ProductRid) // 保存商品的海报
+    this.getWxaPoster(productRid) // 保存商品的海报
   },
 
   /**
-* 生成推广海报图
-*/
-  getWxaPoster(e) {
+   * 取消分享-销售
+   */
+  handleCancelShare(e) {
+    this.setData({
+      is_share: false,
+      posterUrl: ''
+    })
+  },
 
+  /**
+   * 生成推广海报图
+   */
+  getWxaPoster(e) {
     let params = {
       rid: e,
       type: 3,
       path: 'pages/product/product',
-      scene: e + "-" + app.globalData.storeInfo.rid,
+      scene: e + '-' + app.globalData.storeInfo.rid,
       auth_app_id: app.globalData.app_id
     }
+
     console.log(params)
+
     http.fxPost(api.wxa_poster, params, (result) => {
       console.log(result, '生成海报图')
       if (result.success) {
@@ -102,35 +115,35 @@ Page({
   },
 
   /**
-* 保存当前海报到相册
-*/
+   * 保存当前海报到相册
+   */
   handleSaveShare() {
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.posterUrl,
-      success: function (res) {
+      success: function(res) {
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              utils.fxShowToast("保存成功", "success")
+              utils.fxShowToast('保存成功', 'success')
             },
             fail(res) {
-              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+              console.log(res)
+              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
                 wx.openSetting({
                   success(settingdata) {
                     console.log(settingdata)
-                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                      console.log("获取权限成功，再次点击图片保存到相册")
-                      utils.fxShowToast("保存成功")
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      utils.fxShowToast('保存成功')
                     } else {
-                      utils.fxShowToast("保存失败")
+                      utils.fxShowToast('保存失败')
                     }
                   }
                 })
               } else {
-                utils.fxShowToast("保存失败")
+                utils.fxShowToast('保存失败')
               }
             }
           })
@@ -142,7 +155,7 @@ Page({
   /**
    * 滑块变化
    */
-  handleSwiperChange: function (e) {
+  handleSwiperChange(e) {
     this.setData({
       swiperIndex: e.detail.current - 0 + 1
     })
@@ -153,12 +166,13 @@ Page({
    */
   handleAddCart(e) {
     if (this.validateChooseSku()) {
+      const jwt = wx.getStorageSync('jwt')
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
       let cartParams = {
         rid: this.data.choosed.rid, // String	必填	 商品sku
         quantity: this.data.quantity, // Integer	可选	1	购买数量
         option: '', // String	可选	 	其他选项
-        open_id: app.globalData.jwt.openid // String	独立小程序端必填/独立小程序openid
+        open_id: jwt.openid // String	独立小程序端必填/独立小程序openid
       }
 
       http.fxPost(api.cart_addon, cartParams, (result) => {
@@ -174,8 +188,8 @@ Page({
   },
 
   /**
- * 验证是否选择sku
- */
+   * 验证是否选择sku
+   */
   validateChooseSku() {
     if (!this.data.choosed) {
       return false
@@ -193,14 +207,17 @@ Page({
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
 
-      http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
-        console.log(result,"每个商品")
+      http.fxGet(api.by_store_sku, {
+        rids: this.data.choosed.rid
+      }, (result) => {
+        console.log(result, '每个商品')
         if (result.success) {
           let deliveryCountries = [] // 发货的国家列表
 
           Object.keys(result.data).forEach((key) => {
             console.log(result.data[key]) // 每个店铺
-            result.data[key].forEach((v, i) => { //每个sku
+            result.data[key].forEach((v, i) => { // 每个sku
+
               // 收集所有发货国家或地区，验证是否跨境
               if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
                 deliveryCountries.push(v.delivery_country_id)
@@ -224,6 +241,7 @@ Page({
 
           // 设置当前商品的物流模板
           wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
+
           wx.navigateTo({
             url: './../receiveAddress/receiveAddress?from_ref=cart&&rid=' + this.data.choosed.rid,
           })
@@ -246,7 +264,7 @@ Page({
     let isLike = this.data.productInfomation.is_like
     let rid = this.data.productInfomation.rid
     let browssPhoto = this.data.productInfomation.product_like_users
-    console.log(isLike)
+
     if (isLike) {
       // 喜欢，则删除
       http.fxDelete(api.userlike, {
@@ -255,9 +273,9 @@ Page({
         if (result.success) {
           console.log(result)
           this.setData({
-            ['productInfomation.product_like_users']: browssPhoto.splice(0,browssPhoto.length-1),
-            ['productInfomation.is_like']:false,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count-1
+            ['productInfomation.product_like_users']: browssPhoto.splice(0, browssPhoto.length - 1),
+            ['productInfomation.is_like']: false,
+            ['productInfomation.like_count']: this.data.productInfomation.like_count - 1
           })
 
         } else {
@@ -272,8 +290,10 @@ Page({
         if (result.success) {
           this.setData({
             ['productInfomation.is_like']: true,
-            ['productInfomation.like_count']: this.data.productInfomation.like_count-0 + 1,
-            ['productInfomation.product_like_users[' + browssPhoto.length + ']']: { avatar: app.globalData.jwt.avatar}
+            ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
+            ['productInfomation.product_like_users[' + browssPhoto.length + ']']: {
+              avatar: app.globalData.jwt.avatar
+            }
           })
           console.log(this.data.productInfomation.product_like_users)
         } else {
@@ -299,13 +319,13 @@ Page({
       })
       return false
     }
-    if (!this.data.productInfomation.is_wish){
+    if (!this.data.productInfomation.is_wish) {
       http.fxPost(api.wishlist, {
         rids: [this.data.rid]
       }, (result) => {
         console.log(result)
         if (result.success) {
-          utils.fxShowToast('成功添加', "success")
+          utils.fxShowToast('成功添加', 'success')
           this._upUserPageData()
           this.setData({
             ['productInfomation.is_wish']: true
@@ -320,7 +340,7 @@ Page({
       }, (result) => {
         console.log(result)
         if (result.success) {
-          utils.fxShowToast('移除添加', "success")
+          utils.fxShowToast('移除添加', 'success')
           this._upUserPageData()
           this.setData({
             ['productInfomation.is_wish']: false
@@ -330,17 +350,15 @@ Page({
         }
       })
     }
-
   },
 
   // 更新心愿单
-  _upUserPageData(){
+  _upUserPageData() {
     // 获取页面来源
-    var pages = getCurrentPages() //获取加载的页面
-    var currentPage = pages[pages.length - 2] //获取当前页面的对象
-    console.log(currentPage, '路径')
+    var pages = getCurrentPages() // 获取加载的页面
+    var currentPage = pages[pages.length - 2] // 获取当前页面的对象
 
-    if (currentPage.route == "pages/user/user") {
+    if (currentPage.route == 'pages/user/user') {
       currentPage.getDesireOrderProduct()
     }
   },
@@ -353,17 +371,19 @@ Page({
     this.setData({
       rid: e.currentTarget.dataset.rid
     })
-  
+
     this.getProductInfomation() // 获取商品详情---
   },
 
   // 交货时间
   getLogisticsTime(e, rid) {
-    http.fxGet(api.logisitcs.replace(/:rid/g, e), { product_rid:rid }, (result)=>{
+    http.fxGet(api.logisitcs.replace(/:rid/g, e), {
+      product_rid: rid
+    }, (result) => {
       console.log(result.data, '交货时间')
-      if(result.success){
-        result.data.items.forEach((v,i) => {
-          if (v.is_default){
+      if (result.success) {
+        result.data.items.forEach((v, i) => {
+          if (v.is_default) {
             // 循环完毕
             this.setData({
               logisticsTime: v
@@ -377,7 +397,7 @@ Page({
   // 获取商品详情
   getProductInfomation() {
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
-      user_record: "1"
+      user_record: '1'
     }, (result) => {
       if (result.success) {
         console.log(result, '产品详情')
@@ -387,6 +407,7 @@ Page({
           productInfomation: result.data,
           dkcontent: result.data.content
         })
+
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
         if (result.data.fid) { // 交货时间
@@ -449,7 +470,7 @@ Page({
   // 查看全部的盒子信息的盒子打开
   animationOnFn() {
     this.setData({
-      allInfo:true
+      allInfo: true
     })
   },
 
@@ -462,7 +483,7 @@ Page({
   getNewProduct() {
     http.fxGet(api.latest_products, this.data.newProductParams, (result) => {
       if (result.success) {
-        console.log(result,"最新的产品")
+        console.log(result, '最新产品')
         this.setData({
           newProductList: result.data
         })
@@ -490,12 +511,12 @@ Page({
         this.getCouponAndFullSubtraction()
         let topPage = getCurrentPages()
         let topPagePath = topPage[topPage.length - 2]
-        console.log(topPagePath,"index Page")
+        console.log(topPagePath, 'index Page')
 
         topPagePath.getCouponsByUser()
-        setTimeout(()=>{
+        setTimeout(() => {
           this.getCouponAndFullSubtraction()
-        },200)
+        }, 200)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -504,8 +525,6 @@ Page({
 
   // 优惠券，满减
   getCouponAndFullSubtraction() {
-    console.log(app.globalData.fullSubtractionList,"满减优惠券" )
-
     this.setData({
       couponList: app.globalData.couponList, // 优惠券列表
       'fullSubtractionList.coupons': app.globalData.fullSubtractionList, // 满减---
@@ -536,45 +555,6 @@ Page({
     this.setData({
       storeInfo: app.globalData.storeInfo
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options, product) {
-    utils.handleShowLoading()
-    // scene格式：rid + '-' + customer_rid
-    let scene = decodeURIComponent(options.scene)
-    let rid = ''
-    if (scene && scene != 'undefined') {
-      let scene_ary = scene.split('-')
-      rid = scene_ary[0]
-      // 分销商ID
-      if (scene_ary.length == 2) {
-        let customer_rid = scene_ary[1]
-        wx.setStorageSync('customer_rid', customer_rid)
-      }
-    } else {
-      rid = options.rid
-    }
-
-    this.setData({
-      rid: rid,
-      isWatch: app.globalData.isWatchstore,
-    })
-
-    if (app.globalData.isLogin) {
-      this.setData({
-        userPhoto: app.globalData.userInfo.avatar
-      })
-    }
-
-    this.getstoreInfo() // 店铺信息---
-    this.getProductInfomation() // 获取商品详情---
-    this.getSkus()
-    
-    this.getCouponAndFullSubtraction() // 获取优惠券---
-    this.getNewProduct() // 获取最新的商品---
   },
 
   // 初始化sku
@@ -849,7 +829,7 @@ Page({
    * 更新购物车数量
    */
   updateCartTotalCount(item_count) {
-    app.globalData.cartTotalCount = item_count
+    app.updateCartTotalCount(item_count)
     this.setData({
       cartTotalCount: item_count
     })
@@ -869,109 +849,42 @@ Page({
   },
 
   /**
-   * 生成推广海报
+   * 生命周期函数--监听页面加载
    */
-  handleGenPoster(e) {
-    let that = this
-
-    this.setData({
-      seePosterModal: true
-    })
-
-    let rid = e.currentTarget.dataset.rid
-    // 添加自定义扩展信息
-    let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-
-    let params = {
-      rid: rid,
-      path: 'pages/product/product',
-      auth_app_id: extConfig.authAppid
-    }
-
-    http.fxPost(api.wxacode, params, (res) => {
-      if (res.success) {
-        that.setData({
-          posterImage: res.data.wxa_image
-        })
+  onLoad: function (options, product) {
+    utils.handleShowLoading()
+    // scene格式：rid + '-' + customer_rid
+    let scene = decodeURIComponent(options.scene)
+    let rid = ''
+    if (scene && scene != 'undefined') {
+      let scene_ary = scene.split('-')
+      rid = scene_ary[0]
+      // 分销商ID
+      if (scene_ary.length == 2) {
+        let customer_rid = scene_ary[1]
+        wx.setStorageSync('customer_rid', customer_rid)
       }
-    })
-  },
-
-  /**
-   * 保存海报至本地
-   */
-  handleSavePoster() {
-    let that = this
-
-    if (this.data.posterImage && !this.data.posterSaving) {
-      this.setData({
-        posterSaving: true,
-        posterBtnText: '正在保存...'
-      })
-      // 下载网络文件至本地
-      wx.downloadFile({
-        url: this.data.posterImage,
-        success: function (res) {
-          if (res.statusCode === 200) {
-            // 保存文件至相册
-            wx.saveImageToPhotosAlbum({
-              filePath: res.tempFilePath,
-              success(res) {
-                wx.showToast({
-                  title: '图片保存成功',
-                })
-                that.setData({
-                  posterSaving: false,
-                  posterBtnText: '保存图片',
-                  seePosterModal: false
-                })
-              },
-              fail(res) {
-                console.log(res)
-                if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
-                  wx.openSetting({
-                    success(settingdata) {
-                      console.log(settingdata)
-                      if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                        console.log("获取权限成功，再次点击图片保存到相册")
-                        utils.fxShowToast("保存成功")
-                      } else {
-                        utils.fxShowToast("保存失败")
-                        that.setData({
-                          posterSaving: false,
-                          posterBtnText: '保存图片'
-                        })
-                      }
-                    }
-                  })
-                }else{
-                  utils.fxShowToast("保存失败")
-                  that.setData({
-                    posterSaving: false,
-                    posterBtnText: '保存图片'
-                  })
-                }
-              }
-            })
-          }
-        }
-      })
     } else {
-      wx.showToast({
-        title: '图片正在生成中',
-        icon: 'loading',
-        duration: 2000
+      rid = options.rid
+    }
+
+    this.setData({
+      rid: rid,
+      isWatch: app.globalData.isWatchstore,
+    })
+
+    if (app.globalData.isLogin) {
+      this.setData({
+        userPhoto: app.globalData.userInfo.avatar
       })
     }
-  },
 
-  /**
-   * 隐藏生成海报框
-   */
-  hidePosterModal() {
-    this.setData({
-      seePosterModal: false
-    })
+    this.getstoreInfo() // 店铺信息---
+    this.getProductInfomation() // 获取商品详情---
+    this.getSkus()
+
+    this.getCouponAndFullSubtraction() // 获取优惠券---
+    this.getNewProduct() // 获取最新的商品---
   },
 
   /**
@@ -980,9 +893,9 @@ Page({
   onReady: function() {
     utils.handleHideLoading()
     this.animation = wx.createAnimation({
-      transformOrigin: "bottom bottom",
+      transformOrigin: 'bottom bottom',
       duration: 500,
-      timingFunction: 'linear',
+      timingFunction: 'linear'
     })
   },
 
@@ -990,12 +903,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    wx.hideLoading() 
-    console.log(app.globalData.storeInfo)
+    wx.hideLoading()
     this.setData({
-      
-      cartTotalCount: app.globalData.cartTotalCount,
-      
+      cartTotalCount: app.globalData.cartTotalCount
     })
   },
 
@@ -1031,13 +941,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    
-      return {
-        title: this.data.productInfomation.name,
-        imageUrl: this.shareProductPhotoUrl,
-        path: '/pages/product/product?rid=' + this.data.rid
-      }
-    
+    // scene格式：rid + '-' + sid
+    let scene = this.data.rid
+    return {
+      title: this.data.productInfomation.name,
+      imageUrl: this.shareProductPhotoUrl,
+      path: 'pages/product/product?scene=' + scene
+    }
   },
 
   watchTap() {
@@ -1064,7 +974,6 @@ Page({
 
   // 跳转到购物车
   handleToCartTap() {
-    console.log("cart")
     wx.switchTab({
       url: '../cart/cart',
     })
@@ -1072,22 +981,21 @@ Page({
 
   // 关闭
   hanleOffLoginBox(e) {
-    console.log(e)
     this.setData({
-      is_mobile:false
+      is_mobile: false
     })
   },
 
-  handelToLikeThisProductTap(e){
+  handelToLikeThisProductTap(e) {
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
       })
       return false
     }
-    // console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
       url: '../likeThisProduct/likeThisProduct?rid=' + e.currentTarget.dataset.rid
     })
   }
+
 })

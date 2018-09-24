@@ -1,5 +1,6 @@
 //app.js
 const http = require('./utils/http.js')
+
 const api = require('./utils/api.js')
 const util = require('./utils/util.js')
 const common = require('./utils/common.js')
@@ -59,6 +60,9 @@ App({
       }
     }
 
+    // 预先加载大陆地址
+    this.getAddressPlaces()
+
     // 获取地理位置
     this.getUserLocation()
 
@@ -70,13 +74,14 @@ App({
     return new Promise((resolve, reject) => {
 
       if (this.globalData.userLoaded) {
-        return resolve({ success: true })
+        return resolve({
+          success: true
+        })
       }
 
       // 调用login获取code
       wx.login({
         success: (res) => {
-          console.log(res, "res")
           // 发送 res.code 到后台换取 openId
           const code = res.code
           console.log('Login code: ' + code)
@@ -106,7 +111,9 @@ App({
                 }
               }
 
-              resolve({ success: true })
+              resolve({
+                success: true
+              })
             } else {
               // 显示错误信息
               wx.showToast({
@@ -115,7 +122,9 @@ App({
                 duration: 2000
               })
 
-              reject({ success: false })
+              reject({
+                success: false
+              })
             }
           })
         }
@@ -130,37 +139,10 @@ App({
     this.getCartTotalCount()
   },
 
-
-  /**
-   * 分享小程序至好友
-   * 验证生活馆或其他分销信息
-   */
-  getDistributeLifeStoreRid() {
-    let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
-
-    if (!lastVisitLifeStoreRid) {
-      const lifeStore = wx.getStorageSync('lifeStore')
-      if (lifeStore && lifeStore.isSmallB) {
-        lastVisitLifeStoreRid = lifeStore.lifeStoreRid
-      }
-    }
-
-    return lastVisitLifeStoreRid
-  },
-
-  // 登录后回调事件
-  hookLoginCallBack() {
-    console.log('登录后，执行回调函数')
-    // 获取购物车数量
-    this.getCartTotalCount()
-  },
-
   // 更新用户信息
   updateUserInfo(jwt) {
-    console.log(jwt, "index用户的信息")
     this.globalData.userInfo = {
       avatar: jwt.avatar,
-      username: jwt.username,
       mobile: jwt.mobile,
       username: jwt.username
     }
@@ -174,7 +156,7 @@ App({
    * 支付订单
    */
   wxpayOrder: function(rid, payParams, cb) {
-    console.log(rid, payParams, "支付参数")
+    console.log(rid, payParams, '支付参数')
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -193,7 +175,6 @@ App({
             rid: rid
           }, function(result) {
             if (result.success) {
-
               // 跳转至详情
               wx.redirectTo({
                 url: './../paymentSuccess/paymentSuccess?rid=' + rid,
@@ -224,6 +205,15 @@ App({
   },
 
   /**
+   * 订单成功后，清除订单相关全局变量
+   */
+  cleanOrderGlobalData() {
+    this.globalData.deliveryCountries = []
+    // 重新获取购物车数量
+    this.getCartTotalCount()
+  },
+
+  /**
    * 获取购物车数量
    */
   getCartTotalCount() {
@@ -234,14 +224,25 @@ App({
     }, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
-        this.globalData.cartTotalCount = res.data.item_count
-        if (this.globalData.cartTotalCount > 0) {
-          wx.showTabBarRedDot({
-            index: 1
-          })
-        }
+        this.updateCartTotalCount(res.data.item_count)
       }
     })
+  },
+
+  /**
+   * 更新购物车数量
+   */
+  updateCartTotalCount(cnt) {
+    this.globalData.cartTotalCount = cnt
+    if (this.globalData.cartTotalCount > 0) {
+      wx.showTabBarRedDot({
+        index: 1
+      })
+    } else {
+      wx.hideTabBarRedDot({
+        index: 1
+      })
+    }
   },
 
   /**
@@ -262,15 +263,44 @@ App({
   },
 
   // 获取设备获取设备
-  getSystemInfo(){
+  getSystemInfo() {
     wx.getSystemInfo({
-      success:  (res)=> {
-        console.log(res,"设备信息")
+      success: (res) => {
+        console.log(res, '设备信息')
         this.globalData.windowWidth = res.windowWidth
-       },
+      }
     })
   },
 
+  /**
+   * 获取国家或地区下所有省市区
+   * 默认值：1，为中国大陆
+   */
+  getAddressPlaces(country_id = 1, cb) {
+    let cacheKey = 'places_' + country_id
+    let allPlaces = wx.getStorageSync(cacheKey)
+    if (!allPlaces || Object.keys(allPlaces).length == 0) {
+      http.fxGet(api.provinces_cities, {
+        country_id: country_id
+      }, (result) => {
+        console.log(result, '省市区')
+        if (result.success) {
+          let places = result.data
+          if (places && Object.keys(places).length > 0) {
+            // 设置到本地缓存
+            console.log(cacheKey, '缓存Key')
+            wx.setStorageSync(cacheKey, places)
+          }
+          return typeof cb == 'function' && cb(places)
+        } else {
+          console.log(result.status.message, '预加载地址出错！！！')
+          return typeof cb == 'function' && cb(false)
+        }
+      })
+    } else {
+      return typeof cb == 'function' && cb(allPlaces)
+    }
+  },
 
   globalData: {
     isLogin: false,
@@ -280,25 +310,25 @@ App({
     // 检测用户加载是否完成，异步问题
     userLoaded: false,
     // 发货国家
-    deliveryCountries:[],
-    //设备信息
-    windowWidth:375,
+    deliveryCountries: [],
+    // 设备信息
+    windowWidth: 375,
     // 分享品牌馆的图片路径
     shareBrandUrl: '',
     // 支付成功后的订单
     paymentSuccessOrder: {
       actual_payment: 0.1,
       bonus_amount: 0,
-      order_rid: "D18091760153274",
+      order_rid: 'D18091760153274',
       orders: [{
         store: {
-          store_logo: "https://s3.moebeast.com/20180911/3627FisHBLN-lKi5OhYTsC2INNAmFQ-D.jpg",
-          store_name: "正式环境的赵高尚店",
-          store_rid: "99240861"
+          store_logo: 'https://s3.moebeast.com/20180911/3627FisHBLN-lKi5OhYTsC2INNAmFQ-D.jpg',
+          store_name: '正式环境的赵高尚店',
+          store_rid: '99240861'
         },
         official_order_id: null,
         order_total_commission_price: 0,
-        outside_target_id: "D18091760153274",
+        outside_target_id: 'D18091760153274',
         pay_amount: 0.1,
         payed_at: 0,
         payment_sn: null,
@@ -306,22 +336,22 @@ App({
         received_at: 0,
         refund_amount: 0,
         remark: null,
-        rid: "D18091760153274",
+        rid: 'D18091760153274',
         ship_mode: 1,
         signed_at: 0,
         status: 5,
-        blessing_utterance: "",
-        buyer_address: "太火鸟bei'ji北京bei'jing北京bei'jng北京",
-        buyer_area: "",
-        buyer_city: "东城区",
-        buyer_country: "中国",
-        buyer_name: "赵高尚",
-        buyer_phone: "13716171560",
-        buyer_province: "北京",
-        buyer_remark: "",
-        buyer_tel: "",
-        buyer_town: "内环到三环里",
-        buyer_zipcode: "",
+        blessing_utterance: '',
+        buyer_address: '',
+        buyer_area: '',
+        buyer_city: '',
+        buyer_country: '',
+        buyer_name: '',
+        buyer_phone: '13716171560',
+        buyer_province: '',
+        buyer_remark: '',
+        buyer_tel: '',
+        buyer_town: '',
+        buyer_zipcode: '',
         coupon_amount: 0,
         created_at: 1537165440,
         current_time: 1537165440,
@@ -332,48 +362,47 @@ App({
         freight: 0,
         is_many_express: false,
         items: [{
-          bgcover: "https://s3.moebeast.com/20180911/3757FjpOpB6CDXw32dchEVzTivNCBv4Z.jpg",
-          city: "朝阳区",
-          country: "中国",
-          cover: "https://s3.moebeast.com/20180911/4446FjfjZO_3ZOJsuALw7fvKTNh1NrKd.jpg",
+          bgcover: 'https://s3.moebeast.com/20180911/3757FjpOpB6CDXw32dchEVzTivNCBv4Z.jpg',
+          city: '',
+          country: '',
+          cover: 'https://s3.moebeast.com/20180911/4446FjfjZO_3ZOJsuALw7fvKTNh1NrKd.jpg',
           cover_id: 21804,
           deal_price: 0.1,
-          delivery_city: "",
-          delivery_country: "中国",
+          delivery_city: '',
+          delivery_country: '中国',
           delivery_country_id: 1,
-          delivery_province: "",
+          delivery_province: '',
           distribution_type: 0,
           express: 75,
           express_at: 0,
-          express_code: "YD",
-          express_name: "韵达快递",
+          express_code: '',
+          express_name: '',
           express_no: null,
           fans_count: 0,
           freight: 0,
-          freight_name: "赵高尚运费模板1",
-          mode: "黄色 ",
+          freight_name: '',
+          mode: '',
           order_sku_commission_price: 0,
           order_sku_commission_rate: 0,
           price: 0.1,
-          product_name: "乾隆年间茶壶，官窑",
-          product_rid: "8416598237",
-          province: "北京",
+          product_name: '',
+          product_rid: '',
+          province: '',
           quantity: 1,
-          rid: "8519064283",
-          s_color: "黄色",
-          s_model: "",
+          rid: '',
+          s_color: '',
+          s_model: '',
           s_weight: 1,
           sale_price: 0,
           stock_count: 81,
           stock_quantity: 81,
-          store_logo: "https://s3.moebeast.com/20180911/3627FisHBLN-lKi5OhYTsC2INNAmFQ-D.jpg",
-          store_name: "正式环境的赵高尚店",
-          store_rid: "99240861",
-          tag_line: "这里是宣传语，，正式环境测试用的",
-          town: "三环以内",
+          store_logo: '',
+          store_name: '',
+          store_rid: '',
+          tag_line: '',
+          town: ''
         }]
       }]
-
     },
     // 登录相关信息
     jwt: {},
@@ -387,7 +416,7 @@ App({
     // 登录用户基本信息
     userInfo: {},
     // 用户的详细信息
-    userDetail:{}, 
+    userDetail: {},
     // 地址位置
     location: {},
     // 购物车数量

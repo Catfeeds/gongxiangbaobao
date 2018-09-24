@@ -11,29 +11,39 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    shareProductRid: '', // 分享商品的rid
+    shareProductPhotoUrl: '', // 分享商品的url
+    posterUrl: '', // 海报的url
 
-    shareProductRid:'', // 分享商品的rid
-    shareProductPhotoUrl:'', // 分享商品的url
-    posterUrl:"", // 海报的url
-
-    lookMany:false,  // 查看更多的公告
-    pickQuantity: "", // 商品的数量
+    lookMany: false, // 查看更多的公告
+    pickQuantity: '', // 商品的数量
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
     categoryList: [], // 分类列表
     checkedCids: [], // 选择的分类
-    showFilterModal: false,// 筛选
+    showFilterModal: false, // 筛选
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
     // 推荐
-    recommendList: [
-      { name: "包邮", id: '1', isActive: false },
-      { name: "特惠", id: "2", isActive: false },
-      { name: "可定制", id: "3", isActive: false },
+    recommendList: [{
+        name: '包邮',
+        id: '1',
+        isActive: false
+      },
+      {
+        name: '特惠',
+        id: '2',
+        isActive: false
+      },
+      {
+        name: '可定制',
+        id: '3',
+        isActive: false
+      }
     ],
 
-    roundActive:0, // 广告的轮播点索引
+    roundActive: 0, // 广告的轮播点索引
     pickQuantity: 0, // 筛选后的数量
     handelOffPick: false,
     isSortShow: false, // 排序
@@ -41,13 +51,13 @@ Page({
     is_mobile: false, // 优惠券模板是否弹出
     isAuthentication: '', // 是否经过官方认证的店铺
     couponList: {}, // 优惠券列表---couponList
-    fullSubtractionList: {
+    fullSubtractionList: { // 满减---
       coupons: []
-    }, // 满减---
+    },
     rid: [], // 店铺的rid---
     shareWhat: '', // 分享什么东西---
     ShopOwner: [], // 店铺主人的信息---
-    
+
     highQualityProduct: [], // 优质精品---
     popularProductTheme: [], // 人气里面的主题---
     recommendProductList: [], // 推荐好物品---
@@ -65,8 +75,8 @@ Page({
     isNewProductNext: true, // 是否有下一页 
 
     myProduct: [], //作品列表---
-    isLoadProductShow:true, // 加载作品load图
-    isProductNext:true, // 是否有下一页 
+    isLoadProductShow: true, // 加载作品load图
+    isProductNext: true, // 是否有下一页 
 
     // 优惠券的请求参数
     couponParams: {
@@ -86,7 +96,7 @@ Page({
       is_distributed: '', // 商品类别 0: 全部; 1：自营商品；2：分销商品
       qk: '', // 搜索关键字
       out_of_stock: '', // 商品库存 0: 全部; 1: 数量不足
-      user_record: 1, //用户是否喜欢
+      user_record: 1, // 用户是否喜欢
     },
     //分类 精选 作品 人气---
     catgory: [{
@@ -106,8 +116,8 @@ Page({
     tabPisition: false, //tab是否定位
     // 推荐好物里面的参数---
     recommendProductParams: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
     },
     // 人气里面的最新作品参数
     currentNewParams: {
@@ -116,45 +126,45 @@ Page({
     },
     // 创造订单参数,待写入---
     createdOrder: {
-      address_rid: '', //String	必需	 	收货地址ID
-      outside_target_id: '', //String	可选	 	 
-      invoice_type: 1, //Integer	可选	1	发票类型
-      invoice_info: '', //String	可选	{}	 
-      buyer_remark: '', //String	可选	 	买家备注
+      address_rid: '', // String	必需	 	收货地址ID
+      outside_target_id: '', // String	可选	 	 
+      invoice_type: 1, // Integer	可选	1	发票类型
+      invoice_info: '', // String	可选	{}	 
+      buyer_remark: '', // String	可选	 	买家备注
       blessing_utterance: '', // 买家语录
-      from_client: '1', //String	可选	 	来源客户端，1、小程序；2、H5 3、App 4、TV 5、POS 6、PAD
-      affiliate_code: '', //String	可选	 	推广码
-      bonus_code: '', //String	可选	 	官方红包码
-      customer_code: '', //String	可选	 	分销商代码
-      sync_pay: 1, //Integer	可选	 	是否同步返回支付参数
-      //Array	必需	 	店铺商品信息
+      from_client: '1', // String	可选	 	来源客户端，1、小程序；2、H5 3、App 4、TV 5、POS 6、PAD
+      affiliate_code: '', // String	可选	 	推广码
+      bonus_code: '', // String	可选	 	官方红包码
+      customer_code: '', // String	可选	 	分销商代码
+      sync_pay: 1, // Integer	可选	 	是否同步返回支付参数
+      // Array	必需	 	店铺商品信息
       store_items: [{
-        store_rid: '', //String	必需	 	店铺rid
-        coupon_codes: [], //Array	可选	 	优惠券码列表
-        //Array	必需	 	订单明细参数
+        store_rid: '', // String	必需	 	店铺rid
+        coupon_codes: [], // Array	可选	 	优惠券码列表
+        // Array	必需	 	订单明细参数
         items: [{
-          rid: '', //String	必需	 	sku
-          quantity: 1, //Number	必需	1	购买数量
-          express_id: '', //Integer	必需	 	物流公司ID
-          warehouse_id: '', //Number	可选	 	发货的仓库ID
+          rid: '', // String	必需	 	sku
+          quantity: 1, // Number	必需	1	购买数量
+          express_id: '', // Integer	必需	 	物流公司ID
+          warehouse_id: '' // Number	可选	 	发货的仓库ID
         }]
       }]
     },
-    
+
     sortParams: { // 我的作品参数 
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //N	可选	10	每页数量
-      sort_type: 0, //0	排序: 0 = 默认排序, 1= 最新, 2= 价格由低至高, 3= 价格由高至低
-      cids: '', //	 	分类编号， 多个用, 隔开
-      min_price: '', //	 	价格区间： 最小价格
-      max_price: '', //	 	价格区间： 最大价格
-      status: 1, //	1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // N	可选	10	每页数量
+      sort_type: 0, // 0	排序: 0 = 默认排序, 1= 最新, 2= 价格由低至高, 3= 价格由高至低
+      cids: '', // 分类编号， 多个用, 隔开
+      min_price: '', //	价格区间： 最小价格
+      max_price: '', // 价格区间： 最大价格
+      status: 1 // 1	商品状态： 0： 全部, 1: 上架中, 2: 下架中, 3: 仓库中, 4: 已售罄
     }
   },
 
   /**
- * 取消分享-销售
- */
+   * 取消分享-销售
+   */
   handleCancelShare(e) {
     this.setData({
       is_share: false,
@@ -163,23 +173,22 @@ Page({
   },
 
   // 打开公告
-  handleLookMany(){
+  handleLookMany() {
     this.setData({
-      lookMany :true
+      lookMany: true
     })
   },
 
   // 关闭公告
-  handleOffLook(){
+  handleOffLook() {
     this.setData({
       lookMany: false
     })
   },
-  
-//s
+
   /**
-* 改变分类
-*/
+   * 改变分类
+   */
   handleToggleCategory(e) {
     let cid = e.currentTarget.dataset.cid
 
@@ -212,10 +221,12 @@ Page({
   },
 
   /**
-* 分类列表
-*/
+   * 分类列表
+   */
   getCategories() {
-    http.fxGet(api.store_categories, { sid: this.data.shopInfo.rid}, (result) => {
+    http.fxGet(api.store_categories, {
+      sid: this.data.shopInfo.rid
+    }, (result) => {
       console.log(result, '分类列表')
       if (result.success) {
         this.setData({
@@ -228,8 +239,8 @@ Page({
   },
 
   /**
-* 滑块最低价格
-*/
+   * 滑块最低价格
+   */
   handleChangeMinPrice(e) {
     let minPrice = e.detail.lowValue
     if (this.data.sortParams.max_price == -1) {
@@ -248,7 +259,7 @@ Page({
     let _t = setTimeout(() => {
       this.getPick()
       this.setData({
-        myProduct:[]
+        myProduct: []
       })
     }, 2000)
 
@@ -259,8 +270,8 @@ Page({
   },
 
   /**
- * 重置回调事件
- */
+   * 重置回调事件
+   */
   handleResetFilterCondition(e) {
     this.selectComponent('#fx-slider').reset()
     let _categories = this.data.categoryList
@@ -278,8 +289,8 @@ Page({
   },
 
   /**
-* 关闭弹窗回调
-*/
+   * 关闭弹窗回调
+   */
   handleCloseFilterModal(e) {
     this.setData({
       handelOffPick: false
@@ -289,8 +300,8 @@ Page({
   },
 
   /**
-* 选择推荐
-*/
+   * 选择推荐
+   */
   handleToggleRecommendList(e) {
     console.log(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
@@ -367,9 +378,9 @@ Page({
     let minPrice = e.detail.minPrice
     let maxPrice = e.detail.maxPrice
     this.setData({
-      myProduct:[],
+      myProduct: [],
       ['sortParams.page']: e.detail.page ? e.detail.page : this.data.page,
-      ['sortParams.cids']: rids == undefined ? "" : rids.join(','),
+      ['sortParams.cids']: rids == undefined ? '' : rids.join(','),
       ['sortParams.min_price']: minPrice,
       ['sortParams.max_price']: maxPrice
     })
@@ -381,7 +392,7 @@ Page({
     console.log(e.currentTarget.dataset.rid)
     if (e.currentTarget.dataset.rid != undefined) {
       this.setData({
-        isSortShow:false,
+        isSortShow: false,
         myProduct: [],
         ['sortParams.page']: 1,
         ['sortParams.sort_type']: e.currentTarget.dataset.rid
@@ -392,24 +403,21 @@ Page({
     this.getPick()
   },
 
-  //e
-
   // 我的作品
   getPick() {
     console.log(this.data.sortParams)
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
-      console.log(result,"我的作品")
+      console.log(result, '我的作品')
       if (result.success) {
-
         let data = this.data.myProduct
-        
-          this.setData({
-            myProduct: data.concat(result.data.products),
-            pickQuantity: result.data.count,
-            isLoadProductShow: false,
-            isProductNext:result.data.next,
-            totalCount: result.data.count
-          })
+
+        this.setData({
+          myProduct: data.concat(result.data.products),
+          pickQuantity: result.data.count,
+          isLoadProductShow: false,
+          isProductNext: result.data.next,
+          totalCount: result.data.count
+        })
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -424,12 +432,13 @@ Page({
     })
   },
 
-// 跳转广告相关页面
-  handleToAdvInfo(e){
+  // 跳转广告相关页面
+  handleToAdvInfo(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + '&product=' + this.data.myProduct
     })
   },
+
   // 创建订单参数 并且设置店铺的id
   createdOrderParams() {
     this.setData({
@@ -440,7 +449,6 @@ Page({
 
   // 领取优惠券
   getReceiveCoupon(e) {
-    console.log(e)
     // 是否登陆
     if (!app.globalData.isLogin) {
       this.setData({
@@ -464,9 +472,6 @@ Page({
   // 分享模板弹出
   handleShareBox(e) {
     let ProductRid = e.currentTarget.dataset.sharestore.rid
-    console.log(e.currentTarget.dataset.sharestore.rid)
-    console.log(e.currentTarget.dataset)
-    // console.log(this.data.themeProduct.designs.)
     this.setData({
       is_share: true,
       shareWhat: e.currentTarget.dataset,
@@ -477,38 +482,35 @@ Page({
   },
 
   /**
-* 保存当前海报到相册
-*/
+   * 保存当前海报到相册
+   */
   handleSaveShare() {
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.posterUrl,
-      success:  (res) => {
+      success: (res) => {
         if (res.statusCode === 200) {
           // 保存文件至相册
-          console.log(this.data.posterUrl,"---",res.tempFilePath,"图片的地址")
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              utils.fxShowToast("保存成功", "success")
+              utils.fxShowToast('保存成功', 'success')
             },
             fail(res) {
-              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
                 wx.openSetting({
                   success(settingdata) {
                     console.log(settingdata)
-                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                      console.log("获取权限成功，再次点击图片保存到相册")
-                      utils.fxShowToast("保存成功")
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      utils.fxShowToast('保存成功')
                     } else {
-                      utils.fxShowToast("保存失败")
+                      utils.fxShowToast('保存失败')
                     }
                   }
                 })
               } else {
-                utils.fxShowToast("保存失败")
+                utils.fxShowToast('保存失败')
               }
-              
             }
           })
         }
@@ -517,25 +519,17 @@ Page({
   },
 
   /**
-* 生成推广海报图
-*/
+   * 生成推广海报图
+   */
   getWxaPoster(e) {
-    // let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
-
-    // scene格式：rid + '-' + sid
-    // let scene = rid
-    // if (lastVisitLifeStoreRid) {
-    //   scene += '-' + lastVisitLifeStoreRid
-    // }
-  
     let params = {
       rid: e,
       type: 3,
       path: 'pages/product/product',
-      scene: e + "-"+app.globalData.storeInfo.rid,
+      scene: e + '-' + app.globalData.storeInfo.rid,
       auth_app_id: app.globalData.app_id
     }
-    console.log(params)
+
     http.fxPost(api.wxa_poster, params, (result) => {
       console.log(result, '生成海报图')
       if (result.success) {
@@ -547,8 +541,6 @@ Page({
       }
     })
   },
-
-
 
   // 验证是否喜欢
   examineIsLike() {
@@ -595,10 +587,8 @@ Page({
       agent: '', // String	可选	 	访问时代理
     }
 
-    console.log(params, "添加浏览者的参数")
-
     http.fxPost(api.add_browse, params, (result) => {
-      console.log(result, "添加浏览人数")
+      console.log(result, '添加浏览人数')
       if (result.success) {
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
@@ -690,7 +680,6 @@ Page({
 
   // 点击喜欢
   handleBindLike(e) {
-    console.log(e,"点击喜欢")
     // 是否登陆
     if (!app.globalData.isLogin) {
       this.setData({
@@ -704,18 +693,17 @@ Page({
     let idx = e.currentTarget.dataset.index
 
     if (isLike) {
-      
       // 喜欢，则删除
       http.fxDelete(api.userlike, {
         rid: rid
       }, (result) => {
         if (result.success) {
           this.setData({
-            ["recommendProductList.products["+idx +"].is_like"]:false,
-            ["recommendProductList.products[" + idx + "].like_count"]: this.data.recommendProductList.products[ idx ].like_count-1,
-            ["recommendProductList.products[" + idx + "].product_like_users[0].avatar"]:''
+            ['recommendProductList.products[' + idx + '].is_like']: false,
+            ['recommendProductList.products[' + idx + '].like_count']: this.data.recommendProductList.products[idx].like_count - 1,
+            ['recommendProductList.products[' + idx + '].product_like_users[0].avatar']: ''
           })
-          console.log(this.data.recommendProductList.products, "头像")
+          console.log(this.data.recommendProductList.products, '头像')
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -727,11 +715,10 @@ Page({
       }, (result) => {
         if (result.success) {
           this.setData({
-            ["recommendProductList.products[" + idx + "].is_like"]: true,
-            ["recommendProductList.products[" + idx + "].like_count"]: this.data.recommendProductList.products[idx].like_count +1,
-            ["recommendProductList.products[" + idx + "].product_like_users[0].avatar"]: app.globalData.userInfo.avatar
+            ['recommendProductList.products[' + idx + '].is_like']: true,
+            ['recommendProductList.products[' + idx + '].like_count']: this.data.recommendProductList.products[idx].like_count + 1,
+            ['recommendProductList.products[' + idx + '].product_like_users[0].avatar']: app.globalData.userInfo.avatar
           })
-          
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -743,14 +730,14 @@ Page({
   getNewestProdcts() {
     http.fxGet(api.latest_products, this.data.currentNewParams, (result) => {
       if (result.success) {
-        console.log(result.data,"最新的商品")
+        console.log(result.data, '最新商品')
 
         let data = this.data.currentNewProduct
-          this.setData({
-            currentNewProduct: result.data.products.concat(data),
-            isNewProductNext: result.data.next,
-            isLoadProductShow:false,
-          })
+        this.setData({
+          currentNewProduct: result.data.products.concat(data),
+          isNewProductNext: result.data.next,
+          isLoadProductShow: false,
+        })
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -775,14 +762,13 @@ Page({
   // 获取浏览人数---
   getBrowseQuantity(page = 1, per_page = 12) {
     const jwt = wx.getStorageSync('jwt')
-
     let params = {
       rid: app.globalData.storeRid,
       page: page,
       per_page: per_page,
       openid: jwt.openid
     }
-    console.log(params)
+    
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, app.globalData.storeRid), params, (result) => {
       console.log(result, '浏览者数量')
       if (result.success) {
@@ -831,11 +817,11 @@ Page({
   // 主打商品和优质精选---
   getThemeProduct(e = 1) {
     http.fxGet(api.theme_product, {
-      "type": e
+      'type': e
     }, (result) => {
       if (result.success) {
         if (e == 1) {
-          console.log(result.data,'主打设计')
+          console.log(result.data, '主打设计')
           this.setData({
             themeProduct: result.data
           })
@@ -854,7 +840,7 @@ Page({
   // 获取店铺商品列表
   getStoreProducts() {
     http.fxGet(api.products, this.data.productCategoryParams, (result) => {
-      console.log(result,"首页的作品列表")
+      console.log(result, '首页的作品列表')
       if (result.success) {
         let data = this.data.myProduct
 
@@ -939,14 +925,14 @@ Page({
 
   // 用户登录优惠券
   getCouponsByUser() {
-    console.log(this.data.originalStoreRid, "原店铺的rid")
+    console.log(this.data.originalStoreRid, '原店铺的rid')
 
     http.fxGet(api.user_login_coupon, {}, (result) => {
       console.log(result, '登陆的优惠券')
 
       result.data.coupons.forEach((v, i) => {
-        v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
-        v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+        v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
+        v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
       })
 
       if (result.success) {
@@ -967,15 +953,14 @@ Page({
 
       if (result.success) {
         result.data.coupons.forEach((v, i) => {
-          v.user_coupon_start = utils.timestamp2string(v.start_date, "date")
-          v.user_coupon_end = utils.timestamp2string(v.end_date, "date")
+          v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
+          v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
         })
 
         let coupon = [] // 优惠券
         let full = [] // 满减券
 
-        if (e == "manjian") {
-          console.log("满减")
+        if (e == 'manjian') {
           // 登陆， 筛选满减
           result.data.coupons.forEach((v, i) => {
             console.log(v)
@@ -989,7 +974,6 @@ Page({
             'fullSubtractionList.coupons': full
           })
 
-          console.log(this.data.fullSubtractionList,"满减")
           app.globalData.fullSubtractionList = full
 
         } else {
@@ -1068,13 +1052,6 @@ Page({
     })
   },
 
-  // 获取店铺的信息
-  // getOwnerInfo(){
-  //   console.log(app.globalData.storeOwnerInfo)
-  //   this.setData({
-  //     ShopOwner: app.globalData.storeOwnerInfo
-  //   })
-  // },
   /**
    * 获取店铺主人的信息
    * **/
@@ -1082,11 +1059,10 @@ Page({
     http.fxGet(api.masterInfo, {}, (result) => {
       if (result.success) {
         console.log(result.data, '店铺主人信息')
-        // result.data.user_label = this.getUserIdentityLabel(result.data.user_identity)
         this.setData({
           ShopOwner: result.data
         })
-        // shopOwner: result.data
+
         app.globalData.storeOwnerInfo = result.data
       } else {
         utils.fxShowToast(result.status.message)
@@ -1095,17 +1071,13 @@ Page({
   },
 
   // 乐喜平台的分享卡片
-  getLexiShare(){
-    console.log(app.globalData,"app数据")
-   
+  getLexiShare() {
     http.fxPost(api.market_share_store, {
-       rid: app.globalData.storeInfo.rid
+      rid: app.globalData.storeInfo.rid
     }, (result) => {
-      console.log(result, "分享品牌管图片的地址")
+      console.log(result, '分享品牌馆图片地址')
       if (result.success) {
-
-        app.globalData.shareBrandUrl= result.data.image_url
-
+        app.globalData.shareBrandUrl = result.data.image_url
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -1116,30 +1088,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-  //  wx.clearStorageSync()
     this.getNavigationBarTitleText() // 设置头部信息
 
     this.getShopInfo() // 获取店铺的信息
     this.getAnnouncement() // 获取店铺公告---
-    this.getStoreOwner()//获取主人信息
-    
+    this.getStoreOwner() //获取主人信息
+
     app.login().then(res => {
       console.log(res, '异步请求')
-      
+
       this.getLexiShare()
       this.addBrowse() // 添加浏览
     })
-   
+
     if (app.globalData.isLogin) { // 用户已登录时
       // 查看是否关注
       this.getIsWatch()
 
-      // this.getCouponsByUser()
-      // this.getCouponsByUser(3)
-
       this.getCouponsByUser()
-      this.getCoupons("manjian")
-    } else { 
+      this.getCoupons('manjian')
+    } else {
       // 用户未登录时
       this.getCoupons()
     }
@@ -1153,31 +1121,27 @@ Page({
     this.getTheme() // 人气--主题---
     this.getNewestProdcts() // 人气--最新作品---
   },
+
   /**
    * 页面触底事件的处理函数
    */
-  onReachBottom: function () {
-    
-    
+  onReachBottom: function() {
     switch (this.data.catgoryActive) {
       case 1:
-
         break;
       case 2:
         if (!this.data.isProductNext) {
           return
         }
-        console.log("触底加载")
         this.setData({
-          'sortParams.page': this.data.sortParams.page+1,
-          isLoadProductShow:true
+          'sortParams.page': this.data.sortParams.page + 1,
+          isLoadProductShow: true
         })
 
-        this.getPick() //获取作品
+        this.getPick() // 获取作品
         break;
       default:
-
-        if (!this.data.isNewProductNext){
+        if (!this.data.isNewProductNext) {
           return
         }
 
@@ -1189,18 +1153,18 @@ Page({
         this.getNewestProdcts()
     }
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成   
    */
   onReady: function() {
-    
-    console.log(app.globalData.storeInfo.name)
+
   },
 
 
   shareTap(e) {
     var sign
-    if (e.currentTarget.dataset.is_share == "1") {
+    if (e.currentTarget.dataset.is_share == '1') {
       sign = true
     } else {
       sign = false
@@ -1211,19 +1175,17 @@ Page({
   },
 
   // 页面的卷曲
-  onPageScroll(e){
-    // console.log(e.scrollTop)
+  onPageScroll(e) {
     this.setData({
-      pageScrol:e.scrollTop
+      pageScrol: e.scrollTop
     })
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+
   },
 
   /**
@@ -1247,20 +1209,16 @@ Page({
 
   },
 
-
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    //***注意！ this.data.shareWhat.from==2 为分享商品
-    //***注意！ this.data.shareWhat.from==1 为分享店铺
-    //***注意！ target.dataset.from==3 为分优惠券
-    console.log(this.data.shareWhat)
-    console.log(res)
-    if (res.target!=undefined && res.target.dataset.from == 3) {
+    // ***注意！this.data.shareWhat.from == 2 为分享商品
+    // ***注意！this.data.shareWhat.from == 1 为分享店铺
+    // ***注意！target.dataset.from == 3 为分优惠券
+    if (res.target != undefined && res.target.dataset.from == 3) {
       return {
-        title: "转发的标题",
+        title: '转发的标题',
         path: '/pages/share/share',
         success: function(e) {
           console.log(e)
@@ -1276,14 +1234,11 @@ Page({
       return {
         title: this.data.shareWhat.sharestore.name,
         imageUrl: this.data.shareWhat.sharestore.cover,
-        path: '/page/product/product?rid=' + this.data.shareWhat.sharestore.rid
+        path: '/pages/product/product?rid=' + this.data.shareWhat.sharestore.rid
       }
     }
 
-    console.log(common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl),"---------------------------")
-
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
-
   },
 
   // 跳转到商品详情---
@@ -1302,12 +1257,11 @@ Page({
 
   // 优惠卷隐藏和显示
   coupon_show() {
-    
     let params = this.data.coupon_show
-    if (params){
+    if (params) {
       wx.showTabBar()
       params = false
-    }else{
+    } else {
       wx.hideTabBar()
       params = true
     }
@@ -1326,8 +1280,6 @@ Page({
 
   // 进入主题页面
   handlethemeTap(e) {
-    console.log(e.currentTarget.dataset.id)
-    console.log(this.data.popularProductTheme)
     app.globalData.themeProdct = this.data.popularProductTheme[e.currentTarget.dataset.index]
     wx.navigateTo({
       url: '../theme/theme?id=' + e.currentTarget.dataset.id,
@@ -1336,11 +1288,11 @@ Page({
 
   // 关闭或开启优惠券的模态框
   hanleOffLoginBox(e) {
-    console.log(e)
     this.setData({
       is_mobile: false
     })
   },
+
   // 排序的盒子
   handleSortShow() {
     this.setData({
@@ -1348,7 +1300,7 @@ Page({
     })
     wx.hideTabBar()
   },
-  
+
   // 排序的盒子关闭
   handleSortOff() {
     this.setData({
@@ -1357,7 +1309,7 @@ Page({
     wx.showTabBar()
   },
 
-  //打开筛选的盒子
+  // 打开筛选的盒子
   handelOffPick() {
     this.setData({
       handelOffPick: true
@@ -1368,23 +1320,23 @@ Page({
   },
 
   // 关闭分享模态框
-  handleOffBox(){
+  handleOffBox() {
     this.setData({
-      is_share:false
+      is_share: false
     })
     wx.showTabBar()
   },
+
   // 阻止滑动穿透
-  hanlePreventScroll(){
+  hanlePreventScroll() {
     return
   },
 
   // 轮播图的小点 选中的点
-  handleRoundActive(e){
-    // console.log(e.detail.current)
+  handleRoundActive(e) {
     this.setData({
       roundActive: e.detail.current
     })
   }
-  
+
 })

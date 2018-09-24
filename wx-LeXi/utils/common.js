@@ -20,7 +20,7 @@ const getAllPlaces = (country_id = 1, province_oid = 0) => {
   })
 }
 
-let shareLexi = (title,imgUrl)=>{
+let shareLexi = (title, imgUrl) => {
   return {
     title: title,
     path: 'pages/index/index',
