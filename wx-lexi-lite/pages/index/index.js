@@ -1,5 +1,4 @@
-//index.js
-//获取应用实例
+// 获取应用实例
 const app = getApp()
 
 const http = require('./../../utils/http.js')
@@ -16,6 +15,7 @@ Page({
     page: 1,
     perPage: 5,
     firstTime: true,
+
     swiperMark: 0, // 轮播图标记
     loadingMore: true, // 加载更多标记
     isLoadPageShow: true, // 加载页面的点
@@ -30,11 +30,11 @@ Page({
     // 生活馆
     isUploading: false,
     uploadStatus: 0,
-    shopInfo:'', // 生活馆信息
-    lifePhotoUrl: '', // 分享生活馆的图片
     sid: '', // 生活馆sid
     openId: '', // openId
-    lifeStore: {}, // 生活馆信息
+    shopInfo: '', // 生活馆信息
+    lifeStore: {}, // 编辑生活馆信息
+    lifePhotoUrl: '', // 分享生活馆的图片
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
     isNextRecommend: false, // 推荐是否有下一页
@@ -161,6 +161,7 @@ Page({
         },
       ]
     },
+
     // 精选
     handerAdvertisementList: [], // 头部广告
     middleAdvertisementList: [], // 精选的中间广告
@@ -239,7 +240,6 @@ Page({
       ]
     },
 
-
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
@@ -263,7 +263,19 @@ Page({
       }
     ],
 
-    is_mobile: false, // 验证是否登陆
+    is_mobile: false // 验证是否登陆
+  },
+
+  /**
+   * 类别页的切换 
+   */
+  handlePickCategory(e) {
+    let name = e.currentTarget.dataset.name
+    this.setData({
+      pageActiveTab: name
+    })
+
+    this._swtichActivePageTab(name)
   },
 
   /**
@@ -273,14 +285,16 @@ Page({
     this.setData({
       is_mobile: false
     })
+
     wx.showTabBar()
   },
 
-  // 加载更多的推荐
+  // 生活馆加载更多的推荐
   handleLoadingRecommend() {
     this.setData({
       page: this.data.page + 1
     })
+
     this.getStoreProducts()
   },
 
@@ -308,7 +322,7 @@ Page({
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
     let rid = this.data.shareProduct.rid
 
-    // scene格式：rid + '#' + sid
+    // scene格式：rid + '-' + sid
     let scene = rid
     if (lastVisitLifeStoreRid) {
       scene += '-' + lastVisitLifeStoreRid
@@ -346,23 +360,22 @@ Page({
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              utils.fxShowToast("保存成功", "success")
+              utils.fxShowToast('保存成功', 'success')
             },
             fail(res) {
-              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
                 wx.openSetting({
                   success(settingdata) {
-                    console.log(settingdata)
-                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                      console.log("获取权限成功，再次点击图片保存到相册")
-                      utils.fxShowToast("保存成功")
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      console.log('获取权限成功，再次点击图片保存到相册')
+                      utils.fxShowToast('保存成功,分享至朋友圈')
                     } else {
-                      utils.fxShowToast("保存失败")
+                      utils.fxShowToast('保存失败')
                     }
                   }
                 })
               } else {
-                utils.fxShowToast("保存失败")
+                utils.fxShowToast('保存失败')
               }
             }
           })
@@ -384,7 +397,6 @@ Page({
 
   // 今日推荐跳转category
   handleTodyRecommend(e) {
-    console.log(e)
     let targetType = e.currentTarget.dataset.type
     let rid = e.currentTarget.dataset.rid
 
@@ -405,15 +417,10 @@ Page({
         url: '../gatherInfo/gatherInfo?rid=' + rid,
       })
     }
-
-
   },
 
   // 点击喜欢或者删除喜欢
   handleBindLike(e) {
-    console.log(e, "点击心")
-    console.log(e.currentTarget.dataset.index)
-
     let idx = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.id
     let isLike = e.currentTarget.dataset.islike
@@ -455,14 +462,14 @@ Page({
     }
   },
 
-  //swiper 变化触发
+  // swiper 变化触发
   handleSwiperChange(e) {
     this.setData({
       swiperMark: e.detail.current
     })
   },
 
-  //探索轮播图
+  // 探索轮播图
   handleExploreSwiperChange(e) {
     this.setData({
       exploreSwiperMark: e.detail.current
@@ -470,26 +477,9 @@ Page({
   },
 
   /**
-   * 分类的选择 
-   */
-  handlePickCategory(e) {
-    let name = e.currentTarget.dataset.name
-    this.setData({
-      pageActiveTab: name
-    })
-
-    this._swtichActivePageTab(name)
-  },
-
-  /**
    * 推荐的跳转
-   * */
+   */
   handleToInfo(e) {
-    console.log(e)
-    console.log(e.currentTarget.dataset.rid)
-    console.log(e.currentTarget.dataset.type)
-
-
     let targetType = e.currentTarget.dataset.type
     let link = e.currentTarget.dataset.link
     let title = e.currentTarget.dataset.title
@@ -506,7 +496,7 @@ Page({
 
     if (targetType == 3) {
       wx.navigateTo({
-        url: '../categoryList/categoryList?categryId=' + link + "&&titleName=" + title
+        url: '../categoryList/categoryList?categryId=' + link + "&titleName=" + title
       })
     }
 
@@ -520,7 +510,7 @@ Page({
 
   /**
    * 种草的列表页
-   * **/
+   */
   handleToPlantNoteList() {
     wx.navigateTo({
       url: '../plantNoteList/plantNoteList'
@@ -531,20 +521,17 @@ Page({
    * 种草详情
    */
   handleToPlantNoteInfo(e) {
-    console.log(e)
     let rid = e.currentTarget.dataset.rid
     let targetType = e.currentTarget.dataset.type
-    // wx.navigateTo({
-    //   url: '../plantNoteInfo/plantNoteInfo?rid='+rid,
-    // })
-    // 1是文章
+
+    // 1: 文章
     if (targetType == 1) {
       wx.navigateTo({
         url: '../findInfo/findInfo?rid=' + rid,
       })
     }
 
-    // 2是种草笔记
+    // 2: 种草笔记
     if (targetType == 2) {
       wx.navigateTo({
         url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
@@ -561,7 +548,6 @@ Page({
    * 轮换图广告
    */
   swiperChange(e) {
-    console.log(e.detail.current)
     this.setData({
       swiperIndex: e.detail.current
     })
@@ -641,7 +627,6 @@ Page({
    * 名称获取焦点事件
    */
   handleNameChange(e) {
-    console.log(e)
     let nameLength = 0
     if (e.detail.value) {
       nameLength = common.strLength(e.detail.value)
@@ -655,7 +640,6 @@ Page({
    * 简介获取焦点事件
    */
   handleDescChange(e) {
-    console.log(e)
     let descLength = 0
     if (e.detail.value) {
       descLength = common.strLength(e.detail.value)
@@ -664,7 +648,6 @@ Page({
       'storeForm.descLength': descLength
     })
   },
-
 
   /**
    * 提交更新生活馆信息
@@ -680,6 +663,7 @@ Page({
           'lifeStore.description': res.data.description,
           showEditModal: false
         })
+
         // 更新标题
         let lifeStoreName = res.data.name + '的生活馆'
         this.handleSetNavigationTitle(lifeStoreName)
@@ -700,7 +684,6 @@ Page({
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
@@ -713,7 +696,7 @@ Page({
     console.log(e)
     let rid = e.detail.rid
     wx.navigateTo({
-      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.detail.storeRid
+      url: '/pages/product/product?rid=' + rid + "&storeRid=" + e.detail.storeRid
     })
   },
 
@@ -723,7 +706,7 @@ Page({
   handleViewProduct(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
+      url: '/pages/product/product?rid=' + rid + "&storeRid=" + e.currentTarget.dataset.storeRid
     })
   },
 
@@ -787,10 +770,9 @@ Page({
       sid: this.data.sid,
       rid: rid
     }
-    console.log('Delete, rid: ' + rid + ', idx: ' + idx)
 
     wx.showModal({
-      content: '你确认要下架此件商品',
+      content: '你确认要下架此商品',
       cancelText: '删除',
       cancelColor: '#666',
       confirmText: '取消',
@@ -799,7 +781,7 @@ Page({
         if (res.cancel) { // 取消 与 确认 互换
           console.log('Delete, rid: ' + rid + ', idx: ' + idx)
           http.fxDelete(api.life_store_delete_product, data, (result) => {
-            console.log(result, "删除商品")
+            console.log(result, '删除商品')
             if (result.success) {
               let _storeProducts = this.data.storeProducts
               let isEmpty = false
@@ -826,12 +808,12 @@ Page({
     })
   },
 
-  /** 探索页面start **/
+  /** 探索页面 **/
 
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
-      console.log(result,"探索头部广告")
+      console.log(result, '探索-头部广告')
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data
@@ -845,7 +827,7 @@ Page({
   // 分类列表
   getCategory() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result, "fen lei")
+      console.log(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data
@@ -859,7 +841,7 @@ Page({
   // 编辑推荐
   getEditRecommend() {
     http.fxGet(api.column_explore_recommend, {}, (result) => {
-      console.log(result, "编辑 推荐")
+      console.log(result, '编辑推荐')
       if (result.success) {
         this.setData({
           editRecommendList: [],
@@ -877,7 +859,7 @@ Page({
   // 特色品牌馆
   getCharacteristicBranderStore() {
     http.fxGet(api.column_feature_store, {}, (result) => {
-      console.log(result, "特色品牌馆")
+      console.log(result, '特色品牌馆')
 
       if (result.success) {
         this.setData({
@@ -892,7 +874,6 @@ Page({
 
   // 关注特色品牌馆
   handleAddFollowed(e) {
-    console.log(e)
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
 
@@ -910,47 +891,30 @@ Page({
       console.log(result)
       if (result.success) {
         this.setData({
-          ["characteristicStoreList.stores[" + index + "].is_followed"]: true
+          ['characteristicStoreList.stores[' + index + '].is_followed']: true
         })
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   // 取消关注特色品牌馆
   handleDeleteFollowed(e) {
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
-    console.log(e)
+
     http.fxPost(api.delete_watch, {
       rid: rid
     }, (result) => {
       console.log(result)
       if (result.success) {
         this.setData({
-          ["characteristicStoreList.stores[" + index + "].is_followed"]: false
+          ['characteristicStoreList.stores[' + index + '].is_followed']: false
         })
       } else {
         utils.fxShowToast(result.status.message)
       }
-    })
-  },
-
-  // 添加浏览记录
-  handleAddBrowce() {
-    if (!this.data.sid){
-      return
-    }
-
-    let openId = wx.getStorageSync("jwt").openid
-    http.fxPost(api.add_browse, {
-      openid: openId,
-      rid: this.data.sid
-    }, (result) => {
-      console.log(result, "添加浏览者")
-      this.getBrowsePeople()
     })
   },
 
@@ -960,20 +924,34 @@ Page({
     this.setData({
       gratefulSwiper: e.detail.current
     })
+  },
 
+  // 添加浏览记录
+  handleAddBrowse() {
+    if (!this.data.sid) {
+      return
+    }
+    let openId = wx.getStorageSync('jwt').openid
+    http.fxPost(api.add_browse, {
+      openid: openId,
+      rid: this.data.sid
+    }, (result) => {
+      console.log(result, '添加浏览者')
+      this.getBrowsePeople()
+    })
   },
 
   // 获取浏览记录
   getBrowsePeople() {
-    if (!this.data.sid){
+    if (!this.data.sid) {
       return
     }
 
-    let openId = wx.getStorageSync("jwt").openid
+    let openId = wx.getStorageSync('jwt').openid
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.sid), {
       openid: openId
     }, (result) => {
-      console.log(result, "获取的浏览者")
+      console.log(result, '获取的浏览者')
       if (result.success) {
         this.setData({
           shopInfo: result.data
@@ -987,9 +965,8 @@ Page({
   // 优质新品
   getHighQuality() {
     http.fxGet(api.column_explore_new, {}, (result) => {
-      console.log(result, "优质新品")
+      console.log(result, '优质新品')
       if (result.success) {
-
         this.setData({
           highQualityList: []
         })
@@ -1006,10 +983,10 @@ Page({
   // 集合
   getGather() {
     http.fxGet(api.column_collections, {}, (result) => {
-      console.log(result, "集合")
+      console.log(result, '集合')
       if (result.success) {
         result.data.collections.forEach((v, i) => {
-          v.sub_name = v.sub_name.length > 7 ? v.sub_name.substr(0, 8) + " ..." : v.sub_name
+          v.sub_name = v.sub_name.length > 7 ? v.sub_name.substr(0, 8) + ' ...' : v.sub_name
         })
 
         this.setData({
@@ -1024,7 +1001,7 @@ Page({
   // 特惠好设计
   getGoodDesign() {
     http.fxGet(api.column_preferential_design, {}, (result) => {
-      console.log(result, "特惠好设计")
+      console.log(result, '特惠好设计')
       if (result.success) {
         this.setData({
           goodDesignList: []
@@ -1042,7 +1019,7 @@ Page({
   // 百元好物
   getOneHundred() {
     http.fxGet(api.column_affordable_goods, {}, (result) => {
-      console.log(result, "百元好物")
+      console.log(result, '百元好物')
       if (result.success) {
         this.setData({
           oneHundredList: []
@@ -1060,15 +1037,10 @@ Page({
 
   /** 精选里面的 start **/
 
-  // 开馆指引
-  getOpenStoreGuide() {
-
-  },
-
   // 今日推荐
   getTodayRecommend() {
     http.fxGet(api.column_daily_recommends, {}, (result) => {
-      console.log(result, "今日推荐")
+      console.log(result, '今日推荐')
       if (result.success) {
         this.setData({
           todayRecommendList: result.data
@@ -1085,12 +1057,13 @@ Page({
       page: 1,
       per_page: 15
     }, (result) => {
-      console.log(result, "人气推荐")
+      console.log(result, '人气推荐')
       if (result.success) {
         this.setData({
           gratefulList: [],
           isLoadPageShow: false
         })
+
         this.setData({
           gratefulList: result.data
         })
@@ -1106,7 +1079,7 @@ Page({
       page: 1,
       per_page: 15
     }, (result) => {
-      console.log(result, "精选 中间广告")
+      console.log(result, '精选-中间广告')
       if (result.success) {
         this.setData({
           middleAdvertisementList: result.data
@@ -1120,7 +1093,7 @@ Page({
   // 精选区域的头部广告
   getChoiceHanderAdvertisement() {
     http.fxGet(api.banners_handpick, {}, (result) => {
-      console.log(result, "精选 头部广告")
+      console.log(result, '精选-头部广告')
       if (result.success) {
         this.setData({
           handerAdvertisementList: result.data
@@ -1134,7 +1107,7 @@ Page({
   // 乐喜优选 column/handpick_optimization
   getLitePick() {
     http.fxGet(api.column_handpick_optimization, {}, (result) => {
-      console.log(result, "乐喜优选")
+      console.log(result, '乐喜优选')
       if (result.success) {
         this.setData({
           lexiPick: []
@@ -1151,11 +1124,10 @@ Page({
   // 种草清单 life_records/recommend
   getPlantOrder() {
     http.fxGet(api.life_records_recommend, {}, (result) => {
-      console.log(result, "种草清单")
+      console.log(result, '种草清单')
       if (result.success) {
-
         result.data.life_records.forEach((v) => {
-          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, "")
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
         })
 
         this.setData({
@@ -1266,14 +1238,14 @@ Page({
         res.data.headlines.forEach((v, i) => {
 
           if (v.time > 24) {
-            v.time = Math.ceil(v.time % 24) + "天"
+            v.time = Math.ceil(v.time % 24) + '天'
           } else {
-            v.time = v.time + "小时"
+            v.time = v.time + '小时'
           }
 
-          if (v.username !=null&&v.username - 0 != NaN && v.username.length > 9 ) {
+          if (v.username != null && v.username - 0 != NaN && v.username.length > 9) {
             console.log(v)
-            v.username = v.username.substr(0, 3) + "****" + v.username.substr(7, 4)
+            v.username = v.username.substr(0, 3) + '****' + v.username.substr(7, 4)
           }
 
           let newObj = []
@@ -1333,7 +1305,8 @@ Page({
         this.getDistributeNewest() // 选品中心入口
         this.getStoreProducts() // 生活馆商品
         this.getWeekPopular() // 本周最受欢迎商品
-        this.handleAddBrowce() // 添加浏览者
+        this.handleAddBrowse() // 添加浏览者
+
         break;
       case 'featured': // 精选
         this.handleSetNavigationTitle('精选')
@@ -1353,23 +1326,23 @@ Page({
         })
 
         this.getStoreHeadlines() // 开馆头条
-        this.getOpenStoreGuide() // 开馆指引
         this.getTodayRecommend() // 今日推荐
         this.getGrateful() // 人气推荐
         this.getChoiceMiddleAdvertisement() // 中间广告
         this.getLitePick() // 乐喜优选
         this.getPlantOrder() // 种草清单
+
         break;
       case 'explore': // 探索
+        this.handleSetNavigationTitle('探索')
         if (this.data.exploreAdvertisementList.length != 0) {
           return
         }
         this.setData({
           isLoadPageShow: true
         })
-        this.handleSetNavigationTitle('探索')
         this.getEditRecommend() // 编辑推荐
-        this.getCharacteristicBranderStore() // 特色品牌管
+        this.getCharacteristicBranderStore() // 特色品牌馆
         this.getExploreAdvertisement() // 广告位
         this.getCategory() // 分类
         this.getHighQuality() // 优质新品
@@ -1383,7 +1356,7 @@ Page({
 
   // 分享的生活馆图片
   getLifePhotoUrl() {
-    if (!this.data.sid){
+    if (!this.data.sid) {
       return
     }
 
@@ -1393,12 +1366,9 @@ Page({
     }, (result) => {
       console.log(result, rid, "分享生活馆图片的地址")
       if (result.success) {
-
         this.setData({
           lifePhotoUrl: result.data.image_url
         })
-      } else {
-
       }
     })
   },
@@ -1440,20 +1410,19 @@ Page({
    * 监听页面滚动
    * **/
   onPageScroll(e) {
-    // console.log(e)
     if (e.scrollTop >= 50) {
-      // console.log(e,"下拉")
       this.setData({
         isNavbarAdsorb: true
       })
     }
+
     if (e.scrollTop < 51) {
-      // console.log(e, "上啦")
       this.setData({
         isNavbarAdsorb: false
       })
     }
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -1469,7 +1438,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log('index---onShow')
     // 验证登录用户是否为小B商家
     if (this.data.sid == '') {
       console.log('验证登录用户是否为小B')
@@ -1553,38 +1521,29 @@ Page({
 
   },
 
-
-
   /**
    * 用户点击右上角分享 data-from
    */
   onShareAppMessage: function(e) {
-    console.log(e)
-
     //分享平台或生活馆
-    if (e.from == "menu" || e.target.dataset.from == 1) {
-      if (this.data.pageActiveTab == "lifeStore"){
+    if (e.from == 'menu' || e.target.dataset.from == 1) {
+      if (this.data.pageActiveTab == 'lifeStore') {
         let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
-        // scene格式：rid + '-' + sid
-        let uid = wx.getStorageSync("jwt")
-        let scene = uid.uid
-        if (lastVisitLifeStoreRid) {
-          scene += '-' + lastVisitLifeStoreRid
-        }
+        // scene格式：sid + '-' + uid
+        let scene = lastVisitLifeStoreRid
 
         return {
-          title: this.data.lifeStore.name + "的生活馆",
+          title: this.data.lifeStore.name + '的生活馆',
           path: 'pages/index/index?scene=' + scene,
           imageUrl: this.data.lifePhotoUrl,
           success: (res) => {
             console.log(res, '分享商品成功!')
           }
         }
-
       }
 
-      if (this.data.pageActiveTab == 'featured' || this.data.pageActiveTab == 'explore'){
+      if (this.data.pageActiveTab == 'featured' || this.data.pageActiveTab == 'explore') {
         return app.shareLeXi()
       }
     }
@@ -1599,10 +1558,9 @@ Page({
   // 点击分类
   handleCategoryInfoTap(e) {
     console.log(e)
-
   },
 
-  //去搜索页面
+  // 跳转搜索页面
   handleToSearch() {
     wx.navigateTo({
       url: '../search/search',
@@ -1610,26 +1568,27 @@ Page({
   },
 
   // 包邮专区
-  handleToExemptionFromPostage(){
+  handleToExemptionFromPostage() {
     wx.navigateTo({
       url: '../exemptionFromPostage/exemptionFromPostage',
     })
   },
 
   // 领券中心
-  handleToreceiveCoupon(){
-wx.navigateTo({
-  url: '../receiveCoupon/receiveCoupon',
-  })
+  handleToreceiveCoupon() {
+    wx.navigateTo({
+      url: '../receiveCoupon/receiveCoupon',
+    })
   },
 
+  // 乐喜优选
   handleToLexiPick() {
     wx.navigateTo({
       url: '../leXiHighPick/leXiHighPick',
     })
   },
 
-  //跳转到商品列表页面
+  // 跳转到商品列表页面
   handleToProductList(e) {
     console.log(e.currentTarget.dataset.from)
     let editRecommend = e.currentTarget.dataset.from
@@ -1648,7 +1607,7 @@ wx.navigateTo({
   handleTocategoryList(e) {
     console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: '../categoryList/categoryList?categryId=' + e.currentTarget.dataset.id + "&&titleName=" + e.currentTarget.dataset.titleName,
+      url: '../categoryList/categoryList?categryId=' + e.currentTarget.dataset.id + "&titleName=" + e.currentTarget.dataset.titleName,
     })
   },
 
@@ -1659,16 +1618,18 @@ wx.navigateTo({
     })
   },
 
-  // 跳转到品牌管详情
+  // 跳转到品牌馆详情
   handleTobrandStore(e) {
     wx.navigateTo({
       url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
     })
   },
-  // 跳转到品牌管详情
+
+  // 跳转到品牌馆列表
   handelTobrandList(e) {
     wx.navigateTo({
       url: '../branderStoreList/branderStoreList?rid=' + e.currentTarget.dataset.rid,
     })
   }
+
 })

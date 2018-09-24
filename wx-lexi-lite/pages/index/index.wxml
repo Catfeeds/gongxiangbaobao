@@ -1,12 +1,10 @@
 <!--index.wxml-->
-
 <view class="container">
   <!-- 页面加载 -->
   <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <view class="c-middle sear-top">
     <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
-
       <view class='search-box_text flex_row'>
         <image src='../../images/sear-icon@2.png'></image>
         <text>关键字/礼物/品牌馆/人</text>
@@ -631,7 +629,7 @@
       <view class="distribute-commission">
         <block wx:if="{{isDistributed&&isSmallB}}">
           <text>赚</text>
-          <text class="amount">￥{{shareProduct.commission_price}}</text>
+          <text class="amount">￥{{ shareProduct.commission_price }}</text>
         </block>
       </view>
       <view class="distribute-message">
