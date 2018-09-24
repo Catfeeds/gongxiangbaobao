@@ -8,14 +8,13 @@ Page({
 
   },
 
-  handleLoading(){
+  handleLoading() {
     wx.navigateBack({
       delta: 1,
     })
     let pageData = getCurrentPages()
     pageData[pageData.length-2].onLoad()
   },
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -72,4 +71,5 @@ Page({
   onShareAppMessage: function () {
 
   }
+  
 })

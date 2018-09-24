@@ -1,5 +1,6 @@
 // pages/logisticsWatch/logisticsWatch.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -14,19 +15,18 @@ Page({
     location: [{
 
     }],
-
     expressName: '', // 物流公司的名字
 
     parmas: {
-      logistic_code: '', //String	必需	 	运单编号
-      kdn_company_code: '', //String	必需	 	快递鸟物流公司编码
+      logistic_code: '', // String	必需	 	运单编号
+      kdn_company_code: '' // String	必需	 	快递鸟物流公司编码
     }
   },
 
   // 获取物流信息
   getDetail() {
     http.fxPost(api.logistics_information, this.data.parmas, (result) => {
-      console.log(result,"物流的信息")
+      console.log(result, '物流的信息')
       if (result.success) {
         result.data.Traces = result.data.Traces.reverse()
         this.setData({
@@ -51,7 +51,6 @@ Page({
     })
 
     this.getDetail()
-
   },
 
   /**
@@ -102,4 +101,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
+  
 })

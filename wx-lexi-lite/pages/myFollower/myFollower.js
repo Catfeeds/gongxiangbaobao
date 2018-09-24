@@ -1,29 +1,30 @@
 // pages/myFollower/myFollower.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isNext:false, // 是否有下一页
+    isNext: false, // 是否有下一页
     peopleList: [], // 粉丝的数量
     params: {
       uid: false, // 别人的uid
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
   // 获取自己的粉丝
   getFollower() {
     http.fxGet(api.users_fans_counts, this.data.params, (result) => {
-      console.log(result,"自己的粉丝")
+      console.log(result, '自己的粉丝')
       if (result.success) {
-
         let data = this.data.peopleList
         result.data.user_fans.forEach((v)=>{
           data.push(v)
@@ -42,9 +43,8 @@ Page({
   // 获取别人的粉丝 users/other_user_fans
   getOtherFollower(){
     http.fxGet(api.users_other_user_fans, this.data.params, (result) => {
-      console.log(result, "别人的粉丝")
+      console.log(result, '别人的粉丝')
       if (result.success) {
-
         let data = this.data.peopleList
         result.data.user_fans.forEach((v) => {
           data.push(v)
@@ -60,11 +60,8 @@ Page({
     })
   },
 
-  //添加关注
+  // 添加关注
   hanleAddWatch(e) {
-    console.log(this.data.peopleList.product_like_users)
-    console.log(e.currentTarget.dataset.uid)
-    console.log(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
@@ -80,11 +77,9 @@ Page({
     })
   },
 
-  //取消关注
+  // 取消关注
   hanleDeleteWatch(e) {
     let index = e.currentTarget.dataset.index
-    console.log(index)
-    console.log(this.data.peopleList)
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
@@ -103,20 +98,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-    //没有uid是获取自己的
+    // 没有uid是获取自己的
     if (!options.uid) {
-      wx.setNavigationBarTitle({title: '我的粉丝',})
+      wx.setNavigationBarTitle({ title: '我的粉丝' })
       this.getFollower()
-
     } else {
-      wx.setNavigationBarTitle({ title: 'ta的粉丝', })
+      wx.setNavigationBarTitle({ title: 'ta的粉丝' })
       this.setData({
         ['params.uid']: options.uid
       })
       this.getOtherFollower()
     }
-
   },
 
   /**
@@ -159,7 +151,7 @@ Page({
    */
   onReachBottom: function() {
     if (!this.data.isNext){
-      utils.fxShowToast("没有更多了")
+      utils.fxShowToast('没有更多了')
       return
     }
 
@@ -171,12 +163,11 @@ Page({
     if (!this.data.params.uid) {
       this.getFollower()
     }
+
     // 触底加载别人粉丝
     if (this.data.params.uid){
       this.getOtherFollower()
     }
-
-
   },
 
   /**
@@ -184,6 +175,6 @@ Page({
    */
   onShareAppMessage: function() {
     return app.shareLeXi()
-  },
-
+  }
+  
 })

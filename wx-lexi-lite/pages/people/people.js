@@ -1,5 +1,6 @@
 // pages/people/people.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -21,37 +22,37 @@ Page({
 
     classInfo: 1, // 切换---
     // 切换类型---
-    classList: [{
+    classList: [
+      {
         rid: 1,
         num: 0,
-        name: "喜欢"
+        name: '喜欢'
       },
       {
         rid: 2,
         num: 0,
-        name: "收藏"
+        name: '收藏'
       },
       {
         rid: 3,
         num: 0,
-        name: "设计馆"
+        name: '设计馆'
       }
     ],
 
     // 翻页参数
     nextPageParmas: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
   // 获取其他人个人中心 get_other_user_center
   getOtherPeopleInfo(e) {
-    console.log(e)
     http.fxGet(api.users_other_user_center, {
       uid: e
     }, (result) => {
-      console.log(result, "获取其他人个人中心")
+      console.log(result, '获取其他人个人中心')
       if (result.success) {
         let params = this.data.classList
         params.forEach((v, i) => {
@@ -71,7 +72,7 @@ Page({
             })
           } else {
             wx.setNavigationBarTitle({
-              title: "乐喜"
+              title: '乐喜'
             })
           }
         })
@@ -91,7 +92,7 @@ Page({
     http.fxGet(api.users_other_followed_stores, { ...this.data.nextPageParmas,
       uid: e
     }, (result) => {
-      console.log(result, "获取其他人关注地店铺列表")
+      console.log(result, '获取其他人关注地店铺列表')
       if (result.success) {
         this.setData({
           otherWatchStoreList: result.data
@@ -108,7 +109,7 @@ Page({
     http.fxGet(api.other_userlike, {
       uid: e
     }, (result) => {
-      console.log(result, "获取其他人喜欢列表")
+      console.log(result, '获取其他人喜欢列表')
       if (result.success) {
         this.setData({
           otherLikeList: result.data
@@ -131,12 +132,12 @@ Page({
         // this.getOtherLikeQuantity(this.data.otherPeopleUid) // 获取别人的喜欢
         break;
       case 2:
-        //最近查看
+        // 最近查看
         http.fxGet(api.other_user_browses, {
           uid: this.data.otherPeopleUid
         }, (result) => {
           if (result.success) {
-            console.log(result, "其他人最查看")
+            console.log(result, '其他人最查看')
             this.setData({
               userBrowsesProduct: result.data
             })
@@ -144,13 +145,14 @@ Page({
             utils.fxShowToast(result.status.message)
           }
         })
-        //心愿单
+
+        // 心愿单
         http.fxGet(api.other_wishlist, {
           uid: this.data.otherPeopleUid
         }, (result) => {
           console.log(this.data.otherPeopleUid)
           if (result.success) {
-            console.log(result, "其他人心愿单")
+            console.log(result, '其他人心愿单')
             this.setData({
               desireOrderProduct: result.data
             })
@@ -160,11 +162,11 @@ Page({
         })
         break;
       default:
-        // 设计管
+        // 设计馆
         http.fxGet(api.users_other_followed_life_stores, {
           uid: this.data.otherPeopleUid
         }, (result) => {
-          console.log(result, "设计管")
+          console.log(result, '设计馆')
 
           if (result.success) {
             this.setData({
@@ -173,14 +175,13 @@ Page({
           } else {
             utils.fxShowToast(result.status.message)
           }
-        });
+        })
     }
   },
 
   // 关闭登陆框
   hanleOffLoginBox(e) {
     this.setData({
-      // is_mobile: e.detail.offBox
       is_mobile: false
     })
   },
@@ -195,23 +196,22 @@ Page({
       })
       return
     }
-    console.log(e)
+
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 
     http.fxPost(api.add_watch, {
       rid: rid
     }, (result) => {
-      console.log(result,"g关注结果")
+      console.log(result, '关注结果')
       if (result.success) {
         if (index) {
           this.setData({
             ['watchStoreList.stores[' + index + '].followed_status']: 1
           })
         } else {
-          console.log("bieren")
           this.setData({
-            ["otherPeopleInfo.followed_status"]: 1
+            ['otherPeopleInfo.followed_status']: 1
           })
         }
       } else {
@@ -246,17 +246,16 @@ Page({
         } else {
           console.log("bieren")
           this.setData({
-            ["otherPeopleInfo.followed_status"]: 0
+            ['otherPeopleInfo.followed_status']: 0
           })
         }
-
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  //添加关注 人!
+  // 添加关注 人!
   hanleAddWatch(e) {
     // 是否登陆
     if (!app.globalData.isLogin) {
@@ -271,7 +270,7 @@ Page({
       console.log(result)
       if (result.success) {
         this.setData({
-          ["otherPeopleInfo.followed_status"]: 1
+          ['otherPeopleInfo.followed_status']: 1
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -279,7 +278,7 @@ Page({
     })
   },
 
-  //取消关注 人!
+  // 取消关注 人!
   hanleDeleteWatch(e) {
     // 是否登陆
     if (!app.globalData.isLogin) {
@@ -294,7 +293,7 @@ Page({
       console.log(result)
       if (result.success) {
         this.setData({
-          ["otherPeopleInfo.followed_status"]: 0
+          ['otherPeopleInfo.followed_status']: 0
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -306,16 +305,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     this.setData({
       otherPeopleUid: options.uid
     })
 
     this.getOtherPeopleInfo(options.uid) // 获取其他人个人中心
-    // this.getOtherWatchStore(options.uid) // 获取其他人关注地店铺列表
     this.getOtherLikeQuantity(options.uid) // 获取其他人的喜欢
-
-
   },
 
   /**
@@ -389,9 +384,9 @@ Page({
       url: '../dynamic/dynamic?from=people&uid=' + this.data.otherPeopleUid
     })
   },
+
   // 切换类别
   classTap(e) {
-    console.log(e.currentTarget.dataset.rid)
     this.setData({
       classInfo: e.currentTarget.dataset.rid
     })
@@ -400,7 +395,6 @@ Page({
 
   // 关注页面跳转
   handleWatchTap(e) {
-    console.log(e.currentTarget.dataset.uid)
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -409,6 +403,7 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../watch/watch?uid=' + e.currentTarget.dataset.uid,
     })
@@ -425,6 +420,7 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../myFollower/myFollower?uid=' +e.currentTarget.dataset.uid,
     })
@@ -432,20 +428,16 @@ Page({
 
   // 查看全部
   handleAllProduct(e) {
-
-    console.log(e.currentTarget.dataset.from)
-    console.log(e.currentTarget.dataset.uid)
     wx.navigateTo({
-      url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from + "&&uid=" + e.currentTarget.dataset.uid,
+      url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from + "&uid=" + e.currentTarget.dataset.uid,
     })
   },
 
   // 跳转到商品详情---
   handleToProductInfoTap(e) {
-    console.log(e.currentTarget.dataset.rid)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeRid
     })
-  },
+  }
 
 })

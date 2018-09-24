@@ -1,5 +1,6 @@
 // pages/user/user.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -9,11 +10,11 @@ Page({
    * 页面的初始数
    */
   data: {
-    readyOver:false, // 页面加载是否完成
-    isLoadPageShow:true, // 加载页面的三个点
-    orderSum:0, // 有没有订单
-    couponSum:0,// 有没有优惠券
-    is_login:false, // 是否登陆
+    readyOver: false, // 页面加载是否完成
+    isLoadPageShow: true, // 加载页面的三个点
+    orderSum: 0, // 有没有订单
+    couponSum: 0, // 有没有优惠券
+    is_login: false, // 是否登陆
     activeSubMenu: 'user',
     haveSmallB: false,
     watchStoreList: [], // 关注店铺的列表
@@ -28,20 +29,21 @@ Page({
     desireOrderProduct: [], //心愿单商品---
     product: [{}],
     // 切换类型---
-    classList: [{
+    classList: [
+      {
         rid: 1,
         num: 0,
-        name: "已喜欢"
+        name: '已喜欢'
       },
       {
         rid: 2,
         num: 0,
-        name: "收藏"
+        name: '收藏'
       },
       {
         rid: 3,
         num: 0,
-        name: "设计馆"
+        name: '设计馆'
       }
     ],
     // 获取商品的参数
@@ -51,20 +53,20 @@ Page({
     },
     //排序的参数
     sortParams: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
-      min_price: '', //Number	可选	 	价格区间： 最小价格
-      max_price: '', //Number	可选	 	价格区间： 最大价格
-      sort_type: 0, //Number	可选	0	排序: 0= 不限, 1= 价格由低至高, 2= 价格由高至低
-      is_free_postage: 0, //Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
-      is_preferential: '', //Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
+      min_price: '', // Number	可选	 	价格区间： 最小价格
+      max_price: '', // Number	可选	 	价格区间： 最大价格
+      sort_type: 0, // Number	可选	0	排序: 0= 不限, 1= 价格由低至高, 2= 价格由高至低
+      is_free_postage: 0, // Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
+      is_preferential: '' // Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
     }
   },
 
   /**
    * 切换生活馆管理
    */
-  handleGoStoreManage () {
+  handleGoStoreManage() {
     wx.navigateTo({
       url: '../lifeStoreManage/lifeStoreManage',
     })
@@ -77,19 +79,19 @@ Page({
     })
   },
 
-  /***
+  /**
    * 我喜欢的商品列表 
-  */
-  handleUserlikeList(){
+   */
+  handleUserlikeList() {
     wx.navigateTo({
       url: '../userLikeProduct/userLikeProduct'
     })
   },
+
   /**
    * 获取用户授权手机号
    */
   handleGotPhoneNumber (e) {
-    console.log(e)
     if (e.detail.errMsg == 'getPhoneNumber:ok') {
       // 调用login获取code
       wx.login({
@@ -131,7 +133,6 @@ Page({
 
   // 添加关注---
   handleAddWatch(e) {
-    console.log(e)
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 
@@ -141,7 +142,7 @@ Page({
       if (result.success) {
         this.setData({
           ['watchStoreList.stores[' + index + '].followed_status']: 1,
-          ['classList[' + 2 + '].num']: this.data.classList[2].num+1
+          ['classList[' + 2 + '].num']: this.data.classList[2].num + 1
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -151,8 +152,6 @@ Page({
 
   // 取消关注---
   handleDeleteWatch(e) {
-    console.log(e.currentTarget.dataset.rid)
-    console.log(e.currentTarget.dataset.index)
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 
@@ -180,20 +179,20 @@ Page({
       })
       return
     }
-    console.log(e)
+
     this.setData({
-      likeProduct:[],
-      ['sortParams.page']:1,
+      likeProduct: [],
+      ['sortParams.page']: 1,
       ['sortParams.min_price']: e.detail.minPrice, // 最小价格
       ['sortParams.max_price']: e.detail.maxPrice, // 最大价格
       ['sortParams.is_free_postage']: e.detail.logisticsPrice // 是否包邮
     })
+
     this.getPick()
   },
 
   // 获取排序的产品
   handleSort(e) {
-    console.log(e.detail.rid)
     this.setData({
       likeProduct: [],
       ['sortParams.page']: 1,
@@ -204,17 +203,17 @@ Page({
   },
 
   // 获取是否有未使用的优惠券和订单
-  getCouponAddOrder(){
+  getCouponAddOrder() {
     // 是否登陆
     if (!app.globalData.isLogin) {
       return
     }
     http.fxGet(api.orders_order_coupon_count, {}, (result) =>{
       if(result.success){
-        console.log(result,"订单，优惠券的数量")
+        console.log(result, '订单，优惠券的数量')
         this.setData({
           orderSum: result.data.order_count, // 有没有订单
-          couponSum: result.data.coupon_count,// 有没有优惠券
+          couponSum: result.data.coupon_count // 有没有优惠券
         })
       }else{
         utils.fxShowToast(result.status.message)
@@ -222,7 +221,7 @@ Page({
     })
   },
 
-  //获取筛选和排序的公用接口
+  // 获取筛选和排序的公用接口
   getPick(){
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
       console.log(result)
@@ -236,7 +235,6 @@ Page({
             ['likeProduct.products']: this.data.likeProduct.products.push(result.data.products)
           })
         }
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -275,14 +273,14 @@ Page({
     })
   },
 
-  //获取喜欢 收藏 设计管
+  // 获取喜欢 收藏 设计馆
   getCategoryQuantity() {
     // 是否登陆
     if (!app.globalData.isLogin) {
       return
     }
     http.fxGet(api.users_user_center, {}, (result) => {
-      console.log(result,"获取喜欢 收藏 设计管")
+      console.log(result,"获取喜欢 收藏 设计馆")
       let category = this.data.classList
       category.forEach((v) => {
         console.log(v)
@@ -321,7 +319,7 @@ Page({
     switch (e) {
       case 1:
         http.fxGet(api.userlike, this.data.getProductParams, (result) => {
-          console.log(result,"喜欢的商品")
+          console.log(result, '喜欢的商品')
           if (result.success) {
             this.setData({
               likeProduct: result.data
@@ -332,14 +330,13 @@ Page({
         })
         break;
       case 2:
-        console.log(app.globalData,"globalData")
-        let jwt = wx.getStorageSync("jwt")
+        let jwt = wx.getStorageSync('jwt')
         let openid = jwt.openid
 
-        //最近查看
+        // 最近查看
         http.fxGet(api.user_browses, { page: 1, per_page: 10, openid: openid}, (result) => {
           if (result.success) {
-            console.log(result,"用户最近查看")
+            console.log(result, '用户最近查看')
             this.setData({
               userBrowsesProduct: result.data
             })
@@ -347,7 +344,8 @@ Page({
             utils.fxShowToast(result.status.message)
           }
         })
-        //心愿单
+
+        // 心愿单
         http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
           if (result.success) {
             console.log(result)
@@ -362,7 +360,7 @@ Page({
       default:
         // 设计管
         http.fxGet(api.users_followed_stores, this.data.getProductParams, (result) => {
-          console.log(result,"设计管")
+          console.log(result, '设计馆')
           if (result.success) {
             this.setData({
               watchStoreList: result.data
@@ -370,7 +368,7 @@ Page({
           } else {
             utils.fxShowToast(result.status.message)
           }
-        });
+        })
     }
   },
 
@@ -384,14 +382,6 @@ Page({
     })
 
     this.getUserInfo() // 获取用户的信息
-
-    const lifeStore = wx.getStorageSync('lifeStore')
-    // 小B商家获取自己生活馆
-    if (lifeStore.isSmallB) {
-      this.setData({
-        haveSmallB: true
-      })
-    }
   },
 
   /**
@@ -400,7 +390,7 @@ Page({
   onReady: function() {
     this.setData({
       isLoadPageShow: false,
-      readyOver:true
+      readyOver: true
     })
   },
 
@@ -408,6 +398,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    const lifeStore = wx.getStorageSync('lifeStore')
+    // 小B商家获取自己生活馆
+    if (lifeStore.isSmallB) {
+      this.setData({
+        haveSmallB: true
+      })
+    }
+
     // 本地存储
     const userInfo = wx.getStorageSync('userInfo')
     if (userInfo) {
@@ -429,17 +427,19 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
-    console.log(123)
-    if (this.data.classInfo == 1){
-      //判断是否有下一页
+
+    if (this.data.classInfo == 1) {
+      // 判断是否有下一页
       if (!this.data.likeProduct.next) {
-        utils.fxShowToast("没有更多产品了")
+        utils.fxShowToast('没有更多了')
         return
       }
+
       this.setData({
         ['sortParams.page']: this.data.sortParams.page - 0 + 1
       })
-      //加载
+
+      // 加载
       this.getPick()
     }
   },
@@ -451,7 +451,6 @@ Page({
     this.setData({
       classInfo: 1
     })
-
   },
 
   /**
@@ -481,11 +480,11 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   },
+
   /**
    * 监听页面的滑动
    */
   onPageScroll(e) {
-
     if (e.scrollTop > 245) {
       this.setData({
         sotrF: true
@@ -508,6 +507,7 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../settings/settings?rid=' + e.currentTarget.dataset.id
     })
@@ -523,6 +523,7 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../coupon/coupon',
     })
@@ -538,6 +539,7 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../redBag/redBag',
     })
@@ -553,6 +555,7 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../order/order',
     })
@@ -562,7 +565,7 @@ Page({
   handleToProductInfoTap(e) {
     console.log(e.currentTarget.dataset)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeId
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeId
     })
   },
 
@@ -577,9 +580,9 @@ Page({
   // 关闭登陆框
   hanleOffLoginBox(e) {
     this.setData({
-      // is_mobile: e.detail.offBox,
        is_mobile: false
     })
+
     wx.showTabBar()
   },
 
@@ -593,11 +596,13 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../watch/watch',
     })
   },
-  //粉丝页面的跳转
+
+  // 粉丝页面的跳转
   handleFollowerTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
@@ -607,18 +612,19 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../myFollower/myFollower',
     })
   },
+
   // 查看全部
   handleAllProduct(e) {
-
-    console.log(e.currentTarget.dataset.from)
     wx.navigateTo({
       url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from,
     })
   },
+
   // 排序的盒子
   handleSortShow() {
     // 是否登陆
@@ -629,10 +635,12 @@ Page({
       })
       return
     }
+
     this.setData({
       isSortShow: true
     })
   },
+
   // 排序的盒子关闭
   handleSortOff() {
     var params = this.data.isSortShow
@@ -641,18 +649,13 @@ Page({
     } else {
       params = true
     }
+
     this.setData({
       isSortShow: params
     })
   },
-  // 排序的盒子关闭
-  // handleSortOff() {
-  //   this.setData({
-  //     isSortShow: false
-  //   })
-  // },
-  //关闭筛选的盒子
-  //关闭筛选的盒子
+
+  // 关闭筛选的盒子
   handelOffPick() {
     // 是否登陆
     if (!app.globalData.isLogin) {
@@ -672,14 +675,8 @@ Page({
       handelOffPick: params
     })
   },
-  // 打开筛选的盒子
-  // hanlePickS() {
-  //   this.setData({
-  //     handelOffPick: true
-  //   })
-  // },
 
-  //关闭登陆框
+  // 关闭登陆框
   handelOffTap(){
     wx.showTabBar()
     this.setData({
@@ -697,8 +694,10 @@ Page({
       })
       return
     }
+
     wx.navigateTo({
       url: '../dynamic/dynamic',
     })
   }
+  
 })

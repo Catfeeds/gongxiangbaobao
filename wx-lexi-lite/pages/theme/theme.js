@@ -1,8 +1,10 @@
 // pages/theme/theme.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -11,7 +13,8 @@ Page({
   data: {
     product: [{}],  
   },
-  //跳转到商品详情---
+
+  // 跳转到商品详情---
   handleInfomation(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
@@ -76,4 +79,5 @@ Page({
   onShareAppMessage: function () {
     return app.shareLeXi()
   }
+  
 })

@@ -22,17 +22,15 @@ Page({
     commentList: '', //评论的列表
     // 获取评论的参数
     params: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
-      sort_type: '', //Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
-      rid: '', //Number	必须	 	橱窗编号
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
+      sort_type: '', // Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
+      rid: '' // Number	必须	 	橱窗编号
     }
   },
 
   // 点击相关推荐
   handlesAgainLoading (e) {
-    console.log(e)
-    console.log(e.currentTarget.dataset.rid)
     wx.pageScrollTo({
       scrollTop: 0,
     })
@@ -57,7 +55,7 @@ Page({
     })
   },
   
-  //添加关注 -- 关注人 uid
+  // 添加关注 -- 关注人 uid
   handleAddFollow(e) {
     if (!app.globalData.isLogin) {
       this.setData({
@@ -69,7 +67,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result, "添加关注")
+      console.log(result, '添加关注')
       if (result.success) {
         this.setData({
           ['liveInfo.is_follow']: true
@@ -80,7 +78,7 @@ Page({
     })
   },
 
-  //取消关注关注 -- 关注人
+  // 取消关注关注 -- 关注人
   handleDeleteFollow(e) {
     if (!app.globalData.isLogin) {
       this.setData({
@@ -92,7 +90,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result, "取消关注")
+      console.log(result, '取消关注')
       if (result.success) {
         this.setData({
           ['liveInfo.is_follow']: false
@@ -107,13 +105,12 @@ Page({
   handleGoProduct(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '/pages/product/product?rid=' + rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
+      url: '/pages/product/product?rid=' + rid + "&storeRid=" + e.currentTarget.dataset.storeRid
     })
   },
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
@@ -129,7 +126,6 @@ Page({
 
   // 添加关注---
   handleAddWatch(e) {
-    console.log(e)
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 
@@ -148,8 +144,6 @@ Page({
 
   // 取消关注---
   handleDeleteWatch(e) {
-    console.log(e.currentTarget.dataset.rid)
-    console.log(e.currentTarget.dataset.index)
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 
@@ -170,7 +164,7 @@ Page({
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
-      console.log(result, "商品推荐")
+      console.log(result, '商品推荐')
       if (result.success) {
         this.setData({
           recommendProduct: result.data
@@ -184,7 +178,7 @@ Page({
   // 获取生活志的评论
   getComment() {
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
-      console.log(result, "生活志的评论")
+      console.log(result, '生活志的评论')
       if (result.success) {
         // result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
 
@@ -256,7 +250,7 @@ Page({
             '</div>' +
             '</div>'
         } else {
-          console.log(item,"每一个商品is_free_postage")
+          console.log(item, "每一个商品is_free_postage")
           productHtml = '<div class="product-min__box">' +
             '<div class="product-min__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
             '<div class="product-min__content">' + 
@@ -287,7 +281,7 @@ Page({
   // 相关故事推荐
   getRecommend() {
     http.fxGet(api.life_records_similar, this.data.params, (result) => {
-      console.log(result, "相关故事推荐")
+      console.log(result, '相关故事推荐')
       if (result.success) {
         result.data.life_records.forEach((v) => {
           v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, "")
@@ -367,4 +361,5 @@ Page({
   onShareAppMessage: function () {
     return app.shareLeXi()
   }
+  
 })

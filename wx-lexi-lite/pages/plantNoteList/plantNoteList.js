@@ -1,26 +1,27 @@
 // pages/designerAffair/designerAffair.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isLoadProductShow:true,// 加载页面的图标
+    isLoadProductShow: true,// 加载页面的图标
     isNext: true, // 是否有下一页
     dataList: [], // 创作人故事列表
     params: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
-  //跳转到详情
+  // 跳转到详情
   handleToInfo(e) {
-    console.log(e.currentTarget.dataset.type)
     let rid = e.currentTarget.dataset.rid
     if (e.currentTarget.dataset.type == 1) {
       wx.navigateTo({
@@ -36,7 +37,7 @@ Page({
 
   getData() {
     http.fxGet(api.life_records_grass_note, this.data.params, (result) => {
-      console.log(result, "种草清单")
+      console.log(result, '种草清单')
       if (result.success) {
         this.setData({
           dataList: result.data.life_records,
@@ -55,6 +56,7 @@ Page({
   onLoad: function(options) {
     this.getData()
   },
+
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -68,7 +70,7 @@ Page({
       isLoadProductShow:true
     })
 
-    this.data.getData()
+    this.getData()
   },
 
   /**
@@ -112,4 +114,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
+  
 })

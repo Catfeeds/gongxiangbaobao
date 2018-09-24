@@ -1,8 +1,10 @@
 // pages/likeThisProduct/likeThisProduct.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -11,28 +13,28 @@ Page({
   data: {
     peopleList: [], //喜欢商品的人列表
     parmas: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
-      rid: '', //必须	 	商品编号
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
+      rid: '' // 必须	 	商品编号
     }
   },
 
   // 喜欢该商品的人
   getinfo(e) {
-    console.log(this.data.parmas)
-    http.fxGet(api.product_userlike, this.data.parmas,(result)=>{
-      console.log(result,"喜欢该商品地人")
-      if(result.success){
+    http.fxGet(api.product_userlike, this.data.parmas, (result) => {
+      console.log(result, '喜欢该商品的人')
+      if (result.success) {
         this.setData({
           peopleList: result.data
         })
-      }else{
-
+      } else {
+        console.log(result.status.message)
       }
     })
   },
-//添加关注
-  hanleAddWatch(e){
+
+  // 添加关注
+  hanleAddWatch(e) {
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
@@ -41,20 +43,22 @@ Page({
     }
 
     let index = e.currentTarget.dataset.index
-    http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid },(result)=>{
+    http.fxPost(api.follow_user, {
+      uid: e.currentTarget.dataset.uid
+    }, (result) => {
       console.log(result)
-      if(result.success){
+      if (result.success) {
         this.setData({
-          ['peopleList.product_like_users[' + index + '].followed_status']:result.data.followed_status
+          ['peopleList.product_like_users[' + index + '].followed_status']: result.data.followed_status
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  //取消关注
-  hanleDeleteWatch(e){
+  // 取消关注
+  hanleDeleteWatch(e) {
     if (!app.globalData.isLogin) {
       this.setData({
         is_mobile: true
@@ -63,19 +67,21 @@ Page({
     }
 
     let index = e.currentTarget.dataset.index
-    http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid },(result)=>{
+    http.fxPost(api.unfollow_user, {
+      uid: e.currentTarget.dataset.uid
+    }, (result) => {
       console.log(e)
-      if(result.success){
+      if (result.success) {
         this.setData({
           ['peopleList.product_like_users[' + index + '].followed_status']: 0
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
-    }) 
+    })
   },
 
-  //关闭登陆框
+  // 关闭登陆框
   handelOffTap() {
     utils.handleShowTabBar()
     this.setData({
@@ -83,7 +89,7 @@ Page({
     })
   },
 
-  // 跳转到其他人地主页
+  // 跳转到其他人的主页
   handleToPeopleTap(e) {
     console.log(e.currentTarget.dataset.uid)
     if (e.currentTarget.dataset.index == 0) {
@@ -95,7 +101,6 @@ Page({
         url: '../people/people?uid=' + e.currentTarget.dataset.uid,
       })
     }
-
   },
 
   /**
@@ -105,6 +110,7 @@ Page({
     this.setData({
       ['parmas.rid']: options.rid
     })
+
     this.getinfo()
   },
 
@@ -155,7 +161,6 @@ Page({
    */
   onShareAppMessage: function() {
     return app.shareLeXi()
-  },
-
+  }
 
 })

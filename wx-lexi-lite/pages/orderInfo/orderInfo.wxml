@@ -81,7 +81,7 @@
 
           <!-- 物流跟踪 -->
           <view catchtap='logisticsTap' data-code="{{sku.items[0].express_code}}" data-express-name="{{sku.items[0].express_name}}" data-logistics-number="{{sku.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
-            <view class=' colimn-B'>
+            <view class='colimn-B'>
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>
                 <view class='logistics-icon'>
@@ -90,7 +90,7 @@
                 <view>第三方直邮</view>
               </view>
             </view>
-            <view class='green-btn'>
+            <view class='green-btn' wx:if="{{ sku.items[0].express_no }}">
               物流跟踪
             </view>
           </view>

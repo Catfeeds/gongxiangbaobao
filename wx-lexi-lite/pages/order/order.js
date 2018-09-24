@@ -1,5 +1,6 @@
 // pages/order/order.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -28,7 +29,8 @@ Page({
 
     // navbar
     currentStatus: 0,
-    navList: [{
+    navList: [
+      {
         title: '全部',
         status: 0
       },
@@ -265,7 +267,6 @@ Page({
 
   //确认收货
   handleReceive(e) {
-    console.log(e, "确认收货的e")
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.index
     console.log(idx, rid)
@@ -273,7 +274,7 @@ Page({
     http.fxPost(api.order_signed, {
       rid: rid
     }, (result) => {
-      console.log(result, "确认收货")
+      console.log(result, '确认收货')
 
       if (result.success) {
         let allshouhuoData = this.data.allOrderList
@@ -368,10 +369,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // this.setData({
-    //   'getOrderListParams.page': 1,
-    //   orderList: [],
-    // })
     this.getOrderList() // 获取订单列表---
     this.getDaifaList() // 获取待发列表---
     this.getDaishouList() // 获取待收货列表---
@@ -489,13 +486,13 @@ Page({
 
   // 物流跟踪
   logTop(e) {
-    console.log(e)
     let code = e.currentTarget.dataset.code
     let logisticsNumber = e.currentTarget.dataset.logisticsNumber
     let expressName = e.currentTarget.dataset.expressName
 
     wx.navigateTo({
-      url: '../logisticsWatch/logisticsWatch?code=' + code + '&&logisticsNumber=' + logisticsNumber + '&&expressName=' + expressName
+      url: '../logisticsWatch/logisticsWatch?code=' + code + '&logisticsNumber=' + logisticsNumber + '&expressName=' + expressName
     })
   }
+  
 })

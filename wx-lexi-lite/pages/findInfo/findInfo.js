@@ -236,7 +236,7 @@ Page({
     this.setData({
       rid: options.rid,
       'params.rid': options.rid,
-      category: options.category,
+      category: options.category || '',
     })
     
     this.getLiveInfo() // 生活志详情

@@ -1,5 +1,6 @@
 // pages/settings/settings.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -23,40 +24,41 @@ Page({
     verification_code: [], //验证码输入---
     over_button: false, // 完成按钮---
     // 选择国家
-    country_pick: [{
-        country_name: "中国大陆",
+    country_pick: [
+      {
+        country_name: '中国大陆',
         code: 86,
         rid: 1
       },
       {
-        country_name: "中国台湾",
+        country_name: '中国台湾',
         code: 886,
         rid: 2
       },
       {
-        country_name: "中国香港",
+        country_name: '中国香港',
         code: 852,
         rid: 3
       },
       {
-        country_name: "中国澳门",
+        country_name: '中国澳门',
         code: 853,
         rid: 4
       },
       {
-        country_name: "日本",
+        country_name: '日本',
         code: 81,
         rid: 5
       },
       {
-        country_name: "泰国",
+        country_name: '泰国',
         code: 66,
         rid: 6
-      },
+      }
     ]
   },
 
-  //选择国家的id
+  // 选择国家的id
   pickCountryTap (e) {
     this.setData({
       country_code: e.currentTarget.dataset.code
@@ -74,9 +76,9 @@ Page({
   getNumberTap() {
     let mobileNumber = this.data.mobaile_number - 0
     let getMobalCode = {
-      mobile: '', //String	必须	 	手机号
-      area_code: '+86', //String	可选	+86	区号
-      page: 'phone_verify_code' //String	必须	 	接口请求地址(如注册页面就是register)
+      mobile: '', // String	必须	 	手机号
+      area_code: '+86', // String	可选	+86	区号
+      page: 'phone_verify_code' // String	必须	 	接口请求地址(如注册页面就是register)
     }
 
     if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(mobileNumber))) {
@@ -154,9 +156,6 @@ Page({
 
   // 点击关闭呼出框---
   countryHidTap () {
-    // this.setData({
-    //   is_mobile: false
-    // })
     wx.navigateBack({
       delta: 1
     })
@@ -189,11 +188,11 @@ Page({
 
   // 完成按钮
   handleVerifyOverTap () {
-    var params = {
-      auth_app_id: wx.getStorageSync('fx').app_id, //	 	小程序ID
+    let params = {
+      auth_app_id: app.globalData.app_id, //	 	小程序ID
       openid: wx.getStorageSync('jwt').openid, //	用户标识
       mobile: this.data.mobaile_number, // 	手机号
-      verify_code: this.data.testCode, //	手机验证码
+      verify_code: this.data.testCode //	手机验证码
     }
     if (!this.data.over_button || this.data.verification_code != this.data.testCode) {
       utils.fxShowToast('手机号码或验证码错误')
@@ -230,7 +229,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    // wx.getStorageSync('allPlaces') || common.getReceivePlaces() // 加载收货地址
+    
   },
   
   /**
@@ -307,4 +306,5 @@ Page({
       url: '../receiveAddress/receiveAddress',
     })
   }
+  
 })
