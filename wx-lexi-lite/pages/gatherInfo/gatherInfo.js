@@ -5,27 +5,28 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isLoadProductShow:true, // 加载动画
-    product:[], //详情
+    isLoadProductShow: true, // 加载动画
+    product: [], //详情
     isNext: true, // 是否有下一页
     productList: [],
     params: {
-      id: "", //Number	必须	 	集合编号
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      id: '', // Number	必须	 	集合编号
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
   // 获取列表
   getProducts() {
     http.fxGet(api.column_collections_detail, this.data.params, (result) => {
-      console.log(result,"集合详情")
+      console.log(result, '集合详情')
       if (result.success) {
 
         wx.setNavigationBarTitle({
@@ -54,7 +55,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     this.setData({
       ['params.id']: options.rid
     })
@@ -67,7 +67,7 @@ Page({
    */
   onReachBottom: function() {
     if (!this.data.isNext) {
-      utils.fxShowToast("没有更多了")
+      utils.fxShowToast('没有更多了')
       return
     }
 
@@ -81,7 +81,6 @@ Page({
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
@@ -128,5 +127,5 @@ Page({
   onPullDownRefresh: function() {
     return app.shareLeXi()
   }
-
+  
 })

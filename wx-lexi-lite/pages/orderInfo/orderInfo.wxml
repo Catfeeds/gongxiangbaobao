@@ -109,11 +109,7 @@
       </view>
 
     </block>
-
-
-
-
-
+    
     <!-- 垫片 -->
     <view class='shm'></view>
   </block>

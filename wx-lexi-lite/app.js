@@ -6,7 +6,7 @@ const utils = require('./utils/util.js')
 const common = require('./utils/common.js')
 
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
     let logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -20,7 +20,7 @@ App({
     this.globalData.configInfo = extConfig
     this.globalData.app_id = extConfig.authAppid
     this.globalData.storeRid = extConfig.storeRid
-    
+
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
     console.log(jwt, 'jwt')
@@ -65,11 +65,13 @@ App({
   /**
    * 登录
    */
-  login: function () {
+  login: function() {
     return new Promise((resolve, reject) => {
 
       if (this.globalData.userLoaded) {
-        return resolve({ success: true })
+        return resolve({
+          success: true
+        })
       }
 
       // 调用login获取code
@@ -102,8 +104,10 @@ App({
                 // 回调函数
                 this.hookLoginCallBack()
               }
-              
-              resolve({ success: true })
+
+              resolve({
+                success: true
+              })
             } else {
               // 显示错误信息
               wx.showToast({
@@ -112,7 +116,9 @@ App({
                 duration: 2000
               })
 
-              reject({ success: false })
+              reject({
+                success: false
+              })
             }
           })
         }
@@ -137,7 +143,7 @@ App({
     }
 
     this.globalData.userLoaded = true
-    
+
     wx.setStorageSync('userInfo', this.globalData.userInfo)
   },
 
@@ -177,7 +183,7 @@ App({
   /**
    * 更新用户最后访问的生活馆信息
    */
-  updateLifeStoreLastVisit (sid) {
+  updateLifeStoreLastVisit(sid) {
     wx.setStorageSync('lastVisitLifeStoreRid', sid)
 
     // 登录用户，更新至服务端；
@@ -201,8 +207,8 @@ App({
    * 获取国家或地区下所有省市区
    * 默认值：1，为中国大陆
    */
-  getAddressPlaces(country_id=1, cb) {
-    let cacheKey = 'places_'+ country_id
+  getAddressPlaces(country_id = 1, cb) {
+    let cacheKey = 'places_' + country_id
     let allPlaces = wx.getStorageSync(cacheKey)
     if (!allPlaces || Object.keys(allPlaces).length == 0) {
       http.fxGet(api.provinces_cities, {
@@ -226,12 +232,12 @@ App({
       return typeof cb == 'function' && cb(allPlaces)
     }
   },
-  
+
   /**
    * 获取用户最后访问的生活馆rid
    */
-  getLastVisitLifeStore () {
-    http.fxGet(api.life_store_last_visit, {}, function (result) {
+  getLastVisitLifeStore() {
+    http.fxGet(api.life_store_last_visit, {}, function(result) {
       if (result.success) {
         lastVisitLifeStoreRid = result.data.last_store_rid
 
@@ -244,7 +250,7 @@ App({
    * 分享小程序至好友
    * 验证生活馆或其他分销信息
    */
-  getDistributeLifeStoreRid () {
+  getDistributeLifeStoreRid() {
     let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
 
     if (!lastVisitLifeStoreRid) {
@@ -260,13 +266,13 @@ App({
   /**
    * 分享商品详情页
    */
-  shareWxaProduct (rid, title, imageUrl) {
+  shareWxaProduct(rid, title, imageUrl) {
     let lastVisitLifeStoreRid = this.getDistributeLifeStoreRid()
 
     // scene格式：rid + '-' + sid
     let scene = rid
     if (lastVisitLifeStoreRid) {
-      scene +=  '-' + lastVisitLifeStoreRid
+      scene += '-' + lastVisitLifeStoreRid
     }
 
     console.log('pages/product/product?scene=' + scene)
@@ -278,21 +284,31 @@ App({
         console.log(res, '分享商品成功!')
       }
     }
-    
+
   },
 
- /**
+  /**
    * 分享平台
    */
+  shareLeXi() {
+    let lastVisitLifeStoreRid = this.getDistributeLifeStoreRid()
+    let jwt = wx.getStorageSync('jwt')
 
-  shareLeXi(){
-    let uid = wx.getStorageSync("jwt")
+    // scene格式：sid + '-' + uid
+    let scene = ''
+    if (lastVisitLifeStoreRid) {
+      scene = lastVisitLifeStoreRid
+      if (jwt.uid) {
+        scene += '-' + jwt.uid
+      }
+    }
+    
     return {
-      title: "乐喜",
-      path: 'pages/index/index?uid=' + uid.uid,
+      title: '乐喜',
+      path: 'pages/index/index?scene=' + scene,
       imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {
-        console.log(res, '分享商品成功!')
+        console.log(res, '分享成功!')
       }
     }
   },
@@ -300,14 +316,16 @@ App({
   /**
    * 订单成功后，清除订单相关全局变量
    */
-  cleanOrderGlobalData () {
+  cleanOrderGlobalData() {
     this.globalData.deliveryCountries = []
+    // 重新获取购物车数量
+    this.getCartTotalCount()
   },
-  
+
   /**
    * 支付订单
    */
-  wxpayOrder: function (rid, payParams, cb) {
+  wxpayOrder: function(rid, payParams, cb) {
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -315,8 +333,8 @@ App({
       package: 'prepay_id=' + payParams.prepay_id,
       signType: 'MD5',
       paySign: payParams.pay_sign,
-      success: function (res) {
-        console.log(res,"支付成功返回参数")
+      success: function(res) {
+        console.log(res, '支付成功返回参数')
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
             title: '支付成功',
@@ -342,8 +360,8 @@ App({
           // })
         }
       },
-      fail: function (res) {
-        console.log(res.errMsg,'支付失败了')
+      fail: function(res) {
+        console.log(res.errMsg, '支付失败了')
         if (res.errMsg == 'requestPayment:fail') {
           wx.showToast({
             title: res.err_desc,
@@ -369,7 +387,9 @@ App({
   getCartTotalCount() {
     const jwt = wx.getStorageSync('jwt')
 
-    http.fxGet(api.cart_item_count, { open_id: jwt.openid }, (res) => {
+    http.fxGet(api.cart_item_count, {
+      open_id: jwt.openid
+    }, (res) => {
       console.log(res, '购物车数量')
       if (res.success) {
         this.updateCartTotalCount(res.data.item_count)
@@ -396,7 +416,7 @@ App({
   /**
    * 获取用户地理位置
    */
-  getUserLocation: function () {
+  getUserLocation: function() {
     wx.getLocation({
       type: 'wgs84',
       success: (res) => {
@@ -476,6 +496,7 @@ App({
       affiliate_code: '', // String	可选	 	推广码
       bonus_code: '', // String	可选	 	官方红包码
       sync_pay: 1, // Integer	可选	0	是否同步返回支付参数 0、否 1、是
+      last_store_rid: '', // 最近浏览的小b店铺rid
       openid: '',
       store_items: [{
         store_rid: '', // String	必需	 	当前店铺rid

@@ -4,7 +4,7 @@
 
 <view class='container theme-bg-color product-bout-box {{coupon_show || pick?"prevent__penetrate":""}}'>
   <!-- 添加页面加载 -->
-    <image 
+  <image 
     src='../../images/jiazai.gif' 
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
@@ -311,7 +311,7 @@
     </view>
   </view>
 
-<!-- 是小b -->
+  <!-- 是小b -->
   <view class=' bg-white c-crosswise-a bottom-btn__position' wx:if="{{isSmallB && isDistributed}}">
     <view class='btn-bg-color shop-cart'>
       <view class='flex_row--middle add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>

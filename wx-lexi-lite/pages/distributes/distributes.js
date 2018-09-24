@@ -94,7 +94,6 @@ Page({
 
   // 轮播图跳转
   handleLiveInfo(e) {
-
     let targetType = e.currentTarget.dataset.type
     let link = e.currentTarget.dataset.link
 
@@ -135,7 +134,6 @@ Page({
       this.getAllProducts()
       this.getCategories()
     } else { // 推荐
-
       this.setData({
         swiperIndex:0
       })
@@ -160,7 +158,7 @@ Page({
 
   // 轮播图发生变化的时候
   handleswiperItemCheng(e) {
-    console.log(e, "轮播图发生变化的时候")
+    console.log(e, '轮播图发生变化')
 
     this.setData({
       swiperIndex: e.detail.current
@@ -287,7 +285,6 @@ Page({
     this.setData({
       leftTimer: _t
     })
-
   },
 
   /**
@@ -527,23 +524,22 @@ Page({
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              utils.fxShowToast("保存成功", "success")
+              utils.fxShowToast('保存成功', 'success')
             },
             fail(res) {
-              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
                 wx.openSetting({
                   success(settingdata) {
                     console.log(settingdata)
-                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                      console.log("获取权限成功，再次点击图片保存到相册")
-                      utils.fxShowToast("保存成功")
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      utils.fxShowToast('保存成功')
                     } else {
-                      utils.fxShowToast("保存失败")
+                      utils.fxShowToast('保存失败')
                     }
                   }
                 })
               } else {
-                utils.fxShowToast("保存失败")
+                utils.fxShowToast('保存失败')
               }
             }
           })
@@ -610,19 +606,18 @@ Page({
       if (res.success) {
         let l = res.data.headlines.length
 
-
         let newData = []
         res.data.headlines.forEach((v, i) => {
 
           if (v.time > 24) {
-            v.time = Math.ceil(v.time % 24) + "天"
+            v.time = Math.ceil(v.time % 24) + '天'
           } else {
-            v.time = v.time + "小时"
+            v.time = v.time + '小时'
           }
 
           if (v.username - 0 != NaN && v.username.length > 9) {
             console.log(v)
-            v.username = v.username.substr(0, 3) + "****" + v.username.substr(7, 4)
+            v.username = v.username.substr(0, 3) + '****' + v.username.substr(7, 4)
           }
 
           let newObj = []
@@ -635,12 +630,8 @@ Page({
 
         // 暂时展示2条
         this.setData({
-          // storeHeadlines: res.data.headlines.splice(0, 2)
           storeHeadlines: newData
         })
-
-        console.log(this.data.storeHeadlines,"开馆头条的处理数据")
-
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -860,6 +851,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.setNavigationBarTitle({
+      title: '选品中心'
+    })
+
     wx.getSystemInfo({
       success: (res) => {
         this.setData({

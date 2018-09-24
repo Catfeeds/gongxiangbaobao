@@ -64,13 +64,11 @@ Page({
   orderLastPrice() {
     var lastPrice = (this.data.pageOrderInfo.firstPrice * 1000 -  this.data.pageOrderInfo.fullSubtraction * 1000 - this.data.pageOrderInfo.couponPrice * 1000 + this.data.pageOrderInfo.logisticsPrice * 1000)/1000
 
-    if (this.data.isFirstOrder){
-      
+    if (this.data.isFirstOrder) {
       this.setData({
         ['pageOrderInfo.firstOrderPrice']: (lastPrice * 0.1).toFixed(2)
       })
       lastPrice = lastPrice * 0.9
-
     }
 
     this.setData({
@@ -98,18 +96,16 @@ Page({
 
   // 领取官方优惠券按钮后
   handleAuthoritativeCoupon(e) {
-    console.log(e,"官方优惠券领取")
-    console.log(this.data.orderInfomation,"订单参数")
+    console.log(this.data.orderInfomation, '订单参数')
 
     app.globalData.orderParams.bonus_code = e.detail.value.code
 
     let item = this.data.orderInfomation
-    Object.keys(item).forEach((key)=>{
-      console.log(item[key])
-      item[key].coupon_codes=""
+    Object.keys(item).forEach((key) => {
+      item[key].coupon_codes = ''
     })
 
-    console.log(this.data.orderInfomation, "选择后的优惠卷")
+    console.log(this.data.orderInfomation, '选择后的优惠卷')
 
     let option = e.detail.value
     let coupon = JSON.parse(option)
@@ -151,7 +147,6 @@ Page({
       params.items.push(productsList)
     })
 
-    console.log(params)
     setTimeout(() => {
       http.fxPost(api.calculate_logisitcs, params, (result) => {
         console.log(result)
@@ -189,7 +184,6 @@ Page({
       })
     })
 
-    console.log(order)
     setTimeout(() => {
       this.setData({
         orderInfomation: order
@@ -201,7 +195,7 @@ Page({
 
   // 选择优惠券后 店铺
   radioChange(e) {
-    app.globalData.orderParams.bonus_code=''
+    app.globalData.orderParams.bonus_code = ''
     let params = JSON.parse(e.detail.value)
     console.log(this.data.orderInfomation[params.store_rid].coupon_price)
     
@@ -221,13 +215,12 @@ Page({
         this.orderLastPrice() // 计算最后金额
       })
     })
-    console.log(this.data.orderInfomation, "选择后的优惠卷")
+
+    console.log(this.data.orderInfomation, '选择后的优惠卷')
   },
 
   // 优惠券弹框里面的内容couponList
   couponTap(e) {
-    console.log(this.data.couponList)
-    console.log(e.currentTarget.dataset.order_rid)
     if (e.currentTarget.dataset.order_rid) {
       let coupon = this.data.couponList[e.currentTarget.dataset.order_rid]
       coupon.forEach((v, i) => {
@@ -298,16 +291,19 @@ Page({
 
     // 补充参数
     const jwt = wx.getStorageSync('jwt')
-
-    app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
     app.globalData.orderParams.openid = jwt.openid
+
+    const lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
+    if (lastStoreRid) { // 分销生活馆rid
+      app.globalData.orderParams.last_store_rid = lastStoreRid
+    }
+    
+    app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
-
       console.log(result, '新增订单')
       if (result.success) {
-        
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
         
@@ -315,6 +311,7 @@ Page({
         app.cleanOrderGlobalData()
 
         let currentOrder = result.data.orders[0]
+
         app.wxpayOrder(result.data.order_rid, result.data.pay_params)
       } else {
         utils.fxShowToast(result.status.message)

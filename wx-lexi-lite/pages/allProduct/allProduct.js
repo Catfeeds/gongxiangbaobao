@@ -1,8 +1,10 @@
 // pages/allProduct/allProduct.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -14,49 +16,60 @@ Page({
     rightTimer: null, // 延迟句柄
     categoryList: [], // 分类列表
     checkedCids: [], // 选择的分类
-    showFilterModal: false,// 筛选
+    showFilterModal: false, // 筛选
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
 
-    isLoadProductShow:true, // 加载更多产品的loading图片
-    isLoadPageShow:true, // 加载数据的Loadig图片
+    isLoadProductShow: true, // 加载更多产品的loading图片
+    isLoadPageShow: true, // 加载数据的Loadig图片
 
-    shim:true, // 垫片是否显示
-    topBGPhoto:'', // 头部背景图片
-    topPhotoText:"", // 背景文字
-    pickQuantity:"", // 商品的数量
-    openPickBox:false, // 筛选的模态框
-    sortBox:false, // 排序的模态框
-    browseRecordOfThis:[], // 浏览过本栏目的记录
-    otherUid:'', // 别人的uid
+    shim: true, // 垫片是否显示
+    topBGPhoto: '', // 头部背景图片
+    topPhotoText: '', // 背景文字
+    pickQuantity: '', // 商品的数量
+    openPickBox: false, // 筛选的模态框
+    sortBox: false, // 排序的模态框
+    browseRecordOfThis: [], // 浏览过本栏目的记录
+    otherUid: '', // 别人的uid
     isPersonal: false, // 是不是从个人中心进入
     productList: [], // 商品列表
-    touchBottomInfo: "", // 触底加载需要的信息,
+    touchBottomInfo: '', // 触底加载需要的信息,
     isLoadingNextPage: true, // 触底是否加载,
     editRecommendRequestParams: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
-      view_more:	1,//Number	可选	0	是否查看更多: 0 = 否, 1= 是
-      cids: '',//String	可选 分类Id  编辑推荐=e_recommend, 优质精品=e_new, 特惠好设计=preferential_design, 百元好物=affordable_goods
-      min_price:	'',//Number	可选	 	价格区间： 最小价格
-      max_price:	'',//Number	可选	 	价格区间： 最大价格
-      sort_type:	1,//Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
-      is_free_postage:	0,//Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
-      is_preferential:	0,//Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
-      is_custom_made:	0,//Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
+      view_more: 1, // Number	可选	0	是否查看更多: 0 = 否, 1= 是
+      cids: '', // String	可选 分类Id  编辑推荐=e_recommend, 优质精品=e_new, 特惠好设计=preferential_design, 百元好物=affordable_goods
+      min_price: '', // Number	可选	 	价格区间： 最小价格
+      max_price: '', // Number	可选	 	价格区间： 最大价格
+      sort_type: 1, // Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
+      is_free_postage: 0, // Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
+      is_preferential: 0, // Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
+      is_custom_made: 0 // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
     },
 
     // 推荐
-    recommendList: [
-      { name: "包邮", id: '1', isActive: false },
-      { name: "特惠", id: "2", isActive: false },
-      { name: "可定制", id: "3", isActive: false },
+    recommendList: [{
+        name: '包邮',
+        id: '1',
+        isActive: false
+      },
+      {
+        name: '特惠',
+        id: '2',
+        isActive: false
+      },
+      {
+        name: '可定制',
+        id: '3',
+        isActive: false
+      },
     ]
   },
 
   /**
-* 滑块最低价格
-*/
+   * 滑块最低价格
+   */
   handleChangeMinPrice(e) {
     let minPrice = e.detail.lowValue
     if (this.data.editRecommendRequestParams.max_price == -1) {
@@ -100,12 +113,11 @@ Page({
     this.setData({
       leftTimer: _t
     })
-
   },
 
   /**
- * 重置回调事件
- */
+   * 重置回调事件
+   */
   handleResetFilterCondition(e) {
     this.selectComponent('#fx-slider').reset()
     let _categories = this.data.categoryList
@@ -170,8 +182,8 @@ Page({
   },
 
   /**
-* 关闭弹窗回调
-*/
+   * 关闭弹窗回调
+   */
   handleCloseFilterModal(e) {
     this.setData({
       showFilterModal: false
@@ -179,8 +191,8 @@ Page({
   },
 
   /**
- * 分类列表
- */
+   * 分类列表
+   */
   getCategories() {
     http.fxGet(api.categories, {}, (result) => {
       console.log(result, '分类列表')
@@ -195,8 +207,8 @@ Page({
   },
 
   /**
- * 改变分类
- */
+   * 改变分类
+   */
   handleToggleCategory(e) {
     let cid = e.currentTarget.dataset.cid
 
@@ -220,7 +232,7 @@ Page({
 
     this.setData({
       categoryList: _categories,
-      productList:[],
+      productList: [],
       'editRecommendRequestParams.cids': _checkedCids.join(','),
       'editRecommendRequestParams.page': 1
     })
@@ -244,17 +256,14 @@ Page({
     if (this.data.touchBottomInfo == "goodDesign") {
       this.getGoodDesign()
     }
-
   },
 
   /**
-* 选择推荐
-*/
+   * 选择推荐
+   */
   handleToggleRecommendList(e) {
-    console.log(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.cid
-    console.log(id)
 
     if (this.data.recommendList[index].isActive) {
       this.setData({
@@ -271,7 +280,7 @@ Page({
         productList: [], // 商品列表
         ['editRecommendRequestParams.is_free_postage']: this.data.editRecommendRequestParams.is_free_postage == 0 ? 1 : 0
       })
-    } 
+    }
 
     if (id == 2) {
       this.setData({
@@ -283,7 +292,7 @@ Page({
     if (id == 3) {
       this.setData({
         productList: [], // 商品列表
-        ['editRecommendRequestParams.is_custom_made']: this.data.editRecommendRequestParams.is_custom_made== 0 ? 1 : 0
+        ['editRecommendRequestParams.is_custom_made']: this.data.editRecommendRequestParams.is_custom_made == 0 ? 1 : 0
       })
     }
 
@@ -308,19 +317,19 @@ Page({
     }
   },
 
-  /**来自首页探索页面里面的 start**/
-
   // 获取浏览人数的接口
-  getBrowsePeopleOne(code, page = 1, per_page=12){
-    http.fxGet(api.column_browse_records, { code: code, page : 1, per_page:12},(result)=>{
-      console.log(result,"浏览过本栏目的记录")
-      if(result.success){
-
+  getBrowsePeopleOne(code, page = 1, per_page = 12) {
+    http.fxGet(api.column_browse_records, {
+      code: code,
+      page: 1,
+      per_page: 12
+    }, (result) => {
+      console.log(result, '浏览过本栏目的记录')
+      if (result.success) {
         this.setData({
-          browseRecordOfThis:result.data
+          browseRecordOfThis: result.data
         })
-
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -328,12 +337,8 @@ Page({
 
   //编辑推荐
   editRecommend() {
-
-
     http.fxGet(api.column_explore_recommend, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, "编辑 推荐")
-
-
+      console.log(result, '编辑推荐')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -346,7 +351,6 @@ Page({
           pickQuantity: result.data.count,
           totalCount: result.data.count,
           isLoadProductShow: false
-          
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -356,10 +360,8 @@ Page({
 
   // 百元好物
   getOneHundred() {
-
     http.fxGet(api.column_affordable_goods, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, "百元好物")
-
+      console.log(result, '百元好物')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -381,10 +383,8 @@ Page({
 
   // 优质新品
   getHighQuality() {
-
     http.fxGet(api.column_explore_new, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, "优质新品")
-
+      console.log(result, '优质新品')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -406,10 +406,9 @@ Page({
 
   // 特惠好设计 
   getGoodDesign() {
-
     http.fxGet(api.column_preferential_design, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, "特惠好设计")
-      this.getBrowsePeopleOne("preferential_design")
+      console.log(result, '特惠好设计')
+      this.getBrowsePeopleOne('preferential_design')
 
       if (result.success) {
         let data = this.data.productList
@@ -430,15 +429,11 @@ Page({
       }
     })
   },
-  /**来自编辑推荐页面里面的 end**/
 
-  /** 我的个人中心 start**/
-  //我的浏览记录
+  // 我的浏览记录
   getBrowse() {
-
     http.fxGet(api.user_browses, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, "我的浏览记录")
-
+      console.log(result, '我的浏览记录')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -455,7 +450,6 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   // 我的心愿单
@@ -482,14 +476,14 @@ Page({
 
   /** 我的 个人中心 end**/
 
-/** 他的个人中心  start **/
+  /** 他的个人中心  start **/
 
-  //他的浏览记录
-  getOtherBrowses(e){
-
-    http.fxGet(api.other_user_browses, { ...this.data.editRecommendRequestParams, uid: this.data.otherUid} , (result) => {
-      console.log(result, "他的浏览记录")
-
+  // 他的浏览记录
+  getOtherBrowses(e) {
+    http.fxGet(api.other_user_browses, { ...this.data.editRecommendRequestParams,
+      uid: this.data.otherUid
+    }, (result) => {
+      console.log(result, '他的浏览记录')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -509,11 +503,11 @@ Page({
   },
 
   // 他的喜欢
-  getOtherLike(){
-
-    http.fxGet(api.other_userlike, { ...this.data.editRecommendRequestParams, uid: this.data.otherUid }, (result) => {
-      console.log(result, "他的喜欢")
-
+  getOtherLike() {
+    http.fxGet(api.other_userlike, { ...this.data.editRecommendRequestParams,
+      uid: this.data.otherUid
+    }, (result) => {
+      console.log(result, '他的喜欢')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -532,12 +526,12 @@ Page({
     })
   },
 
-  //他的心愿单
-  getOtherXinYuan(){
-
-    http.fxGet(api.other_wishlist, { ...this.data.editRecommendRequestParams, uid: this.data.otherUid }, (result) => {
-      console.log(result, "他的心愿单")
-
+  // 他的心愿单
+  getOtherXinYuan() {
+    http.fxGet(api.other_wishlist, { ...this.data.editRecommendRequestParams,
+      uid: this.data.otherUid
+    }, (result) => {
+      console.log(result, '他的心愿单')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -556,9 +550,7 @@ Page({
     })
   },
 
-
-/** 他的个人中心 end **/
-
+  /** 他的个人中心 end **/
 
   /**
    * 生命周期函数--监听页面加载
@@ -567,152 +559,147 @@ Page({
     console.log(options)
 
     //编辑推荐 首页的探索
-    if (options.from == "editRecommend") {
+    if (options.from == 'editRecommend') {
       wx.setNavigationBarTitle({
-        
-        title: "编辑推荐"
+        title: '编辑推荐'
       })
 
-      this.getBrowsePeopleOne("e_recommend") // 获取浏览记录
+      this.getBrowsePeopleOne('e_recommend') // 获取浏览记录
       this.editRecommend() // 获取商品
 
       this.setData({
-        topPhotoText: "编辑推荐",
+        topPhotoText: '编辑推荐',
         touchBottomInfo: options.from,
-        topBGPhoto:"https://static.moebeast.com/static/img/editor-feature.png"
+        topBGPhoto: 'https://static.moebeast.com/static/img/editor-feature.png'
       })
     }
 
     // 百元好物
-    if (options.from == "oneHundred") {
+    if (options.from == 'oneHundred') {
       wx.setNavigationBarTitle({
-        title: "百元好物"
+        title: '百元好物'
       })
       this.getOneHundred()
-
-      this.getBrowsePeopleOne("affordable_goods")
+      this.getBrowsePeopleOne('affordable_goods')
 
       this.setData({
-        topPhotoText: "百元好物",
+        topPhotoText: '百元好物',
         touchBottomInfo: options.from,
-        topBGPhoto:"https://static.moebeast.com/static/img/yuan-100.png"
+        topBGPhoto: 'https://static.moebeast.com/static/img/yuan-100.png'
       })
     }
 
-    //优质新品 首页的探索
-    if (options.from == "highQualityList") {
+    // 优质新品 首页的探索
+    if (options.from == 'highQualityList') {
       wx.setNavigationBarTitle({
-        title: "优质新品"
+        title: '优质新品'
       })
 
-      this.getBrowsePeopleOne("e_new") // 获取浏览记录
+      this.getBrowsePeopleOne('e_new') // 获取浏览记录
       this.getHighQuality() // 获取商品
 
       this.setData({
-        topPhotoText: "优质新品",
+        topPhotoText: '优质新品',
         touchBottomInfo: options.from,
-        topBGPhoto:"https://static.moebeast.com/static/img/newest-products.png"
+        topBGPhoto: 'https://static.moebeast.com/static/img/newest-products.png'
       })
     }
 
     // 特惠好设计 首页的探索
-    if (options.from == "goodDesign") {
+    if (options.from == 'goodDesign') {
       wx.setNavigationBarTitle({
-        title: "特惠好设计"
+        title: '特惠好设计'
       })
       this.getGoodDesign()
 
       this.setData({
-        topPhotoText: "特惠好设计",
+        topPhotoText: '特惠好设计',
         touchBottomInfo: options.from,
-        topBGPhoto:"https://static.moebeast.com/static/img/good-design.png"
+        topBGPhoto: 'https://static.moebeast.com/static/img/good-design.png'
       })
     }
 
     // 最近查看 我的个人中心
-    if (options.from == "userBrowses") {
+    if (options.from == 'userBrowses') {
       wx.setNavigationBarTitle({
-        title: "我的浏览记录"
+        title: '我的浏览记录'
       })
       this.getBrowse()
 
       this.setData({
-        shim:false,
-        topPhotoText: "我的浏览记录",
+        shim: false,
+        topPhotoText: '我的浏览记录',
         touchBottomInfo: options.from,
         isPersonal: true
       })
     }
 
     // 心愿单 我的个人中心
-    if (options.from == "xinYuanOrder") {
+    if (options.from == 'xinYuanOrder') {
       wx.setNavigationBarTitle({
-        title: "我的心愿单"
+        title: '我的心愿单'
       })
       this.getXinYuanOrder()
 
       this.setData({
         shim: false,
-        topPhotoText: "我的心愿单",
+        topPhotoText: '我的心愿单',
         touchBottomInfo: options.from,
         isPersonal: true
       })
     }
 
     // 浏览记录 他的个人中心
-    if (options.from == "otherBrowses") {
-
+    if (options.from == 'otherBrowses') {
       this.setData({
         otherUid: options.uid
       })
 
       wx.setNavigationBarTitle({
-        title: "Ta的浏览记录"
+        title: 'Ta的浏览记录'
       })
       this.getOtherBrowses(options.uid)
 
       this.setData({
         shim: false,
-        topPhotoText: "Ta的浏览记录",
+        topPhotoText: 'Ta的浏览记录',
         touchBottomInfo: options.from,
         isPersonal: true
       })
     }
-    
-    // 最近查看 他的喜欢
-    if (options.from == "otherLike") {
 
+    // 最近查看 他的喜欢
+    if (options.from == 'otherLike') {
       this.setData({
         otherUid: options.uid
       })
 
       wx.setNavigationBarTitle({
-        title: "Ta的喜欢"
+        title: 'Ta的喜欢'
       })
       this.getOtherLike(options.uid)
 
       this.setData({
-        shim:false,
-        topPhotoText: "Ta的喜欢",
+        shim: false,
+        topPhotoText: 'Ta的喜欢',
         touchBottomInfo: options.from,
         isPersonal: true
       })
     }
-    
-    // 心愿单 他的个人中中心
-    if (options.from == "otherXinYuan") {
 
+    // 心愿单 他的个人中中心
+    if (options.from == 'otherXinYuan') {
       this.setData({
         otherUid: options.uid
       })
 
       wx.setNavigationBarTitle({
-        title: "Ta的心愿单"
+        title: 'Ta的心愿单'
       })
       this.getOtherXinYuan(options.uid)
 
       this.setData({
-        topPhotoText: "Ta的心愿单",
+        topPhotoText: 'Ta的心愿单',
         touchBottomInfo: options.from,
         isPersonal: true
       })
@@ -721,83 +708,74 @@ Page({
 
   // 获取筛选
   handlePickProduct(e) {
-    console.log(e)
     let rids = e.detail.category
     let minPrice = e.detail.minPrice
     let maxPrice = e.detail.maxPrice
     this.setData({
       productList: [],
       ['editRecommendRequestParams.page']: e.detail.page ? e.detail.page : this.data.page,
-      ['editRecommendRequestParams.cids']: rids == undefined ? "" : rids.join(','),
+      ['editRecommendRequestParams.cids']: rids == undefined ? '' : rids.join(','),
       ['editRecommendRequestParams.min_price']: minPrice,
       ['editRecommendRequestParams.max_price']: maxPrice
     })
 
     // 加载编辑推荐
-    if (this.data.touchBottomInfo == "editRecommend") {
+    if (this.data.touchBottomInfo == 'editRecommend') {
       this.editRecommend()
     }
 
-    //加载百元好物
-    if (this.data.touchBottomInfo == "oneHundred") {
+    // 加载百元好物
+    if (this.data.touchBottomInfo == 'oneHundred') {
       this.getOneHundred()
     }
 
-    //加载优质新品
-    if (this.data.touchBottomInfo == "highQualityList") {
+    // 加载优质新品
+    if (this.data.touchBottomInfo == 'highQualityList') {
       this.getHighQuality()
     }
 
-    //加载特惠好设计 
-    if (this.data.touchBottomInfo == "goodDesign") {
+    // 加载特惠好设计 
+    if (this.data.touchBottomInfo == 'goodDesign') {
       this.getGoodDesign()
     }
-
   },
 
   // 获取排序的产品
   handleSort(e) {
-    console.log(e.currentTarget.dataset.rid)
-    console.log(e.detail.rid)
-   
-      this.setData({
-        productList: [],
-        ['editRecommendRequestParams.page']: 1,
-        ['editRecommendRequestParams.sort_type']: e.currentTarget.dataset.rid
-      })
-    
+    this.setData({
+      productList: [],
+      ['editRecommendRequestParams.page']: 1,
+      ['editRecommendRequestParams.sort_type']: e.currentTarget.dataset.rid
+    })
+
     this.handleSortOff()
 
     console.log(this.data.editRecommendRequestParams.sort_type)
     // 加载编辑推荐
-    if (this.data.touchBottomInfo == "editRecommend") {
+    if (this.data.touchBottomInfo == 'editRecommend') {
       this.editRecommend()
     }
 
     //加载百元好物
-    if (this.data.touchBottomInfo == "oneHundred") {
+    if (this.data.touchBottomInfo == 'oneHundred') {
       this.getOneHundred()
     }
 
     //加载优质新品
-    if (this.data.touchBottomInfo == "highQualityList") {
+    if (this.data.touchBottomInfo == 'highQualityList') {
       this.getHighQuality()
     }
 
     //加载特惠好设计 
-    if (this.data.touchBottomInfo == "goodDesign") {
+    if (this.data.touchBottomInfo == 'goodDesign') {
       this.getGoodDesign()
     }
-    
   },
 
   /**
    * onReachBottom 触底加载
-   * **/
-
+   */
   onReachBottom() {
-    console.log(this.data.touchBottomInfo)
-
     if (!this.data.isLoadingNextPage) {
       return
     }
@@ -808,57 +786,50 @@ Page({
     })
 
     // 触底加载编辑推荐
-    if (this.data.touchBottomInfo == "editRecommend") {
+    if (this.data.touchBottomInfo == 'editRecommend') {
       this.editRecommend()
     }
 
-    //触底加载百元好物
-    if (this.data.touchBottomInfo == "oneHundred") {
+    // 触底加载百元好物
+    if (this.data.touchBottomInfo == 'oneHundred') {
       this.getOneHundred()
     }
 
-    //触底加载优质新品
-    if (this.data.touchBottomInfo == "highQualityList") {
+    // 触底加载优质新品
+    if (this.data.touchBottomInfo == 'highQualityList') {
       this.getHighQuality()
     }
 
     //触底加载特惠好设计 
-    if (this.data.touchBottomInfo == "goodDesign") {
+    if (this.data.touchBottomInfo == 'goodDesign') {
       this.getGoodDesign()
     }
 
     // 触底加载我的最近查看
-    if (this.data.touchBottomInfo == "userBrowses") {
+    if (this.data.touchBottomInfo == 'userBrowses') {
       this.getBrowse()
     }
 
     // 触底加载我的 心愿单
-    if (this.data.touchBottomInfo == "xinYuanOrder") {
-      console.log("触底加载 心愿单")
+    if (this.data.touchBottomInfo == 'xinYuanOrder') {
       this.getXinYuanOrder()
     }
 
     // 触底加载 他的 浏览记录 other_user_browses
-    if (this.data.touchBottomInfo == "otherBrowses") {
+    if (this.data.touchBottomInfo == 'otherBrowses') {
       this.getOtherBrowses()
     }
 
-
     // 触底加载 他的 喜欢
-    if (this.data.touchBottomInfo == "otherLike") {
+    if (this.data.touchBottomInfo == 'otherLike') {
       this.getOtherLike()
     }
 
-
     // 触底加载他的 心愿单
-    if (this.data.touchBottomInfo == "otherXinYuan") {
-      console.log("触底加载他的 心愿单")
+    if (this.data.touchBottomInfo == 'otherXinYuan') {
       this.getOtherXinYuan()
     }
-
   },
-
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -905,7 +876,7 @@ Page({
   },
 
   // 打开筛选的模态框
-  handleSortShow(){
+  handleSortShow() {
     let animation = wx.createAnimation({
       duration: 1000,
       timingFunction: 'ease',
@@ -915,14 +886,14 @@ Page({
 
     this.setData({
       openPickBox: animation.export(),
-      showFilterModal:true
+      showFilterModal: true
     })
 
     this.getCategories()
   },
 
   // 关闭筛选的模态框
-  handelOffPickBox(){
+  handelOffPickBox() {
     let animationOff = wx.createAnimation({
       duration: 1000,
       timingFunction: 'ease',
@@ -937,17 +908,14 @@ Page({
   },
 
   // 打开排序的盒子
-  handelOffPick(){
- 
+  handelOffPick() {
     this.setData({
       sortBox: true
     })
-
   },
 
   // 关闭排序的盒子
-  handleSortOff(){
-
+  handleSortOff() {
     this.setData({
       sortBox: false
     })
@@ -955,9 +923,8 @@ Page({
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
     wx.navigateTo({
-      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&&storeRid=" + e.detail.storeRid
+      url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
   },
 

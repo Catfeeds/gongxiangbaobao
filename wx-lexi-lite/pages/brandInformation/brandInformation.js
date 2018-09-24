@@ -1,5 +1,6 @@
 // pages/brandInformation/brandInformation.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
@@ -11,14 +12,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    createdTime:[], // 开馆时间---
-    storeInfo:[], // 店铺的信息---
-    shopOwner:[], // 店铺主人的信息---
+    createdTime: [], // 开馆时间---
+    storeInfo: [], // 店铺的信息---
+    shopOwner: [], // 店铺主人的信息---
     createdTime: '', // 开馆时间
-    dkcontent:'',
+    dkcontent: ''
   },
 
-  getUserIdentityLabel (val) {
+  getUserIdentityLabel(val) {
     switch (val) {
       case 1:
         return '独立设计师'
@@ -42,7 +43,6 @@ Page({
         this.setData({
           shopOwner: result.data
         })
-        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -50,9 +50,9 @@ Page({
   },
 
   // 店铺的信息
-  getAllInfo () {
-    http.fxGet(api.shop_info,{rid:this.data.store_rid},(result)=>{
-      console.log(result,"店铺的信息")
+  getAllInfo() {
+    http.fxGet(api.shop_info,{ rid: this.data.store_rid }, (result)=>{
+      console.log(result, '店铺的信息')
       if(result.success){
         result.data.created_at = utils.timestamp2string(result.data.created_at, 'date') 
         this.setData({
@@ -62,13 +62,12 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   // 品牌故事 
-  getBrandDetail(){
+  getBrandDetail() {
     http.fxGet(api.official_store_detail, { rid: this.data.store_rid }, (result) => {
-      console.log(result, "品牌故事")
+      console.log(result, '品牌故事')
       if (result.success) {
         this.setData({
           dkcontent: result.data.content,
@@ -82,12 +81,11 @@ Page({
     })
   },
 
-
   /**
    * 生命周期函数--监听页面加载 shop_info
    */
   onLoad: function (options) {
-    console.log(options,"品牌管的rid")
+    console.log(options, "品牌馆")
 
     this.setData({
       store_rid: options.rid
@@ -97,7 +95,6 @@ Page({
     this.getAllInfo() // 获取店铺信息
     this.getBrandDetail() // 品牌故事
     this.getShopOwner() // 店铺主人
-   
   },
 
   /**
@@ -148,4 +145,5 @@ Page({
   onShareAppMessage: function () {
     return app.shareLeXi()
   }
+  
 })

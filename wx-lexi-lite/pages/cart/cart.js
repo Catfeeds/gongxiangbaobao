@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLoadPageShow:true, // 加载的三个点
+    isLoadPageShow: true, // 加载的三个点
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
     desireOrderProductRid:'', // 移除心愿单的rid
@@ -51,7 +51,7 @@ Page({
     
     thinkOrder: {  // 心愿单的内容---
       products: []
-    },
+    }
   },
 
   // 是否登陆
@@ -87,8 +87,6 @@ Page({
           this.setData({
             changeCart: false
           })
-          // 更新全局购物车数量
-          app.updateCartTotalCount(result.data.item_count)
         }
 
         this.setData({
@@ -158,12 +156,11 @@ Page({
 
   // 当点击移除---
   clearCart() {
-    if (this.data.checkboxPick.length==0){
+    if (this.data.checkboxPick.length == 0){
       utils.fxShowToast('请选择')
       return
     }
     let jwt = wx.getStorageSync('jwt')
-
     http.fxPost(api.clearCart, {
       open_id: jwt.openid,
       rids: this.data.checkboxPick
@@ -171,7 +168,7 @@ Page({
       console.log(result, '删除购物车商品')
       if (result.success) {
         this.getCartProduct()
-        if (this.data.thinkOrder.products.length != 0 && this.data.shoppingCart.items.length!=0){
+        if (this.data.thinkOrder.products.length != 0 && this.data.shoppingCart.items.length != 0){
           this.setData({
             isShowOrder:true
           })
@@ -191,23 +188,20 @@ Page({
       utils.fxShowToast('请选择')
       return
     }
-    
-    console.log(this.data.addDesireOrder)
+
     let rid = this.data.addDesireOrder.map((v, i) => {
       console.log(v)
       return v.product.product_rid
     })
-    console.log(rid)
+
     http.fxPost(api.wishlist, {
       rids: rid
     }, (result) => {
-      console.log(result)
+      console.log(result, '放入心愿单')
       if (result.success) {
         this.getDesireOrder()
-        // this.getCartProduct()
         this.clearCart()
         this.paymentPrice()
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -258,10 +252,6 @@ Page({
       carQuantity: quantity,
       payment: aggregatePrice.toFixed(2)
     })
-
-    // 更新数量
-    app.updateCartTotalCount(quantity)
-    
   },
 
   // 增加数量或者减少数量---
@@ -318,7 +308,7 @@ Page({
     })
   },
 
-  /** start 后续抽离**/
+  /** start 后续抽离 **/
 
   /**
    * 获取sku数量
@@ -624,7 +614,7 @@ Page({
    * 更新购物车数量
    */
   updateCartTotalCount(item_count) {
-    app.globalData.cartTotalCount = item_count
+    app.updateCartTotalCount(item_count)
     this.setData({
       cartTotalCount: item_count
     })
@@ -650,27 +640,26 @@ Page({
     }, (result) => {
       console.log(result)
       if (result.success) {
-        utils.fxShowToast('成功', "success")
+        utils.fxShowToast('移除成功', 'success')
         this.getDesireOrder()
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   /**
    * 加入购物车
    */
   handleAddCart(e) {
-    let jtw = wx.getStorageSync('jwt')
+    let jwt = wx.getStorageSync('jwt')
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
       let cartParams = {
         rid: this.data.choosed.rid, // String	必填	 商品sku
         quantity: this.data.quantity, // Integer	可选	1	购买数量
         option: '', // String	可选	 	其他选项
-        open_id: jtw.openid // String	独立小程序端必填/openid
+        open_id: jwt.openid // String	独立小程序端必填/openid
       }
 
       http.fxPost(api.cart_addon, cartParams, (result) => {
@@ -709,9 +698,15 @@ Page({
 
       http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
         if (result.success) {
+          let deliveryCountries = [] // 发货的国家列表
+
           Object.keys(result.data).forEach((key) => {
-            console.log(result.data[key]) // 每个店铺
-            result.data[key].forEach((v, i) => { //每个sku
+            result.data[key].forEach((v, i) => { // 每个sku
+              // 收集所有发货国家或地区，验证是否跨境
+              if (deliveryCountries.indexOf(v.delivery_country_id) === -1) {
+                deliveryCountries.push(v.delivery_country_id)
+              }
+
               // 当前店铺的rid
               v.current_store_rid = app.globalData.storeInfo.rid
               // 是否为分销商品
@@ -726,6 +721,8 @@ Page({
           })
 
           app.globalData.orderSkus = result
+          app.globalData.deliveryCountries = deliveryCountries
+
           // 设置当前商品的物流模板
           wx.setStorageSync('logisticsIdFid', this.data.productInfomation.fid)
 
@@ -737,6 +734,7 @@ Page({
             choosed:{},
             productInfomation: [],
           })
+
           // 心愿单产品放入购物车后，在心愿单删除产品
           this.handleDeleteDesireOrder(this.data.desireOrderProductRid)
 
@@ -754,13 +752,13 @@ Page({
   setOrderParamsProductId(e) {
     app.globalData.orderParams.store_items[0].items[0].rid = e
   },
+
   /** end 后续抽离 **/
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount
     })
@@ -779,7 +777,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
     // 未登录
     if (!app.globalData.isLogin) {
       return
@@ -825,7 +822,7 @@ Page({
     return app.shareLeXi()
   },
 
-  // 去首页
+  // 跳转至首页
   indexTap() {
     wx.switchTab({
       url: '../index/index',
@@ -847,7 +844,7 @@ Page({
     let skusNeedQuantity = []
 
     this.data.shoppingCart.items.forEach((v, i) => {
-      skusNeedQuantity.push(v.product.rid + ":" + v.quantity) // 每个sku需求数量
+      skusNeedQuantity.push(v.product.rid + ':' + v.quantity) // 每个sku需求数量
       skus.push(v.product.rid)
     })
 
@@ -860,7 +857,6 @@ Page({
 
         // 添加每件sku的需求数量
         Object.keys(result.data).forEach((key) => {
-
           result.data[key].forEach((v, i) => { // 每个sku
 
             // 收集所有发货国家或地区，验证是否跨境
@@ -935,7 +931,6 @@ Page({
 
   // 点击sku层，不触发隐藏
   handleSkuModal() {
-    console.log(123)
     return 
   },
 

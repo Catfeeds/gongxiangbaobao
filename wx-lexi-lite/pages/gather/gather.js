@@ -5,17 +5,18 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    gatherList:[], // 集合列表
-    touchBottomLoading:true, // 触底加载
-    getGatherParams:{
-      page:1	,//Number	可选	1	当前页码
-      per_page:10	,//Number	可选	10	每页数量
+    gatherList: [], // 集合列表
+    touchBottomLoading: true, // 触底加载
+    getGatherParams: {
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
     }
   },
 
@@ -23,7 +24,7 @@ Page({
   getGather() {
     wx.showLoading()
     http.fxGet(api.column_collections, this.data.getGatherParams, (result) => {
-      console.log(result, "集合")
+      console.log(result, '集合')
       wx.hideLoading()
       if (result.success) {
 
@@ -90,28 +91,28 @@ Page({
    */
   onReachBottom: function () {
     if (!this.data.touchBottomLoading){
-      utils.fxShowToast("没有更多了")
+      utils.fxShowToast('没有更多了')
       return
     }
 
     this.setData({
       ['getGatherParams.page']: this.data.getGatherParams.page + 1
     })
+
     this.getGather()
   },
 
   // 跳转到集合详情
-  handleToGatherInfo(e){
-    console.log(e)
+  handleToGatherInfo(e) {
     wx.navigateTo({
       url: '../gatherInfo/gatherInfo?rid='+e.currentTarget.dataset.rid
     })
   },
 
   // 跳转到商品详情
-  handleProductInfo (e){
+  handleProductInfo(e) {
     wx.navigateTo({
-      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeRid
     })
   },
 
@@ -121,4 +122,5 @@ Page({
   onShareAppMessage: function () {
     return app.shareLeXi()
   }
+
 })

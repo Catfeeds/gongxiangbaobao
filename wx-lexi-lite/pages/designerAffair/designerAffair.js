@@ -1,24 +1,26 @@
 // pages/designerAffair/designerAffair.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isLoadProductShow:true, // 加载的图标
-    isNext:true, // 是否有下一页
-    dataList:[], // 创作人故事列表
+    isLoadProductShow: true, // 加载的图标
+    isNext: true, // 是否有下一页
+    dataList: [], // 创作人故事列表
     params: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
     }
   },
 
-  //跳转到详情
+  // 跳转到详情
   handleToInfo(e) {
     console.log(e.currentTarget.dataset.type)
     let rid = e.currentTarget.dataset.rid
@@ -27,6 +29,7 @@ Page({
         url: '../findInfo/findInfo?rid=' + rid
       })
     }
+
     if (e.currentTarget.dataset.type == 2) {
       wx.navigateTo({
         url: '../plantNoteInfo/plantNoteInfo?rid=' + rid
@@ -36,14 +39,14 @@ Page({
 
   getData() {
     http.fxGet(api.life_records_creator_story, this.data.params, (result) => {
-      console.log(result,"创作人故事列表")
-      if(result.success){
+      console.log(result, '创作人故事列表')
+      if (result.success) {
         this.setData({
           dataList: result.data.life_records,
           isNext: result.data.next,
-          isLoadProductShow:false
+          isLoadProductShow: false
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
@@ -55,21 +58,22 @@ Page({
   onLoad: function(options) {
     this.getData()
   },
+
   /**
- * 页面上拉触底事件的处理函数
- */
-  onReachBottom: function () {
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
     if (!this.data.isNext) {
-      utils.fxShowToast("没有更多商品了")
+      utils.fxShowToast('没有更多了')
       return
     }
 
     this.setData({
       ['params.page']: this.data.params.page + 1,
-      isLoadProductShow:true
+      isLoadProductShow: true
     })
 
-    this.data.getData()
+    this.getData()
   },
 
   /**
@@ -113,4 +117,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
+  
 })

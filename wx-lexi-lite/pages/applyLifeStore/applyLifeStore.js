@@ -22,8 +22,8 @@ Page({
     form: {
       name: '',
       profession: '',
-      area_code:"+86",
-      areacode:"+86",
+      area_code: '+86',
+      areacode: '+86',
       mobile: '',
       verify_code: ''
     },
@@ -223,4 +223,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
+  
 })

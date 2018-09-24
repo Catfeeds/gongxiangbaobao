@@ -1605,7 +1605,6 @@ Page({
   },
 
   handleTocategoryList(e) {
-    console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../categoryList/categoryList?categryId=' + e.currentTarget.dataset.id + "&titleName=" + e.currentTarget.dataset.titleName,
     })

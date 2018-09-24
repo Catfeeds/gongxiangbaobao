@@ -79,22 +79,21 @@ Page({
   // 未使用// 已经过期 优惠券
   getUserCoupon(o = 'N01', v = 1, i = 1000) {
     var params = {
-      page: v, //Number	可选	1	当前页码
-      per_page: i, //Number	可选	10	每页数量
-      status: o, //String	可选	N01	N01: 未使用;N02: 已使用; N03: 已过期
+      page: v, // Number	可选	1	当前页码
+      per_page: i, // Number	可选	10	每页数量
+      status: o, // String	可选	N01	N01: 未使用;N02: 已使用; N03: 已过期
     }
 
     let normalCouponList = this.data.normalCouponList // 未使用的 可用红包 非官方
     let exceedCouponList = this.data.exceedCouponList // 已经过期 不可用红包 非官方
 
     http.fxPost(api.user_coupons, params, (result) => {
-      console.log(result.data, o,"all")
+      console.log(result.data, o, 'all')
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
 
         if (o == 'N01') {
-          console.log(v,"1")
           this.setData({
             normalCouponList: normalCouponList.push(v)
           })
@@ -106,8 +105,8 @@ Page({
           })
         }
 
-        if (result.data.coupons.length-1 ==i){
-          console.log(normalCouponList, exceedCouponList,"商家")
+        if (result.data.coupons.length-1 == i){
+          console.log(normalCouponList, exceedCouponList, '商家')
           this.setData({
             normalCouponList: normalCouponList,
             exceedCouponList: exceedCouponList
@@ -119,12 +118,11 @@ Page({
 
   // 使用优惠券
   handleUseCouponTap(e) {
-    console.log(e.currentTarget.dataset.rid)
     wx.switchTab({
       url: '../index/index',
     })
-
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -147,6 +145,7 @@ Page({
     this.getUserCoupon('N02') // N02: 已使用
     this.getUserCoupon('N03') // N03: 已过期
     this.getRedBag() // 红包列表
+
     console.log(app.globalData.storeInfo)
     this.setData({
       storeInfo: app.globalData.storeInfo
@@ -187,4 +186,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
+  
 })

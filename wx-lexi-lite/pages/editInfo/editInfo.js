@@ -52,10 +52,9 @@ Page({
       town_id:'', // 镇
       mail: '', // String 可选 邮箱
       date: 2018, // String 可选 出生日期
-      street_address:'', // 地址
+      street_address: '' // 地址
     }
   },
-
 
   // name 输入时候
   handleNameInput(e){
@@ -110,7 +109,7 @@ Page({
 
   // 保存按钮
   handlePreserveTap() {
-    console.log(this.data.editUserInfo,"修改的信息")
+    console.log(this.data.editUserInfo, '修改的信息')
     http.fxPut(api.user, this.data.editUserInfo, (result)=>{
       console.log(result)
       if (result.success) {
@@ -188,14 +187,14 @@ Page({
   // 获取用户信息 ---
   getUserInfo() {
     http.fxGet(api.users_profile,{},(result)=>{
-      console.log(result,"用户的个人资料")
+      console.log(result, '用户个人资料')
       if (result.success) {
         this.setData({
           userInfo: result.data
         })
 
         let userProfile = this.data.userInfo.profile
-        console.log(this.data.userInfo.profile, userProfile.date, "用户的资料")
+        console.log(this.data.userInfo.profile, userProfile.date, '用户的资料')
 
         let time = utils.timestamp2string(userProfile.created_at, 'cn')
 
@@ -219,19 +218,15 @@ Page({
           'editUserInfo.is_default': userProfile.is_default || ''
         })
 
-        console.log(this.data.editUserInfo, "初始信息")
-
+        console.log(this.data.editUserInfo, '初始信息')
       }
     })
-    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options, "uid")
-
     let rid = options.rid || ''
     this.setData({
       rid: rid,
@@ -258,8 +253,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-    console.log(5)
-
+    
   },
 
   /**
@@ -288,17 +282,6 @@ Page({
    */
   onShareAppMessage: function() {
     return app.shareLeXi()
-  },
-  // //呼出框取消
-  // handledeletePick(){
-  //   this.setData({
-  //     isPicker:false
-  //   })
-  // },
-  // //呼出框显示
-  // handleShowPick(){
-  //   this.setData({
-  //     isPicker: true
-  //   })
-  // }
+  }
+  
 })
