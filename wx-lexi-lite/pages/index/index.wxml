@@ -312,7 +312,7 @@
     </view>
 
     <!-- "免运，奖励，优惠生活" -->
-    <view class='material-benefits' >
+    <view class='material-benefits' style="display:none;">
       <view class='material-benefits-top qian-hui font-s'>免运，奖励，优惠生活</view>
       <view class='material-benefits_bottom c-crosswise-a'>
         <view class='font-s fx-column--center'>
