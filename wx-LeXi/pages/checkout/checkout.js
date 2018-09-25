@@ -553,6 +553,7 @@ Page({
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
+      console.log(app.globalData.orderParams,"提交订单，向后端传参")
       console.log(result, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面

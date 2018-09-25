@@ -2,7 +2,7 @@
 <view catchtap='handleProductInfo' class='direction' data-rid='{{product.rid}}'>
   <view class='photoBox'>
     <view class='sellInfo' wx:if='{{product.is_sold_out}}'>
-      <image src='{{product.cover}}'></image>
+      <image src="../../images/goodsOver@2.png"></image>
     </view>
     <image mode="widthFix" src='{{ product.cover }}-p{{photoSize}}'></image>
   </view>

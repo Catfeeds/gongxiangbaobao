@@ -1109,6 +1109,7 @@ Page({
     http.fxGet(api.column_handpick_optimization, {}, (result) => {
       console.log(result, '乐喜优选')
       if (result.success) {
+        
         this.setData({
           lexiPick: []
         })

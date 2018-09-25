@@ -122,7 +122,7 @@
       </view>
     </view>
     <!-- 心愿单 -->
-    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.products.length!=0&&desireOrderProduct.length!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.count!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
       </view>
