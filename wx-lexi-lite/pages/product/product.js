@@ -14,6 +14,8 @@ Page({
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
+    posterSaving: false, // 是否正在保存
+    posterBtnText: '保存分享',
     readyOver: false, // 加载是否完成
 
     isDistributed: false, // 是否属于分销
@@ -117,38 +119,55 @@ Page({
    * 保存当前海报到相册
    */
   handleSaveShare() {
-    // 下载网络文件至本地
-    wx.downloadFile({
-      url: this.data.posterUrl,
-      success: function(res) {
-        if (res.statusCode === 200) {
-          // 保存文件至相册
-          wx.saveImageToPhotosAlbum({
-            filePath: res.tempFilePath,
-            success(res) {
-              utils.fxShowToast('保存成功', 'success')
-            },
-            fail(res) {
-              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
-                wx.openSetting({
-                  success(settingdata) {
-                    console.log(settingdata)
-                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                      console.log('获取权限成功，再次点击图片保存到相册')
-                      utils.fxShowToast('保存成功')
-                    } else {
-                      utils.fxShowToast('保存失败')
-                    }
-                  }
+    let that = this
+    if (this.data.posterUrl && !this.data.posterSaving) {
+      this.setData({
+        posterSaving: true,
+        posterBtnText: '正在保存...'
+      })
+
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.posterUrl,
+        success: function(res) {
+          if (res.statusCode == 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function(data) {
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享'
                 })
-              } else {
-                utils.fxShowToast('保存失败')
+                utils.fxShowToast('保存成功', 'success')
+              },
+              fail: function(err) {
+                console.log('下载海报失败：' + err.errMsg)
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享'
+                })
+
+                if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
+                  wx.openSetting({
+                    success(settingdata) {
+                      console.log(settingdata)
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        utils.fxShowToast('保存成功')
+                      } else {
+                        utils.fxShowToast('保存失败')
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast('保存失败')
+                }
               }
-            }
-          })
+            })
+          }
         }
-      }
-    })
+      })
+    }
   },
 
   /**

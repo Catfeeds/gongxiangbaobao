@@ -392,7 +392,7 @@
         </button>
         <button class="share-save share-save__button" bindtap="handleSaveShare">
           <image src="../../images/save@2.png" class="icon-save"></image>
-          <text>保存分享</text>
+          <text>{{ posterBtnText }}</text>
         </button>
       </view>
       <view class="distribute-cancle" bindtap="handleCancelShare">
