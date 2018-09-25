@@ -96,13 +96,6 @@
   </view>
 
   <!-- 排序 -->
-<!-- <fx-modal visible="{{ sortBox }}">
-  <view  slot="main" catchtap="handleSortOff">
-    <fx-sort bind:handlePickOver="handleSort" bind:handleSortOff="handleSortOff"></fx-sort>
-  </view>
-</fx-modal> -->
-
-  <!-- 排序 -->
   <fx-modal title="排序" bind:closeEvent="handleSortOff" visible="{{ sortBox }}">
     <view class="fx-modal__main" slot="main">
       <view class="filter-item {{ getProductParams.sort_type == 1 ? 'active' : '' }}" data-rid="1" bindtap="handleSort">

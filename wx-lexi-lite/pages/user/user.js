@@ -170,39 +170,6 @@ Page({
     })
   },
 
-  // 筛选
-  handlePick(e){
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
-      this.setData({
-        is_mobile: true
-      })
-      return
-    }
-    console.log(e)
-    this.setData({
-      likeProduct:[],
-      ['sortParams.page']:1,
-      ['sortParams.min_price']: e.detail.minPrice, // 最小价格
-      ['sortParams.max_price']: e.detail.maxPrice, // 最大价格
-      ['sortParams.is_free_postage']: e.detail.logisticsPrice // 是否包邮
-    })
-    this.getPick()
-  },
-
-  // 获取排序的产品
-  handleSort(e) {
-    console.log(e.detail.rid)
-    this.setData({
-      likeProduct: [],
-      ['sortParams.page']: 1,
-      ['sortParams.sort_type']: e.detail.rid
-    })
-    console.log(this.data.pickParmas)
-    this.getPick()
-  },
-
   // 获取是否有未使用的优惠券和订单
   getCouponAddOrder(){
     // 是否登陆
@@ -598,65 +565,6 @@ Page({
       url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from,
     })
   },
-  // 排序的盒子
-  handleSortShow() {
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
-      this.setData({
-        is_mobile: true
-      })
-      return
-    }
-    this.setData({
-      isSortShow: true
-    })
-  },
-  // 排序的盒子关闭
-  handleSortOff() {
-    var params = this.data.isSortShow
-    if (params) {
-      params = false
-    } else {
-      params = true
-    }
-    this.setData({
-      isSortShow: params
-    })
-  },
-  // 排序的盒子关闭
-  // handleSortOff() {
-  //   this.setData({
-  //     isSortShow: false
-  //   })
-  // },
-  //关闭筛选的盒子
-  //关闭筛选的盒子
-  handelOffPick() {
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
-      this.setData({
-        is_mobile: true
-      })
-      return
-    }
-    let params = this.data.handelOffPick
-    if (params) {
-      params = false
-    } else {
-      params = true
-    }
-    this.setData({
-      handelOffPick: params
-    })
-  },
-  // 打开筛选的盒子
-  // hanlePickS() {
-  //   this.setData({
-  //     handelOffPick: true
-  //   })
-  // },
 
   //关闭登陆框
   handelOffTap(){
