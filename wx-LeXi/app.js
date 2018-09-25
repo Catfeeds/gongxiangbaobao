@@ -422,6 +422,7 @@ App({
       authAppid: '',
       address_rid: '', // String	必需	 	收货地址ID
       outside_target_id: '', // String	可选	 	 
+      is_alone: 1, // 是否独立小程序 0、否 1、是
       invoice_type: 1, // Integer	可选	1	发票类型
       invoice_info: '', // String	可选	{}	 
       ship_mode: '', // Integer	可选	1	1、发快递 2、自提

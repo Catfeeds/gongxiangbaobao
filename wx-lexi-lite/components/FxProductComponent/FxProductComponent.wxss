@@ -25,6 +25,7 @@
   text-align: center;
   top: 15rpx;
   left: 15rpx;
+  z-index: 1;
 }
 
 .sellInfo image{

@@ -44,7 +44,6 @@
             bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>
-
     </view>
   </block>
 

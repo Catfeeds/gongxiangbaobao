@@ -548,8 +548,6 @@ Page({
     })
   },
 
-
-
   // 验证是否喜欢
   examineIsLike() {
     if (!app.globalData.isLogin) { // 如未登录
