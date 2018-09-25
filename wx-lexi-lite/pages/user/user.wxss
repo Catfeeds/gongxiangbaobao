@@ -403,3 +403,34 @@ button-hover {
 .padding-top--150rpx {
   padding-top: 150rpx;
 }
+
+.inline-block{
+  display: inline-block
+}
+
+.showcase-box {
+  width: 488rpx;
+  height: 324rpx;
+  margin-right: 20rpx;
+}
+
+.showcase-box__left{
+  height: 324rpx;
+  width: 324rpx;
+}
+.showcase-box__right{
+  height: 324rpx;
+}
+.showcase-box__right view {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.showcase-box__right view image{
+  border-radius: 0;
+}
+.showcase-box__right view image,
+.showcase-box__left image{
+  height: 100%;
+  width: 100%;
+}

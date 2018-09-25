@@ -85,6 +85,7 @@ Page({
       url: '../userLikeProduct/userLikeProduct'
     })
   },
+
   /**
    * 获取用户授权手机号
    */
@@ -331,6 +332,27 @@ Page({
     }
   },
 
+
+/**
+ * 喜欢的橱窗
+ * **/
+getLikeWindow(){
+  http.fxGet(api.shop_windows_user_likes,{},res=>{
+    console.log(res,"用户喜欢的橱窗")
+    if(res.success){
+
+
+    }else{
+
+    }
+
+
+  })
+},
+
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -367,6 +389,7 @@ Page({
     this.getCouponAddOrder() // 获取没有使用的优惠券和订单
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
+    this.getLikeWindow() // 喜欢的橱窗
   },
 
   // 触底加载

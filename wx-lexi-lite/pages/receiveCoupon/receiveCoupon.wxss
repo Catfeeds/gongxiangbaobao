@@ -1,13 +1,15 @@
 /* pages/receiveCoupon/receiveCoupon.wxss */
 
 .container {
-  /* background-color: #ffb28f; */
+  background-color: #ffbd9f;
 }
 
 .top-photo {
   position: relative;
   background-color: #999;
   height: 300rpx;
+  background: url("https://static.moebeast.com/static/img/got-headpic.jpeg");
+  background-size: 100% 100%;
 }
 
 .receive-box {
@@ -67,15 +69,22 @@
   margin-left: 15rpx;
 }
 
+.margin-left--30rpx {
+  margin-left: 30rpx;
+}
+
+.margin-right--30rpx {
+  margin-right: 30rpx !important;
+}
+
 .active {
   border-bottom: 6rpx solid #5fe4b1;
   box-sizing: border-box;
 }
 
 .cloud-photo {
-  height: 40rpx;
-  width: 80rpx;
-  background-color: red;
+  height: 38rpx;
+  width: 106rpx;
 }
 
 .coupon-title {
@@ -85,6 +94,7 @@
   margin: 0 20rpx;
   font-size: 40rpx;
   line-height: 40rpx;
+  color: white;
 }
 
 .lexi-coupon__scroll {
@@ -95,6 +105,8 @@
 .lexi-coupon__item {
   height: 256rpx;
   width: 200rpx;
+  display: inline-block;
+  margin-right: 20rpx;
 }
 
 .lexi-coupon__item--top {
@@ -102,7 +114,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 2;
+  height: 170rpx;
   background: linear-gradient(to right, #ff655c, #fea26b);
   border-radius: 8rpx;
   overflow: hidden;
@@ -117,7 +129,7 @@
 }
 
 .lexi-coupon__item--bottom {
-  flex: 1;
+  height: 85rpx;
   background: linear-gradient(to right, #ff655c, #fea26b);
   border-radius: 8rpx;
   font-size: 24rpx;
@@ -128,6 +140,8 @@
   font-size: 18rpx;
   color: #fff;
   margin-top: 10rpx;
+  font-weight: 500;
+  opacity: 0.5;
 }
 
 .lexi-coupon__item--title view {
@@ -449,8 +463,8 @@
 .high-pick__product--coupon .body .sale-price {
   font-size: 20rpx;
   color: white;
-  padding: 4rpx ;
-  background-color: #FF6666;
+  padding: 4rpx;
+  background-color: #f66;
   border-radius: 8rpx;
   margin-left: 10rpx;
 }
@@ -470,7 +484,6 @@
 
 .high-pick__product--coupon .body .icon {
   margin-right: 6rpx;
-
 }
 
 .bg-red {
@@ -483,6 +496,14 @@
 
 .font--12rpx {
   font-size: 12rpx;
+}
+
+.margin-top--50rpx {
+  margin-top: 50rpx;
+}
+
+.margin-top--40rpx {
+  margin-top: 50rpx;
 }
 
 .bg-shenhong {
@@ -501,4 +522,31 @@
 .font--30rpx {
   font-size: 30rpx;
   line-height: 30rpx;
+}
+
+.coupon-category__btn {
+  height: 90rpx;
+  border-top: 1rpx solid #ffbd9f;
+  background-color: white;
+}
+
+.coupon-category__btn view {
+  width: 132rpx;
+  height: 60rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  background-color: #f5f7f9;
+}
+
+.coupon-category__btn view:nth-child(1) {
+  margin-left: 38rpx;
+  margin-right: 20rpx;
+}
+
+.coupon-category__btn .active {
+  border: 1rpx solid #5fe4b1;
+  color: #5fe4b1;
+  background: rgba(95, 228, 177, 0.1);
+  box-sizing: border-box;
 }

@@ -397,8 +397,8 @@
       </view>
     </view>
 
-    <!-- 发现生活美学 {{themeProduct.designs}} -->
-    <view class='c-importantGoods box--margin border-top' wx:if="{{}}">
+    <!-- 发现生活美学 {{themeProduct.designs}}  橱窗 -->
+    <view class='c-importantGoods box--margin border-top' >
       <view class='c-importantGoodsTitle line-height--28rpx'>发现生活美学</view>
       <view class='c-importantGoodsBox  today-recommend-box'>
         <view class="life-beautiful-box" wx:for="123456790" wx:key="{{index}}">

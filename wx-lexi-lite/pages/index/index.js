@@ -28,7 +28,7 @@ Page({
     posterUrl: '', // 海报图url
 
     // 生活馆
-    shopInfo:'', // 生活馆信息
+    shopInfo: '', // 生活馆信息
     lifePhotoUrl: '', // 分享生活馆的图片
     sid: '', // 生活馆sid
     openId: '', // openId
@@ -811,7 +811,7 @@ Page({
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
-      console.log(result,"探索头部广告")
+      console.log(result, "探索头部广告")
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data
@@ -920,7 +920,7 @@ Page({
 
   // 添加浏览记录
   handleAddBrowce() {
-    if (!this.data.sid){
+    if (!this.data.sid) {
       return
     }
 
@@ -945,7 +945,7 @@ Page({
 
   // 获取浏览记录
   getBrowsePeople() {
-    if (!this.data.sid){
+    if (!this.data.sid) {
       return
     }
 
@@ -1116,7 +1116,7 @@ Page({
     http.fxGet(api.column_handpick_optimization, {}, (result) => {
       console.log(result, "乐喜优选")
       if (result.success) {
-        
+
         this.setData({
           lexiPick: []
         })
@@ -1259,7 +1259,7 @@ Page({
             v.time = v.time + "小时"
           }
 
-          if (v.username !=null&&v.username - 0 != NaN && v.username.length > 9 ) {
+          if (v.username != null && v.username - 0 != NaN && v.username.length > 9) {
             console.log(v)
             v.username = v.username.substr(0, 3) + "****" + v.username.substr(7, 4)
           }
@@ -1347,7 +1347,9 @@ Page({
         this.handleAddBrowce() // 添加浏览者
         break;
       case 'featured': // 精选
-        wx.setNavigationBarTitle({ title: '精选' })
+        wx.setNavigationBarTitle({
+          title: '精选'
+        })
 
         this.handleSetNavigationTitle('精选')
 
@@ -1369,6 +1371,7 @@ Page({
         this.getOpenStoreGuide() // 开馆指引
         this.getTodayRecommend() // 今日推荐
         this.getGrateful() // 人气推荐
+        this.getWindow() // 橱窗
         this.getChoiceMiddleAdvertisement() // 中间广告
         this.getLitePick() // 乐喜优选
         this.getPlantOrder() // 种草清单
@@ -1399,7 +1402,7 @@ Page({
 
   // 分享的生活馆图片
   getLifePhotoUrl() {
-    if (!this.data.sid){
+    if (!this.data.sid) {
       return
     }
 
@@ -1414,7 +1417,19 @@ Page({
           lifePhotoUrl: result.data.image_url
         })
       } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
 
+  getWindow() {
+    http.fxGet(api.shop_windows_recommend, {}, result => {
+      console.log(result, "获取推荐的橱窗")
+      if (result.success) {
+
+
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -1423,7 +1438,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(app,"app")
+    console.log(app, "app")
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
@@ -1573,7 +1588,7 @@ Page({
 
     //分享平台或生活馆
     if (e.from == "menu" || e.target.dataset.from == 1) {
-      if (this.data.pageActiveTab == "lifeStore"){
+      if (this.data.pageActiveTab == "lifeStore") {
         let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
         // scene格式：rid + '-' + sid
@@ -1594,7 +1609,7 @@ Page({
 
       }
 
-      if (this.data.pageActiveTab == 'featured' || this.data.pageActiveTab == 'explore'){
+      if (this.data.pageActiveTab == 'featured' || this.data.pageActiveTab == 'explore') {
         return app.shareLeXi()
       }
     }
@@ -1620,17 +1635,17 @@ Page({
   },
 
   // 包邮专区
-  handleToExemptionFromPostage(){
+  handleToExemptionFromPostage() {
     wx.navigateTo({
       url: '../exemptionFromPostage/exemptionFromPostage',
     })
   },
 
   // 领券中心
-  handleToreceiveCoupon(){
-wx.navigateTo({
-  url: '../receiveCoupon/receiveCoupon',
-  })
+  handleToreceiveCoupon() {
+    wx.navigateTo({
+      url: '../receiveCoupon/receiveCoupon',
+    })
   },
 
   handleToLexiPick() {

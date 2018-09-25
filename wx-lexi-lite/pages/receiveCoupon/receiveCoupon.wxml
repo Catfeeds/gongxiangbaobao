@@ -18,25 +18,24 @@
     <view class="margin-left--15rpx" catchtap="handleChangeCtaegory" data-code="recommend">
       <text class="category-item__text {{categoryCode=='recommend'?'active':''}}">推荐</text>
     </view>
-    <view catchtap="handleChangeCtaegory" data-code="{{item.rid}}" wx:for="{{category}}" wx:key="{{index}}">
-      <text class="category-item__text {{categoryCode==item.rid?'active':''}}"> {{item.name}}</text>
+    <view catchtap="handleChangeCtaegory" data-code="{{item.id}}" wx:for="{{category}}" wx:key="{{index}}">
+      <text class="category-item__text {{categoryCode==item.id?'active':''}}"> {{item.name}}</text>
     </view>
   </scroll-view>
 
   <!-- 推荐盒子 -->
-  <view>
-
+  <view wx:if="{{categoryCode=='recommend'}}">
     <!-- 乐喜官方 优惠券-->
-    <view class="padding-top--60rpx">
+    <view class="padding-top--60rpx bg-red">
       <view class="flex_row--middle coupon-title">
-        <image class="cloud-photo"></image>
+        <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
         <text class="coupon-title__text">乐喜官方券</text>
-        <image class="cloud-photo"></image>
+        <image src="https://static.moebeast.com/static/img/yun_right@3x.png" class="cloud-photo"></image>
       </view>
 
       <scroll-view scroll-x class="lexi-coupon__scroll">
         <!-- 每一个 -->
-        <view class="lexi-coupon__item flex-direction__column--center">
+        <view wx:for="{{authorityCouponList}}" wx:key="{{index}}" catchtap="handleReceiveAuthorityCoupon" data-idx="{{index}}" data-code="{{item.code}}" class="lexi-coupon__item flex-direction__column--center {{index==0?'margin-left--30rpx':''}} {{index==authorityCouponList.length-1?'margin-right--30rpx':''}}">
           <!-- 每一个优惠券的上部 -->
           <view class="lexi-coupon__item--top ">
             <view class="flex_row--middle lexi-coupon__item--title">
@@ -47,34 +46,34 @@
 
             <view class=" coupon-price__text--white">
               <text class="lexi-coupon__price--icon">￥</text>
-              <text class="lexi-coupon__price--text">999</text>
+              <text class="lexi-coupon__price--text">{{item.amount}}</text>
             </view>
 
             <view class="astrict-info">
-              满10000元可用
+              满{{item.min_amount}}元可用
             </view>
 
             <!-- 领取完了 -->
-            <image class="receive-over__img" src="../../images/accept.png"></image>
+            <image class="receive-over__img" src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
 
           </view>
 
           <!-- 每一个优惠券的下部 -->
           <view class=" c-middle lexi-coupon__item--bottom">
             <!-- 立即领取 -->
-            <!-- <view class="use-poupon__btn use-poupon__receive c-middle">
+            <view class="use-poupon__btn use-poupon__receive c-middle" wx:if="{{item.count!=0}}">
               立即领取
-            </view> -->
+            </view>
 
             <!-- 立即领取不可点击 -->
-            <!-- <view class="use-poupon__btn c-middle use-poupon__receive btn-opacity">
+            <!-- <view wx:if="{{item.count==0}}"  class="use-poupon__btn c-middle use-poupon__receive btn-opacity">
               立即领取
             </view> -->
 
             <!-- 去使用 -->
-            <view class="use-poupon__btn c-middle to-use__coupon">
+            <!-- <view  class="use-poupon__btn c-middle to-use__coupon">
               去使用
-            </view>
+            </view> -->
           </view>
         </view>
 
@@ -89,19 +88,17 @@
           <image src="../../images/accept.png" />
         </swiper-item>
       </swiper>
-
     </view>
 
     <!-- 精选品牌券 -->
     <view class="padding-top--60rpx bg-red">
       <view class="flex_row--middle coupon-title">
-        <image class="cloud-photo"></image>
+        <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
         <text class="coupon-title__text">精选品牌券</text>
-        <image class="cloud-photo"></image>
+        <image src="https://static.moebeast.com/static/img/yun_right@3x.png" class="cloud-photo"></image>
       </view>
 
-      <view class="time-top brand-coupon__box">
-
+      <view class="time-top brand-coupon__box margin-top--50rpx">
         <view class="brand-coupon" wx:for="{{[1,6]}}" wx:key="{{index}}">
           <!-- 大图 -->
           <view class="brand-coupon__big">
@@ -181,17 +178,18 @@
     <!-- 精选商品券 -->
     <view class="bg-shenhong">
       <view class="flex_row--middle coupon-title">
-        <image class="cloud-photo"></image>
+        <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
         <text class="coupon-title__text">精选商品券</text>
-        <image class="cloud-photo"></image>
+        <image src="https://static.moebeast.com/static/img/yun_right@3x.png" class="cloud-photo"></image>
       </view>
 
-      <view class="time-top brand-coupon__box">
+      <view class="time-top brand-coupon__box margin-top--50rpx">
         <view class="high-pick__product--coupon" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
-        <!-- 头部 -->
+          <!-- 头部 -->
           <view class="time-top hander">
             <view class="flex-direction--column text-color">
-              <text class="font-width--semibold"> <text class="font-s ">¥</text> <text class="font--40rpx ">90</text> </text>
+              <text class="font-width--semibold"> <text class="font-s ">¥</text>
+              <text class="font--40rpx ">90</text> </text>
               <text class="font-xss">满200可用</text>
             </view>
 
@@ -205,11 +203,12 @@
             <text class="black-font font-width--medium ">蓝色印花清新蓝色原…</text>
 
             <view class="flex-row--b">
-                <view class="flex-row">
-                  <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>  <text class="font--30rpx">90</text> </text>
-                  <text class="sale-price">券后价</text>
-                </view>
-                <view class="oldPrice font-s ">¥120</view>
+              <view class="flex-row">
+                <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>
+                <text class="font--30rpx">90</text> </text>
+                <text class="sale-price">券后价</text>
+              </view>
+              <view class="oldPrice font-s ">¥120</view>
             </view>
           </view>
 
@@ -219,23 +218,126 @@
 
       </view>
 
+    </view>
+  </view>
 
-
-
-
+  <!-- 分类优惠券 -->
+  <view wx:else>
+    <!-- 分类优惠券按钮 -->
+    <view class="flex_row coupon-category__btn">
+      <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='common'?'active':''}}" data-code="common">同享券</view>
+      <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='alone'?'active':''}}" data-code="alone">单享券</view>
     </view>
 
+    <!-- 同享券 -->
+      <view class="time-top brand-coupon__box margin-top--40rpx" wx:if="{{couponCtaegory=='common'}}">
+        <view class="brand-coupon" wx:for="{{[1,6]}}" wx:key="{{index}}">
+          <!-- 大图 -->
+          <view class="brand-coupon__big">
+            <!-- 头部 -->
+            <view class="hander time-top">
+              <view class="flex_row">
+                <image class="brand-log" src="../../images/accept.png"></image>
+
+                <view class="middle-text fx-column-b">
+                  <view class="brand-name">小巨蛋柯莱仕小巨蛋…</view>
+                  <view class="text-color brand-coupon__price">
+                    <text class="icon">￥</text>
+                    <text class="brand-coupon__limit--text">50</text>
+                    <text class=" brand-coupon__limit">满200可用</text> </view>
+                </view>
+              </view>
+
+              <view class="fx-column--center ">
+                <view class="font-ss line-22rpx font-width--medium text-color">正在疯抢</view>
+                <view class="font-ss flex_row--middle join-brand__receive--icon">
+                  <text class="line-22rpx font-width--medium">进店领券</text>
+                  <image class="right-icon" src="../../images/see-icon@2.png"></image>
+                </view>
+              </view>
+            </view>
+
+            <!-- 底部 -->
+            <view class="coupon-big__bottom  time-top">
+              <view class="coupon-join__product flex-direction--column" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}" wx-if="{{index<3}}">
+                <image src="../../images/accept.png"></image>
+                <text class="font-ss ">蓝色印花清新蓝…</text>
+                <text class="font-width--medium text-color"> 
+                  <text class="font--12rpx">¥</text>
+                <text class="black-font">2846.65 </text>
+                </text>
+                <text class="font-xss oldPrice">¥4999.00</text>
+              </view>
+            </view>
+
+          </view>
+
+          <!-- 小图 -->
+          <view class="brand-coupon__min flex-direction-column__item">
+            <view class="hander">
+              <image class="log-bg" src="../../images/accept.png"></image>
+              <image class="log-icon" src="../../images/accept.png"></image>
+            </view>
+            <!-- 店铺的名字 -->
+            <view class="black-font strore-name font-width--medium">ECRONIC屿港</view>
+
+            <!-- 优惠券的金额 -->
+            <view class="coupon-limit">
+
+              <view class="fx-column--center coupon-limit__box ">
+                <view class="font-width--semibold">
+                  <text class="font-s ">￥</text>
+                  <text>90</text> </view>
+                <view class="font-xss">满200可用</view>
+              </view>
+              <view class="round round--left"></view>
+              <view class='round round--right'></view>
+            </view>
+
+            <!-- 领取优惠券的btn -->
+            <view class="flex_row--middle receive-coupon__btn">
+              <text class="black-font font-width--medium">进店领取</text>
+              <image src='../../images/icon-money@3x.png'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    <!-- 单方券 -->
+      <view class="time-top brand-coupon__box margin-top--40rpx" wx:if="{{couponCtaegory=='alone'}}">
+        <view class="high-pick__product--coupon" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+          <!-- 头部 -->
+          <view class="time-top hander">
+            <view class="flex-direction--column text-color">
+              <text class="font-width--semibold"> <text class="font-s ">¥</text>
+              <text class="font--40rpx ">90</text> </text>
+              <text class="font-xss">满200可用</text>
+            </view>
+
+            <!-- <view class="receive-coupon__btn use-coupon">去使用</view> -->
+            <view class="receive-coupon__btn  current-receive__coupon">立即领取</view>
+            <!-- <view class="receive-coupon__btn">立即领取</view> -->
+          </view>
+          <!-- 底部 -->
+          <view class=" flex-direction--column body">
+            <image src="../../images/icon-money@3x.png" class="product-photo"></image>
+            <text class="black-font font-width--medium ">蓝色印花清新蓝色原…</text>
+
+            <view class="flex-row--b">
+              <view class="flex-row">
+                <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>
+                <text class="font--30rpx">90</text> </text>
+                <text class="sale-price">券后价</text>
+              </view>
+              <view class="oldPrice font-s ">¥120</view>
+            </view>
+          </view>
 
 
 
+        </view>
 
-
-
-
-
-
-
-
+      </view>
 
   </view>
 </view>

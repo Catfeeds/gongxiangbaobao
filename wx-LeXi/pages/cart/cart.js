@@ -233,7 +233,7 @@ Page({
 
     this.setData({
       carQuantity: quantity,
-      payment: aggregatePrice
+      payment: aggregatePrice.toFixed(2)
     })
 
     //更新数量

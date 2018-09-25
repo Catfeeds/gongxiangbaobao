@@ -192,6 +192,7 @@ Page({
   getCouponList(e) {
     let products = app.globalData.orderSkus
     let product = []
+    console.log(products,"每个店铺")
 
     Object.keys(products.data).forEach((key) => {
       let productItem = {
@@ -212,6 +213,7 @@ Page({
     http.fxPost(api.order_info_page_coupon, {
       items: product
     }, (result) => {
+      console.log(product,"获取优惠券需求的参数")
       if (result.success) {
         this.setData({
           couponList: result.data
@@ -445,7 +447,7 @@ Page({
   // 优惠券弹框里面的内容couponList
   couponTap(e) {
 
-    console.log(this.data.couponList)
+    console.log(e,"优惠券")
     console.log(e.currentTarget.dataset.order_rid)
     if (e.currentTarget.dataset.order_rid) {
       let coupon = this.data.couponList[e.currentTarget.dataset.order_rid]
@@ -462,6 +464,7 @@ Page({
 
     console.log(this.data.couponList[e.currentTarget.dataset.order_rid])
     let couponStatus = this.data.couponList[e.currentTarget.dataset.order_rid]
+    console.log(this.data.couponList,"优惠券")
     if (couponStatus!=undefined&& couponStatus.length== 0) {
       utils.fxShowToast("没有可用的优惠券")
       return
