@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "乐喜社区",
+  "navigationBarTitleText": "乐喜",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",

@@ -93,5 +93,5 @@ Page({
   onShareAppMessage: function () {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
-  
+
 })

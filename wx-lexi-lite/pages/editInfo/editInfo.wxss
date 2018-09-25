@@ -72,7 +72,6 @@ label>view {
   right: 30rpx;
   height: 80rpx !important;
   width: 80rpx !important;
-
 }
 
 .bottom-btn-box {
