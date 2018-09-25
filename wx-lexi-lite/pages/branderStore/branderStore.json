@@ -3,11 +3,9 @@
   "usingComponents": {
     "fx-coupon": "/components/FxCoupon/coupon",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
-    "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
     "fx-login": "/components/FxLogin/FxLogin",
-    "fx-offcial": "/components/FxOffcial/FxOffcial",
     "fx-mini-btn": "/components/FxMiniBtn/FxMiniBtn",
     "fx-pick": "/components/FxPickProduct/FxPickProduct",
     "fx-sort": "/components/FxSortProduct/FxSortProduct",

@@ -1,7 +1,6 @@
 {
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
-    "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
     "fx-login": "/components/FxLogin/FxLogin",

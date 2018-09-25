@@ -20,7 +20,5 @@
     <!-- 最新作品 wx:for='{{currentNewProduct.products}}' -->
     
   </view>
-  
-  <!-- 官方信息 -->
-  <fx-offcial></fx-offcial>
+
 </view>

@@ -5,10 +5,8 @@
   "usingComponents": {
     "fx-coupon": "/components/FxCoupon/coupon",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
-    "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
-    "fx-product-distribute-card": "/components/FxProductDistributeCard/FxProductDistributeCard",
     "fx-login": "/components/FxLogin/FxLogin",
     "fx-modal-v": "/components/FxModalV/FxModalV",
     "fx-user-defined": "/components/FxUserDefined/FxUserDefined",

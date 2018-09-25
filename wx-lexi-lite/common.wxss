@@ -339,3 +339,8 @@ button::after {
 .fx-submenu .submenu.active .arrow {
   background-color: #5FE4B1;
 }
+
+/* 分类页 */
+.category-list {
+  
+}
