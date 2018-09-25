@@ -4,8 +4,7 @@
     "usingComponents": {
       "fx-product": "/components/FxProductComponent/FxProductComponent",
       "fx-login": "/components/FxLogin/FxLogin",
-      "fx-pick": "/components/FxPickProduct/FxPickProduct",
-      "fx-sort": "/components/FxSortProduct/FxSortProduct"
+      "fx-pick": "/components/FxPickProduct/FxPickProduct"
     }
   
 }

@@ -266,15 +266,5 @@
 
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
- 
 
-  <!-- 排序的呼出框 -->
-  <view class='login-bind_box--style' catchtap='handleSortOff' wx:if="{{isSortShow}}">
-    <fx-sort teHuiShow="{{true}}" bind:handleSortOff="handleSortOff" bind:handlePickOver="handleSort"></fx-sort>
-  </view>
-
-  <!-- 筛选的产品 -->
-  <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
-    <fx-pick-product bind:logisticsPrice="handlePick" bind:handlePickOff="handelOffPick" recommend="{{true}}" bind:handlePickProduct="handlePickProduct" category="{{shopInfo.categories}}"></fx-pick-product>
-  </view>
 </view>
