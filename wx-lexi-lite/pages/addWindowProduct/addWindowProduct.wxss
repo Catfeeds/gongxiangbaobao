@@ -1,0 +1,37 @@
+/* pages/addWindowProduct/addWindowProduct.wxss */
+
+.padding-left__right--10rpx {
+  margin: 0 10rpx;
+}
+
+.category-item {
+  display: inline-block;
+  padding: 0 30rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  line-height: 34rpx;
+}
+
+.category-item__box {
+  height: 100rpx;
+  background-color: white;
+}
+
+.category-item__box .category-item.active {
+  font-size: 48rpx;
+  color: #5fe4b1;
+}
+
+.product-box {
+  height: 795rpx;
+}
+
+.pick-product__photo {
+  height: 248rpx;
+  width: 248rpx;
+  margin-bottom: 3rpx;
+}
+
+.margin-reight--3rpx {
+  margin-right: 3rpx;
+}

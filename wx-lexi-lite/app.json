@@ -65,7 +65,9 @@
     "pages/userLikeProduct/userLikeProduct",
     "pages/networkError/networkError",
     "pages/exemptionFromPostage/exemptionFromPostage",
-    "pages/addWindow/addWindow"
+    "pages/addWindow/addWindow",
+    "pages/addWindowLabel/addWindowLabel",
+    "pages/addWindowProduct/addWindowProduct"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

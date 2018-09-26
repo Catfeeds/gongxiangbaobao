@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -50,7 +50,13 @@
 				{
 					"id": -1,
 					"name": "添加橱窗",
-					"pathName": "pages/addWindow/addWindow"
+					"pathName": "pages/addWindow/addWindow",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "选择橱窗商品",
+					"pathName": "pages/addWindowProduct/addWindowProduct"
 				}
 			]
 		}

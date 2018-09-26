@@ -1,34 +1,25 @@
-// pages/addWindow/addWindow.js
+// pages/addWindowProduct/addWindowProduct.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    toggleCode:3,
-    toggleCategory:[
-      {name:"拼接3张",code:3},
-      {name:"拼接5张",code:5},
-      {name:"拼接7张",code:7},
+    toggleCode:"like",
+    category:[
+      {name:"喜欢",code:"like"},
+      {name:"心愿单",code:"thinkOrder"},
+      {name:"最近查看",code:"browse"}
     ]
   },
 
-  // 切换拼接橱窗
-  handleWindowToggle(e){
-    console.log(e.currentTarget.dataset.windowCode)
+  // 切换分类
+  handleToggleCategory(e){
     this.setData({
-      toggleCode:e.currentTarget.dataset.windowCode
+      toggleCode:e.currentTarget.dataset.code
     })
+
   },
-
-  //去添标签页面
-  handleToAddwindowlabel(){
-wx.navigateTo({
-  url: '../addWindowLabel/addWindowLabel',
-})
-  },
-
-
 
   /**
    * 生命周期函数--监听页面加载

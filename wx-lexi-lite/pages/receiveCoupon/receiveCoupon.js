@@ -87,7 +87,21 @@ Page({
     if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].surplus_count == 0){
       utils.fxShowToast("亲！优惠券已经被领完")
     }
+  },
 
+  // 去品牌商店
+  handleTobrandStore(e){
+    console.log(e)
+    wx.navigateTo({
+      url: '../branderStore/branderStore?rid='+e.currentTarget.dataset.rid,
+    })
+  },
+
+  // 去商品详情
+  handleToProductInfo(e){
+    wx.navigateTo({
+      url: '../product/product?rid='+e.currentTarget.dataset.rid,
+    })
   },
 
   // 分类列表

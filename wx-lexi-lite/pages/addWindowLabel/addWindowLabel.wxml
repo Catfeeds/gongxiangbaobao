@@ -1,0 +1,87 @@
+<!--pages/addWindowLabel/addWindowLabel.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+  <!-- 添加页面加载 -->
+    <image 
+    src='../../images/jiazai.gif' 
+    class="load-page__icon" 
+    wx:if="{{isLoadPageShow}}"></image>
+
+
+<view class='container search-page'>
+
+  <!-- 搜索框 -->
+  <view class="bg-white search-input ">
+    <input 
+      value="{{inputText}}" 
+      placeholder="输入标签" 
+      bindinput="handleInput" 
+      bindconfirm="handleRecordLast"
+      placeholder-class="input-font" auto-focus/>
+
+      <image 
+        class='input-off__btn' 
+        catchtap='handleDeleteInput' 
+        wx:if="{{inputText}}"
+        src="../../images/bg-hui-off@icon.png"></image>
+  </view>
+
+  <!-- 没有输入的时候 wx:if="{{!inputText}}"-->
+  <block >
+    <!-- 历史搜索 -->
+    <view class="bg-white" >
+      <view class='time-top black-font font-width--semibold history-record padding-bottom--24rpx '>
+        <text>历史搜索</text>
+        <image 
+          class="margin-left--40rpx margin-right--40rpx" 
+          catchtap="handleClearHistory"
+          src='../../images/delete-icon@2.png'></image>
+      </view>
+      <view class="flex_row black-font padding-left--40rpx padding-right--40rpx history-record__text">
+        <view 
+          class="one-line-text" 
+          wx:for="{{searchHistory}}" 
+          data-text="{{item}}" 
+          catchtap="handleSearchWord"
+          wx:key="{{index}}">{{item}}</view>
+      </view>
+    </view>
+
+
+    <!-- 热门搜索 -->
+    <view class="bg-white last-record hot-recommend">
+      <view class='black-font font-width--semibold padding-left--40rpx '>热门标签</view>
+      <view class="padding-left--40rpx">
+
+    <view 
+      catchtap="handleSearchText"
+      data-index="{{index}}"
+      class="black-font padding-left--40rpx flex_row one-line-text hot-search" 
+      wx:for="{{[1,2,3,4]}}" 
+      wx:key="{{index}}">
+      <!-- <view>{{item.name}}</view>
+      
+      <view>台湾手工轻珠宝</view> -->
+      <view>#{{item}}</view>
+      <template is="wxParse" data="{{wxParseData:item}}" />
+    </view>
+
+      </view>
+    </view>
+  </block>
+
+  <!-- 输入的时候 wx:for="{{recommendText.search_items}}"-->
+  <block wx:if="{{inputText}}">
+    <view 
+      catchtap="handleSearchText"
+      data-index="{{index}}"
+      class="black-font padding-left--40rpx flex_row one-line-text hot-search" 
+      wx:for="{{replyTemArray}}" 
+      wx:key="{{index}}">
+      <!-- <view>{{item.name}}</view>
+      
+      <view>台湾手工轻珠宝</view> -->
+
+      <template is="wxParse" data="{{wxParseData:item}}" />
+    </view>
+  </block>
+</view>
