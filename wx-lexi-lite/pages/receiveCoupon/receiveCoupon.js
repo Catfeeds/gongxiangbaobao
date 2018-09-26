@@ -55,6 +55,7 @@ Page({
     console.log(e)
     let code = e.currentTarget.dataset.code
     let idx = e.currentTarget.dataset.idx
+    console.log(this.data.authorityCouponList[idx])
 
     // 已经领取
     if (this.data.authorityCouponList[idx].is_grant) {
@@ -64,7 +65,7 @@ Page({
     }
 
     // 没有领取
-    if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].count != 0) {
+    if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].surplus_count != 0) {
       http.fxPost(api.market_official_coupons_grant, {
         rid: code
       }, result => {
@@ -83,8 +84,8 @@ Page({
     }
 
     // 无法领取
-    if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].count == 0){
-      utils.fxShowToast("已经没有了")
+    if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].surplus_count == 0){
+      utils.fxShowToast("亲！优惠券已经被领完")
     }
 
   },
@@ -120,7 +121,7 @@ Page({
 
   // 精选商品券
   getHighProductCoupon() {
-    http.fxGet(api.market_coupon_center_single, this.data.highProductCouponParams, result => {
+    http.fxGet(api.market_coupon_center_single, { ...this.data.highProductCouponParams, open_id: app.globalData.jwt.openid}, result => {
       console.log(result, '精选商品优惠券')
       if (result) {
         this.setData({
@@ -135,9 +136,9 @@ Page({
 
   // 获取官方优惠券
   getAuthorityCoupon() {
-    http.fxGet(api.market_official_coupons_recommend, {}, result => {
+    http.fxGet(api.market_official_coupons_recommend, { open_id: app.globalData.jwt.openid}, result => {
       console.log(result, '官方优惠券')
-      if (result) {
+      if (result.success) {
 
         this.setData({
           authorityCouponList: result.data.official_coupons
@@ -153,7 +154,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    
   },
 
   /**

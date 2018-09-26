@@ -122,7 +122,32 @@
 
 .add-window__narrate--placeholder {
   font-size: 28rpx;
-  color: #CCCCCC;
+  color: #ccc;
+}
+
+.add-label__box {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-label {
+  height: 48rpx;
+  width: 175rpx;
+  background-color: #f5f7f9;
+  color: #5fe4b1;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  border-radius: 30rpx;
+  margin-right: 30rpx;
+}
+
+.flex--1 {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: #5fe4b1;
+  font-size: 28rpx;
 }
 
 .line-height--28rpx {
@@ -135,6 +160,9 @@
 
 .margin-right--4rpx {
   margin-right: 4rpx;
+}
+.margin-right--20rpx {
+  margin-right: 20rpx;
 }
 
 .margin-top--114rpx {

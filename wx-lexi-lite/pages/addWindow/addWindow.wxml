@@ -69,6 +69,25 @@
     placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
   </textarea>
 
-  
+  <view class="add-label__box padding-left__right--40rpx">
+    <view class="c-middle add-label">#添加标签</view>
+    <view class="flex--1">
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx">11111112</view>
+
+    </view>
+  </view>
 
 </view>

@@ -550,3 +550,8 @@
   background: rgba(95, 228, 177, 0.1);
   box-sizing: border-box;
 }
+
+.bo-lang__photo {
+  width: 750rpx;
+  height: 30rpx;
+}
