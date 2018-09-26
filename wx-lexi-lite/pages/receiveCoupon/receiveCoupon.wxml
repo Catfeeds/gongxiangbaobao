@@ -35,7 +35,7 @@
 
       <scroll-view scroll-x class="lexi-coupon__scroll">
         <!-- 每一个 -->
-        <view wx:for="{{authorityCouponList}}" wx:key="{{index}}" catchtap="handleReceiveAuthorityCoupon" data-idx="{{index}}" data-code="{{item.code}}" class="lexi-coupon__item flex-direction__column--center {{index==0?'margin-left--30rpx':''}} {{index==authorityCouponList.length-1?'margin-right--30rpx':''}}">
+        <view wx:for="{{authorityCouponList}}" wx:key="{{index}}" catchtap="handleReceiveAuthorityCoupon" data-idx="{{index}}" data-code="{{item.code}}" class="lexi-coupon__item flex-direction__column--center {{index==0?'margin-left--30rpx':''}} {{index==authorityCouponList.length-1?'margin-right--30rpx':''}} {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}">
           <!-- 每一个优惠券的上部 -->
           <view class="lexi-coupon__item--top ">
             <view class="flex_row--middle lexi-coupon__item--title">
@@ -54,26 +54,28 @@
             </view>
 
             <!-- 领取完了 -->
-            <image class="receive-over__img" src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
+            <image class="receive-over__img" 
+            wx:if="{{item.surplus_count==0&&item.is_grant==false}}"
+            src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
 
           </view>
 
           <!-- 每一个优惠券的下部 -->
           <view class=" c-middle lexi-coupon__item--bottom">
             <!-- 立即领取 -->
-            <view class="use-poupon__btn use-poupon__receive c-middle" wx:if="{{item.count!=0}}">
+            <view class="use-poupon__btn use-poupon__receive c-middle" wx:if="{{item.surplus_count!=0&&item.is_grant==false}}">
               立即领取
             </view>
 
             <!-- 立即领取不可点击 -->
-            <!-- <view wx:if="{{item.count==0}}"  class="use-poupon__btn c-middle use-poupon__receive btn-opacity">
+            <view wx:if="{{item.surplus_count==0&&item.is_grant==false}}"  class="use-poupon__btn c-middle use-poupon__receive btn-opacity coupon-over">
               立即领取
-            </view> -->
+            </view>
 
             <!-- 去使用 -->
-            <!-- <view  class="use-poupon__btn c-middle to-use__coupon">
+            <view  class="use-poupon__btn c-middle to-use__coupon" wx:if="{{item.is_grant==true}}">
               去使用
-            </view> -->
+            </view>
           </view>
         </view>
 

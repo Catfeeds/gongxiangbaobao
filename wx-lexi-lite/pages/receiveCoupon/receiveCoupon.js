@@ -20,23 +20,23 @@ Page({
       per_page: 10, // Number 可选 10 每页数量
     },
 
-    highProductCouponList:[],// 精选商品优惠券
+    highProductCouponList: [], // 精选商品优惠券
     highProductCouponParams: {
       store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
       page: 1, //Number 可选 1 当前页码
       per_page: 10, // Number 可选 10 每页数量
     },
 
-    couponCtaegory:"common", // 分类优惠券的切换
+    couponCtaegory: "common", // 分类优惠券的切换
 
     categoryCode: "recommend",
     category: []
   },
 
   // 切换优惠券的分类
-  handleChangeCouponClass(e){
+  handleChangeCouponClass(e) {
     this.setData({
-      couponCtaegory:e.currentTarget.dataset.code
+      couponCtaegory: e.currentTarget.dataset.code
     })
 
   },
@@ -55,21 +55,37 @@ Page({
     console.log(e)
     let code = e.currentTarget.dataset.code
     let idx = e.currentTarget.dataset.idx
-    http.fxPost(api.market_official_coupons_grant, {
-      rid: code
-    }, result => {
-      console.log(result, "领取官方优惠券")
-      if (result.success) {
-        this.setData({
-          ['authorityCouponList[' + idx + '].is_grant']: false
-        })
 
-        utils.fxShowToast("成功领取", "success")
+    // 已经领取
+    if (this.data.authorityCouponList[idx].is_grant) {
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }
 
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
+    // 没有领取
+    if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].count != 0) {
+      http.fxPost(api.market_official_coupons_grant, {
+        rid: code
+      }, result => {
+        console.log(result, "领取官方优惠券")
+        if (result.success) {
+          this.setData({
+            ['authorityCouponList[' + idx + '].is_grant']: true
+          })
+
+          utils.fxShowToast("成功领取", "success")
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+
+    // 无法领取
+    if (!this.data.authorityCouponList[idx].is_grant && this.data.authorityCouponList[idx].count == 0){
+      utils.fxShowToast("已经没有了")
+    }
 
   },
 
@@ -91,7 +107,7 @@ Page({
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
       console.log(result, '精选品牌馆优惠券')
-      if (result) { 
+      if (result) {
         this.setData({
           highBrandCouponList: result.data.coupons
         })
@@ -106,7 +122,7 @@ Page({
   getHighProductCoupon() {
     http.fxGet(api.market_coupon_center_single, this.data.highProductCouponParams, result => {
       console.log(result, '精选商品优惠券')
-      if (result) { 
+      if (result) {
         this.setData({
           highProductCouponList: result.data.coupons
         })
@@ -119,13 +135,10 @@ Page({
 
   // 获取官方优惠券
   getAuthorityCoupon() {
-    http.fxGet(api.market_official_coupons, {}, result => {
+    http.fxGet(api.market_official_coupons_recommend, {}, result => {
       console.log(result, '官方优惠券')
       if (result) {
-        // result.data.official_coupons.forEach(v => {
-        //   v.start_date = ...
-        //   v.end_date
-        // })
+
         this.setData({
           authorityCouponList: result.data.official_coupons
         })

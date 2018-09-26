@@ -25,7 +25,7 @@
         <view class='receive-number_bottom c-middle'>{{bonusCount}}人领取红包</view>
       </view>
       <view class='red-bag_photo'>
-        <image src='../../images/red-bagPhoto@2.png'></image>
+        <image src="https://static.moebeast.com/static/img/icon-bonus.png"></image>
       </view>
       <view class='c-middle black-font share_text'>分享微信好友/群立得10元</view>
       <view class='c-middle font-s'>每人每日限领一次</view>
@@ -52,7 +52,7 @@
   <!-- 获得红包 呼出框-->
   <view class='rule-box get-reward' animation="{{get_bonus}}">
     <view class='receive-price '>
-      <image src='../../images/redbag-success.png' class='receive-price_photo'></image>
+      <image src="https://static.moebeast.com/static/img/bonus-bg.png" class='receive-price_photo'></image>
       <button open-type='share' class='rule-btn font-xl continue-share fx-bg-hong'>继续分享</button>
       <button class='rule-btn font-xl bg-white shen-hui go-shopping' catchtap='handleToIndexTap'>去使用</button>
 

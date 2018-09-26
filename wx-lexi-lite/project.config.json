@@ -33,12 +33,24 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
 					"name": "coupon",
-					"pathName": "pages/receiveCoupon/receiveCoupon"
+					"pathName": "pages/receiveCoupon/receiveCoupon",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加橱窗",
+					"pathName": "pages/addWindow/addWindow"
 				}
 			]
 		}

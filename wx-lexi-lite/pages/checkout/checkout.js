@@ -444,8 +444,8 @@ Page({
 
         // 计算满减的总共金额
         Object.keys(result.data).forEach((key) => {
-          console.log(result.data[key].length,"manjian")
-          if (result.data[key].length != 0 && result.data[key].length != undefined && result.data[key].length != 'undefined') {
+          console.log(Object.keys(result.data[key]).length,"manjian")
+          if (Object.keys(result.data[key]).length != 0 ) {
             fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
           }
         })

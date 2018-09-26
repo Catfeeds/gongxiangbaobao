@@ -2,7 +2,7 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../../wxParse/wxParse.wxml" />
 
-<view class='container theme-bg-color product-bout-box {{coupon_show || pick?"prevent__penetrate":""}}'>
+<view class='container theme-bg-color product-bout-box '>
   <!-- 添加页面加载 -->
     <image 
     src='../../images/jiazai.gif' 

@@ -204,6 +204,7 @@ module.exports = {
   red_bag: 'market/bonus', //GET红包列表---
   authority_coupon: 'market/user_official', //官方的优惠券
   market_official_coupons_grant: 'market/official_coupons/grant', // 领取官方优惠券
+  market_official_coupons_recommend:'market/official_coupons/recommend', // 官方优惠券
   market_coupon_center_shared:'market/coupon_center_shared', // 精选品牌馆优惠券
   market_coupon_center_single:'market/coupon_center_single', // 精选商品优惠券
   order_info_page_coupon: 'market/user_order_coupons', //订单页面优惠券

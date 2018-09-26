@@ -64,7 +64,8 @@
     "pages/plantNoteInfo/plantNoteInfo",
     "pages/userLikeProduct/userLikeProduct",
     "pages/networkError/networkError",
-    "pages/exemptionFromPostage/exemptionFromPostage"
+    "pages/exemptionFromPostage/exemptionFromPostage",
+    "pages/addWindow/addWindow"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

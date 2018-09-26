@@ -113,6 +113,7 @@ Page({
               app.globalData.isLogin = true
               app.globalData.token = res.data.token
               app.globalData.uid = res.data.uid
+              app.globalData.jwt = res.data
               //更新用户信息
               app.updateUserInfo(res.data)
               // 更新小B身份
