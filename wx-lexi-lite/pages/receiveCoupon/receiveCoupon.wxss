@@ -319,7 +319,11 @@
   padding: 0 20rpx;
 }
 
-.brand-coupon__big .coupon-big__bottom .coupon-join__product image {
+.brand-coupon__big .coupon-big__bottom .coupon-join__product {
+  position: relative;
+}
+
+.brand-coupon__big .coupon-big__bottom .coupon-join__product image:nth-child(1) {
   height: 200rpx;
   width: 200rpx;
   border-radius: 8rpx;
@@ -554,4 +558,31 @@
 .bo-lang__photo {
   width: 750rpx;
   height: 30rpx;
+}
+
+.my-coupon__btn {
+  position: fixed;
+  right: 0;
+  top: 500rpx;
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  background-image: linear-gradient(to right, #a700ff, #4012b3);
+  height: 60rpx;
+  width: 154rpx;
+  color: #faf3ff;
+  font-weight: 500;
+}
+
+.my-coupon__btn image {
+  height: 28rpx;
+  width: 24rpx;
+  margin-right: 10rpx;
+}
+
+.coupon-hou__jia--icon {
+  position: absolute;
+  top: 20rpx;
+  left: 0;
+  height: 28rpx;
+  width: 76rpx;
 }

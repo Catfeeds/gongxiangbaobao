@@ -1,2 +1,19 @@
 /* pages/addWindowLabel/addWindowLabel.wxss */
-@import "../search/search.wxss"
+@import "../search/search.wxss";
+
+.padding-left__right--40rpx {
+  padding: 0 40rpx;
+}
+.color-hui {
+  color: #999;
+}
+
+.huodong-icon{
+padding: 4rpx 10rpx;
+  border-radius: 4rpx;
+  background-color: #5FE4B1;
+  color: white;
+  font-size: 18rpx;
+  line-height: 18rpx;
+  margin-left: 10rpx;
+}

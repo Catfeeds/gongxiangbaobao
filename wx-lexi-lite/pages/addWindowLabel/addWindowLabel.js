@@ -14,8 +14,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hotLabel:[], // 热门标签
+
+
     searchHistory: [], // 搜索历史
     inputText: '', // 输入框的内容
+
     recommendText: [], // 搜索时候推荐的词汇
     replyTemArray: [],
     // 关键词请求到参数
@@ -77,7 +81,7 @@ Page({
     let index = e.currentTarget.dataset.index
 
     console.log(this.data.data[index], "选中的")
-    console.log(typeof (this.data.data[index]), "选中的")
+    console.log(typeof(this.data.data[index]), "选中的")
     let replaceData = this.data.data[index]
     console.log(replaceData)
     replaceData = replaceData.replace('<text style=color:#5FE4B1>', '')
@@ -103,8 +107,8 @@ Page({
     clearTimeout(searchTime)
     searchTime = setTimeout(() => {
       let data = []
-      http.fxGet(api.core_platforms_search, this.data.hingeParams, (result) => {
-        console.log(result, "搜索结果")
+      http.fxGet(api.shop_windows_search_keywords, this.data.hingeParams, (result) => {
+        console.log(result, "搜索标签结果")
         if (result.success) {
           result.data.search_items.forEach((v, n) => {
             v.matches.forEach((o, n) => {
@@ -133,7 +137,7 @@ Page({
           utils.fxShowToast(result.status.message)
         }
       })
-    }, 3000)
+    }, 1500)
 
   },
 
@@ -144,98 +148,124 @@ Page({
     })
   },
 
-  // 跳转
-  handleToSkip(e) {
-    console.log(e.currentTarget.dataset.targetType)
-    let target = e.currentTarget.dataset.targetType
-    let rid = e.currentTarget.dataset.rid
-
-    if (target == 1) {
-      wx.navigateTo({
-        url: "../product/product?rid=" + rid
-      })
-    }
-
-    if (target == 2) {
-      wx.navigateTo({
-        url: '../branderStore/branderStore?rid=' + rid
-      })
-    }
-
+// 添加热门标签
+  handleAddHotLabel(e){
+    let hotLabel = e.currentTarget.dataset.name.replace(/^\s+|\s+$/g, "")
+    console.log(hotLabel,"标签的名字")
+    
+    this._hanleLabel(hotLabel)
   },
 
-  // 跳转接单定做
-  handleToCustomized() {
-    wx.navigateTo({
-      url: '../customized/customized',
+// 处理标签
+  _hanleLabel(e){
+    // 设置上个页面
+    let pageRoter = getCurrentPages()
+    let parentPage = pageRoter[pageRoter.length - 2]
+    console.log(pageRoter[pageRoter.length - 2])
+
+    let parentPageDataLabel = parentPage.data.windowParams.keywords
+    parentPageDataLabel.push(e)
+
+    parentPage.setData({
+      'windowParams.keywords': Array.from(new Set(parentPageDataLabel))
+    })
+
+    console.log(Array.from(new Set(parentPageDataLabel)))
+
+    // 设置缓存
+    let searchLabelHistory = wx.getStorageSync('searchLabelHistory') || []
+    searchLabelHistory.push(e)
+    wx.setStorageSync('searchLabelHistory', Array.from(new Set(searchLabelHistory)) )
+
+    wx.navigateBack({
+      delta:1
     })
   },
 
   // 获取搜索历史
   getSearchHistory() {
-    let data = wx.getStorageSync("searchHistory") || []
+    let data = wx.getStorageSync("searchLabelHistory") || []
     this.setData({
       searchHistory: data
     })
 
-    console.log(data, "历史记录")
+    console.log(data, "历史标签记录")
+  },
+
+  // 获取热门标签
+  getHotLabel() {
+    http.fxGet(api.shop_windows_hot_keywords, {}, result => {
+      console.log(result,"热门标签")
+      if (result.success) {
+        // 取整
+        result.data.keywords.forEach((v)=>{
+          v.numbers = v.numbers > 10000 ? v.numbers % 10000 >= 1000 ? (v.numbers / 10000).toFixed(1) +"w": (v.numbers / 10000).Math.floor() +"w" : v.numbers
+        })
+
+          this.setData({
+            hotLabel: result.data.keywords
+          })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getSearchHistory() // 搜索历史
-    this.getCustomMade() // 热门推荐的第一个
+    this.getHotLabel() // 热门推荐标签
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   },
   /**

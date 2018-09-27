@@ -280,8 +280,11 @@ module.exports = {
   follow_user: 'follow/user', // 添加关注
   unfollow_user: 'unfollow/user', // 取消关注
   users_followed_stores: 'users/followed_stores', // 获取关注店铺的列表
+  shop_windows:'shop_windows', // 发布橱窗
   shop_windows_user_likes: 'shop_windows/user_likes', // 获取user橱窗
   shop_windows_recommend: 'shop_windows/recommend', // 获取推荐的橱窗
+  shop_windows_hot_keywords:'shop_windows/hot_keywords',// 获取热门推荐标签
+  shop_windows_search_keywords:'shop_windows/search/keywords', // 搜索标签
 
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',

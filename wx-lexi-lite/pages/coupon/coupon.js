@@ -98,6 +98,7 @@ Page({
           this.setData({
             normalCouponList: normalCouponList.push(v)
           })
+          console.log(v,"商家券")
         }
 
         if (o == 'N02' || o == 'N03') {

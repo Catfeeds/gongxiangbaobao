@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "领券中心"
+  "navigationBarTitleText": "领券中心",
+  "usingComponents": {
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-modal": "/components/FxModal/FxModal"
+  }
 }

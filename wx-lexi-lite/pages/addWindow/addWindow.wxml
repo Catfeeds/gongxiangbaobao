@@ -12,26 +12,26 @@
 
     <!-- 3张 -->
     <view class="time-top window-photo__box" wx:if="{{toggleCode==3}}">
-      <image class="window-three__big--photo" data-idx="1"></image>
+      <image src="{{windowParams.product_items[0].link}}" class="window-three__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
       <view class="line-D window-three__box--min">
-        <image class="window-three__min--photo" data-idx="2"></image>
-        <image class="window-three__min--photo" data-idx="3"></image>
+        <image src="{{windowParams.product_items[1].link}}" class="window-three__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[2].link}}" class="window-three__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
       </view>
     </view>
 
     <!-- 5张 -->
     <view class="window-photo__box" wx:if="{{toggleCode==5}}">
       <view class="time-top window-photo__box">
-        <image class="window-five__big--photo" data-idx="1"></image>
+        <image src="{{windowParams.product_items[0].link}}" class="window-five__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
         <view class="line-D window-five__box--min">
-          <image class="window-five__min--photo" data-idx="2"></image>
-          <image class="window-five__min--photo" data-idx="3"></image>
+          <image src="{{windowParams.product_items[1].link}}" class="window-five__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+          <image src="{{windowParams.product_items[2].link}}" class="window-five__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
         </view>
       </view>
 
       <view class="time-top margin-top--4rpx">
-        <image class="window-five__photo--four" data-idx="4"></image>
-        <image class="window-five__photo--five" data-idx="5"></image>
+        <image src="{{windowParams.product_items[3].link}}" class="window-five__photo--four" data-idx="3" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[4].link}}" class="window-five__photo--five" data-idx="4" catchtap="handlePickProduct"></image>
       </view>
     </view>
 
@@ -40,18 +40,18 @@
       <view class="time-top">
         <view class="flex-direction-column__item">
           <view class="flex_row">
-            <image class="window-seven__min--photo" data-idx="1"></image>
-            <image class="window-seven__min--photo" data-idx="2"></image>
+            <image src="{{windowParams.product_items[0].link}}" class="window-seven__min--photo" data-idx="0" catchtap="handlePickProduct"></image>
+            <image src="{{windowParams.product_items[1].link}}" class="window-seven__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
           </view>
-          <image class="margin-top--4rpx margin-right--4rpx window-seven__middle--photo" data-idx="3"></image>
+          <image src="{{windowParams.product_items[2].link}}" class="margin-top--4rpx margin-right--4rpx window-seven__middle--photo" data-idx="2" catchtap="handlePickProduct"></image>
         </view>
-        <image class="window-seven__big--photo" data-idx="4"></image>
+        <image src="{{windowParams.product_items[3].link}}" class="window-seven__big--photo" data-idx="3" catchtap="handlePickProduct"></image>
       </view>
 
       <view class="margin-top--4rpx time-top">
-        <image class="window-seven__photo--bottom" data-idx="5"></image>
-        <image class="window-seven__photo--bottom" data-idx="6"></image>
-        <image class="window-seven__photo--bottom" data-idx="7"></image>
+        <image src="{{windowParams.product_items[4].link}}" class="window-seven__photo--bottom" data-idx="4" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[5].link}}" class="window-seven__photo--bottom" data-idx="5" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[6].link}}" class="window-seven__photo--bottom" data-idx="6" catchtap="handlePickProduct"></image>
       </view>
 
 
@@ -59,35 +59,32 @@
 
     <view class="font-s add-window__warn margin-top--114rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view>
 
-    <input class="add-window__title--input" placeholder-class="add-window__title--placeholder" placeholder="起一个吸引人的标题"></input>
+    <input 
+      class="add-window__title--input" 
+      value="{{windowParams.title}}"
+      bindinput="handleSetWindowTitle"
+      placeholder-class="add-window__title--placeholder" 
+      placeholder="起一个吸引人的标题"></input>
   </view>
 
-  <textarea class="add-window__narrate" auto-height placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
+  <textarea 
+    class="add-window__narrate" 
+    auto-height 
+    value="{{windowParams.description}}"
+    bindinput="handleSetNarrate" 
+    placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
   </textarea>
 
   <view class="add-label__box padding-left__right--40rpx">
     <view class="c-middle add-label" catchtap="handleToAddwindowlabel">#添加标签</view>
     <view class="flex--1">
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
-      <view class="margin-right--20rpx">11111112</view>
+      <view class="margin-right--20rpx" wx:for="{{windowParams.keywords}}" wx:key="{{index}}">#{{item}}</view>
+
     </view>
   </view>
 
-  <view class="shm"></view>
-  <cover-view class="c-middle shm sell-btn__box">
-    <cover-view class="c-middle sell-btn">发布</cover-view>
-  </cover-view>
+  <view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box {{isPublish?'active':''}}">
+    <view class="c-middle sell-btn">发布</view>
+  </view>
 
 </view>

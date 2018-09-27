@@ -25,8 +25,8 @@
         src="../../images/bg-hui-off@icon.png"></image>
   </view>
 
-  <!-- 没有输入的时候 wx:if="{{!inputText}}"-->
-  <block >
+  <!-- 没有输入的时候 -->
+  <block wx:if="{{!inputText}}">
     <!-- 历史搜索 -->
     <view class="bg-white" >
       <view class='time-top black-font font-width--semibold history-record padding-bottom--24rpx '>
@@ -50,19 +50,17 @@
     <!-- 热门搜索 -->
     <view class="bg-white last-record hot-recommend">
       <view class='black-font font-width--semibold padding-left--40rpx '>热门标签</view>
-      <view class="padding-left--40rpx">
+      <view class="">
 
     <view 
-      catchtap="handleSearchText"
+      catchtap="handleAddHotLabel"
       data-index="{{index}}"
-      class="black-font padding-left--40rpx flex_row one-line-text hot-search" 
-      wx:for="{{[1,2,3,4]}}" 
+      data-name="{{item.name}}"
+      class="black-font padding-left__right--40rpx time-top one-line-text hot-search" 
+      wx:for="{{hotLabel}}" 
       wx:key="{{index}}">
-      <!-- <view>{{item.name}}</view>
-      
-      <view>台湾手工轻珠宝</view> -->
-      <view>#{{item}}</view>
-      <template is="wxParse" data="{{wxParseData:item}}" />
+      <view class="flex_row">#{{item.name}} <view class="c-middle huodong-icon" wx:if="{{item.type==1}}">活动</view> </view>
+      <view class="font-s color-hui">{{item.numbers}} 人参与</view>
     </view>
 
       </view>

@@ -128,6 +128,7 @@
 .add-label__box {
   display: flex;
   flex-direction: row;
+  margin-bottom: 150rpx;
 }
 
 .add-label {
@@ -148,6 +149,11 @@
   flex-wrap: wrap;
   color: #5fe4b1;
   font-size: 28rpx;
+}
+
+.flex--1 view{
+  line-height: 28rpx;
+  padding:10rpx 0;
 }
 
 .line-height--28rpx {
@@ -189,4 +195,9 @@
   width: 100%;
   opacity: 1;
   background-color: white;
+}
+
+.sell-btn__box.active{
+  background:rgba(110, 215, 175, 1);
+
 }
