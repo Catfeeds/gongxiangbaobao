@@ -33,8 +33,39 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 4,
+			"list": [
+				{
+					"id": 0,
+					"name": "coupon",
+					"pathName": "pages/receiveCoupon/receiveCoupon",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加橱窗",
+					"pathName": "pages/addWindow/addWindow",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "选择橱窗商品",
+					"pathName": "pages/addWindowProduct/addWindowProduct",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "add-label",
+					"pathName": "pages/addWindowLabel/addWindowLabel",
+					"query": ""
+				}
+			]
 		}
 	}
 }

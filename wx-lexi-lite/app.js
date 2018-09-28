@@ -92,6 +92,8 @@ App({
               // 登录成功，得到jwt后存储到storage
               wx.setStorageSync('jwt', res.data)
               console.log(res.data, 'jwt信息')
+              this.globalData.jwt = res.data
+              
               if (isBind) {
                 this.globalData.isLogin = true
                 this.globalData.token = res.data.token

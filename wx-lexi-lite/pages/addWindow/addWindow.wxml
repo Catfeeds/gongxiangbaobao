@@ -1,0 +1,90 @@
+<!--pages/addWindow/addWindow.wxml 发布橱窗-->
+<view class="container">
+  <view class="padding-left__right--40rpx">
+    <view class="window-title">打造你的生活美学</view>
+    <view class="black-font line-height--28rpx">展示你的品位与搭配风格，拼揍一个设计主题橱窗</view>
+
+    <!-- 选择拼接几张 -->
+    <view class=" flex_row font-s">
+      <view wx:for="{{toggleCategory}}" wx:key="{{index}}" class="c-middle toggle-btn {{toggleCode==item.code?'active':''}}" catchtap="handleWindowToggle" data-window-code="{{item.code}}">{{item.name}}</view>
+
+    </view>
+
+    <!-- 3张 -->
+    <view class="time-top window-photo__box" wx:if="{{toggleCode==3}}">
+      <image src="{{windowParams.product_items[0].link}}" class="window-three__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
+      <view class="line-D window-three__box--min">
+        <image src="{{windowParams.product_items[1].link}}" class="window-three__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[2].link}}" class="window-three__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
+      </view>
+    </view>
+
+    <!-- 5张 -->
+    <view class="window-photo__box" wx:if="{{toggleCode==5}}">
+      <view class="time-top window-photo__box">
+        <image src="{{windowParams.product_items[0].link}}" class="window-five__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
+        <view class="line-D window-five__box--min">
+          <image src="{{windowParams.product_items[1].link}}" class="window-five__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+          <image src="{{windowParams.product_items[2].link}}" class="window-five__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
+        </view>
+      </view>
+
+      <view class="time-top margin-top--4rpx">
+        <image src="{{windowParams.product_items[3].link}}" class="window-five__photo--four" data-idx="3" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[4].link}}" class="window-five__photo--five" data-idx="4" catchtap="handlePickProduct"></image>
+      </view>
+    </view>
+
+    <!-- 7张 -->
+    <view class="window-photo__box" wx:if="{{toggleCode==7}}">
+      <view class="time-top">
+        <view class="flex-direction-column__item">
+          <view class="flex_row">
+            <image src="{{windowParams.product_items[0].link}}" class="window-seven__min--photo" data-idx="0" catchtap="handlePickProduct"></image>
+            <image src="{{windowParams.product_items[1].link}}" class="window-seven__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+          </view>
+          <image src="{{windowParams.product_items[2].link}}" class="margin-top--4rpx margin-right--4rpx window-seven__middle--photo" data-idx="2" catchtap="handlePickProduct"></image>
+        </view>
+        <image src="{{windowParams.product_items[3].link}}" class="window-seven__big--photo" data-idx="3" catchtap="handlePickProduct"></image>
+      </view>
+
+      <view class="margin-top--4rpx time-top">
+        <image src="{{windowParams.product_items[4].link}}" class="window-seven__photo--bottom" data-idx="4" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[5].link}}" class="window-seven__photo--bottom" data-idx="5" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[6].link}}" class="window-seven__photo--bottom" data-idx="6" catchtap="handlePickProduct"></image>
+      </view>
+
+
+    </view>
+
+    <view class="font-s add-window__warn margin-top--114rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view>
+
+    <input 
+      class="add-window__title--input" 
+      value="{{windowParams.title}}"
+      bindinput="handleSetWindowTitle"
+      placeholder-class="add-window__title--placeholder" 
+      placeholder="起一个吸引人的标题"></input>
+  </view>
+
+  <textarea 
+    class="add-window__narrate" 
+    auto-height 
+    value="{{windowParams.description}}"
+    bindinput="handleSetNarrate" 
+    placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
+  </textarea>
+
+  <view class="add-label__box padding-left__right--40rpx">
+    <view class="c-middle add-label" catchtap="handleToAddwindowlabel">#添加标签</view>
+    <view class="flex--1">
+      <view class="margin-right--20rpx" wx:for="{{windowParams.keywords}}" wx:key="{{index}}">#{{item}}</view>
+
+    </view>
+  </view>
+
+  <view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box {{isPublish?'active':''}}">
+    <view class="c-middle sell-btn">发布</view>
+  </view>
+
+</view>

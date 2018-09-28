@@ -15,12 +15,12 @@ module.exports = {
   // User
   user: 'users', // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
-  users_profile:'users/profile', // GET 获取用户资料（当前登录用户）
+  users_profile: 'users/profile', // GET 获取用户资料（当前登录用户）
   user_authorize: 'accounts/wxa_authorize', //openid---
   user_avatar_upload: '', // POST 
   user_upload_token: 'assets/user_upload_token', // GET 获取上传Token
   user_withdraw: 'pay_account/life_cash_money', // 提现至微信
-  orders_order_coupon_count:'orders/order_coupon_count',// 订单的数量和未使用优惠券的额数量
+  orders_order_coupon_count: 'orders/order_coupon_count', // 订单的数量和未使用优惠券的额数量
 
   // Asset
   asset_upload: 'assets/upload', // POST 上传附件
@@ -31,10 +31,10 @@ module.exports = {
   siblings_categories: 'categories/siblings', // GET 同级分类
 
   //share 
-  market_share_store:'market/share/store', // 分享品牌管换取图片
-  market_share_life_store:'market/share/life_store', // 分享生活馆卡片
-  market_share_invite_poster:'market/share/invite_poster', // 邀请好友生成海报
-  market_share_invite_carde:'market/share/invite_card', // 邀请好友开馆的卡片
+  market_share_store: 'market/share/store', // 分享品牌管换取图片
+  market_share_life_store: 'market/share/life_store', // 分享生活馆卡片
+  market_share_invite_poster: 'market/share/invite_poster', // 邀请好友生成海报
+  market_share_invite_carde: 'market/share/invite_card', // 邀请好友开馆的卡片
   // Brand
   brand_list: 'brands', // GET 品牌列表
   brand_detail: 'brands/:rid', // GET 品牌详情
@@ -45,16 +45,16 @@ module.exports = {
   BrowseQuantityNumber: 'store/:rid/visitor', //浏览过的人数---
   brand_info: 'store/detail', // 品牌故事
   is_authentication: 'users/get_authenticate_status', //GET店铺是否经过官方认证
-  official_store_detail:'official_store/detail', // 品牌故事h
+  official_store_detail: 'official_store/detail', // 品牌故事h
 
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
   life_store_edit: 'store/edit_store', // GET
   life_store_apply: 'store/apply_life_store', // POST 申请生活馆
   life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
-  life_records_detail:'life_records/detail', // get 生活志详情
-  life_records_similar:'life_records/similar', // 相关故事推荐
-  life_records_comments:'life_records/comments', //get 获取生活志评论
+  life_records_detail: 'life_records/detail', // get 生活志详情
+  life_records_similar: 'life_records/similar', // 相关故事推荐
+  life_records_comments: 'life_records/comments', //get 获取生活志评论
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
   life_store_last_visit: 'users/last_store', // GET 用户最后访问的生活馆
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
@@ -63,7 +63,7 @@ module.exports = {
   life_store_update_logo: 'store/update_life_store_logo', // POST 
   life_records_guess_likes: 'life_records/guess_likes', //get 发现的猜你喜欢
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
-  life_records_wonderful_stories:'life_records/wonderful_stories', //get精彩故事
+  life_records_wonderful_stories: 'life_records/wonderful_stories', //get精彩故事
   life_store_orders_collect: 'stats/life_orders_collect', // GET 生活馆订单汇总
   life_store_income_collect: 'stats/life_orders_sale_collect', // GET 生活馆收益汇总
   life_store_cash_collect: 'stats/life_cash_collect', // GET 生活馆提现汇总
@@ -73,13 +73,13 @@ module.exports = {
   life_store_statements: 'stats/life_orders/statements', // GET 生活馆对账单
   life_store_statement_detail: 'stats/life_orders/statement_items', // GET 生活馆对账单详情
   life_store_income_detail: 'stats/life_orders/:rid', // GET 收益详情
-  core_platforms_life_records:'core_platforms/life_records', // 获取生活志文章列表
-  life_records_recommend_products:'life_records/recommend_products', // get 生活值详情 推荐
-  life_records_creator_story:'life_records/creator_story',// 创作人故事列表
-  life_records_hand_teach:'life_records/hand_teach', // 手做教学列表
-  life_records_grass_note:'life_records/grass_note', // 种草笔记频道列表
-  life_records_life_remember:'life_records/life_remember',// 生活记事频道列表
-  official_store_master_info:'official_store/master_info', // 店铺主人信息
+  core_platforms_life_records: 'core_platforms/life_records', // 获取生活志文章列表
+  life_records_recommend_products: 'life_records/recommend_products', // get 生活值详情 推荐
+  life_records_creator_story: 'life_records/creator_story', // 创作人故事列表
+  life_records_hand_teach: 'life_records/hand_teach', // 手做教学列表
+  life_records_grass_note: 'life_records/grass_note', // 种草笔记频道列表
+  life_records_life_remember: 'life_records/life_remember', // 生活记事频道列表
+  official_store_master_info: 'official_store/master_info', // 店铺主人信息
   // 分销
 
   // GET 分销池
@@ -100,7 +100,7 @@ module.exports = {
   distribute_products: 'fx_distribute/choose_center',
   // GET 选品中心-符合条件数量
   distribute_product_count: 'fx_distribute/choose_center/count',
-  
+
   // Product
   products: 'products/by_store', // GET 产品列表---
   latest_products: 'products/latest', // GET 最新产品---
@@ -121,16 +121,16 @@ module.exports = {
   theme_product: 'wx_app_design', //get 1,主打设计 2,优质精选---
   theme: 'wx_app_design/collections', //Get 主题---
   marketBanners: 'banners/:rid', //广告--
-  products_index:'products/index', // 首页作品的排序---
-  logistics_core_freight_template:'logistics/core_freight_template/:rid', // 商品对应的物流模板
-  products_custom_made:'products/custom_made',// 接单定制
-  products_free_postage:'products/free_postage',// 包邮专区
+  products_index: 'products/index', // 首页作品的排序---
+  logistics_core_freight_template: 'logistics/core_freight_template/:rid', // 商品对应的物流模板
+  products_custom_made: 'products/custom_made', // 接单定制
+  products_free_postage: 'products/free_postage', // 包邮专区
 
   // 核心 product
-  banners_rid:'banners/:rid', // 特色品牌馆广告列表
+  banners_rid: 'banners/:rid', // 特色品牌馆广告列表
   banners_explore: 'banners/explore', //探索的头部广告h
   banners_handpick: 'banners/handpick', // 精选区域的头部广告
-  products_similar:'products/similar', // 相似的产品
+  products_similar: 'products/similar', // 相似的产品
   category_products: 'category/products', // 分类商品列表
   column_collections: 'column/collections', // 集合
   column_explore_new: 'column/explore_new', // 优质新品
@@ -143,19 +143,19 @@ module.exports = {
   banners_handpick_content: 'banners/handpick_content', // 精选的中间广告
   column_handpick_recommend: 'column/handpick_recommend', // 人气推荐
   column_preferential_design: 'column/preferential_design', // 特惠好设计
-  core_platforms_search_users: 'core_platforms/search/users',// 搜索落地页用户列表
+  core_platforms_search_users: 'core_platforms/search/users', // 搜索落地页用户列表
   core_platforms_search_stores: 'core_platforms/search/stores', // 获取搜索品牌馆
-  column_handpick_optimization:'column/handpick_optimization', // 乐喜优选
+  column_handpick_optimization: 'column/handpick_optimization', // 乐喜优选
   core_platforms_search_products: 'core_platforms/search/products', // 搜索商品的结果
-  core_platforms_search_week_hot:'core_platforms/search/week_hot', // 热门搜索
-  core_platforms_search_hot_recommend:'core_platforms/search/hot_recommend', // 热门推荐
- 
+  core_platforms_search_week_hot: 'core_platforms/search/week_hot', // 热门搜索
+  core_platforms_search_hot_recommend: 'core_platforms/search/hot_recommend', // 热门推荐
+
   // 核心 store
-  users_user_dynamic:"users/user_dynamic", // 获取自己的动态
+  users_user_dynamic: "users/user_dynamic", // 获取自己的动态
   column_feature_store: 'column/feature_store', // 特色品牌管h
   column_feature_store_all: 'column/feature_store_all', // 特色品牌管h
-  column_handpick_store:'column/handpick_store', // 特色品牌馆精选
-  column_browse_records:'column/browse_records', // 浏览过乐喜优选，优质新品……人数以及头像
+  column_handpick_store: 'column/handpick_store', // 特色品牌馆精选
+  column_browse_records: 'column/browse_records', // 浏览过乐喜优选，优质新品……人数以及头像
   users_other_followed_stores: 'users/other_followed_stores', // 获取用户关注地店铺列表
 
   // people 核心
@@ -165,8 +165,8 @@ module.exports = {
   users_other_followed_life_stores: 'users/other_followed_stores', //别人收藏的设计管
   users_other_user_dynamic: "users/other_user_dynamic", // 其他人的动态
   users_other_user_center: 'users/get_other_user_center', // 获取别人个人中心
-  users_other_user_fans:'users/other_user_fans', // 获取别人的粉丝
-  other_user_browses:'other_user_browses',// 别人的浏览记录
+  users_other_user_fans: 'users/other_user_fans', // 获取别人的粉丝
+  other_user_browses: 'other_user_browses', // 别人的浏览记录
 
   // Cart
   cart: 'cart', // GET 加入购物车---
@@ -189,12 +189,12 @@ module.exports = {
   order_prepay_sign: 'orders/wx_prepay_sign', // POST 获取prepay_id和支付签名验证paySign
   critique_product: 'orders/product/comment/create', //post 评论商品---
   orders_delete: 'orders/delete', // 删除订单---
-  core_orders_rid:'core_orders/:rid', // 订单详情h
-  logistics_information:'logistics/information', // 查询物流
-  orders_after_payment_rid:'orders/after_payment/:rid', // 订单详情
+  core_orders_rid: 'core_orders/:rid', // 订单详情h
+  logistics_information: 'logistics/information', // 查询物流
+  orders_after_payment_rid: 'orders/after_payment/:rid', // 订单详情
   // Market
-  is_first_order:"market/coupons/new_user_discount", // 查看是否属于首单
-  user_login_coupon:'market/user_master_coupons',//用户登陆时候的优惠券
+  is_first_order: "market/coupons/new_user_discount", // 查看是否属于首单
+  user_login_coupon: 'market/user_master_coupons', //用户登陆时候的优惠券
   coupons: 'market/coupons', // get 优惠券列表---
   checkout_authority_couponList: 'market/user_official_fill', // get 优惠券列表---
   noCouponsList: 'market/not_login_coupons', // get 优惠券列表---
@@ -203,13 +203,18 @@ module.exports = {
   available_coupons: 'market/coupons/available', // POST 用户可用优惠券
   coupon_grant: 'market/coupons/grant', // POST 领取优惠券---
   red_bag: 'market/bonus', //GET红包列表---
-  authority_coupon:'market/user_official', //官方的优惠券
+  authority_coupon: 'market/user_official', //官方的优惠券
+  market_official_coupons_grant: 'market/official_coupons/grant', // 领取官方优惠券
+  market_official_coupons_recommend:'market/official_coupons/recommend', // 官方优惠券
+  market_coupon_center_shared:'market/coupon_center_shared', // 精选品牌馆优惠券
+  market_coupon_center_single:'market/coupon_center_single', // 精选商品优惠券
   order_info_page_coupon: 'market/user_order_coupons', //订单页面优惠券
   full_reduction: 'market/user_order_full_reduction', //满减
   first_order_reduction: 'market/coupons/new_user_discount', //满减
   noLoginFullSubtraction: 'market/coupons', //没有登陆下的满减
-  market_bonus_grant:'market/bonus/grant', // 分享领红包
-  market_bonus_lines:'market/bonus_lines', // 分享领取红包的人
+  market_bonus_grant: 'market/bonus/grant', // 分享领红包
+  market_bonus_lines: 'market/bonus_lines', // 分享领取红包的人
+  market_official_coupons: 'market/official_coupons', // 领券中心
 
   // Search  
   search: 'search/products', // POST 搜索商品
@@ -252,7 +257,7 @@ module.exports = {
   add_watch: 'follow/store', // 添加
   delete_watch: 'unfollow/store', // 取消关注
   examine_watch: 'follow/get_status', // 查看是否关注
-  add_browse : 'store/visitor', //添加访问者---
+  add_browse: 'store/visitor', //添加访问者---
   userlike: 'userlike', //添加喜欢---
   usetIsLike: 'products_userlike', // 查看用户是否喜欢
 
@@ -276,6 +281,11 @@ module.exports = {
   follow_user: 'follow/user', // 添加关注
   unfollow_user: 'unfollow/user', // 取消关注
   users_followed_stores: 'users/followed_stores', // 获取关注店铺的列表
+  shop_windows:'shop_windows', // 发布橱窗
+  shop_windows_user_likes: 'shop_windows/user_likes', // 获取user橱窗
+  shop_windows_recommend: 'shop_windows/recommend', // 获取推荐的橱窗
+  shop_windows_hot_keywords:'shop_windows/hot_keywords',// 获取热门推荐标签
+  shop_windows_search_keywords:'shop_windows/search/keywords', // 搜索标签
 
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',

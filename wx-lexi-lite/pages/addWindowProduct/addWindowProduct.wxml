@@ -1,0 +1,69 @@
+<!--pages/addWindowProduct/addWindowProduct.wxml-->
+<view class="container">
+  <!-- nvbar -->
+  <view class="padding-left__right--10rpx flex_row category-item__box">
+    <view catchtap="handleToggleCategory" class="category-item {{item.code==toggleCode?'active':''}}" wx:for="{{category}}" data-code="{{item.code}}" wx:key="{{index}}">
+      {{item.name}}
+    </view>
+  </view>
+
+  <!-- 喜欢 -->
+  <scroll-view bindscrolltolower="handleReachBottom" scroll-y wx:if="{{toggleCode=='like'}}" class="product-box">
+    <image 
+      wx:for="{{likeProduct}}" 
+      wx:key="{{index}}" 
+      data-rid="{{item.rid}}"
+      data-store-rid="{{item.store_rid}}"
+      catchtap="handleGetProductPhoto"
+      data-store-rid="{{item.store_rid}}"
+      class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}-p30"></image>
+  </scroll-view>
+
+  <!-- 心愿单 -->
+  <scroll-view 
+    bindscrolltolower="handleReachBottom"
+    class="product-box" 
+    scroll-y 
+    wx:if="{{toggleCode=='thinkOrder'}}">
+    <image 
+      wx:for="{{desireOrderProduct}}" 
+      wx:key="{{index}}" 
+      data-rid="{{item.rid}}"
+      data-store-rid="{{item.store_rid}}"
+      catchtap="handleGetProductPhoto"
+      data-store-rid="{{item.store_rid}}"
+      class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}"></image>
+  </scroll-view>
+
+  <!-- 最近查看 -->
+  <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='browse'}}">
+    <image 
+      wx:for="{{userBrowsesProduct}}" 
+      wx:key="{{index}}" 
+      data-rid="{{item.rid}}"
+      data-store-rid="{{item.store_rid}}"
+      catchtap="handleGetProductPhoto"
+      data-store-rid="{{item.store_rid}}"
+      class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}"></image>
+  </scroll-view>
+
+  <!-- 底部选择框 -->
+  <view class="pick-photo__box">
+    <view class="time-top padding-left__right--40rpx">
+      <text class="black-font font-width--medium line-height--28rpx">选择该商品一张图片做封面</text>
+      <view class="black-font c-middle add-window__btn add-window__btn--green" wx:if="{{pickProductId}}" catchtap="handleAddWindowBtn">确定</view>
+      <view class="black-font c-middle add-window__btn add-window__btn--hui" wx:if="{{!pickProductId}}">确定</view>
+
+    </view>
+
+    <scroll-view scroll-x class="add-window__scroll--bottom">
+      <view class="pick-product__photo--bottom {{index==0?'margin-left--40rpx':''}} {{index==productPhoto.length-1?'margin-right--40rpx':''}}" wx:for="{{productPhoto}}" wx:key="{{index}}" data-photo-id="{{item.id}}" data-photo-link="{{item.view_url}}" catchtap="handlePickPhoto">
+        <image class="product-photo__bottom {{item.id==pickProductId?'border--green':''}}" src="{{item.view_url}}-p16"></image>
+        <image src="../../images/icon-checked@2x.png" wx:if="{{item.id==pickProductId}}"></image>
+      </view>
+    </scroll-view>
+
+  </view>
+
+
+</view>

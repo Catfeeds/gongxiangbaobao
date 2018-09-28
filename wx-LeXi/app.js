@@ -319,6 +319,7 @@ App({
     paymentSuccessOrder: {
       actual_payment: 0.1,
       bonus_amount: 0,
+<<<<<<< HEAD
       order_rid: 'D18091760153274',
       orders: [{
         store: {
@@ -403,6 +404,10 @@ App({
           town: ''
         }]
       }]
+=======
+      order_rid: "D18091760153274",
+      orders: []
+>>>>>>> origin/zhaogaoshang
     },
     // 登录相关信息
     jwt: {},

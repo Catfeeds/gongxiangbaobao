@@ -763,3 +763,6 @@ margin-bottom:8rpx;
 background-color:#949ea6;
 }
 
+.coupon-template {
+  top:0rpx;
+}

@@ -15,9 +15,9 @@
       <view class='price-info-box'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>{{ item.amount }}</text>
+          <text>{{ item.coupon.amount }}</text>
         </view>
-        <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{ item.min_amount }}使用</view>
+        <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{ item.coupon.min_amount }}使用</view>
       </view>
     </view>
     <!-- right 信息 -->
@@ -26,11 +26,11 @@
         <view class='quadrate-view'></view>
         <text>{{ item.start_time }}至{{ item.end_time }}</text>
       </view>
-      <view class='shop-icon paymentFnTextB' wx:if="{{ item.store_info }}">
+      <view class='shop-icon paymentFnTextB' >
         <view>
-          <image src='{{ item.store_info.logo }}'></image>
+          <image src='{{ item.store_logo }}'></image>
         </view>
-        <text>{{ item.store_info.name }}..红包</text>
+        <text>{{ item.store_name }}红包</text>
       </view>
     </view>
     <!-- 去使用的按钮 -->
@@ -40,6 +40,7 @@
     <!-- 右边的线 -->
     <view class='right-line line-L theme-bg-color'></view>
   </view>
+
   <!-- 乐喜券 -->
   <view class='coupon-box' wx:for='{{authorityNormalCouponList}}' wx:key="{{index}}">
     <!-- left -->
@@ -87,7 +88,7 @@
       <view class='price-info-box exceed_coupon--right'>
         <view class='price-icon'>
           <image src='../../images/￥@2-.png'></image>
-          <text>{{item.amount}}</text>
+          <text>{{item.coupon.amount}}</text>
         </view>
         <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
       </view>
@@ -98,11 +99,11 @@
         <view class='quadrate-view none-bg'></view>
         <text>{{item.start_time}}至{{item.end_time}}</text>
       </view>
-      <view class='shop-icon paymentFnTextB hui' wx:if="{{ item.store_info }}">
+      <view class='shop-icon paymentFnTextB hui' >
         <view>
-          <image src='{{ item.store_info.logo }}'></image>
+          <image src='{{ item.store_logo }}'></image>
         </view>
-        <text>{{ item.store_info.name }}..红包</text>
+        <text>{{ item.store_name }}红包</text>
       </view>
     </view>
     <!-- 去使用的按钮 -->

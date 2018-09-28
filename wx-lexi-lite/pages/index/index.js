@@ -30,6 +30,8 @@ Page({
     // 生活馆
     isUploading: false,
     uploadStatus: 0,
+    shopInfo: '', // 生活馆信息
+    lifePhotoUrl: '', // 分享生活馆的图片
     sid: '', // 生活馆sid
     openId: '', // openId
     shopInfo: '', // 生活馆信息
@@ -1109,7 +1111,7 @@ Page({
     http.fxGet(api.column_handpick_optimization, {}, (result) => {
       console.log(result, '乐喜优选')
       if (result.success) {
-        
+
         this.setData({
           lexiPick: []
         })
@@ -1329,6 +1331,7 @@ Page({
         this.getStoreHeadlines() // 开馆头条
         this.getTodayRecommend() // 今日推荐
         this.getGrateful() // 人气推荐
+        this.getWindow() // 橱窗
         this.getChoiceMiddleAdvertisement() // 中间广告
         this.getLitePick() // 乐喜优选
         this.getPlantOrder() // 种草清单
@@ -1370,6 +1373,20 @@ Page({
         this.setData({
           lifePhotoUrl: result.data.image_url
         })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  getWindow() {
+    http.fxGet(api.shop_windows_recommend, {}, result => {
+      console.log(result, "获取推荐的橱窗")
+      if (result.success) {
+
+
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -1526,7 +1543,7 @@ Page({
    * 用户点击右上角分享 data-from
    */
   onShareAppMessage: function(e) {
-    //分享平台或生活馆
+    // 分享平台或生活馆
     if (e.from == 'menu' || e.target.dataset.from == 1) {
       if (this.data.pageActiveTab == 'lifeStore') {
         let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
