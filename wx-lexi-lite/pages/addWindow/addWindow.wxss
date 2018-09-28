@@ -1,4 +1,7 @@
 /* pages/addWindow/addWindow.wxss */
+.container {
+  padding-top: 40rpx;
+}
 
 .padding-left__right--40rpx {
   padding: 0 40rpx;

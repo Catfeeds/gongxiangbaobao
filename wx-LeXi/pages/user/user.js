@@ -675,11 +675,9 @@ Page({
               app.globalData.isLogin = true
               app.globalData.token = res.data.token
               app.globalData.uid = res.data.uid
-<<<<<<< HEAD
 
-=======
               app.globalData.jwt = res.data
->>>>>>> origin/zhaogaoshang
+
               //更新用户信息
               app.updateUserInfo(res.data)
               

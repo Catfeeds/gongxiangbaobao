@@ -1,4 +1,4 @@
-<!--pages/dynamic/dynamic.wxml 动态页面 "pages/dynamic/dynamic"-->
+<!--pages/dynamic/dynamic.wxml 别人动态"pages/dynamic/dynamic"-->
 <view class='container'>
   <!-- 背景 -->
   <view class="dynamic-hander__photo">

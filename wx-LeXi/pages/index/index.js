@@ -1088,6 +1088,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    common.networkType()
+
     this.getNavigationBarTitleText() // 设置头部信息
 
     this.getShopInfo() // 获取店铺的信息

@@ -31,7 +31,21 @@ let shareLexi = (title, imgUrl) => {
   }
 }
 
+let networkType=()=>{
+  wx.getNetworkType({
+    success: function (res) {
+      console.log(res)
+      if (res.networkType == "none") {
+        wx.navigateTo({
+          url: '../networkError/networkError'
+        })
+      }
+    },
+  })
+}
+
 module.exports = {
   getReceivePlaces: getAllPlaces,
-  shareLexi: shareLexi
+  shareLexi: shareLexi,
+  networkType: networkType
 }

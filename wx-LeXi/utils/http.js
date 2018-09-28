@@ -97,7 +97,7 @@ function fxUpload(url, tempFile, data = {}, cb) {
 
 // Get请求
 function fxGet(url, data = {}, cb) {
-  // wx.showNavigationBarLoading()
+
   wx.request({
     url: fxUrl(url),
     data: {
@@ -115,9 +115,6 @@ function fxGet(url, data = {}, cb) {
       return typeof cb == 'function' && cb(res.data)
     },
     fail(res) {
-      wx.navigateTo({
-        url: '../networkError/networkError'
-      })
       wx.hideNavigationBarLoading()
       return typeof cb == 'function' && cb(false)
     }

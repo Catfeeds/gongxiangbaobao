@@ -100,11 +100,14 @@ Page({
           const code = res.code
           console.log('Login code: ' + code)
 
+          let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') || false
+
           http.fxPost(api.wxa_authorize_bind_mobile, {
             code: code,
             auth_app_id: app.globalData.app_id,
             encrypted_data: e.detail.encryptedData,
             iv: e.detail.iv,
+            last_store_rid: lastVisitLifeStore
           }, (res) => {
             console.log(res, '微信授权手机号')
             if (res.success) {
@@ -123,6 +126,10 @@ Page({
               // 更新小B身份
               app.updateLifeStoreInfo(res.data)
               
+              // 更新最后浏览
+              if (lastVisitLifeStore) {
+                app.updateLifeStoreLastVisit(lastVisitLifeStore)
+              }
               // 回调函数
               app.hookLoginCallBack()
             } else {

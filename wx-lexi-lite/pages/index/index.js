@@ -169,6 +169,7 @@ Page({
     middleAdvertisementList: [], // 精选的中间广告
     swiperIndex: 0, // 旋转木马当前选中项目
     storeHeadlines: [], // 生活馆头条
+    recommendWindow: [], // 发现生活美学
     plantOrderList: { // 种草清单
       life_records: [{
           cover: '',
@@ -1380,10 +1381,12 @@ Page({
   },
 
   getWindow() {
-    http.fxGet(api.shop_windows_recommend, {}, result => {
+    http.fxGet(api.shop_windows_recommend, { per_page:5 }, result => {
       console.log(result, "获取推荐的橱窗")
       if (result.success) {
-
+        this.setData({
+          recommendWindow: result.data
+        })
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -1582,6 +1585,21 @@ Page({
   handleToSearch() {
     wx.navigateTo({
       url: '../search/search',
+    })
+  },
+
+  // 橱窗详情
+  handleGoWindowDetail(e){
+    let windowRid = e.currentTarget.dataset.windowRid
+    wx.navigateTo({
+      url: '../windowDetail/windowDetail?windowRid=' + windowRid,
+    })
+  },
+
+  // 橱窗列表
+  handleGoWindow(){
+    wx.navigateTo({
+      url: '../window/window'
     })
   },
 

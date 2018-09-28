@@ -42,8 +42,9 @@ Page({
     }
   },
 
+  // 书否可发布
   _handeICanPublish() {
-    let pickPhotoAddPickCategory = this.data.toggleCode == this.data.windowParams.product_items.length // 选择的图片和选择的3，5，7是否相等
+    let pickPhotoAddPickCategory = this.data.toggleCode <= this.data.windowParams.product_items.length // 选择的图片和选择的3，5，7是否相等
     let title = this.data.windowParams.title // 标题
     let description = this.data.windowParams.description
     let labelLength = this.data.windowParams.keywords.length
@@ -64,6 +65,8 @@ Page({
     this.setData({
       toggleCode: e.currentTarget.dataset.windowCode
     })
+
+    this._handeICanPublish() // 是否可发布
   },
 
   // 添加橱窗商品
@@ -99,17 +102,29 @@ Page({
     })
   },
 
+  // 发布橱窗
   handlePublishBtn(){
     if (!this.data.isPublish){
       utils.fxShowToast("请填写完整信息")
       return
     }
 
+    // 去除多余的图片
+    let publishParams = this.data.windowParams.product_items
+    if (this.data.toggleCode< publishParams.length){
+      this.setData({
+        'windowParams.product_items': publishParams.splice(0, this.data.toggleCode)
+      })
+    }
+    
     http.fxPost(api.shop_windows, this.data.windowParams,result=>{{
-      console.log(result)
+      console.log(result,'添加橱窗完成')
       if(result.success){
+        console.log(this.data.windowParams.product_items)
 
-
+        wx.navigateTo({
+          url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
+        })
       }else{
         utils.fxShowToast(result.status.message)
       }

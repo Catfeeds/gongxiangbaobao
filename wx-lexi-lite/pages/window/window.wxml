@@ -1,9 +1,6 @@
 <view class="container">
-    <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <!-- 添加页面加载 -->
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 头图 -->
   <view class="page-section headline">
@@ -25,144 +22,147 @@
 
   <!-- tabs -->
   <view class="page-section fx-tabs">
-    <view class="tab-item">
-      <text>关注</text>
-    </view>
-    <view class="tab-item active">
-      <text>推荐</text>
+    <view class="tab-item {{categoryActive==item.code?'active':''}}" wx:for="{{category}}" catchtap='handleToggleCategory' data-code="{{item.code}}" wx:key="{{index}}">
+      <text>{{item.name}}</text>
     </view>
   </view>
 
   <!-- 橱窗列表 -->
   <view class="page-section fx-windows">
 
-    <view class="fx-window">
-      <view class="fx-window__author">
-        <view class="author-info">
-          <image src="../../images/distribute/pic-holder.jpg" class="avatar"></image>
-          <label class="name">设计师 Ricky</label>
-          <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
-          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
-        </view>
-        <button class="btn-follow fx-button--text primary">关注</button>
-      </view>
-
-      <view class="fx-window__images">
-        <view class="image-container">
-          <view class="image-item">
-            <image src="../../images/window/window-holder-01.jpg" class="photo"></image>
+    <!-- 推荐 -->
+    <block wx:if="{{categoryActive=='recommend'}}">
+      <view 
+        class="fx-window" 
+        wx:for="{{recommendWindow.shop_windows}}" 
+        wx:if="{{recommendWindow.count!=0}}"
+        wx:key="{{index}}">
+        <view class="fx-window__author">
+          <view class="author-info">
+            <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+            <label class="name">{{item.user_name}}</label>
+            <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+            <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
           </view>
-        </view>
-        <view class="image-container half">
-          <view class="image-item">
-            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
-          </view>
-          <view class="image-item">
-            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
-            <label class="surplus-count">+2</label>
-          </view>
-        </view>
-      </view>
-
-      <view class="fx-window__actions">
-        <view class="like-comment">
-          <view class="done">
-            <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
-          </view>
-          <view class="remark">
-            <text>22喜欢</text>·<text>322条评论</text>
-          </view>
-        </view>
-        <view class="share">
-          <view class="done">
-            <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
-          </view>
-        </view>
-      </view>
-
-      <view class="fx-window__body">
-        <view class="title">
-          一个让你爱不释手的包包
+          <button class="btn-follow fx-button--text primary" wx:if="{{!item.is_follow}}" data-index="{{index}}" catchtap="handleAddFollow">关注</button>
+          <button class="btn-follow fx-button--text primary" data-index="{{index}}" wx:else catchtap="handleDeleteFollow">已关注</button>
         </view>
 
-        <view class="summary">
-          某一天，你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦
-        </view>
-
-        <view class="keywords">
-          <label>#夏天的女孩</label>
-          <label>#夏天的女孩</label>
-          <label>#夏天的女孩</label>
-        </view>
-
-      </view>
-    </view>
-
-    <view class="fx-window">
-      <view class="fx-window__author">
-        <view class="author-info">
-          <image src="../../images/distribute/pic-holder.jpg" class="avatar"></image>
-          <label class="name">设计师 Ricky</label>
-          <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
-        </view>
-        <button class="btn-follow fx-button--text primary">关注</button>
-      </view>
-
-      <view class="fx-window__images">
-        <view class="image-container">
-          <view class="image-item">
-            <image src="../../images/window/window-holder-01.jpg" class="photo"></image>
+        <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
+          <view class="image-container">
+            <view class="image-item">
+              <image src="{{item.product_covers[0]}}" class="photo"></image>
+            </view>
+          </view>
+          <view class="image-container half">
+            <view class="image-item">
+              <image src="{{item.product_covers[1]}}" class="photo"></image>
+            </view>
+            <view class="image-item">
+              <image src="{{item.product_covers[2]}}" class="photo"></image>
+              <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
+            </view>
           </view>
         </view>
-        <view class="image-container half">
-          <view class="image-item">
-            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
+
+        <view class="fx-window__actions">
+          <view class="like-comment">
+            <view class="done">
+              <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+              <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+            </view>
+            <view class="remark">
+              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 · </text>
+              <text wx:if="{{item.comment_count!=0}}">{{item.comment_count}}条评论</text>
+            </view>
           </view>
-          <view class="image-item">
-            <image src="../../images/window/window-holder-02.jpg" class="photo"></image>
-            <label class="surplus-count">+2</label>
+          <view class="share">
+            <view class="done">
+              <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+            </view>
           </view>
+        </view>
+
+        <view class="fx-window__body">
+          <view class="title"> {{item.title}} </view>
+
+          <view class="summary"> {{item.description}} </view>
+
+          <view class="keywords">
+            <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
+          </view>
+
         </view>
       </view>
 
-      <view class="fx-window__actions">
-        <view class="like-comment">
-          <view class="done">
-            <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+      <!-- 推荐的缺省图 -->
+      <view wx:if="{{recommendWindow.count==0}}"></view>
+    </block>
+
+      <!-- 关注 -->
+    <block wx:if="{{categoryActive=='follow'}}">
+      <view class="fx-window" wx:for="{{followWindow.shop_windows}}" wx:key="{{index}}">
+        <view class="fx-window__author">
+          <view class="author-info">
+            <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+            <label class="name">{{item.user_name}}</label>
+            <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+            <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
           </view>
-          <view class="remark">
-            <text>22喜欢</text>·<text>322条评论</text>
+          <button class="btn-follow fx-button--text primary" wx:if="{{!item.is_follow}}">关注</button>
+          <button class="btn-follow fx-button--text primary" wx:else>已关注</button>
+        </view>
+
+        <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
+          <view class="image-container">
+            <view class="image-item">
+              <image src="{{item.product_covers[0]}}" class="photo"></image>
+            </view>
+          </view>
+          <view class="image-container half">
+            <view class="image-item">
+              <image src="{{item.product_covers[1]}}" class="photo"></image>
+            </view>
+            <view class="image-item">
+              <image src="{{item.product_covers[2]}}" class="photo"></image>
+              <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
+            </view>
           </view>
         </view>
-        <view class="share">
-          <view class="done">
-            <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+
+        <view class="fx-window__actions">
+          <view class="like-comment">
+            <view class="done">
+              <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+              <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+            </view>
+            <view class="remark">
+              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 · </text>
+              <text wx:if="{{item.comment_count!=0}}">{{item.comment_count}}条评论</text>
+            </view>
           </view>
+          <view class="share">
+            <view class="done">
+              <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+            </view>
+          </view>
+        </view>
+
+        <view class="fx-window__body">
+          <view class="title"> {{item.title}} </view>
+
+          <view class="summary"> {{item.description}} </view>
+
+          <view class="keywords">
+            <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
+          </view>
+
         </view>
       </view>
-
-      <view class="fx-window__body">
-        <view class="title">
-          一个让你爱不释手的包包
-        </view>
-
-        <view class="summary">
-          某一天，你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦
-        </view>
-
-        <view class="keywords">
-          <label>#夏天的女孩</label>
-          <label>#夏天的女孩</label>
-          <label>#夏天的女孩</label>
-        </view>
-
-      </view>
-    </view>
+    </block>
 
     <view class="window-publish">
-      <button class="fx-button--text btn-plus">
+      <button class="fx-button--text btn-plus" catchtap="handleGoAddWindow">
         <text>拼贴我的橱窗</text>
         <image src="../../images/icons/icon-plus@3x.png" class="icon-plus"></image>
       </button>
