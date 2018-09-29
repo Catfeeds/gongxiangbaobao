@@ -437,12 +437,6 @@ Page({
 
   // 优惠券弹框里面的内容couponList
   couponTap(e) {
-<<<<<<< HEAD
-=======
-
-    console.log(e,"优惠券")
-    console.log(e.currentTarget.dataset.order_rid)
->>>>>>> origin/zhaogaoshang
     if (e.currentTarget.dataset.order_rid) {
       let coupon = this.data.couponList[e.currentTarget.dataset.order_rid]
       coupon.forEach((v, i) => {
