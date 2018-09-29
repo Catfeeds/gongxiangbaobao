@@ -22,6 +22,7 @@
     "pages/search/search",
     "pages/dynamic/dynamic",
     "pages/people/people",
+    "pages/peopleDynamic/peopleDynamic",
     "pages/applyLifeStore/applyLifeStore",
     "pages/lifeStore/lifeStore",
     "pages/lifeStoreGuide/lifeStoreGuide",

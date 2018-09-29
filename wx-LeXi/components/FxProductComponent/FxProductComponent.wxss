@@ -1,4 +1,5 @@
 /* components/FxProductComponent/FxProductComponent.wxss */
+
 .direction{
   display: flex;
   flex-direction: column;

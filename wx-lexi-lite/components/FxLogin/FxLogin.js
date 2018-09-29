@@ -49,7 +49,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    
+
     // 选择国家的模态框是否弹出
     handleShowCountryModal() {
       this.setData({
@@ -172,14 +172,17 @@ Component({
      * 提交授权
      */
     handleSubmitLogin() {
+      let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') || false
+
       let params = {
         area_code: this.data.loginForm.country_code,
         auth_app_id: app.globalData.configInfo.authAppid, // 小程序ID
         openid: app.globalData.jwt.openid, //	用户标识
         mobile: this.data.loginForm.mobile_number, // 	手机号
-        verify_code: this.data.loginForm.verify_code //	手机验证码
+        verify_code: this.data.loginForm.verify_code, //	手机验证码
+        last_store_rid: lastVisitLifeStore
       }
-      console.log(params,"提交授权后端传参")
+      console.log(params, "提交授权后端传参")
 
       if (!this.data.canSubmit) {
         utils.fxShowToast('请先完成输入')
@@ -193,14 +196,17 @@ Component({
 
           app.globalData.isLogin = true
           wx.setStorageSync('jwt', res.data)
-          
+
           app.globalData.token = res.data.token
           app.globalData.uid = res.data.uid
           //更新用户信息
           app.updateUserInfo(res.data)
           // 更新小B身份
           app.updateLifeStoreInfo(res.data)
-
+          // 更新最后浏览
+          if (lastVisitLifeStore) {
+            app.updateLifeStoreLastVisit(lastVisitLifeStore)
+          }
           // 触发关闭回调
           this.triggerEvent('closeEvent')
         } else {
@@ -238,11 +244,14 @@ Component({
             const code = res.code
             console.log('Login code: ' + code)
 
+            let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') ||false
+
             http.fxPost(api.wxa_authorize_bind_mobile, {
               code: code,
               auth_app_id: app.globalData.app_id,
               encrypted_data: e.detail.encryptedData,
               iv: e.detail.iv,
+              last_store_rid: lastVisitLifeStore
             }, (res) => {
               console.log(res, '微信授权手机号')
               if (res.success) {
@@ -257,11 +266,16 @@ Component({
                 app.updateUserInfo(res.data)
                 // 更新小B身份
                 app.updateLifeStoreInfo(res.data)
+                // 更新最后浏览
+                if (lastVisitLifeStore) {
+                  app.updateLifeStoreLastVisit(lastVisitLifeStore)
+                }
                 // 回调函数
                 app.hookLoginCallBack()
 
                 // 触发关闭回调
                 this.triggerEvent('closeEvent')
+
               } else {
                 utils.fxShowToast(res.status.message)
               }

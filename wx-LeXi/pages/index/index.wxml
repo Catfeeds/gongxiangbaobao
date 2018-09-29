@@ -125,7 +125,8 @@
       <view class='c-importantGoodsTitle'>主打设计</view>
       <view class='c-importantGoodsBox'>
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
-          <fx-product product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{ item.product }}" 
+          bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </view>
     </view>

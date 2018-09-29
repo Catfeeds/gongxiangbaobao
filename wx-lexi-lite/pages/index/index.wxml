@@ -384,12 +384,41 @@
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}}  橱窗 -->
-    <view class='c-importantGoods box--margin border-top' >
-      <view class='c-importantGoodsTitle line-height--28rpx'>发现生活美学</view>
+    <view class='c-importantGoods box--margin border-top padding-left--0rpx'>
+      <!-- <view class='c-importantGoodsTitle margin-left--40rpx line-height--28rpx'>发现生活美学</view>
+              <text wx:if="{{recommendWindow.shop_windows.length>9}}" catchtap="handleToProductList" data-from="highQualityList" class='hui-zi-m'>查看全部 <text class='fx-icon-nothing-right'></text> </text> -->
+
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
+        <text>发现生活美学</text>
+        <text wx:if="{{recommendWindow.shop_windows.length>4}}" catchtap="handleGoWindow" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right nothing-right__size'></text> </text>
+      </view>
+
       <view class='c-importantGoodsBox  today-recommend-box'>
-        <view class="life-beautiful-box" wx:for="123456790" wx:key="{{index}}">
-          <view class='life-beautiful___photo'></view>
-        </view>
+        <scroll-view scroll-x>
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " 
+          catchtap="handleGoWindowDetail" 
+          data-window-rid="{{item.rid}}"
+            wx:for="{{recommendWindow.shop_windows}}" 
+            wx:key="{{index}}">
+            <view class="flex_row recommend-window__photo">
+              <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
+              <view class="flex-direction--column">
+                <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
+                <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
+              </view>
+            </view>
+
+            <view class="padding--30rpx">
+              <view class="flex_row">
+                <image class="master-photo" src="{{item.user_avatar}}"></image>
+                <text class="font-s font-width--medium">{{item.user_name}}</text>
+              </view>
+              <view class="black-font  font-width--medium title">{{item.title}}</view>
+              <view class="font-s two-line-text describe">{{item.description}}</view>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- </view> -->
       </view>
     </view>
 

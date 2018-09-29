@@ -80,11 +80,13 @@ App({
           // 发送 res.code 到后台换取 openId
           const code = res.code
           console.log('Login code: ' + code)
+          let lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
 
           // 发送请求获取 jwt
           http.fxPost(api.user_authorize, {
             auth_app_id: this.globalData.app_id,
-            code: code
+            code: code,
+            last_store_rid: lastStoreRid
           }, (res) => {
             console.log(res, '自动登录')
             if (res.success) {
@@ -239,13 +241,12 @@ App({
    * 获取用户最后访问的生活馆rid
    */
   getLastVisitLifeStore() {
-    http.fxGet(api.life_store_last_visit, {}, function(result) {
-      if (result.success) {
-        lastVisitLifeStoreRid = result.data.last_store_rid
-
-        wx.setStorageSync('lastVisitLifeStoreRid', lastVisitLifeStoreRid)
-      }
-    })
+      http.fxGet(api.life_store_last_visit, {}, function (result) {
+        if (result.success) {
+          lastVisitLifeStoreRid = result.data.last_store_rid
+          wx.setStorageSync('lastVisitLifeStoreRid', lastVisitLifeStoreRid)
+        }
+      })
   },
 
   /**

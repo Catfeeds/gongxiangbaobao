@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -64,6 +64,29 @@
 					"name": "add-label",
 					"pathName": "pages/addWindowLabel/addWindowLabel",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的动态",
+					"pathName": "pages/dynamic/dynamic",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "橱窗",
+					"pathName": "pages/window/window",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "橱窗详情",
+					"pathName": "pages/windowDetail/windowDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "橱窗列表",
+					"pathName": "pages/window/window"
 				}
 			]
 		}

@@ -14,50 +14,50 @@ Page({
     dynamicList: {
       "count": 5,
       "lines": [{
-          created_time: "2018年8月8日",
-          "created_at": 1534094558, // 发布时间
-          "shop_window": { // 橱窗信息
-            "comment_count": null, // 评论数
-            "description": "去去去去去去去去去去", // 描述
-            "is_follow": false, // 是否关注过
-            "keywords": [],
-            "like_count": 66, // 喜欢的人数
-            "product_count": 5, // 商品数量
-            "product_covers": [ // 商品图片
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-            ],
-            "rid": 1,
-            "title": "啊啊啊啊啊啊啊啊啊", // 标题
-            "user_avatar": "../../images/timg.jpg", // 用户头像
-            "user_name": "亮晶晶" // 用户名
-          }
-        },
-        {
-          "created_at": 1534094558, // 发布时间
-          "shop_window": { // 橱窗信息
-            "comment_count": null, // 评论数
-            "description": "去去去去去去去去去去", // 描述
-            "is_follow": false, // 是否关注过
-            "keywords": [],
-            "like_count": null, // 喜欢的人数
-            "product_count": 5, // 商品数量
-            "product_covers": [ // 商品图片
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-              "../../images/timg.jpg",
-            ],
-            "rid": 1,
-            "title": "啊啊啊啊啊啊啊啊啊", // 标题
-            "user_avatar": "../../images/timg.jpg", // 用户头像
-            "user_name": "亮晶晶" // 用户名
-          }
-        },
+        created_time: "2018年8月8日",
+        "created_at": 1534094558, // 发布时间
+        "shop_window": { // 橱窗信息
+          "comment_count": null, // 评论数
+          "description": "去去去去去去去去去去", // 描述
+          "is_follow": false, // 是否关注过
+          "keywords": [],
+          "like_count": 66, // 喜欢的人数
+          "product_count": 5, // 商品数量
+          "product_covers": [ // 商品图片
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+          ],
+          "rid": 1,
+          "title": "啊啊啊啊啊啊啊啊啊", // 标题
+          "user_avatar": "../../images/timg.jpg", // 用户头像
+          "user_name": "亮晶晶" // 用户名
+        }
+      },
+      {
+        "created_at": 1534094558, // 发布时间
+        "shop_window": { // 橱窗信息
+          "comment_count": null, // 评论数
+          "description": "去去去去去去去去去去", // 描述
+          "is_follow": false, // 是否关注过
+          "keywords": [],
+          "like_count": null, // 喜欢的人数
+          "product_count": 5, // 商品数量
+          "product_covers": [ // 商品图片
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+            "../../images/timg.jpg",
+          ],
+          "rid": 1,
+          "title": "啊啊啊啊啊啊啊啊啊", // 标题
+          "user_avatar": "../../images/timg.jpg", // 用户头像
+          "user_name": "亮晶晶" // 用户名
+        }
+      },
       ],
     },
 
@@ -124,7 +124,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载 
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     console.log(options.from)
 
     // 其他人的动态
@@ -149,49 +149,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
     return app.shareLeXi()
   }
 })
