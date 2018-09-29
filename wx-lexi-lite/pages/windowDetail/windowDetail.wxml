@@ -1,10 +1,7 @@
 <view class="container fixed-bottom">
 
   <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 橱窗列表 -->
   <view class="page-section fx-windows">
@@ -12,45 +9,61 @@
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
-          <image src="../../images/distribute/pic-holder.jpg" class="avatar"></image>
-          <label class="name">设计师 Ricky</label>
+          <image src="{{windowDetail.user_avatar}}" class="avatar"></image>
+          <label class="name">{{windowDetail.user_name}}</label>
           <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
-          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
+          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{windowDetail.is_official}}"></image>
         </view>
-        <button class="fx-mini-btn round follow primary">关注</button>
+        <button 
+          class="fx-mini-btn round follow primary" 
+          catchtap="handleAddFollow"
+          wx:if="{{!windowDetail.is_follow&& myUid!=windowDetail.uid}}">关注</button>
+        <button 
+          class="fx-mini-btn round follow primary" 
+          catchtap="handleDeleteFollow"
+          wx:if="{{windowDetail.is_follow}}">已关注</button>
       </view>
 
-      <view class="fx-window__images five" wx:if="{{ imagesLength == 5 }}">
+      <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
+        <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }});" data-rid="{{windowDetail.products[0].rid}}"></view>
+        <view class="flex-direction--column">
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
+        </view>
+
+      </view>
+
+      <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 5 }}">
         <view class="image-container">
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }});" data-rid="{{windowDetail.products[0].rid}}"></view>
         </view>
         <view class="image-container half">
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-head-bg.jpg' }});"></view>
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}" class="image-item"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}" class="image-item"></view>
         </view>
         <view class="image-container half-h">
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});">
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }});" data-rid="{{windowDetail.products[3].rid}}" class="image-item">
           </view>
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});">
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[4].cover }});" data-rid="{{windowDetail.products[4].rid}}" class="image-item">
           </view>
         </view>
       </view>
 
-      <view class="fx-window__images seven"  wx:if="{{ imagesLength == 7 }}">
+      <view class="fx-window__images seven" wx:if="{{ windowDetail.product_count == 7 }}">
         <view class="image-container three">
-          <view class="image-item of2-1" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
-          <view class="image-item of2-1" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
-          <view class="image-item " style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});"></view>
+          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }});" data-rid="{{windowDetail.products[0].rid}}"></view>
+          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}"></view>
+          <view class="image-item " catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}"></view>
         </view>
         <view class="image-container one">
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-head-bg.jpg' }});"></view>
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }});" data-rid="{{windowDetail.products[3].rid}}"></view>
         </view>
         <view class="image-container three-h">
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});">
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[4].cover }});" data-rid="{{windowDetail.products[4].rid}}">
           </view>
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-01.jpg' }});">
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[5].cover }});" data-rid="{{windowDetail.products[5].rid}}">
           </view>
-          <view class="image-item" style="background-image:url({{ 'https://static.moebeast.com/image/static/window-holder-02.jpg' }});">
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[6].cover }});" data-rid="{{windowDetail.products[6].rid}}">
           </view>
         </view>
       </view>
@@ -59,11 +72,13 @@
       <view class="fx-window__actions">
         <view class="like-comment">
           <view class="done">
-            <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+            <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like"></image>
+            <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}"src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like"></image>
             <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
           </view>
           <view class="remark">
-            <text>22喜欢</text>·<text>322条评论</text>
+            <text wx:if="{{windowDetail.like_count!=0}}">{{windowDetail.like_count}}喜欢</text>
+            <text wx:if="{{windowDetail.comment_count!=0}}">· {{windowDetail.comment_count}}条评论</text>
           </view>
         </view>
         <view class="share">
@@ -74,46 +89,67 @@
       </view>
 
       <view class="fx-window__body">
-        <view class="title">
-          一个让你爱不释手的包包
-        </view>
+        <view class="title">{{windowDetail.title}}</view>
 
-        <view class="summary">
-          某一天，你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦你会因为看到他穿上掀起那是的回忆，碰触的回忆总额哦
-        </view>
+        <view class="summary">{{windowDetail.description}}</view>
 
         <view class="keywords">
-          <label>#夏天的女孩</label>
-          <label>#夏天的女孩</label>
-          <label>#夏天的女孩</label>
+          <label wx:for="{{windowDetail.keywords}}" wx:key="{{index}}">#{{item}}</label>
         </view>
 
       </view>
 
     </view>
-  </view>  
+  </view>
 
   <!-- 评论列表 -->
-  <view class="page-section comments">
+  <view class="page-section comments" wx:if="{{}}">
     <view class="block-title">评论</view>
 
   </view>
 
   <!-- 猜你喜欢 -->
-  <view class="page-section suggestion">
-    <view class="block-title">猜你喜欢</view>
-
+  <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
+    <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
+      <view class='c-importantGoodsBox margin-top--34rpx '>
+        <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}' wx:for="{{youLike.products}}" wx:key="{{index}}">
+          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
+        </scroll-view>
+      </view>
   </view>
 
   <!-- 相关橱窗 -->
-  <view class="page-section similar-windows">
-    <view class="block-title">相关橱窗</view>
+  <view class="page-section similar-windows" wx:if="{{similarWindow.count!=0}}">
+    <view class="block-title ">相关橱窗</view>
+        <scroll-view scroll-x>
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " 
+          catchtap="handleGoWindowDetail" 
+          data-window-rid="{{item.rid}}"
+            wx:for="{{similarWindow.shop_windows}}" 
+            wx:key="{{index}}">
+            <view class="flex_row recommend-window__photo">
+              <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
+              <view class="flex-direction--column">
+                <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
+                <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
+              </view>
+            </view>
 
+            <view class="padding--30rpx">
+              <view class="flex_row">
+                <image class="master-photo" src="{{item.user_avatar}}"></image>
+                <text class="font-s font-width--medium">{{item.user_name}}</text>
+              </view>
+              <view class="black-font  font-width--medium title">{{item.title}}</view>
+              <view class="font-s two-line-text describe">{{item.description}}</view>
+            </view>
+          </view>
+        </scroll-view>
 
   </view>
 
   <!-- 底部添加评论 -->
-  <view class="bottom-comment">
+  <view class="bottom-comment" wx:if="{{}}">
     <view class="comment-form">
       <input type="text" placeholder="添加评论" class="input-text" />
       <image src="../../images/icons/icon-like@3x.png" class="icon icon-like"></image>
@@ -124,5 +160,8 @@
       <image src="../../images/icons/icon-share@3x.png" class="icon icon-share"></image>
     </view>
   </view>
+
+    <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
 </view>

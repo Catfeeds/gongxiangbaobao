@@ -136,6 +136,7 @@ module.exports = {
   column_explore_new: 'column/explore_new', // 优质新品
   core_platforms_search: 'core_platforms/search', // 搜索历史
   life_records_recommend: 'life_records/recommend', // 种草清单
+  shop_windows_guess_like:'shop_windows/guess_like', // 橱窗详情里的猜你喜欢
   column_daily_recommends: "column/daily_recommends", //今日推荐
   column_affordable_goods: 'column/affordable_goods', //百元好物
   column_explore_recommend: 'column/explore_recommend', // 编辑推荐h
@@ -278,10 +279,13 @@ module.exports = {
   product_userlike: 'product/userlike', // 获取添加喜欢商品的用户
   users_fans_counts: 'users/user_fans', // 获取用户的粉丝
   users_followed_users: 'users/followed_users', // 获取关注
-  follow_user: 'follow/user', // 添加关注
+  follow_user: 'follow/user', // 添加关注 
   unfollow_user: 'unfollow/user', // 取消关注
   users_followed_stores: 'users/followed_stores', // 获取关注店铺的列表
   shop_windows:'shop_windows', // 发布橱窗
+  shop_windows_detail:'shop_windows/detail', // 橱窗详情
+  shop_windows_similar:'shop_windows/similar', // 相似的橱窗
+  shop_windows_follow:'shop_windows/follow', // 关注人的橱窗
   shop_windows_keywords:'shop_windows/keywords', // 增加橱窗标签
   shop_windows_user_likes: 'shop_windows/user_likes', // 获取user橱窗
   shop_windows_recommend: 'shop_windows/recommend', // 获取推荐的橱窗

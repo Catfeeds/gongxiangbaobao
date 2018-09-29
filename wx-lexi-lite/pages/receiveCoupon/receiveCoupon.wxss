@@ -188,7 +188,7 @@
 .use-poupon__btn {
   height: 48rpx;
   width: 160rpx;
-  border: 2rpx solid white;
+  border: 1rpx solid white;
   border-radius: 30rpx;
   box-sizing: border-box;
 }

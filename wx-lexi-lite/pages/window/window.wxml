@@ -44,8 +44,18 @@
             <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
             <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
           </view>
-          <button class="btn-follow fx-button--text primary" wx:if="{{!item.is_follow}}" data-index="{{index}}" catchtap="handleAddFollow">关注</button>
-          <button class="btn-follow fx-button--text primary" data-index="{{index}}" wx:else catchtap="handleDeleteFollow">已关注</button>
+          <button 
+            class="btn-follow fx-button--text primary" 
+            wx:if="{{!item.is_follow && myUid!=item.uid}}" 
+            data-index="{{index}}" 
+            data-uid="{{item.uid}}"
+            catchtap="handleAddFollow">关注</button>
+          <button 
+            class="btn-follow fx-button--text primary" 
+            data-index="{{index}}" 
+            data-uid="{{item.uid}}"
+            wx:if="{{item.is_follow && myUid!=item.uid}}" 
+            catchtap="handleDeleteFollow">已关注</button>
         </view>
 
         <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
@@ -68,12 +78,22 @@
         <view class="fx-window__actions">
           <view class="like-comment">
             <view class="done">
-              <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-              <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+              <image 
+                wx:if="{{item.is_like}}"
+                catchtap="handleDeleteLike"
+                data-rid="{{item.rid}}"
+                src="../../images/icons/icon-like-active@3x.png" 
+                class="icon-like"></image>
+              <image 
+                wx:else 
+                catchtap="handleAddLike"
+                data-rid="{{item.rid}}"
+                src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+              <image  src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
             </view>
             <view class="remark">
-              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 · </text>
-              <text wx:if="{{item.comment_count!=0}}">{{item.comment_count}}条评论</text>
+              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
+              <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
             </view>
           </view>
           <view class="share">
@@ -85,9 +105,7 @@
 
         <view class="fx-window__body">
           <view class="title"> {{item.title}} </view>
-
           <view class="summary"> {{item.description}} </view>
-
           <view class="keywords">
             <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
           </view>
@@ -109,8 +127,18 @@
             <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
             <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
           </view>
-          <button class="btn-follow fx-button--text primary" wx:if="{{!item.is_follow}}">关注</button>
-          <button class="btn-follow fx-button--text primary" wx:else>已关注</button>
+          <button 
+            class="btn-follow fx-button--text primary" 
+            data-uid="{{item.uid}}"
+            data-index="{{index}}" 
+            catchtap="handleAddFollow" 
+            wx:if="{{!item.is_follow}}">关注</button>
+          <button 
+            catchtap="handleDeleteFollow" 
+            data-uid="{{item.uid}}"
+            data-index="{{index}}" 
+            class="btn-follow fx-button--text primary" 
+            wx:else>已关注</button>
         </view>
 
         <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
@@ -133,12 +161,23 @@
         <view class="fx-window__actions">
           <view class="like-comment">
             <view class="done">
-              <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+              <image 
+                catchtap="handleDeleteLike"
+                data-rid="{{item.rid}}"
+                wx:if="{{item.is_like}}"
+                src="../../images/icons/icon-like-active@3x.png" 
+                class="icon-like"></image>
+              <image 
+                wx:else
+                catchtap="handleAddLike"
+                data-rid="{{item.rid}}"
+                src="../../images/icons/icon-like@3x.png" 
+                class="icon-like"></image>
               <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
             </view>
             <view class="remark">
-              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 · </text>
-              <text wx:if="{{item.comment_count!=0}}">{{item.comment_count}}条评论</text>
+              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
+              <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
             </view>
           </view>
           <view class="share">
@@ -169,4 +208,6 @@
     </view>
   </view>
 
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 </view>

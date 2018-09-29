@@ -28,6 +28,9 @@ Page({
     recentlyLookProduct: [], // 最近查看的商品---
     desireOrderProduct: [], //心愿单商品---
     product: [{}],
+    userWindow:{ // 喜欢的橱窗
+      count:0
+    },
     // 切换类型---
     classList: [
       {
@@ -359,18 +362,14 @@ getLikeWindow(){
   http.fxGet(api.shop_windows_user_likes,{},res=>{
     console.log(res,"用户喜欢的橱窗")
     if(res.success){
-
-
+      this.setData({
+        userWindow: res.data
+      })
     }else{
-
+      utils.fxShowToast(res.status.message)
     }
-
-
   })
 },
-
-
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -567,6 +566,15 @@ getLikeWindow(){
     console.log(e.currentTarget.dataset)
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeId
+    })
+  },
+
+  // 跳转到橱窗详情
+  handleGoWindowDetail(e){
+    console.log(e)
+    let windowRid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../windowDetail/windowDetail?windowRid=' + windowRid,
     })
   },
 

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 11,
 			"list": [
 				{
 					"id": 0,
@@ -86,7 +86,26 @@
 				{
 					"id": -1,
 					"name": "橱窗列表",
-					"pathName": "pages/window/window"
+					"pathName": "pages/window/window",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "user",
+					"pathName": "pages/user/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "people",
+					"pathName": "pages/people/people",
+					"query": ""
+				},
+				{
+					"id": 11,
+					"name": "people",
+					"pathName": "pages/people/people",
+					"query": "uid=13417065892"
 				}
 			]
 		}

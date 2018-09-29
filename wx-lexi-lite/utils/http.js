@@ -115,9 +115,9 @@ function fxGet(url, data = {}, cb) {
     },
     fail(res) {
       
-      wx.navigateTo({
-        url: '../networkError/networkError'
-      })
+      // wx.navigateTo({
+      //   url: '../networkError/networkError'
+      // })
 
       wx.hideNavigationBarLoading()
       return typeof cb == 'function' && cb(false)

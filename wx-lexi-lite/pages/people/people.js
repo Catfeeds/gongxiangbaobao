@@ -381,7 +381,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../dynamic/dynamic?from=people&uid=' + this.data.otherPeopleUid
+      url: '../peopleDynamic/peopleDynamic?from=people&uid=' + this.data.otherPeopleUid
     })
   },
 

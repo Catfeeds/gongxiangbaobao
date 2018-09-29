@@ -240,7 +240,7 @@
     <!-- 分类优惠券按钮 -->
     <view class="flex_row coupon-category__btn">
       <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='common'?'active':''}}" data-code="common">同享券</view>
-      <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='alone'?'active':''}}" data-code="alone" wx:if="{{}}">单享券</view>
+      <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='alone'?'active':''}}" data-code="alone">单享券</view>
     </view>
 
     <!-- 同享券 -->
