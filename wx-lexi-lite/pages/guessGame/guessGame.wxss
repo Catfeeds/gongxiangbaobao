@@ -1,6 +1,6 @@
 
 .guess-game-bg {
-  background-image: url('https://static.moebeast.com/static/img/guess-game-bg.jpg');
+  background-image: url('https://static.moebeast.com/static/img/guess-game-bg2.jpg');
   background-size: 100% auto;
   height: 100vh;
 }
