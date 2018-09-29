@@ -1,6 +1,6 @@
 <view class="fx-modal-v-container" catchtouchmove="handleDoNothing" hidden="{{ !visible }}" bindtap="hideModal">
   <view class="fx-mask" catchtouchmove="handleDoNothing"></view>
-  <view class="fx-modal-v" catchtap="handleDoNothing">
+  <view class="fx-modal-v" catchtap="handleDoNothing" style="margin-top: {{ marginTop }}rpx;">
     <image bindtap="hideModal" src="../../images/icon-close-bold@2x.png" class="icon-close" wx:if="{{ close }}"></image>
     <view class="fx-modal__title" wx:if="{{ title }}">
       {{ title }}

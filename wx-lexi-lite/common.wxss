@@ -6,7 +6,7 @@ button::after {
 .fx-button {
   border-radius: 8rpx;
   padding: 25rpx 0rpx;
-  font-size: 32rpx;
+  font-size: 28rpx;
   line-height: 1;
 }
 .fx-button.primary {

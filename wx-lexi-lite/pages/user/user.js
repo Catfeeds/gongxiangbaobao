@@ -92,55 +92,28 @@ Page({
    * 获取用户授权手机号
    */
   handleGotPhoneNumber (e) {
-    if (e.detail.errMsg == 'getPhoneNumber:ok') {
-      // 调用login获取code
-      wx.login({
-        success: (res) => {
-          // 发送 res.code 到后台换取 openId
-          const code = res.code
-          console.log('Login code: ' + code)
+    app.handleGotPhoneNumber(e, (success) => {
+      if (success) {
+        // 是否登陆
+        this.setData({
+          is_login: app.globalData.isLogin
+        })
+        // 授权成功，刷新用户数据
 
-          let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') || false
+        // 获取用户的信息
+        this.getUserInfo()
 
-          http.fxPost(api.wxa_authorize_bind_mobile, {
-            code: code,
-            auth_app_id: app.globalData.app_id,
-            encrypted_data: e.detail.encryptedData,
-            iv: e.detail.iv,
-            last_store_rid: lastVisitLifeStore
-          }, (res) => {
-            console.log(res, '微信授权手机号')
-            if (res.success) {
-              // 登录成功，得到jwt后存储到storage
-              wx.setStorageSync('jwt', res.data)
-              console.log(res.data, 'jwt信息')
-              app.globalData.isLogin = true
-              app.globalData.token = res.data.token
-              app.globalData.uid = res.data.uid
-
-              app.globalData.jwt = res.data
-
-              // 更新用户信息
-              app.updateUserInfo(res.data)
-
-              // 更新小B身份
-              app.updateLifeStoreInfo(res.data)
-              
-              // 更新最后浏览
-              if (lastVisitLifeStore) {
-                app.updateLifeStoreLastVisit(lastVisitLifeStore)
-              }
-              // 回调函数
-              app.hookLoginCallBack()
-            } else {
-              utils.fxShowToast(res.status.message)
-            }
-          })
-        }
-      })      
-    } else {
-      utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
-    }
+        this.getCouponAddOrder() // 获取没有使用的优惠券和订单
+        this.getProduct() // 获取商品---
+        this.getCategoryQuantity() // 获取用户的喜欢收藏---
+        this.getLikeWindow() // 喜欢的橱窗
+      } else {
+        utils.fxShowToast('登录失败，稍后重试！')
+        wx.navigateTo({
+          url: '../index/index',
+        })
+      }
+    })
   },
 
   // 添加关注---

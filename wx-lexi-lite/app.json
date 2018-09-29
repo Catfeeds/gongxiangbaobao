@@ -70,7 +70,10 @@
     "pages/exemptionFromPostage/exemptionFromPostage",
     "pages/addWindow/addWindow",
     "pages/addWindowLabel/addWindowLabel",
-    "pages/addWindowProduct/addWindowProduct"
+    "pages/addWindowProduct/addWindowProduct",
+    "pages/guessGame/guessGame",
+    "components/FxLoginModal/FxLoginModal",
+    "pages/guessGamePlay/guessGamePlay"
   ],
   "window": {
     "navigationBarBackgroundColor": "white",

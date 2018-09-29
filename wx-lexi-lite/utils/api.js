@@ -11,7 +11,8 @@ module.exports = {
   bind_mobile: 'accounts/wxa_bind_mobile', //绑定手机号码---
   wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
   countries: 'countries', // 获取国家列表
-
+  bind_friend: 'guess_image/add_friend', // 绑定好友关系
+  
   // User
   user: 'users', // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）

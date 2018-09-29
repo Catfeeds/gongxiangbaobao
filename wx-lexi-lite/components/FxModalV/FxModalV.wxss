@@ -23,13 +23,12 @@
   padding: 40rpx;
   margin: 0 auto 50px;
   width: 520rpx;
-  margin-top: 150rpx;
   z-index: 101;
 }
 .fx-modal-v .fx-modal__title {
-  font-size: 40rpx;
-  font-weight: 600;
-  color: #000;
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #333;
   margin-bottom: 40rpx;
 }
 .fx-modal-v .icon-close {

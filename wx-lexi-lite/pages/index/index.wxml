@@ -27,7 +27,7 @@
         <!-- 店主信息 -->
         <view class='owner-avatar_box'>
           <image style="border-radius:8rpx" src="{{ lifeStore.logo }}"></image>
-          <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo"></image>
+          <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" wx:if="{{ canAdmin }}"></image>
           <!-- 进度条 -->
           <view class="upload-status__box" wx:if="{{ isUploading }}">
             <view class="progress" style="width:{{ uploadStatus }}%"></view>
@@ -38,7 +38,7 @@
           <view class="store-title">
             <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
             <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
-            <image src='../../images/icon-edit@2x.png' class="icon-edit" bindtap="handleEditStore"></image>
+            <image src='../../images/icon-edit@2x.png' class="icon-edit" bindtap="handleEditStore" wx:if="{{ canAdmin }}"></image>
           </view>
           <view class='font-s qian-hui'>
             <text wx:if="{{ lifeStore.description }}">{{ lifeStore.description }}</text>
@@ -50,7 +50,7 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber height--120rpx'>
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.count+1 + " 人" }}</text>浏览过生活馆</view>
+          <text class='theme-color'>{{ shopInfo.count+1 + ' 人' }}</text>浏览过生活馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
@@ -72,7 +72,7 @@
     </view>
 
     <!-- 实习馆长 -->
-    <view class="probation-box font-ss probation-box__white">
+    <view class="probation-box font-ss probation-box__white"  wx:if="{{ canAdmin }}">
       <view class='time-top'>
         <view class='time-top '>
           <view class='probation-icon c-middle '>实习</view>
@@ -85,7 +85,7 @@
     </view>
 
     <!-- 选聘中心 -->
-    <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute">
+    <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
       <!-- 
       <view class='float'>
         <view style='z-index={{aIamge-2}}' animation="{{e}}">
@@ -312,10 +312,10 @@
     </view>
 
     <!-- "免运，奖励，优惠生活" -->
-    <view class='material-benefits' style="display:none;">
+    <view class='material-benefits'>
       <view class='material-benefits-top qian-hui font-s'>免运，奖励，优惠生活</view>
       <view class='material-benefits_bottom c-crosswise-a'>
-        <view class='font-s fx-column--center'>
+        <view class='font-s fx-column--center' catchtap="handleGuessGame">
           <image src='../../images/guess-and-win-cash@2.png'></image>
           <view>猜图赢现金</view>
         </view>

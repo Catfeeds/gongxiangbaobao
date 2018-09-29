@@ -16,6 +16,10 @@ Component({
     visible: {
       type: Boolean,
       value: false
+    },
+    marginTop: {
+      type: Number,
+      value: 150
     }
   },
 
@@ -34,9 +38,14 @@ Component({
      * 隐藏弹出框
      */
     hideModal () {
+      if (!this.data.close) {
+        return false
+      }
+
       this.setData({
         visible: false
       })
+      
       // 触发关闭回调
       this.triggerEvent('closeEvent')
     },
