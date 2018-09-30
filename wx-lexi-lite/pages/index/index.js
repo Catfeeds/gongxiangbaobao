@@ -760,7 +760,7 @@ Page({
     this._swtichActivePageTab(this.data.pageActiveTab)
 
     // 更新当前用户的last_store_rid
-    this.handleUpdateLastStoreRid(sid)
+    app.updateLifeStoreLastVisit(sid)
   },
 
   /**
@@ -1073,6 +1073,13 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  // 猜图游戏
+  handleGuessGame () {
+    wx.navigateTo({
+      url: '../guessGame/guessGame',
     })
   },
 
@@ -1394,6 +1401,40 @@ Page({
     })
   },
 
+  // 验证是否存在生活馆
+  validateLifeStore () {
+    const lifeStore = wx.getStorageSync('lifeStore')
+    const userInfo = wx.getStorageSync('userInfo')
+
+    // 判断登录用户是否有生活馆
+    if (lifeStore.isSmallB) {
+      let sid = lifeStore.lifeStoreRid
+
+      this.setData({
+        sid: sid,
+        'pageTabs[0].disabled': false,
+        pageActiveTab: 'lifeStore',
+        storeOwner: userInfo,
+        canAdmin: true,
+        isSmallB: true
+      })
+
+      // 更新当前用户的last_store_rid
+      app.updateLifeStoreLastVisit(sid)
+
+      // 请求当前数据
+      this._swtichActivePageTab('lifeStore')
+    } else {
+      this.setData({ // 无生活馆显示
+        'pageTabs[0].disabled': true,
+        pageActiveTab: 'featured'
+      })
+
+      // 请求当前数据
+      this._swtichActivePageTab('featured')
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -1424,7 +1465,37 @@ Page({
       }
     }
 
-    console.log('来源生活馆：' + this.data.sid)
+    // 验证登录用户是否为小B商家
+    if (this.data.sid == '') {
+      console.log('验证登录用户是否为小B')
+
+      // 异步请求，已完成登录，装载用户信息
+      if (Object.keys(app.globalData.lifeStore).length > 0) {
+        this.validateLifeStore()
+      } else { // 登录请求还未完成
+        // 给app.js 定义一个方法。
+        app.userInfoReadyCallback = res => {
+          console.log('用户信息请求完毕')
+          if (res) {
+            this.validateLifeStore()
+          } else {
+            utils.fxShowToast('授权失败，请稍后重试')
+          }
+        }
+      }
+    } else { // 显示其他人的生活馆
+      this.setData({
+        'pageTabs[0].disabled': false,
+        pageActiveTab: 'lifeStore',
+        canAdmin: false
+      })
+
+      // 更新当前用户的last_store_rid
+      app.updateLifeStoreLastVisit(this.data.sid)
+
+      // 请求当前数据
+      this._swtichActivePageTab('lifeStore')
+    }
   },
 
   /**
@@ -1459,59 +1530,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // 验证登录用户是否为小B商家
+    // 初次进入时无生活馆，后续申请开通后
     if (this.data.sid == '') {
-      console.log('验证登录用户是否为小B')
-
-      app.login().then(res => {
-        console.log(res, '异步请求')
-        const lifeStore = wx.getStorageSync('lifeStore')
-        const userInfo = wx.getStorageSync('userInfo')
-
-        console.log(this.data.sid, '导入生活馆')
-        console.log(lifeStore, '登录用户生活馆')
-
-        if (lifeStore.isSmallB) { // 判断登录用户是否有生活馆
-          let sid = lifeStore.lifeStoreRid
-
-          this.setData({
-            sid: sid,
-            pageActiveTab: 'lifeStore',
-            storeOwner: userInfo,
-            'pageTabs[0].disabled': false,
-            canAdmin: true,
-            isSmallB: true
-          })
-
-          // 更新当前用户的last_store_rid
-          app.updateLifeStoreLastVisit(sid)
-
-          // 请求当前数据
-          this._swtichActivePageTab(this.data.pageActiveTab)
-
-        } else {
-          this.setData({ // 无生活馆显示
-            'pageTabs[0].disabled': true
-          })
-
-          // 请求当前数据
-          this._swtichActivePageTab(this.data.pageActiveTab)
-        }
-      })
-    } else {
-      this.setData({
-        'pageTabs[0].disabled': false,
-        pageActiveTab: 'lifeStore'
-      })
-
-      // 更新当前用户的last_store_rid
-      app.updateLifeStoreLastVisit(this.data.sid)
-
-      // 请求当前数据
-      this._swtichActivePageTab(this.data.pageActiveTab)
+      const lifeStore = wx.getStorageSync('lifeStore')
+      if (lifeStore.isSmallB) {
+        this.setData({
+          'pageTabs[0].disabled': false,
+          canAdmin: true,
+          isSmallB: true
+        })
+      }
     }
-
-    console.log(this.data.pageActiveTab)
   },
 
   /**

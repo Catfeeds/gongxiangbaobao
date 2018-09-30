@@ -319,7 +319,6 @@ App({
     paymentSuccessOrder: {
       actual_payment: 0.1,
       bonus_amount: 0,
-
       order_rid: "D18091760153274",
       orders: []
     },

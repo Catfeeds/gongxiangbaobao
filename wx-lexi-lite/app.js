@@ -39,19 +39,8 @@ App({
         // 过期重新登录
         this.login()
       } else {
-        // 设置全局变量
-        this.globalData.isLogin = true
-        this.globalData.token = jwt.token
-        this.globalData.uid = jwt.uid
-
-        // 更新用户信息
-        this.updateUserInfo(jwt)
-
-        // 更新小B身份
-        this.updateLifeStoreInfo(jwt)
-
         // 已登录，则直接执行
-        this.hookLoginCallBack()
+        this.hookLoginCallBack(jwt)
       }
     }
 
@@ -66,73 +55,125 @@ App({
    * 登录
    */
   login: function() {
-    return new Promise((resolve, reject) => {
+    // 调用login获取code
+    wx.login({
+      success: (res) => {
+        // 发送 res.code 到后台换取 openId
+        const code = res.code
+        console.log('Login code: ' + code)
 
-      if (this.globalData.userLoaded) {
-        return resolve({
-          success: true
+        let lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
+
+        // 发送请求获取 jwt
+        http.fxPost(api.user_authorize, {
+          auth_app_id: this.globalData.app_id,
+          code: code,
+          last_store_rid: lastStoreRid
+        }, (res) => {
+          console.log(res, '自动登录')
+
+          let userLoaded = false
+          if (res.success) {
+            let isBind = res.data.is_bind
+            // 登录成功，得到jwt后存储到storage
+            console.log(res.data, 'jwt信息')
+            wx.setStorageSync('jwt', res.data)
+            this.globalData.jwt = res.data
+
+            if (isBind) {
+              // 回调函数
+              this.hookLoginCallBack(res.data)
+            }
+            
+            userLoaded = true
+          } else {
+            // 显示错误信息
+            wx.showToast({
+              title: res.status.message,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+
+          // 由于异步请求，可能会在 Page.onLoad 之后才返回
+          // 所以此处加入 callback 以防止这种情况
+          if (this.userInfoReadyCallback) {
+            this.userInfoReadyCallback(userLoaded)
+          }
         })
       }
+    })
+  },
 
+  /**
+   * 获取用户授权手机号
+   */
+  handleGotPhoneNumber(e, cb) {
+    console.log(e)
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
       // 调用login获取code
       wx.login({
         success: (res) => {
           // 发送 res.code 到后台换取 openId
           const code = res.code
           console.log('Login code: ' + code)
-          let lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
 
-          // 发送请求获取 jwt
-          http.fxPost(api.user_authorize, {
-            auth_app_id: this.globalData.app_id,
+          let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') || false
+
+          http.fxPost(api.wxa_authorize_bind_mobile, {
             code: code,
-            last_store_rid: lastStoreRid
+            auth_app_id: this.globalData.app_id,
+            encrypted_data: e.detail.encryptedData,
+            iv: e.detail.iv,
+            last_store_rid: lastVisitLifeStore
           }, (res) => {
-            console.log(res, '自动登录')
+            console.log(res, '微信授权手机号')
             if (res.success) {
-              let isBind = res.data.is_bind
               // 登录成功，得到jwt后存储到storage
-              wx.setStorageSync('jwt', res.data)
               console.log(res.data, 'jwt信息')
+              wx.setStorageSync('jwt', res.data)
               this.globalData.jwt = res.data
-              
-              if (isBind) {
-                this.globalData.isLogin = true
-                this.globalData.token = res.data.token
-                this.globalData.uid = res.data.uid
-                //更新用户信息
-                this.updateUserInfo(res.data)
-                // 更新小B身份
-                this.updateLifeStoreInfo(res.data)
 
-                // 回调函数
-                this.hookLoginCallBack()
+              // 更新最后浏览
+              if (lastVisitLifeStore) {
+                this.updateLifeStoreLastVisit(lastVisitLifeStore)
               }
 
-              resolve({
-                success: true
-              })
-            } else {
-              // 显示错误信息
-              wx.showToast({
-                title: res.status.message,
-                icon: 'none',
-                duration: 2000
-              })
+              // 回调函数
+              this.hookLoginCallBack(res.data)
 
-              reject({
-                success: false
-              })
+              return typeof cb == 'function' && cb(true)
+            } else {
+              utils.fxShowToast(res.status.message)
+
+              return typeof cb == 'function' && cb(false)
             }
           })
         }
       })
-    })
+    } else {
+      utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
+    }
   },
 
   // 登录后回调事件
-  hookLoginCallBack() {
+  hookLoginCallBack(jwt) {
     console.log('登录后，执行回调函数')
+
+    // 设置全局变量
+    this.globalData.isLogin = true
+    this.globalData.token = jwt.token || null
+    this.globalData.uid = jwt.uid || 0
+
+    // 更新用户信息
+    this.updateUserInfo(jwt)
+
+    // 更新小B身份
+    this.updateLifeStoreInfo(jwt)
+
+    // 绑定好友关系
+    this.bindFriend()
+
     // 获取购物车数量
     this.getCartTotalCount()
   },
@@ -166,6 +207,8 @@ App({
         lifeStoreRid: jwt.store_rid
       }
     }
+
+    this.globalData.lifeStore = lifeStore
 
     wx.setStorageSync('lifeStore', lifeStore)
   },
@@ -208,6 +251,30 @@ App({
   },
 
   /**
+   * 绑定好友关系
+   */
+  bindFriend() {
+    const game_inviter = wx.getStorageSync('game_inviter')
+    const jwt = wx.getStorageSync('jwt')
+    if (game_inviter && Object.keys(game_inviter).length > 0 && jwt.is_new) {
+      let data = {
+        source_user_sn: game_inviter.uid,
+        from_module: 1,
+        is_new: 1
+      }
+      http.fxPost(api.bind_friend, data, (res) => {
+        console.log(res, '绑定好友关系')
+        if (!res.success) {
+          utils.fxShowToast(result.status.message)
+        } else {
+          // 绑定成功后，则清除
+          wx.removeStorageSync('game_inviter')
+        }
+      })
+    }
+  },
+
+  /**
    * 获取国家或地区下所有省市区
    * 默认值：1，为中国大陆
    */
@@ -241,12 +308,12 @@ App({
    * 获取用户最后访问的生活馆rid
    */
   getLastVisitLifeStore() {
-      http.fxGet(api.life_store_last_visit, {}, function (result) {
-        if (result.success) {
-          lastVisitLifeStoreRid = result.data.last_store_rid
-          wx.setStorageSync('lastVisitLifeStoreRid', lastVisitLifeStoreRid)
-        }
-      })
+    http.fxGet(api.life_store_last_visit, {}, function(result) {
+      if (result.success) {
+        lastVisitLifeStoreRid = result.data.last_store_rid
+        wx.setStorageSync('lastVisitLifeStoreRid', lastVisitLifeStoreRid)
+      }
+    })
   },
 
   /**
@@ -305,7 +372,7 @@ App({
         scene += '-' + jwt.uid
       }
     }
-    
+
     return {
       title: '乐喜',
       path: 'pages/index/index?scene=' + scene,

@@ -1,0 +1,14 @@
+
+.guess-game-bg {
+  background-image: url('https://static.moebeast.com/static/img/guess-game-bg2.jpg');
+  background-size: 100% auto;
+  height: 100vh;
+}
+.tips {
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.login-method .fx-button:first-child {
+  margin-bottom: 40rpx;
+}
