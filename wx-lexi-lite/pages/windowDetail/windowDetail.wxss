@@ -1,12 +1,16 @@
 /* 5张图 */
+@import "../index/index.wxss";
+
 .fx-window .fx-window__images.five {
   display: flex;
   flex-flow: row wrap;
 }
+
 .fx-window .fx-window__images.five .image-container {
   width: 460rpx;
   height: 460rpx;
 }
+
 .fx-window .fx-window__images.five .image-container .image-item {
   position: relative;
   margin: 0rpx;
@@ -17,6 +21,7 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 .fx-window .fx-window__images.five .image-container.half {
   width: 286rpx;
   margin-left: 4rpx;
@@ -24,46 +29,56 @@
   flex-direction: column;
   justify-content: space-around;
 }
+
 .fx-window .fx-window__images.five .image-container.half-h {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
+
 .fx-window .fx-window__images.five .image-container.half .image-item {
   width: 286rpx;
   height: 228rpx;
 }
+
 .fx-window .fx-window__images.five .image-container.half .image-item:last-child {
   margin-top: 4rpx;
 }
+
 .fx-window .fx-window__images.five .image-container.half-h {
   height: 326rpx;
 }
+
 .fx-window .fx-window__images.five .image-container.half-h .image-item {
   width: 430rpx;
   height: 322rpx;
   margin-top: 4rpx;
 }
+
 .fx-window .fx-window__images.five .image-container.half-h .image-item:first-child {
   width: 430rpx;
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 .fx-window .fx-window__images.five .image-container.half-h .image-item:last-child {
   width: 315rpx;
   margin-left: 4rpx;
 }
 
 /* 7张图 */
+
 .fx-window .fx-window__images.seven {
   display: flex;
   flex-flow: row wrap;
 }
+
 .fx-window .fx-window__images.seven .image-container {
   width: 430rpx;
   height: 430rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container .image-item {
   position: relative;
   margin: 0rpx;
@@ -74,42 +89,49 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 .fx-window .fx-window__images.seven .image-container.three {
   width: 316rpx;
   height: 430rpx;
   display: flex;
   flex-flow: row wrap;
 }
+
 .fx-window .fx-window__images.seven .image-container.three .image-item.of2-1 {
   width: 156rpx;
   height: 156rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container.three .image-item:first-child {
   margin-right: 4rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container.three .image-item:last-child {
   width: 316rpx;
   height: 271rpx;
   margin-top: 4rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container.one {
   margin-left: 4rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container.three-h {
   width: 100%;
   height: 250rpx;
   display: flex;
   margin-top: 4rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container.three-h .image-item {
   width: 248rpx;
   height: 250rpx;
   margin-right: 4rpx;
 }
+
 .fx-window .fx-window__images.seven .image-container.three-h .image-item:last-child {
   margin-right: 0rpx;
 }
-
 
 .bottom-comment {
   position: fixed;
@@ -119,12 +141,14 @@
   width: 100%;
   z-index: 10;
 }
+
 .bottom-comment .comment-form {
   padding: 20rpx 40rpx;
   display: flex;
   border-top: 1rpx solid #e9e9e9;
   align-items: center;
 }
+
 .bottom-comment .comment-form .input-text {
   font-size: 24rpx;
   background-color: #fafafa;
@@ -132,14 +156,17 @@
   padding: 12rpx 30rpx;
   margin-right: 30rpx;
 }
+
 .bottom-comment .comment-form .count {
   font-size: 28rpx;
   margin-right: 20rpx;
 }
+
 .bottom-comment .comment-form .comment-count {
   flex: 1;
   font-size: 28rpx;
 }
+
 .bottom-comment .comment-form .icon {
   width: 44rpx;
   height: 44rpx;
@@ -153,11 +180,41 @@
 }
 
 /* 猜你喜欢 */
-.comments,
-.suggestion,
-.similar-windows {
+
+.comments, .suggestion, .similar-windows {
   background-color: #fff;
   padding: 30rpx 40rpx;
   border-bottom: 1rpx solid #e9e9e9;
   margin-bottom: 20rpx;
+}
+
+.suggestion {
+  padding: 30rpx 0rpx;
+}
+
+.image-item {
+  background-size: 100%;
+}
+
+.three-photo__big {
+  height: 498rpx;
+  width: 498rpx;
+  margin-right: 4rpx;
+}
+
+.three-photo__min {
+  width: 248rpx;
+  height: 248rpx;
+}
+
+.margin-top--4rpx {
+  margin-top: 4rpx;
+}
+
+.icon-star, .icon-offical {
+  margin-right: 10rpx;
+}
+
+.paddng-left-right--40rpx{
+  padding: 0 40rpx;
 }

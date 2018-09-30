@@ -1,9 +1,5 @@
 /* pages/dynamic/dynamic.wxss */
 
-.container{
-  /* background-color: white; */
-}
-
 .dynamic-owner image {
   height: 100%;
   width: 100%;
@@ -78,7 +74,7 @@
 .time-middine image{
   height: 216rpx;
   width: 216rpx;
-  margin-bottom: 24rpx;
+  /* margin-bottom: 24rpx; */
 }
 
 .text-two--line {
@@ -125,5 +121,21 @@ overflow: hidden;
   width: 140rpx;
 }
 
+.time-middine {
+  position: relative;
+}
 
+.window-photo__count {
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  padding: 0 14rpx;
+  border-radius: 30rpx;
+  background-color: rgba(0, 0, 0, .5);
+  font-size: 22rpx;
+  color: white;
+}
 
+.margin-bottom--24rpx{
+  margin-bottom: 24rpx;
+}

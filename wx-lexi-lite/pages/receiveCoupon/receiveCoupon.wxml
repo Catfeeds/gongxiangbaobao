@@ -147,7 +147,6 @@
                 <text class="font-xss oldPrice">¥{{product.product_coupon_amount}}</text>
               </view>
             </view>
-
           </view>
 
           <!-- 小图 -->
@@ -187,7 +186,7 @@
     </view>
 
     <!-- 精选商品券 -->
-  <view class="flex-direction--column" wx:if="{{}}">
+  <view class="flex-direction--column">
     <image class="bo-lang__photo" src="https://static.moebeast.com/WechatIMG232.png"></image>
     <view class="bg-shenhong">
       <view class="flex_row--middle coupon-title">
@@ -197,40 +196,53 @@
       </view>
 
       <view class="time-top brand-coupon__box margin-top--50rpx">
-        <view class="high-pick__product--coupon" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+        <view 
+          catchtap="handleReceiveHighProduct"
+          data-index="{{index}}"
+          data-store-rid="{{item.store_rid}}"
+          data-code="{{item.coupon_code}}"
+          class="high-pick__product--coupon {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}" 
+          wx:for="{{highProductCouponList}}" 
+          wx:key="{{index}}">
           <!-- 头部 -->
           <view class="time-top hander">
             <view class="flex-direction--column text-color">
               <text class="font-width--semibold"> <text class="font-s ">¥</text>
-              <text class="font--40rpx ">90</text> </text>
-              <text class="font-xss">满200可用</text>
+              <text class="font--40rpx ">{{item.amount}}</text> </text>
+              <text class="font-xss">满{{item.min_amount}}可用</text>
             </view>
 
-            <!-- <view class="receive-coupon__btn use-coupon">去使用</view> -->
-            <view class="receive-coupon__btn  current-receive__coupon">立即领取</view>
-            <!-- <view class="receive-coupon__btn">立即领取</view> -->
+            <view 
+              wx:if="{{item.is_grant}}"
+              class="receive-coupon__btn use-coupon">去使用</view>
+            <view 
+              wx:if="{{!item.is_grant&&item.surplus_count!=0}}"
+              class="receive-coupon__btn  current-receive__coupon">立即领取</view>
+            <view 
+              wx:if="{{!item.is_grant&&item.surplus_count==0}}"
+              class="receive-coupon__btn">立即领取</view>
           </view>
           <!-- 底部 -->
           <view class=" flex-direction--column body">
-            <image src="../../images/right-jiantou@3x.png" class="product-photo"></image>
-            <text class="black-font font-width--medium ">蓝色印花清新蓝色原…</text>
+            <image 
+            class="receive-over__img receive-over__position"
+            wx:if="{{item.surplus_count==0&&item.is_grant==false}}" 
+src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
+            <image src="{{item.product_cover}}" class="product-photo">
+            </image>
+            <text class="black-font font-width--medium ">{{item.product_name}}</text>
 
             <view class="flex-row--b">
               <view class="flex-row">
                 <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>
-                <text class="font--30rpx">90</text> </text>
+                <text class="font--30rpx">{{item.product_coupon_amount}}</text> </text>
                 <text class="sale-price">券后价</text>
               </view>
-              <view class="oldPrice font-s ">¥120</view>
+              <view class="oldPrice font-s ">¥{{item.product_amount}}</view>
             </view>
           </view>
-
-
-
         </view>
-
       </view>
-
     </view>
 </view>
   </view>
@@ -240,7 +252,7 @@
     <!-- 分类优惠券按钮 -->
     <view class="flex_row coupon-category__btn">
       <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='common'?'active':''}}" data-code="common">同享券</view>
-      <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='alone'?'active':''}}" data-code="alone" wx:if="{{}}">单享券</view>
+      <view catchtap="handleChangeCouponClass" class="flex_row--middle {{couponCtaegory=='alone'?'active':''}}" data-code="alone">单享券</view>
     </view>
 
     <!-- 同享券 -->
@@ -333,31 +345,42 @@
 
     <!-- 单享券 -->
     <view class="time-top brand-coupon__box margin-top--40rpx" wx:if="{{couponCtaegory=='alone'}}">
-      <view class="high-pick__product--coupon" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+      <view 
+          catchtap="handleReceiveSingleProduct"
+          data-index="{{index}}"
+          data-store-rid="{{item.store_rid}}"
+          data-code="{{item.coupon_code}}"
+        class="high-pick__product--coupon {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}" 
+        wx:for="{{categoryAloneCoupon}}" 
+        wx:key="{{index}}">
         <!-- 头部 -->
         <view class="time-top hander">
           <view class="flex-direction--column text-color">
             <text class="font-width--semibold"> <text class="font-s ">¥</text>
-            <text class="font--40rpx ">90</text> </text>
-            <text class="font-xss">满200可用</text>
+            <text class="font--40rpx ">{{item.amount}}</text> </text>
+            <text class="font-xss">满{{item.min_amount}}可用</text>
           </view>
 
-          <!-- <view class="receive-coupon__btn use-coupon">去使用</view> -->
-          <view class="receive-coupon__btn  current-receive__coupon">立即领取</view>
-          <!-- <view class="receive-coupon__btn">立即领取</view> -->
+          <view class="receive-coupon__btn use-coupon" wx:if="{{item.is_grant}}">去使用</view>
+          <view class="receive-coupon__btn  current-receive__coupon" wx:if="{{!item.is_grant&&item.surplus_count!=0}}">立即领取</view>
+          <view class="receive-coupon__btn" wx:if="{{!item.is_grant&&item.surplus_count==0}}">立即领取</view>
         </view>
         <!-- 底部 -->
         <view class=" flex-direction--column body">
-          <image src="../../images/right-jiantou@3x.png" class="product-photo"></image>
-          <text class="black-font font-width--medium ">蓝色印花清新蓝色原…</text>
+                    <image 
+            class="receive-over__img receive-over__position"
+            wx:if="{{item.surplus_count==0&&item.is_grant==false}}" 
+src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
+          <image src="{{item.product_cover}}" class="product-photo"></image>
+          <text class="black-font font-width--medium ">{{item.product_name}}</text>
 
           <view class="flex-row--b">
             <view class="flex-row">
               <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>
-              <text class="font--30rpx">90</text> </text>
+              <text class="font--30rpx">{{item.product_coupon_amount}}</text> </text>
               <text class="sale-price">券后价</text>
             </view>
-            <view class="oldPrice font-s ">¥120</view>
+            <view class="oldPrice font-s ">¥{{item.product_amount}}</view>
           </view>
         </view>
 

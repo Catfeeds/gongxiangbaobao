@@ -28,7 +28,16 @@ Page({
     },
 
     categoryCommonCoupon: [], // 分类列表的同享券
+    categoryCommonCouponNext:true,
     commonCouponParams: {
+      store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
+      page: 1, //Number 可选 1 当前页码
+      per_page: 10, // Number 可选 10 每页数量
+    },
+
+    categoryAloneCoupon: [], // 分类列表的单享券
+    categoryAloneCouponNext:true,
+    aloneCouponParams: {
       store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
       page: 1, //Number 可选 1 当前页码
       per_page: 10, // Number 可选 10 每页数量
@@ -36,8 +45,8 @@ Page({
 
     couponCtaegory: "common", // 分类优惠券的切换
     categoryCode: "recommend",
-    category: [],
-    is_mobile:false
+    category: [], // 分类的导航
+    is_mobile: false
   },
 
   // 切换优惠券的分类
@@ -48,19 +57,24 @@ Page({
 
   },
 
-  // 切换分类
+  // 切换分类分类优惠券
   handleChangeCtaegory(e) {
     console.log(e.currentTarget.dataset)
     let code = e.currentTarget.dataset.code
 
-    if (code!= 'recommend' && this.data.categoryCode != code) {
+    if (code != 'recommend' && this.data.categoryCode != code) {
       this.setData({
-        categoryCommonCoupon:[],
+        categoryCommonCoupon: [], // 同享券
         'commonCouponParams.store_category': code,
-        'commonCouponParams.page': 1
+        'commonCouponParams.page': 1,
+
+        categoryAloneCoupon: [], // 单享券
+        'aloneCouponParams.store_category': code,
+        'aloneCouponParams.page': 1
       })
-      
+
       this.getCategoryCommonCouupon()
+      this.getCategoryAloneCouupon()
     }
 
     this.setData({
@@ -73,7 +87,6 @@ Page({
   handleReceiveAuthorityCoupon(e) {
     // 是否登陆
     if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
       this.setData({
         is_mobile: true
       })
@@ -125,6 +138,103 @@ Page({
     })
   },
 
+  //  领取精选商品券
+  handleReceiveHighProduct(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    console.log(e)
+    let code = e.currentTarget.dataset.code
+    let idx = e.currentTarget.dataset.index
+    let storeRid = e.currentTarget.dataset.storeRid
+
+    // 已经领取
+    if (this.data.highProductCouponList[idx].is_grant) {
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }
+
+    // 没有领取，可以领取
+    if (!this.data.highProductCouponList[idx].is_grant && this.data.highProductCouponList[idx].surplus_count != 0) {
+      http.fxPost(api.coupon_grant, {
+        rid: code,
+        store_rid: storeRid
+      }, result => {
+        console.log(result, "领取精选商品优惠券")
+        if (result.success) {
+          this.setData({
+            ['highProductCouponList[' + idx + '].is_grant']: true
+          })
+
+          utils.fxShowToast("成功领取", "success")
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+
+    // 无法领取
+    if (!this.data.highProductCouponList[idx].is_grant && this.data.highProductCouponList[idx].surplus_count == 0) {
+      utils.fxShowToast("亲！优惠券已经被领完")
+    }
+
+  },
+
+  // 领取单享券
+  handleReceiveSingleProduct(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    console.log(e)
+    let code = e.currentTarget.dataset.code
+    let idx = e.currentTarget.dataset.index
+    let storeRid = e.currentTarget.dataset.storeRid
+
+    // 已经领取
+    if (this.data.categoryAloneCoupon[idx].is_grant) {
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }
+
+    // 没有领取，可以领取
+    if (!this.data.categoryAloneCoupon[idx].is_grant && this.data.categoryAloneCoupon[idx].surplus_count != 0) {
+      http.fxPost(api.coupon_grant, {
+        rid: code,
+        store_rid: storeRid
+      }, result => {
+        console.log(result, "领取单享优惠券")
+        if (result.success) {
+          this.setData({
+            ['categoryAloneCoupon[' + idx + '].is_grant']: true
+          })
+
+          utils.fxShowToast("成功领取", "success")
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+
+    // 无法领取
+    if (!this.data.highProductCouponList[idx].is_grant && this.data.highProductCouponList[idx].surplus_count == 0) {
+      utils.fxShowToast("亲！优惠券已经被领完")
+    }
+  },
+
   // 去商品详情
   handleToProductInfo(e) {
     wx.navigateTo({
@@ -141,7 +251,7 @@ Page({
   },
 
   // 跳转到优惠券页面
-  handleToCoupon(){
+  handleToCoupon() {
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -162,7 +272,8 @@ Page({
       let data = this.data.categoryCommonCoupon
       if (result) {
         this.setData({
-          categoryCommonCoupon: data.concat(result.data.coupons) 
+          categoryCommonCoupon: data.concat(result.data.coupons),
+          categoryCommonCouponNext: result.data.next
         })
 
       } else {
@@ -170,6 +281,26 @@ Page({
       }
     })
 
+  },
+
+  // 获取分类列表的单享券 
+  getCategoryAloneCouupon() {
+
+    http.fxGet(api.market_coupon_center_single, { ...this.data.aloneCouponParams,
+      open_id: app.globalData.jwt.openid
+    }, result => {
+      console.log(result, '分类列表的单享券')
+      let data = this.data.categoryAloneCoupon
+      if (result) {
+        this.setData({
+          categoryAloneCoupon: data.concat(result.data.coupons),
+          categoryAloneCouponNext: result.data.next
+        })
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 分类列表
@@ -285,7 +416,31 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (this.data.categoryCode != 'recommend') {
+      if (this.data.couponCtaegory=='common') {
+        if (!this.data.categoryCommonCouponNext){
+          utils.fxShowToast('没有更多了')
+          return
+          }
 
+          this.setData({
+            'commonCouponParams.page': this.data.commonCouponParams.page + 1
+          })
+        this.getCategoryCommonCouupon()
+      }
+
+      if (this.data.couponCtaegory == 'alone') {
+        if (!this.data.categoryAloneCouponNext) {
+          utils.fxShowToast('没有更多了')
+          return
+        }
+
+        this.setData({
+          'aloneCouponParams.page': this.data.aloneCouponParams.page + 1
+        })
+        this.getCategoryAloneCouupon()
+      }
+    }
   },
 
   /**

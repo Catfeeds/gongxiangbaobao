@@ -385,9 +385,6 @@
 
     <!-- 发现生活美学 {{themeProduct.designs}}  橱窗 -->
     <view class='c-importantGoods box--margin border-top padding-left--0rpx'>
-      <!-- <view class='c-importantGoodsTitle margin-left--40rpx line-height--28rpx'>发现生活美学</view>
-              <text wx:if="{{recommendWindow.shop_windows.length>9}}" catchtap="handleToProductList" data-from="highQualityList" class='hui-zi-m'>查看全部 <text class='fx-icon-nothing-right'></text> </text> -->
-
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>发现生活美学</text>
         <text wx:if="{{recommendWindow.shop_windows.length>4}}" catchtap="handleGoWindow" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right nothing-right__size'></text> </text>

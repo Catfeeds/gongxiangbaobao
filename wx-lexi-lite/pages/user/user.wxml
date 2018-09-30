@@ -109,31 +109,30 @@
     </view>
 
     <!-- 橱窗 -->
-    <view class='p-null' >
-      <view class='c-importantGoodsTitle paymentFnTextB user__like'>
+    <view class='p-null window-box'>
+      <view class='c-importantGoodsTitle  paymentFnTextB user__like'>
         <text>喜欢的橱窗</text>
-        <text class=' hui-zi margin--15rpx' data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
+        <text class=' hui-zi margin--15rpx' wx:if="{{}}" data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
       </view>
       <scroll-view scroll-x class=' c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='inline-block {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{[1,2,3,4,5,6,7]}}" wx:key="{{index}}">
+        <view catchtap='handleGoWindowDetail' data-rid='{{item.rid}}' class='inline-block {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{userWindow.shop_windows}}" wx:key="{{index}}">
           <!-- 橱窗 -->
           <view class='time-top showcase-box'>
             <view class='showcase-box__left'>
-              <image src='../../images/timg.jpg'></image>
+              <image src="{{item.product_covers[0]}}"></image>
             </view>
             <view class='line-D showcase-box__right'>
               <view>
-                <image src='../../images/timg.jpg'></image>
+                <image src="{{item.product_covers[1]}}"></image>
               </view>
               <view>
-                <image src='../../images/timg.jpg'></image>
+                <image src="{{item.product_covers[2]}}"></image>
               </view>
             </view>
-
           </view>
-
         </view>
       </scroll-view>
+      <view class="shm"></view>
     </view>
 
     <!-- 缺省图片 -->

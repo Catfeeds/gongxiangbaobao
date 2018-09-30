@@ -73,3 +73,7 @@
 .icon-offical {
   margin-right: 10rpx;
 }
+
+.page-section.headline {
+  margin: 0;
+}

@@ -99,7 +99,7 @@ Page({
       ['getGatherParams.page']: this.data.getGatherParams.page + 1
     })
 
-    this.getGather()
+    // this.getGather()
   },
 
   // 跳转到集合详情

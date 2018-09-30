@@ -382,10 +382,11 @@ button-hover {
   background-color: #949ea6;
 }
 
-.follow-icon__home{
+.follow-icon__home {
   margin-right: 6rpx;
 }
-.ke-fu__btn{
+
+.ke-fu__btn {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -396,16 +397,15 @@ button-hover {
   border-bottom: 0rpx;
 }
 
-.product-null__photo  image{
-
+.product-null__photo  image {
 }
 
 .padding-top--150rpx {
   padding-top: 150rpx;
 }
 
-.inline-block{
-  display: inline-block
+.inline-block {
+  display: inline-block;
 }
 
 .showcase-box {
@@ -414,23 +414,30 @@ button-hover {
   margin-right: 20rpx;
 }
 
-.showcase-box__left{
+.showcase-box__left {
   height: 324rpx;
   width: 324rpx;
 }
-.showcase-box__right{
+
+.showcase-box__right {
   height: 324rpx;
 }
+
 .showcase-box__right view {
   width: 160rpx;
   height: 160rpx;
 }
 
-.showcase-box__right view image{
+.showcase-box__right view image {
   border-radius: 0;
 }
-.showcase-box__right view image,
-.showcase-box__left image{
+
+.showcase-box__right view image, .showcase-box__left image {
   height: 100%;
   width: 100%;
+}
+
+.window-box {
+  background-color: white;
+  padding-top: 30rpx;
 }

@@ -8,37 +8,35 @@
   <!-- 添加橱窗栏目 -->
   <view class='dynamic-add__box fx-broadwise-e bg-white'>
     <view class='dynamic-owner'>
-      <image src="{{dynamicList.bg_cover}}"></image>
+      <image src="{{dynamicList.user_avatar}}"></image>
     </view>
-    <view  class='black-font designer-name'>{{dynamicList.username}}</view>
-    <!-- 拼接橱窗 -->
-    <view catchtap="handleGoAddwindow" class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==1}}">
-      <text >拼贴橱窗</text>
-      <text class='fx-icon-nothing-plus'></text> 
-    </view>
+    <view class='black-font designer-name'>{{dynamicList.username}}</view>
+
     <!-- 关注 -->
-    <view class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==2&&dynamicList.followed_status==0}}">
-      <text class='fx-icon-nothing-plus'></text> 
+    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==0}}">
+      <text class='fx-icon-nothing-plus'></text>
       <text>关注</text>
     </view>
     <!-- 取消关注-->
-    <view class='c-theme-bg add-showcase__btn font-s {{showcaseOrWatch==2?"watch-btn":""}}' wx:if="{{showcaseOrWatch==2&&dynamicList.followed_status==1}}">
-      <text class='fx-icon-nothing-plus'></text> 
+    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==1}}">
+      <text class='fx-icon-nothing-plus'></text>
       <text>已关注</text>
     </view>
-    
+    <!-- 取消关注-->
+    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==2}}">
+      <text>相互关注</text>
+    </view>
   </view>
 
   <!-- 每一项 -->
-  <view wx:for="{{dynamicList.lines}}" wx:key="{{index}}" class='margin-bottom--30rpx bg-white'>
-    
-    <view 
-      class='flex-direction--column dynamic-item' >
+    <view wx:if="{{dynamicList.count!=0}}" wx:for="{{dynamicList.lines}}" wx:key="{{index}}" catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" class='margin-bottom--30rpx bg-white'>
+
+    <view class='flex-direction--column dynamic-item'>
       <view class='time-top dynamic-item__top margin-bottom--30rpx'>
         <view class='flex_row designer-info'>
-          <image src="{{item.shop_window.user_avatar}}"></image>
+          <image src="{{item.user_avatar}}"></image>
           <view>
-            <view class='font-s'>{{item.shop_window.user_name}}</view>
+            <view class='font-s'>{{item.user_name}}</view>
             <view class='font-ss qian-hui'>{{item.created_time}}</view>
           </view>
         </view>
@@ -49,39 +47,44 @@
         </view>
       </view>
 
-      <view class="time-top time-middine">
-        <image 
-          mode="widthFix" 
-          wx:if="{{index<3}}"
-          wx:key="{{index}}"
-          wx:for="{{item.shop_window.product_covers}}" 
-          wx:for-item="items"
-          src="{{items}}"></image>
+      <view class="time-top time-middine margin-bottom--24rpx">
+        <image  wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}"></image>
+        <view class="window-photo__count" wx:if="{{item.products>3}}">{{item.products>3?item.products.length:""}}图</view>
       </view>
 
-      <text 
-      class='text-two--line font-sxl text-two--line margin-bottom--8rpx'>{{item.shop_window.title}}</text>
-      <text class='text-two--line font-m'>{{item.shop_window.description}}</text>
+      <text class='text-two--line font-sxl text-two--line margin-bottom--8rpx'>{{item.title}}</text>
+      <text class='text-two--line font-m'>{{item.description}}</text>
     </view>
 
     <view class="like-iocn__box flex_row">
-      <view>
+      <view >
         <image 
-          src='{{item.shop_window.is_follow?"../../images/icons/icon-like-active@3x.png":"../../images/icons/icon-like@3x.png"}}'></image>
-        <text class='font-ss' wx:if="{{item.shop_window.like_count!=0&&item.shop_window.like_count!=null}}">{{item.shop_window.like_count}}</text>
+          wx:if="{{!item.is_like}}"
+          data-rid="{{item.rid}}"
+          src='../../images/icons/icon-like@3x.png' 
+          data-index="{{index}}"
+          catchtap="handleAddLike"></image>
+        <image 
+          catchtap="handleDeleteLike"
+          data-index="{{index}}"
+          data-rid="{{item.rid}}"
+          wx:if="{{item.is_like}}"
+          src="../../images/icons/icon-like-active@3x.png"></image>
+
+        <text class='font-ss'>{{ item.like_count>0?item.like_count:""}}</text>
       </view>
 
-      <view >
+      <view>
         <image src="../../images/icons/icon-comment@3x.png"></image>
-        <text class='font-ss' wx:if="{{item.shop_window.comment_count!=0&&item.shop_window.comment_count!=null}}">{{item.shop_window.comment_count}}</text>
+        <text class='font-ss'>{{item.comment_count>0?item.comment_count:""}}</text>
       </view>
     </view>
-    
+
   </view>
 
   <view wx:if="{{dynamicList.lines.length==0}}" class="fx-column--center null-photo">
-      <image src='../../images/dynamic-null@2.png'></image>
-      <view class='black-font'>还没有任何动态信息</view>
+    <image src='../../images/dynamic-null@2.png'></image>
+    <view class='black-font'>还没有任何动态信息</view>
   </view>
 
   <view class='shm'></view>

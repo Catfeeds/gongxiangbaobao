@@ -74,6 +74,14 @@
         wx:if="{{otherPeopleInfo.followed_status==1}}">
         <text class='black-font'> 已关注</text>
       </view>
+
+      <view 
+        class='add-watch__btn already' 
+        data-uid="{{otherPeopleUid}}"  
+        catchtap="hanleDeleteWatch"
+        wx:if="{{otherPeopleInfo.followed_status==2}}">
+        <text class='black-font'> 已关注</text>
+      </view>
       
     </view>
 
