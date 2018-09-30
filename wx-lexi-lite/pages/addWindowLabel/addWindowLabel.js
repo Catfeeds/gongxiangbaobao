@@ -115,7 +115,7 @@ Page({
   // 添加热门标签
   handleAddHotLabel(e) {
     let hotLabel = e.currentTarget.dataset.name.replace(/^\s+|\s+$/g, "")
-    console.log(hotLabel, "标签的名字")
+    console.log(e, "标签的名字")
 
     this._hanleLabel(hotLabel)
   },

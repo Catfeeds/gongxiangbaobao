@@ -1,6 +1,10 @@
 /* pages/addWindowLabel/addWindowLabel.wxss */
 @import "../search/search.wxss";
 
+.container {
+  background-color: white;
+}
+
 .padding-left__right--40rpx {
   padding: 0 40rpx;
 }
@@ -26,4 +30,17 @@ padding: 4rpx 10rpx;
 }
 .oneself-label__text{
   color: #5FE4B1;
+}
+
+.border-top {
+  border-top: 1rpx solid #e9e9e9;
+}
+.search-input input{
+  height: 58rpx;
+  padding-left: 26rpx;
+  width: 564rpx;
+}
+
+.border-none {
+  border: none;
 }
