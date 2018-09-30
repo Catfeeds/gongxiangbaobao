@@ -1420,7 +1420,7 @@ swiper-photo .slide-item__box image {
   width: 50rpx;
   border-radius: 50%;
   margin-right: 10rpx;
-  margin-bottom: 30rpx;
+  /* margin-bottom: 30rpx; */
 }
 
 .recommend-window__item .describe {
@@ -1432,4 +1432,12 @@ swiper-photo .slide-item__box image {
 .recommend-window__item .title {
   line-height: 28rpx;
   margin-bottom: 20rpx;
+}
+
+.margin-bottom--30rpx {
+  margin-bottom: 30rpx;
+}
+
+.live-beautiful__window {
+  height: 640rpx;
 }

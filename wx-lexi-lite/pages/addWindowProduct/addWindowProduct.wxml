@@ -9,27 +9,41 @@
 
   <!-- 喜欢 -->
   <scroll-view bindscrolltolower="handleReachBottom" scroll-y wx:if="{{toggleCode=='like'}}" class="product-box">
-  <view>
-    <image wx:for="{{likeProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}-p30"></image>
+    <view class=" like-product__box">
+      <image wx:for="{{likeProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}-p30"></image>
     </view>
 
-<view wx:if="{{likeProduct.length==0}}">
-  <image src="../../images/user-xin.png"></image>
-  <view>你当前还没有心愿单商品</view>
-</view>
-
+    <view wx:if="{{likeProduct.length==0}}" class="flex-direction-column__item null-photo">
+      <image src="../../images/user-xin.png"></image>
+      <view>你当前还没有喜欢商品</view>
+    </view>
   </scroll-view>
 
   <!-- 心愿单 -->
   <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='thinkOrder'}}">
-    <image wx:for="{{desireOrderProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
-      src="{{item.cover}}"></image>
+    <view class=" like-product__box">
+      <image wx:for="{{desireOrderProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}"></image>
+    </view>
+
+    <view wx:if="{{desireOrderProduct.length==0}}" class="flex-direction-column__item null-photo">
+      <image src="../../images/user-star.png"></image>
+      <view>你当前还没有心愿单商品</view>
+    </view>
   </scroll-view>
 
   <!-- 最近查看 -->
   <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='browse'}}">
-    <image wx:for="{{userBrowsesProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
-      src="{{item.cover}}"></image>
+    <view class=" like-product__box">
+      <image wx:for="{{userBrowsesProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}"></image>
+    </view>
+
+    <view wx:if="{{userBrowsesProduct.length==0}}" class="flex-direction-column__item null-photo">
+      <image src="../../images/dynamic-null@2.png"></image>
+      <view>你当前还没有浏览商品</view>
+    </view>
   </scroll-view>
 
   <!-- 底部选择框 -->

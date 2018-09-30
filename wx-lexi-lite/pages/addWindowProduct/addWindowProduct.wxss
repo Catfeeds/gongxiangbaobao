@@ -77,8 +77,8 @@
   display: inline-block;
   height: 180rpx;
   width: 180rpx;
-    background-size: 100% 100%;
-  background-image:url("https://static.moebeast.com/image/static/null-product.png");
+  background-size: 100% 100%;
+  background-image: url("https://static.moebeast.com/image/static/null-product.png");
   margin: 20rpx 20rpx 0 0;
 }
 
@@ -118,11 +118,26 @@
   color: #555;
 }
 
-.product-box view{
+.product-box .like-product__box {
   display: flex;
   flex-flow: row wrap;
 }
 
 .container {
   background-color: white;
+}
+
+.null-photo {
+  margin: 0 auto;
+  margin-top: 150rpx;
+}
+
+.null-photo image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 40rpx;
+}
+
+.null-photo view {
+  font-size: 28rpx;
 }
