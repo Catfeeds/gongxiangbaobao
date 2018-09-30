@@ -93,7 +93,7 @@
 					"id": 9,
 					"name": "猜图现金",
 					"pathName": "pages/guessGame/guessGame",
-					"query": ""
+					"query": "scene= 17591346820-1"
 				}
 			]
 		}
