@@ -443,6 +443,7 @@
 
 .high-pick__product--coupon .body {
   margin: 20rpx;
+  position: relative;
 }
 
 .high-pick__product--coupon .body .product-photo {
@@ -585,4 +586,15 @@
   left: 0;
   height: 28rpx;
   width: 76rpx;
+}
+
+.body .receive-over__img.receive-over__position {
+  height: 100rpx;
+  width: 100rpx;
+  top: 0rpx;
+  right: 0rpx;
+}
+
+.high-pick__product--coupon .hander {
+  background:rgba(255,107,52,.1);
 }

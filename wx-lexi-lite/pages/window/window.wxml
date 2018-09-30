@@ -3,8 +3,8 @@
   <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 头图 -->
-  <view class="page-section headline">
-    <image src="../../images/window/window-head-bg.jpg"></image>
+  <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/dynamic_head.jpg ');background-size:100% 100%; ">
+    <image ></image>
     <view class="mask">
       <view class="content">
         <view class="big-title">
