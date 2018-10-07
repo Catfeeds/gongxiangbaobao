@@ -134,7 +134,7 @@
                 <image class="master-photo" src="{{item.user_avatar}}"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>
-              <view class="black-font  font-width--medium title">{{item.title}}</view>
+              <view class="black-font  font-width--medium title margin-top--4rpx">{{item.title}}</view>
               <view class="font-s two-line-text describe">{{item.description}}</view>
             </view>
           </view>
