@@ -9,15 +9,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lxToken: ''
+    lxToken: '',
+    gameUrl: ''
+  },
+  
+  /**
+   * 监听H5返回的信息
+   */
+  getH5Message (data) {
+    console.log(data, 'H5游戏返回信息')
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let gameUrl = 'https://h5.lexivip.com/guess_game?lx_token=' + app.globalData.token
+    console.log(gameUrl, '跳转至游戏')
     this.setData({
-      lxToken: app.globalData.token
+      lxToken: app.globalData.token,
+      gameUrl: gameUrl
     })
   },
 
