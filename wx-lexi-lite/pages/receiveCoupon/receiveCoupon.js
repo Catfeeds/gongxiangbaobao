@@ -28,7 +28,7 @@ Page({
     },
 
     categoryCommonCoupon: [], // 分类列表的同享券
-    categoryCommonCouponNext:true,
+    categoryCommonCouponNext: true,
     commonCouponParams: {
       store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
       page: 1, //Number 可选 1 当前页码
@@ -36,7 +36,7 @@ Page({
     },
 
     categoryAloneCoupon: [], // 分类列表的单享券
-    categoryAloneCouponNext:true,
+    categoryAloneCouponNext: true,
     aloneCouponParams: {
       store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
       page: 1, //Number 可选 1 当前页码
@@ -417,15 +417,15 @@ Page({
    */
   onReachBottom: function() {
     if (this.data.categoryCode != 'recommend') {
-      if (this.data.couponCtaegory=='common') {
-        if (!this.data.categoryCommonCouponNext){
+      if (this.data.couponCtaegory == 'common') {
+        if (!this.data.categoryCommonCouponNext) {
           utils.fxShowToast('没有更多了')
           return
-          }
+        }
 
-          this.setData({
-            'commonCouponParams.page': this.data.commonCouponParams.page + 1
-          })
+        this.setData({
+          'commonCouponParams.page': this.data.commonCouponParams.page + 1
+        })
         this.getCategoryCommonCouupon()
       }
 
@@ -447,6 +447,15 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      title: '乐喜',
+      path: '/pages/index/index',
+      success: (result) => {
+        console.log('分享成功')
+      },
+      fail: () => {
+        console.log('分享失败')
+      }
+    }
   }
 })
