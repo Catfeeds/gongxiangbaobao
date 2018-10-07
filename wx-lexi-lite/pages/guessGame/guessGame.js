@@ -166,6 +166,20 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    // scene格式：uid + '-' + code
+    const jwt = wx.getStorageInfoSync('jwt')
+    let scene = jwt.uid + '-1'
+    return {
+      title: '猜图赢现金',
+      path: '/pages/guessGame/guessGame?scene=' + scene,
+      imageUrl: 'https://static.moebeast.com/static/img/guess-game-bg2.jpg',
+      success: function (res) {
+        console.log('转发成功')
+      },
+      fail: function (res) {
+        console.log('转发失败')
+      }
+    }
   }
+  
 })
