@@ -5,7 +5,6 @@
 
   <!-- 橱窗列表 -->
   <view class="page-section fx-windows">
-
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
@@ -14,14 +13,14 @@
           <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
           <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{windowDetail.is_official}}"></image>
         </view>
-        <button 
-          class="fx-mini-btn round follow primary" 
+        <view 
+          class="fx-mini-btn round follow primary c-middle add-follow__btn" 
           catchtap="handleAddFollow"
-          wx:if="{{!windowDetail.is_follow&& myUid!=windowDetail.uid}}">关注</button>
-        <button 
-          class="fx-mini-btn round follow primary" 
+          wx:if="{{!windowDetail.is_follow&& myUid!=windowDetail.uid}}">关注</view>
+        <view 
+          class="fx-mini-btn round follow primary c-middle add-follow__btn  follow-over__btn" 
           catchtap="handleDeleteFollow"
-          wx:if="{{windowDetail.is_follow}}">已关注</button>
+          wx:if="{{windowDetail.is_follow}}">已关注</view>
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
@@ -30,7 +29,6 @@
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
         </view>
-
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 5 }}">
@@ -68,7 +66,6 @@
         </view>
       </view>
 
-
       <view class="fx-window__actions">
         <view class="like-comment">
           <view class="done">
@@ -90,24 +87,21 @@
 
       <view class="fx-window__body">
         <view class="title">{{windowDetail.title}}</view>
-
         <view class="summary">{{windowDetail.description}}</view>
-
         <view class="keywords">
-          <label wx:for="{{windowDetail.keywords}}" wx:key="{{index}}">#{{item}}</label>
+          <label 
+            wx:for="{{windowDetail.keywords}}" 
+            wx:if="{{index<3}}"
+            wx:key="{{index}}">#{{item}}</label>
         </view>
-
       </view>
-
     </view>
   </view>
 
   <!-- 评论列表 -->
   <view class="page-section comments" wx:if="{{}}">
     <view class="block-title">评论</view>
-
   </view>
-
   <!-- 猜你喜欢 -->
   <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
     <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
@@ -145,7 +139,6 @@
             </view>
           </view>
         </scroll-view>
-
   </view>
 
   <!-- 底部添加评论 -->

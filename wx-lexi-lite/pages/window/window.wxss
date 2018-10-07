@@ -1,8 +1,10 @@
 /* 头图 */
+
 .headline {
   position: relative;
   background-color: #fff;
 }
+
 .mask {
   position: absolute;
   top: 0;
@@ -12,18 +14,22 @@
   z-index: 9;
   background: linear-gradient(rgba(187, 153, 104, 1), rgba(255, 255, 255, 0));
 }
+
 .mask .content {
   padding: 40rpx;
   color: #fff;
 }
+
 .mask .content .big-title {
   font-size: 48rpx;
   font-weight: 500;
   margin-bottom: 26rpx;
 }
+
 .mask .content .description {
   font-size: 28rpx;
 }
+
 .mask .content .description02 {
   font-size: 30rpx;
 }
@@ -32,7 +38,7 @@
 
 .fx-windows {
   position: relative;
-  padding-bottom: 145rpx;
+  padding-bottom: 90rpx;
 }
 
 .fx-windows .window-publish {
@@ -42,9 +48,11 @@
   z-index: 9;
   width: 100%;
 }
+
 .fx-windows .window-publish.is-fixed {
   position: fixed;
 }
+
 .fx-windows .window-publish .btn-plus {
   width: 244rpx;
   margin: 0 auto;
@@ -55,25 +63,58 @@
   align-items: center;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
 }
+
 .fx-windows .window-publish .btn-plus text {
   font-size: 24rpx;
   color: rgb(102, 102, 102);
   margin-right: 12rpx;
   margin-left: 25rpx;
 }
+
 .fx-windows .window-publish .btn-plus .icon-plus {
   width: 30rpx;
   height: 30rpx;
 }
 
-.border-round{
+.border-round {
   border-radius: 50%;
 }
-.icon-star,
-.icon-offical {
+
+.icon-star, .icon-offical {
   margin-right: 10rpx;
 }
 
 .page-section.headline {
   margin: 0;
+}
+
+.fx-tabs .tab-item text {
+  margin-bottom: 0rpx;
+  line-height: 40rpx;
+}
+
+.height--80rpx {
+  height: 80rpx;
+}
+
+.btn-follow.qian-hui {
+  color: #999;
+}
+
+.line-height--30rpx {
+  line-height: 30rpx;
+}
+
+.line-height--24rpx {
+  line-height: 24rpx;
+}
+
+.margin-bottom--24rpx {
+  margin-bottom: 24rpx !important;
+}
+
+.fx-windows .window-publish {
+  position: fixed;
+  bottom: 20rpx;
+  width: 100%;
 }

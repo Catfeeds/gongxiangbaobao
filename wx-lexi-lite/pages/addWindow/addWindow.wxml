@@ -57,7 +57,7 @@
 
     </view>
 
-    <view class="font-s add-window__warn margin-top--114rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view>
+    <view class="font-s add-window__warn margin-top--20rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view>
 
     <input 
       class="add-window__title--input" 
@@ -76,7 +76,13 @@
   </textarea>
 
   <view class="add-label__box padding-left__right--40rpx">
-    <view class="c-middle add-label" catchtap="handleToAddwindowlabel">#添加标签</view>
+    <view 
+      class="c-middle add-label"
+      wx:if="{{windowParams.keywords.length<3}}"
+       catchtap="handleToAddwindowlabel">#添加标签</view>
+    <view 
+      wx:if="{{windowParams.keywords.length==3}}"
+      class="c-middle add-label color--333" >#添加标签</view>
     <view class="flex--1">
       <view class="margin-right--20rpx" wx:for="{{windowParams.keywords}}" wx:key="{{index}}">#{{item}}</view>
 

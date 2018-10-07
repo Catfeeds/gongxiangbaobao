@@ -4,9 +4,8 @@
 <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
 <view class='container search-page'>
-
   <!-- 搜索框 -->
-  <view class="bg-white search-input ">
+  <view class="bg-white search-input  border-top">
     <input value="{{inputText}}" placeholder="输入标签" bindinput="handleInput" bindconfirm="handleRecordLast" placeholder-class="input-font" auto-focus/>
 
     <image class='input-off__btn' catchtap='handleDeleteInput' wx:if="{{inputText}}" src="../../images/bg-hui-off@icon.png"></image>
@@ -21,18 +20,17 @@
         <image class="margin-left--40rpx margin-right--40rpx" catchtap="handleClearHistory" src='../../images/delete-icon@2.png'></image>
       </view>
       <view class="flex_row black-font padding-left--40rpx padding-right--40rpx history-record__text">
-        <view class="one-line-text" wx:for="{{searchHistory}}" data-text="{{item}}" catchtap="handleSearchWord" wx:key="{{index}}">{{item}}</view>
+        <view class="one-line-text" wx:for="{{searchHistory}}" data-text="{{item}}" catchtap="handleAddHotLabel" data-name="{{item}}" wx:key="{{index}}">{{item}}</view>
       </view>
     </view>
-
 
     <!-- 热门搜索 -->
     <view class="bg-white last-record hot-recommend">
       <view class='black-font font-width--semibold padding-left--40rpx '>热门标签</view>
       <view class="">
 
-        <view catchtap="handleAddHotLabel" data-index="{{index}}" data-name="{{item.name}}" class="black-font padding-left__right--40rpx time-top one-line-text hot-search" wx:for="{{hotLabel}}" wx:key="{{index}}">
-          <view class="flex_row">#{{item.name}}
+        <view catchtap="handleAddHotLabel" data-index="{{index}}" data-name="{{item.name}}" class="black-font padding-left__right--40rpx time-top one-line-text hot-search {{index==hotLabel.length-1?'border-none':''}}" wx:for="{{hotLabel}}" wx:key="{{index}}">
+          <view class="flex_row"># {{item.name}}
             <view class="c-middle huodong-icon" wx:if="{{item.type==1}}">活动</view>
           </view>
           <view class="font-s color-hui">{{item.numbers}} 人参与</view>
@@ -46,7 +44,7 @@
   <block wx:if="{{inputText}}">
     <view class="time-top add-oneself__label" catchtap="handleAddOneSelfLabel" wx:if="{{isAddOneselfLabel}}">
       <view>
-        <view class="black-font oneself-label__text">＃ {{inputText}}</view>
+        <view class="black-font oneself-label__text">＃ {{ inputText}}</view>
         <view class="font-s">这个标签还没有人发起</view>
       </view>
       <view class="font-s">点击添加</view>

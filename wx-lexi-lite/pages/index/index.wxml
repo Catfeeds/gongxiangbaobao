@@ -384,14 +384,14 @@
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}}  橱窗 -->
-    <view class='c-importantGoods box--margin border-top padding-left--0rpx'>
+    <view class=' box--margin border-top padding-left--0rpx'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
         <text>发现生活美学</text>
         <text wx:if="{{recommendWindow.shop_windows.length>4}}" catchtap="handleGoWindow" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right nothing-right__size'></text> </text>
       </view>
 
       <view class='c-importantGoodsBox  today-recommend-box'>
-        <scroll-view scroll-x>
+        <scroll-view scroll-x class="live-beautiful__window">
           <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " 
           catchtap="handleGoWindowDetail" 
           data-window-rid="{{item.rid}}"
@@ -406,7 +406,7 @@
             </view>
 
             <view class="padding--30rpx">
-              <view class="flex_row">
+              <view class="flex_row margin-bottom--30rpx">
                 <image class="master-photo" src="{{item.user_avatar}}"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>

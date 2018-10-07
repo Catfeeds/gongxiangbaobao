@@ -2,54 +2,53 @@
 <view class="container">
   <!-- nvbar -->
   <view class="padding-left__right--10rpx flex_row category-item__box">
-    <view catchtap="handleToggleCategory" class="category-item {{item.code==toggleCode?'active':''}}" wx:for="{{category}}" data-code="{{item.code}}" wx:key="{{index}}">
+    <view catchtap="handleToggleCategory" class="color--555 category-item {{item.code==toggleCode?'active':''}}" wx:for="{{category}}" data-code="{{item.code}}" wx:key="{{index}}">
       {{item.name}}
     </view>
   </view>
 
   <!-- 喜欢 -->
   <scroll-view bindscrolltolower="handleReachBottom" scroll-y wx:if="{{toggleCode=='like'}}" class="product-box">
-    <image 
-      wx:for="{{likeProduct}}" 
-      wx:key="{{index}}" 
-      data-rid="{{item.rid}}"
-      data-store-rid="{{item.store_rid}}"
-      catchtap="handleGetProductPhoto"
-      data-store-rid="{{item.store_rid}}"
-      class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}-p30"></image>
+    <view class=" like-product__box">
+      <image wx:for="{{likeProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}-p30"></image>
+    </view>
+
+    <view wx:if="{{likeProduct.length==0}}" class="flex-direction-column__item null-photo">
+      <image src="../../images/user-xin.png"></image>
+      <view>你当前还没有喜欢商品</view>
+    </view>
   </scroll-view>
 
   <!-- 心愿单 -->
-  <scroll-view 
-    bindscrolltolower="handleReachBottom"
-    class="product-box" 
-    scroll-y 
-    wx:if="{{toggleCode=='thinkOrder'}}">
-    <image 
-      wx:for="{{desireOrderProduct}}" 
-      wx:key="{{index}}" 
-      data-rid="{{item.rid}}"
-      data-store-rid="{{item.store_rid}}"
-      catchtap="handleGetProductPhoto"
-      data-store-rid="{{item.store_rid}}"
-      class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}"></image>
+  <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='thinkOrder'}}">
+    <view class=" like-product__box">
+      <image wx:for="{{desireOrderProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}"></image>
+    </view>
+
+    <view wx:if="{{desireOrderProduct.length==0}}" class="flex-direction-column__item null-photo">
+      <image src="../../images/user-star.png"></image>
+      <view>你当前还没有心愿单商品</view>
+    </view>
   </scroll-view>
 
   <!-- 最近查看 -->
   <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='browse'}}">
-    <image 
-      wx:for="{{userBrowsesProduct}}" 
-      wx:key="{{index}}" 
-      data-rid="{{item.rid}}"
-      data-store-rid="{{item.store_rid}}"
-      catchtap="handleGetProductPhoto"
-      data-store-rid="{{item.store_rid}}"
-      class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}" src="{{item.cover}}"></image>
+    <view class=" like-product__box">
+      <image wx:for="{{userBrowsesProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}"></image>
+    </view>
+
+    <view wx:if="{{userBrowsesProduct.length==0}}" class="flex-direction-column__item null-photo">
+      <image src="../../images/dynamic-null@2.png"></image>
+      <view>你当前还没有浏览商品</view>
+    </view>
   </scroll-view>
 
   <!-- 底部选择框 -->
   <view class="pick-photo__box">
-    <view class="time-top padding-left__right--40rpx">
+    <view class="time-top padding-left__right--40rpx margin-bottom--22rpx">
       <text class="black-font font-width--medium line-height--28rpx">选择该商品一张图片做封面</text>
       <view class="black-font c-middle add-window__btn add-window__btn--green" wx:if="{{pickProductId}}" catchtap="handleAddWindowBtn">确定</view>
       <view class="black-font c-middle add-window__btn add-window__btn--hui" wx:if="{{!pickProductId}}">确定</view>

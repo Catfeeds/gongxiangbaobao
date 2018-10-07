@@ -193,7 +193,7 @@
 }
 
 .image-item {
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 
 .three-photo__big {
@@ -217,4 +217,23 @@
 
 .paddng-left-right--40rpx{
   padding: 0 40rpx;
+}
+
+.fx-window .fx-window__author .avatar {
+  border-radius: 50%;
+}
+
+.add-follow__btn {
+  width: 113rpx;
+  height: 52rpx;
+  background-color: #5FE4B1;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: white;
+  line-height: 28rpx;
+}
+
+.follow-over__btn {
+ background:#eff3f2;
+ color: #949EA6;
 }

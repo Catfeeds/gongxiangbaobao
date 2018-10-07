@@ -30,7 +30,7 @@
   width: 50rpx;
   border-radius: 50%;
   margin: 10rpx;
-  background-color: red;
+  /* background-color: red; */
 }
 
 .receive-name__text {
@@ -435,7 +435,7 @@
 
 .high-pick__product--coupon .receive-coupon__btn {
   font-size: 24rpx;
-  border: 2rpx solid #ff6b34;
+  border: 1rpx solid #ff6b34;
   border-radius: 30rpx;
   font-weight: 500;
   padding: 8rpx 20rpx;
@@ -468,7 +468,7 @@
 .high-pick__product--coupon .body .sale-price {
   font-size: 20rpx;
   color: white;
-  padding: 4rpx;
+  padding: 4rpx 10rpx;
   background-color: #f66;
   border-radius: 8rpx;
   margin-left: 10rpx;
@@ -531,7 +531,7 @@
 
 .coupon-category__btn {
   height: 90rpx;
-  border-top: 1rpx solid #ffbd9f;
+  border-top: 1rpx solid #e9e9e9;
   background-color: white;
 }
 
@@ -596,5 +596,11 @@
 }
 
 .high-pick__product--coupon .hander {
-  background:rgba(255,107,52,.1);
+  background:rgba(255,240,234,1.0);
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+}
+
+.text-color--qianhong {
+  color: #FF6B34;
 }

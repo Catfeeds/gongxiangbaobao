@@ -114,12 +114,12 @@
                   <view class="text-color brand-coupon__price">
                     <text class="icon">￥</text>
                     <text class="brand-coupon__limit--text">{{item.amount}}</text>
-                    <text class=" brand-coupon__limit">满{{item.min_amount}}可用</text> </view>
+                    <text class=" brand-coupon__limit"> 满{{item.min_amount}}可用</text> </view>
                 </view>
               </view>
 
               <view class="fx-column--center ">
-                <view class="font-ss line-22rpx font-width--medium text-color">正在疯抢</view>
+                <view class="font-ss line-22rpx font-width--medium text-color--qianhong">正在疯抢</view>
                 <view class="font-ss flex_row--middle join-brand__receive--icon">
                   <text class="line-22rpx font-width--medium">进店领券</text>
                   <image class="right-icon" src="../../images/right-jiantou@3x.png"></image>
@@ -142,9 +142,9 @@
                 <text class="font-ss ">{{product.product_name}}</text>
                 <text class="font-width--medium text-color"> 
                   <text class="font--12rpx">¥</text>
-                <text class="black-font">{{product.product_amount}} </text>
+                <text class="black-font">{{product.product_coupon_amount}} </text>
                 </text>
-                <text class="font-xss oldPrice">¥{{product.product_coupon_amount}}</text>
+                <text class="font-xss oldPrice">¥{{product.product_amount}} </text>
               </view>
             </view>
           </view>
@@ -273,12 +273,12 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
                 <view class="text-color brand-coupon__price">
                   <text class="icon">￥</text>
                   <text class="brand-coupon__limit--text">{{item.amount}}</text>
-                  <text class=" brand-coupon__limit">满{{item.min_amount}}可用</text> </view>
+                  <text class=" brand-coupon__limit"> 满{{item.min_amount}} 可用</text> </view>
               </view>
             </view>
 
             <view class="fx-column--center ">
-              <view class="font-ss line-22rpx font-width--medium text-color">正在疯抢</view>
+              <view class="font-ss line-22rpx font-width--medium text-color--qianhong">正在疯抢</view>
               <view class="font-ss flex_row--middle join-brand__receive--icon">
                 <text class="line-22rpx font-width--medium">进店领券</text>
                 <image class="right-icon" src="../../images/right-jiantou@3x.png"></image>
@@ -300,9 +300,9 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
               <text class="font-ss ">{{product.product_name}}</text>
               <text class="font-width--medium text-color"> 
                   <text class="font--12rpx">¥</text>
-              <text class="black-font">{{product.product_amount}}</text>
+              <text class="black-font">{{product.product_coupon_amount}}</text>
               </text>
-              <text class="font-xss oldPrice">¥{{product.product_coupon_amount}}</text>
+              <text class="font-xss oldPrice">¥{{product.product_amount}}</text>
             </view>
           </view>
 
