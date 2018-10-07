@@ -109,7 +109,7 @@ Page({
 
     let option = e.detail.value
     let coupon = JSON.parse(option)
-    couponAmount = coupon.amount-0
+    let couponAmount = coupon.amount-0
     
     this.setData({
       orderInfomation: item,

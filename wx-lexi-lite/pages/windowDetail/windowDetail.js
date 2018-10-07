@@ -156,6 +156,14 @@ Page({
     })
   },
 
+  // 橱窗详情
+  handleGoWindowDetail(e) {
+    let windowRid = e.currentTarget.dataset.windowRid
+    wx.navigateTo({
+      url: '../windowDetail/windowDetail?windowRid=' + windowRid,
+    })
+  },
+
   // 获取橱窗详情
   getWindowDetail() {
     http.fxGet(api.shop_windows_detail, {

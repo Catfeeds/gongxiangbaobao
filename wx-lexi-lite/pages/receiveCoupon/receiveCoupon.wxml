@@ -80,12 +80,24 @@
     </view>
 
     <!-- 广告轮播图 -->
-    <view class="flex_row--middle adv-box" wx:if="{{}}">
-      <swiper class="adv-coupon-swiper">
-        <swiper-item wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
-          <image src="../../images/accept.png" />
+    <view class="flex_row--middle adv-box" wx:if="{{couponAdv.length!=0}}">
+      <swiper 
+          class="adv-coupon-swiper"          
+          current="{{index}}"
+          bindchange="handleChangRound">
+        <swiper-item 
+          wx:for="{{couponAdv}}" 
+          catchtap="handleGoProduct"
+          data-rid="{{item.link}}"
+          data-type="{{item.type}}"
+          wx:key="{{index}}">
+          <image src="{{item.image}}" />
         </swiper-item>
       </swiper>
+
+                    <view class="flex_row find-swiper__round bottom--86rpx">
+        <view wx:for="{{couponAdv}}" class="{{swiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
+      </view>
     </view>
 
     <!-- 精选品牌券 -->

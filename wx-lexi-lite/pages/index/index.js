@@ -19,7 +19,7 @@ Page({
     swiperMark: 0, // 轮播图标记
     loadingMore: true, // 加载更多标记
     isLoadPageShow: true, // 加载页面的点
-    gratefulSwiper: 0, // 热气推荐的的轮播图的点
+    gratefulSwiper: 0, // 人气推荐的的轮播图的点
     exploreSwiperMark: 0, // 探索轮播图的点
     readyOver: false, // 页面加载是否完成
 
