@@ -42,7 +42,7 @@
   </view>
 
   <view class="store-income__wrapper">
-    <view class="store-income">
+    <view class="store-income" bindtap="handleGoTrade">
       <image src="../../images/icon-eye-white@3x.png" wx:if="{{ setIncomeStar }}" class="icon-eye" bindtap="handleSecretIncome"></image>
       <image src="../../images/icon-eye-white-close@3x.png" wx:else class="icon-eye" bindtap="handleSecretIncome"></image>
       <text>生活馆累计收益</text>
@@ -63,7 +63,7 @@
     </view>
 
     <view class="store-dashboard">
-      <view class="order-total-count" bindtap="handleGoTrade">
+      <view class="order-total-count" >
         <view class="title">
           总计成交订单
           <text>（笔）</text>
@@ -78,6 +78,7 @@
       </view>
 
       <view class="order-total-amount" bindtap="handleGoWithdraw">
+      <image class="huise-jiantou"  src="../../images/hui-jian-tou@3x.png"></image>
         <view class="title">
           可提现金额
           <text>（元）</text>

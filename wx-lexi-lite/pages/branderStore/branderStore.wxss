@@ -10,7 +10,7 @@
 }
 
 .store-info {
-  padding: 30rpx 40rpx 40rpx;
+  padding: 60rpx 40rpx 30rpx 40rpx;
   box-shadow: 0px 15px 24px 0px rgba(0, 0, 0, 0.1);
 }
 
@@ -43,7 +43,7 @@
 }
 
 .follow .follow-btn {
-  padding: 12rpx 48rpx 12rpx 36rpx;
+  padding: 17rpx 48rpx 17rpx 36rpx;
   background-color: #5fe4b1;
   color: white;
   margin-right: 30rpx;
@@ -67,6 +67,7 @@
 .follow .about {
   padding: 12rpx 20rpx;
   background-color: #f5f7f9;
+  font-size: 28rpx;
 }
 
 .coupon-box {
@@ -321,4 +322,9 @@ background-color:#fff;
 
 .border-bottom--0 {
   border-bottom: 0rpx solid red;
+}
+
+.font-size--28rpx {
+  font-size: 28rpx;
+  color: #555;
 }

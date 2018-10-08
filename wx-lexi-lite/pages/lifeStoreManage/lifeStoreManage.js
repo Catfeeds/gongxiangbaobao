@@ -342,6 +342,10 @@ Page({
     }, (res) => {
       console.log(res, '生活馆信息')
       if (res.success) {
+        if (res.data.name.length>8){
+          res.data.name = res.data.name.substr(0, 3) + '...' + res.data.name.substr(5,2)
+        }
+
         this.setData({
           lifeStore: res.data,
           createdAt: res.data.created_at
