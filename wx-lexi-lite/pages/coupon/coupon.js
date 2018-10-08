@@ -49,20 +49,20 @@ Page({
           }
 
           // 没有过期的官方优惠券
-          if (v.type == 2 && !v.is_expired && !v.is_used) {
+          if (!v.is_expired && !v.is_used) {
             authorityNormalCouponList.push(v)
           }
 
           // 过期的官方优惠券
-          if (v.type == 2 && v.is_expired && v.is_used) {
+          if (v.is_expired || v.is_used) {
             authorityExceedCouponList.push(v)
           }
 
           // 设置data
           if (result.data.coupons.length - 1 == i) {
             this.setData({
-              normalCouponList: normalCouponList,
-              exceedCouponList: exceedCouponList,
+              // normalCouponList: normalCouponList,
+              // exceedCouponList: exceedCouponList,
               authorityNormalCouponList: authorityNormalCouponList,
               authorityExceedCouponList: authorityExceedCouponList
             })
@@ -87,7 +87,7 @@ Page({
     let normalCouponList = this.data.normalCouponList // 未使用的 可用红包 非官方
     let exceedCouponList = this.data.exceedCouponList // 已经过期 不可用红包 非官方
 
-    http.fxPost(api.user_coupons, params, (result) => {
+    http.fxPost(api.market_core_user_coupons, params, (result) => {
       console.log(result.data, o, 'all')
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
@@ -97,10 +97,11 @@ Page({
           this.setData({
             normalCouponList: normalCouponList.push(v)
           })
-          console.log(v,"商家券")
+          console.log(v,"没有使用商家券-")
         }
 
         if (o == 'N02' || o == 'N03') {
+          console.log(v, "过期的商家券")
           this.setData({
             useCouponList: exceedCouponList.push(v)
           })

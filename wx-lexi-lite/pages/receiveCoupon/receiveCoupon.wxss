@@ -225,6 +225,8 @@
 
 .adv-coupon-swiper swiper-item image {
   border-radius: 8rpx;
+  width: 690rpx;
+  height: 260rpx;
 }
 
 .padding-top--60rpx {

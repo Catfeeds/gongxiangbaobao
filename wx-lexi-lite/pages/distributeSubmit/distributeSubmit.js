@@ -24,7 +24,7 @@ Page({
   /**
    * 推荐语变化
    */
-  handleChangeStickText (e) {
+  handleChangeStickText(e) {
     console.log(e)
     this.setData({
       'form.stick_text': e.detail.value
@@ -34,7 +34,7 @@ Page({
   /**
    * 确认上架分销
    */
-  handleSubmitDistribute () {
+  handleSubmitDistribute() {
     wx.showLoading({
       title: '正在提交...',
     })
@@ -43,6 +43,7 @@ Page({
       sid: this.data.sid,
       stick_text: this.data.form.stick_text
     }
+    this._handleUpdateMyDistributed()
     http.fxPost(api.distribution_sell, data, (res) => {
       wx.hideLoading()
       console.log(res, '上架分销')
@@ -50,16 +51,23 @@ Page({
         wx.navigateBack({
           delta: 1
         })
+        
       } else {
         utils.fxShowToast(res.status.message)
       }
     })
   },
 
+  _handleUpdateMyDistributed() {
+    let pagePath = getCurrentPages()
+    let indexPage = pagePath[pagePath.length - 3]
+    indexPage.getStoreProducts()
+  },
+
   /**
    * 获取商品信息
    */
-  getProduct () {
+  getProduct() {
     wx.showLoading({
       title: '加载中',
     })
@@ -80,7 +88,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options.rid)
     this.setData({
       rid: options.rid
@@ -98,49 +106,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   }
 })

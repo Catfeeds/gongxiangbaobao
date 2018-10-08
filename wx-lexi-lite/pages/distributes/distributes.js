@@ -66,7 +66,8 @@ Page({
       qk: '',
       per_page: 10,
       min_price: 0, // 价格区间: 最小价格
-      max_price: -1 // 价格区间: 最大价格
+      max_price: -1, // 价格区间: 最大价格
+      sid: app.globalData.jwt.store_rid // 店铺的id
     },
     checkedCids: [], // 选择的分类
     categoryList: [], // 分类列表
@@ -642,7 +643,8 @@ Page({
   getHotDistribution() {
     let params = {
       page: this.data.page,
-      per_page: this.data.perPage
+      per_page: this.data.perPage,
+      sid:app.globalData.jwt.store_rid
     }
 
     http.fxGet(api.get_hot_distribution, params, (res) => {
@@ -675,7 +677,8 @@ Page({
   getStickedDistribution() {
     let params = {
       page: this.data.page,
-      per_page: this.data.perPage
+      per_page: this.data.perPage,
+      sid: app.globalData.jwt.store_rid
     }
     http.fxGet(api.get_sticked_distribution, params, (res) => {
       console.log(res, '官方精选分销商品')
@@ -707,7 +710,8 @@ Page({
   getNewestDistribution() {
     let params = {
       page: this.data.page,
-      per_page: this.data.perPage
+      per_page: this.data.perPage,
+      sid: app.globalData.jwt.store_rid
     }
 
     http.fxGet(api.get_new_distribution, params, (res) => {

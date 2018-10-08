@@ -22,6 +22,9 @@
 
 .gather-hander__photo .gather-hander__text--big {
   top: 270rpx;
+  font-size: 48rpx;
+  line-height: 48rpx;
+  font-weight: 600;
 }
 
 .gather-hander__photo .gather-hander__text--min {

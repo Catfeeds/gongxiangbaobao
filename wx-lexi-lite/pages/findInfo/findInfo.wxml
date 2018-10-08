@@ -169,13 +169,13 @@
   <!-- 相关故事推荐 -->
   <view class="bg-white margin-bottom--50rpx border-bottom">
     <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
-      <text class='font-xxl font-width--semibold margin-top--40rpx'>相关故事推荐</text>
+      <text class='font-size--28rpx font-width--semibold margin-top--40rpx'>相关故事推荐</text>
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
     <view class='production new-goods_box '>
       <view wx:if="{{index<4}}" class='flex-direction--column productionGoods ' wx:for="{{recommend.life_records}}" data-rid="{{item.rid}}" catchtap="handlesAgainLoading" wx:key='{{index}}'>
         <image src="{{item.cover}}" class="img--style"></image>
-        <text class="font-s font-width--semibold text-two_line margin-bottom--14rpx">{{item.title}}</text>
+
         <text class='font-ss shen-hui text-two_line line-heiht-normal'>{{item.description}}</text>
         <view class='plant-owner__box flex_row'>
           <image src="{{item.user_avator}}" class='plant-owner__photo'></image>

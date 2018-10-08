@@ -327,3 +327,7 @@ image {
   color: #333;
   line-height: 43rpx;
 }
+
+.font-size--28rpx {
+  font-size: 28rpx;
+}

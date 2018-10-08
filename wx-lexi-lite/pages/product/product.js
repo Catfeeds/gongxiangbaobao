@@ -792,7 +792,7 @@ Page({
     }
 
     // 判断是否是小B
-    if (wx.getStorageSync('lifeStore').is_small_b) {
+    if (wx.getStorageSync('jwt').is_small_b) {
       this.setData({
         isSmallB: true
       })

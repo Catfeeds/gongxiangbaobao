@@ -1441,3 +1441,17 @@ swiper-photo .slide-item__box image {
 .live-beautiful__window {
   height: 640rpx;
 }
+
+.column-direction {
+  padding: 40rpx 40rpx 0 0;
+  column-count: 2;
+  column-gap: 0; 
+}
+
+.column-direction>view{
+  break-inside: avoid;
+}
+
+.fx-tabs .tab-item.active {
+  font-weight: 500;
+}

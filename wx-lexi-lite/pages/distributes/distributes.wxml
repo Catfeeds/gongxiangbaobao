@@ -34,13 +34,7 @@
     <view class="page-section swiper">
       <swiper class="distribute-swiper" previous-margin="86rpx" next-margin="86rpx" autoplay="true" circular="{{true}}" interval="3000" bindchange="handleswiperItemCheng" autoplay="{{ autoplay }}" circular="{{ circular }}" interval="{{ interval }}" duration="{{ duration }}">
 
-        <swiper-item 
-          wx:for="{{ advertises }}" 
-          wx:for-item="adv" 
-          data-type="{{adv.type}}"
-          data-link="{{adv.link}}"
-          bindtap="handleLiveInfo"
-          wx:key="*this">
+        <swiper-item wx:for="{{ advertises }}" wx:for-item="adv" data-type="{{adv.type}}" data-link="{{adv.link}}" bindtap="handleLiveInfo" wx:key="*this">
           <view class="swiper-item fx-column--center" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
             <image src="{{ adv.image }}" class='{{swiperIndex==index?"swiperActive":""}} {{index==swiperIndex-1?"transtion-right":""}} {{index==swiperIndex+1?"transtion-left":""}}'></image>
           </view>
@@ -63,32 +57,22 @@
         </view>
         <view class="headline-body">
 
-        <swiper 
-          autoplay 
-          circular 
-          vertical 
-          class="headline-group"
-          interval="{{5000}}">
-          <swiper-item 
-            class="flex-direction__column--center"
-            wx:for="{{ storeHeadlines }}" 
-            wx:for-index="idx" 
-            wx:for-item="item" 
-            wx:key="{{ idx }}">
+          <swiper autoplay circular vertical class="headline-group" interval="{{5000}}">
+            <swiper-item class="flex-direction__column--center" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="item" wx:key="{{ idx }}">
 
-            <block wx:for="{{item}}" wx:key="{{index}}" wx:for-item="headline">
+              <block wx:for="{{item}}" wx:key="{{index}}" wx:for-item="headline">
 
-            <view class="headline-item" wx:if="{{ headline.event == 1 }}">
-              <label class="store-green">{{ headline.username }}</label> {{ headline.time }} 小时前开通了自己的设计馆
-            </view>
-            <view class="headline-item" wx:if="{{ headline.event == 4 }}">
-              「{{ headline.username }}」的生活馆 {{ headline.time }} 小时
-              <label class="order-yellow">售出{{ headline.quantity }}单</label>
-            </view>
-            </block>
+                <view class="headline-item" wx:if="{{ headline.event == 1 }}">
+                  <label class="store-green">{{ headline.username }}</label> {{ headline.time }} 小时前开通了自己的设计馆
+                </view>
+                <view class="headline-item" wx:if="{{ headline.event == 4 }}">
+                  「{{ headline.username }}」的生活馆 {{ headline.time }} 小时
+                  <label class="order-yellow">售出{{ headline.quantity }}单</label>
+                </view>
+              </block>
 
-          </swiper-item>
-        </swiper>
+            </swiper-item>
+          </swiper>
 
         </view>
       </view>
@@ -127,17 +111,16 @@
           </view>
         </view>
         <view class="product-item__actions">
-          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30" wx:if="{{!product.have_distributed}}">上架</fx-mini-btn>
+          <view class="c-middle distribute-over__btn" wx:else>已上架</view>
           <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleStickShareDistribute">卖</fx-mini-btn>
         </view>
       </view>
 
       <!-- 更多 -->
-    <view class="load-many__box" wx:if="{{loadingMore}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
-    </view>
+      <view class="load-many__box" wx:if="{{loadingMore}}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
       <view class="ending" wx:else>
         End
       </view>
@@ -191,8 +174,9 @@
           </view>
         </view>
         <view class="distribute-card__actions">
-          <button class="fx-mini-btn round black" bindtap=""></button>
-          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30">上架</fx-mini-btn>
+          <!-- <button class="fx-mini-btn round black" bindtap=""></button> -->
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30" wx:if="{{!product.have_distributed}}">上架</fx-mini-btn>
+          <view class="c-middle distribute-over__btn" wx:else>已上架</view>
           <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleShareDistribute">卖</fx-mini-btn>
         </view>
       </view>
@@ -202,9 +186,7 @@
     <!-- 结束底部 -->
 
     <view class="load-many__box" wx:if="{{loadingMoreAll}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
     </view>
     <view class="ending" wx:if="{{ !loadingMoreAll }}">
       End
@@ -215,13 +197,11 @@
   <!-- 筛选弹出层 -->
 
   <!-- 卖 -->
-  <fx-modal 
-    showHead="{{ false }}" 
-    visible="{{ showShareModal }}" 
-    bind:closeEvent="handleCancelShare">
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
       <view class="distribute-commission">
-        <text>赚</text> <text class="amount">￥20.00</text>
+        <text>赚</text>
+        <text class="amount">￥20.00</text>
       </view>
       <view class="distribute-message">
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
@@ -315,7 +295,7 @@
         </scroll-view>
       </view>
     </view>
-    <button class="fx-button primary {{ filter.showReset && filter.totalCount == 0 ? 'disabled' : '' }}" bindtap="handleViewFilterResult"  slot="foot">
+    <button class="fx-button primary {{ filter.showReset && filter.totalCount == 0 ? 'disabled' : '' }}" bindtap="handleViewFilterResult" slot="foot">
       查看商品
       <text>（{{ filter.conditionCount > 0 ? filter.totalCount : totalCount }}件）</text>
     </button>
