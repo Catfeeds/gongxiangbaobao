@@ -11,6 +11,11 @@
     transform: rotate(5deg);
   }
 }
+/* 定义从右边向左边的移动的动画 */
+@keyframes domo {
+  from { left: 100%; }
+  to { left: -100%; }
+}
 
 page {
   overflow: hidden;
@@ -836,3 +841,61 @@ page {
   color: rgba(119, 59, 2, 1);
   line-height: 80rpx;
 }
+
+/* 弹幕 */
+
+.doomm-view {
+  position: absolute;
+  top: 240rpx;
+  height: 520rpx;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.doomm {
+  width: auto;
+  height: 50rpx;
+  border-radius: 31rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 10rpx;
+  position: absolute;
+}
+
+.doomm.red {
+  background: rgba(202, 30, 159, 0.9);
+}
+
+.doomm.purple {
+  background: rgba(89, 71, 162, 0.9);
+}
+
+.doomm.blue {
+  background: rgba(120, 71, 162, 0.9);
+}
+
+.doomm .avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 40rpx;
+  margin-right: 6rpx;
+  flex: 0 0 auto;
+  line-height: 50rpx;
+}
+
+.doomm .adv {
+  flex: 1;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(242, 211, 255, 1);
+  line-height: 50rpx;
+  white-space: nowrap; /* 防止向下换行*/
+}
+
+.doomm .adv .amount {
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+  margin-right: 5rpx;
+}
+

@@ -7,6 +7,11 @@ const http = require('./../../../utils/http.js')
 const api = require('./../../../utils/api.js')
 const utils = require('./../../../utils/util.js')
 
+let page = undefined
+let doommList = []
+// 用做唯一的wx:key
+let k = 0
+
 Page({
 
   /**
@@ -91,7 +96,10 @@ Page({
     userStealed: {}, // 当前被偷用户
     stealBonusResult: {},
     stealFailMessage: '',
-    showStealFailModal: false
+    showStealFailModal: false,
+    
+    // 弹幕列表
+    doommData: []
   },
 
   // 返回到小程序的首页
@@ -474,11 +482,37 @@ Page({
     })
   },
 
+  // 弹幕：奖励消息
+  getDoommList() {
+    http.fxGet(api.question_reward_message, {}, (res) => {
+      console.log(res, '弹幕列表')
+      if (res.success) {
+        res.data.reward_message.map(d => {
+          doommList.push(new Doomm(d.user_name, d.user_logo, d.amount, Math.ceil(Math.random() * 100), Math.ceil(Math.random() * 10), this._getRandomColor()))
+        })
+        
+        this.setData({
+          doommData: doommList
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  // 随机获取弹幕的背景颜色
+  _getRandomColor() {
+    let rgb = ['red', 'purple', 'blue']
+    
+    return rgb[Math.floor(Math.random() * rgb.length)]
+  },
+
   // 获取游戏初始数据
   getInitData() {
     this.getPeopleStats()
     this.getStealBonusNotice()
     this.getAllRewards()
+    this.getDoommList()
 
     this.getStealBonusPeople()
     this.getTopWorld()
@@ -541,6 +575,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    page = this
     // scene格式：uid + '-' + code
     let scene = decodeURIComponent(options.scene)
     // 场景参数优先级高
@@ -650,3 +685,24 @@ Page({
   }
   
 })
+
+class Doomm {
+  constructor (name, avatar, amount, top, time, color) {
+    this.name = name
+    this.avatar = avatar
+    this.amount = amount
+    this.top = top
+    this.time = time
+    this.color = color
+    this.display = true
+
+    let that = this
+    this.id = k++
+    setTimeout(function () {
+      doommList.splice(doommList.indexOf(that), 1) // 动画完成，从列表中移除这项
+      page.setData({
+        doommData: doommList
+      })
+    }, this.time * 1000) // 定时器动画完成后执行。
+  }
+}

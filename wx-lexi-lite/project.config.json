@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -90,12 +90,6 @@
 					"query": ""
 				},
 				{
-					"id": 9,
-					"name": "猜图现金",
-					"pathName": "pages/guessResult/guessResult",
-					"query": "test_id=381"
-				},
-				{
 					"id": 10,
 					"name": "demo",
 					"pathName": "pages/demo/demo",
@@ -110,7 +104,14 @@
 				{
 					"id": -1,
 					"name": "地址",
-					"pathName": "pages/address/address"
+					"pathName": "pages/address/address",
+					"query": ""
+				},
+				{
+					"id": 12,
+					"name": "游戏",
+					"pathName": "games/pages/guessGame/guessGame",
+					"query": ""
 				}
 			]
 		}

@@ -73,6 +73,23 @@
         <image class="yi-ge-ren" src="https://static.moebeast.com/static/img/game/one.png"></image>
       </view>
 
+      <!-- 弹幕 -->
+      <view class="doomm-view">
+        <view 
+          wx:if="{{ doomm.display }}"
+          wx:for="{{ doommData }}" 
+          wx:for-item="doomm"
+          wx:key="id"
+          class="doomm {{ doomm.color }}"
+          style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
+          <image class="avatar" src="{{ doomm.avatar }}"></image>
+          <view class="adv">
+            {{ doomm.name }}获得
+            <text class="amount">¥{{ doomm.amount }}</text>现金
+          </view>
+        </view>
+      </view>
+
       <!-- 开始游戏-->
       <view class="start-game">
         <button class="btn-start" bindtap="handleStartPlay"></button>
@@ -365,7 +382,8 @@
   <fx-game-modal-v class="fx-modal--steal-bonus" className="fx-modal--steal-bonus" visible="{{ showStealBonusModal }}" marginTop="300">
     <view class="thb-back">
       <view class="notice-title">
-        你趁<text>{{ userStealed.user_name }}</text>不注意，偷了
+        你趁
+        <text>{{ userStealed.user_name }}</text>不注意，偷了
       </view>
       <view class="steal-amount">
         <text class="currency">￥</text>{{ stealBonusResult.amount }}
@@ -378,7 +396,8 @@
   <fx-game-modal-v class="fx-modal--steal-bonus" className="fx-modal--steal-bonus" visible="{{ showStealCouponModal }}" marginTop="300">
     <view class="thb-back">
       <view class="notice-title">
-        你趁<text>{{ userStealed.user_name }}</text>不注意，偷了
+        你趁
+        <text>{{ userStealed.user_name }}</text>不注意，偷了
       </view>
       <view class="coupon">
         <view class="coupon-info">

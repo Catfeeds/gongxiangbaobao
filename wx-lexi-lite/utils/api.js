@@ -335,6 +335,8 @@ module.exports = {
   // POST 获取猜图海报
   question_wxa_poster: 'guess_image/wxa_poster',
   // POST 现金提现
-  question_withdraw_cash: 'guess_image/cash_money'
+  question_withdraw_cash: 'guess_image/cash_money',
+  // GET 奖励消息
+  question_reward_message: 'guess_image/reward_message'
 
 }
