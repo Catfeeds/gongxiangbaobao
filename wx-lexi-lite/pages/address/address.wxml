@@ -14,6 +14,7 @@
         <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}" range-key='name'>
           <view class="picker">
             选择国家：{{ countryList[countryIndex].name }}
+            <image src="../../images/icons/browse-all@3.png"></image>
           </view>
         </picker>
       </view>
@@ -26,10 +27,16 @@
             <text wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
           </view>
         </picker>
+                    <image src="../../images/icons/browse-all@3.png"></image>
       </view>
 
       <view class='addressText'>
-        <input value='{{ form.street_address }}' placeholder-class="phcolor " placeholder='详细地址' bindinput="handleStreetInfo"></input>
+        <textarea value='{{ form.street_address }}' 
+        maxlength="150"
+        placeholder-class="phcolor address-detail__default" 
+        placeholder='详细地址' 
+        class="address-detail"
+        bindinput="handleStreetInfo"></textarea>
       </view>
       <view>
         <input bindinput="handleZipCode" placeholder-class="phcolor" placeholder='邮政编码' value='{{ form.zipcode }}' type='number'></input>

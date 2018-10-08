@@ -113,10 +113,10 @@
   </view>
 
   <!-- 相关橱窗 -->
-  <view class="page-section similar-windows" wx:if="{{similarWindow.count!=0}}">
-    <view class="block-title ">相关橱窗</view>
-        <scroll-view scroll-x>
-          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " 
+  <view class=" similar-windows" wx:if="{{similarWindow.count!=0}}">
+    <view class="block-title paddng-left-right--40rpx">相关橱窗</view>
+        <scroll-view scroll-x class="margin-top--34rpx">
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}}  height--560rpx" 
           catchtap="handleGoWindowDetail" 
           data-window-rid="{{item.rid}}"
             wx:for="{{similarWindow.shop_windows}}" 
@@ -134,7 +134,7 @@
                 <image class="master-photo" src="{{item.user_avatar}}"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>
-              <view class="black-font  font-width--medium title">{{item.title}}</view>
+              <view class="black-font  font-width--medium title margin-top--4rpx">{{item.title}}</view>
               <view class="font-s two-line-text describe">{{item.description}}</view>
             </view>
           </view>

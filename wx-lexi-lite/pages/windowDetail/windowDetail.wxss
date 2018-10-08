@@ -188,8 +188,25 @@
   margin-bottom: 20rpx;
 }
 
-.suggestion {
+.similar-windows>.block-title {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.similar-windows scroll-view {
+  height: 600rpx;
+}
+
+.comments, .suggestion, .similar-windows scroll-view {
+  white-space: nowrap;
+}
+
+.comments, .suggestion, .similar-windows, .suggestion {
   padding: 30rpx 0rpx;
+}
+
+.similar-windows {
+  padding-bottom: 0rpx;
 }
 
 .image-item {
@@ -215,7 +232,7 @@
   margin-right: 10rpx;
 }
 
-.paddng-left-right--40rpx{
+.paddng-left-right--40rpx {
   padding: 0 40rpx;
 }
 
@@ -226,7 +243,7 @@
 .add-follow__btn {
   width: 113rpx;
   height: 52rpx;
-  background-color: #5FE4B1;
+  background-color: #5fe4b1;
   border-radius: 30rpx;
   font-size: 28rpx;
   color: white;
@@ -234,6 +251,10 @@
 }
 
 .follow-over__btn {
- background:#eff3f2;
- color: #949EA6;
+  background: #eff3f2;
+  color: #949ea6;
+}
+
+.height--560rpx {
+  height: 540rpx !important;
 }

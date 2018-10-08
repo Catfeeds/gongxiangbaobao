@@ -155,9 +155,21 @@ image {
 .color--huihong {
   color: #e3b395;
 }
+
 .color--huilan {
-  color: #829D7A;
+  color: #829d7a;
 }
+
 .color--kafei {
-  color: #8C7A6E;
+  color: #8c7a6e;
+}
+
+.column-direction {
+  padding: 40rpx 40rpx 0;
+  column-count: 2;
+  column-gap: 0; 
+}
+
+.column-direction>view{
+  break-inside: avoid;
 }

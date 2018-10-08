@@ -15,11 +15,12 @@ Page({
     page: 1,
     perPage: 5,
     firstTime: true,
+    isCadet:true,
 
     swiperMark: 0, // 轮播图标记
     loadingMore: true, // 加载更多标记
     isLoadPageShow: true, // 加载页面的点
-    gratefulSwiper: 0, // 热气推荐的的轮播图的点
+    gratefulSwiper: 0, // 人气推荐的的轮播图的点
     exploreSwiperMark: 0, // 探索轮播图的点
     readyOver: false, // 页面加载是否完成
 
@@ -472,6 +473,13 @@ Page({
     })
   },
 
+  // 关闭实习生
+  handleOffCadet() {
+    this.setData({
+      isCadet: false
+    })
+  },
+
   // 探索轮播图
   handleExploreSwiperChange(e) {
     this.setData({
@@ -561,6 +569,7 @@ Page({
    */
   handleChangeLogo() {
     wx.chooseImage({
+      count: 1,
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
@@ -1077,7 +1086,7 @@ Page({
   },
 
   // 猜图游戏
-  handleGuessGame () {
+  handleGuessGame() {
     wx.navigateTo({
       url: '/games/pages/guessGame/guessGame',
     })
@@ -1388,7 +1397,9 @@ Page({
   },
 
   getWindow() {
-    http.fxGet(api.shop_windows_recommend, { per_page:5 }, result => {
+    http.fxGet(api.shop_windows_recommend, {
+      per_page: 5
+    }, result => {
       console.log(result, "获取推荐的橱窗")
       if (result.success) {
         this.setData({
@@ -1402,7 +1413,7 @@ Page({
   },
 
   // 验证是否存在生活馆
-  validateLifeStore () {
+  validateLifeStore() {
     const lifeStore = wx.getStorageSync('lifeStore')
     const userInfo = wx.getStorageSync('userInfo')
 
@@ -1618,7 +1629,7 @@ Page({
   },
 
   // 橱窗详情
-  handleGoWindowDetail(e){
+  handleGoWindowDetail(e) {
     let windowRid = e.currentTarget.dataset.windowRid
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + windowRid,
@@ -1626,7 +1637,7 @@ Page({
   },
 
   // 橱窗列表
-  handleGoWindow(){
+  handleGoWindow() {
     wx.navigateTo({
       url: '../window/window'
     })

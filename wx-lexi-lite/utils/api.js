@@ -217,7 +217,7 @@ module.exports = {
   market_bonus_grant: 'market/bonus/grant', // 分享领红包
   market_bonus_lines: 'market/bonus_lines', // 分享领取红包的人
   market_official_coupons: 'market/official_coupons', // 领券中心
-
+  market_core_user_coupons:'market/core_user_coupons', // 核心小程序的获取优惠券
   // Search  
   search: 'search/products', // POST 搜索商品
   search_history: 'search/history', // GET 搜索历史关键词

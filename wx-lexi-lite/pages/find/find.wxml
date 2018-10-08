@@ -57,7 +57,7 @@
       <text class='font-xxl font-width--semibold'>猜你喜欢</text>
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
-    <view class='production new-goods_box '>
+    <view class='column-direction new-goods_box '>
       <view 
         wx:if="{{index<4}}" 
         data-category="猜你喜欢"
@@ -81,10 +81,10 @@
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
-        <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
+        <text class='font-s shen-hui text-two_line line-height--40rpx'>{{item.title}}</text>
         <view class='plant-owner__box flex_row'>
-          <image src="{{ item.store_logo }}" class='plant-owner__photo'></image>
-          <text class="font-s shen-hui">{{item.store_name}}</text>
+          <image src="{{ item.user_avator }}" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{item.user_name}}</text>
         </view>
       </view>
     </view>
@@ -96,7 +96,7 @@
       <text class='font-xxl font-width--semibold'>精彩故事</text>
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
-    <view class='production new-goods_box '>
+    <view class='column-direction new-goods_box '>
       <view 
         wx:if="{{index<4}}" 
         data-category="精彩故事"
@@ -119,10 +119,10 @@
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
-        <text class='font-ss shen-hui text-two_line line-height--40rpx'>{{item.description}}</text>
+        <text class='font-s shen-hui text-two_line line-height--40rpx'>{{item.title}}</text>
         <view class='margin-top--8rpx flex_row'>
-          <image src="{{ item.store_logo }}" class='plant-owner__photo'></image>
-          <text class="font-s shen-hui">{{ item.store_name }}</text>
+          <image src="{{ item.user_avator }}" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{ item.user_name }}</text>
         </view>
       </view>
     </view>

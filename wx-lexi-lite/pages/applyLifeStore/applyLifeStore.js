@@ -122,7 +122,7 @@ Page({
 
     if (this.data.sending == true) {
       let pageTime = setInterval(() => {
-        console.log(this.data.time, '验证码倒计时')
+        // console.log(this.data.time, '验证码倒计时')
         
         this.setData({
           time: --this.data.time

@@ -213,6 +213,7 @@
 }
 
 .adv-coupon-swiper {
+  position: relative;
   height: 260rpx;
   width: 690rpx;
 }
@@ -224,6 +225,8 @@
 
 .adv-coupon-swiper swiper-item image {
   border-radius: 8rpx;
+  width: 690rpx;
+  height: 260rpx;
 }
 
 .padding-top--60rpx {
@@ -603,4 +606,26 @@
 
 .text-color--qianhong {
   color: #FF6B34;
+}
+
+.find-swiper__round {
+  position: absolute;
+}
+
+
+.find-swiper__round view {
+  height: 14rpx;
+  width: 14rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, .2);
+  margin-right: 18rpx;
+}
+
+.find-swiper__round .swiperActive {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.find-swiper__round {
+  right: 45rpx;
+  bottom: 126rpx;
 }

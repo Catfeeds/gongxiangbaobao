@@ -1,5 +1,5 @@
 <!--pages/checkout/checkout.wxml 订单结算 -->
-<view class='container theme-bg-color {{authorityCouponShow || coupon?"prevent__penetrate":""}}' >
+<view class='container theme-bg-color {{authorityCouponShow || coupon?"prevent__penetrate":""}}'>
   <!-- 上面的进度条 -->
   <view>
     <view class='paymentList'>
@@ -40,7 +40,7 @@
       <text class='hui-zi'>首单优惠：</text>
       <text class='hui-zi-m'>-￥{{ pageOrderInfo.firstOrderPrice }}</text>
     </view>
-    <view class='time-top margin-bottom--14rpx'  wx:if="{{pageOrderInfo.fullSubtraction!=0}}">
+    <view class='time-top margin-bottom--14rpx' wx:if="{{pageOrderInfo.fullSubtraction!=0}}">
       <text class='hui-zi'>满减：</text>
       <text class='hui-zi-m'>-￥{{ pageOrderInfo.fullSubtraction }}</text>
     </view>
@@ -64,12 +64,7 @@
       <!-- 购买信息 -->
       <view wx:for='{{ items }}' wx:key="{{ index }}" wx:for-item='item'>
         <view class='shopGoodsInfo component'>
-          <fx-product-middle 
-            shopingNumber="true" 
-            product="{{ item }}" 
-            height="{{ 130 }}"
-            width="{{ 130 }}"
-            color="true"></fx-product-middle>
+          <fx-product-middle shopingNumber="true" product="{{ item }}" height="{{ 130 }}" width="{{ 130 }}" color="true"></fx-product-middle>
 
           <view class='shopGoodsInfoR'>
             <text class='cureentPriceS'>￥{{ item.sale_price==0 ? item.price : item.sale_price }}</text>
@@ -78,34 +73,23 @@
           <text class='otherInfo'>x{{ item.quantity }}</text>
         </view>
 
-        <view class='receiveFn' 
-            wx:for='{{ logisticsCompany[items[0].store_rid][item.rid].express }}' 
-            wx:key="{{ index }}" 
-            wx:for-item='logisticsItem'
-            wx:if='{{ logisticsItem.is_default }}'>
+        <view class='receiveFn' wx:for='{{ logisticsCompany[items[0].store_rid][item.rid].express }}' wx:key="{{ index }}" wx:for-item='logisticsItem' wx:if='{{ logisticsItem.is_default }}'>
           <view class='receiveFnTop'>
             <view>配送方式 </view>
-            <view 
-              data-product='{{ items }}'
-              data-item='{{ logisticsCompany[items[0].store_rid][item.rid] }}'
-              data-store_rid='{{ items[0].store_rid }}'
-              data-sku_rid='{{ item.rid }}'
-              class='theme-green' 
-              data-index="{{ index }}"  
-              catchtap='otherLogisticsTap'>选择其他 ></view>
+            <view data-product='{{ items }}' data-item='{{ logisticsCompany[items[0].store_rid][item.rid] }}' data-store_rid='{{ items[0].store_rid }}' data-sku_rid='{{ item.rid }}' class='theme-green flex_row' data-index="{{ index }}" catchtap='otherLogisticsTap'>选择其他
+              <image src="../../images/green-jian@2x.png" class="green-jian"></image>
+            </view>
           </view>
-          
+
           <view>
             <view class='receiveFn_photo time-top font-s'>
               <view class='time-top'>
-               
-                  <image class="receiveFnBottomBox" src='../../images/logistics-icon@2.png'></image>
-                
+
+                <image class="receiveFnBottomBox" src='../../images/logistics-icon@2.png'></image>
+
                 <text>{{ logisticsItem.express_name }}</text>
               </view>
-              <view 
-                class='logistics__time' 
-                wx:if="{{logisticsItem.min_days!=0&&logisticsItem.max_days!=0}}">物流时长：{{ logisticsItem.min_days }}至{{ logisticsItem.max_days }}天送达</view>
+              <view class='logistics__time' wx:if="{{logisticsItem.min_days!=0&&logisticsItem.max_days!=0}}">物流时长：{{ logisticsItem.min_days }}至{{ logisticsItem.max_days }}天送达</view>
             </view>
           </view>
         </view>
@@ -113,32 +97,21 @@
 
       <!-- 给商家的注意事项 -->
       <view class='merchant voice textarea--position'>
-        
+
         <image class='receiveFnBottomBox' src='../../images/shop-icon@2.png'></image>
-        
+
         <input data-rid="{{items[0].store_rid}}" bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
       <view class='merchant voice'>
-        
+
         <image class='receiveFnBottomBox' src='../../images/see-icon@2.png'></image>
-   
-        <textarea 
-          value='' 
-          data-rid="{{items[0].store_rid}}" 
-          bindinput='handleUtterance' 
-          placeholder-class='goods-blessing' 
-          auto-height='{{true}}'
-          class="textarea--position"
-          wx:if="{{!authorityCouponShow&&!coupon}}"
-          placeholder='我的语录'></textarea>
+
+        <textarea value='' data-rid="{{items[0].store_rid}}" bindinput='handleUtterance' placeholder-class='goods-blessing' auto-height='{{true}}' class="textarea--position" wx:if="{{!authorityCouponShow&&!coupon}}" placeholder='我的语录'></textarea>
       </view>
       <!-- 运费 -->
-      <view class='component  time-top logistics-moble' 
-        data-is_coupon="1" 
-        data-order_rid='{{items[0].store_rid}}' 
-        catchtap='couponTap'>
+      <view class='component  time-top logistics-moble' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='couponTap'>
         <view class='black-font'>运费</view>
         <view class='font-s'>
           <text class=''>￥{{ itemOrderLogisticsPrice[items[0].store_rid ]}}</text>
@@ -147,7 +120,7 @@
 
       <!-- 满减 -->
       <view class='component discounts font-s time-top' wx:if="{{fullReductionList[items[0].store_rid] &&  pageOrderInfo.fullSubtraction!=0}}">
-        <view class='black-font flex_row' >
+        <view class='black-font flex_row'>
           <image src='../../images/reduced-price@2.png'></image>
           <text>满减促销</text>
         </view>
@@ -229,11 +202,7 @@
     <view class='coupon-box_top' catchtap='{{false}}'>
       <view class='black-font coupon-box_top--mar'>选择优惠券红包</view>
       <radio-group bindchange="handleAuthoritativeCoupon">
-        <label 
-          wx:for="{{authorityCouponList.coupons}}" 
-          wx:key='{{index}}' 
-          wx:if="{{!item.is_expired && !item.is_used}}"
-          class="coupon_radio coupon-box_top--mar time-top">
+        <label wx:for="{{authorityCouponList.coupons}}" wx:key='{{index}}' wx:if="{{!item.is_expired && !item.is_used}}" class="coupon_radio coupon-box_top--mar time-top">
           <!-- <view class='column-round column-round_l'></view>
           <view class='column-round column-round_r'></view>
           <view class='coupon-round coupon-round_t'></view>
@@ -252,8 +221,7 @@
             </view>
           </view>
           <view class='coupon-btn bg-white c-middle'>
-            <radio color="#5FE4B1" 
-              value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}"}' />
+            <radio color="#5FE4B1" value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}"}' />
           </view>
         </label>
       </radio-group>

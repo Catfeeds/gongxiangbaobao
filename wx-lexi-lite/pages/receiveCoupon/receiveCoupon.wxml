@@ -26,7 +26,7 @@
   <!-- 推荐盒子 -->
   <view wx:if="{{categoryCode=='recommend'}}">
     <!-- 乐喜官方 优惠券-->
-    <view class="padding-top--60rpx bg-red">
+    <view class="padding-top--60rpx bg-red" wx:if="{{authorityCouponList.length!=0}}">
       <view class="flex_row--middle coupon-title">
         <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
         <text class="coupon-title__text">乐喜官方券</text>
@@ -80,16 +80,28 @@
     </view>
 
     <!-- 广告轮播图 -->
-    <view class="flex_row--middle adv-box" wx:if="{{}}">
-      <swiper class="adv-coupon-swiper">
-        <swiper-item wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
-          <image src="../../images/accept.png" />
+    <view class="flex_row--middle adv-box" wx:if="{{couponAdv.length!=0}}">
+      <swiper 
+          class="adv-coupon-swiper"          
+          current="{{index}}"
+          bindchange="handleChangRound">
+        <swiper-item 
+          wx:for="{{couponAdv}}" 
+          catchtap="handleGoProduct"
+          data-rid="{{item.link}}"
+          data-type="{{item.type}}"
+          wx:key="{{index}}">
+          <image src="{{item.image}}" />
         </swiper-item>
       </swiper>
+
+                    <view class="flex_row find-swiper__round bottom--86rpx">
+        <view wx:for="{{couponAdv}}" class="{{swiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
+      </view>
     </view>
 
     <!-- 精选品牌券 -->
-    <view class="padding-top--60rpx bg-red">
+    <view class="padding-top--60rpx bg-red" wx:if="{{highBrandCouponList.length!=0}}">
       <view class="flex_row--middle coupon-title">
         <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
         <text class="coupon-title__text">精选品牌券</text>
@@ -97,15 +109,11 @@
       </view>
 
       <view class="time-top brand-coupon__box margin-top--50rpx">
-        <view class="brand-coupon" wx:for="{{highBrandCouponList}}" 
-        wx:for-item="item"  wx:key="{{index}}">
+        <view class="brand-coupon" wx:for="{{highBrandCouponList}}" wx:for-item="item" wx:key="{{index}}">
           <!-- 大图 -->
           <view class="brand-coupon__big" wx:if="{{index%3==0||index==0}}">
             <!-- 头部 -->
-            <view 
-              class="hander time-top"                     
-              catchtap="handleTobrandStore"
-              data-rid="{{item.store_rid}}">
+            <view class="hander time-top" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}">
               <view class="flex_row">
                 <image class="brand-log" src="{{item.store_logo}}"></image>
 
@@ -129,14 +137,7 @@
 
             <!-- 底部 -->
             <view class="coupon-big__bottom  time-top">
-              <view 
-                class="coupon-join__product flex-direction--column" 
-                wx:for="{{item.product_sku}}" 
-                wx:key="{{index}}" 
-                wx-if="{{index<3}}" 
-                catchtap="handleToProductInfo"
-                data-rid="{{product.product_rid}}"
-                wx:for-item="product">
+              <view class="coupon-join__product flex-direction--column" wx:for="{{item.product_sku}}" wx:key="{{index}}" wx-if="{{index<3}}" catchtap="handleToProductInfo" data-rid="{{product.product_rid}}" wx:for-item="product">
                 <image src="{{product.product_cover}}-p16"></image>
                 <image src="../../images/coupon-houjia.png" class="coupon-hou__jia--icon"></image>
                 <text class="font-ss ">{{product.product_name}}</text>
@@ -150,11 +151,7 @@
           </view>
 
           <!-- 小图 -->
-          <view 
-            catchtap="handleTobrandStore"
-            data-rid="{{item.store_rid}}"
-            class="brand-coupon__min flex-direction-column__item"  
-            wx:if="{{index%3!=0||index!=0}}">
+          <view catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" class="brand-coupon__min flex-direction-column__item" wx:if="{{index%3!=0||index!=0}}">
             <view class="hander">
               <image class="log-bg" src="{{item.store_bgcover}}"></image>
               <image class="log-icon" src="{{item.store_logo}}"></image>
@@ -186,65 +183,50 @@
     </view>
 
     <!-- 精选商品券 -->
-  <view class="flex-direction--column">
-    <image class="bo-lang__photo" src="https://static.moebeast.com/WechatIMG232.png"></image>
-    <view class="bg-shenhong">
-      <view class="flex_row--middle coupon-title">
-        <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
-        <text class="coupon-title__text">精选商品券</text>
-        <image src="https://static.moebeast.com/static/img/yun_right@3x.png" class="cloud-photo"></image>
-      </view>
+    <view class="flex-direction--column" wx:if="{{highProductCouponList.length!=0}}">
+      <image class="bo-lang__photo" src="https://static.moebeast.com/WechatIMG232.png"></image>
+      <view class="bg-shenhong">
+        <view class="flex_row--middle coupon-title">
+          <image src="https://static.moebeast.com/static/img/yun_left@3x.png" class="cloud-photo"></image>
+          <text class="coupon-title__text">精选商品券</text>
+          <image src="https://static.moebeast.com/static/img/yun_right@3x.png" class="cloud-photo"></image>
+        </view>
 
-      <view class="time-top brand-coupon__box margin-top--50rpx">
-        <view 
-          catchtap="handleReceiveHighProduct"
-          data-index="{{index}}"
-          data-store-rid="{{item.store_rid}}"
-          data-code="{{item.coupon_code}}"
-          class="high-pick__product--coupon {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}" 
-          wx:for="{{highProductCouponList}}" 
-          wx:key="{{index}}">
-          <!-- 头部 -->
-          <view class="time-top hander">
-            <view class="flex-direction--column text-color">
-              <text class="font-width--semibold"> <text class="font-s ">¥</text>
-              <text class="font--40rpx ">{{item.amount}}</text> </text>
-              <text class="font-xss">满{{item.min_amount}}可用</text>
-            </view>
-
-            <view 
-              wx:if="{{item.is_grant}}"
-              class="receive-coupon__btn use-coupon">去使用</view>
-            <view 
-              wx:if="{{!item.is_grant&&item.surplus_count!=0}}"
-              class="receive-coupon__btn  current-receive__coupon">立即领取</view>
-            <view 
-              wx:if="{{!item.is_grant&&item.surplus_count==0}}"
-              class="receive-coupon__btn">立即领取</view>
-          </view>
-          <!-- 底部 -->
-          <view class=" flex-direction--column body">
-            <image 
-            class="receive-over__img receive-over__position"
-            wx:if="{{item.surplus_count==0&&item.is_grant==false}}" 
-src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
-            <image src="{{item.product_cover}}" class="product-photo">
-            </image>
-            <text class="black-font font-width--medium ">{{item.product_name}}</text>
-
-            <view class="flex-row--b">
-              <view class="flex-row">
-                <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>
-                <text class="font--30rpx">{{item.product_coupon_amount}}</text> </text>
-                <text class="sale-price">券后价</text>
+        <view class="time-top brand-coupon__box margin-top--50rpx">
+          <view catchtap="handleReceiveHighProduct" data-index="{{index}}" data-store-rid="{{item.store_rid}}" data-code="{{item.coupon_code}}" class="high-pick__product--coupon {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}" wx:for="{{highProductCouponList}}"
+            wx:key="{{index}}">
+            <!-- 头部 -->
+            <view class="time-top hander">
+              <view class="flex-direction--column text-color">
+                <text class="font-width--semibold"> <text class="font-s ">¥</text>
+                <text class="font--40rpx ">{{item.amount}}</text> </text>
+                <text class="font-xss">满{{item.min_amount}}可用</text>
               </view>
-              <view class="oldPrice font-s ">¥{{item.product_amount}}</view>
+
+              <view wx:if="{{item.is_grant}}" class="receive-coupon__btn use-coupon">去使用</view>
+              <view wx:if="{{!item.is_grant&&item.surplus_count!=0}}" class="receive-coupon__btn  current-receive__coupon">立即领取</view>
+              <view wx:if="{{!item.is_grant&&item.surplus_count==0}}" class="receive-coupon__btn">立即领取</view>
+            </view>
+            <!-- 底部 -->
+            <view class=" flex-direction--column body">
+              <image class="receive-over__img receive-over__position" wx:if="{{item.surplus_count==0&&item.is_grant==false}}" src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
+              <image src="{{item.product_cover}}" class="product-photo">
+              </image>
+              <text class="black-font font-width--medium ">{{item.product_name}}</text>
+
+              <view class="flex-row--b">
+                <view class="flex-row">
+                  <text class="text-color font-width--semibold "> <text class="font--16rpx icon">¥</text>
+                  <text class="font--30rpx">{{item.product_coupon_amount}}</text> </text>
+                  <text class="sale-price">券后价</text>
+                </view>
+                <view class="oldPrice font-s ">¥{{item.product_amount}}</view>
+              </view>
             </view>
           </view>
         </view>
       </view>
     </view>
-</view>
   </view>
 
   <!-- 分类优惠券 -->
@@ -261,10 +243,7 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
         <!-- 大图 -->
         <view class="brand-coupon__big" wx:if="{{index%3==0||index==0}}">
           <!-- 头部 -->
-          <view 
-            class="hander time-top"                             
-            catchtap="handleTobrandStore"
-            data-rid="{{item.store_rid}}">
+          <view class="hander time-top" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}">
             <view class="flex_row">
               <image class="brand-log" src="{{item.store_logo}}"></image>
 
@@ -288,14 +267,7 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
 
           <!-- 底部 -->
           <view class="coupon-big__bottom  time-top">
-            <view 
-              class="coupon-join__product flex-direction--column" 
-              wx:for="{{item.product_sku}}" 
-              wx:key="{{index}}" 
-              catchtap="handleToProductInfo"
-              data-rid="{{product.product_rid}}"
-              wx:for-item="product"
-              wx-if="{{index<3}}">
+            <view class="coupon-join__product flex-direction--column" wx:for="{{item.product_sku}}" wx:key="{{index}}" catchtap="handleToProductInfo" data-rid="{{product.product_rid}}" wx:for-item="product" wx-if="{{index<3}}">
               <image src="{{product.product_cover}}-p16"></image>
               <text class="font-ss ">{{product.product_name}}</text>
               <text class="font-width--medium text-color"> 
@@ -309,11 +281,7 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
         </view>
 
         <!-- 小图 -->
-        <view 
-          class="brand-coupon__min flex-direction-column__item" 
-          catchtap="handleTobrandStore"
-          data-rid="{{item.store_rid}}"
-          wx:if="{{index%3!=0||index!=0}}">
+        <view class="brand-coupon__min flex-direction-column__item" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" wx:if="{{index%3!=0||index!=0}}">
           <view class="hander">
             <image class="log-bg" src="{{item.store_bgcover}}"></image>
             <image class="log-icon" src="{{item.store_logo}}"></image>
@@ -345,13 +313,7 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
 
     <!-- 单享券 -->
     <view class="time-top brand-coupon__box margin-top--40rpx" wx:if="{{couponCtaegory=='alone'}}">
-      <view 
-          catchtap="handleReceiveSingleProduct"
-          data-index="{{index}}"
-          data-store-rid="{{item.store_rid}}"
-          data-code="{{item.coupon_code}}"
-        class="high-pick__product--coupon {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}" 
-        wx:for="{{categoryAloneCoupon}}" 
+      <view catchtap="handleReceiveSingleProduct" data-index="{{index}}" data-store-rid="{{item.store_rid}}" data-code="{{item.coupon_code}}" class="high-pick__product--coupon {{item.surplus_count==0&&item.is_grant==false?'btn-opacity':''}}" wx:for="{{categoryAloneCoupon}}"
         wx:key="{{index}}">
         <!-- 头部 -->
         <view class="time-top hander">
@@ -367,10 +329,7 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
         </view>
         <!-- 底部 -->
         <view class=" flex-direction--column body">
-                    <image 
-            class="receive-over__img receive-over__position"
-            wx:if="{{item.surplus_count==0&&item.is_grant==false}}" 
-src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
+          <image class="receive-over__img receive-over__position" wx:if="{{item.surplus_count==0&&item.is_grant==false}}" src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
           <image src="{{item.product_cover}}" class="product-photo"></image>
           <text class="black-font font-width--medium ">{{item.product_name}}</text>
 
@@ -394,6 +353,6 @@ src="https://static.moebeast.com/static/img/icon-got-out.png"></image>
     <text class="black-font">我的券</text>
   </view>
 
-    <!-- 登陆注册模态框 -->
+  <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 </view>

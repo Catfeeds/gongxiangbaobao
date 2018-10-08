@@ -1,26 +1,30 @@
 /* pages/pickLogistics/pickLogistics.wxss */
-.productPhotoBox{
+
+.productPhotoBox {
   height: 110rpx;
   padding: 30rpx;
-  border-top: 1rpx solid #E2E3E4;
+  border-top: 1rpx solid #e2e3e4;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 24rpx;
 }
-.productPhotoBox>image{
+
+.productPhotoBox>image {
   height: 100rpx;
   width: 100rpx;
   background-color: pink;
   margin-right: 20rpx;
 }
-.productPhotoBox>text{
+
+.productPhotoBox>text {
   flex: 1;
 }
-.logisticsTitle{
+
+.logisticsTitle {
   height: 80rpx;
-  border-top: 1rpx solid #E2E3E4;
-  border-bottom: 1rpx solid #E2E3E4;
+  border-top: 1rpx solid #e2e3e4;
+  border-bottom: 1rpx solid #e2e3e4;
   background-color: white;
   font-size: 28rpx;
   padding: 0 30rpx;
@@ -29,32 +33,38 @@
   justify-content: space-between;
   align-items: center;
 }
-.logisticsName{
-   background-color: white; 
-   padding: 30rpx;
+
+.logisticsName {
+  background-color: white;
+  padding: 30rpx;
 }
-.radio{
+
+.radio {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.estimate-price{
-  margin-top: 28px;
+
+.estimate-price {
+  margin-top: 20px;
   border-top: 1rpx solid #e9e9e9;
   border-bottom: 1rpx solid #e9e9e9;
   padding: 30rpx;
 }
-.estimate-price_top{
+
+.estimate-price_top {
   margin-bottom: 30rpx;
   font-weight: 500;
 }
-.estimate-price_bottom text{
+
+.estimate-price_bottom text {
   line-height: 40rpx;
 }
+
 /* components/logstics/Fxlogstics.wxss */
 
-.receiveFnBottomBox{
+.receiveFnBottomBox {
   height: 36rpx;
   width: 36rpx;
   border-radius: 50%;
@@ -64,21 +74,24 @@
   overflow: hidden;
   margin-right: 20rpx;
 }
-.receiveFnBottomBox>image{
+
+.receiveFnBottomBox>image {
   height: 100%;
   width: 100%;
   background-color: red;
 }
 
-.logistics-goods{
+.logistics-goods {
   display: flex;
   flex-direction: column;
   font-size: 24rpx;
 }
-.logistics-goods text{
+
+.logistics-goods text {
   line-height: 40rpx;
 }
-.receiveFnBottom{
+
+.receiveFnBottom {
   display: flex;
   flex-direction: row;
   align-items: center;

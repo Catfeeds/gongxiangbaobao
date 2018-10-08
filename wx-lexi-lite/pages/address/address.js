@@ -159,6 +159,7 @@ Page({
 
   // 详细的地址
   handleStreetInfo (e) {
+    console.log(e.detail.value)
     this.setData({
       'form.street_address': e.detail.value
     })
@@ -295,6 +296,7 @@ Page({
       uploadType: type
     })
     wx.chooseImage({
+      count:1,
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {

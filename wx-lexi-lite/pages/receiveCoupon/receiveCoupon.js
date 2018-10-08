@@ -12,6 +12,8 @@ Page({
    */
   data: {
     authorityCouponList: [], // 官方优惠券
+    couponAdv:[], // 领券中心的的优惠券
+    swiperMark: 0, // 广告位置的点
 
     highBrandCouponList: [], // 精选品牌馆优惠券
     highBrandCouponParams: { // 精选品牌馆优惠券
@@ -28,7 +30,7 @@ Page({
     },
 
     categoryCommonCoupon: [], // 分类列表的同享券
-    categoryCommonCouponNext:true,
+    categoryCommonCouponNext: true,
     commonCouponParams: {
       store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
       page: 1, //Number 可选 1 当前页码
@@ -36,7 +38,7 @@ Page({
     },
 
     categoryAloneCoupon: [], // 分类列表的单享券
-    categoryAloneCouponNext:true,
+    categoryAloneCouponNext: true,
     aloneCouponParams: {
       store_category: 0, //Number 必填 0 店铺分类id,0、 推荐
       page: 1, //Number 可选 1 当前页码
@@ -47,6 +49,14 @@ Page({
     categoryCode: "recommend",
     category: [], // 分类的导航
     is_mobile: false
+  },
+
+  //广告位置
+  handleChangRound(e){
+    console.log(e.detail.current)
+    this.setData({
+      swiperMark: e.detail.current
+    })
   },
 
   // 切换优惠券的分类
@@ -265,6 +275,18 @@ Page({
     })
   },
 
+  // 跳转到商品详情
+  handleGoProduct(e){
+    let rid = e.currentTarget.dataset.rid
+    let targetType = e.currentTarget.dataset.type
+
+    if (targetType == 2 ) {
+      wx.navigateTo({
+        url: '../product/product?rid=' + rid,
+      })
+    }
+  },
+
   // 获取分类列表的同享券优惠券
   getCategoryCommonCouupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.commonCouponParams, result => {
@@ -367,6 +389,21 @@ Page({
     })
   },
 
+  // 领券中心的广告
+  getAdv(){
+    http.fxGet(api.banners_rid.replace(/:rid/g,'coupon_ad'),{},result=>{
+      console.log(result,'领券中心的广告')
+      if(result.success){
+        console.log()
+        this.setData({
+          couponAdv: result.data.banner_images
+        })
+      }else{
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -378,7 +415,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.getAdv()
   },
 
   /**
@@ -417,15 +454,15 @@ Page({
    */
   onReachBottom: function() {
     if (this.data.categoryCode != 'recommend') {
-      if (this.data.couponCtaegory=='common') {
-        if (!this.data.categoryCommonCouponNext){
+      if (this.data.couponCtaegory == 'common') {
+        if (!this.data.categoryCommonCouponNext) {
           utils.fxShowToast('没有更多了')
           return
-          }
+        }
 
-          this.setData({
-            'commonCouponParams.page': this.data.commonCouponParams.page + 1
-          })
+        this.setData({
+          'commonCouponParams.page': this.data.commonCouponParams.page + 1
+        })
         this.getCategoryCommonCouupon()
       }
 
@@ -447,6 +484,15 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      title: '乐喜',
+      path: '/pages/index/index',
+      success: (result) => {
+        console.log('分享成功')
+      },
+      fail: () => {
+        console.log('分享失败')
+      }
+    }
   }
 })

@@ -195,6 +195,13 @@ Page({
       console.log(result, "生活志详情")
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
+
+        let recommendStore = result.data.recommend_store
+        if (recommendStore&&recommendStore.store_name.length>13){
+          result.data.recommend_store.store_name = recommendStore.store_name.slice(0,13)+'...'
+        }
+
+        
         
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', result.data.content, this, 5)

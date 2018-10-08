@@ -1426,7 +1426,7 @@ swiper-photo .slide-item__box image {
 .recommend-window__item .describe {
   color: #999;
   white-space:pre-wrap;
-  line-height: 24rpx;
+  line-height: 28rpx;
 }
 
 .recommend-window__item .title {
@@ -1440,4 +1440,18 @@ swiper-photo .slide-item__box image {
 
 .live-beautiful__window {
   height: 640rpx;
+}
+
+.column-direction {
+  padding: 40rpx 40rpx 0 0;
+  column-count: 2;
+  column-gap: 0; 
+}
+
+.column-direction>view{
+  break-inside: avoid;
+}
+
+.fx-tabs .tab-item.active {
+  font-weight: 500;
 }
