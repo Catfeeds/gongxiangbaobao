@@ -1,0 +1,425 @@
+<view class="container">
+  <view class="main-wrapper" style="height: {{ clientHeight }}px;">
+    <view class="main-container">
+
+      <!-- 账户余额及游戏规则 -->
+      <view class="main-top">
+        <!-- 提现 -->
+        <view class="money">
+          <image class="icon-money" src="https://static.moebeast.com/static/img/game/money.png" alt="money"></image>
+          <view class="withdraw">
+            <view class="amount">
+              <text>{{ myAccount.amount }}</text> 元
+            </view>
+            <button class="btn-withdraw" bindtap="handleWithDraw">提现</button>
+          </view>
+        </view>
+
+        <!-- 优惠券 -->
+        <view class="coupon">
+          <image class="icon-coupon" src="https://static.moebeast.com/static/img/game/discount-coupon.png" alt="coupon"></image>
+          <view class="discount-coupon">
+            <view class="quantity">
+              <text>{{ myAccount.bonus_amount }}</text> 张
+            </view>
+          </view>
+        </view>
+
+        <!-- 游戏规则 -->
+        <view class="rules show-box" bindtap="handleShowRuleModal">
+          <view class="game-rule">
+            活动规则
+          </view>
+        </view>
+      </view>
+
+      <!-- 邀请好友 -->
+      <view class="invite-container">
+        <view class="invite-box">
+          <!-- 用户头像 -->
+          <view class="avatars">
+            <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
+            <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
+            <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
+          </view>
+
+          <view class="content">
+            <view>邀请好友加入猜图小队</view>
+            <view class="txx">
+              可立即提现
+              <span class="amount">0.2</span>元
+            </view>
+          </view>
+
+          <!-- 邀请按钮 -->
+          <view class="action">
+            <button open-type="share" data-name="invite" class="btn-now-invite" bindtap="handleInviteFriend">立即邀请</button>
+          </view>
+        </view>
+        <view class="invite-result">您已邀请{{ peopleCount.invite_count }}位好友</view>
+      </view>
+
+      <!-- 主屏部分 -->
+      <view class="screen">
+        <image class="light" src="https://static.moebeast.com/static/img/game/shanguang.png"></image>
+        <view class="notice">
+          <view class="wsw">100万现金大奖</view>
+          <view class="people">
+            <text>已有</text>
+            <text class="people-num">{{ peopleCount.total_count }}</text>
+            <text>人参与猜图</text>
+          </view>
+        </view>
+        <image class="yi-ge-ren" src="https://static.moebeast.com/static/img/game/one.png"></image>
+      </view>
+
+      <!-- 开始游戏-->
+      <view class="start-game">
+        <button class="btn-start" bindtap="handleStartPlay"></button>
+      </view>
+
+    </view>
+
+    <!-- 底部 -->
+    <view class="foot-container">
+      <view class="foot-menu">
+        <view class="home-page" bindtap="handleGoHome">
+          <image src="https://static.moebeast.com/static/img/game/home.png" class="icon-home"></image>
+        </view>
+        <view class="ranking" bindtap="handleShowTopModal">
+          <image src="https://static.moebeast.com/static/img/game/rankinglist.png" class="icon-ranking"></image>
+        </view>
+        <view class="steal-money" bindtap="handleShowFriendModal">
+          <image src="https://static.moebeast.com/static/img/game/stealmoney.png" class="icon-money"></image>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 游戏规则弹窗 -->
+  <fx-game-modal-v className="fx-modal--rules" class="fx-modal--rules" visible="{{ showRuleModal }}" marginTop="100" title="活动规则">
+    <view class="rule-text">
+      <view class="title">活动玩法</view>
+      <view class="prt">第一:进入点击开始即可开玩，每轮猜图均会有奖金池，奖金池在50-200元，随机出现。</view>
+      <view class="prt">第二:用户需猜图总计10道，每道竞猜需在10秒内作答，每道猜图仅有一次作答会。</view>
+      <view class="prt">第三:用户答对一题即可获得的随机分配的购物优惠卷，竞猜完毕后结算。第一:进入点击开始即可开玩，每轮猜图均会有奖金池，奖金池在50-200元，随机出现。</view>
+      <view class="title">活动攻略</view>
+      <view class="prt">第一:进入点击开始即可开玩，每轮猜图均会有奖金池，奖金池在50-200元，随机出现。</view>
+      <view class="prt">第二:用户需猜图总计10道，每道竞猜需在10秒内作答，每道猜图仅有一次作答会。</view>
+    </view>
+  </fx-game-modal-v>
+
+  <!-- 提现弹窗 -->
+  <fx-game-modal-v className="fx-modal--withdraw" class="fx-modal--withdraw" visible="{{ showWithDrawModal }}" marginTop="150">
+    <view class="withdraw-box">
+      <image src="https://static.moebeast.com/static/img/game/money.png" class="icon-money"></image>
+      <view class="sub-title">提现金额</view>
+      <view class="amount">
+        <text class="currency">￥</text> {{ myAccount.cash_price }}
+      </view>
+      <button bindtap="handleWxWithdraw" class="btn-withdraw {{ !canWithDraw ? 'disabled' : '' }}" round>提现到微信钱包</button>
+    </view>
+  </fx-game-modal-v>
+
+  <!-- 邀请成功弹窗 -->
+  <fx-game-modal-v className="fx-modal--success" class="fx-modal--success" visible="{{ showInviteSuccessModal }}" marginTop="300">
+    <view class="invite-text">
+      <view class="title">您已成功邀请</view>
+      <view class="desc">{{ peopleCount.invite_name }} 等{{ peopleCount.invite_count }}位好友加入猜图游戏</view>
+      <button class="submit" bindtap="handleHideInviteModal">确定</button>
+    </view>
+  </fx-game-modal-v>
+
+  <!-- 有几位好友偷走了你的红包 -->
+  <fx-game-modal-v class="fx-modal--steal-result" className="fx-modal--steal-result" visible="{{ showStealResultModal }}" marginTop="200">
+    <view class="title">
+      有
+      <strong>{{ stealBonusPeopleCount }}</strong>位好友偷走你的红包
+    </view>
+    <view class="avenge-text" wx:for="{{ stealBonusPeopleList }}" wx:for-item="people" wx:key="{{ people.user_info.user_sn }}">
+      <image src="{{ people.user_info.user_logo }}" class="avatar"></image>
+      <view class="name">{{ people.user_info.user_name }}</view>
+      <view class="doit">偷走你</view>
+      <view class="amount" wx:if="{{ people.bouns_type == 1 }}">1张{{ people.amount }}元优惠券</view>
+      <view class="amount" wx:if="{{ people.bouns_type == 2 }}">{{ people.amount }}元红包</view>
+    </view>
+    <button class="btn-go-steal" bindtap="handleGoStealBonus">去报仇</button>
+  </fx-game-modal-v>
+
+  <!-- 偷我红包的人弹窗 -->
+  <fx-game-modal class="fx-modal--steal" visible="{{ showStealModal }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="steal-title">偷我红包的人</view>
+      <view class="invite-list steal-list">
+        <view class="invite-item" wx:for="{{ stealBonusPeople }}" wx:for-item="people" wx:key="{{ people.user_sn }}">
+          <image src="{{ people.user_logo }}" class="avatar"></image>
+          <span>{{ people.user_name }}</span>
+          <view class="action">
+            <button class="btn-steal" data-uid="{{ people.user_sn }}" bindtap="handleStealBonus"></button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </fx-game-modal>
+
+  <!-- 我的好友和可能认识的人 -->
+  <fx-game-modal class="fx-modal--top" visible="{{ showInviteModal }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="btn-wrap">
+        <view bindtap="handleFriendTab" data-tab="mine" class="tab {{ friendActiveTab == 'mine' ? 'active' : '' }}">
+          <span>我的好友</span>
+          <view class="line"></view>
+        </view>
+        <view bindtap="handleFriendTab" data-tab="guess" class="tab {{ friendActiveTab == 'guess' ? 'active' : '' }}">
+          <span>可能认识的人</span>
+          <view class="line"></view>
+        </view>
+      </view>
+
+      <view class="invite-list" wx:if="{{ friendActiveTab == 'mine' }}">
+        <view class="invite-item mine">
+          <image src="https://static.moebeast.com/static/img/game/touxiang.png" class="avatar"></image>
+          <span>邀请好友</span>
+          <view class="action">
+            <button class="btn-invite" data-name="invite" open-type="share" bindtap="handleInviteFriend">
+              邀请
+            </button>
+          </view>
+        </view>
+
+        <view class="invite-item" wx:for="{{ friendList }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}">
+          <image src="{{ friend.user_logo }}" class="avatar"></image>
+          <span>{{ friend.user_name }}</span>
+          <view class="action">
+            <button class="btn-steal" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
+          </view>
+        </view>
+      </view>
+
+      <view class="invite-list" wx:if="{{ friendActiveTab == 'guess' }}">
+        <view class="invite-item mine">
+          <image src="https://static.moebeast.com/static/img/game/touxiang.png" class="avatar"></image>
+          <span>邀请好友</span>
+          <view class="action">
+            <button class="btn-invite" data-name="invite" open-type="share" bindtap="handleInviteFriend">
+              邀请
+            </button>
+          </view>
+        </view>
+
+        <view class="invite-item" wx:for="{{ guessFriendList }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}">
+          <image src="{{ friend.user_logo }}" class="avatar"></image>
+          <span>{{ friend.user_name }}</span>
+          <view class="action">
+            <button class="btn-steal" data-idx="{{ index }}" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </fx-game-modal>
+
+  <!-- 排行榜弹窗 -->
+  <fx-game-modal class="fx-modal--top" visible="{{ showTopModal }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="btn-wrap">
+        <view class="tab {{ activeTopTab == 'world' ? 'active' : '' }}" data-tab="world" bindtap="handleToggleTop">
+          <span>世界榜</span>
+          <view class="line"></view>
+        </view>
+        <view class="tab {{ activeTopTab == 'friend' ? 'active' : '' }}" data-tab="friend" bindtap="handleToggleTop">
+          <span>好友榜</span>
+          <view class="line"></view>
+        </view>
+      </view>
+
+      <view class="top-list" wx:if="{{ activeTopTab == 'world' }}">
+        <view class="top-item top-head">
+          <view class="number">排名</view>
+          <view class="coupon">优惠券</view>
+          <view class="bonus">红包</view>
+        </view>
+        <view class="top-item mine">
+          <view class="number">
+            <view class="ranking">
+              <view class="title">我的名次</view>
+              <view class="count">{{ currentUserTop.user_ranking > 0 ? currentUserTop.user_ranking : '未上榜' }}</view>
+            </view>
+            <image src="{{ currentUserTop.user_info.user_logo }}" class="avatar"></image>
+            <view class="name">{{ currentUserTop.user_info.user_name }}</view>
+          </view>
+          <view class="coupon">
+            <view class="count">
+              <text class="quantity">{{ currentUserTop.user_coupon_quantity }}</text> 张
+            </view>
+            <view class="total">
+              累计 ￥{{ currentUserTop.user_coupon_amount }}
+            </view>
+          </view>
+          <view class="bonus">
+            <text class="currency">￥</text>{{ currentUserTop.user_amount }}
+          </view>
+        </view>
+
+        <view wx:if="{{ topWorld.length > 0 }}" class="top-item" wx:for="{{ topWorld }}" wx:key="{{ item.code }}">
+          <view class="number">
+            <view class="ranking">
+              <span class="count" wx:if="{{ item.ranking == 1 }}">
+                <image src="https://static.moebeast.com/static/img/game/no.1.png" class="icon-prize"></image>
+              </span>
+              <span class="count" wx:if="{{ item.ranking == 2 }}">
+                <image src="https://static.moebeast.com/static/img/game/no.2.png" class="icon-prize"></image>
+              </span>
+              <span class="count" wx:if="{{ item.ranking == 3 }}">
+                <image src="https://static.moebeast.com/static/img/game/no.3.png" class="icon-prize"></image>
+              </span>
+              <span class="count" wx:if="{{ item.ranking > 3 }}">{{ item.ranking }}</span>
+            </view>
+            <image src="{{ item.user_info.user_logo }}" class="avatar"></image>
+            <view class="name">{{ item.user_info.user_name }}</view>
+          </view>
+          <view class="coupon">
+            <view class="count">
+              <text class="quantity">{{ item.cumulative_coupon_quantity }}</text> 张
+            </view>
+            <view class="total">
+              累计 ￥{{ item.cumulative_coupon_amount }}
+            </view>
+          </view>
+          <view class="bonus">
+            <span>￥</span>{{ item.cumulative_amount }}
+          </view>
+        </view>
+      </view>
+
+      <view class="top-list" wx:if="{{ activeTopTab == 'friend' }}">
+        <view class="top-item top-head">
+          <view class="number">排名</view>
+          <view class="coupon">优惠券</view>
+          <view class="bonus">红包</view>
+        </view>
+        <view class="top-item mine">
+          <view class="number">
+            <view class="ranking">
+              <view class="title">我的名次</view>
+              <view class="count">{{ currentUserTop.user_ranking > 0 ? currentUserTop.user_ranking : '未上榜' }}</view>
+            </view>
+            <image src="{{ currentUserTop.user_info.user_logo }}" class="avatar"></image>
+            <view class="name">{{ currentUserTop.user_info.user_name }}</view>
+          </view>
+          <view class="coupon">
+            <view class="count">
+              <text class="quantity">{{ currentUserTop.user_coupon_quantity }}</text> 张
+            </view>
+            <view class="total">
+              累计 ￥{{ currentUserTop.user_coupon_amount }}
+            </view>
+          </view>
+          <view class="bonus">
+            <text class="currency">￥</text>{{ currentUserTop.user_amount }}
+          </view>
+        </view>
+
+        <view wx:if="{{ topFriend.length > 0 }}" class="top-item" wx:for="{{ topFriend }}" wx:key="{{ item.code }}">
+          <view class="number">
+            <view class="ranking">
+              <view class="count" wx:if="{{ item.ranking == 1 }}">
+                <image src="https://static.moebeast.com/static/img/game/no.1.png" class="icon-prize"></image>
+              </view>
+              <view class="count" wx:if="{{ item.ranking == 2 }}">
+                <image src="https://static.moebeast.com/static/img/game/no.2.png" class="icon-prize"></image>
+              </view>
+              <view class="count" wx:if="{{ item.ranking == 3 }}">
+                <image src="https://static.moebeast.com/static/img/game/no.3.png" class="icon-prize"></image>
+              </view>
+              <view class="count" wx:if="{{ item.ranking > 3 }}">{{ item.ranking }}</view>
+            </view>
+            <image src="{{ item.user_info.user_logo }}" class="avatar"></image>
+            <view class="name">{{ item.user_info.user_name }}</view>
+          </view>
+          <view class="coupon">
+            <view class="count">
+              <text class="quantity">{{ item.cumulative_coupon_quantity }}</text> 张
+            </view>
+            <view class="total">
+              累计 ￥{{ item.cumulative_coupon_amount }}
+            </view>
+          </view>
+          <view class="bonus">
+            <text class="currency">￥</text>{{ item.cumulative_amount }}
+          </view>
+        </view>
+
+        <!-- 当好友榜没有数据时 -->
+        <view class="top-empty" wx:if="{{ topFriend.length === 0 }}">
+          <image src="https://static.moebeast.com/static/img/game/empty.png"></image>
+          <view>你的好友还没有参与游戏</view>
+          <view>邀请好友一起来猜图吧</view>
+          <button class="invite-friend" bindtap="handleInviteFriend">邀请好友</button>
+        </view>
+      </view>
+    </view>
+  </fx-game-modal>
+
+  <!-- 偷到了红包 -->
+  <fx-game-modal-v class="fx-modal--steal-bonus" className="fx-modal--steal-bonus" visible="{{ showStealBonusModal }}" marginTop="300">
+    <view class="thb-back">
+      <view class="notice-title">
+        你趁<text>{{ userStealed.user_name }}</text>不注意，偷了
+      </view>
+      <view class="steal-amount">
+        <text class="currency">￥</text>{{ stealBonusResult.amount }}
+      </view>
+      <button class="btn-run" bindtap="handleGoRun">快跑</button>
+    </view>
+  </fx-game-modal-v>
+
+  <!-- 偷到了优惠券 -->
+  <fx-game-modal-v class="fx-modal--steal-bonus" className="fx-modal--steal-bonus" visible="{{ showStealCouponModal }}" marginTop="300">
+    <view class="thb-back">
+      <view class="notice-title">
+        你趁<text>{{ userStealed.user_name }}</text>不注意，偷了
+      </view>
+      <view class="coupon">
+        <view class="coupon-info">
+          <view class="amount">
+            <text class="currency">￥</text>{{ stealBonusResult.coupon.amount }}
+          </view>
+          <view class="desc">
+            <view class="tip">乐喜优惠券</view>
+            <view class="tip">满{{ stealBonusResult.coupon.min_amount }}可用</view>
+          </view>
+        </view>
+        <view class="expired">
+          <view class="date">有效期至
+            <text>{{ stealBonusResult.coupon.expired_at|formatDate }}</text>
+          </view>
+        </view>
+      </view>
+      <button class="btn-run" bindtap="handleGoRun">快跑</button>
+    </view>
+  </fx-game-modal-v>
+
+  <!-- 没偷到提示 -->
+  <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showStealFailModal }}" marginTop="300">
+    <view class="notice-title">{{ stealFailMessage }}</view>
+    <button class="btn-ok" bindtap="handleOk">知道了</button>
+  </fx-game-modal-v>
+
+
+  <view class="guess-game-bg">
+    <!-- 登陆注册模态框 -->
+    <fx-modal-v visible="{{ showLoginModal }}" close="{{ false }}" marginTop="300" title="授权登录">
+      <view class="tips">开始游戏前，请先登录</view>
+      <view class="login-method">
+        <button class="fx-button primary" open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">使用微信授权一键绑定手机号</button>
+        <button wx:if="{{ canIUse }}" class="fx-button default" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用验证码绑定手机号</button>
+      </view>
+    </fx-modal-v>
+  </view>
+
+  <!-- 登陆注册模态框 -->
+  <fx-login-modal visible="{{ showBindForm }}" close="{{ false }}" bind:closeEvent="handleCloseLogin">
+  </fx-login-modal>
+
+</view>

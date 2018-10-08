@@ -1,14 +1,28 @@
 /* pages/demo/demo.wxss */
-.box {
-  background-color: blueviolet;
-  margin: 40rpx;
+
+.progress-box {
+  position: relative;
+  width: 80rpx;
+  height: 80rpx;
 }
-.text {
-  margin-bottom: 40rpx; 
-  background-color: green;
+.progress-box .progress-bg {
+  position: absolute;
+  width: 80rpx;
+  height: 80rpx;
 }
-.image {
-  background-color: red;
-  padding-bottom: 30rpx;
-  margin-bottom: 50rpx;
+.progress-box .progress-canvas {
+  width: 80rpx;
+  height: 80rpx;
+}
+.progress-box .show-text {
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+  font-size: 32rpx;
+  color: #FFCF00;
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  z-index: 100;
 }

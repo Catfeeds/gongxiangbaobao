@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "猜图赢现金",
+  "usingComponents": {
+    "fx-game-modal": "/components/FxGameModal/FxGameModal",
+    "fx-login-modal": "/components/FxLoginModal/FxLoginModal",
+    "fx-game-modal-v": "/components/FxGameModalV/FxGameModalV"
+  }
+}

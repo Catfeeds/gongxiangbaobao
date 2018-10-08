@@ -738,7 +738,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../lifeStoreGuide/lifeStoreGuide',
+      url: '/lifeStore/pages/lifeStoreGuide/lifeStoreGuide',
     })
   },
 
@@ -1079,7 +1079,7 @@ Page({
   // 猜图游戏
   handleGuessGame () {
     wx.navigateTo({
-      url: '../guessGame/guessGame',
+      url: '/games/pages/guessGame/guessGame',
     })
   },
 

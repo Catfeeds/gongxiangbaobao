@@ -1,0 +1,838 @@
+@keyframes shake {
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-20deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+page {
+  overflow: hidden;
+}
+
+.guess-game-bg {
+  background-image: url('https://static.moebeast.com/static/img/guess-game-bg2.jpg');
+  background-size: 100% auto;
+  height: 100vh;
+}
+
+.tips {
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.login-method .fx-button:first-child {
+  margin-bottom: 40rpx;
+}
+
+.main-wrapper {
+  width: 100%;
+  height: auto;
+  background: url("https://static.moebeast.com/static/img/game-index-bg.jpg") top;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1;
+}
+
+.foot-container {
+  flex: 0 0 auto;
+  padding-bottom: 60rpx;
+  padding-left: 30rpx;
+}
+
+.foot-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.foot-menu .home-page {
+  margin-right: 264rpx;
+}
+
+.foot-menu .ranking {
+  margin-right: 10rpx;
+}
+
+.home-page .icon-home, .ranking .icon-ranking, .steal-money .icon-money {
+  width: 130rpx;
+  height: 130rpx;
+}
+
+.main-container {
+  width: 100%;
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.main-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 0 40rpx;
+  height: 70rpx;
+}
+
+.money {
+  position: relative;
+  padding-left: 35rpx;
+}
+
+.money .icon-money {
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 0rpx;
+  top: 0rpx;
+}
+
+.withdraw {
+  width: 206rpx;
+  height: 54rpx;
+  margin-top: 10rpx;
+  padding-left: 45rpx;
+  background: rgba(106, 55, 141, 0.5);
+  border-radius: 32rpx;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.withdraw .amount {
+  flex: 1;
+  line-height: 32rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: rgba(255, 216, 101, 1);
+}
+
+.withdraw text {
+  font-size: 20rpx;
+  line-height: 32rpx;
+}
+
+.withdraw .btn-withdraw {
+  flex: 0 0 auto;
+  height: 33rpx;
+  padding: 0rpx 10rpx;
+  margin-right: 10rpx;
+  background: #ffbf00;
+  -webkit-box-shadow: 0rpx 1rpx 0rpx 0rpx rgba(77, 49, 112, 1);
+  box-shadow: 0rpx 1rpx 0rpx 0rpx rgba(77, 49, 112, 1);
+  border-radius: 20rpx;
+  border: 0;
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #57421b;
+  line-height: 33rpx;
+}
+
+.coupon {
+  position: relative;
+  padding-left: 35rpx;
+}
+
+.coupon .icon-coupon {
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  top: -10rpx;
+  left: 0;
+}
+
+.coupon .discount-coupon {
+  width: 98rpx;
+  padding-left: 50rpx;
+  padding-right: 30rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  background: rgba(106, 55, 141, 0.5);
+  border-radius: 32rpx;
+}
+
+.discount-coupon .quantity {
+  line-height: 54rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: rgba(255, 216, 101, 1);
+}
+
+.discount-coupon .quantity text {
+  font-size: 20rpx;
+  line-height: 32rpx;
+}
+
+.rules {
+  flex: 0 0 auto;
+  background: rgba(106, 55, 141, 0.5);
+  border-radius: 27rpx 0rpx 0rpx 27rpx;
+  color: #57421b;
+  height: 54rpx;
+}
+
+.rules .game-rule {
+  color: rgba(245, 219, 255, 1);
+  font-size: 22rpx;
+  font-weight: 600;
+  line-height: 54rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.invite-container {
+  margin: 35rpx 40rpx 0;
+}
+
+.invite-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100rpx;
+  background: rgba(255, 82, 125, 1);
+  box-shadow: 0rpx 2rpx 20rpx 0rpx rgba(36, 1, 57, 1);
+  border-radius: 14rpx;
+  padding: 0 30rpx;
+}
+
+.invite-box .avatars {
+  flex: 0 0 auto;
+  margin-right: 10rpx;
+}
+
+.invite-box .avatars .user-avatar {
+  width: 56rpx;
+  height: 56rpx;
+  background-size: 100%;
+  border-radius: 50%;
+  border: 3rpx solid rgba(255, 255, 255, 1);
+}
+
+.invite-box .content {
+  flex: 1;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: rgba(255, 234, 234, 1);
+  line-height: 30rpx;
+}
+
+.invite-box .content p {
+  margin-bottom: 3rpx;
+}
+
+.invite-box .content .amount {
+  font-size: 30rpx;
+  color: rgba(255, 248, 0, 1);
+}
+
+.invite-box .action {
+  flex: 0 0 auto;
+}
+
+.invite-box .action .btn-now-invite {
+  height: 50rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 25rpx;
+  padding: 0 20rpx;
+  line-height: 50rpx;
+  font-size: 20rpx;
+  color: rgba(80, 6, 40, 1);
+}
+
+.invite-result {
+  margin-top: 8rpx;
+  margin-left: 25rpx;
+  font-size: 20rpx;
+  font-weight: 400;
+  color: rgba(210, 179, 252, 1);
+  line-height: 30rpx;
+}
+
+.screen {
+  width: 651rpx;
+  height: 373rpx;
+  margin: 23rpx auto 0;
+  position: relative;
+  background: url('https://static.moebeast.com/static/img/game/notice.png') no-repeat top center;
+  background-size: 100% 100%;
+}
+
+.screen .light {
+  width: 124rpx;
+  height: 142rpx;
+  position: absolute;
+  left: 36%;
+  top: -0.28rem;
+  animation: shake 2s ease-in-out infinite;
+  transform-origin: 100% 0;
+}
+
+.screen .notice {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 195rpx;
+}
+
+.notice .wsw {
+  width: 311rpx;
+  height: 60rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  line-height: 60rpx;
+  background: rgba(255, 82, 125, 1);
+  border-radius: 30rpx;
+}
+
+.notice .people {
+  height: 32rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: rgba(242, 211, 255, 1);
+  line-height: 32rpx;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.notice .people span {
+  flex: 0 0 auto;
+}
+
+.notice .people .people-num {
+  background: rgba(51, 6, 72, 1);
+  border-radius: 6rpx;
+  line-height: 32rpx;
+  font-size: 32rpx;
+  text-align: center;
+  padding: 9rpx 20rpx;
+  margin: 0 10rpx;
+}
+
+.screen .yi-ge-ren {
+  width: 71rpx;
+  height: 180rpx;
+  position: absolute;
+  left: 192rpx;
+  top: 290rpx;
+}
+
+.start-game {
+  position: relative;
+  text-align: center;
+  background: url(https://static.moebeast.com/static/img/game/two.png) no-repeat 375rpx 20rpx;
+  background-size: 124rpx 171rpx;
+}
+
+.start-game .btn-start {
+  background: url(https://static.moebeast.com/static/img/game/startgame.png) no-repeat top center;
+  background-size: 100% 100%;
+  border-radius: 59rpx;
+  border: 0;
+  margin-top: 159rpx;
+  display: inline-block;
+  width: 448rpx;
+  height: 134rpx;
+}
+
+.fx-modal--rules .rule-text .prt {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(213, 191, 250, 1);
+  line-height: 38rpx;
+  margin-bottom: 20rpx;
+}
+
+.fx-modal--rules .rule-text .title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+  line-height: 28rpx;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+}
+
+.fx-modal--withdraw .withdraw-box {
+  margin-top: 100rpx;
+}
+
+.withdraw-box .icon-money {
+  width: 124rpx;
+  height: 124rpx;
+  margin-bottom: 40rpx;
+}
+
+.withdraw-box .sub-title {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #e4b417;
+  line-height: 28rpx;
+}
+
+.withdraw-box .amount {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+  line-height: 48rpx;
+  margin-top: 23rpx;
+}
+
+.withdraw-box .amount .currency {
+  font-size: 28rpx;
+}
+
+.withdraw-box .btn-withdraw {
+  width: 450rpx;
+  height: 80rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 40rpx;
+  border: none;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(119, 59, 2, 1);
+  margin-top: 85rpx;
+}
+
+.btn-withdraw.disabled {
+  background: rgba(255, 207, 0, 0.5);
+}
+
+/* 排行榜 */
+
+.btn-wrap {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40rpx;
+  margin-top: 40rpx;
+}
+
+.btn-wrap .tab {
+  flex: 0 0 auto;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(255, 207, 0, 1);
+  margin: 0 50rpx;
+  text-align: center;
+}
+
+.btn-wrap .tab .line {
+  width: 64rpx;
+  height: 6rpx;
+  margin: 20rpx auto 0;
+  border-radius: 3rpx;
+  background-color: transparent;
+}
+
+.btn-wrap .tab.active .line {
+  background-color: #ffcf00;
+}
+
+.top-list .top-item {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  background: rgba(71, 37, 101, 1);
+  box-shadow: 0 1rpx 0 0 rgba(88, 49, 119, 1);
+  padding: 0 40rpx 0 16rpx;
+  margin-bottom: 2rpx;
+}
+
+.top-item .number {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  color: rgba(106, 74, 132, 1);
+}
+
+.top-item .number .ranking {
+  text-align: center;
+  padding-right: 25rpx;
+  width: 110rpx;
+}
+
+.number .ranking .title {
+  font-size: 20rpx;
+}
+
+.number .ranking .count {
+  display: block;
+  font-size: 32rpx;
+  margin-top: 8rpx;
+}
+
+.ranking .count .icon-prize {
+  width: 34rpx;
+  height: 53rpx;
+}
+
+.top-item .number .avatar {
+  margin-right: 20rpx;
+}
+
+.top-item .number .name {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(220, 164, 242, 1);
+  line-height: 28rpx;
+}
+
+.top-item.top-head {
+  background: none;
+  line-height: 22rpx;
+  font-size: 22rpx;
+  height: 22rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 0 0 0 rgba(88, 49, 119, 1);
+  color: rgba(106, 74, 132, 1);
+}
+
+.top-item.top-head .bonus {
+  color: rgba(106, 74, 132, 1);
+}
+
+.top-item.mine {
+  margin-bottom: 20rpx;
+}
+
+.top-item .coupon {
+  flex: 0 0 145rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-item .coupon .count {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(255, 217, 0, 1);
+  line-height: 22rpx;
+}
+
+.coupon .count .quantity {
+  color: rgba(255, 217, 0, 1);
+}
+
+.top-item .coupon .total {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(220, 164, 242, 1);
+  line-height: 22rpx;
+}
+
+.top-item .bonus {
+  flex: 0 0 80rpx;
+  color: rgba(255, 217, 0, 1);
+  line-height: 28rpx;
+  font-size: 22rpx;
+  font-weight: 400;
+}
+
+.top-item .bonus .currency {
+  color: rgba(255, 217, 0, 1);
+  font-size: 22rpx;
+}
+
+.top-item .avatar {
+  flex: 0 0 auto;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 64rpx;
+}
+
+/* 好友列表 */
+
+.invite-list .invite-item {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  background: rgba(71, 37, 101, 1);
+  box-shadow: 0rpx 1rpx 0rpx 0rpx rgba(88, 49, 119, 1);
+  padding: 0 40rpx 0 26rpx;
+}
+
+.invite-item.mine {
+  margin-bottom: 20rpx;
+}
+
+.invite-item .avatar {
+  flex: 0 0 auto;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 64rpx;
+}
+
+.invite-item span {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(220, 164, 242, 1);
+  line-height: 28rpx;
+  padding-left: 20rpx;
+}
+
+.invite-item .action {
+  flex: 0 0 auto;
+}
+
+.invite-item .action .btn-steal {
+  width: 62rpx;
+  height: 78rpx;
+  background: url("https://static.moebeast.com/static/img/game/touhb.png") no-repeat;
+  background-size: 62rpx 78rpx;
+}
+
+.invite-item .action .btn-invite {
+  width: 112rpx;
+  height: 45rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 8rpx;
+  color: rgba(119, 59, 2, 1);
+  font-size: 26rpx;
+  line-height: 45rpx;
+}
+
+.invite-text {
+  margin-top: 100rpx;
+  text-align: center;
+}
+
+.invite-text .title {
+  height: 32rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #f7e4ff;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.invite-text .desc {
+  color: rgba(213, 191, 250, 1);
+  font-size: 26rpx;
+  font-weight: 400;
+  margin-top: 20rpx;
+}
+
+.invite-text .submit {
+  width: 450rpx;
+  height: 80rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 40rpx;
+  border: none;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(119, 59, 2, 1);
+  margin-top: 80rpx;
+}
+
+/* 偷我红包的人 */
+
+.fx-modal--steal-result .title {
+  margin-top: 100rpx;
+  padding-left: 70rpx;
+  height: 32rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(247, 228, 255, 1);
+  line-height: 32rpx;
+  margin-bottom: 55rpx;
+}
+
+.fx-modal--steal-result .avenge-text {
+  display: flex;
+  align-items: center;
+  padding-left: 70rpx;
+  margin-bottom: 42rpx;
+}
+
+.fx-modal--steal-result .avenge-text .avatar {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+  border-radius: 40rpx;
+}
+
+.fx-modal--steal-result .avenge-text .name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(247, 228, 255, 1);
+  line-height: 28rpx;
+  margin-right: 5rpx;
+}
+
+.fx-modal--steal-result .avenge-text .doit {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(247, 228, 255, 1);
+  line-height: 28rpx;
+  margin-right: 5rpx;
+}
+
+.fx-modal--steal-result .avenge-text .amount {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #ffd000;
+  line-height: 28rpx;
+}
+
+.fx-modal--steal-result .btn-go-steal {
+  width: 450rpx;
+  height: 80rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 40rpx;
+  border: none;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(119, 59, 2, 1);
+  margin: 80rpx auto 0;
+}
+
+.fx-modal--steal .steal-title {
+  color: rgba(255, 207, 0, 1);
+  text-align: left;
+  padding-left: 40rpx;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 32rpx;
+}
+
+.fx-modal--steal .steal-list {
+  margin-top: 40rpx;
+}
+
+.fx-modal--steal-bonus .thb-back {
+  margin-top: 78rpx;
+  text-align: center;
+}
+
+.fx-modal--steal-bonus .thb-back .notice-title {
+  height: 32rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #f7e4ff;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.fx-modal--steal-bonus .thb-back .notice-title text {
+  padding: 0 9rpx;
+  font-size: 26rpx;
+  color: rgba(255, 207, 0, 1);
+}
+
+.fx-modal--steal-bonus .thb-back .steal-amount {
+  margin-top: 40rpx;
+  font-size: 72rpx;
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+}
+
+.fx-modal--steal-bonus .thb-back .steal-amount .currency {
+  font-size: 32rpx;
+  margin-top: 20rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .btn-run {
+  width: 362rpx;
+  height: 80rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 40rpx;
+  border: none;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(119, 59, 2, 1);
+  margin-top: 112rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .coupon {
+  width: 302rpx;
+  height: 120rpx;
+  background: url(https://static.moebeast.com/static/img/game/tyhqbj.png);
+  background-size: 100%;
+  margin: 20rpx auto;
+}
+
+.fx-modal--steal-bonus .thb-back .expired {
+  margin-top: 8rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .expired .date {
+  font-size: 16rpx;
+  font-weight: 600;
+  color: rgba(246, 234, 253, 1);
+  line-height: 18rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .coupon .coupon-info {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-left: 40rpx;
+  padding-top: 10rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .coupon .coupon-info .amount {
+  font-size: 64rpx;
+  line-height: 64rpx;
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+}
+
+.fx-modal--steal-bonus .thb-back .coupon .coupon-info .amount text {
+  font-size: 32rpx;
+  line-height: 32rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .coupon .coupon-info .desc {
+  margin-top: 5rpx;
+}
+
+.fx-modal--steal-bonus .thb-back .coupon .coupon-info .desc .tip {
+  margin-left: 10rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+  line-height: 22rpx;
+}
+
+.fx-modal--notice .invite-play {
+  padding: 0 70rpx;
+}
+
+.fx-modal--notice .notice-title {
+  margin-top: 115rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: rgba(247, 228, 255, 1);
+  line-height: 42rpx;
+  margin-bottom: 40rpx;
+}
+
+.fx-modal--notice .btn-ok {
+  width: 450rpx;
+  height: 80rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(119, 59, 2, 1);
+  line-height: 80rpx;
+}

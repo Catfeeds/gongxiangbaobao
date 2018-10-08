@@ -1,0 +1,116 @@
+<view class="container">
+  <view class="main-wrapper">
+    <view class="main-container">
+
+      <view class="result-top">
+        <view class="text-result">
+          <view class="summary">共猜对
+            <text class="quantity">{{ settlement.right_count }}</text>张商品图
+          </view>
+          <view class="top">
+            获得<strong class="top-count">{{ gameTopName }}</strong> 称号
+          </view>
+          <view class="top-desc">
+            {{ gameTopDesc }}
+          </view>
+        </view>
+      </view>
+
+      <view class="result-main">
+        <view class="main-top">
+          <image src="{{ userInfo.avatar }}" class="img-photo"></image>
+          <view class="username">{{ userInfo.username }}</view>
+        </view>
+
+        <view class="main-account">
+          <view class="get-money">
+            <view class="text-huode">获得现金红包</view>
+            <view class="get-cash">
+              ￥
+              <text>{{ settlement.amount }}</text>
+            </view>
+          </view>
+          <view class="shufenge"></view>
+          <view class="get-coupon">
+            <view class="text-huode">获得乐喜优惠券</view>
+            <view class="get-quantity">
+              <text>{{ settlement.right_count }}</text> 张
+            </view>
+            <view class="total-amount">(共{{ settlement.bonus_amount }}元)</view>
+          </view>
+        </view>
+
+        <!-- 商品列表 -->
+        <view class="view-answer">
+          <view class="look-result">
+            <view>查看猜图答案</view>
+            <view class="desc">喜欢的还可以直接点击购买</view>
+          </view>
+
+          <view class="goods-container">
+            <view class="good-list">
+
+              <view class="good-item" wx:for="{{ productList }}" wx:key="{{ item.product_rid }}" wx:for-index="idx">
+                <view class="answer-tips error" wx:if="{{ !item.answer_result }}">
+                  <view>第{{ idx + 1 }}题：猜错了</view>
+                  <view>正确答案"{{ item.right_answer_name }}"</view>
+                </view>
+                <view class="answer-tips ok" wx:if="{{ item.answer_result }}">
+                  <view class="desc">第{{ idx + 1 }}题：猜对了</view>
+                </view>
+                <image src="{{ item.product_path }}" class="cover"></image>
+                <view class="trade-name">{{ item.product_name }}</view>
+                <view class="trade-price">
+                  <span>￥</span>{{ item.sale_price }}
+                </view>
+                <view class="sale">
+                  <span class="use-coupon" wx:if="{{ item.sale_price != item.use_coupon_price }}">
+                    用券￥{{ item.use_coupon_price }}
+                  </span>
+                </view>
+                <button class="btn-buy" data-rid="{{ item.product_rid }}" bindtap="handleViewProduct">立即购买</button>
+              </view>
+
+              <view class="good-item"></view>
+              <view class="good-item"></view>
+            </view>
+          </view>
+
+        </view>
+      </view>
+
+      <!-- 底部 -->
+      <div class="foot-container">
+        <button class="btn-once-more" bindtap="handlePlayAgain">再来一次</button>
+        <button class="btn-ishow" bindtap="handleShowGame">炫耀成绩</button>
+      </div>
+
+    </view>
+
+    <!-- 邀请好友一起玩 -->
+    <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showInviteModal }}">
+      <view class="invite-play">
+        <view class="notice-title">邀请好友一起玩，可再获的1次猜图机会</view>
+      </view>
+      <button class="btn-ok btn-invite-share" data-name="share" open-type="share">立即分享</button>
+    </fx-game-modal-v>
+
+    <!-- 休息一下 -->
+    <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showPauseModal }}" width="520">
+      <view class="invite-play">
+        <view class="notice-title">你已经连续玩了3次了，休息一下 两小时后再来吧</view>
+      </view>
+      <button class="btn-ok btn-invite-share" bindtap="handleHidePauseModal">知道了</button>
+    </fx-game-modal-v>
+
+    <!-- 分享海报 -->
+    <fx-image-modal class="fx-modal--notice" visible="{{ showPosterModal }}" close="{{ false }}" width="520" marginTop="50">
+      <view class="poster-box">
+        <image src="{{ posterUrl }}" class="poster-image" wx:if="{{ posterUrl }}"></image>
+        <image src="../../../images/jiazai.gif" class="loading" wx:else></image>
+      </view>
+      <button class="btn-ok btn-save" bindtap="handleSavePoster">{{ posterBtnText }}</button>
+    </fx-image-modal>
+
+  </view>
+</view>

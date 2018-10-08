@@ -1,0 +1,387 @@
+
+@keyframes glittering {
+  0% { transform: scale(1.0) }
+  50% { transform: scale(1.2) }
+  100% { transform: scale(1.0) }
+}
+@keyframes fadeOut {
+  0% { transform: scale(1.0) }
+  50% { transform: scale(1.2) }
+  100% { transform: scale(1.0) }
+}
+page {
+  overflow: hidden;
+}
+
+.main-wrapper {
+  width: 100%;
+  height: auto;
+  background: url("https://static.moebeast.com/static/img/game/dati.jpg") top;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  margin-top: 20rpx;
+  flex: 1;
+}
+
+.foot-container {
+  flex: 0 0 auto;
+  padding-bottom: 40rpx;
+  padding-left: 30rpx;
+}
+
+.foot-menu {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40rpx;
+}
+
+.my-coupons {
+  display: flex;
+  align-items: center;
+}
+
+.my-coupons .icon-coupon {
+  width: 90rpx;
+  height: 90rpx;
+  margin-right: -13rpx;
+}
+
+.discount-coupon {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 20rpx;
+  background: rgba(106, 55, 141, 0.3);
+  padding: 0 40rpx 0 32rpx;
+}
+
+.discount-coupon .quantity {
+  color: #e2c7ff;
+}
+
+.discount-coupon .quantity .animated-increase {
+  font-size: 24rpx;
+}
+
+.foot-menu .avatar {
+  width: 70rpx;
+  height: 70rpx;
+  margin-left: -20rpx;
+  border-radius: 70rpx;
+  border: 3rpx solid rgba(122, 68, 161, 1);
+}
+
+.play-box {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.play-box .players {
+  flex: 0 0 560rpx;
+  width: 560rpx;
+  height: 73rpx;
+  background: rgba(106, 55, 141, 0.3);
+  border-radius: 0rpx 40rpx 40rpx 0rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.players .avatars {
+  flex: 1;
+  padding-left: 30rpx;
+  position: relative;
+}
+
+.players .avatars .user-avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid rgba(122, 68, 161, 1);
+  border-radius: 50%;
+  position: absolute;
+  top: -22rpx;
+  left: 30rpx;
+}
+
+.avatars .user-avatar:nth-of-type(1) {
+  z-index: 10;
+}
+
+.avatars .user-avatar:nth-of-type(2) {
+  margin-left: 32rpx;
+  z-index: 9;
+}
+
+.avatars .user-avatar:nth-of-type(3) {
+  margin-left: 64rpx;
+  z-index: 8;
+}
+
+.avatars .user-avatar:nth-of-type(4) {
+  margin-left: 98rpx;
+  z-index: 7;
+}
+
+.avatars .user-avatar:nth-of-type(5) {
+  margin-left: 130rpx;
+  z-index: 6;
+}
+
+.avatars .user-avatar:nth-of-type(6) {
+  margin-left: 162rpx;
+  z-index: 5;
+}
+
+.avatars .user-avatar:nth-of-type(7) {
+  margin-left: 194rpx;
+  z-index: 4;
+}
+
+.avatars .user-avatar:nth-of-type(8) {
+  margin-left: 226rpx;
+  z-index: 3;
+}
+
+.avatars .user-avatar:nth-of-type(9) {
+  margin-left: 259rpx;
+  z-index: 2;
+}
+
+.avatars .user-avatar:nth-of-type(10) {
+  margin-left: 291rpx;
+  z-index: 1;
+}
+
+.avatars .user-avatar:nth-of-type(11) {
+  margin-left: 323rpx;
+  z-index: 0;
+}
+
+.join {
+  flex: 0 0 auto;
+  font-size: 20rpx;
+  color: #e8cdff;
+  padding-right: 30rpx;
+}
+.join .count {
+  margin-bottom: 10rpx;
+}
+.join .title {
+  height: 20rpx;
+  font-weight: 400;
+  line-height: 20rpx;
+}
+
+.play-count-down {
+  flex: 0 0 auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: center;
+}
+
+.play-count-down .title {
+  font-size: 20rpx;
+  font-weight: 500;
+  color: rgba(255, 210, 0, 1);
+  line-height: 30rpx;
+}
+.progress-box {
+  position: relative;
+  left: 15px;
+  width: 80px;
+  height: 50px;
+}
+.progress-box .progress-bg {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+.progress-box .progress-canvas {
+  width: 50px;
+  height: 50px;
+}
+.progress-box .show-text {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  font-size: 28rpx;
+  color: #FFCF00;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  z-index: 100;
+}
+
+.prize-box {
+  height: 112rpx;
+  position: relative;
+  padding-left: 30rpx;
+  margin-top: 13rpx;
+}
+
+.prize-box .star {
+  animation: glittering 1s ease-in-out infinite;
+  transform-origin: 100% 0;
+  width: 25rpx;
+  height: 50rpx;
+  position: absolute;
+  left: 80rpx;
+  top: -20rpx;
+  z-index: 9;
+}
+
+.prize-pool {
+  height: 105rpx;
+  position: relative;
+  background: url("https://static.moebeast.com/static/img/game/jiangjinchi.png") no-repeat;
+  background-size: 249rpx 100%;
+}
+
+.prize-amount {
+  padding-top: 30rpx;
+  padding-left: 98rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.prize-amount .pool {
+  font-size: 22rpx;
+  font-weight: 400;
+  line-height: 22rpx;
+  margin-bottom: 5rpx;
+}
+
+.prize-amount .amount {
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 32rpx;
+  vertical-align: bottom;
+}
+
+.prize-amount  .amount .count {
+  font-size: 36rpx;
+  line-height: 36rpx;
+  margin-right: 3rpx;
+}
+
+.question-container {
+  width: 604rpx;
+  margin: 20rpx auto 0;
+}
+
+.question-container .headline-box {
+  height: 625rpx;
+}
+
+.guess {
+  width: 594rpx;
+  height: 70rpx;
+  background: rgba(106, 55, 141, 0.4);
+  border-radius: 37rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.guess .sort-number {
+  flex: 0 0 auto;
+  width: 75rpx;
+  height: 42rpx;
+  margin-left: 18rpx;
+  margin-right: 10rpx;
+  background: rgba(106, 55, 141, 1);
+  border-radius: 28rpx;
+  line-height: 42rpx;
+  text-align: center;
+  color: rgba(226, 199, 255, 1);
+  font-weight: 600;
+  font-size: 22rpx;
+}
+
+.guess .qa {
+  flex: 1;
+  height: 40rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: rgba(226, 199, 255, 1);
+  line-height: 40rpx;
+}
+
+.tv {
+  width: 603rpx;
+  height: 605rpx;
+  background: url(https://static.moebeast.com/static/img/game/Group6.png);
+  background-size: 100% 100%;
+  transform: translateY(-85rpx);
+  position: relative;
+}
+
+.question-image {
+  width: 404rpx;
+  height: 404rpx;
+  border-radius: 25rpx;
+  position: absolute;
+  left: 37rpx;
+  top: 158rpx;
+  z-index: 99;
+}
+
+.question-result {
+  width: 404rpx;
+  height: 404rpx;
+  position: absolute;
+  left: 37rpx;
+  top: 158rpx;
+  background: url(https://static.moebeast.com/static/img/game/Groupbeijing.png);
+  background-size: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.question-result .ok,
+.question-result .error {
+  width: 197rpx;
+  height: 227rpx;
+  margin: 0 auto;
+}
+
+.answers {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.answers .answer-item {
+  width: 250rpx;
+  height: 80rpx;
+  background: linear-gradient(180deg, rgba(255, 222, 0, 1) 0%, rgba(255, 207, 0, 1) 100%);
+  border-radius: 14rpx;
+  border: none;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: rgba(119, 59, 2, 1);
+  margin-bottom: 40rpx;
+  outline: 0;
+  line-height: 80rpx;
+}
+
+.answer-item.active {
+  color: #fff;
+  background: rgba(139, 92, 250, 1);
+}
+
+.answer-item.ok {
+  color: #fff;
+  background: rgba(61, 189, 125, 1);
+}
+
+.answer-item.error {
+  color: #fff;
+  background: rgba(255, 102, 135, 1);
+}

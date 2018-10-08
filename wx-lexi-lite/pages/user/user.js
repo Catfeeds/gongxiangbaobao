@@ -71,7 +71,7 @@ Page({
    */
   handleGoStoreManage() {
     wx.navigateTo({
-      url: '../lifeStoreManage/lifeStoreManage',
+      url: '/lifeStore/pages/lifeStoreManage/lifeStoreManage',
     })
   },
 
