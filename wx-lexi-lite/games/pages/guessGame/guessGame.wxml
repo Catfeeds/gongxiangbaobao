@@ -20,7 +20,7 @@
           <image class="icon-coupon" src="https://static.moebeast.com/static/img/game/discount-coupon.png" alt="coupon"></image>
           <view class="discount-coupon">
             <view class="quantity">
-              <text>{{ myAccount.bonus_amount }}</text> 张
+              <text>{{ myAccount.bonus_quantity }}</text> 张
             </view>
           </view>
         </view>
@@ -38,11 +38,7 @@
         <view class="invite-box">
           <!-- 用户头像 -->
           <view class="avatars" wx:if="{{ peopleCount.invite_count > 0 }}">
-            <image
-              wx:for="{{ peopleCount.user_info }}"
-              wx:for-item="user"
-              wx:key="{{ user.user_sn }}"
-              src="{{ user.user_logo }}" class="user-avatar"></image>
+            <image wx:for="{{ peopleCount.user_info }}" wx:for-item="user" wx:key="{{ user.user_sn }}" src="{{ user.user_logo }}" class="user-avatar"></image>
           </view>
           <view class="avatars" wx:else>
             <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
@@ -82,13 +78,7 @@
 
       <!-- 弹幕 -->
       <view class="doomm-view">
-        <view 
-          wx:if="{{ doomm.display }}"
-          wx:for="{{ doommData }}" 
-          wx:for-item="doomm"
-          wx:key="id"
-          class="doomm {{ doomm.color }}"
-          style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
+        <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
           <image class="avatar" src="{{ doomm.avatar }}"></image>
           <view class="adv">
             {{ doomm.name }}获得
@@ -211,7 +201,8 @@
             </button>
           </view>
         </view>
-
+      </view>
+      <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadMyFriends" class="invite-list invite-list--scroll" wx:if="{{ friendActiveTab == 'mine' }}">
         <view class="invite-item" wx:for="{{ friendList }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}">
           <image src="{{ friend.user_logo }}" class="avatar"></image>
           <span>{{ friend.user_name }}</span>
@@ -219,7 +210,7 @@
             <button class="btn-steal" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
           </view>
         </view>
-      </view>
+      </scroll-view>
 
       <view class="invite-list" wx:if="{{ friendActiveTab == 'guess' }}">
         <view class="invite-item mine">
@@ -231,7 +222,9 @@
             </button>
           </view>
         </view>
+      </view>
 
+      <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadGuessFriends" class="invite-list invite-list--scroll" wx:if="{{ friendActiveTab == 'guess' }}">
         <view class="invite-item" wx:for="{{ guessFriendList }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}">
           <image src="{{ friend.user_logo }}" class="avatar"></image>
           <span>{{ friend.user_name }}</span>
@@ -239,7 +232,8 @@
             <button class="btn-steal" data-idx="{{ index }}" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
           </view>
         </view>
-      </view>
+      </scroll-view>
+
     </view>
   </fx-game-modal>
 
@@ -284,7 +278,9 @@
             <text class="currency">￥</text>{{ currentUserTop.user_amount }}
           </view>
         </view>
+      </view>
 
+      <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadTopWorld" class="top-list top-list--scroll" wx:if="{{ activeTopTab == 'world' }}">
         <view wx:if="{{ topWorld.length > 0 }}" class="top-item" wx:for="{{ topWorld }}" wx:key="{{ item.code }}">
           <view class="number">
             <view class="ranking">
@@ -314,7 +310,7 @@
             <span>￥</span>{{ item.cumulative_amount }}
           </view>
         </view>
-      </view>
+      </scroll-view>
 
       <view class="top-list" wx:if="{{ activeTopTab == 'friend' }}">
         <view class="top-item top-head">
@@ -343,7 +339,9 @@
             <text class="currency">￥</text>{{ currentUserTop.user_amount }}
           </view>
         </view>
+      </view>
 
+      <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadTopFriend" class="top-list top-list--scroll" wx:if="{{ activeTopTab == 'friend' }}">
         <view wx:if="{{ topFriend.length > 0 }}" class="top-item" wx:for="{{ topFriend }}" wx:key="{{ item.code }}">
           <view class="number">
             <view class="ranking">
@@ -374,13 +372,13 @@
           </view>
         </view>
 
-        <!-- 当好友榜没有数据时 -->
-        <view class="top-empty" wx:if="{{ topFriend.length === 0 }}">
-          <image src="https://static.moebeast.com/static/img/game/empty.png"></image>
-          <view>你的好友还没有参与游戏</view>
-          <view>邀请好友一起来猜图吧</view>
-          <button class="invite-friend" bindtap="handleInviteFriend">邀请好友</button>
-        </view>
+      </scroll-view>
+      <!-- 当好友榜没有数据时 -->
+      <view class="top-empty" wx:if="{{ topFriend.length === 0 }}">
+        <image src="https://static.moebeast.com/static/img/game/empty.png"></image>
+        <view>你的好友还没有参与游戏</view>
+        <view>邀请好友一起来猜图吧</view>
+        <button class="invite-friend" bindtap="handleInviteFriend">邀请好友</button>
       </view>
     </view>
   </fx-game-modal>

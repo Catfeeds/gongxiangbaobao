@@ -280,10 +280,10 @@ Page({
     money += prize.amount
     this.setData({
       'myAccount.bonus_amount': cnt,
-      'myAccount.amount': money
+      'myAccount.amount': money.toFixed(2)
     })
   },
-
+  
   // 验证对象是否为空
   _isEmpty(obj) {
     console.log(obj, '对象是否为空')

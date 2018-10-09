@@ -498,6 +498,12 @@ page {
   height: 53rpx;
 }
 
+.top-list--scroll {
+  height: 675rpx;
+}
+.invite-list--scroll {
+  height: 718rpx;
+}
 .top-item .number .avatar {
   margin-right: 20rpx;
 }

@@ -41,6 +41,7 @@ Page({
     myAccount: {
       amount: 0,
       bonus_amount: 0,
+      bonus_quantity: 0,
       play_times: 1, // 1小时内玩的次数
       cash_price: 0 // 可提现金额
     },
@@ -66,9 +67,11 @@ Page({
     // 好友列表
     friendList: [],
     friendPage: 1,
+    friendNext: false,
     // 可能认识好友列表
     guessFriendList: [],
     guessFriendPage: 1,
+    guessFriendNext: false,
 
     // 排行榜
     activeTopTab: 'world',
@@ -131,6 +134,50 @@ Page({
         topFriendPage: 1
       })
       this.getTopFriend()
+    }
+  },
+
+  // 滚动加载世界榜
+  handleLoadTopWorld () {
+    if (this.data.topWorldNext) {
+      let page = this.data.topWorldPage + 1
+      this.setData({
+        topWorldPage: page
+      })
+      this.getTopWorld()
+    }
+  },
+
+  // 滚动加载好友榜
+  handleLoadTopFriend () {
+    if (this.data.topFriendNext) {
+      let page = this.data.topFriendPage + 1
+      this.setData({
+        topFriendPage: page
+      })
+      this.getTopFriend()
+    }
+  },
+
+  // 滚动加载我的好友
+  handleLoadMyFriends () {
+    if (this.data.friendNext) {
+      let page = this.data.friendPage + 1
+      this.setData({
+        friendPage: page
+      })
+      this.getFriendList()
+    }
+  },
+
+  // 滚动加载可能认识的好友
+  handleLoadGuessFriends () {
+    if (this.data.guessFriendNext) {
+      let page = this.data.guessFriendPage + 1
+      this.setData({
+        guessFriendPage: page
+      })
+      this.getGuessFriendList()
     }
   },
 
@@ -273,7 +320,6 @@ Page({
 
   // 隐藏邀请框
   handleHideInviteModal () {
-    console.log('hide invite modal')
     this.setData({
       showInviteSuccessModal: false
     })
@@ -362,7 +408,8 @@ Page({
       console.log(res, '好友列表')
       if (res.success) {
         this.setData({
-          friendList: res.data.friend_list
+          friendList: res.data.friend_list,
+          friendNext: res.data.next ? true : false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -380,7 +427,8 @@ Page({
       console.log(res, '认识的好友列表')
       if (res.success) {
         this.setData({
-          guessFriendList: res.data.friend_list
+          guessFriendList: res.data.friend_list,
+          guessFriendNext: res.data.next ? true : false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -438,8 +486,10 @@ Page({
     http.fxGet(api.question_all_rewards, {}, (res) => {
       console.log(res, '用户所有奖励')
       if (res.success) {
+        let account = res.data
+        account.amount = account.amount.toFixed(2)
         this.setData({
-          myAccount: res.data
+          myAccount: account
         })
         wx.setStorageSync('userGameAccount', res.data)
       } else {

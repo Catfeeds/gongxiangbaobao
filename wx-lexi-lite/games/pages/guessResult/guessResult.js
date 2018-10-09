@@ -42,6 +42,11 @@ Page({
   handleHidePauseModal () {
     this.setData({
       showPauseModal: false
+    }, () => {
+      // 返回游戏首页
+      wx.navigateTo({
+        url: '../guessGame/guessGame',
+      })
     })
   },
 
@@ -290,6 +295,11 @@ Page({
       success: function (res) {
         console.log('转发成功')
         app.updateGameShare()
+
+        // 返回游戏首页
+        wx.navigateTo({
+          url: '../guessGame/guessGame',
+        })
       },
       fail: function (res) {
         console.log('转发失败')
