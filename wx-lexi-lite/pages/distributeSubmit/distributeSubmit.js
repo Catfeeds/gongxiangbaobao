@@ -18,14 +18,14 @@ Page({
     form: {
       stick_text: ''
     },
-    product: {}
+    product: {},
+    index:''
   },
 
   /**
    * 推荐语变化
    */
   handleChangeStickText(e) {
-    console.log(e)
     this.setData({
       'form.stick_text': e.detail.value
     })
@@ -43,7 +43,7 @@ Page({
       sid: this.data.sid,
       stick_text: this.data.form.stick_text
     }
-    this._handleUpdateMyDistributed()
+
     http.fxPost(api.distribution_sell, data, (res) => {
       wx.hideLoading()
       console.log(res, '上架分销')
@@ -51,13 +51,37 @@ Page({
         wx.navigateBack({
           delta: 1
         })
-        
+        this._handleUpdateMyDistributed()
+        this._handleParentBtn()
       } else {
         utils.fxShowToast(res.status.message)
       }
     })
   },
 
+  /**
+   * 处理上一页的按钮样式
+   */
+  _handleParentBtn() {
+    let pagePath = getCurrentPages()
+    let parentPage = pagePath[pagePath.length - 2]
+    let index = this.data.index
+    if (parentPage.data.pageActiveTab == 'all') {
+      parentPage.setData({
+        ['allProducts[' + index +'].have_distributed']:true
+      })
+    }
+
+    if (parentPage.data.pageActiveTab == 'stick') {
+      parentPage.setData({
+        ['stickedProducts[' + index + '].have_distributed']: true
+      })
+    }
+  },
+
+  /**
+   * 处理首页的分销
+   */
   _handleUpdateMyDistributed() {
     let pagePath = getCurrentPages()
     let indexPage = pagePath[pagePath.length - 3]
@@ -91,7 +115,8 @@ Page({
   onLoad: function(options) {
     console.log(options.rid)
     this.setData({
-      rid: options.rid
+      rid: options.rid,
+      index: options.index
     })
 
     // 从本地缓存中获取数据

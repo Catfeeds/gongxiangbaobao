@@ -40,12 +40,12 @@ Page({
         title: '新品首发'
       }
     ],
-    stickedProducts: {}, // 推荐分销-官方
+    stickedProducts: {}, // 推荐分销-官方--------
     advertises: [], // 推荐广告图
     storeHeadlines: [], // 生活馆头条
 
     totalCount: 0, // 商品总数
-    allProducts: {}, // 全部分销商品
+    allProducts: {}, // 全部分销商品------
 
     showSortModal: false, // 排序
     showIncomeModal: false, // 利润
@@ -466,9 +466,10 @@ Page({
    * 跳转分销上架
    */
   handleGoSale(e) {
+    let index = e.currentTarget.dataset.idx
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid
+      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid + '&index=' + index
     })
   },
 

@@ -210,7 +210,9 @@
     <view class='flex-1 time-top share-tap'>
       <image src='../../images/icons/icon-share@3x.png'></image>
     </view>
-
   </view>
+
+    <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
 </view>

@@ -42,9 +42,10 @@
   </view>
 
   <view class="store-income__wrapper">
-    <view class="store-income">
-      <image src="../../../images/icon-eye-white@3x.png" wx:if="{{ setIncomeStar }}" class="icon-eye" bindtap="handleSecretIncome"></image>
-      <image src="../../../images/icon-eye-white-close@3x.png" wx:else class="icon-eye" bindtap="handleSecretIncome"></image>
+    <view class="store-income" catchtap="handleGoTrade">
+      <image src="/images/icon-eye-white@3x.png" wx:if="{{! setIncomeStar }}" class="icon-eye" catchtap="handleSecretIncome"></image>
+      <image src="/images/icon-eye-white-close@3x.png" wx:else class="icon-eye" catchtap="handleSecretIncome"></image>
+
       <text>生活馆累计收益</text>
       <text class="unit">(元)</text>
       <view class="amount" wx:if="{{ !setIncomeStar }}">{{ collect.total_commission_price }}</view>
@@ -78,11 +79,11 @@
       </view>
 
       <view class="order-total-amount" bindtap="handleGoWithdraw">
-      <image class="huise-jiantou"  src="../../../images/hui-jian-tou@3x.png"></image>
+        <image class="huise-jiantou"  src="../../../images/hui-jian-tou@3x.png"></image>
         <view class="title">
           可提现金额
           <text>（元）</text>
-          <image src="../../../images/icon-eye@3x.png" wx:if="{{ setWithdrawStar }}" class="icon-eye" catchtap="handleSecretWithdraw"></image>
+          <image src="../../../images/icon-eye@3x.png" wx:if="{{ !setWithdrawStar }}" class="icon-eye" catchtap="handleSecretWithdraw"></image>
           <image src="../../../images/icon-eye-close@3x.png" wx:else class="icon-eye" catchtap="handleSecretWithdraw"></image>
         </view>
         <label class="count" wx:if="{{ setWithdrawStar }}">

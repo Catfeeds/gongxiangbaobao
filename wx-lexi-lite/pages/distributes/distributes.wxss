@@ -284,3 +284,18 @@
   text-align: center;
   margin-top: 40rpx;
 }
+
+.distribute-over__btn {
+  width: 160rpx;
+  height: 50rpx;
+  font-size: 28rpx;
+  border-radius: 25rpx;
+  color: white;
+  background-color: #2d343a;
+  opacity: 0.5;
+  line-height: 28rpx;
+}
+
+.product-item__actions {
+  align-items: flex-start;
+}
