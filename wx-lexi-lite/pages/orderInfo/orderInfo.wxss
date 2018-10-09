@@ -110,7 +110,7 @@
 
 .sku__price{
   position: absolute;
-  top: 44rpx;
+  top: 76rpx;
   left: 150rpx;
   font-size: 24rpx;
   color: #999999;

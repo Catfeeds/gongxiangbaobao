@@ -329,7 +329,7 @@ App({
         lastVisitLifeStoreRid = lifeStore.lifeStoreRid
       }
     }
-
+    console.log(lastVisitLifeStoreRid)
     return lastVisitLifeStoreRid
   },
 
