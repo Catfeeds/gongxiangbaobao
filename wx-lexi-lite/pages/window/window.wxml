@@ -61,15 +61,15 @@
         <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
           <view class="image-container">
             <view class="image-item">
-              <image src="{{item.product_covers[0]}}" class="photo"></image>
+              <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
             </view>
           </view>
           <view class="image-container half">
             <view class="image-item">
-              <image src="{{item.product_covers[1]}}" class="photo"></image>
+              <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
             </view>
             <view class="image-item">
-              <image src="{{item.product_covers[2]}}" class="photo"></image>
+              <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
               <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
             </view>
           </view>
@@ -89,7 +89,7 @@
                 catchtap="handleAddLike"
                 data-rid="{{item.rid}}"
                 src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-              <image  src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+              <image wx:if="{{}}"  src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
             </view>
             <view class="remark">
               <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
@@ -98,7 +98,7 @@
           </view>
           <view class="share">
             <view class="done">
-              <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+              <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
             </view>
           </view>
         </view>
@@ -144,15 +144,15 @@
         <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
           <view class="image-container">
             <view class="image-item">
-              <image src="{{item.product_covers[0]}}" class="photo"></image>
+              <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
             </view>
           </view>
           <view class="image-container half">
             <view class="image-item">
-              <image src="{{item.product_covers[1]}}" class="photo"></image>
+              <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
             </view>
             <view class="image-item">
-              <image src="{{item.product_covers[2]}}" class="photo"></image>
+              <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
               <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
             </view>
           </view>
@@ -173,7 +173,7 @@
                 data-rid="{{item.rid}}"
                 src="../../images/icons/icon-like@3x.png" 
                 class="icon-like"></image>
-              <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+              <image wx:if="{{}}" src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
             </view>
             <view class="remark">
               <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>

@@ -691,7 +691,7 @@
   </fx-modal>
 
   <!-- 分享的悬浮按钮 -->
-  <view class='time-top suspend-share bg-white font-s'>
+  <view class='time-top suspend-share bg-white font-s' wx:if="{{pageActiveTab=='lifeStore'}}">
     <view class='suspend-share_box c-theme-bg c-middle'>
       <image src='../../images/fei@2.png'></image>
     </view>

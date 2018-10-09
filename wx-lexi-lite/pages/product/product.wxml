@@ -466,10 +466,12 @@
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
       </view>
       <view class="distribute-style">
-        <button class="share-friend wxa-card" open-type="share">
+        <view class="share-friend wxa-card" >
+                  <button class="share-btn" open-type="share"></button>
           <image src="{{ productInfomation.cover }}" class="cover"></image>
           <text>点击直接分享好友样式</text>
-        </button>
+
+        </view>
 
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
@@ -480,10 +482,11 @@
         </view>
       </view>
       <view class="distribute-action">
-        <button class="share-friend" open-type="share">
+        <view class="share-friend" >
+        <button class="share-btn" open-type="share"></button>
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
-        </button>
+        </view>
         <view class="share-save" bindtap="handleSaveShare">
           <image src="../../images/save@2.png" class="icon-save"></image>
           <text>{{ posterBtnText }}</text>

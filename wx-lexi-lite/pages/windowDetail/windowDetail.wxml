@@ -24,20 +24,20 @@
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
-        <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }});" data-rid="{{windowDetail.products[0].rid}}"></view>
+        <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
         <view class="flex-direction--column">
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30);" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-p30);" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
         </view>
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 5 }}">
         <view class="image-container">
-          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }});" data-rid="{{windowDetail.products[0].rid}}"></view>
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
         </view>
         <view class="image-container half">
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}" class="image-item"></view>
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}" class="image-item"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-plc);" data-rid="{{windowDetail.products[1].rid}}" class="image-item"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-plc);" data-rid="{{windowDetail.products[2].rid}}" class="image-item"></view>
         </view>
         <view class="image-container half-h">
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }});" data-rid="{{windowDetail.products[3].rid}}" class="image-item">
@@ -49,12 +49,12 @@
 
       <view class="fx-window__images seven" wx:if="{{ windowDetail.product_count == 7 }}">
         <view class="image-container three">
-          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }});" data-rid="{{windowDetail.products[0].rid}}"></view>
-          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }});" data-rid="{{windowDetail.products[1].rid}}"></view>
+          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p30);" data-rid="{{windowDetail.products[0].rid}}"></view>
+          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30);" data-rid="{{windowDetail.products[1].rid}}"></view>
           <view class="image-item " catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}"></view>
         </view>
         <view class="image-container one">
-          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }});" data-rid="{{windowDetail.products[3].rid}}"></view>
+          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }}-p50);" data-rid="{{windowDetail.products[3].rid}}"></view>
         </view>
         <view class="image-container three-h">
           <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[4].cover }});" data-rid="{{windowDetail.products[4].rid}}">
@@ -71,14 +71,14 @@
           <view class="done">
             <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like"></image>
             <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}"src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like"></image>
-            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment" wx:if="{{}}"></image>
           </view>
           <view class="remark">
             <text wx:if="{{windowDetail.like_count!=0}}">{{windowDetail.like_count}}喜欢</text>
             <text wx:if="{{windowDetail.comment_count!=0}}">· {{windowDetail.comment_count}}条评论</text>
           </view>
         </view>
-        <view class="share">
+        <view class="share" wx:if="{{}}">
           <view class="done">
             <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
           </view>
