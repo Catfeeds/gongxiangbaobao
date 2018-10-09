@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 16,
 			"list": [
 				{
 					"id": 0,
@@ -110,7 +110,31 @@
 				{
 					"id": 12,
 					"name": "游戏",
-					"pathName": "games/pages/guessGame/guessGame",
+					"pathName": "games/pages/guessGamePlay/guessGamePlay",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "c1",
+					"pathName": "pages/categoryJewelry/categoryJewelry",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "bags",
+					"pathName": "pages/categoryBags/categoryBags",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "life",
+					"pathName": "pages/categoryLife/categoryLife",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "list",
+					"pathName": "pages/categoryList/categoryList",
 					"query": ""
 				}
 			]

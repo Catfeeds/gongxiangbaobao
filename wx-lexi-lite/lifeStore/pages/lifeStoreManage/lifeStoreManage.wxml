@@ -150,7 +150,8 @@
 
   <!--待结算提示-->
   <fx-modal-v 
-    visible="{{ showModal }}">
+    visible="{{ showModal }}"
+    marginTop="300">
     <view class="modal-body">
       待结算金额需用户确认签收订单后，7个工作日内未发生退款，则可入账并提现。如在7日内有退款行为，扣除相应收益。
     </view>

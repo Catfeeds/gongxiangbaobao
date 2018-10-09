@@ -103,7 +103,8 @@ Page({
     showStealFailModal: false,
     
     // 弹幕列表
-    doommData: []
+    doommData: [],
+    offsetDommTimer: null
   },
 
   // 返回到小程序的首页
@@ -115,6 +116,8 @@ Page({
 
   // 开始游戏
   handleStartPlay() {
+    clearInterval(this.data.offsetDommTimer)
+    
     this.getTestQuestion()
   },
 
@@ -542,19 +545,29 @@ Page({
     })
   },
 
+  // 重建弹幕
+  rebuildDoomm(result) {
+    let that = this
+    let t = setInterval(() => {
+      if (result.length > 0) {
+        let firstItem = result.shift()
+        doommList.push(new Doomm(firstItem.user_name, firstItem.user_logo, firstItem.amount, Math.ceil(Math.random() * 80), Math.ceil(Math.random() * 10), utils.getRandomColor()))
+        that.setData({
+          doommData: doommList
+        })
+      } else {
+        clearInterval(t)
+      }
+    }, 1500)
+  },
+
   // 弹幕：奖励消息
   getDoommList() {
     let that = this
     http.fxGet(api.question_reward_message, {}, (res) => {
       console.log(res, '弹幕列表')
       if (res.success) {
-        res.data.reward_message.map(d => {
-          doommList.push(new Doomm(d.user_name, d.user_logo, d.amount, Math.ceil(Math.random() * 100), Math.ceil(Math.random() * 10), utils.getRandomColor()))
-        })
-        
-        that.setData({
-          doommData: doommList
-        })
+        that.rebuildDoomm(res.data.reward_message)
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -626,9 +639,13 @@ Page({
 
     // 获取弹幕
     let that = this
-    setTimeout(() => {
-      that.getDoommList()
-    }, 5000)
+    that.getDoommList()
+
+    this.setData({
+      offsetDommTimer: setInterval(() => {
+        that.getDoommList()
+      }, 10000)
+    })
   },
 
   /**

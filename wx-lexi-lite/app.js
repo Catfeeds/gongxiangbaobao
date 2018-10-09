@@ -363,7 +363,7 @@ App({
     return {
       title: title,
       path: 'pages/product/product?scene=' + scene,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl + '-pwxa',
       success: (res) => {
         console.log(res, '分享商品成功!')
       }

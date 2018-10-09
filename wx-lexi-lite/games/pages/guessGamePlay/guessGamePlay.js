@@ -39,6 +39,8 @@ Page({
 
     isAnswered: false, // 是否回答过
     answerResult: false, // 回答是否正确
+    haveMoney: false, // 是否有现金
+    haveCoupon: false, // 是否有优惠券
     // 当前问题
     currentQuestion: {},
     currentIndex: 0,
@@ -50,13 +52,14 @@ Page({
     lastPlayers: [],
 
     // 弹幕列表
+    offsetDommTimer: null,
     doommData: [],
 
     showText: '乐喜',
-    step: 1,// 计数动画次数
-    num: 0,// 计数倒计时秒数（n - num）
-    end: 1.5 * Math.PI,// 开始的弧度
-    start: -0.5 * Math.PI,// 结束的弧度
+    step: 1, // 计数动画次数
+    num: 0, // 计数倒计时秒数（n - num）
+    end: 1.5 * Math.PI, // 开始的弧度
+    start: -0.5 * Math.PI, // 结束的弧度
     timer: null, // 计时器容器
     animationTime: 100, // 每1秒运行一次计时器
     n: 100 // 当前倒计时为10秒
@@ -119,6 +122,7 @@ Page({
         utils.fxShowToast(res.status.message)
         // 停止获取参与人数
         clearInterval(this.data.offsetTimer)
+        clearInterval(this.data.offsetDommTimer)
 
         // 跳回游戏
         wx.navigateBack({
@@ -136,6 +140,8 @@ Page({
       this.setData({
         isAnswered: false,
         answerResult: false,
+        haveMoney: false,
+        haveCoupon: false,
         currentAnswer: {},
         currentAnswerIdx: -1,
         currentIndex: newIndex,
@@ -163,10 +169,18 @@ Page({
   gameOver() {
     // 停止获取参与人数
     clearInterval(this.data.offsetTimer)
+    clearInterval(this.data.offsetDommTimer)
 
-    // 跳转结果页
-    wx.redirectTo({
-      url: '../guessResult/guessResult?test_id=' + this.data.testId ,
+    wx.showToast({
+      title: '正在计算...',
+      image: '../../../images/jiazai.gif',
+      duration: 5000,
+      success: () => {
+        // 跳转结果页
+        wx.redirectTo({
+          url: '../guessResult/guessResult?test_id=' + this.data.testId,
+        })
+      }
     })
   },
 
@@ -252,19 +266,29 @@ Page({
     })
   },
 
+  // 重建弹幕
+  rebuildDoomm(result) {
+    let that = this
+    let t = setInterval(() => {
+      if (result.length > 0) {
+        let firstItem = result.shift()
+        doommList.push(new Doomm(firstItem.user_name, firstItem.user_logo, firstItem.amount, Math.ceil(Math.random() * 60), Math.ceil(Math.random() * 10), utils.getRandomColor()))
+        that.setData({
+          doommData: doommList
+        })
+      } else {
+        clearInterval(t)
+      }
+    }, 1500)
+  },
+
   // 弹幕：奖励消息
   getDoommList() {
     let that = this
     http.fxGet(api.question_reward_message, {}, (res) => {
       console.log(res, '弹幕列表')
       if (res.success) {
-        res.data.reward_message.map(d => {
-          doommList.push(new Doomm(d.user_name, d.user_logo, d.amount, Math.ceil(Math.random() * 100), Math.ceil(Math.random() * 10), utils.getRandomColor()))
-        })
-
-        that.setData({
-          doommData: doommList
-        })
+        that.rebuildDoomm(res.data.reward_message)
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -275,15 +299,18 @@ Page({
   _increaseBonusCount(prize) {
     console.log('回答正确奖励')
     let cnt = this.data.myAccount.bonus_amount
-    let money = this.data.myAccount.amount
+    let money = parseFloat(this.data.myAccount.amount)
     cnt += 1
-    money += prize.amount
+    money += parseFloat(prize.amount)
+    console.log(money)
     this.setData({
+      haveMoney: prize.amount > 0 ? true : false,
+      haveCoupon: prize.bonus_amount > 0 ? true : false,
       'myAccount.bonus_amount': cnt,
-      'myAccount.amount': money.toFixed(2)
+      'myAccount.amount': parseFloat(money).toFixed(2)
     })
   },
-  
+
   // 验证对象是否为空
   _isEmpty(obj) {
     console.log(obj, '对象是否为空')
@@ -292,11 +319,11 @@ Page({
     }
     return false
   },
-  
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     page = this
 
     wx.getSystemInfo({
@@ -334,58 +361,61 @@ Page({
 
     let that = this
     // 获取弹幕
-    setTimeout(() => {
-      that.getDoommList()
-    }, 5000)
-    
+    that.getDoommList()
+
+    this.setData({
+      offsetDommTimer: setInterval(() => {
+        that.getDoommList()
+      }, 10000)
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     this.drawProgressbg()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (options) {
+  onShareAppMessage: function(options) {
     console.log(options, '分享游戏')
     // scene格式：uid + '-' + code
     const jwt = wx.getStorageInfoSync('jwt')
@@ -394,11 +424,11 @@ Page({
       title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
       path: '/games/pages/guessGame/guessGame?scene=' + scene,
       imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
-      success: function (res) {
+      success: function(res) {
         console.log('转发成功')
         app.updateGameShare()
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('转发失败')
       }
     }
@@ -418,11 +448,11 @@ class Doomm {
 
     let that = this
     this.id = k++
-    setTimeout(function () {
-      doommList.splice(doommList.indexOf(that), 1) // 动画完成，从列表中移除这项
-      page.setData({
-        doommData: doommList
-      })
-    }, this.time * 1000) // 定时器动画完成后执行。
+      setTimeout(function() {
+        doommList.splice(doommList.indexOf(that), 1) // 动画完成，从列表中移除这项
+        page.setData({
+          doommData: doommList
+        })
+      }, this.time * 1000) // 定时器动画完成后执行。
   }
 }
