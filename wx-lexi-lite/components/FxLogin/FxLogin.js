@@ -43,6 +43,8 @@ Component({
       this.setData({
         showBindForm: false
       })
+      wx.showTabBar()
+      this.triggerEvent('closeEvent')
     },
 
     /**
