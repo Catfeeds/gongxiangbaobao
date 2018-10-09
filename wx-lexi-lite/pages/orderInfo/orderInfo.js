@@ -41,7 +41,6 @@ Page({
           v.created_item = utils.timestamp2string(v.created_at, "cn")
         })
 
-        // result.data.created_item = utils.timestamp2string(result.data.orders[0].created_at,"cn")
         this.setData({
           orderInfo: result.data
         })
