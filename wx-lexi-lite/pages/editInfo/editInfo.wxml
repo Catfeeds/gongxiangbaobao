@@ -15,7 +15,8 @@
       <!-- 用户名字 -->
       <label class='componentTwo padding-bottom--16rpx'>
         <view>用户名</view>
-        <input bindinput='handleNameInput' placeholder-class='placeholder' value='{{ editUserInfo.username }}' class='userInput' placeholder='输入姓名'></input>
+        <input bindinput='handleNameInput' 
+        maxlength="{{9}}" placeholder-class='placeholder' value='{{ editUserInfo.username }}' class='userInput' placeholder='输入姓名'></input>
       </label>
       <!-- 个人介绍 -->
       <label class='componentTwo pading-bottom--14rpx'>

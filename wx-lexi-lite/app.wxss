@@ -727,7 +727,7 @@ image {
   background-repeat: no-repeat, no-repeat; 
   background-size: 32rpx,100%; 
   background-position: 50%,0; */
-  background-color: #d4dad0;
+  background-color: #F6F7FB;
 }
 
 .load-over__null--photo {

@@ -118,7 +118,7 @@ display: inline-block;
   background-repeat: no-repeat; 
   background-size: 32rpx; 
   background-position: 50%; */
-  background-color: #D4DAD0;
+  /* background-color: #D4DAD0; */
 }
 
 .photoBox>.active {

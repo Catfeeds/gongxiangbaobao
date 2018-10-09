@@ -34,7 +34,7 @@
             <text>  
         <text class='hui-zi'>配送：</text>
             <text class='expenses' wx:if="{{item.freight==0}}">免费</text>
-            <text class='expenses' wx:else>{{item.freight}}</text>
+            <text class='expenses' wx:else>￥{{item.freight}}</text>
             </text>
             <text class='redtext'>￥{{item.pay_amount}}</text>
           </view>
@@ -59,6 +59,8 @@
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  2 }}">待收货</text>
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  3 }}">待评价</text>
               <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  4 }}">待付款</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  5 }}">已完成</text>
+              <text class='font-s theme-green' wx:if="{{ item.user_order_status ==  6 }}">已取消</text>
 
               </text>
               <text class='hui-zi'>{{item.store.delivery_province}}</text>
@@ -78,9 +80,8 @@
             </view>
           </view>
 
-
           <!-- 物流跟踪 -->
-          <view catchtap='logisticsTap' data-code="{{sku.items[0].express_code}}" data-express-name="{{sku.items[0].express_name}}" data-logistics-number="{{sku.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
+          <view catchtap='logisticsTap' wx:if="{{item.user_order_status==2 || item.user_order_status==3|| item.user_order_status==5}}" data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
             <view class='colimn-B'>
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>
@@ -90,7 +91,22 @@
                 <view>第三方直邮</view>
               </view>
             </view>
-            <view class='green-btn' wx:if="{{ sku.items[0].express_no }}">
+            <view class='green-btn' wx:if="{{ item.items[0].express_no }}">
+              物流跟踪
+            </view>
+          </view>
+
+          <view  wx:else data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
+            <view class='colimn-B'>
+              <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
+              <view class='time-top'>
+                <view class='logistics-icon'>
+                  <image></image>
+                </view>
+                <view>第三方直邮</view>
+              </view>
+            </view>
+            <view class='green-btn' wx:if="{{ item.items[0].express_no }}">
               物流跟踪
             </view>
           </view>
@@ -109,7 +125,7 @@
       </view>
 
     </block>
-    
+
     <!-- 垫片 -->
     <view class='shm'></view>
   </block>

@@ -18,11 +18,11 @@
     </view>
     <!-- right 信息 -->
     <view class='info-box-R'>
-      <view class='quadrate paymentFnTextB'>
+      <view class='quadrate flex_row'>
         <view class='quadrate-view'></view>
         <text>{{ item.start_time }}至{{ item.end_time }}</text>
       </view>
-      <view class='shop-icon paymentFnTextB'>
+      <view class='shop-icon flex_row'>
         <view>
           <image src='{{ item.store_logo }}'></image>
         </view>
@@ -52,11 +52,11 @@
     </view>
     <!-- right 信息 -->
     <view class='info-box-R'>
-      <view class='quadrate paymentFnTextB'>
+      <view class='quadrate flex_row'>
         <view class='quadrate-view'></view>
         <text>{{item.start_time}}至{{item.end_time}}</text>
       </view>
-      <view class='paymentFnTextB lx-coupon--text'>
+      <view class=' flex_row lx-coupon--text'>
         <view class='font-xss'>
           乐喜券
         </view>

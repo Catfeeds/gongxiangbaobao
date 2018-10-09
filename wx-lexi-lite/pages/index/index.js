@@ -765,7 +765,7 @@ Page({
     this.setData({
       sid: sid,
       pageActiveTab: 'lifeStore',
-      storeOwner: userInfo,
+      // storeOwner: ,
       canAdmin: true
     })
 
