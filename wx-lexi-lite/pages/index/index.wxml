@@ -26,7 +26,7 @@
       <view class=' flex_row'>
         <!-- 店主信息 -->
         <view class='owner-avatar_box'>
-          <image style="border-radius:8rpx" src="{{ lifeStore.logo }}"></image>
+          <image style="border-radius:8rpx" src="{{ lifeStore.logo }}" bindtap="{{canAdmin?'handleChangeLogo':''}}"></image>
           <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" wx:if="{{ canAdmin }}"></image>
           <!-- 进度条 -->
           <view class="upload-status__box" wx:if="{{ isUploading }}">
@@ -34,7 +34,7 @@
           </view>
         </view>
 
-        <view class="fx-column-start owner-info-text_info">
+        <view class="fx-column-start owner-info-text_info"  bindtap="{{canAdmin?'handleEditStore':''}}">
           <view class="store-title">
             <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
             <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
