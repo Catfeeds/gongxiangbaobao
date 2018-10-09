@@ -74,6 +74,17 @@ page {
   border: 3rpx solid rgba(122, 68, 161, 1);
 }
 
+/* 弹幕 */
+
+.doomm-view {
+  position: absolute;
+  top: 100rpx;
+  height: 120rpx;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
 .play-box {
   position: relative;
   display: flex;

@@ -7,6 +7,11 @@ const http = require('./../../../utils/http.js')
 const api = require('./../../../utils/api.js')
 const utils = require('./../../../utils/util.js')
 
+let page = undefined
+let doommList = []
+// 用做唯一的wx:key
+let k = 0
+
 Page({
 
   /**
@@ -39,6 +44,9 @@ Page({
     // 最近玩家
     offsetTimer: null, // 时间句柄
     lastPlayers: [],
+
+    // 弹幕列表
+    doommData: [],
 
     showText: '乐喜',
     step: 1,// 计数动画次数
@@ -239,6 +247,25 @@ Page({
     })
   },
 
+  // 弹幕：奖励消息
+  getDoommList() {
+    let that = this
+    http.fxGet(api.question_reward_message, {}, (res) => {
+      console.log(res, '弹幕列表')
+      if (res.success) {
+        res.data.reward_message.map(d => {
+          doommList.push(new Doomm(d.user_name, d.user_logo, d.amount, Math.ceil(Math.random() * 100), Math.ceil(Math.random() * 10), utils.getRandomColor()))
+        })
+
+        that.setData({
+          doommData: doommList
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
   // 答对问题，增加一个优惠券
   _increaseBonusCount() {
     console.log('回答正确奖励')
@@ -264,6 +291,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    page = this
+
     wx.getSystemInfo({
       success: (res) => {
         // 计算主体部分高度,单位为px
@@ -296,6 +325,13 @@ Page({
     this.setData({
       timer: setInterval(this.startAnimation, this.data.animationTime)
     })
+
+    let that = this
+    // 获取弹幕
+    setTimeout(() => {
+      that.getDoommList()
+    }, 5000)
+    
   },
 
   /**
@@ -362,3 +398,24 @@ Page({
   }
 
 })
+
+class Doomm {
+  constructor(name, avatar, amount, top, time, color) {
+    this.name = name
+    this.avatar = avatar
+    this.amount = amount
+    this.top = top
+    this.time = time
+    this.color = color
+    this.display = true
+
+    let that = this
+    this.id = k++
+    setTimeout(function () {
+      doommList.splice(doommList.indexOf(that), 1) // 动画完成，从列表中移除这项
+      page.setData({
+        doommData: doommList
+      })
+    }, this.time * 1000) // 定时器动画完成后执行。
+  }
+}

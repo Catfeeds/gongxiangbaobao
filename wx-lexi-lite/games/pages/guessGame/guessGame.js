@@ -484,14 +484,15 @@ Page({
 
   // 弹幕：奖励消息
   getDoommList() {
+    let that = this
     http.fxGet(api.question_reward_message, {}, (res) => {
       console.log(res, '弹幕列表')
       if (res.success) {
         res.data.reward_message.map(d => {
-          doommList.push(new Doomm(d.user_name, d.user_logo, d.amount, Math.ceil(Math.random() * 100), Math.ceil(Math.random() * 10), this._getRandomColor()))
+          doommList.push(new Doomm(d.user_name, d.user_logo, d.amount, Math.ceil(Math.random() * 100), Math.ceil(Math.random() * 10), utils.getRandomColor()))
         })
         
-        this.setData({
+        that.setData({
           doommData: doommList
         })
       } else {
@@ -500,19 +501,11 @@ Page({
     })
   },
 
-  // 随机获取弹幕的背景颜色
-  _getRandomColor() {
-    let rgb = ['red', 'purple', 'blue']
-    
-    return rgb[Math.floor(Math.random() * rgb.length)]
-  },
-
   // 获取游戏初始数据
   getInitData() {
     this.getPeopleStats()
     this.getStealBonusNotice()
     this.getAllRewards()
-    this.getDoommList()
 
     this.getStealBonusPeople()
     this.getTopWorld()
@@ -595,9 +588,6 @@ Page({
 
     wx.getSystemInfo({
       success: (res) => {
-        // 可使用窗口宽度、高度
-        console.log('height=' + res.windowHeight)
-        console.log('width=' + res.windowWidth)
         // 计算主体部分高度,单位为px
         this.setData({
           clientHeight: res.windowHeight
@@ -616,6 +606,12 @@ Page({
     }
 
     this.getInitData()
+
+    // 获取弹幕
+    let that = this
+    setTimeout(() => {
+      that.getDoommList()
+    }, 5000)
   },
 
   /**
