@@ -173,7 +173,8 @@
           </view>
           <view class='coupon-r  c-line-D'>
             <view>
-              <view class='font-m font-m--style'>满{{item.coupon.min_amount}}使用</view>
+              <view wx:if="{{item.coupon.min_amount!=0}}" class='font-m font-m--style'>满{{item.coupon.min_amount}}使用</view>
+              <view wx:else class='font-m font-m--style'>不限制</view>
               <view class='font-ss font-ss--style'>
                 <text class='fang'></text>
                 <text>{{item.start_time}}至{{item.end_time}}</text>
@@ -213,7 +214,8 @@
           </view>
           <view class='coupon-r  c-line-D'>
             <view>
-              <view class='font-m font-m--style'>满{{item.min_amount}}使用</view>
+              <view class='font-m font-m--style' wx:if="{{item.min_amount!=0}}">满{{item.min_amount}}使用</view>
+              <view class='font-m font-m--style' wx:else>不限制</view>
               <view class='font-ss font-ss--style'>
                 <text class='fang'></text>
                 <text>{{item.start_time}}至{{item.end_time}}</text>

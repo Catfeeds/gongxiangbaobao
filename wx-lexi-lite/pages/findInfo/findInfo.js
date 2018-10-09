@@ -20,7 +20,8 @@ Page({
     recommendProduct: '', // 相关故事推荐
     dkcontent: '', // 故事详情
     commentList: '', //评论的列表
-
+    is_mobile:false, // 登录模态框
+    
     // 获取评论的参数
     params: {
       page: 1, //Number	可选	1	当前页码

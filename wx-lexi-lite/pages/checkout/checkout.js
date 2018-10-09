@@ -97,8 +97,7 @@ Page({
   // 领取官方优惠券按钮后
   handleAuthoritativeCoupon(e) {
     console.log(this.data.orderInfomation, '订单参数')
-
-    app.globalData.orderParams.bonus_code = e.detail.value.code
+    console.log(e.detail)
 
     let item = this.data.orderInfomation
     Object.keys(item).forEach((key) => {
@@ -110,7 +109,9 @@ Page({
     let option = e.detail.value
     let coupon = JSON.parse(option)
     let couponAmount = coupon.amount-0
-    
+
+    app.globalData.orderParams.bonus_code = coupon.code
+
     this.setData({
       orderInfomation: item,
       authoritativeCouponPrice: couponAmount.toFixed(2),
@@ -213,6 +214,7 @@ Page({
         ['pageOrderInfo.couponPrice']: couponPriceSum-0
       }, () => {
         this.orderLastPrice() // 计算最后金额
+        console.log(app.globalData.orderParams.bonus_code)
       })
     })
 
@@ -227,7 +229,7 @@ Page({
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
       })
-
+      console.log(e.currentTarget.dataset.order_rid,'店铺的orderRid')
       this.setData({
         pickCoupon: coupon, // 选择的优惠券列表
         pickCouponProductId: e.currentTarget.dataset.order_rid // 优惠券店铺的id
