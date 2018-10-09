@@ -60,8 +60,11 @@
                 </view>
                 <image src="{{ item.product_path }}" class="cover"></image>
                 <view class="trade-name">{{ item.product_name }}</view>
-                <view class="trade-price">
+                <view class="trade-price" wx:if="{{ item.sale_price > 0 }}">
                   <span>￥</span>{{ item.sale_price }}
+                </view>
+                <view class="trade-price" wx:else>
+                  <span>￥</span>{{ item.price }}
                 </view>
                 <view class="sale">
                   <span class="use-coupon" wx:if="{{ item.sale_price != item.use_coupon_price }}">
