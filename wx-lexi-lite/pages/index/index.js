@@ -1550,6 +1550,7 @@ Page({
       if (lifeStore.isSmallB) {
         this.setData({
           'pageTabs[0].disabled': false,
+          sid: lifeStore.lifeStoreRid,
           canAdmin: true,
           isSmallB: true
         })

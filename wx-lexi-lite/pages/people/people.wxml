@@ -6,7 +6,6 @@
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
 
-
   <view class='top-box border-bottom'>
     <!-- 头像 -->
     <view class='user-photo'>
@@ -59,16 +58,16 @@
 
     <view class="">
       <view 
-        class='add-watch__btn' 
+        class='add-watch__btn flex_row--middle' 
         catchtap="hanleAddWatch"
         data-uid="{{otherPeopleUid}}" 
         wx:if="{{otherPeopleInfo.followed_status==0}}">
-        <text class='fx-icon-nothing-plus black-font'></text> 
+        <text class='fx-icon-nothing-plus margin-right--10rpx black-font'></text> 
         <text class='black-font'> 关注</text>
       </view>
 
       <view 
-        class='add-watch__btn already' 
+        class='add-watch__btn flex_row--middle already' 
         data-uid="{{otherPeopleUid}}"  
         catchtap="hanleDeleteWatch"
         wx:if="{{otherPeopleInfo.followed_status==1}}">
@@ -76,7 +75,7 @@
       </view>
 
       <view 
-        class='add-watch__btn already' 
+        class='add-watch__btn flex_row--middle already' 
         data-uid="{{otherPeopleUid}}"  
         catchtap="hanleDeleteWatch"
         wx:if="{{otherPeopleInfo.followed_status==2}}">

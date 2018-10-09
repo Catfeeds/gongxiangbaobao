@@ -194,7 +194,7 @@
 }
 
 .similar-windows scroll-view {
-  height: 600rpx;
+  height: 560rpx;
 }
 
 .comments, .suggestion, .similar-windows scroll-view {

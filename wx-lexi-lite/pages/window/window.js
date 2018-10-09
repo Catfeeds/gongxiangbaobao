@@ -85,6 +85,7 @@ Page({
       uid: uid
     }, result => {
       console.log(result, "添加关注")
+      this.getFollowWindow()
     })
   },
 

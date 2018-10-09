@@ -1219,7 +1219,8 @@ swiper-photo .slide-item__box image {
 
 .find-swiper__round {
   right: 10rpx;
-  bottom: -66rpx;
+  bottom: 60rpx;
+  height: 20rpx !important;
 }
 
 .swiper-false {
@@ -1241,7 +1242,7 @@ swiper-photo .slide-item__box image {
 }
 
 .bottom--86rpx {
-  bottom: -86rpx;
+  bottom: 24rpx;
 }
 
 .bg-black__half {

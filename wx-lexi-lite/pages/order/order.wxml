@@ -132,7 +132,7 @@
     <!-- 待发货订单 -->
     <view wx:if="{{currentStatus===1}}">
       <!-- 每一笔订单 -->
-      <view wx:for="{{daifa}}" wx:key="{{ index }}" data-rid='{{order.rid }}' wx:for-item="product" bindtap='handleViewDetail' class='component productAndShopInfoBox'>
+      <view wx:for="{{daifa}}" wx:key="{{ index }}" data-rid='{{product.rid }}' wx:for-item="product" bindtap='handleViewDetail' class='component productAndShopInfoBox'>
         <!-- 每一家商家  -->
         <view>
           <!-- 每一家商家  -->
