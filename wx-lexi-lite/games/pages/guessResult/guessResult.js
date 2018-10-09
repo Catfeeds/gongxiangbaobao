@@ -289,6 +289,7 @@ Page({
       imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
       success: function (res) {
         console.log('转发成功')
+        app.updateGameShare()
       },
       fail: function (res) {
         console.log('转发失败')

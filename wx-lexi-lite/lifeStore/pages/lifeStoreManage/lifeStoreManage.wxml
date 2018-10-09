@@ -78,7 +78,7 @@
       </view>
 
       <view class="order-total-amount" bindtap="handleGoWithdraw">
-      <image class="huise-jiantou"  src="../../images/hui-jian-tou@3x.png"></image>
+      <image class="huise-jiantou"  src="../../../images/hui-jian-tou@3x.png"></image>
         <view class="title">
           可提现金额
           <text>（元）</text>

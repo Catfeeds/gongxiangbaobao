@@ -26,7 +26,7 @@ Page({
     clientHeight: '',
 
     showRuleModal: false,
-    showInviteSuccessModal: true,
+    showInviteSuccessModal: false,
     showStealResultModal: false,
     stealBonusPeopleCount: 0, // 偷我红包的人数
     stealBonusPeopleList: [], // 偷我红包人列表
@@ -272,15 +272,10 @@ Page({
 
   // 隐藏邀请框
   handleHideInviteModal () {
+    console.log('hide invite modal')
     this.setData({
       showInviteSuccessModal: false
     })
-  },
-
-  // 邀请好友
-  handleInviteFriend() {
-    console.log('邀请好友')
-
   },
 
   // 好友、可能认识的人
@@ -467,10 +462,10 @@ Page({
     })
   },
 
-  // 获取统计人数
+  // 获取邀请信息
   getPeopleStats() {
-    http.fxGet(api.question_stats, {}, (res) => {
-      console.log(res, '统计人数')
+    http.fxGet(api.question_invite_info, {}, (res) => {
+      console.log(res, '邀请好友人数')
       if (res.success) {
         this.setData({
           peopleCount: res.data,
@@ -499,17 +494,6 @@ Page({
         utils.fxShowToast(res.status.message)
       }
     })
-  },
-
-  // 获取游戏初始数据
-  getInitData() {
-    this.getPeopleStats()
-    this.getStealBonusNotice()
-    this.getAllRewards()
-
-    this.getStealBonusPeople()
-    this.getTopWorld()
-    this.getFriendList()
   },
 
   /**
@@ -564,6 +548,23 @@ Page({
     }
   },
 
+  // 获取游戏初始数据
+  getInitData() {
+    this.getPeopleStats()
+    this.getStealBonusNotice()
+    this.getAllRewards()
+
+    this.getStealBonusPeople()
+    this.getTopWorld()
+    this.getFriendList()
+
+    // 获取弹幕
+    let that = this
+    setTimeout(() => {
+      that.getDoommList()
+    }, 5000)
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -596,22 +597,35 @@ Page({
     })
 
     // 给app.js 定义一个方法。
-    app.userInfoReadyCallback = res => {
-      console.log('用户信息请求完毕')
-      if (!res) { // 用户未注册或登录失败
+    app.userInfoReadyCallback = (res) => {
+      console.log(res, '用户信息请求完毕')
+      if (res) { // 登录请求成功
+        if (app.globalData.isLogin) { // 登录成功
+          this.setData({
+            is_mobile: false,
+            showLoginModal: false
+          })
+          this.getInitData()
+        } else {
+          this.setData({
+            is_mobile: false,
+            showLoginModal: true
+          })
+        }
+      } else { // 登录请求失败
         this.setData({
+          is_mobile: false,
           showLoginModal: true
         })
       }
     }
 
-    this.getInitData()
-
-    // 获取弹幕
-    let that = this
-    setTimeout(() => {
-      that.getDoommList()
-    }, 5000)
+    if (app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      this.getInitData()      
+    }
   },
 
   /**
@@ -673,6 +687,7 @@ Page({
       imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
       success: function (res) {
         console.log('转发成功')
+        app.updateGameShare()
       },
       fail: function (res) {
         console.log('转发失败')

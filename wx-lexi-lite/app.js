@@ -275,6 +275,20 @@ App({
   },
 
   /**
+   * 更新游戏分享次数
+   */
+  updateGameShare () {
+    if (this.globalData.isLogin) {
+      http.fxPost(api.question_share, {}, (res) => {
+        console.log(res, '更新游戏分享次数')
+        if (!res.success) {
+          console.log('更新游戏分享回调失败')
+        }
+      })
+    }
+  },
+
+  /**
    * 获取国家或地区下所有省市区
    * 默认值：1，为中国大陆
    */

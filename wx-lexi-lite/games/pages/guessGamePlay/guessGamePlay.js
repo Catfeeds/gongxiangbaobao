@@ -28,6 +28,10 @@ Page({
     },
     userInfo: {}, // 登录用户信息
 
+    // 数量
+    moneyQuantity: [1, 2, 3, 4, 5],
+    couponQuantity: [1, 2, 3, 4, 5, 6],
+
     // 本次试题
     testQuestions: [],
     testId: '',
@@ -78,13 +82,9 @@ Page({
     http.fxPost(api.question_check_answer, data, (res) => {
       console.log(res, '答案结果')
       if (res.success) {
-        console.log(res.data, '验证结果')
-        console.log(res.data.answer, '回答结果')
         if (res.data.answer) {
           // 回答正确奖励优惠券
-          this._increaseBonusCount()
-
-          console.log('结果是否正确')
+          this._increaseBonusCount(res.data)
 
           if (!this._isEmpty(this.data.currentAnswer)) {
             let k = 'currentQuestion.answers[' + this.data.currentAnswerIdx + '].ok'
@@ -119,6 +119,11 @@ Page({
         utils.fxShowToast(res.status.message)
         // 停止获取参与人数
         clearInterval(this.data.offsetTimer)
+
+        // 跳回游戏
+        wx.navigateBack({
+          delta: 1
+        })
       }
     })
   },
@@ -267,15 +272,16 @@ Page({
   },
 
   // 答对问题，增加一个优惠券
-  _increaseBonusCount() {
+  _increaseBonusCount(prize) {
     console.log('回答正确奖励')
     let cnt = this.data.myAccount.bonus_amount
+    let money = this.data.myAccount.amount
     cnt += 1
-    console.log('Bonus count: ' + cnt)
+    money += prize.amount
     this.setData({
-      'myAccount.bonus_amount': cnt
+      'myAccount.bonus_amount': cnt,
+      'myAccount.amount': money
     })
-    console.log('奖励完毕')
   },
 
   // 验证对象是否为空
@@ -390,6 +396,7 @@ Page({
       imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
       success: function (res) {
         console.log('转发成功')
+        app.updateGameShare()
       },
       fail: function (res) {
         console.log('转发失败')

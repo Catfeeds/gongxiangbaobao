@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="main-wrapper" style="height: {{ clientHeight }}px;">
+  <view class="main-wrapper" style="height: {{ clientHeight }}px;" wx:if="{{ is_mobile }}">
     <view class="main-container">
 
       <!-- 账户余额及游戏规则 -->
@@ -37,7 +37,14 @@
       <view class="invite-container">
         <view class="invite-box">
           <!-- 用户头像 -->
-          <view class="avatars">
+          <view class="avatars" wx:if="{{ peopleCount.invite_count > 0 }}">
+            <image
+              wx:for="{{ peopleCount.user_info }}"
+              wx:for-item="user"
+              wx:key="{{ user.user_sn }}"
+              src="{{ user.user_logo }}" class="user-avatar"></image>
+          </view>
+          <view class="avatars" wx:else>
             <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
             <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
             <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
@@ -426,7 +433,7 @@
   </fx-game-modal-v>
 
 
-  <view class="guess-game-bg">
+  <view class="guess-game-bg" style="height: {{ clientHeight }}px;" wx:if="{{ !is_mobile }}">
     <!-- 登陆注册模态框 -->
     <fx-modal-v visible="{{ showLoginModal }}" close="{{ false }}" marginTop="300" title="授权登录">
       <view class="tips">开始游戏前，请先登录</view>

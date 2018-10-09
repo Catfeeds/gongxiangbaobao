@@ -318,6 +318,8 @@ module.exports = {
   question_ranking: 'guess_image/world_ranking',
   // GET 好友榜
   question_friend_ranking: 'guess_image/friend_ranking',
+  // GET 邀请好友信息
+  question_invite_info: 'guess_image/invite_friend',
   // POST 添加游戏好友
   question_add_friend: 'guess_image/add_friend',
   // GET 我的好友列表
@@ -337,6 +339,8 @@ module.exports = {
   // POST 现金提现
   question_withdraw_cash: 'guess_image/cash_money',
   // GET 奖励消息
-  question_reward_message: 'guess_image/reward_message'
+  question_reward_message: 'guess_image/reward_message',
+  // POST 更新分享记录
+  question_share: 'guess_image/is_share'
 
 }

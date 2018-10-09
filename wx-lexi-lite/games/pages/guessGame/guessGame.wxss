@@ -206,8 +206,9 @@ page {
 }
 
 .invite-box .avatars {
-  flex: 0 0 auto;
+  flex: 0 0 160rpx;
   margin-right: 10rpx;
+  position: relative;
 }
 
 .invite-box .avatars .user-avatar {
@@ -216,6 +217,20 @@ page {
   background-size: 100%;
   border-radius: 50%;
   border: 3rpx solid rgba(255, 255, 255, 1);
+  position: absolute;
+  top: -30rpx;
+  left: 0rpx;
+}
+.avatars .user-avatar:nth-of-type(1) {
+  z-index: 10;
+}
+.avatars .user-avatar:nth-of-type(2) {
+  margin-left: 50rpx;
+  z-index: 9;
+}
+.avatars .user-avatar:nth-of-type(3) {
+  margin-left: 100rpx;
+  z-index: 8;
 }
 
 .invite-box .content {
@@ -845,5 +860,5 @@ page {
   height: 520rpx;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 50;
 }

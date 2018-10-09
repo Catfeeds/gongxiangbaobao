@@ -6,6 +6,7 @@
 
         <view class="players">
           <view class="avatars">
+            <image src="{{ userInfo.avatar }}" class="user-avatar" wx:if="{{ lastPlayers.length > 0 }}"></image>
             <image wx:for="{{ lastPlayers }}" wx:for-item="player" wx:key="{{ player.user_sn }}" src="{{ player.user_logo }}" class="user-avatar"></image>
           </view>
 
@@ -41,13 +42,7 @@
 
       <!-- 弹幕 -->
       <view class="doomm-view">
-        <view 
-          wx:if="{{ doomm.display }}"
-          wx:for="{{ doommData }}" 
-          wx:for-item="doomm"
-          wx:key="id"
-          class="doomm {{ doomm.color }}"
-          style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
+        <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
           <image class="avatar" src="{{ doomm.avatar }}"></image>
           <view class="adv">
             {{ doomm.name }}获得
@@ -65,7 +60,21 @@
           <view class="tv">
             <image src="{{ currentQuestion.image }}" class="question-image"></image>
             <view class="question-result" wx:if="{{ isAnswered }}">
-              <image src="https://static.moebeast.com/static/img/game/true.png" class="ok" wx:if="{{ answerResult }}"></image>
+              <view class="ok true__container" wx:if="{{ answerResult }}">
+                <image class="true-img" src="https://static.moebeast.com/static/img/game/true.png"></image>
+                <view class="animation-demo-block">
+                  <view class="prize-moneys">
+                    <view wx:for="{{ moneyQuantity }}" wx:for-item="cnt" wx:key="m{{  cnt }}" class="money money{{ cnt }}">
+                      <image class="money-img" src="https://static.moebeast.com/static/img/game/money.png"></image>
+                    </view>
+                  </view>
+                  <view class="prize-coupons">
+                    <view wx:for="{{ couponQuantity }}" wx:for-item="cnt" wx:key="c{{ cnt }}" class="coupon coupon{{cnt}}">
+                      <image class="coupon-img" src="https://static.moebeast.com/static/img/game/discount-coupon.png"></image>
+                    </view>
+                  </view>
+                </view>
+              </view>
               <image src="https://static.moebeast.com/static/img/game/false.png" class="error" wx:if="{{ !answerResult }}"></image>
             </view>
           </view>
@@ -83,6 +92,14 @@
     <!-- 底部 -->
     <view class="foot-container">
       <view class="foot-menu">
+        <view class="my-moneys">
+          <image class="icon-money" src="https://static.moebeast.com/static/img/game/money.png"></image>
+          <view class="discount-money">
+            <view class='amount'>
+              <text class="animated-increase animated bounceIn">¥ {{ myAccount.amount }}</text> 元
+            </view>
+          </view>
+        </view>
         <view class="my-coupons">
           <image class="icon-coupon" src="https://static.moebeast.com/static/img/game/discount-coupon.png"></image>
           <view class="discount-coupon">
