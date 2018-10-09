@@ -73,7 +73,7 @@
           <view class="wsw">100万现金大奖</view>
           <view class="people">
             <text>已有</text>
-            <text class="people-num">{{ peopleCount.total_count }}</text>
+            <text class="people-num">{{ playerTotalCount }}</text>
             <text>人参与猜图</text>
           </view>
         </view>

@@ -53,6 +53,7 @@ Page({
       user_logo: []
     },
     isShare: 0, // 是否分享
+    playerTotalCount: 0, // 总玩家
     // 本次试题
     testQuestions: [],
     testId: '',
@@ -462,8 +463,22 @@ Page({
     })
   },
 
-  // 获取邀请信息
+  // 获取游戏统计信息
   getPeopleStats() {
+    http.fxGet(api.question_stats, {}, (res) => {
+      console.log(res, '统计信息')
+      if (res.success) {
+        this.setData({
+          playerTotalCount: res.data.total_count
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  // 获取邀请信息
+  getInvitePeople() {
     http.fxGet(api.question_invite_info, {}, (res) => {
       console.log(res, '邀请好友人数')
       if (res.success) {
@@ -551,9 +566,10 @@ Page({
   // 获取游戏初始数据
   getInitData() {
     this.getPeopleStats()
+    this.getInvitePeople()
     this.getStealBonusNotice()
     this.getAllRewards()
-
+    
     this.getStealBonusPeople()
     this.getTopWorld()
     this.getFriendList()
