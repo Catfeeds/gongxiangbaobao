@@ -99,9 +99,23 @@ Page({
     })
   },
 
+  // 关闭
+  hanleOffLoginBox(e) {
+    console.log(e)
+    this.setData({
+      is_mobile: false
+    })
+  },
+
   // 添加关注---
   handleAddWatch(e) {
     console.log(e)
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return false
+    }
     let rid = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
 

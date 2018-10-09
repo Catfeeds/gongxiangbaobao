@@ -14,7 +14,7 @@ Page({
   data: {
     isLoadProductShow: true, // 加载动画
     product: [], //详情
-    isNext: true, // 是否有下一页
+    isNext: false, // 是否有下一页
     productList: [],
     params: {
       id: '', // Number	必须	 	集合编号
@@ -37,9 +37,8 @@ Page({
         result.data.products.forEach((v) => {
           data.push(v)
         })
-
         this.setData({
-          isNext: result.data.next,
+          // isNext: result.data.next,
           productList: data,
           product: result.data,
           isLoadProductShow:false
@@ -67,16 +66,16 @@ Page({
    */
   onReachBottom: function() {
     if (!this.data.isNext) {
-      utils.fxShowToast('没有更多了')
+      // utils.fxShowToast('没有更多了')
       return
     }
 
     this.setData({
       ['params.page']: this.data.params.page + 1,
-      isLoadProductShow:true
+      // isLoadProductShow:true
     })
 
-    this.getProducts()
+    // this.getProducts()
   },
 
   // 跳转到商品详情---

@@ -1596,7 +1596,7 @@ Page({
 
         // scene格式：sid + '-' + uid
         let scene = lastVisitLifeStoreRid
-
+        console.log(lastVisitLifeStoreRid,'分享的场景参数')
         return {
           title: this.data.lifeStore.name + '的生活馆',
           path: 'pages/index/index?scene=' + scene,

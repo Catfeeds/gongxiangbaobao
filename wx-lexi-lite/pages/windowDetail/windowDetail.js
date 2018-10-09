@@ -182,6 +182,12 @@ Page({
 
   // 猜你喜欢
   getYouLike() {
+  
+      // 是否登陆
+      if (!app.globalData.isLogin) {
+        return
+      }
+    
     http.fxGet(api.shop_windows_guess_like, this.data.youLikeParams, result => {
       console.log(result, "猜你喜欢")
       if (result.success) {

@@ -332,6 +332,11 @@ Page({
  * 喜欢的橱窗
  * **/
 getLikeWindow(){
+  // 是否登陆
+  if (!app.globalData.isLogin) {
+    return
+  }
+
   http.fxGet(api.shop_windows_user_likes,{},res=>{
     console.log(res,"用户喜欢的橱窗")
     if(res.success){

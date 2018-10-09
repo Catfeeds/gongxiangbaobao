@@ -109,7 +109,7 @@
     </view>
 
     <!-- 橱窗 -->
-    <view class='p-null window-box'>
+    <view class='p-null window-box' wx:if="{{userWindow.count!=0}}">
       <view class='c-importantGoodsTitle  paymentFnTextB user__like'>
         <text>喜欢的橱窗</text>
         <text class=' hui-zi margin--15rpx' wx:if="{{}}" data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>

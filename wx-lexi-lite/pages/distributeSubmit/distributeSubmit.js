@@ -26,7 +26,6 @@ Page({
    * 推荐语变化
    */
   handleChangeStickText(e) {
-    console.log(e)
     this.setData({
       'form.stick_text': e.detail.value
     })
