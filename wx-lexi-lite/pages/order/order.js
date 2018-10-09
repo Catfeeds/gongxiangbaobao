@@ -309,7 +309,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getOrderList() // 获取订单列表---
+    this.getDaifaList() // 获取待发列表---
+    this.getDaishouList() // 获取待收货列表---
+    this.getPingjiaList() // 评价
+    this.getDaifuList() // 待付款
   },
 
   // 删除订单
@@ -369,11 +373,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getOrderList() // 获取订单列表---
-    this.getDaifaList() // 获取待发列表---
-    this.getDaishouList() // 获取待收货列表---
-    this.getPingjiaList() // 评价
-    this.getDaifuList() // 待付款
+
   },
 
   /**

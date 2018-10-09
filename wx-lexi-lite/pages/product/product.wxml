@@ -122,7 +122,7 @@
     data-rid='{{productInfomation.rid}}' 
     wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image>
+      <!-- <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image> -->
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
 
     </view>

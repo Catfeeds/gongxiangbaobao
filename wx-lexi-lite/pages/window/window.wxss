@@ -118,3 +118,7 @@
   bottom: 20rpx;
   width: 100%;
 }
+
+.headline {
+  border-radius: 0;
+}
