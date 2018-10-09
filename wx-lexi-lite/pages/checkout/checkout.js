@@ -116,9 +116,9 @@ Page({
       orderInfomation: item,
       authoritativeCouponPrice: couponAmount.toFixed(2),
       storeOrAuthoritativeCouponPick: false,
-      ['pageOrderInfo.couponPrice']: (couponAmount-0).toFixed(2)
+      ['pageOrderInfo.couponPrice']: (couponAmount-0).toFixed(2),
     })
-
+    this.handleAuthorityCoupon()
     this.orderLastPrice() // 计算最后金额
   },
 

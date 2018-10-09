@@ -16,7 +16,7 @@ Page({
     exceedCouponList: [], // 不可用红包 非官方
 
     authorityNormalCouponList: [], // 官方的可用红包
-    authorityExceedCouponList: [], // 官方的不可用红包
+    authorityExceedCouponList: [1], // 官方的不可用红包
     useCouponList: [], // 已经使用的 
     red_bag: []
   },

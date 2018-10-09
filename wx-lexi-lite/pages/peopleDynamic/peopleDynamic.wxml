@@ -2,7 +2,7 @@
 <view class='container'>
   <!-- 背景 -->
   <view class="dynamic-hander__photo">
-    <image mode="widthFix" src="{{dynamicList.bg_cover}}"></image>
+    <image mode="widthFix" src="https://static.moebeast.com/static/img/timelien-headpic.jpg"></image>
   </view>
 
   <!-- 添加橱窗栏目 -->

@@ -134,7 +134,7 @@
         wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image src='{{ storeOwner.avatar }}' class='photo-round'></image>
+          <image src='{{ lifeStore.logo }}' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
           <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
