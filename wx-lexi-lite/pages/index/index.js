@@ -444,7 +444,9 @@ Page({
       }, (result) => {
         if (result.success) {
           this.setData({
-            ['storeProducts[' + idx + '].is_like']: false
+            ['storeProducts[' + idx + '].is_like']: false,
+            ['storeProducts[' + idx + '].product_like_users[0].avatar']: '',
+
           })
         } else {
           utils.fxShowToast(result.status.message)
@@ -457,7 +459,8 @@ Page({
       }, (result) => {
         if (result.success) {
           this.setData({
-            ['storeProducts[' + idx + '].is_like']: true
+            ['storeProducts[' + idx + '].is_like']: true,
+            ['storeProducts[' + idx + '].product_like_users[0].avatar']: app.globalData.userInfo.avatar
           })
         } else {
           utils.fxShowToast(result.status.message)

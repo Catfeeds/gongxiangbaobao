@@ -194,9 +194,7 @@
             <view catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image src='{{ logo }}' class='photo-round'></image>
-            <image src='{{ logo }}' class='photo-round'></image>
-            <image src='{{ logo }}' class='photo-round'></image>
+            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}' class='photo-round'></image>
           </view>
         </view>
       </view>
@@ -303,7 +301,7 @@
             <text class='font-ss line-height--22rpx'>{{item.recommend_label}}</text>
           </view>
           <view class='recommend-text line-height--26rpx padding-bottom--10rpx'>
-            <text class='font-m line-height--26rpx'>{{item.recommend_title}}</text>
+            <text class='font-width--medium font-m line-height--26rpx'>{{item.recommend_title}}</text>
           </view>
           <view class='recommend-text qian-hui line-height--22rpx padding-bottom--50rpx'>
             <text class='font-ss line-height--22rpx'>{{item.recommend_description}}</text>
@@ -591,7 +589,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
         <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==goodDesignList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{goodDesignList.products}}" wx:key="{{index}}">
-          <fx-product photoSize="16" photo="{{2}}" product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product photoSize="30" photo="{{2}}" product="{{item}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>
@@ -604,7 +602,7 @@
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
         <view class='c-importantGoodsPhoto height--372rpx {{index==0?"margin-left--40rpx":""}} {{index==oneHundredList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{oneHundredList.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" photoSize="16" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{item}}" photoSize="30" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>

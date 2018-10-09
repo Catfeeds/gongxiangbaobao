@@ -38,24 +38,16 @@
     </view>
 
     <!-- 关注 -->
-    <view class=" flex_row black-font follow ">
-      <view 
-        class="border-radius--30rpx follow-btn" 
-        catchtap="handelAddfollow"
-        wx:if="{{!storeInfo.is_followed}}">
-        <image 
-          src="../../images/icon@2.png" 
-          class='margin-right--10rpx'></image>
+    <view class=" flex_row  follow ">
+      <view class="border-radius--30rpx follow-btn font-m" catchtap="handelAddfollow" wx:if="{{!storeInfo.is_followed}}">
+        <image src="../../images/icon@2.png" class='margin-right--10rpx'></image>
         <text>关注</text>
       </view>
-      <view class="border-radius--30rpx follow-btn dlete-follow" catchtap='handeldeleteFollow' wx:else>
+      <view class="border-radius--30rpx follow-btn dlete-follow font-m" catchtap='handeldeleteFollow' wx:else>
         <text>已关注</text>
       </view>
 
-      <view
-        catchtap="handelToBrandInfo" 
-        data-rid="{{storeInfo.rid}}"
-        class="border-radius--30rpx c-middle about">
+      <view catchtap="handelToBrandInfo" data-rid="{{storeInfo.rid}}" class="border-radius--30rpx c-middle about ">
         <text>关于品牌馆</text>
       </view>
 
@@ -63,102 +55,87 @@
   </view>
 
   <!-- 优惠券和设计管公告 -->
-<block wx:if="{{categoryId==1}}">
-  <view class="announcement-coupon" wx:if="{{couponList.coupons.length != 0||fullSubtractionList.length != 0 || announcement.announcement.length!=0}}">
-    <!-- 领取优惠券 -->
-    <view class='coupon-box ' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
-      <view class='coupon-message'>
-        <!-- 优惠券 -->
-        <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
-          <view class=''>
-            <image src='../../images/coupon-icon@2.png'></image>
-            <text>领取设计馆优惠红包</text>
+  <block wx:if="{{categoryId==1}}">
+    <view class="announcement-coupon" wx:if="{{couponList.coupons.length != 0||fullSubtractionList.length != 0 || announcement.announcement.length!=0}}">
+      <!-- 领取优惠券 -->
+      <view class='coupon-box ' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
+        <view class='coupon-message'>
+          <!-- 优惠券 -->
+          <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
+            <view class=''>
+              <image src='../../images/coupon-icon@2.png'></image>
+              <text>领取设计馆优惠红包</text>
+            </view>
+            <view class='get-btn'>领取</view>
           </view>
-          <view class='get-btn'>领取</view>
-        </view>
 
-        <!-- 满减 -->
-        <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
-          <image src='../../images/reduced-price@2.png'></image>
-          <text class="reduced-price_text" wx:for="{{ fullSubtractionList }}" wx:key="{{ index }}">{{ item.type_text }}</text>
-          <view class='reduced-price__last' wx:if="{{fullSubtractionList.length>2&&couponList.coupons.length != 0}}"> ... </view>
-          <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
+          <!-- 满减 -->
+          <view class='reduced-price' wx:if='{{ fullSubtractionList.length != 0 }}'>
+            <image src='../../images/reduced-price@2.png'></image>
+            <text class="reduced-price_text" wx:for="{{ fullSubtractionList }}" wx:key="{{ index }}">{{ item.type_text }}</text>
+            <view class='reduced-price__last' wx:if="{{fullSubtractionList.length>2&&couponList.coupons.length != 0}}"> ... </view>
+            <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
+          </view>
         </view>
+      </view>
+
+
+      <!-- 公告 wx:if="{{ announcement }}"-->
+      <view class='notice' wx:if="{{announcement.announcement.length!=0}}">
+        <view class='notice-title'>设计馆公告</view>
+        <view class='notice-box'>
+          <view class="off-announcement" wx:if="{{announcement.is_closed}}">
+            <view class="font-ss flex_row--middle border-radius--30rpx off-announcement__icon">
+              <view class="round"></view>
+              <text>休馆中</text>
+            </view>
+            <view class="font-s">
+              <view class="off-time">休馆时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
+              <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
+            </view>
+          </view>
+
+          <view class="two-line-text">
+            <text>{{announcement.announcement}}</text> </view>
+        </view>
+        <view catchtap="handleAnnouncementShow" class='notice-info theme-green' wx:if="{{announcement.announcement.length>=100}}">...阅读更多</view>
       </view>
     </view>
 
-
-    <!-- 公告 wx:if="{{ announcement }}"-->
-    <view class='notice' wx:if="{{announcement.announcement.length!=0}}"> 
-      <view class='notice-title'>设计馆公告</view>
-      <view class='notice-box'>
-        <view class="off-announcement" wx:if="{{announcement.is_closed}}">
-          <view class="font-ss flex_row--middle border-radius--30rpx off-announcement__icon">
-            <view class="round"></view>
-            <text>休馆中</text>
-          </view>
-          <view class="font-s">
-            <view class="off-time">休馆时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
-            <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
-          </view>
-        </view>
-
-        <view class="two-line-text"> <text>{{announcement.announcement}}</text> </view>
-      </view>
-      <view 
-        catchtap="handleAnnouncementShow"
-        class='notice-info theme-green' 
-        wx:if="{{announcement.announcement.length>=100}}">...阅读更多</view>
-    </view>
-  </view>
-
-      <!-- 筛选和排序 -->
-    <view class='time-top sotr black-font {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
+    <!-- 筛选和排序 -->
+    <view class='time-top sotr font-size--28rpx {{sotrF?"sotrF":""}}' wx:if="{{likeProduct.products.length!=0}}">
       <view catchtap='handelOffPick' class='flex_row'>
         排序
         <image src='../../images/arrowhead.png'></image>
-       </view>
+      </view>
       <view catchtap="handleSortShow" class='flex_row'>
         筛选
         <image src='../../images/arrowhead.png'></image>
-       </view>
+      </view>
     </view>
     <!-- 下面的产品列表 -->
     <view class='goodsList border-bottom--0' wx:if="{{productList.length!=0}}">
       <view wx:for="{{productList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product 
-          product="{{item}}" 
-          photo="{{(index+1)%5==0?4:3}}"
-          photoSize="{{(index+1)%5==0?50:30}}"
-          bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product product="{{item}}" photo="{{(index+1)%5==0?4:3}}" photoSize="{{(index+1)%5==0?50:30}}" bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
 
     <block>
-    <!-- 底部加载 -->
-    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
-    </view>
-    <!-- 没有商品加载的底部 -->
-    <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
-  
+      <!-- 底部加载 -->
+      <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
+
+    </block>
+
   </block>
 
-</block>
-
-<!-- 文章 -->
-<block wx:if="{{categoryId==2}}">
+  <!-- 文章 -->
+  <block wx:if="{{categoryId==2}}">
     <view class='production new-goods_box '>
-      <view 
-        data-category="精彩故事"
-        data-rid="{{item.rid}}"
-        data-type="{{item.type}}"
-        catchtap="handleLiveInfo"
-        class='flex-direction--column productionGoods ' 
-        wx:for="{{wonderfulStories}}" 
-        wx:key='{{index}}'>
+      <view data-category="精彩故事" data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleLiveInfo" class='flex-direction--column productionGoods ' wx:for="{{wonderfulStories}}" wx:key='{{index}}'>
         <image src="{{item.cover}}" class="img--style"></image>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
@@ -172,10 +149,10 @@
       </view>
     </view>
 
-</block>
+  </block>
 
 
-      <!-- 优惠券的模板 -->
+  <!-- 优惠券的模板 -->
   <view class='coupon-template' wx:if="{{coupon_show}}" catchtap='handleOffCouponTap'>
     <template is="couponTemplate" data='{{couponList:couponList.coupons,fullSubtractionList:fullSubtractionList}}'></template>
   </view>
@@ -183,30 +160,30 @@
   <!-- 公告详情 -->
   <view class="announcement-detail__box" animation="{{announcementShow}}">
 
-        <view class="off-announcement border-bottom padding-bottom-34rpx" wx:if="{{announcement.is_closed}}">
-          <view class="font-ss flex_row--middle border-radius--30rpx margin-bottom--25rpx off-announcement__icon">
-            <view class="round"></view>
-            <text>休馆中</text>
-          </view>
-          <view class="font-s">
-            <view class="off-time margin-bottom--10rpx">休管时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
-            <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
-          </view>
-        </view>
+    <view class="off-announcement border-bottom padding-bottom-34rpx" wx:if="{{announcement.is_closed}}">
+      <view class="font-ss flex_row--middle border-radius--30rpx margin-bottom--25rpx off-announcement__icon">
+        <view class="round"></view>
+        <text>休馆中</text>
+      </view>
+      <view class="font-s">
+        <view class="off-time margin-bottom--10rpx">休管时间：{{announcement.begin_date}}—{{announcement.end_date}}</view>
+        <view class="open-time">恢复发货时间：{{announcement.delivery_date}}</view>
+      </view>
+    </view>
 
-        <view>
-          <view class="font-m font-width--medium padding-bottom-34rpx padding-top-32rpx">设计馆公告</view>
-          <view class="black-font shen-hui">
-          <text>{{announcement.announcement}}</text>
-          </view>
+    <view>
+      <view class="font-m font-width--medium padding-bottom-34rpx padding-top-32rpx">设计馆公告</view>
+      <view class="black-font shen-hui">
+        <text>{{announcement.announcement}}</text>
+      </view>
 
-        </view>
+    </view>
 
-        <view class="shim"></view>
+    <view class="shim"></view>
 
-        <view class="announcement-off__btn" catchtap="handleAnnouncementHidden">
-          <image src="../../images/icon-close@2x.png"></image>
-        </view>
+    <view class="announcement-off__btn" catchtap="handleAnnouncementHidden">
+      <image src="../../images/icon-close@2x.png"></image>
+    </view>
   </view>
 
   <!-- 筛选 -->
@@ -217,7 +194,7 @@
       pickQuantity="{{pickQuantity}}"
       bind:handlePickProduct="handlePickProduct"></fx-pick>
   </view> -->
-  
+
   <view catchtap="handelOffPickBox">
     <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
       <view class="fx-modal__main" slot="main">
@@ -226,39 +203,32 @@
           <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
         </view>
 
-          <!-- 分类 -->
+        <!-- 分类 -->
         <view>
-        <view class="block-title">分类
-          <small>可多选</small>
-        </view>
-        <view class="scroll-view__container">
-          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
-            <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
-              {{ category.name }}
-            </view>
-          </scroll-view>
-        </view>
+          <view class="block-title">分类
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
         </view>
 
         <!-- 推荐 -->
         <view>
-        <view class="block-title">推荐
-          <small>可多选</small>
-        </view>
-        <view class="scroll-view__container">
-          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
-            <view 
-              class="category {{ category.isActive ? 'active' : '' }}" 
-              wx:for="{{ recommendList }}" 
-              wx:for-item="category" 
-              wx:key="{{ category.id }}" 
-              data-cid="{{ category.id }}" 
-              data-index="{{index}}"
-              bindtap="handleToggleRecommendList">
-              {{ category.name }}
-            </view>
-          </scroll-view>
-        </view>
+          <view class="block-title">推荐
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.isActive ? 'active' : '' }}" wx:for="{{ recommendList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" data-index="{{index}}" bindtap="handleToggleRecommendList">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
         </view>
       </view>
       <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
@@ -289,7 +259,7 @@
     </view>
   </fx-modal>
 
-    <!-- 登陆注册模态框 -->
+  <!-- 登陆注册模态框 -->
   <!-- //登陆注册 -->
   <!-- <fx-modal visible="{{ is_mobile }}" showFoot="true">
     <view slot="main">
@@ -297,8 +267,8 @@
     </view>
   </fx-modal> -->
 
-     <view catchtap='hanleOffLogin'>
-  <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+  <view catchtap='hanleOffLogin'>
+    <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
   </view>
 
 </view>

@@ -79,8 +79,8 @@
       </scroll-view>
     </view>
 
-    <!-- 广告轮播图 -->
-    <view class="flex_row--middle adv-box" wx:if="{{couponAdv.length!=0}}">
+    <!-- 广告轮播图 wx:if="{{couponAdv.length!=0}}"-->
+    <view class="flex_row--middle adv-box" wx:if="{{}}">
       <swiper 
           class="adv-coupon-swiper"          
           current="{{index}}"
