@@ -296,4 +296,47 @@ module.exports = {
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',
 
+  // Question
+
+  // GET 人数统计
+  question_stats: 'guess_image/people_count',
+  // GET 用户获取题目
+  question: 'guess_image/question',
+  // POST 判断答案是否正确
+  question_check_answer: 'guess_image/answers',
+  // POST 试题结算
+  question_settlement: 'guess_image/test_settlement',
+  // GET 可提现金额
+  question_withdraw: 'guess_image/cash_price',
+  // GET 优惠券数量
+  question_coupons: 'guess_image/coupon_count',
+  // GET 答案列表
+  question_answer_list: 'guess_image/answer_list',
+  // GET 获取用户所有奖励
+  question_all_rewards: 'guess_image/all_rewards',
+  // GET 排行榜
+  question_ranking: 'guess_image/world_ranking',
+  // GET 好友榜
+  question_friend_ranking: 'guess_image/friend_ranking',
+  // POST 添加游戏好友
+  question_add_friend: 'guess_image/add_friend',
+  // GET 我的好友列表
+  question_friend_list: 'guess_image/friend_list',
+  // GET 可能认识的人列表
+  question_guess_friend: 'guess_image/may_friend_list',
+  // POST 偷红包
+  question_steal_bonus: 'guess_image/steal_bouns',
+  // GET 偷我钱包的人
+  question_steal_list: 'guess_image/steal_my_money',
+  // GET 偷我红包记录
+  question_steal_record: 'guess_image/steal_bouns_record',
+  // GET 一小时内玩的次数
+  question_play_count: 'guess_image/play_count',
+  // POST 获取猜图海报
+  question_wxa_poster: 'guess_image/wxa_poster',
+  // POST 现金提现
+  question_withdraw_cash: 'guess_image/cash_money',
+  // GET 奖励消息
+  question_reward_message: 'guess_image/reward_message'
+
 }

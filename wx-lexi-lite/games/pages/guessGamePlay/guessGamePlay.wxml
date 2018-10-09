@@ -1,0 +1,99 @@
+<view class="container">
+  <view class="main-wrapper" style="height: {{ clientHeight }}px;">
+    <view class="main-container">
+
+      <view class="play-box">
+
+        <view class="players">
+          <view class="avatars">
+            <image wx:for="{{ lastPlayers }}" wx:for-item="player" wx:key="{{ player.user_sn }}" src="{{ player.user_logo }}" class="user-avatar"></image>
+          </view>
+
+          <view class="join">
+            <view class="count">999+</view>
+            <view class="title">正在参与</view>
+          </view>
+        </view>
+
+        <view class="play-count-down">
+          <view class='progress-box'>
+            <canvas class="progress-bg" canvas-id="canvasProgressbg"> </canvas>
+            <canvas class="progress-canvas" canvas-id="canvasProgress"> </canvas>
+            <view class="show-text">{{ showText }}</view>
+          </view>
+          <view class="title">猜图倒计时</view>
+        </view>
+
+      </view>
+
+      <!-- 奖金池 -->
+      <view class="prize-box">
+        <image class="star" src="https://static.moebeast.com/static/img/game/xingxing.png"></image>
+        <view class="prize-pool">
+          <view class="prize-amount">
+            <view class="pool">奖金池</view>
+            <view class="amount">
+              <span class="count">{{ prizePool }}</span>元
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 弹幕 -->
+      <view class="doomm-view">
+        <view 
+          wx:if="{{ doomm.display }}"
+          wx:for="{{ doommData }}" 
+          wx:for-item="doomm"
+          wx:key="id"
+          class="doomm {{ doomm.color }}"
+          style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
+          <image class="avatar" src="{{ doomm.avatar }}"></image>
+          <view class="adv">
+            {{ doomm.name }}获得
+            <text class="amount">¥{{ doomm.amount }}</text>现金
+          </view>
+        </view>
+      </view>
+
+      <view class="question-container">
+        <view class="headline-box">
+          <view class="guess">
+            <text class="sort-number">{{ currentIndex + 1 }}/10</text>
+            <view class="qa">{{ currentQuestion.question }}</view>
+          </view>
+          <view class="tv">
+            <image src="{{ currentQuestion.image }}" class="question-image"></image>
+            <view class="question-result" wx:if="{{ isAnswered }}">
+              <image src="https://static.moebeast.com/static/img/game/true.png" class="ok" wx:if="{{ answerResult }}"></image>
+              <image src="https://static.moebeast.com/static/img/game/false.png" class="error" wx:if="{{ !answerResult }}"></image>
+            </view>
+          </view>
+        </view>
+        <view class="answers">
+          <button class="answer-item {{ currentAnswerIdx == index ? 'active' : '' }} {{ item.ok ? 'ok' : '' }} {{ item.error ? 'error' : '' }}" wx:for="{{ currentQuestion.answers }}" wx:key="{{ item.answer_id }}" data-rid="{{ item.answer_id }}" data-idx="{{ index }}"
+            bindtap="handleChooseAnswer">
+            {{ item.answer }}
+          </button>
+        </view>
+      </view>
+
+    </view>
+
+    <!-- 底部 -->
+    <view class="foot-container">
+      <view class="foot-menu">
+        <view class="my-coupons">
+          <image class="icon-coupon" src="https://static.moebeast.com/static/img/game/discount-coupon.png"></image>
+          <view class="discount-coupon">
+            <view class="quantity">
+              <text class="animated-increase">{{ myAccount.bonus_amount }}</text> 张
+            </view>
+          </view>
+          <image src="{{ userInfo.avatar }}" class="avatar"></image>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

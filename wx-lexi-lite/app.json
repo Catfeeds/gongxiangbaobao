@@ -10,12 +10,6 @@
     "pages/receiveCoupon/receiveCoupon",
     "pages/findInfo/findInfo",
     "pages/distributes/distributes",
-    "pages/lifeStoreManage/lifeStoreManage",
-    "pages/lifeStoreWithdraw/lifeStoreWithdraw",
-    "pages/lifeStoreTransaction/lifeStoreTransaction",
-    "pages/lifeStoreBalance/lifeStoreBalance",
-    "pages/lifeStoreBillDetail/lifeStoreBillDetail",
-    "pages/lifeStoreBill/lifeStoreBill",
     "pages/branderStoreList/branderStoreList",
     "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
@@ -24,8 +18,6 @@
     "pages/people/people",
     "pages/peopleDynamic/peopleDynamic",
     "pages/applyLifeStore/applyLifeStore",
-    "pages/lifeStore/lifeStore",
-    "pages/lifeStoreGuide/lifeStoreGuide",
     "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
@@ -44,7 +36,6 @@
     "pages/address/address",
     "pages/leXiHighPick/leXiHighPick",
     "pages/brandInformation/brandInformation",
-    "pages/logs/logs",
     "pages/pickLogistics/pickLogistics",
     "pages/critique/critique",
     "pages/watch/watch",
@@ -71,10 +62,47 @@
     "pages/addWindow/addWindow",
     "pages/addWindowLabel/addWindowLabel",
     "pages/addWindowProduct/addWindowProduct",
-    "pages/guessGame/guessGame",
-    "components/FxLoginModal/FxLoginModal",
-    "pages/guessGamePlay/guessGamePlay"
+    "components/FxLoginModal/FxLoginModal"
   ],
+  "subPackages": [
+    {
+      "root": "games",
+      "name": "games",
+      "pages": [
+        "pages/guessGame/guessGame",
+        "pages/guessGamePlay/guessGamePlay",
+        "pages/guessResult/guessResult"
+      ]
+    },
+    {
+      "root": "lifeStore",
+      "name": "lifeStore",
+      "pages": [
+        "pages/lifeStoreManage/lifeStoreManage",
+        "pages/lifeStoreWithdraw/lifeStoreWithdraw",
+        "pages/lifeStoreTransaction/lifeStoreTransaction",
+        "pages/lifeStoreBalance/lifeStoreBalance",
+        "pages/lifeStoreBillDetail/lifeStoreBillDetail",
+        "pages/lifeStoreBill/lifeStoreBill",
+        "pages/lifeStore/lifeStore",
+        "pages/lifeStoreGuide/lifeStoreGuide"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": [
+        "games"
+      ]
+    },
+    "pages/user/user": {
+      "network": "all",
+      "packages": [
+        "lifeStore"
+      ]
+    }
+  },
   "window": {
     "navigationBarBackgroundColor": "white",
     "navigationBarTitleText": "String",

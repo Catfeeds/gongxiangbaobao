@@ -90,10 +90,10 @@
 					"query": ""
 				},
 				{
-					"id": 9,
-					"name": "猜图现金",
-					"pathName": "pages/guessGame/guessGame",
-					"query": "scene= 17591346820-1"
+					"id": 10,
+					"name": "demo",
+					"pathName": "pages/demo/demo",
+					"query": ""
 				},
 				{
 					"id": -1,
@@ -108,9 +108,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "个人中心",
-					"pathName": "pages/user/user"
+					"id": 12,
+					"name": "游戏",
+					"pathName": "games/pages/guessGame/guessGame",
+					"query": ""
 				}
 			]
 		}

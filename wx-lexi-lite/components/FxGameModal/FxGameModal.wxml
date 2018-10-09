@@ -1,0 +1,10 @@
+<view class="fx-modal-container" hidden="{{ !visible }}">
+  <view class="fx-mask {{ visible ? 'fx-mask--active' : ''}}" bindtap="hideModal" catchtouchmove="preventTouchMove"></view>
+  <!-- 排序 -->
+  <view class="fx-modal fixed-bottom {{ visible ? 'fx-modal--active' : ''}}">
+    <image src="https://static.moebeast.com/static/img/game/off.png" class="close" wx:if="{{ close }}" bindtap="hideModal"></image>
+    <view class="fx-modal__body {{ showFoot ? 'p-b-100' : '' }}">
+      <slot name="main"></slot>
+    </view>
+  </view>
+</view>

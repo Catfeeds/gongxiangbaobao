@@ -13,6 +13,59 @@
   width: 280rpx;
 }
 
+/* 定义从右边向左边的移动的动画 */
+@keyframes domo {
+  from { left: 100%; }
+  to { left: -100%; }
+}
+
+/* 弹幕 */
+.doomm {
+  width: auto;
+  height: 50rpx;
+  border-radius: 31rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 10rpx;
+  position: absolute;
+}
+
+.doomm.red {
+  background: rgba(202, 30, 159, 0.9);
+}
+
+.doomm.purple {
+  background: rgba(89, 71, 162, 0.9);
+}
+
+.doomm.blue {
+  background: rgba(120, 71, 162, 0.9);
+}
+
+.doomm .avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 40rpx;
+  margin-right: 6rpx;
+  flex: 0 0 auto;
+  line-height: 50rpx;
+}
+
+.doomm .adv {
+  flex: 1;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(242, 211, 255, 1);
+  line-height: 50rpx;
+  white-space: nowrap; /* 防止向下换行*/
+}
+
+.doomm .adv .amount {
+  font-weight: 600;
+  color: rgba(255, 207, 0, 1);
+  margin-right: 5rpx;
+}
+
 /* 生活馆头条 */
 
 .headline-wrapper {
@@ -698,6 +751,131 @@ image {
   width: 0;
   display: inline-block;
   line-height: 24rpx;
+}
+
+/* 分销弹窗框 */
+.distribute-share {
+  background-color: #F7F9FB;
+}
+.distribute-commission {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #FF6666;
+  line-height: 24rpx;
+  margin: 30rpx 0;
+  text-align: center;
+}
+.distribute-commission .amount {
+  font-size: 32rpx;
+}
+.distribute-message {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #999;
+  padding: 0 150rpx;
+  text-align: center;
+}
+.distribute-style {
+  margin: 40rpx 30rpx;
+  border: 1rpx solid #E9E9E9;
+  background-color: #fff; 
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #666666;
+}
+.distribute-style text {
+  display: block;
+  text-align: center;
+}
+.distribute-style .wxa-card {
+  flex: 1;
+  padding: 20rpx 0;
+  text-align: center;
+}
+.distribute-style .wxa-card.share-friend {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #666666;
+  background-color: #fff;
+}
+
+.distribute-style .wxa-card .cover {
+  width: 290rpx;
+  height: 248rpx;
+  padding: 2rpx;
+  border: 1rpx solid #E9E9E9;
+  border-radius: 4rpx;
+}
+.distribute-style .wxa-poster {
+  flex: 1;
+  padding: 20rpx 0;
+  text-align: center;
+  border-left: 1rpx solid #E9E9E9;
+}
+.distribute-style .wxa-poster .cover {
+  width: 148rpx;
+  height: 262rpx;
+  margin: 0 auto;
+  background-image: url('https://static.moebeast.com/static/img/null-product.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.distribute-style .wxa-poster .cover .image {
+  width: 148rpx;
+  height: 262rpx;
+}
+.distribute-style .wxa-poster .cover .loading {
+  width: 16rpx;
+  height: 16rpx;
+}
+.distribute-action {
+  display: flex;
+  align-items: center;
+  padding: 60rpx 0;
+}
+.distribute-action .share-friend,
+.distribute-action .share-save {
+  flex: 1;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.distribute-action .share-friend:hover,
+.distribute-action .share-friend:focus {
+  background-color: transparent;
+}
+.distribute-action text {
+  display: block;
+  font-size: 24rpx;
+  color: #333333;
+  font-weight: 400;
+}
+.distribute-action .icon-wechat,
+.distribute-action .icon-save {
+  width: 80rpx;
+  height: 80rpx;
+}
+.distribute-cancle {
+  background-color: #fff;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: #666;
+  line-height: 32rpx;
+  padding: 24rpx 0;
+  text-align: center;
+}
+
+.prevent-click__box {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
 }
 
 /* 轮播图的点 */

@@ -1,0 +1,196 @@
+<view class='container'>
+  <view class="fx-submenu">
+    <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}" bindtap="handleGoUser">
+      <text>个人主页</text>
+      <view class="arrow"></view>
+    </view>
+    <view class="submenu  {{ activeSubMenu == 'lifeStore' ? 'active' : ''}}">
+      <text>生活馆管理</text>
+      <view class="arrow"></view>
+    </view>
+  </view>
+
+  <view class="store-owner__wrapper">
+    <view class="blur" style="background-image:url('{{ lifeStore.logo }}');"></view>
+    <view class="mask"></view>
+    <view class="store-owner-container">
+      <view class="store-owner">
+        <image src="{{ lifeStore.logo }}" class="avatar"></image>
+        <view class="store-content">
+          <view class="title">
+            <image src="../../../images/shixicon@2.png" class="icon-store"></image>
+            <text class="name">{{ lifeStore.name }}</text>
+            <label class="status-label" wx:if="{{ lifeStore.phases == 1 }}">实习馆主</label>
+          </view>
+          <view class="owner-uid">
+            ID: {{ lifeStore.ID }}
+          </view>
+        </view>
+      </view>
+      <view class="practice-timer" wx:if="{{ lifeStore.phases == 1 || !expired }}">
+        <label>实习倒计时</label>
+        <label class="number day">{{ leftTimer.days }}</label>
+        <label class="unit day">天</label>
+        <label class="number">{{ leftTimer.hours }}</label>
+        <label class="unit">时</label>
+        <label class="number">{{ leftTimer.minutes }}</label>
+        <label class="unit">分</label>
+        <label class="number">{{ leftTimer.seconds }}</label>
+        <label class="unit">秒</label>
+      </view>
+    </view>
+  </view>
+
+  <view class="store-income__wrapper">
+    <view class="store-income" catchtap="handleGoTrade">
+      <image src="/images/icon-eye-white@3x.png" wx:if="{{! setIncomeStar }}" class="icon-eye" catchtap="handleSecretIncome"></image>
+      <image src="/images/icon-eye-white-close@3x.png" wx:else class="icon-eye" catchtap="handleSecretIncome"></image>
+
+      <text>生活馆累计收益</text>
+      <text class="unit">(元)</text>
+      <view class="amount" wx:if="{{ !setIncomeStar }}">{{ collect.total_commission_price }}</view>
+      <view class="amount" wx:else>***</view>
+
+      <view class="foot">
+        <view class="today-income">
+          <text>今日：</text> {{ collect.today_commission_price }}
+        </view>
+        <view class="today-income settlement">
+          <text>待结算：</text>
+          <text>{{ collect.pending_commission_price }}</text>
+          <image src="../../../images/icon-info@2x.png" class="icon-info" bindtap="handleShowModal"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="store-dashboard">
+      <view class="order-total-count" >
+        <view class="title">
+          总计成交订单
+          <text>（笔）</text>
+        </view>
+        <label class="count">
+          {{ collect.all_count }}
+        </label>
+        <view class="label-count">
+          今日：
+          <text>{{ collect.today_count }}</text>
+        </view>
+      </view>
+
+      <view class="order-total-amount" bindtap="handleGoWithdraw">
+      <image class="huise-jiantou"  src="/images/hui-jian-tou@3x.png"></image>
+        <view class="title">
+          可提现金额
+          <text>（元）</text>
+          <image src="../../../images/icon-eye@3x.png" wx:if="{{ !setWithdrawStar }}" class="icon-eye" catchtap="handleSecretWithdraw"></image>
+          <image src="../../../images/icon-eye-close@3x.png" wx:else class="icon-eye" catchtap="handleSecretWithdraw"></image>
+        </view>
+        <label class="count" wx:if="{{ setWithdrawStar }}">
+          ***
+        </label>
+        <label class="count" wx:else>
+          {{ collect.cash_price }}
+        </label>
+        <view class="label-count">
+          累计已提现：
+          <text class="yellow">{{ collect.total_cash_price }}</text>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+
+  <view class="store-helper__wrapper">
+    <view class="store-helper">
+      <view class="title">
+        成功在30天内售出3笔订单即可成为正式馆主
+      </view>
+      <view class="item">
+        未达销售指标，生活馆将被冻结并关闭。
+      </view>
+      <view class="item">
+        已产生交易的订单收益将无法提现。
+      </view>
+
+      <view class="follow" bindtap="handleShowQrcodeModal">
+        <text>关注“乐喜生活馆”公众号，随时接收订单和收益通知</text>
+        <i class="fx-icon-nothing-right"></i>
+      </view>
+    </view>
+  </view>
+
+  <view class="fx-block">
+    <view class="fx-block__item" catchtap='handleShareShow'>
+      <text class="title">邀请好友开馆赚钱</text>
+      <label class="icon-arrow">
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
+    <view class="fx-block__item">
+      <text>加入馆主群，获取赚钱攻略</text>
+      <label class="icon-arrow">
+        <i class="fx-icon-nothing-right"></i>
+      </label>
+    </view>
+  </view>
+
+  <view class="store-phone">
+    客服电话：400-2345-0000
+  </view>
+
+  <!-- 乐喜生活馆公众号 -->
+  <fx-image-modal visible="{{ showQrcodeModal }}" close="{{ false }}">
+    <image src="https://static.moebeast.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
+    <view class="btn-area">
+      <button class="fx-button primary" data-url="https://static.moebeast.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
+    </view>
+  </fx-image-modal>
+
+  <!--待结算提示-->
+  <fx-modal-v 
+    visible="{{ showModal }}">
+    <view class="modal-body">
+      待结算金额需用户确认签收订单后，7个工作日内未发生退款，则可入账并提现。如在7日内有退款行为，扣除相应收益。
+    </view>
+  </fx-modal-v>
+
+  <!-- 卖 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-commission">
+          
+      </view>
+
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" data-card="1" open-type="share">
+          <image src="{{ cardPhoto }}" class="cover"></image>
+          <text>点击直接分享好友样式</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
+          </view>
+          <text>保存分享朋友圈海报</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" data-card="1" open-type="share">
+          <image src="../../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
+
+</view>

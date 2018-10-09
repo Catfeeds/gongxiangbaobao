@@ -1,0 +1,97 @@
+.fx-modal-v-container {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.fx-mask {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.fx-modal-v {
+  position: relative;
+  background-color: #f7f9fb;
+  border-radius: 8rpx;
+  margin: 0rpx auto 50px;
+  width: 590rpx;
+  z-index: 101;
+  padding-top: 40rpx;
+}
+
+.fx-modal-v .fx-modal__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(247, 228, 255, 1);
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.fx-modal-v .icon-close {
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.fx-modal__body {
+  padding: 0 50rpx;
+}
+
+.fx-modal--rules {
+  width: 590rpx;
+  height: 900rpx;
+  background: url(https://static.moebeast.com/static/img/game/tixianbag.png);
+  background-size: 100% 100%;
+}
+
+.fx-modal--withdraw {
+  width: 590rpx;
+  height: 654rpx;
+  background: url(https://static.moebeast.com/static/img/game/tixianbag.png);
+  background-size: 100% 100%;
+  text-align: center;
+}
+
+.fx-modal--success {
+  width: 590rpx;
+  height: 418rpx;
+  background: linear-gradient(135deg, rgba(49, 34, 129, 1) 0%, rgba(131, 40, 177, 1) 100%);
+  border-radius: 20rpx;
+  opacity: 0.9;
+}
+
+.fx-modal--steal-result {
+  width: 590rpx;
+  height: 709rpx;
+  border-radius: 20rpx;
+  opacity: 0.9;
+  background: linear-gradient(135deg, rgba(49, 34, 129, 1) 0%, rgba(131, 40, 177, 1) 100%);
+}
+
+.fx-modal--steal-bonus {
+  width: 462rpx;
+  height: 552rpx;
+  border-radius: 20rpx;
+  opacity: 0.9;
+  background: url(https://static.moebeast.com/static/img/game/tixianbag.png);
+  background-size: 100% 100%;
+}
+.fx-modal--notice {
+  width: 590rpx;
+  height: 418rpx;
+  background: linear-gradient(135deg,rgba(49,34,129,1) 0%,rgba(131,40,177,1) 100%);
+  border-radius: 20rpx;
+  opacity: 0.9;
+  text-align: center;
+}

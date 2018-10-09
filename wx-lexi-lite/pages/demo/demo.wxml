@@ -1,9 +1,10 @@
 <view class='container'>
-  <view class="box">
-    <view class="text">这是文本</view>
-    <view class="image">
-      这是图片
-    </view>
+  <view class='progress-box'>
+
+    <canvas class="progress-bg" canvas-id="canvasProgressbg"> </canvas>
+
+    <canvas class="progress-canvas" canvas-id="canvasProgress"> </canvas>
+
+    <view class="show-text">{{ showText }}</view>
   </view>
 </view>
-

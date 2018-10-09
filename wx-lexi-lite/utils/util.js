@@ -79,6 +79,13 @@ const fixedAmount = amount => {
   return amount.toFixed(2)
 }
 
+// 随机获取弹幕的背景颜色
+const getRandomColor = () => {
+  let rgb = ['red', 'purple', 'blue']
+
+  return rgb[Math.floor(Math.random() * rgb.length)]
+}
+
 // 生成随机字符串
 const randomString = len => {
   len = len || 16
@@ -297,6 +304,7 @@ module.exports = {
   checkTokenIsExpired,
   isEmptyObject,
   fixedAmount,
+  getRandomColor,
   truncate,
   randomString,
   timestamp,

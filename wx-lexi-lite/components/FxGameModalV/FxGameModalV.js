@@ -1,4 +1,4 @@
-// components/FxImageModal/FxImageModal.js
+// components/FxGameModalV/FxGameModalV.js
 Component({
   /**
    * 组件的属性列表
@@ -17,13 +17,13 @@ Component({
       type: Boolean,
       value: false
     },
-    width: {
-      type: Number,
-      value: 460 // rpx
-    },
     marginTop: {
       type: Number,
       value: 150
+    },
+    className: {
+      type: String,
+      value: ''
     }
   },
 
@@ -42,9 +42,14 @@ Component({
      * 隐藏弹出框
      */
     hideModal() {
+      if (!this.data.close) {
+        return false
+      }
+
       this.setData({
         visible: false
       })
+
       // 触发关闭回调
       this.triggerEvent('closeEvent')
     },

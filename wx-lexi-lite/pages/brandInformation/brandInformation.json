@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "关于品牌馆",
   "usingComponents": {
-    "fx-product": "/components/FxProductComponent/FxProductComponent",
-    "fx-approve": "/components/FxApprove/FxApprove"
+    "fx-product": "/components/FxProductComponent/FxProductComponent"
   }
 }
