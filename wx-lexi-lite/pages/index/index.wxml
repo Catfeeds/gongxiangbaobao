@@ -34,7 +34,7 @@
           </view>
         </view>
 
-        <view class="fx-column-start owner-info-text_info"  bindtap="{{canAdmin?'handleEditStore':''}}">
+        <view class="fx-column-start owner-info-text_info" bindtap="{{canAdmin?'handleEditStore':''}}">
           <view class="store-title">
             <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
             <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
@@ -50,21 +50,21 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber height--120rpx'>
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.count+1 + ' 人' }}</text>浏览过生活馆</view>
+          <text class='theme-color'>{{ shopInfo.count + ' 人' }}</text>浏览过生活馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
-              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
+              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}' wx:if="{{item.is_real}}">
                 <image src='{{ item.avatar }}'></image>
               </view>
-              <view class='photo-round joinNumberlPhoto'>
+              <view class='photo-round joinNumberlPhoto' wx:if="{{!shopInfo.user_parties[0].is_real}}">
                 <open-data type='userAvatarUrl'></open-data>
               </view>
             </view>
           </view>
           <view class='browse-number-box fx-broadwise-e'>
             <view class='joinNumberR'>
-              {{ shopInfo.count > 999 ? '999+' : shopInfo.count+1 }}
+              {{ shopInfo.count > 999 ? '999+' : shopInfo.count }}
             </view>
           </view>
         </view>
@@ -73,18 +73,18 @@
 
     <!-- 实习馆长 -->
     <block wx:if="{{isCadet}}">
-    <view class="probation-box font-ss probation-box__white"  wx:if="{{ canAdmin }}">
-      <view class='time-top'>
-        <view class='time-top '>
-          <view class='probation-icon c-middle '>实习</view>
-          <view class='shen-hui'>当前为实习馆主</view>
+      <view class="probation-box font-ss probation-box__white" wx:if="{{ canAdmin }}">
+        <view class='time-top'>
+          <view class='time-top '>
+            <view class='probation-icon c-middle '>实习</view>
+            <view class='shen-hui'>当前为实习馆主</view>
+          </view>
+          <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
         </view>
-        <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
+        <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
+        </view>
       </view>
-      <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
-      </view>
-    </view>
-</block>
+    </block>
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
       <!-- 
@@ -169,8 +169,9 @@
 
               <!-- 价格和喜欢的人数 -->
               <view class='price-like-box'>
-                <text class='current_price'>¥{{ distributeProduct.min_price }}</text>
                 <text wx:if="{{ distributeProduct.min_price == distributeProduct.min_sale_price }}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{ distributeProduct.min_price }}</text>
+
+                <text class='current_price' wx:else>¥{{ distributeProduct.min_sale_price==0?distributeProduct.min_price:distributeProduct.min_sale_price }}</text>
                 <text wx:if="{{ distributeProduct.like_count != 0 }}" class='shopRecommendGoodsR-old'>喜欢+{{ distributeProduct.like_count }}</text>
               </view>
 
@@ -391,11 +392,7 @@
 
       <view class='c-importantGoodsBox  today-recommend-box'>
         <scroll-view scroll-x class="live-beautiful__window">
-          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " 
-          catchtap="handleGoWindowDetail" 
-          data-window-rid="{{item.rid}}"
-            wx:for="{{recommendWindow.shop_windows}}" 
-            wx:key="{{index}}">
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{recommendWindow.shop_windows}}" wx:key="{{index}}">
             <view class="flex_row recommend-window__photo">
               <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
               <view class="flex-direction--column">
@@ -675,9 +672,9 @@
         </view>
       </view>
       <view class="distribute-action">
-      <view class="share-friend" >
-        <button open-type="share" data-from="2" class="share-btn">
-        </button>
+        <view class="share-friend">
+          <button open-type="share" data-from="2" class="share-btn">
+          </button>
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
         </view>
@@ -716,9 +713,9 @@
         </view>
       </view>
       <view class="distribute-action">
-      <view class="share-friend" >
-        <button open-type="share" data-from="1" class="share-btn">
-        </button>
+        <view class="share-friend">
+          <button open-type="share" data-from="1" class="share-btn">
+          </button>
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
         </view>
