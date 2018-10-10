@@ -217,6 +217,7 @@ Page({
     if (data.profile.username.length>9){
       data.profile.username = data.profile.username.substr(0, 3) + '···' + data.profile.username.substr(6,3)
     }
+    console.log(data)
 
     this.setData({
       userInfo: data

@@ -889,7 +889,7 @@ swiper-photo .slide-item__box image {
 .swiper-photo .slide-item__box.active {
   /* transform: scaleX(1),scaleY(1.4);
   transition: all 0.2s ease-in 0s; */
-  width: 76%;
+  width: 73%;
   height: 280rpx;
   border-radius: 8rpx;
   margin: 0 auto;
@@ -897,6 +897,11 @@ swiper-photo .slide-item__box image {
   overflow: hidden;
   animation: myfirst 0.3s;
   animation-fill-mode: forwards;
+}
+
+.swiper-photo .slide-item__box image {
+  height: 100%;
+  border-radius: 8rpx;
 }
 
 @keyframes myfirst {
@@ -1426,7 +1431,7 @@ swiper-photo .slide-item__box image {
 
 .recommend-window__item .describe {
   color: #999;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
   line-height: 28rpx;
 }
 
@@ -1446,13 +1451,29 @@ swiper-photo .slide-item__box image {
 .column-direction {
   padding: 40rpx 40rpx 0 0;
   column-count: 2;
-  column-gap: 0; 
+  column-gap: 0;
 }
 
-.column-direction>view{
+.column-direction>view {
   break-inside: avoid;
 }
 
 .fx-tabs .tab-item.active {
   font-weight: 500;
+}
+
+.swiper-photo swiper-item {
+  width:96%;
+}
+
+.share-friend {
+  position: relative;
+}
+
+.share-btn {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  opacity: 0;
 }
