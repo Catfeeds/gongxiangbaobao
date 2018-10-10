@@ -11,10 +11,46 @@
     transform: rotate(5deg);
   }
 }
-/*
+
+@keyframes money-all {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-210px) rotate(5deg);
+  }
+}
+
+@keyframes money-all--left {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-150px, -210px) rotate(5deg);
+  }
+}
+
+@keyframes money-all--right {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(180px, -210px) rotate(20deg);
+  }
+}
+
 page {
   overflow: hidden;
-}*/
+}
 
 .guess-game-bg {
   background-image: url('https://static.moebeast.com/static/img/guess-game-bg2.jpg');
@@ -221,13 +257,16 @@ page {
   top: -30rpx;
   left: 0rpx;
 }
+
 .avatars .user-avatar:nth-of-type(1) {
   z-index: 10;
 }
+
 .avatars .user-avatar:nth-of-type(2) {
   margin-left: 50rpx;
   z-index: 9;
 }
+
 .avatars .user-avatar:nth-of-type(3) {
   margin-left: 100rpx;
   z-index: 8;
@@ -501,9 +540,11 @@ page {
 .top-list--scroll {
   height: 675rpx;
 }
+
 .invite-list--scroll {
   height: 718rpx;
 }
+
 .top-item .number .avatar {
   margin-right: 20rpx;
 }
@@ -867,4 +908,82 @@ page {
   left: 0;
   right: 0;
   z-index: 50;
+}
+
+.withdraw--moneys {
+  margin: 0 auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.withdraw--moneys .money {
+  display: block;
+  width: 1rpx;
+  position: absolute;
+  left: 330rpx;
+  top: 450rpx;
+  opacity: 0;
+}
+
+.withdraw--moneys .money .money--img {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.withdraw--moneys .money1 {
+  animation: money-all 1s ease-in-out 1;
+  left: 360rpx;
+  top: 210rpx;
+}
+
+.withdraw--moneys .money2 {
+  animation: money-all--left 1s ease-in-out 1;
+  left: 220rpx;
+  top: 390rpx;
+}
+
+.withdraw--moneys .money3 {
+  animation: money-all--right 1s ease-in-out 1;
+  left: 480rpx;
+  top: 390rpx;
+}
+
+.withdraw--moneys .money4 {
+  animation: money-all--right 1s ease-in-out 1;
+  left: 530rpx;
+  top: 260rpx;
+}
+
+.withdraw--moneys .money5 {
+  animation: money-all 1s ease-in-out 1;
+  left: 390rpx;
+  top: 350rpx;
+}
+
+.withdraw--moneys .money6 {
+  animation: money-all--right 1s ease-in-out 1;
+  left: 430rpx;
+  top: 210rpx;
+}
+
+.withdraw--moneys .money7 {
+  animation: money-all--left 1s ease-in-out 1;
+  left: 270rpx;
+  top: 210rpx;
+}
+
+.withdraw--moneys .money8 {
+  animation: money-all--left 1s ease-in-out 1;
+  left: 150rpx;
+  top: 260rpx;
+}
+
+.withdraw--moneys .money9 {
+  animation: money-all 1s ease-in-out 1;
+  left: 300rpx;
+  top: 300rpx;
 }

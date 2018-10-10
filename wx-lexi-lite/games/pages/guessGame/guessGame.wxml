@@ -136,6 +136,13 @@
     </view>
   </fx-game-modal-v>
 
+  <!--提现成功动画-->
+  <view class="withdraw--moneys" wx:if="{{ withDrawResult }}">
+    <view wx:for="{{ moneyQuantity }}" wx:for-item="cnt" wx:key="mq{{  cnt }}" class="money money{{ cnt }}">
+      <image class="money--img" src="https://static.moebeast.com/static/img/game/money.png"></image>
+    </view>
+  </view>
+
   <!-- 邀请成功弹窗 -->
   <fx-game-modal-v className="fx-modal--success" class="fx-modal--success" visible="{{ showInviteSuccessModal }}" marginTop="300">
     <view class="invite-text">

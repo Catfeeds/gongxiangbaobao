@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -110,7 +110,7 @@
 				{
 					"id": 12,
 					"name": "游戏",
-					"pathName": "games/pages/guessGamePlay/guessGamePlay",
+					"pathName": "games/pages/guessGame/guessGame",
 					"query": ""
 				},
 				{
@@ -129,12 +129,6 @@
 					"id": -1,
 					"name": "life",
 					"pathName": "pages/categoryLife/categoryLife",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "list",
-					"pathName": "pages/categoryList/categoryList",
 					"query": ""
 				}
 			]

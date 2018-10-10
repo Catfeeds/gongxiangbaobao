@@ -22,7 +22,9 @@ Page({
     showLoginModal: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     showBindForm: false,
-
+    
+    moneyQuantity: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    
     clientHeight: '',
 
     showRuleModal: false,
@@ -47,6 +49,7 @@ Page({
     },
     canWithDraw: false, // 是否能够提现
     withDrawLoading: false, // 正在提现中
+    withDrawResult: false, // 提现是否成功
     peopleCount: {
       invite_count: 0,
       total_count: 0,
@@ -117,7 +120,7 @@ Page({
   // 开始游戏
   handleStartPlay() {
     clearInterval(this.data.offsetDommTimer)
-    
+
     this.getTestQuestion()
   },
 
@@ -240,10 +243,14 @@ Page({
       if (res.success) {
         this.setData({
           withDrawLoading: false,
-          showWithDrawModal: false
+          showWithDrawModal: false,
+          withDrawResult: true
         })
         utils.fxShowToast('已提现，查看微信钱包')
       } else {
+        this.setData({
+          withDrawLoading: false
+        })
         utils.fxShowToast(res.status.message)
       }
     })
@@ -284,7 +291,10 @@ Page({
         })
         if (res.data.status == 1) {
           if (res.data.bouns_type == 1) { // 偷到优惠券
+            let stealResult = res.data
+            stealResult.coupon.expired_at = utils.timestamp2string(stealResult.coupon.expired_at, 'cn')
             this.setData({
+              stealBonusResult: stealResult,
               showInviteModal: false,
               showStealCouponModal: true
             })
