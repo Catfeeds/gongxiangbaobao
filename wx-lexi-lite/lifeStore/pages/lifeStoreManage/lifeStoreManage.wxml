@@ -64,7 +64,7 @@
     </view>
 
     <view class="store-dashboard">
-      <view class="order-total-count" >
+      <view class="order-total-count" bindtap="handleGoOrders">
         <view class="title">
           总计成交订单
           <text>（笔）</text>

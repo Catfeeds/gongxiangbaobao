@@ -66,6 +66,7 @@ module.exports = {
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
   life_records_wonderful_stories: 'life_records/wonderful_stories', //get精彩故事
   life_store_orders_collect: 'stats/life_orders_collect', // GET 生活馆订单汇总
+  life_store_orders_list: 'orders/life_orders', // GET 生活馆订单列表
   life_store_income_collect: 'stats/life_orders_sale_collect', // GET 生活馆收益汇总
   life_store_cash_collect: 'stats/life_cash_collect', // GET 生活馆提现汇总
   life_store_last_withdraw: 'stats/life_cash_recent', // GET 最近一次提现记录

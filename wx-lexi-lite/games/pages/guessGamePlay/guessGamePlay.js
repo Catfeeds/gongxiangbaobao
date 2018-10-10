@@ -120,9 +120,8 @@ Page({
         }
       } else {
         utils.fxShowToast(res.status.message)
-        // 停止获取参与人数
-        clearInterval(this.data.offsetTimer)
-        clearInterval(this.data.offsetDommTimer)
+
+        this._clearTimer()
 
         // 跳回游戏
         wx.navigateBack({
@@ -167,9 +166,7 @@ Page({
 
   // 游戏结束
   gameOver() {
-    // 停止获取参与人数
-    clearInterval(this.data.offsetTimer)
-    clearInterval(this.data.offsetDommTimer)
+    this._clearTimer()
 
     wx.showToast({
       title: '正在计算...',
@@ -295,6 +292,17 @@ Page({
     })
   },
 
+  // 清空定时器
+  _clearTimer () {
+    // 停止获取参与人数
+    clearInterval(this.data.offsetTimer)
+    clearInterval(this.data.offsetDommTimer)
+    this.setData({
+      offsetTimer: null,
+      offsetDommTimer: null
+    })
+  },
+
   // 答对问题，增加一个优惠券
   _increaseBonusCount(prize) {
     console.log('回答正确奖励')
@@ -358,16 +366,6 @@ Page({
     this.setData({
       timer: setInterval(this.startAnimation, this.data.animationTime)
     })
-
-    let that = this
-    // 获取弹幕
-    that.getDoommList()
-
-    this.setData({
-      offsetDommTimer: setInterval(() => {
-        that.getDoommList()
-      }, 10000)
-    })
   },
 
   /**
@@ -381,28 +379,36 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    let that = this
+    // 获取弹幕
+    that.getDoommList()
 
+    this.setData({
+      offsetDommTimer: setInterval(() => {
+        that.getDoommList()
+      }, 10000)
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this._clearTimer()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    this._clearTimer()
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    
   },
 
   /**

@@ -65,6 +65,15 @@ Page({
   },
 
   /**
+   * 跳转成交订单
+   */
+  handleGoOrders () {
+    wx.navigateTo({
+      url: '../lifeStoreOrders/lifeStoreOrders',
+    })
+  },
+
+  /**
    * 跳转至提现
    */
   handleGoWithdraw () {

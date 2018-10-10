@@ -646,16 +646,6 @@ Page({
     this.getStealBonusPeople()
     this.getTopWorld()
     this.getFriendList()
-
-    // 获取弹幕
-    let that = this
-    that.getDoommList()
-
-    this.setData({
-      offsetDommTimer: setInterval(() => {
-        that.getDoommList()
-      }, 10000)
-    })
   },
 
   /**
@@ -737,20 +727,36 @@ Page({
         showLoginModal: true
       })
     }
+    
+    // 获取弹幕
+    let that = this
+    that.getDoommList()
+
+    this.setData({
+      offsetDommTimer: setInterval(() => {
+        that.getDoommList()
+      }, 10000)
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    clearInterval(this.data.offsetDommTimer)
+    this.setData({
+      offsetDommTimer: null
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.offsetDommTimer)
+    this.setData({
+      offsetDommTimer: null
+    })
   },
 
   /**

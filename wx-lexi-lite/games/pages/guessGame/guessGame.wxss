@@ -53,7 +53,7 @@ page {
 }
 
 .guess-game-bg {
-  background-image: url('https://static.moebeast.com/static/img/guess-game-bg2.jpg');
+  background-image: url('https://static.moebeast.com/static/img/guess-index-bg.jpg');
   background-size: 100% auto;
   height: 100vh;
 }
