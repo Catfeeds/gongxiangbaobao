@@ -66,12 +66,12 @@
         </view>
       </view>
 
-      <view class="fx-window__actions">
+      <view class="fx-window__actions" wx:if="{{}}">
         <view class="like-comment">
           <view class="done">
             <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like"></image>
             <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}"src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like"></image>
-            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment" wx:if="{{}}"></image>
+            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment" ></image>
           </view>
           <view class="remark">
             <text wx:if="{{windowDetail.like_count!=0}}">{{windowDetail.like_count}}喜欢</text>
@@ -99,9 +99,68 @@
   </view>
 
   <!-- 评论列表 -->
-  <view class="page-section comments" wx:if="{{}}">
-    <view class="block-title">评论</view>
+  <!-- <view class="page-section comments" > -->
+    <!-- <view class="block-title">评论</view> -->
+
+  <!-- 评论 -->
+  <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
+    <view class="black-font font-width--medium">评论</view>
+
+    <!-- 每一个评论 -->
+    <view class='bg-white comment-item__item ' wx:key="{{index}}" wx:for-item="items" wx:for="{{[1,2,3]}}">
+      <image src="../../images/timg.jpg" class="comment-photo"></image>
+      <view class="flex-direction--column">
+        <!-- 顶部名字 -->
+        <view class="time-top margin-bottom--14rpx">
+          <view class="flex-direction--column">
+            <text class="font-s margin-bottom--10rpx">玮峰</text>
+            <text class="font-ss qian-hui">刚刚</text>
+          </view>
+
+          <view class="flex_row font-s qian-hui">
+            <view class="reply-tap" data-from="reply" catchtap="handleOpenCommentBox">回复</view>
+            <text> · </text>
+            <view wx:if="{{true}}" class="zan-box">
+              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
+              <text>赞</text>
+            </view>
+
+            <view wx:else class="quantity-color ">
+              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
+              <text>123</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 别人评论 -->
+        <view class="black-font line-height--48rpx margin-bottom--14rpx">
+          <text>哈教科姐啊代姐哈空间大代姐啊代姐哈空间大代姐大声疾。</text>
+        </view>
+
+        <!-- 回复她的盒子 -->
+        <view class="font-s reply-text__box">
+          <!-- 回复她的每一条 -->
+          <view wx:for="{{[1,2]}}" wx:if="{{items!=3}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
+            <text>设计师ricky(作者）</text> :
+            <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
+          </view>
+
+          <view wx:if="{{items==3}}">
+            <text>喵喵灯 等人</text>
+            <text class='theme-green'>共3条回复</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
   </view>
+
+  <!-- 查看全部 -->
+  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
+    查看全部{{liveInfo.comment_count}}条评论
+  </view>
+  <!-- </view> -->
+
   <!-- 猜你喜欢 -->
   <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
     <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
@@ -142,13 +201,24 @@
   </view>
 
   <!-- 底部添加评论 -->
-  <view class="bottom-comment" wx:if="{{}}">
+  <view class="bottom-comment" >
     <view class="comment-form">
-      <input type="text" placeholder="添加评论" class="input-text" />
-      <image src="../../images/icons/icon-like@3x.png" class="icon icon-like"></image>
-      <text class="count">220</text>
+      <input 
+      type="text" 
+      disabled="{{true}}"
+      data-from="comment"
+      catchtap="handleOpenCommentBox"
+      placeholder="添加评论" 
+      class="input-text" />
+      <!-- <image src="../../images/icons/icon-like@3x.png" class="icon icon-like"></image> -->
+                  <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like__icon"></image>
+      <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
+
+            <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}"src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like__icon"></image>
+      <text class="count" wx:if="{{!windowDetail.is_like }}"  catchtap="handleAddLike" data-rid="{{windowDetail.rid}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
+
       <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment"></image>
-      <text class="comment-count">240</text>
+      <text class="comment-count">{{windowDetail.comment_count>0?windowDetail.comment_count:''}}</text>
 
       <image src="../../images/icons/icon-share@3x.png" class="icon icon-share"></image>
     </view>
@@ -156,5 +226,19 @@
 
     <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+
+<!-- 评论输入框 -->
+  <view class="comment-input__box" 
+    wx:if="{{isShowComment}}"
+   catchtap="handleOffCommentBox">
+    <view class="comment-input" catchtap='{{false}}'>
+      <textarea 
+        auto-height 
+        bindinput="handleAddCritique" 
+        class="submit-text"
+        placeholder-class="placeholder-text"></textarea>
+      <view class="submit-btn"  catchtap="handleSubmitComment">发布</view>
+    </view>
+  </view>
 
 </view>

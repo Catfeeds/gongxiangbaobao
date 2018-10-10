@@ -12,9 +12,14 @@ Page({
    */
   data: {
     myUid: '', // 我的uid
+    isShowComment:false, // 是否显示评论
+    submitTarget:'', // 提交方向
 
     windowRid: '', // 橱窗的id
     windowDetail: '', // 橱窗详情
+    comments: [], // 橱窗评论
+    commentsNext: true, // 橱窗是否有下一页
+    commentsCount: 0, // 橱窗的数量
 
     youLike: { // 猜你喜欢
       count: 0
@@ -27,6 +32,21 @@ Page({
 
     similarWindow: { // 相似的橱窗
       count: 0
+    },
+
+    // 提交评论参数
+    commentParams: {
+      rid: '', //Number	必须	 	橱窗编号
+      pid: '', //Number	可选	0	上级评论编号
+      content: '', //String	必须	 	评论内容
+    },
+
+    // 获取评论参数
+    getCommentParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
+      sort_type: 2, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
+      rid: '', //Number	必须	 	橱窗编号
     }
   },
 
@@ -137,7 +157,7 @@ Page({
     let page = getCurrentPages()
     let parentPage = page[page.length - 2]
     if (parentPage.route == "pages/window/window") {
-    parentPage._handleLikeWindow(this.data.windowDetail.rid, option)
+      parentPage._handleLikeWindow(this.data.windowDetail.rid, option)
     }
   },
 
@@ -164,6 +184,74 @@ Page({
     })
   },
 
+  /**
+   * 添加评论
+   */
+  handleAddCritique(e) {
+    console.log(e.detail.value)
+    this.setData({
+      'commentParams.content': e.detail.value
+    })
+  },
+
+  /**
+   * 提交评论
+   */
+  handleSubmitComment() {
+    http.fxPost(api.shop_windows_comments, this.data.commentParams, result => {
+      console.log(result, '提交评论')
+      if (result.success) {
+        utils.fxShowToast('评论成功')
+        this.setData({
+          comments: []
+        })
+        this.getComment()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+/**
+ * 关闭评论
+*/
+  handleOffCommentBox() {
+    this.setData({
+      isShowComment: false
+    })
+  },
+
+  /**
+ * 打开评论
+*/
+  handleOpenCommentBox(e) {
+    console.log(e.currentTarget.dataset.from)
+    this.setData({
+      submitTarget: e.currentTarget.dataset.from,
+      isShowComment: true
+    })
+  },
+
+  /**
+   * 获取评论
+   */
+  getComment() {
+    http.fxGet(api.shop_windows_comments, this.data.getCommentParams, result => {
+      console.log(result, '获取评论')
+      if (result.success) {
+        let data = this.data.comments
+        this.setData({
+          comments: data.concat(result.data.comments), // 橱窗评论
+          commentsNext: result.data.next, // 橱窗是否有下一页
+          commentsCount: result.data.count, // 橱窗的数量
+        })
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 获取橱窗详情
   getWindowDetail() {
     http.fxGet(api.shop_windows_detail, {
@@ -171,6 +259,12 @@ Page({
     }, result => {
       console.log(result, "橱窗详情")
       if (result.success) {
+
+        let likeCount = result.data.like_count
+        let commentCount = result.data.comment_count
+        result.data.like_count = likeCount >= 1000 ? (likeCount / 1000).toFixed(2) + 'k' : likeCount
+        result.data.comment_count = commentCount >= 1000 ? (commentCount / 1000).toFixed(2) + 'k' : commentCount
+
         this.setData({
           windowDetail: result.data
         })
@@ -182,12 +276,12 @@ Page({
 
   // 猜你喜欢
   getYouLike() {
-  
-      // 是否登陆
-      if (!app.globalData.isLogin) {
-        return
-      }
-    
+
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
+    }
+
     http.fxGet(api.shop_windows_guess_like, this.data.youLikeParams, result => {
       console.log(result, "猜你喜欢")
       if (result.success) {
@@ -221,12 +315,15 @@ Page({
     console.log(options.windowRid)
     this.setData({
       windowRid: options.windowRid,
-      'youLikeParams.rid': options.windowRid
+      'youLikeParams.rid': options.windowRid,
+      'commentParams.rid': options.windowRid,
+      'getCommentParams.rid': options.windowRid,
     })
 
     this.getWindowDetail() // 橱窗的详情
     this.getYouLike() // 猜你喜欢
     this.getSimilarWindow() // 相似的橱窗
+    this.getComment() // 获取评论
   },
 
   /**

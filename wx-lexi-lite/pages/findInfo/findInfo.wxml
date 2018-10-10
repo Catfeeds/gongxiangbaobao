@@ -105,7 +105,7 @@
     </view>
   </view>
 
-<block wx:if="{{ }}">
+<block >
   <!-- 评论 -->
   <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
     <view class="black-font font-width--medium">评论</view>
@@ -124,7 +124,7 @@
           <view class="flex_row font-s qian-hui">
             <view class="reply-tap">回复</view>
             <text> · </text>
-            <view wx:if="{{true}}">
+            <view wx:if="{{true}}" class="zan-box">
               <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
               <text>赞</text>
             </view>

@@ -439,10 +439,12 @@ Page({
    * 保存当前生活馆海报到相册
    */
   handleSaveLifeStorePhoto() {
+    console.log(this.data.lifeStorePosterUrl)
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.lifeStorePosterUrl,
       success: function (res) {
+        console.log(res,'保存文件的路径')
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({

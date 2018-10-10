@@ -151,6 +151,7 @@ module.exports = {
   core_platforms_search_products: 'core_platforms/search/products', // 搜索商品的结果
   core_platforms_search_week_hot: 'core_platforms/search/week_hot', // 热门搜索
   core_platforms_search_hot_recommend: 'core_platforms/search/hot_recommend', // 热门推荐
+  shop_windows_comments:'shop_windows/comments', // 橱窗的评论
 
   // 核心 store
   users_user_dynamic: "users/user_dynamic", // 获取自己的动态

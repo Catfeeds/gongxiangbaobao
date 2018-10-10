@@ -81,7 +81,7 @@
 }
 
 .reply-tap {
-  padding: 0 20rpx;
+  padding: 15rpx 20rpx;
 }
 
 .quantity-color {
@@ -330,4 +330,9 @@ image {
 
 .font-size--28rpx {
   font-size: 28rpx;
+}
+
+.zan-box {
+  padding: 13rpx 0;
+
 }
