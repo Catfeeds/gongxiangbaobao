@@ -1,0 +1,3 @@
+<view class="fx-loading" hidden="{{ !loading }}">
+  <image src='../../images/jiazai.gif' class="icon-loading"></image>
+</view>

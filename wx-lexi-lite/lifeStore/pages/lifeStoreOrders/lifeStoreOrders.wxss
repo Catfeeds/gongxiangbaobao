@@ -1,0 +1,215 @@
+.orders-dashboard {
+  width: 670rpx;
+  height: 224rpx;
+  background: linear-gradient(90deg, rgba(95, 228, 177, 1) 0%, rgba(77, 208, 188, 1) 100%);
+  border-radius: 8rpx;
+  box-shadow: 0 8rpx 15rpx 0 rgba(0, 0, 0, 0.1);
+  margin: 20rpx auto 40rpx;
+  text-align: center;
+}
+
+.orders-dashboard .title {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 35rpx;
+  margin: 40rpx 0 30rpx;
+}
+
+.orders-dashboard .count {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
+  line-height: 35rpx;
+  margin-bottom: 28rpx;
+}
+
+.orders-dashboard .desc {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 35rpx;
+}
+
+.orders-dashboard .desc .strong {
+  font-weight: 600;
+}
+
+.transactions .trade-status {
+  border: 1rpx solid #5fe4b1;
+  margin: 0rpx 40rpx 20rpx;
+  border-radius: 35rpx;
+  display: flex;
+  justify-content: space-around;
+  font-size: 28rpx;
+  color: #555;
+  height: 70rpx;
+}
+
+.transactions .trade-status label {
+  line-height: 70rpx;
+  position: relative;
+}
+
+.transactions .trade-status label.active {
+  color: #5fe4b1;
+}
+
+.transactions .trade-status label .badge {
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  top: 5rpx;
+  right: -26rpx;
+  z-index: 99;
+  background-color: #f66;
+  text-align: center;
+  border-radius: 32rpx;
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 32rpx;
+}
+
+.orders-list {
+  border-top: 1rpx solid #e9e9e9;
+  background-color: #F7F9FB;
+}
+
+.orders-list .order-item {
+  margin-bottom: 20rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+  padding: 0 40rpx;
+  background-color: #fff;
+  padding-top: 40rpx;
+}
+
+.order-item .order-item__head, 
+.order-item .order-item__body .product {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.order-item .order-item__body {
+  margin-top: 28rpx;
+}
+
+.order-item .order-item__foot {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+.order-item .order-item__foot .order-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 24rpx;
+  margin-top: 14rpx;
+}
+
+.order-item .order-item__foot .order-date .time {
+  color: rgba(178, 178, 178, 1);
+  flex: 1;
+}
+
+.order-item .order-item__foot .order-date .income {
+  color: rgba(178, 178, 178, 1);
+  font-size: 24rpx;
+  font-weight: 500;
+  flex: 0 0 auto;
+}
+
+.order-item .order-item__foot .order-date .income .amount {
+  color: rgba(153, 153, 153, 1);
+}
+
+.order-item .order-item__head .user-avatar {
+  width: 46rpx;
+  height: 46rpx;
+  margin-right: 10rpx;
+  flex: 0 0 auto;
+}
+
+.order-item .order-item__head .user-info {
+  flex: 1;
+}
+
+.order-item .order-item__head .user-info .name {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.order-item .order-item__head .user-info .store {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(148, 158, 166, 1);
+  line-height: 36rpx;
+}
+
+.order-item .order-item__head .user-info .store .icon-store {
+  width: 20rpx;
+  height: 17rpx;
+  background: rgba(95, 228, 177, 1);
+  margin-right: 10rpx;
+}
+
+.order-item .order-item__head .user-info .store .order-label {
+  margin-left: 20rpx;
+}
+
+.order-item .order-item__head .user-info .order-status {
+  color: rgba(110, 215, 175, 1);
+}
+
+.order-item .order-item__head .subtotal {
+  flex: 0 0 auto;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: right;
+}
+
+.order-item .order-item__head .subtotal .amount {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.order-item .product .cover {
+  width: 120rpx;
+  height: 120rpx;
+  flex: 0 0 auto;
+  margin-right: 20rpx;
+}
+
+.order-item .product .product-info {
+  flex: 1;
+}
+
+.order-item .product .product-info .name,
+.order-item .product .product-info .price {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  
+}
+
+.order-item .product .product-info .mode {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  margin-bottom: 30rpx;
+}
+
+.order-item .product .quantity {
+  flex: 0 0 auto;
+  width: 100rpx;
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
