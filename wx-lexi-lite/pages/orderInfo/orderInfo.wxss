@@ -81,7 +81,7 @@
   height: 36rpx;
   width: 36rpx;
   border-radius: 50%;
-  background-color: #6FC3DE;
+  /* background-color: #6FC3DE; */
   margin-right: 20rpx;
   overflow: hidden;
 }

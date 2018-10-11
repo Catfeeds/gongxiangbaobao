@@ -292,6 +292,16 @@ const wxPromisify = fn => {
   }
 }
 
+/**
+   * 时间处理
+  */
+const commentTime = (option) => {
+    let optionTime = option
+    let currentTime = new Date()
+    console.log(currentTime , option,123)
+
+  }
+
 module.exports = {
   handleHideLoading: handleHideLoading,
   handleShowLoading: handleShowLoading,
@@ -312,5 +322,6 @@ module.exports = {
   checkTimeNumber,
   orderStatusTitle,
   Base64,
-  wxPromisify: wxPromisify
+  wxPromisify: wxPromisify,
+  commentTime
 }

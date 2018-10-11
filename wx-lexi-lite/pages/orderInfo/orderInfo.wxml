@@ -86,7 +86,7 @@
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>
                 <view class='logistics-icon'>
-                  <image></image>
+                  <image src="../../images/logistics-icon@2.png"></image>
                 </view>
                 <view>第三方直邮</view>
               </view>
@@ -101,7 +101,7 @@
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>
                 <view class='logistics-icon'>
-                  <image></image>
+                  <image src="../../images/logistics-icon@2.png"></image>
                 </view>
                 <view>第三方直邮</view>
               </view>

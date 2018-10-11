@@ -34,7 +34,11 @@ Page({
     region: ['北京市', '北京市', '朝阳区'], // 地址的pick---
     date:'',// pick的日期---
 
-    userInfo: {}, // 用户的信息---
+    userInfo: { // 用户的信息---
+      profile:{
+        avatar:''
+      }
+    }, 
     avatar: '', // 用户头像
     isUploading: false,
     uploadStatus: 0,
@@ -109,10 +113,23 @@ Page({
 
   // 保存按钮
   handlePreserveTap() {
-    console.log(this.data.editUserInfo, '修改的信息')
     http.fxPut(api.user, this.data.editUserInfo, (result)=>{
-      console.log(result)
+      console.log(result, '修改的信息')
+      console.log(app.globalData.userInfo,'globao user info')
       if (result.success) {
+
+        // 同步global-userInfo
+        app.globalData.userInfo.username = result.data.username
+        app.globalData.userInfo.profile.username = result.data.username
+        app.globalData.userInfo.avatar = result.data.avatar
+        app.globalData.userInfo.profile.avatar = result.data.avatar
+
+        // 同步storage-userInfo
+        let userInfo = wx.getStorageSync('userInfo')
+        userInfo.username = result.data.username
+        userInfo.avatar = result.data.avatar
+        wx.setStorageSync('userInfo', userInfo)
+
         wx.showToast({
           title: '已保存',
           icon: 'success',

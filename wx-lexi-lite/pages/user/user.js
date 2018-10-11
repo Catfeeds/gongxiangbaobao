@@ -202,30 +202,12 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
+    console.log(app.globalData.userInfo,'app.global数据')
 
-    http.fxGet(api.users_profile, {}, (result) => {
-      if (result.success) {
-        console.log(result, '用户的信息')
-        // 格式化时间
-        result.data.profile.created_at = utils.timestamp2string(result.data.profile.created_at, 'cn')
-        // 设置全局变量
-        app.globalData.userInfo.profile = result.data.profile
-
-        this.setData({
-          userInfo: app.globalData.userInfo
-        })
-
-        // 设置常用信息更新至缓存
-        wx.setStorageSync('userInfo', {
-          avatar: result.data.profile.avatar,
-          username: result.data.profile.username,
-          mobile: result.data.profile.mobile
-        })
-        
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+    this.setData({
+      userInfo: app.globalData.userInfo
     })
+
   },
 
   // 获取喜欢 收藏 设计馆

@@ -24,10 +24,13 @@ Page({
     gratefulSwiper: 0, // 人气推荐的的轮播图的点
     exploreSwiperMark: 0, // 探索轮播图的点
     readyOver: false, // 页面加载是否完成
+    isShowShareLifeBrand: false, // 分享生活馆的是否显示
 
-    // 分享
+    // 分享产品
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
+
+    lifeStorePosterUrl: '',// 生活馆的url
 
     // 生活馆
     isUploading: false,
@@ -272,6 +275,17 @@ Page({
   },
 
   /**
+   * 显示分享生活馆的
+   */
+  handleShareLifeBrand() {
+    this.setData({
+      isShowShareLifeBrand: true
+    })
+
+    this.getLifeBrandPoster() 
+  },
+
+  /**
    * 类别页的切换 
    */
   handlePickCategory(e) {
@@ -321,7 +335,40 @@ Page({
   },
 
   /**
-   * 生成推广海报图
+   * 生成生活馆的海报
+  */
+  getLifeBrandPoster() {
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    let rid = this.data.sid
+
+    // scene格式：rid + '-' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '-' + lastVisitLifeStoreRid
+    }
+
+    let params = {
+      rid: rid,
+      type: 2,
+      path: 'pages/index/index',
+      auth_app_id: app.globalData.app_id,
+      scene: scene
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      console.log(result, '生成分享生活馆报图')
+      if (result.success) {
+        this.setData({
+          lifeStorePosterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+  /**
+   * 生成产品推广海报图
    */
   getWxaPoster() {
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
@@ -353,13 +400,52 @@ Page({
   },
 
   /**
-   * 保存当前海报到相册
+   * 保存当前产品海报到相册
    */
   handleSaveShare() {
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.posterUrl,
       success: function(res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              utils.fxShowToast('保存成功', 'success')
+            },
+            fail(res) {
+              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
+                wx.openSetting({
+                  success(settingdata) {
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      console.log('获取权限成功，再次点击图片保存到相册')
+                      utils.fxShowToast('保存成功,分享至朋友圈')
+                    } else {
+                      utils.fxShowToast('保存失败')
+                    }
+                  }
+                })
+              } else {
+                utils.fxShowToast('保存失败')
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+
+    /**
+   * 保存当前生活馆海报到相册
+   */
+  handleSaveLifeStorePhoto() {
+    console.log(this.data.lifeStorePosterUrl)
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.lifeStorePosterUrl,
+      success: function (res) {
+        console.log(res,'保存文件的路径')
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
@@ -397,6 +483,15 @@ Page({
       showShareModal: false,
       posterUrl: '',
       shareProduct: {}
+    })
+  },
+
+  /**
+   * 取消分享-生活馆
+  */
+  handleOffLifeStore() {
+    this.setData({
+      isShowShareLifeBrand: false
     })
   },
 
@@ -446,6 +541,7 @@ Page({
         if (result.success) {
           this.setData({
             ['storeProducts[' + idx + '].is_like']: false,
+            ['storeProducts[' + idx + '].like_count']: this.data.storeProducts[idx].like_count - 1,
             ['storeProducts[' + idx + '].product_like_users[0].avatar']: '',
 
           })
@@ -461,6 +557,7 @@ Page({
         if (result.success) {
           this.setData({
             ['storeProducts[' + idx + '].is_like']: true,
+            ['storeProducts[' + idx + '].like_count']: this.data.storeProducts[idx].like_count + 1,
             ['storeProducts[' + idx + '].product_like_users[0].avatar']: app.globalData.userInfo.avatar
           })
         } else {
@@ -577,7 +674,7 @@ Page({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
-          console.log(result)
+          console.log(result, '上传的图片')
           if (result.data.length > 0) {
             this.setData({
               isUploading: false,
@@ -1610,34 +1707,46 @@ Page({
    * 用户点击右上角分享 data-from
    */
   onShareAppMessage: function(e) {
-    // 分享平台或生活馆
-    if (e.from == 'menu' || e.target.dataset.from == 1) {
-      if (this.data.pageActiveTab == 'lifeStore') {
-        let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    console.log(e)
 
-        // scene格式：sid + '-' + uid
-        let scene = lastVisitLifeStoreRid
-        console.log(lastVisitLifeStoreRid,'分享的场景参数')
-        return {
-          title: this.data.lifeStore.name + '的生活馆',
-          path: 'pages/index/index?scene=' + scene,
-          imageUrl: this.data.lifePhotoUrl,
-          success: (res) => {
-            console.log(res, '分享商品成功!')
+    // 再生活馆里面分享
+    if (this.data.pageActiveTab == 'lifeStore') {
+      // 分享平台或生活馆
+      if (e.from == 'menu' || e.target.dataset.from == 1) {
+        if (this.data.pageActiveTab == 'lifeStore') {
+          let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+
+          // scene格式：sid + '-' + uid
+          let scene = lastVisitLifeStoreRid
+          console.log(lastVisitLifeStoreRid, '分享的场景参数')
+          return {
+            title: this.data.lifeStore.name + '的生活馆',
+            path: 'pages/index/index?scene=' + scene,
+            imageUrl: this.data.lifePhotoUrl,
+            success: (res) => {
+              console.log(res, '分享商品成功!')
+            }
           }
         }
+
       }
 
-      if (this.data.pageActiveTab == 'featured' || this.data.pageActiveTab == 'explore') {
-        return app.shareLeXi()
+      // 分享产品 shareProduct
+      if (e.target.dataset.from == 2) {
+        console.log(2)
+        let title = this.data.shareProduct.name
+        return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
       }
+
+    } else {
+      // 精选和探索里面分享
+      return app.shareLeXi()
     }
 
-    // 分享产品
-    if (e.target.dataset.from == 2) {
-      let title = this.data.shareProduct.name
-      return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
-    }
+
+
+
+
   },
 
   // 点击分类

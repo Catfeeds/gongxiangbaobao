@@ -1,7 +1,7 @@
 <!--pages/editInfo/editInfo.wxml-->
 <view class='container'>
   <view class='userPhoto'>
-    <image src='{{ userInfo.profile.avatar }}'></image>
+    <image src='{{ userInfo.profile.avatar }}-avabg'></image>
     <view class='register-time'>注册时间：{{ joinTime }}</view>
     <image class='camera' bindtap='handleUploadAvatar' src='../../images/xiangji@2.png'></image>
     <!-- 进度条 -->
@@ -64,7 +64,6 @@
   <view class='bottom-btn-box bg-white '>
     <button class='btn-bg-color' catchtap='handlePreserveTap'>保存</button>
   </view>
-
 
   <view class='shm'></view>
   <view class='shm'></view>

@@ -78,10 +78,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "橱窗详情",
 					"pathName": "pages/windowDetail/windowDetail",
-					"query": ""
+					"query": "windowRid=13"
 				},
 				{
 					"id": -1,

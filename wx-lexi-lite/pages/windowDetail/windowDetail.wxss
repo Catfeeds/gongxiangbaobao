@@ -1,5 +1,6 @@
 /* 5张图 */
 @import "../index/index.wxss";
+@import "../findInfo/findInfo.wxss";
 
 .fx-window .fx-window__images.five {
   display: flex;
@@ -143,23 +144,28 @@
 }
 
 .bottom-comment .comment-form {
-  padding: 20rpx 40rpx;
+  height: 100rpx;
+  padding: 0rpx 40rpx;
   display: flex;
   border-top: 1rpx solid #e9e9e9;
   align-items: center;
 }
 
 .bottom-comment .comment-form .input-text {
+  height: 66rpx;
   font-size: 24rpx;
-  background-color: #fafafa;
+  background-color: #f5f7f9;
   border-radius: 24rpx;
-  padding: 12rpx 30rpx;
-  margin-right: 30rpx;
+  padding: 0rpx 30rpx;
+  margin-right: 20rpx;
 }
 
 .bottom-comment .comment-form .count {
+  display: inline-block;
   font-size: 28rpx;
-  margin-right: 20rpx;
+  margin-right: 12rpx;
+  width: 66rpx;
+  height: 38rpx;
 }
 
 .bottom-comment .comment-form .comment-count {
@@ -257,4 +263,10 @@
 
 .height--560rpx {
   height: 540rpx !important;
+}
+
+.icon-like__icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 6rpx;
 }
