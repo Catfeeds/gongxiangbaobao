@@ -34,13 +34,6 @@ Page({
       count: 0
     },
 
-    // 提交评论参数
-    commentParams: {
-      rid: '', //Number	必须	 	橱窗编号
-      pid: '', //Number	可选	0	上级评论编号
-      content: '', //String	必须	 	评论内容
-    },
-
     // 获取评论参数
     getCommentParams: {
       page: 1, //Number	可选	1	当前页码
@@ -185,50 +178,17 @@ Page({
   },
 
   /**
-   * 添加评论
-   */
-  handleAddCritique(e) {
-    console.log(e.detail.value)
-    this.setData({
-      'commentParams.content': e.detail.value
-    })
-  },
-
-  /**
-   * 提交评论
-   */
-  handleSubmitComment() {
-    http.fxPost(api.shop_windows_comments, this.data.commentParams, result => {
-      console.log(result, '提交评论')
-      if (result.success) {
-        utils.fxShowToast('评论成功')
-        this.setData({
-          comments: []
-        })
-        this.getComment()
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-/**
- * 关闭评论
-*/
-  handleOffCommentBox() {
-    this.setData({
-      isShowComment: false
-    })
-  },
-
-  /**
  * 打开评论
 */
-  handleOpenCommentBox(e) {
-    console.log(e.currentTarget.dataset.from)
-    this.setData({
-      submitTarget: e.currentTarget.dataset.from,
-      isShowComment: true
+  handleGoComment(e) {
+    console.log(e)
+    // this.setData({
+    //   submitTarget: e.currentTarget.dataset.from,
+    //   isShowComment: true
+    // })
+
+    wx.navigateTo({
+      url: '../comment/comment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput,
     })
   },
 
