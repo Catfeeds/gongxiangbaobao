@@ -1,10 +1,6 @@
 <!--pages/allProduct/allProduct.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-  <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
-
   <!-- 筛选和排序 -->
   <block wx:if="{{!isPersonal}}">
     <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>

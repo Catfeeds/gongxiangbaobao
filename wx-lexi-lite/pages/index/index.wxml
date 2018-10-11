@@ -1,8 +1,6 @@
 <!--index.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-  <!-- 页面加载 -->
-  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
-
   <view class="c-middle sear-top">
     <view class='sear-box flex_row font-s' catchtap='handleToSearch'>
       <view class='search-box_text flex_row'>
@@ -20,7 +18,7 @@
   </view>
 
   <!-- 生活馆  -->
-  <view wx:if="{{ pageActiveTab == 'lifeStore' }}" class='bg-white'>
+  <view class="bg-white page-lifestore {{ pageActiveTab == 'lifeStore' ? 'active' : '' }}">
     <!-- 用户的信息和店铺的信息 -->
     <view class='owner-info_box'>
       <view class=' flex_row'>
@@ -34,7 +32,7 @@
           </view>
         </view>
 
-        <view class="fx-column-start owner-info-text_info"  bindtap="{{canAdmin?'handleEditStore':''}}">
+        <view class="fx-column-start owner-info-text_info" bindtap="{{canAdmin?'handleEditStore':''}}">
           <view class="store-title">
             <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
             <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
@@ -73,18 +71,18 @@
 
     <!-- 实习馆长 -->
     <block wx:if="{{isCadet}}">
-    <view class="probation-box font-ss probation-box__white"  wx:if="{{ canAdmin }}">
-      <view class='time-top'>
-        <view class='time-top '>
-          <view class='probation-icon c-middle '>实习</view>
-          <view class='shen-hui'>当前为实习馆主</view>
+      <view class="probation-box font-ss probation-box__white" wx:if="{{ canAdmin }}">
+        <view class='time-top'>
+          <view class='time-top '>
+            <view class='probation-icon c-middle '>实习</view>
+            <view class='shen-hui'>当前为实习馆主</view>
+          </view>
+          <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
         </view>
-        <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
+        <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
+        </view>
       </view>
-      <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
-      </view>
-    </view>
-</block>
+    </block>
     <!-- 选聘中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
       <!-- 
@@ -221,7 +219,7 @@
   </view>
 
   <!-- 精选 -->
-  <view wx:if="{{ pageActiveTab == 'featured' }}" class='bg-white'>
+  <view class="bg-white page-featured {{ pageActiveTab == 'featured' ? 'active' : '' }}" >
     <!-- 手动旋转木马 -->
     <view class='swiper-photo list'>
       <swiper autoplay="{{false}}" previous-margin="{{'20rpx'}}" next-margin="{{'64rpx'}}" bindchange="swiperChange">
@@ -316,15 +314,15 @@
       <view class='material-benefits_bottom c-crosswise-a'>
         <view class='font-s fx-column--center' catchtap="handleGuessGame">
           <image src='../../images/guess-and-win-cash@2.png'></image>
-          <view>猜图赢现金</view>
+          <view class="label">猜图赢现金</view>
         </view>
         <view class='font-s fx-column--center' catchtap="handleToreceiveCoupon">
           <image src='../../images/receiv-coupon@2x.png'></image>
-          <view>领劵中心</view>
+          <view class="label">领劵中心</view>
         </view>
         <view class='font-s fx-column--center' catchtap="handleToExemptionFromPostage">
           <image src='../../images/no-logistics-icon@2x.png'></image>
-          <view>包邮专区</view>
+          <view class="label">包邮专区</view>
         </view>
       </view>
     </view>
@@ -383,19 +381,18 @@
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}}  橱窗 -->
-    <view class=' box--margin border-top padding-left--0rpx'>
-      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
-        <text>发现生活美学</text>
-        <text wx:if="{{recommendWindow.shop_windows.length>4}}" catchtap="handleGoWindow" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right nothing-right__size'></text> </text>
+    <view class='fx-part box--margin border-top padding-left--0rpx'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx' catchtap="handleGoWindow">
+        <text class="label">发现生活美学</text>
+        <view class='hui-zi-m flex_row'>
+          <text>查看全部</text>
+          <text class='fx-icon-nothing-right'></text>
+        </view>
       </view>
 
       <view class='c-importantGoodsBox  today-recommend-box'>
         <scroll-view scroll-x class="live-beautiful__window">
-          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " 
-          catchtap="handleGoWindowDetail" 
-          data-window-rid="{{item.rid}}"
-            wx:for="{{recommendWindow.shop_windows}}" 
-            wx:key="{{index}}">
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{recommendWindow.shop_windows}}" wx:key="{{index}}">
             <view class="flex_row recommend-window__photo">
               <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
               <view class="flex-direction--column">
@@ -404,7 +401,7 @@
               </view>
             </view>
 
-            <view class="padding--30rpx">
+            <view class="recommend-window_info">
               <view class="flex_row margin-bottom--30rpx">
                 <image class="master-photo" src="{{item.user_avatar}}"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
@@ -419,13 +416,13 @@
     </view>
 
     <!-- 乐喜优选 -->
-    <view>
-      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx'>
-        <text>乐喜优选</text>
-        <text wx:if="{{lexiPick.products.length>3}}" bindtap="handleToLexiPick" class='hui-zi-m flex_row z-index-100'>
-            <text bindtap="handleToLexiPick">查看全部  </text>
-        <text class='fx-icon-nothing-right'></text>
-        </text>
+    <view class="fx-part">
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx' catchtap="handleToLexiPick">
+        <text class="label">乐喜优选</text>
+        <view class='hui-zi-m flex_row'>
+          <text>查看全部</text>
+          <text class='fx-icon-nothing-right'></text>
+        </view>
       </view>
       <view class='production new-goods_box'>
         <view wx:if="{{index<4}}" class='productionGoods' wx:for="{{lexiPick.products}}" wx:key='{{index}}'>
@@ -435,12 +432,15 @@
     </view>
 
     <!-- 种草清单 -->
-    <view class="border-top margin-left--40rpx">
-      <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
-        <text>种草清单</text>
-        <text wx:if="{{plantOrderList.life_records.length>4}}" catchtap="handleToPlantNoteList" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text>
+    <view class="fx-part border-top">
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--40rpx' catchtap="handleToPlantNoteList">
+        <text class="label">种草清单</text>
+        <view class='hui-zi-m flex_row'>
+          <text>查看全部</text>
+          <text class='fx-icon-nothing-right'></text>
+        </view>
       </view>
-      <view class=' new-goods_box padding-left--0rpx column-direction'>
+      <view class='new-goods_box column-direction'>
         <view wx:if="{{index<4}}" class='flex-direction--column productionGoods' catchtap="handleToPlantNoteInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" wx:for="{{plantOrderList.life_records}}" wx:key='{{index}}'>
 
           <image src="{{item.cover}}-p326x216" wx:if="{{item.cover}}" class="img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
@@ -458,7 +458,7 @@
   </view>
 
   <!-- 探索 -->
-  <view wx:if="{{ pageActiveTab == 'explore' }}" class='bg-white'>
+  <view class="bg-white page-explore {{ pageActiveTab == 'explore' ? 'active' : '' }}">
 
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
@@ -529,9 +529,7 @@
             </view>
             <view class='time-top characteristic-box__middle'>
               <view class='characteristic-photo' wx:for="{{items.products_cover}}" wx:key="{{index}}" wx:for-item="item" wx:if="{{index<3}}">
-                <image wx:if="{{item}}" class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item}}-p16'></image>
-
-                <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" wx:else></image>
+                <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item}}-p16'></image>
               </view>
 
             </view>
@@ -582,10 +580,13 @@
     </view>
 
     <!-- 特惠好设计 {{themeProduct.designs}} -->
-    <view class='border-bottom min-height--400'>
-      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx'>
-        <text>特惠好设计</text>
-        <text wx:if="{{goodDesignList.products.length>9}}" catchtap="handleToProductList" data-from="goodDesign" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right nothing-right__size'></text> </text>
+    <view class='fx-part border-bottom min-height--400'>
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx' data-from="goodDesign" catchtap="handleToProductList">
+        <text class="label">特惠好设计</text>
+        <view class='hui-zi-m flex_row'>
+          <text>查看全部</text> 
+          <text class='fx-icon-nothing-right nothing-right__size'></text> 
+        </view>
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--34rpx recommend-product-box '>
         <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==goodDesignList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{goodDesignList.products}}" wx:key="{{index}}">

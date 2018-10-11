@@ -1,23 +1,24 @@
 /* components/FxProductComponent/FxProductComponent.wxss */
-.direction{
+
+.direction {
   display: flex;
   flex-direction: column;
 }
-.photoBox{
- 
+
+.photoBox {
   position: relative;
-  border-radius: 8rpx; 
-   overflow: hidden; 
-}
-.photoBox image{ 
-  /* height: 100%; */
+  border-radius: 8rpx;
+  overflow: hidden;
+  background-image: url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-bottom: 18rpx;
 }
 
-.sellInfo{
+.sellInfo {
   position: absolute;
   width: 62rpx;
   height: 36rpx;
-  /* background-color: #858583; */
   font-size: 20rpx;
   border-radius: 5rpx;
   color: white;
@@ -28,69 +29,76 @@
   z-index: 1;
 }
 
-.sellInfo image{
+.sellInfo image {
   height: 100%;
   width: 100%;
 }
-.material-quality>view{
-display: inline-block;
-}
-.logistics{
-  height: 24rpx;
-  width: 40rpx;
-  border-radius: 5rpx;
-  background: url("https://static.moebeast.com/image/static/icon-free.png") no-repeat;
-  background-size: 100% 100%;
-  vertical-align: middle;
-  margin-right: 10rpx;
 
-}
-.material-quality-text{
-  flex: 1;
-  font-size: 24rpx;
-  vertical-align: middle;
-}
-
-.material-quality-text::after{
-  content: " ";
-  line-height: 24rpx;
-  display: inline-block;
-  width: 0rpx;
-}
-
-.material-quality{
+.material-quality {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 10rpx;
 }
-.productPrice{
-  margin-top: -10rpx;
+
+.material-quality>view {
+  display: inline-block;
 }
-.oldPrice,
-.nowPrice{
+
+.material-quality .logistics {
+  height: 24rpx;
+  width: 40rpx;
+  border-radius: 5rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+  flex: 0 0 auto;
+}
+
+.material-quality-text {
+  flex: 1;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.material-quality-text::after {
+  content: " ";
+  line-height: 24rpx;
+  display: inline-block;
+  width: 0rpx;
+}
+.productPrice {
+  line-height: 24rpx;
+}
+
+.oldPrice, .nowPrice {
   font-size: 24rpx;
   margin-right: 10rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
 }
-.oldPrice{
+
+.oldPrice {
   text-decoration: line-through;
   color: #c2c2c2;
 }
-.like-number{
+
+.like-number {
   font-size: 22rpx;
-  color: #999999;
+  font-weight: 300;
+  color: #999;
 }
 
-
 .product-photo {
-  border-radius: 8rpx
+  border-radius: 8rpx;
 }
 
 .photo-min--sm {
-  height: 200rpx !important;
-  width: 200rpx !important;
+  height: 210rpx !important;
+  width: 210rpx !important;
 }
 
 .photo--sm {
@@ -98,7 +106,7 @@ display: inline-block;
   width: 280rpx !important;
 }
 
-.photo--middle{
+.photo--middle {
   height: 326rpx !important;
   width: 326rpx !important;
 }
@@ -106,26 +114,6 @@ display: inline-block;
 .photo--big {
   height: 670rpx !important;
   width: 670rpx !important;
-}
-
- .position-image{
-  /* background-image: url("https://static.moebeast.com/static/img/throbber.gif"),
-                    url("https://static.moebeast.com/static/img/null-product.png");
-  background-repeat: no-repeat, no-repeat; 
-  background-size: 32rpx,100%; 
-  background-position: 50%,0; */
-  /* background-image: url("https://static.moebeast.com/static/img/throbber.gif");
-  background-repeat: no-repeat; 
-  background-size: 32rpx; 
-  background-position: 50%; */
-  /* background-color: #D4DAD0; */
-}
-
-.photoBox>.active {
-    /* background-image: url("https://static.moebeast.com/static/img/null-product.png"); */
-    background-image: url("https://static.moebeast.com/image/static/null-product.png");
-  background-repeat: no-repeat; 
-  background-size: 100%;
 }
 
 .photo--oblong {

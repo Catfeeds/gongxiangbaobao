@@ -1,5 +1,6 @@
 <!--pages/designerAffair/designerAffair.wxml-->
-<view class="">
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
   <view class='c-importantGoodsTitle time-top font-xl line-height--28rpx padding-right--40rpx margin-top--40rpx'>
   </view>
   <view class='column-direction new-goods_box'>

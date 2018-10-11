@@ -16,6 +16,7 @@ Page({
     perPage: 5,
     firstTime: true,
     isCadet:true,
+    isLoading: true,
 
     swiperMark: 0, // 轮播图标记
     loadingMore: true, // 加载更多标记
@@ -1315,69 +1316,6 @@ Page({
     })
   },
 
-  /**
-   * 激活页面Tab
-   */
-  _swtichActivePageTab(name) {
-    switch (name) {
-      case 'lifeStore':
-        this.setData({
-          page: 1 // 恢复默认值
-        })
-        this.getLifeStore() // 生活馆信息
-        this.getDistributeNewest() // 选品中心入口
-        this.getStoreProducts() // 生活馆商品
-        this.getWeekPopular() // 本周最受欢迎商品
-        this.handleAddBrowse() // 添加浏览者
-
-        break;
-      case 'featured': // 精选
-        this.handleSetNavigationTitle('精选')
-
-        this.setData({
-          swiperIndex: 0
-        })
-
-        this.getChoiceHanderAdvertisement() // 头部广告
-
-        if (this.data.handerAdvertisementList.length != 0) {
-          return
-        }
-
-        this.setData({
-          isLoadPageShow: true
-        })
-
-        this.getStoreHeadlines() // 开馆头条
-        this.getTodayRecommend() // 今日推荐
-        this.getGrateful() // 人气推荐
-        this.getWindow() // 橱窗
-        this.getChoiceMiddleAdvertisement() // 中间广告
-        this.getLitePick() // 乐喜优选
-        this.getPlantOrder() // 种草清单
-
-        break;
-      case 'explore': // 探索
-        this.handleSetNavigationTitle('探索')
-        if (this.data.exploreAdvertisementList.length != 0) {
-          return
-        }
-        this.setData({
-          isLoadPageShow: true
-        })
-        this.getEditRecommend() // 编辑推荐
-        this.getCharacteristicBranderStore() // 特色品牌馆
-        this.getExploreAdvertisement() // 广告位
-        this.getCategory() // 分类
-        this.getHighQuality() // 优质新品
-        this.getGather() // 集合产品
-        this.getGoodDesign() // 特惠好设计
-        this.getOneHundred() // 百元好物
-
-        break;
-    }
-  },
-
   // 分享的生活馆图片
   getLifePhotoUrl() {
     if (!this.data.sid) {
@@ -1450,6 +1388,64 @@ Page({
   },
 
   /**
+   * 激活页面Tab
+   */
+  _swtichActivePageTab(name) {
+    switch (name) {
+      case 'lifeStore':
+        this.setData({
+          page: 1
+        })
+        this._loadingLifeStorePage()
+        break;
+      case 'featured': // 精选
+        this.handleSetNavigationTitle('精选')
+
+        this.setData({
+          swiperIndex: 0
+        })
+
+        break;
+      case 'explore': // 探索
+        this.handleSetNavigationTitle('探索')
+        break;
+    }
+  },
+
+  // 加载探索页数据
+  _loadingExplorePage() {
+    this.getExploreAdvertisement() // 广告位
+    this.getCategory() // 分类
+    this.getEditRecommend() // 编辑推荐
+    this.getCharacteristicBranderStore() // 特色品牌馆
+    this.getHighQuality() // 优质新品
+    this.getGather() // 集合产品
+    this.getGoodDesign() // 特惠好设计
+    this.getOneHundred() // 百元好物
+  },
+
+  // 加载精选页数据
+  _loadingFeaturedPage() {
+    this.getChoiceHanderAdvertisement() // 头部广告
+    this.getStoreHeadlines() // 开馆头条
+    this.getTodayRecommend() // 今日推荐
+    this.getGrateful() // 人气推荐
+    this.getChoiceMiddleAdvertisement() // 中间广告
+    this.getWindow() // 橱窗
+    this.getLitePick() // 乐喜优选
+    this.getPlantOrder() // 种草清单
+  },
+
+  // 加载生活馆数据
+  _loadingLifeStorePage() {
+    this.handleAddBrowse() // 添加浏览者
+    this.getLifeStore() // 生活馆信息
+    this.getDistributeNewest() // 选品中心入口
+    this.getStoreProducts() // 生活馆商品
+    this.getWeekPopular() // 本周最受欢迎商品
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
@@ -1510,6 +1506,10 @@ Page({
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     }
+
+    // 预加载精选、探索数据
+    this._loadingFeaturedPage()
+    this._loadingExplorePage()
   },
 
   /**
@@ -1533,11 +1533,20 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.getLifePhotoUrl()
+    console.log('on ready...')
     this.setData({
       isLoadPageShow: false,
-      readyOver: true,
+      readyOver: true
     })
+    
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 500)
+
+    this.getLifePhotoUrl()
   },
 
   /**

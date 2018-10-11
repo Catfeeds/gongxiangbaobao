@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "创作人故事"
+  "navigationBarTitleText": "创作人故事",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

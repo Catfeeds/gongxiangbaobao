@@ -11,7 +11,7 @@ Page({
    */
   data: {
     readyOver: false, // 渲染是否完成
-    isLoadPageShow: true, // 页面加载的三个点
+    isLoading: true,
     swiperMark: 0, // 轮播图的标记
     advertisement: { // 广告
       banner_images: [
@@ -196,6 +196,12 @@ Page({
     this.setData({
       readyOver: true
     })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

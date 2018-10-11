@@ -708,7 +708,6 @@ page {
 
 .fx-modal--steal-result .title {
   margin-top: 100rpx;
-  padding-left: 70rpx;
   height: 32rpx;
   font-size: 32rpx;
   font-weight: 400;
@@ -716,11 +715,13 @@ page {
   line-height: 32rpx;
   margin-bottom: 55rpx;
 }
+.fx-modal--steal-result .title text {
+  margin-right: 10rpx;
+}
 
 .fx-modal--steal-result .avenge-text {
   display: flex;
   align-items: center;
-  padding-left: 70rpx;
   margin-bottom: 42rpx;
 }
 
@@ -744,7 +745,7 @@ page {
   font-weight: 400;
   color: rgba(247, 228, 255, 1);
   line-height: 28rpx;
-  margin-right: 5rpx;
+  margin-right: 10rpx;
 }
 
 .fx-modal--steal-result .avenge-text .amount {

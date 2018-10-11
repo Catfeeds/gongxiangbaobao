@@ -26,12 +26,16 @@
   transform: translate(-50%, 50%);
   z-index: 6;
   width: 610rpx;
-  height: 130rpx;
   background-color: white;
   border-radius: 8rpx;
-  /* border: 1rpx solid red; */
-  padding: 22rpx 40rpx 24rpx;
+  padding: 30rpx 40rpx;
   box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(0, 0, 0, 0.08);
+}
+
+.browse-record__box .black-font {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(85, 85, 85, 1);
 }
 
 .top-bg__photo .browse-record__box .open-data,
@@ -51,14 +55,14 @@
 
 .browse-item__photo {
   margin-top: 24rpx;
-  margin-bottom: 30rpx;
-  width: 550rpx;
+  flex: 1;
   flex-direction: row-reverse;
 }
 
 .browse-record__box .round {
   background-color: black;
   color: white;
+  flex: 0 0 auto;
 }
 
 /* .pick-box {
@@ -86,7 +90,7 @@
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   font-size: 46rpx;
   font-weight: 500;
   color: white;

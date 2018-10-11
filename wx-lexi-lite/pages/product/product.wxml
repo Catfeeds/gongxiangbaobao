@@ -2,13 +2,8 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../../wxParse/wxParse.wxml" />
 
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color product-bout-box '>
-  <!-- 添加页面加载 -->
-  <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
-
   <!-- 轮播图 123-->
   <view class='swiperBox'>
     <swiper  bindchange='handleSwiperChange'>

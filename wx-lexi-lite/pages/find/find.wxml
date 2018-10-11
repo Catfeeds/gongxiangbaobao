@@ -1,11 +1,6 @@
 <!--pages/find/find.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-
-  <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
-
   <!-- 轮播图 -->
   <view class="find-swiper">
     <swiper 
@@ -127,5 +122,5 @@
       </view>
     </view>
   </view>
-
+  <view class="shm"></view>
 </view>

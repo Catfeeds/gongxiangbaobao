@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
@@ -1113,6 +1114,13 @@ Page({
     this.setData({
       readyOver: true
     })
+
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

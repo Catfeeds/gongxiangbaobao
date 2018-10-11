@@ -93,7 +93,12 @@ Component({
       NewData.name = dataLength > 12 ? NewData.name.slice(0, 11) + '...' : NewData.name
     }
 
-
+    if (NewData.cover) {
+      NewData.cover_image = NewData.cover + '-p' + this.properties.photoSize
+    } else {
+      NewData.cover_image = NewData.cover
+    }
+    
     this.setData({
       productItem: NewData
     })
@@ -104,8 +109,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    handleProductInfo (e){
-      console.log(e.currentTarget.dataset.storeRid)
+    handleProductInfo (e) {
       this.triggerEvent("triggerEvent_product",{
         rid: e.currentTarget.dataset.rid,
         storeRid: e.currentTarget.dataset.storeRid

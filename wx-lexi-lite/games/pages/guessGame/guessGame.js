@@ -373,9 +373,15 @@ Page({
           user_info: res.data.user_info,
           user_ranking: res.data.user_ranking
         }
+        let _list = this.data.topWorld
+        if (this.data.topWorldPage > 1) {
+          _list.push.apply(_list, res.data.ranking_list)
+        } else {
+          _list = res.data.ranking_list
+        }
         this.setData({
           currentUserTop: currentUserTop,
-          topWorld: res.data.ranking_list,
+          topWorld: _list,
           topWorldNext: res.data.next ? true : false
         })
       } else {
@@ -400,9 +406,15 @@ Page({
           user_info: res.data.user_info,
           user_ranking: res.data.user_ranking
         }
+        let _list = this.data.topFriend
+        if (this.data.topFriendPage > 1) {
+          _list.push.apply(_list, res.data.ranking_list)
+        } else {
+          _list = res.data.ranking_list
+        }
         this.setData({
           currentUserTop: currentUserTop,
-          topFriend: res.data.ranking_list,
+          topFriend: _list,
           topFriendNext: res.data.next ? true : false
         })
       } else {
@@ -420,8 +432,16 @@ Page({
     http.fxGet(api.question_friend_list, params, (res) => {
       console.log(res, '好友列表')
       if (res.success) {
+        
+        let _friends = this.data.friendList
+        if (this.data.friendPage > 1) {
+          _friends.push.apply(_friends, res.data.friend_list)
+        } else {
+          _friends = res.data.friend_list
+        }
+
         this.setData({
-          friendList: res.data.friend_list,
+          friendList: _friends,
           friendNext: res.data.next ? true : false
         })
       } else {
@@ -439,8 +459,14 @@ Page({
     http.fxGet(api.question_guess_friend, params, (res) => {
       console.log(res, '认识的好友列表')
       if (res.success) {
+        let _friends = this.data.friendList
+        if (this.data.guessFriendPage > 1) {
+          _friends.push.apply(_friends, res.data.friend_list)
+        } else {
+          _friends = res.data.friend_list
+        }
         this.setData({
-          guessFriendList: res.data.friend_list,
+          guessFriendList: _friends,
           guessFriendNext: res.data.next ? true : false
         })
       } else {
@@ -511,14 +537,24 @@ Page({
     })
   },
 
+  // 修正用户数据
+  _rebuildUserInfo (user) {
+    user.user_name = utils.truncate(user.user_name, 5)
+    return user
+  },
+
   // 获取偷我红包的提醒
   getStealBonusNotice() {
     http.fxGet(api.question_steal_record, {}, (res) => {
       console.log(res, '偷我红包的提醒')
       if (res.success) {
+        res.data.steal_bouns_record.forEach((v) => {
+          v.user_info = this._rebuildUserInfo(v.user_info)
+        })
         this.setData({
           stealBonusPeopleList: res.data.steal_bouns_record,
-          stealBonusPeopleCount: res.data.steal_bouns_count
+          stealBonusPeopleCount: res.data.steal_bouns_count,
+          showStealResultModal: res.data.steal_bouns_count > 0 ? true : false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -641,7 +677,6 @@ Page({
     this.getPeopleStats()
     this.getInvitePeople()
     this.getStealBonusNotice()
-    this.getAllRewards()
     
     this.getStealBonusPeople()
     this.getTopWorld()
@@ -726,6 +761,9 @@ Page({
       this.setData({
         showLoginModal: true
       })
+    } else {
+      // 刷新金额
+      this.getAllRewards()
     }
     
     // 获取弹幕

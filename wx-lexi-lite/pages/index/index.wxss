@@ -11,6 +11,17 @@
   background-color: white;
 }
 
+.page-lifestore,
+.page-featured,
+.page-explore {
+  display: none;
+}
+.page-lifestore.active,
+.page-featured.active,
+.page-explore.active {
+  display: block;
+}
+
 .sear-top {
   height: 100rpx;
 }
@@ -473,10 +484,10 @@ textarea {
 }
 
 .human {
-  font-size: 30rpx;
-  line-height: 30rpx;
-  font-weight: 700;
-  margin: 60rpx 40rpx 40rpx;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  font-weight: 500;
+  margin: 40rpx;
 }
 
 .new-goods {
@@ -506,7 +517,7 @@ textarea {
 .advertisement-box {
   width: 670rpx;
   height: 230rpx;
-  margin-top: 30rpx;
+  margin-top: 40rpx;
   padding: 0;
   border-radius: 8rpx;
   position: relative;
@@ -729,22 +740,27 @@ textarea {
 }
 
 .material-benefits {
-  margin-left: 40rpx;
-  padding-right: 40rpx;
-  padding: 34rpx 0 36rpx 0;
+  margin: 0rpx 40rpx;
+  padding: 40rpx 0rpx;
   border-top: 1rpx solid #e9e9e9;
   border-bottom: 1rpx solid #e9e9e9;
 }
 
 .material-benefits image {
-  width: 54rpx;
+  width: 51rpx;
   height: 51rpx;
-  margin-bottom: 22rpx;
+  margin-bottom: 21rpx;
+}
+
+.material-benefits .label {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
 }
 
 .material-benefits-top {
   text-align: center;
-  margin-bottom: 44rpx;
+  margin-bottom: 55rpx;
 }
 
 .one-row-three {
@@ -760,7 +776,8 @@ textarea {
 .life-beautiful___photo {
   width: 496rpx;
   height: 581rpx;
-  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8rpx 15rpx 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8rpx;
 }
 
 .explore-advertisement__info, .explore-advertisement__title {
@@ -831,6 +848,16 @@ textarea {
 .category__title {
   margin: 0 16rpx 0 40rpx;
   line-height: 28rpx;
+}
+
+.fx-part .category__title {
+  margin: 40rpx 40rpx 0;
+}
+
+.fx-part .category__title .label {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
 }
 
 .bg--hui {
@@ -1426,13 +1453,17 @@ swiper-photo .slide-item__box image {
 
 .recommend-window__item .describe {
   color: #999;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
   line-height: 28rpx;
 }
 
 .recommend-window__item .title {
   line-height: 28rpx;
   margin-bottom: 20rpx;
+}
+
+.recommend-window_info {
+  padding: 30rpx 30rpx 0;
 }
 
 .margin-bottom--30rpx {
@@ -1444,12 +1475,12 @@ swiper-photo .slide-item__box image {
 }
 
 .column-direction {
-  padding: 40rpx 40rpx 0 0;
+  padding: 40rpx;
   column-count: 2;
-  column-gap: 0; 
+  column-gap: 0;
 }
 
-.column-direction>view{
+.column-direction>view {
   break-inside: avoid;
 }
 

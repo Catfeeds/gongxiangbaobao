@@ -136,15 +136,12 @@ button-hover {
 }
 
 .goods-item {
-  width: 48%;
+  width: 326rpx;
+  margin-bottom: 40rpx;
 }
 
 .goodsFive {
-  width: 100%;
-}
-
-.goodsList>view {
-  margin-bottom: 30rpx;
+  width: 670rpx;
 }
 
 .sotrF {

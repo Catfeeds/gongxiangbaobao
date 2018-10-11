@@ -156,13 +156,13 @@
   <fx-game-modal-v class="fx-modal--steal-result" className="fx-modal--steal-result" visible="{{ showStealResultModal }}" marginTop="200">
     <view class="title">
       有
-      <strong>{{ stealBonusPeopleCount }}</strong>位好友偷走你的红包
+      <text>{{ stealBonusPeopleCount }}</text>位好友偷走你的红包
     </view>
     <view class="avenge-text" wx:for="{{ stealBonusPeopleList }}" wx:for-item="people" wx:key="{{ people.user_info.user_sn }}">
       <image src="{{ people.user_info.user_logo }}" class="avatar"></image>
       <view class="name">{{ people.user_info.user_name }}</view>
       <view class="doit">偷走你</view>
-      <view class="amount" wx:if="{{ people.bouns_type == 1 }}">1张{{ people.amount }}元优惠券</view>
+      <view class="amount" wx:if="{{ people.bouns_type == 1 }}">1张{{ people.bonus_amount }}元优惠券</view>
       <view class="amount" wx:if="{{ people.bouns_type == 2 }}">{{ people.amount }}元红包</view>
     </view>
     <button class="btn-go-steal" bindtap="handleGoStealBonus">去报仇</button>

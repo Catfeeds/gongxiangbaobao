@@ -10,8 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     isLoadProductShow: true, // 加载更多商品
-    isLoadPageShow: true, // 加载页面的点
 
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
@@ -386,9 +386,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.setData({
-      isLoadPageShow: false
-    })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 500)
   },
 
   /**

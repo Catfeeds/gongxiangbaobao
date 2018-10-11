@@ -3,6 +3,7 @@
   "navigationBarTextStyle": "black",
   "navigationBarBackgroundColor": "white",
   "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-coupon": "/components/FxCoupon/coupon",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",

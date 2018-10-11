@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
@@ -21,7 +22,6 @@ Page({
     sortBox: false, // 筛选的模态框
 
     isLoadProductShow: true, // 加载更多产品的loading图片
-    isLoadPageShow: true, // 加载数据的Loadig图片
 
     shim: true, // 垫片是否显示
     topBGPhoto: '', // 头部背景图片
@@ -835,9 +835,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.setData({
-      isLoadPageShow: false
-    })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**
