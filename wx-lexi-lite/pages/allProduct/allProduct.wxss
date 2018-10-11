@@ -35,6 +35,7 @@
 .browse-record__box .black-font {
   font-size: 28rpx;
   font-weight: 400;
+  margin-bottom: 24rpx;
   color: rgba(85, 85, 85, 1);
 }
 
@@ -54,7 +55,6 @@
 }
 
 .browse-item__photo {
-  margin-top: 24rpx;
   flex: 1;
   flex-direction: row-reverse;
 }

@@ -1,6 +1,6 @@
 <!-- 文章详情 -->
 <import src="../../wxParse/wxParse.wxml" />
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <!-- 详细的盒子 -->
   <view class="bg-white border-bottom margin-bottom--30rpx">

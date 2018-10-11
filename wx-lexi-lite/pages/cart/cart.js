@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLoadPageShow: true, // 加载的三个点
+    isLoading: true,
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
     desireOrderProductRid:'', // 移除心愿单的rid
@@ -768,9 +768,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.setData({
-      isLoadPageShow: false
-    })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

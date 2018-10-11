@@ -21,7 +21,47 @@
 .page-explore.active {
   display: block;
 }
-
+.fx-part .editor-recommend {
+  height: 380rpx;
+  margin: 40rpx 0;
+}
+.fx-part .best-stores {
+  height: 459rpx;
+}
+.fx-part .best-products {
+  height: 382rpx;
+}
+.fx-part .best-collections {
+  height: 316rpx;
+  margin: 40rpx 0;
+}
+.fx-part .best-sales {
+  height: 380rpx;
+  margin: 40rpx 0;
+}
+.fx-part .best-100 {
+  height: 380rpx;
+  margin: 40rpx 0;
+}
+.fx-part .plantnote-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 40rpx;
+}
+.plantnote-list .plantnote-item {
+  flex: 0 0 326rpx;
+  margin-bottom: 40rpx;
+}
+.plantnote-list .plantnote-item .plantnote-item_cover {
+  margin-bottom: 20rpx;
+}
+.plantnote-list .plantnote-item .plantnote-item_title {
+  margin-bottom: 18rpx;
+}
+.plantnote-list .plantnote-item .plantnote-item_desc {
+  margin-bottom: 18rpx;
+}
 .sear-top {
   height: 100rpx;
 }
@@ -436,6 +476,7 @@ textarea {
 .recommendbottom {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .recommendbottomText {
@@ -470,8 +511,8 @@ textarea {
 }
 
 .icon-like {
-  width: 38rpx;
-  height: 38rpx;
+  width: 36rpx;
+  height: 36rpx;
 }
 
 .examine-more-box {
@@ -564,9 +605,17 @@ textarea {
   height: 108rpx;
   width: 108rpx;
   border-radius: 50%;
-  margin-bottom: 8rpx;
   background: rgba(245, 247, 249, 1);
   margin: 0 auto;
+}
+.product-category-name {
+  font-weight:400;
+  color:rgba(51,51,51,1);
+  margin-top: 20rpx;
+  margin-bottom: 13rpx;
+}
+.product-category-count {
+  font-weight:400;
 }
 
 .characteristic-box {

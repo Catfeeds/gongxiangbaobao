@@ -11,24 +11,26 @@
   height: 400rpx;
   overflow: hidden;
   color: white;
-  /* background-color: red; */
 }
 
-.gather-hander__photo .gather-hander__text--big,
-.gather-hander__photo .gather-hander__text--min {
+.gather-info {
   position: absolute;
   left: 40rpx;
+  bottom: 20rpx;
+  z-index: 9;
 }
-
-.gather-hander__photo .gather-hander__text--big {
-  top: 270rpx;
+.gather-info .gather-hander__text--big {
   font-size: 48rpx;
-  line-height: 48rpx;
-  font-weight: 600;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+.gather-info .gather-hander__text--desc {
+  font-size: 28rpx;
+  margin-bottom: 10rpx;
 }
 
-.gather-hander__photo .gather-hander__text--min {
-  bottom: 34rpx;
+gather-info .gather-hander__text--min {
+  font-weight: 400;
 }
 
 .bg-black__half {

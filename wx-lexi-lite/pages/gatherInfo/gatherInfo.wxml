@@ -1,37 +1,30 @@
 <!--pages/gatherInfo/gatherInfo.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <view class="gather-hander__photo">
     <image mode="widthFix" src="{{product.cover}}"></image>
     <view class='bg-black__half'></view>
-    <text class="gather-hander__text--big">{{product.name}}</text>
-    <text 
-      wx:if="{{product.length!=0}}"
-      class="font-s gather-hander__text--min">{{product.products.length==0?"":product.products.length+"件商品"}}</text>
+    <view class="gather-info">
+      <view class="gather-hander__text--big">{{product.name}}</view>
+      <view class="gather-hander__text--desc">{{product.sub_name}}</view>
+      <view wx:if="{{product.length!=0}}" class="font-s gather-hander__text--min">{{product.products.length==0?"":product.products.length+"件商品"}}</view>
+    </view>
   </view>
 
   <view class="goodsList border-bottom--0">
-    <view 
-      wx:for="{{productList}}" 
-      wx:key="{{index}}" 
-      class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product 
-        product="{{item}}" 
-        photoSize="{{(index+1)%5==0?'50':'30'}}"
-        photo="{{(index+1)%5==0?'4':'3'}}"
-        bind:triggerEvent_product="handleInfomation"></fx-product>
+    <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
+      <fx-product product="{{item}}" photoSize="{{(index+1)%5==0?'50':'30'}}" photo="{{(index+1)%5==0?'4':'3'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
   </view>
 
-    <block>
+  <block>
     <!-- 底部加载 -->
     <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
     </view>
     <!-- 没有商品加载的底部 -->
     <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
-  
+
   </block>
 
 

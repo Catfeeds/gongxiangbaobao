@@ -37,3 +37,12 @@
 .margin-top--22rpx{
   margin-top: 22rpx;
 }
+.collection-name {
+  color: #333;
+  margin-top: 30rpx;
+}
+.collection-count {
+  font-size: 24rpx;
+  font-weight:400;
+color:rgba(153,153,153,1);
+}

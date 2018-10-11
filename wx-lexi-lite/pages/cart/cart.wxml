@@ -1,9 +1,6 @@
 <!--pages/cart/cart.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color {{is_mobile ||pickBox?"prevent__penetrate":""}}' >
-  <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
   <!-- 购物车缺省页 -->
   <view class='shopCartNon' wx:if="{{shoppingCart.items.length==0}}">
     <view class=' theme-green cartIcon'>

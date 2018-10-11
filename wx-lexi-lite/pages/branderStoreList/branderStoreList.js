@@ -12,11 +12,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     readyOver: false, // 加载是否完成
+
     HighStoreAdvList: [], // 特色品牌管的头部广告
     seiperIndex: 0, // 轮播图选中的点
     HighStoreList: [], // 精选品牌列表
-    categoryId: 1, // 分类的id
+    categoryId: 2, // 分类的id
     isLoadProductShow: true, // 加载图片
     isNext: true, // 是否有下一页
     storeList: [], // 店铺的列表
@@ -48,11 +50,6 @@ Page({
     this.setData({
       categoryId: e.currentTarget.dataset.id
     })
-
-    if (e.currentTarget.dataset.id == 2) {
-      this.getHighStore()
-      this.getHanderAdv()
-    }
   },
 
   // 跳转 
@@ -75,6 +72,7 @@ Page({
     http.fxGet(api.column_feature_store_all, this.data.params, (result) => {
       console.log(result, '特色品牌馆')
       if (result.success) {
+
         let data = this.data.storeList
         result.data.stores.forEach((v)=>{
           data.push(v)
@@ -82,7 +80,7 @@ Page({
 
         this.setData({
           isNext: result.data.next,
-          storeList:data,
+          storeList: data,
           isLoadProductShow:false
         })
       } else {
@@ -106,7 +104,7 @@ Page({
   },
 
   // 品牌管--精选 头部
-  getHanderAdv(){
+  getHanderAdv() {
     http.fxGet(api.banners_rid.replace(/:rid/g, 'store_ad'), {}, (result) => {
       console.log(result, '特色品牌馆-头部广告')
       if (result.success) {
@@ -124,6 +122,8 @@ Page({
    */
   onLoad: function(options) {
     this.getCharacteristicBranderStore()
+    this.getHanderAdv()
+    this.getHighStore()
   },
 
   /**
@@ -149,9 +149,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.setData({
-      readyOver: true
-    })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 500)
   },
 
   /**

@@ -2,6 +2,7 @@
   "navigationBarTitleText": "精选",
   "navigationBarTextStyle": "black",
   "navigationBarBackgroundColor": "white",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading",
     "fx-coupon": "/components/FxCoupon/coupon",

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "品牌馆",
     "usingComponents": {
+      "fx-loading": "/components/FxLoading/FxLoading",
       "fx-coupon": "/components/FxCoupon/coupon",
       "fx-product": "/components/FxProductComponent/FxProductComponent",
       "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",

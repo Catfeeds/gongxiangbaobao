@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "集合"
+  "navigationBarTitleText": "集合",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

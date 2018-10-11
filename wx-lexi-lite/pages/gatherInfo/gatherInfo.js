@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     isLoadProductShow: true, // 加载动画
     product: [], //详情
     isNext: false, // 是否有下一页
@@ -37,6 +38,9 @@ Page({
         result.data.products.forEach((v) => {
           data.push(v)
         })
+        
+        result.data.cover = result.data.cover + '-bg75x40'
+
         this.setData({
           // isNext: result.data.next,
           productList: data,
@@ -96,7 +100,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

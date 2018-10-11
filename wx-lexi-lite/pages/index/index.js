@@ -1533,7 +1533,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    console.log('on ready...')
     this.setData({
       isLoadPageShow: false,
       readyOver: true
@@ -1585,7 +1584,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    console.log(this.data.pageActiveTab, '下拉刷新')
+    if (this.data.pageActiveTab == 'featured') {
+      this._loadingFeaturedPage()
+    }
+    if (this.data.pageActiveTab == 'explore') {
+      this._loadingExplorePage()
+    }
+    if (this.data.pageActiveTab == 'lifeStore') {
+      this.setData({
+        page: 1
+      })
+      this._loadingLifeStorePage()
+    }
   },
 
   /**

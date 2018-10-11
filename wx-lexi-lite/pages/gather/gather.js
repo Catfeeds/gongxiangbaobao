@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     gatherList: [], // 集合列表
     touchBottomLoading: true, // 触底加载
     getGatherParams: {
@@ -22,14 +23,13 @@ Page({
 
   // 获取集合
   getGather() {
-    wx.showLoading()
     http.fxGet(api.column_collections, this.data.getGatherParams, (result) => {
       console.log(result, '集合')
-      wx.hideLoading()
       if (result.success) {
 
         let data = this.data.gatherList
         result.data.collections.forEach((v)=>{
+          v.cover = v.cover + '-bg75x40'
           data.push(v)
         })
 
@@ -55,7 +55,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

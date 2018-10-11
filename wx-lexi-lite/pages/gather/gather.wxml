@@ -1,4 +1,5 @@
 <!--pages/gather/gather.wxml 集合-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="theme-hui-color container">
 
   <view class="gather bg-white" wx:for="{{gatherList}}" wx:key="{{index}}">
@@ -22,8 +23,13 @@
           src="{{val.cover}}"></image>
       </view>
 
-      <view class='font-xl font-width--medium margin-top--22rpx'> <text>给她的礼物</text> </view>
-      <view class='font-s qian-hui'>{{item.products.length==0?"":item.products.length+"件商品"}}</view>
+      <view class='collection-name font-xl font-width--medium'>
+        {{ item.name }}-{{ item.sub_name }}
+      </view>
+      <view class='collection-count'>
+        {{ item.products.length==0 ? "" : item.products.length+"件商品" }}
+      </view>
     </view>
   </view>
+  <view class="shm"></view>
 </view>

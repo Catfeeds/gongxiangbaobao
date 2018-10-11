@@ -10,8 +10,8 @@ Page({
    * 页面的初始数
    */
   data: {
+    isLoading: true,
     readyOver: false, // 页面加载是否完成
-    isLoadPageShow: true, // 加载页面的三个点
     orderSum: 0, // 有没有订单
     couponSum: 0, // 有没有优惠券
     is_login: false, // 是否登陆
@@ -366,9 +366,14 @@ getLikeWindow(){
    */
   onReady: function() {
     this.setData({
-      isLoadPageShow: false,
       readyOver: true
     })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**
