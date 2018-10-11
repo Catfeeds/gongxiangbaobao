@@ -105,7 +105,7 @@
     </view>
   </view>
 
-<block >
+<block wx:if="{{}}">
   <!-- 评论 -->
   <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
     <view class="black-font font-width--medium">评论</view>

@@ -117,18 +117,13 @@ const Base64 = {
 
   enKey: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
 
-  deKey: new Array(
-    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
-    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1,
-    -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
-    -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+  deKey: new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
+    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
     41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1
   ),
 
-  encode: function (src) {
+  encode: function(src) {
     //用一个数组来存放编码后的字符，效率比用字符串相加高很多。
     var str = new Array();
     var ch1, ch2, ch3;
@@ -157,7 +152,7 @@ const Base64 = {
     return str.join('');
   },
 
-  decode: function (src) {
+  decode: function(src) {
     //用一个数组来存放解码后的字符。
     var str = new Array();
     var ch1, ch2, ch3, ch4;
@@ -200,7 +195,7 @@ const sortParams = (args) => {
   let keys = Object.keys(args)
   keys = keys.sort()
   let newArgs = {}
-  keys.forEach(function (key) {
+  keys.forEach(function(key) {
     newArgs[key] = args[key]
   })
 
@@ -216,20 +211,34 @@ const sortParams = (args) => {
  * 订单状态文本
  */
 const orderStatusTitle = (status) => {
-  let statusList = [
-    { title: '已取消', status: -1 },
-    { title: '待付款', status: 1 },
-    { title: '待发货', status: 5 },
-    { title: '待收货', status: 10 },
-    { title: '已完成', status: 20 }
+  let statusList = [{
+      title: '已取消',
+      status: -1
+    },
+    {
+      title: '待付款',
+      status: 1
+    },
+    {
+      title: '待发货',
+      status: 5
+    },
+    {
+      title: '待收货',
+      status: 10
+    },
+    {
+      title: '已完成',
+      status: 20
+    }
   ]
-  let tmp = statusList.filter(function (item) {
+  let tmp = statusList.filter(function(item) {
     return item.status == status
   })
   return tmp ? tmp[0].title : ''
 }
 // 提示信息
-const showToast = (v, typeText ="none") => {
+const showToast = (v, typeText = "none") => {
   wx.showToast({
     title: v,
     icon: typeText,
@@ -253,19 +262,19 @@ const handleShowTabBar = () => {
 const handleShowLoading = () => {
   wx.showLoading({
     title: '加载中',
-    mask:false
-  }) 
+    mask: false
+  })
 }
 
 // 隐藏加载
 const handleHideLoading = () => {
-  wx.hideLoading() 
+  wx.hideLoading()
 }
 
 /**
  * 截取字符
  */
-const truncate = (s, max=10) => {
+const truncate = (s, max = 10) => {
   if (s.length > max) {
     return s.substr(0, max) + '...'
   }
@@ -277,13 +286,13 @@ const truncate = (s, max=10) => {
  * @params fn {Function} 小程序原始API，如wx.login
  */
 const wxPromisify = fn => {
-  return function (obj = {}) {
+  return function(obj = {}) {
     return new Promise((resolve, reject) => {
-      obj.success = function (res) {
+      obj.success = function(res) {
         resolve(res)
       }
 
-      obj.fail = function (res) {
+      obj.fail = function(res) {
         reject(res)
       }
 
@@ -293,14 +302,37 @@ const wxPromisify = fn => {
 }
 
 /**
-   * 时间处理
-  */
+ * 时间处理
+ */
 const commentTime = (option) => {
-    let optionTime = option
-    let currentTime = new Date()
-    console.log(currentTime , option,123)
+  let optionTime = option * 1000
+  let currentTime = (new Date()).getTime()
+  let difference = currentTime - optionTime // 时间差
+  let hh = new Date(difference).getHours() // 时分秒
+  let mm = new Date(difference).getMinutes() // 时分秒
+  let ss = new Date(difference).getSeconds() // 时分秒
 
+  if (difference<=600000) {
+    return '刚刚'
   }
+
+  if (difference > 600000 && difference <= 3600000) {
+    return mm+'分钟前'
+  }
+
+  if (difference > 3600000 && difference <= 86400000) {
+    return hh+'小时前'
+  }
+
+  if (difference > 86400000 && difference <= 172800000) {
+    return '昨天'
+  }
+
+  if (difference > 172800000){
+    return this.timestamp2string(option,'cn')
+  }
+
+}
 
 module.exports = {
   handleHideLoading: handleHideLoading,
