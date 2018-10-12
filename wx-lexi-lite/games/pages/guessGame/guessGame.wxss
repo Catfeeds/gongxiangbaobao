@@ -404,6 +404,10 @@ page {
   height: 134rpx;
 }
 
+.fx-modal--rules .rule-text {
+  height: 850rpx;
+}
+
 .fx-modal--rules .rule-text .prt {
   font-size: 26rpx;
   font-weight: 400;
@@ -420,7 +424,9 @@ page {
   margin-bottom: 20rpx;
   margin-top: 20rpx;
 }
-
+.fx-modal--rules .rule-text .copyright {
+  color: rgba(255, 207, 0, 1);
+}
 .fx-modal--withdraw .withdraw-box {
   margin-top: 100rpx;
 }

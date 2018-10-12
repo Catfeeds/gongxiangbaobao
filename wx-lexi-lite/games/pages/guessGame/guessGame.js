@@ -516,8 +516,7 @@ Page({
         })
 
         this.setData({
-          stealBonusPeople: res.data.friend_list,
-          showStealResultModal: res.data.count > 0 ? true : false
+          stealBonusPeople: res.data.friend_list
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -536,8 +535,7 @@ Page({
         this.setData({
           testQuestions: res.data.question,
           testId: res.data.test_id,
-          prizePool: res.data.prize_pool,
-          showStealResultModal: res.data.count > 0 ? true : false
+          prizePool: res.data.prize_pool
         })
 
         wx.setStorageSync('testQuestion', res.data)
@@ -751,7 +749,6 @@ Page({
     this.getInvitePeople()
     this.getStealBonusNotice()
     
-    this.getStealBonusPeople()
     this.getTopWorld()
     this.getFriendList()
   },
