@@ -100,9 +100,12 @@ Page({
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          isShowComment: true
+          isShowComment: true,
+          isShowComment:false,
+          'sonCommentParams.content':''
         })
         this.getComment()
+        this._handleParentUpdata()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -120,14 +123,16 @@ Page({
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          isShowComment: true
+          isShowComment: true,
+          isShowComment: false,
+          'commentParams.content': ''
         })
         this.getComment()
+        this._handleParentUpdata()
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   /**
@@ -173,6 +178,13 @@ Page({
     })
 
     this.getComment()
+  },
+
+// 更新父级评论
+  _handleParentUpdata(){
+    let page = getCurrentPages()
+    page[page.length - 2].getComment()
+    console.log(page[page.length - 2],'fujiyemain')
   },
 
   /**

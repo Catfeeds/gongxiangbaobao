@@ -185,7 +185,7 @@ Page({
     console.log(e)
 
     wx.navigateTo({
-      url: '../comment/comment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid,
+      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid,
     })
   },
 
@@ -212,10 +212,9 @@ Page({
           })
         })
 
-
         timePromise.then(() => {
           this.setData({
-            comments: data.concat(result.data.comments), // 橱窗评论
+            comments: result.data.comments, // 橱窗评论
             commentsNext: result.data.next, // 橱窗是否有下一页
             commentsCount: result.data.count, // 橱窗的数量
           })

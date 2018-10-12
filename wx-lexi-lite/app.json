@@ -62,7 +62,7 @@
     "pages/addWindow/addWindow",
     "pages/addWindowLabel/addWindowLabel",
     "pages/addWindowProduct/addWindowProduct",
-    "pages/comment/comment",
+    "pages/windowComment/windowComment",
     "components/FxLoginModal/FxLoginModal"
   ],
   "subPackages": [
