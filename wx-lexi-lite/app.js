@@ -84,7 +84,7 @@ App({
               // 回调函数
               this.hookLoginCallBack(res.data)
             }
-            
+
             userLoaded = true
           } else {
             // 显示错误信息
@@ -277,7 +277,7 @@ App({
   /**
    * 更新游戏分享次数
    */
-  updateGameShare () {
+  updateGameShare() {
     if (this.globalData.isLogin) {
       http.fxPost(api.question_share, {}, (res) => {
         console.log(res, '更新游戏分享次数')
@@ -519,6 +519,8 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 是否由分享而来，不是就是false 是的话就是携带的参数
+    isSharePageParas: false,
     // 检测用户加载是否完成，异步问题
     userLoaded: false,
     // 支付成功后的订单
