@@ -99,6 +99,13 @@ Page({
     console.log(this.data.rpx, '像素转换')
 
     this.drawProgressbg()
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

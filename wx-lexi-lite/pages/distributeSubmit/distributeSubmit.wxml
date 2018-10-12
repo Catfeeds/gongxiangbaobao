@@ -51,5 +51,5 @@
   <view class="page-section distribute-action">
     <button class="fx-button primary" bindtap="handleSubmitDistribute" >确认上架</button>
   </view>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

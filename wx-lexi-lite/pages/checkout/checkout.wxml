@@ -241,5 +241,5 @@
 
   <!-- 垫片 value='{code:{{item.coupon.code}},store_rid:{{pickCouponProductId}},price:{{item.coupon.amount}}}' -->
   <view class='shm'></view>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

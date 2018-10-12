@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "选择收货地址",
+  "navigationBarTitleText": "评论",
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading"
   }

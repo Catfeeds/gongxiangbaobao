@@ -44,4 +44,4 @@
     <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
   </view>
 </view>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>

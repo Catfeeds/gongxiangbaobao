@@ -765,7 +765,7 @@ Page({
     // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
-    console.log(scene, 'scene')
+    console.log(scene, product,'scene')
     if (scene && scene != undefined && scene != 'undefined') {
       let sceneAry = scene.split('-')
       console.log(sceneAry.length)

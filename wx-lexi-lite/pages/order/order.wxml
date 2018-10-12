@@ -1,6 +1,6 @@
 <!--pages/order/order.wxml 订单状态-->
 <view class='container theme-bg-color'>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 
   <!-- 头部导航 -->
   <view class="page-order__nav">

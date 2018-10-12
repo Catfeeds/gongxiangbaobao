@@ -1,5 +1,5 @@
 <view class="container">
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
   <view class="apply-container" wx:if="{{ activePage == 'apply-form' }}">
     <view class="apply-jumbotron">
       <image src="../../images/lexi-logo.png" class="logo"></image>

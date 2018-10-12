@@ -3,7 +3,7 @@
     src='../../images/jiazai.gif' 
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <!--pages/pickLogistics/pickLogistics.wxml 选择配送方式-->
 <view class='container theme-bg-color'>
   <view class='productPhotoBox' wx:for='{{ orderInfoSkus }}' wx:key='{{ index }}'>

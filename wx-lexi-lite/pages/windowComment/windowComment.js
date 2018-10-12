@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     isShowComment: false, // 输入框
     windowRid: '', // 评论的对象rid
     submitTarget: '', // 提交目标 reply comment
@@ -37,15 +38,15 @@ Page({
     getCommentParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
-      sort_type: 2, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
+      sort_type: 0, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
       rid: '', //Number	必须	 	橱窗编号
     },
 
     // 获取子评论
     childrenParams: {
-      page: 1, //Number	可选	1	当前页码
+      page: 0, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
-      sort_type: 1, //Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
+      sort_type: 0, //Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
       pid: '', //Number	必须	 	父级评论编号
     }
 
@@ -58,12 +59,32 @@ Page({
 
     let index = e.currentTarget.dataset.index
     let pid = e.currentTarget.dataset.commentId
+    let commentList = this.data.comments[index].sub_comments
+
+    let page = commentList[commentList.length-1].current_page
+    console.log(page,"当前页面")
+
     this.setData({
-      'childrenParams.pid':pid
+      'childrenParams.pid':pid,
+      'childrenParams.page': page + 1
     })
 
     http.fxGet(api.shop_windows_child_comments, this.data.childrenParams, result => {
       console.log(result)
+      if (page==0) {
+        commentList = []
+      }
+
+      result.data.comments.forEach((v,i) => {
+        v.current_page = result.data.comments.current_page
+        v.created_at_cn = utils.commentTime(v.created_at)
+      })
+
+      this.setData({
+        ['comments[' + index + '].sub_comments']: commentList.concat(result.data.comments),
+        ['comments[' + index + '].remain_count']: result.data.remain_count
+      })
+
     })
 
   },
@@ -73,15 +94,20 @@ Page({
    */
   handleReply(e) {
     console.log('子评论')
+    this.setData({
+      isShowComment: false,
+    })
+
     http.fxPost(api.shop_windows_comments, this.data.sonCommentParams, result => {
       console.log(result, '提交评论')
       if (result.success) {
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          isShowComment: true
+          'sonCommentParams.content': ''
         })
         this.getComment()
+        this._handleParentUpdata()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -93,20 +119,24 @@ Page({
    */
   handleSubmitComment() {
     console.log('主评论')
+    this.setData({
+      isShowComment: false,
+    })
+
     http.fxPost(api.shop_windows_comments, this.data.commentParams, result => {
       console.log(result, '提交评论')
       if (result.success) {
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          isShowComment: true
+          'commentParams.content': ''
         })
         this.getComment()
+        this._handleParentUpdata()
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   /**
@@ -143,7 +173,23 @@ Page({
     })
   },
 
+  /**
+   * 查看更多的主评论
+  */
+  handleAllComment(){
+    this.setData({
+      'getCommentParams.page': this.data.getCommentParams.page + 1
+    })
 
+    this.getComment()
+  },
+
+// 更新父级评论
+  _handleParentUpdata(){
+    let page = getCurrentPages()
+    page[page.length - 2].getComment()
+    console.log(page[page.length - 2],'fujiyemain')
+  },
 
   /**
    * 关闭评论
@@ -171,11 +217,17 @@ Page({
 
         const timePromise = new Promise((resolve, reject) => {
           result.data.comments.forEach((v, i) => {
-            v.current_page = 0
             v.created_at_cn = utils.commentTime(v.created_at)
-          })
+            v.sub_comments.forEach((item,idx) => {
+              item.current_page = 0
+              item.created_at_cn = utils.commentTime(item.created_at)
+            })
 
-          resolve()
+            // 循环完毕
+            if (result.data.comments.length-1==i) {
+              resolve()
+            }
+          })
         })
         
         timePromise.then(()=>{
@@ -183,7 +235,7 @@ Page({
           this.setData({
             comments: data.concat(result.data.comments), // 橱窗评论
             commentsNext: result.data.next, // 橱窗是否有下一页
-            commentsCount: result.data.count, // 橱窗的数量
+            commentsCount: result.data.remain_count, // 橱窗的评论数量
           })
         })
 
@@ -202,6 +254,7 @@ Page({
       'getCommentParams.rid': options.rid,
       'commentParams.rid': options.rid,
       'sonCommentParams.rid': options.rid,
+      'sonCommentParams.pid': options.pid,
       windowRid: options.rid,
       submitTarget: options.submitTarget,
       isShowComment: options.isInput == 0 ? false : true
@@ -214,7 +267,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

@@ -1,4 +1,5 @@
 <!--pages/addWindow/addWindow.wxml 发布橱窗-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <view class="padding-left__right--40rpx">
     <view class="window-title">打造你的生活美学</view>

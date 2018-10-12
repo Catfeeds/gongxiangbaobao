@@ -833,6 +833,21 @@ Page({
     })
   },
 
+  // 跳转详情
+  handleGoProduct(e){
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid + '&storeRid=' + e.currentTarget.dataset.storeRid,
+    })
+  },
+
+ // 跳转详情
+  handleGoProduction(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../product/product?rid=' + e.detail.rid + '&storeRid=' + e.detail.storeRid,
+    })
+  },
+
   // 提示信息
   warn(title, content) {
     wx.showModal({

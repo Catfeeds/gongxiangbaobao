@@ -15,7 +15,8 @@ Page({
    */
   data: {
     topKey: 0,
-
+    isLoading: true,
+    
     bonusCount: [], // 奖金计数
     rule_show: [], // 活动内容呼出框
     get_bonus: false, // 获取红包的呼出框
@@ -124,7 +125,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

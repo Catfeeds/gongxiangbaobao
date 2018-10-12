@@ -4,6 +4,7 @@
   "navigationBarBackgroundColor": "black",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
-    "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle"
+    "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
+    "fx-loading": "/components/FxLoading/FxLoading"
   }
 }

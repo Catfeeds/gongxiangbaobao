@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "上架到生活馆"
+  "navigationBarTitleText": "上架到生活馆",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

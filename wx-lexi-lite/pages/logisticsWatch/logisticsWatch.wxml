@@ -121,7 +121,6 @@
           <text>{{item.AcceptTime}}</text> </view>
       </view>
     </view>
-
   </view>
-
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

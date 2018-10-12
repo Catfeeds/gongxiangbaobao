@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "添加标签"
+  "navigationBarTitleText": "添加标签",
+    "usingComponents": {
+      "fx-loading": "/components/FxLoading/FxLoading"
+    }
 }

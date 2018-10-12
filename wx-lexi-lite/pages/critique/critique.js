@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     submit_btn: false, // 提交按钮是否生效
     star_list: [1, 2, 3, 4, 5], //星星数量
     selectedStar: 0, // 选中星星的数量
@@ -158,7 +159,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

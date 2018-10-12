@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "评价",
   "usingComponents":{
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle"
   }
 

@@ -2,6 +2,7 @@
   "navigationBarTitleText": "发现生活美学",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
-    "fx-login": "/components/FxLogin/FxLogin"
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-loading": "/components/FxLoading/FxLoading"
   }
 }

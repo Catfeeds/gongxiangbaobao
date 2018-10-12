@@ -5,20 +5,18 @@
     <view class="black-font font-width--medium">评论</view>
 
     <!-- 每一个评论 -->
-    <view class='bg-white comment-item__item ' wx:key="{{index}}" wx:for-item="items" wx:for="{{comments}}">
+    <view class='bg-white comment-item__item  {{comments.length-1==index?"border-nonne":""}}' wx:key="{{index}}" wx:for-item="items" wx:for="{{comments}}">
       <image src="{{items.user_avatar}}" class="comment-photo"></image>
       <view class="flex-direction--column">
         <!-- 顶部名字 -->
         <view class="time-top margin-bottom--14rpx">
           <view class="flex-direction--column">
             <text class="font-s margin-bottom--10rpx">{{items.user_name}}</text>
-            <text class="font-ss qian-hui">刚刚</text>
+            <text class="font-ss qian-hui">{{items.created_at_cn}}</text>
           </view>
 
           <view class="flex_row font-s qian-hui">
-            <view class="reply-tap" data-submit-target="reply" 
-            data-comment-id="{{items.comment_id}}"
-            catchtap="handleOpenCommentBox">回复</view>
+            <view class="reply-tap" data-submit-target="reply" data-comment-id="{{items.comment_id}}" catchtap="handleOpenCommentBox">回复</view>
             <text> · </text>
             <view wx:if="{{true}}" class="zan-box">
               <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
@@ -47,7 +45,7 @@
             </view>
             <text>{{item.content}}</text>
             <view class="time-top">
-              <view>7月8日</view>
+              <view>{{item.created_at_cn}}</view>
               <view class="flex_row zan-box" data-comment-id="{{item.comment_id}}">
                 <image src="../../images/icons/icon-zan@3x.png" class="zan-icon"></image>
                 <text>赞</text>
@@ -55,14 +53,10 @@
             </view>
           </view>
 
-          <view wx:if="{{items.sub_comment_count>0}}">
-            <view 
-              class="flex_row--middle" 
-              catchtap="handleGetChildrenComment"
-              data-index="{{index}}"
-              data-comment-id="{{items.comment_id}}"> 
-            <text>查看{{ items.sub_comment_count }}条回复 </text> 
-            <image src="../../images/hui-jian-tou@3x.png" class="xia-icon"></image>
+          <view wx:if="{{items.remain_count>0}}">
+            <view class="flex_row--middle" catchtap="handleGetChildrenComment" data-index="{{index}}" data-comment-id="{{items.comment_id}}">
+              <text>查看{{ items.remain_count }}条回复 </text>
+              <image src="../../images/hui-jian-tou@3x.png" class="xia-icon"></image>
             </view>
           </view>
         </view>
@@ -72,8 +66,8 @@
   </view>
 
   <!-- 查看全部 -->
-  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
-    查看全部{{liveInfo.comment_count}}条评论
+  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{commentsCount!=0}}" catchtap="handleAllComment">
+    查看全部{{commentsCount}}条评论
   </view>
 
   <!-- 底部添加评论 -->
@@ -84,7 +78,7 @@
       <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like__icon"></image>
       <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
 
-      <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}" src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like__icon"></image>
+      <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}" src="../../images/icons/icon-like@3x.png" wx:if="{{}}" class="icon-like__icon"></image>
       <text wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike" data-rid="{{windowDetail.rid}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
 
     </view>
@@ -93,17 +87,11 @@
   <!-- 评论输入框 -->
   <view class="comment-input__box" wx:if="{{isShowComment}}" catchtap="handleOffCommentBox">
     <view class="comment-input" catchtap="handlePrevent">
-      <textarea 
-        auto-height 
-        bindinput="{{submitTarget=='reply'?'handleReplyCritique':'handleAddCritique'}}" 
-        class="submit-text" 
-        auto-focus="{{isShowComment}}" 
-        cursor-spacing="{{10}}" 
-        placeholder-class="placeholder-text" 
-        value="{{submitTarget=='reply'?sonCommentParams.content:commentParams.content}}"></textarea>
+      <textarea auto-height bindinput="{{submitTarget=='reply'?'handleReplyCritique':'handleAddCritique'}}" class="submit-text" auto-focus="{{isShowComment}}" cursor-spacing="{{20}}" placeholder-class="placeholder-text" value="{{submitTarget=='reply'?sonCommentParams.content:commentParams.content}}"></textarea>
       <view class="submit-btn" catchtap="{{submitTarget=='reply'?'handleReply':'handleSubmitComment'}}">发布</view>
     </view>
   </view>
 
   <view class="shm"></view>
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

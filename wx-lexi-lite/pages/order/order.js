@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据 orders
    */
   data: {
-    // 订单列表
+    isLoading: true,
     // orderList:[],
     allOrderList: [], //全部订单
     isNextAll: true, //全部是否有下页
@@ -366,7 +366,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

@@ -1,4 +1,5 @@
 <!--pages/addWindowLabel/addWindowLabel.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <import src="../../wxParse/wxParse.wxml" />
 <!-- 添加页面加载 -->
 <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>

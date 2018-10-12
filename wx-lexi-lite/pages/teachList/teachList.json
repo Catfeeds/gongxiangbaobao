@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "手作教学"
+  "navigationBarTitleText": "手作教学",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

@@ -11,9 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     myUid: '', // 我的uid
-    isShowComment:false, // 是否显示评论
-    submitTarget:'', // 提交方向
+    isShowComment: false, // 是否显示评论
+    submitTarget: '', // 提交方向
 
     windowRid: '', // 橱窗的id
     windowDetail: '', // 橱窗详情
@@ -38,7 +39,7 @@ Page({
     getCommentParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
-      sort_type: 2, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
+      sort_type: 0, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
       rid: '', //Number	必须	 	橱窗编号
     }
   },
@@ -178,17 +179,13 @@ Page({
   },
 
   /**
- * 打开评论
-*/
+   * 打开评论
+   */
   handleGoComment(e) {
     console.log(e)
-    // this.setData({
-    //   submitTarget: e.currentTarget.dataset.from,
-    //   isShowComment: true
-    // })
 
     wx.navigateTo({
-      url: '../comment/comment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput,
+      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid,
     })
   },
 
@@ -200,12 +197,28 @@ Page({
       console.log(result, '获取评论')
       if (result.success) {
         let data = this.data.comments
-        this.setData({
-          comments: data.concat(result.data.comments), // 橱窗评论
-          commentsNext: result.data.next, // 橱窗是否有下一页
-          commentsCount: result.data.count, // 橱窗的数量
+        const timePromise = new Promise((resolve, reject) => {
+          result.data.comments.forEach((v, i) => {
+            v.created_at_cn = utils.commentTime(v.created_at)
+            v.sub_comments.forEach((item, idx) => {
+              item.current_page = 0
+              item.created_at_cn = utils.commentTime(item.created_at)
+            })
+
+            // 循环完毕
+            if (result.data.comments.length - 1 == i) {
+              resolve()
+            }
+          })
         })
 
+        timePromise.then(() => {
+          this.setData({
+            comments: result.data.comments, // 橱窗评论
+            commentsNext: result.data.next, // 橱窗是否有下一页
+            commentsCount: result.data.count, // 橱窗的数量
+          })
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -290,7 +303,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

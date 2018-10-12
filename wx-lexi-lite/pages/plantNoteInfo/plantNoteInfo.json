@@ -7,6 +7,7 @@
       "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
       "fx-login": "/components/FxLogin/FxLogin",
       "fx-modal-v": "/components/FxModalV/FxModalV",
-      "fx-modal": "/components/FxModal/FxModal"
+      "fx-modal": "/components/FxModal/FxModal",
+      "fx-loading": "/components/FxLoading/FxLoading"
     }
 }

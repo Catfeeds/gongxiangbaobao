@@ -111,3 +111,4 @@
   <!-- 垫片 -->
   <view class='shm'></view>
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

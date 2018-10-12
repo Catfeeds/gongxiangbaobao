@@ -101,5 +101,6 @@
     </view>
     <view class='cameraOrPhoto-bottom' catchtap='pickCameraOrPhoto'>取消</view>
   </view>
-
 </view>
+
+<fx-loading loading="{{ isLoading }}"></fx-loading>

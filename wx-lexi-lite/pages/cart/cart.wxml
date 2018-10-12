@@ -25,7 +25,7 @@
     </view>
     <view class='goodsList'>
       <checkbox-group bindchange="checkboxChange">
-        <label class="checkbox" wx:for="{{shoppingCart.items}}" wx:key="{{item.id}}">
+        <label class="checkbox" wx:for="{{shoppingCart.items}}" wx:key="{{item.id}}" catchtap="{{changeCart?'':'handleGoProduct'}}" data-rid="{{item.product.product_rid}}" data-store-rid="{{item.product.store_rid}}">
           <view class='goodsListItem' name="{{item.id}}">
             <!-- 左边选择框 -->
             <block wx:if="{{changeCart}}">
@@ -62,13 +62,14 @@
   <!-- 心愿单 -->
   <view class='thinkOrderBox' wx:if="{{thinkOrder.products.length!=0 && isShowOrder}}">
     <view class='thinkOrdertext'>心愿单</view>
-    <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}">
+    <view class='thinkOrderProduct' wx:for="{{thinkOrder.products}}" wx:key="{{item.id}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGoProduct">
       <view class='cart-L'>
         <fx-product-middleM 
           photoHeight="{{140}}" 
           photoWidth="{{140}}" 
           product="{{item}}" 
           price="true" 
+          bind:triggerEvent_product="handleGoProduction"
           repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
       </view>
       <view 
@@ -145,8 +146,7 @@
 
   <!-- 底部垫片 -->
   <view class='Bottom-shim'></view>
-  
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
-
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>
