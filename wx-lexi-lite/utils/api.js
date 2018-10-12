@@ -11,6 +11,7 @@ module.exports = {
   bind_mobile: 'accounts/wxa_bind_mobile', // 绑定手机号码---
   auth_weixin: 'accounts/wxa_get_authorize_info', // POST 微信授权获取用户信息、openid、unionid
   wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
+  auth_refresh_session: 'accounts/refresh_wxa_session', // session 过期则刷新
   countries: 'countries', // 获取国家列表
   bind_friend: 'guess_image/add_friend', // 绑定好友关系
   
@@ -347,6 +348,8 @@ module.exports = {
   // GET 新好友加入提醒
   question_friend_notice: 'guess_image/new_friend_info',
   // POST 更新分享记录
-  question_share: 'guess_image/is_share'
+  question_share: 'guess_image/is_share',
+  // POST 游戏首页海报
+  question_index_poster: 'guess_image/wx_index_poster'
 
 }

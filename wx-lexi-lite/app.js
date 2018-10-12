@@ -101,54 +101,71 @@ App({
   },
 
   /**
+   * 刷新用户session key
+   */
+  refreshUserSessionKey(cb) {
+    // 调用login获取code
+    wx.login({
+      success: (res) => {
+        // 发送 res.code 到后台换取 openId
+        const code = res.code
+        console.log('Login code: ' + code)
+
+        let params = {
+          code: code,
+          auth_app_id: this.globalData.app_id
+        }
+
+        // 更新用户Session key
+        http.fxPost(api.auth_refresh_session, params, (res) => {
+          console.log(res, '刷新session成功')
+          if (!res.success) {
+            utils.fxShowToast(res.status.message)
+          } else {
+            return typeof cb == 'function' && cb(true)
+          }
+        })
+      }
+    })
+  },
+
+  /**
    * 获取用户授权手机号
    */
   handleGotPhoneNumber(e, cb) {
-    console.log(e)
-    if (e.detail.errMsg == 'getPhoneNumber:ok') {
-      // 调用login获取code
-      wx.login({
-        success: (res) => {
-          // 发送 res.code 到后台换取 openId
-          const code = res.code
-          console.log('Login code: ' + code)
+    let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') || false
 
-          let lastVisitLifeStore = wx.getStorageSync('lastVisitLifeStoreRid') || false
+    http.fxPost(api.wxa_authorize_bind_mobile, {
+      auth_app_id: this.globalData.app_id,
+      encrypted_data: e.detail.encryptedData,
+      iv: e.detail.iv,
+      openid: this.globalData.jwt.openid,
+      last_store_rid: lastVisitLifeStore
+    }, (res) => {
+      console.log(res, '微信授权手机号')
+      if (res.success) {
+        // 登录成功，得到jwt后存储到storage
+        console.log(res.data, 'jwt信息')
 
-          http.fxPost(api.wxa_authorize_bind_mobile, {
-            code: code,
-            auth_app_id: this.globalData.app_id,
-            encrypted_data: e.detail.encryptedData,
-            iv: e.detail.iv,
-            last_store_rid: lastVisitLifeStore
-          }, (res) => {
-            console.log(res, '微信授权手机号')
-            if (res.success) {
-              // 登录成功，得到jwt后存储到storage
-              console.log(res.data, 'jwt信息')
-              wx.setStorageSync('jwt', res.data)
-              this.globalData.jwt = res.data
+        wx.setStorageSync('jwt', res.data)
 
-              // 更新最后浏览
-              if (lastVisitLifeStore) {
-                this.updateLifeStoreLastVisit(lastVisitLifeStore)
-              }
+        this.globalData.jwt = res.data
 
-              // 回调函数
-              this.hookLoginCallBack(res.data)
-
-              return typeof cb == 'function' && cb(true)
-            } else {
-              utils.fxShowToast(res.status.message)
-
-              return typeof cb == 'function' && cb(false)
-            }
-          })
+        // 更新最后浏览
+        if (lastVisitLifeStore) {
+          this.updateLifeStoreLastVisit(lastVisitLifeStore)
         }
-      })
-    } else {
-      utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
-    }
+        
+        // 回调函数
+        this.hookLoginCallBack(res.data)
+
+        return typeof cb == 'function' && cb(true)
+      } else {
+        utils.fxShowToast(res.status.message)
+
+        return typeof cb == 'function' && cb(false)
+      }
+    })
   },
 
   // 登录后回调事件

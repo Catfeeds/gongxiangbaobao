@@ -92,31 +92,71 @@ Page({
   },
 
   /**
-   * 获取用户授权手机号
-   */
-  handleGotPhoneNumber (e) {
-    app.handleGotPhoneNumber(e, (success) => {
-      if (success) {
-        // 是否登陆
-        this.setData({
-          is_login: app.globalData.isLogin
-        })
-        // 授权成功，刷新用户数据
+     * 微信一键授权回调
+     */
+  handleGotPhoneNumber(e) {
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
 
-        // 获取用户的信息
-        this.getUserInfo()
+      // 检测当前用户登录态是否有效
+      wx.checkSession({
+        success: (res) => {
+          console.log(res, 'check session success')
+          app.handleGotPhoneNumber(e, (success) => {
+            if (success) {
+              // 是否登陆
+              this.setData({
+                is_login: app.globalData.isLogin
+              })
+              // 授权成功，刷新用户数据
 
-        this.getCouponAddOrder() // 获取没有使用的优惠券和订单
-        this.getProduct() // 获取商品---
-        this.getCategoryQuantity() // 获取用户的喜欢收藏---
-        this.getLikeWindow() // 喜欢的橱窗
-      } else {
-        utils.fxShowToast('登录失败，稍后重试！')
-        wx.navigateTo({
-          url: '../index/index',
-        })
-      }
-    })
+              // 获取用户的信息
+              this.getUserInfo()
+
+              this.getCouponAddOrder() // 获取没有使用的优惠券和订单
+              this.getProduct() // 获取商品---
+              this.getCategoryQuantity() // 获取用户的喜欢收藏---
+              this.getLikeWindow() // 喜欢的橱窗
+            } else {
+              utils.fxShowToast('登录失败，稍后重试！')
+              wx.navigateTo({
+                url: '../index/index',
+              })
+            }
+          })
+        },
+        fail: (res) => {
+          console.log(res, 'check session fail')
+
+          app.refreshUserSessionKey((e) => {
+            app.handleGotPhoneNumber(e, (success) => {
+              if (success) {
+                // 是否登陆
+                this.setData({
+                  is_login: app.globalData.isLogin
+                })
+                // 授权成功，刷新用户数据
+
+                // 获取用户的信息
+                this.getUserInfo()
+
+                this.getCouponAddOrder() // 获取没有使用的优惠券和订单
+                this.getProduct() // 获取商品---
+                this.getCategoryQuantity() // 获取用户的喜欢收藏---
+                this.getLikeWindow() // 喜欢的橱窗
+              } else {
+                utils.fxShowToast('登录失败，稍后重试！')
+                wx.navigateTo({
+                  url: '../index/index',
+                })
+              }
+            })
+          })
+        }
+      })
+
+    } else {
+      utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
+    }
   },
 
   // 添加关注---
@@ -556,6 +596,12 @@ getLikeWindow(){
     this.setData({
        is_mobile: false
     })
+
+    if (app.globalData.isLogin) {
+      this.setData({
+        is_login: app.globalData.isLogin
+      })
+    }
 
     wx.showTabBar()
   },

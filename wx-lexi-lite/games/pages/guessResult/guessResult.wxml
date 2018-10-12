@@ -85,6 +85,9 @@
 
       <!-- 底部 -->
       <div class="foot-container">
+        <view class="btn-back-home" bindtap="handleGoHome">
+          <image src="https://static.moebeast.com/static/img/game/icon-game-home@2x.png" class="icon-home"></image>
+        </view>
         <button class="btn-once-more" bindtap="handlePlayAgain">再来一次</button>
         <button class="btn-ishow" bindtap="handleShowGame">炫耀成绩</button>
       </div>
@@ -92,7 +95,7 @@
     </view>
 
     <!-- 邀请好友一起玩 -->
-    <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showInviteModal }}">
+    <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showInviteModal }}" marginTop="300">
       <view class="invite-play">
         <view class="notice-title">邀请好友一起玩，可再获的1次猜图机会</view>
       </view>
@@ -100,7 +103,7 @@
     </fx-game-modal-v>
 
     <!-- 休息一下 -->
-    <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showPauseModal }}" width="520">
+    <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showPauseModal }}" marginTop="300" width="520">
       <view class="invite-play">
         <view class="notice-title">你已经连续玩了3次了，休息一下 两小时后再来吧</view>
       </view>

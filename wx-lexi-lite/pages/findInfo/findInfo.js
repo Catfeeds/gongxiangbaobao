@@ -276,7 +276,7 @@ Page({
       that.setData({
         isLoading: false
       })
-    }, 350)
+    }, 1000)
   },
 
   /**

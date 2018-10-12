@@ -108,6 +108,11 @@ Page({
     stealFailMessage: '',
     showStealFailModal: false,
     
+    showPosterModal: false, // 分享海报
+    posterUrl: '', // 海报图片地址
+    posterSaving: false, // 是否正在保存
+    posterBtnText: '保存分享海报',
+
     // 弹幕列表
     doommData: [],
     offsetDommTimer: null
@@ -210,6 +215,82 @@ Page({
     this.setData({
       showInviteModal: true
     })
+  },
+
+  // 分享海报
+  handleSharePoster() {
+    this.setData({
+      showPosterModal: true
+    })
+
+    let data = {
+      auth_app_id: 'wx60ed17bfd850985d',
+      path: 'games/pages/guessGame/guessGame',
+      scene: ''
+    }
+    http.fxPost(api.question_index_poster, data, (res) => {
+      console.log(res, '生成海报')
+      if (res.success) {
+        this.setData({
+          posterUrl: res.data.image_url
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  // 下载海报
+  handleSavePoster() {
+    let that = this
+    if (this.data.posterUrl && !this.data.posterSaving) {
+      this.setData({
+        posterSaving: true,
+        posterBtnText: '正在保存...'
+      })
+
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.posterUrl,
+        success: function (res) {
+          if (res.statusCode == 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function (data) {
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享'
+                })
+                utils.fxShowToast('保存成功', 'success')
+              },
+              fail: function (err) {
+                console.log('下载海报失败：' + err.errMsg)
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享'
+                })
+
+                if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
+                  wx.openSetting({
+                    success(settingdata) {
+                      console.log(settingdata)
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        utils.fxShowToast('保存成功')
+                      } else {
+                        utils.fxShowToast('保存失败')
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast('保存失败')
+                }
+              }
+            })
+          }
+        }
+      })
+    }
   },
 
   // 获取提现金额
@@ -571,13 +652,16 @@ Page({
   _updateUserStats (amount, type=1) {
     let gameAccount = this.data.myAccount
     if (type == 1) { // 更新现金金额
-      gameAccount.amount += parseFloat(amount)
-      gameAccount.amount = gameAccount.amount.toFixed(2)
+      let money_amount = parseFloat(gameAccount.amount)
+      console.log(money_amount, amount)
+      money_amount += parseFloat(amount)
+      gameAccount.amount = money_amount.toFixed(2)
     }
 
     if (type == 2) { // 更新优惠券
+      let bonus_amount = parseFloat(gameAccount.bonus_amount)
+      bonus_amount += parseFloat(amount)
       gameAccount.bonus_quantity += 1
-      gameAccount.bonus_amount += parseFloat(amount)
     }
 
     this.setData({
@@ -917,7 +1001,7 @@ Page({
       let scene = jwt.uid + '-1'
       return {
         title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
-        path: '/games/pages/guessGame/guessGame?scene=' + scene,
+        path: 'games/pages/guessGame/guessGame?scene=' + scene,
         imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
         success: function (res) {
           console.log('转发成功')
@@ -933,7 +1017,7 @@ Page({
     if (e.from == 'menu') {
       return {
         title: '猜图赢现金随时提现，20万人玩到心脏骤停',
-        path: '/games/pages/guessGame/guessGame',
+        path: 'games/pages/guessGame/guessGame',
         imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
         success: function (res) {
           console.log('转发成功')
