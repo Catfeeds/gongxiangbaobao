@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "申请生活馆",
-  "fx-modal": "/components/FxModal/FxModal"
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-modal": "/components/FxModal/FxModal"
+  }
 }

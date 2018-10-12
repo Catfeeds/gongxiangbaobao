@@ -209,3 +209,4 @@
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

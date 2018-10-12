@@ -144,3 +144,4 @@
     <image src='../../images/off@2.png' class='off_btn' catchtap='offBtnTap'></image>
   </view>
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     peopleList: [], //喜欢商品的人列表
     parmas: {
       page: 1, // Number	可选	1	当前页码
@@ -118,7 +119,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

@@ -7,6 +7,7 @@
     "fx-login": "/components/FxLogin/FxLogin",
     "fx-pick-product": "/components/FxPickProduct/FxPickProduct",
     "fx-modal": "/components/FxModal/FxModal",
-    "fx-slider": "/components/FxSlider/FxSlider"
+    "fx-slider": "/components/FxSlider/FxSlider",
+    "fx-loading": "/components/FxLoading/FxLoading"
   }
 }

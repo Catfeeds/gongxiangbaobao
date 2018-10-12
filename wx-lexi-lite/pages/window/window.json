@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "橱窗",
-    "usingComponents": {
-      "fx-login": "/components/FxLogin/FxLogin"
-    }
+  "usingComponents": {
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

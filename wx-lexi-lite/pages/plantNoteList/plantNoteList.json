@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "种草笔记"
+  "navigationBarTitleText": "种草笔记",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

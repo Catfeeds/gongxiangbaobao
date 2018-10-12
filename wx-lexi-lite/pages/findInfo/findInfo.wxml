@@ -214,5 +214,6 @@
 
     <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
-
+  
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     indicatorDots: true,
     vertical: false,
     autoplay: false,
@@ -882,7 +883,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

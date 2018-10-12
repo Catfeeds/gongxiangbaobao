@@ -300,5 +300,5 @@
       <text>（{{ filter.conditionCount > 0 ? filter.totalCount : totalCount }}件）</text>
     </button>
   </fx-modal>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

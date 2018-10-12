@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "选择配送方式"
+  "navigationBarTitleText": "选择配送方式",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

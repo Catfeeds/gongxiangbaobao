@@ -14,6 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     isAddOneselfLabel: false, // 是显示添加自定义标签
 
     hotLabel: [], // 热门标签
@@ -188,7 +189,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "接单定制",
   "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
     "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",

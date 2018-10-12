@@ -15,6 +15,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     readyOver: false, // 页面加载是否完成
     hotSearchList: [], // 热门搜索的
     recommendList: [], // 热门推荐的其他三个
@@ -265,6 +266,13 @@ Page({
     this.setData({
       readyOver: true
     })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

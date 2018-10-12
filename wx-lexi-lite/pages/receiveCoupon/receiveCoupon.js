@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     authorityCouponList: [], // 官方优惠券
     couponAdv:[], // 领券中心的的优惠券
     swiperMark: 0, // 广告位置的点
@@ -416,6 +417,13 @@ Page({
    */
   onReady: function() {
     this.getAdv()
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

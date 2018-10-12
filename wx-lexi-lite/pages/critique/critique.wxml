@@ -62,5 +62,5 @@
   <view class='wx-btn-box {{submit_btn?"":"submitBgc"}}' catchtap='hanleSubmitTap'>
     <button> 提交 </button>
   </view>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

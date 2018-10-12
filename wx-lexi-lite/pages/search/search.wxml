@@ -5,8 +5,6 @@
     src='../../images/jiazai.gif' 
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
-
-
 <view class='container search-page'>
 
   <!-- 搜索框 -->
@@ -118,3 +116,4 @@
     </view>
   </block>
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

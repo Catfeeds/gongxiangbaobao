@@ -1,7 +1,8 @@
 {
   "navigationBarTitleText": "喜欢该商品的人",
-      "usingComponents": {
-        "fx-coupon": "/components/FxCoupon/coupon",
-        "fx-login": "/components/FxLogin/FxLogin"
-      }
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-coupon": "/components/FxCoupon/coupon",
+    "fx-login": "/components/FxLogin/FxLogin"
+  }
 }

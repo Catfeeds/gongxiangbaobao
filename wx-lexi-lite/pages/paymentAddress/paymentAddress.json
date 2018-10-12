@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "选择收获地址"
+  "navigationBarTitleText": "选择收获地址",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

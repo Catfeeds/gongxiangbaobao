@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "物流跟踪",
   "navigationBarBackgroundColor": "#2D343A",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

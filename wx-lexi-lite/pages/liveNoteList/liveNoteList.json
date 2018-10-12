@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "生活记事"
+  "navigationBarTitleText": "生活记事",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

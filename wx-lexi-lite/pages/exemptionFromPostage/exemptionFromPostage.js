@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     isLoadProductShow: true, // 加载更多商品
     isLoadPageShow: true, // 加载页面的点
 
@@ -398,6 +399,13 @@ Page({
     this.setData({
       isLoadPageShow: false
     })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

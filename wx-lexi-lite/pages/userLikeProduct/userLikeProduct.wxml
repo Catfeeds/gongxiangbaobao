@@ -1,5 +1,5 @@
 <!--pages/userLikeProduct/userLikeProduct.wxml-->
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
     <!-- 添加页面加载 -->
     <image 

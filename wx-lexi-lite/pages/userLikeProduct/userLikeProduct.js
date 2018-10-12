@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
+    
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
@@ -307,6 +309,13 @@ Page({
     this.setData({
       isLoadPageShow: false
     })
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

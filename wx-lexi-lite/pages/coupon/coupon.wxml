@@ -154,5 +154,5 @@
     <view class='black-font '>您还没有优惠券哦~</view>
 
   </view>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

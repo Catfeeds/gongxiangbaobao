@@ -6,7 +6,6 @@
     class="load-page__icon" 
     wx:if="{{isLoadPageShow}}"></image>
 
-
   <view class='theme-top_box'>
     <image src='{{product.cover}}-p50'></image>
   </view>
@@ -26,3 +25,4 @@
     </view>
   </view>
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

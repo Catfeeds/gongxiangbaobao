@@ -285,3 +285,4 @@
   </fx-modal>
 
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

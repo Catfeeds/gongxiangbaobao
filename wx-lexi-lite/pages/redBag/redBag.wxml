@@ -60,5 +60,5 @@
     </view>
 
   </view>
-
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

@@ -145,8 +145,7 @@
 
   <!-- 底部垫片 -->
   <view class='Bottom-shim'></view>
-  
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
-
 </view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>

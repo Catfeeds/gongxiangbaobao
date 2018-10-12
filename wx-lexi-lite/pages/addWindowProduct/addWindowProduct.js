@@ -9,8 +9,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
+    loadingProduct:false,
     needPhotoIndex: "", //需求图片的窗口的index
     productPhoto: [], // 商品图片
+    clickHint:-1, // 点击提示
 
     pickProductId: '', // 选中的商品图片的id
     pickProductLink: '', // 选中的商品图片的链接
@@ -117,6 +120,12 @@ Page({
     let rid = e.currentTarget.dataset.rid
     let openid = app.globalData.jwt.openid
     let storeId = e.currentTarget.dataset.storeRid
+    let index = e.currentTarget.dataset.index
+
+    this.setData({
+      clickHint:index,
+      loadingProduct:true,
+    })
 
     http.fxGet(api.product_content.replace(/:rid/g, rid), {
       user_record: "1",
@@ -129,7 +138,8 @@ Page({
           pickProductId: result.data.images[0].id,
           pickProductLink: result.data.images[0].view_url,
           rid: rid,
-          storeId: storeId
+          storeId: storeId,
+          loadingProduct: false,
         })
 
       } else {
@@ -245,7 +255,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        readyOver: true,
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

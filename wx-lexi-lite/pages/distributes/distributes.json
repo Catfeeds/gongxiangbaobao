@@ -3,6 +3,7 @@
   "usingComponents": {
     "fx-mini-btn": "/components/FxMiniBtn/FxMiniBtn",
     "fx-modal": "/components/FxModal/FxModal",
-    "fx-slider": "/components/FxSlider/FxSlider"
+    "fx-slider": "/components/FxSlider/FxSlider",
+    "fx-loading": "/components/FxLoading/FxLoading"
   }
 }

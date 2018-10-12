@@ -66,5 +66,5 @@
   </view>
 
   <view class='shm'></view>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>
