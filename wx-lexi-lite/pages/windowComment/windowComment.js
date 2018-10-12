@@ -18,8 +18,8 @@ Page({
 
     comments: [], // 橱窗评论
     commentsNext: true, // 橱窗是否有下一页
-    commentsCount: 0, // 橱窗的数量
-
+    commentsCount: 0, // 橱窗的剩余评论数量
+    countSum:0, // 橱窗的评论总数
     // 提交主评论
     commentParams: {
       rid: '', //Number	必须	 	橱窗编号
@@ -235,7 +235,8 @@ Page({
           this.setData({
             comments: data.concat(result.data.comments), // 橱窗评论
             commentsNext: result.data.next, // 橱窗是否有下一页
-            commentsCount: result.data.remain_count, // 橱窗的评论数量
+            commentsCount: result.data.remain_count, // 橱窗的剩余评论数量
+            countSum: result.data.count, // 橱窗的评论数量
           })
         })
 
@@ -258,6 +259,10 @@ Page({
       windowRid: options.rid,
       submitTarget: options.submitTarget,
       isShowComment: options.isInput == 0 ? false : true
+    })
+
+    wx.setNavigationBarTitle({
+      title:options.commentCount  + '条评论',
     })
 
     this.getComment() // 获取评论

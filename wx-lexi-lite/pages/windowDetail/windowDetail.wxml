@@ -110,13 +110,13 @@
 
           <view class="flex_row font-s qian-hui">
             <view class="reply-tap" data-submit-target="reply" data-index="{{index}}" catchtap="handleGoComment" data-is-input="1" data-commit-target="" data-pid="{{items.comment_id}}">回复</view>
-            <text wx:if="{{}}" > · </text>
+            <text wx:if="{{}}"> · </text>
             <view wx:if="{{}}" class="zan-box">
               <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
               <text>赞</text>
             </view>
 
-            <view wx:if="{{}}"  class="quantity-color " >
+            <view wx:if="{{}}" class="quantity-color ">
               <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
               <text>123</text>
             </view>
@@ -127,16 +127,15 @@
         <view class="black-font line-height--48rpx margin-bottom--14rpx">
           <text>{{items.content}}</text>
         </view>
-
         <!-- 回复她的盒子 -->
-        <view class="font-s reply-text__box" wx:if="{{items.sub_comment_count!=0}}">
+        <view class="font-s reply-text__box" wx:if="{{items.sub_comments!=0}}">
           <!-- 回复她的每一条 -->
           <view wx:for="{{items.sub_comments}}" wx:if="{{items.sub_comment_count<=2}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
             <text>{{item.user_name}}</text> :
             <text>{{item.content}}</text>
           </view>
 
-          <view wx:if="{{items.sub_comment_count>2}}" >
+          <view wx:if="{{items.sub_comment_count>2}}">
             <text>{{items.sub_comments[0].user_name}} 等人</text>
             <text class='theme-green'>共{{items.sub_comment_count}}条回复</text>
           </view>
@@ -156,8 +155,12 @@
   <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
     <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
     <view class='c-importantGoodsBox margin-top--34rpx '>
-      <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}' wx:for="{{youLike.products}}" wx:key="{{index}}">
-        <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
+      <scroll-view class='you-like__scroll' scroll-x>
+      <view class='you-like__item {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}'
+        wx:for="{{youLike.products}}" wx:key="{{index}}">
+        <fx-product product="{{item}}" 
+        bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
+        </view>
       </scroll-view>
     </view>
   </view>
@@ -198,8 +201,8 @@
       <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}" src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like__icon"></image>
       <text class="count" wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike" data-rid="{{windowDetail.rid}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
 
-      <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment" ></image>
-      <text class="comment-count" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment" >{{windowDetail.comment_count>0?windowDetail.comment_count:''}}</text>
+      <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment"></image>
+      <text class="comment-count" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">{{windowDetail.comment_count>0?windowDetail.comment_count:''}}</text>
 
       <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon icon-share"></image>
     </view>
