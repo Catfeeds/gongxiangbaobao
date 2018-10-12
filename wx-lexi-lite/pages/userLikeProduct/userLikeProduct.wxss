@@ -19,3 +19,7 @@ background-color:#fff;
 .border-bottom {
   border-bottom: 0rpx;
 }
+
+.goodsFive {
+  margin-bottom: 40rpx;
+}

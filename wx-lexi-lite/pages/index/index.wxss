@@ -1557,3 +1557,8 @@ swiper-photo .slide-item__box image {
   z-index: 9;
   opacity: 0;
 }
+
+.border-bottom-radius {
+  border-bottom-left-radius: 8rpx;
+  border-bottom-right-radius: 8rpx;
+}
