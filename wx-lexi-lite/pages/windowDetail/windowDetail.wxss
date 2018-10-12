@@ -282,5 +282,10 @@
 
 .you-like__item {
   display: inline-block;
-  height: 460rpx;
+  height: 400rpx;
+  margin-right: 20rpx;
+}
+
+.margin-right--40rpx {
+  margin-right: 40rpx;
 }

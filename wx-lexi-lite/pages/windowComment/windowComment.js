@@ -129,8 +129,14 @@ Page({
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          'commentParams.content': ''
+          'commentParams.content': '',
+          countSum: this.data.countSum + 1
         })
+
+        wx.setNavigationBarTitle({
+          title: result.data.count-0 +1 + '条评论',
+        })
+
         this.getComment()
         this._handleParentUpdata()
       } else {
@@ -238,6 +244,10 @@ Page({
             commentsCount: result.data.remain_count, // 橱窗的剩余评论数量
             countSum: result.data.count, // 橱窗的评论数量
           })
+
+          wx.setNavigationBarTitle({
+            title: result.data.count + '条评论',
+          })
         })
 
       } else {
@@ -259,10 +269,6 @@ Page({
       windowRid: options.rid,
       submitTarget: options.submitTarget,
       isShowComment: options.isInput == 0 ? false : true
-    })
-
-    wx.setNavigationBarTitle({
-      title:options.commentCount  + '条评论',
     })
 
     this.getComment() // 获取评论

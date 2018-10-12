@@ -64,11 +64,13 @@
 
     </view>
   </view>
-
   <!-- 查看全部 -->
   <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{commentsCount!=0}}" catchtap="handleAllComment">
     查看全部{{commentsCount}}条评论
   </view>
+
+  <!-- 评论缺省图片 -->
+  <view class="comment-null__photo" wx:if="{{countSum==0}}">亲！此橱窗暂无评论</view>
 
   <!-- 底部添加评论 -->
   <view class="bottom-comment">

@@ -82,3 +82,8 @@
 .padding-top--0rpx {
   padding-top: 0rpx;
 }
+
+.comment-null__photo {
+  margin: 0 auto;
+  padding-top: 150rpx;
+}
