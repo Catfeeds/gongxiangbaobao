@@ -1547,6 +1547,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    // 如果是由分享商品详情而来就跳转详情
+    if (app.globalData.isSharePageParas) {
+      wx.navigateTo({
+        url: '../product/product?rid=' + app.globalData.isSharePageParas ,
+      })
+    }
+
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''

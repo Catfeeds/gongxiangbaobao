@@ -755,17 +755,27 @@ Page({
     })
   },
 
+  _getPageFrom(e) {
+    let page = getCurrentPages()
+    console.log(e, '页面路由')
+    if (page.length == 1) {
+      app.globalData.isSharePageParas = e
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options, product) {
     console.log(options, product, '上一页传递参数')
-    utils.handleShowLoading()
 
     // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
-    console.log(scene, product,'scene')
+    console.log(scene, product, 'scene')
     if (scene && scene != undefined && scene != 'undefined') {
       let sceneAry = scene.split('-')
       console.log(sceneAry.length)
@@ -778,6 +788,9 @@ Page({
     } else {
       rid = options.rid
     }
+
+    // 判断是否由分享而来
+    this._getPageFrom(rid)
 
     this.setData({
       rid: rid,

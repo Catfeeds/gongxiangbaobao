@@ -19,7 +19,7 @@ Page({
     comments: [], // 橱窗评论
     commentsNext: true, // 橱窗是否有下一页
     commentsCount: 0, // 橱窗的剩余评论数量
-    countSum:0, // 橱窗的评论总数
+    countSum:1, // 橱窗的评论总数
     // 提交主评论
     commentParams: {
       rid: '', //Number	必须	 	橱窗编号
