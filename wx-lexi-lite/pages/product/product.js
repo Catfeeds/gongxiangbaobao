@@ -756,14 +756,10 @@ Page({
   },
 
   _getPageFrom(e) {
-    let page = getCurrentPages()
-    console.log(e, '页面路由')
-    if (page.length == 1) {
-      app.globalData.isSharePageParas = e
-      wx.switchTab({
-        url: '../index/index',
-      })
-    }
+    app.globalData.sharePageRid = e
+    wx.switchTab({
+      url: '../index/index',
+    })
   },
 
   /**
@@ -785,12 +781,11 @@ Page({
         let lifeStoreRid = sceneAry[1]
         app.updateLifeStoreLastVisit(lifeStoreRid)
       }
+      // 是否由分享而来去首页
+      this._getPageFrom(rid)
     } else {
       rid = options.rid
     }
-
-    // 判断是否由分享而来
-    this._getPageFrom(rid)
 
     this.setData({
       rid: rid,

@@ -138,10 +138,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 17,
 					"name": "产品详情",
 					"pathName": "pages/product/product",
-					"query": "rid=8724938605"
+					"query": "scene=8724938605-75349172"
 				}
 			]
 		}
