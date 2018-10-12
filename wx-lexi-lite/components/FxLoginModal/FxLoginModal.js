@@ -133,6 +133,9 @@ Component({
       }
     },
 
+    /**
+     * 获取验证码
+     */
     handleGetVerfyCode() {
       let mobile_number = this.data.loginForm.mobile_number - 0
       if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(mobile_number))) {
@@ -186,6 +189,7 @@ Component({
         verify_code: this.data.loginForm.verify_code, //	手机验证码
         last_store_rid: lastVisitLifeStore
       }
+
       console.log(params, '提交授权后端传参')
 
       if (!this.data.canSubmit) {
@@ -211,7 +215,7 @@ Component({
           // 触发关闭回调
           this.triggerEvent('closeEvent')
         } else {
-          utils.fxShowToast(result.status.message)
+          utils.fxShowToast(res.status.message)
         }
       })
     },

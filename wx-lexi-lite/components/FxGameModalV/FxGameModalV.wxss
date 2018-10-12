@@ -1,6 +1,6 @@
 .fx-modal-v-container {
   position: fixed;
-  z-index: 99;
+  z-index: 1098;
   top: 0;
   right: 0;
   left: 0;
@@ -10,7 +10,7 @@
 
 .fx-mask {
   position: fixed;
-  z-index: 100;
+  z-index: 1099;
   top: 0;
   right: 0;
   left: 0;
@@ -24,7 +24,7 @@
   border-radius: 8rpx;
   margin: 0rpx auto 50px;
   width: 590rpx;
-  z-index: 101;
+  z-index: 1100;
   padding-top: 40rpx;
 }
 

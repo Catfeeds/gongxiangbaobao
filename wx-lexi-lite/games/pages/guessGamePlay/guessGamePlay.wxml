@@ -1,3 +1,4 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <view class="animation-demo-block" wx:if="{{ answerResult }}">
     <view class="prize-moneys" wx:if="{{ haveMoney }}">

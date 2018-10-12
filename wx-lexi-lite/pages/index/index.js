@@ -48,6 +48,7 @@ Page({
     isEmpty: false, // 是否为空
     isSmallB: false, // 当前用户是否为小B
     canAdmin: false, // 是否具备管理生活馆
+    isSmallHome: false, // 是否在自己的生活馆
     showEditModal: false, // 生活馆编辑
     showConfirmModal: false, // 删除上架商品确认
     latestDistributeProducts: [], // 最新分销商品
@@ -862,8 +863,8 @@ Page({
     let sid = lifeStore.lifeStoreRid
     this.setData({
       sid: sid,
+      isSmallHome: true,
       pageActiveTab: 'lifeStore',
-      // storeOwner: ,
       canAdmin: true
     })
 
@@ -1379,7 +1380,6 @@ Page({
 
         // 暂时展示2条
         this.setData({
-          // storeHeadlines: res.data.headlines.splice(0, 2)
           storeHeadlines: newData
         })
       } else {
@@ -1464,6 +1464,7 @@ Page({
         'pageTabs[0].disabled': false,
         pageActiveTab: 'lifeStore',
         storeOwner: userInfo,
+        isSmallHome: true,
         canAdmin: true,
         isSmallB: true
       })
@@ -1602,6 +1603,7 @@ Page({
       this.setData({
         'pageTabs[0].disabled': false,
         pageActiveTab: 'lifeStore',
+        isSmallHome: false,
         canAdmin: false
       })
 
@@ -1665,7 +1667,8 @@ Page({
           'pageTabs[0].disabled': false,
           sid: lifeStore.lifeStoreRid,
           canAdmin: true,
-          isSmallB: true
+          isSmallB: true,
+          isSmallHome: true
         })
       }
     }
@@ -1717,7 +1720,7 @@ Page({
   onShareAppMessage: function(e) {
     console.log(e)
 
-    // 再生活馆里面分享
+    // 在生活馆里面分享
     if (this.data.pageActiveTab == 'lifeStore') {
       // 分享平台或生活馆
       if (e.from == 'menu' || e.target.dataset.from == 1) {
@@ -1732,11 +1735,10 @@ Page({
             path: 'pages/index/index?scene=' + scene,
             imageUrl: this.data.lifePhotoUrl,
             success: (res) => {
-              console.log(res, '分享商品成功!')
+              console.log(res, '分享成功!')
             }
           }
         }
-
       }
 
       // 分享产品 shareProduct
@@ -1750,11 +1752,6 @@ Page({
       // 精选和探索里面分享
       return app.shareLeXi()
     }
-
-
-
-
-
   },
 
   // 点击分类

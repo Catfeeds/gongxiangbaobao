@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "猜图赢现金"
+  "navigationBarTitleText": "猜图赢现金",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

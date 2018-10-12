@@ -59,6 +59,15 @@ Page({
     ]
   },
 
+  // 跳转申请开馆
+  handleGoApplyStore () {
+    let linkUrl = 'https://h5.lexivip.com/shop/apply_type'
+    let title = '申请开馆'
+    wx.navigateTo({
+      url: '../fxWebView/fxWebView?linkUrl=' + linkUrl + '&title=' + title,
+    })
+  },
+
   // 选择国家的id
   pickCountryTap (e) {
     this.setData({

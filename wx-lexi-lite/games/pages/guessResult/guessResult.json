@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "猜图赢现金",
   "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-game-modal-v": "/components/FxGameModalV/FxGameModalV",
     "fx-image-modal": "/components/FxImageModal/FxImageModal"
   }

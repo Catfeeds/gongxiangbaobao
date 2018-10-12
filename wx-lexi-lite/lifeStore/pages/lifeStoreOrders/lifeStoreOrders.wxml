@@ -25,12 +25,10 @@
       <view class="order-item__head">
         <image class="user-avatar" src="{{ order.store.store_logo }}"></image>
         <view class="user-info">
-          <view class="name">设计师</view>
+          <view class="name">{{ order.store.store_name }}</view>
           <view class="store">
-            <image src="" class="icon-store"></image>
-            <text>{{ order.store.store_name }}</text>
-            <text class="order-label">状态：</text>
-            <text class="order-status">待发货</text>
+            <text class="order-label">订单状态：</text>
+            <text class="order-status">{{ order.status_label }}</text>
           </view>
         </view>
         <view class="subtotal">

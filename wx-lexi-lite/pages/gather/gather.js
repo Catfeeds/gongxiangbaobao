@@ -26,12 +26,21 @@ Page({
     http.fxGet(api.column_collections, this.data.getGatherParams, (result) => {
       console.log(result, '集合')
       if (result.success) {
+        
+        let _collections = result.data.collections
+        for (let i=0; i<_collections.length; i++) {
+          _collections[i].cover += '-bg75x40'
+            for (let k=0; k<_collections[i].products.length; k++) {
+              _collections[i].products[k].cover += '-p30' 
+            }
+        }
 
         let data = this.data.gatherList
-        result.data.collections.forEach((v)=>{
-          v.cover = v.cover + '-bg75x40'
-          data.push(v)
-        })
+        if (this.data.getGatherParams.page > 1) {
+          data.push.apply(data, _collections)
+        } else {
+          data = _collections
+        }
 
         this.setData({
           touchBottomLoading: result.data.next,
