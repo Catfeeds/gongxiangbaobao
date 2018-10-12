@@ -1,4 +1,4 @@
-//app.js
+// app.js
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
 const utils = require('./utils/util.js')
