@@ -342,7 +342,7 @@
       <view 
         catchtap="handlePickShow"
         class='flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
-        <text>接单订制</text>
+        <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
       </view>
     </view>
   </view>

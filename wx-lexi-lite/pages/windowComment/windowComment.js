@@ -94,15 +94,17 @@ Page({
    */
   handleReply(e) {
     console.log('子评论')
+    this.setData({
+      isShowComment: false,
+    })
+
     http.fxPost(api.shop_windows_comments, this.data.sonCommentParams, result => {
       console.log(result, '提交评论')
       if (result.success) {
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          isShowComment: true,
-          isShowComment:false,
-          'sonCommentParams.content':''
+          'sonCommentParams.content': ''
         })
         this.getComment()
         this._handleParentUpdata()
@@ -117,14 +119,16 @@ Page({
    */
   handleSubmitComment() {
     console.log('主评论')
+    this.setData({
+      isShowComment: false,
+    })
+
     http.fxPost(api.shop_windows_comments, this.data.commentParams, result => {
       console.log(result, '提交评论')
       if (result.success) {
         utils.fxShowToast('评论成功')
         this.setData({
           comments: [],
-          isShowComment: true,
-          isShowComment: false,
           'commentParams.content': ''
         })
         this.getComment()

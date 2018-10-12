@@ -123,7 +123,7 @@ Page({
       if(result.success){
         console.log(this.data.windowParams.product_items)
 
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
         })
       }else{
