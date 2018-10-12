@@ -15,7 +15,7 @@ Page({
     page: 1,
     perPage: 5,
     firstTime: true,
-    isCadet:true,
+    isCadet: true,
     isLoading: true,
 
     swiperMark: 0, // 轮播图标记
@@ -30,7 +30,7 @@ Page({
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
 
-    lifeStorePosterUrl: '',// 生活馆的url
+    lifeStorePosterUrl: '', // 生活馆的url
 
     // 生活馆
     isUploading: false,
@@ -282,7 +282,7 @@ Page({
       isShowShareLifeBrand: true
     })
 
-    this.getLifeBrandPoster() 
+    this.getLifeBrandPoster()
   },
 
   /**
@@ -336,7 +336,7 @@ Page({
 
   /**
    * 生成生活馆的海报
-  */
+   */
   getLifeBrandPoster() {
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
     let rid = this.data.sid
@@ -436,7 +436,7 @@ Page({
     })
   },
 
-    /**
+  /**
    * 保存当前生活馆海报到相册
    */
   handleSaveLifeStorePhoto() {
@@ -444,8 +444,8 @@ Page({
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.lifeStorePosterUrl,
-      success: function (res) {
-        console.log(res,'保存文件的路径')
+      success: function(res) {
+        console.log(res, '保存文件的路径')
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
@@ -488,7 +488,7 @@ Page({
 
   /**
    * 取消分享-生活馆
-  */
+   */
   handleOffLifeStore() {
     this.setData({
       isShowShareLifeBrand: false
@@ -1548,9 +1548,9 @@ Page({
   onLoad: function(options) {
 
     // 如果是由分享商品详情而来就跳转详情
-    if (app.globalData.isSharePageParas) {
+    if (app.globalData.sharePageRid) {
       wx.navigateTo({
-        url: '../product/product?rid=' + app.globalData.isSharePageParas ,
+        url: '../product/product?rid=' + app.globalData.sharePageRid,
       })
     }
 
@@ -1642,7 +1642,7 @@ Page({
       isLoadPageShow: false,
       readyOver: true
     })
-    
+
     let that = this
     setTimeout(() => {
       that.setData({
