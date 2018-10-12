@@ -7,11 +7,6 @@ const common = require('./utils/common.js')
 
 App({
   onLaunch: function() {
-    // 展示本地存储能力
-    let logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     // 获取自定义第三方扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
 
