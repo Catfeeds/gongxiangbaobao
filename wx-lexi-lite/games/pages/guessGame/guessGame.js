@@ -18,6 +18,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     is_mobile: false,
     showLoginModal: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -28,8 +29,10 @@ Page({
     clientHeight: '',
 
     showRuleModal: false,
+    inviteTimer: null, // 刷新邀请好友间隔
     showInviteSuccessModal: false,
     showStealResultModal: false,
+    showStealEmptyModal: false, // 没偷到
     stealBonusPeopleCount: 0, // 偷我红包的人数
     stealBonusPeopleList: [], // 偷我红包人列表
 
@@ -120,6 +123,7 @@ Page({
   // 开始游戏
   handleStartPlay() {
     clearInterval(this.data.offsetDommTimer)
+    clearInterval(this.data.inviteTimer)
 
     this.getTestQuestion()
   },
@@ -268,7 +272,8 @@ Page({
   handleGoRun () {
     this.setData({
       showStealBonusModal: false,
-      showStealCouponModal: false
+      showStealCouponModal: false,
+      showStealEmptyModal: false
     })
   },
 
@@ -290,18 +295,24 @@ Page({
           userStealed: res.data.user_info
         })
         if (res.data.status == 1) {
+          let stealResult = res.data
           if (res.data.bouns_type == 1) { // 偷到优惠券
-            let stealResult = res.data
             stealResult.coupon.expired_at = utils.timestamp2string(stealResult.coupon.expired_at, 'cn')
             this.setData({
               stealBonusResult: stealResult,
-              showInviteModal: false,
               showStealCouponModal: true
             })
-          } else {
+            // 更新优惠券信息
+            this._updateUserStats(stealResult.coupon.bonus_amount, 2)
+          } else if (res.data.bouns_type == 2) { // 偷到红包
             this.setData({
-              showInviteModal: false,
               showStealBonusModal: true
+            })
+            // 更新红包
+            this._updateUserStats(stealResult.amount, 1)
+          } else { // 未偷到
+            this.setData({
+              showStealEmptyModal: true
             })
           }
         } else {
@@ -320,7 +331,6 @@ Page({
               break
           }
           this.setData({
-            showInviteModal: false,
             stealFailMessage: stealFailMessage,
             showStealFailModal: true
           })
@@ -370,9 +380,14 @@ Page({
           user_amount: res.data.user_amount,
           user_coupon_amount: res.data.user_coupon_amount,
           user_coupon_quantity: res.data.user_coupon_quantity,
-          user_info: res.data.user_info,
+          user_info: this._rebuildUserInfo(res.data.user_info, 8),
           user_ranking: res.data.user_ranking
         }
+
+        res.data.ranking_list.forEach((v) => {
+          v.user_info = this._rebuildUserInfo(v.user_info, 8)
+        })
+
         let _list = this.data.topWorld
         if (this.data.topWorldPage > 1) {
           _list.push.apply(_list, res.data.ranking_list)
@@ -403,9 +418,14 @@ Page({
           user_amount: res.data.user_amount,
           user_coupon_amount: res.data.user_coupon_amount,
           user_coupon_quantity: res.data.user_coupon_quantity,
-          user_info: res.data.user_info,
+          user_info: this._rebuildUserInfo(res.data.user_info, 8),
           user_ranking: res.data.user_ranking
         }
+
+        res.data.ranking_list.forEach((v) => {
+          v.user_info = this._rebuildUserInfo(v.user_info, 8)
+        })
+
         let _list = this.data.topFriend
         if (this.data.topFriendPage > 1) {
           _list.push.apply(_list, res.data.ranking_list)
@@ -432,7 +452,10 @@ Page({
     http.fxGet(api.question_friend_list, params, (res) => {
       console.log(res, '好友列表')
       if (res.success) {
-        
+        res.data.friend_list.forEach((v) => {
+          v = this._rebuildUserInfo(v, 8)
+        })
+
         let _friends = this.data.friendList
         if (this.data.friendPage > 1) {
           _friends.push.apply(_friends, res.data.friend_list)
@@ -459,7 +482,11 @@ Page({
     http.fxGet(api.question_guess_friend, params, (res) => {
       console.log(res, '认识的好友列表')
       if (res.success) {
-        let _friends = this.data.friendList
+        res.data.friend_list.forEach((v) => {
+          v = this._rebuildUserInfo(v, 8)
+        })
+
+        let _friends = this.data.guessFriendList
         if (this.data.guessFriendPage > 1) {
           _friends.push.apply(_friends, res.data.friend_list)
         } else {
@@ -484,6 +511,10 @@ Page({
     http.fxGet(api.question_steal_list, params, (res) => {
       console.log(res, '偷红包的人')
       if (res.success) {
+        res.data.friend_list.forEach((v) => {
+          v = this._rebuildUserInfo(v, 8)
+        })
+
         this.setData({
           stealBonusPeople: res.data.friend_list,
           showStealResultModal: res.data.count > 0 ? true : false
@@ -527,6 +558,7 @@ Page({
       if (res.success) {
         let account = res.data
         account.amount = account.amount.toFixed(2)
+        account.bonus_amount = account.bonus_amount.toFixed(2)
         this.setData({
           myAccount: account
         })
@@ -537,9 +569,31 @@ Page({
     })
   },
 
+  // 更新用户统计数据
+  _updateUserStats (amount, type=1) {
+    let gameAccount = this.data.myAccount
+    if (type == 1) { // 更新现金金额
+      gameAccount.amount += parseFloat(amount)
+      gameAccount.amount = gameAccount.amount.toFixed(2)
+    }
+
+    if (type == 2) { // 更新优惠券
+      gameAccount.bonus_quantity += 1
+      gameAccount.bonus_amount += parseFloat(amount)
+    }
+
+    this.setData({
+      myAccount: gameAccount
+    })
+
+    wx.setStorageSync('userGameAccount', gameAccount)
+  },
+
   // 修正用户数据
-  _rebuildUserInfo (user) {
-    user.user_name = utils.truncate(user.user_name, 5)
+  _rebuildUserInfo (user, cnt=5) {
+    if (user.user_name && user.user_name.length > cnt) {
+      user.user_name = utils.truncate(user.user_name, cnt)
+    }
     return user
   },
 
@@ -582,8 +636,7 @@ Page({
       console.log(res, '邀请好友人数')
       if (res.success) {
         this.setData({
-          peopleCount: res.data,
-          showInviteSuccessModal: res.data.invite_count > 0 ? true : false
+          peopleCount: res.data
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -591,6 +644,24 @@ Page({
     })
   },
 
+  // 获取邀请好友提醒
+  getInviteNotice() {
+    let that = this
+    http.fxGet(api.question_friend_notice, {}, (res) => {
+      console.log(res, '邀请好友人数')
+      if (res.success) {
+        if (res.data.user_info.length > 0) {
+          that.setData({
+            peopleCount: res.data,
+            showInviteSuccessModal: true
+          })
+        }
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+  
   // 重建弹幕
   rebuildDoomm(result) {
     let that = this
@@ -628,6 +699,10 @@ Page({
       is_mobile: true,
       showBindForm: false
     })
+
+    if (app.globalData.isLogin) {
+      this.getInitData()
+    }
   },
 
   /**
@@ -643,9 +718,7 @@ Page({
           })
 
           // 开始游戏
-          wx.redirectTo({
-            url: '../guessGamePlay/guessGamePlay',
-          })
+          this.getInitData()
         }
       } else {
         utils.fxShowToast('登录失败，稍后重试！')
@@ -750,7 +823,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 2000)
   },
 
   /**
@@ -765,9 +843,20 @@ Page({
       // 刷新金额
       this.getAllRewards()
     }
-    
-    // 获取弹幕
+
+    // 查看是否有偷我红包的人
+    this.getStealBonusNotice()
+
     let that = this
+
+    // 刷新是否有最新邀请的人, 30s
+    this.setData({
+      inviteTimer: setInterval(() => {
+        that.getInviteNotice()
+      }, 30000)
+    })
+    
+    // 获取弹幕, 10s
     that.getDoommList()
 
     this.setData({
@@ -782,8 +871,10 @@ Page({
    */
   onHide: function () {
     clearInterval(this.data.offsetDommTimer)
+    clearInterval(this.data.inviteTimer)
     this.setData({
-      offsetDommTimer: null
+      offsetDommTimer: null,
+      inviteTimer: null
     })
   },
 
@@ -792,8 +883,10 @@ Page({
    */
   onUnload: function () {
     clearInterval(this.data.offsetDommTimer)
+    clearInterval(this.data.inviteTimer)
     this.setData({
-      offsetDommTimer: null
+      offsetDommTimer: null,
+      inviteTimer: null
     })
   },
 
@@ -814,20 +907,50 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (e) {
     // scene格式：uid + '-' + code
-    const jwt = wx.getStorageInfoSync('jwt')
-    let scene = jwt.uid + '-1'
-    return {
-      title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
-      path: '/games/pages/guessGame/guessGame?scene=' + scene,
-      imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
-      success: function (res) {
-        console.log('转发成功')
-        app.updateGameShare()
-      },
-      fail: function (res) {
-        console.log('转发失败')
+    let randomList = [0, 1, 2]
+    let _random = Math.floor(Math.random() * randomList.length) + 1
+
+    console.log(_random, '随机值')
+
+    // 邀请好友分享
+    if (e.from == 'button' && e.target.dataset.name == 'invite') {
+      const jwt = wx.getStorageInfoSync('jwt')
+      let scene = jwt.uid + '-1'
+      return {
+        title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
+        path: '/games/pages/guessGame/guessGame?scene=' + scene,
+        imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
+        success: function (res) {
+          console.log('转发成功')
+          app.updateGameShare()
+        },
+        fail: function (res) {
+          console.log('转发失败')
+        }
+      }
+    }
+    
+    // 分享转发
+    if (e.from == 'menu') {
+      return {
+        title: '猜图赢现金随时提现，20万人玩到心脏骤停',
+        path: '/games/pages/guessGame/guessGame',
+        imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
+        success: function (res) {
+          console.log('转发成功')
+
+          app.updateGameShare()
+
+          // 返回游戏首页
+          wx.navigateTo({
+            url: '../guessGame/guessGame',
+          })
+        },
+        fail: function (res) {
+          console.log('转发失败')
+        }
       }
     }
   }

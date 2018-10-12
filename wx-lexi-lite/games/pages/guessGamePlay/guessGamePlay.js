@@ -20,6 +20,7 @@ Page({
   data: {
     rpx: '',
     clientHeight: '',
+    isLoading: true,
     // 我的账户
     myAccount: {
       amount: 0,
@@ -168,16 +169,9 @@ Page({
   gameOver() {
     this._clearTimer()
 
-    wx.showToast({
-      title: '正在计算...',
-      image: '../../../images/jiazai.gif',
-      duration: 5000,
-      success: () => {
-        // 跳转结果页
-        wx.redirectTo({
-          url: '../guessResult/guessResult?test_id=' + this.data.testId,
-        })
-      }
+    // 跳转结果页
+    wx.redirectTo({
+      url: '../guessResult/guessResult?test_id=' + this.data.testId,
     })
   },
 
@@ -346,6 +340,12 @@ Page({
 
     // 获取本次试题
     const testQuestion = wx.getStorageSync('testQuestion')
+    if (!testQuestion) {
+      // 返回开始页
+      wx.navigateBack({
+        delta: 1
+      })
+    }
 
     this.setData({
       userInfo: wx.getStorageSync('userInfo'),
@@ -373,6 +373,13 @@ Page({
    */
   onReady: function() {
     this.drawProgressbg()
+
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 2000)
   },
 
   /**
@@ -423,23 +430,28 @@ Page({
    */
   onShareAppMessage: function(options) {
     console.log(options, '分享游戏')
-    // scene格式：uid + '-' + code
-    const jwt = wx.getStorageInfoSync('jwt')
-    let scene = jwt.uid + '-1'
+    let randomList = [1, 2, 3]
+    let _random = Math.floor(Math.random() * randomList.length)
     return {
-      title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
-      path: '/games/pages/guessGame/guessGame?scene=' + scene,
-      imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
-      success: function(res) {
+      title: '猜图赢现金随时提现，20万人玩到心脏骤停',
+      path: '/games/pages/guessGame/guessGame',
+      imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
+      success: function (res) {
         console.log('转发成功')
+
         app.updateGameShare()
+
+        // 返回游戏首页
+        wx.navigateTo({
+          url: '../guessGame/guessGame',
+        })
       },
-      fail: function(res) {
+      fail: function (res) {
         console.log('转发失败')
       }
     }
   }
-
+  
 })
 
 class Doomm {

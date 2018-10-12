@@ -45,6 +45,25 @@ Page({
   },
 
   /**
+   * 订单状态
+   */
+  _getOrderStatusLabel (status) {
+    let label = ''
+    switch (status) {
+      case 1:
+        label = '待发货'
+        break
+      case 2:
+        label = '已发货'
+        break
+      case 3:
+        label = '已完成'
+        break
+    }
+    return label
+  },
+
+  /**
    * 更新提醒数量
    */
   _updateNoticeCount (result) {
@@ -86,6 +105,7 @@ Page({
       for (let i=0; i< res.data.orders.length; i++) {
         // 时间格式化
         res.data.orders[i].created_at = utils.timestamp2string(res.data.orders[i].created_at, 'cn')
+        res.data.orders[i].status_label = this._getOrderStatusLabel(res.data.orders[i].life_order_status)
         for (let k = 0; k < res.data.orders[i].items.length; k++) {
           res.data.orders[i].items[k].product_name = utils.truncate(res.data.orders[i].items[k].product_name, 13)
         }

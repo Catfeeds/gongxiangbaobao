@@ -1,3 +1,4 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <view class="main-wrapper" style="height: {{ clientHeight }}px;" wx:if="{{ is_mobile }}">
     <view class="main-container">
@@ -56,7 +57,7 @@
 
           <!-- 邀请按钮 -->
           <view class="action">
-            <button open-type="share" data-name="invite" class="btn-now-invite" bindtap="handleInviteFriend">立即邀请</button>
+            <button open-type="share" data-name="invite" class="btn-now-invite">立即邀请</button>
           </view>
         </view>
         <view class="invite-result">您已邀请{{ peopleCount.invite_count }}位好友</view>
@@ -385,10 +386,23 @@
         <image src="https://static.moebeast.com/static/img/game/empty.png"></image>
         <view>你的好友还没有参与游戏</view>
         <view>邀请好友一起来猜图吧</view>
-        <button class="invite-friend" bindtap="handleInviteFriend">邀请好友</button>
+        <button class="invite-friend" open-type="share" data-name="invite">邀请好友</button>
       </view>
     </view>
   </fx-game-modal>
+
+  <!-- 没偷到提醒 -->
+  <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showStealEmptyModal }}" marginTop="300">
+    <view class="thb-back">
+      <view class="notice-title">
+        没偷着吧，手慢了吧！
+      </view>
+      <view class="notice-title">
+        等着！一会看我怎么收拾你。
+      </view>
+      <button class="btn-run" bindtap="handleGoRun">快跑</button>
+    </view>
+  </fx-game-modal-v>
 
   <!-- 偷到了红包 -->
   <fx-game-modal-v class="fx-modal--steal-bonus" className="fx-modal--steal-bonus" visible="{{ showStealBonusModal }}" marginTop="300">
@@ -423,7 +437,7 @@
         </view>
         <view class="expired">
           <view class="date">有效期至
-            <text>{{ stealBonusResult.coupon.expired_at|formatDate }}</text>
+            <text>{{ stealBonusResult.coupon.expired_at }}</text>
           </view>
         </view>
       </view>
@@ -443,8 +457,8 @@
     <fx-modal-v visible="{{ showLoginModal }}" close="{{ false }}" marginTop="300" title="授权登录">
       <view class="tips">开始游戏前，请先登录</view>
       <view class="login-method">
-        <button class="fx-button primary" open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">使用微信授权一键绑定手机号</button>
-        <button wx:if="{{ canIUse }}" class="fx-button default" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用验证码绑定手机号</button>
+        <button wx:if="{{ canIUse }}" class="fx-button primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用验证码绑定手机号</button>
+        <button class="fx-button default" open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">使用微信授权一键绑定手机号</button>
       </view>
     </fx-modal-v>
   </view>

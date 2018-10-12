@@ -51,11 +51,36 @@ Component({
      * 获取用户授权信息
      */
     bindGetUserInfo(e) {
-      console.log(e.detail.userInfo, '获取用户授权信息')
+      console.log(e.detail, '获取用户授权信息')
       if (e.detail.userInfo) {
         // 用户点击允许按钮
         this.setData({
           showBindForm: true
+        })
+        // 调用login获取code
+        wx.login({
+          success: (res) => {
+            // 发送 res.code 到后台换取 openId
+            const code = res.code
+            console.log('Login code: ' + code)
+
+            let params = {
+              code: code,
+              encrypted_data: e.detail.encryptedData,
+              auth_app_id: app.globalData.app_id,
+              iv: e.detail.iv
+            }
+
+            console.log(params, '用户授权参数')
+            
+            // 更新用户授权信息
+            http.fxPost(api.auth_weixin, params, (res) => {
+              console.log(res, '授权解密成功')
+              if (!res.success) {
+                utils.fxShowToast(res.status.message)
+              }
+            })
+          }
         })
       } else {
         // 用户点击拒绝按钮

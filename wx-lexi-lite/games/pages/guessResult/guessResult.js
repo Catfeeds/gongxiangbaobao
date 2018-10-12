@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     showInviteModal: false, // 邀请好友一起玩
     showPauseModal: false, // 休息一下
     playTimes: 1, // 玩游戏次数
@@ -242,7 +243,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 5000)
   },
 
   /**
@@ -285,17 +291,17 @@ Page({
    */
   onShareAppMessage: function (options) {
     console.log(options, '分享游戏')
-    // scene格式：uid + '-' + code
-    const jwt = wx.getStorageInfoSync('jwt')
-    let scene = jwt.uid + '-1'
+    let randomList = [1, 2, 3]
+    let _random = Math.floor(Math.random() * randomList.length)
     return {
-      title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
-      path: '/games/pages/guessGame/guessGame?scene=' + scene,
-      imageUrl: 'https://static.moebeast.com/static/img/guess-invite-img.jpg',
+      title: '猜图赢现金随时提现，20万人玩到心脏骤停',
+      path: '/games/pages/guessGame/guessGame',
+      imageUrl: 'https://static.moebeast.com/static/img/share-game-0'+ _random +'.jpg',
       success: function (res) {
         console.log('转发成功')
-        app.updateGameShare()
 
+        app.updateGameShare()
+        
         // 返回游戏首页
         wx.navigateTo({
           url: '../guessGame/guessGame',

@@ -157,10 +157,6 @@
   margin-right: 10rpx;
 }
 
-.order-item .order-item__head .user-info .store .order-label {
-  margin-left: 20rpx;
-}
-
 .order-item .order-item__head .user-info .order-status {
   color: rgba(110, 215, 175, 1);
 }

@@ -52,22 +52,11 @@
   <!-- 申请开馆 -->
   <view class='item component more padding-top--24rpx padding-bottom--20rpx'>
     <view class='hui-zi qian-hui padding-bottom--30rpx'>更多</view>
-    <view class=' flex_row'>
+    <view class=' flex_row' bindtap="handleGoApplyStore">
       
       <image class="open-store__icon" src='../../images/join@2.png'></image>
       <view class='font-size flex--1'>申请开馆</view>
       
-      <view class='time-top'>
-        <view class='fx-icon-nothing-right'></view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 关于乐喜 -->
-  <view class='more item component padding-top--24rpx padding-bottom--14rpx'>
-    <view class=' flex_row'>
-      <image class="about-lexi__icon" src='../../images/lexi@2.png'></image>
-      <view class='font-size flex--1'>关于乐喜</view>
       <view class='time-top'>
         <view class='fx-icon-nothing-right'></view>
       </view>

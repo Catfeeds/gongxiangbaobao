@@ -8,7 +8,8 @@ module.exports = {
   auth_register: 'auth/register', // POST 注册
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
   auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
-  bind_mobile: 'accounts/wxa_bind_mobile', //绑定手机号码---
+  bind_mobile: 'accounts/wxa_bind_mobile', // 绑定手机号码---
+  auth_weixin: 'accounts/wxa_get_authorize_info', // POST 微信授权获取用户信息、openid、unionid
   wxa_authorize_bind_mobile: 'accounts/wxa_authorize_bind_mobile', // 微信授权绑定手机号
   countries: 'countries', // 获取国家列表
   bind_friend: 'guess_image/add_friend', // 绑定好友关系
@@ -343,6 +344,8 @@ module.exports = {
   question_withdraw_cash: 'guess_image/cash_money',
   // GET 奖励消息
   question_reward_message: 'guess_image/reward_message',
+  // GET 新好友加入提醒
+  question_friend_notice: 'guess_image/new_friend_info',
   // POST 更新分享记录
   question_share: 'guess_image/is_share'
 
