@@ -334,5 +334,9 @@ image {
 
 .zan-box {
   padding: 13rpx 0;
+}
 
+.fx-part .recommend-list {
+  height: 380rpx;
+  margin-bottom: 40rpx;
 }

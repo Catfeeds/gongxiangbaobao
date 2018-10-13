@@ -48,7 +48,7 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber height--120rpx' wx:if="{{ shopInfo.count > 0 }}">
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.count + 1 }}</text> 人浏览过生活馆</view>
+          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 人浏览过生活馆</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
@@ -62,7 +62,7 @@
           </view>
           <view class='browse-number-box fx-broadwise-e'>
             <view class='joinNumberR'>
-              {{ shopInfo.count > 999 ? '999+' : shopInfo.count + 1 }}
+              {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number }}
             </view>
           </view>
         </view>

@@ -50,6 +50,7 @@
 
 page {
   overflow: hidden;
+  width: 750rpx;
 }
 
 .guess-game-bg {
@@ -900,6 +901,9 @@ page {
   font-weight: 600;
   color: rgba(255, 207, 0, 1);
   line-height: 22rpx;
+}
+.steal-empty .btn-run {
+  margin-top: 60rpx;
 }
 
 .fx-modal--notice .invite-play {

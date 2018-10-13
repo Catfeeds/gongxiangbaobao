@@ -1,8 +1,10 @@
 // pages/dynamic/dynamic.js
 const app = getApp()
+
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 let wxparse = require("../../wxParse/wxParse.js")
 
 Page({
@@ -59,7 +61,7 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
-    });
+    })
   },
 
 
@@ -118,7 +120,7 @@ Page({
    */
   onReachBottom: function() {
     if (!this.data.dynamicList.next) {
-      utils.fxShowToast("没有跟多了")
+      utils.fxShowToast('没有更多了')
       return
     }
 

@@ -413,7 +413,7 @@
 
   <!-- 没偷到提醒 -->
   <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showStealEmptyModal }}" marginTop="300">
-    <view class="thb-back">
+    <view class="thb-back steal-empty">
       <view class="steal-desc">
         没偷着吧，手慢了吧！
       </view>

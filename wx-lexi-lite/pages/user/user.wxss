@@ -142,6 +142,7 @@ button-hover {
 
 .goodsFive {
   width: 670rpx;
+  margin-bottom: 40rpx;
 }
 
 .sotrF {

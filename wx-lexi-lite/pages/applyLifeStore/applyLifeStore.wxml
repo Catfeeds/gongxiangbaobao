@@ -1,5 +1,5 @@
 <view class="container">
-<fx-loading loading="{{ isLoading }}"></fx-loading>
+  <fx-loading loading="{{ isLoading }}"></fx-loading>
   <view class="apply-container" wx:if="{{ activePage == 'apply-form' }}">
     <view class="apply-jumbotron">
       <image src="../../images/lexi-logo.png" class="logo"></image>
@@ -12,11 +12,11 @@
 
       <form class="apply-form" bindsubmit="handleSubmitApply" bindreset="formReset">
         <view class="fx-input">
-          <input type="text" name="name" placeholder="你的真实姓名" />
+          <input type="text" name="name" placeholder-class="phClass" placeholder="你的真实姓名" />
         </view>
 
         <view class="fx-input">
-          <input type="text" name="profession" placeholder="你的职业" />
+          <input type="text" name="profession" placeholder-class="phClass" placeholder="你的职业" />
         </view>
 
         <view class="fx-input verify-mobile">
@@ -24,14 +24,14 @@
             {{form.area_code}}
           </view>
           <view class="line"></view>
-          <input type="text" class="input-inner" bindinput="handleChangeMobile" name="mobile" placeholder="你的手机号" />
-          <button bindtap="handleGotCode" wx:if="{{ !sending }}" class="fetch-verify-code fx-button--text">获取验证码</button>
+          <input type="text" class="input-inner" placeholder-class="phClass" bindinput="handleChangeMobile" bindfocus="handleFocusMobile" bindblur="handleBlurMobile" name="mobile" placeholder="你的手机号" />
+          <button bindtap="handleGotCode" wx:if="{{ !sending }}" class="fetch-verify-code fx-button--text {{ mobileFocus ? 'active' : '' }}">获取验证码</button>
           <button wx:if="{{ sending }}" class="fetch-verify-code fx-button--text">{{ time }}s</button>
 
         </view>
 
         <view class="fx-input">
-          <input type="text" bindinput="handleVerifyCode" name="verify_code" placeholder="输入验证码" />
+          <input type="text" bindblur="handleVerifyCode" name="verify_code" placeholder-class="phClass" placeholder="输入验证码" />
         </view>
 
         <view class="btn-area">
@@ -67,19 +67,18 @@
   </view>
 
   <!-- 电话选择 -->
-  <cover-view class='flex-direction--column quhao-box  {{quhao?"pick-quhao":""}}'>
-    <cover-view class='block-title'>常用</cover-view>
-    <cover-view class='hui-line'></cover-view>
+  <view class='flex-direction--column quhao-box {{ quhao ? "pick-quhao" : ""}}'>
+    <view class='quhao__title block-title'>常用</view>
+    <view class="quhao__body">
+      <view class='time-top padding-15rpx {{item.areacode==form.areacode?"bgc--hui":""}}' wx:for="{{countryCodeList}}" wx:key="{{index}}" catchtap='handlePickCountry' data-name="{{item.areacode}}">
+        <view>{{item.name}}</view>
+        <view class='theme-hui-color'>{{item.areacode}}</view>
+      </view>
+    </view>
 
-    <cover-view class='time-top padding-15rpx {{item.areacode==form.areacode?"bgc--hui":""}}' wx:for="{{countryCodeList}}" wx:key="{{index}}" catchtap='handlePickCountry' data-name="{{item.areacode}}">
-      <cover-view>{{item.name}}</cover-view>
-      <cover-view class='theme-hui-color'>{{item.areacode}}</cover-view>
-    </cover-view>
-
-    <cover-view class='off-pick__icon' catchtap='handleOffCountryPick'>
-      <cover-image src='../../images/off@2.png'></cover-image>
-    </cover-view>
-    <cover-view class='shm'></cover-view>
-  </cover-view>
+    <view class='off-pick__icon' catchtap='handleOffCountryPick'>
+      <image src='../../images/off@2.png'></image>
+    </view>
+  </view>
 
 </view>

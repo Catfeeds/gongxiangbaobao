@@ -28,6 +28,7 @@ Page({
       mobile: '',
       verify_code: ''
     },
+    mobileFocus: false, // 是否正在输入手机号
     verifyCode: '', // 后端发送后，返回的验证码，用于前端验证
   },
 
@@ -92,6 +93,7 @@ Page({
 
         // 合并小B身份到登录用户
         app.mergeLifeStoreToJwt(res.data)
+        
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -104,6 +106,24 @@ Page({
   handleChangeMobile(e) {
     this.setData({
       'form.mobile': e.detail.value
+    })
+  },
+
+  /**
+   * 手机号获取焦点
+   */
+  handleFocusMobile() {
+    this.setData({
+      mobileFocus: true
+    })
+  },
+
+  /**
+   * 手机号失去焦点
+   */
+  handleBlurMobile() {
+    this.setData({
+      mobileFocus: false
     })
   },
 
@@ -123,8 +143,6 @@ Page({
 
     if (this.data.sending == true) {
       let pageTime = setInterval(() => {
-        // console.log(this.data.time, '验证码倒计时')
-        
         this.setData({
           time: --this.data.time
         })
@@ -145,6 +163,7 @@ Page({
       console.log(res, '发送验证码')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
+
       }
     })
   },
@@ -167,11 +186,12 @@ Page({
     const lifeStore = wx.getStorageSync('lifeStore')
 
     // 已经申请过则不能重复申请
+    /*
     if (lifeStore.isSmallB) {
       wx.switchTab({
         url: '../index/index'
       })
-    }
+    }*/
     
     this.getCountryCode()
   },

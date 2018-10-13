@@ -38,7 +38,7 @@
       </view>
 
       <view class="time-top time-middine margin-bottom--24rpx">
-        <image  wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}"></image>
+        <image wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}"></image>
         <view class="window-photo__count" wx:if="{{item.products>3}}">{{item.products>3?item.products.length:""}}图</view>
       </view>
 
@@ -66,5 +66,5 @@
   </view>
 
   <view class='shm'></view>
-<fx-loading loading="{{ isLoading }}"></fx-loading>
+  <fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

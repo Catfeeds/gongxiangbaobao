@@ -3,10 +3,10 @@
     <!-- top -->
     <view class='adressInfoBox'>
       <view>
-        <input placeholder-class="phcolor" placeholder='收件人真实姓名' bindinput="handleUserName" value="{{ form.first_name }}"></input>
+        <input placeholder-class="phcolor" placeholder='收件人真实姓名' bindblur="handleUserName" value="{{ form.first_name }}"></input>
       </view>
       <view>
-        <input value='{{ form.mobile }}' bindinput='handleMobile' placeholder-class="phcolor" placeholder='手机号' type='number'></input>
+        <input value='{{ form.mobile }}' bindblur='handleMobile' placeholder-class="phcolor" placeholder='手机号' type='number'></input>
       </view>
 
       <!-- 国家 -->
@@ -36,10 +36,10 @@
         placeholder-class="phcolor address-detail__default" 
         placeholder='详细地址' 
         class="address-detail"
-        bindinput="handleStreetInfo"></textarea>
+        bindblur="handleStreetInfo"></textarea>
       </view>
       <view>
-        <input bindinput="handleZipCode" placeholder-class="phcolor" placeholder='邮政编码' value='{{ form.zipcode }}' type='number'></input>
+        <input bindblur="handleZipCode" placeholder-class="phcolor" placeholder='邮政编码' value='{{ form.zipcode }}' type='number'></input>
       </view>
     </view>
 

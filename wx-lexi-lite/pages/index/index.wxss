@@ -155,8 +155,8 @@
 }
 
 .owner-avatar_box image:nth-child(1) {
-  height: 100%;
-  width: 100%;
+  width: 128rpx;
+  height: 128rpx;
 }
 
 .owner-avatar_box .upload-status__box {
@@ -234,6 +234,7 @@
 .no-sell-product_icon_box {
   height: 60rpx;
   width: 60rpx;
+  margin-bottom: 20rpx;
 }
 
 .probation-box {
