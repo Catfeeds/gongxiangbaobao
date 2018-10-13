@@ -358,8 +358,11 @@ Page({
     this.getLastPlayers()
 
     // 参与的人数
-    this.startPlay()
-
+    let that = this
+    setTimeout(() => {
+      that.startPlay()
+    }, 4000)
+    
     // 倒计时前先绘制整圆的圆环
     this.drawRingMove(this.data.start, this.data.end)
     // 创建倒计时

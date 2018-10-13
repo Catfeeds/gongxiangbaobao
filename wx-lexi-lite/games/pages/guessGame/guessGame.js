@@ -534,7 +534,7 @@ Page({
       console.log(res, '好友列表')
       if (res.success) {
         res.data.friend_list.forEach((v) => {
-          v = this._rebuildUserInfo(v, 8)
+          v = this._rebuildUserInfo(v, 15)
         })
 
         let _friends = this.data.friendList
@@ -564,7 +564,7 @@ Page({
       console.log(res, '认识的好友列表')
       if (res.success) {
         res.data.friend_list.forEach((v) => {
-          v = this._rebuildUserInfo(v, 8)
+          v = this._rebuildUserInfo(v, 15)
         })
 
         let _friends = this.data.guessFriendList
@@ -1000,7 +1000,7 @@ Page({
       const jwt = wx.getStorageInfoSync('jwt')
       let scene = jwt.uid + '-1'
       return {
-        title: '20万人猜图玩到心脏骤停，赢百万现金池，更享原创设计暖心好物现金券',
+        title: '猜图赢现金随时提现，20万人玩到心脏骤停',
         path: 'games/pages/guessGame/guessGame?scene=' + scene,
         imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
         success: function (res) {

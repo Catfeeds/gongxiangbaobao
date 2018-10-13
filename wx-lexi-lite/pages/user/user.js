@@ -19,7 +19,7 @@ Page({
     haveSmallB: false,
     watchStoreList: [], // 关注店铺的列表
     followerAddWatch: [], // 关注和粉丝的数量
-    is_mobile: false, // 注册的呼出框
+    is_mobile: true, // 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
     userInfo: [], // 用户的信息
     classInfo: 1, // 切换---

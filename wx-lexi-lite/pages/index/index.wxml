@@ -756,6 +756,5 @@
     <text class='suspend-share__text'>分享</text>
     <!-- <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button> -->
   </view>
-
-  <view class="shm"></view>
+  
 </view>

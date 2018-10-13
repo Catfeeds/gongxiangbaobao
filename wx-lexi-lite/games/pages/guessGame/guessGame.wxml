@@ -281,9 +281,9 @@
 
       <view class="top-list" wx:if="{{ activeTopTab == 'world' }}">
         <view class="top-item top-head">
-          <view class="number">排名</view>
-          <view class="coupon">优惠券</view>
-          <view class="bonus">红包</view>
+          <view class="number"><text class="thead">排名</text></view>
+          <view class="coupon"><text class="thead">优惠券</text></view>
+          <view class="bonus"><text class="thead">红包</text></view>
         </view>
         <view class="top-item mine">
           <view class="number">
@@ -342,9 +342,9 @@
 
       <view class="top-list" wx:if="{{ activeTopTab == 'friend' }}">
         <view class="top-item top-head">
-          <view class="number">排名</view>
-          <view class="coupon">优惠券</view>
-          <view class="bonus">红包</view>
+          <view class="number"><text class="thead">排名</text></view>
+          <view class="coupon"><text class="thead">优惠券</text></view>
+          <view class="bonus"><text class="thead">红包</text></view>
         </view>
         <view class="top-item mine">
           <view class="number">
@@ -414,13 +414,13 @@
   <!-- 没偷到提醒 -->
   <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showStealEmptyModal }}" marginTop="300">
     <view class="thb-back">
-      <view class="notice-title">
+      <view class="steal-desc">
         没偷着吧，手慢了吧！
       </view>
-      <view class="notice-title">
+      <view class="steal-desc">
         等着！一会看我怎么收拾你。
       </view>
-      <button class="btn-run" bindtap="handleGoRun">快跑</button>
+      <button class="btn-run btn-ok" bindtap="handleGoRun">快跑</button>
     </view>
   </fx-game-modal-v>
 
