@@ -789,7 +789,6 @@ Page({
 
     this.setData({
       rid: rid,
-      storeRid: options.storeRid,
       cartTotalCount: app.globalData.cartTotalCount,
       isWatch: app.globalData.isWatchstore,
     })
