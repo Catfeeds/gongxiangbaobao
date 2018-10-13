@@ -7,6 +7,7 @@
   <view class='red-bag_box'>
     <!-- 左边领取红包的提示 -->
     <view class='receive-box'> 
+      <view class="meng-ceng"></view>
       <view class='scroll-box' style='top:{{topKey}}rpx'>
         <view class='receive-item time-top' wx:for="{{bonusLines}}"
          wx:key="{{index}}">

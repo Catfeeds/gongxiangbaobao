@@ -24,7 +24,7 @@
   margin-left: 10rpx;
   height: 230rpx;
   overflow: hidden;
-  width: 312rpx
+  width: 312rpx;
 }
 
 .scroll-box {
