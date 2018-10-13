@@ -100,15 +100,14 @@
 
         <image class='receiveFnBottomBox' src='../../images/shop-icon@2.png'></image>
 
-        <input data-rid="{{items[0].store_rid}}" bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项'></input>
+        <textarea data-rid="{{items[0].store_rid}}" auto-height='{{true}}'bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项' class="user-input__text"></textarea>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
       <view class='merchant voice'>
-
         <image class='receiveFnBottomBox' src='../../images/see-icon@2.png'></image>
 
-        <textarea value='' data-rid="{{items[0].store_rid}}" bindinput='handleUtterance' placeholder-class='goods-blessing' auto-height='{{true}}' class="textarea--position" wx:if="{{!authorityCouponShow&&!coupon}}" placeholder='我的语录'></textarea>
+        <textarea value='' data-rid="{{items[0].store_rid}}" bindinput='handleUtterance' placeholder-class='goods-blessing' auto-height='{{true}}' class="textarea--position user-input__text" wx:if="{{!authorityCouponShow&&!coupon}}" placeholder='我的语录'></textarea>
       </view>
       <!-- 运费 -->
       <view class='component  time-top logistics-moble' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='couponTap'>
