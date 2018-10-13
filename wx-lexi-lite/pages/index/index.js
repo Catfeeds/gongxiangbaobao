@@ -1600,13 +1600,30 @@ Page({
         }
       }
     } else { // 显示其他人的生活馆
-      this.setData({
-        'pageTabs[0].disabled': false,
-        pageActiveTab: 'lifeStore',
-        isSmallHome: false,
-        canAdmin: false
-      })
+      // 验证生活馆是不是自己的
+      const lifeStore = wx.getStorageSync('lifeStore')
+      // 判断登录用户是否有生活馆
+      if (lifeStore.isSmallB && this.data.sid == lifeStore.lifeStoreRid) {
+        let sid = lifeStore.lifeStoreRid
 
+        const userInfo = wx.getStorageSync('userInfo')
+        this.setData({
+          'pageTabs[0].disabled': false,
+          pageActiveTab: 'lifeStore',
+          storeOwner: userInfo,
+          isSmallHome: true,
+          canAdmin: true,
+          isSmallB: true
+        })
+      } else {
+        this.setData({
+          'pageTabs[0].disabled': false,
+          pageActiveTab: 'lifeStore',
+          isSmallHome: false,
+          canAdmin: false
+        })
+      }
+      
       // 更新当前用户的last_store_rid
       app.updateLifeStoreLastVisit(this.data.sid)
 
@@ -1705,6 +1722,8 @@ Page({
       })
       this._loadingLifeStorePage()
     }
+
+    wx.stopPullDownRefresh()
   },
 
   /**
