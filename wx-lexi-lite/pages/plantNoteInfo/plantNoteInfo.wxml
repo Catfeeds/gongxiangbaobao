@@ -3,10 +3,7 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 详细的盒子 -->
   <view class="bg-white border-bottom margin-bottom--30rpx">
@@ -59,18 +56,18 @@
 
       <!-- <view wx:for="{{liveInfo.deal_content}}" wx:key="{{index}}"> -->
 
-        <!-- 文本 -->
-        <!-- <view class='ql-align-justify wxParse-p' wx:if="{{item.type=='text'}}">
+      <!-- 文本 -->
+      <!-- <view class='ql-align-justify wxParse-p' wx:if="{{item.type=='text'}}">
           <view class='WxEmojiView wxParse-inline'> {{item.content}} </view>
         </view> -->
 
-        <!-- 图片 -->
-        <!-- <view wx:if="{{item.type=='image'}}" class='wxParse-p'>
+      <!-- 图片 -->
+      <!-- <view wx:if="{{item.type=='image'}}" class='wxParse-p'>
           <image class='wxParse-img' src='{{item.content}}'></image>
         </view> -->
 
-        <!-- 商品 大图-->
-        <!-- <view wx:if="{{item.type=='product'}}" class='product-max__box two-line-text'>
+      <!-- 商品 大图-->
+      <!-- <view wx:if="{{item.type=='product'}}" class='product-max__box two-line-text'>
           <view class='product-max__photo'>
             <image src='{{item.content.cover}}'></image>
           </view>
@@ -91,8 +88,8 @@
           </view>
         </view> -->
 
-        <!-- 商品 小图-->
-        <!-- <view wx:if="{{item.type=='product'}}" class='product-min__box'>
+      <!-- 商品 小图-->
+      <!-- <view wx:if="{{item.type=='product'}}" class='product-min__box'>
           <fx-product-middleM 
           product="{{item.content}}" 
           price="true" 
@@ -112,9 +109,7 @@
 
     <!-- 店铺的信息 -->
     <view class="margin-left--40rpx margin-right--40rpx time-top store-info__box" wx:if="{{ liveInfo.recommend_store }}">
-      <view class="flex_row" 
-        data-rid="{{liveInfo.recommend_store.store_rid}}" 
-        catchtap="handleGoBrandStore">
+      <view class="flex_row" data-rid="{{liveInfo.recommend_store.store_rid}}" catchtap="handleGoBrandStore">
         <image src="{{ liveInfo.recommend_store.store_logo }}" class="store-icon"></image>
         <view class="fx-column-b ">
           <view class="font-ss qian-hui margin-bottom--20rpx">乐喜原创品牌设计馆</view>
@@ -123,19 +118,12 @@
         </view>
       </view>
 
-      <view 
-        class=" black-font flex_row follow-btn" 
-        catchtap="handleAddWatch"
-        data-rid="{{liveInfo.recommend_store.store_rid}}"
-        wx:if="{{!liveInfo.recommend_store.is_follow_store}}">
+      <view class=" black-font flex_row follow-btn" catchtap="handleAddWatch" data-rid="{{liveInfo.recommend_store.store_rid}}" wx:if="{{!liveInfo.recommend_store.is_follow_store}}">
         <image src="../../images/shop1.png"></image>
         <text>关注</text>
       </view>
 
-      <view 
-        catchtap="handleDeleteWatch"
-        data-rid="{{liveInfo.recommend_store.store_rid}}"
-        class=" black-font flex_row follow-btn bg--hui" wx:else>
+      <view catchtap="handleDeleteWatch" data-rid="{{liveInfo.recommend_store.store_rid}}" class=" black-font flex_row follow-btn bg--hui" wx:else>
         <text>已关注</text>
       </view>
 
@@ -144,76 +132,78 @@
 
   <!-- 猜你喜欢 -->
   <view class='border-bottom bg-white margin-bottom--30rpx'>
-    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx recommend-product-box'>
+    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx '>
       <text>推荐商品</text>
       <!-- <text catchtap="handleToProductList" data-from="editRecommend" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
     </view>
     <view class='c-importantGoodsBox margin-top--34rpx'>
-      <scroll-view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
-        <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+      <scroll-view>
+        <view  class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
+          <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+        </view>
       </scroll-view>
     </view>
   </view>
 
   <block wx:if="{{}}">
 
-  <!-- 评论 -->
-  <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
-    <view class="black-font font-width--medium">评论</view>
+    <!-- 评论 -->
+    <view class="comment-item bg-white border-bottom" wx:if="{{liveInfo.comment_count!=0}}">
+      <view class="black-font font-width--medium">评论</view>
 
-    <!-- 每一个评论 -->
-    <view class='bg-white comment-item__item ' wx:key="{{index}}" wx:for-item="items" wx:for="{{[1,2,3]}}">
-      <image src="../../images/timg.jpg" class="comment-photo"></image>
-      <view class="flex-direction--column">
-        <!-- 顶部名字 -->
-        <view class="time-top margin-bottom--14rpx">
-          <view class="flex-direction--column">
-            <text class="font-s margin-bottom--10rpx">玮峰</text>
-            <text class="font-ss qian-hui">刚刚</text>
-          </view>
-
-          <view class="flex_row font-s qian-hui">
-            <view class="reply-tap">回复</view>
-            <text> · </text>
-            <view wx:if="{{true}}">
-              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
-              <text>赞</text>
+      <!-- 每一个评论 -->
+      <view class='bg-white comment-item__item ' wx:key="{{index}}" wx:for-item="items" wx:for="{{[1,2,3]}}">
+        <image src="../../images/timg.jpg" class="comment-photo"></image>
+        <view class="flex-direction--column">
+          <!-- 顶部名字 -->
+          <view class="time-top margin-bottom--14rpx">
+            <view class="flex-direction--column">
+              <text class="font-s margin-bottom--10rpx">玮峰</text>
+              <text class="font-ss qian-hui">刚刚</text>
             </view>
 
-            <view wx:else class="quantity-color ">
-              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
-              <text>123</text>
+            <view class="flex_row font-s qian-hui">
+              <view class="reply-tap">回复</view>
+              <text> · </text>
+              <view wx:if="{{true}}">
+                <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
+                <text>赞</text>
+              </view>
+
+              <view wx:else class="quantity-color ">
+                <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
+                <text>123</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- 别人评论 -->
+          <view class="black-font line-height--48rpx margin-bottom--14rpx">
+            <text>哈教科姐啊代姐哈空间大代姐啊代姐哈空间大代姐大声疾。</text>
+          </view>
+
+          <!-- 回复她的盒子 -->
+          <view class="font-s reply-text__box">
+            <!-- 回复她的每一条 -->
+            <view wx:for="{{[1,2]}}" wx:if="{{items!=3}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
+              <text>设计师ricky(作者）</text> :
+              <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
+            </view>
+
+            <view wx:if="{{items==3}}">
+              <text>喵喵灯 等人</text>
+              <text class='theme-green'>共3条回复</text>
             </view>
           </view>
         </view>
 
-        <!-- 别人评论 -->
-        <view class="black-font line-height--48rpx margin-bottom--14rpx">
-          <text>哈教科姐啊代姐哈空间大代姐啊代姐哈空间大代姐大声疾。</text>
-        </view>
-
-        <!-- 回复她的盒子 -->
-        <view class="font-s reply-text__box">
-          <!-- 回复她的每一条 -->
-          <view wx:for="{{[1,2]}}" wx:if="{{items!=3}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
-            <text>设计师ricky(作者）</text> :
-            <text>哈教科书代姐啊代姐哈空间 大代姐大声疾</text>
-          </view>
-
-          <view wx:if="{{items==3}}">
-            <text>喵喵灯 等人</text>
-            <text class='theme-green'>共3条回复</text>
-          </view>
-        </view>
       </view>
-
     </view>
-  </view>
 
-  <!-- 查看全部 -->
-  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
-    查看全部{{liveInfo.comment_count}}条评论
-  </view>
+    <!-- 查看全部 -->
+    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
+      查看全部{{liveInfo.comment_count}}条评论
+    </view>
 
   </block>
 

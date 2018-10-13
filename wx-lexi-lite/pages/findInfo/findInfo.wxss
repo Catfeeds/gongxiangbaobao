@@ -313,13 +313,14 @@ image {
 .color--huihong {
   color: #e3b395;
 }
+
 .color--huilan {
-  color: #829D7A;
-}
-.color--kafei {
-  color: #8C7A6E;
+  color: #829d7a;
 }
 
+.color--kafei {
+  color: #8c7a6e;
+}
 
 .wxParse-p.fx-text {
   font-size: 28rpx;
@@ -334,5 +335,8 @@ image {
 
 .zan-box {
   padding: 13rpx 0;
+}
 
+.pading-bottom--40rpx {
+  padding-bottom: 40rpx;
 }
