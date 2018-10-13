@@ -273,8 +273,8 @@ swiper-item, swiper-item>image, swiper {
 
 .shop-other-goods {
   padding: 20rpx 0 20rpx 0;
-  overflow: auto;
-  white-space: nowrap;
+  /* overflow: auto;
+  white-space: nowrap; */
 }
 
 .shop-other-goods>view {
@@ -780,4 +780,37 @@ swiper-item, swiper-item>image, swiper {
   width: 100%;
   z-index: 9;
   opacity: 0;
+}
+
+.padding-left--0rpx {
+  padding-left: 0rpx;
+}
+
+.padding-left--30rpx {
+  padding-left: 30rpx;
+}
+
+.product-item__scroll {
+  white-space: nowrap;
+  padding: 20rpx 0;
+}
+
+.product-item__scroll .product-item__box {
+  height: 180rpx;
+  width: 180rpx;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+
+.product-item__scroll .product-item__box image {
+  height: 100%;
+  width: 100%;
+}
+
+.margin-left--30rpx {
+  margin-left: 30rpx;
+}
+
+.margin-right--30rpx {
+  margin-right: 30rpx;
 }

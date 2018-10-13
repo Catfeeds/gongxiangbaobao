@@ -4,6 +4,7 @@
 .container {
   background-color: white;
 }
+
 .userPhotoBox {
   margin: 0 40rpx 20rpx;
 }
@@ -33,7 +34,7 @@
 }
 
 .userinfoS {
-  width: 122rpx;
+  padding: 0 10rpx;
   height: 32rpx;
   font-size: 22rpx;
   color: white;
@@ -70,7 +71,8 @@
   width: 46rpx;
   margin-right: 20rpx;
 }
-.approveIcon image{
+
+.approveIcon image {
   height: 100%;
   width: 100%;
 }
@@ -147,7 +149,7 @@
   /* background-color: green; */
   margin-right: 20rpx;
   margin-left: 30rpx;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   background-size: 100%;
   background-image: url("https://static.moebeast.com/static/img/null-product.png");
 }
@@ -169,39 +171,47 @@
   font-size: 24rpx;
   color: white;
 }
+
 .addressInfoBoxS {
   font-size: 24rpx;
   color: #c6d1d9;
 }
-.brandFunction{
+
+.brandFunction {
   font-size: 40rpx;
   font-weight: 600;
   margin: 40rpx 0 20rpx;
 }
-.recommendGoods{
+
+.recommendGoods {
   font-size: 24rpx;
   margin-bottom: 5rpx;
 }
-.logo{
+
+.logo {
   font-size: 22rpx;
 }
-.recommendgoodsText{
+
+.recommendgoodsText {
   margin-top: 40rpx;
   padding-top: 40rpx;
   border-top: 1rpx solid #e9e9e9;
   font-size: 28rpx;
   line-height: 40rpx;
 }
-.recommendgoodsText > view{
+
+.recommendgoodsText > view {
   margin-bottom: 20rpx;
   font-weight: 500;
-  letter-spacing:4rpx;
+  letter-spacing: 4rpx;
 }
-.ren-icon{
+
+.ren-icon {
   height: 40rpx;
   width: 120rpx;
 }
-.ren-icon image{
+
+.ren-icon image {
   height: 100%;
   width: 100%;
 }
@@ -209,4 +219,9 @@
 .recommendgoodsText image {
   background-size: 100%;
   background-image: url("https://static.moebeast.com/static/img/null-product.png");
+}
+
+.wxParse-span .wxParse-inline,
+.WxEmojiView .wxParse-inline {
+  color: #333 !important;
 }

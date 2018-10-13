@@ -6,10 +6,10 @@
 <view class='container theme-bg-color product-bout-box '>
   <!-- 轮播图 123-->
   <view class='swiperBox'>
-    <swiper  bindchange='handleSwiperChange'>
+    <swiper bindchange='handleSwiperChange'>
       <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}-p50"/>
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}-p50" />
         </swiper-item>
       </block>
     </swiper>
@@ -19,9 +19,7 @@
   <!--轮播图 产品底部信息 -->
   <view class='goodsInfoBox'>
     <view class='baoyou-icon  font-with--600'>
-      <image 
-        class='logistics baoyou-icon__bg' 
-        wx:if="{{ productInfomation.is_free_postage }}"></image>
+      <image class='logistics baoyou-icon__bg' wx:if="{{ productInfomation.is_free_postage }}"></image>
       <text class='product-info__title'>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo margin-bottom--22rpx'>
@@ -52,7 +50,7 @@
 
       <view class='like-quantity-l bg-hui c-theme-bg borN' wx:else catchtap='handleBindLike'>
         <image src='../../images/already-like@3.png' class='like-icon'></image>
-          <text class='like-icon-add font-s font-color--white'> +{{productInfomation.like_count}}</text>
+        <text class='like-icon-add font-s font-color--white'> +{{productInfomation.like_count}}</text>
       </view>
 
       <view class='transmission'>
@@ -62,18 +60,12 @@
           <text class='hui-zi' wx:else>已添加</text>
         </view>
 
-        <view 
-          wx:if="{{isSmallB && productInfomation.is_distributed}}"
-          catchtap="handleShareTap"
-          class='like-quantity-l border-null font-m color-hui'>
+        <view wx:if="{{isSmallB && productInfomation.is_distributed}}" catchtap="handleShareTap" class='like-quantity-l border-null font-m color-hui'>
           <image class='fen' src='../../images/sell-icon@2.png'></image>
           <text class='like-icon-add'> 上架 </text>
         </view>
 
-        <view 
-          wx:else
-          catchtap="handleShareTap"
-          class='c-middle like-quantity-l transmissionInfo margin-left--0'>
+        <view wx:else catchtap="handleShareTap" class='c-middle like-quantity-l transmissionInfo margin-left--0'>
           <image class='fen-xiang' src='../../images/share@2.png'></image>
         </view>
       </view>
@@ -111,11 +103,7 @@
   </view>
 
   <!-- 有多少人喜欢 -->
-  <view 
-    class='likeBox' 
-    catchtap='handelToLikeThisProductTap' 
-    data-rid='{{productInfomation.rid}}' 
-    wx:if="{{ productInfomation.product_like_users.length != 0 }}">
+  <view class='likeBox' catchtap='handelToLikeThisProductTap' data-rid='{{productInfomation.rid}}' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
       <!-- <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image> -->
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
@@ -130,31 +118,21 @@
   <!-- 描述,发货地，时间 -->
   <view class='otherInfo'>
     <!-- 描述 -->
-    <view 
-      class='otherInfo-describe' 
-      wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
+    <view class='otherInfo-describe' wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
       <view class='titleText'>描述</view>
-      <view 
-        class='goodstext two-line-text margin-bottom--12rpx' 
-        wx:if="{{productInfomation.features && productInfomation.features!=null}}">
+      <view class='goodstext two-line-text margin-bottom--12rpx' wx:if="{{productInfomation.features && productInfomation.features!=null}}">
         <text class='titlemini'>亮点：</text>
         <text>{{ productInfomation.features }}</text>
       </view>
-      <view 
-        class='goodstext margin-bottom--12rpx' 
-        wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
+      <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
         <text class='titlemini'>材质：</text>
         <text>{{ productInfomation.material_name }}</text>
       </view>
-      <view 
-        class='goodstext margin-bottom--12rpx' 
-        wx:if='{{ productInfomation.is_custom_service }}'>
+      <view class='goodstext margin-bottom--12rpx' wx:if='{{ productInfomation.is_custom_service }}'>
         <text class='titlemini'>特点： </text>
         <text>可提供定制化服务</text>
       </view>
-      <view 
-        class='goodstext margin-bottom--30rpx' 
-        wx:if="{{productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
+      <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
         <text class='titlemini'>数量：</text>
         <text>仅剩最后{{ productInfomation.stock_count }}件</text>
       </view>
@@ -190,12 +168,9 @@
   </view>
 
   <!-- 店铺其他产品信息 -->
-  <view class='shopInfo margin-bottom--30rpx'>
-    <view 
-      class='shopInfoT' 
-      catchtap='handleTobrandStore'
-      data-rid="{{productInfomation.store_rid}}" >
-      <view class='userIcon' >
+  <view class='shopInfo margin-bottom--30rpx padding-left--0rpx'>
+    <view class='shopInfoT margin-left--30rpx' catchtap='handleTobrandStore' data-rid="{{productInfomation.store_rid}}">
+      <view class='userIcon'>
         <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ productInfomation.store_logo }}'></image>
       </view>
       <view class='shopMiddle'>
@@ -214,19 +189,15 @@
       </view>
 
     </view>
-    <view class='shop-other-goods'>
-      <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
+    <scroll-view class="product-item__scroll" scroll-x>
+      <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap' class="product-item__box {{index==0?'margin-left--30rpx':''}} {{index==newProductList.products.length-1?'margin-right--30rpx':''}}">
 
-        <image 
-          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
-          src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
+        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
 
-        <image 
-          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
-          wx:else></image>
+        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" wx:else></image>
 
       </view>
-    </view>
+    </scroll-view>
   </view>
 
   <!-- 相似产品 -->
@@ -236,13 +207,9 @@
     <view class='shop-other-goods'>
       <view wx:for='{{ similarList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleSimilarInfo'>
 
-        <image 
-          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
-          src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
+        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
 
-        <image 
-          class="{{readyOver?'load-over__null--photo':'loading-bg'}}" 
-          wx:else></image>
+        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" wx:else></image>
 
       </view>
     </view>
@@ -315,12 +282,10 @@
         <text>购物车</text>
       </view>
     </view>
-    
+
     <view class='small-bottom__style flex_row bg-white'>
       <view class='flex_row--middle c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
-      <view 
-        catchtap="handleShareTap"
-        class='flex_row--middle crated_btn--style bg--red border-left__radius--null '>
+      <view catchtap="handleShareTap" class='flex_row--middle crated_btn--style bg--red border-left__radius--null '>
         <text>卖 </text>
         <text class="font-ss"> 赚 ￥{{productInfomation.commission_price}}</text>
       </view>
@@ -336,18 +301,16 @@
         <text>购物车</text>
       </view>
     </view>
-    
+
     <view class='small-bottom__style flex_row bg-white'>
       <view class='flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
-      <view 
-        catchtap="handlePickShow"
-        class='flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
+      <view catchtap="handlePickShow" class='flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
         <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
       </view>
     </view>
   </view>
 
-    <!-- 不是小B 接单定制按钮 -->
+  <!-- 不是小B 接单定制按钮 -->
   <!-- <view class='bottom-btn bg-white c-crosswise-a' wx:else>
     <view class='btn-bg-color shop-cart'>
       <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
@@ -379,19 +342,13 @@
   <view wx:if="{{allInfo}}" class='product-all-info'>
     <view class='otherInfo'>
       <!-- 描述 -->
-      <view 
-        class='otherInfo-describe'
-        wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
+      <view class='otherInfo-describe' wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
         <view class='titleText'>描述</view>
-        <view 
-          class='goodstext two-line-text margin-bottom--12rpx'
-          wx:if="{{productInfomation.features && productInfomation.features!=null}}">>
+        <view class='goodstext two-line-text margin-bottom--12rpx' wx:if="{{productInfomation.features && productInfomation.features!=null}}">>
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
-        <view 
-          class='goodstext margin-bottom--12rpx'
-          wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
+        <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
           <text class='titlemini'>材质：</text>
           <text>{{productInfomation.material_id}}</text>
         </view>
@@ -399,9 +356,7 @@
           <text class='titlemini'>特点： </text>
           <text>可提供定制化服务</text>
         </view>
-        <view 
-          class='goodstext margin-bottom--30rpx' 
-          wx:if="{{productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null}}">
+        <view class='goodstext margin-bottom--30rpx' wx:if="{{productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null}}">
           <text class='titlemini'>数量：</text>
           <text>仅剩最后{{ productInfomation.stock_count }}件</text>
         </view>
@@ -424,9 +379,7 @@
       <!-- 退货政策 -->
       <view class='otherInfo-describe location borN' wx:if="{{productInfomation.product_return_policy!=null}}">
         <view class='titleText flex_row margin-bottom--12rpx'>退货政策</view>
-        <view 
-          class='goodstext flex_row margin-bottom--12rpx' 
-          wx:if="{{productInfomation.return_policy_title&&productInfomation.return_policy_title!=null}}">
+        <view class='goodstext flex_row margin-bottom--12rpx' wx:if="{{productInfomation.return_policy_title&&productInfomation.return_policy_title!=null}}">
           <view class='dian'></view>
           <text>{{productInfomation.return_policy_title}}</text>
         </view>
@@ -444,25 +397,23 @@
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
-    <!-- 卖 -->
-  <fx-modal 
-    showHead="{{ false }}" 
-    visible="{{ showShareModal }}" 
-    bind:closeEvent="handleCancelShare">
+  <!-- 卖 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
 
-        <view class="distribute-commission">
-          <block wx:if="{{isSmallB && isDistributed}}">
-            <text>赚</text> <text class="amount">￥{{productInfomation.commission_price}}</text>
-          </block>
-        </view>
-      
+      <view class="distribute-commission">
+        <block wx:if="{{isSmallB && isDistributed}}">
+          <text>赚</text>
+          <text class="amount">￥{{productInfomation.commission_price}}</text>
+        </block>
+      </view>
+
       <view class="distribute-message">
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
       </view>
       <view class="distribute-style">
-        <view class="share-friend wxa-card" >
-                  <button class="share-btn" open-type="share"></button>
+        <view class="share-friend wxa-card">
+          <button class="share-btn" open-type="share"></button>
           <image src="{{ productInfomation.cover }}" class="cover"></image>
           <text>点击直接分享好友样式</text>
 
@@ -477,8 +428,8 @@
         </view>
       </view>
       <view class="distribute-action">
-        <view class="share-friend" >
-        <button class="share-btn" open-type="share"></button>
+        <view class="share-friend">
+          <button class="share-btn" open-type="share"></button>
           <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
           <text>微信好友</text>
         </view>
