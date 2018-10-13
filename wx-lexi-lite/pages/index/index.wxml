@@ -52,12 +52,10 @@
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
-              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}' wx:if="{{item.is_real}}">
+              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}' >
                 <image src='{{ item.avatar }}'></image>
               </view>
-              <view class='photo-round joinNumberlPhoto' wx:if="{{!shopInfo.user_parties[0].is_real}}">
-                <open-data type='userAvatarUrl'></open-data>
-              </view>
+
             </view>
           </view>
           <view class='browse-number-box fx-broadwise-e'>

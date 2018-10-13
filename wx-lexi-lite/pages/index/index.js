@@ -619,6 +619,12 @@ Page({
       })
     }
 
+    if (targetType == 8) {
+      wx.navigateTo({
+        url: link
+      })
+    }
+
   },
 
   /**

@@ -21,7 +21,11 @@ Page({
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
-    userInfo: [], // 用户的信息
+    userInfo: { // 用户的信息
+      profile:{
+        avatar: {}
+      }
+    },
     classInfo: 1, // 切换---
     sotrF: false,
     likeProduct: [], // 喜欢的的商品---
