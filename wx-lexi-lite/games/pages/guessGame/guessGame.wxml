@@ -101,11 +101,14 @@
         <view class="home-page" bindtap="handleGoHome">
           <image src="https://static.moebeast.com/static/img/game/home.png" class="icon-home"></image>
         </view>
+        <view class="poster" bindtap="handleSharePoster">
+          <button class="btn-poster" data-from="poster"></button>
+        </view>
         <view class="ranking" bindtap="handleShowTopModal">
           <image src="https://static.moebeast.com/static/img/game/rankinglist.png" class="icon-ranking"></image>
         </view>
         <view class="steal-money" bindtap="handleShowFriendModal">
-          <image src="https://static.moebeast.com/static/img/game/stealmoney.png" class="icon-money"></image>
+          <image src="https://static.moebeast.com/static/img/game/icon-game-bonus.png" class="icon-money"></image>
         </view>
       </view>
     </view>
@@ -134,7 +137,7 @@
       <view class="prt">第一：提现现金，需登录注册乐喜后直接提现到微信零钱包，第一次直接提现最多可提10元到微信红包。</view>
       <view class="prt">第二：参与猜图活动直接提现超过10元的用户，今后每次提现金额需达到30元才可提现。</view>
       <view class="prt">第三：优惠卷可以在乐喜全平台购买原创精工好物抵现金使用，全场百万商品均有效
-</view>
+      </view>
       <view class="title">特别警告</view>
       <view class="prt">第一：同一个设备的微信号，手机号，注册的乐喜账户视为一个有效用户，官方系统监测</view>
       <view class="prt">第二：系统识别真实有效用户，如邀请的新用户被识别为机器人，没有真实用户行为，作弊者一经查实， 一律封号处理，获得奖励的现金，优惠卷全部取消。</view>
@@ -278,9 +281,9 @@
 
       <view class="top-list" wx:if="{{ activeTopTab == 'world' }}">
         <view class="top-item top-head">
-          <view class="number">排名</view>
-          <view class="coupon">优惠券</view>
-          <view class="bonus">红包</view>
+          <view class="number"><text class="thead">排名</text></view>
+          <view class="coupon"><text class="thead">优惠券</text></view>
+          <view class="bonus"><text class="thead">红包</text></view>
         </view>
         <view class="top-item mine">
           <view class="number">
@@ -339,9 +342,9 @@
 
       <view class="top-list" wx:if="{{ activeTopTab == 'friend' }}">
         <view class="top-item top-head">
-          <view class="number">排名</view>
-          <view class="coupon">优惠券</view>
-          <view class="bonus">红包</view>
+          <view class="number"><text class="thead">排名</text></view>
+          <view class="coupon"><text class="thead">优惠券</text></view>
+          <view class="bonus"><text class="thead">红包</text></view>
         </view>
         <view class="top-item mine">
           <view class="number">
@@ -410,14 +413,14 @@
 
   <!-- 没偷到提醒 -->
   <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showStealEmptyModal }}" marginTop="300">
-    <view class="thb-back">
-      <view class="notice-title">
+    <view class="thb-back steal-empty">
+      <view class="steal-desc">
         没偷着吧，手慢了吧！
       </view>
-      <view class="notice-title">
+      <view class="steal-desc">
         等着！一会看我怎么收拾你。
       </view>
-      <button class="btn-run" bindtap="handleGoRun">快跑</button>
+      <button class="btn-run btn-ok" bindtap="handleGoRun">快跑</button>
     </view>
   </fx-game-modal-v>
 
@@ -467,6 +470,15 @@
     <view class="notice-title">{{ stealFailMessage }}</view>
     <button class="btn-ok" bindtap="handleOk">知道了</button>
   </fx-game-modal-v>
+
+  <!-- 分享海报 -->
+  <fx-image-modal class="fx-modal--notice" visible="{{ showPosterModal }}" close="{{ false }}" width="520" marginTop="50">
+    <view class="poster-box">
+      <image src="{{ posterUrl }}" class="poster-image" wx:if="{{ posterUrl }}"></image>
+      <image src="../../../images/jiazai.gif" class="loading" wx:else></image>
+    </view>
+    <button class="btn-ok btn-save" bindtap="handleSavePoster">{{ posterBtnText }}</button>
+  </fx-image-modal>
 
 
   <view class="guess-game-bg" style="height: {{ clientHeight }}px;" wx:if="{{ !is_mobile }}">

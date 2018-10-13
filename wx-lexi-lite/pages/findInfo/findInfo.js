@@ -213,12 +213,10 @@ Page({
         result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
 
         let recommendStore = result.data.recommend_store
-        if (recommendStore&&recommendStore.store_name.length>13){
-          result.data.recommend_store.store_name = recommendStore.store_name.slice(0,13)+'...'
+        if (recommendStore&&recommendStore.store_name.length>8){
+          result.data.recommend_store.store_name = recommendStore.store_name.slice(0,8)+'...'
         }
 
-        
-        
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', result.data.content, this, 5)
 
@@ -276,7 +274,7 @@ Page({
       that.setData({
         isLoading: false
       })
-    }, 350)
+    }, 1000)
   },
 
   /**

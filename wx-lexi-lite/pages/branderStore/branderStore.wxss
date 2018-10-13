@@ -10,7 +10,7 @@
 }
 
 .store-info {
-  padding: 60rpx 40rpx 30rpx 40rpx;
+  padding: 40rpx 40rpx 30rpx 40rpx;
   box-shadow: 0px 15px 24px 0px rgba(0, 0, 0, 0.1);
 }
 

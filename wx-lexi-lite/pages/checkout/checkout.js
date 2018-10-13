@@ -328,7 +328,6 @@ Page({
       console.log(result, '官方优惠券')
       if (result.success) {
         result.data.coupons.forEach((v, i) => {
-          console.log(v)
           v.start_time = utils.timestamp2string(v.start_at, 'date')
           v.end_time = utils.timestamp2string(v.expired_at, 'date')
 

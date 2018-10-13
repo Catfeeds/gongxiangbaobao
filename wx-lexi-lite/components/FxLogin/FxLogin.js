@@ -57,28 +57,18 @@ Component({
         this.setData({
           showBindForm: true
         })
-        // 调用login获取code
-        wx.login({
+
+        // 检测当前用户登录态是否有效
+        wx.checkSession({
           success: (res) => {
-            // 发送 res.code 到后台换取 openId
-            const code = res.code
-            console.log('Login code: ' + code)
+            console.log(res, 'check session success')
+            this.getUserAuthInfo(e.detail)
+          },
+          fail: (res) => {
+            console.log(res, 'check session fail')
 
-            let params = {
-              code: code,
-              encrypted_data: e.detail.encryptedData,
-              auth_app_id: app.globalData.app_id,
-              iv: e.detail.iv
-            }
-
-            console.log(params, '用户授权参数')
-            
-            // 更新用户授权信息
-            http.fxPost(api.auth_weixin, params, (res) => {
-              console.log(res, '授权解密成功')
-              if (!res.success) {
-                utils.fxShowToast(res.status.message)
-              }
+            app.refreshUserSessionKey((e) => {
+              this.getUserAuthInfo(e.detail)
             })
           }
         })
@@ -89,22 +79,76 @@ Component({
     },
 
     /**
+     * 获取用户授权信息
+     */
+    getUserAuthInfo (userAuth) {
+      const jwt = wx.getStorageSync('jwt')
+      let params = {
+        encrypted_data: userAuth.encryptedData,
+        auth_app_id: app.globalData.app_id,
+        openid: jwt.openid,
+        iv: userAuth.iv
+      }
+
+      console.log(params, '用户授权参数')
+
+      // 更新用户授权信息
+      http.fxPost(api.auth_weixin, params, (res) => {
+        console.log(res, '授权解密成功')
+        if (!res.success) {
+          utils.fxShowToast(res.status.message)
+        }
+      })
+    },
+
+    /**
      * 微信一键授权回调
      */
     handleGotPhoneNumber(e) {
-      app.handleGotPhoneNumber(e, (success) => {
-        if (success) {
-          this.setData({
-            is_mobile: true,
-            visible: false
-          })
-        } else {
-          utils.fxShowToast('登录失败，稍后重试！')
-          wx.navigateTo({
-            url: '/pages/index/index',
-          })
-        }
-      })
+      if (e.detail.errMsg == 'getPhoneNumber:ok') {
+
+        // 检测当前用户登录态是否有效
+        wx.checkSession({
+          success: (res) => {
+            console.log(res, 'check session success')
+            app.handleGotPhoneNumber(e, (success) => {
+              if (success) {
+                this.setData({
+                  is_mobile: true,
+                  visible: false
+                })
+              } else {
+                utils.fxShowToast('登录失败，稍后重试！')
+                wx.navigateTo({
+                  url: '/pages/index/index',
+                })
+              }
+            })
+          },
+          fail: (res) => {
+            console.log(res, 'check session fail')
+
+            app.refreshUserSessionKey((e) => {
+              app.handleGotPhoneNumber(e, (success) => {
+                if (success) {
+                  this.setData({
+                    is_mobile: true,
+                    visible: false
+                  })
+                } else {
+                  utils.fxShowToast('登录失败，稍后重试！')
+                  wx.navigateTo({
+                    url: '/pages/index/index',
+                  })
+                }
+              })
+            })
+          }
+        })
+        
+      } else {
+        utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
+      }      
     }
 
   }

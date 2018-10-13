@@ -39,6 +39,13 @@ Page({
     })
   },
 
+  // 返回首页
+  handleGoHome () {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+
   // 隐藏弹窗框
   handleHidePauseModal () {
     this.setData({
@@ -61,10 +68,6 @@ Page({
     this.setData({
       showPosterModal: true
     })
-    const jwt = wx.getStorageSync('jwt')
-    // scene格式：uid + '-' + code
-    let scene = jwt.uid + '-1'
-    console.log(scene, '炫耀成绩')
 
     // 获取海报类型
     let posterType = this._weightRandom()
@@ -73,8 +76,8 @@ Page({
     let data = {
       type: posterType === 1 ? 11 : 12,
       auth_app_id: 'wx60ed17bfd850985d',
-      path: 'pages/index/index',
-      scene: scene,
+      path: 'games/pages/guessGame/guessGame',
+      scene: '',
       test_id: this.data.testId
     }
     http.fxPost(api.question_wxa_poster, data, (res) => {
@@ -248,7 +251,7 @@ Page({
       that.setData({
         isLoading: false
       })
-    }, 5000)
+    }, 3000)
   },
 
   /**
@@ -295,7 +298,7 @@ Page({
     let _random = Math.floor(Math.random() * randomList.length)
     return {
       title: '猜图赢现金随时提现，20万人玩到心脏骤停',
-      path: '/games/pages/guessGame/guessGame',
+      path: 'games/pages/guessGame/guessGame',
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0'+ _random +'.jpg',
       success: function (res) {
         console.log('转发成功')

@@ -340,3 +340,8 @@ image {
 .pading-bottom--40rpx {
   padding-bottom: 40rpx;
 }
+
+.fx-part .recommend-list {
+  height: 380rpx;
+  margin-bottom: 40rpx;
+}

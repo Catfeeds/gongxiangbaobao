@@ -48,21 +48,19 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber height--120rpx' wx:if="{{ shopInfo.count > 0 }}">
         <view class='theme-hui-color'>
-          <text class='theme-color'>{{ shopInfo.count + 1 }}</text> 人浏览过生活馆</view>
+          生活馆被浏览过 <text class='theme-color'>{{ shopInfo.browse_number }}</text> 次</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
-              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}' wx:if="{{item.is_real}}">
+              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}' >
                 <image src='{{ item.avatar }}'></image>
               </view>
-              <view class='photo-round joinNumberlPhoto' wx:if="{{!shopInfo.user_parties[0].is_real}}">
-                <open-data type='userAvatarUrl'></open-data>
-              </view>
+
             </view>
           </view>
           <view class='browse-number-box fx-broadwise-e'>
             <view class='joinNumberR'>
-              {{ shopInfo.count > 999 ? '999+' : shopInfo.count + 1 }}
+              {{ shopInfo.count > 999 ? '999+' : shopInfo.count }}
             </view>
           </view>
         </view>
@@ -756,6 +754,5 @@
     <text class='suspend-share__text'>分享</text>
     <!-- <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button> -->
   </view>
-
-  <view class="shm"></view>
+  
 </view>

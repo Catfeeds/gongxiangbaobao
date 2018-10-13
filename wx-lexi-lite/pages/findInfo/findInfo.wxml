@@ -11,10 +11,10 @@
 
     <!-- 店铺的信息 -->
     <view class='margin-left--40rpx margin-right--40rpx'>
-      <view class="font-s font-width--medium margin-bottom--6rpx color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}">{{liveInfo.channel_name}}</view>
-      <view class="font-s font-width--medium margin-bottom--6rpx color--huilan" wx:if="{{liveInfo.channel_name=='创作人故事'}}">{{liveInfo.channel_name}}</view>
-      <view class="font-s font-width--medium margin-bottom--6rpx color--huihong" wx:if="{{liveInfo.channel_name=='手作教学'}}">{{liveInfo.channel_name}}</view>
-      <view class="font-s font-width--medium margin-bottom--6rpx color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--10rpx color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--10rpx color--huilan" wx:if="{{liveInfo.channel_name=='创作人故事'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--10rpx color--huihong" wx:if="{{liveInfo.channel_name=='手作教学'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium margin-bottom--10rpx color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}">{{liveInfo.channel_name}}</view>
 
       <view class="font-width--semibold font-xxxl info-title">
         <text>{{ liveInfo.title }}</text>
@@ -81,17 +81,15 @@
   </view>
 
   <!-- 猜你喜欢 -->
-  <view class='border-bottom bg-white margin-bottom--30rpx'>
-    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx '>
-      <text>推荐商品</text>
+  <view class='fx-part border-bottom bg-white margin-bottom--30rpx'>
+    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx'>
+      <text class="label">推荐商品</text>
     </view>
-    <view class='c-importantGoodsBox margin-top--34rpx'>
-      <scroll-view>
-        <view class='c-importantGoodsPhoto pading-bottom--40rpx {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" photo="{{2}}" like_number="{{true}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
-        </view>
-      </scroll-view>
-    </view>
+    <scroll-view scroll-x class='recommend-list c-importantGoodsBox'>
+      <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
+        <fx-product product="{{item}}" photo="{{2}}" like_number="{{true}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+      </view>
+    </scroll-view>
   </view>
 
   <block wx:if="{{}}">
