@@ -872,6 +872,9 @@ Page({
 
     // 更新当前用户的last_store_rid
     app.updateLifeStoreLastVisit(sid)
+    
+    // 重新生成海报图
+    this.getLifePhotoUrl()
   },
 
   /**
@@ -1465,8 +1468,7 @@ Page({
         pageActiveTab: 'lifeStore',
         storeOwner: userInfo,
         isSmallHome: true,
-        canAdmin: true,
-        isSmallB: true
+        canAdmin: true
       })
 
       // 更新当前用户的last_store_rid
@@ -1612,8 +1614,7 @@ Page({
           pageActiveTab: 'lifeStore',
           storeOwner: userInfo,
           isSmallHome: true,
-          canAdmin: true,
-          isSmallB: true
+          canAdmin: true
         })
       } else {
         this.setData({
@@ -1676,15 +1677,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // 标识自己是否为小B
+    const lifeStore = wx.getStorageSync('lifeStore')
+    if (lifeStore.isSmallB) {
+      this.setData({
+        isSmallB: true
+      })
+    }
     // 初次进入时无生活馆，后续申请开通后
     if (this.data.sid == '') {
-      const lifeStore = wx.getStorageSync('lifeStore')
       if (lifeStore.isSmallB) {
         this.setData({
           'pageTabs[0].disabled': false,
           sid: lifeStore.lifeStoreRid,
           canAdmin: true,
-          isSmallB: true,
           isSmallHome: true
         })
       }
