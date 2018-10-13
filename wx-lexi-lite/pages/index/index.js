@@ -1629,7 +1629,7 @@ Page({
           canAdmin: false
         })
       }
-      
+
       // 更新当前用户的last_store_rid
       app.updateLifeStoreLastVisit(this.data.sid)
 

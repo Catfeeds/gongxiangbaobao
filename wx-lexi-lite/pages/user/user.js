@@ -23,7 +23,7 @@ Page({
     userBrowsesProduct: [], //用户浏览记录---
     userInfo: { // 用户的信息
       profile:{
-        avatar: {}
+        avatar: 'https://s3.lexivip.com/static/img/default-logo.png'
       }
     },
     classInfo: 1, // 切换---

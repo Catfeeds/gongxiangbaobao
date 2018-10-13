@@ -8,13 +8,11 @@
     <!-- 左边领取红包的提示 -->
     <view class='receive-box'> 
       <view class='scroll-box' style='top:{{topKey}}rpx'>
-
         <view class='receive-item time-top' wx:for="{{bonusLines}}"
          wx:key="{{index}}">
           <image class="load-over__null--photo" src='{{item.user_logo}}'></image>
           <text>{{item.user_name}} 领取了10元红包</text>
         </view>
-
       </view>
 
     </view>
