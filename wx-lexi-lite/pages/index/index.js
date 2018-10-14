@@ -46,8 +46,6 @@ Page({
     storeProducts: [], // 生活馆商品列表
     isNextRecommend: false, // 推荐是否有下一页
     isEmpty: false, // 是否为空
-    isSmallB: false, // 当前用户是否为小B
-    canAdmin: false, // 是否具备管理生活馆
     isSmallHome: false, // 是否在自己的生活馆
     showEditModal: false, // 生活馆编辑
     showConfirmModal: false, // 删除上架商品确认

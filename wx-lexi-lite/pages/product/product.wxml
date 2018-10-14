@@ -107,7 +107,6 @@
     <view class='roundL'>
       <!-- <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image> -->
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
-
     </view>
     <view class='roundR'>
       <image src='../../images/sandian.png'></image>

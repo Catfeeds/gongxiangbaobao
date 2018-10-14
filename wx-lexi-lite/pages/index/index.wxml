@@ -239,8 +239,8 @@
     </view>
 
     <!-- 开店指引 -->
-    <view class="setUpShop-guide border-radius--8">
-      <view class='time-top setUpShop-guide__top border-bottom' wx:if="{{ !isSmallB }}">
+    <view class="setUpShop-guide border-radius--8" wx:if="{{ !isSmallB }}">
+      <view class='time-top setUpShop-guide__top border-bottom'>
         <view class=''>
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
