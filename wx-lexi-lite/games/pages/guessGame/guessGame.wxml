@@ -224,7 +224,7 @@
           <image src="https://static.moebeast.com/static/img/game/touxiang.png" class="avatar"></image>
           <span>邀请好友</span>
           <view class="action">
-            <button class="btn-invite" data-name="invite" open-type="share" bindtap="handleInviteFriend">
+            <button class="btn-invite" data-name="invite" open-type="share">
               邀请
             </button>
           </view>
@@ -245,7 +245,7 @@
           <image src="https://static.moebeast.com/static/img/game/touxiang.png" class="avatar"></image>
           <span>邀请好友</span>
           <view class="action">
-            <button class="btn-invite" data-name="invite" open-type="share" bindtap="handleInviteFriend">
+            <button class="btn-invite" data-name="invite" open-type="share">
               邀请
             </button>
           </view>
@@ -281,9 +281,15 @@
 
       <view class="top-list" wx:if="{{ activeTopTab == 'world' }}">
         <view class="top-item top-head">
-          <view class="number"><text class="thead">排名</text></view>
-          <view class="coupon"><text class="thead">优惠券</text></view>
-          <view class="bonus"><text class="thead">红包</text></view>
+          <view class="number">
+            <text class="thead">排名</text>
+          </view>
+          <view class="coupon">
+            <text class="thead">优惠券</text>
+          </view>
+          <view class="bonus">
+            <text class="thead">红包</text>
+          </view>
         </view>
         <view class="top-item mine">
           <view class="number">
@@ -342,9 +348,15 @@
 
       <view class="top-list" wx:if="{{ activeTopTab == 'friend' }}">
         <view class="top-item top-head">
-          <view class="number"><text class="thead">排名</text></view>
-          <view class="coupon"><text class="thead">优惠券</text></view>
-          <view class="bonus"><text class="thead">红包</text></view>
+          <view class="number">
+            <text class="thead">排名</text>
+          </view>
+          <view class="coupon">
+            <text class="thead">优惠券</text>
+          </view>
+          <view class="bonus">
+            <text class="thead">红包</text>
+          </view>
         </view>
         <view class="top-item mine">
           <view class="number">
@@ -479,6 +491,15 @@
     </view>
     <button class="btn-ok btn-save" bindtap="handleSavePoster">{{ posterBtnText }}</button>
   </fx-image-modal>
+
+  <!-- 邀请好友一起玩 -->
+  <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showShareChanceModal }}" marginTop="300">
+    <view class="invite-play">
+      <view class="notice-title">{{ gameErrorMessage }}</view>
+    </view>
+    <button class="btn-ok btn-invite-share" wx:if="{{ playCount == 2 }}" data-name="share" open-type="share">立即分享</button>
+    <button class="btn-ok btn-invite-share" wx:if="{{ playCount >= 3 }}" bindtap="handleHidePauseModal">知道了</button>
+  </fx-game-modal-v>
 
 
   <view class="guess-game-bg" style="height: {{ clientHeight }}px;" wx:if="{{ !is_mobile }}">

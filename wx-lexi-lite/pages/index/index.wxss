@@ -151,12 +151,13 @@
   height: 128rpx;
   position: relative;
   border-radius: 50%;
-  margin-right: 30rpx;
+  margin-right: 20rpx;
 }
 
-.owner-avatar_box image:nth-child(1) {
+.owner-avatar_box .avatar {
   width: 128rpx;
   height: 128rpx;
+  border-radius: 8rpx
 }
 
 .owner-avatar_box .upload-status__box {
