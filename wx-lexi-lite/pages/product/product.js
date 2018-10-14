@@ -404,6 +404,8 @@ Page({
     }
     let isLike = this.data.productInfomation.is_like
     let rid = this.data.productInfomation.rid
+    this._handleUserLikePhoto(app.globalData.jwt.uid)
+
     if (isLike) {
       this.setData({
         ['productInfomation.is_like']: false,
@@ -433,6 +435,30 @@ Page({
         }
       })
     }
+  },
+
+  //操作喜欢的头像
+  _handleUserLikePhoto(e) {
+    console.log(e)
+    let likePhoto = this.data.productInfomation.product_like_users
+
+    let isLikeIndex = likePhoto.map((v, i) => {
+      if (v.uid == e) {
+        return i
+      }
+    })
+
+    if (isLikeIndex.length==0) {
+      likePhoto.unshift({
+        avatar: app.globalData.jwt.avatar
+      })
+    } else {
+      likePhoto.splice(isLikeIndex[0],1)
+    }
+
+    this.setData({
+      'productInfomation.product_like_users':likePhoto
+    })
   },
 
   // 关闭优惠卷呼出框
