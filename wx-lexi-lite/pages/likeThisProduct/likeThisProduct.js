@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    uid:'', // user id
     isLoading: true,
     peopleList: [], //喜欢商品的人列表
     parmas: {
@@ -93,15 +94,9 @@ Page({
   // 跳转到其他人的主页
   handleToPeopleTap(e) {
     console.log(e.currentTarget.dataset.uid)
-    if (e.currentTarget.dataset.index == 0) {
-      // wx.switchTab({
-      //   url: '../user/user',
-      // })
-    } else {
       wx.navigateTo({
         url: '../people/people?uid=' + e.currentTarget.dataset.uid,
       })
-    }
   },
 
   /**
@@ -109,7 +104,8 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      ['parmas.rid']: options.rid
+      ['parmas.rid']: options.rid,
+      uid: app.globalData.jwt.uid || ''
     })
 
     this.getinfo()

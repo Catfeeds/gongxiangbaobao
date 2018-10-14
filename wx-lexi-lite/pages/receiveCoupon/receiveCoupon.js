@@ -293,7 +293,15 @@ Page({
     http.fxGet(api.market_coupon_center_shared, this.data.commonCouponParams, result => {
       console.log(result, '分类列表的同享券')
       let data = this.data.categoryCommonCoupon
-      if (result) {
+      if (result.success) {
+        result.data.coupons.forEach((item, idx) => {
+          item.product_sku.forEach((v, i) => {
+            if (v.product_name.length > 7) {
+              v.product_name = v.product_name.substr(0, 7) + '...'
+            }
+          })
+        })
+
         this.setData({
           categoryCommonCoupon: data.concat(result.data.coupons),
           categoryCommonCouponNext: result.data.next
@@ -344,7 +352,15 @@ Page({
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
       console.log(result, '精选品牌馆优惠券')
-      if (result) {
+      if (result.success) {
+        result.data.coupons.forEach((item,idx)=>{
+          item.product_sku.forEach((v, i) => {
+            if (v.product_name.length > 7) {
+              v.product_name = v.product_name.substr(0, 7)+'...'
+            }
+          })
+        })
+
         this.setData({
           highBrandCouponList: result.data.coupons
         })

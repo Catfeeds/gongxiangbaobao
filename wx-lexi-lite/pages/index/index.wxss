@@ -975,6 +975,7 @@ swiper-photo .slide-item__box image {
   overflow: hidden;
   animation: myfirst 0.3s;
   animation-fill-mode: forwards;
+
 }
 
 .swiper-photo .slide-item__box image {
@@ -989,8 +990,9 @@ swiper-photo .slide-item__box image {
   }
 
   to {
-    width: 93%;
+    width: 100%;
     height: 100%;
+    margin-left: 20rpx;
   }
 }
 

@@ -49,6 +49,10 @@ picker-view-column view {
   background-color: white;
 }
 
+.adressInfoBox input {
+  font-size: 28rpx;
+}
+
 .bottomCheck, .title, .identificationText, .adressInfoBox>view {
   height: 94rpx;
   border-bottom: 1rpx solid #f7f9fb;
@@ -249,6 +253,7 @@ switch {
 .adress-pick--style view {
   flex: 1;
   white-space: nowrap;
+  color: #333;
 }
 
 .picker-box--bgc {

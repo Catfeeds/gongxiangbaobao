@@ -29,27 +29,27 @@
   <!-- 计费清单 -->
   <view class='count-price'>
     <view class='time-top margin-bottom--18rpx'>
-      <text class='hui-zi'>小计：</text>
-      <text class='black-font'>￥{{ pageOrderInfo.firstPrice }}</text>
+      <text class='hui-zi text-hui'>小计：</text>
+      <text class='font-sxl font-width--medium'>￥{{ pageOrderInfo.firstPrice }}</text>
     </view>
     <view class='time-top margin-bottom--18rpx'>
-      <text class='hui-zi'>配送：</text>
-      <text class='logistics_text font-s'>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : "￥"+pageOrderInfo.logisticsPrice }}</text>
+      <text class='hui-zi text-hui'>配送：</text>
+      <text class='logistics_text font-s font-width--medium '>{{ pageOrderInfo.logisticsPrice == 0 ? '包邮' : "￥"+pageOrderInfo.logisticsPrice }}</text>
     </view>
     <view class='time-top margin-bottom--14rpx' wx:if="{{isFirstOrder}}">
-      <text class='hui-zi'>首单优惠：</text>
-      <text class='hui-zi-m'>-￥{{ pageOrderInfo.firstOrderPrice }}</text>
+      <text class='hui-zi text-hui'>首单优惠：</text>
+      <text class='hui-zi-m font-sxl'>-￥{{ pageOrderInfo.firstOrderPrice }}</text>
     </view>
     <view class='time-top margin-bottom--14rpx' wx:if="{{pageOrderInfo.fullSubtraction!=0}}">
-      <text class='hui-zi'>满减：</text>
-      <text class='hui-zi-m'>-￥{{ pageOrderInfo.fullSubtraction }}</text>
+      <text class='hui-zi text-hui'>满减：</text>
+      <text class='hui-zi-m font-sxl'>-￥{{ pageOrderInfo.fullSubtraction }}</text>
     </view>
     <view class='time-top margin-bottom--22rpx'>
-      <text class='hui-zi'>优惠券：</text>
-      <text class='hui-zi-m'>-￥{{ pageOrderInfo.couponPrice }}</text>
+      <text class='hui-zi text-hui'>优惠券：</text>
+      <text class='hui-zi-m font-sxl'>-￥{{ pageOrderInfo.couponPrice }}</text>
     </view>
     <view class='time-top'>
-      <text class='black-font'>订单总计 </text>
+      <text class='black-font font-500'>订单总计 </text>
       <text class='time-top_total'>￥{{ pageOrderInfo.alstPrice }}</text>
     </view>
   </view>
