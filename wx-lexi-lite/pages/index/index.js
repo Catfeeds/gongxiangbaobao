@@ -1560,6 +1560,10 @@ Page({
     if (app.globalData.sharePageRid) {
       wx.navigateTo({
         url: '../product/product?rid=' + app.globalData.sharePageRid,
+        complete: () => {
+          // 跳转后清空
+          app.globalData.sharePageRid = false
+        }
       })
     }
 
