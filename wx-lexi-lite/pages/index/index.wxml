@@ -49,11 +49,12 @@
       <!-- 浏览过的人数 -->
       <view class='joinNumber height--120rpx' wx:if="{{ shopInfo.count > 0 }}">
         <view class='theme-hui-color'>
-          生活馆被浏览过 <text class='theme-color'>{{ shopInfo.browse_number }}</text> 次</view>
+          生活馆被浏览过
+          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 次</view>
         <view class='joinNumberBottom'>
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
-              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}' >
+              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
                 <image src='{{ item.avatar }}'></image>
               </view>
 
@@ -266,7 +267,7 @@
             <swiper-item class="flex-direction__column--center" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
               <view wx:for="{{headline}}" wx:key="{{index}}" class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
                 <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
-                  <label class="store-green">{{ item.username }}</label> {{ item.time }}前开通了自己的设计馆
+                  <label class="store-green">{{ item.username }}</label> {{ item.time }}开通了自己的设计馆
                 </view>
                 <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
                   「{{ item.username }}」的生活馆 {{ item.time }}
@@ -755,5 +756,5 @@
     <text class='suspend-share__text'>分享</text>
     <!-- <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button> -->
   </view>
-  
+
 </view>

@@ -876,7 +876,7 @@ Page({
 
     // 更新当前用户的last_store_rid
     app.updateLifeStoreLastVisit(sid)
-    
+
     // 重新生成海报图
     this.getLifePhotoUrl()
   },
@@ -1362,12 +1362,12 @@ Page({
       console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
-
         let newData = []
+        
         res.data.headlines.forEach((v, i) => {
 
-          if (v.time > 24) {
-            v.time = Math.ceil(v.time % 24) + '天'
+          if (v.time_info) {
+            v.time = v.time + v.time_info
           } else {
             v.time = v.time + '小时'
           }

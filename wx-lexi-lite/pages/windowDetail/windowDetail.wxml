@@ -110,16 +110,18 @@
 
           <view class="flex_row font-s qian-hui">
             <view class="reply-tap" data-submit-target="reply" data-index="{{index}}" catchtap="handleGoComment" data-is-input="1" data-commit-target="" data-pid="{{items.comment_id}}">回复</view>
-            <text wx:if="{{}}"> · </text>
-            <view wx:if="{{}}" class="zan-box">
-              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
-              <text>赞</text>
+            <text> · </text>
+            <view class="quantity-color zan-box" wx:if="{{items.is_praise}}" data-index="{{index}}" catchtap="handleDeletePraise">
+              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
+              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
             </view>
 
-            <view wx:if="{{}}" class="quantity-color ">
-              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
-              <text>123</text>
+            <view class="zan-box" data-index="{{index}}" wx:else  catchtap="handleParentPraise">
+              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
+              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
             </view>
+
+
           </view>
         </view>
 
@@ -156,10 +158,8 @@
     <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
     <view class='c-importantGoodsBox margin-top--34rpx '>
       <scroll-view class='you-like__scroll' scroll-x>
-      <view class='you-like__item {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}'
-        wx:for="{{youLike.products}}" wx:key="{{index}}">
-        <fx-product product="{{item}}" 
-        bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
+        <view class='you-like__item {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}' wx:for="{{youLike.products}}" wx:key="{{index}}">
+          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
         </view>
       </scroll-view>
     </view>
