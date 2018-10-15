@@ -65,7 +65,6 @@ Page({
     this.setData({
       couponCtaegory: e.currentTarget.dataset.code
     })
-
   },
 
   // 切换分类分类优惠券
@@ -421,11 +420,18 @@ Page({
     })
   },
 
+  getCouponDynamic(){
+    http.fxGet(api.market_coupon_lines, { status: 1, count:20},result=>{
+      console.log(result,'领券中心的动态')
+      
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getCouponDynamic()
   },
 
   /**

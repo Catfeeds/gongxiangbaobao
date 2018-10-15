@@ -88,11 +88,11 @@
     <view class="comment-form">
       <input type="text" disabled="{{true}}" data-submit-target="comment" catchtap="handleOpenCommentBox" placeholder="添加评论" class="input-text" />
 
-      <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like__icon"></image>
-      <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
+      <image src="../../images/icons/icon-like-active@3x.png" wx:if="{{isLike }}" catchtap="handleDeleteLike"  class="icon-like__icon"></image>
+      <text class="count" catchtap="handleDeleteLike" wx:if="{{isLike}}">{{likeCount==0?' ':likeCount}}</text>
 
-      <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}" src="../../images/icons/icon-like@3x.png" wx:if="{{}}" class="icon-like__icon"></image>
-      <text wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike" data-rid="{{windowDetail.rid}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
+      <image catchtap="handleAddLike" wx:if="{{!isLike }}"src="../../images/icons/icon-like@3x.png" class="icon-like__icon"></image>
+      <text wx:if="{{!isLike }}" catchtap="handleAddLike" >{{likeCount==0?'':likeCount}}</text>
 
     </view>
   </view>

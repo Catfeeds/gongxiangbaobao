@@ -16,6 +16,9 @@ Page({
     windowRid: '', // 评论的对象rid
     submitTarget: '', // 提交目标 reply comment
 
+    isLike: false,
+    likeCount: 0,
+
     comments: [], // 橱窗评论
     commentsNext: true, // 橱窗是否有下一页
     commentsCount: 0, // 橱窗的剩余评论数量
@@ -49,6 +52,29 @@ Page({
       sort_type: 0, //Number	可选	0	排序方式： 0= 默认， 1= 按点赞数， 2= 按回复数
       pid: '', //Number	必须	 	父级评论编号
     }
+
+  },
+
+  // 删除喜欢
+  handleDeleteLike() {
+    this.setData({
+      isLike: false,
+      likeCount: this.data.likeCount - 1,
+    })
+
+    let parentPage = getCurrentPages()
+    parentPage[parentPage.length - 2].handleDeleteLike()
+  },
+
+  // 添加喜欢
+  handleAddLike() {
+    this.setData({
+      isLike: true,
+      likeCount: this.data.likeCount - 0 + 1,
+    })
+
+    let parentPage = getCurrentPages()
+    parentPage[parentPage.length - 2].handleAddLike()
 
   },
 
@@ -355,7 +381,9 @@ Page({
       'sonCommentParams.pid': options.pid,
       windowRid: options.rid,
       submitTarget: options.submitTarget,
-      isShowComment: options.isInput == 0 ? false : true
+      isShowComment: options.isInput == 0 ? false : true,
+      isLike: options.isLike == 'true' ? true : false,
+      likeCount: options.likeCount,
     })
 
     this.getComment() // 获取评论

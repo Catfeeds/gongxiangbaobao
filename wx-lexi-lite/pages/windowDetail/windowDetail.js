@@ -53,8 +53,7 @@ Page({
 
   // 取消喜欢橱窗
   handleDeleteLike(e) {
-    console.log(e.currentTarget.dataset.rid)
-    let rid = e.currentTarget.dataset.rid
+    let rid = this.data.windowRid
     http.fxDelete(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
@@ -122,8 +121,8 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.rid)
-    let rid = e.currentTarget.dataset.rid
+    console.log(this.data.windowRid)
+    let rid = this.data.windowRid
     http.fxPost(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
@@ -235,7 +234,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index,
+      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.windowDetail.is_like + '&likeCount=' + this.data.windowDetail.like_count
     })
   },
 
