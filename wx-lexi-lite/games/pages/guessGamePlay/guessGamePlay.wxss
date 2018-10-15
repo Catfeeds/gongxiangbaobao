@@ -28,6 +28,7 @@
 
 page {
   overflow: hidden;
+  width: 750rpx;
 }
 
 .main-wrapper {

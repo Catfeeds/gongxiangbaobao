@@ -24,7 +24,8 @@
       <view class=' flex_row'>
         <!-- 店主信息 -->
         <view class='owner-avatar_box'>
-          <image style="border-radius:8rpx" src="{{ lifeStore.logo + '-ava' }}" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:if="{{ lifeStore.logo }}"></image>
+          <image src="{{ lifeStore.logo + '-ava' }}" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:if="{{ lifeStore.logo }}" class="avatar"></image>
+          <image src="../../images/avatar.png" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:else class="avatar"></image>
           <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" wx:if="{{ canAdmin }}"></image>
           <!-- 进度条 -->
           <view class="upload-status__box" wx:if="{{ isUploading }}">

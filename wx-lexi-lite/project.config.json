@@ -136,12 +136,6 @@
 					"name": "生活馆",
 					"pathName": "lifeStore/pages/lifeStoreOrders/lifeStoreOrders",
 					"query": ""
-				},
-				{
-					"id": 17,
-					"name": "产品详情",
-					"pathName": "pages/product/product",
-					"query": "scene=8724938605-75349172"
 				}
 			]
 		}

@@ -42,6 +42,7 @@ Page({
     showTopModal: false,
     showStealBonusModal: false,
     showStealCouponModal: false,
+    showShareChanceModal: false,
     // 我的账户
     myAccount: {
       amount: 0,
@@ -115,7 +116,12 @@ Page({
 
     // 弹幕列表
     doommData: [],
-    offsetDommTimer: null
+    offsetDommTimer: null,
+
+    // 开始游戏分享提示
+    playCount: 1,
+    gameErrorMessage: '',
+    gameLoading: false // 是否点击开始游戏
   },
 
   // 返回到小程序的首页
@@ -127,6 +133,8 @@ Page({
 
   // 开始游戏
   handleStartPlay() {
+    console.log('start play game.')
+
     clearInterval(this.data.offsetDommTimer)
     clearInterval(this.data.inviteTimer)
 
@@ -214,6 +222,13 @@ Page({
   handleShowFriendModal () {
     this.setData({
       showInviteModal: true
+    })
+  },
+
+  // 隐藏弹窗框
+  handleHidePauseModal() {
+    this.setData({
+      showShareChanceModal: false
     })
   },
 
@@ -607,16 +622,24 @@ Page({
 
   // 获取本次试题
   getTestQuestion() {
+    // 游戏正在加载，不能再点击，防止连续点击事件
+    if (this.data.gameLoading) { 
+      return
+    }
     let params = { 
       is_share: this.data.isShare 
     }
+    this.setData({
+      gameLoading: true
+    })
     http.fxGet(api.question, params, (res) => {
       console.log(res, '获取试题')
       if (res.success) {
         this.setData({
           testQuestions: res.data.question,
           testId: res.data.test_id,
-          prizePool: res.data.prize_pool
+          prizePool: res.data.prize_pool,
+          gameLoading: false
         })
 
         wx.setStorageSync('testQuestion', res.data)
@@ -625,7 +648,12 @@ Page({
           url: '../guessGamePlay/guessGamePlay',
         })
       } else {
-        utils.fxShowToast(res.status.message)
+        this.setData({
+          showShareChanceModal: true,
+          gameErrorMessage: res.status.message,
+          playCount: res.data.playCount,
+          gameLoading: false
+        })
       }
     })
   },
@@ -986,53 +1014,73 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * 普通分享
    */
-  onShareAppMessage: function (e) {
-    // scene格式：uid + '-' + code
+  _commonShare () {
     let randomList = [0, 1, 2]
     let _random = Math.floor(Math.random() * randomList.length) + 1
 
     console.log(_random, '随机值')
 
+    return {
+      title: '猜图赢现金随时提现，20万人玩到心脏骤停',
+      path: 'games/pages/guessGame/guessGame',
+      imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
+      success: function (res) {
+        console.log('转发成功')
+
+        app.updateGameShare()
+      },
+      fail: function (res) {
+        console.log('转发失败')
+      }
+    }
+  },
+
+  /**
+   * 邀请分享
+   */
+  _inviteShare () {
+    let randomList = [0, 1, 2]
+    let _random = Math.floor(Math.random() * randomList.length) + 1
+
+    console.log(_random, '随机值')
+
+    // scene格式：uid + '-' + code
+    const jwt = wx.getStorageInfoSync('jwt')
+    let scene = jwt.uid + '-1'
+    return {
+      title: '猜图赢现金随时提现，20万人玩到心脏骤停',
+      path: 'games/pages/guessGame/guessGame?scene=' + scene,
+      imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
+      success: function (res) {
+        console.log('转发成功')
+
+        app.updateGameShare()
+      },
+      fail: function (res) {
+        console.log('转发失败')
+      }
+    }
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function (e) {
     // 邀请好友分享
-    if (e.from == 'button' && e.target.dataset.name == 'invite') {
-      const jwt = wx.getStorageInfoSync('jwt')
-      let scene = jwt.uid + '-1'
-      return {
-        title: '猜图赢现金随时提现，20万人玩到心脏骤停',
-        path: 'games/pages/guessGame/guessGame?scene=' + scene,
-        imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
-        success: function (res) {
-          console.log('转发成功')
-          app.updateGameShare()
-        },
-        fail: function (res) {
-          console.log('转发失败')
-        }
+    if (e.from == 'button') {
+      if (e.target.dataset.name == 'invite') {
+        return this._inviteShare()
+      } else { 
+        // 普通转发 e.target.dataset.name = 'share'
+        return this._commonShare()
       }
     }
     
     // 分享转发
     if (e.from == 'menu') {
-      return {
-        title: '猜图赢现金随时提现，20万人玩到心脏骤停',
-        path: 'games/pages/guessGame/guessGame',
-        imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
-        success: function (res) {
-          console.log('转发成功')
-
-          app.updateGameShare()
-
-          // 返回游戏首页
-          wx.navigateTo({
-            url: '../guessGame/guessGame',
-          })
-        },
-        fail: function (res) {
-          console.log('转发失败')
-        }
-      }
+      return this._commonShare()
     }
   }
   

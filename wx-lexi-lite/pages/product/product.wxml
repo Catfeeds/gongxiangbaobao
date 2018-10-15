@@ -407,9 +407,9 @@
         </block>
       </view>
 
-      <view class="distribute-message">
+      <!--view class="distribute-message">
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
-      </view>
+      </view-->
       <view class="distribute-style">
         <view class="share-friend wxa-card">
           <button class="share-btn" open-type="share"></button>
