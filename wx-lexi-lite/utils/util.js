@@ -329,7 +329,7 @@ const commentTime = (option) => {
   }
 
   if (difference > 172800000){
-    return this.timestamp2string(option,'cn')
+    return timestamp2string(option,'cn')
   }
 
 }
