@@ -1,6 +1,6 @@
 <!--pages/find/find.wxml-->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
-<view class="container">
+<view class="container find-page">
   <!-- 轮播图 -->
   <view class="find-swiper">
     <swiper 

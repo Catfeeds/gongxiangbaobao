@@ -624,6 +624,88 @@
 
   </view>
 
+  <!-- 发现 -->
+  <view class="bg-white page-explore {{ pageActiveTab == 'find' ? 'active' : '' }} find-page">
+
+    <!-- 轮播图 -->
+    <view class="find-swiper">
+      <swiper class="advertisement-swiper" interval="{{5000}}" autoplay="{{true}}" bindchange="handleSwiperChange" duration="{{500}}">
+        <swiper-item wx:for="{{advertisement.banner_images}}" data-rid="{{item.rid}}" data-link="{{item.link}}" data-type="{{item.type}}" catchtap="handleLiveInfo" data-rid="{{item.rid}}" wx:key="{{index}}">
+          <image src="{{item.image}}" class="slide-image {{readyOver?'load-over__null--photo':'loading-bg'}}" />
+        </swiper-item>
+      </swiper>
+
+      <view class="flex_row find-swiper__round">
+        <view wx:for="{{advertisement.banner_images}}" class="{{swiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
+      </view>
+    </view>
+
+    <!-- 生活志主题 -->
+    <view>
+      <view class="font-xxl font-width--semibold margin-left--40rpx category-title__big">生活志主题</view>
+      <view class="font-s margin-left--40rpx category-title__min">我们用贴日子里的大小事。</view>
+      <scroll-view scroll-x class="live-records__box">
+        <view wx:for="{{liveTheme}}" wx:key="{{index}}" catchtap="handleToListPage" data-target="{{item.target}}" class="live-records {{index==0?'margin-left--40rpx':''}}">
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.img}}"></image>
+          <view class="font-m font-width--medium">{{item.name}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 猜你喜欢 -->
+    <view class="border-bottom">
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
+        <text class='font-xxl font-width--semibold'>猜你喜欢</text>
+        <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
+      </view>
+      <view class='column-direction new-goods_box '>
+        <view wx:if="{{index<4}}" data-category="猜你喜欢" data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleToliveNote" class='flex-direction--column productionGoods ' wx:for="{{youLike.life_records}}" wx:key='{{index}}'>
+
+          <image src="{{item.cover}}-p326x216" wx:if="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+
+          <image wx:else class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
+          <text class='font-s shen-hui text-two_line line-height--40rpx'>{{item.title}}</text>
+          <view class='plant-owner__box flex_row'>
+            <image src="{{ item.user_avator }}" class='plant-owner__photo'></image>
+            <text class="font-s shen-hui">{{item.user_name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 精彩故事 -->
+    <view class="">
+      <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
+        <text class='font-xxl font-width--semibold'>精彩故事</text>
+        <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
+      </view>
+      <view class='column-direction new-goods_box '>
+        <view wx:if="{{index<4}}" data-category="精彩故事" data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleToliveNote" class='flex-direction--column productionGoods ' wx:for="{{wonderfulStories.life_records}}" wx:key='{{index}}'>
+          <image src="{{item.cover}}-p326x216" wx:if="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+
+          <image wx:else class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
+          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
+          <text class='font-s shen-hui text-two_line line-height--40rpx'>{{item.title}}</text>
+          <view class='margin-top--8rpx flex_row'>
+            <image src="{{ item.user_avator }}" class='plant-owner__photo'></image>
+            <text class="font-s shen-hui">{{ item.user_name }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="shm"></view>
+
+  </view>
+
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="handleCloseLogin"></fx-login>
 

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 17,
 			"list": [
 				{
 					"id": 0,
@@ -136,6 +136,11 @@
 					"name": "生活馆",
 					"pathName": "lifeStore/pages/lifeStoreOrders/lifeStoreOrders",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的订单页面",
+					"pathName": "pages/order/order"
 				}
 			]
 		}

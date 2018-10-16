@@ -247,6 +247,35 @@ Page({
       ]
     },
 
+    // 发现
+    advertisement: { // 广告
+      banner_images: [
+        { image: '' }
+      ]
+    },
+    liveTheme: [
+      { name: '创作人故事', target: 1, img: "https://static.moebeast.com/static/img/designer_routine.jpg" },
+      { name: '种草笔记', target: 2, img: "https://static.moebeast.com/static/img/teach.jpg" },
+      { name: '生活记事', target: 3, img: "https://static.moebeast.com/static/img/plant_note.jpg" },
+      { name: '手作教学', target: 4, img: "https://static.moebeast.com/static/img/live_note.jpg" }
+    ],
+    youLike: {// 猜你喜欢
+      life_records: [
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' }
+      ]
+    }, 
+    wonderfulStories: { // 精彩故事
+      life_records: [
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' },
+        { cover: '', description: '', user_avator: '', user_name: '' }
+      ]
+    },
+
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
@@ -266,6 +295,12 @@ Page({
         rid: 'p3',
         name: 'explore',
         title: '探索',
+        disabled: false
+      },
+      {
+        rid: 'p4',
+        name: 'find',
+        title: '发现',
         disabled: false
       }
     ],
@@ -1363,7 +1398,7 @@ Page({
       if (res.success) {
         let l = res.data.headlines.length
         let newData = []
-        
+
         res.data.headlines.forEach((v, i) => {
 
           if (v.time_info) {
@@ -1513,7 +1548,67 @@ Page({
       case 'explore': // 探索
         this.handleSetNavigationTitle('探索')
         break;
+      case 'find': // 探索
+        this.handleSetNavigationTitle('发现')
+        break;
     }
+  },
+
+  // 头部广告 发现
+  getAdvertisement() {
+    http.fxGet(api.marketBanners.replace(/:rid/g, 'discover_ad'), {}, (result) => {
+      console.log(result, '发现-头部广告')
+      if (result.success) {
+        this.setData({
+          advertisement: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 猜你喜欢 发现
+  getYouLike() {
+    http.fxGet(api.life_records_guess_likes, {}, (result) => {
+      console.log(result, '猜你喜欢')
+
+      this.setData({
+        isLoadPageShow: false
+      })
+
+      if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
+        })
+
+        this.setData({
+          youLike: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 精彩故事
+  getWonderfulStories() {
+    http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
+      console.log(result, '精彩故事')
+      if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
+        })
+
+        this.setData({
+          wonderfulStories: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 加载探索页数据
@@ -1547,6 +1642,13 @@ Page({
     this.getDistributeNewest() // 选品中心入口
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
+  },
+
+  // 加载发现页面
+  _loadingFindPage() {
+    this.getAdvertisement()
+    this.getYouLike() // 猜你喜欢
+    this.getWonderfulStories() // 精彩故事
   },
 
   /**
@@ -1640,9 +1742,10 @@ Page({
       this._swtichActivePageTab('lifeStore')
     }
 
-    // 预加载精选、探索数据
+    // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
+    this._loadingFindPage()
   },
 
   /**

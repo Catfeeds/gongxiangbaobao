@@ -117,7 +117,7 @@
 
 .price {
   font-size: 28rpx;
-  padding-top:13rpx;
+  padding-top: 13rpx;
 }
 
 .margin-top---13rpx {
@@ -127,27 +127,84 @@
 .margin-bottom--2rpx {
   margin-bottom: 2rpx;
 }
-.order_sum{
+
+.order_sum {
   /* padding-bottom: 6rpx; */
 }
-.order-product__photo{
+
+.order-product__photo {
   height: 120rpx;
   width: 120rpx;
 }
 
-.flex-row{
+.flex-row {
   display: flex;
   flex-direction: row;
 }
 
 .order-product__name {
-  font-size: 26rpx
-}
-.order-product__shuliang {
-  font-size:24rpx;
-  color:#999;
+  font-size: 26rpx;
 }
 
-.margin-left--20{
+.order-product__shuliang {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.margin-left--20 {
   margin-left: 20rpx;
+}
+
+.bin-order__info--head {
+  padding: 30rpx 0;
+}
+
+.bin-order__info--head .title {
+  font-size: 28rpx;
+  font-weight: 500rpx;
+  margin-bottom: 16rpx;
+}
+
+.bin-order__info--head .describe {
+  font-size: 22rpx;
+  color: #f66;
+}
+
+.bin-order__info--body {
+  max-height: 548rpx;
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.bin-order__info--item {
+  padding: 30rpx 40rpx 30rpx 0;
+  margin-left: 40rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.bin-order__info--item .order-detail__top {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.bin-order__info--item .order-detail__bottom {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.bin-order__info--body .shim {
+  height: 40rpx;
+}
+
+.bin-order__info--foot {
+  padding: 10rpx 30rpx;
+}
+
+.bin-order__info--foot .payment-btn{
+  width: 690rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background-color: #f66;
+  color: white;
+  font-size: 32rpx;
 }
