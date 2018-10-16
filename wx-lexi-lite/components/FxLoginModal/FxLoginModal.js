@@ -138,10 +138,10 @@ Component({
      */
     handleGetVerfyCode() {
       let mobile_number = this.data.loginForm.mobile_number - 0
-      if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(mobile_number))) {
-        utils.fxShowToast('输入的手机号码错误')
-        return
-      }
+      // if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(mobile_number))) {
+      //   utils.fxShowToast('输入的手机号码错误')
+      //   return
+      // }
       let params = {
         mobile: mobile_number.toString(),
         area_code: this.data.loginForm.country_code,

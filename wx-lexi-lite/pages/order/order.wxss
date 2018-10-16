@@ -185,6 +185,7 @@
 .bin-order__info--item .order-detail__top {
   font-size: 28rpx;
   font-weight: 500;
+  margin-bottom: 16rpx;
 }
 
 .bin-order__info--item .order-detail__bottom {
@@ -200,7 +201,7 @@
   padding: 10rpx 30rpx;
 }
 
-.bin-order__info--foot .payment-btn{
+.bin-order__info--foot .payment-btn {
   width: 690rpx;
   height: 80rpx;
   border-radius: 8rpx;

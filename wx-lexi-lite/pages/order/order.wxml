@@ -292,7 +292,7 @@
   </view>
 
   <!-- 是否为合并的订单 -->
-  <fx-modal visible="{{  }}" showHead="{{false}}">
+  <fx-modal visible="{{ mergePaymentProduct.is_merge }}" showHead="{{false}}">
 
     <view slot="main">
       <view class="flex-direction-column__item bin-order__info--head">
@@ -301,18 +301,18 @@
       </view>
 
       <scroll-view scroll-y class="bin-order__info--body">
-        <view class="bin-order__info--item" wx:for="{{[1,2,3,4,5]}}">
+        <view class="bin-order__info--item" wx:for="{{mergePaymentProduct.order_list }}" wx:key="{{index}}">
           <view class="time-top order-detail__top">
-            <text class="">以下订单需一起付款</text>
-            <text>￥67</text>
+            <text class="">{{item.store_name}}</text>
+            <text>￥ {{item.user_pay_amount}}</text>
           </view>
 
-          <view class="time-top order-detail__bottom">共1件</view>
+          <view class="time-top order-detail__bottom">共{{item.total_quantity}}件</view>
         </view>
         <view class="shim"></view>
       </scroll-view>
 
-      <view class="bin-order__info--foot">
+      <view class="bin-order__info--foot" catchtap="mergePaymentBtn">
         <view class="c-middle payment-btn">付款：09：00</view>
       </view>
 

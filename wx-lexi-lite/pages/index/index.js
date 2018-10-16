@@ -249,30 +249,83 @@ Page({
 
     // 发现
     advertisement: { // 广告
-      banner_images: [
-        { image: '' }
+      banner_images: [{
+        image: ''
+      }]
+    },
+    liveTheme: [{
+        name: '创作人故事',
+        target: 1,
+        img: "https://static.moebeast.com/static/img/designer_routine.jpg"
+      },
+      {
+        name: '种草笔记',
+        target: 2,
+        img: "https://static.moebeast.com/static/img/teach.jpg"
+      },
+      {
+        name: '生活记事',
+        target: 3,
+        img: "https://static.moebeast.com/static/img/plant_note.jpg"
+      },
+      {
+        name: '手作教学',
+        target: 4,
+        img: "https://static.moebeast.com/static/img/live_note.jpg"
+      }
+    ],
+    youLike: { // 猜你喜欢
+      life_records: [{
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        }
       ]
     },
-    liveTheme: [
-      { name: '创作人故事', target: 1, img: "https://static.moebeast.com/static/img/designer_routine.jpg" },
-      { name: '种草笔记', target: 2, img: "https://static.moebeast.com/static/img/teach.jpg" },
-      { name: '生活记事', target: 3, img: "https://static.moebeast.com/static/img/plant_note.jpg" },
-      { name: '手作教学', target: 4, img: "https://static.moebeast.com/static/img/live_note.jpg" }
-    ],
-    youLike: {// 猜你喜欢
-      life_records: [
-        { cover: '', description: '', user_avator: '', user_name: '' },
-        { cover: '', description: '', user_avator: '', user_name: '' },
-        { cover: '', description: '', user_avator: '', user_name: '' },
-        { cover: '', description: '', user_avator: '', user_name: '' }
-      ]
-    }, 
     wonderfulStories: { // 精彩故事
-      life_records: [
-        { cover: '', description: '', user_avator: '', user_name: '' },
-        { cover: '', description: '', user_avator: '', user_name: '' },
-        { cover: '', description: '', user_avator: '', user_name: '' },
-        { cover: '', description: '', user_avator: '', user_name: '' }
+      life_records: [{
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        }
       ]
     },
 
@@ -965,6 +1018,86 @@ Page({
   },
 
   /** 探索页面 **/
+
+  // 发现s
+  // 生活志详情
+  handleLiveInfo(e) {
+    let targetType = e.currentTarget.dataset.type
+    let link = e.currentTarget.dataset.link
+    console.log(e, 'find top')
+
+    if (targetType == 1) {
+
+    }
+
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../product/product?rid=' + link
+      })
+    }
+
+    if (targetType == 3) {
+      wx.navigateTo({
+        url: '../categoryList/categoryList?categryId=' + link
+      })
+    }
+
+    if (targetType == 4) {
+      wx.navigateTo({
+        url: '../branderStore/branderStore?rid=' + link
+      })
+    }
+  },
+
+  handleToListPage(e) {
+    let data = ''
+    switch (e.currentTarget.dataset.target) {
+      case 1:
+        data = 'designerAffair';
+        break;
+      case 2:
+        data = 'plantNoteList';
+        break;
+      case 3:
+        data = 'liveNoteList';
+        break;
+      case 4:
+        data = 'teachList';
+        break;
+    }
+
+    wx.navigateTo({
+      url: '../' + data + '/' + data,
+    })
+  },
+
+  // 精彩故事和猜你喜欢跳转
+  handleToliveNote(e) {
+    let targetType = e.currentTarget.dataset.type
+    let rid = e.currentTarget.dataset.rid
+
+    // 1: 文章
+    if (targetType == 1) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid,
+      })
+    }
+
+    // 2: 种草笔记
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
+      })
+    }
+
+    // 跳转视频
+    if (targetType == 3) {
+
+    }
+  },
+
+  // 发现e
+
 
   // 广告位置
   getExploreAdvertisement() {

@@ -10,6 +10,9 @@ Page({
    * 页面的初始数据 orders
    */
   data: {
+    // 订单参数
+    mergePaymentProduct: [],
+
     isLoading: true,
     // orderList:[],
     allOrderList: [], //全部订单
@@ -29,8 +32,7 @@ Page({
 
     // navbar
     currentStatus: 0,
-    navList: [
-      {
+    navList: [{
         title: '全部',
         status: 0
       },
@@ -216,6 +218,11 @@ Page({
     })
   },
 
+  // 支付合并订单
+  mergePaymentBtn() {
+    app.wxpayOrder(this.data.mergePaymentProduct.order_rid, this.data.mergePaymentProduct)
+  },
+
   // 付款
   paymentBtn(e) {
     console.log(e)
@@ -234,10 +241,21 @@ Page({
 
     // 获取订单签名
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
-      console.log(result)
+      console.log(result, '获取订单签名')
       if (result.success) {
-        
-        app.wxpayOrder(order.rid, result.data)
+
+        if (result.data.is_merge) {
+          // 多个产品使用了同一个优惠券，不能直接支付
+          this.setData({
+            mergePaymentProduct: result.data
+          })
+
+        } else {
+          // // 多个产品使用了同一个优惠券 ，直接支付
+          app.wxpayOrder(order.rid, result.data)
+        }
+
+
         let allshouhuoData = this.data.allOrderList
         allshouhuoData.forEach((v, i) => {
           if (v.rid == rid) {
@@ -500,5 +518,5 @@ Page({
       url: '../logisticsWatch/logisticsWatch?code=' + code + '&logisticsNumber=' + logisticsNumber + '&expressName=' + expressName
     })
   }
-  
+
 })
