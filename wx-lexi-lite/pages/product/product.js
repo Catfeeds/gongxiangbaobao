@@ -441,23 +441,27 @@ Page({
   _handleUserLikePhoto(e) {
     console.log(e)
     let likePhoto = this.data.productInfomation.product_like_users
+    let myPhoto = false
 
-    let isLikeIndex = likePhoto.map((v, i) => {
+    likePhoto.forEach((v, i) => {
       if (v.uid == e) {
-        return i
+        myPhoto = i
       }
-    })
 
-    if (isLikeIndex.length==0) {
-      likePhoto.unshift({
-        avatar: app.globalData.jwt.avatar
-      })
-    } else {
-      likePhoto.splice(isLikeIndex[0],1)
-    }
+      if (likePhoto.length - 1 == i) {
+        if (typeof(myPhoto) == "boolean") {
+          likePhoto.unshift({
+            avatar: app.globalData.jwt.avatar,
+            uid: app.globalData.jwt.uid,
+          })
+        } else {
+          likePhoto.splice(myPhoto, 1)
+        }
 
-    this.setData({
-      'productInfomation.product_like_users':likePhoto
+        this.setData({
+          'productInfomation.product_like_users': likePhoto
+        })
+      }
     })
   },
 

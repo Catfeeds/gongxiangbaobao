@@ -108,6 +108,18 @@ Page({
     })
   },
 
+  _handlePaymenLastTime(data) {
+    data.forEach((v, i) => {
+      v.current_time += 1
+      if (v.current_time - v.created_at < 600) {
+        v.orderTime = utils.timestamp2ms(600 - (v.current_time - v.created_at))
+      } else {
+        v.orderTime = ''
+      }
+    })
+    return data
+  },
+
   // 获取订单列表--- 
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
@@ -125,6 +137,14 @@ Page({
           allOrderList: allOrderList.concat(result.data.orders),
           isNextAll: result.data.next
         })
+
+        let newOrderList = this.data.allOrderList
+        setInterval(() => {
+          this.setData({
+            allOrderList: this._handlePaymenLastTime(newOrderList)
+          })
+        }, 1000)
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -147,6 +167,14 @@ Page({
           daifu: daifuList.concat(result.data.orders),
           isNextDaifu: result.data.next
         })
+
+        let newOrderList = this.data.daifu
+        setInterval(() => {
+          this.setData({
+            daifu: this._handlePaymenLastTime(newOrderList)
+          })
+        }, 1000)
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -254,7 +282,6 @@ Page({
           // // 多个产品使用了同一个优惠券 ，直接支付
           app.wxpayOrder(order.rid, result.data)
         }
-
 
         let allshouhuoData = this.data.allOrderList
         allshouhuoData.forEach((v, i) => {

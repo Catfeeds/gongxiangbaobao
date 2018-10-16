@@ -814,3 +814,13 @@ swiper-item, swiper-item>image, swiper {
 .margin-right--30rpx {
   margin-right: 30rpx;
 }
+
+.sell-out__btn {
+  background-color: #5fe4b1;
+  opacity: 0.5;
+  color: white;
+  font-size: 32rpx;
+  width: 550rpx;
+  border-radius: 8rpx;
+  height: 80rpx;
+}
