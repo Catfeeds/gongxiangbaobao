@@ -5,6 +5,8 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
+let paymentWindowInterval
+
 Page({
   /**
    * 页面的初始数据 orders
@@ -12,6 +14,7 @@ Page({
   data: {
     // 订单参数
     mergePaymentProduct: [],
+    isMergeShow: false,
 
     isLoading: true,
     // orderList:[],
@@ -90,6 +93,13 @@ Page({
     }
   },
 
+  // 关闭支付弹框
+  handleOffpayment() {
+    this.setData({
+      isMergeShow: false
+    })
+  },
+
   // 选择
   handleStatus(e) {
     console.log(e)
@@ -109,6 +119,7 @@ Page({
   },
 
   _handlePaymenLastTime(data) {
+
     data.forEach((v, i) => {
       v.current_time += 1
       if (v.current_time - v.created_at < 600) {
@@ -275,8 +286,29 @@ Page({
         if (result.data.is_merge) {
           // 多个产品使用了同一个优惠券，不能直接支付
           this.setData({
-            mergePaymentProduct: result.data
+            mergePaymentProduct: result.data,
+            isMergeShow: true
           })
+
+          // 处理倒计时
+          let newPayment = this.data.mergePaymentProduct
+          paymentWindowInterval = setInterval(() => {
+            newPayment.current_at += 1
+            newPayment.orderTime = newPayment.current_at.toFixed(0) - newPayment.created_at
+
+            if (newPayment.orderTime < 600) {
+              newPayment.orderTime = utils.timestamp2ms(600 - newPayment.orderTime)
+              this.setData({
+                mergePaymentProduct: newPayment
+              })
+            } else {
+              clearInterval(paymentWindowInterval)
+              this.setData({
+                isMergeShow: false
+              })
+            }
+
+          }, 1000)
 
         } else {
           // // 多个产品使用了同一个优惠券 ，直接支付

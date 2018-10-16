@@ -62,7 +62,7 @@
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
           <view wx:if="{{ order.user_order_status == 4 && order.orderTime}}" data-last-time="{{order.current_time-order.created_at}}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
-            <text>付款</text>  
+            <text>付款</text>
             <text> {{ order.orderTime }}</text>
           </view>
           <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
@@ -292,7 +292,7 @@
   </view>
 
   <!-- 是否为合并的订单 -->
-  <fx-modal visible="{{ mergePaymentProduct.is_merge }}" showHead="{{false}}">
+  <fx-modal bind:closeEvent="handleOffpayment" visible="{{isMergeShow}}" showHead="{{false}}">
 
     <view slot="main">
       <view class="flex-direction-column__item bin-order__info--head">
@@ -313,7 +313,7 @@
       </scroll-view>
 
       <view class="bin-order__info--foot" catchtap="mergePaymentBtn">
-        <view class="c-middle payment-btn">付款：09：00</view>
+        <view class="c-middle payment-btn">付款 {{mergePaymentProduct.orderTime}}</view>
       </view>
 
     </view>
