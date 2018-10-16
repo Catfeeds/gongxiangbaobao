@@ -894,7 +894,6 @@ Page({
     });
 
     this.renewStockStatus()
-
     this.choosedSku()
   },
 

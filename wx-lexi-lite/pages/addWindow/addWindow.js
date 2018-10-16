@@ -11,7 +11,7 @@ Page({
    */
   data: {
     isLoading: true,
-    isPublish:false,
+    isPublish: false,
 
     toggleCode: 3,
     toggleCategory: [{
@@ -51,13 +51,26 @@ Page({
     let labelLength = this.data.windowParams.keywords.length
     if (pickPhotoAddPickCategory && title && description && labelLength != 0) {
       this.setData({
-        isPublish:true
+        isPublish: true
       })
-    }else{
+    } else {
       this.setData({
         isPublish: false
       })
     }
+  },
+
+  //删除标签
+  handleDeleteLabel(e) {
+    console.log(e.currentTarget.dataset.index)
+    let index = e.currentTarget.dataset.index
+    let labels = this.data.windowParams.keywords
+    labels.splice(index, 1)
+
+    this.setData({
+      'windowParams.keywords': labels
+    })
+
   },
 
   // 切换拼接橱窗
@@ -104,32 +117,34 @@ Page({
   },
 
   // 发布橱窗
-  handlePublishBtn(){
-    if (!this.data.isPublish){
+  handlePublishBtn() {
+    if (!this.data.isPublish) {
       utils.fxShowToast("请填写完整信息")
       return
     }
 
     // 去除多余的图片
     let publishParams = this.data.windowParams.product_items
-    if (this.data.toggleCode< publishParams.length){
+    if (this.data.toggleCode < publishParams.length) {
       this.setData({
         'windowParams.product_items': publishParams.splice(0, this.data.toggleCode)
       })
     }
-    
-    http.fxPost(api.shop_windows, this.data.windowParams,result=>{{
-      console.log(result,'添加橱窗完成')
-      if(result.success){
-        console.log(this.data.windowParams.product_items)
 
-        wx.redirectTo({
-          url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
-        })
-      }else{
-        utils.fxShowToast(result.status.message)
+    http.fxPost(api.shop_windows, this.data.windowParams, result => {
+      {
+        console.log(result, '添加橱窗完成')
+        if (result.success) {
+          console.log(this.data.windowParams.product_items)
+
+          wx.redirectTo({
+            url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
       }
-    }})
+    })
   },
 
 
