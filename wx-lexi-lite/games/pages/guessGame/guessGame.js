@@ -121,7 +121,10 @@ Page({
     // 开始游戏分享提示
     playCount: 1,
     gameErrorMessage: '',
-    gameLoading: false // 是否点击开始游戏
+    gameLoading: false, // 是否点击开始游戏
+
+    // 邀请提醒
+    showInviteHelpModal: false
   },
 
   // 返回到小程序的首页
@@ -129,6 +132,11 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     })
+  },
+
+  // 继续玩（无现金奖励）
+  handleContinuePlay () {
+
   },
 
   // 开始游戏

@@ -325,8 +325,10 @@ Page({
       this.setData({
         'followWindowParams.page': this.data.followWindowParams.page + 1
       })
+
+      this.getFollowWindow()
     }
-    this.getFollowWindow()
+
   },
 
   /**

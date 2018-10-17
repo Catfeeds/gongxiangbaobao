@@ -26,8 +26,10 @@
   <!-- 心愿单 -->
   <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='thinkOrder'}}">
     <view class=" like-product__box">
-      <image wx:for="{{desireOrderProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
-        src="{{item.cover}}"></image>
+      <image wx:for="{{desireOrderProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-index="{{index}}" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}">
+        <view class="hint-box" wx:if="{{index==clickHint}}"></view>
+      </image>
     </view>
 
     <view wx:if="{{desireOrderProduct.length==0}}" class="flex-direction-column__item null-photo">
@@ -39,8 +41,10 @@
   <!-- 最近查看 -->
   <scroll-view bindscrolltolower="handleReachBottom" class="product-box" scroll-y wx:if="{{toggleCode=='browse'}}">
     <view class=" like-product__box">
-      <image wx:for="{{userBrowsesProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
-        src="{{item.cover}}"></image>
+      <image wx:for="{{userBrowsesProduct}}" wx:key="{{index}}" data-rid="{{item.rid}}" data-store-rid="{{item.store_rid}}" catchtap="handleGetProductPhoto" data-index="{{index}}" data-store-rid="{{item.store_rid}}" class="pick-product__photo {{(index+1)%3!=0?'margin-reight--3rpx':''}}"
+        src="{{item.cover}}">
+        <view class="hint-box" wx:if="{{index==clickHint}}"></view>
+      </image>
     </view>
 
     <view wx:if="{{userBrowsesProduct.length==0}}" class="flex-direction-column__item null-photo">
@@ -59,7 +63,7 @@
 
     <scroll-view scroll-x class="add-window__scroll--bottom">
       <view class="c-middle loading-product__icon" wx:if="{{loadingProduct}}">
-        <image src='../../images/jiazai.gif' ></image>
+        <image src='../../images/jiazai.gif'></image>
       </view>
 
       <view class="pick-product__photo--bottom {{index==0?'margin-left--40rpx':''}} {{index==productPhoto.length-1?'margin-right--40rpx':''}}" wx:for="{{productPhoto}}" wx:key="{{index}}" data-photo-id="{{item.id}}" data-photo-link="{{item.view_url}}" catchtap="handlePickPhoto">

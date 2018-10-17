@@ -43,27 +43,28 @@
           <view class="product-info">
             <view class="name">{{ product.product_name }}</view>
             <view class="mode">{{ product.mode }}</view>
-            <view class="price">￥{{ product.price }}</view>
-          </view>
-          <view class="quantity">
-            x{{ product.quantity }}
+            <view class="price">￥{{product.sale_price!==0 && product.sale_price
+              < product.price?product.sale_price : product.price }}</view>
+            </view>
+            <view class="quantity">
+              x{{ product.quantity }}
+            </view>
           </view>
         </view>
-      </view>
 
-      <view class="order-item__foot">
-        <view class="order-sn">
-          订单编号：{{ order.rid }}
-        </view>
-        <view class="order-date">
-          <text class="time">{{ order.created_at }}</text>
-          <view class="income">
-            预计收益：
-            <text class="amount">￥2.90</text>
+        <view class="order-item__foot">
+          <view class="order-sn">
+            订单编号：{{ order.rid }}
+          </view>
+          <view class="order-date">
+            <text class="time">{{ order.created_at }}</text>
+            <view class="income">
+              预计收益：
+              <text class="amount">￥{{order.order_total_commission_price}}</text>
+            </view>
           </view>
         </view>
-      </view>
 
+      </view>
     </view>
   </view>
-</view>

@@ -39,6 +39,8 @@ App({
       }
     }
 
+    this.getRunEnv()
+
     // 预先加载大陆地址
     this.getAddressPlaces()
 
@@ -526,6 +528,18 @@ App({
     })
   },
 
+  /**
+   * 获取运行环境
+   */
+  getRunEnv() {
+    http.fxGet(api.run_env, {}, (res) => {
+      if (res.success) {
+        console.log(res, 'env')
+        this.globalData.runEnv = res.data.status
+      }
+    })
+  },
+
   globalData: {
     isLogin: false,
     app_id: null,
@@ -608,6 +622,7 @@ App({
           warehouse_id: '' // Number	可选	 	发货的仓库ID
         }]
       }]
-    }
+    },
+    runEnv: 2
   }
 })

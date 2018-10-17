@@ -353,6 +353,10 @@ module.exports = {
   // POST 更新分享记录
   question_share: 'guess_image/is_share',
   // POST 游戏首页海报
-  question_index_poster: 'guess_image/wx_index_poster'
+  question_index_poster: 'guess_image/wx_index_poster',
 
+
+  // GET 当前环境
+  run_env: 'run_env/wxa'
+  
 }

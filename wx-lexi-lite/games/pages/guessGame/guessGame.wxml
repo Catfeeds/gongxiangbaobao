@@ -483,6 +483,44 @@
     <button class="btn-ok" bindtap="handleOk">知道了</button>
   </fx-game-modal-v>
 
+  <!-- 邀请好友助力 -->
+  <fx-game-modal-v class="fx-modal--help" className="fx-modal--help" visible="{{ showInviteHelpModal }}" marginTop="150">
+    <view class="friend-help">
+      <view class="help-title">
+        <image src="../../../images/icon-light@2x.png" class="icon-light"></image>
+        <view class="help-text">
+          继续猜图无现金奖池，仅获乐喜购物优惠券奖池，<text class="yellow">邀请3个好友参与猜图助力，才可获得现金奖池</text>
+        </view>
+      </view>
+      <view class="help-friends">
+        <view class="invite-avatars">
+          <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
+          <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
+          <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
+        </view>
+        <view class="invite-notice">
+          还需<text class="invite-count">2</text>位好友助力
+        </view>
+        <view class="invite-notice small">
+          才获得猜图赢现金奖池
+        </view>
+        <view class="invite-message">
+          邀请成功可连续获得9次赢得现金猜图机会
+        </view>
+      </view>
+      <view class="help-actions">
+        <button class="play-continue" bindtap="handleContinuePlay">
+          <text class="btn-name">继续猜图</text>
+          <text class="btn-desc">（无现金）</text>
+        </button>
+        <button class="need-help" open-type="share" data-name="invite">
+          <text class="btn-name">邀请好友助力</text>
+          <text class="btn-desc">（获得现金奖池）</text>
+        </button>
+      </view>
+    </view>
+  </fx-game-modal-v>
+
   <!-- 分享海报 -->
   <fx-image-modal class="fx-modal--notice" visible="{{ showPosterModal }}" close="{{ false }}" width="520" marginTop="50">
     <view class="poster-box">

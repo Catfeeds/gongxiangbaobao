@@ -64,9 +64,7 @@
     "pages/addWindowProduct/addWindowProduct",
     "pages/fxWebView/fxWebView",
     "pages/windowComment/windowComment",
-    "components/FxLoginModal/FxLoginModal",
-    "pages/distributesSearchRes/distributesSearchRes",
-    "pages/distributesSearch/distributesSearch"
+    "components/FxLoginModal/FxLoginModal"
   ],
   "subPackages": [
     {
