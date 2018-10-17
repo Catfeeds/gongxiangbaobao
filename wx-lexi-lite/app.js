@@ -531,8 +531,6 @@ App({
     app_id: null,
     token: null,
     uid: 0,
-    // 是否由分享而来，不是就是false 是的话就是携带的参数
-    sharePageRid: false,
     // 检测用户加载是否完成，异步问题
     userLoaded: false,
     // 支付成功后的订单

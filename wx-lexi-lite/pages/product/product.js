@@ -12,6 +12,7 @@ Page({
    */
   data: {
     isLoading: true,
+    showBack: false, // 是否显示回到自己生活馆
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
@@ -74,6 +75,19 @@ Page({
     },
     similarList: [] // 相似产品的列表
 
+  },
+
+  /**
+   * 回到自己的生活馆
+   */
+  handleBackLifeStore() {
+    const lifeStore = wx.getStorageSync('lifeStore')
+
+    wx.setStorageSync('showingLifeStoreRid', lifeStore.lifeStoreRid)
+
+    wx.switchTab({
+      url: '../index/index',
+    })
   },
 
   // 添加关注---
@@ -785,13 +799,6 @@ Page({
     })
   },
 
-  _getPageFrom(e) {
-    app.globalData.sharePageRid = e
-    wx.switchTab({
-      url: '../index/index',
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -805,14 +812,13 @@ Page({
     if (scene && scene != undefined && scene != 'undefined') {
       let sceneAry = scene.split('-')
       console.log(sceneAry.length)
-      rid = sceneAry[0]
+      rid = utils.trim(sceneAry[0])
       // 生活馆ID
       if (sceneAry.length == 2) {
-        let lifeStoreRid = sceneAry[1]
+        let lifeStoreRid = utils.trim(sceneAry[1])
         app.updateLifeStoreLastVisit(lifeStoreRid)
+        wx.setStorageSync('showingLifeStoreRid', lifeStoreRid)
       }
-      // 是否由分享而来去首页
-      this._getPageFrom(rid)
     } else {
       rid = options.rid
     }
@@ -826,13 +832,6 @@ Page({
     if (app.globalData.isLogin) {
       this.setData({
         userPhoto: app.globalData.userInfo.avatar
-      })
-    }
-
-    // 判断是否是小B
-    if (wx.getStorageSync('jwt').is_small_b) {
-      this.setData({
-        isSmallB: true
       })
     }
 
@@ -1140,7 +1139,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    utils.handleHideLoading()
     this.animation = wx.createAnimation({
       transformOrigin: 'bottom bottom',
       duration: 500,
@@ -1163,10 +1161,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    wx.hideLoading()
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount,
     })
+
+    // 判断是否是小B，并且在自己的生活馆
+    const lifeStore = wx.getStorageSync('lifeStore')
+    const showingLifeStoreRid = wx.getStorageSync('showingLifeStoreRid')
+    if (lifeStore.isSmallB) {
+      if (showingLifeStoreRid == '' || showingLifeStoreRid == lifeStore.lifeStoreRid) {
+        this.setData({
+          isSmallB: true
+        })
+      } else {
+        this.setData({
+          showBack: true
+        })
+      }
+    }
   },
 
   /**

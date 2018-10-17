@@ -800,7 +800,8 @@
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="handleCloseLogin"></fx-login>
 
-  <view class="fx-back-home" bindtap="handleBackLifeStore" wx:if="{{ isSmallB && !isSmallHome }}">
+  <!-- 回到自己的生活馆 -->
+  <view class="fx-back-home" bindtap="handleBackLifeStore" wx:if="{{ pageActiveTab == 'lifeStore' && showBack }}">
     <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
     <text>回到自己生活馆</text>
   </view>

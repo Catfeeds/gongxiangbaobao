@@ -157,7 +157,7 @@
       </view>
     </block>
 
-    <view class="window-publish">
+    <view class="window-publish" style="display:none;">
       <button class="fx-button--text btn-plus" catchtap="handleGoAddWindow">
         <text>拼贴我的橱窗</text>
         <image src="../../images/icons/icon-plus@3x.png" class="icon-plus"></image>

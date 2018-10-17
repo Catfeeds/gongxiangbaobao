@@ -346,6 +346,13 @@ const timestamp2ms = res => {
   return mm.padStart(2, '0') + ":" + ss.padStart(2, '0')
 }
 
+/**
+ * 截取字符串头尾空格
+ */
+const trim = (str) => {
+  return str.replace(/^\s+|\s+$/g, '');
+}
+
 module.exports = {
   handleHideLoading: handleHideLoading,
   handleShowLoading: handleShowLoading,
@@ -368,5 +375,6 @@ module.exports = {
   Base64,
   wxPromisify: wxPromisify,
   commentTime,
-  timestamp2ms
+  timestamp2ms,
+  trim
 }

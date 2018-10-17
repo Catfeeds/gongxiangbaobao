@@ -364,7 +364,7 @@ swiper-item, swiper-item>image, swiper {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 100;
   background-color: rgba(000, 000, 000, 0.5);
 }
 
@@ -376,6 +376,7 @@ swiper-item, swiper-item>image, swiper {
   margin-bottom: 0;
   color: #333;
   min-height: 300rpx;
+  z-index: 100;
 }
 
 .top-info view {
