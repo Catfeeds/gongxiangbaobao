@@ -198,18 +198,15 @@
   </view>
 
   <!-- 相似产品 -->
-  <view class='shopInfo margin-bottom--30rpx' wx:if="{{}}">
-    <text>相似产品</text>
-
-    <view class='shop-other-goods'>
-      <view wx:for='{{ similarList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleSimilarInfo'>
-
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
-
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" wx:else></image>
-
-      </view>
+  <view class=' margin-bottom--30rpx similar-photo__box'>
+    <view class="margin-left--30rpx similar-title__box">
+      <view class="similar-title">相似产品</view>
+      <view class="similar-line__bottom"></view>
     </view>
+
+    <scroll-view scroll-x class=''>
+      <image class="similar-photo {{index==0?'margin-left--30rpx':''}} {{similarList.products.length-1==index?'margin-right--30rpx':''}}" src='{{ item.cover }}-p30' wx:for='{{ similarList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleSimilarInfo'></image>
+    </scroll-view>
   </view>
 
   <!-- 产品的详细介绍 -->
@@ -405,7 +402,7 @@
     <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
     <text>回到自己生活馆</text>
   </view>
-  
+
   <!-- 卖 -->
   <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
@@ -432,7 +429,7 @@
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
             <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
           </view>
-          <text >保存分享朋友圈海报</text>
+          <text>保存分享朋友圈海报</text>
         </view>
       </view>
       <view class="distribute-action">

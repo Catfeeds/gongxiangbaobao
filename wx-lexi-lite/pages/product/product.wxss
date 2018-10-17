@@ -828,3 +828,32 @@ swiper-item, swiper-item>image, swiper {
 .sell-out__btn {
   width: 550rpx;
 }
+
+.similar-photo {
+  height: 180rpx;
+  width: 180rpx;
+  margin-right: 20rpx;
+}
+
+.similar-photo__box {
+  background-color: white;
+  white-space: nowrap;
+  padding: 30rpx 0;
+}
+
+.similar-photo__box .similar-title__box {
+  margin-bottom: 30rpx;
+  color: #5fe4b1;
+  font-size: 28rpx;
+  font-weight: 500rpx;
+}
+
+.similar-photo__box .similar-title__box .similar-title {
+  margin-bottom: 16rpx;
+}
+
+.similar-line__bottom {
+  height: 6rpx;
+  width: 27rpx;
+  background-color: #5fe4b1;
+}
