@@ -12,9 +12,12 @@
     </view>
     <view class='black-font designer-name'>{{dynamicList.username}}</view>
     <!-- 拼接橱窗 -->
-    <view catchtap="handleGoAddwindow" class='c-theme-bg add-showcase__btn font-s'>
+    <view catchtap="handleGoAddwindow" class='c-theme-bg add-showcase__btn font-s' wx:if="{{ runEnv == 2 }}">
       <text>拼贴橱窗</text>
       <text class='fx-icon-nothing-plus'></text>
+    </view>
+    <view class='c-theme-bg add-showcase__btn font-s' wx:else>
+      <text>拼贴橱窗</text>
     </view>
   </view>
 
