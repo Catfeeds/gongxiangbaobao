@@ -383,10 +383,6 @@
     <view class='fx-part box--margin border-top padding-left--0rpx'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx' catchtap="handleGoWindow">
         <text class="label">发现生活美学</text>
-        <view class='hui-zi-m flex_row'>
-          <text>查看全部</text>
-          <text class='fx-icon-nothing-right'></text>
-        </view>
       </view>
 
       <view class='c-importantGoodsBox  today-recommend-box'>
@@ -697,8 +693,9 @@
                   <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
                 </view>
                 <view class="remark">
-                  <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
-                  <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
+                  <text class="{{item.like_count==0?'like-hide':''}}">{{item.like_count}}喜欢 </text>
+                  <i wx:if="{{item.like_count!=0&&item.comment_count!=0}}"> · </i>
+                  <text wx:if="{{item.comment_count!=0}}"> {{item.comment_count}}条评论</text>
                 </view>
               </view>
               <view class="share">

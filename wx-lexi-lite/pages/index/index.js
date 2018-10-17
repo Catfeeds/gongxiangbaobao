@@ -980,6 +980,10 @@ Page({
 
   // 获取关注橱窗
   getFollowWindow() {
+    if (!app.globalData.isLogin) {
+      return
+    }
+
     http.fxGet(api.shop_windows_follow, this.data.followWindowParams, result => {
       console.log(result, "关注人发布的橱窗")
       if (result.success) {
@@ -1746,14 +1750,7 @@ Page({
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
   },
-
-  // 加载发现页面
-  _loadingFindPage() {
-    this.getAdvertisement()
-    this.getYouLike() // 猜你喜欢
-    this.getWonderfulStories() // 精彩故事
-  },
-
+  
   // 验证是否存在生活馆
   validateLifeStore() {
     const lifeStore = wx.getStorageSync('lifeStore')
@@ -2117,13 +2114,6 @@ Page({
     let windowRid = e.currentTarget.dataset.windowRid
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + windowRid,
-    })
-  },
-
-  // 橱窗列表
-  handleGoWindow() {
-    wx.navigateTo({
-      url: '../window/window'
     })
   },
 

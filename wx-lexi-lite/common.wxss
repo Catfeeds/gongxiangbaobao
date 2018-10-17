@@ -290,6 +290,11 @@ button::after {
   color: rgb(37, 33, 30);
 }
 
+.fx-window .fx-window__actions .like-comment .remark text {
+  display: inline-block;
+  min-width: 66rpx;
+}
+
 .fx-window .fx-window__actions .share {
   flex: 0 0 auto;
 }
@@ -536,6 +541,7 @@ button::after {
 /* 发现页面的样式 end*/
 
 /* 回到自己的生活馆 */
+
 .fx-back-home {
   position: fixed;
   bottom: 120rpx;
