@@ -312,26 +312,38 @@ const commentTime = (option) => {
   let mm = new Date(difference).getMinutes() // 时分秒
   let ss = new Date(difference).getSeconds() // 时分秒
 
-  if (difference<=600000) {
+  if (difference <= 600000) {
     return '刚刚'
   }
 
   if (difference > 600000 && difference <= 3600000) {
-    return mm+'分钟前'
+    return mm + '分钟前'
   }
 
   if (difference > 3600000 && difference <= 86400000) {
-    return hh+'小时前'
+    return hh + '小时前'
   }
 
   if (difference > 86400000 && difference <= 172800000) {
     return '昨天'
   }
 
-  if (difference > 172800000){
-    return this.timestamp2string(option,'cn')
+  if (difference > 172800000) {
+    return timestamp2string(option, 'cn')
   }
 
+}
+
+/**
+ * 获取分秒
+ */
+const timestamp2ms = res => {
+  let date = new Date()
+  date.setTime(res * 1000)
+
+  let mm = date.getMinutes(res).toString()
+  let ss = date.getSeconds(res).toString()
+  return mm.padStart(2, '0') + ":" + ss.padStart(2, '0')
 }
 
 module.exports = {
@@ -355,5 +367,6 @@ module.exports = {
   orderStatusTitle,
   Base64,
   wxPromisify: wxPromisify,
-  commentTime
+  commentTime,
+  timestamp2ms
 }

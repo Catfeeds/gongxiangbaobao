@@ -107,7 +107,6 @@
     <view class='roundL'>
       <!-- <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image> -->
       <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
-
     </view>
     <view class='roundR'>
       <image src='../../images/sandian.png'></image>
@@ -283,13 +282,15 @@
       </view>
     </view>
 
-    <view class='small-bottom__style flex_row bg-white'>
+    <view wx:if="{{!productInfomation.is_sold_out}}" class='small-bottom__style flex_row bg-white'>
       <view class='flex_row--middle c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
       <view catchtap="handleShareTap" class='flex_row--middle crated_btn--style bg--red border-left__radius--null '>
         <text>卖 </text>
         <text class="font-ss"> 赚 ￥{{productInfomation.commission_price}}</text>
       </view>
     </view>
+
+    <view wx:else class="c-middle sell-out__btn">售 罄</view>
   </view>
 
   <!-- 不是小b -->
@@ -302,12 +303,14 @@
       </view>
     </view>
 
-    <view class='small-bottom__style flex_row bg-white'>
+    <view class='small-bottom__style flex_row bg-white' wx:if="{{!productInfomation.is_sold_out}}">
       <view class='flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
       <view catchtap="handlePickShow" class='flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
         <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
       </view>
     </view>
+
+    <view wx:else class="c-middle sell-out__btn">售 罄</view>
   </view>
 
   <!-- 不是小B 接单定制按钮 -->

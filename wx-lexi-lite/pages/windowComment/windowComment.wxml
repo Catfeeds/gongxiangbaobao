@@ -18,15 +18,17 @@
           <view class="flex_row font-s qian-hui">
             <view class="reply-tap" data-submit-target="reply" data-comment-id="{{items.comment_id}}" catchtap="handleOpenCommentBox">回复</view>
             <text> · </text>
-            <view wx:if="{{true}}" class="zan-box">
-              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
-              <text>赞</text>
+
+            <view class="quantity-color zan-box" wx:if="{{items.is_praise}}" data-index="{{index}}" data-comment-id="{{items.comment_id}}" catchtap="handleDeletePraise">
+              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
+              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
             </view>
 
-            <view wx:else class="quantity-color ">
-              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
-              <text>123</text>
+            <view class="zan-box" wx:else data-comment-id="{{items.comment_id}}" catchtap="handlePraise" data-index="{{index}}">
+              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
+              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
             </view>
+
           </view>
         </view>
 
@@ -38,7 +40,7 @@
         <!-- 回复她的盒子 -->
         <view class="font-s reply-text__box" wx:if="{{items.sub_comments.length!=0}}">
           <!-- 回复她的每一条子评论 -->
-          <view wx:for="{{items.sub_comments}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}" >
+          <view wx:for="{{items.sub_comments}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
             <view class="flex_row">
               <image src="{{item.user_avatar}}" class="photo-40rpx"></image>
               <text>{{item.user_name}}</text>
@@ -47,8 +49,17 @@
             <view class="time-top">
               <view>{{item.created_at_cn}}</view>
               <view class="flex_row zan-box" data-comment-id="{{item.comment_id}}">
-                <image src="../../images/icons/icon-zan@3x.png" class="zan-icon"></image>
-                <text>赞</text>
+
+                <view wx:if="{{item.is_praise}}" data-comment-id="{{item.comment_id}}" catchtap="handleDeletePraise">
+                  <image src="../../images/icons/icon-zan-active@3x.png" class="zan-icon"></image>
+                  <text>{{item.praise_count>0?item.praise_count:'赞'}}</text>
+                </view>
+
+                <view wx:else data-comment-id="{{item.comment_id}}" catchtap="handlePraise">
+                  <image src="../../images/icons/icon-zan@3x.png" class="zan-icon"></image>
+                  <text>{{item.praise_count>0?item.praise_count:'赞'}}</text>
+                </view>
+
               </view>
             </view>
           </view>
@@ -77,11 +88,11 @@
     <view class="comment-form">
       <input type="text" disabled="{{true}}" data-submit-target="comment" catchtap="handleOpenCommentBox" placeholder="添加评论" class="input-text" />
 
-      <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like__icon"></image>
-      <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
+      <image src="../../images/icons/icon-like-active@3x.png" wx:if="{{isLike }}" catchtap="handleDeleteLike"  class="icon-like__icon"></image>
+      <text class="count" catchtap="handleDeleteLike" wx:if="{{isLike}}">{{likeCount==0?' ':likeCount}}</text>
 
-      <image catchtap="handleAddLike" data-rid="{{windowDetail.rid}}" src="../../images/icons/icon-like@3x.png" wx:if="{{}}" class="icon-like__icon"></image>
-      <text wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike" data-rid="{{windowDetail.rid}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
+      <image catchtap="handleAddLike" wx:if="{{!isLike }}"src="../../images/icons/icon-like@3x.png" class="icon-like__icon"></image>
+      <text wx:if="{{!isLike }}" catchtap="handleAddLike" >{{likeCount==0?'':likeCount}}</text>
 
     </view>
   </view>

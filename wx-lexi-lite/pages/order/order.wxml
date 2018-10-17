@@ -1,6 +1,6 @@
 <!--pages/order/order.wxml 订单状态-->
 <view class='container theme-bg-color'>
-<fx-loading loading="{{ isLoading }}"></fx-loading>
+  <fx-loading loading="{{ isLoading }}"></fx-loading>
 
   <!-- 头部导航 -->
   <view class="page-order__nav">
@@ -61,9 +61,9 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-          <view wx:if="{{ order.user_order_status == 4 }}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
+          <view wx:if="{{ order.user_order_status == 4 && order.orderTime}}" data-last-time="{{order.current_time-order.created_at}}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
             <text>付款</text>
-            <text>{{ items_order.orderTime }}</text>
+            <text> {{ order.orderTime }}</text>
           </view>
           <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
             删除订单
@@ -123,7 +123,7 @@
         <view class='fnBtn'>
           <view catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
             <text>付款</text>
-            <text>{{ items_order.orderTime }}</text>
+            <text> {{order.orderTime }}</text>
           </view>
         </view>
       </view>
@@ -292,9 +292,31 @@
   </view>
 
   <!-- 是否为合并的订单 -->
-    <fx-modal visible="{{  }}">
-      <view slot="main">
+  <fx-modal bind:closeEvent="handleOffpayment" visible="{{isMergeShow}}" showHead="{{false}}">
+
+    <view slot="main">
+      <view class="flex-direction-column__item bin-order__info--head">
+        <view class="title">以下订单需一起付款</view>
+        <view class="describe">由于以下订单你在下单时设置了共享优惠，需要一起付款</view>
       </view>
-    </fx-modal>
+
+      <scroll-view scroll-y class="bin-order__info--body">
+        <view class="bin-order__info--item" wx:for="{{mergePaymentProduct.order_list }}" wx:key="{{index}}">
+          <view class="time-top order-detail__top">
+            <text class="">{{item.store_name}}</text>
+            <text>￥ {{item.user_pay_amount}}</text>
+          </view>
+
+          <view class="time-top order-detail__bottom">共{{item.total_quantity}}件</view>
+        </view>
+        <view class="shim"></view>
+      </scroll-view>
+
+      <view class="bin-order__info--foot" catchtap="mergePaymentBtn">
+        <view class="c-middle payment-btn">付款 {{mergePaymentProduct.orderTime}}</view>
+      </view>
+
+    </view>
+  </fx-modal>
 
 </view>

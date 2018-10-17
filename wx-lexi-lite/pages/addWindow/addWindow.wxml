@@ -60,32 +60,19 @@
 
     <view class="font-s add-window__warn margin-top--20rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view>
 
-    <input 
-      class="add-window__title--input" 
-      value="{{windowParams.title}}"
-      bindinput="handleSetWindowTitle"
-      placeholder-class="add-window__title--placeholder" 
-      placeholder="起一个吸引人的标题"></input>
+    <input class="add-window__title--input" value="{{windowParams.title}}" bindinput="handleSetWindowTitle" placeholder-class="add-window__title--placeholder" placeholder="起一个吸引人的标题"></input>
   </view>
 
-  <textarea 
-    class="add-window__narrate" 
-    auto-height 
-    value="{{windowParams.description}}"
-    bindinput="handleSetNarrate" 
-    placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
+  <textarea class="add-window__narrate" auto-height value="{{windowParams.description}}" bindinput="handleSetNarrate" placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
   </textarea>
 
   <view class="add-label__box padding-left__right--40rpx">
-    <view 
-      class="c-middle add-label"
-      wx:if="{{windowParams.keywords.length<3}}"
-       catchtap="handleToAddwindowlabel">#添加标签</view>
-    <view 
-      wx:if="{{windowParams.keywords.length==3}}"
-      class="c-middle add-label color--333" >#添加标签</view>
+    <view class="c-middle add-label" catchtap="handleToAddwindowlabel">#添加标签</view>
     <view class="flex--1">
-      <view class="margin-right--20rpx" wx:for="{{windowParams.keywords}}" wx:key="{{index}}">#{{item}}</view>
+      <view class="flex_row" catchtap="handleDeleteLabel" data-index="{{index}}" wx:for="{{windowParams.keywords}}" wx:key="{{index}}">
+        <text>#{{item}}</text>
+        <image src="/images/huise-delete.png" class="delete-label__icon"></image>
+      </view>
 
     </view>
   </view>

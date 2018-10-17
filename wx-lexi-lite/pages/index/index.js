@@ -46,8 +46,6 @@ Page({
     storeProducts: [], // 生活馆商品列表
     isNextRecommend: false, // 推荐是否有下一页
     isEmpty: false, // 是否为空
-    isSmallB: false, // 当前用户是否为小B
-    canAdmin: false, // 是否具备管理生活馆
     isSmallHome: false, // 是否在自己的生活馆
     showEditModal: false, // 生活馆编辑
     showConfirmModal: false, // 删除上架商品确认
@@ -249,6 +247,88 @@ Page({
       ]
     },
 
+    // 发现
+    advertisement: { // 广告
+      banner_images: [{
+        image: ''
+      }]
+    },
+    liveTheme: [{
+        name: '创作人故事',
+        target: 1,
+        img: "https://static.moebeast.com/static/img/designer_routine.jpg"
+      },
+      {
+        name: '种草笔记',
+        target: 2,
+        img: "https://static.moebeast.com/static/img/teach.jpg"
+      },
+      {
+        name: '生活记事',
+        target: 3,
+        img: "https://static.moebeast.com/static/img/plant_note.jpg"
+      },
+      {
+        name: '手作教学',
+        target: 4,
+        img: "https://static.moebeast.com/static/img/live_note.jpg"
+      }
+    ],
+    youLike: { // 猜你喜欢
+      life_records: [{
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        }
+      ]
+    },
+    wonderfulStories: { // 精彩故事
+      life_records: [{
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        },
+        {
+          cover: '',
+          description: '',
+          user_avator: '',
+          user_name: ''
+        }
+      ]
+    },
+
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
     // 分类列表
@@ -268,6 +348,12 @@ Page({
         rid: 'p3',
         name: 'explore',
         title: '探索',
+        disabled: false
+      },
+      {
+        rid: 'p4',
+        name: 'find',
+        title: '发现',
         disabled: false
       }
     ],
@@ -878,7 +964,7 @@ Page({
 
     // 更新当前用户的last_store_rid
     app.updateLifeStoreLastVisit(sid)
-    
+
     // 重新生成海报图
     this.getLifePhotoUrl()
   },
@@ -932,6 +1018,86 @@ Page({
   },
 
   /** 探索页面 **/
+
+  // 发现s
+  // 生活志详情
+  handleLiveInfo(e) {
+    let targetType = e.currentTarget.dataset.type
+    let link = e.currentTarget.dataset.link
+    console.log(e, 'find top')
+
+    if (targetType == 1) {
+
+    }
+
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../product/product?rid=' + link
+      })
+    }
+
+    if (targetType == 3) {
+      wx.navigateTo({
+        url: '../categoryList/categoryList?categryId=' + link
+      })
+    }
+
+    if (targetType == 4) {
+      wx.navigateTo({
+        url: '../branderStore/branderStore?rid=' + link
+      })
+    }
+  },
+
+  handleToListPage(e) {
+    let data = ''
+    switch (e.currentTarget.dataset.target) {
+      case 1:
+        data = 'designerAffair';
+        break;
+      case 2:
+        data = 'plantNoteList';
+        break;
+      case 3:
+        data = 'liveNoteList';
+        break;
+      case 4:
+        data = 'teachList';
+        break;
+    }
+
+    wx.navigateTo({
+      url: '../' + data + '/' + data,
+    })
+  },
+
+  // 精彩故事和猜你喜欢跳转
+  handleToliveNote(e) {
+    let targetType = e.currentTarget.dataset.type
+    let rid = e.currentTarget.dataset.rid
+
+    // 1: 文章
+    if (targetType == 1) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + rid,
+      })
+    }
+
+    // 2: 种草笔记
+    if (targetType == 2) {
+      wx.navigateTo({
+        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
+      })
+    }
+
+    // 跳转视频
+    if (targetType == 3) {
+
+    }
+  },
+
+  // 发现e
+
 
   // 广告位置
   getExploreAdvertisement() {
@@ -1364,12 +1530,12 @@ Page({
       console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
-
         let newData = []
+
         res.data.headlines.forEach((v, i) => {
 
-          if (v.time > 24) {
-            v.time = Math.ceil(v.time % 24) + '天'
+          if (v.time_info) {
+            v.time = v.time + v.time_info
           } else {
             v.time = v.time + '小时'
           }
@@ -1515,7 +1681,67 @@ Page({
       case 'explore': // 探索
         this.handleSetNavigationTitle('探索')
         break;
+      case 'find': // 探索
+        this.handleSetNavigationTitle('发现')
+        break;
     }
+  },
+
+  // 头部广告 发现
+  getAdvertisement() {
+    http.fxGet(api.marketBanners.replace(/:rid/g, 'discover_ad'), {}, (result) => {
+      console.log(result, '发现-头部广告')
+      if (result.success) {
+        this.setData({
+          advertisement: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 猜你喜欢 发现
+  getYouLike() {
+    http.fxGet(api.life_records_guess_likes, {}, (result) => {
+      console.log(result, '猜你喜欢')
+
+      this.setData({
+        isLoadPageShow: false
+      })
+
+      if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
+        })
+
+        this.setData({
+          youLike: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 精彩故事
+  getWonderfulStories() {
+    http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
+      console.log(result, '精彩故事')
+      if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
+        })
+
+        this.setData({
+          wonderfulStories: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 加载探索页数据
@@ -1549,6 +1775,13 @@ Page({
     this.getDistributeNewest() // 选品中心入口
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
+  },
+
+  // 加载发现页面
+  _loadingFindPage() {
+    this.getAdvertisement()
+    this.getYouLike() // 猜你喜欢
+    this.getWonderfulStories() // 精彩故事
   },
 
   /**
@@ -1642,9 +1875,10 @@ Page({
       this._swtichActivePageTab('lifeStore')
     }
 
-    // 预加载精选、探索数据
+    // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
+    this._loadingFindPage()
   },
 
   /**

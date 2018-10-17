@@ -16,10 +16,13 @@ Page({
     windowRid: '', // 评论的对象rid
     submitTarget: '', // 提交目标 reply comment
 
+    isLike: false,
+    likeCount: 0,
+
     comments: [], // 橱窗评论
     commentsNext: true, // 橱窗是否有下一页
     commentsCount: 0, // 橱窗的剩余评论数量
-    countSum:1, // 橱窗的评论总数
+    countSum: 1, // 橱窗的评论总数
     // 提交主评论
     commentParams: {
       rid: '', //Number	必须	 	橱窗编号
@@ -52,6 +55,116 @@ Page({
 
   },
 
+  // 删除喜欢
+  handleDeleteLike() {
+    this.setData({
+      isLike: false,
+      likeCount: this.data.likeCount - 1,
+    })
+
+    let parentPage = getCurrentPages()
+    parentPage[parentPage.length - 2].handleDeleteLike()
+  },
+
+  // 添加喜欢
+  handleAddLike() {
+    this.setData({
+      isLike: true,
+      likeCount: this.data.likeCount - 0 + 1,
+    })
+
+    let parentPage = getCurrentPages()
+    parentPage[parentPage.length - 2].handleAddLike()
+
+  },
+
+  // 删除点赞
+  handleDeletePraise(e) {
+    console.log(e.currentTarget.dataset.index, '删除点赞')
+    let index = e.currentTarget.dataset.index
+    let id = e.currentTarget.dataset.commentId
+    this._handlePraise(id, index) // 处理页面效果
+
+    http.fxDelete(api.shop_windows_comments_praises, {
+      comment_id: id
+    }, result => {
+      console.log(result)
+      if (result.success) {} else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 点赞
+  handlePraise(e) {
+    console.log(e.currentTarget.dataset.index, '添加点赞')
+    let index = e.currentTarget.dataset.index
+    let id = e.currentTarget.dataset.commentId
+    this._handlePraise(id, index) // 处理页面效果
+
+    http.fxPost(api.shop_windows_comments_praises, {
+      comment_id: id
+    }, result => {
+      console.log(result)
+      if (result.success) {} else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+  // 处理点赞后的页面效果
+  _handlePraise(e, i) {
+    let id = e
+    let comments = this.data.comments
+
+    comments.forEach((item, idx) => {
+
+      // 本页父级评论点赞
+      if (item.comment_id == id) {
+        item.praise_count = item.is_praise ? item.praise_count - 1 : item.praise_count + 1,
+          item.is_praise = !item.is_praise
+
+        // 更改上一页的 点赞
+        this._handleParentPagePraise(i)
+      }
+
+      // 本页 子级评论点赞
+      item.sub_comments.forEach((v, i) => {
+        if (v.comment_id == id) {
+          v.praise_count = v.is_praise ? v.is_praise - 1 : v.praise_count + 1,
+            v.is_praise = !v.is_praise
+        }
+      })
+    })
+
+    this.setData({
+      comments: comments
+    })
+  },
+
+  // 处理上一页的点赞
+  _handleParentPagePraise(e) {
+    console.log(e)
+
+    // 因为上级页面只有3个评论显示，所以只改变上一页的3个就可以
+    if (e < 3) {
+      let page = getCurrentPages()
+      let parentPage = page[page.length - 2]
+      let parentComments = parentPage.data.comments
+
+      let isPraise = parentComments[e].is_praise
+      let praiseCount = parentComments[e].praise_count
+
+      parentComments[e].praise_count = isPraise ? praiseCount - 1 : praiseCount + 1
+      parentComments[e].is_praise = !isPraise
+
+      parentPage.setData({
+        comments: parentComments
+      })
+    }
+  },
+
   /**
    * 获取子评论
    */
@@ -61,21 +174,21 @@ Page({
     let pid = e.currentTarget.dataset.commentId
     let commentList = this.data.comments[index].sub_comments
 
-    let page = commentList[commentList.length-1].current_page
-    console.log(page,"当前页面")
+    let page = commentList[commentList.length - 1].current_page
+    console.log(page, "当前页面")
 
     this.setData({
-      'childrenParams.pid':pid,
+      'childrenParams.pid': pid,
       'childrenParams.page': page + 1
     })
 
     http.fxGet(api.shop_windows_child_comments, this.data.childrenParams, result => {
       console.log(result)
-      if (page==0) {
+      if (page == 0) {
         commentList = []
       }
 
-      result.data.comments.forEach((v,i) => {
+      result.data.comments.forEach((v, i) => {
         v.current_page = result.data.comments.current_page
         v.created_at_cn = utils.commentTime(v.created_at)
       })
@@ -134,7 +247,7 @@ Page({
         })
 
         wx.setNavigationBarTitle({
-          title: result.data.count-0 +1 + '条评论',
+          title: result.data.count - 0 + 1 + '条评论',
         })
 
         this.getComment()
@@ -181,8 +294,8 @@ Page({
 
   /**
    * 查看更多的主评论
-  */
-  handleAllComment(){
+   */
+  handleAllComment() {
     this.setData({
       'getCommentParams.page': this.data.getCommentParams.page + 1
     })
@@ -190,11 +303,11 @@ Page({
     this.getComment()
   },
 
-// 更新父级评论
-  _handleParentUpdata(){
+  // 更新父级评论
+  _handleParentUpdata() {
     let page = getCurrentPages()
     page[page.length - 2].getComment()
-    console.log(page[page.length - 2],'fujiyemain')
+    console.log(page[page.length - 2], 'fujiyemain')
   },
 
   /**
@@ -224,19 +337,19 @@ Page({
         const timePromise = new Promise((resolve, reject) => {
           result.data.comments.forEach((v, i) => {
             v.created_at_cn = utils.commentTime(v.created_at)
-            v.sub_comments.forEach((item,idx) => {
+            v.sub_comments.forEach((item, idx) => {
               item.current_page = 0
               item.created_at_cn = utils.commentTime(item.created_at)
             })
 
             // 循环完毕
-            if (result.data.comments.length-1==i) {
+            if (result.data.comments.length - 1 == i) {
               resolve()
             }
           })
         })
-        
-        timePromise.then(()=>{
+
+        timePromise.then(() => {
           let data = this.data.comments
           this.setData({
             comments: data.concat(result.data.comments), // 橱窗评论
@@ -268,7 +381,9 @@ Page({
       'sonCommentParams.pid': options.pid,
       windowRid: options.rid,
       submitTarget: options.submitTarget,
-      isShowComment: options.isInput == 0 ? false : true
+      isShowComment: options.isInput == 0 ? false : true,
+      isLike: options.isLike == 'true' ? true : false,
+      likeCount: options.likeCount,
     })
 
     this.getComment() // 获取评论

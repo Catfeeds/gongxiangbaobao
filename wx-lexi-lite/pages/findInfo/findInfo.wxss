@@ -335,6 +335,7 @@ image {
 
 .zan-box {
   padding: 13rpx 0;
+  min-width: 82rpx;
 }
 
 .pading-bottom--40rpx {

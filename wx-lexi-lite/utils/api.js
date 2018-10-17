@@ -156,6 +156,7 @@ module.exports = {
   core_platforms_search_hot_recommend: 'core_platforms/search/hot_recommend', // 热门推荐
   shop_windows_comments:'shop_windows/comments', // 橱窗的评论
   shop_windows_child_comments:'shop_windows/child_comments', // 获取子评论
+  shop_windows_comments_praises:'shop_windows/comments/praises', // 对子评论点赞 // 以及删除
 
   // 核心 store
   users_user_dynamic: "users/user_dynamic", // 获取自己的动态
@@ -223,6 +224,8 @@ module.exports = {
   market_bonus_lines: 'market/bonus_lines', // 分享领取红包的人
   market_official_coupons: 'market/official_coupons', // 领券中心
   market_core_user_coupons:'market/core_user_coupons', // 核心小程序的获取优惠券
+  market_coupon_lines:'market/coupon_lines', // 领券中心的头部领券信息
+
   // Search  
   search: 'search/products', // POST 搜索商品
   search_history: 'search/history', // GET 搜索历史关键词

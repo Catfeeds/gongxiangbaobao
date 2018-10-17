@@ -54,8 +54,7 @@ Page({
 
   // 取消喜欢橱窗
   handleDeleteLike(e) {
-    console.log(e.currentTarget.dataset.rid)
-    let rid = e.currentTarget.dataset.rid
+    let rid = this.data.windowRid
     http.fxDelete(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
@@ -69,6 +68,49 @@ Page({
     this._handleParentLikeWindow(false)
   },
 
+  // 点赞父级别橱窗
+  handleParentPraise(e) {
+    let index = e.currentTarget.dataset.index
+    let commentId = this.data.comments[index].comment_id
+
+    this.setData({
+      ['comments[' + index + '].is_praise']: true,
+      ['comments[' + index + '].praise_count']: this.data.comments[index].praise_count + 1
+    })
+    http.fxPost(api.shop_windows_comments_praises, {
+      comment_id: commentId
+    }, result => {
+      console.log(result)
+      if (result.success) {
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 删除父级的赞
+  handleDeletePraise(e) {
+    let index = e.currentTarget.dataset.index
+    let commentId = this.data.comments[index].comment_id
+
+    this.setData({
+      ['comments[' + index + '].is_praise']: false,
+      ['comments[' + index + '].praise_count']: this.data.comments[index].praise_count - 1
+    })
+
+    http.fxDelete(api.shop_windows_comments_praises, {
+      comment_id: commentId
+    }, result => {
+      console.log(result)
+      if (result.success) {
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 添加喜欢橱窗
   handleAddLike(e) {
     // 是否登陆
@@ -80,8 +122,8 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.rid)
-    let rid = e.currentTarget.dataset.rid
+    console.log(this.data.windowRid)
+    let rid = this.data.windowRid
     http.fxPost(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
@@ -193,7 +235,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&commentCount=' + this.data.commentsCount,
+      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.windowDetail.is_like + '&likeCount=' + this.data.windowDetail.like_count
     })
   },
 

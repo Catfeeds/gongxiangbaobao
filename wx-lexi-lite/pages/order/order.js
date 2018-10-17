@@ -5,11 +5,17 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
+let paymentWindowInterval
+
 Page({
   /**
    * 页面的初始数据 orders
    */
   data: {
+    // 订单参数
+    mergePaymentProduct: [],
+    isMergeShow: false,
+
     isLoading: true,
     // orderList:[],
     allOrderList: [], //全部订单
@@ -29,8 +35,7 @@ Page({
 
     // navbar
     currentStatus: 0,
-    navList: [
-      {
+    navList: [{
         title: '全部',
         status: 0
       },
@@ -88,6 +93,13 @@ Page({
     }
   },
 
+  // 关闭支付弹框
+  handleOffpayment() {
+    this.setData({
+      isMergeShow: false
+    })
+  },
+
   // 选择
   handleStatus(e) {
     console.log(e)
@@ -104,6 +116,19 @@ Page({
     wx.navigateTo({
       url: '../orderInfo/orderInfo?rid=' + rid
     })
+  },
+
+  _handlePaymenLastTime(data) {
+
+    data.forEach((v, i) => {
+      v.current_time += 1
+      if (v.current_time - v.created_at < 600) {
+        v.orderTime = utils.timestamp2ms(600 - (v.current_time - v.created_at))
+      } else {
+        v.orderTime = ''
+      }
+    })
+    return data
   },
 
   // 获取订单列表--- 
@@ -123,6 +148,14 @@ Page({
           allOrderList: allOrderList.concat(result.data.orders),
           isNextAll: result.data.next
         })
+
+        let newOrderList = this.data.allOrderList
+        setInterval(() => {
+          this.setData({
+            allOrderList: this._handlePaymenLastTime(newOrderList)
+          })
+        }, 1000)
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -145,6 +178,14 @@ Page({
           daifu: daifuList.concat(result.data.orders),
           isNextDaifu: result.data.next
         })
+
+        let newOrderList = this.data.daifu
+        setInterval(() => {
+          this.setData({
+            daifu: this._handlePaymenLastTime(newOrderList)
+          })
+        }, 1000)
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -216,6 +257,11 @@ Page({
     })
   },
 
+  // 支付合并订单
+  mergePaymentBtn() {
+    app.wxpayOrder(this.data.mergePaymentProduct.order_rid, this.data.mergePaymentProduct)
+  },
+
   // 付款
   paymentBtn(e) {
     console.log(e)
@@ -234,10 +280,41 @@ Page({
 
     // 获取订单签名
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
-      console.log(result)
+      console.log(result, '获取订单签名')
       if (result.success) {
-        
-        app.wxpayOrder(order.rid, result.data)
+
+        if (result.data.is_merge) {
+          // 多个产品使用了同一个优惠券，不能直接支付
+          this.setData({
+            mergePaymentProduct: result.data,
+            isMergeShow: true
+          })
+
+          // 处理倒计时
+          let newPayment = this.data.mergePaymentProduct
+          paymentWindowInterval = setInterval(() => {
+            newPayment.current_at += 1
+            newPayment.orderTime = newPayment.current_at.toFixed(0) - newPayment.created_at
+
+            if (newPayment.orderTime < 600) {
+              newPayment.orderTime = utils.timestamp2ms(600 - newPayment.orderTime)
+              this.setData({
+                mergePaymentProduct: newPayment
+              })
+            } else {
+              clearInterval(paymentWindowInterval)
+              this.setData({
+                isMergeShow: false
+              })
+            }
+
+          }, 1000)
+
+        } else {
+          // // 多个产品使用了同一个优惠券 ，直接支付
+          app.wxpayOrder(order.rid, result.data)
+        }
+
         let allshouhuoData = this.data.allOrderList
         allshouhuoData.forEach((v, i) => {
           if (v.rid == rid) {
@@ -500,5 +577,5 @@ Page({
       url: '../logisticsWatch/logisticsWatch?code=' + code + '&logisticsNumber=' + logisticsNumber + '&expressName=' + expressName
     })
   }
-  
+
 })

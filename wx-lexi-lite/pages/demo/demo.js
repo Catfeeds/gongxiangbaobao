@@ -1,4 +1,9 @@
 // pages/demo/demo.js
+const app = getApp()
+
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
 Page({
 
   /**
@@ -7,16 +12,18 @@ Page({
   data: {
     rpx: '',
     showText: '乐喜',
-    step: 1,// 计数动画次数
-    num: 0,// 计数倒计时秒数（n - num）
-    end: 1.5 * Math.PI,// 开始的弧度
-    start: -0.5 * Math.PI,// 结束的弧度
+    step: 1, // 计数动画次数
+    num: 0, // 计数倒计时秒数（n - num）
+    end: 1.5 * Math.PI, // 开始的弧度
+    start: -0.5 * Math.PI, // 结束的弧度
     timer: null, // 计时器容器
     animationTime: 100, // 每1秒运行一次计时器
-    n: 100 // 当前倒计时为10秒
+    n: 100, // 当前倒计时为10秒
+
+    couponlines: []
   },
 
-  drawProgressbg () {
+  drawProgressbg() {
     // 使用 wx.createContext 获取绘图上下文 context
     let ctx = wx.createCanvasContext('canvasProgressbg')
     ctx.setLineWidth(10 * this.data.rpx) // 设置圆环的宽度
@@ -29,7 +36,7 @@ Page({
   },
 
   // 画布绘画函数
-  drawRingMove (s, e) {
+  drawRingMove(s, e) {
     let context = wx.createCanvasContext('canvasProgress')
 
     // 绘制圆环
@@ -56,7 +63,7 @@ Page({
   },
 
   // 开启动画
-  startAnimation () {
+  startAnimation() {
     if (this.data.step <= this.data.n) {
       let end = this.data.end - 2 * Math.PI / this.data.n
       let step = this.data.step + 1
@@ -70,10 +77,42 @@ Page({
     }
   },
 
+  donghua() {
+    http.fxGet(api.market_coupon_lines, {}, res => {
+      console.log(res, "领取信息")
+      // this.setData({
+      //   coupon_lines:res.data.coupon_lines
+      // })
+      let index = 0
+
+      setInterval(() => {
+
+        let data = this.data.couponlines
+        data = []
+        this.setData({
+          couponlines: data
+        })
+        
+        data.unshift(res.data.coupon_lines[index])
+
+        this.setData({
+          couponlines: data
+        })
+        // console.log(this.data.couponlines)
+
+      }, 5000)
+
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    this.donghua()
+
+
     // 倒计时前先绘制整圆的圆环
     this.drawRingMove(this.data.start, this.data.end)
 
@@ -95,7 +134,7 @@ Page({
         })
       }
     })
-    
+
     console.log(this.data.rpx, '像素转换')
 
     this.drawProgressbg()
