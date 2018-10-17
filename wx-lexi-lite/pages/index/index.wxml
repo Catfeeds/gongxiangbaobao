@@ -624,85 +624,179 @@
 
   </view>
 
-  <!-- 发现 -->
-  <view class="bg-white page-explore {{ pageActiveTab == 'find' ? 'active' : '' }} find-page">
-
-    <!-- 轮播图 -->
-    <view class="find-swiper">
-      <swiper class="advertisement-swiper" interval="{{5000}}" autoplay="{{true}}" bindchange="handleSwiperChange" duration="{{500}}">
-        <swiper-item wx:for="{{advertisement.banner_images}}" data-rid="{{item.rid}}" data-link="{{item.link}}" data-type="{{item.type}}" catchtap="handleLiveInfo" data-rid="{{item.rid}}" wx:key="{{index}}">
-          <image src="{{item.image}}" class="slide-image {{readyOver?'load-over__null--photo':'loading-bg'}}" />
-        </swiper-item>
-      </swiper>
-
-      <view class="flex_row find-swiper__round">
-        <view wx:for="{{advertisement.banner_images}}" class="{{swiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
-      </view>
-    </view>
-
-    <!-- 生活志主题 -->
+  <!-- 橱窗 -->
+  <view class="bg-white page-explore {{ pageActiveTab == 'window' ? 'active' : '' }} window-page">
     <view>
-      <view class="font-xxl font-width--semibold margin-left--40rpx category-title__big">生活志主题</view>
-      <view class="font-s margin-left--40rpx category-title__min">我们用贴日子里的大小事。</view>
-      <scroll-view scroll-x class="live-records__box">
-        <view wx:for="{{liveTheme}}" wx:key="{{index}}" catchtap="handleToListPage" data-target="{{item.target}}" class="live-records {{index==0?'margin-left--40rpx':''}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.img}}"></image>
-          <view class="font-m font-width--medium">{{item.name}}</view>
-        </view>
-      </scroll-view>
-    </view>
+      <!-- 添加页面加载 -->
+      <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
-    <!-- 猜你喜欢 -->
-    <view class="border-bottom">
-      <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
-        <text class='font-xxl font-width--semibold'>猜你喜欢</text>
-        <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
-      </view>
-      <view class='column-direction new-goods_box '>
-        <view wx:if="{{index<4}}" data-category="猜你喜欢" data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleToliveNote" class='flex-direction--column productionGoods ' wx:for="{{youLike.life_records}}" wx:key='{{index}}'>
-
-          <image src="{{item.cover}}-p326x216" wx:if="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
-
-          <image wx:else class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
-
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
-          <text class='font-s shen-hui text-two_line line-height--40rpx'>{{item.title}}</text>
-          <view class='plant-owner__box flex_row'>
-            <image src="{{ item.user_avator }}" class='plant-owner__photo'></image>
-            <text class="font-s shen-hui">{{item.user_name}}</text>
+      <!-- 头图 -->
+      <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
+        <image></image>
+        <view class="mask">
+          <view class="content">
+            <view class="big-title">
+              发现生活美学
+            </view>
+            <view class="description">
+              发掘好物，品味生活，
+            </view>
+            <view class="description02">
+              寻找搭配灵感，塑造自己的独特风格
+            </view>
           </view>
         </view>
       </view>
-    </view>
 
-    <!-- 精彩故事 -->
-    <view class="">
-      <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
-        <text class='font-xxl font-width--semibold'>精彩故事</text>
-        <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
-      </view>
-      <view class='column-direction new-goods_box '>
-        <view wx:if="{{index<4}}" data-category="精彩故事" data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleToliveNote" class='flex-direction--column productionGoods ' wx:for="{{wonderfulStories.life_records}}" wx:key='{{index}}'>
-          <image src="{{item.cover}}-p326x216" wx:if="{{item.cover}}" class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
-
-          <image wx:else class="img--style {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
-
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>
-          <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--kafei" wx:if="{{index==3}}">生活记事</text>
-          <text class='font-s shen-hui text-two_line line-height--40rpx'>{{item.title}}</text>
-          <view class='margin-top--8rpx flex_row'>
-            <image src="{{ item.user_avator }}" class='plant-owner__photo'></image>
-            <text class="font-s shen-hui">{{ item.user_name }}</text>
-          </view>
+      <!-- tabs -->
+      <view class="page-section fx-tabs height--80rpx">
+        <view class="tab-item {{categoryActive==item.code?'active':''}}" wx:for="{{category}}" catchtap='handleToggleCategory' data-code="{{item.code}}" wx:key="{{index}}">
+          <text>{{item.name}}</text>
         </view>
       </view>
+
+      <!-- 橱窗列表 -->
+      <view class="page-section fx-windows">
+
+        <!-- 推荐 -->
+        <block wx:if="{{categoryActive=='recommend'}}">
+          <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">
+            <view class="fx-window__author">
+              <view class="author-info">
+                <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+                <label class="name font-width--medium">{{item.user_name}}</label>
+                <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+                <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
+              </view>
+              <button class="btn-follow fx-button--text primary black-font" wx:if="{{!item.is_follow && myUid!=item.uid}}" data-index="{{index}}" data-uid="{{item.uid}}" catchtap="handleAddFollow">关注</button>
+              <button class="btn-follow fx-button--text primary qian-hui black-font" data-index="{{index}}" data-uid="{{item.uid}}" wx:if="{{item.is_follow && myUid!=item.uid}}" catchtap="handleDeleteFollow">已关注</button>
+            </view>
+
+            <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
+              <view class="image-container">
+                <view class="image-item">
+                  <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                </view>
+              </view>
+              <view class="image-container half">
+                <view class="image-item">
+                  <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
+                </view>
+                <view class="image-item">
+                  <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
+                  <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
+                </view>
+              </view>
+            </view>
+
+            <view class="fx-window__actions">
+              <view class="like-comment">
+                <view class="done ">
+                  <image wx:if="{{item.is_like}}" catchtap="handleDeleteLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
+                  <image wx:else catchtap="handleAddLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+                  <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+                </view>
+                <view class="remark">
+                  <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
+                  <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
+                </view>
+              </view>
+              <view class="share">
+                <view class="done">
+                  <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+                </view>
+              </view>
+            </view>
+
+            <view class="fx-window__body">
+              <view class="title line-height--30rpx margin-bottom--24rpx"> {{item.title}} </view>
+              <view class="summary "> {{item.description}} </view>
+              <view class="keywords line-height--24rpx">
+                <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
+              </view>
+
+            </view>
+          </view>
+
+          <!-- 推荐的缺省图 -->
+          <view wx:if="{{recommendWindow.count==0}}"></view>
+        </block>
+
+        <!-- 关注 -->
+        <block wx:if="{{categoryActive=='follow'}}">
+          <view class="fx-window" wx:for="{{followWindow.shop_windows}}" wx:key="{{index}}">
+            <view class="fx-window__author">
+              <view class="author-info">
+                <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+                <label class="name">{{item.user_name}}</label>
+                <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
+                <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
+              </view>
+              <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow}}">关注</button>
+              <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:else>已关注</button>
+            </view>
+
+            <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
+              <view class="image-container">
+                <view class="image-item">
+                  <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                </view>
+              </view>
+              <view class="image-container half">
+                <view class="image-item">
+                  <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
+                </view>
+                <view class="image-item">
+                  <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
+                  <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
+                </view>
+              </view>
+            </view>
+
+            <view class="fx-window__actions">
+              <view class="like-comment">
+                <view class="done">
+                  <image catchtap="handleDeleteLike" data-rid="{{item.rid}}" wx:if="{{item.is_like}}" src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
+                  <image wx:else catchtap="handleAddLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+                  <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+                </view>
+                <view class="remark">
+                  <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
+                  <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
+                </view>
+              </view>
+              <view class="share">
+                <view class="done">
+                  <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+                </view>
+              </view>
+            </view>
+
+            <view class="fx-window__body">
+              <view class="title line-height--30rpx margin-bottom--24rpx"> {{item.title}} </view>
+
+              <view class="summary"> {{item.description}} </view>
+
+              <view class="keywords line-height--24rpx">
+                <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
+              </view>
+
+            </view>
+          </view>
+        </block>
+
+        <view class="window-publish">
+          <button class="fx-button--text btn-plus" catchtap="handleGoAddWindow">
+            <text>拼贴我的橱窗</text>
+            <image src="../../images/icons/icon-plus@3x.png" class="icon-plus"></image>
+          </button>
+        </view>
+      </view>
+
+      <!-- 登陆注册模态框 -->
+      <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
     </view>
-    <view class="shm"></view>
+
 
   </view>
 

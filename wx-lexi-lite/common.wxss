@@ -402,171 +402,129 @@ button::after {
 .category-list {
 }
 
-/* 发现页面的样式 start*/
+/* 首页的 橱窗 start*/
 
-.find-page .find-swiper {
+.window-page .headline {
   position: relative;
-  height: 360rpx;
-  width: 670rpx;
-  border-radius: 8rpx;
-  overflow: hidden;
-  margin: 20rpx 40rpx;
-  /* background-color: red; */
-  margin-bottom: 60rpx;
+  background-color: #fff;
 }
 
-.find-page .find-swiper swiper {
-  height: 100%;
+.window-page .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 9;
+  background: linear-gradient(rgba(187, 153, 104, 1), rgba(255, 255, 255, 0));
 }
 
-.find-page .find-swiper image {
-  border-radius: 8rpx;
-  height: 100%;
+.window-page .mask .content {
+  padding: 40rpx;
+  color: #fff;
+}
+
+.window-page .mask .content .big-title {
+  font-size: 48rpx;
+  font-weight: 500;
+  margin-bottom: 26rpx;
+}
+
+.window-page .mask .content .description {
+  font-size: 28rpx;
+}
+
+.window-page .mask .content .description02 {
+  font-size: 30rpx;
+}
+
+/* 橱窗 */
+
+.window-page .fx-windows {
+  position: relative;
+  padding-bottom: 90rpx;
+}
+
+.window-page .fx-windows .window-publish {
+  position: absolute;
+  bottom: 124rpx;
+  left: 0rpx;
+  z-index: 9;
   width: 100%;
 }
 
-.find-page .find-swiper__round {
-  position: absolute;
-  bottom: 30rpx;
-  right: 30rpx;
+.window-page .fx-windows .window-publish.is-fixed {
+  position: fixed;
 }
 
-.find-page .category-title__big {
-  margin-bottom: 20rpx;
+.window-page .fx-windows .window-publish .btn-plus {
+  width: 244rpx;
+  margin: 0 auto;
+  background-color: #fff;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
-.find-page .category-title__min {
-  color: #555;
-  margin-bottom: 40rpx;
+.window-page .fx-windows .window-publish .btn-plus text {
+  font-size: 24rpx;
+  color: rgb(102, 102, 102);
+  margin-right: 12rpx;
+  margin-left: 25rpx;
 }
 
-.find-page .live-records__box {
-  height: 300rpx;
-  white-space: nowrap;
-  overflow: auto;
-  border-bottom: 1rpx solid #e9e9e9;
-  padding-bottom: 32rpx;
+.window-page .fx-windows .window-publish .btn-plus .icon-plus {
+  width: 30rpx;
+  height: 30rpx;
 }
 
-.find-page .live-records {
-  display: inline-block;
-  width: 210rpx;
-  margin-right: 20rpx;
+.window-page .border-round {
+  border-radius: 50%;
 }
 
-.find-page .live-records image {
-  height: 210rpx;
-  width: 210rpx;
-  border-radius: 8rpx;
-  margin-bottom: 10rpx;
+.window-page .icon-star, .icon-offical {
+  margin-right: 10rpx;
 }
 
-.find-page .category__title {
-  margin-top: 60rpx;
+.window-page .page-section.headline {
+  margin: 0;
 }
 
-.find-page .margin-left--40rpx {
-  margin-left: 40rpx;
-}
-
-.find-page .margin-right--40rpx {
-  margin-right: 40rpx;
-}
-
-.find-page .margin-bottom--34rpx {
-  margin-bottom: 34rpx;
-}
-
-.find-page .margin-bottom--40rpx {
-  margin-bottom: 40rpx;
-}
-
-.find-page .margin-bottom--10rpx {
-  margin-bottom: 10rpx;
-}
-
-.find-page .margin-top--8rpx {
-  margin-top: 8rpx;
-}
-
-.find-page .margin-bottom--36rpx {
-  margin-bottom: 36rpx;
-}
-
-/* 字体大小 */
-
-.find-page .font-xss {
-  line-height: 20rpx;
-}
-
-.find-page .font-ss {
-  line-height: 22rpx;
-}
-
-.find-page .font-s {
-  line-height: 24rpx;
-}
-
-.find-page .font-m {
-  line-height: 26rpx;
-}
-
-.find-page .black-font {
-  line-height: 28rpx;
-}
-
-.find-page .font-sxl {
-  line-height: 30rpx;
-}
-
-.find-page .font-xl {
-  line-height: 32rpx;
-}
-
-.find-page .font-xxl {
-  line-height: 34rpx;
-}
-
-.find-page .line-height--40rpx {
+.window-page .fx-tabs .tab-item text {
+  margin-bottom: 0rpx;
   line-height: 40rpx;
 }
 
-.find-page .find-swiper__round .swiperActive {
-  background-color: rgba(255, 255, 255, 1);
+.window-page .height--80rpx {
+  height: 80rpx;
 }
 
-.find-page .find-swiper__round view {
-  height: 14rpx;
-  width: 14rpx;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
-  margin-right: 18rpx;
+.window-page .btn-follow.qian-hui {
+  color: #999;
 }
 
-.find-page .color--huilv {
-  color: #75ab9a;
+.window-page .line-height--30rpx {
+  line-height: 30rpx;
 }
 
-.find-page .color--huihong {
-  color: #e3b395;
+.window-page .line-height--24rpx {
+  line-height: 24rpx;
 }
 
-.find-page .color--huilan {
-  color: #829d7a;
+.window-page .margin-bottom--24rpx {
+  margin-bottom: 24rpx !important;
 }
 
-.find-page .color--kafei {
-  color: #8c7a6e;
+.window-page .fx-windows .window-publish {
+  position: fixed;
+  bottom: 20rpx;
+  width: 100%;
 }
 
-.find-page .column-direction {
-  padding: 40rpx 40rpx 0;
-  column-count: 2;
-  column-gap: 0;
+.window-page .headline {
+  border-radius: 0;
 }
 
-.find-page .column-direction>view {
-  break-inside: avoid;
-}
-
-/* 发现页面的样式 end*/
+/* 首页的橱窗 end*/

@@ -173,7 +173,6 @@ Page({
     middleAdvertisementList: [], // 精选的中间广告
     swiperIndex: 0, // 旋转木马当前选中项目
     storeHeadlines: [], // 生活馆头条
-    recommendWindow: [], // 发现生活美学
     plantOrderList: { // 种草清单
       life_records: [{
           cover: '',
@@ -247,87 +246,34 @@ Page({
       ]
     },
 
-    // 发现
-    advertisement: { // 广告
-      banner_images: [{
-        image: ''
-      }]
+    // 橱窗
+    categoryActive: 'recommend',
+    category: [{
+      name: '关注',
+      code: 'follow'
+    }, {
+      name: '推荐',
+      code: 'recommend'
+    }],
+
+    recommendWindow: { // 推荐橱窗的列表
+      count: 0,
+      shop_windows: []
     },
-    liveTheme: [{
-        name: '创作人故事',
-        target: 1,
-        img: "https://static.moebeast.com/static/img/designer_routine.jpg"
-      },
-      {
-        name: '种草笔记',
-        target: 2,
-        img: "https://static.moebeast.com/static/img/teach.jpg"
-      },
-      {
-        name: '生活记事',
-        target: 3,
-        img: "https://static.moebeast.com/static/img/plant_note.jpg"
-      },
-      {
-        name: '手作教学',
-        target: 4,
-        img: "https://static.moebeast.com/static/img/live_note.jpg"
-      }
-    ],
-    youLike: { // 猜你喜欢
-      life_records: [{
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        },
-        {
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        },
-        {
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        },
-        {
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        }
-      ]
+    recommendWindowParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 5, //Number	可选	10	每页数量
     },
-    wonderfulStories: { // 精彩故事
-      life_records: [{
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        },
-        {
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        },
-        {
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        },
-        {
-          cover: '',
-          description: '',
-          user_avator: '',
-          user_name: ''
-        }
-      ]
+
+    followWindow: { // 关注橱窗的列表
+      count: 0,
+      shop_windows: []
     },
+    followWindowParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 5, //Number	可选	10	每页数量
+    },
+
 
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'featured',
@@ -352,8 +298,8 @@ Page({
       },
       {
         rid: 'p4',
-        name: 'find',
-        title: '发现',
+        name: 'window',
+        title: '橱窗',
         disabled: false
       }
     ],
@@ -1019,84 +965,42 @@ Page({
 
   /** 探索页面 **/
 
-  // 发现s
-  // 生活志详情
-  handleLiveInfo(e) {
-    let targetType = e.currentTarget.dataset.type
-    let link = e.currentTarget.dataset.link
-    console.log(e, 'find top')
-
-    if (targetType == 1) {
-
-    }
-
-    if (targetType == 2) {
-      wx.navigateTo({
-        url: '../product/product?rid=' + link
+  /**橱窗 s**/
+  // 切换橱窗
+  handleToggleCategory(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
       })
+      return
     }
 
-    if (targetType == 3) {
-      wx.navigateTo({
-        url: '../categoryList/categoryList?categryId=' + link
-      })
-    }
-
-    if (targetType == 4) {
-      wx.navigateTo({
-        url: '../branderStore/branderStore?rid=' + link
-      })
-    }
-  },
-
-  handleToListPage(e) {
-    let data = ''
-    switch (e.currentTarget.dataset.target) {
-      case 1:
-        data = 'designerAffair';
-        break;
-      case 2:
-        data = 'plantNoteList';
-        break;
-      case 3:
-        data = 'liveNoteList';
-        break;
-      case 4:
-        data = 'teachList';
-        break;
-    }
-
-    wx.navigateTo({
-      url: '../' + data + '/' + data,
+    console.log(e)
+    this.setData({
+      categoryActive: e.currentTarget.dataset.code
     })
   },
 
-  // 精彩故事和猜你喜欢跳转
-  handleToliveNote(e) {
-    let targetType = e.currentTarget.dataset.type
-    let rid = e.currentTarget.dataset.rid
+  // 获取关注橱窗
+  getFollowWindow() {
+    http.fxGet(api.shop_windows_follow, this.data.followWindowParams, result => {
+      console.log(result, "关注人发布的橱窗")
+      if (result.success) {
+        let windowList = this.data.followWindow.shop_windows
+        this.setData({
+          'followWindow.count': result.data.count,
+          'followWindow.next': result.data.next,
+          'followWindow.shop_windows': windowList.concat(result.data.shop_windows)
+        })
 
-    // 1: 文章
-    if (targetType == 1) {
-      wx.navigateTo({
-        url: '../findInfo/findInfo?rid=' + rid,
-      })
-    }
-
-    // 2: 种草笔记
-    if (targetType == 2) {
-      wx.navigateTo({
-        url: '../plantNoteInfo/plantNoteInfo?rid=' + rid,
-      })
-    }
-
-    // 跳转视频
-    if (targetType == 3) {
-
-    }
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
-
-  // 发现e
+  /**橱窗 e**/
 
 
   // 广告位置
@@ -1228,6 +1132,141 @@ Page({
       console.log(result, '添加浏览者')
       this.getBrowsePeople()
     })
+  },
+
+  // 去拼接橱窗
+  handleGoAddWindow() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    wx.navigateTo({
+      url: '../addWindow/addWindow',
+    })
+  },
+
+  // 取消关注人
+  handleDeleteFollow(e) {
+    let uid = e.currentTarget.dataset.uid
+    this._handleFollow(uid, false)
+
+    http.fxPost(api.unfollow_user, {
+      uid: uid
+    }, result => {
+      console.log(result, "取消关注")
+    })
+  },
+
+  // 添加关注人
+  handleAddFollow(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    console.log(e.currentTarget.dataset.uid)
+    let uid = e.currentTarget.dataset.uid
+    this._handleFollow(uid, true)
+
+    http.fxPost(api.follow_user, {
+      uid: uid
+    }, result => {
+      console.log(result, "添加关注")
+      this.getFollowWindow()
+    })
+  },
+
+  // 处理关注
+  _handleFollow(uid, option) {
+    let recommendData = this.data.recommendWindow.shop_windows
+    recommendData.forEach((v, i) => {
+      if (v.uid == uid) {
+        v.is_follow = option
+      }
+    })
+
+    let followData = this.data.followWindow.shop_windows
+    followData.forEach((v, i) => {
+      if (v.uid == uid) {
+        v.is_follow = option
+      }
+    })
+
+    this.setData({
+      'followWindow.shop_windows': followData,
+      'recommendWindow.shop_windows': recommendData
+    })
+
+  },
+
+  // 添加喜欢橱窗
+  handleAddLike(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    console.log(e.currentTarget.dataset.rid)
+    let rid = e.currentTarget.dataset.rid
+    http.fxPost(api.shop_windows_user_likes, {
+      rid: rid
+    }, result => {
+      console.log(result, "添加喜欢橱窗")
+    })
+
+    this._handleLikeWindow(rid, true)
+  },
+
+
+  // 取消喜欢橱窗
+  handleDeleteLike(e) {
+    console.log(e.currentTarget.dataset.rid)
+    let rid = e.currentTarget.dataset.rid
+    http.fxDelete(api.shop_windows_user_likes, {
+      rid: rid
+    }, result => {
+      console.log(result, "添加喜欢橱窗")
+    })
+
+    this._handleLikeWindow(rid, false)
+  },
+
+  // 处理添加或者删除喜欢橱窗
+  _handleLikeWindow(rid, value) {
+    let recommend = this.data.recommendWindow.shop_windows
+    let follow = this.data.followWindow.shop_windows
+
+    recommend.forEach(v => {
+      if (v.rid == rid) {
+        v.is_like = value
+        v.like_count = value ? v.like_count + 1 : v.like_count - 1
+      }
+    })
+
+    follow.forEach(v => {
+      if (v.rid == rid) {
+        v.is_like = value
+        v.like_count = value ? v.like_count + 1 : v.like_count - 1
+      }
+    })
+
+    this.setData({
+      'recommendWindow.shop_windows': recommend,
+      'followWindow.shop_windows': follow
+    })
+
   },
 
   // 获取浏览记录
@@ -1609,14 +1648,16 @@ Page({
     })
   },
 
-  getWindow() {
-    http.fxGet(api.shop_windows_recommend, {
-      per_page: 5
-    }, result => {
-      console.log(result, "获取推荐的橱窗")
+  // 获取推荐橱窗列表
+  getRecommendWindow() {
+    http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
+      console.log(result, "获取橱窗列表")
+      let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
         this.setData({
-          recommendWindow: result.data
+          'recommendWindow.count': result.data.count,
+          'recommendWindow.next': result.data.next,
+          'recommendWindow.shop_windows': windowList.concat(result.data.shop_windows)
         })
 
       } else {
@@ -1687,63 +1728,6 @@ Page({
     }
   },
 
-  // 头部广告 发现
-  getAdvertisement() {
-    http.fxGet(api.marketBanners.replace(/:rid/g, 'discover_ad'), {}, (result) => {
-      console.log(result, '发现-头部广告')
-      if (result.success) {
-        this.setData({
-          advertisement: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 猜你喜欢 发现
-  getYouLike() {
-    http.fxGet(api.life_records_guess_likes, {}, (result) => {
-      console.log(result, '猜你喜欢')
-
-      this.setData({
-        isLoadPageShow: false
-      })
-
-      if (result.success) {
-        // 去除标签
-        result.data.life_records.forEach((v) => {
-          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
-        })
-
-        this.setData({
-          youLike: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
-  // 精彩故事
-  getWonderfulStories() {
-    http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
-      console.log(result, '精彩故事')
-      if (result.success) {
-        // 去除标签
-        result.data.life_records.forEach((v) => {
-          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
-        })
-
-        this.setData({
-          wonderfulStories: result.data
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
   // 加载探索页数据
   _loadingExplorePage() {
     this.getExploreAdvertisement() // 广告位
@@ -1763,7 +1747,7 @@ Page({
     this.getTodayRecommend() // 今日推荐
     this.getGrateful() // 人气推荐
     this.getChoiceMiddleAdvertisement() // 中间广告
-    this.getWindow() // 橱窗
+    this.getRecommendWindow() // 橱窗
     this.getLitePick() // 乐喜优选
     this.getPlantOrder() // 种草清单
   },
@@ -1775,13 +1759,6 @@ Page({
     this.getDistributeNewest() // 选品中心入口
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
-  },
-
-  // 加载发现页面
-  _loadingFindPage() {
-    this.getAdvertisement()
-    this.getYouLike() // 猜你喜欢
-    this.getWonderfulStories() // 精彩故事
   },
 
   /**
@@ -1878,7 +1855,7 @@ Page({
     // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
-    this._loadingFindPage()
+    this.getFollowWindow()
   },
 
   /**
@@ -1980,7 +1957,33 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (this.data.pageActiveTab == 'window') {
+      //加载橱窗
+      if (this.data.categoryActive == 'recommend') {
+        if (!this.data.recommendWindow.next) {
+          utils.fxShowToast("没有更多了")
+          return
+        }
+        this.setData({
+          'recommendWindowParams.page': this.data.recommendWindowParams.page + 1
+        })
+        this.getRecommendWindow()
+      }
 
+      // 加载关注
+      if (this.data.categoryActive == 'follow') {
+        if (!this.data.followWindow.next) {
+          utils.fxShowToast("没有更多了")
+          return
+        }
+        this.setData({
+          'followWindowParams.page': this.data.followWindowParams.page + 1
+        })
+
+        this.getFollowWindow()
+      }
+
+    }
   },
 
   /**

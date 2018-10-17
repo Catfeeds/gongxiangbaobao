@@ -133,10 +133,80 @@ App({
   },
 
   // 登录后回调事件
-  hookLoginCallBack() {
+  hookLoginCallBack(jwt) {
     console.log('登录后，执行回调函数')
+
+    // 设置全局变量
+    this.globalData.isLogin = true
+    this.globalData.token = jwt.token || null
+    this.globalData.uid = jwt.uid || 0
+
+    // 更新用户信息
+    this.updateUserInfo(jwt)
+
     // 获取购物车数量
     this.getCartTotalCount()
+  },
+
+  /**
+ * 刷新用户session key
+ */
+  refreshUserSessionKey(cb) {
+    // 调用login获取code
+    wx.login({
+      success: (res) => {
+        // 发送 res.code 到后台换取 openId
+        const code = res.code
+        console.log('Login code: ' + code)
+
+        let params = {
+          code: code,
+          auth_app_id: this.globalData.app_id
+        }
+
+        // 更新用户Session key
+        http.fxPost(api.auth_refresh_session, params, (res) => {
+          console.log(res, '刷新session成功')
+          if (!res.success) {
+            utils.fxShowToast(res.status.message)
+          } else {
+            return typeof cb == 'function' && cb(true)
+          }
+        })
+      }
+    })
+  },
+
+  /**
+ * 获取用户授权手机号
+ */
+  handleGotPhoneNumber(e, cb) {
+    console.log(e,'授权信息')
+    http.fxPost(api.wxa_authorize_bind_mobile, {
+      auth_app_id: this.globalData.app_id,
+      encrypted_data: e.detail.encryptedData,
+      iv: e.detail.iv,
+      openid: this.globalData.jwt.openid
+    }, (res) => {
+      console.log(res, '微信授权手机号')
+      if (res.success) {
+        // 登录成功，得到jwt后存储到storage
+        console.log(res.data, 'jwt信息')
+
+        wx.setStorageSync('jwt', res.data)
+
+        this.globalData.jwt = res.data
+
+        // 回调函数
+        this.hookLoginCallBack(res.data)
+
+        return typeof cb == 'function' && cb(true)
+      } else {
+        utils.fxShowToast(res.status.message)
+
+        return typeof cb == 'function' && cb(false)
+      }
+    })
   },
 
   // 更新用户信息

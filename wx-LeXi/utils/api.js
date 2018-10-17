@@ -10,6 +10,7 @@ module.exports = {
   auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
   bind_mobile: 'accounts/wxa_bind_mobile', //绑定手机号码---
   countries: 'countries', // 获取国家列表
+  auth_refresh_session: 'accounts/refresh_wxa_session', // session 过期则刷新
 
   // User
   user: 'users', // GET 获取用户（当前登录用户）

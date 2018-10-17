@@ -111,6 +111,10 @@ Page({
 
   //去添标签页面
   handleToAddwindowlabel() {
+    if (this.data.windowParams.keywords.length==3){
+      utils.fxShowToast('最多添加3个标签')
+      return
+    }
     wx.navigateTo({
       url: '../addWindowLabel/addWindowLabel',
     })

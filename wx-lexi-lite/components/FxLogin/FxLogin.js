@@ -105,6 +105,7 @@ Component({
      * 微信一键授权回调
      */
     handleGotPhoneNumber(e) {
+      let gotParams = e
       if (e.detail.errMsg == 'getPhoneNumber:ok') {
 
         // 检测当前用户登录态是否有效
@@ -126,10 +127,9 @@ Component({
             })
           },
           fail: (res) => {
-            console.log(res, 'check session fail')
-
+ 
             app.refreshUserSessionKey((e) => {
-              app.handleGotPhoneNumber(e, (success) => {
+              app.handleGotPhoneNumber(gotParams, (success) => {
                 if (success) {
                   this.setData({
                     is_mobile: true,
