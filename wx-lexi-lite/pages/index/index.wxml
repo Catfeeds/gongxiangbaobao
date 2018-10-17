@@ -288,7 +288,7 @@
 
       <scroll-view scroll-x class='c-importantGoodsBox margin-top--30rpx today-recommend-box'>
         <view class='today-recommend {{index==0?"padding-left--40rpx":""}} {{index==todayRecommendList.daily_recommends.length-1?"margin-right--40rpx":""}}' wx:for="{{todayRecommendList.daily_recommends}}" catchtap="handleTodyRecommend" data-type="{{item.target_type}}"
-          data-id="{{item.id}}" data-rid="{{item.rid}}" wx:key="{{index}}">
+          data-id="{{item.id}}" data-rid="{{item.recommend_id}}" wx:key="{{index}}">
           <view class='all-product height---236rpx'>
             <image wx:if="{{item.cover}}" class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.cover}}-p315x236"></image>
 
