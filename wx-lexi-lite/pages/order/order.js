@@ -315,26 +315,6 @@ Page({
           app.wxpayOrder(order.rid, result.data)
         }
 
-        let allshouhuoData = this.data.allOrderList
-        allshouhuoData.forEach((v, i) => {
-          if (v.rid == rid) {
-            allshouhuoData.splice(i, 1)
-            this.setData({
-              allOrderList: allshouhuoData
-            })
-          }
-        })
-
-        let daifuData = this.data.daifu
-        daifuData.forEach((v, i) => {
-          if (v.rid == rid) {
-            daifuData.splice(i, 1)
-            this.setData({
-              daifu: daifuData
-            })
-          }
-        })
-
         this.getDaishouList() // 获取待收货列表---
       } else {
         utils.fxShowToast(result.status.message)

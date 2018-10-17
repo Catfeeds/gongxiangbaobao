@@ -574,8 +574,7 @@ Page({
     }, (result) => {
       console.log(result, '交货时间数据')
       if (result.success && result.data.items.length != 0) {
-        let min = result.data.items[0].min_days
-        let max = result.data.items[0].max_days
+
         result.data.items.forEach((v, i) => {
           if (v.is_default) {
             //循环完毕
@@ -617,6 +616,21 @@ Page({
     }, (result) => {
       console.log(result, '产品详情')
       if (result.success) {
+        // 如果已经下架就删除
+        if (result.data.status == 2) {
+          wx.showModal({
+            title: '很抱歉',
+            content: '该商品已下架',
+            confirmColor: '#5fe4b1',
+            showCancel: false,
+            success: () => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          })
+        }
+
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid

@@ -1,6 +1,6 @@
 <!--pages/user/user.wxml-->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
-<view class='container '>
+<view class='container  user-container'>
   <view class="fx-submenu" wx:if="{{ haveSmallB }}">
     <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}">
       <text>个人主页</text>

@@ -105,8 +105,7 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' catchtap='handelToLikeThisProductTap' data-rid='{{productInfomation.rid}}' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <!-- <image src="{{userPhoto}}" class='photo-round' wx:if="{{productInfomation.is_like}}"></image> -->
-      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' wx:if="{{index<10}}" class='photo-round'></image>
     </view>
     <view class='roundR'>
       <image src='../../images/sandian.png'></image>
@@ -144,7 +143,7 @@
     </view>
 
     <!-- 交货时间 -->
-    <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=null||productInfomation.py_intro!=null}}">
+    <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=0||productInfomation.py_intro!=null}}">
       <view class='titleText'>交货时间</view>
       <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
       </view>
@@ -177,7 +176,6 @@
         <view class='shou'>{{ productInfomation.store_name }}</view>
       </view>
 
-
       <view class='with flex-row-middel bg--hui' wx:if="{{isWatch}}" catchtap='handleDeleteWatch'>
         <view class=''>已关注</view>
       </view>
@@ -200,18 +198,15 @@
   </view>
 
   <!-- 相似产品 -->
-  <view class='shopInfo margin-bottom--30rpx' wx:if="{{}}">
-    <text>相似产品</text>
-
-    <view class='shop-other-goods'>
-      <view wx:for='{{ similarList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleSimilarInfo'>
-
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ item.cover }}-p16' wx:if="{{item.cover}}"></image>
-
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" wx:else></image>
-
-      </view>
+  <view class=' margin-bottom--30rpx similar-photo__box'>
+    <view class="margin-left--30rpx similar-title__box">
+      <view class="similar-title">相似产品</view>
+      <view class="similar-line__bottom"></view>
     </view>
+
+    <scroll-view scroll-x class=''>
+      <image class="similar-photo {{index==0?'margin-left--30rpx':''}} {{similarList.products.length-1==index?'margin-right--30rpx':''}}" src='{{ item.cover }}-p30' wx:for='{{ similarList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleSimilarInfo'></image>
+    </scroll-view>
   </view>
 
   <!-- 产品的详细介绍 -->
@@ -261,10 +256,12 @@
           </view>
         </view>
       </view>
-      <view class='bottom-btn bg-white flex_row--middle pick with--690rpx'>
+      <view wx:if="{{!productInfomation.is_sold_out  && productInfomation.status!=2}}" class='bottom-btn bg-white flex_row--middle pick with--690rpx'>
         <view class='add_cart pick__button border-right__radius--null' catchtap='handleAddCart'>加入购物车</view>
         <view class='btn-bg-color pick__button border-left__radius--null' catchtap='handleQuickBuy'>选好了</view>
       </view>
+
+      <view wx:if="{{productInfomation.is_sold_out && productInfomation.status!=2 }}" class="c-middle frame-sellout__btn"> 售 罄 </view>
 
       <!-- 垫片 -->
       <view class='shim'></view>
@@ -282,7 +279,7 @@
       </view>
     </view>
 
-    <view wx:if="{{!productInfomation.is_sold_out}}" class='small-bottom__style flex_row bg-white'>
+    <view wx:if="{{!productInfomation.is_sold_out && productInfomation.status!=2}}" class='small-bottom__style flex_row bg-white'>
       <view class='flex_row--middle c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
       <view catchtap="handleShareTap" class='flex_row--middle crated_btn--style bg--red border-left__radius--null '>
         <text>卖 </text>
@@ -290,7 +287,7 @@
       </view>
     </view>
 
-    <view wx:else class="c-middle sell-out__btn">售 罄</view>
+    <view wx:if="{{productInfomation.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
   </view>
 
   <!-- 不是小b -->
@@ -303,14 +300,14 @@
       </view>
     </view>
 
-    <view class='small-bottom__style flex_row bg-white' wx:if="{{!productInfomation.is_sold_out}}">
+    <view class='small-bottom__style flex_row bg-white' wx:if="{{!productInfomation.is_sold_out && productInfomation.status!=2}}">
       <view class='flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
       <view catchtap="handlePickShow" class='flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
         <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
       </view>
     </view>
 
-    <view wx:else class="c-middle sell-out__btn">售 罄</view>
+    <view wx:if="{{productInfomation.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
   </view>
 
   <!-- 不是小B 接单定制按钮 -->
@@ -347,7 +344,7 @@
       <!-- 描述 -->
       <view class='otherInfo-describe' wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
         <view class='titleText'>描述</view>
-        <view class='goodstext two-line-text margin-bottom--12rpx' wx:if="{{productInfomation.features && productInfomation.features!=null}}">>
+        <view class='goodstext two-line-text margin-bottom--12rpx' wx:if="{{productInfomation.features && productInfomation.features!=null}}">
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
@@ -372,11 +369,11 @@
       </view>
 
       <!-- 交货时间 -->
-      <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=null||productInfomation.py_intro!=null}}">
+      <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=0||productInfomation.py_intro!=null}}">
         <view class='titleText'>交货时间</view>
         <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
-          <!-- <text class='theme-green'> 遵义</text> -->
         </view>
+
       </view>
 
       <!-- 退货政策 -->
@@ -405,7 +402,7 @@
     <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
     <text>回到自己生活馆</text>
   </view>
-  
+
   <!-- 卖 -->
   <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
@@ -432,7 +429,7 @@
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
             <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
           </view>
-          <text >保存分享朋友圈海报</text>
+          <text>保存分享朋友圈海报</text>
         </view>
       </view>
       <view class="distribute-action">
