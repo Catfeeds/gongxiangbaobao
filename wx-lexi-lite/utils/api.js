@@ -354,9 +354,11 @@ module.exports = {
   question_share: 'guess_image/is_share',
   // POST 游戏首页海报
   question_index_poster: 'guess_image/wx_index_poster',
+  // GET 是否需要邀请
+  question_need_invite: 'guess_image/invite_friend_record',
 
 
   // GET 当前环境
   run_env: 'run_env/wxa'
-  
+
 }

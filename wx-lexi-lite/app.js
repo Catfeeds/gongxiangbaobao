@@ -270,11 +270,15 @@ App({
   bindFriend() {
     const game_inviter = wx.getStorageSync('game_inviter')
     const jwt = wx.getStorageSync('jwt')
+    let isNew = 0
+    if (jwt.is_new) {
+      isNew = 1
+    }
     if (game_inviter && Object.keys(game_inviter).length > 0) {
       let data = {
         source_user_sn: game_inviter.uid,
         from_module: 1,
-        is_new: jwt.is_new ? 1 : 0
+        is_new: isNew
       }
       http.fxPost(api.bind_friend, data, (res) => {
         console.log(res, '绑定好友关系')

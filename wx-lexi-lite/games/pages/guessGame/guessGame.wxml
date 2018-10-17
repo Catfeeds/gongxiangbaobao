@@ -494,12 +494,18 @@
       </view>
       <view class="help-friends">
         <view class="invite-avatars">
-          <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
-          <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
-          <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
+          <image
+            wx:for="{{ newInviteFriends }}"
+            wx:for-item="friend"
+            wx:key="{{ friend.user_sn }}"
+            src="{{ friend.user_logo }}" class="avatar"></image>
+          <image 
+            wx:for="{{ lackList }}"
+            wx:key="l{{ item }}"
+            src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
         </view>
         <view class="invite-notice">
-          还需<text class="invite-count">2</text>位好友助力
+          还需<text class="invite-count">{{ lackList.length }}</text>位好友助力
         </view>
         <view class="invite-notice small">
           才获得猜图赢现金奖池
