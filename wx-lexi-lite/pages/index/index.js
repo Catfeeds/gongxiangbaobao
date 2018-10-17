@@ -1229,7 +1229,6 @@ Page({
     this._handleLikeWindow(rid, true)
   },
 
-
   // 取消喜欢橱窗
   handleDeleteLike(e) {
     console.log(e.currentTarget.dataset.rid)

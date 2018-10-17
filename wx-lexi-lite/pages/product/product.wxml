@@ -427,7 +427,7 @@
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
             <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
           </view>
-          <text>保存分享朋友圈海报</text>
+          <text >保存分享朋友圈海报</text>
         </view>
       </view>
       <view class="distribute-action">
