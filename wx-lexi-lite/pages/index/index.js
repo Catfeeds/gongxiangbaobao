@@ -33,6 +33,8 @@ Page({
     lifeStorePosterUrl: '', // 生活馆的url
 
     // 生活馆
+    isSmallB: false, // 自己是否有生活馆
+    showBack: false, // 显示回到自己生活馆
     isUploading: false,
     uploadStatus: 0,
     shopInfo: '', // 生活馆信息
@@ -46,7 +48,6 @@ Page({
     storeProducts: [], // 生活馆商品列表
     isNextRecommend: false, // 推荐是否有下一页
     isEmpty: false, // 是否为空
-    isSmallHome: false, // 是否在自己的生活馆
     showEditModal: false, // 生活馆编辑
     showConfirmModal: false, // 删除上架商品确认
     latestDistributeProducts: [], // 最新分销商品
@@ -411,7 +412,7 @@ Page({
     let isDistributed = e.currentTarget.dataset.isDistributed
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
-    console.log(this.data.storeProducts[idx])
+
     this.setData({
       isDistributed: isDistributed,
       showShareModal: true,
@@ -426,12 +427,16 @@ Page({
    */
   getLifeBrandPoster() {
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    let jwt = wx.getStorageSync('jwt')
     let rid = this.data.sid
 
-    // scene格式：rid + '-' + sid
-    let scene = rid
+    // scene格式：sid + '-' + uid
+    let scene = ''
     if (lastVisitLifeStoreRid) {
-      scene += '-' + lastVisitLifeStoreRid
+      scene += lastVisitLifeStoreRid
+    }
+    if (jwt.uid) {
+      scene += '-' + jwt.uid
     }
 
     let params = {
@@ -527,7 +532,6 @@ Page({
    * 保存当前生活馆海报到相册
    */
   handleSaveLifeStorePhoto() {
-    console.log(this.data.lifeStorePosterUrl)
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.lifeStorePosterUrl,
@@ -560,6 +564,19 @@ Page({
         }
       }
     })
+  },
+
+  /**
+   * 回到自己的生活馆
+   */
+  handleBackLifeStore() {
+    const lifeStore = wx.getStorageSync('lifeStore')
+
+    this.setData({
+      sid: lifeStore.lifeStoreRid,
+    })
+
+    this._swtichActivePageTab('lifeStore')
   },
 
   /**
@@ -899,7 +916,6 @@ Page({
    * 跳转商品详情
    */
   handleGoProduct(e) {
-    console.log(e)
     let rid = e.detail.rid
     wx.navigateTo({
       url: '/pages/product/product?rid=' + rid + "&storeRid=" + e.detail.storeRid
@@ -943,30 +959,6 @@ Page({
     wx.navigateTo({
       url: '/lifeStore/pages/lifeStoreGuide/lifeStoreGuide',
     })
-  },
-
-  /**
-   * 回到自己的生活馆
-   */
-  handleBackLifeStore() {
-    const lifeStore = wx.getStorageSync('lifeStore')
-    const userInfo = wx.getStorageSync('userInfo')
-
-    let sid = lifeStore.lifeStoreRid
-    this.setData({
-      sid: sid,
-      isSmallHome: true,
-      pageActiveTab: 'lifeStore',
-      canAdmin: true
-    })
-
-    this._swtichActivePageTab(this.data.pageActiveTab)
-
-    // 更新当前用户的last_store_rid
-    app.updateLifeStoreLastVisit(sid)
-
-    // 重新生成海报图
-    this.getLifePhotoUrl()
   },
 
   /**
@@ -1225,7 +1217,7 @@ Page({
       openid: openId,
       rid: this.data.sid
     }, (result) => {
-      console.log(result, '添加浏览者')
+      console.log(result, this.data.sid, '添加浏览者')
       this.getBrowsePeople()
     })
   },
@@ -1240,7 +1232,7 @@ Page({
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.sid), {
       openid: openId
     }, (result) => {
-      console.log(result, '获取的浏览者')
+      console.log(result, this.data.sid, '获取的浏览者')
       if (result.success) {
         this.setData({
           shopInfo: result.data
@@ -1474,7 +1466,6 @@ Page({
 
     http.fxGet(api.life_store_products, params, (res) => {
       console.log(res, '全部分销商品')
-      console.log(this.data.page, '分销商品当前页')
       if (res.success) {
         let _products = this.data.storeProducts
         if (this.data.page > 1) {
@@ -1541,7 +1532,6 @@ Page({
           }
 
           if (v.username != null && v.username - 0 != NaN && v.username.length > 9) {
-            console.log(v)
             v.username = v.username.substr(0, 3) + '****' + v.username.substr(7, 4)
           }
 
@@ -1623,68 +1613,6 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
-  },
-
-  // 验证是否存在生活馆
-  validateLifeStore() {
-    const lifeStore = wx.getStorageSync('lifeStore')
-    const userInfo = wx.getStorageSync('userInfo')
-
-    // 判断登录用户是否有生活馆
-    if (lifeStore.isSmallB) {
-      let sid = lifeStore.lifeStoreRid
-
-      this.setData({
-        sid: sid,
-        'pageTabs[0].disabled': false,
-        pageActiveTab: 'lifeStore',
-        storeOwner: userInfo,
-        isSmallHome: true,
-        canAdmin: true
-      })
-
-      // 更新当前用户的last_store_rid
-      app.updateLifeStoreLastVisit(sid)
-
-      // 请求当前数据
-      this._swtichActivePageTab('lifeStore')
-    } else {
-      this.setData({ // 无生活馆显示
-        'pageTabs[0].disabled': true,
-        pageActiveTab: 'featured'
-      })
-
-      // 请求当前数据
-      this._swtichActivePageTab('featured')
-    }
-  },
-
-  /**
-   * 激活页面Tab
-   */
-  _swtichActivePageTab(name) {
-    switch (name) {
-      case 'lifeStore':
-        this.setData({
-          page: 1
-        })
-        this._loadingLifeStorePage()
-        break;
-      case 'featured': // 精选
-        this.handleSetNavigationTitle('精选')
-
-        this.setData({
-          swiperIndex: 0
-        })
-
-        break;
-      case 'explore': // 探索
-        this.handleSetNavigationTitle('探索')
-        break;
-      case 'find': // 探索
-        this.handleSetNavigationTitle('发现')
-        break;
-    }
   },
 
   // 头部广告 发现
@@ -1784,38 +1712,119 @@ Page({
     this.getWonderfulStories() // 精彩故事
   },
 
+  // 验证是否存在生活馆
+  validateLifeStore() {
+    const lifeStore = wx.getStorageSync('lifeStore')
+
+    // 判断登录用户是否有生活馆
+    if (lifeStore.isSmallB) {
+      let sid = lifeStore.lifeStoreRid
+
+      this.setData({
+        sid: sid,
+        'pageTabs[0].disabled': false,
+        pageActiveTab: 'lifeStore'
+      })
+
+      // 请求当前数据
+      this._swtichActivePageTab('lifeStore')
+    } else {
+      this.setData({ // 无生活馆显示
+        'pageTabs[0].disabled': true,
+        pageActiveTab: 'featured'
+      })
+
+      // 请求当前数据
+      this._swtichActivePageTab('featured')
+    }
+  },
+
+  /**
+   * 激活页面Tab
+   */
+  _swtichActivePageTab(name) {
+    switch (name) {
+      case 'lifeStore':
+        this.setData({
+          page: 1
+        })
+
+        // 验证生活馆是不是自己的
+        const lifeStore = wx.getStorageSync('lifeStore')
+        // 判断登录用户是否有生活馆
+        if (lifeStore.isSmallB) {
+          if (this.data.sid == lifeStore.lifeStoreRid) {
+            const userInfo = wx.getStorageSync('userInfo')
+            this.setData({
+              storeOwner: userInfo,
+              isSmallB: true,
+              canAdmin: true,
+              showBack: false
+            })
+          } else {
+            this.setData({
+              isSmallB: false,
+              canAdmin: false,
+              showBack: true
+            })
+          }
+        }
+
+        // 更新当前用户的last_store_rid
+        app.updateLifeStoreLastVisit(this.data.sid)
+
+        // 同步更新全局变量
+        wx.setStorageSync('showingLifeStoreRid', this.data.sid)
+
+        this._loadingLifeStorePage()
+        break;
+      case 'featured': // 精选
+        this.handleSetNavigationTitle('精选')
+
+        this.setData({
+          swiperIndex: 0
+        })
+
+        break;
+      case 'explore': // 探索
+        this.handleSetNavigationTitle('探索')
+        break;
+      case 'find': // 探索
+        this.handleSetNavigationTitle('发现')
+        break;
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-    // 如果是由分享商品详情而来就跳转详情
-    if (app.globalData.sharePageRid) {
-      wx.navigateTo({
-        url: '../product/product?rid=' + app.globalData.sharePageRid,
-        complete: () => {
-          // 跳转后清空
-          app.globalData.sharePageRid = false
-        }
-      })
-    }
-
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
+
+    // 全局参数里有生活馆
+    const showingLifeStoreRid = wx.getStorageSync('showingLifeStoreRid')
+    if (showingLifeStoreRid != '') {
+      this.setData({
+        sid: showingLifeStoreRid
+      })
+    }
+
     // 传参数里有生活馆
     if (options.sid) {
       this.setData({
         sid: sid
       })
     }
+
     // 场景参数优先级高
     if (scene && scene != 'undefined') {
       let scene_ary = scene.split('-')
-      sid = scene_ary[0]
+      sid = utils.trim(scene_ary[0])
       // 分销商uid
       if (scene_ary.length == 2) {
-        let customer_rid = scene_ary[1]
+        let customer_rid = utils.trim(scene_ary[1])
         wx.setStorageSync('customer_uid', customer_rid)
       }
 
@@ -1845,31 +1854,10 @@ Page({
         }
       }
     } else { // 显示其他人的生活馆
-      // 验证生活馆是不是自己的
-      const lifeStore = wx.getStorageSync('lifeStore')
-      // 判断登录用户是否有生活馆
-      if (lifeStore.isSmallB && this.data.sid == lifeStore.lifeStoreRid) {
-        let sid = lifeStore.lifeStoreRid
-
-        const userInfo = wx.getStorageSync('userInfo')
-        this.setData({
-          'pageTabs[0].disabled': false,
-          pageActiveTab: 'lifeStore',
-          storeOwner: userInfo,
-          isSmallHome: true,
-          canAdmin: true
-        })
-      } else {
-        this.setData({
-          'pageTabs[0].disabled': false,
-          pageActiveTab: 'lifeStore',
-          isSmallHome: false,
-          canAdmin: false
-        })
-      }
-
-      // 更新当前用户的last_store_rid
-      app.updateLifeStoreLastVisit(this.data.sid)
+      this.setData({
+        'pageTabs[0].disabled': false,
+        pageActiveTab: 'lifeStore'
+      })
 
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
@@ -1913,8 +1901,6 @@ Page({
         isLoading: false
       })
     }, 500)
-
-    this.getLifePhotoUrl()
   },
 
   /**
@@ -1928,17 +1914,36 @@ Page({
         isSmallB: true
       })
     }
+
+    // 当前显示生活馆与应该显示生活馆是否一致
+    const showingLifeStoreRid = wx.getStorageSync('showingLifeStoreRid')
+    if (this.data.sid != '' && showingLifeStoreRid && this.data.sid != showingLifeStoreRid) {
+      this.setData({
+        'pageTabs[0].disabled': false,
+        sid: showingLifeStoreRid,
+        page: 1
+      })
+
+      // 刷新生活馆
+      if (this.data.pageActiveTab == 'lifeStore') {
+        this._swtichActivePageTab('lifeStore')
+      } else {
+        this._loadingLifeStorePage()
+      }
+    }
+
     // 初次进入时无生活馆，后续申请开通后
     if (this.data.sid == '') {
       if (lifeStore.isSmallB) {
         this.setData({
           'pageTabs[0].disabled': false,
           sid: lifeStore.lifeStoreRid,
-          canAdmin: true,
-          isSmallHome: true
+          canAdmin: true
         })
       }
     }
+
+    this.getLifePhotoUrl()
   },
 
   /**

@@ -113,6 +113,7 @@
   border-bottom-right-radius: 20rpx;
   border-bottom-left-radius: 20rpx;
   box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
 }
 
 .owner-info-text_info {
@@ -1040,30 +1041,6 @@ swiper-photo .slide-item__box image {
 
 .border-top {
   border-top: 1rpx solid #e9e9e9;
-}
-
-.fx-back-home {
-  position: fixed;
-  bottom: 120rpx;
-  left: 16rpx;
-  z-index: 99;
-  width: 220rpx;
-  padding: 21rpx 16rpx;
-  border-radius: 66rpx;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-}
-
-.fx-back-home .icon-back-home {
-  width: 29rpx;
-  height: 30rpx;
-}
-
-.fx-back-home text {
-  font-size: 24rpx;
-  color: #fff;
-  margin-left: 10rpx;
 }
 
 .padding-left__right--0rpx {

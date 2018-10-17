@@ -570,3 +570,28 @@ button::after {
 }
 
 /* 发现页面的样式 end*/
+
+/* 回到自己的生活馆 */
+.fx-back-home {
+  position: fixed;
+  bottom: 120rpx;
+  left: 16rpx;
+  z-index: 99;
+  width: 220rpx;
+  padding: 21rpx 16rpx;
+  border-radius: 66rpx;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+}
+
+.fx-back-home .icon-back-home {
+  width: 29rpx;
+  height: 30rpx;
+}
+
+.fx-back-home text {
+  font-size: 24rpx;
+  color: #fff;
+  margin-left: 10rpx;
+}

@@ -400,6 +400,12 @@
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
+  <!-- 回到自己的生活馆 -->
+  <view class="fx-back-home" bindtap="handleBackLifeStore" wx:if="{{ showBack }}">
+    <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
+    <text>回到自己生活馆</text>
+  </view>
+  
   <!-- 卖 -->
   <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
@@ -419,7 +425,6 @@
           <button class="share-btn" open-type="share"></button>
           <image src="{{ productInfomation.cover }}" class="cover"></image>
           <text>点击直接分享好友样式</text>
-
         </view>
 
         <view class="wxa-poster" bindtap="handleSaveShare">
