@@ -577,6 +577,8 @@ Page({
     })
 
     this._swtichActivePageTab('lifeStore')
+    
+    this.getLifePhotoUrl()
   },
 
   /**
@@ -1584,11 +1586,10 @@ Page({
       return
     }
 
-    let rid = app.getDistributeLifeStoreRid()
     http.fxPost(api.market_share_life_store, {
-      rid: rid
+      rid: this.data.sid
     }, (result) => {
-      console.log(result, rid, "分享生活馆图片的地址")
+      console.log(result, this.data.sid, "分享生活馆图片的地址")
       if (result.success) {
         this.setData({
           lifePhotoUrl: result.data.image_url
