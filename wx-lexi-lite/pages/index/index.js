@@ -985,6 +985,10 @@ Page({
 
   // 获取关注橱窗
   getFollowWindow() {
+    if (!app.globalData.isLogin) {
+      return
+    }
+
     http.fxGet(api.shop_windows_follow, this.data.followWindowParams, result => {
       console.log(result, "关注人发布的橱窗")
       if (result.success) {
@@ -2042,13 +2046,6 @@ Page({
     let windowRid = e.currentTarget.dataset.windowRid
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + windowRid,
-    })
-  },
-
-  // 橱窗列表
-  handleGoWindow() {
-    wx.navigateTo({
-      url: '../window/window'
     })
   },
 

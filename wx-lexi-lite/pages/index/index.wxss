@@ -1566,3 +1566,7 @@ swiper-photo .slide-item__box image {
   border-bottom-left-radius: 8rpx;
   border-bottom-right-radius: 8rpx;
 }
+
+.remark .like-hide {
+  visibility: hidden;
+}

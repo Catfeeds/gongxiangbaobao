@@ -290,6 +290,11 @@ button::after {
   color: rgb(37, 33, 30);
 }
 
+.fx-window .fx-window__actions .like-comment .remark text {
+  display: inline-block;
+  min-width: 66rpx;
+}
+
 .fx-window .fx-window__actions .share {
   flex: 0 0 auto;
 }

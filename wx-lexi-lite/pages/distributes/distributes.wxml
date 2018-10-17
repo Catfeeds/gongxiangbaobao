@@ -34,7 +34,7 @@
     <view class="page-section swiper padding-top--0rpx">
       <swiper class="distribute-swiper" previous-margin="86rpx" next-margin="86rpx" autoplay="true" circular="{{true}}" interval="3000" bindchange="handleswiperItemCheng" autoplay="{{ autoplay }}" circular="{{ circular }}" interval="{{ interval }}" duration="{{ duration }}">
 
-        <swiper-item wx:for="{{ advertises }}" wx:for-item="adv" data-type="{{adv.type}}" data-link="{{adv.link}}" bindtap="handleLiveInfo" wx:key="*this">
+        <swiper-item wx:for="{{ advertises }}" wx:for-item="adv" data-type="{{adv.type}}" data-link="{{adv.link}}" bindtap="handleLiveInfo" wx:key="{{index}}">
           <view class="swiper-item fx-column--center" data-type="{{ adv.type }}" data-link="{{ adv.link }}">
             <image src="{{ adv.image }}" class='{{swiperIndex==index?"swiperActive":""}} {{index==swiperIndex-1?"transtion-right":""}} {{index==swiperIndex+1?"transtion-left":""}}'></image>
           </view>
