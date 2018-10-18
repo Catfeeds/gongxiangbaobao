@@ -10,6 +10,9 @@ Page({
    * 页面的初始数
    */
   data: {
+    // 用于在商品详情删除本页的下架产品
+    deletePageProductAtProduct:'',
+
     isLoading: true,
     readyOver: false, // 页面加载是否完成
     orderSum: 0, // 有没有订单
@@ -572,7 +575,10 @@ getLikeWindow(){
 
   // 跳转到商品详情---
   handleToProductInfoTap(e) {
-    console.log(e.currentTarget.dataset)
+    
+    this.setData({
+      deletePageProductAtProduct: e.currentTarget.dataset.deleteMark || ''
+    })
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeId
     })
