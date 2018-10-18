@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -111,7 +111,7 @@
 					"id": 12,
 					"name": "游戏",
 					"pathName": "games/pages/guessGame/guessGame",
-					"query": ""
+					"query": "scene=10872436519-1"
 				},
 				{
 					"id": -1,

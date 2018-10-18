@@ -121,7 +121,12 @@ Page({
     // 开始游戏分享提示
     playCount: 1,
     gameErrorMessage: '',
-    gameLoading: false // 是否点击开始游戏
+    gameLoading: false, // 是否点击开始游戏
+
+    // 邀请提醒
+    showInviteHelpModal: false,
+    newInviteFriends: [],
+    lackList: [] // 不足数量
   },
 
   // 返回到小程序的首页
@@ -131,10 +136,18 @@ Page({
     })
   },
 
+  // 继续玩（无现金奖励）
+  handleContinuePlay () {
+    this._playGame()
+  },
+
   // 开始游戏
   handleStartPlay() {
-    console.log('start play game.')
+    this.getNeedInviteHelp()
+  },
 
+  // 进入游戏
+  _playGame () {
     clearInterval(this.data.offsetDommTimer)
     clearInterval(this.data.inviteTimer)
 
@@ -425,6 +438,9 @@ Page({
             case 4:
               stealFailMessage = 'ta钱包已经被一群强盗偷光了，去提箱一下好友吧！'
               break
+            case 5:
+              stealFailMessage = '偷钱差点被发现了，两手空空。邀请好友玩猜图达3人后,才能偷对方哦!'
+              break
           }
           this.setData({
             stealFailMessage: stealFailMessage,
@@ -620,6 +636,37 @@ Page({
     })
   },
 
+  // 是否满足好友助力
+  getNeedInviteHelp() {
+    http.fxGet(api.question_need_invite, {}, (res) => {
+      console.log(res, '好友助力')
+      if (res.success) {
+        // 需要邀请
+        if (res.data.need_invite == 1) {
+          let friendList = res.data.friend_list
+          let lackList = []
+          if (friendList.length == 2) {
+            lackList = [1]
+          } else if (friendList.length == 1) {
+            lackList = [1, 2]
+          } else {
+            lackList = [1, 2, 3]
+          }
+          this.setData({
+            showInviteHelpModal: true,
+            lackList: lackList,
+            newInviteFriends: friendList 
+          })
+        } else {
+          // 直接进入游戏
+          this._playGame()
+        }
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
   // 获取本次试题
   getTestQuestion() {
     // 游戏正在加载，不能再点击，防止连续点击事件
@@ -651,7 +698,6 @@ Page({
         this.setData({
           showShareChanceModal: true,
           gameErrorMessage: res.status.message,
-          playCount: res.data.playCount,
           gameLoading: false
         })
       }
@@ -884,6 +930,9 @@ Page({
           uid: uid,
           code: code
         })
+
+        // 绑定与已登录用户的好友关系
+        app.bindFriend()
       }
     }
 

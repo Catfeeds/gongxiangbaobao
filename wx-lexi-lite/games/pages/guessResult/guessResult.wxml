@@ -9,7 +9,8 @@
             <text class="quantity">{{ settlement.right_count }}</text>张商品图
           </view>
           <view class="top">
-            获得<strong class="top-count">{{ gameTopName }}</strong> 称号
+            获得
+            <strong class="top-count">{{ gameTopName }}</strong> 称号
           </view>
           <view class="top-desc">
             {{ gameTopDesc }}
@@ -59,19 +60,29 @@
                 <view class="answer-tips ok" wx:if="{{ item.answer_result }}">
                   <view class="desc">第{{ idx + 1 }}题：猜对了</view>
                 </view>
-                <image src="{{ item.product_path }}" class="cover"></image>
+                <image src="{{ item.product_path }}" class="cover" data-rid="{{ item.product_rid }}" bindtap="handleViewProduct"></image>
                 <view class="trade-name">{{ item.product_name }}</view>
-                <view class="trade-price" wx:if="{{ item.sale_price > 0 }}">
-                  <span>￥</span>{{ item.sale_price }}
-                </view>
-                <view class="trade-price" wx:else>
-                  <span>￥</span>{{ item.price }}
-                </view>
-                <view class="sale">
-                  <span class="use-coupon" wx:if="{{ item.sale_price != item.use_coupon_price }}">
-                    用券￥{{ item.use_coupon_price }}
-                  </span>
-                </view>
+                <block wx:if="{{ item.sale_price > 0 }}">
+                  <view class="trade-price">
+                    <span>￥</span>{{ item.sale_price }}
+                  </view>
+                  <view class="sale">
+                    <span class="use-coupon" wx:if="{{ item.sale_price != item.use_coupon_price }}">
+                      用券￥{{ item.use_coupon_price }}
+                    </span>
+                  </view>
+                </block>
+                <block wx:else>
+                  <view class="trade-price">
+                    <span>￥</span>{{ item.price }}
+                  </view>
+                  <view class="sale">
+                    <span class="use-coupon" wx:if="{{ item.price != item.use_coupon_price }}">
+                      用券￥{{ item.use_coupon_price }}
+                    </span>
+                  </view>
+                </block>
+
                 <button class="btn-buy" data-rid="{{ item.product_rid }}" bindtap="handleViewProduct">立即购买</button>
               </view>
 
@@ -97,7 +108,7 @@
     <!-- 邀请好友一起玩 -->
     <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showInviteModal }}" marginTop="300">
       <view class="invite-play">
-        <view class="notice-title">邀请好友一起玩，可再获的1次猜图机会</view>
+        <view class="notice-title">邀请好友一起玩，助力赢取更多现金猜图机会</view>
       </view>
       <button class="btn-ok btn-invite-share" data-name="share" open-type="share">立即分享</button>
     </fx-game-modal-v>

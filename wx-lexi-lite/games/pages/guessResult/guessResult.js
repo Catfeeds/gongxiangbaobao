@@ -60,7 +60,9 @@ Page({
 
   // 再玩一次
   handlePlayAgain() {
-    this.getPlayTimes()
+    this.setData({
+      showInviteModal: true
+    })
   },
 
   // 炫耀成绩
@@ -240,6 +242,9 @@ Page({
 
     this.getSettlementResult()
     this.getTestResult()
+
+    // 查看结果后，清空试题
+    wx.removeStorageSync('testQuestion')
   },
 
   /**

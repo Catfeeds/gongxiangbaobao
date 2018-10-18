@@ -39,6 +39,8 @@ App({
       }
     }
 
+    this.getRunEnv()
+
     // 预先加载大陆地址
     this.getAddressPlaces()
 
@@ -268,11 +270,15 @@ App({
   bindFriend() {
     const game_inviter = wx.getStorageSync('game_inviter')
     const jwt = wx.getStorageSync('jwt')
+    let isNew = 0
+    if (jwt.is_new) {
+      isNew = 1
+    }
     if (game_inviter && Object.keys(game_inviter).length > 0) {
       let data = {
         source_user_sn: game_inviter.uid,
         from_module: 1,
-        is_new: jwt.is_new ? 1 : 0
+        is_new: isNew
       }
       http.fxPost(api.bind_friend, data, (res) => {
         console.log(res, '绑定好友关系')
@@ -526,6 +532,18 @@ App({
     })
   },
 
+  /**
+   * 获取运行环境
+   */
+  getRunEnv() {
+    http.fxGet(api.run_env, {}, (res) => {
+      if (res.success) {
+        console.log(res, 'env')
+        this.globalData.runEnv = res.data.status
+      }
+    })
+  },
+
   globalData: {
     isLogin: false,
     app_id: null,
@@ -608,6 +626,7 @@ App({
           warehouse_id: '' // Number	可选	 	发货的仓库ID
         }]
       }]
-    }
+    },
+    runEnv: 2
   }
 })

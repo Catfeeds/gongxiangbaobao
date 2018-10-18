@@ -23,8 +23,9 @@ Page({
     dynamicParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
-    }
-
+    },
+    
+    runEnv: 2
   },
 
   // 跳转到拼接拼接橱窗 
@@ -69,9 +70,11 @@ Page({
    * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
-
     this.getMyDynamic()
 
+    this.setData({
+      runEnv: app.globalData.runEnv
+    })
   },
 
   /**

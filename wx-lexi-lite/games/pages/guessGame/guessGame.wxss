@@ -103,6 +103,7 @@ page {
   width: 130rpx;
   height: 130rpx;
 }
+
 .foot-menu .poster .btn-poster {
   padding: 0;
   background: url('https://static.moebeast.com/static/img/game/icon-game-poster.png') no-repeat;
@@ -112,10 +113,10 @@ page {
   height: 130rpx;
 }
 
-.foot-menu .poster,
-.foot-menu .ranking {
+.foot-menu .poster, .foot-menu .ranking {
   margin-right: 15rpx;
 }
+
 .foot-menu .steal-money {
   margin-right: 40rpx;
 }
@@ -444,9 +445,11 @@ page {
   margin-bottom: 20rpx;
   margin-top: 20rpx;
 }
+
 .fx-modal--rules .rule-text .copyright {
   color: rgba(255, 207, 0, 1);
 }
+
 .fx-modal--withdraw .withdraw-box {
   margin-top: 100rpx;
 }
@@ -605,9 +608,11 @@ page {
   display: flex;
   flex-direction: column;
 }
+
 .top-item .thead {
   color: rgba(220, 164, 242, 1);
 }
+
 .top-item .coupon .count {
   font-size: 22rpx;
   font-weight: 400;
@@ -743,6 +748,7 @@ page {
   line-height: 32rpx;
   margin-bottom: 55rpx;
 }
+
 .fx-modal--steal-result .title text {
   margin-right: 10rpx;
 }
@@ -902,6 +908,7 @@ page {
   color: rgba(255, 207, 0, 1);
   line-height: 22rpx;
 }
+
 .steal-empty .btn-run {
   margin-top: 60rpx;
 }
@@ -918,15 +925,17 @@ page {
   line-height: 42rpx;
   margin-bottom: 40rpx;
 }
+
 .fx-modal--notice .steal-desc {
   font-size: 28rpx;
   font-weight: 500;
   color: rgba(247, 228, 255, 1);
   margin-bottom: 20rpx;
 }
+
 .fx-modal--notice .steal-desc:first-child {
   margin-top: 80rpx;
-} 
+}
 
 .fx-modal--notice .btn-ok {
   width: 450rpx;
@@ -1046,10 +1055,158 @@ page {
   width: 520rpx;
   height: 924rpx;
 }
+
 .poster-box .loading {
   width: 64rpx;
   height: 64rpx;
 }
+
 .btn-save {
   margin-top: 50rpx;
+}
+
+.friend-help {
+  padding-top: 80rpx;
+}
+
+.friend-help .help-title {
+  display: flex;
+}
+
+.friend-help .help-title .icon-light {
+  width: 30rpx;
+  height: 30rpx;
+  flex: 0 0 30rpx;
+}
+
+.friend-help .help-title .help-text {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(247, 228, 255, 1);
+  line-height: 43rpx;
+}
+
+.friend-help .help-title .help-text .yellow {
+  color: #ffcf00;
+}
+
+.friend-help .help-friends {
+  width: 510rpx;
+  height: 302rpx;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 20rpx;
+  border: 2rpx solid rgba(95, 35, 148, 1);
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+.friend-help .help-friends .invite-avatars {
+  display: flex;
+  justify-content: center;
+  margin-top: 50rpx;
+}
+
+.friend-help .help-friends .invite-avatars .avatar {
+  flex: 0 0 auto;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 56rpx;
+  margin-right: 20rpx;
+  border: 4rpx solid rgba(122, 68, 161, 1);
+}
+
+.friend-help .help-friends .invite-notice {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: rgba(247, 228, 255, 1);
+  line-height: 36rpx;
+  margin-top: 24rpx;
+}
+
+.friend-help .help-friends .invite-notice .invite-count {
+  font-size: 40rpx;
+  font-weight: 500;
+  color: rgba(255, 207, 0, 1);
+  line-height: 36rpx;
+  margin: 0 5rpx;
+}
+
+.friend-help .help-friends .invite-notice.small {
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 28rpx;
+  margin-top: 15rpx;
+}
+
+.friend-help .help-friends .invite-message {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(255, 102, 102, 1);
+  line-height: 28rpx;
+  margin-top: 40rpx;
+}
+
+.friend-help .help-actions {
+  margin-top: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.friend-help .help-actions .play-continue {
+  flex: 0 0 auto;
+  width: 240rpx;
+  height: 90rpx;
+  border-radius: 45px;
+  background: transparent;
+  border: 2rpx solid rgba(255, 207, 0, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friend-help .help-actions .play-continue .btn-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: rgba(255, 207, 0, 1);
+  margin-top: 19rpx;
+  flex: 0 0 auto;
+  line-height: 30rpx;
+  margin-bottom: 6rpx;
+}
+
+.friend-help .help-actions .play-continue .btn-desc {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(255, 207, 0, 1);
+  line-height: 24rpx;
+}
+
+.friend-help .help-actions .need-help {
+  flex: 0 0 auto;
+  width: 240rpx;
+  height: 90rpx;
+  background: rgba(255, 207, 0, 1);
+  border-radius: 45rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friend-help .help-actions .need-help .btn-name {
+  font-size: 30rpx;
+  line-height: 30rpx;
+  font-weight: bold;
+  color: rgba(119, 59, 2, 1);
+  margin-top: 19rpx;
+  flex: 0 0 auto;
+  margin-bottom: 6rpx;
+}
+
+.friend-help .help-actions .need-help .btn-desc {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(119, 59, 2, 1);
+  line-height: 22rpx;
 }

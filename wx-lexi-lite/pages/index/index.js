@@ -304,7 +304,8 @@ Page({
         disabled: false
       }
     ],
-
+    
+    runEnv: 1,
     is_mobile: false // 验证是否登陆
   },
 
@@ -1660,33 +1661,61 @@ Page({
     })
   },
 
-  /**
-   * 激活页面Tab
-   */
-  _swtichActivePageTab(name) {
-    switch (name) {
-      case 'lifeStore':
+  // 头部广告 发现
+  getAdvertisement() {
+    http.fxGet(api.marketBanners.replace(/:rid/g, 'discover_ad'), {}, (result) => {
+      console.log(result, '发现-头部广告')
+      if (result.success) {
         this.setData({
-          page: 1
+          advertisement: result.data
         })
-        this._loadingLifeStorePage()
-        break;
-      case 'featured': // 精选
-        this.handleSetNavigationTitle('精选')
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 猜你喜欢 发现
+  getYouLike() {
+    http.fxGet(api.life_records_guess_likes, {}, (result) => {
+      console.log(result, '猜你喜欢')
+
+      this.setData({
+        isLoadPageShow: false
+      })
+
+      if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
+        })
 
         this.setData({
-          swiperIndex: 0
+          youLike: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 精彩故事
+  getWonderfulStories() {
+    http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
+      console.log(result, '精彩故事')
+      if (result.success) {
+        // 去除标签
+        result.data.life_records.forEach((v) => {
+          v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
         })
 
-        break;
-      case 'explore': // 探索
-        this.handleSetNavigationTitle('探索')
-        break;
-      case 'find': // 探索
-        this.handleSetNavigationTitle('发现')
-        break;
-    }
-
+        this.setData({
+          wonderfulStories: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 加载探索页数据
@@ -1721,7 +1750,7 @@ Page({
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
   },
-
+  
   // 验证是否存在生活馆
   validateLifeStore() {
     const lifeStore = wx.getStorageSync('lifeStore')
@@ -1873,6 +1902,10 @@ Page({
       this._swtichActivePageTab('lifeStore')
     }
 
+    this.setData({
+      runEnv: app.globalData.runEnv
+    })
+    
     // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()

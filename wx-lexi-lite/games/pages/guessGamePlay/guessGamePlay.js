@@ -361,7 +361,7 @@ Page({
     let that = this
     setTimeout(() => {
       that.startPlay()
-    }, 4000)
+    }, 5000)
     
     // 倒计时前先绘制整圆的圆环
     this.drawRingMove(this.data.start, this.data.end)
@@ -382,7 +382,7 @@ Page({
       that.setData({
         isLoading: false
       })
-    }, 2000)
+    }, 1000)
   },
 
   /**
