@@ -12,111 +12,111 @@ Page({
    */
   data: {
     isLoading: true,
-    storeInfo: {}, // 店铺详情
-    normalCouponList: [], // 可用红包 非官方
-    exceedCouponList: [], // 不可用红包 非官方
+
+    normalCouponList: [], // 店铺的优惠券
+    IsNextStore: false,
+    storeCouponParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
+      status: 'N01', //String	N01: 未使用; N02: 已使用; N03: 已过期
+    },
 
     authorityNormalCouponList: [], // 官方的可用红包
-    authorityExceedCouponList: [1], // 官方的不可用红包
-    useCouponList: [], // 已经使用的 
-    red_bag: []
+    IsNextAuthority: false,
+    authorityParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
+    },
+
+    exceedCouponList: [], // 过期优惠券
+    exceedIsnext: false,
+    exceedCouponParams: {
+      page: 1, //Number	可选	1	当前页码
+      per_page: 10, //Number	可选	10	每页数量
+    },
+
+    couponActive: 1,
+    couponCategory: [{
+        name: '品牌券',
+        rid: 1
+      },
+      {
+        name: '乐喜券',
+        rid: 2
+      },
+      {
+        name: '已失效',
+        rid: 3
+      }
+    ]
   },
 
   // 官方优惠券 红包列表 
   getRedBag() {
-    http.fxGet(api.authority_coupon, {}, (result) => {
-      console.log(result, '红包列表')
-
+    http.fxGet(api.authority_coupon, this.data.authorityParams, (result) => {
+      console.log(result, '官方红包列表')
       if (result.success) {
-        
-        let normalCouponList = []
-        let exceedCouponList = []
-        let authorityNormalCouponList = []
-        let authorityExceedCouponList = []
 
         result.data.coupons.forEach((v, i) => {
-
           v.start_time = utils.timestamp2string(v.start_at, 'date')
           v.end_time = utils.timestamp2string(v.expired_at, 'date')
-
-          // 没有过期的非官方的优惠券 没有使用过的 
-          if (v.type == 1 && !v.is_expired && !v.is_used) {
-            normalCouponList.push(v)
-          }
-
-          // 过期的非官方的优惠券 使用过 
-          if (v.type == 1 && v.is_expired && v.is_used) {
-            exceedCouponList.push(v)
-          }
-
-          // 没有过期的官方优惠券
-          if (!v.is_expired && !v.is_used) {
-            authorityNormalCouponList.push(v)
-          }
-
-          // 过期的官方优惠券
-          if (v.is_expired || v.is_used) {
-            authorityExceedCouponList.push(v)
-          }
-
-          // 设置data
-          if (result.data.coupons.length - 1 == i) {
-            this.setData({
-              // normalCouponList: normalCouponList,
-              // exceedCouponList: exceedCouponList,
-              authorityNormalCouponList: authorityNormalCouponList,
-              authorityExceedCouponList: authorityExceedCouponList
-            })
-          }
         })
-        console.log(this.data.normalCouponList)
+
+        let couponData = this.data.authorityNormalCouponList
+        this.setData({
+          authorityNormalCouponList: couponData.concat(result.data.coupons),
+          IsNextAuthority: result.data.next
+        })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  // 未使用商家
+  getUserCoupon() {
+    http.fxPost(api.market_core_user_coupons, this.data.storeCouponParams, (result) => {
+      console.log(result, '商家券')
+      result.data.coupons.forEach((v, i) => {
+        v.start_time = utils.timestamp2string(v.get_at, 'date')
+        v.end_time = utils.timestamp2string(v.end_at, 'date')
+      })
+
+      let couponData = this.data.normalCouponList
+      this.setData({
+        normalCouponList: couponData.concat(result.data.coupons),
+        IsNextStore: result.data.next
+      })
 
     })
   },
 
-  // 未使用// 已经过期 优惠券
-  getUserCoupon(o = 'N01', v = 1, i = 1000) {
-    var params = {
-      page: v, // Number	可选	1	当前页码
-      per_page: i, // Number	可选	10	每页数量
-      status: o, // String	可选	N01	N01: 未使用;N02: 已使用; N03: 已过期
-    }
-
-    let normalCouponList = this.data.normalCouponList // 未使用的 可用红包 非官方
-    let exceedCouponList = this.data.exceedCouponList // 已经过期 不可用红包 非官方
-
-    http.fxPost(api.market_core_user_coupons, params, (result) => {
-      console.log(result.data, o, 'all')
+  // 已经过期的优惠券
+  getExceedTime() {
+    http.fxGet(api.market_user_expired, this.data.exceedCouponParams, (result) => {
+      console.log(result, '过期的优惠券')
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
-
-        if (o == 'N01') {
-          this.setData({
-            normalCouponList: normalCouponList.push(v)
-          })
-          console.log(v,"没有使用商家券-")
-        }
-
-        if (o == 'N02' || o == 'N03') {
-          console.log(v, "过期的商家券")
-          this.setData({
-            useCouponList: exceedCouponList.push(v)
-          })
-        }
-
-        if (result.data.coupons.length-1 == i){
-          console.log(normalCouponList, exceedCouponList, '商家')
-          this.setData({
-            normalCouponList: normalCouponList,
-            exceedCouponList: exceedCouponList
-          })
-        }
       })
+
+      let couponData = this.data.exceedCouponList
+      this.setData({
+        exceedCouponList: couponData.concat(result.data.coupons),
+        exceedIsnext: result.data.next
+      })
+
     })
+  },
+
+  // 切换分类优惠券
+  handlePickCategory(e) {
+    console.log(e.currentTarget.dataset.rid)
+    this.setData({
+      couponActive: e.currentTarget.dataset.rid
+    })
+
   },
 
   // 使用优惠券
@@ -151,14 +151,9 @@ Page({
    */
   onShow: function() {
     this.getUserCoupon() // N01: 未使用
-    this.getUserCoupon('N02') // N02: 已使用
-    this.getUserCoupon('N03') // N03: 已过期
     this.getRedBag() // 红包列表
+    this.getExceedTime() // 过期的优惠券
 
-    console.log(app.globalData.storeInfo)
-    this.setData({
-      storeInfo: app.globalData.storeInfo
-    })
   },
 
   /**
@@ -195,5 +190,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })

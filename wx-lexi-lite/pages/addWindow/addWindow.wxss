@@ -114,6 +114,7 @@
 .add-window__title--input {
   height: 30rpx;
   margin-top: 50rpx;
+  font-weight: 500;
 }
 
 .add-window__narrate {

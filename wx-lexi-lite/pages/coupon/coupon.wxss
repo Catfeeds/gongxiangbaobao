@@ -219,11 +219,43 @@
   padding-top: 200rpx;
 }
 
-.noll-coupon image{
+.noll-coupon image {
   height: 250rpx;
   width: 510rpx;
   margin: 200rpx 0 20rpx 0;
 }
-.noll-coupon view{
-  color: #666666;
+
+.noll-coupon view {
+  color: #666;
+}
+
+.coupon-category__nav {
+  height: 80rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.coupon-category__nav .coupon-category__item {
+  flex: 1;
+  color: #a9b1b8;
+  font-size: 28rpx;
+  height: 100%;
+}
+
+.coupon-category__nav .coupon-category__item .text-info {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.coupon-category__nav .coupon-category__item  .active {
+  color: #5fe4b1;
+}
+
+.coupon-category__nav .coupon-category__item .active__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4rpx;
+  width: 100%;
+  background-color: #5fe4b1;
 }

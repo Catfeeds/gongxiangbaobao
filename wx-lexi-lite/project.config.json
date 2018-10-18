@@ -33,12 +33,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "coupon",
-					"pathName": "pages/receiveCoupon/receiveCoupon",
+					"pathName": "pages/coupon/coupon",
 					"query": ""
 				},
 				{
