@@ -1750,7 +1750,7 @@ Page({
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
   },
-  
+
   // 验证是否存在生活馆
   validateLifeStore() {
     const lifeStore = wx.getStorageSync('lifeStore')

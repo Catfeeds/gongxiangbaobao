@@ -315,7 +315,6 @@ Page({
 
   // 验证对象是否为空
   _isEmpty(obj) {
-    console.log(obj, '对象是否为空')
     if (obj) {
       return Object.keys(obj).length === 0
     }
@@ -355,20 +354,10 @@ Page({
       testQuestions: testQuestion.question
     })
 
-    this.getLastPlayers()
-
-    // 参与的人数
-    let that = this
-    setTimeout(() => {
-      that.startPlay()
-    }, 5000)
-    
     // 倒计时前先绘制整圆的圆环
     this.drawRingMove(this.data.start, this.data.end)
-    // 创建倒计时
-    this.setData({
-      timer: setInterval(this.startAnimation, this.data.animationTime)
-    })
+
+    this.getLastPlayers()
   },
 
   /**
@@ -389,7 +378,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // 参与的人数
     let that = this
+    setTimeout(() => {
+      that.startPlay()
+      // 创建倒计时
+      that.setData({
+        timer: setInterval(that.startAnimation, that.data.animationTime)
+      })
+    }, 1000)
+
     // 获取弹幕
     that.getDoommList()
 

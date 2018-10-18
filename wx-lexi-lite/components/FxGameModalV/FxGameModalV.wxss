@@ -20,7 +20,6 @@
 
 .fx-modal-v {
   position: relative;
-  background-color: #f7f9fb;
   border-radius: 8rpx;
   margin: 0rpx auto 50px;
   width: 590rpx;
@@ -51,15 +50,13 @@
 .fx-modal--rules {
   width: 590rpx;
   height: 900rpx;
-  background: url(https://static.moebeast.com/static/img/game/tixianbag.png);
-  background-size: 100% 100%;
+  background: linear-gradient(135deg, rgba(49, 34, 129, 1) 0%, rgba(131, 40, 177, 1) 100%);
 }
 
 .fx-modal--withdraw {
   width: 590rpx;
   height: 654rpx;
-  background: url(https://static.moebeast.com/static/img/game/tixianbag.png);
-  background-size: 100% 100%;
+  background: linear-gradient(135deg, rgba(49, 34, 129, 1) 0%, rgba(131, 40, 177, 1) 100%);
   text-align: center;
 }
 
@@ -84,8 +81,7 @@
   height: 552rpx;
   border-radius: 20rpx;
   opacity: 0.9;
-  background: url(https://static.moebeast.com/static/img/game/tixianbag.png);
-  background-size: 100% 100%;
+  background: linear-gradient(135deg, rgba(49, 34, 129, 1) 0%, rgba(131, 40, 177, 1) 100%);
 }
 .fx-modal--notice {
   width: 590rpx;

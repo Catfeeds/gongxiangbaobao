@@ -75,6 +75,7 @@ page {
   background-size: 100% 100%;
   display: flex;
   flex-direction: column;
+  background-color: #4A0F63;
 }
 
 .main-container {
@@ -426,7 +427,8 @@ page {
 }
 
 .fx-modal--rules .rule-text {
-  height: 850rpx;
+  height: 810rpx;
+  padding: 20rpx 0;
 }
 
 .fx-modal--rules .rule-text .prt {
@@ -954,6 +956,8 @@ page {
   position: absolute;
   top: 240rpx;
   height: 520rpx;
+  width: 750rpx;
+  overflow: hidden;
   left: 0;
   right: 0;
   z-index: 50;
@@ -1041,19 +1045,22 @@ page {
   width: 520rpx;
   height: 924rpx;
   margin: 0 auto;
-  background-image: url('https://static.moebeast.com/static/img/null-product.png');
+  background-image: url('https://static.moebeast.com/static/img/lexi-logo-bg2.jpg');
+  background-color: #f6f7fb;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: 190rpx 80rpx;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .poster-box .poster-image {
-  width: 520rpx;
+  width: 521rpx;
   height: 924rpx;
+  border: none;
 }
 
 .poster-box .loading {
@@ -1209,4 +1216,14 @@ page {
   font-weight: 400;
   color: rgba(119, 59, 2, 1);
   line-height: 22rpx;
+}
+
+@media all and (max-height:812px) and (min-height: 712px) {
+  .invite-container {
+    margin:65rpx 40rpx 0;
+  }
+
+  .screen {
+    margin: 43rpx auto 0;
+  }
 }

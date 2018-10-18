@@ -357,14 +357,16 @@
   width: 520rpx;
   height: 924rpx;
   margin: 0 auto;
-  background-image: url('https://static.moebeast.com/static/img/null-product.png');
+  background-image: url('https://static.moebeast.com/static/img/lexi-logo-bg2.jpg');
+  background-color: #f6f7fb;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: 190rpx 80rpx;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .poster-box .poster-image {

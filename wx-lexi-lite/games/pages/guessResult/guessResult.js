@@ -113,8 +113,9 @@ Page({
               filePath: res.tempFilePath,
               success: function (data) {
                 that.setData({
+                  showPosterModal: false,
                   posterSaving: false,
-                  posterBtnText: '保存分享'
+                  posterBtnText: '保存分享海报'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
@@ -122,7 +123,7 @@ Page({
                 console.log('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
-                  posterBtnText: '保存分享'
+                  posterBtnText: '保存分享海报'
                 })
 
                 if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
@@ -131,6 +132,12 @@ Page({
                       console.log(settingdata)
                       if (settingdata.authSetting['scope.writePhotosAlbum']) {
                         utils.fxShowToast('保存成功')
+
+                        that.setData({
+                          showPosterModal: false,
+                          posterSaving: false,
+                          posterBtnText: '保存分享海报'
+                        })
                       } else {
                         utils.fxShowToast('保存失败')
                       }

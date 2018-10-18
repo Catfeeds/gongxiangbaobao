@@ -359,7 +359,7 @@ Page({
         readyOver: true,
         isLoading: false
       })
-    }, 350)
+    }, 1000)
   },
 
   /**

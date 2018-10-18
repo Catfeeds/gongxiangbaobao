@@ -111,7 +111,7 @@
 					"id": 12,
 					"name": "游戏",
 					"pathName": "games/pages/guessGame/guessGame",
-					"query": "scene=10872436519-1"
+					"query": "scene=18301972465-1"
 				},
 				{
 					"id": -1,
@@ -132,7 +132,7 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 16,
 					"name": "生活馆",
 					"pathName": "lifeStore/pages/lifeStoreOrders/lifeStoreOrders",
 					"query": ""
@@ -141,6 +141,12 @@
 					"id": -1,
 					"name": "我的订单页面",
 					"pathName": "pages/order/order",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "开通生活馆",
+					"pathName": "pages/applyLifeStore/applyLifeStore",
 					"query": ""
 				}
 			]

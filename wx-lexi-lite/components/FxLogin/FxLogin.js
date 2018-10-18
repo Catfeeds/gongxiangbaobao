@@ -58,17 +58,18 @@ Component({
           showBindForm: true
         })
 
+        let userAuth = e.detail
         // 检测当前用户登录态是否有效
         wx.checkSession({
           success: (res) => {
             console.log(res, 'check session success')
-            this.getUserAuthInfo(e.detail)
+            this.getUserAuthInfo(userAuth)
           },
           fail: (res) => {
             console.log(res, 'check session fail')
 
             app.refreshUserSessionKey((e) => {
-              this.getUserAuthInfo(e.detail)
+              this.getUserAuthInfo(userAuth)
             })
           }
         })
@@ -82,6 +83,7 @@ Component({
      * 获取用户授权信息
      */
     getUserAuthInfo (userAuth) {
+      console.log(userAuth, '更新用户解密信息')
       const jwt = wx.getStorageSync('jwt')
       let params = {
         encrypted_data: userAuth.encryptedData,

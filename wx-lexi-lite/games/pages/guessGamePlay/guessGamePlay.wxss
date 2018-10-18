@@ -38,6 +38,7 @@ page {
   background-size: 100% 100%;
   display: flex;
   flex-direction: column;
+  background-color: #4A0F63;
 }
 
 .main-container {
@@ -83,15 +84,16 @@ page {
   position: absolute;
   left: 206rpx;
   bottom: 0;
+  z-index: 0;
 }
 
 .my-moneys .icon-money {
   width: 70rpx;
   height: 70rpx;
-  margin-right: -18rpx;
-  z-index: 2;
+  position: relative;
+  margin-right: -13rpx;
+  z-index: 3;
 }
-
 .my-moneys .discount-money {
   height: 60rpx;
   line-height: 60rpx;
@@ -120,7 +122,7 @@ page {
 .my-coupons .icon-coupon {
   width: 80rpx;
   height: 80rpx;
-  margin-right: -13rpx;
+  position: relative;
   z-index: 2;
 }
 
@@ -130,6 +132,7 @@ page {
   font-size: 20rpx;
   background: rgba(106, 55, 141, 0.3);
   padding: 0 40rpx 0 32rpx;
+  margin-left: -13rpx;
 }
 
 .discount-coupon .quantity {
@@ -154,6 +157,8 @@ page {
   position: absolute;
   top: 100rpx;
   height: 120rpx;
+  width: 750rpx;
+  overflow: hidden;
   left: 0;
   right: 0;
   z-index: 50;
@@ -537,7 +542,6 @@ page {
 .true__container .animation-demo-block {
   position: absolute;
   z-index: 1001;
-  
   width: 404rpx;
   height: 100%;
 }
@@ -556,7 +560,7 @@ page {
   position: absolute;
   left: 240rpx;
   bottom: 700rpx;
-  opacity: 0;                    
+  opacity: 0;
 }
 
 .prize-moneys .money .money-img {
@@ -626,4 +630,83 @@ page {
 
 .prize-coupons .coupon5 {
   animation: coupon-fall 0.3s ease-in-out 1;
+}
+
+.loading-all-images {
+  position: absolute;
+  bottom: -1000rpx;
+  left: -1000rpx;
+  z-index: 1;
+}
+
+@media all and (max-height:550px) {
+  .main-wrapper .foot-container {
+    bottom: 10rpx;
+  }
+
+  .main-container .prize-box {
+    margin-top: 3rpx;
+  }
+
+  .question-container {
+    transform: translateY(-22rpx);
+  }
+
+  .question-container .guess {
+    transform: translateY(20rpx);
+  }
+}
+
+@media all and (max-height:812px) and (min-height: 712px) {
+  .main-wrapper .foot-container {
+    bottom: 70rpx;
+  }
+
+  .main-container .prize-box {
+    margin-top: 80rpx;
+  }
+
+  .question-container {
+    transform: translateY(28px);
+  }
+
+  .question-container .answers {
+    transform: translateY(35px);
+  }
+
+  /* 金币掉落动画 */
+  @keyframes coupon-fall {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    95% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 1;
+      left: 469rpx;
+      bottom: 70rpx;
+    }
+  }
+
+  @keyframes money-fall {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    95% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      left: 215rpx;
+      bottom: 70rpx;
+    }
+  }
+
 }

@@ -81,9 +81,13 @@
       <view class="doomm-view">
         <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
           <image class="avatar" src="{{ doomm.avatar }}"></image>
-          <view class="adv">
+          <view class="adv" wx:if="{{ !doomm.type || doomm.type == 1 }}">
             {{ doomm.name }}获得
             <text class="amount">¥{{ doomm.amount }}</text>现金
+          </view>
+          <view class="adv" wx:if="{{ doomm.type == 2 }}">
+            {{ doomm.name }}偷得
+            <text class="amount">¥{{ doomm.amount }}</text>元
           </view>
         </view>
       </view>
@@ -122,24 +126,28 @@
       <view class="prt">第一：进入点击开始即可开玩，每轮猜图均会有奖金池，奖金池在500-1000元，随机出现。</view>
       <view class="prt">第二：用户需猜图总计10道，每道竞猜需在10秒内作答，每道猜图在规定时间内仅有一次作答机会。</view>
       <view class="prt">第三：用户答对一题即可获得的随机分配的乐喜平台购物优惠卷或现金，竞猜完毕后结算。</view>
-      <view class="prt">第四：如获得可提现金额，需10道题全部竞猜完毕且猜图过程中答题获得了相应的现金，才可以获得提现金额</view>
+      <view class="prt">第四：如获得可提现金额，需10道题全部竞猜完毕且猜图过程中答题获得了相应的现金，才可以获得提现金额。</view>
       <view class="title">特别说明</view>
       <view class="prt">第一：如中途退出活动，则取消提现金额分配资格</view>
       <view class="prt">第二：竞猜少于5题中途退出，则获得的优惠卷自动取消，如竞猜大于5题，根据竞猜正确的结果获得相应优惠卷。</view>
-      <view class="prt">第三：每日在1小时内每个用户连续可玩3次：第一次：无需任何条件即可参与，如需在玩，需分享猜图赢现金活动给微信好友后才能继续参与。</view>
-      <view class="prt">第四：当用户在1小时内连续玩了三次，不能继续参与，需2小时后才可继续参与游戏。</view>
+      <view class="prt">第三：首次玩猜图活动点可连续玩三次，第一次：无需任何条件即可参与，如需在玩，需分享猜图赢现金活动给微信好友后才能继续参与。</view>
+      <view class="prt">第四：首次已玩3次猜图后，用户需要邀请3位好友助力玩才可才能获得现金奖池，没有达到邀请好友指标继续玩则仅获得优惠卷奖池。</view>
+      <view class="prt">第五：当好友助力成功，用户可以获得9次拥有现金奖励的猜图。9次后如需在玩，需重新邀请3位好友助力玩猜图才能有现金奖池，反之则只有乐喜优惠卷奖池。</view>
       <view class="title">活动攻略</view>
       <view class="prt">第一：分享乐喜猜图赢现金游戏海报，邀请的好友参与越多，获得现金金额就会越多，同一用户重复邀请无效。</view>
-      <view class="prt">第二：你可以点击游戏首页邀请好友获得现金，只有邀请新设备注册的新账号可以获得奖励</view>
-      <view class="prt">第三：可以在游戏首页点击偷红包，偷取好友的现金和优惠卷，与好友互相偷钱互动增进情感，让偷钱变成娱乐</view>
-      <view class="prt">第四：每轮猜图结果成绩，猜图结果可直接分享好友，和分享朋友圈（直接分享海报）好友通过你的链接进入均可获得奖励</view>
+      <view class="prt">第二：你可以点击游戏首页顶部的邀请好友组成猜图小对，好友通过分享链接进入游戏并玩猜图，你可获得相应现金，只有邀请新设备注册的新账号可以获得奖励。</view>
+      <view class="prt">第三：可以在游戏首页点击偷红包，偷取好友的现金和优惠卷，与好友互相偷钱互动增进情感，让偷钱变成娱乐。</view>
+      <view class="prt">第四：如你玩猜图后邀请好友未达3人，你只能偷8次红包，邀请至少3位好友后，你可以无限制偷红包哦。</view>
+      <view class="prt">第五：每轮猜图结果成绩，猜图结果可直接分享好友，和分享朋友圈（直接分享海报）好友通过你的链接进入均可获得奖励。</view>
       <view class="title">提现与优惠卷</view>
-      <view class="prt">第一：提现现金，需登录注册乐喜后直接提现到微信零钱包，第一次直接提现最多可提10元到微信红包。</view>
-      <view class="prt">第二：参与猜图活动直接提现超过10元的用户，今后每次提现金额需达到30元才可提现。</view>
-      <view class="prt">第三：优惠卷可以在乐喜全平台购买原创精工好物抵现金使用，全场百万商品均有效
+      <view class="prt">第一：提现现金，需登录注册乐喜后直接提现到微信零钱包，第一次直接提现最多可提5元到微信红包。</view>
+      <view class="prt">第二：参与猜图活动直接提现超过5元的用户，今后每次提现金额需达到30元才可提现，每日最多可提现三次。</view>
+      <view class="prt">第三：当玩猜图获得1w与2w元优惠卷后，在2个阶梯分布需要在乐喜平台购买100元与200元商品后，才可玩游戏和提现。
       </view>
+      <view class="prt">第四：优惠卷可以在乐喜全平台购买原创精工好物抵现金使用，全场百万商品均有效。</view>
+
       <view class="title">特别警告</view>
-      <view class="prt">第一：同一个设备的微信号，手机号，注册的乐喜账户视为一个有效用户，官方系统监测</view>
+      <view class="prt">第一：同一个设备的微信号，手机号，注册的乐喜账户视为一个有效用户，官方系统监测。</view>
       <view class="prt">第二：系统识别真实有效用户，如邀请的新用户被识别为机器人，没有真实用户行为，作弊者一经查实， 一律封号处理，获得奖励的现金，优惠卷全部取消。</view>
       <view class="prt copyright">本游戏活动最终解释权归北京灵枝科技有限公司所有</view>
     </scroll-view>

@@ -23,9 +23,9 @@ Page({
     showLoginModal: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     showBindForm: false,
-    
+
     moneyQuantity: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    
+
     clientHeight: '',
 
     showRuleModal: false,
@@ -108,7 +108,7 @@ Page({
     stealBonusResult: {},
     stealFailMessage: '',
     showStealFailModal: false,
-    
+
     showPosterModal: false, // 分享海报
     posterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
@@ -137,7 +137,7 @@ Page({
   },
 
   // 继续玩（无现金奖励）
-  handleContinuePlay () {
+  handleContinuePlay() {
     this._playGame()
   },
 
@@ -147,7 +147,7 @@ Page({
   },
 
   // 进入游戏
-  _playGame () {
+  _playGame() {
     clearInterval(this.data.offsetDommTimer)
     clearInterval(this.data.inviteTimer)
 
@@ -174,7 +174,7 @@ Page({
   },
 
   // 滚动加载世界榜
-  handleLoadTopWorld () {
+  handleLoadTopWorld() {
     if (this.data.topWorldNext) {
       let page = this.data.topWorldPage + 1
       this.setData({
@@ -185,7 +185,7 @@ Page({
   },
 
   // 滚动加载好友榜
-  handleLoadTopFriend () {
+  handleLoadTopFriend() {
     if (this.data.topFriendNext) {
       let page = this.data.topFriendPage + 1
       this.setData({
@@ -196,7 +196,7 @@ Page({
   },
 
   // 滚动加载我的好友
-  handleLoadMyFriends () {
+  handleLoadMyFriends() {
     if (this.data.friendNext) {
       let page = this.data.friendPage + 1
       this.setData({
@@ -207,7 +207,7 @@ Page({
   },
 
   // 滚动加载可能认识的好友
-  handleLoadGuessFriends () {
+  handleLoadGuessFriends() {
     if (this.data.guessFriendNext) {
       let page = this.data.guessFriendPage + 1
       this.setData({
@@ -218,21 +218,21 @@ Page({
   },
 
   // 显示规则弹出框
-  handleShowRuleModal () {
+  handleShowRuleModal() {
     this.setData({
       showRuleModal: true
     })
   },
 
   // 排行榜
-  handleShowTopModal () {
+  handleShowTopModal() {
     this.setData({
       showTopModal: true
     })
   },
 
   // 好友弹出框
-  handleShowFriendModal () {
+  handleShowFriendModal() {
     this.setData({
       showInviteModal: true
     })
@@ -280,23 +280,24 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.posterUrl,
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode == 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
-              success: function (data) {
+              success: function(data) {
                 that.setData({
+                  showPosterModal: false,
                   posterSaving: false,
-                  posterBtnText: '保存分享'
+                  posterBtnText: '保存分享海报'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
-              fail: function (err) {
+              fail: function(err) {
                 console.log('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
-                  posterBtnText: '保存分享'
+                  posterBtnText: '保存分享海报'
                 })
 
                 if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
@@ -305,6 +306,11 @@ Page({
                       console.log(settingdata)
                       if (settingdata.authSetting['scope.writePhotosAlbum']) {
                         utils.fxShowToast('保存成功')
+                        that.setData({
+                          showPosterModal: false,
+                          posterSaving: false,
+                          posterBtnText: '保存分享海报'
+                        })
                       } else {
                         utils.fxShowToast('保存失败')
                       }
@@ -323,16 +329,20 @@ Page({
 
   // 获取提现金额
   handleWithDraw() {
+    console.log('点击提现')
     http.fxGet(api.question_withdraw, {}, (res) => {
       console.log(res, '提现金额')
       if (res.success) {
         this.setData({
-          'myAccount.cash_price': res.data.cash_price,
+          'myAccount.cash_price': utils.fixedAmount(res.data.cash_price),
           canWithDraw: res.data.cash_price > 0 ? true : false,
           showWithDrawModal: true
         })
       } else {
-        utils.fxShowToast(res.status.message)
+        this.setData({
+          showStealFailModal: true,
+          stealFailMessage: res.status.message
+        })
       }
     })
   },
@@ -351,7 +361,9 @@ Page({
     })
     // 后台获取提现支付参数
     const jwt = wx.getStorageSync('jwt')
-    http.fxPost(api.question_withdraw_cash, { open_id: jwt.openid }, (res) => {
+    http.fxPost(api.question_withdraw_cash, {
+      open_id: jwt.openid
+    }, (res) => {
       console.log(res, '提现至微信钱包')
       if (res.success) {
         this.setData({
@@ -362,9 +374,10 @@ Page({
         utils.fxShowToast('已提现，查看微信钱包')
       } else {
         this.setData({
-          withDrawLoading: false
+          withDrawLoading: false,
+          showStealFailModal: true,
+          stealFailMessage: res.status.message
         })
-        utils.fxShowToast(res.status.message)
       }
     })
   },
@@ -378,7 +391,7 @@ Page({
   },
 
   // 快跑
-  handleGoRun () {
+  handleGoRun() {
     this.setData({
       showStealBonusModal: false,
       showStealCouponModal: false,
@@ -387,7 +400,7 @@ Page({
   },
 
   // 知道了
-  handleOk () {
+  handleOk() {
     this.setData({
       showStealFailModal: false
     })
@@ -396,7 +409,9 @@ Page({
   // 偷红包
   handleStealBonus(e) {
     let uid = e.currentTarget.dataset.uid
-    http.fxPost(api.question_steal_bonus, { sn: uid }, (res) => {
+    http.fxPost(api.question_steal_bonus, {
+      sn: uid
+    }, (res) => {
       console.log(res, '偷红包')
       if (res.success) {
         this.setData({
@@ -454,7 +469,7 @@ Page({
   },
 
   // 隐藏邀请框
-  handleHideInviteModal () {
+  handleHideInviteModal() {
     this.setData({
       showInviteSuccessModal: false
     })
@@ -655,7 +670,7 @@ Page({
           this.setData({
             showInviteHelpModal: true,
             lackList: lackList,
-            newInviteFriends: friendList 
+            newInviteFriends: friendList
           })
         } else {
           // 直接进入游戏
@@ -670,11 +685,11 @@ Page({
   // 获取本次试题
   getTestQuestion() {
     // 游戏正在加载，不能再点击，防止连续点击事件
-    if (this.data.gameLoading) { 
+    if (this.data.gameLoading) {
       return
     }
-    let params = { 
-      is_share: this.data.isShare 
+    let params = {
+      is_share: this.data.isShare
     }
     this.setData({
       gameLoading: true
@@ -689,11 +704,16 @@ Page({
           gameLoading: false
         })
 
-        wx.setStorageSync('testQuestion', res.data)
-
-        wx.navigateTo({
-          url: '../guessGamePlay/guessGamePlay',
+        wx.setStorage({
+          key: 'testQuestion',
+          data: res.data,
+          success: () => {
+            wx.navigateTo({
+              url: '../guessGamePlay/guessGamePlay',
+            })
+          }
         })
+
       } else {
         this.setData({
           showShareChanceModal: true,
@@ -723,7 +743,7 @@ Page({
   },
 
   // 更新用户统计数据
-  _updateUserStats (amount, type=1) {
+  _updateUserStats(amount, type = 1) {
     let gameAccount = this.data.myAccount
     if (type == 1) { // 更新现金金额
       let money_amount = parseFloat(gameAccount.amount)
@@ -746,7 +766,7 @@ Page({
   },
 
   // 修正用户数据
-  _rebuildUserInfo (user, cnt=5) {
+  _rebuildUserInfo(user, cnt = 5) {
     if (user.user_name && user.user_name.length > cnt) {
       user.user_name = utils.truncate(user.user_name, cnt)
     }
@@ -817,7 +837,7 @@ Page({
       }
     })
   },
-  
+
   // 重建弹幕
   rebuildDoomm(result) {
     let that = this
@@ -864,36 +884,89 @@ Page({
   /**
    * 微信一键授权回调
    */
-  handleGotPhoneNumber (e) {
-    app.handleGotPhoneNumber(e, (success) => {
-      if (success) {
-        if (app.globalData.isLogin) {
-          this.setData({
-            is_mobile: true,
-            showLoginModal: false
-          })
+  handleGotPhoneNumber(e) {
+    let gotParams = e
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
 
-          // 开始游戏
-          this.getInitData()
+      // 检测当前用户登录态是否有效
+      wx.checkSession({
+        success: (res) => {
+          console.log(res, 'check session success')
+          app.handleGotPhoneNumber(e, (success) => {
+            if (success) {
+              if (app.globalData.isLogin) {
+                this.setData({
+                  is_mobile: true,
+                  showLoginModal: false
+                })
+
+                // 开始游戏
+                this.getInitData()
+              }
+            } else {
+              utils.fxShowToast('登录失败，稍后重试！')
+              wx.navigateTo({
+                url: '/pages/index/index',
+              })
+            }
+          })
+        },
+        fail: (res) => {
+
+          app.refreshUserSessionKey((e) => {
+            app.handleGotPhoneNumber(gotParams, (success) => {
+              if (success) {
+                if (app.globalData.isLogin) {
+                  this.setData({
+                    is_mobile: true,
+                    showLoginModal: false
+                  })
+
+                  // 开始游戏
+                  this.getInitData()
+                }
+              } else {
+                utils.fxShowToast('登录失败，稍后重试！')
+                wx.navigateTo({
+                  url: '/pages/index/index',
+                })
+              }
+            })
+          })
         }
-      } else {
-        utils.fxShowToast('登录失败，稍后重试！')
-        wx.navigateTo({
-          url: '/pages/index/index',
-        })
-      }
-    })
+
+      })
+
+    } else {
+      utils.fxShowToast('拒绝授权，你可以选择手机号动态登录')
+    }
   },
 
   /**
    * 获取用户授权信息
    */
-  bindGetUserInfo (e) {
+  bindGetUserInfo(e) {
     console.log(e.detail.userInfo, '获取用户授权信息')
     if (e.detail.userInfo) {
       // 用户点击允许按钮
       this.setData({
         showBindForm: true
+      })
+
+      let userAuth = e.detail
+      // 检测当前用户登录态是否有效
+      wx.checkSession({
+        success: (res) => {
+          console.log(res, 'check session success')
+          this.getUserAuthInfo(userAuth)
+        },
+        fail: (res) => {
+          console.log(res, 'check session fail')
+
+          app.refreshUserSessionKey((e) => {
+            this.getUserAuthInfo(userAuth)
+          })
+        }
       })
     } else {
       // 用户点击拒绝按钮
@@ -901,20 +974,71 @@ Page({
     }
   },
 
+  /**
+   * 获取用户授权信息
+   */
+  getUserAuthInfo(userAuth) {
+    console.log(userAuth, '更新用户解密信息')
+    const jwt = wx.getStorageSync('jwt')
+    let params = {
+      encrypted_data: userAuth.encryptedData,
+      auth_app_id: app.globalData.app_id,
+      openid: jwt.openid,
+      iv: userAuth.iv
+    }
+
+    console.log(params, '用户授权参数')
+
+    // 更新用户授权信息
+    http.fxPost(api.auth_weixin, params, (res) => {
+      console.log(res, '授权解密成功')
+      if (!res.success) {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
   // 获取游戏初始数据
   getInitData() {
     this.getPeopleStats()
     this.getInvitePeople()
     this.getStealBonusNotice()
-    
+
     this.getTopWorld()
     this.getFriendList()
+  },
+
+  // 需要刷新的数据
+  _refreshData() {
+    // 刷新金额
+    this.getAllRewards()
+
+    // 查看是否有偷我红包的人
+    this.getStealBonusNotice()
+
+    let that = this
+
+    // 刷新是否有最新邀请的人, 30s
+    this.setData({
+      inviteTimer: setInterval(() => {
+        that.getInviteNotice()
+      }, 30000)
+    })
+
+    // 获取弹幕, 10s
+    that.getDoommList()
+
+    this.setData({
+      offsetDommTimer: setInterval(() => {
+        that.getDoommList()
+      }, 10000)
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     page = this
     // scene格式：uid + '-' + code
     let scene = decodeURIComponent(options.scene)
@@ -932,7 +1056,9 @@ Page({
         })
 
         // 绑定与已登录用户的好友关系
-        app.bindFriend()
+        if (app.globalData.isLogin) {
+          app.bindFriend()
+        }
       }
     }
 
@@ -951,10 +1077,13 @@ Page({
       if (res) { // 登录请求成功
         if (app.globalData.isLogin) { // 登录成功
           this.setData({
-            is_mobile: false,
+            is_mobile: true,
             showLoginModal: false
           })
+
           this.getInitData()
+          this._refreshData()
+
         } else {
           this.setData({
             is_mobile: false,
@@ -971,16 +1100,18 @@ Page({
 
     if (app.globalData.isLogin) {
       this.setData({
-        is_mobile: true
+        is_mobile: true,
+        showLoginModal: false
       })
-      this.getInitData()      
+
+      this.getInitData()
     }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -992,42 +1123,21 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     if (!app.globalData.isLogin) {
       this.setData({
+        is_mobile: false,
         showLoginModal: true
       })
     } else {
-      // 刷新金额
-      this.getAllRewards()
+      this._refreshData()
     }
-
-    // 查看是否有偷我红包的人
-    this.getStealBonusNotice()
-
-    let that = this
-
-    // 刷新是否有最新邀请的人, 30s
-    this.setData({
-      inviteTimer: setInterval(() => {
-        that.getInviteNotice()
-      }, 30000)
-    })
-    
-    // 获取弹幕, 10s
-    that.getDoommList()
-
-    this.setData({
-      offsetDommTimer: setInterval(() => {
-        that.getDoommList()
-      }, 10000)
-    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     clearInterval(this.data.offsetDommTimer)
     clearInterval(this.data.inviteTimer)
     this.setData({
@@ -1039,7 +1149,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     clearInterval(this.data.offsetDommTimer)
     clearInterval(this.data.inviteTimer)
     this.setData({
@@ -1051,21 +1161,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 普通分享
    */
-  _commonShare () {
+  _commonShare() {
     let randomList = [0, 1, 2]
     let _random = Math.floor(Math.random() * randomList.length) + 1
 
@@ -1075,12 +1185,12 @@ Page({
       title: '猜图赢现金随时提现，20万人玩到心脏骤停',
       path: 'games/pages/guessGame/guessGame',
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
-      success: function (res) {
+      success: function(res) {
         console.log('转发成功')
 
         app.updateGameShare()
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('转发失败')
       }
     }
@@ -1089,25 +1199,25 @@ Page({
   /**
    * 邀请分享
    */
-  _inviteShare () {
+  _inviteShare() {
     let randomList = [0, 1, 2]
     let _random = Math.floor(Math.random() * randomList.length) + 1
 
     console.log(_random, '随机值')
 
     // scene格式：uid + '-' + code
-    const jwt = wx.getStorageInfoSync('jwt')
+    const jwt = wx.getStorageSync('jwt')
     let scene = jwt.uid + '-1'
     return {
       title: '猜图赢现金随时提现，20万人玩到心脏骤停',
       path: 'games/pages/guessGame/guessGame?scene=' + scene,
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
-      success: function (res) {
+      success: function(res) {
         console.log('转发成功')
 
         app.updateGameShare()
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('转发失败')
       }
     }
@@ -1116,27 +1226,27 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (e) {
+  onShareAppMessage: function(e) {
     // 邀请好友分享
     if (e.from == 'button') {
       if (e.target.dataset.name == 'invite') {
         return this._inviteShare()
-      } else { 
+      } else {
         // 普通转发 e.target.dataset.name = 'share'
         return this._commonShare()
       }
     }
-    
+
     // 分享转发
     if (e.from == 'menu') {
       return this._commonShare()
     }
   }
-  
+
 })
 
 class Doomm {
-  constructor (name, avatar, amount, top, time, color) {
+  constructor(name, avatar, amount, top, time, color) {
     this.name = name
     this.avatar = avatar
     this.amount = amount
@@ -1147,11 +1257,11 @@ class Doomm {
 
     let that = this
     this.id = k++
-    setTimeout(function () {
-      doommList.splice(doommList.indexOf(that), 1) // 动画完成，从列表中移除这项
-      page.setData({
-        doommData: doommList
-      })
-    }, this.time * 1000) // 定时器动画完成后执行。
+      setTimeout(function() {
+        doommList.splice(doommList.indexOf(that), 1) // 动画完成，从列表中移除这项
+        page.setData({
+          doommData: doommList
+        })
+      }, this.time * 1000) // 定时器动画完成后执行。
   }
 }

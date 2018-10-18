@@ -627,6 +627,6 @@ App({
         }]
       }]
     },
-    runEnv: 2
+    runEnv: 1
   }
 })

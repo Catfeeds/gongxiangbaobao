@@ -58,9 +58,13 @@
       <view class="doomm-view">
         <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
           <image class="avatar" src="{{ doomm.avatar }}"></image>
-          <view class="adv">
+          <view class="adv" wx:if="{{ !doomm.type || doomm.type == 1 }}">
             {{ doomm.name }}获得
             <text class="amount">¥{{ doomm.amount }}</text>现金
+          </view>
+          <view class="adv" wx:if="{{ doomm.type == 2 }}">
+            {{ doomm.name }}偷得
+            <text class="amount">¥{{ doomm.amount }}</text>元
           </view>
         </view>
       </view>
@@ -114,5 +118,12 @@
       </view>
     </view>
 
+  </view>
+  <view class="loading-all-images">
+    <image
+      wx:for="{{ testQuestions }}"
+      wx:for-item="question"
+      wx:key="g{{ question.question_id }}"
+      src="{{ question.image }}"></image>
   </view>
 </view>
