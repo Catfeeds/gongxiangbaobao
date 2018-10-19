@@ -90,7 +90,11 @@
           </view>
           <text class='font-s'>全场通用</text>
         </view>
-        <view class='qian-hui font-xss coupon_explain'>新店礼包</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==1}}">分享领红包</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==2}}">猜图赢现金</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==3}}">赠送</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==4}}">新人奖励</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==11}}">领券中心</view>
       </view>
       <!-- 去使用的按钮 -->
       <view class='right-btn'>
