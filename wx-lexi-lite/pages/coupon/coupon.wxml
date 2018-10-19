@@ -11,7 +11,7 @@
 <view class='container theme-bg-color'>
   <!-- 商家劝 -->
   <block wx:if="{{couponActive==1}}">
-    <view class="coupon-box" wx:for='{{ normalCouponList }}' wx:key="{{ index }}" >
+    <view class="coupon-box" catchtap="handleGoStore" data-store-id="{{item.store_rid}}" wx:for='{{ normalCouponList }}' wx:key="{{ index }}">
       <!-- left -->
       <view class='info-box-left'>
         <view class='line-L theme-bg-color line-out'></view>
@@ -40,7 +40,7 @@
         </view>
       </view>
       <!-- 去使用的按钮 -->
-      <view class='right-btn coupon_right--red' data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap'>
+      <view class='right-btn coupon_right--red'>
         <view>去 使 用</view>
       </view>
       <!-- 右边的线 -->
@@ -84,11 +84,10 @@
   </block>
 
   <!-- 已经失效的券 -->
-
   <block wx:if="{{couponActive==3}}">
-    <block>
+    <block wx:for='{{exceedCouponList}}' wx:key="{{index}}">
       <!-- 已经失效 商家-->
-      <view class='coupon-box' wx:for='{{exceedCouponList}}' wx:key="{{index}}" wx:if="{{item.is_expired || is_used}}">
+      <view class='coupon-box' wx:if="{{item.type==1}}">
         <!-- left -->
         <view class='info-box-left none-bg-l'>
           <view class='line-L theme-bg-color line-out'></view>
@@ -98,7 +97,7 @@
           <view class='price-info-box exceed_coupon--right'>
             <view class='price-icon'>
               <image src='../../images/yangjiao.png'></image>
-              <text>{{item.coupon.amount}}</text>
+              <text>{{item.amount}}</text>
             </view>
             <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
           </view>
@@ -125,7 +124,7 @@
       </view>
 
       <!-- 已经失效 乐喜-->
-      <view class='coupon-box' wx:for='{{authorityExceedCouponList}}' wx:key="{{index}}">
+      <view class='coupon-box' wx:if="{{item.type==2}}">
         <!-- left -->
         <view class='info-box-left exceed_coupon--middle'>
           <!-- 信息 -->

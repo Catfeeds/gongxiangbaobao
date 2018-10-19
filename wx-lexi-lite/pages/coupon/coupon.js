@@ -97,8 +97,8 @@ Page({
     http.fxGet(api.market_user_expired, this.data.exceedCouponParams, (result) => {
       console.log(result, '过期的优惠券')
       result.data.coupons.forEach((v, i) => {
-        v.start_time = utils.timestamp2string(v.get_at, 'date')
-        v.end_time = utils.timestamp2string(v.end_at, 'date')
+        v.start_time = utils.timestamp2string(v.start_at, 'date')
+        v.end_time = utils.timestamp2string(v.expired_at, 'date')
       })
 
       let couponData = this.data.exceedCouponList
@@ -112,17 +112,23 @@ Page({
 
   // 切换分类优惠券
   handlePickCategory(e) {
-    console.log(e.currentTarget.dataset.rid)
     this.setData({
       couponActive: e.currentTarget.dataset.rid
     })
-
   },
 
-  // 使用优惠券
+  // 使用官方的优惠券
   handleUseCouponTap(e) {
     wx.switchTab({
       url: '../index/index',
+    })
+  },
+
+  // 使用商家券
+  handleGoStore(e) {
+    console.log(e.currentTarget.dataset.storeId, '商家的优惠券信息')
+    wx.navigateTo({
+      url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.storeId,
     })
   },
 
@@ -182,6 +188,47 @@ Page({
    */
   onReachBottom: function() {
 
+    // 品牌
+    if (this.data.couponActive == 1) {
+      if (!this.data.IsNextStore) {
+        utils.fxShowToast('没有更多了')
+        return
+      }
+
+      this.setData({
+        'storeCouponParams.page': this.data.storeCouponParams + 1
+      })
+
+      this.getUserCoupon()
+    }
+
+    // 乐喜
+    if (this.data.couponActive == 2) {
+      if (!this.data.IsNextAuthority) {
+        utils.fxShowToast('没有更多了')
+        return
+      }
+
+      this.setData({
+        'authorityParams.page': this.data.authorityParams + 1
+      })
+
+      this.getRedBag()
+    }
+
+    // 已经失效
+    if (this.data.couponActive == 3) {
+      if (!this.data.exceedIsnext) {
+        utils.fxShowToast('没有更多了')
+        return
+      }
+
+      this.setData({
+        'exceedCouponParams.page': this.data.exceedCouponParams + 1,
+      })
+
+      this.getExceedTime()
+    }
   },
 
   /**
