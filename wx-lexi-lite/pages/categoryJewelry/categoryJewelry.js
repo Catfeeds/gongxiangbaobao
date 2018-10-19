@@ -124,7 +124,7 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice(e) {
-    console.log(e.detail.highValue)
+    utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -163,7 +163,7 @@ Page({
    */
   getCategories() {
     http.fxGet(api.categories, this.data.categoryParams, (result) => {
-      console.log(result, '分类列表')
+      utils.logger(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data.categories
@@ -252,7 +252,7 @@ Page({
   // 列表
   getcategoryList() {
     http.fxGet(api.category_products, this.data.params, (result) => {
-      console.log(result, '分类产品的列表')
+      utils.logger(result, '分类产品的列表')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v, i) => {

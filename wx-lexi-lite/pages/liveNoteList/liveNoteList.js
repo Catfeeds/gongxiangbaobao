@@ -38,7 +38,7 @@ Page({
 
   getData() {
     http.fxGet(api.life_records_life_remember, this.data.params, (result) => {
-      console.log(result, '生活记事')
+      utils.logger(result, '生活记事')
       if (result.success) {
         this.setData({
           dataList: result.data.life_records,

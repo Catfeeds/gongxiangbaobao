@@ -89,9 +89,9 @@ Page({
    * 获取交易订单列表
    */
   getStoreOrders () {
-    console.log(this.data.params)
+    utils.logger(this.data.params)
     http.fxGet(api.life_store_transactions, this.data.params, (res) => {
-      console.log(res, '交易订单')
+      utils.logger(res, '交易订单')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
@@ -120,7 +120,7 @@ Page({
    */
   getStoreIncomeCollect() {
     http.fxGet(api.life_store_income_collect, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '收益汇总')
+      utils.logger(res, '收益汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }

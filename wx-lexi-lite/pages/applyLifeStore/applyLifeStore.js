@@ -41,7 +41,7 @@ Page({
 
   // 选择国家
   handlePickCountry(e) {
-    console.log(e.currentTarget.dataset.name)
+    utils.logger(e.currentTarget.dataset.name)
     this.setData({
       'form.area_code': e.currentTarget.dataset.name,
       'form.areacode': e.currentTarget.dataset.name,
@@ -82,7 +82,7 @@ Page({
 
     http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code }, (res) => {
       wx.hideLoading()
-      console.log(res, '开通生活馆')
+      utils.logger(res, '开通生活馆')
       if (res.success) {
         this.setData({
           activePage: 'apply-result'
@@ -160,7 +160,7 @@ Page({
       mobile: this.data.form.mobile,
       area_code: this.data.form.area_code,
     }, (res) => {
-      console.log(res, '发送验证码')
+      utils.logger(res, '发送验证码')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
 
@@ -171,7 +171,7 @@ Page({
   // 获取地区编号
   getCountryCode() {
     http.fxGet(api.countries, {}, (result) => {
-      console.log(result, "地区编号列表")
+      utils.logger(result, "地区编号列表")
       this.setData({
         countryCodeList: result.data
       })

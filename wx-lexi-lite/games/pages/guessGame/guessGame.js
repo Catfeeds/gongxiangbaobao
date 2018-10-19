@@ -257,7 +257,7 @@ Page({
       scene: ''
     }
     http.fxPost(api.question_index_poster, data, (res) => {
-      console.log(res, '生成海报')
+      utils.logger(res, '生成海报')
       if (res.success) {
         this.setData({
           posterUrl: res.data.image_url
@@ -294,7 +294,7 @@ Page({
                 utils.fxShowToast('保存成功', 'success')
               },
               fail: function(err) {
-                console.log('下载海报失败：' + err.errMsg)
+                utils.logger('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
                   posterBtnText: '保存分享海报'
@@ -303,7 +303,7 @@ Page({
                 if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
                   wx.openSetting({
                     success(settingdata) {
-                      console.log(settingdata)
+                      utils.logger(settingdata)
                       if (settingdata.authSetting['scope.writePhotosAlbum']) {
                         utils.fxShowToast('保存成功')
                         that.setData({
@@ -329,9 +329,9 @@ Page({
 
   // 获取提现金额
   handleWithDraw() {
-    console.log('点击提现')
+    utils.logger('点击提现')
     http.fxGet(api.question_withdraw, {}, (res) => {
-      console.log(res, '提现金额')
+      utils.logger(res, '提现金额')
       if (res.success) {
         this.setData({
           'myAccount.cash_price': utils.fixedAmount(res.data.cash_price),
@@ -350,7 +350,7 @@ Page({
   // 提现到微信
   handleWxWithdraw() {
     if (!this.data.canWithDraw) {
-      console.log('你没有提现资格')
+      utils.logger('你没有提现资格')
       return
     }
     if (this.data.withDrawLoading) { // 正在提现中，禁止重复操作
@@ -364,7 +364,7 @@ Page({
     http.fxPost(api.question_withdraw_cash, {
       open_id: jwt.openid
     }, (res) => {
-      console.log(res, '提现至微信钱包')
+      utils.logger(res, '提现至微信钱包')
       if (res.success) {
         this.setData({
           withDrawLoading: false,
@@ -412,7 +412,7 @@ Page({
     http.fxPost(api.question_steal_bonus, {
       sn: uid
     }, (res) => {
-      console.log(res, '偷红包')
+      utils.logger(res, '偷红包')
       if (res.success) {
         this.setData({
           stealBonusResult: res.data,
@@ -441,7 +441,6 @@ Page({
           }
         } else {
           let s = parseInt(res.data.status)
-          console.log(s, '偷红包')
           let stealFailMessage = ''
           switch (s) {
             case 2:
@@ -501,7 +500,7 @@ Page({
       per_page: 10
     }
     http.fxGet(api.question_ranking, params, (res) => {
-      console.log(res, '世界榜')
+      utils.logger(res, '世界榜')
       if (res.success) {
         let currentUserTop = {
           user_amount: res.data.user_amount,
@@ -539,7 +538,7 @@ Page({
       per_page: 10
     }
     http.fxGet(api.question_friend_ranking, params, (res) => {
-      console.log(res, '好友榜')
+      utils.logger(res, '好友榜')
       if (res.success) {
         let currentUserTop = {
           user_amount: res.data.user_amount,
@@ -577,7 +576,7 @@ Page({
       per_page: 10
     }
     http.fxGet(api.question_friend_list, params, (res) => {
-      console.log(res, '好友列表')
+      utils.logger(res, '好友列表')
       if (res.success) {
         res.data.friend_list.forEach((v) => {
           v = this._rebuildUserInfo(v, 15)
@@ -607,7 +606,7 @@ Page({
       per_page: 10
     }
     http.fxGet(api.question_guess_friend, params, (res) => {
-      console.log(res, '认识的好友列表')
+      utils.logger(res, '认识的好友列表')
       if (res.success) {
         res.data.friend_list.forEach((v) => {
           v = this._rebuildUserInfo(v, 15)
@@ -636,7 +635,7 @@ Page({
       per_page: 10
     }
     http.fxGet(api.question_steal_list, params, (res) => {
-      console.log(res, '偷红包的人')
+      utils.logger(res, '偷红包的人')
       if (res.success) {
         res.data.friend_list.forEach((v) => {
           v = this._rebuildUserInfo(v, 8)
@@ -654,7 +653,7 @@ Page({
   // 是否满足好友助力
   getNeedInviteHelp() {
     http.fxGet(api.question_need_invite, {}, (res) => {
-      console.log(res, '好友助力')
+      utils.logger(res, '好友助力')
       if (res.success) {
         // 需要邀请
         if (res.data.need_invite == 1) {
@@ -695,7 +694,7 @@ Page({
       gameLoading: true
     })
     http.fxGet(api.question, params, (res) => {
-      console.log(res, '获取试题')
+      utils.logger(res, '获取试题')
       if (res.success) {
         this.setData({
           testQuestions: res.data.question,
@@ -733,7 +732,7 @@ Page({
   // 获取用户所有奖励
   getAllRewards() {
     http.fxGet(api.question_all_rewards, {}, (res) => {
-      console.log(res, '用户所有奖励')
+      utils.logger(res, '用户所有奖励')
       if (res.success) {
         let account = res.data
         account.amount = account.amount.toFixed(2)
@@ -753,7 +752,7 @@ Page({
     let gameAccount = this.data.myAccount
     if (type == 1) { // 更新现金金额
       let money_amount = parseFloat(gameAccount.amount)
-      console.log(money_amount, amount)
+      utils.logger(money_amount, amount)
       money_amount += parseFloat(amount)
       gameAccount.amount = money_amount.toFixed(2)
     }
@@ -782,7 +781,7 @@ Page({
   // 获取偷我红包的提醒
   getStealBonusNotice() {
     http.fxGet(api.question_steal_record, {}, (res) => {
-      console.log(res, '偷我红包的提醒')
+      utils.logger(res, '偷我红包的提醒')
       if (res.success) {
         res.data.steal_bouns_record.forEach((v) => {
           v.user_info = this._rebuildUserInfo(v.user_info)
@@ -801,7 +800,7 @@ Page({
   // 获取游戏统计信息
   getPeopleStats() {
     http.fxGet(api.question_stats, {}, (res) => {
-      console.log(res, '统计信息')
+      utils.logger(res, '统计信息')
       if (res.success) {
         this.setData({
           playerTotalCount: res.data.total_count
@@ -815,7 +814,7 @@ Page({
   // 获取邀请信息
   getInvitePeople() {
     http.fxGet(api.question_invite_info, {}, (res) => {
-      console.log(res, '邀请好友人数')
+      utils.logger(res, '邀请好友人数')
       if (res.success) {
         this.setData({
           peopleCount: res.data
@@ -830,7 +829,7 @@ Page({
   getInviteNotice() {
     let that = this
     http.fxGet(api.question_friend_notice, {}, (res) => {
-      console.log(res, '邀请好友人数')
+      utils.logger(res, '邀请好友人数')
       if (res.success) {
         if (res.data.user_info.length > 0) {
           that.setData({
@@ -864,7 +863,7 @@ Page({
   getDoommList() {
     let that = this
     http.fxGet(api.question_reward_message, {}, (res) => {
-      console.log(res, '弹幕列表')
+      utils.logger(res, '弹幕列表')
       if (res.success) {
         that.rebuildDoomm(res.data.reward_message)
       } else {
@@ -897,7 +896,7 @@ Page({
       // 检测当前用户登录态是否有效
       wx.checkSession({
         success: (res) => {
-          console.log(res, 'check session success')
+          utils.logger(res, 'check session success')
           app.handleGotPhoneNumber(e, (success) => {
             if (success) {
               if (app.globalData.isLogin) {
@@ -952,7 +951,7 @@ Page({
    * 获取用户授权信息
    */
   bindGetUserInfo(e) {
-    console.log(e.detail.userInfo, '获取用户授权信息')
+    utils.logger(e.detail.userInfo, '获取用户授权信息')
     if (e.detail.userInfo) {
       // 用户点击允许按钮
       this.setData({
@@ -963,11 +962,11 @@ Page({
       // 检测当前用户登录态是否有效
       wx.checkSession({
         success: (res) => {
-          console.log(res, 'check session success')
+          utils.logger(res, 'check session success')
           this.getUserAuthInfo(userAuth)
         },
         fail: (res) => {
-          console.log(res, 'check session fail')
+          utils.logger(res, 'check session fail')
 
           app.refreshUserSessionKey((e) => {
             this.getUserAuthInfo(userAuth)
@@ -984,7 +983,7 @@ Page({
    * 获取用户授权信息
    */
   getUserAuthInfo(userAuth) {
-    console.log(userAuth, '更新用户解密信息')
+    utils.logger(userAuth, '更新用户解密信息')
     const jwt = wx.getStorageSync('jwt')
     let params = {
       encrypted_data: userAuth.encryptedData,
@@ -993,11 +992,11 @@ Page({
       iv: userAuth.iv
     }
 
-    console.log(params, '用户授权参数')
+    utils.logger(params, '用户授权参数')
 
     // 更新用户授权信息
     http.fxPost(api.auth_weixin, params, (res) => {
-      console.log(res, '授权解密成功')
+      utils.logger(res, '授权解密成功')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
@@ -1079,7 +1078,7 @@ Page({
 
     // 给app.js 定义一个方法。
     app.userInfoReadyCallback = (res) => {
-      console.log(res, '用户信息请求完毕')
+      utils.logger(res, '用户信息请求完毕')
       if (res) { // 登录请求成功
         if (app.globalData.isLogin) { // 登录成功
           this.setData({
@@ -1185,19 +1184,17 @@ Page({
     let randomList = [0, 1, 2]
     let _random = Math.floor(Math.random() * randomList.length) + 1
 
-    console.log(_random, '随机值')
-
     return {
       title: '猜图赢现金随时提现，20万人玩到心脏骤停',
       path: 'games/pages/guessGame/guessGame',
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
       success: function(res) {
-        console.log('转发成功')
+        utils.logger('转发成功')
 
         app.updateGameShare()
       },
       fail: function(res) {
-        console.log('转发失败')
+        utils.logger('转发失败')
       }
     }
   },
@@ -1209,7 +1206,7 @@ Page({
     let randomList = [0, 1, 2]
     let _random = Math.floor(Math.random() * randomList.length) + 1
 
-    console.log(_random, '随机值')
+    utils.logger(_random, '随机值')
 
     // scene格式：uid + '-' + code
     const jwt = wx.getStorageSync('jwt')
@@ -1219,12 +1216,12 @@ Page({
       path: 'games/pages/guessGame/guessGame?scene=' + scene,
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
       success: function(res) {
-        console.log('转发成功')
+        utils.logger('转发成功')
 
         app.updateGameShare()
       },
       fail: function(res) {
-        console.log('转发失败')
+        utils.logger('转发失败')
       }
     }
   },

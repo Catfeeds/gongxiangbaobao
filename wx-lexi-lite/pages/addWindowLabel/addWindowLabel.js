@@ -56,7 +56,7 @@ Page({
       name: labelText,
       sort_order: 1
     }, (result) => {
-      console.log(result, "添加标签返回的结果")
+      utils.logger(result, "添加标签返回的结果")
       if (result.success) {
 
         this._hanleLabel(labelText)
@@ -70,7 +70,7 @@ Page({
 
   // 输入框输入信息
   handleInput(e) {
-    console.log(e.detail.value, "输入的内容")
+    utils.logger(e.detail.value, "输入的内容")
     let inputInfo = e.detail.value.replace(/(^\s*)|(\s*$)/g, "")
 
     this.setData({
@@ -87,7 +87,7 @@ Page({
     searchTime = setTimeout(() => {
       let data = []
       http.fxGet(api.shop_windows_search_keywords, this.data.hingeParams, (result) => {
-        console.log(result, "搜索标签结果")
+        utils.logger(result, "搜索标签结果")
         if (result.success) {
           this.setData({
             searchLabelResult: result.data
@@ -116,7 +116,7 @@ Page({
   // 添加热门标签
   handleAddHotLabel(e) {
     let hotLabel = e.currentTarget.dataset.name.replace(/^\s+|\s+$/g, "")
-    console.log(e, "标签的名字")
+    utils.logger(e, "标签的名字")
 
     this._hanleLabel(hotLabel)
   },
@@ -126,7 +126,7 @@ Page({
     // 设置上个页面
     let pageRoter = getCurrentPages()
     let parentPage = pageRoter[pageRoter.length - 2]
-    console.log(pageRoter[pageRoter.length - 2])
+    utils.logger(pageRoter[pageRoter.length - 2])
 
     let parentPageDataLabel = parentPage.data.windowParams.keywords
     parentPageDataLabel.push(e)
@@ -135,7 +135,7 @@ Page({
       'windowParams.keywords': Array.from(new Set(parentPageDataLabel))
     })
 
-    console.log(Array.from(new Set(parentPageDataLabel)))
+    utils.logger(Array.from(new Set(parentPageDataLabel)))
 
     // 设置缓存
     let searchLabelHistory = wx.getStorageSync('searchLabelHistory') || []
@@ -154,13 +154,13 @@ Page({
       searchHistory: data
     })
 
-    console.log(data, "历史标签记录")
+    utils.logger(data, "历史标签记录")
   },
 
   // 获取热门标签
   getHotLabel() {
     http.fxGet(api.shop_windows_hot_keywords, {}, result => {
-      console.log(result, "热门标签")
+      utils.logger(result, "热门标签")
       if (result.success) {
         // 取整
         result.data.keywords.forEach((v) => {

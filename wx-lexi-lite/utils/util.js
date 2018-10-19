@@ -1,5 +1,8 @@
 const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
 
+// 当前调试环境
+const Debug = false
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -353,6 +356,16 @@ const trim = (str) => {
   return str.replace(/^\s+|\s+$/g, '');
 }
 
+/**
+ * 日志输出方法
+ * 调试环境输出日志，生产环境关闭日志输出
+ */
+const logger = (data, block='模块') => {
+  if (Debug) {
+    console.log(data, block)
+  }
+}
+
 module.exports = {
   handleHideLoading: handleHideLoading,
   handleShowLoading: handleShowLoading,
@@ -376,5 +389,6 @@ module.exports = {
   wxPromisify: wxPromisify,
   commentTime,
   timestamp2ms,
-  trim
+  trim,
+  logger
 }

@@ -73,7 +73,7 @@ Page({
 
     // 获取海报类型
     let posterType = this._weightRandom()
-    console.log('Poster type: ' + posterType)
+    utils.logger('Poster type: ' + posterType)
 
     let data = {
       type: posterType === 1 ? 11 : 12,
@@ -83,7 +83,7 @@ Page({
       test_id: this.data.testId
     }
     http.fxPost(api.question_wxa_poster, data, (res) => {
-      console.log(res, '生成海报')
+      utils.logger(res, '生成海报')
       if (res.success) {
         this.setData({
           posterUrl: res.data.image_url
@@ -120,7 +120,7 @@ Page({
                 utils.fxShowToast('保存成功', 'success')
               },
               fail: function (err) {
-                console.log('下载海报失败：' + err.errMsg)
+                utils.logger('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
                   posterBtnText: '保存分享海报'
@@ -129,7 +129,7 @@ Page({
                 if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
                   wx.openSetting({
                     success(settingdata) {
-                      console.log(settingdata)
+                      utils.logger(settingdata)
                       if (settingdata.authSetting['scope.writePhotosAlbum']) {
                         utils.fxShowToast('保存成功')
 
@@ -157,7 +157,7 @@ Page({
   // 获取当前用户1小时内玩的次数
   getPlayTimes() {
     http.fxGet(api.question_play_count, {}, (res) => {
-      console.log(res, '玩的次数')
+      utils.logger(res, '玩的次数')
       if (res.success) {
         this.setData({
           playTimes: res.data.play_count,
@@ -173,7 +173,7 @@ Page({
   // 获取正确答案列表
   getTestResult() {
     http.fxGet(api.question_answer_list, { test_id: this.data.testId }, (res) => {
-      console.log(res, '正确答案列表')
+      utils.logger(res, '正确答案列表')
       if (res.success) {
         this.setData({
           productList: res.data.product_list
@@ -190,7 +190,7 @@ Page({
       test_id: this.data.testId 
     }
     http.fxPost(api.question_settlement, params, (res) => {
-      console.log(res, '结算结果')
+      utils.logger(res, '结算结果')
       if (res.success) {
         let rightCount = res.data.right_count
         let gameTopName = ''
@@ -239,7 +239,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    utils.logger(options)
     let testId = options.test_id
 
     this.setData({
@@ -305,7 +305,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
-    console.log(options, '分享游戏')
+    utils.logger(options, '分享游戏')
     let randomList = [1, 2, 3]
     let _random = Math.floor(Math.random() * randomList.length)
     return {
@@ -313,7 +313,7 @@ Page({
       path: 'games/pages/guessGame/guessGame',
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0'+ _random +'.jpg',
       success: function (res) {
-        console.log('转发成功')
+        utils.logger('转发成功')
 
         app.updateGameShare()
         
@@ -323,7 +323,7 @@ Page({
         })
       },
       fail: function (res) {
-        console.log('转发失败')
+        utils.logger('转发失败')
       }
     }
   }

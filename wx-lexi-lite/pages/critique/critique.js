@@ -22,9 +22,9 @@ Page({
   },
   //改变星星选中数量---
   starTap(e) {
-    console.log(e.currentTarget.dataset.skuid)
+    utils.logger(e.currentTarget.dataset.skuid)
     var skuid = e.currentTarget.dataset.skuid
-    console.log(this.data.cretiqueParams[skuid])
+    utils.logger(this.data.cretiqueParams[skuid])
 
     this.setData({
       selectedStar: e.currentTarget.dataset.index,
@@ -36,15 +36,15 @@ Page({
   },
   // 评论内容发---
   handleCritique(e) {
-    console.log(e.detail.value)
-    console.log(e.target.dataset.rid)
+    utils.logger(e.detail.value)
+    utils.logger(e.target.dataset.rid)
     var skuid = e.target.dataset.rid
     this.setData({
       ['cretiqueParams.' + [skuid] + '.content']: e.detail.value,
     }, () => {
       this.handleIsSubmit()
     })
-    console.log(this.data.cretiqueParams)
+    utils.logger(this.data.cretiqueParams)
   },
   //判断是否可提交
   handleIsSubmit() {
@@ -53,7 +53,7 @@ Page({
     var totalThree = 0
     Object.keys(this.data.cretiqueParams).forEach((key) => {
       totalOne = totalOne + 1
-      console.log(this.data.cretiqueParams[key])
+      utils.logger(this.data.cretiqueParams[key])
       if (this.data.cretiqueParams[key].content) {
 
         totalTwo = totalTwo + 1
@@ -62,9 +62,9 @@ Page({
         totalThree = totalThree + 1
       }
     })
-    console.log(totalOne, totalTwo, totalThree)
+    utils.logger(totalOne, totalTwo, totalThree)
     if (totalOne == totalTwo && totalOne == totalThree && totalTwo == totalThree) {
-      console.log(55555)
+      utils.logger(55555)
       this.setData({
         submit_btn: true
       })
@@ -81,9 +81,9 @@ Page({
       return
     }
     Object.keys(this.data.cretiqueParams).forEach((key)=>{
-      console.log(this.data.cretiqueParams[key])
+      utils.logger(this.data.cretiqueParams[key])
       http.fxPost(api.critique_product, this.data.cretiqueParams[key],(result)=>{
-        console.log(result)
+        utils.logger(result)
         if(result.success){
           utils.fxShowToast('点评已经提交','success')
           wx.navigateBack({
@@ -131,7 +131,7 @@ Page({
       product: app.globalData.critiqueProduct
     }, () => {
       this.data.product.items.forEach((v, i) => {
-        console.log(v)
+        utils.logger(v)
         objectParams[v.rid] = {
           sku_rid: v.rid, //Integer	必需	 	商品sku_id
           order_rid: this.data.product.rid, //String	必需	 	订单编号
@@ -144,7 +144,7 @@ Page({
       this.setData({
         cretiqueParams: objectParams
       })
-      console.log(this.data.cretiqueParams)
+      utils.logger(this.data.cretiqueParams)
     })
   },
 

@@ -44,7 +44,7 @@ Page({
   //获取别人关注
   getOtherFollower() {
     http.fxGet(api.users_other_followed_users, this.data.params, (result) => {
-      console.log(result, '别人的关注')
+      utils.logger(result, '别人的关注')
       if (result.success) {
         let data = this.data.peopleList
         result.data.followed_users.forEach((v) => {
@@ -83,7 +83,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['peopleList[' + index + '].followed_status']: result.data.followed_status
@@ -100,7 +100,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['peopleList[' + index + '].followed_status']: result.data.followed_status

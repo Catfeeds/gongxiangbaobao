@@ -156,7 +156,7 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice(e) {
-    console.log(e.detail.highValue)
+    utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -228,10 +228,10 @@ Page({
    * 选择推荐
    */
   handleToggleRecommendList(e) {
-    console.log(e.currentTarget.dataset.index)
+    utils.logger(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.cid
-    console.log(id)
+    utils.logger(id)
 
     if (this.data.recommendList[index].isActive) {
       this.setData({
@@ -269,7 +269,7 @@ Page({
 
   // 切换分类
   handleChangeCategory(e) {
-    console.log(e.currentTarget.dataset.id)
+    utils.logger(e.currentTarget.dataset.id)
     this.setData({
       categoryId: e.currentTarget.dataset.id
     })
@@ -458,7 +458,7 @@ Page({
   // 获取文章列表
   getArticle() {
     http.fxGet(api.core_platforms_life_records, this.data.liveParams, (result) => {
-      console.log(result, '生活志文章列表')
+      utils.logger(result, '生活志文章列表')
       if (result.success) {
         let newData = this.data.wonderfulStories
         result.data.life_records.forEach((v) => {
@@ -478,7 +478,7 @@ Page({
   // 获取店铺的商品列表 life_store_products
   products() {
     http.fxGet(api.life_store_products, this.data.params, (result) => {
-      console.log(result, '店铺商品列表')
+      utils.logger(result, '店铺商品列表')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -505,13 +505,13 @@ Page({
       })
       return false
     }
-    console.log(e.currentTarget.dataset.rid)
-    console.log(e.currentTarget.dataset.index)
+    utils.logger(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.index)
     http.fxPost(api.coupon_grant, {
       rid: e.currentTarget.dataset.rid,
       store_rid: this.data.storeRid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
 
@@ -527,12 +527,12 @@ Page({
 
   // 用户登录优惠券
   getCouponsByUser() {
-    console.log(this.data.storeRid, '原店铺的rid')
+    utils.logger(this.data.storeRid, '原店铺的rid')
 
     http.fxGet(api.user_login_coupon, {
       store_rid: this.data.storeRid
     }, (result) => {
-      console.log(result, '登陆的优惠券')
+      utils.logger(result, '登陆的优惠券')
 
       result.data.coupons.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
@@ -555,7 +555,7 @@ Page({
     http.fxGet(api.noCouponsList, {
       store_rid: this.data.storeRid
     }, (result) => {
-      console.log(result, '没有登陆获取优惠券')
+      utils.logger(result, '没有登陆获取优惠券')
 
       let coupon = [] // 优惠券
       let full = [] // 满减券
@@ -570,7 +570,7 @@ Page({
         if (e == 'manjian') {
           // 登陆， 筛选满减
           result.data.coupons.forEach((v, i) => {
-            console.log(v)
+            utils.logger(v)
             if (v.type == 3) {
               full.push(v)
             }
@@ -584,7 +584,7 @@ Page({
         } else {
           // 未登录
           result.data.coupons.forEach((v, i) => {
-            console.log(v)
+            utils.logger(v)
             if (v.type == 3) {
               full.push(v)
             } else {
@@ -612,7 +612,7 @@ Page({
     http.fxGet(api.official_store_info, {
       rid: this.data.storeRid
     }, (result) => {
-      console.log(result, '店铺的详情')
+      utils.logger(result, '店铺的详情')
 
       if (result.success) {
         let categoryList = []
@@ -625,7 +625,7 @@ Page({
           categoryList.push(categoryItem)
         })
 
-        console.log(categoryList, '分类的信息')
+        utils.logger(categoryList, '分类的信息')
 
         this.setData({
           categoryList: categoryList,
@@ -654,7 +654,7 @@ Page({
     http.fxGet(api.official_store_announcement, {
       rid: this.data.storeRid
     }, (result) => {
-      console.log(result, '店铺的公告')
+      utils.logger(result, '店铺的公告')
       if (result.success) {
         result.data.delivery_date = utils.timestamp2string(result.data.delivery_date, 'date') //发货时间
         result.data.end_date = utils.timestamp2string(result.data.end_date, 'date') // 休馆结束
@@ -676,7 +676,7 @@ Page({
     http.fxPost(api.market_share_store, {
       rid: rid
     }, (result) => {
-      console.log(result, '分享品牌馆地址')
+      utils.logger(result, '分享品牌馆地址')
       if (result.success) {
 
         this.setData({
@@ -695,10 +695,10 @@ Page({
     // scene格式：rid + '-' + sid (品牌馆rid + 生活馆rid)
     let scene = decodeURIComponent(options.scene)
     let rid = ''
-    console.log(scene, 'scene')
+    utils.logger(scene, 'scene')
     if (scene && scene != undefined && scene != 'undefined') {
       let sceneAry = scene.split('-')
-      console.log(sceneAry.length)
+      utils.logger(sceneAry.length)
       rid = sceneAry[0]
       // 生活馆ID
       if (sceneAry.length == 2) {
@@ -823,14 +823,14 @@ Page({
       scene += '-' + lastVisitLifeStoreRid
     }
 
-    console.log('pages/branderStore/branderStore?scene=' + scene, '分享的链接')
+    utils.logger('pages/branderStore/branderStore?scene=' + scene, '分享的链接')
 
     return {
       title: title,
       path: 'pages/branderStore/branderStore?scene=' + scene,
       imageUrl: imageUrl,
       success:(res) => {
-        console.log('分享成功')
+        utils.logger('分享成功')
       }
     }
   }

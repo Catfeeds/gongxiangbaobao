@@ -102,12 +102,12 @@ Page({
 
   // 选择
   handleStatus(e) {
-    console.log(e)
+    utils.logger(e)
     let status = e.currentTarget.dataset.status
     this.setData({
       currentStatus: status
     })
-    console.log(this.data.daifu, this.data.daifa, this.data.daishou, this.data.daiping)
+    utils.logger(this.data.daifu, this.data.daifa, this.data.daishou, this.data.daiping)
   },
 
   // 查看订单详情
@@ -134,7 +134,7 @@ Page({
   // 获取订单列表--- 
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
-      console.log(result, '订单列表')
+      utils.logger(result, '订单列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -165,7 +165,7 @@ Page({
   // 代付款--- 
   getDaifuList() {
     http.fxGet(api.orders, this.data.dafuParams, (result) => {
-      console.log(result, '代付列表')
+      utils.logger(result, '代付列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -195,7 +195,7 @@ Page({
   // 代发货列表--- 
   getDaifaList() {
     http.fxGet(api.orders, this.data.dafaParams, (result) => {
-      console.log(result, '代发列表')
+      utils.logger(result, '代发列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -217,7 +217,7 @@ Page({
   // 代收获列表--- 
   getDaishouList() {
     http.fxGet(api.orders, this.data.daishouParams, (result) => {
-      console.log(result, '代收列表')
+      utils.logger(result, '代收列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -239,7 +239,7 @@ Page({
   // 代收获列表--- 
   getPingjiaList() {
     http.fxGet(api.orders, this.data.pingjiaParams, (result) => {
-      console.log(result, '评价列表')
+      utils.logger(result, '评价列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -264,12 +264,12 @@ Page({
 
   // 付款
   paymentBtn(e) {
-    console.log(e)
-    console.log(e.currentTarget.dataset)
+    utils.logger(e)
+    utils.logger(e.currentTarget.dataset)
     // let order = this.data.orderList.orders[e.currentTarget.dataset.order]
     let order = e.currentTarget.dataset
     let rid = order.rid
-    console.log(order.rid)
+    utils.logger(order.rid)
 
     // 补充参数
     const jwt = wx.getStorageSync('jwt')
@@ -280,7 +280,7 @@ Page({
 
     // 获取订单签名
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
-      console.log(result, '获取订单签名')
+      utils.logger(result, '获取订单签名')
       if (result.success) {
 
         if (result.data.is_merge) {
@@ -326,12 +326,12 @@ Page({
   handleReceive(e) {
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.index
-    console.log(idx, rid)
+    utils.logger(idx, rid)
 
     http.fxPost(api.order_signed, {
       rid: rid
     }, (result) => {
-      console.log(result, '确认收货')
+      utils.logger(result, '确认收货')
 
       if (result.success) {
         let allshouhuoData = this.data.allOrderList
@@ -386,7 +386,7 @@ Page({
           http.fxDelete(api.orders_delete, {
             rid: rid
           }, (result) => {
-            console.log(result, '删除订单')
+            utils.logger(result, '删除订单')
             if (result.success) {
               let allshouhuoData = this.data.allOrderList
               allshouhuoData.forEach((v, i) => {
@@ -413,7 +413,7 @@ Page({
             }
           })
         } else if (res.cancel) {
-          console.log('用户点击取消')
+          utils.logger('用户点击取消')
         }
       }
     })
@@ -539,7 +539,7 @@ Page({
 
   // 评论
   critiqueTap(e) {
-    console.log(e.currentTarget.dataset.product)
+    utils.logger(e.currentTarget.dataset.product)
     // 传输要评论的东西
     app.globalData.critiqueProduct = e.currentTarget.dataset.product
     wx.navigateTo({

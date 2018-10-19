@@ -101,7 +101,7 @@ Page({
   // 猜你喜欢
   getYouLike() {
     http.fxGet(api.life_records_guess_likes, {}, (result) => {
-      console.log(result, '猜你喜欢')
+      utils.logger(result, '猜你喜欢')
       
       this.setData({
         isLoadPageShow: false
@@ -150,7 +150,7 @@ Page({
   // 精彩故事
   getWonderfulStories() {
     http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
-      console.log(result, '精彩故事')
+      utils.logger(result, '精彩故事')
       if (result.success) {
         // 去除标签
         result.data.life_records.forEach((v) => {
@@ -169,7 +169,7 @@ Page({
   // 头部广告
   getAdvertisement() {
     http.fxGet(api.marketBanners.replace(/:rid/g, 'discover_ad'), {}, (result) => {
-      console.log(result, '发现-头部广告')
+      utils.logger(result, '发现-头部广告')
       if (result.success) {
         this.setData({
           advertisement: result.data

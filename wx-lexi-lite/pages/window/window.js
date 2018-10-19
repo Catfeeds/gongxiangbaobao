@@ -61,7 +61,7 @@ Page({
       return
     }
 
-    console.log(e)
+    utils.logger(e)
     this.setData({
       categoryActive: e.currentTarget.dataset.code
     })
@@ -78,14 +78,14 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.uid)
+    utils.logger(e.currentTarget.dataset.uid)
     let uid = e.currentTarget.dataset.uid
     this._handleFollow(uid, true)
 
     http.fxPost(api.follow_user, {
       uid: uid
     }, result => {
-      console.log(result, "添加关注")
+      utils.logger(result, "添加关注")
       this.getFollowWindow()
     })
   },
@@ -98,7 +98,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: uid
     }, result => {
-      console.log(result, "取消关注")
+      utils.logger(result, "取消关注")
     })
   },
 
@@ -128,12 +128,12 @@ Page({
 
   // 取消喜欢橱窗
   handleDeleteLike(e) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     let rid = e.currentTarget.dataset.rid
     http.fxDelete(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "添加喜欢橱窗")
+      utils.logger(result, "添加喜欢橱窗")
     })
 
     this._handleLikeWindow(rid, false)
@@ -150,12 +150,12 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     let rid = e.currentTarget.dataset.rid
     http.fxPost(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "添加喜欢橱窗")
+      utils.logger(result, "添加喜欢橱窗")
     })
 
     this._handleLikeWindow(rid, true)
@@ -214,7 +214,7 @@ Page({
   // 获取关注橱窗
   getFollowWindow() {
     http.fxGet(api.shop_windows_follow, this.data.followWindowParams, result => {
-      console.log(result, "关注人发布的橱窗")
+      utils.logger(result, "关注人发布的橱窗")
       if (result.success) {
         let windowList = this.data.followWindow.shop_windows
         this.setData({
@@ -232,7 +232,7 @@ Page({
   // 获取推荐橱窗列表
   getRecommendWindow() {
     http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
-      console.log(result, "获取橱窗列表")
+      utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
         this.setData({

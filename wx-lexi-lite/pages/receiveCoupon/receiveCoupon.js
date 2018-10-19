@@ -54,7 +54,7 @@ Page({
 
   //广告位置
   handleChangRound(e){
-    console.log(e.detail.current)
+    utils.logger(e.detail.current)
     this.setData({
       swiperMark: e.detail.current
     })
@@ -69,7 +69,7 @@ Page({
 
   // 切换分类分类优惠券
   handleChangeCtaegory(e) {
-    console.log(e.currentTarget.dataset)
+    utils.logger(e.currentTarget.dataset)
     let code = e.currentTarget.dataset.code
 
     if (code != 'recommend' && this.data.categoryCode != code) {
@@ -103,10 +103,10 @@ Page({
       return
     }
 
-    console.log(e)
+    utils.logger(e)
     let code = e.currentTarget.dataset.code
     let idx = e.currentTarget.dataset.idx
-    console.log(this.data.authorityCouponList[idx])
+    utils.logger(this.data.authorityCouponList[idx])
 
     // 已经领取
     if (this.data.authorityCouponList[idx].is_grant) {
@@ -120,7 +120,7 @@ Page({
       http.fxPost(api.market_official_coupons_grant, {
         rid: code
       }, result => {
-        console.log(result, "领取官方优惠券")
+        utils.logger(result, "领取官方优惠券")
         if (result.success) {
           this.setData({
             ['authorityCouponList[' + idx + '].is_grant']: true
@@ -142,7 +142,7 @@ Page({
 
   // 去品牌商店
   handleTobrandStore(e) {
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
     })
@@ -158,7 +158,7 @@ Page({
       return
     }
 
-    console.log(e)
+    utils.logger(e)
     let code = e.currentTarget.dataset.code
     let idx = e.currentTarget.dataset.index
     let storeRid = e.currentTarget.dataset.storeRid
@@ -176,7 +176,7 @@ Page({
         rid: code,
         store_rid: storeRid
       }, result => {
-        console.log(result, "领取精选商品优惠券")
+        utils.logger(result, "领取精选商品优惠券")
         if (result.success) {
           this.setData({
             ['highProductCouponList[' + idx + '].is_grant']: true
@@ -207,7 +207,7 @@ Page({
       return
     }
 
-    console.log(e)
+    utils.logger(e)
     let code = e.currentTarget.dataset.code
     let idx = e.currentTarget.dataset.index
     let storeRid = e.currentTarget.dataset.storeRid
@@ -225,7 +225,7 @@ Page({
         rid: code,
         store_rid: storeRid
       }, result => {
-        console.log(result, "领取单享优惠券")
+        utils.logger(result, "领取单享优惠券")
         if (result.success) {
           this.setData({
             ['categoryAloneCoupon[' + idx + '].is_grant']: true
@@ -290,7 +290,7 @@ Page({
   // 获取分类列表的同享券优惠券
   getCategoryCommonCouupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.commonCouponParams, result => {
-      console.log(result, '分类列表的同享券')
+      utils.logger(result, '分类列表的同享券')
       let data = this.data.categoryCommonCoupon
       if (result.success) {
         result.data.coupons.forEach((item, idx) => {
@@ -319,7 +319,7 @@ Page({
     http.fxGet(api.market_coupon_center_single, { ...this.data.aloneCouponParams,
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '分类列表的单享券')
+      utils.logger(result, '分类列表的单享券')
       let data = this.data.categoryAloneCoupon
       if (result) {
         this.setData({
@@ -336,7 +336,7 @@ Page({
   // 分类列表
   getCategory() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result, "fen lei")
+      utils.logger(result, "fen lei")
       if (result.success) {
         this.setData({
           category: result.data.categories
@@ -350,7 +350,7 @@ Page({
   // 精选品牌馆优惠券
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
-      console.log(result, '精选品牌馆优惠券')
+      utils.logger(result, '精选品牌馆优惠券')
       if (result.success) {
         result.data.coupons.forEach((item,idx)=>{
           item.product_sku.forEach((v, i) => {
@@ -375,7 +375,7 @@ Page({
     http.fxGet(api.market_coupon_center_single, { ...this.data.highProductCouponParams,
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '精选商品优惠券')
+      utils.logger(result, '精选商品优惠券')
       if (result) {
         this.setData({
           highProductCouponList: result.data.coupons
@@ -392,7 +392,7 @@ Page({
     http.fxGet(api.market_official_coupons_recommend, {
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '官方优惠券')
+      utils.logger(result, '官方优惠券')
       if (result.success) {
 
         this.setData({
@@ -408,9 +408,9 @@ Page({
   // 领券中心的广告
   getAdv(){
     http.fxGet(api.banners_rid.replace(/:rid/g,'coupon_ad'),{},result=>{
-      console.log(result,'领券中心的广告')
+      utils.logger(result,'领券中心的广告')
       if(result.success){
-        console.log()
+        utils.logger()
         this.setData({
           couponAdv: result.data.banner_images
         })
@@ -422,7 +422,7 @@ Page({
 
   getCouponDynamic(){
     http.fxGet(api.market_coupon_lines, { status: 1, count:20},result=>{
-      console.log(result,'领券中心的动态')
+      utils.logger(result,'领券中心的动态')
       
     })
   },
@@ -518,10 +518,10 @@ Page({
       title: '乐喜',
       path: '/pages/index/index',
       success: (result) => {
-        console.log('分享成功')
+        utils.logger('分享成功')
       },
       fail: () => {
-        console.log('分享失败')
+        utils.logger('分享失败')
       }
     }
   }

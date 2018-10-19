@@ -46,7 +46,7 @@ Page({
 
   // 切换分类
   handleChangeCategory(e) {
-    console.log(e.currentTarget.dataset.id)
+    utils.logger(e.currentTarget.dataset.id)
     this.setData({
       categoryId: e.currentTarget.dataset.id
     })
@@ -70,7 +70,7 @@ Page({
   // 品牌馆 -- 特色
   getCharacteristicBranderStore() {
     http.fxGet(api.column_feature_store_all, this.data.params, (result) => {
-      console.log(result, '特色品牌馆')
+      utils.logger(result, '特色品牌馆')
       if (result.success) {
 
         let data = this.data.storeList
@@ -92,7 +92,7 @@ Page({
   // 品牌馆 -- 精选
   getHighStore() {
     http.fxGet(api.column_handpick_store, this.data.highParams, (result) => {
-      console.log(result, '特色品牌馆-精选')
+      utils.logger(result, '特色品牌馆-精选')
       if (result.success) {
         this.setData({
           HighStoreList:result.data
@@ -106,7 +106,7 @@ Page({
   // 品牌管--精选 头部
   getHanderAdv() {
     http.fxGet(api.banners_rid.replace(/:rid/g, 'store_ad'), {}, (result) => {
-      console.log(result, '特色品牌馆-头部广告')
+      utils.logger(result, '特色品牌馆-头部广告')
       if (result.success) {
         this.setData({
           HighStoreAdvList: result.data

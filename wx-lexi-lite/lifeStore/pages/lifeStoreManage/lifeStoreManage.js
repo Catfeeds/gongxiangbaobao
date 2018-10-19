@@ -95,7 +95,7 @@ Page({
    * 提示弹出框
    */
   handleShowModal () {
-    console.log('d')
+    utils.logger('d')
     this.setData({
       showModal: true
     })
@@ -114,7 +114,7 @@ Page({
   // 邀请好友开馆的卡片
   getOpenStorePhoto(){
     http.fxPost(api.market_share_invite_carde, {}, (result) => {
-      console.log(result, '邀请好友开馆的卡片')
+      utils.logger(result, '邀请好友开馆的卡片')
       if (result.success) {
         this.setData({
           cardPhoto: result.data.image_url
@@ -137,9 +137,9 @@ Page({
       auth_app_id: app.globalData.app_id
     }
 
-    console.log(params, '海报参数')
+    utils.logger(params, '海报参数')
     http.fxPost(api.market_share_invite_poster, params, (result) => {
-      console.log(result, '生成海报图')
+      utils.logger(result, '生成海报图')
       if (result.success) {
         this.setData({
           posterUrl: result.data.image_url
@@ -170,9 +170,9 @@ Page({
               if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
                 wx.openSetting({
                   success(settingdata) {
-                    console.log(settingdata)
+                    utils.logger(settingdata)
                     if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                      console.log("获取权限成功，再次点击图片保存到相册")
+                      utils.logger("获取权限成功，再次点击图片保存到相册")
                       utils.fxShowToast("保存成功")
                     } else {
                       utils.fxShowToast("保存失败")
@@ -222,9 +222,9 @@ Page({
               if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
                 wx.openSetting({
                   success(settingdata) {
-                    console.log(settingdata)
+                    utils.logger(settingdata)
                     if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                      console.log("获取权限成功，再次点击图片保存到相册")
+                      utils.logger("获取权限成功，再次点击图片保存到相册")
                       utils.fxShowToast("保存成功")
                     } else {
                       utils.fxShowToast("保存失败")
@@ -267,7 +267,7 @@ Page({
   practiceLeftTimer () {
     let endTs = this.data.createdAt + 30 * 24 * 60 * 60 // 30天内
     let leftTime = endTs - utils.timestamp() // 计算剩余的毫秒数 
-    // console.log('Left time: ' + leftTime)
+    // utils.logger('Left time: ' + leftTime)
     if (leftTime < 0) {
       clearInterval(this.data.timer)
       this.setData({
@@ -290,7 +290,7 @@ Page({
       }
     })
 
-    // console.log(this.data.leftTimer)
+    // utils.logger(this.data.leftTimer)
   },
 
   /**
@@ -298,7 +298,7 @@ Page({
    */
   getStoreCashCollect () {
     http.fxGet(api.life_store_cash_collect, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '提现汇总')
+      utils.logger(res, '提现汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
@@ -314,7 +314,7 @@ Page({
    */
   getStoreIncomeCollect () {
     http.fxGet(api.life_store_income_collect, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '收益汇总')
+      utils.logger(res, '收益汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
@@ -331,7 +331,7 @@ Page({
    */
   getStoreOrdersCollect () {
     http.fxGet(api.life_store_orders_collect, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '订单汇总')
+      utils.logger(res, '订单汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
@@ -349,7 +349,7 @@ Page({
     http.fxGet(api.life_store, {
       rid: this.data.sid
     }, (res) => {
-      console.log(res, '生活馆信息')
+      utils.logger(res, '生活馆信息')
       if (res.success) {
         if (res.data.name.length>8){
           res.data.name = res.data.name.substr(0, 3) + '...' + res.data.name.substr(5,2)
@@ -455,14 +455,14 @@ Page({
     if (e.from == "menu" || e.target.dataset.card == 1 ){
       // scene格式：sid + '-' + uid
       let scene = this.data.sid
-      console.log('pages/index/index?scene=' + scene, '分享的参数')
+      utils.logger('pages/index/index?scene=' + scene, '分享的参数')
       
       return {
         title: this.data.userName + '邀请你一起来来乐喜开个',
         path: 'pages/index/index?scene=' + scene,
         imageUrl: this.data.cardPhoto,
         success: (res) => {
-          console.log(res, '分享商品成功!')
+          utils.logger(res, '分享商品成功!')
         }
       }
     }

@@ -84,7 +84,7 @@ Component({
 
     // 输入手机号码
     handleMobileChnange(e) {
-      console.log(e.detail.value)
+      utils.logger(e.detail.value)
       let _mobile = e.detail.value
       let _showClearBtn = false
       let _canGotCode = false
@@ -168,7 +168,7 @@ Component({
       }
 
       http.fxPost(api.auth_get_msm_code, params, (result) => {
-        console.log(result)
+        utils.logger(result)
         if (!result.success) {
           utils.fxShowToast(result.status.message)
         }
@@ -190,7 +190,7 @@ Component({
         last_store_rid: lastVisitLifeStore
       }
 
-      console.log(params, '提交授权后端传参')
+      utils.logger(params, '提交授权后端传参')
 
       if (!this.data.canSubmit) {
         utils.fxShowToast('请先完成输入')
@@ -198,7 +198,7 @@ Component({
       }
 
       http.fxPost(api.bind_mobile, params, (res) => {
-        console.log(res)
+        utils.logger(res)
         if (res.success) {
           utils.fxShowToast('登录成功', 'success')
 
@@ -225,7 +225,6 @@ Component({
      */
     getCountries() {
       http.fxGet(api.countries, {}, (result) => {
-        console.log(result)
         this.setData({
           country_pick: result.data
         })

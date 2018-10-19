@@ -138,7 +138,7 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice(e) {
-    console.log(e.detail.highValue)
+    utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -195,7 +195,6 @@ Page({
    */
   getCategories() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data.categories
@@ -324,7 +323,6 @@ Page({
       page: 1,
       per_page: 12
     }, (result) => {
-      console.log(result, '浏览过本栏目的记录')
       if (result.success) {
         this.setData({
           browseRecordOfThis: result.data
@@ -338,7 +336,6 @@ Page({
   //编辑推荐
   editRecommend() {
     http.fxGet(api.column_explore_recommend, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, '编辑推荐')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -361,7 +358,6 @@ Page({
   // 百元好物
   getOneHundred() {
     http.fxGet(api.column_affordable_goods, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, '百元好物')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -384,7 +380,6 @@ Page({
   // 优质新品
   getHighQuality() {
     http.fxGet(api.column_explore_new, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, '优质新品')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -407,7 +402,6 @@ Page({
   // 特惠好设计 
   getGoodDesign() {
     http.fxGet(api.column_preferential_design, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, '特惠好设计')
       this.getBrowsePeopleOne('preferential_design')
 
       if (result.success) {
@@ -433,7 +427,6 @@ Page({
   // 我的浏览记录
   getBrowse() {
     http.fxGet(api.user_browses, this.data.editRecommendRequestParams, (result) => {
-      console.log(result, '我的浏览记录')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -483,7 +476,6 @@ Page({
     http.fxGet(api.other_user_browses, { ...this.data.editRecommendRequestParams,
       uid: this.data.otherUid
     }, (result) => {
-      console.log(result, '他的浏览记录')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -507,7 +499,6 @@ Page({
     http.fxGet(api.other_userlike, { ...this.data.editRecommendRequestParams,
       uid: this.data.otherUid
     }, (result) => {
-      console.log(result, '他的喜欢')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -531,7 +522,6 @@ Page({
     http.fxGet(api.other_wishlist, { ...this.data.editRecommendRequestParams,
       uid: this.data.otherUid
     }, (result) => {
-      console.log(result, '他的心愿单')
       if (result.success) {
         let data = this.data.productList
         result.data.products.forEach((v) => {
@@ -556,7 +546,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
+    utils.logger(options)
 
     //编辑推荐 首页的探索
     if (options.from == 'editRecommend') {
@@ -750,7 +740,7 @@ Page({
 
     this.handleSortOff()
 
-    console.log(this.data.editRecommendRequestParams.sort_type)
+    utils.logger(this.data.editRecommendRequestParams.sort_type)
     // 加载编辑推荐
     if (this.data.touchBottomInfo == 'editRecommend') {
       this.editRecommend()

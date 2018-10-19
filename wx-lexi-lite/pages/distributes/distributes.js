@@ -160,7 +160,7 @@ Page({
 
   // 轮播图发生变化的时候
   handleswiperItemCheng(e) {
-    console.log(e, '轮播图发生变化')
+    utils.logger(e, '轮播图发生变化')
 
     this.setData({
       swiperIndex: e.detail.current
@@ -293,7 +293,7 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice (e) {
-    console.log(e.detail.highValue)
+    utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -340,7 +340,7 @@ Page({
    */
   handleChangeProfit(e) {
     let profit = e.currentTarget.dataset.profit
-    console.log('profit: ' + profit)
+    utils.logger('profit: ' + profit)
     this.setData({
       'params.sort_type': 1,
       'params.profit_type': parseInt(profit),
@@ -533,7 +533,7 @@ Page({
               if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
                 wx.openSetting({
                   success(settingdata) {
-                    console.log(settingdata)
+                    utils.logger(settingdata)
                     if (settingdata.authSetting['scope.writePhotosAlbum']) {
                       utils.fxShowToast('保存成功')
                     } else {
@@ -571,7 +571,7 @@ Page({
       scene: scene
     }
     http.fxPost(api.wxa_poster, params, (result) => {
-      console.log(result, '生成海报图')
+      utils.logger(result, '生成海报图')
       if (result.success) {
         this.setData({
           posterUrl: result.data.image_url
@@ -587,7 +587,7 @@ Page({
    */
   getAdvertises() {
     http.fxGet(api.marketBanners.replace(/:rid/, 'center_ad'), {}, (result) => {
-      console.log(result, '推荐广告')
+      utils.logger(result, '推荐广告')
       if (result.success) {
         this.setData({
           advertises: result.data.banner_images
@@ -605,7 +605,7 @@ Page({
     http.fxGet(api.life_store_headlines, {
       type: 2
     }, (res) => {
-      console.log(res, '生活馆头条')
+      utils.logger(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
 
@@ -619,7 +619,7 @@ Page({
           }
 
           if (v.username - 0 != NaN && v.username.length > 9) {
-            console.log(v)
+            utils.logger(v)
             v.username = v.username.substr(0, 3) + '****' + v.username.substr(7, 4)
           }
 
@@ -650,7 +650,7 @@ Page({
     }
 
     http.fxGet(api.get_hot_distribution, params, (res) => {
-      console.log(res, '热门分销单品')
+      utils.logger(res, '热门分销单品')
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -683,7 +683,7 @@ Page({
       sid: app.globalData.jwt.store_rid
     }
     http.fxGet(api.get_sticked_distribution, params, (res) => {
-      console.log(res, '官方精选分销商品')
+      utils.logger(res, '官方精选分销商品')
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -717,7 +717,7 @@ Page({
     }
 
     http.fxGet(api.get_new_distribution, params, (res) => {
-      console.log(res, '最新分销商品')
+      utils.logger(res, '最新分销商品')
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -753,7 +753,7 @@ Page({
     }
 
     http.fxGet(api.distribute_product_count, params, (res) => {
-      console.log(res, '筛选商品')
+      utils.logger(res, '筛选商品')
       if (res.success) {
         this.setData({
           'filter.conditionCount': this._getFilterConditionCount(),
@@ -769,9 +769,9 @@ Page({
    * 获取全部分销商品
    */
   getAllProducts() {
-    console.log(this.data.params)
+    utils.logger(this.data.params)
     http.fxGet(api.distribute_products, this.data.params, (res) => {
-      console.log(res, '全部分销商品')
+      utils.logger(res, '全部分销商品')
       if (res.success) {
         // 没有下一页了
         if (!res.data.next) {
@@ -803,7 +803,7 @@ Page({
    */
   getCategories() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result, '分类列表')
+      utils.logger(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data.categories
@@ -945,7 +945,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage (o) {
-    console.log('分享商品从选品中心')
+    utils.logger('分享商品从选品中心')
 
     let title = this.data.shareProduct.name
     return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)

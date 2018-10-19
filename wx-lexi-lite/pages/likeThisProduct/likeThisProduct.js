@@ -24,13 +24,13 @@ Page({
   // 喜欢该商品的人
   getinfo(e) {
     http.fxGet(api.product_userlike, this.data.parmas, (result) => {
-      console.log(result, '喜欢该商品的人')
+      utils.logger(result, '喜欢该商品的人')
       if (result.success) {
         this.setData({
           peopleList: result.data
         })
       } else {
-        console.log(result.status.message)
+        utils.logger(result.status.message)
       }
     })
   },
@@ -48,7 +48,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['peopleList.product_like_users[' + index + '].followed_status']: result.data.followed_status
@@ -72,7 +72,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(e)
+      utils.logger(e)
       if (result.success) {
         this.setData({
           ['peopleList.product_like_users[' + index + '].followed_status']: 0
@@ -93,7 +93,7 @@ Page({
 
   // 跳转到其他人的主页
   handleToPeopleTap(e) {
-    console.log(e.currentTarget.dataset.uid)
+    utils.logger(e.currentTarget.dataset.uid)
       wx.navigateTo({
         url: '../people/people?uid=' + e.currentTarget.dataset.uid,
       })

@@ -149,7 +149,7 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice(e) {
-    console.log(e.detail.highValue)
+    utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -207,7 +207,7 @@ Page({
 
   // 获取排序的产品
   handleSort(e = 0) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     this.setData({
       productList: [],
       ['productParams.page']: 1,
@@ -223,7 +223,7 @@ Page({
    */
   getCategories() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result, '分类列表')
+      utils.logger(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data.categories
@@ -272,10 +272,10 @@ Page({
    * 选择推荐
    */
   handleToggleRecommendList(e) {
-    console.log(e.currentTarget.dataset.index)
+    utils.logger(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.cid
-    console.log(id)
+    utils.logger(id)
 
     if (this.data.recommendList[index].isActive) {
       this.setData({
@@ -313,7 +313,7 @@ Page({
 
   // 切换分类
   handleCategoryChange(e) {
-    console.log(e.currentTarget.dataset.id)
+    utils.logger(e.currentTarget.dataset.id)
 
     this.setData({
       navbarCategoryId: e.currentTarget.dataset.id,
@@ -344,7 +344,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['userList[' + index + '].follow_status']: result.data.followed_status
@@ -361,7 +361,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['userList[' + index + '].follow_status']: result.data.followed_status
@@ -374,7 +374,7 @@ Page({
 
   // 跳转到其他人地主页
   handleToPeopleTap(e) {
-    console.log(e.currentTarget.dataset.uid)
+    utils.logger(e.currentTarget.dataset.uid)
     if (e.currentTarget.dataset.index == 0) {
       wx.switchTab({
         url: '../user/user',
@@ -424,7 +424,7 @@ Page({
 
   // 跳转到商品详情---
   handleToProductInfoTap(e) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&&storeRid=" + e.currentTarget.dataset.storeRid
     })
@@ -439,7 +439,7 @@ Page({
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
@@ -458,7 +458,7 @@ Page({
   getSearch() {
     http.fxGet(api.core_platforms_search_products, this.data.productParams, (result) => {
 
-      console.log(result, '商品搜索结果')
+      utils.logger(result, '商品搜索结果')
       let data = this.data.productList
       result.data.products.forEach((v) => {
         data.push(v)
@@ -481,7 +481,7 @@ Page({
   getBrandStore() {
     http.fxGet(api.core_platforms_search_stores, this.data.brandStoreParams, (result) => {
 
-      console.log(result, '品牌店结果')
+      utils.logger(result, '品牌店结果')
       let data = this.data.storeList
       result.data.stores.forEach((v) => {
         data.push(v)
@@ -502,7 +502,7 @@ Page({
   // 搜索用户的列表
   getUser() {
     http.fxGet(api.core_platforms_search_users, this.data.userParams, (result) => {
-      console.log(result, '搜索用户结果')
+      utils.logger(result, '搜索用户结果')
       let data = this.data.userList
       result.data.users.forEach((v) => {
         v.username = common.sliceString(v.username, 14)

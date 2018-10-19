@@ -10,7 +10,7 @@ App({
     // 获取自定义第三方扩展信息
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
 
-    console.log(extConfig, '第三方拓展信息')
+    utils.logger(extConfig, '第三方拓展信息')
 
     this.globalData.configInfo = extConfig
     this.globalData.app_id = extConfig.authAppid
@@ -18,7 +18,6 @@ App({
 
     // 从本地缓存中获取数据
     const jwt = wx.getStorageSync('jwt')
-    console.log(jwt, 'jwt')
     this.globalData.jwt = jwt
 
     // 检查 jwt 是否存在 如果不存在调用登录
@@ -27,7 +26,7 @@ App({
       this.login()
     } else {
       // 验证token是否过期
-      console.log(utils.checkTokenIsExpired(jwt), 'Token expired')
+      utils.logger(utils.checkTokenIsExpired(jwt), 'Token expired')
 
       if (utils.checkTokenIsExpired(jwt)) {
         this.globalData.isLogin = false
@@ -57,7 +56,6 @@ App({
       success: (res) => {
         // 发送 res.code 到后台换取 openId
         const code = res.code
-        console.log('Login code: ' + code)
 
         let lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
 
@@ -67,13 +65,12 @@ App({
           code: code,
           last_store_rid: lastStoreRid
         }, (res) => {
-          console.log(res, '自动登录')
+          utils.logger(res, '自动登录')
 
           let userLoaded = false
           if (res.success) {
             let isBind = res.data.is_bind
             // 登录成功，得到jwt后存储到storage
-            console.log(res.data, 'jwt信息')
             wx.setStorageSync('jwt', res.data)
             this.globalData.jwt = res.data
 
@@ -111,7 +108,6 @@ App({
       success: (res) => {
         // 发送 res.code 到后台换取 openId
         const code = res.code
-        console.log('Login code: ' + code)
 
         let params = {
           code: code,
@@ -120,7 +116,7 @@ App({
 
         // 更新用户Session key
         http.fxPost(api.auth_refresh_session, params, (res) => {
-          console.log(res, '刷新session成功')
+          utils.logger(res, '刷新session成功')
           if (!res.success) {
             utils.fxShowToast(res.status.message)
           } else {
@@ -144,11 +140,9 @@ App({
       openid: this.globalData.jwt.openid,
       last_store_rid: lastVisitLifeStore
     }, (res) => {
-      console.log(res, '微信授权手机号')
+      utils.logger(res, '微信授权手机号')
       if (res.success) {
         // 登录成功，得到jwt后存储到storage
-        console.log(res.data, 'jwt信息')
-
         wx.setStorageSync('jwt', res.data)
 
         this.globalData.jwt = res.data
@@ -172,8 +166,6 @@ App({
 
   // 登录后回调事件
   hookLoginCallBack(jwt) {
-    console.log('登录后，执行回调函数')
-
     // 设置全局变量
     this.globalData.isLogin = true
     this.globalData.token = jwt.token || null
@@ -254,11 +246,10 @@ App({
       http.fxPost(api.life_store_update_rid, {
         last_store_rid: sid
       }, (result) => {
-        console.log(result, '更新最近的生活馆')
         if (!result.success) {
           utils.fxShowToast(result.status.message)
         } else {
-          console.log('已成功更新最近的生活馆！')
+          utils.logger('已成功更新最近的生活馆！')
         }
       })
     }
@@ -281,7 +272,7 @@ App({
         is_new: isNew
       }
       http.fxPost(api.bind_friend, data, (res) => {
-        console.log(res, '绑定好友关系')
+        utils.logger(res, '绑定好友关系')
         if (!res.success) {
           utils.fxShowToast(result.status.message)
         } else {
@@ -298,9 +289,8 @@ App({
   updateGameShare() {
     if (this.globalData.isLogin) {
       http.fxPost(api.question_share, {}, (res) => {
-        console.log(res, '更新游戏分享次数')
         if (!res.success) {
-          console.log('更新游戏分享回调失败')
+          utils.logger('更新游戏分享回调失败')
         }
       })
     }
@@ -317,17 +307,16 @@ App({
       http.fxGet(api.provinces_cities, {
         country_id: country_id
       }, (result) => {
-        console.log(result, '省市区')
         if (result.success) {
           let places = result.data
           if (places && Object.keys(places).length > 0) {
             // 设置到本地缓存
-            console.log(cacheKey, '缓存Key')
+            utils.logger(cacheKey, '缓存Key')
             wx.setStorageSync(cacheKey, places)
           }
           return typeof cb == 'function' && cb(places)
         } else {
-          console.log(result.status.message, '预加载地址出错！！！')
+          utils.logger(result.status.message, '预加载地址出错！！！')
           return typeof cb == 'function' && cb(false)
         }
       })
@@ -361,7 +350,7 @@ App({
         lastVisitLifeStoreRid = lifeStore.lifeStoreRid
       }
     }
-    console.log(lastVisitLifeStoreRid)
+    utils.logger(lastVisitLifeStoreRid)
     return lastVisitLifeStoreRid
   },
 
@@ -377,13 +366,13 @@ App({
       scene += '-' + lastVisitLifeStoreRid
     }
 
-    console.log('pages/product/product?scene=' + scene)
+    utils.logger('pages/product/product?scene=' + scene)
     return {
       title: title,
       path: 'pages/product/product?scene=' + scene,
       imageUrl: imageUrl + '-pwxa',
       success: (res) => {
-        console.log(res, '分享商品成功!')
+        utils.logger(res, '分享商品成功!')
       }
     }
 
@@ -410,7 +399,7 @@ App({
       path: 'pages/index/index?scene=' + scene,
       imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {
-        console.log(res, '分享成功!')
+        utils.logger(res, '分享成功!')
       }
     }
   },
@@ -436,7 +425,7 @@ App({
       signType: 'MD5',
       paySign: payParams.pay_sign,
       success: function(res) {
-        console.log(res, '支付成功返回参数')
+        utils.logger(res, '支付成功返回参数')
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
             title: '支付成功',
@@ -451,7 +440,7 @@ App({
           // http.fxPost(api.order_paid_status, {
           //   rid: rid
           // }, function (result) {
-          //   console.log(result,"修改订单状态=============")
+          //   utils.logger(result,"修改订单状态=============")
           //   if (result.success) {
 
           //     // 跳转至详情
@@ -463,7 +452,7 @@ App({
         }
       },
       fail: function(res) {
-        console.log(res.errMsg, '支付失败了')
+        utils.logger(res.errMsg, '支付失败了')
         if (res.errMsg == 'requestPayment:fail') {
           wx.showToast({
             title: res.err_desc,
@@ -492,7 +481,7 @@ App({
     http.fxGet(api.cart_item_count, {
       open_id: jwt.openid
     }, (res) => {
-      console.log(res, '购物车数量')
+      utils.logger(res, '购物车数量')
       if (res.success) {
         this.updateCartTotalCount(res.data.item_count)
       }
@@ -538,7 +527,6 @@ App({
   getRunEnv() {
     http.fxGet(api.run_env, {}, (res) => {
       if (res.success) {
-        console.log(res, 'env')
         this.globalData.runEnv = res.data.status
       }
     })

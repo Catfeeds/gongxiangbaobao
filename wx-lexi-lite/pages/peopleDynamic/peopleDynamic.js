@@ -38,7 +38,7 @@ Page({
   handleAddLike(e){
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
-    console.log(index,rid)
+    utils.logger(index,rid)
 
     this.setData({
       ['dynamicList.lines[' + index + '].is_like']: true,
@@ -48,7 +48,7 @@ Page({
     http.fxPost(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "添加喜欢橱窗")
+      utils.logger(result, "添加喜欢橱窗")
     })
   },
 
@@ -56,7 +56,7 @@ Page({
   handleDeleteLike(e){
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
-    console.log(index,rid)
+    utils.logger(index,rid)
 
     this.setData({
       ['dynamicList.lines[' + index + '].is_like']: false,
@@ -66,7 +66,7 @@ Page({
     http.fxDelete(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "删除喜欢橱窗")
+      utils.logger(result, "删除喜欢橱窗")
     })
   },
 
@@ -74,7 +74,7 @@ Page({
   getOtherDynamic(e) {
     http.fxGet(api.users_other_user_dynamic, this.data.dynamicParams, (result) => {
       if (result.success) {
-        console.log(result, "获取其他人的动态")
+        utils.logger(result, "获取其他人的动态")
 
         result.data.lines.forEach((v, i) => {
           v.created_time = utils.timestamp2string(v.updated_at, "cn")

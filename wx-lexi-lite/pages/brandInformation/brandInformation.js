@@ -39,7 +39,7 @@ Page({
   getShopOwner() {
     http.fxGet(api.official_store_master_info, { rid: this.data.store_rid } , (result) => {
       if (result.success) {
-        console.log(result.data, '店铺主人信息')
+        utils.logger(result.data, '店铺主人信息')
         result.data.user_label = this.getUserIdentityLabel(result.data.user_identity)
         this.setData({
           shopOwner: result.data
@@ -53,7 +53,7 @@ Page({
   // 店铺的信息
   getAllInfo() {
     http.fxGet(api.shop_info,{ rid: this.data.store_rid }, (result)=>{
-      console.log(result, '店铺的信息')
+      utils.logger(result, '店铺的信息')
       if(result.success){
         result.data.created_at = utils.timestamp2string(result.data.created_at, 'date') 
         this.setData({
@@ -68,7 +68,7 @@ Page({
   // 品牌故事 
   getBrandDetail() {
     http.fxGet(api.official_store_detail, { rid: this.data.store_rid }, (result) => {
-      console.log(result, '品牌故事')
+      utils.logger(result, '品牌故事')
       if (result.success) {
         this.setData({
           dkcontent: result.data.content,
@@ -86,7 +86,7 @@ Page({
    * 生命周期函数--监听页面加载 shop_info
    */
   onLoad: function (options) {
-    console.log(options, "品牌馆")
+    utils.logger(options, "品牌馆")
 
     this.setData({
       store_rid: options.rid

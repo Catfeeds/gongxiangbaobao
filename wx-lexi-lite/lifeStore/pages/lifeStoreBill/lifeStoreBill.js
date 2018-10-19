@@ -33,7 +33,7 @@ Page({
    */
   getStoreBills() {
     http.fxGet(api.life_store_statements, { store_rid: this.data.sid }, (res) => {
-      console.log(res.data, '对账单')
+      utils.logger(res.data, '对账单')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }

@@ -80,7 +80,7 @@ Page({
 
   // 删除点赞
   handleDeletePraise(e) {
-    console.log(e.currentTarget.dataset.index, '删除点赞')
+    utils.logger(e.currentTarget.dataset.index, '删除点赞')
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.commentId
     this._handlePraise(id, index) // 处理页面效果
@@ -88,7 +88,7 @@ Page({
     http.fxDelete(api.shop_windows_comments_praises, {
       comment_id: id
     }, result => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {} else {
         utils.fxShowToast(result.status.message)
       }
@@ -97,7 +97,7 @@ Page({
 
   // 点赞
   handlePraise(e) {
-    console.log(e.currentTarget.dataset.index, '添加点赞')
+    utils.logger(e.currentTarget.dataset.index, '添加点赞')
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.commentId
     this._handlePraise(id, index) // 处理页面效果
@@ -105,7 +105,7 @@ Page({
     http.fxPost(api.shop_windows_comments_praises, {
       comment_id: id
     }, result => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {} else {
         utils.fxShowToast(result.status.message)
       }
@@ -145,7 +145,7 @@ Page({
 
   // 处理上一页的点赞
   _handleParentPagePraise(e) {
-    console.log(e)
+    utils.logger(e)
 
     // 因为上级页面只有3个评论显示，所以只改变上一页的3个就可以
     if (e < 3) {
@@ -175,7 +175,7 @@ Page({
     let commentList = this.data.comments[index].sub_comments
 
     let page = commentList[commentList.length - 1].current_page
-    console.log(page, "当前页面")
+    utils.logger(page, "当前页面")
 
     this.setData({
       'childrenParams.pid': pid,
@@ -183,7 +183,7 @@ Page({
     })
 
     http.fxGet(api.shop_windows_child_comments, this.data.childrenParams, result => {
-      console.log(result)
+      utils.logger(result)
       if (page == 0) {
         commentList = []
       }
@@ -206,13 +206,13 @@ Page({
    * 提交子评论
    */
   handleReply(e) {
-    console.log('子评论')
+    utils.logger('子评论')
     this.setData({
       isShowComment: false,
     })
 
     http.fxPost(api.shop_windows_comments, this.data.sonCommentParams, result => {
-      console.log(result, '提交评论')
+      utils.logger(result, '提交评论')
       if (result.success) {
         utils.fxShowToast('评论成功')
         this.setData({
@@ -231,13 +231,13 @@ Page({
    * 提交主评论
    */
   handleSubmitComment() {
-    console.log('主评论')
+    utils.logger('主评论')
     this.setData({
       isShowComment: false,
     })
 
     http.fxPost(api.shop_windows_comments, this.data.commentParams, result => {
-      console.log(result, '提交评论')
+      utils.logger(result, '提交评论')
       if (result.success) {
         utils.fxShowToast('评论成功')
         this.setData({
@@ -262,7 +262,7 @@ Page({
    * 添加评论主
    */
   handleAddCritique(e) {
-    console.log(e.detail.value, '主评论')
+    utils.logger(e.detail.value, '主评论')
     this.setData({
       'commentParams.content': e.detail.value
     })
@@ -272,7 +272,7 @@ Page({
    * 添加子评论
    */
   handleReplyCritique(e) {
-    console.log(e.detail.value, '子评论')
+    utils.logger(e.detail.value, '子评论')
     this.setData({
       'sonCommentParams.content': e.detail.value
     })
@@ -283,8 +283,8 @@ Page({
    * 打开评论
    * */
   handleOpenCommentBox(e) {
-    console.log(e)
-    console.log(e.currentTarget.dataset.submitTarget)
+    utils.logger(e)
+    utils.logger(e.currentTarget.dataset.submitTarget)
     this.setData({
       isShowComment: true,
       submitTarget: e.currentTarget.dataset.submitTarget, // 提交目标
@@ -307,7 +307,7 @@ Page({
   _handleParentUpdata() {
     let page = getCurrentPages()
     page[page.length - 2].getComment()
-    console.log(page[page.length - 2], 'fujiyemain')
+    utils.logger(page[page.length - 2], 'fujiyemain')
   },
 
   /**
@@ -331,7 +331,7 @@ Page({
    */
   getComment() {
     http.fxGet(api.shop_windows_comments, this.data.getCommentParams, result => {
-      console.log(result, '获取评论')
+      utils.logger(result, '获取评论')
       if (result.success) {
 
         const timePromise = new Promise((resolve, reject) => {
@@ -373,7 +373,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
+    utils.logger(options)
     this.setData({
       'getCommentParams.rid': options.rid,
       'commentParams.rid': options.rid,

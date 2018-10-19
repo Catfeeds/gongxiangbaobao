@@ -24,7 +24,7 @@ Page({
   // 获取集合
   getGather() {
     http.fxGet(api.column_collections, this.data.getGatherParams, (result) => {
-      console.log(result, '集合')
+      utils.logger(result, '集合')
       if (result.success) {
         
         let _collections = result.data.collections

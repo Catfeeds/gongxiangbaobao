@@ -82,7 +82,7 @@ Page({
       answer_id: this._isEmpty(this.data.currentAnswer) ? 0 : this.data.currentAnswer.answer_id
     }
     http.fxPost(api.question_check_answer, data, (res) => {
-      console.log(res, '答案结果')
+      utils.logger(res, '答案结果')
       if (res.success) {
         if (res.data.answer) {
           // 回答正确奖励优惠券
@@ -208,7 +208,7 @@ Page({
       per_page: 10
     }
     http.fxGet(api.question_stats, params, (res) => {
-      console.log(res, '最近的玩家')
+      utils.logger(res, '最近的玩家')
       if (res.success) {
         this.setData({
           lastPlayers: res.data.user_info
@@ -239,7 +239,7 @@ Page({
   getDoommList() {
     let that = this
     http.fxGet(api.question_reward_message, {}, (res) => {
-      console.log(res, '弹幕列表')
+      utils.logger(res, '弹幕列表')
       if (res.success) {
         that.rebuildDoomm(res.data.reward_message)
       } else {
@@ -267,7 +267,7 @@ Page({
     cnt += 1
     money += parseFloat(prize.amount)
 
-    console.log(money, '回答正确奖励')
+    utils.logger(money, '回答正确奖励')
 
     this.setData({
       haveMoney: prize.amount > 0 ? true : false,
@@ -403,7 +403,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(options) {
-    console.log(options, '分享游戏')
+    utils.logger(options, '分享游戏')
     let randomList = [1, 2, 3]
     let _random = Math.floor(Math.random() * randomList.length)
     return {
@@ -411,7 +411,7 @@ Page({
       path: '/games/pages/guessGame/guessGame',
       imageUrl: 'https://static.moebeast.com/static/img/share-game-0' + _random + '.jpg',
       success: function (res) {
-        console.log('转发成功')
+        utils.logger('转发成功')
 
         app.updateGameShare()
 
@@ -421,7 +421,7 @@ Page({
         })
       },
       fail: function (res) {
-        console.log('转发失败')
+        utils.logger('转发失败')
       }
     }
   }

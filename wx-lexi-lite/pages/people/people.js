@@ -53,7 +53,7 @@ Page({
     http.fxGet(api.users_other_user_center, {
       uid: e
     }, (result) => {
-      console.log(result, '获取其他人个人中心')
+      utils.logger(result, '获取其他人个人中心')
       if (result.success) {
         let params = this.data.classList
         params.forEach((v, i) => {
@@ -93,7 +93,7 @@ Page({
     http.fxGet(api.users_other_followed_stores, { ...this.data.nextPageParmas,
       uid: e
     }, (result) => {
-      console.log(result, '获取其他人关注地店铺列表')
+      utils.logger(result, '获取其他人关注地店铺列表')
       if (result.success) {
         this.setData({
           otherWatchStoreList: result.data
@@ -106,11 +106,11 @@ Page({
 
   // 获取别人喜欢列表 users/user_like_counts
   getOtherLikeQuantity(e) {
-    console.log()
+    utils.logger()
     http.fxGet(api.other_userlike, {
       uid: e
     }, (result) => {
-      console.log(result, '获取其他人喜欢列表')
+      utils.logger(result, '获取其他人喜欢列表')
       if (result.success) {
         this.setData({
           otherLikeList: result.data
@@ -138,7 +138,7 @@ Page({
           uid: this.data.otherPeopleUid
         }, (result) => {
           if (result.success) {
-            console.log(result, '其他人最查看')
+            utils.logger(result, '其他人最查看')
             this.setData({
               userBrowsesProduct: result.data
             })
@@ -151,9 +151,9 @@ Page({
         http.fxGet(api.other_wishlist, {
           uid: this.data.otherPeopleUid
         }, (result) => {
-          console.log(this.data.otherPeopleUid)
+          utils.logger(this.data.otherPeopleUid)
           if (result.success) {
-            console.log(result, '其他人心愿单')
+            utils.logger(result, '其他人心愿单')
             this.setData({
               desireOrderProduct: result.data
             })
@@ -167,7 +167,7 @@ Page({
         http.fxGet(api.users_other_followed_life_stores, {
           uid: this.data.otherPeopleUid
         }, (result) => {
-          console.log(result, '设计馆')
+          utils.logger(result, '设计馆')
 
           if (result.success) {
             this.setData({
@@ -204,7 +204,7 @@ Page({
     http.fxPost(api.add_watch, {
       rid: rid
     }, (result) => {
-      console.log(result, '关注结果')
+      utils.logger(result, '关注结果')
       if (result.success) {
         if (index) {
           this.setData({
@@ -245,7 +245,7 @@ Page({
             ['watchStoreList.stores[' + index + '].followed_status']: 0
           })
         } else {
-          console.log("bieren")
+          utils.logger("bieren")
           this.setData({
             ['otherPeopleInfo.followed_status']: 0
           })
@@ -268,7 +268,7 @@ Page({
     }
 
     http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['otherPeopleInfo.followed_status']: 1
@@ -291,7 +291,7 @@ Page({
     }
     
     http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['otherPeopleInfo.followed_status']: 0
@@ -418,7 +418,7 @@ Page({
 
   //粉丝页面的跳转
   handleFollowerTap(e) {
-    console.log(e.currentTarget.dataset.uid)
+    utils.logger(e.currentTarget.dataset.uid)
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()

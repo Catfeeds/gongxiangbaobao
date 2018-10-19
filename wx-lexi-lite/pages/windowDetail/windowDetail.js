@@ -58,7 +58,7 @@ Page({
     http.fxDelete(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "取消喜欢橱窗")
+      utils.logger(result, "取消喜欢橱窗")
     })
 
     this.setData({
@@ -80,7 +80,7 @@ Page({
     http.fxPost(api.shop_windows_comments_praises, {
       comment_id: commentId
     }, result => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
 
       } else {
@@ -102,7 +102,7 @@ Page({
     http.fxDelete(api.shop_windows_comments_praises, {
       comment_id: commentId
     }, result => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
 
       } else {
@@ -122,12 +122,12 @@ Page({
       return
     }
 
-    console.log(this.data.windowRid)
+    utils.logger(this.data.windowRid)
     let rid = this.data.windowRid
     http.fxPost(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "添加喜欢橱窗")
+      utils.logger(result, "添加喜欢橱窗")
     })
 
     this.setData({
@@ -149,7 +149,7 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.uid)
+    utils.logger(e.currentTarget.dataset.uid)
     let uid = this.data.windowDetail.uid
     this._handleParentFollow(true)
     this.setData({
@@ -159,7 +159,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: uid
     }, result => {
-      console.log(result, "添加关注")
+      utils.logger(result, "添加关注")
     })
   },
 
@@ -174,7 +174,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: uid
     }, result => {
-      console.log(result, "取消关注")
+      utils.logger(result, "取消关注")
     })
   },
 
@@ -182,7 +182,7 @@ Page({
   _handleParentFollow(option) {
     let page = getCurrentPages()
     let parentPage = page[page.length - 2]
-    console.log(parentPage)
+    utils.logger(parentPage)
     if (parentPage.route == "pages/window/window") {
       parentPage._handleFollow(this.data.windowDetail.uid, option)
     }
@@ -224,7 +224,7 @@ Page({
    * 打开评论
    */
   handleGoComment(e) {
-    console.log(e)
+    utils.logger(e)
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -244,7 +244,7 @@ Page({
    */
   getComment() {
     http.fxGet(api.shop_windows_comments, this.data.getCommentParams, result => {
-      console.log(result, '获取评论')
+      utils.logger(result, '获取评论')
       if (result.success) {
         let data = this.data.comments
         const timePromise = new Promise((resolve, reject) => {
@@ -280,7 +280,7 @@ Page({
     http.fxGet(api.shop_windows_detail, {
       rid: this.data.windowRid
     }, result => {
-      console.log(result, "橱窗详情")
+      utils.logger(result, "橱窗详情")
       if (result.success) {
 
         let likeCount = result.data.like_count
@@ -306,7 +306,7 @@ Page({
     }
 
     http.fxGet(api.shop_windows_guess_like, this.data.youLikeParams, result => {
-      console.log(result, "猜你喜欢")
+      utils.logger(result, "猜你喜欢")
       if (result.success) {
         this.setData({
           youLike: result.data
@@ -320,7 +320,7 @@ Page({
   // 获取相似橱窗
   getSimilarWindow() {
     http.fxGet(api.shop_windows_similar, this.data.youLikeParams, result => {
-      console.log(result, "相似的橱窗")
+      utils.logger(result, "相似的橱窗")
       if (result.success) {
         this.setData({
           similarWindow: result.data
@@ -335,7 +335,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options.windowRid)
+    utils.logger(options.windowRid)
     this.setData({
       windowRid: options.windowRid,
       'youLikeParams.rid': options.windowRid,

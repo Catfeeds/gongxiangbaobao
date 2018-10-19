@@ -26,7 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.themeProdct)
+    utils.logger(app.globalData.themeProdct)
     this.setData({
       product: app.globalData.themeProdct
     })

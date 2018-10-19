@@ -93,7 +93,7 @@ Page({
       title: '加载中...',
     })
     http.fxGet(api.life_store_orders_list, this.data.params, (res) => {
-      console.log(res, '订单列表')
+      utils.logger(res, '订单列表')
       wx.hideLoading()
       if (!res.success) {
         utils.fxShowToast(res.status.message)
@@ -130,7 +130,7 @@ Page({
    */
   getStoreOrdersCollect() {
     http.fxGet(api.life_store_orders_collect, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '订单汇总')
+      utils.logger(res, '订单汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }

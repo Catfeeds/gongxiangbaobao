@@ -29,7 +29,7 @@ Page({
 
   // 页面的费用计算
   currentPagePriceSum(event) {
-    console.log(event)
+    utils.logger(event)
 
     let params = {
       address_rid: app.globalData.orderParams.address_rid,
@@ -38,7 +38,7 @@ Page({
 
     let allProduct = app.globalData.pickLogistics
     allProduct.forEach((key) => {
-      console.log(key)
+      utils.logger(key)
       let productsList = {
         rid: key.store_rid,
         sku_items: []
@@ -57,7 +57,7 @@ Page({
     })
 
     http.fxPost(api.calculate_logisitcs, params, (result) => {
-      console.log(result, '物流运费')
+      utils.logger(result, '物流运费')
       if (result.success) {
         let sum = 0
         Object.keys(result.data).forEach((key) => {
@@ -81,7 +81,7 @@ Page({
 
     logisticsMould[e.detail.value].is_default = true
 
-    console.log(logisticsMould[e.detail.value], '运费模板')
+    utils.logger(logisticsMould[e.detail.value], '运费模板')
 
     this.setData({
       freight: logisticsMould[e.detail.value]
@@ -90,7 +90,7 @@ Page({
     let pages = getCurrentPages()
     let prevPage = pages[pages.length - 2]
 
-    console.log(logisticsMould)
+    utils.logger(logisticsMould)
     let store_rid = this.data.store_rid
     let sku_rid = this.data.sku_rid
     prevPage.setData({
@@ -106,7 +106,7 @@ Page({
     this.setData({
       logisticsMould: app.globalData.logisticsMould, // 运费模板
     })
-    console.log(this.data.logisticsMould)
+    utils.logger(this.data.logisticsMould)
     app.globalData.logisticsMould.forEach((v,i)=>{
       if (v.is_default){
         this.currentPagePriceSum(v.express_id)

@@ -394,7 +394,7 @@ Page({
       scene: scene
     }
     http.fxPost(api.wxa_poster, params, (result) => {
-      console.log(result, '生成分享生活馆报图')
+      utils.logger(result, '生成分享生活馆报图')
       if (result.success) {
         this.setData({
           lifeStorePosterUrl: result.data.image_url
@@ -427,7 +427,7 @@ Page({
       scene: scene
     }
     http.fxPost(api.wxa_poster, params, (result) => {
-      console.log(result, '生成海报图')
+      utils.logger(result, '生成海报图')
       if (result.success) {
         this.setData({
           posterUrl: result.data.image_url
@@ -458,7 +458,7 @@ Page({
                 wx.openSetting({
                   success(settingdata) {
                     if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                      console.log('获取权限成功，再次点击图片保存到相册')
+                      utils.logger('获取权限成功，再次点击图片保存到相册')
                       utils.fxShowToast('保存成功,分享至朋友圈')
                     } else {
                       utils.fxShowToast('保存失败')
@@ -483,7 +483,7 @@ Page({
     wx.downloadFile({
       url: this.data.lifeStorePosterUrl,
       success: function(res) {
-        console.log(res, '保存文件的路径')
+        utils.logger(res, '保存文件的路径')
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
@@ -496,7 +496,7 @@ Page({
                 wx.openSetting({
                   success(settingdata) {
                     if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                      console.log('获取权限成功，再次点击图片保存到相册')
+                      utils.logger('获取权限成功，再次点击图片保存到相册')
                       utils.fxShowToast('保存成功,分享至朋友圈')
                     } else {
                       utils.fxShowToast('保存失败')
@@ -733,7 +733,7 @@ Page({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
-          console.log(result, '上传的图片')
+          utils.logger(result, '上传的图片')
           if (result.data.length > 0) {
             this.setData({
               isUploading: false,
@@ -748,7 +748,7 @@ Page({
         })
 
         uploadTask.onProgressUpdate((res) => {
-          console.log('上传进度', res.progress)
+          utils.logger('上传进度', res.progress)
 
           let percent = res.progress
           this.setData({
@@ -769,7 +769,7 @@ Page({
       rid: this.data.sid,
       logo_id: logo_id
     }, (res) => {
-      console.log(res, '更新生活馆logo')
+      utils.logger(res, '更新生活馆logo')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
@@ -828,7 +828,7 @@ Page({
     let data = e.detail.value
     data.rid = this.data.sid
     http.fxPost(api.life_store_edit, data, (res) => {
-      console.log(res, '更新生活馆')
+      utils.logger(res, '更新生活馆')
       if (res.success) {
         this.setData({
           'lifeStore.name': res.data.name,
@@ -929,13 +929,13 @@ Page({
       confirmColor: '#5fe4b1',
       success: (res) => {
         if (res.cancel) { // 取消 与 确认 互换
-          console.log('Delete, rid: ' + rid + ', idx: ' + idx)
+          utils.logger('Delete, rid: ' + rid + ', idx: ' + idx)
           http.fxDelete(api.life_store_delete_product, data, (result) => {
-            console.log(result, '删除商品')
+            utils.logger(result, '删除商品')
             if (result.success) {
               let _storeProducts = this.data.storeProducts
               let isEmpty = false
-              console.log(_storeProducts)
+              utils.logger(_storeProducts)
 
               if (_storeProducts.length <= 1) {
                 _storeProducts = []
@@ -972,7 +972,7 @@ Page({
       return
     }
 
-    console.log(e)
+    utils.logger(e)
     this.setData({
       categoryActive: e.currentTarget.dataset.code
     })
@@ -985,7 +985,7 @@ Page({
     }
 
     http.fxGet(api.shop_windows_follow, this.data.followWindowParams, result => {
-      console.log(result, "关注人发布的橱窗")
+      utils.logger(result, "关注人发布的橱窗")
       if (result.success) {
         let windowList = this.data.followWindow.shop_windows
         this.setData({
@@ -1005,7 +1005,7 @@ Page({
   // 广告位置
   getExploreAdvertisement() {
     http.fxGet(api.banners_explore, {}, (result) => {
-      console.log(result, '探索-头部广告')
+      utils.logger(result, '探索-头部广告')
       if (result.success) {
         this.setData({
           exploreAdvertisementList: result.data
@@ -1019,7 +1019,7 @@ Page({
   // 分类列表
   getCategory() {
     http.fxGet(api.categories, {}, (result) => {
-      console.log(result, '分类列表')
+      utils.logger(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data
@@ -1033,7 +1033,7 @@ Page({
   // 编辑推荐
   getEditRecommend() {
     http.fxGet(api.column_explore_recommend, {}, (result) => {
-      console.log(result, '编辑推荐')
+      utils.logger(result, '编辑推荐')
       if (result.success) {
         this.setData({
           editRecommendList: [],
@@ -1051,7 +1051,7 @@ Page({
   // 特色品牌馆
   getCharacteristicBranderStore() {
     http.fxGet(api.column_feature_store, {}, (result) => {
-      console.log(result, '特色品牌馆')
+      utils.logger(result, '特色品牌馆')
 
       if (result.success) {
         this.setData({
@@ -1080,7 +1080,7 @@ Page({
     http.fxPost(api.add_watch, {
       rid: rid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['characteristicStoreList.stores[' + index + '].is_followed']: true
@@ -1099,7 +1099,7 @@ Page({
     http.fxPost(api.delete_watch, {
       rid: rid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['characteristicStoreList.stores[' + index + '].is_followed']: false
@@ -1112,7 +1112,7 @@ Page({
 
   // 人气推荐的轮播点
   handleGratefulSwiper(e) {
-    console.log(e.detail.current)
+    utils.logger(e.detail.current)
     this.setData({
       gratefulSwiper: e.detail.current
     })
@@ -1128,7 +1128,7 @@ Page({
       openid: openId,
       rid: this.data.sid
     }, (result) => {
-      console.log(result, this.data.sid, '添加浏览者')
+      utils.logger(result, this.data.sid, '添加浏览者')
       this.getBrowsePeople()
     })
   },
@@ -1156,7 +1156,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: uid
     }, result => {
-      console.log(result, "取消关注")
+      utils.logger(result, "取消关注")
     })
   },
 
@@ -1171,14 +1171,14 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.uid)
+    utils.logger(e.currentTarget.dataset.uid)
     let uid = e.currentTarget.dataset.uid
     this._handleFollow(uid, true)
 
     http.fxPost(api.follow_user, {
       uid: uid
     }, result => {
-      console.log(result, "添加关注")
+      utils.logger(result, "添加关注")
       this.getFollowWindow()
     })
   },
@@ -1217,12 +1217,12 @@ Page({
       return
     }
 
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     let rid = e.currentTarget.dataset.rid
     http.fxPost(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "添加喜欢橱窗")
+      utils.logger(result, "添加喜欢橱窗")
     })
 
     this._handleLikeWindow(rid, true)
@@ -1230,12 +1230,12 @@ Page({
 
   // 取消喜欢橱窗
   handleDeleteLike(e) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     let rid = e.currentTarget.dataset.rid
     http.fxDelete(api.shop_windows_user_likes, {
       rid: rid
     }, result => {
-      console.log(result, "添加喜欢橱窗")
+      utils.logger(result, "添加喜欢橱窗")
     })
 
     this._handleLikeWindow(rid, false)
@@ -1277,7 +1277,7 @@ Page({
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, this.data.sid), {
       openid: openId
     }, (result) => {
-      console.log(result, this.data.sid, '获取的浏览者')
+      utils.logger(result, this.data.sid, '获取的浏览者')
       if (result.success) {
         this.setData({
           shopInfo: result.data
@@ -1291,7 +1291,7 @@ Page({
   // 优质新品
   getHighQuality() {
     http.fxGet(api.column_explore_new, {}, (result) => {
-      console.log(result, '优质新品')
+      utils.logger(result, '优质新品')
       if (result.success) {
         this.setData({
           highQualityList: []
@@ -1309,7 +1309,7 @@ Page({
   // 集合
   getGather() {
     http.fxGet(api.column_collections, {}, (result) => {
-      console.log(result, '集合')
+      utils.logger(result, '集合')
       if (result.success) {
         result.data.collections.forEach((v, i) => {
           v.sub_name = v.sub_name.length > 7 ? v.sub_name.substr(0, 8) + ' ...' : v.sub_name
@@ -1327,7 +1327,7 @@ Page({
   // 特惠好设计
   getGoodDesign() {
     http.fxGet(api.column_preferential_design, {}, (result) => {
-      console.log(result, '特惠好设计')
+      utils.logger(result, '特惠好设计')
       if (result.success) {
         this.setData({
           goodDesignList: []
@@ -1345,7 +1345,7 @@ Page({
   // 百元好物
   getOneHundred() {
     http.fxGet(api.column_affordable_goods, {}, (result) => {
-      console.log(result, '百元好物')
+      utils.logger(result, '百元好物')
       if (result.success) {
         this.setData({
           oneHundredList: []
@@ -1366,7 +1366,7 @@ Page({
   // 今日推荐
   getTodayRecommend() {
     http.fxGet(api.column_daily_recommends, {}, (result) => {
-      console.log(result, '今日推荐')
+      utils.logger(result, '今日推荐')
       if (result.success) {
         this.setData({
           todayRecommendList: result.data
@@ -1383,7 +1383,7 @@ Page({
       page: 1,
       per_page: 15
     }, (result) => {
-      console.log(result, '人气推荐')
+      utils.logger(result, '人气推荐')
       if (result.success) {
         this.setData({
           gratefulList: [],
@@ -1412,7 +1412,7 @@ Page({
       page: 1,
       per_page: 15
     }, (result) => {
-      console.log(result, '精选-中间广告')
+      utils.logger(result, '精选-中间广告')
       if (result.success) {
         this.setData({
           middleAdvertisementList: result.data
@@ -1426,7 +1426,7 @@ Page({
   // 精选区域的头部广告
   getChoiceHanderAdvertisement() {
     http.fxGet(api.banners_handpick, {}, (result) => {
-      console.log(result, '精选-头部广告')
+      utils.logger(result, '精选-头部广告')
       if (result.success) {
         this.setData({
           handerAdvertisementList: result.data
@@ -1440,7 +1440,7 @@ Page({
   // 乐喜优选 column/handpick_optimization
   getLitePick() {
     http.fxGet(api.column_handpick_optimization, {}, (result) => {
-      console.log(result, '乐喜优选')
+      utils.logger(result, '乐喜优选')
       if (result.success) {
 
         this.setData({
@@ -1458,7 +1458,7 @@ Page({
   // 种草清单 life_records/recommend
   getPlantOrder() {
     http.fxGet(api.life_records_recommend, {}, (result) => {
-      console.log(result, '种草清单')
+      utils.logger(result, '种草清单')
       if (result.success) {
         result.data.life_records.forEach((v) => {
           v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, '')
@@ -1483,7 +1483,7 @@ Page({
       page: 1,
       per_page: 4
     }, (res) => {
-      console.log(res, '最受欢迎商品')
+      utils.logger(res, '最受欢迎商品')
       if (res.success) {
         this.setData({
           popularProducts: []
@@ -1510,7 +1510,7 @@ Page({
     }
 
     http.fxGet(api.life_store_products, params, (res) => {
-      console.log(res, '全部分销商品')
+      utils.logger(res, '全部分销商品')
       if (res.success) {
         let _products = this.data.storeProducts
         if (this.data.page > 1) {
@@ -1543,7 +1543,7 @@ Page({
     http.fxGet(api.life_store, {
       rid: this.data.sid
     }, (res) => {
-      console.log(res, '生活馆信息')
+      utils.logger(res, '生活馆信息')
       if (res.success) {
         this.setData({
           lifeStore: res.data
@@ -1563,7 +1563,7 @@ Page({
     http.fxGet(api.life_store_headlines, {
       type: 2
     }, (res) => {
-      console.log(res, '生活馆头条')
+      utils.logger(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
         let newData = []
@@ -1603,7 +1603,7 @@ Page({
    */
   getDistributeNewest() {
     http.fxGet(api.distribute_newest, {}, (res) => {
-      console.log(res, '选品中心')
+      utils.logger(res, '选品中心')
       if (res.success) {
         this.setData({
           latestDistributeProducts: res.data.products
@@ -1632,7 +1632,7 @@ Page({
     http.fxPost(api.market_share_life_store, {
       rid: this.data.sid
     }, (result) => {
-      console.log(result, this.data.sid, "分享生活馆图片的地址")
+      utils.logger(result, this.data.sid, "分享生活馆图片的地址")
       if (result.success) {
         this.setData({
           lifePhotoUrl: result.data.image_url
@@ -1646,7 +1646,7 @@ Page({
   // 获取推荐橱窗列表
   getRecommendWindow() {
     http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
-      console.log(result, "获取橱窗列表")
+      utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
         this.setData({
@@ -1664,7 +1664,7 @@ Page({
   // 头部广告 发现
   getAdvertisement() {
     http.fxGet(api.marketBanners.replace(/:rid/g, 'discover_ad'), {}, (result) => {
-      console.log(result, '发现-头部广告')
+      utils.logger(result, '发现-头部广告')
       if (result.success) {
         this.setData({
           advertisement: result.data
@@ -1678,7 +1678,7 @@ Page({
   // 猜你喜欢 发现
   getYouLike() {
     http.fxGet(api.life_records_guess_likes, {}, (result) => {
-      console.log(result, '猜你喜欢')
+      utils.logger(result, '猜你喜欢')
 
       this.setData({
         isLoadPageShow: false
@@ -1702,7 +1702,7 @@ Page({
   // 精彩故事
   getWonderfulStories() {
     http.fxGet(api.life_records_wonderful_stories, {}, (result) => {
-      console.log(result, '精彩故事')
+      utils.logger(result, '精彩故事')
       if (result.success) {
         // 去除标签
         result.data.life_records.forEach((v) => {
@@ -1876,7 +1876,7 @@ Page({
 
     // 验证登录用户是否为小B商家
     if (this.data.sid == '') {
-      console.log('验证登录用户是否为小B')
+      utils.logger('验证登录用户是否为小B')
 
       // 异步请求，已完成登录，装载用户信息
       if (Object.keys(app.globalData.lifeStore).length > 0) {
@@ -1884,7 +1884,7 @@ Page({
       } else { // 登录请求还未完成
         // 给app.js 定义一个方法。
         app.userInfoReadyCallback = res => {
-          console.log('用户信息请求完毕')
+          utils.logger('用户信息请求完毕')
           if (res) {
             this.validateLifeStore()
           } else {
@@ -2007,7 +2007,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    console.log(this.data.pageActiveTab, '下拉刷新')
+    utils.logger(this.data.pageActiveTab, '下拉刷新')
     if (this.data.pageActiveTab == 'featured') {
       this._loadingFeaturedPage()
     }
@@ -2061,7 +2061,7 @@ Page({
    * 用户点击右上角分享 data-from
    */
   onShareAppMessage: function(e) {
-    console.log(e)
+    utils.logger(e)
 
     // 在生活馆里面分享
     if (this.data.pageActiveTab == 'lifeStore') {
@@ -2072,13 +2072,13 @@ Page({
 
           // scene格式：sid + '-' + uid
           let scene = lastVisitLifeStoreRid
-          console.log(lastVisitLifeStoreRid, '分享的场景参数')
+          utils.logger(lastVisitLifeStoreRid, '分享的场景参数')
           return {
             title: this.data.lifeStore.name + '的生活馆',
             path: 'pages/index/index?scene=' + scene,
             imageUrl: this.data.lifePhotoUrl,
             success: (res) => {
-              console.log(res, '分享成功!')
+              utils.logger(res, '分享成功!')
             }
           }
         }
@@ -2086,7 +2086,7 @@ Page({
 
       // 分享产品 shareProduct
       if (e.target.dataset.from == 2) {
-        console.log(2)
+        utils.logger(2)
         let title = this.data.shareProduct.name
         return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
       }
@@ -2099,7 +2099,7 @@ Page({
 
   // 点击分类
   handleCategoryInfoTap(e) {
-    console.log(e)
+    utils.logger(e)
   },
 
   // 跳转搜索页面
@@ -2140,7 +2140,7 @@ Page({
 
   // 跳转到商品列表页面
   handleToProductList(e) {
-    console.log(e.currentTarget.dataset.from)
+    utils.logger(e.currentTarget.dataset.from)
     let editRecommend = e.currentTarget.dataset.from
     wx.navigateTo({
       url: '../allProduct/allProduct?from=' + editRecommend,

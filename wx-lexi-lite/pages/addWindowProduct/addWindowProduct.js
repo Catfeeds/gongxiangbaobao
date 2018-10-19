@@ -107,7 +107,7 @@ Page({
 
   // 选择图片
   handlePickPhoto(e) {
-    console.log(e)
+    utils.logger(e)
     this.setData({
       pickProductId: e.currentTarget.dataset.photoId,
       pickProductLink: e.currentTarget.dataset.photoLink,
@@ -116,7 +116,7 @@ Page({
 
   //获取商品的图片
   handleGetProductPhoto(e) {
-    console.log(e, "选择的商品参数")
+    utils.logger(e, "选择的商品参数")
     let rid = e.currentTarget.dataset.rid
     let openid = app.globalData.jwt.openid
     let storeId = e.currentTarget.dataset.storeRid
@@ -131,7 +131,7 @@ Page({
       user_record: "1",
       openid: openid
     }, result => {
-      console.log(result, "产品详情")
+      utils.logger(result, "产品详情")
       if (result.success) {
         this.setData({
           productPhoto: result.data.images,
@@ -151,7 +151,7 @@ Page({
   // 确定添加按钮
   handleAddWindowBtn() {
     let router = getCurrentPages()
-    console.log(router, "页面路径")
+    utils.logger(router, "页面路径")
     let parentData = router[router.length - 2].data.windowParams.product_items
 
     const promistSum = new Promise( (resolve, reject) => {
@@ -193,7 +193,7 @@ Page({
   getThinkOrder() {
     http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
       if (result.success) {
-        console.log(result, "心愿单")
+        utils.logger(result, "心愿单")
         let data = this.data.desireOrderProduct
         this.setData({
           desireOrderProduct: data.concat(result.data.products),
@@ -213,7 +213,7 @@ Page({
       openid: openid
     }, (result) => {
       if (result.success) {
-        console.log(result, "用户最近查看")
+        utils.logger(result, "用户最近查看")
         let data = this.data.userBrowsesProduct
         this.setData({
           userBrowsesProduct: data.concat(result.data.products),
@@ -228,7 +228,7 @@ Page({
   // 获取喜欢
   getUserLike() {
     http.fxGet(api.userlike, this.data.likeParams, (result) => {
-      console.log(result, "喜欢的商品")
+      utils.logger(result, "喜欢的商品")
       if (result.success) {
         let data = this.data.likeProduct
         this.setData({
@@ -245,7 +245,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
+    utils.logger(options)
     this.setData({
       needPhotoIndex: options.index
     })

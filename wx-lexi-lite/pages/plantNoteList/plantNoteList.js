@@ -38,7 +38,7 @@ Page({
 
   getData() {
     http.fxGet(api.life_records_grass_note, this.data.params, (result) => {
-      console.log(result, '种草清单')
+      utils.logger(result, '种草清单')
       if (result.success) {
         this.setData({
           dataList: result.data.life_records,

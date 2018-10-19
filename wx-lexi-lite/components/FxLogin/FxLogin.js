@@ -51,7 +51,7 @@ Component({
      * 获取用户授权信息
      */
     bindGetUserInfo(e) {
-      console.log(e.detail, '获取用户授权信息')
+      utils.logger(e.detail, '获取用户授权信息')
       if (e.detail.userInfo) {
         // 用户点击允许按钮
         this.setData({
@@ -62,11 +62,11 @@ Component({
         // 检测当前用户登录态是否有效
         wx.checkSession({
           success: (res) => {
-            console.log(res, 'check session success')
+            utils.logger(res, 'check session success')
             this.getUserAuthInfo(userAuth)
           },
           fail: (res) => {
-            console.log(res, 'check session fail')
+            utils.logger(res, 'check session fail')
 
             app.refreshUserSessionKey((e) => {
               this.getUserAuthInfo(userAuth)
@@ -83,7 +83,7 @@ Component({
      * 获取用户授权信息
      */
     getUserAuthInfo (userAuth) {
-      console.log(userAuth, '更新用户解密信息')
+      utils.logger(userAuth, '更新用户解密信息')
       const jwt = wx.getStorageSync('jwt')
       let params = {
         encrypted_data: userAuth.encryptedData,
@@ -92,11 +92,11 @@ Component({
         iv: userAuth.iv
       }
 
-      console.log(params, '用户授权参数')
+      utils.logger(params, '用户授权参数')
 
       // 更新用户授权信息
       http.fxPost(api.auth_weixin, params, (res) => {
-        console.log(res, '授权解密成功')
+        utils.logger(res, '授权解密成功')
         if (!res.success) {
           utils.fxShowToast(res.status.message)
         }
@@ -113,7 +113,7 @@ Component({
         // 检测当前用户登录态是否有效
         wx.checkSession({
           success: (res) => {
-            console.log(res, 'check session success')
+            utils.logger(res, 'check session success')
             app.handleGotPhoneNumber(e, (success) => {
               if (success) {
                 this.setData({

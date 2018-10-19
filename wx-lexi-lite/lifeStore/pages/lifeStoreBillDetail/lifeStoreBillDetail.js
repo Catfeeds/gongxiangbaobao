@@ -41,8 +41,8 @@ Page({
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
     let dkey = e.currentTarget.dataset.dkey
-    console.log(dkey)
-    console.log(this.data.ordersList)
+    utils.logger(dkey)
+    utils.logger(this.data.ordersList)
     this.setData({
       showModal: true,
       currentOrder: this.data.ordersList[dkey][idx]
@@ -51,7 +51,7 @@ Page({
     http.fxGet(api.life_store_income_detail.replace(/:rid/, rid), {
       store_rid: this.data.sid
     }, (res) => {
-      console.log(res, '收益详情')
+      utils.logger(res, '收益详情')
       if (res.success) {
 
         let _items = res.data.items.map(item => {
@@ -73,7 +73,7 @@ Page({
    */
   getStoreBillDetail() {
     http.fxGet(api.life_store_statement_detail, { store_rid: this.data.sid, record_id: this.data.record_id }, (res) => {
-      console.log(res, '对账单详情')
+      utils.logger(res, '对账单详情')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
         return
@@ -100,7 +100,7 @@ Page({
           _orderList[month] = _orders
         })
       }
-      console.log(_orderList)
+      utils.logger(_orderList)
 
       this.setData({
         'dateKeys': dateKeys,
@@ -117,7 +117,7 @@ Page({
     http.fxGet(api.life_store, {
       rid: this.data.sid
     }, (res) => {
-      console.log(res, '生活馆信息')
+      utils.logger(res, '生活馆信息')
       if (res.success) {
         this.setData({
           lifeStore: res.data

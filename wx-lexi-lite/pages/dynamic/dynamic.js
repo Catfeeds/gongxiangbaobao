@@ -38,7 +38,7 @@ Page({
   // 去橱窗详情
   handleGoWindowDetail(e) {
     let rid = e.currentTarget.dataset.windowRid
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + rid,
     })
@@ -47,7 +47,7 @@ Page({
   // 获取自己的动态
   getMyDynamic() {
     http.fxGet(api.users_user_dynamic, this.data.dynamicParams, (result) => {
-      console.log(result, "自己的动态")
+      utils.logger(result, "自己的动态")
       if (result.success) {
         let data = this.data.dynamicList.lines
         this.setData({

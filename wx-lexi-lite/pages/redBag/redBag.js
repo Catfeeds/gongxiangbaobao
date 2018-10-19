@@ -89,10 +89,10 @@ Page({
   // 获取获奖的人
   getAward() {
     http.fxGet(api.market_bonus_lines, {}, (result) => {
-      console.log(result, '领取红包的人数')
+      utils.logger(result, '领取红包的人数')
       if (result.success) {
         result.data.bonus_lines.forEach((v) => {
-          console.log(v.user_name - 0 != NaN)
+          utils.logger(v.user_name - 0 != NaN)
           if (v.user_name - 0 != NaN) {
             v.user_name = v.user_name.substr(0, 3) + '***' + v.user_name.substr(7, 4)
           } else {
@@ -190,9 +190,9 @@ Page({
         }
 
         http.fxPost(api.market_bonus_grant, {}, (result) => {
-          console.log(result, '分享后领取红包')
+          utils.logger(result, '分享后领取红包')
           if (result.success) {
-            console.log(app.globalData)
+            utils.logger(app.globalData)
             let addObject = {
               user_name: app.globalData.jwt.username
             }
@@ -207,7 +207,7 @@ Page({
         })
       },
       fail: (res) => {
-        console.log(res, '转发失败')
+        utils.logger(res, '转发失败')
       }
     }
   },

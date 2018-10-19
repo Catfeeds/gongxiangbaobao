@@ -63,7 +63,7 @@ Page({
 
   // name 输入时候
   handleNameInput(e){
-    console.log(e.detail.value)
+    utils.logger(e.detail.value)
     this.setData({
       isEdited: true,
       ['editUserInfo.username']: e.detail.value
@@ -72,7 +72,7 @@ Page({
 
   // 个人介绍
   handleOwnerIntroduce(e) {
-    console.log(e.detail.value, '个人介绍')
+    utils.logger(e.detail.value, '个人介绍')
     this.setData({
       isEdited: true,
       ['editUserInfo.about_me']: e.detail.value
@@ -81,7 +81,7 @@ Page({
 
   // 邮箱
   hanleOwnerMail(e) {
-    console.log(e)
+    utils.logger(e)
     this.setData({
       isEdited: true,
       ['editUserInfo.mail']: e.detail.value
@@ -97,7 +97,7 @@ Page({
 
   // 时间选择
   bindDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    utils.logger('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       isEdited: true,
       ['editUserInfo.date']: e.detail.value
@@ -115,8 +115,8 @@ Page({
   // 保存按钮
   handlePreserveTap() {
     http.fxPut(api.user, this.data.editUserInfo, (result)=>{
-      console.log(result, '修改的信息')
-      console.log(app.globalData.userInfo,'globao user info')
+      utils.logger(result, '修改的信息')
+      utils.logger(app.globalData.userInfo,'globao user info')
       if (result.success) {
 
         // 同步global-userInfo
@@ -157,7 +157,7 @@ Page({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
-          console.log(result)
+          utils.logger(result)
           if (result.data.length > 0) {
             this.setData({
               isUploading: false,
@@ -169,7 +169,7 @@ Page({
         })
 
         uploadTask.onProgressUpdate((res) => {
-          console.log('上传进度', res.progress)
+          utils.logger('上传进度', res.progress)
 
           let percent = res.progress
           this.setData({
@@ -205,14 +205,14 @@ Page({
   // 获取用户信息 ---
   getUserInfo() {
     http.fxGet(api.users_profile,{},(result)=>{
-      console.log(result, '用户个人资料')
+      utils.logger(result, '用户个人资料')
       if (result.success) {
         this.setData({
           userInfo: result.data
         })
 
         let userProfile = this.data.userInfo.profile
-        console.log(this.data.userInfo.profile, userProfile.date, '用户的资料')
+        utils.logger(this.data.userInfo.profile, userProfile.date, '用户的资料')
 
         let time = utils.timestamp2string(userProfile.created_at, 'cn')
 
@@ -236,7 +236,7 @@ Page({
           'editUserInfo.is_default': userProfile.is_default || ''
         })
 
-        console.log(this.data.editUserInfo, '初始信息')
+        utils.logger(this.data.editUserInfo, '初始信息')
       }
     })
   },

@@ -62,7 +62,7 @@ Page({
 
   //删除标签
   handleDeleteLabel(e) {
-    console.log(e.currentTarget.dataset.index)
+    utils.logger(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     let labels = this.data.windowParams.keywords
     labels.splice(index, 1)
@@ -75,7 +75,7 @@ Page({
 
   // 切换拼接橱窗
   handleWindowToggle(e) {
-    console.log(e.currentTarget.dataset.windowCode)
+    utils.logger(e.currentTarget.dataset.windowCode)
     this.setData({
       toggleCode: e.currentTarget.dataset.windowCode
     })
@@ -92,7 +92,7 @@ Page({
 
   // 添加标题
   handleSetWindowTitle(e) {
-    console.log(e.detail.value)
+    utils.logger(e.detail.value)
     this.setData({
       'windowParams.title': e.detail.value
     })
@@ -137,9 +137,9 @@ Page({
 
     http.fxPost(api.shop_windows, this.data.windowParams, result => {
       {
-        console.log(result, '添加橱窗完成')
+        utils.logger(result, '添加橱窗完成')
         if (result.success) {
-          console.log(this.data.windowParams.product_items)
+          utils.logger(this.data.windowParams.product_items)
 
           wx.redirectTo({
             url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,

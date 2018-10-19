@@ -40,7 +40,7 @@ Page({
   handleSubmitWithdraw () {
     const openid = wx.getStorageSync('jwt').openid
     http.fxPost(api.user_withdraw, { store_rid: this.data.sid, open_id: openid }, (res) => {
-      console.log(res, '提现汇总')
+      utils.logger(res, '提现汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
         return
@@ -63,7 +63,7 @@ Page({
    */
   getLastWithdraw () {
     http.fxGet(api.life_store_last_withdraw, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '提现记录')
+      utils.logger(res, '提现记录')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
         return
@@ -85,7 +85,7 @@ Page({
    */
   getStoreCashCollect() {
     http.fxGet(api.life_store_cash_collect, { store_rid: this.data.sid }, (res) => {
-      console.log(res, '提现汇总')
+      utils.logger(res, '提现汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
         return

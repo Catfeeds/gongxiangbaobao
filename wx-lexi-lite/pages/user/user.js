@@ -104,7 +104,7 @@ Page({
       // 检测当前用户登录态是否有效
       wx.checkSession({
         success: (res) => {
-          console.log(res, 'check session success')
+          utils.logger(res, 'check session success')
           app.handleGotPhoneNumber(e, (success) => {
             if (success) {
               // 是否登陆
@@ -129,7 +129,7 @@ Page({
           })
         },
         fail: (res) => {
-          console.log(res, 'check session fail')
+          utils.logger(res, 'check session fail')
 
           app.refreshUserSessionKey((e) => {
             app.handleGotPhoneNumber(e, (success) => {
@@ -209,7 +209,7 @@ Page({
     }
     http.fxGet(api.orders_order_coupon_count, {}, (result) =>{
       if(result.success){
-        console.log(result, '订单，优惠券的数量')
+        utils.logger(result, '订单，优惠券的数量')
         this.setData({
           orderSum: result.data.order_count, // 有没有订单
           couponSum: result.data.coupon_count // 有没有优惠券
@@ -223,7 +223,7 @@ Page({
   // 获取筛选和排序的公用接口
   getPick(){
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         if (this.data.likeProduct.length==0){
           this.setData({
@@ -246,7 +246,7 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
-    console.log(app.globalData.userInfo,'app.global数据')
+    utils.logger(app.globalData.userInfo,'app.global数据')
 
     this.setData({
       userInfo: app.globalData.userInfo
@@ -261,10 +261,10 @@ Page({
       return
     }
     http.fxGet(api.users_user_center, {}, (result) => {
-      console.log(result,"获取喜欢 收藏 设计馆")
+      utils.logger(result,"获取喜欢 收藏 设计馆")
       let category = this.data.classList
       category.forEach((v) => {
-        console.log(v)
+        utils.logger(v)
         if (v.rid == 1) {
           v.num = result.data.user_like_counts
         }
@@ -284,7 +284,7 @@ Page({
 
   // 切换类别
   classTap(e) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     this.setData({
       classInfo: e.currentTarget.dataset.rid
     })
@@ -300,7 +300,7 @@ Page({
     switch (e) {
       case 1:
         http.fxGet(api.userlike, this.data.getProductParams, (result) => {
-          console.log(result, '喜欢的商品')
+          utils.logger(result, '喜欢的商品')
           if (result.success) {
             this.setData({
               likeProduct: result.data
@@ -317,7 +317,7 @@ Page({
         // 最近查看
         http.fxGet(api.user_browses, { page: 1, per_page: 10, openid: openid}, (result) => {
           if (result.success) {
-            console.log(result, '用户最近查看')
+            utils.logger(result, '用户最近查看')
             this.setData({
               userBrowsesProduct: result.data
             })
@@ -329,7 +329,7 @@ Page({
         // 心愿单
         http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
           if (result.success) {
-            console.log(result)
+            utils.logger(result)
             this.setData({
               desireOrderProduct: result.data
             })
@@ -341,7 +341,7 @@ Page({
       default:
         // 设计管
         http.fxGet(api.users_followed_stores, this.data.getProductParams, (result) => {
-          console.log(result, '设计馆')
+          utils.logger(result, '设计馆')
           if (result.success) {
             this.setData({
               watchStoreList: result.data
@@ -364,7 +364,7 @@ getLikeWindow(){
   }
 
   http.fxGet(api.shop_windows_user_likes,{},res=>{
-    console.log(res,"用户喜欢的橱窗")
+    utils.logger(res,"用户喜欢的橱窗")
     if(res.success){
       this.setData({
         userWindow: res.data
@@ -507,7 +507,7 @@ getLikeWindow(){
 
   // 跳转到设置页面
   setTap(e) {
-    console.log(e)
+    utils.logger(e)
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -572,7 +572,7 @@ getLikeWindow(){
 
   // 跳转到商品详情---
   handleToProductInfoTap(e) {
-    console.log(e.currentTarget.dataset)
+    utils.logger(e.currentTarget.dataset)
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeId
     })
@@ -580,7 +580,7 @@ getLikeWindow(){
 
   // 跳转到橱窗详情
   handleGoWindowDetail(e){
-    console.log(e)
+    utils.logger(e)
     let windowRid = e.currentTarget.dataset.rid
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + windowRid,
@@ -589,7 +589,7 @@ getLikeWindow(){
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
     })

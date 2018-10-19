@@ -50,7 +50,7 @@ Page({
 
   // 关闭
   hanleOffLoginBox(e) {
-    console.log(e)
+    utils.logger(e)
     this.setData({
       is_mobile: false
     })
@@ -68,7 +68,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result, '添加关注')
+      utils.logger(result, '添加关注')
       if (result.success) {
         this.setData({
           ['liveInfo.is_follow']: true
@@ -91,7 +91,7 @@ Page({
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result, '取消关注')
+      utils.logger(result, '取消关注')
       if (result.success) {
         this.setData({
           ['liveInfo.is_follow']: false
@@ -119,7 +119,7 @@ Page({
 
   // 点击去推荐品牌馆
   handleGoBrandStore(e){
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
     })
@@ -165,7 +165,7 @@ Page({
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
-      console.log(result, '商品推荐')
+      utils.logger(result, '商品推荐')
       if (result.success) {
         this.setData({
           recommendProduct: result.data
@@ -179,7 +179,7 @@ Page({
   // 获取生活志的评论
   getComment() {
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
-      console.log(result, '生活志的评论')
+      utils.logger(result, '生活志的评论')
       if (result.success) {
         // result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
 
@@ -196,7 +196,7 @@ Page({
   // 获取生活志详情
   getLiveInfo() {
     http.fxGet(api.life_records_detail, { rid: this.data.rid }, (result) => {
-      console.log(result, '种草笔记详情')
+      utils.logger(result, '种草笔记详情')
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
@@ -251,7 +251,7 @@ Page({
             '</div>' +
             '</div>'
         } else {
-          console.log(item, "每一个商品is_free_postage")
+          utils.logger(item, "每一个商品is_free_postage")
           productHtml = '<div class="product-min__box">' +
             '<div class="product-min__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
             '<div class="product-min__content">' + 
@@ -273,7 +273,7 @@ Page({
    * 查看商品详情
    */
   wxParseTagATap (e) {
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: e.currentTarget.dataset.src,
     })
@@ -282,7 +282,7 @@ Page({
   // 相关故事推荐
   getRecommend() {
     http.fxGet(api.life_records_similar, this.data.params, (result) => {
-      console.log(result, '相关故事推荐')
+      utils.logger(result, '相关故事推荐')
       if (result.success) {
         result.data.life_records.forEach((v) => {
           v.description = v.description.replace(/<\s*\/?\s*[a-zA-z_]([^>]*?["][^"]*["])*[^>"]*>/g, "")

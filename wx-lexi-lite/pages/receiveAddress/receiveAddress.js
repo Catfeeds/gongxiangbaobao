@@ -89,9 +89,9 @@ Page({
 
   // 获取海关所需身份证信息
   getUserIdCard (currentAddress) {
-    console.log(currentAddress.full_name + ',' + currentAddress.mobile)
+    utils.logger(currentAddress.full_name + ',' + currentAddress.mobile)
     http.fxGet(api.address_user_custom, { user_name: currentAddress.full_name, mobile: currentAddress.mobile }, (result) => {
-      console.log(result, '海关身份证')
+      utils.logger(result, '海关身份证')
       if (result.success) {
         if (Object.keys(result.data).length == 0) {
           // 没有身份证信息
@@ -124,7 +124,7 @@ Page({
   // 获取地址列表
   getAddressList() {
     http.fxGet(api.addresses, {}, (result) => {
-      console.log(result, '地址列表')
+      utils.logger(result, '地址列表')
       if (result.success) {
         this.setData({
           addressList: result.data
@@ -152,7 +152,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    utils.logger(options)
     let from_ref = options.from_ref // 来源
 
     if (from_ref != 'cart') { // 不是来自购物车

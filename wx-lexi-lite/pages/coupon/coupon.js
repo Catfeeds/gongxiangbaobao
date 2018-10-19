@@ -25,7 +25,7 @@ Page({
   // 官方优惠券 红包列表 
   getRedBag() {
     http.fxGet(api.authority_coupon, {}, (result) => {
-      console.log(result, '红包列表')
+      utils.logger(result, '红包列表')
 
       if (result.success) {
         
@@ -69,7 +69,7 @@ Page({
             })
           }
         })
-        console.log(this.data.normalCouponList)
+        utils.logger(this.data.normalCouponList)
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -89,7 +89,7 @@ Page({
     let exceedCouponList = this.data.exceedCouponList // 已经过期 不可用红包 非官方
 
     http.fxPost(api.market_core_user_coupons, params, (result) => {
-      console.log(result.data, o, 'all')
+      utils.logger(result.data, o, 'all')
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
@@ -98,18 +98,18 @@ Page({
           this.setData({
             normalCouponList: normalCouponList.push(v)
           })
-          console.log(v,"没有使用商家券-")
+          utils.logger(v,"没有使用商家券-")
         }
 
         if (o == 'N02' || o == 'N03') {
-          console.log(v, "过期的商家券")
+          utils.logger(v, "过期的商家券")
           this.setData({
             useCouponList: exceedCouponList.push(v)
           })
         }
 
         if (result.data.coupons.length-1 == i){
-          console.log(normalCouponList, exceedCouponList, '商家')
+          utils.logger(normalCouponList, exceedCouponList, '商家')
           this.setData({
             normalCouponList: normalCouponList,
             exceedCouponList: exceedCouponList
@@ -155,7 +155,7 @@ Page({
     this.getUserCoupon('N03') // N03: 已过期
     this.getRedBag() // 红包列表
 
-    console.log(app.globalData.storeInfo)
+    utils.logger(app.globalData.storeInfo)
     this.setData({
       storeInfo: app.globalData.storeInfo
     })

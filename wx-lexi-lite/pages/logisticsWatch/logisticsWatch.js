@@ -27,7 +27,7 @@ Page({
   // 获取物流信息
   getDetail() {
     http.fxPost(api.logistics_information, this.data.parmas, (result) => {
-      console.log(result, '物流的信息')
+      utils.logger(result, '物流的信息')
       if (result.success) {
         result.data.Traces = result.data.Traces.reverse()
         this.setData({
@@ -43,7 +43,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options.logisticsNumber, options.code)
+    utils.logger(options.logisticsNumber, options.code)
 
     this.setData({
       'parmas.logistic_code': options.logisticsNumber,

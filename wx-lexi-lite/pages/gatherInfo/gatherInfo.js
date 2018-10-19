@@ -27,7 +27,7 @@ Page({
   // 获取列表
   getProducts() {
     http.fxGet(api.column_collections_detail, this.data.params, (result) => {
-      console.log(result, '集合详情')
+      utils.logger(result, '集合详情')
       if (result.success) {
 
         wx.setNavigationBarTitle({

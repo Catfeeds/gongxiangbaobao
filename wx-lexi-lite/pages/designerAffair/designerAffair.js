@@ -23,7 +23,7 @@ Page({
 
   // 跳转到详情
   handleToInfo(e) {
-    console.log(e.currentTarget.dataset.type)
+    utils.logger(e.currentTarget.dataset.type)
     let rid = e.currentTarget.dataset.rid
     if (e.currentTarget.dataset.type == 1) {
       wx.navigateTo({
@@ -40,7 +40,7 @@ Page({
 
   getData() {
     http.fxGet(api.life_records_creator_story, this.data.params, (result) => {
-      console.log(result, '创作人故事列表')
+      utils.logger(result, '创作人故事列表')
       if (result.success) {
         this.setData({
           dataList: result.data.life_records,

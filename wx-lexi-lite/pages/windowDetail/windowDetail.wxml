@@ -63,8 +63,8 @@
       <view class="fx-window__actions" wx:if="{{}}">
         <view class="like-comment">
           <view class="done">
-            <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike"  wx:if="{{windowDetail.is_like}}" class="icon-like"></image>
-            <image catchtap="handleAddLike"  src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like"></image>
+            <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" wx:if="{{windowDetail.is_like}}" class="icon-like"></image>
+            <image catchtap="handleAddLike" src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like"></image>
             <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
           </view>
           <view class="remark">
@@ -116,7 +116,7 @@
               <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
             </view>
 
-            <view class="zan-box" data-index="{{index}}" wx:else  catchtap="handleParentPraise">
+            <view class="zan-box" data-index="{{index}}" wx:else catchtap="handleParentPraise">
               <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
               <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
             </view>
@@ -166,25 +166,27 @@
   </view>
 
   <!-- 相关橱窗 -->
-  <view class=" similar-windows" wx:if="{{similarWindow.count!=0}}">
+  <view class="similar-windows" wx:if="{{similarWindow.count!=0}}">
     <view class="block-title paddng-left-right--40rpx">相关橱窗</view>
-    <scroll-view scroll-x class="margin-top--34rpx">
-      <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}}  height--560rpx" catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{similarWindow.shop_windows}}" wx:key="{{index}}">
-        <view class="flex_row recommend-window__photo">
-          <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
-          <view class="flex-direction--column">
-            <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
-            <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
+    <scroll-view scroll-x class="scroll-windows">
+      <view class="live-beautiful__window">
+        <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{similarWindow.shop_windows}}" wx:key="{{index}}">
+          <view class="flex_row recommend-window__photo">
+            <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
+            <view class="flex-direction--column">
+              <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
+              <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
+            </view>
           </view>
-        </view>
 
-        <view class="padding--30rpx">
-          <view class="flex_row">
-            <image class="master-photo" src="{{item.user_avatar}}"></image>
-            <text class="font-s font-width--medium">{{item.user_name}}</text>
+          <view class="recommend-window_info">
+            <view class="flex_row margin-bottom--30rpx">
+              <image class="master-photo" src="{{item.user_avatar}}"></image>
+              <text class="font-s font-width--medium">{{item.user_name}}</text>
+            </view>
+            <view class="black-font  font-width--medium title">{{item.title}}</view>
+            <view class="font-s two-line-text describe">{{item.description}}</view>
           </view>
-          <view class="black-font  font-width--medium title margin-top--4rpx">{{item.title}}</view>
-          <view class="font-s two-line-text describe">{{item.description}}</view>
         </view>
       </view>
     </scroll-view>
@@ -198,8 +200,8 @@
       <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like__icon"></image>
       <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
 
-      <image catchtap="handleAddLike"  src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like__icon"></image>
-      <text class="count" wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike" >{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
+      <image catchtap="handleAddLike" src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like__icon"></image>
+      <text class="count" wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
 
       <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment"></image>
       <text class="comment-count" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">{{windowDetail.comment_count>0?windowDetail.comment_count:''}}</text>

@@ -47,7 +47,7 @@ Page({
 
     http.fxPost(api.distribution_sell, data, (res) => {
       wx.hideLoading()
-      console.log(res, '上架分销')
+      utils.logger(res, '上架分销')
       if (res.success) {
         wx.navigateBack({
           delta: 1
@@ -98,7 +98,7 @@ Page({
     })
 
     http.fxGet(api.product_info.replace(/:rid/, this.data.rid), {}, (res) => {
-      console.log(res, '分销商品')
+      utils.logger(res, '分销商品')
       wx.hideLoading()
       if (res.success) {
         this.setData({
@@ -114,7 +114,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options.rid)
+    utils.logger(options.rid)
     this.setData({
       rid: options.rid,
       index: options.index

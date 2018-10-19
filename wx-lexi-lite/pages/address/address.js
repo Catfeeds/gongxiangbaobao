@@ -78,7 +78,7 @@ Page({
   handleSubmitAddress() {
     if (!this.data.isEditing) {
       http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
-        console.log(result, '新增地址')
+        utils.logger(result, '新增地址')
         if (result.success) {
           if (this.data.from_ref == 'checkout') {
             wx.navigateBack({
@@ -97,9 +97,9 @@ Page({
       this.setData({
         'form.rid': this.data.rid
       })
-      console.log(this.data.form)
+      utils.logger(this.data.form)
       http.fxPut(api.address_addto, { ...this.data.form }, (result) => {
-        console.log(result, '更新地址')
+        utils.logger(result, '更新地址')
         if (result.success) {
           if (this.data.from_ref == 'checkout') {
             wx.navigateBack({
@@ -160,7 +160,7 @@ Page({
 
   // 详细的地址
   handleStreetInfo (e) {
-    console.log(e.detail.value)
+    utils.logger(e.detail.value)
     this.setData({
       'form.street_address': e.detail.value
     })
@@ -207,7 +207,7 @@ Page({
   // 验证是否为跨境订单
   _validateCrossBorder (country_id) {
     // 验证是否为跨境地址
-    console.log(app.globalData.deliveryCountries, '发货国家')
+    utils.logger(app.globalData.deliveryCountries, '发货国家')
     let deliveryCountries = app.globalData.deliveryCountries
     if (deliveryCountries.length > 0 && deliveryCountries.indexOf(country_id) == -1) {
       this.setData({
@@ -226,7 +226,7 @@ Page({
 
   // 省市区选择器
   handleRegionsChange (e) {
-    console.log(e, '省市区选择器')
+    utils.logger(e, '省市区选择器')
 
     let town_id = 0
     if (this.data.regions.length == 3) {
@@ -242,7 +242,7 @@ Page({
 
   // 省市区列选择器
   handleRegionColumnChange (e) {
-    console.log(e, '省市区列选择器')
+    utils.logger(e, '省市区列选择器')
     let column = e.detail.column
     let idx = e.detail.value
 
@@ -301,7 +301,7 @@ Page({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
-          console.log(result)
+          utils.logger(result)
           if (result.data.length > 0) {
             if (this.data.uploadType == 'front') {
               this.setData({
@@ -322,7 +322,7 @@ Page({
         })
 
         uploadTask.onProgressUpdate((res) => {
-          console.log('上传进度', res.progress)
+          utils.logger('上传进度', res.progress)
           
           let percent = res.progress
           if (type == 'front'){
@@ -353,7 +353,7 @@ Page({
       user_name: this.data.form.first_name,
       mobile: this.data.form.mobile
     }, (result) => {
-      console.log(result, '海关身份证')
+      utils.logger(result, '海关身份证')
       if (result.success) {
         if (Object.keys(result.data).length > 0) {
           this.setData({
@@ -390,7 +390,7 @@ Page({
   // 获取所有的国家
   getCountry() {
     http.fxGet(api.get_country, { status: 1 }, (result) => {
-      console.log(result, '国家列表')
+      utils.logger(result, '国家列表')
       if (result.success) {
         let countries = result.data.area_codes
         this.setData({
@@ -528,7 +528,7 @@ Page({
   getAddressInfo () {
     http.fxGet(api.address_info.replace(/:rid/, this.data.rid), {}, (result) => {
       if (result.success) {
-        console.log(result, '地址详情')
+        utils.logger(result, '地址详情')
         let _address = result.data
         this.setData({
           currentAddress: _address,

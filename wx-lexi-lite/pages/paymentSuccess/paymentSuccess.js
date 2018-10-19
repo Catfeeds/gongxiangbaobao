@@ -27,8 +27,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options, '支付页面，上一页的参数')
-    console.log(app.globalData.paymentSuccessOrder)
+    utils.logger(options, '支付页面，上一页的参数')
+    utils.logger(app.globalData.paymentSuccessOrder)
 
     let order = app.globalData.paymentSuccessOrder
     this.setData({

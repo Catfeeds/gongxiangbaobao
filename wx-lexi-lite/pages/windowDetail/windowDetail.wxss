@@ -199,10 +199,6 @@
   font-weight: 600;
 }
 
-.similar-windows scroll-view {
-  height: 560rpx;
-}
-
 .comments, .suggestion, .similar-windows scroll-view {
   white-space: nowrap;
 }
@@ -288,4 +284,16 @@
 
 .margin-right--40rpx {
   margin-right: 40rpx;
+}
+
+.similar-windows .live-beautiful__window {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-right: 40rpx;
+}
+.similar-windows .live-beautiful__window .recommend-window__item {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
 }
