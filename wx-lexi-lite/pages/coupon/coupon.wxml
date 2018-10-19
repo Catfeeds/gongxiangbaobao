@@ -9,6 +9,7 @@
 </view>
 
 <view class='container theme-bg-color'>
+
   <!-- 商家劝 -->
   <block wx:if="{{couponActive==1}}">
     <view class="coupon-box" catchtap="handleGoStore" data-store-id="{{item.store_rid}}" wx:for='{{ normalCouponList }}' wx:key="{{ index }}">
@@ -46,6 +47,21 @@
       <!-- 右边的线 -->
       <view class='right-line line-L theme-bg-color'></view>
     </view>
+
+    <!-- 缺省 -->
+    <view class='line-D noll-coupon' wx:if="{{storeCount == 0}}">
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>您还没有优惠券哦~</view>
+    </view>
+
+    <!-- 底部加载 -->
+    <block>
+      <view class="load-many__box" wx:if="{{ storeLoading }}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{ !IsNextStore }}"> END </view>
+    </block>
   </block>
 
   <!-- 乐喜券 -->
@@ -81,6 +97,21 @@
         <view data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
       </view>
     </view>
+
+    <!-- 缺省 -->
+    <view class='line-D noll-coupon' wx:if="{{authorityCount == 0}}">
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>您还没有优惠券哦~</view>
+    </view>
+
+    <!-- 底部加载 -->
+    <block>
+      <view class="load-many__box" wx:if="{{ authorityLoading }}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{ !IsNextAuthority }}"> END </view>
+    </block>
   </block>
 
   <!-- 已经失效的券 -->
@@ -155,18 +186,23 @@
           <view class='coupon_dashes--round'>失 效</view>
         </view>
       </view>
+    </block>
 
+    <!-- 缺省 -->
+    <view class='line-D noll-coupon' wx:if="{{exceedCount == 0}}">
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>您还没有优惠券哦~</view>
+    </view>
+
+    <!-- 底部加载 -->
+    <block>
+      <view class="load-many__box" wx:if="{{ exceedLoading }}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{ !exceedIsnext }}"> END </view>
     </block>
   </block>
-  <!-- <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
-    <image src='../../images/coupon@2.png'></image>
-    <view class='black-font '>你当没有任何优惠卷红包</view>
-  </view> -->
 
-  <view class='line-D noll-coupon' wx:if="{{authorityExceedCouponList.length==0&&authorityNormalCouponList.length==0&&exceedCouponList.length==0&&normalCouponList.length==0}}">
-    <image src='../../images/coupon@2.png'></image>
-    <view class='black-font '>您还没有优惠券哦~</view>
-
-  </view>
   <fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

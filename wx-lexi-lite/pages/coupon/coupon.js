@@ -14,7 +14,9 @@ Page({
     isLoading: true,
 
     normalCouponList: [], // 店铺的优惠券
+    storeCount: 1,
     IsNextStore: false,
+    storeLoading: true,
     storeCouponParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
@@ -22,14 +24,18 @@ Page({
     },
 
     authorityNormalCouponList: [], // 官方的可用红包
+    authorityCount: 1,
     IsNextAuthority: false,
+    authorityLoading: true,
     authorityParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
     },
 
     exceedCouponList: [], // 过期优惠券
+    exceedCount: 1,
     exceedIsnext: false,
+    exceedLoading: true,
     exceedCouponParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
@@ -65,7 +71,9 @@ Page({
         let couponData = this.data.authorityNormalCouponList
         this.setData({
           authorityNormalCouponList: couponData.concat(result.data.coupons),
-          IsNextAuthority: result.data.next
+          IsNextAuthority: result.data.next,
+          authorityLoading: false,
+          authorityCount: result.data.count
         })
 
       } else {
@@ -86,7 +94,9 @@ Page({
       let couponData = this.data.normalCouponList
       this.setData({
         normalCouponList: couponData.concat(result.data.coupons),
-        IsNextStore: result.data.next
+        IsNextStore: result.data.next,
+        storeLoading: false,
+        storeCount: result.data.count
       })
 
     })
@@ -104,7 +114,9 @@ Page({
       let couponData = this.data.exceedCouponList
       this.setData({
         exceedCouponList: couponData.concat(result.data.coupons),
-        exceedIsnext: result.data.next
+        exceedIsnext: result.data.next,
+        exceedLoading: false,
+        exceedCount: result.data.count
       })
 
     })
@@ -191,12 +203,12 @@ Page({
     // 品牌
     if (this.data.couponActive == 1) {
       if (!this.data.IsNextStore) {
-        utils.fxShowToast('没有更多了')
         return
       }
 
       this.setData({
-        'storeCouponParams.page': this.data.storeCouponParams + 1
+        'storeCouponParams.page': this.data.storeCouponParams + 1,
+        storeLoading: true
       })
 
       this.getUserCoupon()
@@ -205,12 +217,12 @@ Page({
     // 乐喜
     if (this.data.couponActive == 2) {
       if (!this.data.IsNextAuthority) {
-        utils.fxShowToast('没有更多了')
         return
       }
 
       this.setData({
-        'authorityParams.page': this.data.authorityParams + 1
+        'authorityParams.page': this.data.authorityParams + 1,
+        authorityLoading: true
       })
 
       this.getRedBag()
@@ -219,12 +231,12 @@ Page({
     // 已经失效
     if (this.data.couponActive == 3) {
       if (!this.data.exceedIsnext) {
-        utils.fxShowToast('没有更多了')
         return
       }
 
       this.setData({
         'exceedCouponParams.page': this.data.exceedCouponParams + 1,
+        exceedLoading: true
       })
 
       this.getExceedTime()
