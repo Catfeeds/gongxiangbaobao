@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "查看启动日志",
-  "usingComponents": {
-    "fx-loading": "/components/FxLoading/FxLoading"
-  }
+  "navigationBarTitleText": "查看启动日志"
 }

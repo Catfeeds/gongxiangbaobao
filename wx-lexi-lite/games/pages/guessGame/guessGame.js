@@ -704,12 +704,18 @@ Page({
           gameLoading: false
         })
 
+        let that = this
         wx.setStorage({
           key: 'testQuestion',
           data: res.data,
           success: () => {
             wx.navigateTo({
               url: '../guessGamePlay/guessGamePlay',
+              success: () => {
+                that.setData({
+                  showInviteHelpModal: false
+                })
+              }
             })
           }
         })
@@ -1031,7 +1037,7 @@ Page({
     this.setData({
       offsetDommTimer: setInterval(() => {
         that.getDoommList()
-      }, 10000)
+      }, 15000)
     })
   },
 

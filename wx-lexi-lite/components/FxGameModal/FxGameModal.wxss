@@ -41,10 +41,18 @@
   animation: slideInUp 0.5s;
 }
 
-.fx-modal .close {
+.fx-modal .fx-modal__close {
   position: absolute;
-  right: 40rpx;
-  top: 40rpx;
+  right: 0rpx;
+  top: 0rpx;
+  width: 100rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.fx-modal .close {
   width: 40rpx;
   height: 40rpx;
 }

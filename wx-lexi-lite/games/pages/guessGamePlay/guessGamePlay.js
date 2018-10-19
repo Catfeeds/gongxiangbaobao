@@ -18,13 +18,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rpx: '',
     clientHeight: '',
     isLoading: true,
+    // 强制游戏终止
+    stopPlay: false,
     // 我的账户
     myAccount: {
       amount: 0,
       bonus_amount: 0,
+      bonus_quantity: 0,
       cash_price: 0 // 可提现金额
     },
     userInfo: {}, // 登录用户信息
@@ -57,13 +59,9 @@ Page({
     doommData: [],
 
     showText: '乐喜',
-    step: 1, // 计数动画次数
-    num: 0, // 计数倒计时秒数（n - num）
-    end: 1.5 * Math.PI, // 开始的弧度
-    start: -0.5 * Math.PI, // 结束的弧度
     timer: null, // 计时器容器
-    animationTime: 100, // 每1秒运行一次计时器
-    n: 100 // 当前倒计时为10秒
+    leftTime: 10, // 计数倒计时秒数
+    animationTime: 1000 // 每1秒运行一次计时器
   },
 
   // 选定答案
@@ -134,34 +132,32 @@ Page({
 
   // 继续下一题
   playNext() {
-    if (this.data.currentIndex + 1 < 10) {
-      let newIndex = this.data.currentIndex + 1
-      // 恢复默认值
-      this.setData({
-        isAnswered: false,
-        answerResult: false,
-        haveMoney: false,
-        haveCoupon: false,
-        currentAnswer: {},
-        currentAnswerIdx: -1,
-        currentIndex: newIndex,
-        currentQuestion: this.data.testQuestions[newIndex],
-        step: 1,
-        num: 0,
-        end: 1.5 * Math.PI,
-        start: -0.5 * Math.PI,
-        timer: null
-      })
+    if (!this.data.stopPlay) {
+      if (this.data.currentIndex + 1 < 10) {
+        let newIndex = this.data.currentIndex + 1
+        // 恢复默认值
+        this.setData({
+          isAnswered: false,
+          answerResult: false,
+          haveMoney: false,
+          haveCoupon: false,
+          currentAnswer: {},
+          currentAnswerIdx: -1,
+          currentIndex: newIndex,
+          currentQuestion: this.data.testQuestions[newIndex],
+          leftTime: 10,
+          showText: '10s',
+          timer: null
+        })
 
-      // 倒计时前先绘制整圆的圆环
-      this.drawRingMove(this.data.start, this.data.end)
-      // 创建倒计时
-      this.setData({
-        timer: setInterval(this.startAnimation, this.data.animationTime)
-      })
+        // 创建倒计时
+        this.setData({
+          timer: setInterval(this.startAnimation, this.data.animationTime)
+        })
 
-    } else { // 已完毕
-      this.gameOver()
+      } else { // 已完毕
+        this.gameOver()
+      }
     }
   },
 
@@ -177,20 +173,25 @@ Page({
 
   // 开始玩
   startPlay() {
-    this.setData({
-      currentQuestion: this.data.testQuestions[this.data.currentIndex]
-    })
+    if (!this.data.stopPlay) {
+      this.setData({
+        currentQuestion: this.data.testQuestions[this.data.currentIndex]
+      })
+    }
   },
 
   // 开启动画
   startAnimation() {
-    if (this.data.step <= this.data.n) {
-      let end = this.data.end - 2 * Math.PI / this.data.n
-      let step = this.data.step + 1
-      this.drawRingMove(this.data.start, end)
+    let showText = '乐喜'
+
+    if (this.data.leftTime >= 1) {
+      let leftTime = this.data.leftTime - 1
+      if (leftTime > 0) {
+        showText = leftTime + 's'
+      }
       this.setData({
-        end: end,
-        step: step
+        leftTime: leftTime,
+        showText: showText
       })
     } else {
       clearInterval(this.data.timer)
@@ -198,45 +199,6 @@ Page({
       // 开始验证结果
       this.validateSubmitAnswer()
     }
-  },
-
-  drawProgressbg() {
-    // 使用 wx.createContext 获取绘图上下文 context
-    let ctx = wx.createCanvasContext('canvasProgressbg')
-    ctx.setLineWidth(5) // 设置圆环的宽度
-    ctx.setStrokeStyle('#FFCF00') // 设置圆环的颜色
-    ctx.setLineCap('round') // 设置圆环端点的形状
-    ctx.beginPath() // 开始一个新的路径
-    ctx.arc(25, 25, 20, 0, 2 * Math.PI, false)
-    ctx.stroke() // 对当前路径进行描边
-    ctx.draw()
-  },
-
-  // 画布绘画函数
-  drawRingMove(s, e) {
-    let context = wx.createCanvasContext('canvasProgress')
-
-    // 绘制圆环
-    context.setStrokeStyle('#6A378D')
-    context.beginPath()
-    context.setLineWidth(5)
-    context.arc(25, 25, 20, s, e, true)
-    context.stroke()
-    context.closePath()
-
-    context.draw()
-
-    let leftTime = Math.round((this.data.n - this.data.num) / 10)
-    let showText = '乐喜'
-    if (leftTime > 0) {
-      showText = leftTime + ''
-    }
-
-    // 每完成一次全程绘制就+1
-    this.setData({
-      num: this.data.num + 1,
-      showText: showText
-    })
   },
 
   // 获取最近的玩家
@@ -270,7 +232,7 @@ Page({
       } else {
         clearInterval(t)
       }
-    }, 1500)
+    }, 1800)
   },
 
   // 弹幕：奖励消息
@@ -292,6 +254,7 @@ Page({
     clearInterval(this.data.offsetTimer)
     clearInterval(this.data.offsetDommTimer)
     this.setData({
+      stopPlay: true,
       offsetTimer: null,
       offsetDommTimer: null
     })
@@ -299,16 +262,17 @@ Page({
 
   // 答对问题，增加一个优惠券
   _increaseBonusCount(prize) {
-    console.log('回答正确奖励')
-    let cnt = this.data.myAccount.bonus_amount
+    let cnt = parseInt(this.data.myAccount.bonus_quantity)
     let money = parseFloat(this.data.myAccount.amount)
     cnt += 1
     money += parseFloat(prize.amount)
-    console.log(money)
+
+    console.log(money, '回答正确奖励')
+
     this.setData({
       haveMoney: prize.amount > 0 ? true : false,
       haveCoupon: prize.bonus_amount > 0 ? true : false,
-      'myAccount.bonus_amount': cnt,
+      'myAccount.bonus_quantity': cnt,
       'myAccount.amount': parseFloat(money).toFixed(2)
     })
   },
@@ -331,8 +295,7 @@ Page({
       success: (res) => {
         // 计算主体部分高度,单位为px
         this.setData({
-          clientHeight: res.windowHeight,
-          rpx: res.windowWidth / 375
+          clientHeight: res.windowHeight
         })
       }
     })
@@ -340,32 +303,38 @@ Page({
     // 获取本次试题
     const testQuestion = wx.getStorageSync('testQuestion')
     if (!testQuestion) {
+      // 试题为空，不能玩
+      this.setData({
+        stopPlay: true
+      })
+
       // 返回开始页
       wx.navigateBack({
         delta: 1
       })
     }
 
+    let userInfo = wx.getStorageSync('userInfo')
+    let gameAccount = wx.getStorageSync('userGameAccount')
+
     this.setData({
-      userInfo: wx.getStorageSync('userInfo'),
-      myAccount: wx.getStorageSync('userGameAccount'),
+      userInfo: userInfo,
+      myAccount: gameAccount,
       testId: testQuestion.test_id,
       prizePool: testQuestion.prize_pool,
       testQuestions: testQuestion.question
     })
 
-    // 倒计时前先绘制整圆的圆环
-    this.drawRingMove(this.data.start, this.data.end)
-
     this.getLastPlayers()
+    
+    // 清空本次试题记录
+    wx.removeStorageSync('testQuestion')
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.drawProgressbg()
-
     let that = this
     setTimeout(() => {
       that.setData({
@@ -378,24 +347,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // 参与的人数
     let that = this
-    setTimeout(() => {
-      that.startPlay()
-      // 创建倒计时
-      that.setData({
-        timer: setInterval(that.startAnimation, that.data.animationTime)
+
+    if (!this.data.stopPlay) {
+      // 开始游戏
+      this.startPlay()
+      // 网络请求，缓存1s
+      setTimeout(() => {
+        // 创建倒计时
+        that.setData({
+          timer: setInterval(that.startAnimation, that.data.animationTime)
+        })
+      }, 2000)
+
+      // 获取弹幕
+      this.getDoommList()
+
+      this.setData({
+        offsetDommTimer: setInterval(() => {
+          that.getDoommList()
+        }, 15000)
       })
-    }, 1000)
-
-    // 获取弹幕
-    that.getDoommList()
-
-    this.setData({
-      offsetDommTimer: setInterval(() => {
-        that.getDoommList()
-      }, 10000)
-    })
+    }
   },
 
   /**

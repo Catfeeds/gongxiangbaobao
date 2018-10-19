@@ -35,10 +35,17 @@
   text-align: center;
 }
 
-.fx-modal-v .icon-close {
+.fx-modal-v .fx-modal__close {
   position: absolute;
-  right: 40rpx;
-  top: 40rpx;
+  right: 0rpx;
+  top: 0rpx;
+  width: 100rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.fx-modal-v .icon-close {
   width: 40rpx;
   height: 40rpx;
 }

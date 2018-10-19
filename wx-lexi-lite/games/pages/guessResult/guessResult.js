@@ -52,8 +52,8 @@ Page({
       showPauseModal: false
     }, () => {
       // 返回游戏首页
-      wx.navigateTo({
-        url: '../guessGame/guessGame',
+      wx.navigateBack({
+        delta: 1
       })
     })
   },
@@ -318,8 +318,8 @@ Page({
         app.updateGameShare()
         
         // 返回游戏首页
-        wx.navigateTo({
-          url: '../guessGame/guessGame',
+        wx.navigateBack({
+          delta: 1
         })
       },
       fail: function (res) {

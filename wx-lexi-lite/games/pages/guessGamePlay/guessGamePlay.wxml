@@ -32,11 +32,9 @@
 
         <view class="play-count-down">
           <view class='progress-box'>
-            <canvas class="progress-bg" canvas-id="canvasProgressbg"> </canvas>
-            <canvas class="progress-canvas" canvas-id="canvasProgress"> </canvas>
             <view class="show-text">{{ showText }}</view>
+            <view class="title">猜图倒计时</view>
           </view>
-          <view class="title">猜图倒计时</view>
         </view>
 
       </view>

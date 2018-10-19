@@ -269,10 +269,12 @@ page {
 }
 
 .play-count-down {
-  flex: 0 0 auto;
   position: absolute;
-  right: 0;
+  right: 20rpx;
   top: 0;
+  width: 100rpx;
+  height: 120rpx;
+  z-index: 102;
   text-align: center;
 }
 
@@ -285,33 +287,21 @@ page {
 
 .progress-box {
   position: relative;
-  left: 15px;
-  width: 80px;
-  height: 50px;
-}
-
-.progress-box .progress-bg {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-}
-
-.progress-box .progress-canvas {
-  width: 50px;
-  height: 50px;
-}
-
-.progress-box .show-text {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  font-size: 28rpx;
-  color: #ffcf00;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
+  width: 100rpx;
+  height: 120rpx;
   text-align: center;
-  z-index: 100;
+}
+.progress-box .show-text {
+  font-size: 28rpx;
+  color: #FFCF00;
+  width: 60rpx;
+  height: 60rpx;
+  font-weight: 600;
+  margin: 0 auto 5rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 60rpx; 
+  border: 10rpx solid #523473;
 }
 
 .prize-box {
@@ -329,19 +319,24 @@ page {
   position: absolute;
   left: 100rpx;
   top: 0rpx;
-  z-index: 9;
+  z-index: 102;
 }
 
 .prize-pool {
   height: 105rpx;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 30rpx;
+  z-index: 100;
   background: url("https://static.moebeast.com/static/img/game/jiangjinchi.png") no-repeat;
-  background-size: 249rpx 100%;
+  background-size: 279rpx 100%;
 }
 
 .prize-amount {
   padding-top: 30rpx;
   padding-left: 98rpx;
+  width: 200rpx;
+  padding-right: 40rpx;
   color: rgba(255, 255, 255, 1);
 }
 
