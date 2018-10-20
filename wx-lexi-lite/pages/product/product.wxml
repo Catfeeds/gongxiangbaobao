@@ -108,7 +108,7 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' catchtap='handelToLikeThisProductTap' data-rid='{{productInfomation.rid}}' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' wx:if="{{index<10}}" class='photo-round'></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}-ava' wx:if="{{index<10}}" class='photo-round'></image>
     </view>
     <view class='roundR'>
       <image src='../../images/sandian.png'></image>

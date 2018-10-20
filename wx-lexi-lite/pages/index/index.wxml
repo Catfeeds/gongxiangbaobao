@@ -645,15 +645,14 @@
       </view>
 
       <!-- tabs -->
-      <view class="page-section fx-tabs height--80rpx">
+      <view class="fx-tabs height--80rpx">
         <view class="tab-item {{categoryActive==item.code?'active':''}}" wx:for="{{category}}" catchtap='handleToggleCategory' data-code="{{item.code}}" wx:key="{{index}}">
           <text>{{item.name}}</text>
         </view>
       </view>
 
       <!-- 橱窗列表 -->
-      <view class="page-section fx-windows">
-
+      <view class="fx-windows">
         <!-- 推荐 -->
         <block wx:if="{{categoryActive=='recommend'}}">
           <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">

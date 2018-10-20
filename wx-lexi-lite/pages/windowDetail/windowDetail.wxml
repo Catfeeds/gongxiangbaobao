@@ -1,10 +1,7 @@
-<view class="container fixed-bottom">
-
-  <!-- 添加页面加载 -->
-  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
+<view class="container window-page fixed-bottom">
 
   <!-- 橱窗列表 -->
-  <view class="page-section fx-windows">
+  <view class="fx-windows">
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
@@ -87,6 +84,46 @@
         </view>
       </view>
     </view>
+
+    <!-- 猜你喜欢 -->
+    <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
+      <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
+      <view class='c-importantGoodsBox margin-top--34rpx '>
+        <scroll-view class='you-like__scroll' scroll-x>
+          <view class='you-like__item {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}' wx:for="{{youLike.products}}" wx:key="{{index}}">
+            <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+
+    <!-- 相关橱窗 -->
+    <view class="similar-windows" wx:if="{{similarWindow.count!=0}}">
+      <view class="block-title paddng-left-right--40rpx">相关橱窗</view>
+      <scroll-view scroll-x class="scroll-windows">
+        <view class="live-beautiful__window">
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{similarWindow.shop_windows}}" wx:key="{{index}}">
+            <view class="flex_row recommend-window__photo">
+              <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
+              <view class="flex-direction--column">
+                <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
+                <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
+              </view>
+            </view>
+
+            <view class="recommend-window_info">
+              <view class="flex_row margin-bottom--30rpx">
+                <image class="master-photo" src="{{item.user_avatar}}"></image>
+                <text class="font-s font-width--medium">{{item.user_name}}</text>
+              </view>
+              <view class="black-font  font-width--medium title">{{item.title}}</view>
+              <view class="font-s two-line-text describe">{{item.description}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
   </view>
 
   <!-- 评论列表 -->
@@ -152,45 +189,6 @@
     查看全部{{commentsCount}}条评论
   </view>
   <!-- </view> -->
-
-  <!-- 猜你喜欢 -->
-  <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
-    <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
-    <view class='c-importantGoodsBox margin-top--34rpx '>
-      <scroll-view class='you-like__scroll' scroll-x>
-        <view class='you-like__item {{index==0?"margin-left--40rpx":""}} {{index==youLike.products.length-1?"margin-right--40rpx":""}}' wx:for="{{youLike.products}}" wx:key="{{index}}">
-          <fx-product product="{{item}}" bind:triggerEvent_product="handleInfomation" photo="{{2}}" oldPrice="{{true}}"></fx-product>
-        </view>
-      </scroll-view>
-    </view>
-  </view>
-
-  <!-- 相关橱窗 -->
-  <view class="similar-windows" wx:if="{{similarWindow.count!=0}}">
-    <view class="block-title paddng-left-right--40rpx">相关橱窗</view>
-    <scroll-view scroll-x class="scroll-windows">
-      <view class="live-beautiful__window">
-        <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{similarWindow.shop_windows}}" wx:key="{{index}}">
-          <view class="flex_row recommend-window__photo">
-            <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
-            <view class="flex-direction--column">
-              <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
-              <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
-            </view>
-          </view>
-
-          <view class="recommend-window_info">
-            <view class="flex_row margin-bottom--30rpx">
-              <image class="master-photo" src="{{item.user_avatar}}"></image>
-              <text class="font-s font-width--medium">{{item.user_name}}</text>
-            </view>
-            <view class="black-font  font-width--medium title">{{item.title}}</view>
-            <view class="font-s two-line-text describe">{{item.description}}</view>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </view>
 
   <!-- 底部添加评论 -->
   <view class="bottom-comment">

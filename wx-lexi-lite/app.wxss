@@ -746,6 +746,7 @@ image {
   background-size: 32rpx,100%; 
   background-position: 50%,0; */
   background-color: #f6f7fb;
+  height: auto;
 }
 
 .load-over__null--photo {

@@ -14,20 +14,31 @@ Page({
     uid:'', // user id
     isLoading: true,
     peopleList: [], //喜欢商品的人列表
-    parmas: {
+    params: {
       page: 1, // Number	可选	1	当前页码
       per_page: 10, // Number	可选	10	每页数量
       rid: '' // 必须	 	商品编号
-    }
+    },
+    loadMoreNext: false
   },
 
   // 喜欢该商品的人
   getinfo(e) {
-    http.fxGet(api.product_userlike, this.data.parmas, (result) => {
+    http.fxGet(api.product_userlike, this.data.params, (result) => {
       utils.logger(result, '喜欢该商品的人')
       if (result.success) {
+        let _list = this.data.peopleList.product_like_users
+        if (this.data.params.page > 1) {
+          _list.push.apply(_list, result.data.product_like_users)
+        } else {
+          _list = result.data.product_like_users
+        }
+        
+        result.data.product_like_users = _list
+        
         this.setData({
-          peopleList: result.data
+          peopleList: result.data,
+          loadMoreNext: result.data.next ? true : false
         })
       } else {
         utils.logger(result.status.message)
@@ -104,7 +115,7 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      ['parmas.rid']: options.rid,
+      ['params.rid']: options.rid,
       uid: app.globalData.jwt.uid || ''
     })
 
@@ -156,7 +167,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (this.data.loadMoreNext) {
+      this.setData({
+        'params.page': this.data.params.page + 1
+      })
 
+      this.getinfo()
+    }
   },
 
   /**

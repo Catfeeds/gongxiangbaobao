@@ -1,10 +1,5 @@
 <!--pages/likeThisProduct/likeThisProduct.wxml-->
 <view class='container'>
-  <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
 
   <view 
     class='time-top font-m relation-item' 
@@ -15,7 +10,7 @@
       catchtap="{{item.uid==uid?'':'handleToPeopleTap'}}" 
       data-index="{{index}}"
       data-uid="{{item.uid}}">   
-      <image src='{{item.avatar}}'></image>
+      <image src='{{item.avatar}}-ava'></image>
       <text>{{item.username}}</text>
     </view>
 

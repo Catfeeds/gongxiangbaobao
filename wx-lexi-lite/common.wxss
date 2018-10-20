@@ -447,7 +447,8 @@ button::after {
 
 .window-page .fx-windows {
   position: relative;
-  padding-bottom: 90rpx;
+  padding-bottom: 100rpx;
+  background:rgba(247,249,251,1);
 }
 
 .window-page .fx-windows .window-publish {

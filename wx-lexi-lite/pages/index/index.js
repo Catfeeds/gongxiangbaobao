@@ -1916,16 +1916,20 @@ Page({
    * 监听页面滚动
    * **/
   onPageScroll(e) {
-    if (e.scrollTop >= 50) {
-      this.setData({
-        isNavbarAdsorb: true
-      })
+    if (e.scrollTop >= 60) {
+      if (!this.data.isNavbarAdsorb) {
+        this.setData({
+          isNavbarAdsorb: true
+        })
+      }
     }
 
-    if (e.scrollTop < 51) {
-      this.setData({
-        isNavbarAdsorb: false
-      })
+    if (e.scrollTop < 61) {
+      if (this.data.isNavbarAdsorb) {
+        this.setData({
+          isNavbarAdsorb: false
+        })
+      }
     }
   },
 
