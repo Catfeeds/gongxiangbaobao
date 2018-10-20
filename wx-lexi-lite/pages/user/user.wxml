@@ -93,13 +93,13 @@
     <view class='c-importantGoods p-null padding-left--0rpx shou' wx:if="{{likeProduct.length!=0&&likeProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all margin-left--40rpx'>
         <text>喜欢的商品</text>
-        <view class='hui-zi margin--15rpx' data-from='userBrowses' wx:if="{{likeProduct.products.length==10}}" catchtap='handleUserlikeList'>
+        <view class='hui-zi margin--15rpx' data-from='userBrowses' wx:if="{{likeProduct.products.length>4}}" catchtap='handleUserlikeList'>
           <text>查看全部</text>
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' data-store-id="{{item.store_rid}}" class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{likeProduct.products}}"
+        <view catchtap='handleToProductInfoTap' data-delete-mark="likeProduct" data-rid='{{item.rid}}' data-store-id="{{item.store_rid}}" class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{likeProduct.products}}"
           wx:key="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p16'></image>
         </view>
@@ -151,7 +151,7 @@
     <view class='c-importantGoods p-null' wx:if="{{userBrowsesProduct.length!=0&&userBrowsesProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>最近查看</text>
-        <view class=' hui-zi margin--15rpx' data-from='userBrowses' wx:if="{{userBrowsesProduct.products.length==10}}" catchtap='handleAllProduct'>
+        <view class=' hui-zi margin--15rpx' data-delete-mark="recentBrowse" data-from='userBrowses' wx:if="{{userBrowsesProduct.products.length>4}}" catchtap='handleAllProduct'>
           <text>查看全部</text>
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
@@ -172,7 +172,7 @@
         </view>
       </view>
       <view class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' data-store-id="{{item.store_rid}}" wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" data-delete-mark="xinyuan" class='c-importantGoodsPhoto GoodsPhoto' data-store-id="{{item.store_rid}}" wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p16'></image>
         </view>
       </view>

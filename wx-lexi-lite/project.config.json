@@ -38,7 +38,7 @@
 				{
 					"id": 0,
 					"name": "coupon",
-					"pathName": "pages/receiveCoupon/receiveCoupon",
+					"pathName": "pages/coupon/coupon",
 					"query": ""
 				},
 				{

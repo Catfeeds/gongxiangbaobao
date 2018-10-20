@@ -567,6 +567,39 @@ Page({
     })
   },
 
+  // 删除上一页的下架的产品 
+  _deleteParentProduct() {
+    let page = getCurrentPages()
+    let parentPage = page[page.length - 2]
+    let rid = this.data.productInfomation.rid
+    console.log(parentPage, '页面来源')
+    if (parentPage.route == 'pages/user/user') {
+      let deleteMark = parentPage.data.deletePageProductAtProduct
+      console.log(parentPage.data.deletePageProductAtProduct, '----------')
+
+
+
+
+    }
+
+
+  },
+
+  // 删除我的喜欢--已下架的
+  _deleteMylike(e) {
+
+  },
+
+  // 删除我的浏览记录--已下架的
+  _deleteMyBrowse(e) {
+
+  },
+
+  // 删除我的浏览记录--已下架的
+  _deleteMyXinYuan(e) {
+
+  },
+
   // 跳转到品牌馆
   handleTobrandStore(e) {
     wx.navigateTo({
@@ -623,8 +656,19 @@ Page({
       openid: openid
     }, (result) => {
       if (result.success) {
+        this.setData({
+          productInfomation: result.data,
+          originalStoreRid: result.data.store_rid, // 原店铺的rid
+          dkcontent: result.data.content,
+          isDistributed: result.data.is_distributed,
+          storeRid: result.data.store_rid
+        })
+
         // 如果已经下架就删除
         if (result.data.status == 2) {
+          // 删除来源页面的商品
+          // this._deleteParentProduct()
+
           wx.showModal({
             title: '很抱歉',
             content: '该商品已下架',
@@ -637,14 +681,6 @@ Page({
             }
           })
         }
-        utils.logger(result.data)
-        this.setData({
-          productInfomation: result.data,
-          originalStoreRid: result.data.store_rid, // 原店铺的rid
-          dkcontent: result.data.content,
-          isDistributed: result.data.is_distributed,
-          storeRid: result.data.store_rid
-        })
 
         // 获取本店铺的产品
         this.getNewProduct(result.data.store_rid)
