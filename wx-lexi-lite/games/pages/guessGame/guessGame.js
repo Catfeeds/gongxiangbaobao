@@ -37,6 +37,7 @@ Page({
     stealBonusPeopleList: [], // 偷我红包人列表
 
     showWithDrawModal: false,
+    showAllCouponModal: false,
     showInviteModal: false,
     showStealModal: false,
     showTopModal: false,
@@ -325,6 +326,22 @@ Page({
         }
       })
     }
+  },
+
+  // 查看优惠券
+  handleLookCoupon () {
+    if (this.data.myAccount.bonus_quantity > 0) {
+      this.setData({
+        showAllCouponModal: true
+      })
+    }
+  },
+
+  // 跳转到优惠券
+  handleGoCoupons () {
+    wx.navigateTo({
+      url: '/pages/coupon/coupon',
+    })
   },
 
   // 获取提现金额
@@ -737,6 +754,7 @@ Page({
         let account = res.data
         account.amount = account.amount.toFixed(2)
         account.bonus_amount = account.bonus_amount.toFixed(2)
+        account.max_bonus_amount = account.max_bonus_amount.toFixed(2)
         this.setData({
           myAccount: account
         })

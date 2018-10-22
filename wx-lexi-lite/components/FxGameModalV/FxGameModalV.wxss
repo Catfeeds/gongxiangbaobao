@@ -106,6 +106,15 @@
   opacity: 0.9;
   text-align: center;
 }
-.fx-modal--help .fx-modal__body {
+.fx-modal--help .fx-modal__body,
+.fx-modal--coupons .fx-modal__body {
   padding: 0 40rpx;
+}
+.fx-modal--coupons {
+  width: 590rpx;
+  height: 590rpx;
+  background: linear-gradient(135deg,rgba(49,34,129,1) 0%,rgba(131,40,177,1) 100%);
+  border-radius: 20rpx;
+  opacity: 0.9;
+  text-align: center;
 }

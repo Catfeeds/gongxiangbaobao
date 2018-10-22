@@ -75,7 +75,7 @@ page {
   background-size: 100% 100%;
   display: flex;
   flex-direction: column;
-  background-color: #4A0F63;
+  background-color: #4a0f63;
 }
 
 .main-container {
@@ -939,7 +939,7 @@ page {
   margin-top: 80rpx;
 }
 
-.fx-modal--notice .btn-ok {
+.fx-modal--notice .btn-ok, .fx-modal--coupons .btn-ok {
   width: 450rpx;
   height: 80rpx;
   background: rgba(255, 207, 0, 1);
@@ -948,6 +948,69 @@ page {
   font-weight: bold;
   color: rgba(119, 59, 2, 1);
   line-height: 80rpx;
+}
+
+.fx-modal--coupons {
+}
+
+.fx-modal--coupons .all-coupons {
+  color: rgba(247, 228, 255, 1);
+}
+
+.fx-modal--coupons .all-coupons .panel-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 32rpx;
+  margin-bottom: 15rpx;
+}
+
+.fx-modal--coupons .all-coupons .panel-desc {
+  font-size: 24rpx;
+  font-weight: 400;
+  line-height: 24rpx;
+}
+
+.fx-modal--coupons .all-coupons .panel-subtotal {
+  width: 510rpx;
+  height: 290rpx;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 20rpx;
+  margin: 50rpx auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.all-coupons .panel-subtotal .total, 
+.all-coupons .panel-subtotal .amount,
+.all-coupons .panel-subtotal .discount {
+  font-size: 28rpx;
+  font-weight: 400;
+  width: 185rpx;
+  line-height: 28rpx;
+  text-align: left;
+  padding-left: 70rpx;
+}
+.all-coupons .panel-subtotal .amount {
+  padding-left: 0rpx;
+}
+
+.all-coupons .panel-subtotal .discount {
+  width: 590rpx;
+}
+
+.all-coupons .panel-subtotal .count {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: rgba(255, 207, 0, 1);
+  line-height: 32rpx;
+  margin-top: 15rpx;
+}
+
+.all-coupons .panel-subtotal .count .currency {
+  font-size: 24rpx;
+  font-weight: 600;
 }
 
 /* 弹幕 */
@@ -1220,7 +1283,7 @@ page {
 
 @media all and (max-height:812px) and (min-height: 712px) {
   .invite-container {
-    margin:65rpx 40rpx 0;
+    margin: 65rpx 40rpx 0;
   }
 
   .screen {

@@ -17,7 +17,7 @@
         </view>
 
         <!-- 优惠券 -->
-        <view class="coupon">
+        <view class="coupon" bindtap="handleLookCoupon">
           <image class="icon-coupon" src="https://static.moebeast.com/static/img/game/discount-coupon.png" alt="coupon"></image>
           <view class="discount-coupon">
             <view class="quantity">
@@ -162,6 +162,35 @@
         <text class="currency">￥</text> {{ myAccount.cash_price }}
       </view>
       <button bindtap="handleWxWithdraw" class="btn-withdraw {{ !canWithDraw ? 'disabled' : '' }}" round>提现到微信钱包</button>
+    </view>
+  </fx-game-modal-v>
+
+  <!-- 优惠券总计 -->
+  <fx-game-modal-v class="fx-modal--coupons" className="fx-modal--coupons" visible="{{ showAllCouponModal }}" marginTop="200">
+    <view class="all-coupons">
+      <view class="panel-title">乐喜券</view>
+      <view class="panel-desc">参与猜图获得的优惠券</view>
+      <view class="panel-subtotal">
+        <view class="total">
+          <text class="name">共计</text>
+          <view class="count">
+            {{ myAccount.bonus_quantity }}张
+          </view>
+        </view>
+        <view class="amount">
+          <text class="name">总额</text>
+          <view class="count">
+            <text class="currency">￥</text> {{ myAccount.bonus_amount }}
+          </view>
+        </view>
+        <view class="discount">
+          <text class="name">单笔购物最高可节省</text>
+          <view class="count">
+            <text class="currency">￥</text> {{ myAccount.max_bonus_amount }}
+          </view>
+        </view>
+      </view>
+      <button class="btn-ok" bindtap="handleGoCoupons">查看优惠券</button>
     </view>
   </fx-game-modal-v>
 
