@@ -283,28 +283,32 @@ Page({
         rid: 'p1',
         name: 'lifeStore',
         title: '生活馆',
-        disabled: true
+        disabled: true,
+        pageScroll: 0
       },
       {
         rid: 'p2',
         name: 'featured',
         title: '精选',
-        disabled: false
+        disabled: false,
+        pageScroll: 0
       },
       {
         rid: 'p3',
         name: 'explore',
         title: '探索',
-        disabled: false
+        disabled: false,
+        pageScroll: 0
       },
       {
         rid: 'p4',
         name: 'window',
         title: '橱窗',
-        disabled: false
+        disabled: false,
+        pageScroll: 0
       }
     ],
-    
+
     runEnv: 1,
     is_mobile: false // 验证是否登陆
   },
@@ -327,6 +331,30 @@ Page({
     let name = e.currentTarget.dataset.name
     this.setData({
       pageActiveTab: name
+    })
+
+    let currentPage = this.data.pageActiveTab // 现在处于的哪个页面
+    let pageScroll = 0 // 当前页面需要卷曲的位置
+    // 生活馆
+    if (currentPage == 'lifeStore') {
+      pageScroll = this.data.pageTabs[0].pageScroll
+    }
+    // 精选
+    if (currentPage == 'featured') {
+      pageScroll = this.data.pageTabs[1].pageScroll
+    }
+    // 探索
+    if (currentPage == 'explore') {
+      pageScroll = this.data.pageTabs[2].pageScroll
+    }
+    // 橱窗
+    if (currentPage == 'window') {
+      pageScroll = this.data.pageTabs[3].pageScroll
+    }
+
+    wx.pageScrollTo({
+      scrollTop: pageScroll,
+      duration: 0
     })
 
     this._swtichActivePageTab(name)
@@ -524,7 +552,7 @@ Page({
     })
 
     this._swtichActivePageTab('lifeStore')
-    
+
     this.getLifePhotoUrl()
   },
 
@@ -1905,7 +1933,7 @@ Page({
     this.setData({
       runEnv: app.globalData.runEnv
     })
-    
+
     // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
@@ -1930,6 +1958,34 @@ Page({
           isNavbarAdsorb: false
         })
       }
+    }
+
+    //记录页面滚动
+    let scrollPosition = e.scrollTop
+    let currentPage = this.data.pageActiveTab
+    // 生活馆
+    if (currentPage == 'lifeStore') {
+      this.setData({
+        'pageTabs[0].pageScroll': scrollPosition
+      })
+    }
+    // 精选
+    if (currentPage == 'featured') {
+      this.setData({
+        'pageTabs[1].pageScroll': scrollPosition
+      })
+    }
+    // 探索
+    if (currentPage == 'explore') {
+      this.setData({
+        'pageTabs[2].pageScroll': scrollPosition
+      })
+    }
+    // 橱窗
+    if (currentPage == 'window') {
+      this.setData({
+        'pageTabs[3].pageScroll': scrollPosition
+      })
     }
   },
 
