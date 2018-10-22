@@ -20,7 +20,7 @@ Page({
       stick_text: ''
     },
     product: {},
-    index:''
+    index: ''
   },
 
   /**
@@ -52,8 +52,19 @@ Page({
         wx.navigateBack({
           delta: 1
         })
-        this._handleUpdateMyDistributed()
-        this._handleParentBtn()
+
+        let pagePath = getCurrentPages()
+        let parentPath = pagePath[pagePath.length - 2]
+        if (parentPath.route == 'pages/product/product') {
+          // 设置详情页面的已上架按钮
+          parentPath.setData({
+            'productInfomation.have_distributed': true
+          })
+        } else {
+          this._handleUpdateMyDistributed()
+          this._handleParentBtn()
+        }
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -69,7 +80,7 @@ Page({
     let index = this.data.index
     if (parentPage.data.pageActiveTab == 'all') {
       parentPage.setData({
-        ['allProducts[' + index +'].have_distributed']:true
+        ['allProducts[' + index + '].have_distributed']: true
       })
     }
 
