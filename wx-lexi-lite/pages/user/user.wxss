@@ -445,3 +445,6 @@ button-hover {
   background-color: white;
 }
 
+.font-normal {
+  font-weight: normal;
+}

@@ -201,7 +201,7 @@
   </view>
 
   <!-- 相似产品 -->
-  <view class=' margin-bottom--30rpx similar-photo__box'>
+  <view class=' margin-bottom--30rpx similar-photo__box' wx:if="{{ similarList.count != 0 }}">
     <view class="margin-left--30rpx similar-title__box">
       <view class="similar-title">相似产品</view>
       <view class="similar-line__bottom"></view>

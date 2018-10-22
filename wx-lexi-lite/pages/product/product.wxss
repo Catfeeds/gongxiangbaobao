@@ -853,6 +853,7 @@ swiper-item, swiper-item>image, swiper {
   background-color: white;
   white-space: nowrap;
   padding: 30rpx 0;
+  border-bottom: 1rpx solid #e9e9e9;
 }
 
 .similar-photo__box .similar-title__box {
@@ -864,6 +865,7 @@ swiper-item, swiper-item>image, swiper {
 
 .similar-photo__box .similar-title__box .similar-title {
   margin-bottom: 16rpx;
+  line-height: 28rpx;
 }
 
 .similar-line__bottom {

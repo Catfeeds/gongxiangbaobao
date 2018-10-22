@@ -583,6 +583,13 @@ getLikeWindow(){
     })
   },
 
+  // 跳转到橱窗列表
+  handleGoWindow(){
+    wx.navigateTo({
+      url: '../window/window'
+    })
+  },
+
   // 跳转到橱窗详情
   handleGoWindowDetail(e){
     utils.logger(e)

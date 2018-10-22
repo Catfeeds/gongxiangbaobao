@@ -99,6 +99,7 @@ Page({
           v.user_logo = v.user_info.user_logo
           v.user_sn = v.user_info.user_sn
 
+
           if (v.user_name - 0 != NaN) {
             v.user_name = v.user_name.substr(0, 3) + '***' + v.user_name.substr(7, 4)
           } else {

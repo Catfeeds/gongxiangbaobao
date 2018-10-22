@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 20,
 			"list": [
 				{
 					"id": 0,
@@ -154,6 +154,12 @@
 					"name": "商品详情",
 					"pathName": "pages/product/product",
 					"query": "scene=8194567023-75471986"
+				},
+				{
+					"id": -1,
+					"name": "网络加载失败",
+					"pathName": "pages/networkError/networkError",
+					"query": ""
 				}
 			]
 		}
