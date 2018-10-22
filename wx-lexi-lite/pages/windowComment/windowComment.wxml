@@ -100,7 +100,7 @@
   <!-- 评论输入框 -->
   <view class="comment-input__box" wx:if="{{isShowComment}}" catchtap="handleOffCommentBox">
     <view class="comment-input" catchtap="handlePrevent">
-      <textarea auto-height bindinput="{{submitTarget=='reply'?'handleReplyCritique':'handleAddCritique'}}" class="submit-text" auto-focus="{{isShowComment}}" cursor-spacing="{{20}}" placeholder-class="placeholder-text" value="{{submitTarget=='reply'?sonCommentParams.content:commentParams.content}}"></textarea>
+      <textarea fixed="{{true}}" auto-height adjust-position="{{false}}" bindinput="{{submitTarget=='reply'?'handleReplyCritique':'handleAddCritique'}}" class="submit-text" auto-focus="{{isShowComment}}" cursor-spacing="{{20}}" placeholder-class="placeholder-text" value="{{submitTarget=='reply'?sonCommentParams.content:commentParams.content}}"></textarea>
       <view class="submit-btn" catchtap="{{submitTarget=='reply'?'handleReply':'handleSubmitComment'}}">发布</view>
     </view>
   </view>

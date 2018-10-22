@@ -1783,7 +1783,7 @@ Page({
     this.getTodayRecommend() // 今日推荐
     this.getGrateful() // 人气推荐
     this.getChoiceMiddleAdvertisement() // 中间广告
-    // this.getRecommendWindow() // 橱窗
+    this.getRecommendWindow() // 橱窗
     this.getLitePick() // 乐喜优选
     this.getPlantOrder() // 种草清单
     this.getLifeWindow() // 发现生活美学
