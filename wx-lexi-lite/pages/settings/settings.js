@@ -224,8 +224,8 @@ Page({
   // 获取用户信息
   getUserInfo() {
     let data = app.globalData.userInfo
-    if (data.profile.username.length>9){
-      data.profile.username = data.profile.username.substr(0, 3) + '···' + data.profile.username.substr(6,3)
+    if (data.username.length>9){
+      data.username = data.username.substr(0, 3) + '···' + data.username.substr(6,3)
     }
     utils.logger(data)
 

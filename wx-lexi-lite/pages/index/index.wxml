@@ -186,11 +186,11 @@
             </view>
             <view>喜欢</view>
           </view>
-          <view class='recommendbottomText'>
+          <view class='recommendbottomText' catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">分享</view>
+            <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}' class='photo-round'></image>
