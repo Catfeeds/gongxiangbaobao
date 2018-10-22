@@ -16,13 +16,7 @@ Page({
 
     // 切换关注推荐
     categoryActive: 'recommend',
-    category: [{
-      name: '关注',
-      code: 'follow'
-    }, {
-      name: '推荐',
-      code: 'recommend'
-    }],
+    category: [],
 
     recommendWindow: { // 推荐橱窗的列表
       count: 0,
@@ -86,7 +80,7 @@ Page({
       uid: uid
     }, result => {
       utils.logger(result, "添加关注")
-      this.getFollowWindow()
+      // this.getFollowWindow()
     })
   },
 
@@ -229,9 +223,9 @@ Page({
     })
   },
 
-  // 获取推荐橱窗列表
+  //  喜欢
   getRecommendWindow() {
-    http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
+    http.fxGet(api.shop_windows_user_likes, this.data.recommendWindowParams, result => {
       utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
@@ -252,7 +246,7 @@ Page({
    */
   onLoad: function(options) {
     this.getRecommendWindow() // 推荐的橱窗
-    this.getFollowWindow() // 关注的橱窗
+    // this.getFollowWindow() // 关注的橱窗
 
     this.setData({
       myUid: app.globalData.jwt.uid

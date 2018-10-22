@@ -87,7 +87,9 @@ Page({
         this.setData({
           activePage: 'apply-result'
         })
-        
+
+        app.globalData.jwt.is_small_b = res.data.is_small_b
+        app.globalData.jwt.store_rid = res.data.store_rid
         // 更新小B身份
         app.updateLifeStoreInfo(res.data)
 

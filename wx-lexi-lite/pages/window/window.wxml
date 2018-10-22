@@ -21,11 +21,11 @@
   </view>
 
   <!-- tabs -->
-  <view class="page-section fx-tabs height--80rpx">
+  <!-- <view class="page-section fx-tabs height--80rpx">
     <view class="tab-item {{categoryActive==item.code?'active':''}}" wx:for="{{category}}" catchtap='handleToggleCategory' data-code="{{item.code}}" wx:key="{{index}}">
       <text>{{item.name}}</text>
     </view>
-  </view>
+  </view> -->
 
   <!-- 橱窗列表 -->
   <view class="page-section fx-windows">

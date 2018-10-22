@@ -63,9 +63,14 @@
           <text class='hui-zi' wx:else>已添加</text>
         </view>
 
-        <view wx:if="{{isSmallB && productInfomation.is_distributed}}" catchtap="handleShareTap" class='like-quantity-l border-null font-m color-hui'>
+        <view wx:if="{{isSmallB && productInfomation.is_distributed && !productInfomation.have_distributed}}" catchtap="handleGoSale" class='like-quantity-l border-null font-m color-hui'>
           <image class='fen' src='../../images/sell-icon@2.png'></image>
           <text class='like-icon-add'> 上架 </text>
+        </view>
+
+        <view wx:elif="{{isSmallB && productInfomation.is_distributed && productInfomation.have_distributed}}" class='like-quantity-l border-null font-m color-hui'>
+          <image class='fen' src='../../images/sell-icon@2.png'></image>
+          <text class='like-icon-add'> 已上架 </text>
         </view>
 
         <view wx:else catchtap="handleShareTap" class='c-middle like-quantity-l transmissionInfo margin-left--0'>

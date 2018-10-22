@@ -117,7 +117,7 @@ Page({
     utils.logger(options.rid)
     this.setData({
       rid: options.rid,
-      index: options.index
+      index: options.index || ''
     })
 
     // 从本地缓存中获取数据
