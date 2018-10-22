@@ -328,7 +328,7 @@ Page({
     this.setData({
       pageActiveTab: name
     })
-
+    
     this._swtichActivePageTab(name)
   },
 
