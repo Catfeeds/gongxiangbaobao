@@ -156,9 +156,9 @@
 					"query": "scene=8194567023-75471986"
 				},
 				{
-					"id": -1,
-					"name": "网络加载失败",
-					"pathName": "pages/networkError/networkError",
+					"id": 20,
+					"name": "品牌馆列表",
+					"pathName": "pages/branderStoreList/branderStoreList",
 					"query": ""
 				}
 			]

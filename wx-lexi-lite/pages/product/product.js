@@ -656,6 +656,7 @@ Page({
       openid: openid
     }, (result) => {
       if (result.success) {
+        result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid

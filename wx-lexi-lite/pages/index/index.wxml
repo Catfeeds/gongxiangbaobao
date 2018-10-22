@@ -387,7 +387,7 @@
 
       <view class='c-importantGoodsBox  today-recommend-box'>
         <scroll-view scroll-x class="live-beautiful__window">
-          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{recommendWindow.shop_windows}}" wx:key="{{index}}">
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{lifeWindow.shop_windows}}" wx:key="{{index}}">
             <view class="flex_row recommend-window__photo">
               <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
               <view class="flex-direction--column">

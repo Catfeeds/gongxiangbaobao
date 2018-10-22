@@ -246,6 +246,10 @@ Page({
         },
       ]
     },
+    lifeWindow: { // 发现生活美学
+      count: 0,
+      shop_windows: []
+    },
 
     // 橱窗
     categoryActive: 'recommend',
@@ -1391,6 +1395,20 @@ Page({
 
   /** 精选里面的 start **/
 
+  // 发现生活美学 
+  getLifeWindow(){
+    http.fxGet(api.shop_windows_handpick, {}, (result) => {
+      utils.logger(result, '今日推荐')
+      if (result.success) {
+        this.setData({
+          lifeWindow: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 今日推荐
   getTodayRecommend() {
     http.fxGet(api.column_daily_recommends, {}, (result) => {
@@ -1765,9 +1783,10 @@ Page({
     this.getTodayRecommend() // 今日推荐
     this.getGrateful() // 人气推荐
     this.getChoiceMiddleAdvertisement() // 中间广告
-    this.getRecommendWindow() // 橱窗
+    // this.getRecommendWindow() // 橱窗
     this.getLitePick() // 乐喜优选
     this.getPlantOrder() // 种草清单
+    this.getLifeWindow() // 发现生活美学
   },
 
   // 加载生活馆数据
