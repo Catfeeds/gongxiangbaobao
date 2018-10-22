@@ -1,6 +1,7 @@
 /* 5张图 */
 @import "../index/index.wxss";
 @import "../findInfo/findInfo.wxss";
+@import "../../template/face.wxss";
 
 .container.fixed-bottom {
   padding-bottom: 40rpx;
@@ -138,6 +139,10 @@
   margin-right: 0rpx;
 }
 
+.fx-comments--top {
+  padding-top: 40rpx;
+}
+
 .bottom-comment {
   position: fixed;
   bottom: 0rpx;
@@ -161,26 +166,30 @@
   background-color: #f5f7f9;
   border-radius: 24rpx;
   padding: 0rpx 30rpx;
-  margin-right: 20rpx;
+  margin-right: 40rpx;
 }
 
 .bottom-comment .comment-form .count {
   display: inline-block;
   font-size: 28rpx;
-  margin-right: 12rpx;
-  width: 66rpx;
+  margin-right: 20rpx;
+  flex: 1;
   height: 38rpx;
 }
 
 .bottom-comment .comment-form .comment-count {
   flex: 1;
   font-size: 28rpx;
+  margin-right: 20rpx;
 }
 
 .bottom-comment .comment-form .icon {
   width: 44rpx;
   height: 44rpx;
   margin-right: 10rpx;
+}
+.bottom-comment .comment-form .icon:last-child {
+  margin-right: 0rpx;
 }
 
 .page-section .block-title {
@@ -293,11 +302,51 @@
 .similar-windows .live-beautiful__window {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
   margin-right: 40rpx;
 }
+
 .similar-windows .live-beautiful__window .recommend-window__item {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
+  margin-top: 30rpx;
+}
+
+.similar-windows .scroll-windows {
+  height: 660rpx;
+}
+
+.all-quantity__btn {
+  height: 80rpx;
+  color: #666;
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
+  font-size: 24rpx;
+  font-weight: 400;
+}
+
+.bottom-comment__input {
+  height: 100rpx;
+  padding: 0 40rpx;
+  border-top: 1rpx solid #e9e9e9;
+}
+
+.bottom-comment__input image {
+  height: 40rpx;
+  width: 44rpx;
+  margin-right: 10rpx;
+}
+
+.comment__input {
+  height: 66rpx;
+  width: 290rpx;
+  margin-right: 10rpx;
+}
+
+.comment__input input {
+  background: rgba(245, 247, 249, 1);
+  padding: 0 30rpx;
+  width: 290rpx;
+  height: 67rpx;
+  border-radius: 34rpx;
 }

@@ -1,110 +1,163 @@
 <!--评论页面-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container border-top--1rpx">
   <!-- 评论 -->
-  <view class="comment-item bg-white border-bottom padding-top--0rpx " wx:if="{{countSum!=0}}">
-    <!-- <view class="black-font font-width--medium">评论</view> -->
+  <view class="fx-comments border-bottom" wx:if="{{ totalCount != 0 }}">
 
     <!-- 每一个评论 -->
-    <view class='bg-white comment-item__item  {{comments.length-1==index?"border-nonne":""}}' wx:key="{{index}}" wx:for-item="items" wx:for="{{comments}}">
-      <image src="{{items.user_avatar}}" class="comment-photo"></image>
-      <view class="flex-direction--column">
+    <view class="comment-item" wx:key="c{{ index }}" wx:for-item="items" wx:for="{{ comments }}">
+      <image src="{{ items.user_avatar }}" class="user-avatar"></image>
+      <view class="comment-item__body flex-direction--column">
         <!-- 顶部名字 -->
-        <view class="time-top margin-bottom--14rpx">
-          <view class="flex-direction--column">
-            <text class="font-s margin-bottom--10rpx">{{items.user_name}}</text>
-            <text class="font-ss qian-hui">{{items.created_at_cn}}</text>
+        <view class="time-top">
+          <view class="user-info flex-direction--column">
+            <view class="user-name">{{ items.user_name }}</view>
+            <view class="font-ss qian-hui">{{ items.created_at_cn }}</view>
           </view>
 
-          <view class="flex_row font-s qian-hui">
-            <view class="reply-tap" data-submit-target="reply" data-comment-id="{{items.comment_id}}" catchtap="handleOpenCommentBox">回复</view>
-            <text> · </text>
+          <view class="comment-action">
+            <view class="btn-reply" data-submit-target="reply" data-index="{{ index }}" catchtap="handleReplyComment" data-pid="{{ items.comment_id }}">回复</view>
+            <view class="point"> · </view>
 
-            <view class="quantity-color zan-box" wx:if="{{items.is_praise}}" data-index="{{index}}" data-comment-id="{{items.comment_id}}" catchtap="handleDeletePraise">
-              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
-              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
+            <view class="btn-zan zaned" wx:if="{{ items.is_praise }}" data-type="comment" data-comment-id="{{ items.comment_id }}" data-index="{{ index }}" catchtap="handleDeletePraise">
+              <image class="icon-zan" src="../../images/icons/icon-zan-active@3x.png"></image>
+              <view class="zan-count">
+                {{ items.praise_count > 0 ? items.praise_count : '赞' }}
+              </view>
             </view>
 
-            <view class="zan-box" wx:else data-comment-id="{{items.comment_id}}" catchtap="handlePraise" data-index="{{index}}">
-              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
-              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
+            <view class="btn-zan" data-type="comment" data-comment-id="{{ items.comment_id }}" data-index="{{ index }}" catchtap="handlePraise" wx:else>
+              <image class="icon-zan" src="../../images/icons/icon-zan@3x.png"></image>
+              <view class="zan-count">{{ items.praise_count > 0 ? items.praise_count : '赞' }}</view>
             </view>
 
           </view>
+
         </view>
 
-        <!-- 评论 -->
-        <view class="black-font line-height--48rpx margin-bottom--14rpx">
-          <text>{{items.content}}</text>
-        </view>
+        <!-- 评论内容 -->
+        <view class="comment-item__content">
+          <view class="top-content">
+            <block wx:for="{{ items.content_list[0] }}" wx:for-item="c" wx:key="c{{ items.comment_id }}c{{ index }}">
+              <text wx:if="{{ c.node == 'text' }}">{{ c.txt }}</text>
+              <icon wx:if="{{ c.tag == 'emoji' }}" type="qq" class="{{ c.baseClass }} {{ c.txt }}"></icon>
+            </block>
+          </view>
 
-        <!-- 回复她的盒子 -->
-        <view class="font-s reply-text__box" wx:if="{{items.sub_comments.length!=0}}">
-          <!-- 回复她的每一条子评论 -->
-          <view wx:for="{{items.sub_comments}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
-            <view class="flex_row">
-              <image src="{{item.user_avatar}}" class="photo-40rpx"></image>
-              <text>{{item.user_name}}</text>
+          <!-- 回复她的盒子 -->
+          <view class="reply-text__box" wx:if="{{ items.sub_comments && items.sub_comments.length != 0 }}">
+            <!-- 回复她的每一条 -->
+            <view wx:for="{{ items.sub_comments }}" wx:for-index="replyIndex" wx:key="r{{ item.comment_id }}{{ replyIndex }}" class="reply-item">
+              <view class="reply-item__head">
+                <image src="{{ item.user_avatar }}" class="user-avatar"></image>
+                <text>{{ item.user_name }}</text>
+              </view>
+              <view class="reply-item__body">
+                <block wx:for="{{ item.content_list[0] }}" wx:for-item="r" wx:key="r{{ item.comment_id }}c{{ replyIndex }}">
+                  <text wx:if="{{ r.node == 'text' }}">{{ r.txt }}</text>
+                  <icon wx:if="{{ r.tag == 'emoji' }}" type="qq" class="{{ r.baseClass }} {{ r.txt }}"></icon>
+                </block>
+              </view>
+              <view class="reply-item__foot">
+                <text class="reply-at">{{ item.created_at_cn }}</text>
+                <view class="btn-zan zaned" data-type="reply" data-comment-id="{{ item.comment_id }}" data-index="{{ index }}" data-child-index="{{ replyIndex }}" catchtap="handleDeletePraise" wx:if="{{ item.is_praise }}">
+                  <image class="icon-zan" src="../../images/icons/icon-zan-active@3x.png"></image>
+                  <view class="zan-count">
+                    {{ item.praise_count > 0 ? item.praise_count : '赞' }}
+                  </view>
+                </view>
+
+                <view class="btn-zan" data-type="reply" data-comment-id="{{ item.comment_id }}" data-index="{{ index }}" data-child-index="{{ replyIndex }}" catchtap="handlePraise" wx:else>
+                  <image class="icon-zan" src="../../images/icons/icon-zan@3x.png"></image>
+                  <view class="zan-count">{{ item.praise_count > 0 ? item.praise_count : '赞' }}</view>
+                </view>
+              </view>
             </view>
-            <text>{{item.content}}</text>
-            <view class="time-top">
-              <view>{{item.created_at_cn}}</view>
-              <view class="flex_row zan-box" data-comment-id="{{item.comment_id}}">
 
-                <view wx:if="{{item.is_praise}}" data-comment-id="{{item.comment_id}}" catchtap="handleDeletePraise">
-                  <image src="../../images/icons/icon-zan-active@3x.png" class="zan-icon"></image>
-                  <text>{{item.praise_count>0?item.praise_count:'赞'}}</text>
-                </view>
-
-                <view wx:else data-comment-id="{{item.comment_id}}" catchtap="handlePraise">
-                  <image src="../../images/icons/icon-zan@3x.png" class="zan-icon"></image>
-                  <text>{{item.praise_count>0?item.praise_count:'赞'}}</text>
-                </view>
-
+            <view class="look-all-reply" wx:if="{{ items.sub_comment_count > 2 && items.remain_count > 0 }}">
+              <view class="look-all" data-index="{{ index }}" data-comment-id="{{ items.comment_id }}" catchtap="handleGetChildrenComment">
+                <text>查看{{ items.remain_count }}条回复</text>
+                <i class="fx-icon-nothing-lower"></i>
               </view>
             </view>
           </view>
 
-          <view wx:if="{{items.remain_count>0}}">
-            <view class="flex_row--middle" catchtap="handleGetChildrenComment" data-index="{{index}}" data-comment-id="{{items.comment_id}}">
-              <text>查看{{ items.remain_count }}条回复 </text>
-              <image src="../../images/hui-jian-tou@3x.png" class="xia-icon"></image>
-            </view>
-          </view>
         </view>
+
       </view>
 
     </view>
   </view>
-  <!-- 查看全部 -->
-  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{commentsCount!=0}}" catchtap="handleAllComment">
-    查看全部{{commentsCount}}条评论
-  </view>
 
   <!-- 评论缺省图片 -->
-  <view class="comment-null__photo" wx:if="{{countSum==0}}">亲！此橱窗暂无评论</view>
-
-  <!-- 底部添加评论 -->
-  <view class="bottom-comment">
-    <view class="comment-form">
-      <input type="text" disabled="{{true}}" data-submit-target="comment" catchtap="handleOpenCommentBox" placeholder="添加评论" class="input-text" />
-
-      <image src="../../images/icons/icon-like-active@3x.png" wx:if="{{isLike }}" catchtap="handleDeleteLike"  class="icon-like__icon"></image>
-      <text class="count" catchtap="handleDeleteLike" wx:if="{{isLike}}">{{likeCount==0?' ':likeCount}}</text>
-
-      <image catchtap="handleAddLike" wx:if="{{!isLike }}"src="../../images/icons/icon-like@3x.png" class="icon-like__icon"></image>
-      <text wx:if="{{!isLike }}" catchtap="handleAddLike" >{{likeCount==0?'':likeCount}}</text>
-
-    </view>
-  </view>
-
-  <!-- 评论输入框 -->
-  <view class="comment-input__box" wx:if="{{isShowComment}}" catchtap="handleOffCommentBox">
-    <view class="comment-input" catchtap="handlePrevent">
-      <textarea auto-height bindinput="{{submitTarget=='reply'?'handleReplyCritique':'handleAddCritique'}}" class="submit-text" auto-focus="{{isShowComment}}" cursor-spacing="{{20}}" placeholder-class="placeholder-text" value="{{submitTarget=='reply'?sonCommentParams.content:commentParams.content}}"></textarea>
-      <view class="submit-btn" catchtap="{{submitTarget=='reply'?'handleReply':'handleSubmitComment'}}">发布</view>
-    </view>
+  <view class="comment-null__photo" wx:if="{{ totalCount == 0 }}">
+    亲！此橱窗暂无评论
   </view>
 
   <view class="shm"></view>
 </view>
-<fx-loading loading="{{ isLoading }}"></fx-loading>
+
+<!-- 评论指示 -->
+<view class="comment-container comment-container--fixed fixed-bottom">
+  <view class="comment-form comment-form--bar">
+    <input type="text" class="input-text" disabled="{{ true }}" data-submit-target="comment" catchtap="handleFocusInput" placeholder="写评论" />
+
+    <view class="comment-action">
+      <!-- 喜欢 -->
+      <view class="action-like" catchtap="handleDeleteLike" wx:if="{{ isLike }}">
+        <image src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
+        <view class="like-count">
+          {{ likeCount > 0 ? likeCount : '' }}
+        </view>
+      </view>
+      <view class="action-like action-like--add" catchtap="handleAddLike" wx:else>
+        <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+        <view class="like-count">
+          {{ likeCount > 0 ? likeCount : '' }}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 添加评论 -->
+<view class="comment-mask" catchtouchmove="handleTouchMask" catchtap="handleTouchMask" wx:if="{{ !isLoading && isFocusing }}"></view>
+<view class="comment-container fixed-bottom {{ isFocusing ? 'comment-container--active' : '' }}" wx:if="{{ !isLoading && isFocusing }}">
+  <!-- 输入评论 -->
+  <view class="comment-form" wx:if="{{ isFocusing }}">
+    <view class="comment-input__wrapper" catchtap="handlePrevent">
+      <textarea class="comment-textarea" maxlength="{{ maxLength }}" bindfocus="handleBlurEvent" bindinput="handleInputEvent" focus="{{ isFocusing }}" cursor="{{ cursorIndex }}" cursor-spacing="0" fixed="{{ true }}" show-confirm-bar="{{ false }}" value="{{ form.content }}" placeholder="{{ placeholderText }}" auto-height>
+      </textarea>
+      <view class="comment-buttons">
+        <view class="emoji" catchtap="handleToggleButton" data-name="emoji" wx:if="{{ activeButton == 'keyboard' }}">
+          <image src="../../images/icons/icon-moji@3x.png" class="icon-emoji"></image>
+        </view>
+        <view class="keyboard" catchtap="handleToggleButton" data-name="keyboard" wx:if="{{ activeButton == 'emoji' }}">
+          <image src="../../images/icons/icon-keyboard@3x.png" class="icon-keyboard"></image>
+        </view>
+      </view>
+    </view>
+    <view class="comment-action">
+      <view class="submit-btn" catchtap="handleSubmitComment">发布</view>
+    </view>
+  </view>
+  <view class="emoji-wrapper" wx:if="{{ isFocusing && activeButton == 'emoji' }}">
+    <view class="emoji-container">
+      <swiper class="emoji-swiper" indicator-dots="{{ true }}" indicator-color="#d8d8d8" indicator-active-color="#1b1b1b">
+        <block wx:for="{{ emojiMsg }}" wx:for-item="moji" wx:key="e{{ index }}">
+          <swiper-item class="emoji-swiper-item">
+            <view class="emoji-box">
+              <icon type="qq" wx:for="{{ moji }}" wx:key="{{ item.txt }}" catchtap="handleClickeEmoji" data-ele="{{ item.ele }}" class="{{ item.baseClass }} {{ item.txt }}"></icon>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="emoji-category">
+      <view class="emoji-category__item">
+        <icon class="face qqface0" type="qq"></icon>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -37,8 +37,8 @@
           <view class="author-info">
             <image src="{{item.user_avatar}}" class="avatar border-round"></image>
             <label class="name font-width--medium">{{item.user_name}}</label>
-            <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
-            <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
+            <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
+            <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ item.is_official }}"></image>
           </view>
           <button class="btn-follow fx-button--text primary black-font" wx:if="{{!item.is_follow && myUid!=item.uid}}" data-index="{{index}}" data-uid="{{item.uid}}" catchtap="handleAddFollow">关注</button>
           <button class="btn-follow fx-button--text primary qian-hui black-font" data-index="{{index}}" data-uid="{{item.uid}}" wx:if="{{item.is_follow && myUid!=item.uid}}" catchtap="handleDeleteFollow">已关注</button>

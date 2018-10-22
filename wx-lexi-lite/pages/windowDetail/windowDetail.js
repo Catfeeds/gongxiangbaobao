@@ -6,6 +6,8 @@ const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
 
+const emojiFn = require('./../../template/emoj.js')
+
 Page({
 
   /**
@@ -39,7 +41,7 @@ Page({
     // 获取评论参数
     getCommentParams: {
       page: 1, //Number	可选	1	当前页码
-      per_page: 10, //Number	可选	10	每页数量
+      per_page: 3, //Number	可选	10	每页数量
       sort_type: 0, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
       rid: '', //Number	必须	 	橱窗编号
     }
@@ -235,40 +237,33 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.windowDetail.is_like + '&likeCount=' + this.data.windowDetail.like_count
+      url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.windowDetail.is_like + '&likeCount=' + this.data.windowDetail.like_count + '&userName=' + e.currentTarget.dataset.userName
     })
   },
 
   /**
    * 获取评论
    */
-  getComment() {
+  getComments() {
     http.fxGet(api.shop_windows_comments, this.data.getCommentParams, result => {
       utils.logger(result, '获取评论')
       if (result.success) {
-        let data = this.data.comments
-        const timePromise = new Promise((resolve, reject) => {
-          result.data.comments.forEach((v, i) => {
-            v.created_at_cn = utils.commentTime(v.created_at)
-            v.sub_comments.forEach((item, idx) => {
-              item.current_page = 0
-              item.created_at_cn = utils.commentTime(item.created_at)
-            })
-
-            // 循环完毕
-            if (result.data.comments.length - 1 == i) {
-              resolve()
-            }
+        result.data.comments.forEach((v, i) => {
+          v.content_list = emojiFn.emojiAnalysis([v.content])
+          v.created_at_cn = utils.commentTime(v.created_at)
+          v.sub_comments.forEach((item, idx) => {
+            item.content_list = emojiFn.emojiAnalysis([item.content])
+            item.current_page = 0
+            item.created_at_cn = utils.commentTime(item.created_at)
           })
         })
-
-        timePromise.then(() => {
-          this.setData({
-            comments: result.data.comments, // 橱窗评论
-            commentsNext: result.data.next, // 橱窗是否有下一页
-            commentsCount: result.data.count, // 橱窗的数量
-          })
+        
+        this.setData({
+          comments: result.data.comments, // 橱窗评论
+          commentsNext: result.data.next, // 橱窗是否有下一页
+          commentsCount: result.data.count, // 橱窗的评论数量
         })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -346,7 +341,6 @@ Page({
     this.getWindowDetail() // 橱窗的详情
     this.getYouLike() // 猜你喜欢
     this.getSimilarWindow() // 相似的橱窗
-    this.getComment() // 获取评论
   },
 
   /**
@@ -366,7 +360,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getComments() // 获取评论
   },
 
   /**

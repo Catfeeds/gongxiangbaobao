@@ -434,6 +434,7 @@
 
 .font-ss {
   font-size: 22rpx;
+  font-weight: 400;
 }
 
 .font-s {

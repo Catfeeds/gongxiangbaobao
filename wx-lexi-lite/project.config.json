@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 20,
 			"list": [
 				{
 					"id": 0,
@@ -151,9 +151,15 @@
 				},
 				{
 					"id": 19,
-					"name": "商品详情",
-					"pathName": "pages/product/product",
-					"query": "scene=8194567023-75471986"
+					"name": "橱窗",
+					"pathName": "pages/windowDetail/windowDetail",
+					"query": "windowRid=32"
+				},
+				{
+					"id": -1,
+					"name": "写评论",
+					"pathName": "pages/windowComment/windowComment",
+					"query": "rid=32"
 				}
 			]
 		}

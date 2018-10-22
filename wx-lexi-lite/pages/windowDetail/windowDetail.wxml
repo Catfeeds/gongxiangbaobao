@@ -5,10 +5,10 @@
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
-          <image src="{{windowDetail.user_avatar}}" class="avatar"></image>
-          <label class="name">{{windowDetail.user_name}}</label>
-          <image src="../../images/icons/icon-star@3x.png" class="icon-star"></image>
-          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{windowDetail.is_official}}"></image>
+          <image src="{{ windowDetail.user_avatar }}" class="avatar"></image>
+          <label class="name">{{ windowDetail.user_name }}</label>
+          <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ windowDetail.is_expert }}"></image>
+          <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ windowDetail.is_official }}"></image>
         </view>
         <view class="fx-mini-btn round follow primary c-middle add-follow__btn" catchtap="handleAddFollow" wx:if="{{!windowDetail.is_follow&& myUid!=windowDetail.uid}}">关注</view>
         <view class="fx-mini-btn round follow primary c-middle add-follow__btn  follow-over__btn" catchtap="handleDeleteFollow" wx:if="{{windowDetail.is_follow}}">已关注</view>
@@ -85,6 +85,84 @@
       </view>
     </view>
 
+    <!-- 评论列表 -->
+    <view class="fx-comments fx-comments--top bg-white" wx:if="{{ comments.length != 0 }}">
+      <view class="block-title">评论</view>
+
+      <!-- 每一个评论 -->
+      <view class="comment-item" wx:key="{{ index }}" wx:for-item="items" wx:for="{{ comments }}" wx:if="{{ index < 3 }}">
+        <image src="{{ items.user_avatar }}" class="user-avatar"></image>
+        <view class="comment-item__body flex-direction--column">
+          <!-- 顶部名字 -->
+          <view class="time-top">
+            <view class="user-info flex-direction--column">
+              <view class="user-name">{{ items.user_name }}</view>
+              <view class="font-ss qian-hui">{{ items.created_at_cn }}</view>
+            </view>
+
+            <view class="comment-action">
+              <view class="btn-reply" data-submit-target="reply" data-index="{{ index }}" catchtap="handleGoComment" data-is-input="1" data-commit-target="" data-pid="{{ items.comment_id }}" data-user-name="{{ items.user_name }}">回复</view>
+              <view class="point"> · </view>
+
+              <view class="btn-zan zaned" wx:if="{{ items.is_praise }}" data-index="{{ index }}" catchtap="handleDeletePraise">
+                <image class="icon-zan" src="../../images/icons/icon-zan-active@3x.png"></image>
+                <view class="zan-count">
+                  {{ items.praise_count > 0 ? items.praise_count : '赞' }}
+                </view>
+              </view>
+
+              <view class="btn-zan" data-index="{{ index }}" wx:else catchtap="handleParentPraise">
+                <image class="icon-zan" src="../../images/icons/icon-zan@3x.png"></image>
+                <view class="zan-count">{{ items.praise_count > 0 ? items.praise_count : '赞' }}</view>
+              </view>
+
+            </view>
+
+          </view>
+
+          <!-- 评论内容 -->
+          <view class="comment-item__content">
+            <view class="top-content">
+              <block wx:for="{{ items.content_list[0] }}" wx:for-item="c" wx:key="c{{ items.comment_id }}c{{ index }}">
+                <text wx:if="{{ c.node == 'text' }}">{{ c.txt }}</text>
+                <icon wx:if="{{ c.tag == 'emoji' }}" type="qq" class="{{ c.baseClass }} {{ c.txt }}"></icon>
+              </block>
+            </view>
+
+            <!-- 回复她的盒子 -->
+            <view class="reply-text__box" wx:if="{{ items.sub_comments != 0 }}">
+              <!-- 回复她的每一条 -->
+              <view wx:for="{{ items.sub_comments }}" wx:if="{{ items.sub_comment_count <= 2 }}" wx:key="{{ index }}" class="reply-item--simple line-height--46rpx {{ index != 1 ? 'margin-bottom--6rpx' : ''}}">
+                <view class="reply-user">
+                  <text>{{ item.user_name }}:</text>
+                </view>
+                <view class="reply-content">
+                  <block wx:for="{{ item.content_list[0] }}" wx:for-item="r" wx:key="r{{ item.comment_id }}c{{ replyIndex }}">
+                    <text wx:if="{{ r.node == 'text' }}">{{ r.txt }}</text>
+                    <icon wx:if="{{ r.tag == 'emoji' }}" type="qq" class="{{ r.baseClass }} {{ r.txt }}"></icon>
+                  </block>
+                </view>
+              </view>
+
+              <view wx:if="{{ items.sub_comment_count > 2 }}">
+                <text>{{ items.sub_comments[0].user_name }} 等人</text>
+                <text class='theme-green'>共{{ items.sub_comment_count }}条回复</text>
+              </view>
+            </view>
+
+          </view>
+
+        </view>
+
+      </view>
+
+    </view>
+
+    <!-- 查看全部 -->
+    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{ commentsCount > 3 }}" catchtap="handleGoComment" data-submit-target="comment" data-is-input="0" data-pid="0" data-index="-1">
+      查看全部{{ commentsCount }}条评论
+    </view>
+
     <!-- 猜你喜欢 -->
     <view class="page-section suggestion" wx:if="{{youLike.count!=0}}">
       <view class="block-title paddng-left-right--40rpx">猜你喜欢</view>
@@ -126,75 +204,10 @@
 
   </view>
 
-  <!-- 评论列表 -->
-  <!-- <view class="page-section comments" > -->
-  <!-- <view class="block-title">评论</view> -->
-
-  <!-- 评论 -->
-  <view class="comment-item bg-white border-bottom" wx:if="{{comments.length!=0}}">
-    <view class="black-font font-width--medium">评论</view>
-
-    <!-- 每一个评论 -->
-    <view class='bg-white comment-item__item ' wx:key="{{index}}" wx:for-item="items" wx:for="{{comments}}" wx:if="{{index<3}}">
-      <image src="{{items.user_avatar}}" class="comment-photo"></image>
-      <view class="flex-direction--column">
-        <!-- 顶部名字 -->
-        <view class="time-top margin-bottom--14rpx">
-          <view class="flex-direction--column">
-            <text class="font-s margin-bottom--10rpx">{{items.user_name}}</text>
-            <text class="font-ss qian-hui">{{items.created_at_cn}}</text>
-          </view>
-
-          <view class="flex_row font-s qian-hui">
-            <view class="reply-tap" data-submit-target="reply" data-index="{{index}}" catchtap="handleGoComment" data-is-input="1" data-commit-target="" data-pid="{{items.comment_id}}">回复</view>
-            <text> · </text>
-            <view class="quantity-color zan-box" wx:if="{{items.is_praise}}" data-index="{{index}}" catchtap="handleDeletePraise">
-              <image class="zan-icon" src="../../images/icons/icon-zan-active@3x.png"></image>
-              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
-            </view>
-
-            <view class="zan-box" data-index="{{index}}" wx:else catchtap="handleParentPraise">
-              <image class="zan-icon" src="../../images/icons/icon-zan@3x.png"></image>
-              <text>{{items.praise_count>0?items.praise_count:'赞'}}</text>
-            </view>
-
-
-          </view>
-        </view>
-
-        <!-- 别人评论 -->
-        <view class="black-font line-height--48rpx margin-bottom--14rpx">
-          <text>{{items.content}}</text>
-        </view>
-        <!-- 回复她的盒子 -->
-        <view class="font-s reply-text__box" wx:if="{{items.sub_comments!=0}}">
-          <!-- 回复她的每一条 -->
-          <view wx:for="{{items.sub_comments}}" wx:if="{{items.sub_comment_count<=2}}" wx:key="{{index}}" class="line-height--46rpx {{index!=1?'margin-bottom--6rpx':''}}">
-            <text>{{item.user_name}}</text> :
-            <text>{{item.content}}</text>
-          </view>
-
-          <view wx:if="{{items.sub_comment_count>2}}">
-            <text>{{items.sub_comments[0].user_name}} 等人</text>
-            <text class='theme-green'>共{{items.sub_comment_count}}条回复</text>
-          </view>
-        </view>
-      </view>
-
-    </view>
-  </view>
-
-  <!-- 查看全部 -->
-  <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{commentsCount>3}}" catchtap="handleGoComment" data-is-input="0">
-    查看全部{{commentsCount}}条评论
-  </view>
-  <!-- </view> -->
-
   <!-- 底部添加评论 -->
   <view class="bottom-comment">
     <view class="comment-form">
-      <input type="text" disabled="{{true}}" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment" placeholder="添加评论" class="input-text" />
-      <!-- <image src="../../images/icons/icon-like@3x.png" class="icon icon-like"></image> -->
+      <input type="text" disabled="{{true}}" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment" placeholder="写评论" class="input-text" />
       <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}" class="icon-like__icon"></image>
       <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
 
@@ -204,7 +217,7 @@
       <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment"></image>
       <text class="comment-count" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">{{windowDetail.comment_count>0?windowDetail.comment_count:''}}</text>
 
-      <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon icon-share"></image>
+      <image src="../../images/icons/icon-share@3x.png" class="icon icon-share"></image>
     </view>
   </view>
 
