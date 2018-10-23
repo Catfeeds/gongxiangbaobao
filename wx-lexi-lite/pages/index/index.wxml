@@ -724,8 +724,10 @@
                 <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
                 <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
               </view>
-              <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow}}">关注</button>
-              <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:else>已关注</button>
+              <block wx:if="{{ !item.is_official }}">
+                <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow}}">关注</button>
+                <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:else>已关注</button>
+              </block>
             </view>
 
             <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">

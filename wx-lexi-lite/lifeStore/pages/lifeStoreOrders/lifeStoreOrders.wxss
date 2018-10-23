@@ -72,7 +72,7 @@
 
 .orders-list {
   border-top: 1rpx solid #e9e9e9;
-  background-color: #F7F9FB;
+  background-color: #f7f9fb;
 }
 
 .orders-list .order-item {
@@ -83,8 +83,7 @@
   padding-top: 40rpx;
 }
 
-.order-item .order-item__head, 
-.order-item .order-item__body .product {
+.order-item .order-item__head, .order-item .order-item__body .product {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -123,7 +122,10 @@
 }
 
 .order-item .order-item__foot .order-date .income .amount {
-  color: rgba(153, 153, 153, 1);
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #FF6666;
+  line-height: 28rpx;
 }
 
 .order-item .order-item__head .user-avatar {
@@ -191,7 +193,6 @@
   font-size: 28rpx;
   font-weight: 400;
   color: rgba(51, 51, 51, 1);
-  
 }
 
 .order-item .product .product-info .mode {
