@@ -42,7 +42,9 @@ Page({
     sid: '', // 生活馆sid
     openId: '', // openId
     shopInfo: '', // 生活馆信息
-    lifeStore: {}, // 编辑生活馆信息
+    lifeStore: {
+      logo:'https://static.moebeast.com/image/static/null-product.png'
+    }, // 编辑生活馆信息
     lifePhotoUrl: '', // 分享生活馆的图片
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
@@ -1705,7 +1707,7 @@ Page({
     http.fxGet(api.life_store, {
       rid: this.data.sid
     }, (res) => {
-      utils.logger(res, '生活馆信息')
+      utils.logger(res, '生活馆信息-1710')
       if (res.success) {
         this.setData({
           lifeStore: res.data
