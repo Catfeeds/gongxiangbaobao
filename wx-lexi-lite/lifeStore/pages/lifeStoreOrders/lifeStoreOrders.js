@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     sid: '',
     activeStatus: 0,
     statusPanels: [
@@ -89,12 +90,8 @@ Page({
    * 生活馆订单列表
    */
   getStoreOrderList() {
-    wx.showLoading({
-      title: '加载中...',
-    })
     http.fxGet(api.life_store_orders_list, this.data.params, (res) => {
       utils.logger(res, '订单列表')
-      wx.hideLoading()
       if (!res.success) {
         utils.fxShowToast(res.status.message)
         return
@@ -167,7 +164,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

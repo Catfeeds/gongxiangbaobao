@@ -205,7 +205,7 @@
   <fx-game-modal-v className="fx-modal--success" class="fx-modal--success" visible="{{ showInviteSuccessModal }}" marginTop="300">
     <view class="invite-text">
       <view class="title">您已成功邀请</view>
-      <view class="desc">{{ peopleCount.invite_name }} 等{{ peopleCount.invite_count }}位好友加入猜图游戏</view>
+      <view class="desc">{{ invitePeople.invite_name }} 等{{ invitePeople.invite_count }}位好友加入猜图游戏</view>
       <button class="submit" bindtap="handleHideInviteModal">确定</button>
     </view>
   </fx-game-modal-v>
