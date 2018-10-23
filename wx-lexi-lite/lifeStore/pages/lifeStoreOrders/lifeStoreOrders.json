@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "成交订单"
+  "navigationBarTitleText": "成交订单",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

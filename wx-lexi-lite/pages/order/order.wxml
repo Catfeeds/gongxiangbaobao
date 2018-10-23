@@ -48,7 +48,7 @@
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
 
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <image class="order-product__photo" src='{{item.cover}}-p16'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
@@ -108,7 +108,7 @@
               </view>
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <image class="order-product__photo" src='{{item.cover}}-p16'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
@@ -160,7 +160,7 @@
               <view class='goodsBox' wx:for="{{ product.items}}" wx:key="{{ index }}" wx:for-item="itm">
 
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{itm.cover}}'></image>
+                  <image class="order-product__photo" src='{{itm.cover}}-p16'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
@@ -205,7 +205,7 @@
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ item.items }}" wx:for-item="itm">
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{itm.cover}}'></image>
+                  <image class="order-product__photo" src='{{itm.cover}}-p16'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
@@ -262,7 +262,7 @@
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <image class="order-product__photo" src='{{item.cover}}-p16'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>

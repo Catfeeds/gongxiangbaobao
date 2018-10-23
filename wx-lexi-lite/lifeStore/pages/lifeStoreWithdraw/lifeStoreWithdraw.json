@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "提现",
   "usingComponents": {
-    "fx-modal-v": "/components/FxModalV/FxModalV"
+    "fx-modal-v": "/components/FxModalV/FxModalV",
+    "fx-loading": "/components/FxLoading/FxLoading"
   }
 }

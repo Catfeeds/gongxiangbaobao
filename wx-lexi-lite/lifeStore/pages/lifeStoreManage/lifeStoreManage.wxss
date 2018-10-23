@@ -115,6 +115,9 @@
   margin: -40rpx 40rpx 40rpx;
   position: relative;
 }
+.store-income.store-income--formal {
+  margin-top: -160rpx; 
+} 
 .store-income .icon-eye {
   width: 40rpx;
   height: 40rpx;

@@ -20,8 +20,8 @@
 
         <view class="players">
           <view class="avatars">
-            <image src="{{ userInfo.avatar }}" class="user-avatar" wx:if="{{ lastPlayers.length > 0 }}"></image>
-            <image wx:for="{{ lastPlayers }}" wx:for-item="player" wx:key="{{ player.user_sn }}" src="{{ player.user_logo }}" class="user-avatar"></image>
+            <image src="{{ userInfo.avatar }}-ava" class="user-avatar" wx:if="{{ lastPlayers.length > 0 }}"></image>
+            <image wx:for="{{ lastPlayers }}" wx:for-item="player" wx:key="{{ player.user_sn }}" src="{{ player.user_logo }}-ava" class="user-avatar"></image>
           </view>
 
           <view class="join">
@@ -55,7 +55,7 @@
       <!-- 弹幕 -->
       <view class="doomm-view">
         <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
-          <image class="avatar" src="{{ doomm.avatar }}"></image>
+          <image class="avatar" src="{{ doomm.avatar }}-ava"></image>
           <view class="adv" wx:if="{{ !doomm.type || doomm.type == 1 }}">
             {{ doomm.name }}获得
             <text class="amount">¥{{ doomm.amount }}</text>现金
@@ -111,7 +111,7 @@
               <text class="animated-increase">{{ myAccount.bonus_quantity }}</text> 张
             </view>
           </view>
-          <image src="{{ userInfo.avatar }}" class="avatar"></image>
+          <image src="{{ userInfo.avatar }}-ava" class="avatar"></image>
         </view>
       </view>
     </view>

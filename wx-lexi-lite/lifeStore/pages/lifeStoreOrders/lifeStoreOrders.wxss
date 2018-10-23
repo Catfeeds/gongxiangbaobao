@@ -72,7 +72,7 @@
 
 .orders-list {
   border-top: 1rpx solid #e9e9e9;
-  background-color: #F7F9FB;
+  background-color: #f7f9fb;
 }
 
 .orders-list .order-item {
@@ -83,8 +83,7 @@
   padding-top: 40rpx;
 }
 
-.order-item .order-item__head, 
-.order-item .order-item__body .product {
+.order-item .order-item__head, .order-item .order-item__body .product {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -107,7 +106,6 @@
   align-items: center;
   justify-content: space-between;
   line-height: 24rpx;
-  margin-top: 14rpx;
 }
 
 .order-item .order-item__foot .order-date .time {
@@ -123,7 +121,10 @@
 }
 
 .order-item .order-item__foot .order-date .income .amount {
-  color: rgba(153, 153, 153, 1);
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #f66;
+  line-height: 28rpx;
 }
 
 .order-item .order-item__head .user-avatar {
@@ -191,7 +192,6 @@
   font-size: 28rpx;
   font-weight: 400;
   color: rgba(51, 51, 51, 1);
-  
 }
 
 .order-item .product .product-info .mode {
@@ -208,4 +208,54 @@
   font-size: 24rpx;
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
+}
+
+.order-item__progress {
+  display: flex;
+  align-items: center;
+  margin: 10rpx 0 40rpx;
+}
+
+.order-item__progress .step {
+  flex: 1;
+}
+
+.order-item__progress .step .progress {
+  display: flex;
+  align-items: center;
+}
+
+.order-item__progress .step .progress .line {
+  height: 4rpx;
+  background-color: #ebebeb;
+  width: 102rpx;
+}
+
+.order-item__progress .step .progress .point {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 16rpx;
+  background: rgba(255, 255, 255, 1);
+  border: 3rpx solid #ebebeb;
+}
+
+.order-item__progress .step .label {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 26rpx;
+  text-align: center;
+  margin-top: 12rpx;
+}
+
+.order-item__progress .step.active .progress .line {
+  background-color: #5fe4b1;
+}
+
+.order-item__progress .step.active .progress .point {
+  border-color: rgba(95, 228, 177, 1);
+}
+
+.order-item__progress .step.active .label {
+  color: #5fe4b1;
 }

@@ -20,7 +20,7 @@
 
       <view class="result-main">
         <view class="main-top">
-          <image src="{{ userInfo.avatar }}" class="img-photo"></image>
+          <image src="{{ userInfo.avatar }}-ava" class="img-photo"></image>
           <view class="username">{{ userInfo.username }}</view>
         </view>
 

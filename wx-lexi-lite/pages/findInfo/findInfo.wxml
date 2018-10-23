@@ -6,7 +6,7 @@
   <view class="bg-white border-bottom margin-bottom--30rpx">
     <!-- 头部图片 -->
     <view class='top-photo'>
-      <image src='{{ liveInfo.cover }}'></image>
+      <image src='{{ liveInfo.cover }}' mode="widthFix" class="article-headpic"></image>
     </view>
 
     <!-- 店铺的信息 -->
@@ -30,7 +30,7 @@
 
       <view class="time-top margin-bottom--50rpx">
         <view class="flex_row">
-          <image src="{{liveInfo.user_avator}}" class="store-logo"></image>
+          <image src="{{liveInfo.user_avator}}-ava" class="store-logo"></image>
           <text class="font-s font-width--medium">{{ liveInfo.user_name }}</text>
         </view>
 
@@ -165,7 +165,7 @@
 
         <text class='font-ss shen-hui text-two_line line-heiht-normal'>{{item.description}}</text>
         <view class='plant-owner__box flex_row'>
-          <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+          <image src="{{item.user_avator}}-ava" class='plant-owner__photo'></image>
           <text class="font-s shen-hui">{{item.user_name}}</text>
         </view>
       </view>

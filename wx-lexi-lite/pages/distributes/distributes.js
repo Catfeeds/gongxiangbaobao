@@ -15,9 +15,9 @@ Page({
     isLoading: true,
     indicatorDots: true,
     vertical: false,
-    autoplay: false,
-    circular: false,
-    interval: 2000,
+    autoplay: true,
+    circular: true,
+    interval: 3000,
     duration: 500,
 
     swiperIndex: 0, // 轮播图的index

@@ -1,3 +1,4 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
   <view class="fx-submenu">
     <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}" bindtap="handleGoUser">
@@ -42,7 +43,7 @@
   </view>
 
   <view class="store-income__wrapper">
-    <view class="store-income" catchtap="handleGoTrade">
+    <view class="store-income {{ lifeStore.phases == 2 ? 'store-income--formal' : '' }}" catchtap="handleGoTrade">
       <image src="/images/icon-eye-white@3x.png" wx:if="{{! setIncomeStar }}" class="icon-eye" catchtap="handleSecretIncome"></image>
       <image src="/images/icon-eye-white-close@3x.png" wx:else class="icon-eye" catchtap="handleSecretIncome"></image>
 
@@ -173,7 +174,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
           <text class="margin-top--14rpx">保存分享朋友圈海报</text>
         </view>

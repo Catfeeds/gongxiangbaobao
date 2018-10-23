@@ -8,7 +8,7 @@
   <!-- 添加橱窗栏目 -->
   <view class='dynamic-add__box fx-broadwise-e bg-white'>
     <view class='dynamic-owner'>
-      <image src="{{dynamicList.user_avatar}}"></image>
+      <image src="{{dynamicList.user_avatar}}-ava"></image>
     </view>
     <view class='black-font designer-name'>{{dynamicList.username}}</view>
     <!-- 拼接橱窗 -->
@@ -27,7 +27,7 @@
     <view class='flex-direction--column dynamic-item'>
       <view class='time-top dynamic-item__top margin-bottom--30rpx'>
         <view class='flex_row designer-info'>
-          <image src="{{item.user_avatar}}"></image>
+          <image src="{{item.user_avatar}}-ava"></image>
           <view>
             <view class='font-s'>{{item.user_name}}</view>
             <view class='font-ss qian-hui'>{{item.created_time}}</view>
@@ -41,7 +41,7 @@
       </view>
 
       <view class="time-top time-middine margin-bottom--24rpx">
-        <image wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}"></image>
+        <image wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}-p30x2"></image>
         <view class="window-photo__count" wx:if="{{item.products>3}}">{{item.products>3?item.products.length:""}}图</view>
       </view>
 

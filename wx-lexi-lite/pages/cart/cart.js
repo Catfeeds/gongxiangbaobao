@@ -640,7 +640,7 @@ Page({
     }, (result) => {
       utils.logger(result)
       if (result.success) {
-        utils.fxShowToast('移除成功', 'success')
+        // utils.fxShowToast('移除成功', 'success')
         this.getDesireOrder()
       } else {
         utils.fxShowToast(result.status.message)

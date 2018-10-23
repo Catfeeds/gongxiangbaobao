@@ -30,6 +30,7 @@ Page({
 
     showRuleModal: false,
     inviteTimer: null, // 刷新邀请好友间隔
+    invitePeople: {}, // 邀请好友信息
     showInviteSuccessModal: false,
     showStealResultModal: false,
     showStealEmptyModal: false, // 没偷到
@@ -851,7 +852,7 @@ Page({
       if (res.success) {
         if (res.data.user_info.length > 0) {
           that.setData({
-            peopleCount: res.data,
+            invitePeople: res.data,
             showInviteSuccessModal: true
           })
         }
@@ -1025,8 +1026,7 @@ Page({
   getInitData() {
     this.getPeopleStats()
     this.getInvitePeople()
-    this.getStealBonusNotice()
-
+    
     this.getTopWorld()
     this.getFriendList()
   },

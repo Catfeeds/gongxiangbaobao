@@ -55,7 +55,7 @@
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
               <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
-                <image src='{{ item.avatar }}'></image>
+                <image src='{{ item.avatar }}-ava'></image>
               </view>
 
             </view>
@@ -150,7 +150,7 @@
         wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image src='{{ lifeStore.logo }}' class='photo-round'></image>
+          <image src='{{ lifeStore.logo }}-ava' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
           <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
@@ -211,7 +211,7 @@
             <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}' class='photo-round'></image>
+            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
           </view>
         </view>
       </view>
@@ -398,34 +398,32 @@
     </view>
 
     <!-- 发现生活美学 {{themeProduct.designs}}  橱窗 -->
-    <view class='fx-part box--margin border-top padding-left--0rpx'>
+    <view class='fx-part similar-windows box--margin border-top padding-left--0rpx'>
       <view class='c-importantGoodsTitle time-top font-xl category__title margin-top--32rpx' catchtap="handleGoWindow">
         <text class="label">发现生活美学</text>
       </view>
-
-      <view class='c-importantGoodsBox  today-recommend-box'>
-        <scroll-view scroll-x class="live-beautiful__window">
+      <scroll-view scroll-x class="scroll-windows">
+        <view class="live-beautiful__window">
           <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{lifeWindow.shop_windows}}" wx:key="{{index}}">
             <view class="flex_row recommend-window__photo">
-              <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
+              <image src="{{item.product_covers[0]}}-p50" class="recommend-window__photo--big"></image>
               <view class="flex-direction--column">
-                <image src="{{item.product_covers[1]}}" class="recommend-window__photo--min"></image>
-                <image src="{{item.product_covers[2]}}" class="recommend-window__photo--min margin-top--4rpx"></image>
+                <image src="{{item.product_covers[1]}}-p30x2" class="recommend-window__photo--min"></image>
+                <image src="{{item.product_covers[2]}}-p30x2" class="recommend-window__photo--min margin-top--4rpx"></image>
               </view>
             </view>
 
             <view class="recommend-window_info">
               <view class="flex_row margin-bottom--30rpx">
-                <image class="master-photo" src="{{item.user_avatar}}"></image>
+                <image class="master-photo" src="{{item.user_avatar}}-ava"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>
               <view class="black-font  font-width--medium title">{{item.title}}</view>
               <view class="font-s two-line-text describe">{{item.description}}</view>
             </view>
           </view>
-        </scroll-view>
-        <!-- </view> -->
-      </view>
+        </view>
+      </scroll-view>
     </view>
 
     <!-- 乐喜优选 -->
@@ -462,7 +460,7 @@
           <text class="plantnote-item_title font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='plantnote-item_desc font-s shen-hui text-two_line'>{{item.description}}</text>
           <view class='plant-owner__box flex_row'>
-            <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+            <image src="{{item.user_avator}}-ava" class='plant-owner__photo'></image>
             <text class="font-s shen-hui">{{item.user_name}}</text>
           </view>
         </view>
@@ -674,7 +672,7 @@
           <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">
             <view class="fx-window__author">
               <view class="author-info">
-                <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+                <image src="{{item.user_avatar}}-ava" class="avatar border-round"></image>
                 <label class="name font-width--medium">{{item.user_name}}</label>
                 <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
                 <image wx:if="{{ item.is_official }}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
@@ -739,13 +737,15 @@
           <view class="fx-window" wx:for="{{followWindow.shop_windows}}" wx:key="{{index}}">
             <view class="fx-window__author">
               <view class="author-info">
-                <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+                <image src="{{item.user_avatar}}-ava" class="avatar border-round"></image>
                 <label class="name">{{item.user_name}}</label>
                 <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
                 <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
               </view>
-              <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow}}">关注</button>
-              <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:else>已关注</button>
+              <block wx:if="{{ !item.is_official }}">
+                <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow}}">关注</button>
+                <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:else>已关注</button>
+              </block>
             </view>
 
             <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
@@ -873,7 +873,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
           <text class="margin-top--14rpx">保存分享朋友圈海报</text>
         </view>
@@ -914,7 +914,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ lifeStorePosterUrl }}" class="image" wx:if="{{ lifeStorePosterUrl }}"></image>
-            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
           <text class="margin-top--14rpx">保存分享朋友圈海报</text>
         </view>

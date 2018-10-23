@@ -1,3 +1,4 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
 
   <view class="store-income__wrapper">
@@ -27,7 +28,7 @@
   <view class="transactions">
     <view class="block-title">交易记录</view>
     <view class="choose-date">
-      <view class="dropdown">
+      <view class="dropdown" style="display:none;">
         <text>选择日期</text>
         <image src="../../../images/icon-arrow-down@2x.png" class="icon-arrow-down"></image>  
       </view>
