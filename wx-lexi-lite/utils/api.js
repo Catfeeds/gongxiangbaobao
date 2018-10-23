@@ -38,7 +38,7 @@ module.exports = {
   market_share_life_store: 'market/share/life_store', // 分享生活馆卡片
   market_share_invite_poster: 'market/share/invite_poster', // 邀请好友生成海报
   market_share_invite_carde: 'market/share/invite_card', // 邀请好友开馆的卡片
-  market_share_window_poster: 'market/share/window', // 分享橱窗海报
+  market_share_window_poster: 'market/share/shop_window_poster', // 分享橱窗海报
 
   // Brand
   brand_list: 'brands', // GET 品牌列表
@@ -159,6 +159,7 @@ module.exports = {
   shop_windows_comments:'shop_windows/comments', // 橱窗的评论
   shop_windows_child_comments:'shop_windows/child_comments', // 获取子评论
   shop_windows_comments_praises:'shop_windows/comments/praises', // 对子评论点赞 // 以及删除
+  shop_windows_handpick:'shop_windows/handpick', // 发现生活美学
 
   // 核心 store
   users_user_dynamic: "users/user_dynamic", // 获取自己的动态

@@ -31,7 +31,7 @@ Page({
         for (let i=0; i<_collections.length; i++) {
           _collections[i].cover += '-bg75x40'
             for (let k=0; k<_collections[i].products.length; k++) {
-              _collections[i].products[k].cover += '-p30' 
+              _collections[i].products[k].cover += '-p30x2' 
             }
         }
 

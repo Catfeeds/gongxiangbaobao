@@ -1,6 +1,6 @@
 <!--pages/branderStoreList/branderStoreList.wxml 品牌管列表-->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
-<view class="container">
+<view class="container {{categoryId==2?'bg-white':''}}">
   <!-- nav-bar -->
   <view class="flex_row border-bottom nav-bar">
     <view wx:for="{{categoryList}}" catchtap="handleChangeCategory" data-id="{{item.id}}" class="c-middle nav-bar__text {{categoryId==item.id?'active':''}}" wx:key="{{index}}">{{item.name}}</view>
@@ -55,19 +55,14 @@
       <view class="swiper-round__box">
         <view class="{{seiperIndex==index?'swiper-active':''}}" wx:for="{{HighStoreAdvList.banner_images}}" wx:key="{{index}}"></view>
       </view>
-
     </view>
 
     <view class="high-bottom">
-      <scroll-view scroll-x class=" high-bottom__scroll">
+      <scroll-view scroll-x class=" high-bottom__scroll jingxuan-scroll">
         <view class="fx-column--center high-bottom__item {{index==0?'margin-left--40rpx':''}} {{HighStoreList.handpick_store.length-1==index?'margin-right--40rpx':''}}" wx:key="{{index}}" data-rid="{{item.rid}}" catchtap="handleTobrandStore" wx:for="{{HighStoreList.handpick_store}}">
           <image src="{{item.logo}}"></image>
-          <view>
-            <text class="font-s">{{item.name}}</text>
-          </view>
-          <view class="one-line-text">
-            <text class='font-ss qian-hui quantity-box__style'>{{item.store_products_counts==0?"":item.store_products_counts+" 件商品"}}</text>
-          </view>
+          <view class="font-s one-line-text">{{item.name}}</view>
+          <view class="one-line-text font-ss qian-hui quantity-box__style">{{item.store_products_counts==0?"":item.store_products_counts+" 件商品"}}</view>
         </view>
       </scroll-view>
     </view>

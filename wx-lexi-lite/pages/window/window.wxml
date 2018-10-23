@@ -1,7 +1,4 @@
 <view class="container window-page">
-  <!-- 添加页面加载 -->
-  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
-
   <!-- 头图 -->
   <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
     <image></image>
@@ -17,13 +14,6 @@
           寻找搭配灵感，塑造自己的独特风格
         </view>
       </view>
-    </view>
-  </view>
-
-  <!-- tabs -->
-  <view class="page-section fx-tabs height--80rpx">
-    <view class="tab-item {{categoryActive==item.code?'active':''}}" wx:for="{{category}}" catchtap='handleToggleCategory' data-code="{{item.code}}" wx:key="{{index}}">
-      <text>{{item.name}}</text>
     </view>
   </view>
 
@@ -52,10 +42,10 @@
           </view>
           <view class="image-container half">
             <view class="image-item">
-              <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
+              <image src="{{item.product_covers[1]}}-p30x2" class="photo"></image>
             </view>
             <view class="image-item">
-              <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
+              <image src="{{item.product_covers[2]}}-p30x2" class="photo"></image>
               <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
             </view>
           </view>
@@ -74,8 +64,8 @@
             </view>
           </view>
           <view class="share">
-            <view class="done">
-              <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+            <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+              <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
             </view>
           </view>
         </view>
@@ -116,10 +106,10 @@
           </view>
           <view class="image-container half">
             <view class="image-item">
-              <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
+              <image src="{{item.product_covers[1]}}-p30x2" class="photo"></image>
             </view>
             <view class="image-item">
-              <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
+              <image src="{{item.product_covers[2]}}-p30x2" class="photo"></image>
               <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
             </view>
           </view>
@@ -165,7 +155,23 @@
     </view>
   </view>
 
+  <!-- 橱窗海报图 -->
+  <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}" bind:closeEvent="handleClearPosterUrl">
+    <view class="fx-poster">
+      <view class="poster-box">
+        <image src="{{ windowPosterUrl }}" class="poster-image" wx:if="{{ windowPosterUrl }}"></image>
+        <image src="../../images/jiazai.gif" class="loading" wx:else></image>
+      </view>
+      <view class="btn-area">
+        <button class="fx-button primary" bindtap="handleSaveWindowPoster">
+          {{ posterBtnText }}
+        </button>
+      </view>
+    </view>
+  </fx-image-modal>
+
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 </view>
+
 <fx-loading loading="{{ isLoading }}"></fx-loading>

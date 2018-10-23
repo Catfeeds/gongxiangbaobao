@@ -92,7 +92,7 @@
       <view class="product-distribute-item" wx:for="{{ stickedProducts }}" wx:for-item="product" wx:for-index="idx" wx:key="{{ product.rid }}">
         <view class="product-item" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
           <view class="product-item__cover">
-            <image src="{{ product.cover }}-p30" class="image"></image>
+            <image src="{{ product.cover }}-p30x2" class="image"></image>
             <image src="https://static.moebeast.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
           </view>
           <view class="product-item__body">

@@ -454,7 +454,7 @@ Page({
   },
 
   //操作喜欢的头像
-  _handleUserLikePhoto(e, action='add') {
+  _handleUserLikePhoto(e, action = 'add') {
     utils.logger(e)
     let likePhoto = this.data.productInfomation.product_like_users
     let myPhoto = -1
@@ -561,7 +561,7 @@ Page({
   },
 
   // 回首页
-  handleBackHome () {
+  handleBackHome() {
     wx.switchTab({
       url: '../index/index',
     })
@@ -653,9 +653,12 @@ Page({
 
     http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
       user_record: "1",
-      openid: openid
+      openid: openid,
+      sid: jwt.store_rid || ''
     }, (result) => {
+      console.log(result, '产品详情')
       if (result.success) {
+        result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid
@@ -707,6 +710,17 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  /**
+ * 跳转分销上架
+ */
+  handleGoSale(e) {
+
+    let rid = this.data.productInfomation.rid
+    wx.navigateTo({
+      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid 
     })
   },
 

@@ -869,6 +869,10 @@ Page({
       }
     })
 
+    this.setData({
+      'params.sid': app.globalData.jwt.store_rid
+    })
+
     if (this.data.pageActiveTab == 'stick') {
       this.getAdvertises()
       this.getStoreHeadlines()

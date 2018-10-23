@@ -123,6 +123,10 @@ Page({
       ['hingeParams.qk']: e.detail.value.replace(/(^\s*)|(\s*$)/g, '')
     })
 
+    if (!this.data.hingeParams.qk) {
+      return
+    }
+
     clearTimeout(searchTime)
 
     searchTime = setTimeout(() => {
@@ -326,5 +330,5 @@ Page({
       url: '/pages/product/product?rid=' + rid
     })
   }
-  
+
 })

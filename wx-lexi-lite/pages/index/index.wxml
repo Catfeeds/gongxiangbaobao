@@ -223,7 +223,7 @@
   <view class="bg-white page-featured {{ pageActiveTab == 'featured' ? 'active' : '' }}">
     <!-- 手动旋转木马 -->
     <view class='swiper-photo list'>
-      <swiper circular autoplay="{{false}}" previous-margin="{{'20rpx'}}" next-margin="{{'100rpx'}}" bindchange="swiperChange">
+      <swiper circular autoplay="{{true}}" previous-margin="{{'20rpx'}}" next-margin="{{'100rpx'}}" bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
           <swiper-item catchtap="handleToInfo" data-type="{{item.type}}" data-link="{{item.link}}" data-title="{{item.title}}" data-rid="{{item.rid}}" class="flex_row--middle" data-id="{{item.id}}" data-sort="{{item.sort}}">
             <view class="slide-image slide-item__box {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
@@ -387,7 +387,7 @@
 
       <view class='c-importantGoodsBox  today-recommend-box'>
         <scroll-view scroll-x class="live-beautiful__window">
-          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{recommendWindow.shop_windows}}" wx:key="{{index}}">
+          <view class="life-beautiful___photo recommend-window__item margin-right--40rpx {{index==0?'margin-left--40rpx':''}} " catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" wx:for="{{lifeWindow.shop_windows}}" wx:key="{{index}}">
             <view class="flex_row recommend-window__photo">
               <image src="{{item.product_covers[0]}}" class="recommend-window__photo--big"></image>
               <view class="flex-direction--column">
@@ -573,7 +573,7 @@
       </view>
       <scroll-view scroll-x class='best-collections c-importantGoodsBox'>
         <view class='all-product {{index==0?"margin-left--40rpx":""}} {{index==gatherList.collections.length-1?"margin-right--40rpx":""}}' data-rid="{{item.id}}" catchtap="handleToGatherInfo" wx:for="{{gatherList.collections}}" wx:key="{{index}}">
-          <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" wx:if="{{item.cover}}" src="{{item.cover}}-p30"></image>
+          <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" wx:if="{{item.cover}}" src="{{item.cover}}-p30x2"></image>
 
           <image wx:else class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           <view class='bg-black__half'>
@@ -623,8 +623,6 @@
   <!-- 橱窗 -->
   <view class="bg-white page-explore {{ pageActiveTab == 'window' ? 'active' : '' }} window-page">
     <view>
-      <!-- 添加页面加载 -->
-      <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
       <!-- 头图 -->
       <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
@@ -675,10 +673,10 @@
               </view>
               <view class="image-container half">
                 <view class="image-item">
-                  <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
+                  <image src="{{item.product_covers[1]}}-p30x2" class="photo"></image>
                 </view>
                 <view class="image-item">
-                  <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
+                  <image src="{{item.product_covers[2]}}-p30x2" class="photo"></image>
                   <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
                 </view>
               </view>
@@ -740,10 +738,10 @@
               </view>
               <view class="image-container half">
                 <view class="image-item">
-                  <image src="{{item.product_covers[1]}}-p30" class="photo"></image>
+                  <image src="{{item.product_covers[1]}}-p30x2" class="photo"></image>
                 </view>
                 <view class="image-item">
-                  <image src="{{item.product_covers[2]}}-p30" class="photo"></image>
+                  <image src="{{item.product_covers[2]}}-p30x2" class="photo"></image>
                   <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
                 </view>
               </view>
@@ -922,7 +920,7 @@
   </fx-modal>
 
   <!-- 橱窗海报图 -->
-  <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}">
+  <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}" bind:closeEvent="handleClearPosterUrl">
     <view class="fx-poster">
       <view class="poster-box">
         <image src="{{ windowPosterUrl }}" class="poster-image" wx:if="{{ windowPosterUrl }}"></image>

@@ -261,11 +261,12 @@ Page({
   /**
    * 生成推广海报图
    */
-  getWxaPoster(rid) {
+  getWxaPoster() {
     // scene格式：rid
     let scene = this.data.windowRid
     let params = {
       scene: scene,
+      rid: this.data.windowRid,
       path: 'pages/windowDetail/windowDetail',
       auth_app_id: app.globalData.app_id
     }
@@ -432,12 +433,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    utils.logger(options.windowRid)
+    let rid = ''
+
+    // scene格式：rid
+    let scene = decodeURIComponent(options.scene)
+    if (scene && scene != undefined && scene != 'undefined') {
+      rid = utils.trim(scene)
+    } else {
+      rid = options.windowRid
+    }
+
     this.setData({
-      windowRid: options.windowRid,
-      'youLikeParams.rid': options.windowRid,
-      'commentParams.rid': options.windowRid,
-      'getCommentParams.rid': options.windowRid,
+      windowRid: rid,
+      'youLikeParams.rid': rid,
+      'commentParams.rid': rid,
+      'getCommentParams.rid': rid,
     })
 
     this.getWindowDetail() // 橱窗的详情

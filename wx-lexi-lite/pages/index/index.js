@@ -246,6 +246,10 @@ Page({
         },
       ]
     },
+    lifeWindow: { // 发现生活美学
+      count: 0,
+      shop_windows: []
+    },
 
     // 橱窗
     categoryActive: 'recommend',
@@ -1252,6 +1256,15 @@ Page({
   },
 
   /**
+   * 海报弹出框关闭后，清空记录
+   */
+  handleClearPosterUrl () {
+    this.setData({
+      windowPosterUrl: ''
+    })
+  },
+
+  /**
    * 生成橱窗推广海报图
    */
   getWindowWxaPoster(rid) {
@@ -1259,6 +1272,7 @@ Page({
     let scene = rid
     let params = {
       scene: scene,
+      rid: rid,
       path: 'pages/windowDetail/windowDetail',
       auth_app_id: app.globalData.app_id
     }
@@ -1298,6 +1312,7 @@ Page({
                 that.setData({
                   showPosterModal: false,
                   posterSaving: false,
+                  windowPosterUrl: '',
                   posterBtnText: '保存橱窗海报'
                 })
                 utils.fxShowToast('保存成功', 'success')
@@ -1318,6 +1333,7 @@ Page({
                         that.setData({
                           showPosterModal: false,
                           posterSaving: false,
+                          windowPosterUrl: '',
                           posterBtnText: '保存橱窗海报'
                         })
                       } else {
@@ -1494,6 +1510,20 @@ Page({
   /** 探索页面end **/
 
   /** 精选里面的 start **/
+
+  // 发现生活美学 
+  getLifeWindow(){
+    http.fxGet(api.shop_windows_handpick, {}, (result) => {
+      utils.logger(result, '今日推荐')
+      if (result.success) {
+        this.setData({
+          lifeWindow: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
 
   // 今日推荐
   getTodayRecommend() {
@@ -1872,6 +1902,7 @@ Page({
     this.getRecommendWindow() // 橱窗
     this.getLitePick() // 乐喜优选
     this.getPlantOrder() // 种草清单
+    this.getLifeWindow() // 发现生活美学
   },
 
   // 加载生活馆数据

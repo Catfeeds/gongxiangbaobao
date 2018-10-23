@@ -17,8 +17,8 @@
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
         <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
         <view class="flex-direction--column">
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30);" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-p30);" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30x2);" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-p30x2);" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
         </view>
       </view>
 
@@ -40,8 +40,8 @@
 
       <view class="fx-window__images seven" wx:if="{{ windowDetail.product_count == 7 }}">
         <view class="image-container three">
-          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p30);" data-rid="{{windowDetail.products[0].rid}}"></view>
-          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30);" data-rid="{{windowDetail.products[1].rid}}"></view>
+          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p30x2);" data-rid="{{windowDetail.products[0].rid}}"></view>
+          <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30x2);" data-rid="{{windowDetail.products[1].rid}}"></view>
           <view class="image-item " catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}"></view>
         </view>
         <view class="image-container one">
@@ -69,7 +69,7 @@
             <text wx:if="{{windowDetail.comment_count!=0}}">· {{windowDetail.comment_count}}条评论</text>
           </view>
         </view>
-        <view class="share" wx:if="{{}}">
+        <view class="share">
           <view class="done">
             <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
           </view>

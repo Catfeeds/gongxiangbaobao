@@ -16,13 +16,7 @@ Page({
 
     // 切换关注推荐
     categoryActive: 'recommend',
-    category: [{
-      name: '关注',
-      code: 'follow'
-    }, {
-      name: '推荐',
-      code: 'recommend'
-    }],
+    category: [],
 
     recommendWindow: { // 推荐橱窗的列表
       count: 0,
@@ -37,10 +31,125 @@ Page({
       count: 0,
       shop_windows: []
     },
+    
     followWindowParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
     },
+
+    showPosterModal: false, // 分享海报
+    windowPosterUrl: '', // 海报图片地址
+    posterSaving: false, // 是否正在保存
+    posterBtnText: '保存分享海报'
+  },
+
+  /**
+   * 显示海报弹出框
+   */
+  handleWindowShareModal(e) {
+    let rid = e.currentTarget.dataset.windowRid
+    this.getWindowWxaPoster(rid)
+
+    this.setData({
+      showPosterModal: true
+    })
+  },
+
+  /**
+   * 海报弹出框关闭后，清空记录
+   */
+  handleClearPosterUrl() {
+    this.setData({
+      windowPosterUrl: ''
+    })
+  },
+
+  /**
+   * 生成橱窗推广海报图
+   */
+  getWindowWxaPoster(rid) {
+    // scene格式：rid
+    let scene = rid
+    let params = {
+      scene: scene,
+      rid: rid,
+      path: 'pages/windowDetail/windowDetail',
+      auth_app_id: app.globalData.app_id
+    }
+
+    utils.logger(params, '橱窗海报参数')
+
+    http.fxPost(api.market_share_window_poster, params, (result) => {
+      utils.logger(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          windowPosterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 下载海报
+  handleSaveWindowPoster() {
+    let that = this
+    if (this.data.windowPosterUrl && !this.data.posterSaving) {
+      this.setData({
+        posterSaving: true,
+        posterBtnText: '正在保存...'
+      })
+
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.windowPosterUrl,
+        success: function (res) {
+          if (res.statusCode == 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function (data) {
+                that.setData({
+                  showPosterModal: false,
+                  posterSaving: false,
+                  windowPosterUrl: '',
+                  posterBtnText: '保存橱窗海报'
+                })
+                utils.fxShowToast('保存成功', 'success')
+              },
+              fail: function (err) {
+                utils.logger('下载海报失败：' + err.errMsg)
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存橱窗海报'
+                })
+
+                if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
+                  wx.openSetting({
+                    success(settingdata) {
+                      utils.logger(settingdata)
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        utils.fxShowToast('保存成功')
+                        that.setData({
+                          showPosterModal: false,
+                          posterSaving: false,
+                          windowPosterUrl: '',
+                          posterBtnText: '保存橱窗海报'
+                        })
+                      } else {
+                        utils.fxShowToast('保存失败')
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast('保存失败')
+                }
+              }
+            })
+          }
+        }
+      })
+    }
   },
 
   // 关闭登陆框
@@ -86,7 +195,7 @@ Page({
       uid: uid
     }, result => {
       utils.logger(result, "添加关注")
-      this.getFollowWindow()
+      // this.getFollowWindow()
     })
   },
 
@@ -229,9 +338,9 @@ Page({
     })
   },
 
-  // 获取推荐橱窗列表
+  //  喜欢
   getRecommendWindow() {
-    http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
+    http.fxGet(api.shop_windows_user_likes, this.data.recommendWindowParams, result => {
       utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
@@ -252,7 +361,7 @@ Page({
    */
   onLoad: function(options) {
     this.getRecommendWindow() // 推荐的橱窗
-    this.getFollowWindow() // 关注的橱窗
+    // this.getFollowWindow() // 关注的橱窗
 
     this.setData({
       myUid: app.globalData.jwt.uid
