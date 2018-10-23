@@ -191,7 +191,7 @@
 
             <view class="recommend-window_info">
               <view class="flex_row margin-bottom--30rpx">
-                <image class="master-photo" src="{{item.user_avatar}}"></image>
+                <image class="master-photo" src="{{item.user_avatar}}-ava"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>
               <view class="black-font  font-width--medium title">{{item.title}}</view>

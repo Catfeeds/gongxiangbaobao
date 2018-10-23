@@ -55,7 +55,7 @@
           <view class='joinNumberl'>
             <view class='joinNumberlBox'>
               <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
-                <image src='{{ item.avatar }}'></image>
+                <image src='{{ item.avatar }}-ava'></image>
               </view>
 
             </view>
@@ -132,7 +132,7 @@
         wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
         <!-- 店长头相 -->
         <view class='shopMaster'>
-          <image src='{{ lifeStore.logo }}' class='photo-round'></image>
+          <image src='{{ lifeStore.logo }}-ava' class='photo-round'></image>
           <text>馆长极力推荐</text>
           <!-- 垃圾箱 -->
           <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
@@ -193,7 +193,7 @@
             <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}' class='photo-round'></image>
+            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
           </view>
         </view>
       </view>
@@ -397,7 +397,7 @@
 
             <view class="recommend-window_info">
               <view class="flex_row margin-bottom--30rpx">
-                <image class="master-photo" src="{{item.user_avatar}}"></image>
+                <image class="master-photo" src="{{item.user_avatar}}-ava"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>
               <view class="black-font  font-width--medium title">{{item.title}}</view>
@@ -442,7 +442,7 @@
           <text class="plantnote-item_title font-s font-width--semibold text-two_line">{{item.title}}</text>
           <text class='plantnote-item_desc font-s shen-hui text-two_line'>{{item.description}}</text>
           <view class='plant-owner__box flex_row'>
-            <image src="{{item.user_avator}}" class='plant-owner__photo'></image>
+            <image src="{{item.user_avator}}-ava" class='plant-owner__photo'></image>
             <text class="font-s shen-hui">{{item.user_name}}</text>
           </view>
         </view>
@@ -654,7 +654,7 @@
           <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">
             <view class="fx-window__author">
               <view class="author-info">
-                <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+                <image src="{{item.user_avatar}}-ava" class="avatar border-round"></image>
                 <label class="name font-width--medium">{{item.user_name}}</label>
                 <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
                 <image wx:if="{{ item.is_official }}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
@@ -719,7 +719,7 @@
           <view class="fx-window" wx:for="{{followWindow.shop_windows}}" wx:key="{{index}}">
             <view class="fx-window__author">
               <view class="author-info">
-                <image src="{{item.user_avatar}}" class="avatar border-round"></image>
+                <image src="{{item.user_avatar}}-ava" class="avatar border-round"></image>
                 <label class="name">{{item.user_name}}</label>
                 <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
                 <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>

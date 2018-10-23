@@ -39,7 +39,7 @@
         <view class="invite-box">
           <!-- 用户头像 -->
           <view class="avatars" wx:if="{{ peopleCount.invite_count > 0 }}">
-            <image wx:for="{{ peopleCount.user_info }}" wx:for-item="user" wx:key="{{ user.user_sn }}" src="{{ user.user_logo }}" class="user-avatar"></image>
+            <image wx:for="{{ peopleCount.user_info }}" wx:for-item="user" wx:key="{{ user.user_sn }}" src="{{ user.user_logo }}-ava" class="user-avatar"></image>
           </view>
           <view class="avatars" wx:else>
             <image src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="user-avatar"></image>
@@ -80,7 +80,7 @@
       <!-- 弹幕 -->
       <view class="doomm-view">
         <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
-          <image class="avatar" src="{{ doomm.avatar }}"></image>
+          <image class="avatar" src="{{ doomm.avatar }}-ava"></image>
           <view class="adv" wx:if="{{ !doomm.type || doomm.type == 1 }}">
             {{ doomm.name }}获得
             <text class="amount">¥{{ doomm.amount }}</text>现金
@@ -232,7 +232,7 @@
       <view class="steal-title">偷我红包的人</view>
       <view class="invite-list steal-list">
         <view class="invite-item" wx:for="{{ stealBonusPeople }}" wx:for-item="people" wx:key="{{ people.user_sn }}">
-          <image src="{{ people.user_logo }}" class="avatar"></image>
+          <image src="{{ people.user_logo }}-ava" class="avatar"></image>
           <span>{{ people.user_name }}</span>
           <view class="action">
             <button class="btn-steal" data-uid="{{ people.user_sn }}" bindtap="handleStealBonus"></button>
@@ -269,7 +269,7 @@
       </view>
       <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadMyFriends" class="invite-list invite-list--scroll" wx:if="{{ friendActiveTab == 'mine' }}">
         <view class="invite-item" wx:for="{{ friendList }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}">
-          <image src="{{ friend.user_logo }}" class="avatar"></image>
+          <image src="{{ friend.user_logo }}-ava" class="avatar"></image>
           <span>{{ friend.user_name }}</span>
           <view class="action">
             <button class="btn-steal" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
@@ -291,7 +291,7 @@
 
       <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadGuessFriends" class="invite-list invite-list--scroll" wx:if="{{ friendActiveTab == 'guess' }}">
         <view class="invite-item" wx:for="{{ guessFriendList }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}">
-          <image src="{{ friend.user_logo }}" class="avatar"></image>
+          <image src="{{ friend.user_logo }}-ava" class="avatar"></image>
           <span>{{ friend.user_name }}</span>
           <view class="action">
             <button class="btn-steal" data-idx="{{ index }}" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
@@ -334,7 +334,7 @@
               <view class="title">我的名次</view>
               <view class="count">{{ currentUserTop.user_ranking > 0 ? currentUserTop.user_ranking : '未上榜' }}</view>
             </view>
-            <image src="{{ currentUserTop.user_info.user_logo }}" class="avatar"></image>
+            <image src="{{ currentUserTop.user_info.user_logo }}-ava" class="avatar"></image>
             <view class="name">{{ currentUserTop.user_info.user_name }}</view>
           </view>
           <view class="coupon">
@@ -366,7 +366,7 @@
               </span>
               <span class="count" wx:if="{{ item.ranking > 3 }}">{{ item.ranking }}</span>
             </view>
-            <image src="{{ item.user_info.user_logo }}" class="avatar"></image>
+            <image src="{{ item.user_info.user_logo }}-ava" class="avatar"></image>
             <view class="name">{{ item.user_info.user_name }}</view>
           </view>
           <view class="coupon">
@@ -401,7 +401,7 @@
               <view class="title">我的名次</view>
               <view class="count">{{ currentUserTop.user_ranking > 0 ? currentUserTop.user_ranking : '未上榜' }}</view>
             </view>
-            <image src="{{ currentUserTop.user_info.user_logo }}" class="avatar"></image>
+            <image src="{{ currentUserTop.user_info.user_logo }}-ava" class="avatar"></image>
             <view class="name">{{ currentUserTop.user_info.user_name }}</view>
           </view>
           <view class="coupon">
@@ -433,7 +433,7 @@
               </view>
               <view class="count" wx:if="{{ item.ranking > 3 }}">{{ item.ranking }}</view>
             </view>
-            <image src="{{ item.user_info.user_logo }}" class="avatar"></image>
+            <image src="{{ item.user_info.user_logo }}-ava" class="avatar"></image>
             <view class="name">{{ item.user_info.user_name }}</view>
           </view>
           <view class="coupon">
@@ -535,7 +535,7 @@
             wx:for="{{ newInviteFriends }}"
             wx:for-item="friend"
             wx:key="{{ friend.user_sn }}"
-            src="{{ friend.user_logo }}" class="avatar"></image>
+            src="{{ friend.user_logo }}-ava" class="avatar"></image>
           <image 
             wx:for="{{ lackList }}"
             wx:key="l{{ item }}"
