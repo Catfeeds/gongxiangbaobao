@@ -99,8 +99,8 @@
         </view>
       </view>
       <scroll-view scroll-x class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-delete-mark="likeProduct" data-rid='{{item.rid}}' data-store-id="{{item.store_rid}}" class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{likeProduct.products}}"
-          wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-delete-mark="likeProduct" data-rid='{{item.rid}}' data-store-id="{{item.store_rid}}" class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}'
+          wx:for="{{likeProduct.products}}" wx:key="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p16'></image>
         </view>
       </scroll-view>
@@ -110,7 +110,12 @@
     <view class='p-null window-box' wx:if="{{userWindow.count!=0}}">
       <view class='c-importantGoodsTitle  paymentFnTextB user__like'>
         <text>喜欢的橱窗</text>
-        <text class=' hui-zi margin--15rpx' wx:if="{{}}" data-from='userBrowses' catchtap='handleAllProduct'>查看全部 <text>></text> </text>
+
+        <view class=' hui-zi font-normal' wx:if="{{userWindow.count>2}}" catchtap="handleGoWindow">
+          <text>查看全部</text>
+          <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
+        </view>
+
       </view>
       <scroll-view scroll-x class=' c-importantGoodsBox'>
         <view catchtap='handleGoWindowDetail' data-rid='{{item.rid}}' class='inline-block {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{userWindow.shop_windows}}" wx:key="{{index}}">
@@ -166,7 +171,7 @@
     <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.length!=0&&desireOrderProduct.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
-        <view class=' hui-zi margin--15rpx' wx:if="{{desireOrderProduct.products.length==10}}" data-from='xinYuanOrder' catchtap='handleAllProduct'>
+        <view class=' hui-zi margin--15rpx' wx:if="{{desireOrderProduct.products.length>4}}" data-from='xinYuanOrder' catchtap='handleAllProduct'>
           <text>查看全部</text>
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>

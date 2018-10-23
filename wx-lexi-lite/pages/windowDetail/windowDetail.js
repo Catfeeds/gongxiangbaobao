@@ -44,7 +44,13 @@ Page({
       per_page: 3, //Number	可选	10	每页数量
       sort_type: 0, //Number	可选	0	排序方式0 = 默认1 = 按点赞数 2 = 按回复数
       rid: '', //Number	必须	 	橱窗编号
-    }
+    },
+
+    showPosterModal: false, // 分享海报
+    posterUrl: '', // 海报图片地址
+    posterSaving: false, // 是否正在保存
+    posterBtnText: '保存分享海报'
+
   },
 
   // 关闭登陆框
@@ -239,6 +245,102 @@ Page({
     wx.navigateTo({
       url: '../windowComment/windowComment?from=window&rid=' + this.data.windowRid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.windowDetail.is_like + '&likeCount=' + this.data.windowDetail.like_count + '&userName=' + e.currentTarget.dataset.userName
     })
+  },
+
+  /**
+   * 显示海报弹出框
+   */
+  handleShowShareModal () {
+    this.getWxaPoster()
+
+    this.setData({
+      showPosterModal: true
+    })
+  },
+
+  /**
+   * 生成推广海报图
+   */
+  getWxaPoster(rid) {
+    // scene格式：rid
+    let scene = this.data.windowRid
+    let params = {
+      scene: scene,
+      path: 'pages/windowDetail/windowDetail',
+      auth_app_id: app.globalData.app_id
+    }
+
+    utils.logger(params, '橱窗海报参数')
+
+    http.fxPost(api.market_share_window_poster, params, (result) => {
+      utils.logger(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 下载海报
+  handleSavePoster() {
+    let that = this
+    if (this.data.posterUrl && !this.data.posterSaving) {
+      this.setData({
+        posterSaving: true,
+        posterBtnText: '正在保存...'
+      })
+
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.posterUrl,
+        success: function (res) {
+          if (res.statusCode == 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function (data) {
+                that.setData({
+                  showPosterModal: false,
+                  posterSaving: false,
+                  posterBtnText: '保存分享海报'
+                })
+                utils.fxShowToast('保存成功', 'success')
+              },
+              fail: function (err) {
+                utils.logger('下载海报失败：' + err.errMsg)
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享海报'
+                })
+
+                if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
+                  wx.openSetting({
+                    success(settingdata) {
+                      utils.logger(settingdata)
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        utils.fxShowToast('保存成功')
+                        that.setData({
+                          showPosterModal: false,
+                          posterSaving: false,
+                          posterBtnText: '保存分享海报'
+                        })
+                      } else {
+                        utils.fxShowToast('保存失败')
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast('保存失败')
+                }
+              }
+            })
+          }
+        }
+      })
+    }
   },
 
   /**

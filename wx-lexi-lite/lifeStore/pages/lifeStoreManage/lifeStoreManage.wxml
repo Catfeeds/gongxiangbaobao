@@ -142,9 +142,9 @@
 
   <!-- 乐喜生活馆公众号 -->
   <fx-image-modal visible="{{ showQrcodeModal }}" close="{{ false }}">
-    <image src="https://static.moebeast.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
+    <image src="https://s3.lexivip.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
     <view class="btn-area">
-      <button class="fx-button primary" data-url="https://static.moebeast.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
+      <button class="fx-button primary" data-url="https://s3.lexivip.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
     </view>
   </fx-image-modal>
 

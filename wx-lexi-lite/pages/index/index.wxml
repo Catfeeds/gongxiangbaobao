@@ -186,11 +186,11 @@
             </view>
             <view>喜欢</view>
           </view>
-          <view class='recommendbottomText'>
+          <view class='recommendbottomText' catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">
             <view class='icon-like'>
               <image src='../../images/share@2.png'></image>
             </view>
-            <view catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">分享</view>
+            <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
             <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}' class='photo-round'></image>
@@ -223,7 +223,7 @@
   <view class="bg-white page-featured {{ pageActiveTab == 'featured' ? 'active' : '' }}">
     <!-- 手动旋转木马 -->
     <view class='swiper-photo list'>
-      <swiper autoplay="{{false}}" previous-margin="{{'20rpx'}}" next-margin="{{'100rpx'}}" bindchange="swiperChange">
+      <swiper circular autoplay="{{false}}" previous-margin="{{'20rpx'}}" next-margin="{{'100rpx'}}" bindchange="swiperChange">
         <block wx:for="{{handerAdvertisementList.banner_images}}" wx:key="{{index}}">
           <swiper-item catchtap="handleToInfo" data-type="{{item.type}}" data-link="{{item.link}}" data-title="{{item.title}}" data-rid="{{item.rid}}" class="flex_row--middle" data-id="{{item.id}}" data-sort="{{item.sort}}">
             <view class="slide-image slide-item__box {{swiperIndex == index ? 'active' : ''}} {{swiperIndex == index+1 ? 'hidding' : ''}}">
@@ -698,8 +698,8 @@
                 </view>
               </view>
               <view class="share">
-                <view class="done">
-                  <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+                <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+                  <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
                 </view>
               </view>
             </view>
@@ -762,8 +762,8 @@
                 </view>
               </view>
               <view class="share">
-                <view class="done">
-                  <image wx:if="{{}}" src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
+                <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+                  <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
                 </view>
               </view>
             </view>
@@ -920,6 +920,21 @@
       </view>
     </view>
   </fx-modal>
+
+  <!-- 橱窗海报图 -->
+  <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}">
+    <view class="fx-poster">
+      <view class="poster-box">
+        <image src="{{ windowPosterUrl }}" class="poster-image" wx:if="{{ windowPosterUrl }}"></image>
+        <image src="../../images/jiazai.gif" class="loading" wx:else></image>
+      </view>
+      <view class="btn-area">
+        <button class="fx-button primary" bindtap="handleSaveWindowPoster">
+          {{ posterBtnText }}
+        </button>
+      </view>
+    </view>
+  </fx-image-modal>
 
   <!-- 分享的悬浮按钮 -->
   <view class='time-top suspend-share bg-white font-s' wx:if="{{pageActiveTab=='lifeStore'}}" catchtap="handleShareLifeBrand">

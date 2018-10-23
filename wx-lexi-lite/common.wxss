@@ -978,3 +978,36 @@ button::after {
   color: #fff;
   margin-left: 10rpx;
 }
+
+
+/* 单个海报下载 */
+.fx-poster .poster-box {
+  width: 520rpx;
+  height: 924rpx;
+  margin: 0 auto;
+  background-image: url('https://static.moebeast.com/static/img/lexi-logo-bg2.jpg');
+  background-color: #f6f7fb;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 190rpx 80rpx;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.fx-poster .poster-box .poster-image {
+  width: 521rpx;
+  height: 924rpx;
+  border: none;
+}
+
+.fx-poster .poster-box .loading {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.fx-poster .btn-area {
+  margin-top: 20rpx;
+}

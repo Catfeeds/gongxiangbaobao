@@ -925,7 +925,6 @@ textarea {
 .swiper-photo {
   background-color: white;
   margin-top: 30rpx;
-  margin-bottom: 30rpx;
 }
 
 .swiper-photo .hidding {

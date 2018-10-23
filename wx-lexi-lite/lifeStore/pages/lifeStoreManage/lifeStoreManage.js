@@ -13,8 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    posterUrl:'', // 生成海报的url
-    cardPhoto:'', // 开馆的卡片
+    posterUrl: '', // 生成海报的url
+    cardPhoto: '', // 开馆的卡片
 
     sid: '', // 当前生活馆rid
     activeSubMenu: 'lifeStore',
@@ -26,7 +26,7 @@ Page({
     expired: false, // 是否已过实习期
     leftTimer: { // 剩余时间
       days: 0,
-      hours: 0, 
+      hours: 0,
       minutes: 0,
       seconds: 0,
     },
@@ -43,7 +43,7 @@ Page({
     showQrcodeModal: false,
     setIncomeStar: false,
     setWithdrawStar: false,
-    showShareModal:false
+    showShareModal: false
   },
 
   /**
@@ -58,7 +58,7 @@ Page({
   /**
    * 跳转至交易记录
    */
-  handleGoTrade () {
+  handleGoTrade() {
     wx.navigateTo({
       url: '../lifeStoreTransaction/lifeStoreTransaction'
     })
@@ -67,7 +67,7 @@ Page({
   /**
    * 跳转成交订单
    */
-  handleGoOrders () {
+  handleGoOrders() {
     wx.navigateTo({
       url: '../lifeStoreOrders/lifeStoreOrders',
     })
@@ -76,7 +76,7 @@ Page({
   /**
    * 跳转至提现
    */
-  handleGoWithdraw () {
+  handleGoWithdraw() {
     wx.navigateTo({
       url: '../lifeStoreWithdraw/lifeStoreWithdraw'
     })
@@ -85,7 +85,7 @@ Page({
   /**
    * 显示公众号二维码图片
    */
-  handleShowQrcodeModal () {
+  handleShowQrcodeModal() {
     this.setData({
       showQrcodeModal: true
     })
@@ -94,8 +94,7 @@ Page({
   /**
    * 提示弹出框
    */
-  handleShowModal () {
-    utils.logger('d')
+  handleShowModal() {
     this.setData({
       showModal: true
     })
@@ -112,7 +111,7 @@ Page({
   },
 
   // 邀请好友开馆的卡片
-  getOpenStorePhoto(){
+  getOpenStorePhoto() {
     http.fxPost(api.market_share_invite_carde, {}, (result) => {
       utils.logger(result, '邀请好友开馆的卡片')
       if (result.success) {
@@ -126,8 +125,8 @@ Page({
   },
 
   /**
-* 生成推广海报图
-*/
+   * 生成推广海报图
+   */
   getWxaPoster(rid) {
     // scene格式：sid + '-' + uid
     let scene = this.data.sid
@@ -157,16 +156,15 @@ Page({
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.posterUrl,
-      success: function (res) {
+      success: function(res) {
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              utils.fxShowToast('海报保存成功',"success")
+              utils.fxShowToast('保存成功', 'success')
             },
             fail(res) {
-
               if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
                 wx.openSetting({
                   success(settingdata) {
@@ -191,8 +189,8 @@ Page({
 
 
   /**
-* 取消分享-销售
-*/
+   * 取消分享-销售
+   */
   handleCancelShare(e) {
     this.setData({
       showShareModal: false,
@@ -203,12 +201,13 @@ Page({
   /**
    * 保存二维码图片
    */
-  handleSaveQrcode (e) {
+  handleSaveQrcode(e) {
+    let that = this
     let qrcodeUrl = e.currentTarget.dataset.url
     // 下载网络文件至本地
     wx.downloadFile({
       url: qrcodeUrl,
-      success: function (res) {
+      success: function(res) {
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
@@ -216,6 +215,9 @@ Page({
             success(res) {
               wx.showToast({
                 title: '图片保存成功',
+              })
+              that.setData({
+                showQrcodeModal: false
               })
             },
             fail(res) {
@@ -226,6 +228,9 @@ Page({
                     if (settingdata.authSetting["scope.writePhotosAlbum"]) {
                       utils.logger("获取权限成功，再次点击图片保存到相册")
                       utils.fxShowToast("保存成功")
+                      that.setData({
+                        showQrcodeModal: false
+                      })
                     } else {
                       utils.fxShowToast("保存失败")
                     }
@@ -244,7 +249,7 @@ Page({
   /**
    * 加密
    */
-  handleSecretIncome () {
+  handleSecretIncome() {
     wx.setStorageSync('setIncomeStar', !this.data.setIncomeStar)
     this.setData({
       setIncomeStar: !this.data.setIncomeStar
@@ -254,7 +259,7 @@ Page({
   /**
    * 加密
    */
-  handleSecretWithdraw () {
+  handleSecretWithdraw() {
     wx.setStorageSync('setWithdrawStar', !this.data.setWithdrawStar)
     this.setData({
       setWithdrawStar: !this.data.setWithdrawStar
@@ -264,7 +269,7 @@ Page({
   /**
    * 计算剩余时间
    */
-  practiceLeftTimer () {
+  practiceLeftTimer() {
     let endTs = this.data.createdAt + 30 * 24 * 60 * 60 // 30天内
     let leftTime = endTs - utils.timestamp() // 计算剩余的毫秒数 
     // utils.logger('Left time: ' + leftTime)
@@ -296,8 +301,10 @@ Page({
   /**
    * 获取生活馆提现汇总
    */
-  getStoreCashCollect () {
-    http.fxGet(api.life_store_cash_collect, { store_rid: this.data.sid }, (res) => {
+  getStoreCashCollect() {
+    http.fxGet(api.life_store_cash_collect, {
+      store_rid: this.data.sid
+    }, (res) => {
       utils.logger(res, '提现汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
@@ -312,8 +319,10 @@ Page({
   /**
    * 获取生活馆收益汇总
    */
-  getStoreIncomeCollect () {
-    http.fxGet(api.life_store_income_collect, { store_rid: this.data.sid }, (res) => {
+  getStoreIncomeCollect() {
+    http.fxGet(api.life_store_income_collect, {
+      store_rid: this.data.sid
+    }, (res) => {
       utils.logger(res, '收益汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
@@ -329,8 +338,10 @@ Page({
   /**
    * 获取生活馆订单汇总
    */
-  getStoreOrdersCollect () {
-    http.fxGet(api.life_store_orders_collect, { store_rid: this.data.sid }, (res) => {
+  getStoreOrdersCollect() {
+    http.fxGet(api.life_store_orders_collect, {
+      store_rid: this.data.sid
+    }, (res) => {
       utils.logger(res, '订单汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
@@ -345,14 +356,14 @@ Page({
   /**
    * 获取生活馆信息
    */
-  getStoreInfo () {
+  getStoreInfo() {
     http.fxGet(api.life_store, {
       rid: this.data.sid
     }, (res) => {
       utils.logger(res, '生活馆信息')
       if (res.success) {
-        if (res.data.name.length>8){
-          res.data.name = res.data.name.substr(0, 3) + '...' + res.data.name.substr(5,2)
+        if (res.data.name.length > 8) {
+          res.data.name = res.data.name.substr(0, 3) + '...' + res.data.name.substr(5, 2)
         }
 
         this.setData({
@@ -365,11 +376,11 @@ Page({
       }
     })
   },
-  
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     const lifeStore = wx.getStorageSync('lifeStore')
     const userInfo = wx.getStorageSync('jwt')
     // 小B商家获取自己生活馆
@@ -397,14 +408,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     let timer = setInterval(() => {
       this.practiceLeftTimer()
     }, 1000)
@@ -417,7 +428,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     clearInterval(this.data.timer)
     this.setData({
       timer: null
@@ -427,7 +438,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     clearInterval(this.data.timer)
     this.setData({
       timer: null
@@ -437,26 +448,26 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (e) {
-    if (e.from == "menu" || e.target.dataset.card == 1 ){
+  onShareAppMessage: function(e) {
+    if (e.from == "menu" || e.target.dataset.card == 1) {
       // scene格式：sid + '-' + uid
       let scene = this.data.sid
       utils.logger('pages/index/index?scene=' + scene, '分享的参数')
-      
+
       return {
         title: this.data.userName + '邀请你一起来来乐喜开个',
         path: 'pages/index/index?scene=' + scene,

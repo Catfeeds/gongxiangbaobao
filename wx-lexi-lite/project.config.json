@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -151,15 +151,15 @@
 				},
 				{
 					"id": 19,
-					"name": "橱窗",
-					"pathName": "pages/windowDetail/windowDetail",
-					"query": "windowRid=32"
+					"name": "商品详情",
+					"pathName": "pages/product/product",
+					"query": "scene=8194567023-75471986"
 				},
 				{
 					"id": -1,
-					"name": "写评论",
-					"pathName": "pages/windowComment/windowComment",
-					"query": "rid=32"
+					"name": "网络加载失败",
+					"pathName": "pages/networkError/networkError",
+					"query": ""
 				}
 			]
 		}

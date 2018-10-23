@@ -289,21 +289,35 @@ image {
 }
 
 .wxParse-p image {
-  margin-bottom: 26rpx;
-  width: 100% !important;
+  margin-bottom: 10rpx;
+  width: 750rpx !important;
 }
 
 .wxParse-p view {
   display: flex;
   flex-direction: row;
-  margin: 0 40rpx !important;
+  margin: 0 40rpx 20rpx !important;
   line-height: 44rpx !important;
   white-space: wrap;
-  margin-bottom: 30rpx !important;
+}
+.wxParse-p text {
+  height: 20rpx;
 }
 
-.wxParse-p image {
-  width: 100%;
+.wxParse-p .ql-size-small.wxParse-span,
+.wxParse-p .ql-size-large.wxParse-span {
+  margin-bottom: 0rpx !important;
+}
+.wxParse-p .ql-size-large.wxParse-span view {
+  font-size: 34rpx !important;
+  font-weight: bold;
+  margin: 0 0 20rpx !important;
+}
+
+.wxParse-p .ql-size-small.wxParse-span view {
+  font-size: 30rpx !important;
+  font-weight: bold;
+  margin: 0 0 20rpx !important;
 }
 
 .color--huilv {

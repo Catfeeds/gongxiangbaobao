@@ -130,9 +130,18 @@ Page({
 
   // 使用官方的优惠券
   handleUseCouponTap(e) {
-    wx.switchTab({
-      url: '../index/index',
-    })
+    console.log(e.currentTarget.dataset.categoryId)
+    let rid = e.currentTarget.dataset.categoryId
+    if (rid == 0) {
+      wx.switchTab({
+        url: '../index/index',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../categoryList/categoryList?categryId=' + rid + "&titleName=" + e.currentTarget.dataset.name,
+      })
+    }
+
   },
 
   // 使用商家券

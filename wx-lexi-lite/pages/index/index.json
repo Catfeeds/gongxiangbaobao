@@ -12,6 +12,7 @@
     "fx-login": "/components/FxLogin/FxLogin",
     "fx-modal-v": "/components/FxModalV/FxModalV",
     "fx-user-defined": "/components/FxUserDefined/FxUserDefined",
-    "fx-modal": "/components/FxModal/FxModal"
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-image-modal": "/components/FxImageModal/FxImageModal"
   }
 }

@@ -37,7 +37,7 @@ Page({
 
     userInfo: { // 用户的信息---
       profile:{
-        avatar:''
+        avatar:'https://static.moebeast.com/image/static/null-product.png'
       }
     }, 
     avatar: '', // 用户头像
@@ -121,15 +121,14 @@ Page({
 
         // 同步global-userInfo
         app.globalData.userInfo.username = result.data.username
-        app.globalData.userInfo.profile.username = result.data.username
-        app.globalData.userInfo.avatar = result.data.avatar
-        app.globalData.userInfo.profile.avatar = result.data.avatar
+        app.globalData.userInfo.avatar = result.data.avatar_id
 
         // 同步storage-userInfo
-        let userInfo = wx.getStorageSync('userInfo')
-        userInfo.username = result.data.username
-        userInfo.avatar = result.data.avatar
-        wx.setStorageSync('userInfo', userInfo)
+        let jwt = wx.getStorageSync('jwt')
+        jwt.username = result.data.username
+        jwt.avatar = result.data.avatar
+        wx.setStorageSync('jwt', jwt)
+        app.updateUserInfo(jwt)
 
         wx.showToast({
           title: '已保存',
@@ -184,21 +183,21 @@ Page({
   // 获取单个附件信息
   getAssetInfo (asset) {
     if (asset) {
-      let userInfo = wx.getStorageSync('userInfo')
-      userInfo.avatar = asset.view_url
-      wx.setStorageSync('userInfo', userInfo)
+      // let userInfo = asset
+      // userInfo.avatar = asset.view_url
+      // wx.setStorageSync('userInfo', userInfo)
 
-      let jwt = wx.getStorageSync('jwt')
-      jwt.avatar = asset.view_url
-      wx.setStorageSync('jwt', jwt)
+      // let jwt = wx.getStorageSync('jwt')
+      // jwt.avatar = asset.view_url
+      // wx.setStorageSync('jwt', jwt)
 
       this.setData({
         isEdited: true,
-        'userInfo.profile.avatar': userInfo.avatar,
+        'userInfo.profile.avatar': asset.view_url,
         ['editUserInfo.avatar_id']: asset.id
       })
 
-      app.globalData.userInfo.profile.avatar = userInfo.avatar
+      // app.globalData.userInfo.profile.avatar = userInfo.avatar
     }
   },
 

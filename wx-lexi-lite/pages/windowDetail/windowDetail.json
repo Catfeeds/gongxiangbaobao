@@ -3,6 +3,7 @@
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-login": "/components/FxLogin/FxLogin",
-    "fx-loading": "/components/FxLoading/FxLoading"
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-image-modal": "/components/FxImageModal/FxImageModal"
   }
 }

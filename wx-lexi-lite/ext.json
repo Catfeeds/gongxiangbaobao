@@ -5,17 +5,17 @@
   "ext": {
     "name": "乐喜小馆",
     "authAppid": "wx60ed17bfd850985d",
-    "storeRid": "91984703",
+    "storeRid": "96820495",
     "attr": {
       "users": [
         "purpen"
       ]
     },
     "api": {
-      "host": "https://wx.taihuoniao.com",
+      "host": "https://wxapi.lexivip.com",
       "version": "v1.0",
-      "appKey": "zXIPN0ftRj6dlrKFOZpH",
-      "appSecret": "4d8ebaf52b76603a158b67f525a1b9e5f80677da"
+      "appKey": "PmVOkj4Un6dfKCqQryMR",
+      "appSecret": "e238bf64d77e5be7284686aaacd0232e7248254a"
     }
   },
   "networkTimeout": {

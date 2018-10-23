@@ -181,5 +181,5 @@
   color: white;
 }
 .get-reward{
-  background-color: rgba(0, 0, 0, .9)
+  background-color: rgba(0, 0, 0, .5)
 }

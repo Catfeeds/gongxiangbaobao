@@ -93,6 +93,13 @@ Page({
       if (result.success) {
         result.data.bonus_lines.forEach((v) => {
           utils.logger(v.user_name - 0 != NaN)
+
+          // 外置需要的参数
+          v.user_name = v.user_info.user_name
+          v.user_logo = v.user_info.user_logo
+          v.user_sn = v.user_info.user_sn
+
+
           if (v.user_name - 0 != NaN) {
             v.user_name = v.user_name.substr(0, 3) + '***' + v.user_name.substr(7, 4)
           } else {

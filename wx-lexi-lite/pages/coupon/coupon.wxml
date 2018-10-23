@@ -88,7 +88,7 @@
           <view class='font-xss'>
             乐喜券
           </view>
-          <text class='font-s'>全场通用</text>
+          <text class='font-s'>{{item.category_name}}</text>
         </view>
         <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==1}}">分享领红包</view>
         <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==2}}">猜图赢现金</view>
@@ -98,7 +98,7 @@
       </view>
       <!-- 去使用的按钮 -->
       <view class='right-btn'>
-        <view data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
+        <view data-rid='{{item.coupon.code}}' data-category-id="{{item.category_id}}" data-name="{{item.category_name}}" catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
       </view>
     </view>
 
