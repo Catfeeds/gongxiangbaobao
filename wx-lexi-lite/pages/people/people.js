@@ -23,8 +23,7 @@ Page({
 
     classInfo: 1, // 切换---
     // 切换类型---
-    classList: [
-      {
+    classList: [{
         rid: 1,
         num: 0,
         name: '喜欢'
@@ -137,8 +136,8 @@ Page({
         http.fxGet(api.other_user_browses, {
           uid: this.data.otherPeopleUid
         }, (result) => {
+          utils.logger(result, this.data.otherPeopleUid, '其他人最查看')
           if (result.success) {
-            utils.logger(result, '其他人最查看')
             this.setData({
               userBrowsesProduct: result.data
             })
@@ -152,8 +151,8 @@ Page({
           uid: this.data.otherPeopleUid
         }, (result) => {
           utils.logger(this.data.otherPeopleUid)
+          utils.logger(result, '其他人心愿单')
           if (result.success) {
-            utils.logger(result, '其他人心愿单')
             this.setData({
               desireOrderProduct: result.data
             })
@@ -267,7 +266,9 @@ Page({
       return
     }
 
-    http.fxPost(api.follow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
+    http.fxPost(api.follow_user, {
+      uid: e.currentTarget.dataset.uid
+    }, (result) => {
       utils.logger(result)
       if (result.success) {
         this.setData({
@@ -289,8 +290,10 @@ Page({
       })
       return
     }
-    
-    http.fxPost(api.unfollow_user, { uid: e.currentTarget.dataset.uid }, (result) => {
+
+    http.fxPost(api.unfollow_user, {
+      uid: e.currentTarget.dataset.uid
+    }, (result) => {
       utils.logger(result)
       if (result.success) {
         this.setData({
@@ -429,7 +432,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../myFollower/myFollower?uid=' +e.currentTarget.dataset.uid,
+      url: '../myFollower/myFollower?uid=' + e.currentTarget.dataset.uid,
     })
   },
 
