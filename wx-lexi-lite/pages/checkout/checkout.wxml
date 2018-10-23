@@ -100,7 +100,7 @@
 
         <image class='receiveFnBottomBox' src='../../images/shop-icon@2.png'></image>
 
-        <textarea data-rid="{{items[0].store_rid}}" auto-height='{{true}}'bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项' class="user-input__text"></textarea>
+        <textarea data-rid="{{items[0].store_rid}}" auto-height='{{true}}' bindinput='handleGiveShop' placeholder-class='input' placeholder='给商家的说明和注意事项' class="user-input__text"></textarea>
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
@@ -152,8 +152,8 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-  <cover-view class='conservation' wx:if='{{ paymentBtn }}'>
-    <button catchtap='paymentSuccess'>提交订单</button>
+  <cover-view class='conservation'>
+    <button catchtap="{{paymentBtn?'paymentSuccess':'' }}">{{paymentBtn?'提交订单':'加载中···'}}</button>
   </cover-view>
 
   <!-- 优惠券弹框 -->
@@ -240,5 +240,5 @@
 
   <!-- 垫片 value='{code:{{item.coupon.code}},store_rid:{{pickCouponProductId}},price:{{item.coupon.amount}}}' -->
   <view class='shm'></view>
-<fx-loading loading="{{ isLoading }}"></fx-loading>
+  <fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>

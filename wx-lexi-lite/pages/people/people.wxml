@@ -146,7 +146,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{likeProduct.products.length==0}}">
+    <view class='flex-direction-column__item column-row--middle user-null__product padding-top--32rpx' wx:if="{{likeProduct.products.length==0}}">
       <view>
         <image src='../../images/user-xin.png'></image>
       </view>
@@ -212,12 +212,12 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{desireOrderProduct.products.length==0 && userBrowsesProduct.length==0}}">
+    <view class='flex-direction-column__item column-row--middle user-null__product padding-top--32rpx' wx:if="{{desireOrderProduct.products.length==0 && userBrowsesProduct.length==0}}">
       <view>
         <image src='../../images/user-star.png'></image>
       </view>
       <view class='black-font no-like__title'>
-        <text>你当前还没有浏览和添加心愿单商品</text>
+        <text>Ta当前还没有浏览和添加心愿单商品</text>
       </view>
     </view>
   </view>
@@ -267,12 +267,12 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{watchStoreList.stores.length==0}}">
+    <view class=' flex-direction-column__item column-row--middle user-null__product padding-top--32rpx' wx:if="{{watchStoreList.stores.length==0}}">
       <view>
         <image src='../../images/user-store.png'></image>
       </view>
       <view class='black-font no-like__title'>
-        <text>你当前还未关注任何原创品牌设计馆</text>
+        <text>Ta当前还未关注任何原创品牌设计馆</text>
       </view>
     </view>
   </view>
