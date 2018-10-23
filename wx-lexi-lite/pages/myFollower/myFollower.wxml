@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='time-top font-m relation-item'  wx:for="{{peopleList}}" wx:key="{{index}}">
     <view class='flex_row relation-avater'>  
-      <image src='{{item.avatar}}'></image>
+      <image src='{{item.avatar}}-ava'></image>
       <text>{{item.username}}</text>
     </view>
 

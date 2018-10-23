@@ -455,7 +455,7 @@ textarea {
 }
 
 .position-image {
-  background-image: url("https://static.moebeast.com/static/img/throbber.gif");
+  background-image: url("../../images/jiazai.gif");
   background-repeat: no-repeat;
   background-size: 32rpx;
   background-position: 50%;

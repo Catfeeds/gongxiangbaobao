@@ -1,11 +1,5 @@
 <!--pages/people/people.wxml 我看别人主页-->
 <view class='container {{is_mobile?"prevent__penetrate":""}}'>
-  <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
-
   <view class='top-box border-bottom'>
     <!-- 头像 -->
     <view class='user-photo'>

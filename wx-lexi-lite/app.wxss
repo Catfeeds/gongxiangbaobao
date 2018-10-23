@@ -864,8 +864,8 @@ image {
 }
 
 .distribute-style .wxa-poster .cover .loading {
-  width: 16rpx;
-  height: 16rpx;
+  width: 64rpx;
+  height: 64rpx;
 }
 
 .distribute-action {

@@ -93,6 +93,10 @@ Component({
       NewData.name = dataLength > 12 ? NewData.name.slice(0, 11) + '...' : NewData.name
     }
 
+    if (this.properties.photoSize == '30') {
+      this.properties.photoSize = '30x2'
+    }
+    
     if (NewData.cover) {
       NewData.cover_image = NewData.cover + '-p' + this.properties.photoSize
     } else {
