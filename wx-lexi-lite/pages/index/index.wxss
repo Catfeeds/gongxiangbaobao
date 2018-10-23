@@ -11,57 +11,66 @@
   background-color: white;
 }
 
-.page-lifestore,
-.page-featured,
-.page-explore {
+.page-lifestore, .page-featured, .page-explore {
   display: none;
 }
-.page-lifestore.active,
-.page-featured.active,
-.page-explore.active {
+
+.page-lifestore.active, .page-featured.active, .page-explore.active {
   display: block;
 }
+
 .fx-part .editor-recommend {
   height: 380rpx;
   margin: 40rpx 0;
 }
+
 .fx-part .best-stores {
   height: 500rpx;
 }
+
 .fx-part .best-products {
   height: 382rpx;
 }
+
 .fx-part .best-collections {
   height: 316rpx;
   margin: 40rpx 0;
 }
+
 .fx-part .best-sales {
   height: 380rpx;
   margin: 40rpx 0;
 }
+
 .fx-part .best-100 {
   height: 380rpx;
   margin: 40rpx 0;
 }
+
 .fx-part .plantnote-list {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
   padding: 40rpx;
 }
+
 .plantnote-list .plantnote-item {
   flex: 0 0 326rpx;
   margin-bottom: 40rpx;
 }
+
 .plantnote-list .plantnote-item .plantnote-item_cover {
   margin-bottom: 20rpx;
 }
+
 .plantnote-list .plantnote-item .plantnote-item_title {
   margin-bottom: 18rpx;
 }
+
 .plantnote-list .plantnote-item .plantnote-item_desc {
   margin-bottom: 18rpx;
 }
+
 .sear-top {
   height: 100rpx;
 }
@@ -158,7 +167,7 @@
 .owner-avatar_box .avatar {
   width: 128rpx;
   height: 128rpx;
-  border-radius: 8rpx
+  border-radius: 8rpx;
 }
 
 .owner-avatar_box .upload-status__box {
@@ -611,14 +620,16 @@ textarea {
   background: rgba(245, 247, 249, 1);
   margin: 0 auto;
 }
+
 .product-category-name {
-  font-weight:400;
-  color:rgba(51,51,51,1);
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
   margin-top: 20rpx;
   margin-bottom: 13rpx;
 }
+
 .product-category-count {
-  font-weight:400;
+  font-weight: 400;
 }
 
 .characteristic-box {
@@ -975,7 +986,6 @@ swiper-photo .slide-item__box image {
   overflow: hidden;
   animation: myfirst 0.3s;
   animation-fill-mode: forwards;
-
 }
 
 .swiper-photo .slide-item__box image {
@@ -1525,7 +1535,7 @@ swiper-photo .slide-item__box image {
 }
 
 .swiper-photo swiper-item {
-  width:96%;
+  width: 96%;
 }
 
 .share-friend {
@@ -1547,4 +1557,28 @@ swiper-photo .slide-item__box image {
 
 .remark .like-hide {
   visibility: hidden;
+}
+
+.zhuhe-icon {
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 10rpx;
+}
+
+.copy-wx__number {
+  position: absolute;
+  right: 50rpx;
+  bottom: 48rpx;
+  height: 36rpx;
+  width: 140rpx;
+  border: 1rpx solid #5fe4b1;
+  color: #5fe4b1;
+  font-size: 22rpx;
+  line-height: 36rpx;
+  text-align: center;
+  border-radius: 30rpx;
+}
+
+.probation-box .gongxi-title__text {
+  font-weight: 500;
 }

@@ -1643,7 +1643,7 @@ Page({
   getWeekPopular() {
     http.fxGet(api.distribution_week_popular, {
       page: 1,
-      per_page: 4
+      per_page: 20
     }, (res) => {
       utils.logger(res, '最受欢迎商品')
       if (res.success) {

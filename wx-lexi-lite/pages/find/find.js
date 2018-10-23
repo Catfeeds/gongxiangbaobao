@@ -96,6 +96,13 @@ Page({
         url: '../branderStore/branderStore?rid=' + link
       })
     }
+
+    if (targetType == 6) {
+      wx.navigateTo({
+        url: '../findInfo/findInfo?rid=' + link
+      })
+    }
+
   },
 
   // 猜你喜欢
