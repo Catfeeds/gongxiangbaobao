@@ -186,7 +186,7 @@ button::after {
 .fx-window .fx-window__author {
   display: flex;
   align-items: center;
-  padding: 40rpx 40rpx 20rpx;
+  padding: 22rpx 40rpx 20rpx;
 }
 
 .fx-window .fx-window__author .author-info {

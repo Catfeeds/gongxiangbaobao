@@ -71,7 +71,8 @@ Page({
    */
   onLoad: function(options) {
     this.getMyDynamic()
-    console.log(app.globalData.runEnv)
+    
+    utils.logger(app.globalData.runEnv)
 
     this.setData({
       runEnv: app.globalData.runEnv

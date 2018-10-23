@@ -1709,9 +1709,16 @@ Page({
     }, (res) => {
       utils.logger(res, '生活馆信息-1710')
       if (res.success) {
+        let isCadet = true
+        if (res.data.phases == 2) {
+          isCadet = false
+        }
+        
         this.setData({
-          lifeStore: res.data
+          lifeStore: res.data,
+          isCadet: isCadet
         })
+        
         let lifeStoreName = res.data.name + '的生活馆'
         this.handleSetNavigationTitle(lifeStoreName)
       } else {

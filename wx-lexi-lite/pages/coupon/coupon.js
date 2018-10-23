@@ -60,7 +60,7 @@ Page({
   // 官方优惠券 红包列表 
   getRedBag() {
     http.fxGet(api.authority_coupon, this.data.authorityParams, (result) => {
-      console.log(result, '官方红包列表')
+      utils.logger(result, '官方红包列表')
       if (result.success) {
 
         result.data.coupons.forEach((v, i) => {
@@ -84,7 +84,7 @@ Page({
   // 未使用商家
   getUserCoupon() {
     http.fxPost(api.market_core_user_coupons, this.data.storeCouponParams, (result) => {
-      console.log(result, '商家券')
+      utils.logger(result, '商家券')
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.get_at, 'date')
         v.end_time = utils.timestamp2string(v.end_at, 'date')
@@ -104,7 +104,7 @@ Page({
   // 已经过期的优惠券
   getExceedTime() {
     http.fxGet(api.market_user_expired, this.data.exceedCouponParams, (result) => {
-      console.log(result, '过期的优惠券')
+      utils.logger(result, '过期的优惠券')
       result.data.coupons.forEach((v, i) => {
         v.start_time = utils.timestamp2string(v.start_at, 'date')
         v.end_time = utils.timestamp2string(v.expired_at, 'date')
@@ -130,7 +130,7 @@ Page({
 
   // 使用官方的优惠券
   handleUseCouponTap(e) {
-    console.log(e.currentTarget.dataset.categoryId)
+    utils.logger(e.currentTarget.dataset.categoryId)
     let rid = e.currentTarget.dataset.categoryId
     if (rid == 0) {
       wx.switchTab({
@@ -146,7 +146,7 @@ Page({
 
   // 使用商家券
   handleGoStore(e) {
-    console.log(e.currentTarget.dataset.storeId, '商家的优惠券信息')
+    utils.logger(e.currentTarget.dataset.storeId, '商家的优惠券信息')
     wx.navigateTo({
       url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.storeId,
     })
