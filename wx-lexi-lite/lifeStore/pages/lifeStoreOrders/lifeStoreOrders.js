@@ -19,6 +19,11 @@ Page({
       { rid: 's2', name: '已收货', status: 2, count: 0 },
       { rid: 's3', name: '已完成', status: 3, count: 0 }
     ],
+    progressPanels: [
+      { rid: 'p1', name: '待发货', status: 1, actived: true },
+      { rid: 'p2', name: '已发货', status: 2, actived: false },
+      { rid: 'p3', name: '交易成功', status: 3, actived: false }
+    ],
     collect: {
       all_count: 0,
       today_count: 0
@@ -44,26 +49,7 @@ Page({
     })
     this.getStoreOrderList()
   },
-
-  /**
-   * 订单状态
-   */
-  _getOrderStatusLabel (status) {
-    let label = ''
-    switch (status) {
-      case 1:
-        label = '待发货'
-        break
-      case 2:
-        label = '已发货'
-        break
-      case 3:
-        label = '已完成'
-        break
-    }
-    return label
-  },
-
+  
   /**
    * 更新提醒数量
    */
@@ -101,8 +87,7 @@ Page({
 
       for (let i=0; i< res.data.orders.length; i++) {
         // 时间格式化
-        res.data.orders[i].created_at = utils.timestamp2string(res.data.orders[i].created_at, 'cn')
-        res.data.orders[i].status_label = this._getOrderStatusLabel(res.data.orders[i].life_order_status)
+        res.data.orders[i].created_at = utils.timestamp2string(res.data.orders[i].created_at, 'second')
         for (let k = 0; k < res.data.orders[i].items.length; k++) {
           res.data.orders[i].items[k].product_name = utils.truncate(res.data.orders[i].items[k].product_name, 13)
         }

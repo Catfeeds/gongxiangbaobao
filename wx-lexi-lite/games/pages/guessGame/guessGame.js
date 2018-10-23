@@ -1026,8 +1026,7 @@ Page({
   getInitData() {
     this.getPeopleStats()
     this.getInvitePeople()
-    this.getStealBonusNotice()
-
+    
     this.getTopWorld()
     this.getFriendList()
   },

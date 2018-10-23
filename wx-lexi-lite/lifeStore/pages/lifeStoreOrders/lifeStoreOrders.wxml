@@ -28,8 +28,7 @@
         <view class="user-info">
           <view class="name">{{ order.store.store_name }}</view>
           <view class="store">
-            <text class="order-label">订单状态：</text>
-            <text class="order-status">{{ order.status_label }}</text>
+            <text class="order-label">{{ order.created_at }}</text>
           </view>
         </view>
         <view class="subtotal">
@@ -54,15 +53,28 @@
         </view>
 
         <view class="order-item__foot">
-          <view class="order-sn">
-            订单编号：{{ order.rid }}
-          </view>
           <view class="order-date">
-            <text class="time">{{ order.created_at }}</text>
+            <text class="time">订单编号：{{ order.rid }}</text>
             <view class="income">
               预计收益：
               <text class="amount">￥{{order.order_total_commission_price}}</text>
             </view>
+          </view>
+        </view>
+
+        <view class="order-item__progress">
+          <view 
+            class="step {{ order.life_order_status >= progress.status ? 'active' : '' }}" 
+            wx:for="{{ progressPanels }}"
+            wx:for-item="progress"
+            wx:for-index="idx"
+            wx:key="{{ progress.rid }}">
+            <view class="progress">
+              <view class="line"></view>
+              <view class="point"></view>
+              <view class="line"></view>
+            </view>
+            <view class="label">{{ progress.name }}</view>
           </view>
         </view>
 

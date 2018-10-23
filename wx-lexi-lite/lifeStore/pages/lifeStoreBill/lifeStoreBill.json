@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "对账单"
+  "navigationBarTitleText": "对账单",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }
