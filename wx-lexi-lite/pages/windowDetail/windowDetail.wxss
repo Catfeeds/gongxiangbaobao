@@ -299,23 +299,6 @@
   margin-right: 40rpx;
 }
 
-.similar-windows .live-beautiful__window {
-  display: flex;
-  flex-flow: row nowrap;
-  margin-right: 40rpx;
-}
-
-.similar-windows .live-beautiful__window .recommend-window__item {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  margin-top: 30rpx;
-}
-
-.similar-windows .scroll-windows {
-  height: 660rpx;
-}
-
 .all-quantity__btn {
   height: 80rpx;
   color: #666;

@@ -136,7 +136,7 @@
   <block wx:if="{{categoryId==2}}">
     <view class='production new-goods_box '>
       <view data-category="精彩故事" data-rid="{{item.rid}}" data-type="{{item.type}}" catchtap="handleLiveInfo" class='flex-direction--column productionGoods ' wx:for="{{wonderfulStories}}" wx:key='{{index}}'>
-        <image src="{{item.cover}}" class="img--style"></image>
+        <image src="{{item.cover}}-p326x216" class="img--style"></image>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilv" wx:if="{{index==0}}">种草笔记</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huihong" wx:if="{{index==1}}">手作教学</text>
         <text class="font-s font-width--medium text-two_line margin-bottom--10rpx color--huilan" wx:if="{{index==2}}">创作人故事</text>

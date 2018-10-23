@@ -12,6 +12,10 @@
   margin-bottom: 30rpx;
 }
 
+.top-photo .article-headpic {
+  width: 100%;
+}
+
 .browse-quantity__icon {
   height: 18rpx;
   width: 28rpx;

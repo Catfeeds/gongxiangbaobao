@@ -122,14 +122,14 @@
           <!-- 橱窗 -->
           <view class='time-top showcase-box'>
             <view class='showcase-box__left'>
-              <image src="{{item.product_covers[0]}}"></image>
+              <image src="{{item.product_covers[0]}}-p50"></image>
             </view>
             <view class='line-D showcase-box__right'>
               <view>
-                <image src="{{item.product_covers[1]}}"></image>
+                <image src="{{item.product_covers[1]}}-p30x2"></image>
               </view>
               <view>
-                <image src="{{item.product_covers[2]}}"></image>
+                <image src="{{item.product_covers[2]}}-p30x2"></image>
               </view>
             </view>
           </view>
