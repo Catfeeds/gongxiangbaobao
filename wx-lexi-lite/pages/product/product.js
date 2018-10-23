@@ -656,7 +656,6 @@ Page({
       openid: openid,
       sid: jwt.store_rid || ''
     }, (result) => {
-      console.log(result, '产品详情')
       if (result.success) {
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
