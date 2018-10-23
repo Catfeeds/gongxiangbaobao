@@ -5,7 +5,9 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
-let paymentWindowInterval
+let paymentWindowInterval // 弹框的倒计时
+let daifuInterval // 待付款计时器
+let allOrderInterval // 全部订单计时器
 
 Page({
   /**
@@ -135,11 +137,12 @@ Page({
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       utils.logger(result, '订单列表')
+      console.log(result, '订单列表')
+      console.log(this.data.getOrderListParams, '订单列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
           v.created_item = utils.timestamp2string(v.created_at, "cn")
-
         })
 
         let allOrderList = this.data.allOrderList
@@ -150,7 +153,7 @@ Page({
         })
 
         let newOrderList = this.data.allOrderList
-        setInterval(() => {
+        allOrderInterval = setInterval(() => {
           this.setData({
             allOrderList: this._handlePaymenLastTime(newOrderList)
           })
@@ -180,7 +183,7 @@ Page({
         })
 
         let newOrderList = this.data.daifu
-        setInterval(() => {
+        daifuInterval = setInterval(() => {
           this.setData({
             daifu: this._handlePaymenLastTime(newOrderList)
           })
@@ -443,7 +446,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(paymentWindowInterval)
+    clearInterval(allOrderInterval)
+    clearInterval(daifuInterval)
   },
 
   /**
@@ -466,7 +471,7 @@ Page({
   onReachBottom: function() {
     //全部
     if (this.data.currentStatus == 0) {
-      if (this.data.isNextAll == null) {
+      if (!this.data.isNextAll) {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -477,9 +482,9 @@ Page({
       this.getOrderList()
     }
 
-
+    // 待发货
     if (this.data.currentStatus == 1) {
-      if (this.data.isNextDaifa == null) {
+      if (!this.data.isNextDaifa) {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -490,9 +495,10 @@ Page({
       this.getDaifaList() // 获取待发列表---
     }
 
+    //待收货
     if (this.data.currentStatus == 2) {
 
-      if (this.data.isNextdaishou == null) {
+      if (!this.data.isNextdaishou) {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -504,8 +510,9 @@ Page({
 
     }
 
+    //待评价
     if (this.data.currentStatus == 3) {
-      if (this.data.isNextDaiping == null) {
+      if (!this.data.isNextDaiping) {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -516,18 +523,20 @@ Page({
       this.getPingjiaList() // 评价
     }
 
+    //'待付款'
     if (this.data.currentStatus == 4) {
 
-      if (this.data.isNextDaifu == null) {
+      if (!this.data.isNextDaifu) {
         utils.fxShowToast('没有更多了')
         return
       }
       this.setData({
         ['dafuParams.page']: this.data.dafuParams.page + 1
       })
+
+      this.getDaifuList()
     }
 
-    this.getDaifuList()
   },
 
   /**

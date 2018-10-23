@@ -214,7 +214,7 @@ Page({
       }
 
       this.setData({
-        'storeCouponParams.page': this.data.storeCouponParams + 1,
+        'storeCouponParams.page': this.data.storeCouponParams.page + 1,
         storeLoading: true
       })
 
@@ -228,7 +228,7 @@ Page({
       }
 
       this.setData({
-        'authorityParams.page': this.data.authorityParams + 1,
+        'authorityParams.page': this.data.authorityParams.page + 1,
         authorityLoading: true
       })
 
@@ -242,7 +242,7 @@ Page({
       }
 
       this.setData({
-        'exceedCouponParams.page': this.data.exceedCouponParams + 1,
+        'exceedCouponParams.page': this.data.exceedCouponParams.page + 1,
         exceedLoading: true
       })
 

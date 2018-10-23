@@ -432,8 +432,8 @@ Page({
 
   // 跳转到搜索页面
   handleToSearch() {
-    wx.navigateTo({
-      url: '../search/search',
+    wx.navigateBack({
+      delta: 1,
     })
   },
 
