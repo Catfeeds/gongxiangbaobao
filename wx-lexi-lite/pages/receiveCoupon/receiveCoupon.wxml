@@ -147,6 +147,8 @@
                 </text>
                 <text class="font-xss oldPrice">¥{{product.product_amount}} </text>
               </view>
+              <view class="coupon-holder"></view>
+              <view class="coupon-holder"></view>
             </view>
           </view>
 
@@ -276,6 +278,8 @@
               </text>
               <text class="font-xss oldPrice">¥{{product.product_amount}}</text>
             </view>
+            <view class="coupon-holder"></view>
+            <view class="coupon-holder"></view>
           </view>
 
         </view>

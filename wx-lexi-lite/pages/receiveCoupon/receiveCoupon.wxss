@@ -324,12 +324,18 @@
 
 .brand-coupon__big .coupon-big__bottom .coupon-join__product {
   position: relative;
+  margin-right: 20rpx; 
 }
 
 .brand-coupon__big .coupon-big__bottom .coupon-join__product image:nth-child(1) {
   height: 200rpx;
   width: 200rpx;
   border-radius: 8rpx;
+}
+
+.coupon-holder {
+  flex: 0 0 200px;
+  visibility: hidden;
 }
 
 .brand-coupon__min {

@@ -230,7 +230,7 @@
       </view>
       <view class='production new-goods_box'>
         <view class='productionGoods {{ (index+1)%5 == 0 ? "productionGoodsFive" : "" }}' wx:for="{{ popularProducts }}" wx:key='{{ item.rid }}'>
-          <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3'}}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
+          <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3'}}" photoSize="{{(index+1)%5==0?'50':'30'}}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
         </view>
       </view>
     </view>
