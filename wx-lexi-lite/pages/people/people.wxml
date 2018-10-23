@@ -90,7 +90,7 @@
   <view wx:if="{{classInfo==1}}" class='bottom__info'>
 
     <!-- 喜欢的商品列表 -->
-    <view class='p-null padding-top--32rpx'>
+    <view class='p-null padding-top--32rpx' wx:if="{{otherLikeList.products.length!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB user__like'>
         <text>喜欢的商品</text>
         <text 
