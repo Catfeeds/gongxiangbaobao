@@ -1011,3 +1011,14 @@ button::after {
 .fx-poster .btn-area {
   margin-top: 20rpx;
 }
+
+/* 文章的卡片 */
+
+.article-item .big-title {
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+.article-item .summary {
+  font-size: 22rpx;
+  font-weight:400;
+}

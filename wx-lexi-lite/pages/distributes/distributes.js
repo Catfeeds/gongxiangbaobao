@@ -949,10 +949,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage (o) {
-    utils.logger('分享商品从选品中心')
-
-    let title = this.data.shareProduct.name
-    return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
+    app.shareLeXi()
   }
 
 })
