@@ -1077,6 +1077,7 @@ Page({
   getEditRecommend() {
     http.fxGet(api.column_explore_recommend, {}, (result) => {
       utils.logger(result, '编辑推荐')
+      console.log(result, '编辑推荐')
       if (result.success) {
         this.setData({
           editRecommendList: [],

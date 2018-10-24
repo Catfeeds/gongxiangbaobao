@@ -925,7 +925,7 @@ textarea {
 }
 
 .bg--hui {
-  background-color: #949ea6;
+  background-color: rgba(255, 255, 255, 0.5)
 }
 
 .height--372rpx {
@@ -1602,12 +1602,6 @@ swiper-photo .slide-item__box image {
     left: -100rpx;
     height: 100rpx;
     width: 100rpx;
-  }
-
-  50% {
-    left: -40rpx;
-    height: 150rpx;
-    width: 150rpx;
   }
 
   100% {
