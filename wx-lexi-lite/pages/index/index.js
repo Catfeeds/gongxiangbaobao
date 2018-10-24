@@ -1552,6 +1552,7 @@ Page({
       per_page: 15
     }, (result) => {
       utils.logger(result, '人气推荐')
+      console.log(result, '人气推荐')
       if (result.success) {
         this.setData({
           gratefulList: [],
@@ -1781,13 +1782,11 @@ Page({
       count: 20
     }, (res) => {
       utils.logger(res, '选品中心')
-      console.log(res, '选品中心')
       if (res.success) {
         this.setData({
           latestDistributeProducts: res.data.products
         })
 
-        this._lifeAnimation()
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -2026,7 +2025,7 @@ Page({
         latestDistributeProducts: arrayData.concat(arrayData[this.data.animationNum]),
         animationNum: this.data.animationNum + 1,
       })
-    }, 3000)
+    }, 2000)
   },
 
   /**
@@ -2183,6 +2182,8 @@ Page({
       this.setData({
         isSmallB: true
       })
+
+      this._lifeAnimation()
     }
 
     // 当前显示生活馆与应该显示生活馆是否一致
@@ -2220,7 +2221,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(animationInterval) // 清除动画
   },
 
   /**

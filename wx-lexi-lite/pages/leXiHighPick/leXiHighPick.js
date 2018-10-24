@@ -32,7 +32,6 @@ Page({
     sortBox: false, // 排序的模态框
     browseRecordOfThis: [], // 浏览过本栏目的记录
     otherUid: '', // 别人的uid
-    isPersonal: false, // 是不是从个人中心进入
     productList: [], // 商品列表
     touchBottomInfo: '', // 触底加载需要的信息,
     isLoadingNextPage: true, // 触底是否加载,
