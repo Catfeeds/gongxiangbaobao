@@ -16,12 +16,11 @@ Page({
   data: {
     topKey: 0,
     isLoading: true,
-    
+
     bonusCount: [], // 奖金计数
     rule_show: [], // 活动内容呼出框
     get_bonus: false, // 获取红包的呼出框
-    rule_text: [
-      {
+    rule_text: [{
         text: '红包的使用期限为7天，一周内未使用则失效， 仅授权微信和绑定手机用户才有参与资格领取。'
       },
       {
@@ -192,9 +191,6 @@ Page({
       path: '/pages/index/index',
       imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {
-        if (!this.data.get_bonus) {
-          this.getBonusShow()
-        }
 
         http.fxPost(api.market_bonus_grant, {}, (result) => {
           utils.logger(result, '分享后领取红包')
@@ -208,8 +204,16 @@ Page({
               bonusCount: this.data.bonusCount + 1
             })
 
+            if (!this.data.get_bonus) {
+              this.getBonusShow()
+            }
+
           } else {
             utils.fxShowToast(result.status.message)
+            this.animation.bottom(-2000 + 'rpx').step()
+            this.setData({
+              get_bonus: this.animation.export()
+            })
           }
         })
       },
