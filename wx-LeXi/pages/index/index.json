@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "white",
   "navigationBarTitleText": "首页",
   "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-coupon": "/components/FxCoupon/coupon",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",

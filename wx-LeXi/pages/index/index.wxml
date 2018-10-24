@@ -1,6 +1,9 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../shareTemplate/shareTemplate.wxml" />
+
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container index-page'>
+
   <!-- 背景图片 -->
   <view class='index-bg'>
     <image src='{{ shopInfo.bgcover }}'></image>
@@ -12,7 +15,6 @@
   <!-- 中间user的信息 -->
   <view class="middle-user-box">
     <view class='middle-user-info'>
-
       <view class='approve-photo'>
         <image src='../../images/@2.png'></image>
       </view>
@@ -23,14 +25,15 @@
         </view>
       </view>
       <view class='shop-explain'>
-        <text class='font-s'>{{shopInfo.tag_line}}</text> </view>
+        <text class='font-s'>{{shopInfo.tag_line}}</text>
+      </view>
       <view class='locationAddOther'>
         <view>
           <view class='fx-icon-address theme-green marR'></view>
           <view class='marR'>{{shopInfo.province}}</view>
         </view>
         <view>
-          <view class=' marR'>粉丝</view>
+          <view class='marR'>粉丝</view>
           <view>{{shopInfo.fans_count}}</view>
         </view>
       </view>
@@ -43,7 +46,9 @@
           <image src='../../images/icon@2.png'></image>
           <view>关注</view>
         </view>
-        <view class='userInfoBtn theme-bg-color rander' catchtap="handleViewBrandStory">关于品牌</view>
+        <view class='userInfoBtn theme-bg-color rander' catchtap="handleViewBrandStory">
+          关于品牌
+        </view>
       </view>
     </view>
   </view>
@@ -51,7 +56,7 @@
   <!-- 浏览过的人数 -->
   <view class='joinNumber'>
     <view class='theme-hui-color h40px'>
-      <text class='theme-color'>{{ shopInfo.browse_number+1 }} 人</text>浏览过设计馆
+      设计馆被浏览过 <text class='theme-color'>{{ shopInfo.browse_number + 1 }}</text> 次
     </view>
     <view class='joinNumberBottom'>
       <view class='joinNumberl'>
@@ -60,16 +65,15 @@
             <image class='middle_shadou' src='../../images/shadow.png'></image>
             <view class='joinNumberR-box c-middle'>
               <view class='joinNumberR'>
-                {{ shopInfo.browse_number > 999 ? '999+' : shopInfo.browse_number+1 }}
+                {{ shopInfo.count > 999 ? '999+' : shopInfo.count + 1 }}
               </view>
             </view>
           </view>
 
-          <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{BrowseQuantityInfo.user_parties}}'>
-            <image src='{{ item.avatar }}'></image>
+          <view wx:key='{{index}}' class='photo-round joinNumberlPhoto' wx:for='{{ browsers.user_parties }}'>
+            <image src='{{ item.avatar }}-ava'></image>
           </view>
           <open-data class='photo-round joinNumberlPhoto' type="userAvatarUrl"></open-data>
-
         </view>
       </view>
     </view>
@@ -79,17 +83,19 @@
   <view class='notice' wx:if="{{ announcement.length!=0 }}">
     <view class='notice-title'>设计馆公告</view>
     <view class='notice-box'>
-      <view class='{{lookMany?"":"three-line-text"}}'>{{ announcement }}</view>
+      <view class='{{ !lookMany ? "three-line-text" : "" }}'>{{ announcement }}</view>
     </view>
-    <view class='notice-info theme-green black-font' catchtap='handleLookMany' wx:if="{{announcement.length>66&&!lookMany}}">...阅读更多</view>
-    <view class='notice-info theme-green' catchtap='handleOffLook' wx:if="{{lookMany}}">收起</view>
-
+    <view class='notice-info theme-green black-font' catchtap='handleLookMany' wx:if="{{ announcement.length > 66 && !lookMany }}">
+      ...阅读更多
+    </view>
+    <view class='notice-info theme-green' catchtap='handleOffLook' wx:if="{{ lookMany }}">
+      收起
+    </view>
   </view>
 
   <!-- 优惠券 -->
   <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
     <view class='coupon-message'>
-
       <!-- 优惠券 -->
       <view class='time-top coupon-icon' wx:if='{{ couponList.length != 0 }}'>
         <view class=''>
@@ -102,50 +108,59 @@
       <!-- 满减 -->
       <view class='reduced-price' wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
         <image src='../../images/reduced-price@2.png'></image>
-        <text wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">{{ item.type_text }}</text>
-        <view class='reduced-price__last' wx:if="{{fullSubtractionList.coupons.length>2&&couponList.coupons.length != 0}}"> ··· </view>
+        <text wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">
+          {{ item.type_text }}
+        </text>
+        <view class='reduced-price__last' wx:if="{{ fullSubtractionList.coupons.length>2 &&couponList.coupons.length != 0 }}"> ··· </view>
         <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
       </view>
     </view>
   </view>
 
   <!-- 精选 作品 人气 tab -->
-  <view class='tab {{tabPisition?" tabPosition ":""}}'>
-    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{catgoryActive==item.rid?"active":""}}' catchtap='handleGoryActiveTap'>
+  <view class='tab {{ tabPisition ? "tabPosition" : "" }}'>
+    <view wx:for="{{catgory}}" wx:key="{{item.rid}}" data-rid="{{item.rid}}" class='{{ catgoryActive == item.rid ? "active" : "" }}' catchtap='handleGoryActiveTap'>
       {{ item.name }}
       <i wx:if="{{ item.rid == 2 && myProduct.count > 0 }}">{{ myProduct.count }}</i>
     </view>
   </view>
+
   <!-- 垫片 -->
-  <view class='shim' wx:if="{{tabPisition}}"></view>
+  <view class='shim' wx:if="{{ tabPisition }}"></view>
+
   <!-- 精选 里面的内容-->
-  <view wx:if="{{catgoryActive==1}}">
+  <view wx:if="{{ catgoryActive == 1 }}">
     <!-- 主打设计 -->
     <view class='c-importantGoods' wx:if="{{themeProduct.designs.length!=0}}">
       <view class='c-importantGoodsTitle'>主打设计</view>
       <view class='c-importantGoodsBox'>
         <view class='c-importantGoodsPhoto' wx:for="{{themeProduct.designs}}" wx:key="{{index}}">
-          <fx-product product="{{ item.product }}" 
-          bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          <fx-product product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
       </view>
     </view>
+
+    
     <!-- 主打下面的图片 -->
-    <view class='goodsPhotoInfo theme-bg-color c-middle' wx:if='{{ advertisement.banners.length != 0 }}'>
-      <swiper autoplay='{{ true }}' bindchange="handleRoundActive" scroll-x style="width: 100%">
-        <swiper-item 
-          class="swiper-item" 
-          catchtap="handleToAdvInfo"
-          data-rid="{{item.link}}"
-          wx:for='{{ advertisement.banner_images }}' wx:key='{{ index }}'>
-          <image src='{{ item.image }}'></image>
+    <view class="advertise-container" wx:if='{{ advertisement.banner_images.length > 0 }}'>
+      <swiper class="advertise-swiper" bindchange="handleRoundActive" autoplay="true" scroll-x>
+        <swiper-item class="swiper-item" wx:for="{{ advertisement.banner_images }}" wx:key="{{ index }}" wx:if="{{ item.type == 8 }}">
+          <navigator target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="{{ item.link }}" extra-data="" version="release">
+            <image src="{{ item.image }}" class="advertise-image"></image>
+          </navigator>
         </swiper-item>
       </swiper>
       <!-- 轮播点 -->
-      <view class='swiper__round'>
-        <view wx:for="{{advertisement.banner_images}}" wx:key="{{index}}" class='swiper__round--pick {{roundActive==index?"swiper__round--active":""}}'></view>
+      <view class="swiper__round">
+        <view 
+          wx:for="{{ advertisement.banner_images }}" 
+          wx:key="p{{ index }}"
+          wx:if="{{ item.type == 8 }}"
+          class="swiper__round--pick {{ roundActive == index ? 'swiper__round--active' : '' }}">
+        </view>
       </view>
     </view>
+
     <!-- 推荐好物 -->
     <view class='' wx:if="{{recommendProductList.products.length!=0}}">
       <view class='importantGoodsTitle goodgoods'>推荐好物</view>
@@ -200,9 +215,7 @@
         <view class='tuijian'>
           <!-- 物品的详情 -->
           <view class='recommend-goods-box' wx:for='{{highQualityProduct.designs}}' wx:key='{{index}}'>
-            <fx-product-middleM 
-            is_likeNumber="{{true}}"
-            bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
+            <fx-product-middleM is_likeNumber="{{true}}" bind:triggerEvent_product="handleInfomation" originPric="{{true}}" is_likeNumber="{{true}}" price="{{true}}" product="{{item.product}}" round="true">
             </fx-product-middleM>
           </view>
         </view>
@@ -258,25 +271,25 @@
       </view>
     </view>
 
-  <block wx:if="{{currentNewProduct.length!=0}}">
-    <view class='human new-goods'>
-      最新作品
-    </view>
-    <view class='production new-goods_box'>
-      <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct}}' wx:key='{{index}}'>
-        <fx-product photoSize="{{(index+1)%5==0?'50':'30'}}" product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+    <block wx:if="{{currentNewProduct.length!=0}}">
+      <view class='human new-goods'>
+        最新作品
       </view>
-    </view>
+      <view class='production new-goods_box'>
+        <view class='productionGoods {{(index+1)%5==0?"productionGoodsFive":""}}' wx:for='{{currentNewProduct}}' wx:key='{{index}}'>
+          <fx-product photoSize="{{(index+1)%5==0?'50':'30'}}" product="{{item}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        </view>
+      </view>
 
-    <block>
-      <!-- 底部加载 -->
-      <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
-      </view>
-      <!-- 没有商品加载的底部 -->
-      <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
+      <block>
+        <!-- 底部加载 -->
+        <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+          <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+        </view>
+        <!-- 没有商品加载的底部 -->
+        <view class="c-middle not-have__load--bottom" wx:if="{{!isNewProductNext}}"> END </view>
+      </block>
     </block>
-</block>
 
   </view>
 

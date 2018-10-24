@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/index/index",
     "pages/theme/theme",
     "pages/redBag/redBag",
@@ -62,5 +61,6 @@
         "selectedIconPath": "images/icon-account-active@3x.png"
       }
     ]
-  }
+  },
+  "navigateToMiniProgramAppIdList": ["wx60ed17bfd850985d"]
 }
