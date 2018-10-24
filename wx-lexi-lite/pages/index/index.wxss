@@ -634,8 +634,8 @@ textarea {
 
 .characteristic-box {
   display: inline-block;
-  width: 500rpx;
-  height: 500rpx;
+  width: 508rpx;
+  height: 459rpx;
   margin-right: 40rpx;
   position: relative;
   overflow: hidden;
