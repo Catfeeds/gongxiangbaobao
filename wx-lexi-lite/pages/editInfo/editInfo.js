@@ -100,7 +100,7 @@ Page({
     utils.logger('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       isEdited: true,
-      ['editUserInfo.date']: e.detail.value
+      'editUserInfo.date': e.detail.value
     })
   },
 
@@ -108,7 +108,7 @@ Page({
   bindGenderChange(e) {
     this.setData({
       isEdited: true,
-      ['editUserInfo.gender']: parseInt(e.detail.value)
+      'editUserInfo.gender': parseInt(e.detail.value)
     })
   },
 
@@ -223,7 +223,7 @@ Page({
           ['editUserInfo.province_id']: userProfile.province_id,
           ['editUserInfo.city_id']: userProfile.city_id,
           ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
-          ['editUserInfo.date']: userProfile.date,
+          'editUserInfo.date': userProfile.date,
           ['editUserInfo.street_address']: userProfile.street_address,
           joinTime: time,
 
