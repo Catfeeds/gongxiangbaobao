@@ -6,11 +6,11 @@
       <buttton open-type="share" class='share-Tempate_img line-D'>
         <button open-type="share"></button>
         <image src='../../images/timg.jpg' class='share_photo'></image>
-        <view class='hui-zi'>点击直接分享好友样式</view>
+        <view class='hui-zi'>点击直接分享好友</view>
       </buttton>
       <view class='share-Tempate_img line-D'>
         <image src='../../images/timg.jpg' class='save_photo'></image>
-        <view class='hui-zi'>保存分享朋友圈海报</view>
+        <view class='hui-zi'>保存分享图</view>
       </view>
     </view>
     <view class='time-top c-crosswise-a'>

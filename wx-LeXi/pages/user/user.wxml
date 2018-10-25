@@ -2,21 +2,23 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container '>
   <view class='top-box'>
-    <view class="go-lexi">
-      <navigator class="navigate" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
-        <image src='../../images/fei@2.png' class="icon-go"></image> 
-        <view class="title">乐喜Lite</view>
-      </navigator>
-    </view>
     <!-- 头像 -->
     <view class='user-photo'>
       <view class='photo'>
         <image src='{{ userInfo.avatar }}-ava' wx:if='{{ userInfo.avatar != null }}'></image>
         <open-data wx:else type="userAvatarUrl"></open-data>
       </view>
-      <view wx:for="{{ classList }}" wx:key="{{ index }}" data-rid='{{ item.rid }}' class="user__like" catchtap='classTap'>
-        <view class='number {{ classInfo == item.rid ? "green" : "" }}'>{{ item.num }}</view>
-        <view class='hui-zi {{ classInfo == item.rid ? "green" : ""}}'>{{ item.name }}</view>
+      <view class="user-event">
+        <view class="user-stats">
+          <view wx:for="{{ classList }}" wx:key="{{ index }}" data-rid='{{ item.rid }}' class="user__like" catchtap='classTap'>
+            <view class='number {{ classInfo == item.rid ? "green" : "" }}'>{{ item.num }}</view>
+            <view class='hui-zi {{ classInfo == item.rid ? "green" : ""}}'>{{ item.name }}</view>
+          </view>
+        </view>
+        <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+          <image src="../../images/lexi-logo-30.png" class="icon-logo"></image>
+          <view class="wxa-name">乐喜Lite</view>
+        </navigator>
       </view>
     </view>
     <!-- 手机号码 -->
@@ -125,12 +127,12 @@
       </view>
     </view>
     <!-- 心愿单 -->
-    <view class='c-importantGoods p-null' wx:if="{{desireOrderProduct.count!=0}}">
+    <view class='c-importantGoods p-null' wx:if="{{ desireOrderProduct.count != 0 }}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text>心愿单</text>
       </view>
       <view class='c-importantGoodsBox'>
-        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
+        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{ desireOrderProduct.products }}" wx:key="{{index}}">
           <image src='{{item.cover}}-p16'></image>
         </view>
       </view>
@@ -138,7 +140,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{ desireOrderProduct.count==0 && userBrowsesProduct.count==0 }}">
+    <view class=' column-row--middle user-null__product' wx:if="{{ desireOrderProduct.count == 0 && userBrowsesProduct.count == 0 }}">
       <view>
         <image src='../../images/user-star.png'></image>
       </view>

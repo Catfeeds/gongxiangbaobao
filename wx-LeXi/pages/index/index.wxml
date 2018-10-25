@@ -57,7 +57,7 @@
   <!-- 浏览过的人数 -->
   <view class="store-join-number">
     <view class="preview-history">
-      设计馆被浏览过 <text class="view-count">{{ shopInfo.browse_number + 1 }}</text> 次
+      设计馆被浏览过 <text class="view-count">{{ browsers.browse_number + 1 }}</text> 次
     </view>
     <view class="store-visitors">
       <view class="avatars">
@@ -133,7 +133,7 @@
       <scroll-view scroll-x="true" class='important-goods__box'>
         <view class="important-goods__container">
           <view class="important-goods__photo" wx:for="{{ themeProduct.designs }}" wx:key="{{ index }}">
-            <fx-product class="main-design" product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+            <fx-product class="main-design" photoSize="28" product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
           </view>
         </view>
       </scroll-view>
@@ -305,7 +305,7 @@
       <view class="distribute-style">
         <button class="share-friend wxa-card" open-type="share">
           <image src="{{ shareWhat.sharestore.cover }}" class="cover"></image>
-          <text>点击直接分享好友样式</text>
+          <text>点击直接分享好友</text>
         </button>
 
         <view class="wxa-poster" bindtap="handleSaveShare">
@@ -313,7 +313,7 @@
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
             <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
-          <text>保存分享朋友圈海报</text>
+          <text>保存分享图</text>
         </view>
       </view>
       <view class="distribute-action distribute-action__box">

@@ -66,7 +66,7 @@ Page({
     recommendProductList: [], // 推荐好物品---
     themeProduct: [], //主打设计---
     openid: '', // openid---
-    browsers: [], // 浏览人数---
+    browsers: {}, // 浏览人数---
     announcement: false, //获取店铺的公告---
     shopInfo: [], //店铺信息--- 
     is_with: false, // 是否对这个店铺有关注---
@@ -595,8 +595,8 @@ Page({
 
     http.fxPost(api.add_browse, params, (result) => {
       utils.logger(result, '添加浏览人数')
-      if (result.success) {
-        this.getBrowseQuantity() // 浏览浏览人数---
+      if (!result.success) {
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -1197,6 +1197,7 @@ Page({
   _refreshData() {
     // 添加浏览者
     this.addBrowse()
+
     // 查看是否关注
     this.getIsWatch()
 
@@ -1218,6 +1219,9 @@ Page({
     // 获取主人信息
     this.getStoreOwner()
 
+    // 浏览浏览人数
+    this.getBrowseQuantity()
+    
     // 获取商品 (精选)
     this.getThemeProduct() // 1,主打设计
     this.getRecommendProducts() // 推荐好物---
