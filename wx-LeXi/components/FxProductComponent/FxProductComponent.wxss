@@ -29,9 +29,11 @@
 }
 
 .photoBox .cover {
+  border-radius: 8rpx;
+}
+.photoBox .cover-p28 {
   width: 280rpx;
   height: 280rpx;
-  border-radius: 8rpx;
 }
 .photoBox .cover-p30x2 {
   width: 326rpx;

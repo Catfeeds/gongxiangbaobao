@@ -133,7 +133,7 @@
       <scroll-view scroll-x="true" class='important-goods__box'>
         <view class="important-goods__container">
           <view class="important-goods__photo" wx:for="{{ themeProduct.designs }}" wx:key="{{ index }}">
-            <fx-product class="main-design" product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+            <fx-product class="main-design" photoSize="28" product="{{ item.product }}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
           </view>
         </view>
       </scroll-view>
