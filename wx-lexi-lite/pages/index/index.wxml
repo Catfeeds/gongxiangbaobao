@@ -84,7 +84,7 @@
       </view>
     </block>
 
-<!-- 刚开通了生活馆 -->
+    <!-- 刚开通了生活馆 -->
     <block wx:if="{{}}">
       <view class="probation-box probation-box__white" wx:if="{{ canAdmin }}">
         <view class='time-top'>
@@ -122,7 +122,8 @@
         </view>
       </view> -->
       <view class="swiper-false">
-        <image wx:for="{{latestDistributeProducts}}" wx:key="{{index}}"  class="{{index==animationNum?'one-animation__index':''}} {{index+1==animationNum?'two-animation__index':''}} {{index+2==animationNum?'three-animation__index':''}}  {{index+3==animationNum?'four-animation__index':''}} " src="{{item.cover}}-p16"></image>
+        <image wx:for="{{latestDistributeProducts}}" wx:key="{{index}}" class="{{index==animationNum?'one-animation__index':''}} {{index+1==animationNum?'two-animation__index':''}} {{index+2==animationNum?'three-animation__index':''}}  {{index+3==animationNum?'four-animation__index':''}} "
+          src="{{item.cover}}-p16"></image>
       </view>
 
       <view class='font-s'>
@@ -355,7 +356,7 @@
         <view class="{{item==gratefulSwiper?'bg--green':''}}" wx:for="{{[0,1,2]}}" wx:key="{{index}}"></view>
       </view>
 
-      <swiper bindchange="handleGratefulSwiper"  interval="{{5000}}" circular class='gratefulList-box margin-left--40rpx  margin-right--40rpx border-bottom'>
+      <swiper bindchange="handleGratefulSwiper" interval="{{5000}}" circular class='gratefulList-box margin-left--40rpx  margin-right--40rpx border-bottom'>
         <!-- 1 -->
         <swiper-item>
           <view class='production new-goods_box padding-left__right--0rpx padding-top--0rpx '>
@@ -960,6 +961,41 @@
     </view>
     <text class='suspend-share__text'>分享</text>
     <!-- <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button> -->
+  </view>
+
+  <!-- 新人领取红包 -->
+  <view class="fx-column--center new-user__coupon" wx:if="{{newUserCoupon}}">
+    <view class="new-user__box">
+      <scroll-view scroll-y class="new-user__coupon--scroll">
+        <view class="flex_row coupon-item" wx:for="{{newUserCouponInfo}}" wx:key="{{index}}">
+          <!-- 左 -->
+          <view class="fx-column--center item-coupon__left">
+            <view>
+              <text class="new-user_money--icon">￥</text>
+              <text class="new-user_money">{{item.money}}</text>
+            </view>
+            <view class="use-coupon__condition">满{{item.condition}}使用</view>
+          </view>
+          <!-- 右 -->
+          <view class="flex-direction--column item-coupon__right">
+            <view class="use-time">
+              <text>2018.8.09</text> 至
+              <text> 2018.8.1</text>
+            </view>
+            <view class="flex_row">
+              <view class="coupon-category">乐喜券</view>
+              <text class="coupon-use__position">{{item.use_position}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="coupon-box__shim"></view>
+      </scroll-view>
+      <view class="new-user__bottom--receive">
+        <image class="receive-btn" src="https://static.moebeast.com/image/static/new_user_bonus1.png"></image>
+      </view>
+    </view>
+
+    <image class="off-new__coupon--btn" src="../../images/receive-10003x.png"></image>
   </view>
 
 </view>

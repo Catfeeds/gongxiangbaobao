@@ -36,6 +36,51 @@ Page({
 
     lifeStorePosterUrl: '', // 生活馆的url
 
+    newUserCoupon: false, // 新人是否领取过红包
+    newUserCouponInfo: [{
+        money: 10,
+        condition: 10,
+        use_position: '全平台',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 15,
+        condition: 159,
+        use_position: '生活良品',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 25,
+        condition: 259,
+        use_position: '好感衣装',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 35,
+        condition: 359,
+        use_position: '箱包&包装',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 15,
+        condition: 159,
+        use_position: '全平台',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 5,
+        condition: 54,
+        use_position: '全平台',
+        created_at: 0,
+        end_at: 0
+      }
+    ],
+
     // 生活馆
     isSmallB: false, // 自己是否有生活馆
     showBack: false, // 显示回到自己生活馆
@@ -1419,7 +1464,20 @@ Page({
 
   },
 
+  // 处理红包的时间
+  _handleNewUserCouponTime() {
+    let arrayData = this.data.newUserCouponInfo
 
+    let currentTime = new Date()
+    let currentTimeStr = Date.parse(currentTime) / 1000
+    console.log(c)
+
+    arrayData.forEach(v => {
+      v.created_at = utils.timestamp2string(currentTimeStr,'date'),
+        v.end_at = utils.timestamp2string(currentTimeStr,'date')
+
+    })
+  },
 
   // 获取浏览记录
   getBrowsePeople() {
@@ -1896,6 +1954,29 @@ Page({
     })
   },
 
+  // 新人是否领取过红包
+  getNewCoupon() {
+    // 没有登录
+    if (!app.globalData.isLogin) {
+      this._handleNewUserCouponTime()
+      this.setData({
+        newUserCoupon: true
+      })
+
+    } else {
+      http.fxGet(api.market_is_new_user_bonus, {}, result => {
+        console.log(result, '是否领取')
+        if (result.data.is_grant == 0) {
+          this._handleNewUserCouponTime()
+          this.setData({
+            newUserCoupon: true
+          })
+
+        }
+      })
+    }
+  },
+
   // 加载探索页数据
   _loadingExplorePage() {
     this.getExploreAdvertisement() // 广告位
@@ -2103,6 +2184,9 @@ Page({
     this._loadingFeaturedPage()
     this._loadingExplorePage()
     this.getFollowWindow()
+
+    //新人红包
+    // this.getNewCoupon()
   },
 
   /**

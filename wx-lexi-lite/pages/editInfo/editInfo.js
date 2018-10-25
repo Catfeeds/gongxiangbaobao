@@ -232,7 +232,8 @@ Page({
           'editUserInfo.town_id': userProfile.town_id,
           'editUserInfo.street_address': userProfile.street_address,
           'editUserInfo.zipcode': userProfile.zipcode || '',
-          'editUserInfo.is_default': userProfile.is_default || ''
+          'editUserInfo.is_default': userProfile.is_default || '',
+          'editUserInfo.gender': userProfile.gender 
         })
 
         utils.logger(this.data.editUserInfo, '初始信息')
