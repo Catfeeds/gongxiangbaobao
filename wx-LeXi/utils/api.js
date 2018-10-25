@@ -98,7 +98,9 @@ module.exports = {
   full_reduction: 'market/user_order_full_reduction', //满减
   first_order_reduction: 'market/coupons/new_user_discount', //满减
   noLoginFullSubtraction: 'market/coupons', //没有登陆下的满减
-
+  market_core_user_coupons: 'market/core_user_coupons', // 核心小程序的获取优惠券
+  market_user_expired: 'market/user_expired', // 过期的优惠券
+  
   // Search  
   search: 'search/products', // POST 搜索商品
   search_history: 'search/history', // GET 搜索历史关键词

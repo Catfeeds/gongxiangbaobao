@@ -1,152 +1,185 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
+
+<view class="flex_row coupon-category__nav">
+  <view class="c-middle coupon-category__item" wx:for="{{couponCategory}}" wx:key="{{index}}" data-rid="{{item.rid}}" catchtap="handlePickCategory">
+    <view class="fx-column--center text-info">
+      <view class="{{couponActive==item.rid?'active':''}}">{{item.name}}</view>
+      <view class="{{couponActive==item.rid?'active__line':''}}"></view>
+    </view>
+  </view>
+</view>
+
 <view class='container theme-bg-color'>
   <!-- 商家劝 -->
-  <view class='coupon-box' wx:for='{{normalCouponList}}' wx:key="{{index}}" wx:if="{{!item.is_used &&! item.is_expired}}">
-    <!-- left -->
-    <view class='info-box-left'>
-      <view class='line-L theme-bg-color line-out'></view>
-      <view class='theme-bg-color top-round top-round-top'></view>
-      <view class='theme-bg-color top-round top-round-bottom'></view>
-      <!-- 信息 -->
-      <view class='price-info-box'>
-        <view class='price-icon'>
-          <image src='../../images/￥@2-.png'></image>
-          <text>{{item.coupon.amount}}</text>
+  <block wx:if="{{couponActive==1}}">
+    <view class='coupon-box' wx:for='{{normalCouponList}}' wx:key="{{index}}" wx:if="{{!item.is_used &&! item.is_expired}}">
+      <!-- left -->
+      <view class='info-box-left'>
+        <view class='line-L theme-bg-color line-out'></view>
+        <view class='theme-bg-color top-round top-round-top'></view>
+        <view class='theme-bg-color top-round top-round-bottom'></view>
+        <!-- 信息 -->
+        <view class='price-info-box'>
+          <view class='price-icon'>
+            <image src='../../images/￥@2-.png'></image>
+            <text>{{item.coupon.amount}}</text>
+          </view>
+          <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
         </view>
-        <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
       </view>
-    </view>
-    <!-- right 信息 -->
-    <view class='info-box-R'>
-      <view class='quadrate paymentFnTextB'>
-        <view class='quadrate-view'></view>
-        <text>{{item.start_time}}至{{item.end_time}}</text>
-      </view>
-      <view class='shop-icon paymentFnTextB'>
-        <view>
-          <image src='{{storeInfo.logo}}'></image>
+      <!-- right 信息 -->
+      <view class='info-box-R'>
+        <view class='quadrate paymentFnTextB'>
+          <view class='quadrate-view'></view>
+          <text>{{item.start_time}}至{{item.end_time}}</text>
         </view>
-        <text>{{storeInfo.name}}..红包</text>
+        <view class='shop-icon paymentFnTextB'>
+          <view>
+            <image src='{{item.store_logo}}'></image>
+          </view>
+          <text>{{item.store_name}}</text>
+        </view>
       </view>
+      <!-- 去使用的按钮 -->
+      <view class='right-btn coupon_right--red' data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap'>
+        <view>去 使 用</view>
+      </view>
+      <!-- 右边的线 -->
+      <view class='right-line line-L theme-bg-color'></view>
     </view>
-    <!-- 去使用的按钮 -->
-    <view class='right-btn coupon_right--red' data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap'>
-      <view>去 使 用</view>
+
+    <view wx:if="{{ normalCouponList.length==0 }}" class='line-D noll-coupon'>
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>你当没有任何优惠卷红包</view>
     </view>
-    <!-- 右边的线 -->
-    <view class='right-line line-L theme-bg-color'></view>
-  </view>
+  </block>
+
   <!-- 乐喜券 -->
-  <view class='coupon-box' wx:for='{{authorityNormalCouponList}}' wx:key="{{index}}">
-    <!-- left -->
-    <view class='info-box-left'>
-      <!-- 信息 -->
-      <view class='price-info-box lx-coupon--style'>
-        <view class='price-icon'>
-          <image src='../../images/￥@2-.png'></image>
-          <text>{{item.amount}}</text>
+  <block wx:if="{{couponActive==2}}">
+    <view class='coupon-box' wx:for='{{authorityNormalCouponList}}' wx:key="{{index}}">
+      <!-- left -->
+      <view class='info-box-left'>
+        <!-- 信息 -->
+        <view class='price-info-box lx-coupon--style'>
+          <view class='price-icon'>
+            <image src='../../images/￥@2-.png'></image>
+            <text>{{item.amount}}</text>
+          </view>
+          <view class='price-text'>满{{item.min_amount}}使用</view>
         </view>
-        <view class='price-text'>满{{item.min_amount}}使用</view>
       </view>
-    </view>
-    <!-- right 信息 -->
-    <view class='info-box-R'>
-      <view class='quadrate paymentFnTextB'>
-        <view class='quadrate-view'></view>
-        <text>{{item.start_time}}至{{item.end_time}}</text>
-      </view>
-      <view class='paymentFnTextB lx-coupon--text'>
-        <view class='font-xss'>
-          乐喜券
+      <!-- right 信息 -->
+      <view class='info-box-R'>
+        <view class='quadrate paymentFnTextB'>
+          <view class='quadrate-view'></view>
+          <text>{{item.start_time}}至{{item.end_time}}</text>
         </view>
-        <text class='font-s'>全场通用</text>
-      </view>
-      <view class='qian-hui font-xss coupon_explain'>新店礼包</view>
-    </view>
-    <!-- 去使用的按钮 -->
-    <view class='right-btn'>
-      <view data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
-    </view>
-  </view>
-
-  <!-- 已经失效 商家-->
-
-  <view class='time-top separate_line' wx:if="{{exceedCouponList.length!=0 || authorityExceedCouponList.length!=0}}">已失效的卷</view>
-
-
-  <view class='coupon-box' wx:for='{{exceedCouponList}}' wx:key="{{index}}" wx:if="{{item.is_expired || is_used}}">
-    <!-- left -->
-    <view class='info-box-left none-bg-l'>
-      <view class='line-L theme-bg-color line-out'></view>
-      <view class='theme-bg-color top-round top-round-top'></view>
-      <view class='theme-bg-color top-round top-round-bottom'></view>
-      <!-- 信息 -->
-      <view class='price-info-box exceed_coupon--right'>
-        <view class='price-icon'>
-          <image src='../../images/￥@2-.png'></image>
-          <text>{{item.coupon.amount}}</text>
+        <view class='paymentFnTextB lx-coupon--text'>
+          <view class='font-xss'>
+            乐喜券
+          </view>
+          <text class='font-s'>{{item.category_name}}</text>
         </view>
-        <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==1}}">分享领红包</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==2}}">猜图赢现金</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==3}}">赠送</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==4}}">新人奖励</view>
+        <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==11}}">领券中心</view>
+      </view>
+      <!-- 去使用的按钮 -->
+      <view class='right-btn'>
+        <view data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
       </view>
     </view>
-    <!-- right 信息 -->
-    <view class='info-box-R exceed_coupon--middle'>
-      <view class='quadrate paymentFnTextB hui'>
-        <view class='quadrate-view none-bg'></view>
-        <text>{{item.start_time}}至{{item.end_time}}</text>
-      </view>
-      <view class='shop-icon paymentFnTextB hui'>
-        <view>
-          <image src='{{storeInfo.logo}}'></image>
-        </view>
-        <text>{{storeInfo.name}}..红包</text>
-      </view>
-    </view>
-    <!-- 去使用的按钮 -->
-    <view class='right-btn exceed_coupon--middle'>
-      <view>去 使 用</view>
-    </view>
-    <!-- 右边的线 -->
-    <view class='right-line line-L theme-bg-color'></view>
-  </view>
 
+    <view wx:if="{{ authorityNormalCouponList.length==0 }}" class='line-D noll-coupon'>
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>你当没有任何优惠卷红包</view>
+    </view>
+  </block>
 
-  <!-- 已经失效 乐喜-->
-  <view class='coupon-box' wx:for='{{authorityExceedCouponList}}' wx:key="{{index}}">
-    <!-- left -->
-    <view class='info-box-left exceed_coupon--middle'>
-      <!-- 信息 -->
-      <view class='price-info-box lx-coupon--style exceed_coupon--right'>
-        <view class='price-icon'>
-          <image src='../../images/￥@2-.png'></image>
-          <text>{{item.coupon.amount}}</text>
+  <block wx:if="{{couponActive==3}}">
+    <block wx:for="{{exceedCouponList}}" wx:key="{{index}}">
+      <!-- 已经失效 商家-->
+      <view class='coupon-box' wx:if="{{item.type==1}}">
+        <!-- left -->
+        <view class='info-box-left none-bg-l'>
+          <view class='line-L theme-bg-color line-out'></view>
+          <view class='theme-bg-color top-round top-round-top'></view>
+          <view class='theme-bg-color top-round top-round-bottom'></view>
+          <!-- 信息 -->
+          <view class='price-info-box exceed_coupon--right'>
+            <view class='price-icon'>
+              <image src='../../images/￥@2-.png'></image>
+              <text>{{item.amount}}</text>
+            </view>
+            <view class='price-text'>满{{item.min_amount}}使用</view>
+          </view>
         </view>
-        <view class='price-text'>满{{item.min_amount}}使用</view>
-      </view>
-    </view>
-    <!-- right 信息 -->
-    <view class='info-box-R exceed_coupon--middle'>
-      <view class='quadrate paymentFnTextB'>
-        <view class='quadrate-view none-bg'></view>
-        <text>{{item.start_time}}至{{item.end_time}}</text>
-      </view>
-      <view class='paymentFnTextB lx-coupon--text '>
-        <view class='font-xss none-bg'>
-          乐喜券
+        <!-- right 信息 -->
+        <view class='info-box-R exceed_coupon--middle'>
+          <view class='quadrate paymentFnTextB hui'>
+            <view class='quadrate-view none-bg'></view>
+            <text>{{item.start_time}}至{{item.end_time}}</text>
+          </view>
+          <view class='shop-icon paymentFnTextB hui'>
+            <view>
+              <image src='{{storeInfo.logo}}'></image>
+            </view>
+            <text>{{storeInfo.name}}..红包</text>
+          </view>
         </view>
-        <text class='font-s'>全场通用</text>
+        <!-- 去使用的按钮 -->
+        <view class='right-btn exceed_coupon--middle'>
+          <view>去 使 用</view>
+        </view>
+        <!-- 右边的线 -->
+        <view class='right-line line-L theme-bg-color'></view>
       </view>
-      <view class='qian-hui font-xss coupon_explain'>新店礼包</view>
-    </view>
-    <!-- 去使用的按钮 -->
-    <view class='right-btn exceed_coupon--middle'>
-      <view class='coupon_dashes--round'>失 效</view>
-    </view>
-  </view>
 
-  <view wx:if="{{ coupon!=null }}" class='line-D noll-coupon'>
-    <image src='../../images/coupon@2.png'></image>
-    <view class='black-font '>你当没有任何优惠卷红包</view>
-  </view>
+      <!-- 已经失效 乐喜-->
+      <view class='coupon-box' wx:if="{{item.type==2}}">
+        <!-- left -->
+        <view class='info-box-left exceed_coupon--middle'>
+          <!-- 信息 -->
+          <view class='price-info-box lx-coupon--style exceed_coupon--right'>
+            <view class='price-icon'>
+              <image src='../../images/￥@2-.png'></image>
+              <text>{{item.amount}}</text>
+            </view>
+            <view class='price-text'>满{{item.min_amount}}使用</view>
+          </view>
+        </view>
+        <!-- right 信息 -->
+        <view class='info-box-R exceed_coupon--middle'>
+          <view class='quadrate paymentFnTextB'>
+            <view class='quadrate-view none-bg'></view>
+            <text>{{item.start_time}}至{{item.end_time}}</text>
+          </view>
+          <view class='paymentFnTextB lx-coupon--text '>
+            <view class='font-xss none-bg'>
+              乐喜券
+            </view>
+            <text class='font-s'>{{item.category_name}}</text>
+          </view>
+          <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==1}}">分享领红包</view>
+          <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==2}}">猜图赢现金</view>
+          <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==3}}">赠送</view>
+          <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==4}}">新人奖励</view>
+          <view class='qian-hui font-xss coupon_explain' wx:if="{{item.source==11}}">领券中心</view>
+        </view>
+        <!-- 去使用的按钮 -->
+        <view class='right-btn exceed_coupon--middle'>
+          <view class='coupon_dashes--round'>失 效</view>
+        </view>
+      </view>
+
+    </block>
+
+    <view wx:if="{{ exceedCouponList.length==0 }}" class='line-D noll-coupon'>
+      <image src='../../images/coupon@2.png'></image>
+      <view class='black-font '>你当没有任何优惠卷红包</view>
+    </view>
+  </block>
 
 </view>

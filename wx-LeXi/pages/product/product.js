@@ -129,19 +129,19 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.posterUrl,
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode == 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
-              success: function (data) {
+              success: function(data) {
                 that.setData({
                   posterSaving: false,
                   posterBtnText: '保存分享'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
-              fail: function (err) {
+              fail: function(err) {
                 console.log('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
@@ -169,7 +169,7 @@ Page({
       })
     }
   },
-  
+
   /**
    * 滑块变化
    */
@@ -425,6 +425,21 @@ Page({
           productInfomation: result.data,
           dkcontent: result.data.content
         })
+
+        // 下架
+        if (result.data.status == 2) {
+          wx.showModal({
+            title: '很抱歉',
+            content: '该商品已下架',
+            showCancel: false,
+            confirmColor: '#5fe4b1',
+            success(res) {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          })
+        }
 
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
@@ -869,7 +884,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options, product) {
+  onLoad: function(options, product) {
     // scene格式：rid + '-' + customer_rid
     let scene = decodeURIComponent(options.scene)
     let rid = ''

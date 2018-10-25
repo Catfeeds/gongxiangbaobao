@@ -41,7 +41,7 @@ Page({
       per_page: 10, //Number	可选	10	每页数量
     },
 
-    couponActive: 1,
+    couponActive: 2,
     couponCategory: [{
         name: '品牌券',
         rid: 1
