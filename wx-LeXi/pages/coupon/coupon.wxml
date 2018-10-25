@@ -30,10 +30,7 @@
       </view>
     </view>
     <!-- 去使用的按钮 -->
-    <view 
-      class='right-btn coupon_right--red' 
-      data-rid='{{item.coupon.code}}' 
-      catchtap='handleUseCouponTap'>
+    <view class='right-btn coupon_right--red' data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap'>
       <view>去 使 用</view>
     </view>
     <!-- 右边的线 -->
@@ -68,17 +65,13 @@
     </view>
     <!-- 去使用的按钮 -->
     <view class='right-btn'>
-      <view       
-      data-rid='{{item.coupon.code}}' 
-      catchtap='handleUseCouponTap'
-      class='coupon_dashes--round'>去 使 用</view>
+      <view data-rid='{{item.coupon.code}}' catchtap='handleUseCouponTap' class='coupon_dashes--round'>去 使 用</view>
     </view>
   </view>
 
   <!-- 已经失效 商家-->
 
-  <view class='time-top separate_line' 
-    wx:if="{{exceedCouponList.length!=0 || authorityExceedCouponList.length!=0}}">已失效的卷</view>
+  <view class='time-top separate_line' wx:if="{{exceedCouponList.length!=0 || authorityExceedCouponList.length!=0}}">已失效的卷</view>
 
 
   <view class='coupon-box' wx:for='{{exceedCouponList}}' wx:key="{{index}}" wx:if="{{item.is_expired || is_used}}">
@@ -118,7 +111,7 @@
   </view>
 
 
-<!-- 已经失效 乐喜-->
+  <!-- 已经失效 乐喜-->
   <view class='coupon-box' wx:for='{{authorityExceedCouponList}}' wx:key="{{index}}">
     <!-- left -->
     <view class='info-box-left exceed_coupon--middle'>
@@ -151,10 +144,9 @@
     </view>
   </view>
 
-  <view wx:if="{{coupon!=null}}" class='line-D noll-coupon'>
+  <view wx:if="{{ coupon!=null }}" class='line-D noll-coupon'>
     <image src='../../images/coupon@2.png'></image>
     <view class='black-font '>你当没有任何优惠卷红包</view>
-
   </view>
 
 </view>

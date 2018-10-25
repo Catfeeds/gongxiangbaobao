@@ -31,12 +31,10 @@ Page({
         let authorityExceedCouponList = []
 
         result.data.coupons.forEach((v, i) => {
-          console.log(v)
 
           v.start_time = utils.timestamp2string(v.start_at, 'date')
           v.end_time = utils.timestamp2string(v.expired_at, 'date')
 
-          console.log(v)
           // 没有过期的非官方的优惠券 没有使用过的 
           if (v.type == 1 && !v.is_expired && !v.is_used) {
             normalCouponList.push(v)

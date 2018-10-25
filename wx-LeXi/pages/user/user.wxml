@@ -94,7 +94,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{classList[0].num==0}}">
+    <view class=' column-row--middle user-null__product' wx:if="{{ likeProduct.length == 0 }}">
       <view>
         <image src='../../images/user-xin.png'></image>
       </view>
@@ -138,7 +138,7 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view class=' column-row--middle user-null__product' wx:if="{{desireOrderProduct.count==0 && userBrowsesProduct.count==0}}">
+    <view class=' column-row--middle user-null__product' wx:if="{{ desireOrderProduct.count==0 && userBrowsesProduct.count==0 }}">
       <view>
         <image src='../../images/user-star.png'></image>
       </view>

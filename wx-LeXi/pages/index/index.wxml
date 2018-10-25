@@ -69,7 +69,7 @@
         </view>
       </view>
       <view class="people-count">
-        {{ shopInfo.count > 999 ? '999+' : shopInfo.count + 1 }}
+        {{ browsers.count > 999 ? '999+' : browsers.count + 1 }}
       </view>
     </view>
   </view>
@@ -311,7 +311,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="https://static.moebeast.com/static/img/throbber.gif" class="loading" wx:else></image>
+            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
           <text>保存分享朋友圈海报</text>
         </view>
@@ -342,11 +342,6 @@
   </view>
 
   <!-- 登陆注册模态框 -->
-  <!-- <view wx:if="{{is_mobile}}" class='login-bind_box--style'>
-    <fx-login bind:customevent='hanleOffLoginBox'></fx-login>
-  </view> -->
-
-  <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
   <!-- 筛选 -->
@@ -371,20 +366,6 @@
             </scroll-view>
           </view>
         </view>
-
-        <!-- 推荐 -->
-        <!-- <view>
-          <view class="block-title">推荐
-            <small>可多选</small>
-          </view>
-          <view class="scroll-view__container">
-            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
-              <view class="category {{ category.isActive ? 'active' : '' }}" wx:for="{{ recommendList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" data-index="{{index}}" bindtap="handleToggleRecommendList">
-                {{ category.name }}
-              </view>
-            </scroll-view>
-          </view>
-        </view> -->
       </view>
       <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
         查看商品

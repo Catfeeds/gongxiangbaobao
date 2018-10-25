@@ -1386,15 +1386,14 @@ Page({
     }
 
     if (res.from === 'button' && this.data.shareWhat.from == 2) {
-      console.log(res.target)
       return {
-        title: this.data.shareWhat.sharestore.name,
+        title: '原创品牌设计馆',
         imageUrl: this.data.shareWhat.sharestore.cover,
         path: '/pages/product/product?rid=' + this.data.shareWhat.sharestore.rid
       }
     }
 
-    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
+    return common.shareLexi('原创品牌设计馆', app.globalData.shareBrandUrl)
   }
 
 })

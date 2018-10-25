@@ -72,10 +72,12 @@ Page({
     // 获取商品的参数
     getProductParams: {
       page: 1,
-      per_page: 10
+      per_page: 10,
+      sid: '',
     },
     //排序的参数
     sortParams: {
+      sid: '',
       page: 1, // Number	可选	1	当前页码
       per_page: 10, // Number	可选	10	每页数量
       min_price: '', // Number	可选	 	价格区间： 最小价格
@@ -161,12 +163,12 @@ Page({
    * 分类列表
    */
   getCategories() {
-    console.log(app.globalData)
-    console.log(app.globalData.storeInfo.rid)
+    utils.logger(app.globalData)
+    utils.logger(app.globalData.storeInfo.rid)
     http.fxGet(api.store_categories, {
       sid: app.globalData.storeInfo.rid
     }, (result) => {
-      console.log(result, '分类列表')
+      utils.logger(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data.categories
@@ -242,10 +244,10 @@ Page({
    * 选择推荐
    */
   handleToggleRecommendList(e) {
-    console.log(e.currentTarget.dataset.index)
+    utils.logger(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.cid
-    console.log(id)
+    utils.logger(id)
 
     if (this.data.recommendList[index].isActive) {
       this.setData({
@@ -285,7 +287,7 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice(e) {
-    console.log(e.detail.highValue)
+    utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -312,7 +314,7 @@ Page({
 
   // 获取筛选
   handlePickProduct(e) {
-    console.log(e.detail.category)
+    utils.logger(e.detail.category)
     let rids = e.detail.category
     let minPrice = e.detail.minPrice
     let maxPrice = e.detail.maxPrice
@@ -328,7 +330,7 @@ Page({
 
   // 获取排序的产品
   handleSort(e = 0) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     if (e.currentTarget.dataset.rid != undefined) {
       this.setData({
         isSortShow: false,
@@ -348,11 +350,11 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
-    http.fxGet(api.users_user_center, {}, (result) => {
-      console.log(result)
+    http.fxGet(api.users_user_center, { sid: app.globalData.storeRid }, (result) => {
+      utils.logger(result)
       let category = this.data.classList
       category.forEach((v) => {
-        console.log(v)
+        utils.logger(v)
         if (v.rid == 1) {
           v.num = result.data.user_like_counts
         }
@@ -378,7 +380,7 @@ Page({
     }
     http.fxGet(api.users_profile, {}, (result) => {
       if (result.success) {
-        console.log(result.data.profile, '用户的信息')
+        utils.logger(result.data.profile, '用户的信息')
         // 格式化时间
         result.data.profile.created_at = utils.timestamp2string(result.data.profile.created_at, 'cn')
         // 设置全局变量
@@ -394,7 +396,7 @@ Page({
 
   // 切换类别
   classTap(e) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     if (this.data.classInfo == e.currentTarget.dataset.rid) {
       return
     }
@@ -418,7 +420,7 @@ Page({
     switch (e) {
       case 1:
         http.fxGet(api.userlike, this.data.sortParams, (result) => {
-          console.log(result, '喜欢')
+          utils.logger(result, '喜欢')
           if (result.success) {
 
             let data = this.data.likeProduct
@@ -443,7 +445,7 @@ Page({
       default:
         // 设计管 users/followed_life_stores
         http.fxGet(api.users_followed_stores, this.data.getProductParams, (result) => {
-          console.log(result, '设计馆')
+          utils.logger(result, '设计馆')
           if (result.success) {
             this.setData({
               watchStoreList: result.data
@@ -458,9 +460,9 @@ Page({
   // 浏览记录
   getBrowss() {
     //最近查看
-    http.fxGet(api.user_browses, {}, (result) => {
+    http.fxGet(api.user_browses, { sid: app.globalData.storeRid }, (result) => {
       if (result.success) {
-        console.log(result, '最近查看')
+        utils.logger(result, '最近查看')
         this.setData({
           userBrowsesProduct: result.data
         })
@@ -474,7 +476,7 @@ Page({
   getDesireOrderProduct() {
     http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
       if (result.success) {
-        console.log(result, '心愿单')
+        utils.logger(result, '心愿单')
         this.setData({
           desireOrderProduct: result.data
         })
@@ -492,7 +494,7 @@ Page({
     }
     http.fxGet(api.orders_order_coupon_count, {}, (result) => {
       if (result.success) {
-        console.log(result, '订单，优惠券的数量')
+        utils.logger(result, '订单，优惠券的数量')
         this.setData({
           orderSum: result.data.order_count, // 有没有订单
           couponSum: result.data.coupon_count, // 有没有优惠券
@@ -507,7 +509,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.setData({
+      'getProductParams.sid': app.globalData.storeRid,
+      'sortParams.sid': app.globalData.storeRid
+    })
   },
 
   /**
@@ -667,7 +672,7 @@ Page({
 
   // 跳转到商品详情---
   handleToProductInfoTap(e) {
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid
     })
@@ -675,7 +680,7 @@ Page({
 
   // 跳转到商品详情---
   handleInfomation(e) {
-    console.log(e)
+    utils.logger(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.likeProduct
     })
@@ -721,7 +726,7 @@ Page({
 
   // 查看全部
   handleAllProduct(e) {
-    console.log(e.currentTarget.dataset.from)
+    utils.logger(e.currentTarget.dataset.from)
     wx.navigateTo({
       url: '../allProduct/allProduct?from=' + e.currentTarget.dataset.from,
     })

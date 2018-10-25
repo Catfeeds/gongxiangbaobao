@@ -77,7 +77,7 @@ Page({
     http.fxGet(api.cart, {
       open_id: wx.getStorageSync('jwt').openid
     }, (result) => {
-      console.log(result, '获取购物车')
+      utils.logger(result, '获取购物车')
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
         if (result.data.items.length == 0){
@@ -98,8 +98,8 @@ Page({
 
   // 获取心愿单---
   getDesireOrder() {
-    http.fxGet(api.wishlist, {}, (result) => {
-      console.log(result, '获取心愿单')
+    http.fxGet(api.wishlist, { sid: app.globalData.storeRid }, (result) => {
+      utils.logger(result, '获取心愿单')
       if (result.success) {
         this.setData({
           thinkOrder: result.data
@@ -114,7 +114,7 @@ Page({
   addCartTap(e) {
     wx.hideTabBar()
 
-    console.log(e.currentTarget.dataset.rid)
+    utils.logger(e.currentTarget.dataset.rid)
 
     this.setData({
       productInfomation:[]
@@ -130,7 +130,7 @@ Page({
 
   // 编辑按钮点击后左边的选择,赋值给data---
   checkboxChange(e) {
-    console.log(e.detail.value)
+    utils.logger(e.detail.value)
     this.setData({
       checkboxPick: e.detail.value
     })
@@ -139,7 +139,7 @@ Page({
     let pickProduct = this.data.shoppingCart.items.filter((v, i) => {
       return this.data.checkboxPick.indexOf(v.product.rid) != -1
     })
-    console.log(pickProduct)
+    utils.logger(pickProduct)
     if (pickProduct.length == 0) {
       return
     }
@@ -151,12 +151,12 @@ Page({
 
   // 当点击移除---
   clearCart() {
-    console.log(this.data.checkboxPick, '选择好的商品rid')
+    utils.logger(this.data.checkboxPick, '选择好的商品rid')
     http.fxPost(api.clearCart, {
       open_id: wx.getStorageSync('jwt').openid,
       rids: this.data.checkboxPick
     }, (result) => {
-      console.log(result, '删除购物车商品')
+      utils.logger(result, '删除购物车商品')
       if (result.success) {
         this.getCartProduct()
       } else {
@@ -170,7 +170,7 @@ Page({
 
   // 放入心愿单--
   addDesire() {
-    console.log(this.data.addDesireOrder)
+    utils.logger(this.data.addDesireOrder)
     let productRid = []
     let rid = this.data.addDesireOrder.map((v, i) => {
       productRid.push(v.rid)
@@ -183,7 +183,7 @@ Page({
     http.fxPost(api.wishlist, {
       rids: rid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.getDesireOrder()
         this.paymentPrice()
@@ -209,7 +209,7 @@ Page({
   // 编辑按钮购物车---
   changeCartTap(e) {
     let status = e.currentTarget.dataset.change
-    console.log(e.currentTarget.dataset.change)
+    utils.logger(e.currentTarget.dataset.change)
     if (status == 'start') {
       this.setData({
         changeCart: true
@@ -240,7 +240,7 @@ Page({
 
   // 增加数量或者减少数量---
   changeQuantity(e) {
-    console.log(e.currentTarget.dataset)
+    utils.logger(e.currentTarget.dataset)
     let is_function = e.currentTarget.dataset.function
     let index = e.currentTarget.dataset.index
 
@@ -301,7 +301,7 @@ Page({
       rid: rid
     }
     http.fxGet(api.product_skus, params, (result) => {
-      console.log(result.data, 'skus信息')
+      utils.logger(result.data, 'skus信息')
       if (result.success) {
         this.setData({
           skus: result.data
@@ -314,7 +314,7 @@ Page({
   // 获取商品详情
   getProductInfomation(e) {
     http.fxGet(api.product_detail.replace(/:rid/g, e), {}, (result) => {
-      console.log(result, '购物车-商品详情')
+      utils.logger(result, '购物车-商品详情')
       if (result.success) {
         this.setData({
           productInfomation: result.data
@@ -552,7 +552,7 @@ Page({
    * 选择颜色
    */
   handleChooseColor(e) {
-    console.log(e)
+    utils.logger(e)
     const idx = e.currentTarget.dataset.idx;
     const valid = e.currentTarget.dataset.valid;
     if (!valid) return;
@@ -817,7 +817,7 @@ Page({
     http.fxGet(api.by_store_sku, {
       rids: skus.join(',')
     }, (result) => {
-      console.log(result, '购物车-去结算')
+      utils.logger(result, '购物车-去结算')
       if (result.success) {
         let deliveryCountries = [] // 发货的国家列表
 
@@ -843,7 +843,7 @@ Page({
             // 需求数量
             skusNeedQuantity.forEach((item, n) => {
               let newArray = item.split(':')
-              console.log(newArray)
+              utils.logger(newArray)
               if (v.rid == newArray[0]) {
                 v.quantity = newArray[1]
               }
@@ -854,8 +854,8 @@ Page({
         app.globalData.orderSkus = result
         app.globalData.deliveryCountries = deliveryCountries
 
-        console.log(app.globalData.orderSkus, '结算SKU')
-        console.log(app.globalData.deliveryCountries, '发货国家s')
+        utils.logger(app.globalData.orderSkus, '结算SKU')
+        utils.logger(app.globalData.deliveryCountries, '发货国家s')
 
         wx.navigateTo({
           url: '../receiveAddress/receiveAddress?from_ref=cart',
