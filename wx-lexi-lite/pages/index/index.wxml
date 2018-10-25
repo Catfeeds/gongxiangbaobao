@@ -262,7 +262,7 @@
     <!-- 开店指引 -->
     <view class="setUpShop-guide border-radius--8" wx:if="{{ !isSmallB }}">
       <view class='time-top setUpShop-guide__top border-bottom'>
-        <view class=''>
+        <view class='' wx:if="{{ runEnv == 2 }}">
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
           <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
         </view>
@@ -330,7 +330,7 @@
     <view class='material-benefits'>
       <view class='material-benefits-top qian-hui font-s'>免运，奖励，优惠生活</view>
       <view class='material-benefits_bottom c-crosswise-a'>
-        <view class='font-s fx-column--center' catchtap="handleGuessGame">
+        <view class='font-s fx-column--center' catchtap="handleGuessGame" wx:if="{{ runEnv == 2 }}">
           <image src='../../images/guess-and-win-cash@2.png'></image>
           <view class="label">猜图赢现金</view>
         </view>

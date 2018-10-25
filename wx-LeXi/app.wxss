@@ -1,6 +1,26 @@
 /**app.wxss**/
 @import 'common.wxss';
 
+
+/* 首页 广告 */
+.advertise-container {
+  padding: 30rpx 40rpx;
+  background-color: #F7F9FB;
+  position: relative;
+}
+
+.advertise-container .advertise-swiper {
+  width: 670rpx;
+  height: 280rpx;
+  margin: 0;
+  overflow: hidden;
+}
+
+.advertise-container .advertise-swiper .swiper-item .advertise-image {
+  width: 670rpx;
+  height: 280rpx;
+  border-radius: 8rpx;
+}
 /** 购物车和商品详情通用样式**/
 
 .padding-bottom-34rpx {

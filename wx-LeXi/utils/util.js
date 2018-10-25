@@ -1,4 +1,7 @@
-const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
+const CryptoJS = require('cryptojs/cryptojs.js').Crypto
+
+// 当前调试环境
+const Debug = false
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -285,6 +288,16 @@ const wxPromisify = fn => {
   }
 }
 
+/**
+ * 日志输出方法
+ * 调试环境输出日志，生产环境关闭日志输出
+ */
+const logger = (data, block = '模块') => {
+  if (Debug) {
+    console.log(data, block)
+  }
+}
+
 module.exports = {
   handleHideLoading: handleHideLoading,
   handleShowLoading: handleShowLoading,
@@ -304,5 +317,6 @@ module.exports = {
   checkTimeNumber,
   orderStatusTitle,
   Base64,
+  logger,
   wxPromisify: wxPromisify
 }

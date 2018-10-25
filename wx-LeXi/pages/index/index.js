@@ -4,6 +4,7 @@ const app = getApp()
 const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
+
 const common = require('./../../utils/common.js')
 
 Page({
@@ -11,6 +12,7 @@ Page({
    * 页面的初始数据xiaoyi.tian@taihuoniao.com
    */
   data: {
+    isLoading: true,
     shareProductRid: '', // 分享商品的rid
     shareProductPhotoUrl: '', // 分享商品的url
     posterUrl: '', // 海报的url
@@ -25,6 +27,7 @@ Page({
     showFilterModal: false, // 筛选
     openPickBox: false, // 筛选的模态框
     sortBox: false, // 筛选的模态框
+
     // 推荐
     recommendList: [{
         name: '包邮',
@@ -63,7 +66,7 @@ Page({
     recommendProductList: [], // 推荐好物品---
     themeProduct: [], //主打设计---
     openid: '', // openid---
-    BrowseQuantityInfo: [], // 浏览人数---
+    browsers: [], // 浏览人数---
     announcement: false, //获取店铺的公告---
     shopInfo: [], //店铺信息--- 
     is_with: false, // 是否对这个店铺有关注---
@@ -85,6 +88,7 @@ Page({
       status: 1, // 优惠券状态 -1: 禁用；1：正常；2：已结束
       'type': '' // 是否满减活动 3、满减
     },
+
     // 精品 作品 人气里面的请求参数---
     productCategoryParams: {
       page: 1, // 当前页码
@@ -98,6 +102,7 @@ Page({
       out_of_stock: '', // 商品库存 0: 全部; 1: 数量不足
       user_record: 1, // 用户是否喜欢
     },
+
     //分类 精选 作品 人气---
     catgory: [{
         name: '精选',
@@ -112,18 +117,22 @@ Page({
         rid: 3
       }
     ],
+
     url: '../../images/timg.jpg',
-    tabPisition: false, //tab是否定位
+    tabPisition: false, // tab是否定位
+
     // 推荐好物里面的参数---
     recommendProductParams: {
       page: 1, // Number	可选	1	当前页码
       per_page: 10, // Number	可选	10	每页数量
     },
+
     // 人气里面的最新作品参数
     currentNewParams: {
       page: 1,
       per_page: 10
     },
+
     // 创造订单参数,待写入---
     createdOrder: {
       address_rid: '', // String	必需	 	收货地址ID
@@ -227,7 +236,7 @@ Page({
     http.fxGet(api.store_categories, {
       sid: this.data.shopInfo.rid
     }, (result) => {
-      console.log(result, '分类列表')
+      utils.logger(result, '分类列表')
       if (result.success) {
         this.setData({
           categoryList: result.data.categories
@@ -266,7 +275,6 @@ Page({
     this.setData({
       leftTimer: _t
     })
-
   },
 
   /**
@@ -303,10 +311,8 @@ Page({
    * 选择推荐
    */
   handleToggleRecommendList(e) {
-    console.log(e.currentTarget.dataset.index)
     let index = e.currentTarget.dataset.index
     let id = e.currentTarget.dataset.cid
-    console.log(id)
 
     if (this.data.recommendList[index].isActive) {
       this.setData({
@@ -346,7 +352,6 @@ Page({
    * 滑块最高价格
    */
   handleChangeMaxPrice(e) {
-    console.log(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
       maxPrice = -1
@@ -400,14 +405,14 @@ Page({
     }
 
     wx.showTabBar()
+
     this.getPick()
   },
 
   // 我的作品
   getPick() {
-    console.log(this.data.sortParams)
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
-      console.log(result, '我的作品')
+      utils.logger(result, '我的作品')
       if (result.success) {
         let data = this.data.myProduct
 
@@ -447,38 +452,17 @@ Page({
     wx.setStorageSync('orderParams', this.data.createdOrder)
   },
 
-  // 领取优惠券
-  getReceiveCoupon(e) {
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      this.setData({
-        is_mobile: true
-      })
-      return
-    }
-
-    http.fxPost(api.coupon_grant, {
-      rid: e.currentTarget.dataset.rid
-    }, (result) => {
-      if (result.success) {
-        utils.fxShowToast('领取成功', 'success')
-        this.getCouponsByUser()
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
-  },
-
   // 分享模板弹出
   handleShareBox(e) {
-    let ProductRid = e.currentTarget.dataset.sharestore.rid
+    let _rid = e.currentTarget.dataset.sharestore.rid
     this.setData({
       is_share: true,
       shareWhat: e.currentTarget.dataset,
       shareProductPhotoUrl: e.currentTarget.dataset.sharestore.cover
     })
     wx.hideTabBar()
-    this.getWxaPoster(ProductRid) // 保存商品的海报
+
+    this.getWxaPoster(_rid) // 保存商品的海报
   },
 
   /**
@@ -518,6 +502,28 @@ Page({
     })
   },
 
+  // 领取优惠券
+  getReceiveCoupon(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    http.fxPost(api.coupon_grant, {
+      rid: e.currentTarget.dataset.rid
+    }, (result) => {
+      if (result.success) {
+        utils.fxShowToast('领取成功', 'success')
+        this.getCouponsByUser()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生成推广海报图
    */
@@ -531,7 +537,7 @@ Page({
     }
 
     http.fxPost(api.wxa_poster, params, (result) => {
-      console.log(result, '生成海报图')
+      utils.logger(result, '生成海报图')
       if (result.success) {
         this.setData({
           posterUrl: result.data.image_url
@@ -559,7 +565,7 @@ Page({
     http.fxGet(api.usetIsLike, {
       rids: rids
     }, (result) => {
-      console.log(result, '验证用户是否喜欢好物')
+      utils.logger(result, '验证用户是否喜欢好物')
       if (result.success) {
         products.forEach((v, i) => {
           result.data.forEach((e, index) => {
@@ -584,11 +590,11 @@ Page({
       openid: jwt.openid, // String	必须	 	用户唯一标识
       rid: app.globalData.storeRid, // String	必须	 	店铺编号
       ip_addr: '', // String	可选	 	访问时IP
-      agent: '', // String	可选	 	访问时代理
+      agent: '' // String	可选	 	访问时代理
     }
 
     http.fxPost(api.add_browse, params, (result) => {
-      console.log(result, '添加浏览人数')
+      utils.logger(result, '添加浏览人数')
       if (result.success) {
         this.getBrowseQuantity() // 浏览浏览人数---
       } else {
@@ -770,10 +776,10 @@ Page({
     }
     
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, app.globalData.storeRid), params, (result) => {
-      console.log(result, '浏览者数量')
+      utils.logger(result, '浏览者数量')
       if (result.success) {
         this.setData({
-          BrowseQuantityInfo: result.data
+          browsers: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -784,7 +790,7 @@ Page({
   // 获取广告列表
   getAdvertises() {
     http.fxGet(api.marketBanners.replace(/:rid/g, 'shop_wxa_index'), {}, (result) => {
-      console.log(result, '广告列表')
+      utils.logger(result, '广告列表')
       if (result.success) {
         this.setData({
           advertisement: result.data
@@ -801,7 +807,7 @@ Page({
       ['productCategoryParams.is_distributed']: e,
     })
     http.fxGet(api.sticked_products, this.data.productCategoryParams, (result) => {
-      console.log(result, '推荐好物')
+      utils.logger(result, '推荐好物')
       if (result.success) {
         this.setData({
           recommendProductList: result.data
@@ -840,7 +846,7 @@ Page({
   // 获取店铺商品列表
   getStoreProducts() {
     http.fxGet(api.products, this.data.productCategoryParams, (result) => {
-      console.log(result, '首页的作品列表')
+      utils.logger(result, '首页的作品列表')
       if (result.success) {
         let data = this.data.myProduct
 
@@ -925,10 +931,10 @@ Page({
 
   // 用户登录优惠券
   getCouponsByUser() {
-    console.log(this.data.originalStoreRid, '原店铺的rid')
+    utils.logger(this.data.originalStoreRid, '原店铺的rid')
 
     http.fxGet(api.user_login_coupon, {}, (result) => {
-      console.log(result, '登陆的优惠券')
+      utils.logger(result, '登陆的优惠券')
 
       result.data.coupons.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
@@ -949,7 +955,7 @@ Page({
   // 未登录的优惠群 和 满减
   getCoupons(e) {
     http.fxGet(api.noCouponsList, {}, (result) => {
-      console.log(result, '没有登陆获取优惠券')
+      utils.logger(result, '没有登陆获取优惠券')
 
       if (result.success) {
         result.data.coupons.forEach((v, i) => {
@@ -963,9 +969,7 @@ Page({
         if (e == 'manjian') {
           // 登陆， 筛选满减
           result.data.coupons.forEach((v, i) => {
-            console.log(v)
             if (v.type == 3) {
-              console.log(v)
               full.push(v)
             }
           })
@@ -1007,13 +1011,13 @@ Page({
       rid: app.globalData.storeRid
     }, (result) => {
       if (result.success) {
-        console.log(result, '查看是否关注')
+        utils.logger(result, '查看是否关注')
         this.setData({
           is_with: result.data.status
         })
         app.globalData.isWatchstore = result.data.status
       } else {
-        console.log(result, '查看是否关注错')
+        utils.logger(result, '查看是否关注错')
         utils.fxShowToast(result.status.message)
       }
     })
@@ -1033,7 +1037,7 @@ Page({
   // 获取店铺的信息
   getShopInfo() {
     http.fxGet(api.shop_info, {}, (result) => {
-      console.log(result, '店铺信息')
+      utils.logger(result, '店铺信息')
       if (result.success) {
         app.globalData.storeInfo = result.data
         this.setData({
@@ -1045,20 +1049,13 @@ Page({
     })
   },
 
-  // 设置头部
-  getNavigationBarTitleText() {
-    wx.setNavigationBarTitle({
-      title: app.globalData.configInfo.name
-    })
-  },
-
   /**
    * 获取店铺主人的信息
    * **/
   getStoreOwner() {
     http.fxGet(api.masterInfo, {}, (result) => {
       if (result.success) {
-        console.log(result.data, '店铺主人信息')
+        utils.logger(result.data, '店铺主人信息')
         this.setData({
           ShopOwner: result.data
         })
@@ -1075,172 +1072,13 @@ Page({
     http.fxPost(api.market_share_store, {
       rid: app.globalData.storeInfo.rid
     }, (result) => {
-      console.log(result, '分享品牌馆图片地址')
+      utils.logger(result, '分享品牌馆图片地址')
       if (result.success) {
         app.globalData.shareBrandUrl = result.data.image_url
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    common.networkType()
-
-    this.getNavigationBarTitleText() // 设置头部信息
-
-    this.getShopInfo() // 获取店铺的信息
-    this.getAnnouncement() // 获取店铺公告---
-    this.getStoreOwner() //获取主人信息
-
-    app.login().then(res => {
-      console.log(res, '异步请求')
-
-      this.getLexiShare()
-      this.addBrowse() // 添加浏览
-    })
-
-    if (app.globalData.isLogin) { // 用户已登录时
-      // 查看是否关注
-      this.getIsWatch()
-
-      this.getCouponsByUser()
-      this.getCoupons('manjian')
-    } else {
-      // 用户未登录时
-      this.getCoupons()
-    }
-
-    // 获取商品 (精选)
-    this.getThemeProduct() // 1,主打设计
-    this.getRecommendProducts() // 推荐好物---
-    this.getAdvertises() // 获取广告
-    this.getThemeProduct(2) // 2,优质精选---   
-    this.getPick() // 获取作品---
-    this.getTheme() // 人气--主题---
-    this.getNewestProdcts() // 人气--最新作品---
-  },
-
-  /**
-   * 页面触底事件的处理函数
-   */
-  onReachBottom: function() {
-    switch (this.data.catgoryActive) {
-      case 1:
-        break;
-      case 2:
-        if (!this.data.isProductNext) {
-          return
-        }
-        this.setData({
-          'sortParams.page': this.data.sortParams.page + 1,
-          isLoadProductShow: true
-        })
-
-        this.getPick() // 获取作品
-        break;
-      default:
-        if (!this.data.isNewProductNext) {
-          return
-        }
-
-        this.setData({
-          ['currentNewParams.page']: this.data.currentNewParams.page + 1,
-          isLoadProductShow: true,
-        })
-
-        this.getNewestProdcts()
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成   
-   */
-  onReady: function() {
-
-  },
-
-
-  shareTap(e) {
-    var sign
-    if (e.currentTarget.dataset.is_share == '1') {
-      sign = true
-    } else {
-      sign = false
-    }
-    this.setData({
-      is_share: sign
-    })
-  },
-
-  // 页面的卷曲
-  onPageScroll(e) {
-    this.setData({
-      pageScrol: e.scrollTop
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function(res) {
-    // ***注意！this.data.shareWhat.from == 2 为分享商品
-    // ***注意！this.data.shareWhat.from == 1 为分享店铺
-    // ***注意！target.dataset.from == 3 为分优惠券
-    if (res.target != undefined && res.target.dataset.from == 3) {
-      return {
-        title: '转发的标题',
-        path: '/pages/share/share',
-        success: function(e) {
-          console.log(e)
-        },
-        fail: function(e) {
-          console.log(e)
-        }
-      }
-    }
-
-    if (res.from === 'button' && this.data.shareWhat.from == 2) {
-      console.log(res.target)
-      return {
-        title: this.data.shareWhat.sharestore.name,
-        imageUrl: this.data.shareWhat.sharestore.cover,
-        path: '/pages/product/product?rid=' + this.data.shareWhat.sharestore.rid
-      }
-    }
-
-    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   },
 
   // 跳转到商品详情---
@@ -1339,6 +1177,208 @@ Page({
     this.setData({
       roundActive: e.detail.current
     })
+  },
+
+  shareTap(e) {
+    var sign
+    if (e.currentTarget.dataset.is_share == '1') {
+      sign = true
+    } else {
+      sign = false
+    }
+    this.setData({
+      is_share: sign
+    })
+  },
+
+  /**
+   * 用户登录后更新数据
+   */
+  _refreshData() {
+    // 添加浏览者
+    this.addBrowse()
+    // 查看是否关注
+    this.getIsWatch()
+
+    this.getCouponsByUser()
+    this.getCoupons('manjian')
+
+    this.getLexiShare()
+  },
+
+  /**
+   * 获取初始化数据
+   */
+  getInitData () {
+    // 获取店铺的信息
+    this.getShopInfo()
+    // 获取店铺公告
+    this.getAnnouncement()
+
+    // 获取主人信息
+    this.getStoreOwner()
+
+    // 获取商品 (精选)
+    this.getThemeProduct() // 1,主打设计
+    this.getRecommendProducts() // 推荐好物---
+    this.getAdvertises() // 获取广告
+
+    this.getThemeProduct(2) // 2,优质精选---   
+    this.getPick() // 获取作品---
+
+    this.getTheme() // 人气--主题---
+    this.getNewestProdcts() // 人气--最新作品---
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    common.networkType()
+
+    // 设置头部信息
+    wx.setNavigationBarTitle({
+      title: app.globalData.configInfo.name
+    })
+
+    // 获取无用户状态信息
+    this.getInitData()
+
+    // 给app.js 定义一个方法。
+    app.userInfoReadyCallback = (res) => {
+      utils.logger(res, '用户信息请求完毕')
+      if (res) { // 登录请求成功
+        if (app.globalData.isLogin) { // 登录成功
+          this._refreshData()
+        } else {
+          // 用户未登录时
+          this.getCoupons()
+        }
+      } else { // 登录请求失败
+        this.setData({
+          is_mobile: false
+        })
+      }
+    }
+
+    // 用户已登录时
+    if (app.globalData.isLogin) { 
+      this._refreshData()
+    } else {
+      // 用户未登录时
+      this.getCoupons()
+    }
+  },
+
+  /**
+   * 页面触底事件的处理函数
+   */
+  onReachBottom: function() {
+    switch (this.data.catgoryActive) {
+      case 1:
+        break;
+      case 2:
+        if (!this.data.isProductNext) {
+          return
+        }
+        this.setData({
+          'sortParams.page': this.data.sortParams.page + 1,
+          isLoadProductShow: true
+        })
+
+        this.getPick() // 获取作品
+        break;
+      default:
+        if (!this.data.isNewProductNext) {
+          return
+        }
+
+        this.setData({
+          ['currentNewParams.page']: this.data.currentNewParams.page + 1,
+          isLoadProductShow: true,
+        })
+
+        this.getNewestProdcts()
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成   
+   */
+  onReady: function() {
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
+  },
+
+  // 页面的卷曲
+  onPageScroll(e) {
+    this.setData({
+      pageScrol: e.scrollTop
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function(res) {
+    // ***注意！this.data.shareWhat.from == 2 为分享商品
+    // ***注意！this.data.shareWhat.from == 1 为分享店铺
+    // ***注意！target.dataset.from == 3 为分优惠券
+    if (res.target != undefined && res.target.dataset.from == 3) {
+      return {
+        title: '转发的标题',
+        path: '/pages/share/share',
+        success: function(e) {
+          console.log(e)
+        },
+        fail: function(e) {
+          console.log(e)
+        }
+      }
+    }
+
+    if (res.from === 'button' && this.data.shareWhat.from == 2) {
+      console.log(res.target)
+      return {
+        title: this.data.shareWhat.sharestore.name,
+        imageUrl: this.data.shareWhat.sharestore.cover,
+        path: '/pages/product/product?rid=' + this.data.shareWhat.sharestore.rid
+      }
+    }
+
+    return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
   }
 
 })

@@ -812,7 +812,7 @@ Page({
    */
   onShareAppMessage: function() {
     // 分享小程序
-    let title = this.data.storeInfo.name
+    let title = '原创品牌设计馆'
     let imageUrl = this.data.shareBrandUrl
 
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()

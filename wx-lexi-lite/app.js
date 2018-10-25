@@ -395,7 +395,7 @@ App({
     }
 
     return {
-      title: '乐喜',
+      title: '让有趣变得流行',
       path: 'pages/index/index?scene=' + scene,
       imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {
