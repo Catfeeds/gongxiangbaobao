@@ -395,7 +395,22 @@ Page({
 
   // 下架处理上级页面数据
   _handleParentData(){
+    let router = getCurrentPages()
+    let parentPage = router[router.length - 2]
+    console.log(parentPage,'父页面')
 
+    // 来源于user页面
+    if (parentPage.route == 'pages/user/user'){
+      //来源喜欢
+      if (parentPage.data.classInfo == 1){
+        this.handleBindLike()
+      }
+      //来源心愿单
+      if (parentPage.data.classInfo == 2){
+        this.handleaddDesireTap()
+      }
+
+    }
   },
 
   // 交货时间
