@@ -6,8 +6,8 @@ Component({
   properties: {
     // 图片的大小
     photoSize:{
-      type:String,
-      value:"30"
+      type: String,
+      value: "30x2"
     },
 
     oldPrice: {

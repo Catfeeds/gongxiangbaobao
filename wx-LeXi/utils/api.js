@@ -7,6 +7,7 @@ module.exports = {
   auth_logout: 'auth/logout', // POST 退出登录
   auth_register: 'auth/register', // POST 注册
   auth_check_mobile: 'auth/mobile', // GET 验证手机号是否存在
+  auth_weixin: 'accounts/wxa_get_authorize_info', // POST 微信授权获取用户信息、openid、unionid
   auth_get_msm_code: 'users/wx_bind_mobile_verify_code', // POST 注册时候手机验证码---
   bind_mobile: 'accounts/wxa_bind_mobile', //绑定手机号码---
   countries: 'countries', // 获取国家列表
@@ -68,7 +69,7 @@ module.exports = {
   cart_item_count: 'cart/item_count', // GET 购物车产品数---
   clearCart: 'cart/remove', // 移除购物车
   // Order
-  orders: 'orders', // GET 订单列表---
+  orders: 'orders/independent', // GET 订单列表---
   order_detail: 'orders/:rid', // GET 订单详情
   order_quick_buy: 'orders/quick_buy', // POST 立即购买
   order_by_cart: 'orders/cart_buy', // POST 购物车下单

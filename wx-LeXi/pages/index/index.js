@@ -766,7 +766,7 @@ Page({
   },
 
   // 获取浏览人数---
-  getBrowseQuantity(page = 1, per_page = 12) {
+  getBrowseQuantity(page = 1, per_page = 10) {
     const jwt = wx.getStorageSync('jwt')
     let params = {
       rid: app.globalData.storeRid,
@@ -1316,6 +1316,22 @@ Page({
 
   // 页面的卷曲
   onPageScroll(e) {
+    if (e.scrollTop > 620) {
+      if (!this.data.tabPisition) {
+        this.setData({
+          tabPisition: true
+        })
+      }
+    }
+
+    if (e.scrollTop < 619) {
+      if (this.data.tabPisition) {
+        this.setData({
+          tabPisition: false
+        })
+      }
+    }
+
     this.setData({
       pageScrol: e.scrollTop
     })

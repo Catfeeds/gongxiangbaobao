@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     createdTime: [], // 开馆时间---
     storeInfo: [], // 店铺的信息---
     shopOwner: [], // 店铺主人的信息---
@@ -81,8 +82,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    //处理数据
+    // 处理数据
     wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
+
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

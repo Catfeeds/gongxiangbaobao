@@ -1,4 +1,5 @@
 <!--pages/myFollower/myFollower.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
   <view class='time-top font-m relation-item'  wx:for="{{peopleList.user_fans}}" wx:key="{{index}}">
     <view class='flex_row relation-avater'>  

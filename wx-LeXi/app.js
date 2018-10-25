@@ -82,7 +82,7 @@ App({
             let isBind = res.data.is_bind
             if (isBind) {
               // 回调函数
-              this.hookLoginCallBack()
+              this.hookLoginCallBack(res.data)
 
               userLoaded = true
             }

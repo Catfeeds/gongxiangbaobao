@@ -1,0 +1,17 @@
+.fx-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 750rpx;
+  height: 100vh;
+  z-index: 10000;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fx-loading .icon-loading {
+  width: 96rpx;
+  height: 96rpx;
+}

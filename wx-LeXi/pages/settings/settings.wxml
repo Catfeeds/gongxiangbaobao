@@ -1,4 +1,5 @@
-<!--pages/settings/settings.wxml 个人中心设置页面-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+
 <view class='container'>
   <view class='topBox'>
     <!-- 查看并编辑 -->

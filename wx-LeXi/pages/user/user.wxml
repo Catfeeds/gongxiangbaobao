@@ -1,18 +1,20 @@
 <!--pages/user/user.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container '>
   <view class='top-box'>
+    <view class="go-lexi">
+      <navigator class="navigate" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+        <image src='../../images/fei@2.png' class="icon-go"></image> 
+        <view class="title">乐喜Lite</view>
+      </navigator>
+    </view>
     <!-- 头像 -->
     <view class='user-photo'>
       <view class='photo'>
-        <image src='{{ userInfo.avatar }}' wx:if='{{ userInfo.avatar != null }}'></image>
+        <image src='{{ userInfo.avatar }}-ava' wx:if='{{ userInfo.avatar != null }}'></image>
         <open-data wx:else type="userAvatarUrl"></open-data>
       </view>
-      <view 
-        wx:for="{{ classList }}" 
-        wx:key="{{ index }}" 
-        data-rid='{{ item.rid }}' 
-        class="user__like"
-        catchtap='classTap'>
+      <view wx:for="{{ classList }}" wx:key="{{ index }}" data-rid='{{ item.rid }}' class="user__like" catchtap='classTap'>
         <view class='number {{ classInfo == item.rid ? "green" : "" }}'>{{ item.num }}</view>
         <view class='hui-zi {{ classInfo == item.rid ? "green" : ""}}'>{{ item.name }}</view>
       </view>
@@ -23,24 +25,22 @@
         <text wx:if='{{ userInfo.username != null }}'>{{ userInfo.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
-      <view class='is-login font-ss' wx:if='{{ is_mobile }}'>
-        <button open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">你还未绑定手机号</button>
-      </view>
     </view>
+
     <!-- 粉丝 -->
     <view class='flex_row follow'>
       <view catchtap='handleWatchTap'>
         <text class='font-s'> 
-          <text class='hui-zi' > 关注 </text>
-          <text class='wacth-follower'>{{followerAddWatch.followed_users_counts}}</text>
+          <text class='hui-zi'> 关注 </text>
+        <text class='wacth-follower'>{{followerAddWatch.followed_users_counts}}</text>
         </text>
       </view>
       <view catchtap='handleFollowerTap'>
         <text class='font-s'> <text class='hui-zi'> 粉丝 </text>
         <text class='wacth-follower'>{{followerAddWatch.fans_counts}}</text> </text>
       </view>
-
     </view>
+
     <!-- 设置和客服 -->
     <view class=' service-intercalate'>
       <view class='time-top'>
@@ -59,9 +59,9 @@
         </view>
 
         <view class='service c-middle'>
-        <button open-type="contact" class="huihua-btn">
-        </button>
-                  <image class='setings' src='../../images/set.png'></image>
+          <button open-type="contact" class="huihua-btn">
+          </button>
+          <image class='setings' src='../../images/set.png'></image>
         </view>
 
         <view class='service seting--left c-middle' catchtap='setTap'>
@@ -70,8 +70,9 @@
       </view>
     </view>
   </view>
+
   <!-- 以喜欢里面的内容 -->
-  <view wx:if="{{classInfo==1}}" class='bottom__info'>
+  <view wx:if="{{ classInfo == 1 }}" class='bottom__info'>
     <!-- 定位垫片 -->
     <view class='Fshim' wx:if="{{sotrF}}"></view>
     <!-- 筛选和排序 -->
@@ -79,16 +80,16 @@
       <view catchtap='handelOffPick' class='flex_row'>
         筛选
         <image src='../../images/arrowhead.png'></image>
-       </view>
+      </view>
       <view catchtap="handleSortShow" class='flex_row'>
         排序
         <image src='../../images/arrowhead.png'></image>
-       </view>
+      </view>
     </view>
     <!-- 下面的产品列表 -->
     <view class='goodsList padding-bottom--0' wx:if="{{likeProduct.length!=0}}">
       <view wx:for="{{likeProduct}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-        <fx-product product="{{item}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+        <fx-product product="{{item}}" photoSize="{{ (index+1)%5==0 ? '50' : '30x2' }}" like_number='{{true}}' bind:triggerEvent_product='handleInfomation'></fx-product>
       </view>
     </view>
 
@@ -97,7 +98,9 @@
       <view>
         <image src='../../images/user-xin.png'></image>
       </view>
-      <view class='black-font no-like__title'> <text>你还未喜欢过任何东西</text></view>
+      <view class='black-font no-like__title'>
+        <text>你还未喜欢过任何东西</text>
+      </view>
       <view class='flex_row font-s qian-hui hui-xin'>
         <view>点击商品和橱窗上的</view>
         <image src='../../images/dLike@2.png'></image>
@@ -135,92 +138,54 @@
     </view>
 
     <!-- 缺省图片 -->
-    <view 
-      class=' column-row--middle user-null__product' 
-      wx:if="{{desireOrderProduct.count==0 && userBrowsesProduct.count==0}}">
+    <view class=' column-row--middle user-null__product' wx:if="{{desireOrderProduct.count==0 && userBrowsesProduct.count==0}}">
       <view>
         <image src='../../images/user-star.png'></image>
       </view>
-      <view class='black-font no-like__title'> <text>你当前还没有浏览和添加心愿单商品</text></view>
+      <view class='black-font no-like__title'>
+        <text>你当前还没有浏览和添加心愿单商品</text>
+      </view>
     </view>
   </view>
 
-<!-- 设计管里面 -->
-<view wx:if="{{classInfo==3}}" class='shou bottom__info'>
+  <!-- 设计管里面 -->
+  <view wx:if="{{classInfo==3}}" class='shou bottom__info'>
     <!-- 店铺其他产品信息 -->
-  <view 
-    class='shopInfo' 
-    wx:if="{{watchStoreList.stores.length!=0}}"
-    wx:for="{{watchStoreList.stores}}" 
-    wx:key="{{index}}">
-    <view class='shopInfoT'>
-      <view class='userIcon' catchtap='handleGoIndex'>
-        <image src='{{ item.logo }}'></image>
+    <view class='shopInfo' wx:if="{{watchStoreList.stores.length!=0}}" wx:for="{{watchStoreList.stores}}" wx:key="{{index}}">
+      <view class='shopInfoT'>
+        <view class='userIcon' catchtap='handleGoIndex'>
+          <image src='{{ item.logo }}'></image>
+        </view>
+        <view class='shopMiddle' catchtap='handleGoIndex'>
+          <view class='hui-zi'>原创品牌馆</view>
+          <view class='shop-name'>{{ item.name }}</view>
+        </view>
+        <view class='with column-row--middle ' catchtap='handleAddWatch' wx:if="{{item.watch}}" data-rid="{{item.rid}}" data-index="{{index}}">
+          <image src='../../images/shop1.png'></image>
+          <view>关注</view>
+        </view>
+        <view class='with already-follow' data-rid="{{item.rid}}" catchtap='handleDeleteWatch' wx:if="{{!item.watch}}" data-index="{{index}}">
+          <!-- <image src='../../images/shop1.png'></image> -->
+          <view>已关注</view>
+        </view>
       </view>
-      <view class='shopMiddle' catchtap='handleGoIndex'>
-        <view class='hui-zi'>原创品牌馆</view>
-        <view class='shop-name'>{{ item.name }}</view>
-      </view>
-      <view 
-        class='with column-row--middle ' 
-        catchtap='handleAddWatch' 
-        wx:if="{{item.watch}}" 
-        data-rid="{{item.rid}}"
-        data-index="{{index}}">
-        <image src='../../images/shop1.png'></image>
-        <view>关注</view>
-      </view>
-      <view 
-        class='with already-follow' 
-        data-rid="{{item.rid}}"
-        catchtap='handleDeleteWatch' 
-        wx:if="{{!item.watch}}" 
-        data-index="{{index}}">
-        <!-- <image src='../../images/shop1.png'></image> -->
-        <view>已关注</view>
+      <view class='shop-other-goods'>
+        <view wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-rid='{{ value.rid }}' catchtap='handleToProductInfoTap'>
+          <image src='{{ value.cover }}-p16'></image>
+        </view>
       </view>
     </view>
-    <view class='shop-other-goods'>
-      <view wx:for='{{ item.products }}' 
-        wx:key="{{ index }}" 
-        wx:for-item="value"
-        data-rid='{{ value.rid }}' 
-        catchtap='handleToProductInfoTap'>
-        <image src='{{ value.cover }}-p16'></image>
-      </view>
-    </view>
-  </view>
 
     <!-- 缺省图片 -->
     <view class=' column-row--middle user-null__product' wx:if="{{classList[2].num==0&&watchStoreList.stores.length==0}}">
       <view>
         <image src='../../images/user-store.png'></image>
       </view>
-      <view class='black-font no-like__title'> <text>你当前还未关注任何原创品牌设计馆</text></view>
+      <view class='black-font no-like__title'>
+        <text>你当前还未关注任何原创品牌设计馆</text>
+      </view>
     </view>
-</view>
-
-
-    <!-- 排序的呼出框 -->
-  <!-- <view 
-    class='login-bind_box--style' 
-    catchtap='handleSortOff'
-    wx:if="{{isSortShow}}">
-    <fx-sort 
-      teHuiShow="{{true}}"      
-      bind:handleSortOff="handleSortOff" 
-      bind:handlePickOver="handleSort"></fx-sort>
-  </view> -->
-
-    <!-- 筛选的产品 -->
-  <!-- <view class='login-bind_box--style' wx:if="{{handelOffPick}}" catchtap='handelOffPick'>
-    <fx-pick-product 
-      bind:logisticsPrice="handlePick"
-      bind:handlePickOff="handelOffPick"
-      recommend="{{true}}"
-      bind:handlePickProduct="handlePickProduct"
-      category="{{shopInfo.categories}}"></fx-pick-product>
-  </view> -->
+  </view>
 
   <!-- 筛选 -->
   <view class="pick-box">
@@ -244,20 +209,6 @@
             </scroll-view>
           </view>
         </view>
-
-        <!-- 推荐 -->
-        <!-- <view>
-          <view class="block-title">推荐
-            <small>可多选</small>
-          </view>
-          <view class="scroll-view__container">
-            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
-              <view class="category {{ category.isActive ? 'active' : '' }}" wx:for="{{ recommendList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" data-index="{{index}}" bindtap="handleToggleRecommendList">
-                {{ category.name }}
-              </view>
-            </scroll-view>
-          </view>
-        </view> -->
       </view>
       <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">
         查看商品
@@ -293,5 +244,5 @@
 
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
-  
+
 </view>

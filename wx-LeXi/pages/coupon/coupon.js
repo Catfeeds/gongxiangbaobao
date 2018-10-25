@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     storeInfo: {}, // 店铺详情
     normalCouponList: [], // 未使用的 可用红包 非官方
     exceedCouponList: [], // 已经过期 不可用红包 非官方
@@ -141,7 +142,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

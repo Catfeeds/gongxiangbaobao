@@ -1,4 +1,4 @@
-<!--pages/paymentAddress/paymentAddress.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color'>
   <!-- 上面的进度条 -->
   <view wx-if='{{ path }}'>

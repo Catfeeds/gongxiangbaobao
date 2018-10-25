@@ -1,4 +1,5 @@
 <!--pages/likeThisProduct/likeThisProduct.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
   <view 
     class='time-top font-m relation-item' 

@@ -2,6 +2,7 @@
 <import src="../couponTemplate/couponTemplate.wxml" />
 <import src="../../wxParse/wxParse.wxml" />
 
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color product-bout-box {{coupon_show || pick?"prevent__penetrate":""}}'>
 
   <!-- 轮播图 123-->
@@ -43,35 +44,19 @@
     <view class='branderInfo like-quantity margin-bottom--30rpx'>
 
 
-    <!-- 喜欢 -->
+      <!-- 喜欢 -->
       <view class='like-quantity-l bg-green' catchtap='handleBindLike' wx:if="{{productInfomation.is_like}}">
         <image src='../../images/already-like@3.png' class='like-icon'></image>
         <text class='font-s like-icon__text--white  like-icon-add'> +{{productInfomation.like_count}}</text>
 
       </view>
 
-    <!-- 喜欢 -->
+      <!-- 喜欢 -->
       <view class='like-quantity-l' catchtap='handleBindLike' wx:else>
         <image src='../../images/dLike@2.png' class='like-icon'></image>
         <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
         <text class='hui-zi like-icon-add' wx:else>喜欢</text>
       </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <view class='transmission'>
         <view class='like-quantity-l' catchtap='handleaddDesireTap'>
@@ -85,24 +70,29 @@
       </view>
     </view>
 
-    <!-- 领取优惠券 -->
-    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.coupons.length != 0 }}'>
-      <view class='coupon-message'>
+    <!-- 优惠券 -->
+    <view class="coupon-box" catchtap="coupon_show" wx:if='{{ couponList.coupons.length != 0 || fullSubtractionList.coupons.length != 0 }}'>
+      <view class="coupon-message">
+
         <!-- 优惠券 -->
-        <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
-          <view class=''>
-            <image src='../../images/coupon-icon@2.png'></image>
-            <text>领取设计馆优惠红包</text>
+        <view class="time-top coupons" wx:if='{{ couponList.length != 0 }}'>
+          <image src="../../images/coupon-icon@2.png" class="icon-coupon"></image>
+          <view class="coupon-info">
+            领取设计馆优惠红包
           </view>
-          <view class='get-btn'>领取</view>
+          <view class="get-btn">领取</view>
         </view>
 
         <!-- 满减 -->
-        <view class='reduced-price' wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
-          <image src='../../images/reduced-price@2.png'></image>
-          <text class="reduced-price_text" wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">{{ item.type_text }}</text>
-          <view class='reduced-price__last' wx:if="{{fullSubtractionList.length>2&&couponList.coupons.length != 0}}"> ... </view>
-          <view class='reduced-price__last' wx:if="{{couponList.coupons.length == 0}}"> > </view>
+        <view class="reduced-price" wx:if='{{ fullSubtractionList.coupons.length != 0 }}'>
+          <image src="../../images/reduced-price@2.png" class="icon-reduced"></image>
+          <view class="reduced-list">
+            <view class="coupon-item" wx:for="{{ fullSubtractionList.coupons }}" wx:key="{{ index }}">
+              {{ item.type_text }}
+            </view>
+          </view>
+          <text class='reduced-price__last' wx:if="{{ fullSubtractionList.coupons.length > 2 && couponList.coupons.length != 0 }}"> ···</text>
+          <text class='reduced-price__last' wx:if="{{ couponList.coupons.length == 0 }}"> > </text>
         </view>
       </view>
     </view>
@@ -119,7 +109,7 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}' class='photo-round'></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}-ava' class='photo-round'></image>
 
     </view>
     <view class='roundR' data-rid='{{productInfomation.rid}}' catchtap='handelToLikeThisProductTap'>
@@ -199,7 +189,7 @@
         <image src='../../images/shop1.png'></image>
         <view>关注</view>
       </view>
-      
+
     </view>
     <view class='shop-other-goods'>
       <view wx:for='{{ newProductList.products }}' wx:key="{{ index }}" data-rid='{{ item.rid }}' catchtap='handleProductInfoTap'>
@@ -256,10 +246,10 @@
         </view>
       </view>
       <view class='bottom-btn bg-white c-crosswise-a pick '>
-        <view class='add_cart pick__button' catchtap='handleAddCart'  wx:if="{{productInfomation.stock_count!=0}}">加入购物车</view>
-        <view class='btn-bg-color pick__button' catchtap='handleQuickBuy'  wx:if="{{productInfomation.stock_count!=0}}">选好了</view>
-      
-        <view class='btn-bg-color pick__button sell-over__btn'  wx:if="{{productInfomation.stock_count==0}}">已售罄</view>
+        <view class='add_cart pick__button' catchtap='handleAddCart' wx:if="{{productInfomation.stock_count!=0}}">加入购物车</view>
+        <view class='btn-bg-color pick__button' catchtap='handleQuickBuy' wx:if="{{productInfomation.stock_count!=0}}">选好了</view>
+
+        <view class='btn-bg-color pick__button sell-over__btn' wx:if="{{productInfomation.stock_count==0}}">已售罄</view>
       </view>
 
       <!-- 垫片 -->
@@ -278,7 +268,7 @@
       </view>
     </view>
     <view class='add_cart' catchtap='handleAddCartShow'>加入购物车</view>
-    <view class=' crated_btn--style btn-bg-color'  catchtap='handlePickShow'>接单订制</view>
+    <view class=' crated_btn--style btn-bg-color' catchtap='handlePickShow'>接单订制</view>
   </view>
 
   <!-- 接单定制按钮 没有sku的时候 -->
@@ -290,7 +280,7 @@
         <text>购物车</text>
       </view>
     </view>
-    <view class=' crated_btn--style btn-bg-color sell-over__btn' >已售罄</view>
+    <view class=' crated_btn--style btn-bg-color sell-over__btn'>已售罄</view>
   </view>
 
   <!-- 垫片 -->
@@ -357,19 +347,16 @@
     </view>
   </view>
 
-    <!-- 登陆注册模态框 -->
+  <!-- 登陆注册模态框 -->
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
-    <!-- 分享模板 -->
-  <fx-modal 
-    showHead="{{ false }}" 
-    visible="{{ is_share }}" 
-    bind:closeEvent="handleCancelShare">
+  <!-- 分享模板 -->
+  <fx-modal showHead="{{ false }}" visible="{{ is_share }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
-        <view class="distribute-commission">
-        </view>
+      <view class="distribute-commission">
+      </view>
       <view class="distribute-message">
-        
+
       </view>
       <view class="distribute-style">
         <button class="share-friend wxa-card" open-type="share">

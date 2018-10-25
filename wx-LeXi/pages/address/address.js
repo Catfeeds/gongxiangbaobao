@@ -13,6 +13,7 @@ Page({
    */
   data: {
     rid: '',
+    isLoading: true,
     isEditing: false, // 是否为编辑状态
     currentAddress: {}, // 地址详情信息
     from_ref: '', // 来源
@@ -581,7 +582,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

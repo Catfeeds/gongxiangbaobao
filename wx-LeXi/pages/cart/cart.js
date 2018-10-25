@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
     skus: {
@@ -721,10 +722,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中'
-    })
-
     // 未登录
     if (!app.globalData.isLogin) {
       return
@@ -735,7 +732,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    wx.hideLoading() 
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

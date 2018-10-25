@@ -1,4 +1,5 @@
 <!--pages/checkout/checkout.wxml 订单结算 -->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color {{authorityCouponShow || coupon?"prevent__penetrate":""}}'>
   <!-- 上面的进度条 -->
   <view>

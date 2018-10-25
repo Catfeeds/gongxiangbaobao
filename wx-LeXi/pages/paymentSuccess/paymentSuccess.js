@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     order: [],// 订单
     logisticsPriceSum: 0,
     orderRid: ''
@@ -47,7 +48,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

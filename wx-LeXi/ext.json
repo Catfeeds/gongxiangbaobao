@@ -1,11 +1,11 @@
 {
   "extEnable": true,
-  "extAppid": "wx1e431f9f4f670f23",
+  "extAppid": "wx3cc0ea5d2c601f30",
   "directCommit": false,
   "ext": {
-    "name": "小灵兽",
-    "authAppid": "wx1e431f9f4f670f23",
-    "storeRid": "97462035",
+    "name": "灵枝科技",
+    "authAppid": "wx3cc0ea5d2c601f30",
+    "storeRid": "90842619",
     "attr": {
       "users": [
         "purpen"
@@ -14,8 +14,8 @@
     "api": {
       "host": "https://wxapi.lexivip.com",
       "version": "v1.0",
-      "appKey": "kzUopGxKQ04cWiwI3XCt",
-      "appSecret": "8436aeb3fac2bfd38d63c7fc25c66b0693e72d36"
+      "appKey": "khtKw7qsMzlZSLvQoij3",
+      "appSecret": "6a3729f295c026b60a675ed04785b0f90c0d6375"
     }
   },
   "networkTimeout": {

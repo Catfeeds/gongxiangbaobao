@@ -449,7 +449,7 @@ swiper-item, swiper-item>image, swiper {
   background-color: #fbf7f3;
   border-radius: 10rpx;
   padding: 10rpx 20rpx;
-  margin-bottom: 30rpx;
+  margin: 0 0 30rpx;
 }
 
 .product-all-info {

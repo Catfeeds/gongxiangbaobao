@@ -1,4 +1,5 @@
 <!--pages/watch/watch.wxml 关注的人-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
   <view class='time-top font-m relation-item' wx:for="{{peopleList.followed_users}}" wx:key="{{index}}">
     <view class='flex_row relation-avater'>  

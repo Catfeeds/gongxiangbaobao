@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "喜欢该商品的人"
+  "navigationBarTitleText": "喜欢该商品的人",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
 }

@@ -1,4 +1,5 @@
 <!--pages/cart/cart.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color {{is_mobile ||pickBox?"prevent__penetrate":""}}' >
 
   <!-- 购物车缺省页 -->

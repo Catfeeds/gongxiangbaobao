@@ -1,6 +1,6 @@
 <!--pages/brandInformation/brandInformation.wxml 关于品牌-->
 <import src="../../wxParse/wxParse.wxml"/>
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container'>
   <view class='userPhotoBox'>
     <view class='userinfo'>

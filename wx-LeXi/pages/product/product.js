@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
     posterUrl: '', // 海报的url
     shareProductPhotoUrl: '', // 分享产品的url
     is_share: false,
@@ -869,7 +870,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options, product) {
-    utils.handleShowLoading()
     // scene格式：rid + '-' + customer_rid
     let scene = decodeURIComponent(options.scene)
     let rid = ''
@@ -908,12 +908,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    utils.handleHideLoading()
     this.animation = wx.createAnimation({
       transformOrigin: 'bottom bottom',
       duration: 500,
       timingFunction: 'linear'
     })
+
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

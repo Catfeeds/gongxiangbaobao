@@ -12,6 +12,7 @@ Page({
    */
   data: {
     // isWatch:true,//是否关注
+    isLoading: true,
     peopleList: [], // 粉丝的数量
     params: {
       page: 1, // Number	可选	1	当前页码
@@ -79,7 +80,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

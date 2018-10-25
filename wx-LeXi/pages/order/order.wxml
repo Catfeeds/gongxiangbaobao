@@ -1,7 +1,6 @@
 <!--pages/order/order.wxml 订单状态-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color'>
-
-
   <!-- 头部导航 -->
   <view class="page-order__nav">
     <block wx:for="{{ navList }}" wx:key="{{ item.status }}">
@@ -61,11 +60,11 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-          <view wx:if="{{ order.user_order_status == 4 }}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}"  data-order="{{index}}">
+          <view wx:if="{{ order.user_order_status == 4 }}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
             <text>付款</text>
             <text>{{ items_order.orderTime }}</text>
           </view>
-          <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 || order.user_order_status == 6 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">  
+          <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 || order.user_order_status == 6 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
             删除订单
           </view>
           <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" wx:if="{{ order.user_order_status == 2 }}" class='delleteOrder hui-zi' catchtap='logTop'>

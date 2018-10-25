@@ -1,8 +1,8 @@
 <fx-modal title="授权登录" visible="{{ visible }}">
   <view class="fx-modal__main" slot="main">
     <view class="login-method" wx:if="{{ !showBindForm }}">
-      <button class="fx-button primary" open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">使用微信授权一键绑定手机号</button>
-      <button wx:if="{{ canIUse }}" class="fx-button default" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用验证码绑定手机号</button>
+      <button wx:if="{{ canIUse }}" class="fx-button primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用验证码绑定手机号</button>
+      <button class="fx-button default" open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">使用微信授权一键绑定手机号</button>
     </view>
     <!-- 填写手机验证码弹出框 -->
     <view class="login-box" wx:if="{{ showBindForm }}">

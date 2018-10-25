@@ -3,6 +3,7 @@
   "navigationBarTitleText": "确认订单",
   "navigationBarBackgroundColor": "white",
   "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-approve": "/components/FxApprove/FxApprove",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",

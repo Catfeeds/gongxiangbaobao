@@ -1,4 +1,4 @@
-<!--pages/coupon/coupon.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container theme-bg-color'>
   <!-- 商家劝 -->
   <view class='coupon-box' wx:for='{{normalCouponList}}' wx:key="{{index}}" wx:if="{{!item.is_used &&! item.is_expired}}">
