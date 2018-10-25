@@ -61,7 +61,7 @@ Page({
     classList: [{
         rid: 1,
         num: 0,
-        name: '喜欢'
+        name: '已喜欢'
       },
       {
         rid: 2,
@@ -475,8 +475,8 @@ Page({
   // 心愿单列表
   getDesireOrderProduct() {
     http.fxGet(api.wishlist, this.data.getProductParams, (result) => {
+      utils.logger(result, '心愿单')
       if (result.success) {
-        utils.logger(result, '心愿单')
         this.setData({
           desireOrderProduct: result.data
         })
