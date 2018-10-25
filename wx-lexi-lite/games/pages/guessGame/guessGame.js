@@ -71,6 +71,7 @@ Page({
     // 偷我红包的人
     stealBonusPeople: [],
     stealPage: 1,
+    stealNext: false,
 
     friendActiveTab: 'mine', // 'guess'
     // 好友列表
@@ -183,6 +184,17 @@ Page({
         topWorldPage: page
       })
       this.getTopWorld()
+    }
+  },
+
+  // 滚动加载偷我红包的人
+  handleLoadStealPeople () {
+    if (this.data.stealNext) {
+      let page = this.data.stealPage + 1
+      this.setData({
+        stealPage: page
+      })
+      this.getStealBonusPeople()
     }
   },
 
@@ -660,7 +672,8 @@ Page({
         })
 
         this.setData({
-          stealBonusPeople: res.data.friend_list
+          stealBonusPeople: res.data.friend_list,
+          stealNext: res.data.next ? true : false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -810,6 +823,11 @@ Page({
           stealBonusPeopleCount: res.data.steal_bouns_count,
           showStealResultModal: res.data.steal_bouns_count > 0 ? true : false
         })
+
+        // 获取偷我红包的人
+        if (res.data.steal_bouns_count > 0) {
+          this.getStealBonusPeople()
+        }
       } else {
         utils.fxShowToast(res.status.message)
       }

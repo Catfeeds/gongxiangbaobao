@@ -230,7 +230,7 @@
   <fx-game-modal class="fx-modal--steal" visible="{{ showStealModal }}">
     <view class="fx-modal__main" slot="main">
       <view class="steal-title">偷我红包的人</view>
-      <view class="invite-list steal-list">
+      <scroll-view scroll-y lower-threshold="100" bindscrolltolower="handleLoadStealPeople" class="invite-list steal-list scroll-steal">
         <view class="invite-item" wx:for="{{ stealBonusPeople }}" wx:for-item="people" wx:key="{{ people.user_sn }}">
           <image src="{{ people.user_logo }}-ava" class="avatar"></image>
           <span>{{ people.user_name }}</span>
@@ -238,7 +238,7 @@
             <button class="btn-steal" data-uid="{{ people.user_sn }}" bindtap="handleStealBonus"></button>
           </view>
         </view>
-      </view>
+      </scroll-view>
     </view>
   </fx-game-modal>
 

@@ -816,6 +816,9 @@ page {
 .fx-modal--steal .steal-list {
   margin-top: 40rpx;
 }
+.fx-modal--steal .scroll-steal {
+  height: 880rpx;
+}
 
 .fx-modal--steal-bonus .thb-back {
   margin-top: 78rpx;
