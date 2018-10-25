@@ -111,7 +111,7 @@
       <view class="time-top brand-coupon__box margin-top--50rpx">
         <view class="brand-coupon" wx:for="{{highBrandCouponList}}" wx:for-item="item" wx:key="{{index}}">
           <!-- 大图 -->
-          <view class="brand-coupon__big" wx:if="{{index%3==0||index==0}}">
+          <view class="brand-coupon__big" wx:if="{{(index+3)%3==0}}">
             <!-- 头部 -->
             <view class="hander time-top" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}">
               <view class="flex_row">
@@ -153,7 +153,7 @@
           </view>
 
           <!-- 小图 -->
-          <view catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" class="brand-coupon__min flex-direction-column__item" wx:if="{{index%3!=0||index!=0}}">
+          <view catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" class="brand-coupon__min flex-direction-column__item" wx:if="{{(index+3)%3!=0}}">
             <view class="hander">
               <image class="log-bg" src="{{item.store_bgcover}}"></image>
               <image class="log-icon" src="{{item.store_logo}}"></image>
@@ -243,7 +243,7 @@
     <view class="time-top brand-coupon__box margin-top--40rpx" wx:if="{{couponCtaegory=='common'}}">
       <view class="brand-coupon" wx:for="{{categoryCommonCoupon}}" wx:key="{{index}}">
         <!-- 大图 -->
-        <view class="brand-coupon__big" wx:if="{{index%3==0||index==0}}">
+        <view class="brand-coupon__big" wx:if="{{(index+3)%3==0}}">
           <!-- 头部 -->
           <view class="hander time-top" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}">
             <view class="flex_row">
@@ -285,7 +285,7 @@
         </view>
 
         <!-- 小图 -->
-        <view class="brand-coupon__min flex-direction-column__item" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" wx:if="{{index%3!=0||index!=0}}">
+        <view class="brand-coupon__min flex-direction-column__item" catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" wx:if="{{(index+3)%3!=0}}">
           <view class="hander">
             <image class="log-bg" src="{{item.store_bgcover}}"></image>
             <image class="log-icon" src="{{item.store_logo}}"></image>

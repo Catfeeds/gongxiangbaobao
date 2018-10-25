@@ -13,7 +13,7 @@ Page({
   data: {
     isLoading: true,
     authorityCouponList: [], // 官方优惠券
-    couponAdv:[], // 领券中心的的优惠券
+    couponAdv: [], // 领券中心的的优惠券
     swiperMark: 0, // 广告位置的点
 
     highBrandCouponList: [], // 精选品牌馆优惠券
@@ -53,7 +53,7 @@ Page({
   },
 
   //广告位置
-  handleChangRound(e){
+  handleChangRound(e) {
     utils.logger(e.detail.current)
     this.setData({
       swiperMark: e.detail.current
@@ -276,11 +276,11 @@ Page({
   },
 
   // 跳转到商品详情
-  handleGoProduct(e){
+  handleGoProduct(e) {
     let rid = e.currentTarget.dataset.rid
     let targetType = e.currentTarget.dataset.type
 
-    if (targetType == 2 ) {
+    if (targetType == 2) {
       wx.navigateTo({
         url: '../product/product?rid=' + rid,
       })
@@ -294,6 +294,10 @@ Page({
       let data = this.data.categoryCommonCoupon
       if (result.success) {
         result.data.coupons.forEach((item, idx) => {
+          if (item.store_name.length > 12) {
+            item.store_name = item.store_name.substr(0, 12) + '...'
+          }
+
           item.product_sku.forEach((v, i) => {
             if (v.product_name.length > 7) {
               v.product_name = v.product_name.substr(0, 7) + '...'
@@ -351,11 +355,16 @@ Page({
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
       utils.logger(result, '精选品牌馆优惠券')
+      console.log(result, '精选品牌馆优惠券')
       if (result.success) {
-        result.data.coupons.forEach((item,idx)=>{
+        result.data.coupons.forEach((item, idx) => {
+          if (item.store_name.length > 12) {
+            item.store_name = item.store_name.substr(0, 12) + '...'
+          }
+
           item.product_sku.forEach((v, i) => {
             if (v.product_name.length > 7) {
-              v.product_name = v.product_name.substr(0, 7)+'...'
+              v.product_name = v.product_name.substr(0, 7) + '...'
             }
           })
         })
@@ -406,24 +415,27 @@ Page({
   },
 
   // 领券中心的广告
-  getAdv(){
-    http.fxGet(api.banners_rid.replace(/:rid/g,'coupon_ad'),{},result=>{
-      utils.logger(result,'领券中心的广告')
-      if(result.success){
+  getAdv() {
+    http.fxGet(api.banners_rid.replace(/:rid/g, 'coupon_ad'), {}, result => {
+      utils.logger(result, '领券中心的广告')
+      if (result.success) {
         utils.logger()
         this.setData({
           couponAdv: result.data.banner_images
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  getCouponDynamic(){
-    http.fxGet(api.market_coupon_lines, { status: 1, count:20},result=>{
-      utils.logger(result,'领券中心的动态')
-      
+  getCouponDynamic() {
+    http.fxGet(api.market_coupon_lines, {
+      status: 1,
+      count: 20
+    }, result => {
+      utils.logger(result, '领券中心的动态')
+
     })
   },
 
