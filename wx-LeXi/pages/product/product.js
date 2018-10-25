@@ -393,6 +393,11 @@ Page({
     this.getProductInfomation() // 获取商品详情---
   },
 
+  // 下架处理上级页面数据
+  _handleParentData(){
+
+  },
+
   // 交货时间
   getLogisticsTime(e, rid) {
     http.fxGet(api.logisitcs.replace(/:rid/g, e), {
@@ -439,6 +444,8 @@ Page({
               })
             }
           })
+
+          this._handleParentData()
         }
 
         // 处理html数据---
