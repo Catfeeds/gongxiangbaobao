@@ -18,7 +18,7 @@ Page({
     HighStoreAdvList: [], // 特色品牌管的头部广告
     seiperIndex: 0, // 轮播图选中的点
     HighStoreList: [], // 精选品牌列表
-    categoryId: 2, // 分类的id
+    categoryId: 1, // 分类的id
     isLoadProductShow: true, // 加载图片
     isNext: true, // 是否有下一页
     storeList: [], // 店铺的列表
