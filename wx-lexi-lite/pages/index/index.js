@@ -367,7 +367,7 @@ Page({
     showPosterModal: false, // 分享海报
     windowPosterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
-    posterBtnText: '保存分享海报',
+    posterBtnText: '保存分享图',
 
     runEnv: 1,
     is_mobile: false // 验证是否登陆

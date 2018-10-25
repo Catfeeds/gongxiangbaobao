@@ -36,7 +36,7 @@
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
     <!-- wx:for='{{productInfomation.labels}}' -->
-    <view class='characteristic branderInfo margin-bottom--40rpx'>
+    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productInfomation.labels.length > 0 }}">
       <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
       <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
           <text wx:if="{{index!=0}}"> · </text>
@@ -424,9 +424,9 @@
         </block>
       </view>
 
-      <!--view class="distribute-message">
+      <view class="distribute-message" wx:if="{{ isSmallB && isDistributed && runEnv == 2 }}">
         朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
-      </view-->
+      </view>
       <view class="distribute-style">
         <view class="share-friend wxa-card">
           <button class="share-btn" open-type="share"></button>
@@ -439,7 +439,7 @@
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
             <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
-          <text>保存分享海报</text>
+          <text>保存分享图</text>
         </view>
       </view>
       <view class="distribute-action">

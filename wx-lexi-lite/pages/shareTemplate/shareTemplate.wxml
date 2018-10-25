@@ -10,7 +10,7 @@
       </buttton>
       <view class='share-Tempate_img line-D'>
         <image src='../../images/timg.jpg' class='save_photo'></image>
-        <view class='hui-zi margin-top--14rpx' >保存分享海报</view>
+        <view class='hui-zi margin-top--14rpx' >保存分享图</view>
       </view>
     </view>
     <view class='time-top c-crosswise-a'>

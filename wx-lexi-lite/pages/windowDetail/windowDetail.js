@@ -49,7 +49,7 @@ Page({
     showPosterModal: false, // 分享海报
     posterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
-    posterBtnText: '保存分享海报'
+    posterBtnText: '保存分享图'
 
   },
 
@@ -306,15 +306,15 @@ Page({
                 that.setData({
                   showPosterModal: false,
                   posterSaving: false,
-                  posterBtnText: '保存分享海报'
+                  posterBtnText: '保存分享图'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
               fail: function (err) {
-                utils.logger('下载海报失败：' + err.errMsg)
+                utils.logger('下载图片失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
-                  posterBtnText: '保存分享海报'
+                  posterBtnText: '保存分享图'
                 })
 
                 if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
@@ -326,7 +326,7 @@ Page({
                         that.setData({
                           showPosterModal: false,
                           posterSaving: false,
-                          posterBtnText: '保存分享海报'
+                          posterBtnText: '保存分享图'
                         })
                       } else {
                         utils.fxShowToast('保存失败')

@@ -74,8 +74,8 @@ Page({
     newProductList: { // 最新的商品列表---
       products: [{}, {}, {}, {}, {}, {}]
     },
-    similarList: [] // 相似产品的列表
-
+    similarList: [], // 相似产品的列表
+    runEnv: 1
   },
 
   /**
@@ -1249,6 +1249,23 @@ Page({
         })
       }
     }
+
+    // 获取当前环境
+    this.getRunEnv()
+  },
+
+  /**
+   * 获取运行环境
+   */
+  getRunEnv() {
+    http.fxGet(api.run_env, {}, (res) => {
+      if (res.success) {
+        utils.logger(res, '环境变量')
+        this.setData({
+          runEnv: res.data.status
+        })
+      }
+    })
   },
 
   /**
