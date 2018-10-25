@@ -46,7 +46,9 @@ Page({
     },
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
-    userBrowsesProduct: [], //用户浏览记录---
+    userBrowsesProduct: { // 用户浏览记录---
+      count: 0
+    },
     userInfo: [], // 用户的信息
     classInfo: 1, // 切换---
     sotrF: false,
@@ -54,8 +56,12 @@ Page({
     isLikeProductNext: true, // 喜欢是否有下一页
     likeProduct: [], // 喜欢的的商品---
 
-    recentlyLookProduct: [], // 最近查看的商品---
-    desireOrderProduct: [], //心愿单商品---
+    recentlyLookProduct: { // 最近查看的商品---
+      count: 0
+    }, 
+    desireOrderProduct: { // 心愿单商品---
+      count: 0
+    },
     product: [{}],
     // 切换类型---
     classList: [{
@@ -406,6 +412,16 @@ Page({
       'sortParams.page': 1,
       classInfo: e.currentTarget.dataset.rid
     })
+    
+    // 需先登录
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+
+      return
+    }
 
     this.getProduct(e.currentTarget.dataset.rid)
   },
@@ -610,7 +626,7 @@ Page({
   // 跳转到设置页面
   setTap(e) {
     // 是否登陆
-    if (app.globalData.isLogin) {
+    if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
       this.setData({
         is_mobile: true
