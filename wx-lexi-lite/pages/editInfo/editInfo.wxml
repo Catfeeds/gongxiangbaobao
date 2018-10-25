@@ -37,7 +37,7 @@
       <!-- 出生日期 -->
       <label class='componentTwo'>
         <view class='margin-bottom--16rpx'>出生日期</view>
-        <picker mode="date" value="{{ editUserInfo.date }}" start="1990-01-01" end="2017-09-01" class="seting-date" bindchange="bindDateChange">
+        <picker mode="date" value="{{ editUserInfo.date }}" start="1960-01-01" end="2017-09-01" class="seting-date" bindchange="bindDateChange">
           <view class="black-font" wx:if="{{ editUserInfo.date }}">
             {{ editUserInfo.date }}
           </view>

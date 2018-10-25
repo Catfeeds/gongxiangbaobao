@@ -6,12 +6,16 @@ const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 const common = require('./../../utils/common.js')
 
+let animationInterval
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    animationNum: 0, // 首页选品中心的动画
+
     page: 1,
     perPage: 5,
     firstTime: true,
@@ -32,6 +36,51 @@ Page({
 
     lifeStorePosterUrl: '', // 生活馆的url
 
+    newUserCoupon: false, // 新人是否领取过红包
+    newUserCouponInfo: [{
+        money: 10,
+        condition: 10,
+        use_position: '全平台',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 15,
+        condition: 159,
+        use_position: '生活良品',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 25,
+        condition: 259,
+        use_position: '好感衣装',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 35,
+        condition: 359,
+        use_position: '箱包&包装',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 15,
+        condition: 159,
+        use_position: '全平台',
+        created_at: 0,
+        end_at: 0
+      },
+      {
+        money: 5,
+        condition: 54,
+        use_position: '全平台',
+        created_at: 0,
+        end_at: 0
+      }
+    ],
+
     // 生活馆
     isSmallB: false, // 自己是否有生活馆
     showBack: false, // 显示回到自己生活馆
@@ -42,7 +91,9 @@ Page({
     sid: '', // 生活馆sid
     openId: '', // openId
     shopInfo: '', // 生活馆信息
-    lifeStore: {}, // 编辑生活馆信息
+    lifeStore: {
+      logo: 'https://static.moebeast.com/image/static/null-product.png'
+    }, // 编辑生活馆信息
     lifePhotoUrl: '', // 分享生活馆的图片
     storeOwner: {}, // 生活馆馆长
     storeProducts: [], // 生活馆商品列表
@@ -365,7 +416,7 @@ Page({
       scrollTop: pageScroll,
       duration: 0
     })
-    
+
     this._swtichActivePageTab(name)
   },
 
@@ -1258,7 +1309,7 @@ Page({
   /**
    * 海报弹出框关闭后，清空记录
    */
-  handleClearPosterUrl () {
+  handleClearPosterUrl() {
     this.setData({
       windowPosterUrl: ''
     })
@@ -1303,12 +1354,12 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.windowPosterUrl,
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode == 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
-              success: function (data) {
+              success: function(data) {
                 that.setData({
                   showPosterModal: false,
                   posterSaving: false,
@@ -1317,7 +1368,7 @@ Page({
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
-              fail: function (err) {
+              fail: function(err) {
                 utils.logger('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
@@ -1413,7 +1464,20 @@ Page({
 
   },
 
+  // 处理红包的时间
+  _handleNewUserCouponTime() {
+    let arrayData = this.data.newUserCouponInfo
 
+    let currentTime = new Date()
+    let currentTimeStr = Date.parse(currentTime) / 1000
+    console.log(c)
+
+    arrayData.forEach(v => {
+      v.created_at = utils.timestamp2string(currentTimeStr,'date'),
+        v.end_at = utils.timestamp2string(currentTimeStr,'date')
+
+    })
+  },
 
   // 获取浏览记录
   getBrowsePeople() {
@@ -1512,7 +1576,7 @@ Page({
   /** 精选里面的 start **/
 
   // 发现生活美学 
-  getLifeWindow(){
+  getLifeWindow() {
     http.fxGet(api.shop_windows_handpick, {}, (result) => {
       utils.logger(result, '今日推荐')
       if (result.success) {
@@ -1705,18 +1769,18 @@ Page({
     http.fxGet(api.life_store, {
       rid: this.data.sid
     }, (res) => {
-      utils.logger(res, '生活馆信息')
+      utils.logger(res, '生活馆信息-1710')
       if (res.success) {
         let isCadet = true
         if (res.data.phases == 2) {
           isCadet = false
         }
-        
+
         this.setData({
           lifeStore: res.data,
           isCadet: isCadet
         })
-        
+
         let lifeStoreName = res.data.name + '的生活馆'
         this.handleSetNavigationTitle(lifeStoreName)
       } else {
@@ -1771,12 +1835,15 @@ Page({
    * 获取最新3个分销商品
    */
   getDistributeNewest() {
-    http.fxGet(api.distribute_newest, {}, (res) => {
+    http.fxGet(api.distribute_newest, {
+      count: 20
+    }, (res) => {
       utils.logger(res, '选品中心')
       if (res.success) {
         this.setData({
           latestDistributeProducts: res.data.products
         })
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -1885,6 +1952,29 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  // 新人是否领取过红包
+  getNewCoupon() {
+    // 没有登录
+    if (!app.globalData.isLogin) {
+      this._handleNewUserCouponTime()
+      this.setData({
+        newUserCoupon: true
+      })
+
+    } else {
+      http.fxGet(api.market_is_new_user_bonus, {}, result => {
+        console.log(result, '是否领取')
+        if (result.data.is_grant == 0) {
+          this._handleNewUserCouponTime()
+          this.setData({
+            newUserCoupon: true
+          })
+
+        }
+      })
+    }
   },
 
   // 加载探索页数据
@@ -2005,6 +2095,20 @@ Page({
   },
 
   /**
+   * 做动画
+   */
+  _lifeAnimation() {
+
+    animationInterval = setInterval(() => {
+      let arrayData = this.data.latestDistributeProducts
+      this.setData({
+        latestDistributeProducts: arrayData.concat(arrayData[this.data.animationNum]),
+        animationNum: this.data.animationNum + 1,
+      })
+    }, 2000)
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
@@ -2076,6 +2180,9 @@ Page({
     this._loadingFeaturedPage()
     this._loadingExplorePage()
     this.getFollowWindow()
+
+    //新人红包
+    // this.getNewCoupon()
   },
 
   /**
@@ -2154,6 +2261,8 @@ Page({
       this.setData({
         isSmallB: true
       })
+
+      this._lifeAnimation()
     }
 
     // 当前显示生活馆与应该显示生活馆是否一致
@@ -2208,7 +2317,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(animationInterval) // 清除动画
   },
 
   /**

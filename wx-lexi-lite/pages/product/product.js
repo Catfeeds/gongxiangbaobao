@@ -657,6 +657,7 @@ Page({
       sid: jwt.store_rid || ''
     }, (result) => {
       if (result.success) {
+        console.log(result)
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,

@@ -42,14 +42,14 @@
                 <text class='nonePayment theme-green' wx:if="{{ order.user_order_status==6 }}">已取消</text>
 
                 </text>
-                <text class='price'>￥{{ order.pay_amount }}</text>
+                <text class='price'>￥{{ order.user_pay_amount }}</text>
               </view>
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
 
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{item.cover}}-p16'></image>
-                  <view class='margin-left--20'>
+                  <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
                   </view>
@@ -104,12 +104,12 @@
               <text class='hui-zi order-aggregate' data-store-rid="{{order.items[0].store_rid}}" catchtap='hadleToBrand'>{{order.created_item}}·状态：</text>
                 <text class='nonePayment theme-green'>待付款</text>
                 </text>
-                <text class='price'>￥{{ order.pay_amount }}</text>
+                <text class='price'>￥{{ order.user_pay_amount }}</text>
               </view>
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{item.cover}}-p16'></image>
-                  <view class='margin-left--20'>
+                  <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
                   </view>
@@ -154,14 +154,14 @@
                 <text class='nonePayment theme-green'>待发货</text>
 
                 </text>
-                <text class='price'>￥{{ product.pay_amount }}</text>
+                <text class='price'>￥{{ product.user_pay_amount }}</text>
               </view>
 
               <view class='goodsBox' wx:for="{{ product.items}}" wx:key="{{ index }}" wx:for-item="itm">
 
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{itm.cover}}-p16'></image>
-                  <view class='margin-left--20'>
+                  <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
 
@@ -200,13 +200,13 @@
 
                 <text class='nonePayment theme-green'>待收货</text>
                 </text>
-                <text class='price'>￥{{ item.pay_amount }}</text>
+                <text class='price'>￥{{ item.user_pay_amount }}</text>
               </view>
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ item.items }}" wx:for-item="itm">
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{itm.cover}}-p16'></image>
-                  <view class='margin-left--20'>
+                  <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
                   </view>
@@ -257,13 +257,13 @@
                 <text class='nonePayment theme-green'>待评价</text>
 
                 </text>
-                <text class='price'>￥{{ order.pay_amount }}</text>
+                <text class='price'>￥{{ order.user_pay_amount }}</text>
               </view>
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
                   <image class="order-product__photo" src='{{item.cover}}-p16'></image>
-                  <view class='margin-left--20'>
+                  <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
 

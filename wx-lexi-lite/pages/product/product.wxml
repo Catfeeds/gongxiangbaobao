@@ -26,11 +26,13 @@
       <text class='product-info__title'>{{productInfomation.name}}</text>
     </view>
     <view class='branderInfo margin-bottom--22rpx'>
-      <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'><text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <!-- <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'>
+      <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
       <text>-</text>
       <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
       </text>
-      <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
+      <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text> -->
+      <text class='cureentPrice' > <text>￥{{productInfomation.min_sale_price!=productInfomation.min_price && productInfomation.min_sale_price!=0?productInfomation.min_sale_price:productInfomation.min_price}}</text> </text>
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
     <!-- wx:for='{{productInfomation.labels}}' -->

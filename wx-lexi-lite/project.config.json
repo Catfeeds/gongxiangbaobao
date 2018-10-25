@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -151,8 +151,8 @@
 				},
 				{
 					"id": 19,
-					"name": "商品详情",
-					"pathName": "pages/product/product",
+					"name": "乐喜优选",
+					"pathName": "pages/leXiHighPick/leXiHighPick",
 					"query": "scene=8194567023-75471986"
 				},
 				{

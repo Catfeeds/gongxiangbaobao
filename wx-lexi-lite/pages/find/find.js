@@ -34,10 +34,10 @@ Page({
         { cover: '', description: '', user_avator: '', user_name:'' }
     ]}, 
     liveTheme:[
-      { name: '创作人故事', target: 1, img:"https://static.moebeast.com/static/img/designer_routine.jpg"},
-      { name: '种草笔记', target: 2, img:"https://static.moebeast.com/static/img/teach.jpg"},
-      { name: '生活记事', target: 3, img:"https://static.moebeast.com/static/img/plant_note.jpg"},
-      { name: '手作教学', target: 4, img:"https://static.moebeast.com/static/img/live_note.jpg"}
+      { name: '创作人故事', target: 1, img:"https://static.moebeast.com/image/static/discover_theme1.jpg"},
+      { name: '种草笔记', target: 2, img:"https://static.moebeast.com/image/static/discover_theme4.jpg"},
+      { name: '生活记事', target: 3, img:"https://static.moebeast.com/image/static/discover_theme2.jpg"},
+      { name: '手作教学', target: 4, img:"https://static.moebeast.com/image/static/discover_theme3.jpg"}
     ]
   },
 

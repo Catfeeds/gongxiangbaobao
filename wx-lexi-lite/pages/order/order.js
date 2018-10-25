@@ -5,7 +5,9 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
-let paymentWindowInterval
+let paymentWindowInterval // 弹框的倒计时
+let daifuInterval // 待付款计时器
+let allOrderInterval // 全部订单计时器
 
 Page({
   /**
@@ -37,23 +39,28 @@ Page({
     currentStatus: 0,
     navList: [{
         title: '全部',
-        status: 0
+        status: 0,
+        pageScroll: 0
       },
       {
         title: '待付款',
-        status: 4
+        status: 4,
+        pageScroll: 0
       },
       {
         title: '待发货',
-        status: 1
+        status: 1,
+        pageScroll: 0
       },
       {
         title: '待收货',
-        status: 2
+        status: 2,
+        pageScroll: 0
       },
       {
         title: '待评价',
-        status: 3
+        status: 3,
+        pageScroll: 0
       }
     ],
 
@@ -135,11 +142,12 @@ Page({
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       utils.logger(result, '订单列表')
+      console.log(result, '订单列表')
+      console.log(this.data.getOrderListParams, '订单列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
           v.created_item = utils.timestamp2string(v.created_at, "cn")
-
         })
 
         let allOrderList = this.data.allOrderList
@@ -150,10 +158,11 @@ Page({
         })
 
         let newOrderList = this.data.allOrderList
-        setInterval(() => {
+        allOrderInterval = setInterval(() => {
           this.setData({
             allOrderList: this._handlePaymenLastTime(newOrderList)
           })
+
         }, 1000)
 
       } else {
@@ -180,7 +189,7 @@ Page({
         })
 
         let newOrderList = this.data.daifu
-        setInterval(() => {
+        daifuInterval = setInterval(() => {
           this.setData({
             daifu: this._handlePaymenLastTime(newOrderList)
           })
@@ -366,11 +375,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getOrderList() // 获取订单列表---
-    this.getDaifaList() // 获取待发列表---
-    this.getDaishouList() // 获取待收货列表---
-    this.getPingjiaList() // 评价
-    this.getDaifuList() // 待付款
+
   },
 
   // 删除订单
@@ -436,14 +441,62 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getOrderList() // 获取订单列表---
+    this.getDaifaList() // 获取待发列表---
+    this.getDaishouList() // 获取待收货列表---
+    this.getPingjiaList() // 评价
+    this.getDaifuList() // 待付款
   },
+
+  /**
+   * 监听页面滚动
+   */
+  onPageScroll: function(e) {
+
+    //全部订单
+    if (this.data.currentStatus == 0) {
+      this.setData({
+        'navList[0].pageScroll': e.scrollTop
+      })
+    }
+
+    // 代发货
+    if (this.data.currentStatus == 1) {
+      this.setData({
+        'navList[2].pageScroll': e.scrollTop
+      })
+    }
+
+    // 待收货
+    if (this.data.currentStatus == 2) {
+      this.setData({
+        'navList[3].pageScroll': e.scrollTop
+      })
+    }
+
+    // 待评价
+    if (this.data.currentStatus == 3) {
+      this.setData({
+        'navList[4].pageScroll': e.scrollTop
+      })
+    }
+
+    // 待付款
+    if (this.data.currentStatus == 4) {
+      this.setData({
+        'navList[1].pageScroll': e.scrollTop
+      })
+    }
+  },
+
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(paymentWindowInterval)
+    clearInterval(allOrderInterval)
+    clearInterval(daifuInterval)
   },
 
   /**
@@ -466,10 +519,11 @@ Page({
   onReachBottom: function() {
     //全部
     if (this.data.currentStatus == 0) {
-      if (this.data.isNextAll == null) {
+      if (typeof(this.data.isNextAll) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
+
       this.setData({
         ['getOrderListParams.page']: this.data.getOrderListParams.page + 1
       })
@@ -477,9 +531,9 @@ Page({
       this.getOrderList()
     }
 
-
+    // 待发货
     if (this.data.currentStatus == 1) {
-      if (this.data.isNextDaifa == null) {
+      if (typeof(this.data.isNextDaifa) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -490,9 +544,10 @@ Page({
       this.getDaifaList() // 获取待发列表---
     }
 
+    //待收货
     if (this.data.currentStatus == 2) {
 
-      if (this.data.isNextdaishou == null) {
+      if (typeof(this.data.isNextdaishou) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -504,8 +559,9 @@ Page({
 
     }
 
+    //待评价
     if (this.data.currentStatus == 3) {
-      if (this.data.isNextDaiping == null) {
+      if (typeof(this.data.isNextDaiping) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -516,18 +572,20 @@ Page({
       this.getPingjiaList() // 评价
     }
 
+    //'待付款'
     if (this.data.currentStatus == 4) {
 
-      if (this.data.isNextDaifu == null) {
+      if (typeof(this.data.isNextDaifu) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
       this.setData({
         ['dafuParams.page']: this.data.dafuParams.page + 1
       })
+
+      this.getDaifuList()
     }
 
-    this.getDaifuList()
   },
 
   /**
