@@ -496,7 +496,7 @@ Page({
                   success(settingdata) {
                     if (settingdata.authSetting['scope.writePhotosAlbum']) {
                       utils.logger('获取权限成功，再次点击图片保存到相册')
-                      utils.fxShowToast('保存成功,分享至朋友圈')
+                      utils.fxShowToast('保存成功')
                     } else {
                       utils.fxShowToast('保存失败')
                     }
@@ -534,7 +534,7 @@ Page({
                   success(settingdata) {
                     if (settingdata.authSetting['scope.writePhotosAlbum']) {
                       utils.logger('获取权限成功，再次点击图片保存到相册')
-                      utils.fxShowToast('保存成功,分享至朋友圈')
+                      utils.fxShowToast('保存成功')
                     } else {
                       utils.fxShowToast('保存失败')
                     }
@@ -2071,11 +2071,7 @@ Page({
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     }
-
-    this.setData({
-      runEnv: app.globalData.runEnv
-    })
-
+    
     // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
@@ -2189,6 +2185,23 @@ Page({
     }
 
     this.getLifePhotoUrl()
+
+    // 获取当前环境
+    this.getRunEnv()
+  },
+
+  /**
+   * 获取运行环境
+   */
+  getRunEnv() {
+    http.fxGet(api.run_env, {}, (res) => {
+      if (res.success) {
+        utils.logger(res, '环境变量')
+        this.setData({
+          runEnv: res.data.status
+        })
+      }
+    })
   },
 
   /**

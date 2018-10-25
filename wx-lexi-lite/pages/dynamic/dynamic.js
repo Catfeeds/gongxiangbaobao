@@ -25,7 +25,7 @@ Page({
       per_page: 10, //Number	可选	10	每页数量
     },
     
-    runEnv: 2
+    runEnv: 1
   },
 
   // 跳转到拼接拼接橱窗 
@@ -71,12 +71,6 @@ Page({
    */
   onLoad: function(options) {
     this.getMyDynamic()
-    
-    utils.logger(app.globalData.runEnv)
-
-    this.setData({
-      runEnv: app.globalData.runEnv
-    })
   },
 
   /**
@@ -96,7 +90,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // 获取当前环境
+    this.getRunEnv()
+  },
 
+  /**
+   * 获取运行环境
+   */
+  getRunEnv() {
+    http.fxGet(api.run_env, {}, (res) => {
+      if (res.success) {
+        utils.logger(res, '环境变量')
+        this.setData({
+          runEnv: res.data.status
+        })
+      }
+    })
   },
 
   /**

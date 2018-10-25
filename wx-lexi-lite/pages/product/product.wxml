@@ -429,7 +429,7 @@
         <view class="share-friend wxa-card">
           <button class="share-btn" open-type="share"></button>
           <image src="{{ productInfomation.cover }}" class="cover"></image>
-          <text>点击直接分享好友样式</text>
+          <text>点击直接分享</text>
         </view>
 
         <view class="wxa-poster" bindtap="handleSaveShare">
@@ -437,7 +437,7 @@
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
             <image src="../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
-          <text>保存分享朋友圈海报</text>
+          <text>保存分享海报</text>
         </view>
       </view>
       <view class="distribute-action">

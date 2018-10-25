@@ -38,8 +38,6 @@ App({
       }
     }
 
-    this.getRunEnv()
-
     // 预先加载大陆地址
     this.getAddressPlaces()
 
