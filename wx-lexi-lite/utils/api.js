@@ -25,6 +25,7 @@ module.exports = {
   user_withdraw: 'pay_account/life_cash_money', // 提现至微信
   orders_order_coupon_count: 'orders/order_coupon_count', // 订单的数量和未使用优惠券的额数量
   market_is_new_user_bonus:'market/is_new_user_bonus',// 新人是否领取100元红包
+  market_grant_new_user_bonus: 'market/grant_new_user_bonus', // 新人领取100元红包
 
   // Asset
   asset_upload: 'assets/upload', // POST 上传附件

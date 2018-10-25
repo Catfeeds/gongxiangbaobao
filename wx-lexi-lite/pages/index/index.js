@@ -36,6 +36,7 @@ Page({
 
     lifeStorePosterUrl: '', // 生活馆的url
 
+    newUserCouponSuccess: false, // 新人领取是否成功
     newUserCoupon: false, // 新人是否领取过红包
     newUserCouponInfo: [{
         money: 10,
@@ -1466,16 +1467,65 @@ Page({
 
   // 处理红包的时间
   _handleNewUserCouponTime() {
-    let arrayData = this.data.newUserCouponInfo
+    let newUserCouponInfo = this.data.newUserCouponInfo
 
     let currentTime = new Date()
     let currentTimeStr = Date.parse(currentTime) / 1000
-    console.log(c)
 
-    arrayData.forEach(v => {
-      v.created_at = utils.timestamp2string(currentTimeStr,'date'),
-        v.end_at = utils.timestamp2string(currentTimeStr,'date')
+    newUserCouponInfo.forEach(v => {
+      v.created_at = utils.timestamp2string(currentTimeStr, 'date')
+      v.end_at = utils.timestamp2string(currentTimeStr + 604800, 'date')
+    })
 
+    this.setData({
+      newUserCouponInfo
+    })
+  },
+
+  // 新人领取红包 market_grant_new_user_bonus
+  handleNewUserCoupon() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    http.fxPost(api.market_grant_new_user_bonus, {}, result => {
+      console.log(result, '新人领取')
+      if (result.success) {
+        this.setData({
+          newUserCouponSuccess: true,
+          newUserCoupon: false
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 新人领取优惠券后去使用
+  handleNewGoUseCoupon() {
+    this.setData({
+      newUserCouponSuccess: false
+    })
+  },
+
+  // 去我的优惠券
+  handleGoCoupon() {
+    wx.navigateTo({
+      url: '../coupon/coupon'
+    })
+
+    this.handleNewGoUseCoupon()
+  },
+
+  // 关闭新人红包
+  handleOffNewCoupon() {
+    this.setData({
+      newUserCoupon: false
     })
   },
 
@@ -1965,7 +2015,6 @@ Page({
 
     } else {
       http.fxGet(api.market_is_new_user_bonus, {}, result => {
-        console.log(result, '是否领取')
         if (result.data.is_grant == 0) {
           this._handleNewUserCouponTime()
           this.setData({
@@ -2175,14 +2224,14 @@ Page({
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     }
-    
+
     // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
     this.getFollowWindow()
 
     //新人红包
-    // this.getNewCoupon()
+    this.getNewCoupon()
   },
 
   /**

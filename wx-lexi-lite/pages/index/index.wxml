@@ -964,7 +964,7 @@
   </view>
 
   <!-- 新人领取红包 -->
-  <view class="fx-column--center new-user__coupon" wx:if="{{newUserCoupon}}">
+  <view catchtap="handleOffNewCoupon" class="fx-column--center new-user__coupon" wx:if="{{newUserCoupon}}">
     <view class="new-user__box">
       <scroll-view scroll-y class="new-user__coupon--scroll">
         <view class="flex_row coupon-item" wx:for="{{newUserCouponInfo}}" wx:key="{{index}}">
@@ -978,9 +978,9 @@
           </view>
           <!-- 右 -->
           <view class="flex-direction--column item-coupon__right">
-            <view class="use-time">
-              <text>2018.8.09</text> 至
-              <text> 2018.8.1</text>
+            <view class="flex_row use-time">
+              <text>{{item.created_at}}</text> 至
+              <text> {{item.end_at}}</text>
             </view>
             <view class="flex_row">
               <view class="coupon-category">乐喜券</view>
@@ -991,11 +991,26 @@
         <view class="coupon-box__shim"></view>
       </scroll-view>
       <view class="new-user__bottom--receive">
-        <image class="receive-btn" src="https://static.moebeast.com/image/static/new_user_bonus1.png"></image>
+        <image class="receive-btn" catchtap="handleNewUserCoupon" src="https://static.moebeast.com/image/static/new_user_bonus1.png"></image>
       </view>
     </view>
 
-    <image class="off-new__coupon--btn" src="../../images/receive-10003x.png"></image>
+    <image class="off-new__coupon--btn" catchlongtap="handleOffNewCoupon" src="../../images/receive-10003x.png"></image>
+  </view>
+
+  <!-- 新人领取红包成功  -->
+  <view class="fx-column--center new-user__coupon" catchtap="handleNewGoUseCoupon" wx:if="{{newUserCouponSuccess}}">
+    <view class="new-receive__success flex-direction--column">
+      <view class="flex_row--middle new-receive__success--top">
+        <image class="receive-success__icon" src="../../images/zhuhe-icon.png"></image>
+        <text class="receive-success__text">领取成功</text>
+      </view>
+
+      <view class="flex_row new-receive__success--bottom">
+        <view class="flex_row--middle new-receive__use--btn" catchtap="handleNewGoUseCoupon">去使用</view>
+        <view class="flex_row--middle new-receive__coupon--btn" catchtap="handleGoCoupon">查看优惠券</view>
+      </view>
+    </view>
   </view>
 
 </view>
