@@ -171,10 +171,10 @@ Page({
               fullSubtractionPrice = fullSubtractionPrice + result.data[key].amount
             }
           })
-          
+
           this.setData({
             fullReductionList: result.data,
-            ['pageOrderInfo.fullSubtraction']: (fullSubtractionPrice-0).toFixed(2)
+            ['pageOrderInfo.fullSubtraction']: (fullSubtractionPrice - 0).toFixed(2)
           }, () => {
             this.orderLastPrice() // 订单总计
           })
@@ -190,7 +190,7 @@ Page({
   getCouponList(e) {
     let products = app.globalData.orderSkus
     let product = []
-    console.log(products,"每个店铺")
+    console.log(products, "每个店铺")
 
     Object.keys(products.data).forEach((key) => {
       let productItem = {
@@ -211,7 +211,7 @@ Page({
     http.fxPost(api.order_info_page_coupon, {
       items: product
     }, (result) => {
-      console.log(product,"获取优惠券需求的参数")
+      console.log(product, "获取优惠券需求的参数")
       if (result.success) {
         this.setData({
           couponList: result.data
@@ -395,7 +395,7 @@ Page({
 
       skusList.push(skus.data[key])
     })
-    
+
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
@@ -405,7 +405,7 @@ Page({
       this.getCouponList() // 获取优惠券
       // this.getFirst() // 获取首单优惠
       this.getLogisticsCompanyList() // 获取物流公司的列表
-      this.getAuthorityCoupon(generalPrice)
+      this.getAuthorityCoupon(generalPrice, skusList)
     })
   },
 
@@ -452,8 +452,8 @@ Page({
 
     console.log(this.data.couponList[e.currentTarget.dataset.order_rid])
     let couponStatus = this.data.couponList[e.currentTarget.dataset.order_rid]
-    console.log(this.data.couponList,"优惠券")
-    if (couponStatus!=undefined&& couponStatus.length== 0) {
+    console.log(this.data.couponList, "优惠券")
+    if (couponStatus != undefined && couponStatus.length == 0) {
       utils.fxShowToast('没有可用的优惠券')
       return
     }
@@ -471,30 +471,44 @@ Page({
   },
 
   // 获取官方优惠
-  getAuthorityCoupon(e) {
-    // 获取官方的券
-    http.fxGet(api.checkout_authority_couponList, {
-      amount: e
-    }, (result) => {
-      console.log(result, '官方优惠券')
+  getAuthorityCoupon(e, order) {
+    console.log(order)
 
-      if (result.success) {
-        result.data.coupons.forEach((v, i) => {
-          console.log(v)
-          v.start_time = utils.timestamp2string(v.start_at, 'date')
-          v.end_time = utils.timestamp2string(v.expired_at, 'date')
+    let skus = [] // 获得官方优惠券所需的sku
+    order.forEach((item, index) => {
+      item.forEach((only) => {
+        skus.push(only.rid)
 
-          // 设置data
-          if (result.data.coupons.length - 1 == i) {
-            this.setData({
-              authorityCouponList: result.data
-            })
-          }
-        })
+        // 循环结束发送请求
+        if (order.length - 1 == index) {
+          // 获取官方的券
+          http.fxPost(api.checkout_authority_couponList, {
+            amount: e,
+            sku: skus
+          }, (result) => {
+            console.log(result, '官方优惠券')
 
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
+            if (result.success) {
+              result.data.coupons.forEach((v, i) => {
+                console.log(v)
+                v.start_time = utils.timestamp2string(v.start_at, 'date')
+                v.end_time = utils.timestamp2string(v.expired_at, 'date')
+
+                // 设置data
+                if (result.data.coupons.length - 1 == i) {
+                  this.setData({
+                    authorityCouponList: result.data
+                  })
+                }
+              })
+
+            } else {
+              utils.fxShowToast(result.status.message)
+            }
+          })
+        }
+
+      })
     })
   },
 
@@ -503,6 +517,7 @@ Page({
   handleAuthorityCoupon() {
     console.log(this.data.authorityCouponList)
     if (this.data.authorityCouponList.length == 0) {
+      utils.fxShowToast('无优惠券可用')
       return
     }
 
@@ -556,7 +571,7 @@ Page({
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
-      console.log(app.globalData.orderParams,"提交订单，向后端传参")
+      console.log(app.globalData.orderParams, "提交订单，向后端传参")
       console.log(result, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面
@@ -580,7 +595,7 @@ Page({
   },
 
   // 获取屏幕宽度
-  getSystemWidth(){
+  getSystemWidth() {
     this.setData({
       systemWidth: app.globalData.windowWidth
     })
@@ -662,7 +677,7 @@ Page({
   otherLogisticsTap(e) {
     app.globalData.logisticsMould = e.currentTarget.dataset.item.express
     app.globalData.pickLogistics = e.currentTarget.dataset.product
-    
+
     wx.navigateTo({
       url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&sku_rid=" + e.currentTarget.dataset.sku_rid
     })

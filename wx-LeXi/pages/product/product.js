@@ -483,7 +483,7 @@ Page({
     }, (result) => {
       if (result.success) {
         this.getSkus() // 获取sku
-  
+
         console.log(result, '产品详情')
         result.data.product_like_users = result.data.product_like_users.reverse()
 
@@ -628,7 +628,7 @@ Page({
   getCouponAndFullSubtraction() {
     this.setData({
       couponList: app.globalData.couponList.coupons, // 优惠券列表
-      'fullSubtractionList.coupons': app.globalData.fullSubtractionList.coupons, // 满减---
+      'fullSubtractionList.coupons': app.globalData.fullSubtractionList.coupons || [], // 满减---
     })
     console.log(this.data.fullSubtractionList)
   },
