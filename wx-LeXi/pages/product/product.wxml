@@ -31,9 +31,8 @@
       <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
-    <!-- wx:for='{{productInfomation.labels}}' -->
-    <view class='characteristic branderInfo margin-bottom--40rpx'>
-      <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
+
+    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{productInfomation.labels.length>0}}">
       <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
           <text wx:if="{{index!=0}}"> · </text>
       <text>{{item.name}}</text>
@@ -59,11 +58,16 @@
       </view>
 
       <view class='transmission'>
-        <view class='like-quantity-l' catchtap='handleaddDesireTap'>
-          <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>
-          <text class='hui-zi' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
-          <text class='hui-zi' wx:else>已添加</text>
+      <!-- 添加心愿单 -->
+        <view class='like-quantity-l' catchtap='handleaddDesireTap'  wx:if="{{!productInfomation.is_wish}}">
+          <text class='fx-icon-nothing-plus'></text>
+          <text class='hui-zi' >心愿单</text>
         </view>
+        <!-- 已添加心愿单 -->
+        <view class='like-quantity-l' catchtap="handleDeleteDesire"  wx:if="{{productInfomation.is_wish}}">
+          <text class='hui-zi'>已添加</text>
+        </view>
+
         <view data-rid="{{productInfomation.rid}}" class='like-quantity-l transmissionInfo' catchtap='handleShareBox'>
           <image class='fen' src='../../images/share@2.png'></image>
         </view>
@@ -181,11 +185,11 @@
         <view class='shou'>{{ storeInfo.name }}</view>
       </view>
 
-      <view class='with-store c-middle is_with' wx:if="{{isWatch}}">
+      <view catchtap="handleDeleteFollow" class='with-store c-middle is_with' wx:if="{{isWatch}}">
         <view>已关注</view>
       </view>
 
-      <view class='with-store c-middle bg-green' wx:if="{{!isWatch}}">
+      <view catchtap="handleAddFollow" class='with-store c-middle bg-green' wx:if="{{!isWatch}}">
         <image src='../../images/shop1.png'></image>
         <view>关注</view>
       </view>

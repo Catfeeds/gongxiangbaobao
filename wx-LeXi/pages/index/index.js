@@ -598,7 +598,7 @@ Page({
       if (!result.success) {
         
       } else {
-        utils.fxShowToast(result.status.message)
+        // utils.fxShowToast(result.status.message)
       }
     })
   },

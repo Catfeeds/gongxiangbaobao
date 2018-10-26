@@ -73,7 +73,7 @@ Page({
     }
 
     this.setData({
-      ['pageOrderInfo.alstPrice']: lastPrice
+      ['pageOrderInfo.alstPrice']: lastPrice.toFixed(2)
     })
   },
 

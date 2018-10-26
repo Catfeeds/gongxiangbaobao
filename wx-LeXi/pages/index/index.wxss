@@ -683,9 +683,9 @@ margin: 40rpx 0;
   padding-top: 0;
 }
 
-.is_with {
-  background-color: rgb(245, 247, 249);
-  color: rgb(153, 153, 153);
+.user-info-action .is_with {
+  background-color: #eff3f2;
+  color: #949ea6;
 }
 
 

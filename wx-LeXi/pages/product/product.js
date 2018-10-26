@@ -337,37 +337,87 @@ Page({
       })
       return false
     }
-    if (!this.data.productInfomation.is_wish) {
-      http.fxPost(api.wishlist, {
-        rids: [this.data.rid]
-      }, (result) => {
-        console.log(result)
-        if (result.success) {
-          utils.fxShowToast('成功添加', 'success')
-          this._upUserPageData()
-          this.setData({
-            ['productInfomation.is_wish']: true
-          })
-        } else {
-          utils.fxShowToast(result.status.message)
-        }
+
+    http.fxPost(api.wishlist, {
+      rids: [this.data.rid]
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('成功添加', 'success')
+        this._upUserPageData()
+        this.setData({
+          ['productInfomation.is_wish']: true
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+  // 添加店铺关注
+  handleAddFollow() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
       })
-    } else {
-      http.fxDelete(api.wishlist, {
-        rids: [this.data.rid]
-      }, (result) => {
-        console.log(result)
-        if (result.success) {
-          utils.fxShowToast('移除添加', 'success')
-          this._upUserPageData()
-          this.setData({
-            ['productInfomation.is_wish']: false
-          })
-        } else {
-          utils.fxShowToast(result.status.message)
-        }
-      })
+      return
     }
+
+    this.setData({
+      isWatch: true
+    })
+
+    http.fxPost(api.add_watch, {
+      rid: app.globalData.storeRid
+    }, (result) => {
+      if (result.success) {
+        console.log(result, '关注')
+        app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count - 0 + 1
+
+        app.globalData.isWatchstore = true
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 取消店铺的关注
+  handleDeleteFollow() {
+    this.setData({
+      isWatch: false
+    })
+    http.fxPost(api.delete_watch, {
+      rid: app.globalData.storeRid
+    }, (result) => {
+      console.log(result, '取消关注')
+      if (result.success) {
+        app.globalData.isWatchstore = false
+        app.globalData.storeInfo.fans_count = app.globalData.storeInfo.fans_count - 1
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 移除心愿单
+  handleDeleteDesire() {
+    http.fxDelete(api.wishlist, {
+      rids: [this.data.rid]
+    }, (result) => {
+      console.log(result)
+      if (result.success) {
+        utils.fxShowToast('移除添加', 'success')
+        this._upUserPageData()
+        this.setData({
+          ['productInfomation.is_wish']: false
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 更新心愿单
@@ -381,35 +431,29 @@ Page({
     }
   },
 
-  // 商品详情
+  // 其他产品详情
   handleProductInfoTap(e) {
-    wx.pageScrollTo({
-      scrollTop: 0
+    wx.redirectTo({
+      url: '../product/product?rid=' + e.currentTarget.dataset.rid
     })
-    this.setData({
-      rid: e.currentTarget.dataset.rid
-    })
-
-    this.getProductInfomation() // 获取商品详情---
   },
 
   // 下架处理上级页面数据
-  _handleParentData(){
+  _handleParentData() {
     let router = getCurrentPages()
     let parentPage = router[router.length - 2]
-    console.log(parentPage,'父页面')
+    console.log(parentPage, '父页面')
 
     // 来源于user页面
-    if (parentPage.route == 'pages/user/user'){
+    if (parentPage.route == 'pages/user/user') {
       //来源喜欢
-      if (parentPage.data.classInfo == 1){
+      if (parentPage.data.classInfo == 1) {
         this.handleBindLike()
       }
       //来源心愿单
-      if (parentPage.data.classInfo == 2){
-        this.handleaddDesireTap()
+      if (parentPage.data.classInfo == 2) {
+        this.handleDeleteDesire()
       }
-
     }
   },
 
