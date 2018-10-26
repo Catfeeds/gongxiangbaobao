@@ -101,7 +101,7 @@
       </view>
     </block>
 
-    <!-- 选聘中心 -->
+    <!-- 选品中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
       <!-- 
       <view class='float'>

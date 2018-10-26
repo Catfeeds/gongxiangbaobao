@@ -1605,7 +1605,7 @@ swiper-photo .slide-item__box image {
   }
 
   100% {
-    left: 0rpx;
+    left: 40rpx;
     height: 100rpx;
     width: 100rpx;
   }
@@ -1617,13 +1617,13 @@ swiper-photo .slide-item__box image {
 
 @keyframes twoAnimation {
   0% {
-    left: 0rpx;
+    left: 40rpx;
     height: 100rpx;
     width: 100rpx;
   }
 
   100% {
-    left: 40rpx;
+    left: 80rpx;
     height: 70rpx;
     width: 80rpx;
   }
@@ -1635,13 +1635,13 @@ swiper-photo .slide-item__box image {
 
 @keyframes threeAnimation {
   0% {
-    left: 50rpx;
+    left: 80rpx;
     height: 70rpx;
     width: 80rpx;
   }
 
   100% {
-    left: 80rpx;
+    left: 120rpx;
     height: 60rpx;
     width: 60rpx;
   }
@@ -1653,7 +1653,7 @@ swiper-photo .slide-item__box image {
 
 @keyframes fourAnimation {
   0% {
-    left: 80rpx;
+    left: 120rpx;
     height: 60rpx;
     width: 60rpx;
   }
