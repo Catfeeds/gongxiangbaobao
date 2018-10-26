@@ -108,7 +108,7 @@ Page({
     }
 
     http.fxPost(api.auth_get_msm_code, getMobalCode, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           testCode: result.data.phone_verify_code
@@ -121,7 +121,7 @@ Page({
 
   // 输入手机号码时候出发users/register_verify_code
   inputText(e) {
-    console.log(e.detail.cursor)
+    utils.logger(e.detail.cursor)
     this.setData({
       mobaile_number: e.detail.value
     })
@@ -175,8 +175,8 @@ Page({
 
   // 校验绑定手机号码的完成按钮是否y颜色
   verification() {
-    console.log(this.data.verification_code)
-    console.log(this.data.mobaile_number)
+    utils.logger(this.data.verification_code)
+    utils.logger(this.data.mobaile_number)
     if (this.data.verification_code != false && this.data.mobaile_number != false) {
       this.setData({
         over_button: true
@@ -201,7 +201,7 @@ Page({
       return
     }
     http.fxPost(api.bind_mobile, params, (result) => {
-      console.log(result)
+      utils.logger(result)
       utils.fxShowToast('ok', 'success')
       if (result.success) {
         wx.navigateBack({

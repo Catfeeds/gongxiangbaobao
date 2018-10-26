@@ -48,7 +48,7 @@ Page({
 
   // 地址
   handleEditAddress(e){
-    console.log(e.detail.value)
+    utils.logger(e.detail.value)
     this.setData({
       'editUserInfo.street_address': e.detail.value
     })
@@ -56,7 +56,7 @@ Page({
 
   // name 输入时候
   handleNameInput(e){
-    console.log(e.detail.value)
+    utils.logger(e.detail.value)
     this.setData({
       isEdited: true,
       ['editUserInfo.username']: e.detail.value
@@ -65,7 +65,7 @@ Page({
 
   // 个人介绍
   handleOwnerIntroduce(e) {
-    console.log(e.detail.value, '个人介绍')
+    utils.logger(e.detail.value, '个人介绍')
     this.setData({
       isEdited: true,
       ['editUserInfo.about_me']: e.detail.value
@@ -74,7 +74,7 @@ Page({
 
   // 邮箱
   hanleOwnerMail(e) {
-    console.log(e)
+    utils.logger(e)
     this.setData({
       isEdited: true,
       ['editUserInfo.mail']: e.detail.value
@@ -83,7 +83,7 @@ Page({
 
   // 时间选择
   bindDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    utils.logger('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       isEdited: true,
       ['editUserInfo.date']: e.detail.value
@@ -100,9 +100,9 @@ Page({
 
   // 保存按钮
   handlePreserveTap() {
-    console.log(this.data.editUserInfo)
+    utils.logger(this.data.editUserInfo)
     http.fxPut(api.user, this.data.editUserInfo, (result)=>{
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         wx.showToast({
           title: '已保存',
@@ -130,7 +130,7 @@ Page({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
-          console.log(result)
+          utils.logger(result)
           if (result.data.length > 0) {
             this.setData({
               isUploading: false,
@@ -142,7 +142,7 @@ Page({
         })
 
         uploadTask.onProgressUpdate((res) => {
-          console.log('上传进度', res.progress)
+          utils.logger('上传进度', res.progress)
 
           let percent = res.progress
           this.setData({

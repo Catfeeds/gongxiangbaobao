@@ -11,7 +11,7 @@ const getAllPlaces = (country_id = 1, province_oid = 0) => {
     country_id: country_id,
     province_oid: province_oid
   }, (result) => {
-    console.log(result, '预加载地点列表')
+    utils.logger(result, '预加载地点列表')
     if (result.success) {
       wx.setStorageSync('allPlaces', result.data)
     } else {
@@ -34,7 +34,7 @@ let shareLexi = (title, imgUrl) => {
 let networkType=()=>{
   wx.getNetworkType({
     success: function (res) {
-      console.log(res)
+      utils.logger(res)
       if (res.networkType == "none") {
         wx.navigateTo({
           url: '../networkError/networkError'

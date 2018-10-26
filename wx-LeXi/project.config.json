@@ -65,9 +65,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "首页",
-					"pathName": "pages/index/index"
+					"id": 5,
+					"name": "商品详情页",
+					"pathName": "pages/product/product",
+					"query": "scene=8715692403-2344"
 				}
 			]
 		}

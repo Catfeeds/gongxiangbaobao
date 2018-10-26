@@ -27,7 +27,7 @@ Page({
 
   getThemeList(){
     http.fxGet(api.theme_list, this.data.params, (result) => {
-      console.log(result, '人气里面的主题')
+      utils.logger(result, '人气里面的主题')
       if (result.success) {
         this.setData({
           product: this.data.product.concat(result.data.products),

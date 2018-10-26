@@ -440,9 +440,14 @@ Page({
           if (result.success) {
 
             let data = this.data.likeProduct
+            if (this.data.sortParams.page > 1) {
+              data = result.data.products.concat(data)
+            } else {
+              data = result.data.products
+            }
 
             this.setData({
-              likeProduct: result.data.products.concat(data),
+              likeProduct: data,
               pickQuantity: result.data.count,
               isLoadProductShow: false,
               isLikeProductNext: result.data.next,

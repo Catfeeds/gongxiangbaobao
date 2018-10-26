@@ -11,12 +11,16 @@
   top: 248rpx;
   transform: translateX(-50%);
   width: 610rpx;
-  height: 84rpx;
   border-radius: 10rpx;
   box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, .1);
   padding: 30rpx;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 28rpx;
+  color:rgba(102,102,102,1);
 }
-.theme-top_text--width{
+.theme-top_text--width {
   font-size: 38rpx;
+  font-weight: 600;
+  color:rgba(51,51,51,1);
+  margin-bottom: 20rpx;
 }

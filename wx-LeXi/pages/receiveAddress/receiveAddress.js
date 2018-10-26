@@ -30,7 +30,7 @@ Page({
   },
 
   // 验证海关用户信息
-  validateUserCustom() {
+  validateUserCustom(cb) {
     let currentAddress = {}
     this.data.addressList.map(item => {
       if (item.rid == this.data.address_rid) {
@@ -40,19 +40,22 @@ Page({
     let deliveryCountries = app.globalData.deliveryCountries
     if (deliveryCountries.length > 0 && deliveryCountries.indexOf(currentAddress.country_id) == -1) {
       // 此地址为跨境，需验证身份信息
-      this.getUserIdCard(currentAddress)
+      this.getUserIdCard(currentAddress, cb)
     } else {
       this.setData({
         validateCustom: true
       })
+      
+      // 回调函数
+      return typeof cb == 'function' && cb(true)
     }
   },
 
   // 获取海关所需身份证信息
-  getUserIdCard(currentAddress) {
-    console.log(currentAddress.full_name + ',' + currentAddress.mobile)
+  getUserIdCard(currentAddress, cb) {
+    utils.logger(currentAddress.full_name + ',' + currentAddress.mobile)
     http.fxGet(api.address_user_custom, { user_name: currentAddress.full_name, mobile: currentAddress.mobile }, (result) => {
-      console.log(result, '海关身份证')
+      utils.logger(result, '海关身份证')
       if (result.success) {
         if (Object.keys(result.data).length == 0) {
           // 没有身份证信息
@@ -75,21 +78,26 @@ Page({
         this.setData({
           validateCustom: true
         })
+
+        // 回调函数
+        return typeof cb == 'function' && cb(true)
       } else {
         utils.fxShowToast(result.status.message)
       }
+
+      // 回调函数
+      return typeof cb == 'function' && cb(false)
     })
   },
 
   // 继续提交订单
   submitOrderTap() {
-    if (!this.data.validateCustom) {
-      utils.fxShowToast('请先选定地址')
-      return
-    }
-
-    wx.redirectTo({
-      url: '../checkout/checkout'
+    this.validateUserCustom((success)=>{
+      if (success) {
+        wx.redirectTo({
+          url: '../checkout/checkout'
+        })
+      }
     })
   },
 
@@ -110,7 +118,7 @@ Page({
   // 获取地址列表
   getAddressList() {
     http.fxGet(api.addresses, {}, (result) => {
-      console.log(result, '地址列表')
+      utils.logger(result, '地址列表')
       if (result.success) {
         this.setData({
           addressList: result.data
@@ -134,11 +142,18 @@ Page({
     })
   },
 
+  // 选择地址
+  addAddressTap() {
+    wx.navigateTo({
+      url: '../address/address?from_ref=checkout'
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    utils.logger(options)
     let from_ref = options.from_ref // 来源
 
     if (from_ref != 'cart') { // 不是来自购物车
@@ -200,13 +215,6 @@ Page({
    */
   onShareAppMessage: function () {
     return common.shareLexi(app.globalData.storeInfo.name, app.globalData.shareBrandUrl)
-  },
-
-  // 选择地址
-  addAddressTap() {
-    wx.navigateTo({
-      url: '../address/address?from_ref=checkout'
-    })
   }
   
 })

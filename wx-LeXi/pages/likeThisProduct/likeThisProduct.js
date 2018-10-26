@@ -21,9 +21,9 @@ Page({
   },
 
   getinfo(e) {
-    console.log(this.data.parmas)
+    utils.logger(this.data.parmas)
     http.fxGet(api.product_userlike, this.data.parmas, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           peopleList: result.data
@@ -40,7 +40,7 @@ Page({
     http.fxPost(api.follow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(result)
+      utils.logger(result)
       if (result.success) {
         this.setData({
           ['peopleList.product_like_users[' + index + '].followed_status']: result.data.followed_status
@@ -54,11 +54,11 @@ Page({
   // 取消关注
   hanleDeleteWatch(e) {
     let index = e.currentTarget.dataset.index
-    console.log(index)
+    utils.logger(index)
     http.fxPost(api.unfollow_user, {
       uid: e.currentTarget.dataset.uid
     }, (result) => {
-      console.log(e)
+      utils.logger(e)
       if (result.success) {
         this.setData({
           ['peopleList.product_like_users[' + index + '].followed_status']: 0

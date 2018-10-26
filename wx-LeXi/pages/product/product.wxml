@@ -177,7 +177,7 @@
   <view class='shopInfo' wx:if="{{newProductList.count!=0}}">
     <view class='shopInfoT'>
       <view class='userIcon' catchtap='handleGoIndex'>
-        <image src='{{ storeInfo.logo }}'></image>
+        <image src='{{ storeInfo.logo }}-ava' wx:if="{{ storeInfo.logo }}"></image>
       </view>
       <view class='shopMiddle' catchtap='handleGoIndex'>
         <view class='hui-zi'>原创品牌馆</view>
