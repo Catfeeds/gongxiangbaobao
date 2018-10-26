@@ -626,11 +626,85 @@ Page({
 
   // 优惠券，满减
   getCouponAndFullSubtraction() {
-    this.setData({
-      couponList: app.globalData.couponList.coupons, // 优惠券列表
-      'fullSubtractionList.coupons': app.globalData.fullSubtractionList.coupons || [], // 满减---
-    })
     utils.logger(this.data.fullSubtractionList)
+
+    if (app.globalData.isLogin) { // 登录成功
+      this.getCouponsByUser()
+      this.getCoupons('manjian')
+    } else {
+      // 用户未登录时
+      this.getCoupons()
+    }
+  },
+
+  // 用户登录优惠券
+  getCouponsByUser() {
+    http.fxGet(api.user_login_coupon, {}, (result) => {
+      utils.logger(result, '登陆的优惠券')
+      console.log(result, '登陆的优惠券')
+
+      result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
+        v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
+      })
+
+      if (result.success) {
+        this.setData({
+          couponList: result.data || []
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 未登录的优惠群 和 满减
+  getCoupons(e) {
+    http.fxGet(api.noCouponsList, {}, (result) => {
+      utils.logger(result, '没有登陆获取优惠券')
+
+      if (result.success) {
+        result.data.coupons.forEach((v, i) => {
+          v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
+          v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
+        })
+
+        let coupon = [] // 优惠券
+        let full = [] // 满减券
+
+        if (e == 'manjian') {
+          // 登陆， 筛选满减
+          result.data.coupons.forEach((v, i) => {
+            if (v.type == 3) {
+              full.push(v)
+            }
+          })
+
+          this.setData({
+            'fullSubtractionList.coupons': full
+          })
+
+        } else {
+          // 未登录
+          result.data.coupons.forEach((v, i) => {
+            console.log(v)
+            if (v.type == 3) {
+              full.push(v)
+            } else {
+              coupon.push(v)
+            }
+          })
+
+          this.setData({
+            ['couponList.coupons']: coupon, // 优惠券列表---couponList
+            'fullSubtractionList.coupons': full, // 满减---
+          })
+        }
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   /**
