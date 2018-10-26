@@ -371,7 +371,12 @@ Page({
         }
       }
     }
-
+   
+    if (Object.keys(choosed).length==0){
+      choosed.price = '已售罄'
+      activeModeIdx = Object.keys(choosed).length // 给一个大于activeModeIdx的值，让其没有选中的颜色
+    }
+    console.log(activeColorIdx, '价钱')
     this.setData({
       hasMode: hasMode,
       hasColor: hasColor,
