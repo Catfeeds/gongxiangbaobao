@@ -43,8 +43,7 @@
           <view class="product-info">
             <view class="name">{{ product.product_name }}</view>
             <view class="mode">{{ product.mode }}</view>
-            <view class="price">￥{{product.sale_price!==0 && product.sale_price
-              < product.price?product.sale_price : product.price }}</view>
+            <view class="price">￥{{ product.deal_price }}</view>
             </view>
             <view class="quantity">
               x{{ product.quantity }}
