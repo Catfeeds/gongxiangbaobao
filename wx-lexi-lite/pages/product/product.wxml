@@ -71,7 +71,6 @@
         </view>
 
         <view wx:elif="{{isSmallB && productInfomation.is_distributed && productInfomation.have_distributed}}" class='like-quantity-l border-null font-m color-hui'>
-          <image class='fen' src='../../images/sell-icon@2.png'></image>
           <text class='like-icon-add'> 已上架 </text>
         </view>
 
