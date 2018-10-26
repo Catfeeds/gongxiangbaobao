@@ -476,11 +476,11 @@ Page({
 
     let skus = [] // 获得官方优惠券所需的sku
     order.forEach((item, index) => {
-      item.forEach((only) => {
+      item.forEach((only,i) => {
         skus.push(only.rid)
 
         // 循环结束发送请求
-        if (order.length - 1 == index) {
+        if (order.length - 1 == index && item.length-1 == i) {
           // 获取官方的券
           http.fxPost(api.checkout_authority_couponList, {
             amount: e,
