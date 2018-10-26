@@ -24,7 +24,8 @@
             <image src='../../images/￥@2-.png'></image>
             <text>{{item.coupon.amount}}</text>
           </view>
-          <view class='price-text'>满{{item.coupon.min_amount}}使用</view>
+          <view wx:if="{{item.coupon.min_amount!=0}}" class='price-text'>满{{item.coupon.min_amount}}使用</view>
+          <view wx:if="{{item.coupon.min_amount==0}}" class='price-text'>不限</view>
         </view>
       </view>
       <!-- right 信息 -->
@@ -65,7 +66,8 @@
             <image src='../../images/￥@2-.png'></image>
             <text>{{item.amount}}</text>
           </view>
-          <view class='price-text'>满{{item.min_amount}}使用</view>
+          <view class='price-text' wx:if="{{item.min_amount!=0}}">满{{item.min_amount}}使用</view>
+          <view class='price-text' wx:if="{{item.min_amount==0}}">不限</view>
         </view>
       </view>
       <!-- right 信息 -->
@@ -113,7 +115,8 @@
               <image src='../../images/￥@2-.png'></image>
               <text>{{item.amount}}</text>
             </view>
-            <view class='price-text'>满{{item.min_amount}}使用</view>
+            <view class='price-text' wx:if="{{item.min_amount!=0}}">满{{item.min_amount}}使用</view>
+            <view class='price-text' wx:if="{{item.min_amount==0}}">不限</view>
           </view>
         </view>
         <!-- right 信息 -->
@@ -147,7 +150,8 @@
               <image src='../../images/￥@2-.png'></image>
               <text>{{item.amount}}</text>
             </view>
-            <view class='price-text'>满{{item.min_amount}}使用</view>
+            <view class='price-text' wx:if="{{item.min_amount!=0}}">满{{item.min_amount}}使用</view>
+            <view class='price-text' wx:if="{{item.min_amount==0}}">不限</view>
           </view>
         </view>
         <!-- right 信息 -->

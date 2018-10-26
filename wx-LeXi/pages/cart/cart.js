@@ -373,8 +373,6 @@ Page({
       }
     }
 
-    console.log(this.data.skus)
-   
     if (sellOut){
       choosed.price = '已售罄'
       activeModeIdx = -1

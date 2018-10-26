@@ -457,3 +457,7 @@
 }
 
 /* ip6e */
+
+.textarea-style {
+  font-size: 28rpx;
+}
