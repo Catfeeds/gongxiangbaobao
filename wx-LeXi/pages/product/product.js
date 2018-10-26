@@ -609,12 +609,7 @@ Page({
       utils.logger(result)
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
-        this.getCouponAndFullSubtraction()
-        let topPage = getCurrentPages()
-        let topPagePath = topPage[topPage.length - 2]
-        utils.logger(topPagePath, 'index Page')
 
-        topPagePath.getCouponsByUser()
         setTimeout(() => {
           this.getCouponAndFullSubtraction()
         }, 200)
@@ -1069,7 +1064,6 @@ Page({
     this.getstoreInfo() // 店铺信息---
     this.getProductInfomation() // 获取商品详情---
 
-    this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
   },
 
@@ -1098,6 +1092,8 @@ Page({
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount
     })
+
+    this.getCouponAndFullSubtraction() // 获取优惠券---
   },
 
   /**

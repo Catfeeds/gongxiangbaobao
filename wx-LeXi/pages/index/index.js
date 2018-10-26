@@ -1128,9 +1128,6 @@ Page({
     // 查看是否关注
     this.getIsWatch()
 
-    this.getCouponsByUser()
-    this.getCoupons('manjian')
-
     this.getLexiShare()
   },
 
@@ -1272,7 +1269,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (app.globalData.isLogin) { // 登录成功
+      this.getCouponsByUser()
+      this.getCoupons('manjian')
+    } else {
+      // 用户未登录时
+      this.getCoupons()
+    }
   },
 
   /**

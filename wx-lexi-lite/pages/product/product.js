@@ -645,7 +645,6 @@ Page({
       sid: jwt.store_rid || ''
     }, (result) => {
       if (result.success) {
-        console.log(result,'产品详情')
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,
