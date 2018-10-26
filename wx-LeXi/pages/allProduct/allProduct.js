@@ -22,7 +22,7 @@ Page({
       case 'userBrowses':
         wx.setNavigationBarTitle({ title: '浏览记录' })
         // 最近查看
-        http.fxGet(api.user_browses, {}, (result) => {
+        http.fxGet(api.user_browses, { sid: app.globalData.storeRid }, (result) => {
           if (result.success) {
             console.log(result)
             this.setData({

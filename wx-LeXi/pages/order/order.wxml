@@ -21,7 +21,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ order.store.store_logo }}'></image>
+              <image src='{{ order.store.store_logo }}-ava'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -47,7 +47,7 @@
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
 
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <image class="order-product__photo" src='{{item.cover}}-p30x2'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
@@ -90,7 +90,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ order.store.store_logo }}'></image>
+              <image src='{{ order.store.store_logo }}-ava'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -107,7 +107,7 @@
               </view>
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <image class="order-product__photo" src='{{item.cover}}-p30x2'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
@@ -138,7 +138,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ product.store.store_logo }}'></image>
+              <image src='{{ product.store.store_logo }}-ava'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -159,7 +159,7 @@
               <view class='goodsBox' wx:for="{{ product.items}}" wx:key="{{ index }}" wx:for-item="itm">
 
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{itm.cover}}'></image>
+                  <image class="order-product__photo" src='{{itm.cover}}-p30x2'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
@@ -184,7 +184,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ item.store.store_logo }}'></image>
+              <image src='{{ item.store.store_logo }}-ava'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -204,7 +204,7 @@
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ item.items }}" wx:for-item="itm">
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{itm.cover}}'></image>
+                  <image class="order-product__photo" src='{{itm.cover}}-p30x2'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
@@ -218,7 +218,6 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-
           <view data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
           </view>
@@ -240,7 +239,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ order.store.store_logo }}'></image>
+              <image src='{{ order.store.store_logo }}-ava'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -261,7 +260,7 @@
 
               <view class='goodsBox' wx:key="{{ index }}" wx:for="{{ order.items }}">
                 <view class='flex-row'>
-                  <image class="order-product__photo" src='{{item.cover}}'></image>
+                  <image class="order-product__photo" src='{{item.cover}}-p30x2'></image>
                   <view class='margin-left--20'>
                     <view class='order-product__name'>{{item.product_name}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>

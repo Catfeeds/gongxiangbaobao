@@ -18,6 +18,8 @@
 
 .adressInfoBox input {
   height: 100%;
+  font-size: 28rpx;
+  color: #333;
 }
 
 .phcolor {
@@ -76,6 +78,7 @@ switch {
 .identificationText input {
   line-height: 94rpx;
   height: 94rpx;
+  font-size: 28rpx;
 }
 
 
@@ -188,6 +191,7 @@ switch {
 }
 .adress-pick--style{
   font-size: 28rpx;
+  color: #333;
 }
 .adress-pick--style view{
   flex: 1;

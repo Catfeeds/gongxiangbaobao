@@ -2,7 +2,7 @@
 <view class='productMiddleBox'>
   <view class='productMiddleBoxPhoto' style='height:{{height}}rpx;width:{{width}}rpx'>
     <image 
-      src='{{product.cover}}'
+      src='{{product.cover}}-p30x2'
       style='height:{{height}}rpx;width:{{width}}rpx' 
       class='shopRecommendGoods-photo'></image>
   </view>
