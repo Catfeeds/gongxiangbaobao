@@ -171,6 +171,14 @@
   margin-right: 20rpx;
 }
 
+.user-info-action .user-info-btn.followed {
+  background-color: #f5f7f9;
+  color:rgba(153,153,153,1);
+}
+.user-info-action .user-info-btn.followed .icon-follow-store {
+  color:rgba(153,153,153,1);
+}
+
 .user-info-action .user-info-btn.rander {
   color: #333;
   margin-left: 50rpx;

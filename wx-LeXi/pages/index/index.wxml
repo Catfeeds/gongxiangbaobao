@@ -37,7 +37,7 @@
             </view>
           </view>
           <view class="user-info-action">
-            <view wx:if="{{is_with}}" class='user-info-btn btn-bg-color is_with' catchtap='handleDeleteWatch'>
+            <view wx:if="{{is_with}}" class='user-info-btn btn-bg-color followed' catchtap='handleDeleteWatch'>
               <image src="../../images/join@2.png" class="icon-follow-store"></image>
               <view>已关注</view>
             </view>
