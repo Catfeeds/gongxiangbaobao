@@ -147,7 +147,6 @@
         <text>你当前还没有喜欢的商品</text>
       </view>
     </view>
-    <view class="shim--40rpx"></view>
   </view>
 
   <!-- 收藏里面的内容 -->
@@ -193,7 +192,6 @@
         <text>你当前还没有浏览和添加心愿单商品</text>
       </view>
     </view>
-    <view class="shim--40rpx"></view>
   </view>
 
   <!-- 设计管里面 -->

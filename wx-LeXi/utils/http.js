@@ -133,7 +133,6 @@ function fxPost(url, data = {}, cb) {
     method: 'POST',
     success(res) {
       // wx.hideNavigationBarLoading()
-      console.log(res);
       return typeof cb == 'function' && cb(res.data)
     },
     fail() {

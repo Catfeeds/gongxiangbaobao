@@ -5,7 +5,7 @@
   <view class='productMiddleBoxPhoto' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx'>
     <image src='{{ product.cover }}-p16' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo" wx:if="{{ !round }}"></image>
     <image src='{{ product.cover }}-p16' style='height:{{}}rpx;width:{{}}rpx' class="shopRecommendGoods-photo round" wx:if="{{ round }}"></image>
-    <view class='sell_up_text' wx:if="{{product.total_stock==0}}">售 罄</view>
+    <view class='sell_up_text' wx:if="{{product.is_sold_out}}">售 罄</view>
   </view>
   <view class='shopRecommendGoodsR' style='height:{{ photoHeight }}rpx;'>
     <view>

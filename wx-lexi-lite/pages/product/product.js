@@ -538,26 +538,20 @@ Page({
 
   // 商品详情
   handleProductInfoTap(e) {
-    wx.pageScrollTo({
-      scrollTop: 0
-    })
-    this.setData({
-      rid: e.currentTarget.dataset.rid
-    })
 
-    this.getProductInfomation() // 获取商品详情---
+    let rid = e.currentTarget.dataset.rid
+    wx.redirectTo({
+      url: '/pages/product/product?rid=' + rid
+    })
   },
 
   // 相似产品的详情
   handleSimilarInfo(e) {
-    wx.pageScrollTo({
-      scrollTop: 0
-    })
-    this.setData({
-      rid: e.currentTarget.dataset.rid
-    })
 
-    this.getProductInfomation() // 获取商品详情---
+    let rid = e.currentTarget.dataset.rid
+    wx.redirectTo({
+      url: '/pages/product/product?rid=' + rid 
+    })
   },
 
   // 回首页
@@ -575,14 +569,8 @@ Page({
     console.log(parentPage, '页面来源')
     if (parentPage.route == 'pages/user/user') {
       let deleteMark = parentPage.data.deletePageProductAtProduct
-      console.log(parentPage.data.deletePageProductAtProduct, '----------')
-
-
-
 
     }
-
-
   },
 
   // 删除我的喜欢--已下架的
@@ -657,7 +645,7 @@ Page({
       sid: jwt.store_rid || ''
     }, (result) => {
       if (result.success) {
-        console.log(result)
+        console.log(result,'产品详情')
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,
