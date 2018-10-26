@@ -53,7 +53,9 @@ Page({
     advertisement: '', // 广告
     is_mobile: false, // 优惠券模板是否弹出
     isAuthentication: '', // 是否经过官方认证的店铺
-    couponList: {}, // 优惠券列表---couponList
+    couponList: {
+      coupons:[]
+    }, // 优惠券列表---couponList
     fullSubtractionList: { // 满减---
       coupons: []
     },
@@ -863,6 +865,7 @@ Page({
 
     http.fxGet(api.user_login_coupon, {}, (result) => {
       utils.logger(result, '登陆的优惠券')
+      console.log(result, '登陆的优惠券')
 
       result.data.coupons.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
@@ -1297,7 +1300,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    // 获取商品 (精选)
+    this.getThemeProduct() // 1,主打设计
+    this.getRecommendProducts() // 推荐好物---
+    this.getAdvertises() // 获取广告
 
+    this.getThemeProduct(2) // 2,优质精选---   
+    this.getPick() // 获取作品---
+
+    this.getTheme() // 人气--主题---
+    this.getNewestProdcts() // 人气--最新作品---
+
+    wx.stopPullDownRefresh()
   },
 
   /**

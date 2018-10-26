@@ -9,6 +9,9 @@
 
 swiper-item, swiper-item>image, swiper {
   height: 100%;
+  background-image: url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .logistics + text {
@@ -466,7 +469,7 @@ swiper-item, swiper-item>image, swiper {
 .off-info {
   position: fixed;
   bottom: 0;
-  height: 80rpx;
+  height: 100rpx;
   width: 100%;
   background-color: white;
   box-shadow: 0 -50rpx 100rpx 50rpx white;
@@ -639,6 +642,6 @@ swiper-item, swiper-item>image, swiper {
 }
 
 .is_with {
-background-color:rgb(245, 247, 249);
-color:rgb(153, 153, 153);
+  background-color: rgb(245, 247, 249);
+  color: rgb(153, 153, 153);
 }

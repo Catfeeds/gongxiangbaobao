@@ -46,7 +46,9 @@ Page({
     dkcontent: '',
     swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
-    couponList: [], // 优惠券列表---couponList
+    couponList: {
+      coupons:[]
+    }, // 优惠券列表---couponList
     fullSubtractionList: { // 满减---
       coupons: []
     },
@@ -482,6 +484,7 @@ Page({
       user_record: '1'
     }, (result) => {
       utils.logger(result, '产品详情')
+      console.log(result, '产品详情')
       if (result.success) {
         this.getSkus() // 获取sku
 

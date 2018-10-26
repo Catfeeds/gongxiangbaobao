@@ -2,6 +2,8 @@
   "navigationBarTextStyle": "black",
   "navigationBarBackgroundColor": "white",
   "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading",
     "fx-coupon": "/components/FxCoupon/coupon",

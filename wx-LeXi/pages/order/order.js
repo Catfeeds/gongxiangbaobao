@@ -29,8 +29,7 @@ Page({
 
     // navbar
     currentStatus: 0,
-    navList: [
-      {
+    navList: [{
         title: '全部',
         status: 0
       },
@@ -232,7 +231,7 @@ Page({
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
       console.log(result)
       if (result.success) {
-        
+
         app.wxpayOrder(order.rid, result.data)
 
         let allshouhuoData = this.data.allOrderList
@@ -403,7 +402,7 @@ Page({
   onReachBottom: function() {
     // 全部
     if (this.data.currentStatus == 0) {
-      if (this.data.isNextAll == null) {
+      if (typeof(this.data.isNextAll) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -414,9 +413,8 @@ Page({
       this.getOrderList()
     }
 
-
     if (this.data.currentStatus == 1) {
-      if (this.data.isNextDaifa == null) {
+      if (typeof(this.data.isNextDaifa) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -429,7 +427,7 @@ Page({
 
     if (this.data.currentStatus == 2) {
 
-      if (this.data.isNextdaishou == null) {
+      if (typeof(this.data.isNextdaishou) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -441,7 +439,7 @@ Page({
     }
 
     if (this.data.currentStatus == 3) {
-      if (this.data.isNextDaiping == null) {
+      if (typeof(this.data.isNextDaiping) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -454,16 +452,17 @@ Page({
 
     if (this.data.currentStatus == 4) {
 
-      if (this.data.isNextDaifu == null) {
+      if (typeof(this.data.isNextDaifu) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
       this.setData({
         ['dafuParams.page']: this.data.dafuParams.page + 1
       })
+
+      this.getDaifuList()
     }
 
-    this.getDaifuList()
   },
 
   /**

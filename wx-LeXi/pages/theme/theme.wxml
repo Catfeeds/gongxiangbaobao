@@ -13,7 +13,7 @@
       wx:for="{{product}}" 
       wx:key="{{index}}" 
       class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product product="{{item}}"
+      <fx-product product="{{item}}" like_number="{{true}}"
        photoSize ='{{(index+1)%5==0?"50":"30x2"}}'
         bind:triggerEvent_product='handleInfomation'></fx-product>
     </view>

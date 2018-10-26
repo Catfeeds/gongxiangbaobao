@@ -85,11 +85,11 @@
   </view>
 
   <!-- 优惠券 -->
-  <view class="coupon-box" catchtap="coupon_show" wx:if='{{ couponList.coupons.length != 0 || fullSubtractionList.coupons.length != 0 }}'>
+  <view class="coupon-box"  wx:if='{{ couponList.coupons.length != 0 || fullSubtractionList.coupons.length != 0 }}'>
     <view class="coupon-message">
 
       <!-- 优惠券 -->
-      <view class="time-top coupons" wx:if='{{ couponList.length != 0 }}'>
+      <view catchtap="coupon_show" class="time-top coupons" wx:if='{{ couponList.coupons.length != 0 }}'>
         <image src="../../images/coupon-icon@2.png" class="icon-coupon"></image>
         <view class="coupon-info">
           领取设计馆优惠红包

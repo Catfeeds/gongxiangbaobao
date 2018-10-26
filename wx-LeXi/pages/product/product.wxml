@@ -58,13 +58,13 @@
       </view>
 
       <view class='transmission'>
-      <!-- 添加心愿单 -->
-        <view class='like-quantity-l' catchtap='handleaddDesireTap'  wx:if="{{!productInfomation.is_wish}}">
+        <!-- 添加心愿单 -->
+        <view class='like-quantity-l' catchtap='handleaddDesireTap' wx:if="{{!productInfomation.is_wish}}">
           <text class='fx-icon-nothing-plus'></text>
-          <text class='hui-zi' >心愿单</text>
+          <text class='hui-zi'>心愿单</text>
         </view>
         <!-- 已添加心愿单 -->
-        <view class='like-quantity-l' catchtap="handleDeleteDesire"  wx:if="{{productInfomation.is_wish}}">
+        <view class='like-quantity-l' catchtap="handleDeleteDesire" wx:if="{{productInfomation.is_wish}}">
           <text class='hui-zi'>已添加</text>
         </view>
 
@@ -75,10 +75,10 @@
     </view>
 
     <!-- 优惠券 -->
-    <view class="coupon-box" catchtap="coupon_show" wx:if='{{ couponList.length != 0 || fullSubtractionList.coupons.length != 0 }}'>
+    <view class="coupon-box" wx:if='{{ couponList.coupons.length != 0 || fullSubtractionList.coupons.length != 0 }}'>
       <view class="coupon-message">
         <!-- 优惠券 -->
-        <view class="time-top coupons" wx:if='{{ couponList.length != 0 }}'>
+        <view class="time-top coupons" wx:if='{{ couponList.coupons.length != 0 }}' catchtap="coupon_show">
           <image src="../../images/coupon-icon@2.png" class="icon-coupon"></image>
           <view class="coupon-info">
             领取设计馆优惠红包
@@ -343,10 +343,10 @@
           {{productInfomation.product_return_policy}}
         </view>
         <view class='shm'></view>
-        <view class='allInfo off-info' catchtap='animationOffFn'>
-          <view class='fx-icon-nothing-close-error'></view>
-        </view>
       </view>
+    </view>
+    <view class='allInfo off-info c-middle ' catchtap='animationOffFn'>
+      <view class='fx-icon-nothing-close-error'></view>
     </view>
   </view>
 

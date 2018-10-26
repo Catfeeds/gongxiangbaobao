@@ -34,7 +34,9 @@ Page({
     falseheckbox: false, // falseheckbox---
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
-    shoppingCart: { items:[] }, // 添加到购物车的内容产品内容---
+    shoppingCart: {
+      items: []
+    }, // 添加到购物车的内容产品内容---
     payment: 0, // 应该支付的总金额---
 
     // 添加购物车和修改购买数量的时候参数
@@ -45,7 +47,9 @@ Page({
       open_id: '', //	独立小程序openid
     },
 
-    thinkOrder: { count: 0 }, // 心愿单的内容---
+    thinkOrder: {
+      count: 0
+    }, // 心愿单的内容---
   },
 
   // 是否登陆
@@ -80,7 +84,7 @@ Page({
       utils.logger(result, '获取购物车')
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
-        if (result.data.items.length == 0){
+        if (result.data.items.length == 0) {
           this.setData({
             changeCart: false
           })
@@ -98,7 +102,9 @@ Page({
 
   // 获取心愿单---
   getDesireOrder() {
-    http.fxGet(api.wishlist, { sid: app.globalData.storeRid }, (result) => {
+    http.fxGet(api.wishlist, {
+      sid: app.globalData.storeRid
+    }, (result) => {
       utils.logger(result, '获取心愿单')
       if (result.success) {
         this.setData({
@@ -117,13 +123,13 @@ Page({
     utils.logger(e.currentTarget.dataset.rid)
 
     this.setData({
-      productInfomation:[]
+      productInfomation: []
     })
     let sellOut = e.currentTarget.dataset.sellOut
     let select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
     this.getSkus(select, sellOut)
-    
+
     this.setData({
       pickBox: true
     })
@@ -297,7 +303,7 @@ Page({
   /**
    * 获取sku数量
    */
-  getSkus(rid,sellOut) {
+  getSkus(rid, sellOut) {
     let params = {
       rid: rid
     }
@@ -373,7 +379,7 @@ Page({
       }
     }
 
-    if (sellOut){
+    if (sellOut) {
       choosed.price = '已售罄'
       activeModeIdx = -1
       activeColorIdx = -1
@@ -652,7 +658,7 @@ Page({
               modes: [],
               colors: []
             },
-            choosed:{},
+            choosed: {},
             productInfomation: [],
           })
         }
@@ -667,7 +673,9 @@ Page({
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
 
-      http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
+      http.fxGet(api.by_store_sku, {
+        rids: this.data.choosed.rid
+      }, (result) => {
         if (result.success) {
           let deliveryCountries = [] // 发货的国家列表
 
@@ -704,7 +712,7 @@ Page({
               modes: [],
               colors: []
             },
-            choosed:{},
+            choosed: {},
             productInfomation: [],
           })
 
@@ -778,7 +786,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    // 未登陆
+    if (!app.globalData.isLogin) {
+      wx.stopPullDownRefresh()
+      return
+    }
+    // 已登录
+    this.getDesireOrder() // 获取心愿单
+    this.getCartProduct() // 获取购物车商品
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -897,15 +913,15 @@ Page({
         modes: [],
         colors: []
       },
-      choosed:{},
-      productInfomation:[],
+      choosed: {},
+      productInfomation: [],
       pickBox: false
     })
   },
 
   // 点击sku层，不触发隐藏
   handleSkuModal() {
-    return 
+    return
   },
 
   // 关闭
