@@ -707,8 +707,8 @@ Page({
 
     if (this.data.productInfomation.stock_count == 0) {
       choosed.price = '已售罄'
-      activeModeIdx = 9999
-      activeColorIdx = 9999
+      activeModeIdx = -1
+      activeColorIdx = -1
     }
 
     this.setData({
