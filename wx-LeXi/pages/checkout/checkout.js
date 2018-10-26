@@ -58,7 +58,7 @@ Page({
   getIsFirstOrder() {
     http.fxGet(api.is_first_order, {}, (result) => {
       if (result.success) {
-        console.log(result.data, '是否属于首单')
+        utils.logger(result.data, '是否属于首单')
         this.setData({
           isFirstOrder: result.data.is_new_user
 
@@ -72,7 +72,7 @@ Page({
   // 获取收货地址
   getReceiveAddress() {
     http.fxGet(api.address_info.replace(/:rid/g, app.globalData.orderParams.address_rid), {}, (result) => {
-      console.log(result, '获取收货地址')
+      utils.logger(result, '获取收货地址')
       if (result.success) {
         this.setData({
           receiveAddress: result.data
@@ -118,7 +118,7 @@ Page({
     http.fxPost(api.first_order_reduction, {
       pay_amount: this.data.pageOrderInfo.firstPrice
     }, (result) => {
-      console.log(result, '首单优惠')
+      utils.logger(result, '首单优惠')
       if (result) {
         this.setData({
           ['pageOrderInfo.firstOrderPrice']: result.data.discount_amount.toFixed(2)
@@ -154,13 +154,13 @@ Page({
     })
 
     // 发送请求获取满减
-    console.log(items)
+    utils.logger(items)
 
     setTimeout(() => {
       http.fxPost(api.full_reduction, {
         items: items
       }, (result) => {
-        console.log(result, '满减金额')
+        utils.logger(result, '满减金额')
         if (result.success) {
 
           let fullSubtractionPrice = 0
@@ -178,7 +178,7 @@ Page({
           }, () => {
             this.orderLastPrice() // 订单总计
           })
-          console.log(this.data.pageOrderInfo.fullSubtraction)
+          utils.logger(this.data.pageOrderInfo.fullSubtraction)
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -190,7 +190,7 @@ Page({
   getCouponList(e) {
     let products = app.globalData.orderSkus
     let product = []
-    console.log(products, "每个店铺")
+    utils.logger(products, "每个店铺")
 
     Object.keys(products.data).forEach((key) => {
       let productItem = {
@@ -211,7 +211,7 @@ Page({
     http.fxPost(api.order_info_page_coupon, {
       items: product
     }, (result) => {
-      console.log(product, "获取优惠券需求的参数")
+      utils.logger(product, "获取优惠券需求的参数")
       if (result.success) {
         this.setData({
           couponList: result.data
@@ -228,11 +228,11 @@ Page({
 
     let item = this.data.orderInfomation
     Object.keys(item).forEach((key) => {
-      console.log(item[key])
+      utils.logger(item[key])
       item[key].coupon_codes = ''
     })
 
-    console.log(this.data.orderInfomation, '选择后的优惠卷')
+    utils.logger(this.data.orderInfomation, '选择后的优惠卷')
 
     let option = e.detail.value
     let coupon = JSON.parse(option)
@@ -273,11 +273,11 @@ Page({
       params.items.push(productsList)
     })
 
-    console.log(params)
+    utils.logger(params)
 
     setTimeout(() => {
       http.fxPost(api.calculate_logisitcs, params, (result) => {
-        console.log(result)
+        utils.logger(result)
         if (result.success) {
           let sum = 0
           Object.keys(result.data).forEach((key) => {
@@ -316,12 +316,12 @@ Page({
       params.push(items)
     })
 
-    console.log(params)
+    utils.logger(params)
 
     http.fxPost(api.logistics_product_express, {
       items: params
     }, (result) => {
-      console.log(result, '获取运费模板')
+      utils.logger(result, '获取运费模板')
       if (result.success) {
         this.setData({
           logisticsCompany: result.data
@@ -350,7 +350,7 @@ Page({
       })
     })
 
-    console.log(order)
+    utils.logger(order)
     setTimeout(() => {
       this.setData({
         orderInfomation: order
@@ -367,7 +367,7 @@ Page({
     let store_items = {}
     let generalPrice = 0
 
-    console.log(skus)
+    utils.logger(skus)
 
     Object.keys(skus.data).forEach((key) => {
       store_items[key] = {
@@ -413,7 +413,7 @@ Page({
   radioChange(e) {
     app.globalData.orderParams.bonus_code = ''
     let params = JSON.parse(e.detail.value)
-    console.log(this.data.orderInfomation[params.store_rid].coupon_price)
+    utils.logger(this.data.orderInfomation[params.store_rid].coupon_price)
 
     this.setData({
       storeOrAuthoritativeCouponPick: true,
@@ -432,7 +432,7 @@ Page({
       })
     })
 
-    console.log(this.data.orderInfomation, '选择后的优惠卷')
+    utils.logger(this.data.orderInfomation, '选择后的优惠卷')
   },
 
   // 优惠券弹框里面的内容couponList
@@ -450,9 +450,9 @@ Page({
       })
     }
 
-    console.log(this.data.couponList[e.currentTarget.dataset.order_rid])
+    utils.logger(this.data.couponList[e.currentTarget.dataset.order_rid])
     let couponStatus = this.data.couponList[e.currentTarget.dataset.order_rid]
-    console.log(this.data.couponList, "优惠券")
+    utils.logger(this.data.couponList, "优惠券")
     if (couponStatus != undefined && couponStatus.length == 0) {
       utils.fxShowToast('没有可用的优惠券')
       return
@@ -472,7 +472,7 @@ Page({
 
   // 获取官方优惠
   getAuthorityCoupon(e, order) {
-    console.log(order)
+    utils.logger(order)
 
     let skus = [] // 获得官方优惠券所需的sku
     order.forEach((item, index) => {
@@ -486,11 +486,11 @@ Page({
             amount: e,
             sku: skus
           }, (result) => {
-            console.log(result, '官方优惠券')
+            utils.logger(result, '官方优惠券')
 
             if (result.success) {
               result.data.coupons.forEach((v, i) => {
-                console.log(v)
+                utils.logger(v)
                 v.start_time = utils.timestamp2string(v.start_at, 'date')
                 v.end_time = utils.timestamp2string(v.expired_at, 'date')
 
@@ -515,7 +515,7 @@ Page({
 
   // 官方的优惠券
   handleAuthorityCoupon() {
-    console.log(this.data.authorityCouponList)
+    utils.logger(this.data.authorityCouponList)
     if (this.data.authorityCouponList.length == 0) {
       utils.fxShowToast('无优惠券可用')
       return
@@ -535,7 +535,7 @@ Page({
 
   // 支付,并跳转到支付成功页面---
   paymentSuccess() {
-    console.log(this.data.orderInfomation)
+    utils.logger(this.data.orderInfomation)
     let orderParams = this.data.orderInfomation
     let store_items = []
 
@@ -571,8 +571,8 @@ Page({
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
-      console.log(app.globalData.orderParams, "提交订单，向后端传参")
-      console.log(result, '新增订单')
+      utils.logger(app.globalData.orderParams, "提交订单，向后端传参")
+      utils.logger(result, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data

@@ -24,7 +24,6 @@ Page({
         // 最近查看
         http.fxGet(api.user_browses, { sid: app.globalData.storeRid }, (result) => {
           if (result.success) {
-            console.log(result)
             this.setData({
               productList: result.data
             })

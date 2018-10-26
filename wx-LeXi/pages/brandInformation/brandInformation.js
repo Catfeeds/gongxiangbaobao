@@ -40,7 +40,7 @@ Page({
   getShopOwner() {
     http.fxGet(api.masterInfo, {}, (result) => {
       if (result.success) {
-        console.log(result.data, '店铺主人信息')
+        utils.logger(result.data, '店铺主人信息')
         result.data.user_label = this.getUserIdentityLabel(result.data.user_identity)
         this.setData({
           shopOwner: result.data
@@ -53,7 +53,7 @@ Page({
 
   // 获取店铺休息，和店铺主人的信息
   getAllInfo () {
-    console.log(app.globalData.storeInfo)
+    utils.logger(app.globalData.storeInfo)
     this.setData({
       storeInfo: app.globalData.storeInfo,
       isAuthentication: app.globalData.isAuthenticationStore,

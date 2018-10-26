@@ -11,7 +11,7 @@
     <image src='{{ shopInfo.bgcover }}' class="store-bg"></image>
 
     <view class="store-user">
-      <image src='{{ shopInfo.logo }}-ava' class='user-photo'></image>
+      <image src='{{ shopInfo.logo }}-ava' class='user-photo' wx:if="{{ shopInfo.logo }}"></image>
 
       <!-- 中间user的信息 -->
       <view class="store-user__container">
