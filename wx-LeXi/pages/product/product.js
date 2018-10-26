@@ -482,6 +482,8 @@ Page({
       user_record: '1'
     }, (result) => {
       if (result.success) {
+        this.getSkus() // 获取sku
+  
         console.log(result, '产品详情')
         result.data.product_like_users = result.data.product_like_users.reverse()
 
@@ -701,6 +703,12 @@ Page({
           break
         }
       }
+    }
+
+    if (this.data.productInfomation.stock_count == 0) {
+      choosed.price = '已售罄'
+      activeModeIdx = 9999
+      activeColorIdx = 9999
     }
 
     this.setData({
@@ -979,7 +987,6 @@ Page({
 
     this.getstoreInfo() // 店铺信息---
     this.getProductInfomation() // 获取商品详情---
-    this.getSkus()
 
     this.getCouponAndFullSubtraction() // 获取优惠券---
     this.getNewProduct() // 获取最新的商品---
