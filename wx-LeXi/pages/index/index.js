@@ -596,8 +596,6 @@ Page({
     http.fxPost(api.add_browse, params, (result) => {
       utils.logger(result, '添加浏览人数')
       if (!result.success) {
-        
-      } else {
         utils.fxShowToast(result.status.message)
       }
     })

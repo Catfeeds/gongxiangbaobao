@@ -189,6 +189,13 @@
 .recommendgoodsText > view{
   letter-spacing:4rpx;
 }
+.recommendgoodsText .wxParse-p {
+  margin-bottom: 10rpx;
+}
+.recommendgoodsText .wxParse-p .wxParse-strong {
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+}
 .ren-icon{
   height: 40rpx;
   width: 120rpx;
