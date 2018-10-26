@@ -595,9 +595,7 @@ Page({
 
     http.fxPost(api.add_browse, params, (result) => {
       utils.logger(result, '添加浏览人数')
-      if (!result.success) {
-        
-      } else {
+      if (!result.success) {} else {
         // utils.fxShowToast(result.status.message)
       }
     })
@@ -774,7 +772,7 @@ Page({
       per_page: per_page,
       openid: jwt.openid
     }
-    
+
     http.fxGet(api.BrowseQuantityNumber.replace(/:rid/g, app.globalData.storeRid), params, (result) => {
       utils.logger(result, '浏览者数量')
       if (result.success) {
@@ -1210,7 +1208,7 @@ Page({
   /**
    * 获取初始化数据
    */
-  getInitData () {
+  getInitData() {
     // 获取店铺的信息
     this.getShopInfo()
     // 获取店铺公告
@@ -1221,7 +1219,7 @@ Page({
 
     // 浏览浏览人数
     this.getBrowseQuantity()
-    
+
     // 获取商品 (精选)
     this.getThemeProduct() // 1,主打设计
     this.getRecommendProducts() // 推荐好物---
@@ -1266,7 +1264,7 @@ Page({
     }
 
     // 用户已登录时
-    if (app.globalData.isLogin) { 
+    if (app.globalData.isLogin) {
       this._refreshData()
     } else {
       // 用户未登录时

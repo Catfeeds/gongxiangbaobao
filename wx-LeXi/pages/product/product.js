@@ -625,8 +625,8 @@ Page({
   // 优惠券，满减
   getCouponAndFullSubtraction() {
     this.setData({
-      couponList: app.globalData.couponList, // 优惠券列表
-      'fullSubtractionList.coupons': app.globalData.fullSubtractionList, // 满减---
+      couponList: app.globalData.couponList.coupons, // 优惠券列表
+      'fullSubtractionList.coupons': app.globalData.fullSubtractionList.coupons, // 满减---
     })
     console.log(this.data.fullSubtractionList)
   },
