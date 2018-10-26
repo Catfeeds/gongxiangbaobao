@@ -33,7 +33,6 @@
           </view>
           <view class='ct-item-r' wx:else data-rid='{{item.code}}' catchtap='getReceiveCoupon'>
             <view>
-              <view>分享</view>
               <view>领取</view>
             </view>
             <!--后期用 <button open-type="share" data-from='3'> -->
