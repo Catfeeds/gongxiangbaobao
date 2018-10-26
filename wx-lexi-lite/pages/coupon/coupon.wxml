@@ -24,7 +24,9 @@
             <image src='../../images/yangjiao.png'></image>
             <text>{{ item.coupon.amount }}</text>
           </view>
-          <view class='price-text' wx:if="{{ item.coupon.min_amount > 0 }}">满{{ item.coupon.min_amount }}使用</view>
+          <view class='price-text' wx:if="{{ item.coupon.min_amount > 0 && item.coupon.min_amount != item.coupon.amount }}">满{{ item.coupon.min_amount }}使用</view>
+
+          <view class='price-text' wx:else>无门槛</view>
         </view>
       </view>
       <!-- right 信息 -->
@@ -75,7 +77,9 @@
             <image src='../../images/yangjiao.png'></image>
             <text>{{item.amount}}</text>
           </view>
-          <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
+          <view class='price-text' wx:if="{{ item.min_amount > 0 &&item.amount != item.min_amount}}">满{{item.min_amount}}使用</view>
+
+          <view class='price-text' wx:else>无门槛</view>
         </view>
       </view>
       <!-- right 信息 -->
@@ -134,7 +138,9 @@
               <image src='../../images/yangjiao.png'></image>
               <text>{{item.amount}}</text>
             </view>
-            <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
+            <view class='price-text' wx:if="{{ item.min_amount > 0 && item.min_amount!=item.amount}}">满{{item.min_amount}}使用</view>
+
+            <view class='price-text' wx:else>无门槛</view>
           </view>
         </view>
         <!-- right 信息 -->
@@ -168,7 +174,9 @@
               <image src='../../images/yangjiao.png'></image>
               <text>{{item.amount}}</text>
             </view>
-            <view class='price-text' wx:if="{{ item.min_amount > 0 }}">满{{item.min_amount}}使用</view>
+            <view class='price-text' wx:if="{{ item.min_amount > 0 &&  item.min_amount != item.amount}}">满{{item.min_amount}}使用</view>
+
+            <view class='price-text' wx:else>无门槛</view>
           </view>
         </view>
         <!-- right 信息 -->
