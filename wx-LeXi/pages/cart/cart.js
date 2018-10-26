@@ -119,9 +119,10 @@ Page({
     this.setData({
       productInfomation:[]
     })
+    let sellOut = e.currentTarget.dataset.sellOut
     let select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
-    this.getSkus(select)
+    this.getSkus(select, sellOut)
     
     this.setData({
       pickBox: true
@@ -296,7 +297,7 @@ Page({
   /**
    * 获取sku数量
    */
-  getSkus(rid) {
+  getSkus(rid,sellOut) {
     let params = {
       rid: rid
     }
@@ -306,7 +307,7 @@ Page({
         this.setData({
           skus: result.data
         })
-        this.initialShowSku()
+        this.initialShowSku(sellOut)
       }
     })
   },
@@ -326,7 +327,7 @@ Page({
   },
 
   // 初始化sku
-  initialShowSku() {
+  initialShowSku(sellOut) {
     let hasMode = this.data.skus.modes.length > 0 ? true : false
     let hasColor = this.data.skus.colors.length > 0 ? true : false
     let choosed = {}
@@ -371,11 +372,15 @@ Page({
         }
       }
     }
+
+    console.log(this.data.skus)
    
-    if (Object.keys(choosed).length==0){
+    if (sellOut){
       choosed.price = '已售罄'
-      activeModeIdx = Object.keys(choosed).length +1 // 给一个大于activeModeIdx的值，让其没有选中的颜色
+      activeModeIdx = 9999
+      activeColorIdx = 9999
     }
+
     this.setData({
       hasMode: hasMode,
       hasColor: hasColor,

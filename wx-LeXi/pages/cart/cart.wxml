@@ -65,7 +65,7 @@
       <view class='cart-L'>
         <fx-product-middleM photoHeight="{{140}}" photoWidth="{{140}}" product="{{item}}" price="true" bind:triggerEvent_product="handleInfomation" repertoryNumber="{{repertoryNumber==0?true:false}}"></fx-product-middleM>
       </view>
-      <view class='c-middle addgoods btn-bg-color' data-rid="{{item.rid}}" data-itemProdact='{{item}}' catchtap='addCartTap'>
+      <view class='c-middle addgoods btn-bg-color' data-rid="{{item.rid}}" data-itemProdact='{{item}}' data-sell-out="{{item.is_sold_out}}" catchtap='addCartTap'>
         <view class='addgoodscart'>
           <image src='../../images/shoping-car.png'></image>
         </view>

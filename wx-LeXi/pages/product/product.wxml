@@ -219,7 +219,7 @@
             <text>￥{{ choosed.sale_price }}</text>
           </text>
           <text class='cureentPrice' wx:else>
-            <text>￥{{ choosed.price }}</text>
+            <text>{{ choosed.price=='已售罄'?'已售罄':'￥' + choosed.price }}</text>
           </text>
           <text class="stock" wx:if="{{ choosed.stock_count <= 5 }}">
             <text>仅剩 {{ choosed.stock_count }} 个</text>
