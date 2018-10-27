@@ -25,6 +25,7 @@
     display: inline;
     margin: 0;
     padding: 0;
+    white-space: pre-wrap;
 }
 /*//标题 */
 .wxParse-div{margin: 0;padding: 0;}
