@@ -91,6 +91,15 @@ Page({
     })
   },
 
+  // 去别人的主页
+  handleToPeople(e) {
+    let uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../people/people?uid=' + uid
+    })
+
+  },
+
   // 添加关注---
   handleAddWatch(e) {
     if (!app.globalData.isLogin) {
@@ -550,7 +559,7 @@ Page({
 
     let rid = e.currentTarget.dataset.rid
     wx.redirectTo({
-      url: '/pages/product/product?rid=' + rid 
+      url: '/pages/product/product?rid=' + rid
     })
   },
 
@@ -645,6 +654,7 @@ Page({
       sid: jwt.store_rid || ''
     }, (result) => {
       if (result.success) {
+        console.log(result.data)
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,
@@ -701,13 +711,13 @@ Page({
   },
 
   /**
- * 跳转分销上架
- */
+   * 跳转分销上架
+   */
   handleGoSale(e) {
 
     let rid = this.data.productInfomation.rid
     wx.navigateTo({
-      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid 
+      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid
     })
   },
 

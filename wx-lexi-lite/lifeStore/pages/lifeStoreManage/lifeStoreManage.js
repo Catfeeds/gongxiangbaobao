@@ -56,6 +56,11 @@ Page({
     })
   },
 
+  // 加入关注群
+  handleJoinStoreGather(){
+
+  },
+
   /**
    * 跳转至交易记录
    */

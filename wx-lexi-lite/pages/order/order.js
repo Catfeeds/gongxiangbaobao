@@ -497,6 +497,19 @@ Page({
     clearInterval(paymentWindowInterval)
     clearInterval(allOrderInterval)
     clearInterval(daifuInterval)
+
+    this.setData({
+      allOrderList: [], //全部订单
+      daifu: [], //代付款
+      daifa: [], //代发货
+      daishou: [], //待收货
+      daiping: [], //待评价
+      'getOrderListParams.page': 1,
+      'dafuParams.page': 1,
+      'dafaParams.page': 1,
+      'daishouParams.page': 1,
+      'pingjiaParams.page': 1,
+    })
   },
 
   /**

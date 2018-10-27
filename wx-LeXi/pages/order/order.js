@@ -385,18 +385,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({
-      allOrderList: [], //全部订单
-      daifu: [], //代付款
-      daifa: [], //代发货
-      daishou: [], //待收货
-      daiping: [], //待评价
-      'getOrderListParams.page': 1,
-      'dafuParams.page': 1,
-      'dafaParams.page': 1,
-      'daishouParams.page': 1,
-      'pingjiaParams.page': 1,
-    })
 
     this.getOrderList() // 获取订单列表---
     this.getDaifaList() // 获取待发列表---
@@ -409,7 +397,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this.setData({
+      allOrderList: [], //全部订单
+      daifu: [], //代付款
+      daifa: [], //代发货
+      daishou: [], //待收货
+      daiping: [], //待评价
+      'getOrderListParams.page': 1,
+      'dafuParams.page': 1,
+      'dafaParams.page': 1,
+      'daishouParams.page': 1,
+      'pingjiaParams.page': 1,
+    })
   },
 
   /**

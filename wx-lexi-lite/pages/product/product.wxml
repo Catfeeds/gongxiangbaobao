@@ -32,7 +32,7 @@
       <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
       </text>
       <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text> -->
-      <text class='cureentPrice' > <text>￥{{productInfomation.min_sale_price!=productInfomation.min_price && productInfomation.min_sale_price!=0?productInfomation.min_sale_price:productInfomation.min_price}}</text> </text>
+      <text class='cureentPrice'> <text>￥{{productInfomation.min_sale_price!=productInfomation.min_price && productInfomation.min_sale_price!=0?productInfomation.min_sale_price:productInfomation.min_price}}</text> </text>
       <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
     </view>
     <!-- wx:for='{{productInfomation.labels}}' -->
@@ -114,7 +114,7 @@
   <!-- 有多少人喜欢 -->
   <view class='likeBox' catchtap='handelToLikeThisProductTap' data-rid='{{productInfomation.rid}}' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" src='{{item.avatar}}-ava' wx:if="{{index<10}}" class='photo-round'></image>
+      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" data-uid="{{item.uid}}" src='{{item.avatar}}-ava' catchtap="handleToPeople" wx:if="{{index<10}}" class='photo-round'></image>
     </view>
     <view class='roundR'>
       <image src='../../images/sandian.png'></image>
