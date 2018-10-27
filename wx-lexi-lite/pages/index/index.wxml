@@ -213,7 +213,7 @@
             <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
+            <image wx:for="{{distributeProduct.product_like_users}}" catchtap="handleToPeople" data-uid="{{item.uid}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
           </view>
         </view>
       </view>

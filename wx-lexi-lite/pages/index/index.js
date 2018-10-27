@@ -661,6 +661,14 @@ Page({
     }
   },
 
+  // 去别人的主页
+  handleToPeople(e) {
+    let uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../people/people?uid=' + uid
+    })
+  },
+
   // 点击喜欢或者删除喜欢
   handleBindLike(e) {
     let idx = e.currentTarget.dataset.index

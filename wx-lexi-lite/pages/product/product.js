@@ -97,7 +97,6 @@ Page({
     wx.navigateTo({
       url: '../people/people?uid=' + uid
     })
-
   },
 
   // 添加关注---
@@ -654,7 +653,6 @@ Page({
       sid: jwt.store_rid || ''
     }, (result) => {
       if (result.success) {
-        console.log(result.data)
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
           productInfomation: result.data,
