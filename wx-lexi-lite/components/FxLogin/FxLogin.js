@@ -120,6 +120,7 @@ Component({
                   is_mobile: true,
                   visible: false
                 })
+                wx.showTabBar()
               } else {
                 utils.fxShowToast('登录失败，稍后重试！')
                 wx.navigateTo({

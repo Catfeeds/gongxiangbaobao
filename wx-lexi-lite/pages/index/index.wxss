@@ -69,6 +69,7 @@
 
 .plantnote-list .plantnote-item .plantnote-item_desc {
   margin-bottom: 18rpx;
+  max-width: 326rpx;
 }
 
 .sear-top {

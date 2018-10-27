@@ -410,6 +410,7 @@ App({
     // 订单的参数
     orderParams: {
       authAppid: '',
+      bonus_code: '', // 官方优惠券
       address_rid: '', // String	必需	 	收货地址ID
       outside_target_id: '', // String	可选	 	 
       is_alone: 1, // 是否独立小程序 0、否 1、是
