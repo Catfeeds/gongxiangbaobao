@@ -448,3 +448,8 @@ button-hover {
 .font-normal {
   font-weight: normal;
 }
+
+.user-description {
+  font-size: 26rpx;
+  margin-top:22rpx;
+}

@@ -78,7 +78,6 @@ Page({
       open_id: jwt.openid
     }, (result) => {
       utils.logger(result, '获取购物车')
-      console.log(result, '获取购物车')
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
 
@@ -111,7 +110,6 @@ Page({
   getDesireOrder() {
     http.fxGet(api.wishlist, {}, (result) => {
       utils.logger(result, '获取心愿单')
-      console.log(result, '获取心愿单')
       if (result.success) {
         this.setData({
           thinkOrder: result.data
