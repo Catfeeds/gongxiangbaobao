@@ -20,8 +20,7 @@
       <!-- 个人介绍 -->
       <label class='componentTwo pading-bottom--14rpx'>
         <view>个人介绍</view>
-        <input bindinput='handleOwnerIntroduce' placeholder-class='placeholder' class='userInput' value='{{ editUserInfo.about_me }}' placeholder='给自己添加一个 solgan 吧'></input>
-
+        <textarea auto-height bindinput='handleOwnerIntroduce' maxlength="{{50}}" placeholder-class='placeholder' class='userInput user-descript' value='{{ editUserInfo.about_me }}' placeholder='给自己添加一个 solgan 吧'></textarea>
       </label>
       <!-- 邮箱 -->
       <label class='componentTwo padding-bottom--16rpx'>
