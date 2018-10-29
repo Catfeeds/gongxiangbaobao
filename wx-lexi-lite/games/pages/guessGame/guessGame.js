@@ -384,6 +384,7 @@ Page({
       return
     }
     if (this.data.withDrawLoading) { // 正在提现中，禁止重复操作
+      utils.logger('正在提现中，请勿重复操作')
       return
     }
     this.setData({
@@ -671,8 +672,15 @@ Page({
           v = this._rebuildUserInfo(v, 8)
         })
 
+        let _list = this.data.stealBonusPeople
+        if (this.data.stealPage > 1) {
+          _list.push.apply(_list, res.data.friend_list)
+        } else {
+          _list = res.data.friend_list
+        }
+
         this.setData({
-          stealBonusPeople: res.data.friend_list,
+          stealBonusPeople: _list,
           stealNext: res.data.next ? true : false
         })
       } else {
