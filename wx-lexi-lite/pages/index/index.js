@@ -2088,6 +2088,9 @@ Page({
         pageActiveTab: 'lifeStore'
       })
 
+      // 加载选品中心的动画
+      this.getDistributeNewest()
+
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     } else {
@@ -2235,6 +2238,9 @@ Page({
         pageActiveTab: 'lifeStore'
       })
 
+      // 加载选品中心的动画
+      this.getDistributeNewest()
+
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     }
@@ -2336,13 +2342,15 @@ Page({
         page: 1
       })
 
+        // 加载选品中心的动画
+        this.getDistributeNewest()
+
       // 刷新生活馆
       if (this.data.pageActiveTab == 'lifeStore') {
         this._swtichActivePageTab('lifeStore')
       } else {
         this._loadingLifeStorePage()
       }
-
     }
 
     // 初次进入时无生活馆，后续申请开通后
@@ -2353,12 +2361,10 @@ Page({
           sid: lifeStore.lifeStoreRid,
           canAdmin: true
         })
-      }
-    }
 
-    if (!this.data.pageTabs[0].disabled) {
-      // 加载选品中心的动画
-      this.getDistributeNewest()
+        // 加载选品中心的动画
+        this.getDistributeNewest()
+      }
     }
 
     this.getLifePhotoUrl()

@@ -78,11 +78,16 @@ Page({
       open_id: jwt.openid
     }, (result) => {
       utils.logger(result, '获取购物车')
+      console.log(result, '获取购物车')
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
 
         result.data.items.forEach((v, i) => {
+          // 处理 过长的产品名称
           v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 16) + ' ...' : v.product.product_name
+
+          // 处理过长的店铺名称
+          v.product.store_name = v.product.store_name && v.product.store_name.length > 21 ? v.product.store_name.substr(0, 16) + ' ...' : v.product.store_name
         })
 
         if (result.data.items.length == 0) {
