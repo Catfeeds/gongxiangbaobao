@@ -14,7 +14,7 @@
 
   <view class='top-box'>
     <!-- 头像 -->
-    <view class='user-photo'>
+    <view class='user-photo' catchtap="handleGoEditInfo">
       <view class='photo'>
         <image src='{{ userInfo.profile.avatar }}' wx:if='{{ userInfo.profile.avatar != null }}'></image>
         <open-data wx:else type="userAvatarUrl"></open-data>

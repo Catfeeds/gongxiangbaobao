@@ -2,9 +2,8 @@
 
 page {
   position: relative;
- background-color: #f7f9fb;
+  background-color: #f7f9fb;
 }
-
 
 .shopCartNon {
   height: 350rpx;
@@ -75,6 +74,7 @@ page {
   /* height: 30rpx; */
   width: 30rpx;
 }
+
 .addgoodscart {
   width: 30rpx;
   height: 30rpx;
@@ -190,7 +190,7 @@ page {
   /* justify-content: space-between; */
 }
 
-.jia-hao{
+.jia-hao {
   padding-bottom: 4rpx;
 }
 
@@ -286,8 +286,8 @@ page {
   align-items: center;
   font-size: 32rpx;
 }
-.clearDndthinkBox>view:nth-child(1),
-.clearDndthinkBox>view:nth-child(2) {
+
+.clearDndthinkBox>view:nth-child(1), .clearDndthinkBox>view:nth-child(2) {
   height: 82rpx;
   width: 330rpx;
   border: 1rpx solid #5fe4b1;
@@ -297,7 +297,6 @@ page {
 }
 
 .clearCart {
-
   color: #5fe4b1;
   border: 1rpx soli #5fe4b1;
 }
@@ -314,7 +313,8 @@ page {
 .shim {
   height: 110rpx;
 }
-.top__shim{
+
+.top__shim {
   height: 80rpx;
 }
 
@@ -360,7 +360,6 @@ page {
   margin-left: 14rpx;
   font-size: 30rpx;
   font-weight: 700;
-  
 }
 
 .cart-L {
@@ -458,6 +457,7 @@ page {
 .pick_btn>view {
   width: 335rpx !important;
 }
+
 .stock {
   font-size: 28rpx;
   font-weight: 600;
@@ -465,8 +465,8 @@ page {
   white-space: nowrap;
   color: #f66;
 }
-.none-goods,
-.disabled {
+
+.none-goods, .disabled {
   border: 1rpx solid #b2b2b2;
   color: #b2b2b2;
 }

@@ -24,7 +24,7 @@ Page({
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
-    userInfoDescription:'', // 用户的自我自我介绍
+    userInfoDescription: '', // 用户的自我自我介绍
     userInfo: { // 用户的信息
       profile: {
         avatar: 'https://s3.lexivip.com/static/img/default-logo.png'
@@ -201,6 +201,13 @@ Page({
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  // 跳转修改详情
+  handleGoEditInfo() {
+    wx.navigateTo({
+      url: '../editInfo/editInfo'
     })
   },
 
