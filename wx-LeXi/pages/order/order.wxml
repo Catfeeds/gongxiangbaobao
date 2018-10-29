@@ -131,7 +131,7 @@
     <!-- 待发货订单 -->
     <view wx:if="{{currentStatus===1}}">
       <!-- 每一笔订单 -->
-      <view wx:for="{{daifa}}" wx:key="{{ index }}" data-rid='{{order.rid }}' wx:for-item="product" bindtap='handleViewDetail' class='component productAndShopInfoBox'>
+      <view wx:for="{{daifa}}" wx:key="{{ index }}" data-rid='{{product.rid }}' wx:for-item="product" bindtap='handleViewDetail' class='component productAndShopInfoBox'>
         <!-- 每一家商家  -->
         <view>
           <!-- 每一家商家  -->
@@ -286,6 +286,34 @@
         </view>
       </view>
     </view>
-
   </view>
+
+  <!-- 合并支付 -->
+  <fx-modal bind:closeEvent="handleOffpayment" visible="{{isMergeShow}}" showHead="{{false}}">
+
+    <view slot="main">
+      <view class="flex-direction-column__item bin-order__info--head">
+        <view class="title">以下订单需一起付款</view>
+        <view class="describe">由于以下订单你在下单时设置了共享优惠，需要一起付款</view>
+      </view>
+
+      <scroll-view scroll-y class="bin-order__info--body">
+        <view class="bin-order__info--item" wx:for="{{mergePaymentProduct.order_list }}" wx:key="{{index}}">
+          <view class="time-top order-detail__top">
+            <text class="">{{item.store_name}}</text>
+            <text>￥ {{item.user_pay_amount}}</text>
+          </view>
+
+          <view class="time-top order-detail__bottom">共{{item.total_quantity}}件</view>
+        </view>
+        <view class="shim"></view>
+      </scroll-view>
+
+      <view class="bin-order__info--foot" catchtap="mergePaymentBtn">
+        <view class="c-middle payment-btn">付款 {{mergePaymentProduct.orderTime}}</view>
+      </view>
+
+    </view>
+  </fx-modal>
+
 </view>

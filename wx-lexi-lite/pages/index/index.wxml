@@ -101,7 +101,7 @@
       </view>
     </block>
 
-    <!-- 选聘中心 -->
+    <!-- 选品中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
       <!-- 
       <view class='float'>
@@ -213,7 +213,7 @@
             <view>分享</view>
           </view>
           <view class='recommendbottomRen'>
-            <image wx:for="{{distributeProduct.product_like_users}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
+            <image wx:for="{{distributeProduct.product_like_users}}" catchtap="handleToPeople" data-uid="{{item.uid}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
           </view>
         </view>
       </view>
@@ -460,7 +460,7 @@
 
           <image src="" wx:else class="plantnote-item_cover img--style {{readyOver?'load-over__photo--juxing':'loading-bg'}} "></image>
           <text class="plantnote-item_title font-s font-width--semibold text-two_line">{{item.title}}</text>
-          <text class='plantnote-item_desc font-s shen-hui text-two_line'>{{item.description}}</text>
+          <view class='plantnote-item_desc font-s shen-hui text-two_line'>{{item.description}}</view>
           <view class='plant-owner__box flex_row'>
             <image src="{{item.user_avator}}-ava" class='plant-owner__photo' wx:if="{{item.user_avator}}"></image>
             <text class="font-s shen-hui">{{item.user_name}}</text>

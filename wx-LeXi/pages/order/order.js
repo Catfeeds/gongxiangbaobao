@@ -10,6 +10,9 @@ Page({
    * 页面的初始数据 orders
    */
   data: {
+    isMergeShow: false, // 订单是否合并支付
+    mergePaymentProduct: [], // 合并订单的的参数
+
     isLoading: true,
     // 订单列表
     allOrderList: [], //全部订单
@@ -29,8 +32,7 @@ Page({
 
     // navbar
     currentStatus: 0,
-    navList: [
-      {
+    navList: [{
         title: '全部',
         status: 0
       },
@@ -100,6 +102,7 @@ Page({
 
   // 查看订单详情
   handleViewDetail(e) {
+    console.log(e.currentTarget.dataset.rid)
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
       url: '../orderInfo/orderInfo?rid=' + rid
@@ -218,7 +221,7 @@ Page({
 
   // 付款
   paymentBtn(e) {
-    // let order = this.data.orderList.orders[e.currentTarget.dataset.order]
+
     let order = e.currentTarget.dataset
     let rid = order.rid
     console.log(order.rid)
@@ -230,36 +233,49 @@ Page({
 
     // 获取订单签名
     http.fxPost(api.order_prepay_sign, app.globalData.orderParams, (result) => {
-      console.log(result)
+      console.log(result, '获取签名')
       if (result.success) {
-        
-        app.wxpayOrder(order.rid, result.data)
 
-        let allshouhuoData = this.data.allOrderList
-        allshouhuoData.forEach((v, i) => {
-          if (v.rid == rid) {
-            allshouhuoData.splice(i, 1)
-            this.setData({
-              allOrderList: allshouhuoData
-            })
-          }
-        })
+        // 多个产品使用了同一个优惠券，不能直接支付
+        if (result.data.is_merge) {
+          this.setData({
+            mergePaymentProduct: result.data,
+            isMergeShow: true
+          })
+        } else {
+          app.wxpayOrder(order.rid, result.data)
+        }
 
-        let daifuData = this.data.daifu
-        daifuData.forEach((v, i) => {
-          if (v.rid == rid) {
-            daifuData.splice(i, 1)
-            this.setData({
-              daifu: daifuData
-            })
-          }
-        })
+        // let allshouhuoData = this.data.allOrderList
+        // allshouhuoData.forEach((v, i) => {
+        //   if (v.rid == rid) {
+        //     allshouhuoData.splice(i, 1)
+        //     this.setData({
+        //       allOrderList: allshouhuoData
+        //     })
+        //   }
+        // })
 
-        this.getDaishouList() // 获取待收货列表---
+        // let daifuData = this.data.daifu
+        // daifuData.forEach((v, i) => {
+        //   if (v.rid == rid) {
+        //     daifuData.splice(i, 1)
+        //     this.setData({
+        //       daifu: daifuData
+        //     })
+        //   }
+        // })
+
+        // this.getDaishouList() // 获取待收货列表---
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  // 支付合并
+  mergePaymentBtn() {
+    app.wxpayOrder(this.data.mergePaymentProduct.order_rid, this.data.mergePaymentProduct)
   },
 
   // 确认收货
@@ -369,6 +385,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     this.getOrderList() // 获取订单列表---
     this.getDaifaList() // 获取待发列表---
     this.getDaishouList() // 获取待收货列表---
@@ -380,7 +397,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this.setData({
+      allOrderList: [], //全部订单
+      daifu: [], //代付款
+      daifa: [], //代发货
+      daishou: [], //待收货
+      daiping: [], //待评价
+      'getOrderListParams.page': 1,
+      'dafuParams.page': 1,
+      'dafaParams.page': 1,
+      'daishouParams.page': 1,
+      'pingjiaParams.page': 1,
+    })
   },
 
   /**
@@ -403,7 +431,7 @@ Page({
   onReachBottom: function() {
     // 全部
     if (this.data.currentStatus == 0) {
-      if (this.data.isNextAll == null) {
+      if (typeof(this.data.isNextAll) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -414,9 +442,8 @@ Page({
       this.getOrderList()
     }
 
-
     if (this.data.currentStatus == 1) {
-      if (this.data.isNextDaifa == null) {
+      if (typeof(this.data.isNextDaifa) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -429,7 +456,7 @@ Page({
 
     if (this.data.currentStatus == 2) {
 
-      if (this.data.isNextdaishou == null) {
+      if (typeof(this.data.isNextdaishou) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -441,7 +468,7 @@ Page({
     }
 
     if (this.data.currentStatus == 3) {
-      if (this.data.isNextDaiping == null) {
+      if (typeof(this.data.isNextDaiping) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
@@ -454,16 +481,17 @@ Page({
 
     if (this.data.currentStatus == 4) {
 
-      if (this.data.isNextDaifu == null) {
+      if (typeof(this.data.isNextDaifu) == 'object') {
         utils.fxShowToast('没有更多了')
         return
       }
       this.setData({
         ['dafuParams.page']: this.data.dafuParams.page + 1
       })
+
+      this.getDaifuList()
     }
 
-    this.getDaifuList()
   },
 
   /**

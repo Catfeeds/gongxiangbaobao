@@ -512,7 +512,7 @@ getLikeWindow(){
   setTap(e) {
     utils.logger(e)
     // 是否登陆
-    if (!app.globalData.isLogin) {
+    if (app.globalData.isLogin) {
       utils.handleHideTabBar()
       this.setData({
         is_mobile: true

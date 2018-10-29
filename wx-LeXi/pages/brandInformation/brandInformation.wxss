@@ -29,8 +29,6 @@
 }
 
 .userinfoS {
-  width: 122rpx;
-  height: 32rpx;
   font-size: 22rpx;
   color: white;
   border-radius: 5rpx;

@@ -683,6 +683,7 @@ Page({
             },
             choosed:{},
             productInfomation: [],
+            desireOrderProductRid:[]
           })
         }
       })

@@ -302,7 +302,7 @@ image {
   flex-direction: row;
   margin: 0 40rpx 20rpx !important;
   line-height: 44rpx !important;
-  white-space: wrap;
+  white-space: pre-wrap;
 }
 .wxParse-p text {
   height: 20rpx;

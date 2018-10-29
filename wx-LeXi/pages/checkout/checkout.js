@@ -237,6 +237,8 @@ Page({
     let option = e.detail.value
     let coupon = JSON.parse(option)
 
+    app.globalData.orderParams.bonus_code = coupon.code
+
     this.setData({
       orderInfomation: item,
       authoritativeCouponPrice: coupon.amount,

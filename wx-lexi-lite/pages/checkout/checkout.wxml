@@ -152,8 +152,12 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-  <cover-view class='conservation'>
-    <button catchtap="{{paymentBtn?'paymentSuccess':'' }}">{{paymentBtn?'提交订单':'加载中···'}}</button>
+  <cover-view class='conservation' wx:if="{{paymentBtn}}">
+    <button catchtap="paymentSuccess}}">提交订单</button>
+  </cover-view>
+  <!-- 继续确认订单按钮 -->
+  <cover-view class='conservation' wx:else>
+    <button>加载中···</button>
   </cover-view>
 
   <!-- 优惠券弹框 -->

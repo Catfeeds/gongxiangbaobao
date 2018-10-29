@@ -152,11 +152,13 @@ Page({
     setTimeout(() => {
       http.fxPost(api.calculate_logisitcs, params, (result) => {
         utils.logger(result)
+
         if (result.success) {
           let sum = 0
           Object.keys(result.data).forEach((key) => {
             sum = result.data[key] - 0 + sum
           })
+
           this.setData({
             paymentBtn: true,
             itemOrderLogisticsPrice: result.data,
@@ -324,7 +326,6 @@ Page({
 
   // 获取官方优惠券
   getAuthorityCoupon(e, order) {
-    console.log(e, order, '官方优惠券需求参数')
 
     let skus = [] // 获得官方优惠券所需的sku
     order.forEach((item, index) => {
@@ -337,7 +338,6 @@ Page({
             amount: e,
             sku: Array.from(new Set(skus))
           }, (result) => {
-            console.log(skus)
             utils.logger(result, '官方优惠券')
             if (result.success) {
               result.data.coupons.forEach((v, i) => {

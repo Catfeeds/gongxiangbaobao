@@ -58,7 +58,7 @@ Page({
 
     recentlyLookProduct: { // 最近查看的商品---
       count: 0
-    }, 
+    },
     desireOrderProduct: { // 心愿单商品---
       count: 0
     },
@@ -356,7 +356,9 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
-    http.fxGet(api.users_user_center, { sid: app.globalData.storeRid }, (result) => {
+    http.fxGet(api.users_user_center, {
+      sid: app.globalData.storeRid
+    }, (result) => {
       utils.logger(result)
       let category = this.data.classList
       category.forEach((v) => {
@@ -412,7 +414,7 @@ Page({
       'sortParams.page': 1,
       classInfo: e.currentTarget.dataset.rid
     })
-    
+
     // 需先登录
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -481,7 +483,9 @@ Page({
   // 浏览记录
   getBrowss() {
     //最近查看
-    http.fxGet(api.user_browses, { sid: app.globalData.storeRid }, (result) => {
+    http.fxGet(api.user_browses, {
+      sid: app.globalData.storeRid
+    }, (result) => {
       if (result.success) {
         utils.logger(result, '最近查看')
         this.setData({
@@ -603,7 +607,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.getUserInfo() // 获取用户的信息
 
+    this.getProduct() // 获取商品---
+    this.getCategoryQuantity() // 获取用户的喜欢收藏---
+    this.getCouponAddOrder() // 是否有订单和优惠券
+
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -808,5 +818,5 @@ Page({
       is_mobile: false
     })
   }
-  
+
 })

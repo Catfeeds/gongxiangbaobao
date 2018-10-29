@@ -6,7 +6,7 @@
   <view class="bg-white border-bottom margin-bottom--30rpx">
     <!-- 头部图片 -->
     <view class='top-photo'>
-      <image src='{{ liveInfo.cover }}' mode="widthFix" class="article-headpic"></image>
+      <image src='{{ liveInfo.cover }}-avabg' mode="widthFix" class="article-headpic"></image>
     </view>
 
     <!-- 店铺的信息 -->
