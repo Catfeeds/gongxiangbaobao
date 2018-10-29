@@ -62,6 +62,7 @@ Page({
       rid: this.data.deleteWindowRid
     }, result => {
       if (result.success) {
+
         utils.fxShowToast('删除成功')
         let arrayData = this.data.dynamicList
         arrayData.lines.splice(this.data.deleteWindowIdx, 1)

@@ -377,7 +377,8 @@ button-hover {
 }
 
 .bg--hui {
-  background-color: #949ea6;
+  background-color: #eff3f2;
+  color: #949ea6;
 }
 
 .follow-icon__home {
@@ -451,5 +452,5 @@ button-hover {
 
 .user-description {
   font-size: 26rpx;
-  margin-top:22rpx;
+  margin-top: 22rpx;
 }

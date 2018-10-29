@@ -398,7 +398,6 @@ Page({
       is_login: app.globalData.isLogin
     })
 
-    this.getUserInfo() // 获取用户的信息
   },
 
   /**
@@ -442,6 +441,8 @@ Page({
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
     this.getLikeWindow() // 喜欢的橱窗
+
+    this.getUserInfo() // 获取用户的信息
   },
 
   // 触底加载
