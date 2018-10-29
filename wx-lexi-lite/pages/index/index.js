@@ -14,7 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    animationNum: 0, // 首页选品中心的动画
+    animationNum: 3, // 首页选品中心的动画
 
     page: 1,
     perPage: 10,
@@ -2318,7 +2318,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(e) {
-    console.log(e, '查看从后台')
 
     // 标识自己是否为小B
     const lifeStore = wx.getStorageSync('lifeStore')
@@ -2326,8 +2325,6 @@ Page({
       this.setData({
         isSmallB: true
       })
-
-      this.getDistributeNewest()
     }
 
     // 当前显示生活馆与应该显示生活馆是否一致
@@ -2345,6 +2342,7 @@ Page({
       } else {
         this._loadingLifeStorePage()
       }
+
     }
 
     // 初次进入时无生活馆，后续申请开通后
@@ -2356,6 +2354,11 @@ Page({
           canAdmin: true
         })
       }
+    }
+
+    if (!this.data.pageTabs[0].disabled) {
+      // 加载选品中心的动画
+      this.getDistributeNewest()
     }
 
     this.getLifePhotoUrl()
@@ -2384,7 +2387,8 @@ Page({
   onHide: function() {
     clearInterval(animationInterval) // 清除动画
     this.setData({
-      latestDistributeProducts: []
+      latestDistributeProducts: [],
+      animationNum: 3
     })
   },
 
