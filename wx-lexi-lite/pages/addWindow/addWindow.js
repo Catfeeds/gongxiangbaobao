@@ -111,7 +111,7 @@ Page({
 
   //去添标签页面
   handleToAddwindowlabel() {
-    if (this.data.windowParams.keywords.length==3){
+    if (this.data.windowParams.keywords.length == 3) {
       utils.fxShowToast('最多添加3个标签')
       return
     }
@@ -150,7 +150,6 @@ Page({
       }
     })
   },
-
 
   /**
    * 生命周期函数--监听页面加载

@@ -51,19 +51,23 @@
   left: 170rpx;
 }
 
-.dynamic-item{
+.dynamic-item {
   padding: 30rpx 40rpx 26rpx;
   border-bottom: 1rpx solid #e9e9e9;
 }
 
-.designer-info image{
+.designer-info image {
   height: 60rpx;
   width: 60rpx;
   margin-right: 12rpx;
   border-radius: 50%;
 }
 
-.round view{
+.round {
+  padding: 20rpx;
+}
+
+.round view {
   width: 8rpx;
   height: 8rpx;
   border-radius: 50%;
@@ -71,7 +75,7 @@
   margin-left: 8rpx;
 }
 
-.time-middine image{
+.time-middine image {
   height: 216rpx;
   width: 216rpx;
   /* margin-bottom: 24rpx; */
@@ -79,20 +83,20 @@
 
 .text-two--line {
   display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 2; 
-overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .like-iocn__box {
   border-bottom: 1rpx solid #e9e9e9;
 }
 
-.like-iocn__box view{
+.like-iocn__box view {
   padding: 20rpx 40rpx;
 }
 
-.like-iocn__box view image{
+.like-iocn__box view image {
   height: 44rpx;
   width: 44rpx;
   vertical-align: middle;
@@ -103,21 +107,21 @@ overflow: hidden;
   margin-bottom: 8rpx;
 }
 
-.margin-bottom--30rpx{
+.margin-bottom--30rpx {
   margin-bottom: 30rpx;
 }
 
 .null-photo {
   height: 700rpx;
-
 }
 
-.null-photo image{
+.null-photo image {
   height: 120rpx;
   width: 120rpx;
   margin-bottom: 34rpx;
 }
-.watch-btn{
+
+.watch-btn {
   width: 140rpx;
 }
 
@@ -131,11 +135,15 @@ overflow: hidden;
   right: 10rpx;
   padding: 0 14rpx;
   border-radius: 30rpx;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   font-size: 22rpx;
   color: white;
 }
 
-.margin-bottom--24rpx{
+.margin-bottom--24rpx {
   margin-bottom: 24rpx;
+}
+
+.delete-window__btn {
+  border-bottom:10rpx solid #e9e9e9;
 }

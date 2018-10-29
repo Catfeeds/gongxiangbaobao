@@ -13,10 +13,10 @@
 
     <!-- 3张 -->
     <view class="time-top window-photo__box" wx:if="{{toggleCode==3}}">
-      <image src="{{windowParams.product_items[0].link}}" class="window-three__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
+      <image src="{{windowParams.product_items[0].link}}-p50" class="window-three__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
       <view class="line-D window-three__box--min">
-        <image src="{{windowParams.product_items[1].link}}" class="window-three__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
-        <image src="{{windowParams.product_items[2].link}}" class="window-three__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[1].link}}-p30" class="window-three__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[2].link}}-p30" class="window-three__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
       </view>
     </view>
 
@@ -60,10 +60,10 @@
 
     <view class="font-s add-window__warn margin-top--20rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view>
 
-    <input class="add-window__title--input" value="{{windowParams.title}}" bindinput="handleSetWindowTitle" placeholder-class="add-window__title--placeholder" placeholder="起一个吸引人的标题"></input>
+    <input class="add-window__title--input" maxlength="{{30}}" value="{{windowParams.title}}" bindinput="handleSetWindowTitle" placeholder-class="add-window__title--placeholder" placeholder="起一个吸引人的标题"></input>
   </view>
 
-  <textarea class="add-window__narrate" auto-height value="{{windowParams.description}}" bindinput="handleSetNarrate" placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
+  <textarea class="add-window__narrate" maxlength="{{-1}}" auto-height value="{{windowParams.description}}" bindinput="handleSetNarrate" placeholder-class="add-window__narrate--placeholder" placeholder="每个人都是生活美学家，分享你的搭配灵感与故事">
   </textarea>
 
   <view class="add-label__box padding-left__right--40rpx">
@@ -77,8 +77,8 @@
     </view>
   </view>
 
-  <view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box {{isPublish?'active':''}}">
-    <view class="c-middle sell-btn">发布</view>
-  </view>
+  <cover-view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box {{isPublish?'active':''}}">
+    <cover-view class="c-middle sell-btn">发布</cover-view>
+  </cover-view>
 
 </view>

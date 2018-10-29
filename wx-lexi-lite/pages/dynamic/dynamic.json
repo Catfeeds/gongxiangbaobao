@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "动态",
     "usingComponents": {
-      "fx-loading": "/components/FxLoading/FxLoading"
+      "fx-loading": "/components/FxLoading/FxLoading",
+      "fx-modal": "/components/FxModal/FxModal"
     }
 }

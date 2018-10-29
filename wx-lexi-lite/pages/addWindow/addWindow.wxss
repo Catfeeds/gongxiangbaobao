@@ -114,7 +114,7 @@
 .add-window__title--input {
   height: 30rpx;
   margin-top: 50rpx;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .add-window__narrate {
@@ -203,6 +203,7 @@
   width: 100%;
   opacity: 1;
   background-color: white;
+  z-index: 9;
 }
 
 .sell-btn__box.active {
