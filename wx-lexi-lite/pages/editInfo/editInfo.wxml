@@ -15,23 +15,22 @@
       <!-- 用户名字 -->
       <label class='componentTwo padding-bottom--16rpx'>
         <view>用户名</view>
-        <input bindinput='handleNameInput' maxlength="{{11}}" placeholder-class='placeholder' value='{{ editUserInfo.username }}' class='userInput' placeholder='输入姓名'></input>
+        <input bindinput='handleNameInput' maxlength="{{11}}" cursor-spacing="{{30}}" placeholder-class='placeholder' value='{{ editUserInfo.username }}' class='userInput' placeholder='输入姓名'></input>
       </label>
       <!-- 个人介绍 -->
       <label class='componentTwo pading-bottom--14rpx'>
         <view>个人介绍</view>
-        <input bindinput='handleOwnerIntroduce' placeholder-class='placeholder' class='userInput' value='{{ editUserInfo.about_me }}' placeholder='给自己添加一个 solgan 吧'></input>
-
+        <textarea auto-height bindinput='handleOwnerIntroduce' cursor-spacing="{{30}}" maxlength="{{50}}" placeholder-class='placeholder' class='userInput user-descript' value='{{ editUserInfo.about_me }}' placeholder='给自己添加一个 solgan 吧'></textarea>
       </label>
       <!-- 邮箱 -->
       <label class='componentTwo padding-bottom--16rpx'>
         <view>邮箱</view>
-        <input bindinput='hanleOwnerMail' value='{{ editUserInfo.mail }}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
+        <input bindinput='hanleOwnerMail' cursor-spacing="{{30}}"  value='{{ editUserInfo.mail }}' placeholder-class='placeholder' class='userInput' placeholder='定期为你推荐好设计'></input>
       </label>
 
       <label class='componentTwo padding-bottom--16rpx'>
         <view>位置</view>
-        <input bindinput='handleAddressInput' placeholder-class='placeholder' value='{{ editUserInfo.street_address }}' class='userInput' placeholder='输入位置'></input>
+        <input bindinput='handleAddressInput' cursor-spacing="{{30}}" placeholder-class='placeholder' value='{{ editUserInfo.street_address }}' class='userInput' placeholder='输入位置'></input>
       </label>
 
       <!-- 出生日期 -->

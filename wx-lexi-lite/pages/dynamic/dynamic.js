@@ -24,8 +24,11 @@ Page({
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
     },
-    
-    runEnv: 1
+
+    runEnv: 1,
+    windowModal: false, // 删除动态的模态框
+    deleteWindowRid: '', // 删除橱窗的id
+    deleteWindowIdx: '', // 删除橱窗的index
   },
 
   // 跳转到拼接拼接橱窗 
@@ -41,6 +44,46 @@ Page({
     utils.logger(e)
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + rid,
+    })
+  },
+
+  // 操作橱窗
+  handleOpenWindow(e) {
+    this.setData({
+      windowModal: true,
+      deleteWindowRid: e.currentTarget.dataset.rid,
+      deleteWindowIdx: e.currentTarget.dataset.index
+    })
+  },
+
+  // 删除橱窗
+  handleDeleteWindow() {
+    http.fxDelete(api.shop_windows, {
+      rid: this.data.deleteWindowRid
+    }, result => {
+      if (result.success) {
+
+        utils.fxShowToast('删除成功')
+        let arrayData = this.data.dynamicList
+        arrayData.lines.splice(this.data.deleteWindowIdx, 1)
+        arrayData.count = arrayData.count - 1
+
+        this.setData({
+          dynamicList: arrayData
+        })
+
+        this.handleOffWindow()
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+  // 关闭操作橱窗
+  handleOffWindow() {
+    this.setData({
+      windowModal: false,
     })
   },
 
@@ -70,7 +113,7 @@ Page({
    * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
-    this.getMyDynamic()
+
   },
 
   /**
@@ -92,6 +135,14 @@ Page({
   onShow: function() {
     // 获取当前环境
     this.getRunEnv()
+
+    this.setData({
+      'dynamicList.count': 0,
+      'dynamicList.lines': [],
+      'dynamicParams.page': 1
+    })
+
+    this.getMyDynamic()
   },
 
   /**

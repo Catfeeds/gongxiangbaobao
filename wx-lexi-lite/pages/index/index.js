@@ -14,7 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    animationNum: 0, // 首页选品中心的动画
+    animationNum: 3, // 首页选品中心的动画
 
     page: 1,
     perPage: 10,
@@ -1908,6 +1908,7 @@ Page({
           latestDistributeProducts: res.data.products
         })
 
+        this._lifeAnimation()
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -2069,7 +2070,6 @@ Page({
   _loadingLifeStorePage() {
     this.handleAddBrowse() // 添加浏览者
     this.getLifeStore() // 生活馆信息
-    this.getDistributeNewest() // 选品中心入口
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
   },
@@ -2087,6 +2087,9 @@ Page({
         'pageTabs[0].disabled': false,
         pageActiveTab: 'lifeStore'
       })
+
+      // 加载选品中心的动画
+      this.getDistributeNewest()
 
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
@@ -2235,6 +2238,9 @@ Page({
         pageActiveTab: 'lifeStore'
       })
 
+      // 加载选品中心的动画
+      this.getDistributeNewest()
+
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     }
@@ -2318,7 +2324,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(e) {
-    console.log(e,'查看从后台')
 
     // 标识自己是否为小B
     const lifeStore = wx.getStorageSync('lifeStore')
@@ -2326,8 +2331,6 @@ Page({
       this.setData({
         isSmallB: true
       })
-
-      this._lifeAnimation()
     }
 
     // 当前显示生活馆与应该显示生活馆是否一致
@@ -2338,6 +2341,9 @@ Page({
         sid: showingLifeStoreRid,
         page: 1
       })
+
+        // 加载选品中心的动画
+        this.getDistributeNewest()
 
       // 刷新生活馆
       if (this.data.pageActiveTab == 'lifeStore') {
@@ -2355,6 +2361,9 @@ Page({
           sid: lifeStore.lifeStoreRid,
           canAdmin: true
         })
+
+        // 加载选品中心的动画
+        this.getDistributeNewest()
       }
     }
 
@@ -2383,6 +2392,10 @@ Page({
    */
   onHide: function() {
     clearInterval(animationInterval) // 清除动画
+    this.setData({
+      latestDistributeProducts: [],
+      animationNum: 3
+    })
   },
 
   /**

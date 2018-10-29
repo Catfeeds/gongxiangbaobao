@@ -10,15 +10,15 @@ Page({
    */
   data: {
     isLoading: true,
-    loadingProduct:false,
+    loadingProduct: false,
     needPhotoIndex: "", //需求图片的窗口的index
     productPhoto: [], // 商品图片
-    clickHint:-1, // 点击提示
+    clickHint: -1, // 点击提示
 
     pickProductId: '', // 选中的商品图片的id
     pickProductLink: '', // 选中的商品图片的链接
     rid: '', // 商品的id
-    storeId:'',//店铺的id
+    storeId: '', //店铺的id
 
     toggleCode: "like",
     category: [{
@@ -60,8 +60,10 @@ Page({
   // 切换分类
   handleToggleCategory(e) {
     this.setData({
+      clickHint: -1, // 点击提示
       toggleCode: e.currentTarget.dataset.code
     })
+
   },
 
   // 触底加载
@@ -123,8 +125,8 @@ Page({
     let index = e.currentTarget.dataset.index
 
     this.setData({
-      clickHint:index,
-      loadingProduct:true,
+      clickHint: index,
+      loadingProduct: true,
     })
 
     http.fxGet(api.product_content.replace(/:rid/g, rid), {
@@ -132,7 +134,6 @@ Page({
       openid: openid
     }, result => {
       utils.logger(result, "产品详情")
-      console.log(result, "产品详情")
       if (result.success) {
         this.setData({
           productPhoto: result.data.images,
@@ -155,24 +156,24 @@ Page({
     utils.logger(router, "页面路径")
     let parentData = router[router.length - 2].data.windowParams.product_items
 
-    const promistSum = new Promise( (resolve, reject) => {
+    const promistSum = new Promise((resolve, reject) => {
       let sum = 0
       parentData.forEach((v, i) => {
-        if (v.storeId == this.data.storeId){
-          sum = sum+1
+        if (v.storeId == this.data.storeId) {
+          sum = sum + 1
         }
-        if (i == parentData.length-1){
-          if (sum <2) {
+        if (i == parentData.length - 1) {
+          if (sum < 2) {
             resolve()
           }
           if (sum == 2) {
             reject()
           }
         }
-    })
+      })
     })
 
-    promistSum.then(()=>{
+    promistSum.then(() => {
       router[router.length - 2].setData({
         ['windowParams.product_items[' + this.data.needPhotoIndex + ']']: {
           link: this.data.pickProductLink,
@@ -183,9 +184,9 @@ Page({
       })
 
       wx.navigateBack({
-        delta:1
+        delta: 1
       })
-    }).catch(()=>{
+    }).catch(() => {
       utils.fxShowToast("一个橱窗最多可添加同一个设计馆2件商品")
     })
   },

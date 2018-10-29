@@ -15,6 +15,7 @@
   height: 100%;
   width: 100%;
 }
+
 .userPhoto .upload-status__box {
   height: 8rpx;
   width: 90%;
@@ -26,10 +27,11 @@
   top: 256rpx;
   z-index: 99;
 }
+
 .userPhoto .upload-status__box .progress {
   height: 100%;
   border-radius: 60rpx;
-  background-color: rgba(95,228,177,1) 
+  background-color: rgba(95, 228, 177, 1);
 }
 
 .register-time {
@@ -41,9 +43,8 @@
   font-weight: 500;
 }
 
-.bottomInfo{
+.bottomInfo {
   padding-left: 30rpx;
-
 }
 
 .placeholder {
@@ -143,4 +144,8 @@ label>view {
 
 .seting-date {
   /* color: #5fe4b1; */
+}
+
+.user-descript {
+  width: 100%;
 }

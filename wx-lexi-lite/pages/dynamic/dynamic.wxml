@@ -33,7 +33,7 @@
             <view class='font-ss qian-hui'>{{item.created_time}}</view>
           </view>
         </view>
-        <view class="flex_row round ">
+        <view class="flex_row round " catchtap="handleOpenWindow" data-rid="{{item.rid}}" data-index="{{index}}">
           <view></view>
           <view></view>
           <view></view>
@@ -70,4 +70,12 @@
 
   <view class='shm'></view>
   <fx-loading loading="{{ isLoading }}"></fx-loading>
+
+  <!-- 动态 -->
+  <fx-modal visible="{{windowModal}}" showHead="{{false}}">
+    <view slot="main">
+      <view class="shm flex_row--middle delete-window__btn" catchtap="handleDeleteWindow">删除</view>
+      <view class="shm flex_row--middle " catchtap="handleOffWindow">取消</view>
+    </view>
+  </fx-modal>
 </view>

@@ -109,12 +109,15 @@
 .add-window__title--placeholder, .add-window__title--input {
   line-height: 30rpx;
   font-size: 30rpx;
+  font-weight: 600;
+  width: 100%;
 }
 
 .add-window__title--input {
   height: 30rpx;
   margin-top: 50rpx;
-  font-weight: 500;
+  font-weight: 600;
+  padding-bottom: 20rpx;
 }
 
 .add-window__narrate {
@@ -195,6 +198,8 @@
   background: rgba(110, 215, 175, 0.5);
   color: white;
   font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
 }
 
 .sell-btn__box {
@@ -203,6 +208,7 @@
   width: 100%;
   opacity: 1;
   background-color: white;
+  z-index: 9;
 }
 
 .sell-btn__box.active {

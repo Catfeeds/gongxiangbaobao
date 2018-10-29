@@ -76,6 +76,7 @@
         class='c-middle addgoods btn-bg-color' 
         data-rid="{{item.rid}}" 
         data-itemProdact='{{item}}' 
+        data-status="{{item.status}}"
         catchtap='addCartTap'>
 
         <image class='addgoodscart' src='../../images/shoping-car.png'></image>

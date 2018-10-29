@@ -13,7 +13,7 @@ Page({
     isLoading: true,
     is_mobile: false, // 登陆呼出框
     carQuantity: 0, // 购物车的数量问题
-    desireOrderProductRid:'', // 移除心愿单的rid
+    desireOrderProductRid: '', // 移除心愿单的rid
     skus: {
       modes: [],
       colors: []
@@ -36,7 +36,7 @@ Page({
     checkboxPick: [], // 选中的物品---
     changeCart: false, // 购物车是否编辑---
     isShowOrder: true, // 心愿单是否可见
-    shoppingCart: {  // 添加到购物车的内容产品内容---
+    shoppingCart: { // 添加到购物车的内容产品内容---
       items: []
     },
     payment: 0, // 应该支付的总金额---
@@ -48,8 +48,8 @@ Page({
       option: '', // 其他选项
       open_id: '', //	独立小程序openid
     },
-    
-    thinkOrder: {  // 心愿单的内容---
+
+    thinkOrder: { // 心愿单的内容---
       products: []
     }
   },
@@ -74,16 +74,22 @@ Page({
   // 获取购物车 ---
   getCartProduct() {
     let jwt = wx.getStorageSync('jwt')
-    http.fxGet(api.cart, { open_id: jwt.openid }, (result) => {
+    http.fxGet(api.cart, {
+      open_id: jwt.openid
+    }, (result) => {
       utils.logger(result, '获取购物车')
       if (result.success) {
         this.updateCartTotalCount(result.data.item_count)
 
         result.data.items.forEach((v, i) => {
+          // 处理 过长的产品名称
           v.product.product_name = v.product.product_name && v.product.product_name.length > 21 ? v.product.product_name.substr(0, 16) + ' ...' : v.product.product_name
+
+          // 处理过长的店铺名称
+          v.product.store_name = v.product.store_name && v.product.store_name.length > 21 ? v.product.store_name.substr(0, 16) + ' ...' : v.product.store_name
         })
 
-        if (result.data.items.length == 0){
+        if (result.data.items.length == 0) {
           this.setData({
             changeCart: false
           })
@@ -116,18 +122,29 @@ Page({
 
   // 心愿单添加到购物车
   addCartTap(e) {
-    wx.hideTabBar()
-
     utils.logger(e.currentTarget.dataset.rid)
+    if (e.currentTarget.dataset.status == 2) {
+      wx.showModal({
+        title: '非常抱歉',
+        content: '此商品已下架',
+        showCancel: false,
+        confirmColor: '#5fe4b1',
+        success: (res) => {
+          this.handleDeleteDesireOrder(e.currentTarget.dataset.rid)
+        }
+      })
+      return
+    }
 
+    wx.hideTabBar()
     this.setData({
       desireOrderProductRid: e.currentTarget.dataset.rid,
-      productInfomation:[]
+      productInfomation: []
     })
     let select = e.currentTarget.dataset.rid
     this.getProductInfomation(select)
     this.getSkus(select)
-    
+
     this.setData({
       pickBox: true
     })
@@ -156,7 +173,7 @@ Page({
 
   // 当点击移除---
   clearCart() {
-    if (this.data.checkboxPick.length == 0){
+    if (this.data.checkboxPick.length == 0) {
       utils.fxShowToast('请选择')
       return
     }
@@ -168,9 +185,9 @@ Page({
       utils.logger(result, '删除购物车商品')
       if (result.success) {
         this.getCartProduct()
-        if (this.data.thinkOrder.products.length != 0 && this.data.shoppingCart.items.length != 0){
+        if (this.data.thinkOrder.products.length != 0 && this.data.shoppingCart.items.length != 0) {
           this.setData({
-            isShowOrder:true
+            isShowOrder: true
           })
         }
       } else {
@@ -227,12 +244,12 @@ Page({
     if (status == 'start') {
       this.setData({
         changeCart: true,
-        isShowOrder:false
+        isShowOrder: false
       })
     } else if (status == 'over') {
       this.setData({
         changeCart: false,
-        isShowOrder:true
+        isShowOrder: true
       })
     }
   },
@@ -245,7 +262,7 @@ Page({
     this.data.shoppingCart.items.forEach((v, i) => {
       quantity = v.quantity - 0 + quantity
       let sellPrice = v.product.sale_price == 0 ? v.product.price : v.product.sale_price
-      aggregatePrice = (aggregatePrice*1000 + sellPrice * v.quantity*1000)/1000
+      aggregatePrice = (aggregatePrice * 1000 + sellPrice * v.quantity * 1000) / 1000
     })
 
     this.setData({
@@ -634,7 +651,7 @@ Page({
   },
 
   // 移除心愿单
-  handleDeleteDesireOrder(e){
+  handleDeleteDesireOrder(e) {
     http.fxDelete(api.wishlist, {
       rids: [e]
     }, (result) => {
@@ -674,16 +691,16 @@ Page({
           this.updateCartTotalCount(result.data.item_count)
 
           // 心愿单产品放入购物车后，在心愿单删除产品
-          this.handleDeleteDesireOrder(this.data.desireOrderProductRid)
+          // this.handleDeleteDesireOrder(this.data.desireOrderProductRid)
 
           this.setData({
             skus: {
               modes: [],
               colors: []
             },
-            choosed:{},
+            choosed: {},
             productInfomation: [],
-            desireOrderProductRid:[]
+            desireOrderProductRid: []
           })
         }
       })
@@ -697,7 +714,9 @@ Page({
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
 
-      http.fxGet(api.by_store_sku, { rids: this.data.choosed.rid }, (result) => {
+      http.fxGet(api.by_store_sku, {
+        rids: this.data.choosed.rid
+      }, (result) => {
         if (result.success) {
           let deliveryCountries = [] // 发货的国家列表
 
@@ -732,7 +751,7 @@ Page({
               modes: [],
               colors: []
             },
-            choosed:{},
+            choosed: {},
             productInfomation: [],
           })
 
@@ -835,13 +854,13 @@ Page({
   },
 
   // 跳转详情
-  handleGoProduct(e){
+  handleGoProduct(e) {
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + '&storeRid=' + e.currentTarget.dataset.storeRid,
     })
   },
 
- // 跳转详情
+  // 跳转详情
   handleGoProduction(e) {
     utils.logger(e)
     wx.navigateTo({
@@ -893,7 +912,7 @@ Page({
             } else {
               v.is_distribute = 0
             }
-            
+
             // 需求数量
             skusNeedQuantity.forEach((item, n) => {
               let newArray = item.split(':')
@@ -943,15 +962,15 @@ Page({
         modes: [],
         colors: []
       },
-      choosed:{},
-      productInfomation:[],
+      choosed: {},
+      productInfomation: [],
       pickBox: false
     })
   },
 
   // 点击sku层，不触发隐藏
   handleSkuModal() {
-    return 
+    return
   },
 
   // 关闭

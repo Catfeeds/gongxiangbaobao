@@ -11,7 +11,7 @@ Page({
    */
   data: {
     // 用于在商品详情删除本页的下架产品
-    deletePageProductAtProduct:'',
+    deletePageProductAtProduct: '',
 
     isLoading: true,
     readyOver: false, // 页面加载是否完成
@@ -24,8 +24,9 @@ Page({
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
+    userInfoDescription: '', // 用户的自我自我介绍
     userInfo: { // 用户的信息
-      profile:{
+      profile: {
         avatar: 'https://s3.lexivip.com/static/img/default-logo.png'
       }
     },
@@ -35,12 +36,11 @@ Page({
     recentlyLookProduct: [], // 最近查看的商品---
     desireOrderProduct: [], //心愿单商品---
     product: [{}],
-    userWindow:{ // 喜欢的橱窗
-      count:0
+    userWindow: { // 喜欢的橱窗
+      count: 0
     },
     // 切换类型---
-    classList: [
-      {
+    classList: [{
         rid: 1,
         num: 0,
         name: '已喜欢'
@@ -99,8 +99,8 @@ Page({
   },
 
   /**
-     * 微信一键授权回调
-     */
+   * 微信一键授权回调
+   */
   handleGotPhoneNumber(e) {
     if (e.detail.errMsg == 'getPhoneNumber:ok') {
 
@@ -196,11 +196,18 @@ Page({
       if (result.success) {
         this.setData({
           ['watchStoreList.stores[' + index + '].followed_status']: 0,
-          ['classList[' + 2 + '].num']: this.data.classList[2] .num-1
+          ['classList[' + 2 + '].num']: this.data.classList[2].num - 1
         })
       } else {
         utils.fxShowToast(result.status.message)
       }
+    })
+  },
+
+  // 跳转修改详情
+  handleGoEditInfo() {
+    wx.navigateTo({
+      url: '../editInfo/editInfo'
     })
   },
 
@@ -210,29 +217,29 @@ Page({
     if (!app.globalData.isLogin) {
       return
     }
-    http.fxGet(api.orders_order_coupon_count, {}, (result) =>{
-      if(result.success){
+    http.fxGet(api.orders_order_coupon_count, {}, (result) => {
+      if (result.success) {
         utils.logger(result, '订单，优惠券的数量')
         this.setData({
           orderSum: result.data.order_count, // 有没有订单
           couponSum: result.data.coupon_count // 有没有优惠券
         })
-      }else{
+      } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
   // 获取筛选和排序的公用接口
-  getPick(){
+  getPick() {
     http.fxGet(api.products_index, this.data.sortParams, (result) => {
       utils.logger(result)
       if (result.success) {
-        if (this.data.likeProduct.length==0){
+        if (this.data.likeProduct.length == 0) {
           this.setData({
             likeProduct: result.data
           })
-        }else{
+        } else {
           this.setData({
             ['likeProduct.products']: this.data.likeProduct.products.push(result.data.products)
           })
@@ -242,17 +249,24 @@ Page({
       }
     })
   },
-  
+
   // 获取用户信息---
   getUserInfo() {
     // 是否登陆
     if (!app.globalData.isLogin) {
       return
     }
-    utils.logger(app.globalData.userInfo,'app.global数据')
+    utils.logger(app.globalData.userInfo, 'app.global数据')
 
     this.setData({
       userInfo: app.globalData.userInfo
+    })
+
+    http.fxGet(api.users_profile, {}, (result) => {
+      utils.logger(result, '用户个人资料')
+      this.setData({
+        userInfoDescription: result.data.profile.about_me
+      })
     })
 
   },
@@ -264,7 +278,7 @@ Page({
       return
     }
     http.fxGet(api.users_user_center, {}, (result) => {
-      utils.logger(result,"获取喜欢 收藏 设计馆")
+      utils.logger(result, "获取喜欢 收藏 设计馆")
       let category = this.data.classList
       category.forEach((v) => {
         utils.logger(v)
@@ -318,7 +332,11 @@ Page({
         let openid = jwt.openid
 
         // 最近查看
-        http.fxGet(api.user_browses, { page: 1, per_page: 10, openid: openid}, (result) => {
+        http.fxGet(api.user_browses, {
+          page: 1,
+          per_page: 10,
+          openid: openid
+        }, (result) => {
           if (result.success) {
             utils.logger(result, '用户最近查看')
             this.setData({
@@ -357,26 +375,26 @@ Page({
   },
 
 
-/**
- * 喜欢的橱窗
- * **/
-getLikeWindow(){
-  // 是否登陆
-  if (!app.globalData.isLogin) {
-    return
-  }
-
-  http.fxGet(api.shop_windows_user_likes,{},res=>{
-    utils.logger(res,"用户喜欢的橱窗")
-    if(res.success){
-      this.setData({
-        userWindow: res.data
-      })
-    }else{
-      utils.fxShowToast(res.status.message)
+  /**
+   * 喜欢的橱窗
+   * **/
+  getLikeWindow() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
     }
-  })
-},
+
+    http.fxGet(api.shop_windows_user_likes, {}, res => {
+      utils.logger(res, "用户喜欢的橱窗")
+      if (res.success) {
+        this.setData({
+          userWindow: res.data
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -387,7 +405,6 @@ getLikeWindow(){
       is_login: app.globalData.isLogin
     })
 
-    this.getUserInfo() // 获取用户的信息
   },
 
   /**
@@ -431,10 +448,12 @@ getLikeWindow(){
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
     this.getLikeWindow() // 喜欢的橱窗
+
+    this.getUserInfo() // 获取用户的信息
   },
 
   // 触底加载
-  onReachBottom: function () {
+  onReachBottom: function() {
     // 是否登陆
     if (!app.globalData.isLogin) {
       return
@@ -469,7 +488,7 @@ getLikeWindow(){
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    
+
   },
 
   /**
@@ -512,7 +531,7 @@ getLikeWindow(){
   setTap(e) {
     utils.logger(e)
     // 是否登陆
-    if (app.globalData.isLogin) {
+    if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
       this.setData({
         is_mobile: true
@@ -584,14 +603,14 @@ getLikeWindow(){
   },
 
   // 跳转到橱窗列表
-  handleGoWindow(){
+  handleGoWindow() {
     wx.navigateTo({
       url: '../window/window'
     })
   },
 
   // 跳转到橱窗详情
-  handleGoWindowDetail(e){
+  handleGoWindowDetail(e) {
     utils.logger(e)
     let windowRid = e.currentTarget.dataset.rid
     wx.navigateTo({
@@ -610,7 +629,7 @@ getLikeWindow(){
   // 关闭登陆框
   hanleOffLoginBox(e) {
     this.setData({
-       is_mobile: false
+      is_mobile: false
     })
 
     if (app.globalData.isLogin) {
@@ -662,15 +681,15 @@ getLikeWindow(){
   },
 
   // 关闭登陆框
-  handelOffTap(){
+  handelOffTap() {
     wx.showTabBar()
     this.setData({
-      is_mobile:false
+      is_mobile: false
     })
   },
 
   // 去动态页面
-  handleDynamicTap(){
+  handleDynamicTap() {
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -684,5 +703,5 @@ getLikeWindow(){
       url: '../dynamic/dynamic',
     })
   }
-  
+
 })

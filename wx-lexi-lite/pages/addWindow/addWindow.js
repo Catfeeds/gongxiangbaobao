@@ -49,7 +49,7 @@ Page({
     let title = this.data.windowParams.title // 标题
     let description = this.data.windowParams.description
     let labelLength = this.data.windowParams.keywords.length
-    if (pickPhotoAddPickCategory && title && description && labelLength != 0) {
+    if (pickPhotoAddPickCategory && title && description) {
       this.setData({
         isPublish: true
       })
@@ -111,7 +111,7 @@ Page({
 
   //去添标签页面
   handleToAddwindowlabel() {
-    if (this.data.windowParams.keywords.length==3){
+    if (this.data.windowParams.keywords.length == 3) {
       utils.fxShowToast('最多添加3个标签')
       return
     }
@@ -140,17 +140,20 @@ Page({
         utils.logger(result, '添加橱窗完成')
         if (result.success) {
           utils.logger(this.data.windowParams.product_items)
-
-          wx.redirectTo({
-            url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
+          utils.fxShowToast('添加成功', 'success')
+          wx.navigateBack({
+            delta: 1
           })
+
+          // wx.redirectTo({
+          //   url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
+          // })
         } else {
           utils.fxShowToast(result.status.message)
         }
       }
     })
   },
-
 
   /**
    * 生命周期函数--监听页面加载

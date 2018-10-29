@@ -219,9 +219,9 @@ Page({
           ['editUserInfo.avatar_id']: userProfile.avatar_id, // Integer 可选 用户头像ID
           ['editUserInfo.username']: userProfile.username, // String  昵称 - 必须保持唯一
           ['editUserInfo.mail']: userProfile.mail, // String 可选 邮箱
-          ['editUserInfo.country_id']: userProfile.country_id,
-          ['editUserInfo.province_id']: userProfile.province_id,
-          ['editUserInfo.city_id']: userProfile.city_id,
+          ['editUserInfo.country_id']: userProfile.country_id || '',
+          ['editUserInfo.province_id']: userProfile.province_id || '',
+          ['editUserInfo.city_id']: userProfile.city_id || '',
           ['editUserInfo.about_me']: userProfile.about_me, // String 可选 个人介绍
           'editUserInfo.date': userProfile.date,
           ['editUserInfo.street_address']: userProfile.street_address,
@@ -229,7 +229,7 @@ Page({
 
           // 'editUserInfo.first_name': userProfile.first_name,
           'editUserInfo.mobile': userProfile.mobile,
-          'editUserInfo.town_id': userProfile.town_id,
+          'editUserInfo.town_id': userProfile.town_id || '',
           'editUserInfo.street_address': userProfile.street_address,
           'editUserInfo.zipcode': userProfile.zipcode || '',
           'editUserInfo.is_default': userProfile.is_default || '',
