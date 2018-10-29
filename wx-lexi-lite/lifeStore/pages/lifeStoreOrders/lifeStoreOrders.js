@@ -16,7 +16,7 @@ Page({
     statusPanels: [
       { rid: 's0', name: '全部', status: 0, count: 0 },
       { rid: 's1', name: '待发货', status: 1, count: 0 },
-      { rid: 's2', name: '已收货', status: 2, count: 0 },
+      { rid: 's2', name: '已发货', status: 2, count: 0 },
       { rid: 's3', name: '已完成', status: 3, count: 0 }
     ],
     progressPanels: [

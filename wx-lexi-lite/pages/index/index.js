@@ -1908,6 +1908,7 @@ Page({
           latestDistributeProducts: res.data.products
         })
 
+        this._lifeAnimation()
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -2069,7 +2070,6 @@ Page({
   _loadingLifeStorePage() {
     this.handleAddBrowse() // 添加浏览者
     this.getLifeStore() // 生活馆信息
-    this.getDistributeNewest() // 选品中心入口
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
   },
@@ -2318,7 +2318,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(e) {
-    console.log(e,'查看从后台')
+    console.log(e, '查看从后台')
 
     // 标识自己是否为小B
     const lifeStore = wx.getStorageSync('lifeStore')
@@ -2327,7 +2327,7 @@ Page({
         isSmallB: true
       })
 
-      this._lifeAnimation()
+      this.getDistributeNewest()
     }
 
     // 当前显示生活馆与应该显示生活馆是否一致
@@ -2383,6 +2383,9 @@ Page({
    */
   onHide: function() {
     clearInterval(animationInterval) // 清除动画
+    this.setData({
+      latestDistributeProducts: []
+    })
   },
 
   /**
