@@ -17,7 +17,7 @@ Page({
     animationNum: 0, // 首页选品中心的动画
 
     page: 1,
-    perPage: 5,
+    perPage: 10,
     firstTime: true,
     isCadet: true,
     isLoading: true,
@@ -657,6 +657,12 @@ Page({
     if (targetType == 3) {
       wx.navigateTo({
         url: '../gatherInfo/gatherInfo?rid=' + rid,
+      })
+    }
+
+    if (targetType == 4) {
+      wx.navigateTo({
+        url: '../product/product?rid=' + rid,
       })
     }
   },
@@ -2311,7 +2317,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function(e) {
+    console.log(e,'查看从后台')
+
     // 标识自己是否为小B
     const lifeStore = wx.getStorageSync('lifeStore')
     if (lifeStore.isSmallB) {
@@ -2401,6 +2409,27 @@ Page({
       })
       this._loadingLifeStorePage()
     }
+    if (this.data.pageActiveTab == 'window') {
+
+      if (this.data.categoryActive == 'recommend') {
+        this.setData({
+          'recommendWindow.shop_windows': [],
+          'recommendWindowParams.page': 1
+        })
+
+        this.getRecommendWindow()
+      }
+
+      if (this.data.categoryActive == 'follow') {
+        this.setData({
+          'followWindow.shop_windows': [],
+          'followWindowParams.page': 1
+        })
+
+        this.getFollowWindow()
+      }
+    }
+
 
     wx.stopPullDownRefresh()
   },

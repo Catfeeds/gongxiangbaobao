@@ -104,6 +104,7 @@ Page({
   getDesireOrder() {
     http.fxGet(api.wishlist, {}, (result) => {
       utils.logger(result, '获取心愿单')
+      console.log(result,'获取心愿单')
       if (result.success) {
         this.setData({
           thinkOrder: result.data
@@ -116,6 +117,7 @@ Page({
 
   // 心愿单添加到购物车
   addCartTap(e) {
+    console.log(e.currentTarget.dataset)
     wx.hideTabBar()
 
     utils.logger(e.currentTarget.dataset.rid)
@@ -639,6 +641,7 @@ Page({
       rids: [e]
     }, (result) => {
       utils.logger(result)
+      console.log(result, '移除心愿单')
       if (result.success) {
         // utils.fxShowToast('移除成功', 'success')
         this.getDesireOrder()
@@ -683,6 +686,7 @@ Page({
             },
             choosed:{},
             productInfomation: [],
+            desireOrderProductRid:[]
           })
         }
       })

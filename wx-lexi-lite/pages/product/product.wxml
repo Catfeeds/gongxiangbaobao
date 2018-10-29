@@ -353,7 +353,7 @@
       <!-- 描述 -->
       <view class='otherInfo-describe' wx:if="{{productInfomation.features && productInfomation.features!=null || productInfomation.material_id!=null && productInfomation.material_id || productInfomation.is_custom_service || productInfomation.stock_count<=10 && productInfomation.stock_count &&productInfomation.stock_count!=null }}">
         <view class='titleText'>描述</view>
-        <view class='goodstext two-line-text margin-bottom--12rpx' wx:if="{{productInfomation.features && productInfomation.features!=null}}">
+        <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.features && productInfomation.features!=null}}">
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
