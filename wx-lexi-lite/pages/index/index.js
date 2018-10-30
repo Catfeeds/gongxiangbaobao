@@ -14,7 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    animationNum: 3, // 首页选品中心的动画
+    animationNum: 0, // 首页选品中心的动画
 
     page: 1,
     perPage: 10,
@@ -2394,7 +2394,7 @@ Page({
     clearInterval(animationInterval) // 清除动画
     this.setData({
       latestDistributeProducts: [],
-      animationNum: 3
+      animationNum: 0
     })
   },
 
