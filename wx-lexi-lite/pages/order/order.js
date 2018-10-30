@@ -142,8 +142,6 @@ Page({
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       utils.logger(result, '订单列表')
-      console.log(result, '订单列表')
-      console.log(this.data.getOrderListParams, '订单列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
