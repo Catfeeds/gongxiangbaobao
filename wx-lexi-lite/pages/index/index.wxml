@@ -840,7 +840,7 @@
       <view class="fx-input">
         <label class="field-label">简介</label>
         <view class="fx-input__inner">
-          <textarea maxlength="140" class="field-text" bindinput="handleDescChange" name="description" placeholder="欢迎来到我的乐喜生活馆，我推荐了一些好设计供你挑选。" value="{{ lifeStore.description }}" />
+          <textarea maxlength="140" class="field-text" maxlength="{{40}}" cursor-spacing="{{50}}" bindinput="handleDescChange" name="description" placeholder="欢迎来到我的乐喜生活馆，我推荐了一些好设计供你挑选。" value="{{ lifeStore.description }}" />
           <view class="word-length">
             <label class="input-length">{{ storeForm.descLength }}</label>
             <label>/40</label>

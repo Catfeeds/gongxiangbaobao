@@ -46,6 +46,10 @@ Page({
     },
   },
 
+  // 提交表单
+  handleSubmitInfo(e) {
+    app.handleSendNews(e.detail.formId)
+  },
 
   // 祝福语录
   handleUtterance(e) {
@@ -329,7 +333,7 @@ Page({
 
     let skus = [] // 获得官方优惠券所需的sku
     order.forEach((item, index) => {
-      item.forEach((only,i) => {
+      item.forEach((only, i) => {
         skus.push(only.rid)
 
         // 循环结束发送请求
