@@ -3,31 +3,20 @@
 <view class="theme-hui-color container">
 
   <view class="gather bg-white" wx:for="{{gatherList}}" wx:key="{{index}}">
-    <view class="gather-top" 
-      data-rid="{{item.id}}"
-      catchtap="handleToGatherInfo">
+    <view class="gather-top" data-rid="{{item.id}}" catchtap="handleToGatherInfo">
       <image src="{{item.cover}}"></image>
     </view>
 
     <view class="padding--30rpx">
       <view class="flex_row--middle gather-min__photo">
-        <image 
-          wx:for="{{item.products}}" 
-          data-rid="{{val.rid}}" 
-          data-store-rid="{{val.store_rid}}"
-          wx:for-item="val" 
-          wx:key="{{index}}" 
-          wx:if="{{index<4}}"
-          catchtap="handleProductInfo"
-          class="{{index==3?'margin-right--0rpx':''}}"
-          src="{{val.cover}}"></image>
+        <image wx:for="{{item.products}}" data-rid="{{val.rid}}" data-store-rid="{{val.store_rid}}" wx:for-item="val" wx:key="{{index}}" wx:if="{{index<4}}" catchtap="handleProductInfo" class="{{index==3?'margin-right--0rpx':''}}" src="{{val.cover}}"></image>
       </view>
 
       <view class='collection-name font-xl font-width--medium'>
         {{ item.name }}-{{ item.sub_name }}
       </view>
       <view class='collection-count'>
-        {{ item.products.length==0 ? "" : item.products.length+"件商品" }}
+        {{ item.count==0 ? "" : item.count+"件商品" }}
       </view>
     </view>
   </view>

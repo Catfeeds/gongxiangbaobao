@@ -141,6 +141,7 @@ module.exports = {
   products_similar: 'products/similar', // 相似的产品
   category_products: 'category/products', // 分类商品列表
   column_collections: 'column/collections', // 集合
+  column_collections_basic: 'column/collections/basic', // 首页集合列表
   column_explore_new: 'column/explore_new', // 优质新品
   core_platforms_search: 'core_platforms/search', // 搜索历史
   life_records_recommend: 'life_records/recommend', // 种草清单

@@ -365,7 +365,7 @@ Page({
       }
     ],
 
-    windowPhotoNum:7, // 海报里面图片的数量
+    windowPhotoNum: 7, // 海报里面图片的数量
     showPosterModal: false, // 分享海报
     windowPosterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
@@ -1319,7 +1319,7 @@ Page({
 
     this.setData({
       showPosterModal: true,
-      windowPhotoNum:e.currentTarget.dataset.photoNum
+      windowPhotoNum: e.currentTarget.dataset.photoNum
     })
   },
 
@@ -1586,7 +1586,7 @@ Page({
 
   // 集合
   getGather() {
-    http.fxGet(api.column_collections, {}, (result) => {
+    http.fxGet(api.column_collections_basic, {}, (result) => {
       utils.logger(result, '集合')
       if (result.success) {
         result.data.collections.forEach((v, i) => {
@@ -2344,8 +2344,8 @@ Page({
         page: 1
       })
 
-        // 加载选品中心的动画
-        this.getDistributeNewest()
+      // 加载选品中心的动画
+      this.getDistributeNewest()
 
       // 刷新生活馆
       if (this.data.pageActiveTab == 'lifeStore') {
