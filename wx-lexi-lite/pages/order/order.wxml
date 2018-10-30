@@ -61,7 +61,7 @@
 
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
-          <view wx:if="{{ order.user_order_status == 4 && order.orderTime}}" data-last-time="{{order.current_time-order.created_at}}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
+          <view wx:if="{{ order.user_order_status == 4 }}" data-last-time="{{order.current_time-order.created_at}}" catchtap='paymentBtn' class='paymentBtn' data-rid="{{order.rid}}" data-order="{{index}}">
             <text>付款</text>
             <text> {{ order.orderTime }}</text>
           </view>

@@ -32,7 +32,7 @@ module.exports = {
   asset_detail: 'assets/show_asset', // GET 获取附件 
 
   // Category
-  categories: 'categories', // GET 获取产品分类
+  categories: 'official/categories', // GET 获取产品分类
   siblings_categories: 'categories/siblings', // GET 同级分类
 
   //share 

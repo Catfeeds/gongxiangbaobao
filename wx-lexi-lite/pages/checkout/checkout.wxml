@@ -153,7 +153,7 @@
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
   <cover-view class='conservation' wx:if="{{paymentBtn}}">
-    <button catchtap="paymentSuccess}}">提交订单</button>
+    <button catchtap="paymentSuccess">提交订单</button>
   </cover-view>
   <!-- 继续确认订单按钮 -->
   <cover-view class='conservation' wx:else>
