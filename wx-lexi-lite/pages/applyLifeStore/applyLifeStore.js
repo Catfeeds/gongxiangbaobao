@@ -49,7 +49,7 @@ Page({
     })
   },
 
-// 关闭选择国家
+  // 关闭选择国家
   handleOffCountryPick() {
     this.setData({
       quhao: false
@@ -79,8 +79,13 @@ Page({
     wx.showLoading({
       title: '正在提交...',
     })
+    console.log(app.globalData.jwt, 'jwt')
+    let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid') || ''
 
-    http.fxPost(api.life_store_apply, { ...e.detail.value, areacode: this.data.form.area_code }, (res) => {
+    http.fxPost(api.life_store_apply, { ...e.detail.value,
+      areacode: this.data.form.area_code,
+      last_store_rid: lastVisitLifeStoreRid
+    }, (res) => {
       wx.hideLoading()
       utils.logger(res, '开通生活馆')
       if (res.success) {
@@ -95,7 +100,7 @@ Page({
 
         // 合并小B身份到登录用户
         app.mergeLifeStoreToJwt(res.data)
-        
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -194,7 +199,7 @@ Page({
         url: '../index/index'
       })
     }*/
-    
+
     this.getCountryCode()
   },
 
@@ -252,5 +257,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })

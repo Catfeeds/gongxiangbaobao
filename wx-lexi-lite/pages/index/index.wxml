@@ -714,7 +714,7 @@
                 </view>
               </view>
               <view class="share">
-                <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+                <view class="done" data-photo-num="{{item.product_covers.length}}" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
                   <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
                 </view>
               </view>
@@ -780,7 +780,7 @@
                 </view>
               </view>
               <view class="share">
-                <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+                <view class="done" data-window-rid="{{ item.rid }}" data-photo-num="{{item.product_covers.length}}" catchtap="handleWindowShareModal">
                   <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
                 </view>
               </view>
@@ -943,10 +943,10 @@
   <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}" bind:closeEvent="handleClearPosterUrl">
     <view class="fx-poster">
       <view class="poster-box">
-        <image src="{{ windowPosterUrl }}" class="poster-image" wx:if="{{ windowPosterUrl }}"></image>
+        <image src="{{ windowPosterUrl }}" class="poster-image {{windowPhotoNum==3?'three':''}} {{windowPhotoNum==5?'five':''}}" wx:if="{{ windowPosterUrl }}"></image>
         <image src="../../images/jiazai.gif" class="loading" wx:else></image>
       </view>
-      <view class="btn-area">
+      <view class="btn-area window-share__btn--placard">
         <button class="fx-button primary" bindtap="handleSaveWindowPoster">
           {{ posterBtnText }}
         </button>

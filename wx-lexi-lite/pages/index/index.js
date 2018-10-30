@@ -365,6 +365,7 @@ Page({
       }
     ],
 
+    windowPhotoNum:7, // 海报里面图片的数量
     showPosterModal: false, // 分享海报
     windowPosterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
@@ -1317,7 +1318,8 @@ Page({
     this.getWindowWxaPoster(rid)
 
     this.setData({
-      showPosterModal: true
+      showPosterModal: true,
+      windowPhotoNum:e.currentTarget.dataset.photoNum
     })
   },
 
