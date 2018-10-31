@@ -982,6 +982,11 @@ button::after {
 
 /* 单个海报下载 */
 
+.fx-poster {
+  max-height: 832rpx;
+  border: 8rpx;
+}
+
 .fx-poster .poster-box {
   width: 460rpx;
   min-height: 736rpx;
@@ -1062,4 +1067,3 @@ button::after {
 .similar-windows .scroll-windows {
   height: 660rpx;
 }
-

@@ -113,7 +113,7 @@
         <text>喜欢的橱窗</text>
 
         <view class=' hui-zi font-normal' wx:if="{{userWindow.count>2}}" catchtap="handleGoWindow">
-          <text>查看全部</text>
+          <!-- <text>查看全部</text> -->
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
 

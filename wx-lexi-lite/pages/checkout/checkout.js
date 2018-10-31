@@ -25,6 +25,7 @@ Page({
     authorityCouponShow: false, // 官方优惠券模态框
     authorityCouponList: [], // 官方优惠券列表
     coupon: false,
+
     couponList: [], // 所有的优惠券列表
     pickCoupon: [], // 选择后每一项里面的优惠券列表
     pickCouponProductId: '', // 店铺的id

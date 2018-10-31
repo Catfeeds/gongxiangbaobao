@@ -465,5 +465,6 @@
 
 .conservation {
   background-color: white;
+  z-index: 1;
 }
 
