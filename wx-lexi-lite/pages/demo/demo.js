@@ -23,6 +23,10 @@ Page({
     couponlines: []
   },
 
+  formSubmit(e) {
+    console.log(e.detail.formId, 1)
+  },
+
   drawProgressbg() {
     // 使用 wx.createContext 获取绘图上下文 context
     let ctx = wx.createCanvasContext('canvasProgressbg')
@@ -92,7 +96,7 @@ Page({
         this.setData({
           couponlines: data
         })
-        
+
         data.unshift(res.data.coupon_lines[index])
 
         this.setData({
