@@ -13,8 +13,8 @@ Page({
   data: {
     isLoading: true,
     // isPicker: false,// 地址呼出框是否显示
-    joinTime:'', // 注册时间
-   
+    joinTime: '', // 注册时间
+
     rid: '',
     isEditing: true, // 是否为编辑状态
     currentAddress: {}, // 地址详情信息
@@ -33,13 +33,13 @@ Page({
 
     gender: ['女', '男'], // 性别选择器---
     region: ['北京市', '北京市', '朝阳区'], // 地址的pick---
-    date:'',// pick的日期---
+    date: '', // pick的日期---
 
     userInfo: { // 用户的信息---
-      profile:{
-        avatar:'https://static.moebeast.com/image/static/null-product.png'
+      profile: {
+        avatar: 'https://static.moebeast.com/image/static/null-product.png'
       }
-    }, 
+    },
     avatar: '', // 用户头像
     isUploading: false,
     uploadStatus: 0,
@@ -54,7 +54,7 @@ Page({
       country_id: '', // Integer 可选 国家ID
       province_id: '', // Integer 可选 省ID
       city_id: '', // Integer 可选 市ID
-      town_id:'', // 镇
+      town_id: '', // 镇
       mail: '', // String 可选 邮箱
       date: 2018, // String 可选 出生日期
       street_address: '' // 地址
@@ -62,7 +62,7 @@ Page({
   },
 
   // name 输入时候
-  handleNameInput(e){
+  handleNameInput(e) {
     utils.logger(e.detail.value)
     this.setData({
       isEdited: true,
@@ -88,7 +88,7 @@ Page({
     })
   },
 
-  handleAddressInput (e) {
+  handleAddressInput(e) {
     this.setData({
       isEdited: true,
       ['editUserInfo.street_address']: e.detail.value
@@ -96,7 +96,7 @@ Page({
   },
 
   // 时间选择
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
     utils.logger('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       isEdited: true,
@@ -114,9 +114,9 @@ Page({
 
   // 保存按钮
   handlePreserveTap() {
-    http.fxPut(api.user, this.data.editUserInfo, (result)=>{
+    http.fxPut(api.user, this.data.editUserInfo, (result) => {
       utils.logger(result, '修改的信息')
-      utils.logger(app.globalData.userInfo,'globao user info')
+      utils.logger(app.globalData.userInfo, 'globao user info')
       if (result.success) {
 
         // 同步global-userInfo
@@ -135,10 +135,11 @@ Page({
           icon: 'success',
           duration: 1200,
           success: () => {
-            // 返回上一页
+            
             wx.navigateBack({
               delta: 1
             })
+
           }
         })
         this.setData({
@@ -151,7 +152,7 @@ Page({
   },
 
   // 上传头像
-  handleUploadAvatar () {
+  handleUploadAvatar() {
     wx.chooseImage({
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
@@ -181,7 +182,7 @@ Page({
   },
 
   // 获取单个附件信息
-  getAssetInfo (asset) {
+  getAssetInfo(asset) {
     if (asset) {
       // let userInfo = asset
       // userInfo.avatar = asset.view_url
@@ -203,7 +204,7 @@ Page({
 
   // 获取用户信息 ---
   getUserInfo() {
-    http.fxGet(api.users_profile,{},(result)=>{
+    http.fxGet(api.users_profile, {}, (result) => {
       utils.logger(result, '用户个人资料')
       if (result.success) {
         this.setData({
@@ -233,7 +234,7 @@ Page({
           'editUserInfo.street_address': userProfile.street_address,
           'editUserInfo.zipcode': userProfile.zipcode || '',
           'editUserInfo.is_default': userProfile.is_default || '',
-          'editUserInfo.gender': userProfile.gender 
+          'editUserInfo.gender': userProfile.gender
         })
 
         utils.logger(this.data.editUserInfo, '初始信息')
@@ -270,14 +271,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-    
+
   },
 
   /**
@@ -307,5 +308,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })

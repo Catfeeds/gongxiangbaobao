@@ -649,7 +649,6 @@ textarea {
   height: 100%;
   width: 100%;
   z-index: 0;
-  filter: blur(10rpx);
 }
 
 .characteristic-info {
@@ -657,7 +656,7 @@ textarea {
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
 
