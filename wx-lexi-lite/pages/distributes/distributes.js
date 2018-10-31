@@ -967,7 +967,7 @@ Page({
     if (e.from == 'button') {
       return app.shareWxaProduct(this.data.shareProduct.rid, this.data.shareProduct.name, this.data.shareProduct.cover)
     } else {
-      app.shareLeXi()
+      return app.shareLeXi()
     }
 
   }
