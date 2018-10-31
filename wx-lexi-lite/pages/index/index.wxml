@@ -686,7 +686,7 @@
             <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
               <view class="image-container">
                 <view class="image-item">
-                  <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                  <image src="{{item.product_covers[0]}}-p500" class="photo"></image>
                 </view>
               </view>
               <view class="image-container half">
@@ -753,7 +753,7 @@
             <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
               <view class="image-container">
                 <view class="image-item">
-                  <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                  <image src="{{item.product_covers[0]}}-p500" class="photo"></image>
                 </view>
               </view>
               <view class="image-container half">

@@ -155,8 +155,8 @@
           <!-- 小图 -->
           <view catchtap="handleTobrandStore" data-rid="{{item.store_rid}}" class="brand-coupon__min flex-direction-column__item" wx:if="{{(index+3)%3!=0}}">
             <view class="hander">
-              <image class="log-bg" src="{{item.store_bgcover}}"></image>
-              <image class="log-icon" src="{{item.store_logo}}"></image>
+              <image class="log-bg" src="{{item.store_bgcover}}-ava168"></image>
+              <image class="log-icon" src="{{item.store_logo}}-ava100"></image>
             </view>
             <!-- 店铺的名字 -->
             <view class="black-font strore-name font-width--medium">{{item.store_name}}</view>
