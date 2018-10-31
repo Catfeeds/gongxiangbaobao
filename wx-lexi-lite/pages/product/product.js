@@ -323,6 +323,8 @@ Page({
     })
 
     this.getWxaPoster()
+
+    this.handleShareProductPhoto(this.data.productInfomation.rid)
   },
 
   /**
@@ -622,6 +624,21 @@ Page({
         })
       }
     })
+  },
+
+  /**
+ * 分享产品的图片
+ */
+  handleShareProductPhoto(e) {
+
+    http.fxPost(api.market_share_product_card, {
+      rid: e
+    }, result => {
+      this.setData({
+        'shareProduct.cover': result.data.image_url
+      })
+    })
+
   },
 
   // 相似的商品 products/similar
@@ -1296,7 +1313,7 @@ Page({
    */
   onShareAppMessage: function(res) {
     let title = this.data.productInfomation.name
-    return app.shareWxaProduct(this.data.rid, title, this.data.productInfomation.cover)
+    return app.shareWxaProduct(this.data.rid, title, this.data.shareProduct.cover)
   },
 
   watchTap() {

@@ -429,7 +429,7 @@
       <view class="distribute-style">
         <view class="share-friend wxa-card">
           <button class="share-btn" open-type="share"></button>
-          <image src="{{ productInfomation.cover }}" class="cover"></image>
+          <image src="{{ shareProduct.cover }}" class="cover"></image>
           <text>点击直接分享</text>
         </view>
 
