@@ -476,10 +476,12 @@ Page({
 
     if (action == 'add') {
       utils.logger(app.globalData.jwt.avatar, app.globalData.jwt.uid)
-      likePhoto.push({
+
+      likePhoto[9] = {
         avatar: app.globalData.jwt.avatar,
         uid: app.globalData.jwt.uid,
-      })
+      }
+
     } else {
       if (myPhoto != -1) {
         likePhoto.splice(myPhoto, 1)
