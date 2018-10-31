@@ -324,7 +324,6 @@ Page({
 
     this.getWxaPoster()
 
-    this.handleShareProductPhoto(this.data.productInfomation.rid)
   },
 
   /**
@@ -627,8 +626,8 @@ Page({
   },
 
   /**
- * 分享产品的图片
- */
+   * 分享产品的图片
+   */
   handleShareProductPhoto(e) {
 
     http.fxPost(api.market_share_product_card, {
@@ -696,6 +695,9 @@ Page({
             }
           })
         }
+
+        //获取分享的图片
+        this.handleShareProductPhoto(this.data.productInfomation.rid)
 
         // 获取本店铺的产品
         this.getNewProduct(result.data.store_rid)
