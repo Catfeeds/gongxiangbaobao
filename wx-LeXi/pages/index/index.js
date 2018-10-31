@@ -914,7 +914,6 @@ Page({
         } else {
           // 未登录
           result.data.coupons.forEach((v, i) => {
-            console.log(v)
             if (v.type == 3) {
               full.push(v)
             } else {

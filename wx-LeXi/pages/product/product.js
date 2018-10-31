@@ -487,9 +487,9 @@ Page({
       console.log(result, '产品详情')
       if (result.success) {
         this.getSkus() // 获取sku
-
+        
         result.data.product_like_users = result.data.product_like_users.reverse()
-
+        
         this.setData({
           productInfomation: result.data,
           dkcontent: result.data.content
@@ -685,7 +685,6 @@ Page({
         } else {
           // 未登录
           result.data.coupons.forEach((v, i) => {
-            console.log(v)
             if (v.type == 3) {
               full.push(v)
             } else {
