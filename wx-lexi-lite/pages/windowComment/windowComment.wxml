@@ -6,7 +6,7 @@
 
     <!-- 每一个评论 -->
     <view class="comment-item" wx:key="c{{ index }}" wx:for-item="items" wx:for="{{ comments }}">
-      <image src="{{ items.user_avatar }}" class="user-avatar"></image>
+      <image src="{{ items.user_avatar }}-p16" class="user-avatar"></image>
       <view class="comment-item__body flex-direction--column">
         <!-- 顶部名字 -->
         <view class="time-top">
@@ -49,7 +49,7 @@
             <!-- 回复她的每一条 -->
             <view wx:for="{{ items.sub_comments }}" wx:for-index="replyIndex" wx:key="r{{ item.comment_id }}{{ replyIndex }}" class="reply-item">
               <view class="reply-item__head">
-                <image src="{{ item.user_avatar }}" class="user-avatar"></image>
+                <image src="{{ item.user_avatar }}-ava100" class="user-avatar"></image>
                 <text>{{ item.user_name }}</text>
               </view>
               <view class="reply-item__body">

@@ -201,7 +201,7 @@
     <view class="shopInfo" wx:if="{{watchStoreList.stores.length!=0}}" wx:for="{{watchStoreList.stores}}" catchtap='handleTobrandStore' data-rid="{{item.rid}}" wx:key="{{index}}">
       <view class='shopInfoT'>
         <view class='userIcon'>
-          <image src='{{ item.logo }}'></image>
+          <image src='{{ item.logo }}-p16'></image>
         </view>
         <view class='shopMiddle'>
           <view class='shop-name'>{{ item.name }}</view>

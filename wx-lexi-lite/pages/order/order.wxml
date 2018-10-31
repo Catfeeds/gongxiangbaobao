@@ -22,7 +22,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ order.store.store_logo }}'></image>
+              <image src='{{ order.store.store_logo }}-ava100'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -91,7 +91,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ order.store.store_logo }}'></image>
+              <image src='{{ order.store.store_logo }}-ava100'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -139,7 +139,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ product.store.store_logo }}'></image>
+              <image src='{{ product.store.store_logo }}-ava100'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -185,7 +185,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ item.store.store_logo }}'></image>
+              <image src='{{ item.store.store_logo }}-ava100'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
@@ -241,7 +241,7 @@
           <view class='productAndShopInfo'>
             <!-- 店铺头像 -->
             <view class='shopPhoto'>
-              <image src='{{ order.store.store_logo }}'></image>
+              <image src='{{ order.store.store_logo }}-ava100'></image>
             </view>
             <!-- 右面的信息 -->
             <view class='productinfo'>
