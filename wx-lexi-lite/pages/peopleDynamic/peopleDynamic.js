@@ -14,7 +14,7 @@ Page({
     isLoading: true,
     dynamicList: {
       count: 0,
-      lines:[]
+      lines: []
     },
 
     //动态信息的参数
@@ -34,11 +34,11 @@ Page({
     })
   },
 
-// 添加喜欢
-  handleAddLike(e){
+  // 添加喜欢
+  handleAddLike(e) {
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
-    utils.logger(index,rid)
+    utils.logger(index, rid)
 
     this.setData({
       ['dynamicList.lines[' + index + '].is_like']: true,
@@ -52,15 +52,15 @@ Page({
     })
   },
 
-// 删除喜欢
-  handleDeleteLike(e){
+  // 删除喜欢
+  handleDeleteLike(e) {
     let index = e.currentTarget.dataset.index
     let rid = e.currentTarget.dataset.rid
-    utils.logger(index,rid)
+    utils.logger(index, rid)
 
     this.setData({
       ['dynamicList.lines[' + index + '].is_like']: false,
-      ['dynamicList.lines[' + index + '].like_count']: this.data.dynamicList.lines[index].like_count-1
+      ['dynamicList.lines[' + index + '].like_count']: this.data.dynamicList.lines[index].like_count - 1
     })
 
     http.fxDelete(api.shop_windows_user_likes, {
@@ -83,7 +83,7 @@ Page({
         let data = this.data.dynamicList.lines
         this.setData({
           dynamicList: data,
-         'dynamicList.bg_cover': result.data.bg_cover,
+          'dynamicList.bg_cover': result.data.bg_cover,
           'dynamicList.count': result.data.count,
           'dynamicList.followed_status': result.data.followed_status,
           'dynamicList.lines': data.concat(result.data.lines),
@@ -91,7 +91,6 @@ Page({
           'dynamicList.username': result.data.username,
           'dynamicList.user_avatar': result.data.user_avatar,
         })
-
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -105,11 +104,11 @@ Page({
    */
   onLoad: function(options) {
 
-      this.setData({
-        ['dynamicParams.uid']: options.uid,
+    this.setData({
+      ['dynamicParams.uid']: options.uid,
 
-      })
-      this.getOtherDynamic() // 获取其他人的动态
+    })
+    this.getOtherDynamic() // 获取其他人的动态
 
   },
 

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "发布橱窗",
+  "navigationBarBackgroundColor": "white",
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading"
   }

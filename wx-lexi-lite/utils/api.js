@@ -32,7 +32,7 @@ module.exports = {
   asset_detail: 'assets/show_asset', // GET 获取附件 
 
   // Category
-  categories: 'categories', // GET 获取产品分类
+  categories: 'official/categories', // GET 获取产品分类
   siblings_categories: 'categories/siblings', // GET 同级分类
 
   //share 
@@ -41,6 +41,7 @@ module.exports = {
   market_share_invite_poster: 'market/share/invite_poster', // 邀请好友生成海报
   market_share_invite_carde: 'market/share/invite_card', // 邀请好友开馆的卡片
   market_share_window_poster: 'market/share/shop_window_poster', // 分享橱窗海报
+  market_share_product_card:'market/share/product_card', // 分享商品的图片生成
 
   // Brand
   brand_list: 'brands', // GET 品牌列表
@@ -141,6 +142,7 @@ module.exports = {
   products_similar: 'products/similar', // 相似的产品
   category_products: 'category/products', // 分类商品列表
   column_collections: 'column/collections', // 集合
+  column_collections_basic: 'column/collections/basic', // 首页集合列表
   column_explore_new: 'column/explore_new', // 优质新品
   core_platforms_search: 'core_platforms/search', // 搜索历史
   life_records_recommend: 'life_records/recommend', // 种草清单

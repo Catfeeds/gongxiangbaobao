@@ -89,9 +89,9 @@ Page({
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
     rightTimer: null, // 延迟句柄
-    
+
     loadingMore: true,
-    loadingMoreAll:true
+    loadingMoreAll: true
   },
 
   // 轮播图跳转
@@ -137,7 +137,7 @@ Page({
       this.getCategories()
     } else { // 推荐
       this.setData({
-        swiperIndex:0
+        swiperIndex: 0
       })
       this.getAdvertises()
       this.getStoreHeadlines()
@@ -160,8 +160,6 @@ Page({
 
   // 轮播图发生变化的时候
   handleswiperItemCheng(e) {
-    utils.logger(e, '轮播图发生变化')
-
     this.setData({
       swiperIndex: e.detail.current
     })
@@ -170,11 +168,11 @@ Page({
   /**
    * 搜索词变化
    */
-  handleQueryChange (e) {
+  handleQueryChange(e) {
     this.setData({
       'params.qk': e.detail.value
     })
-    
+
     this.getAllProducts()
   },
 
@@ -235,14 +233,14 @@ Page({
   /**
    * 重置回调事件
    */
-  handleResetFilterCondition (e) {
+  handleResetFilterCondition(e) {
     this.selectComponent('#fx-slider').reset()
     let _categories = this.data.categoryList
     _categories = _categories.map((cate) => {
       cate.checked = false
       return cate
     })
-    
+
     this.setData({
       'categoryList': _categories,
       'filter.min_price': 0,
@@ -264,7 +262,7 @@ Page({
   /**
    * 滑块最低价格
    */
-  handleChangeMinPrice (e) {
+  handleChangeMinPrice(e) {
     let minPrice = e.detail.lowValue
     if (this.data.params.max_price == -1) {
       if (minPrice == '不限') {
@@ -279,8 +277,8 @@ Page({
     if (this.data.leftTimer) {
       clearTimeout(this.data.leftTimer)
     }
-    
-    let _t = setTimeout(()=>{
+
+    let _t = setTimeout(() => {
       this.getFilterProducts()
     }, 2000)
 
@@ -292,7 +290,7 @@ Page({
   /**
    * 滑块最高价格
    */
-  handleChangeMaxPrice (e) {
+  handleChangeMaxPrice(e) {
     utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
     if (maxPrice == '不限') {
@@ -322,7 +320,7 @@ Page({
    */
   handleChangeSorted(e) {
     let sort = e.currentTarget.dataset.sort
-    
+
     this.setData({
       'params.sort_type': sort,
       'params.profit_type': 0,
@@ -355,7 +353,7 @@ Page({
   /**
    * 查看筛选器结果
    */
-  handleViewFilterResult () {
+  handleViewFilterResult() {
     if (this.data.filter.showReset && this.data.filter.totalCount == 0) {
       return false
     }
@@ -376,7 +374,7 @@ Page({
   /**
    * 获取条件数
    */
-  _getFilterConditionCount () {
+  _getFilterConditionCount() {
     let count = this.data.checkedCids.length
     if (this.data.filter.min_price > 0) {
       count += 1
@@ -390,7 +388,7 @@ Page({
   /**
    * 排序标题
    */
-  _getSortTitle (sort) {
+  _getSortTitle(sort) {
     sort = parseInt(sort)
     switch (sort) {
       case 1:
@@ -407,7 +405,7 @@ Page({
   /**
    * 利润标题
    */
-  _getIncomeTitle (profit) {
+  _getIncomeTitle(profit) {
     profit = parseInt(profit)
     switch (profit) {
       case 1:
@@ -456,7 +454,7 @@ Page({
   /**
    * 跳转商品页
    */
-  handleGoProduct (e) {
+  handleGoProduct(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
       url: '/pages/product/product?rid=' + rid
@@ -477,7 +475,7 @@ Page({
   /**
    * 取消分享-销售
    */
-  handleCancelShare (e) {
+  handleCancelShare(e) {
     this.setData({
       showShareModal: false,
       posterUrl: '',
@@ -488,22 +486,38 @@ Page({
   /**
    * 推荐分享-销售
    */
-  handleStickShareDistribute (e) {
+  handleStickShareDistribute(e) {
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
 
     this.setData({
       showShareModal: true,
-      shareProduct: this.data.stickedProducts[idx]
+      shareProduct: this.data.stickedProducts[idx],
     })
 
+    this.handleShareProductPhoto(this.data.stickedProducts[idx].rid)
     this.getWxaPoster(rid)
+  },
+
+  /**
+   * 分享产品的图片
+   */
+  handleShareProductPhoto(e) {
+
+    http.fxPost(api.market_share_product_card, {
+      rid: e
+    }, result => {
+      this.setData({
+        'shareProduct.cover': result.data.image_url
+      })
+    })
+
   },
 
   /**
    * 分享-销售
    */
-  handleShareDistribute (e) {
+  handleShareDistribute(e) {
     let rid = e.currentTarget.dataset.rid
     let idx = e.currentTarget.dataset.idx
     this.setData({
@@ -517,11 +531,11 @@ Page({
   /**
    * 保存当前海报到相册
    */
-  handleSaveShare () {
+  handleSaveShare() {
     // 下载网络文件至本地
     wx.downloadFile({
       url: this.data.posterUrl,
-      success: function (res) {
+      success: function(res) {
         if (res.statusCode === 200) {
           // 保存文件至相册
           wx.saveImageToPhotosAlbum({
@@ -554,7 +568,7 @@ Page({
   /**
    * 生成推广海报图
    */
-  getWxaPoster (rid) {
+  getWxaPoster(rid) {
     let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
     // scene格式：rid + '#' + sid
@@ -562,7 +576,7 @@ Page({
     if (lastVisitLifeStoreRid) {
       scene += '-' + lastVisitLifeStoreRid
     }
-    
+
     let params = {
       rid: rid,
       type: 4,
@@ -646,7 +660,7 @@ Page({
     let params = {
       page: this.data.page,
       per_page: this.data.perPage,
-      sid:app.globalData.jwt.store_rid
+      sid: app.globalData.jwt.store_rid
     }
 
     http.fxGet(api.get_hot_distribution, params, (res) => {
@@ -745,7 +759,7 @@ Page({
   /**
    * 获取某筛选条件下商品
    */
-  getFilterProducts () {
+  getFilterProducts() {
     let params = {
       cids: this.data.filter.cids, // 分类Id, 多个用, 分割
       min_price: this.data.filter.min_price, // 价格区间: 最小价格
@@ -948,8 +962,13 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage (o) {
-    app.shareLeXi()
-  }
+  onShareAppMessage(e) {
 
+    if (e.from == 'button') {
+      return app.shareWxaProduct(this.data.shareProduct.rid, this.data.shareProduct.name, this.data.shareProduct.cover)
+    } else {
+      app.shareLeXi()
+    }
+
+  }
 })

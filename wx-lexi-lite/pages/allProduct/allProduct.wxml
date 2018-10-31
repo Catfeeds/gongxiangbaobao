@@ -31,7 +31,7 @@
 
         <view class='flex_row'>
           <view class="fx-broadwise-e browse-item__photo">
-            <image wx:key="{{index}}" wx:if="{{index<12}}" wx:for="{{browseRecordOfThis.users}}" src="{{item.avatar}}-ava50"></image>
+            <image wx:key="{{index}}" wx:if="{{index<12}}" wx:for="{{browseRecordOfThis.users}}" src="{{item.avatar}}-p16"></image>
             <view class="open-data" wx:if="{{browseRecordOfThis.count==0}}">
               <open-data type="userAvatarUrl"></open-data>
             </view>

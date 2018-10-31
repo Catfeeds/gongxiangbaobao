@@ -46,6 +46,10 @@ Page({
     },
   },
 
+  // 提交表单
+  handleSubmitInfo(e) {
+    app.handleSendNews(e.detail.formId)
+  },
 
   // 祝福语录
   handleUtterance(e) {
@@ -306,8 +310,8 @@ Page({
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
     app.globalData.orderParams.store_items = store_items
 
-    http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
-      utils.logger(result, '新增订单')
+    http.fxPost(api.order_create, {...app.globalData.orderParams,openid:app.globalData.jwt.openid}, (result) => {
+      utils.logger(result,app.globalData.jwt.openid, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
@@ -329,7 +333,7 @@ Page({
 
     let skus = [] // 获得官方优惠券所需的sku
     order.forEach((item, index) => {
-      item.forEach((only,i) => {
+      item.forEach((only, i) => {
         skus.push(only.rid)
 
         // 循环结束发送请求

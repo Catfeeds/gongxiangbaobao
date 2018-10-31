@@ -142,8 +142,6 @@ Page({
   getOrderList() {
     http.fxGet(api.orders, this.data.getOrderListParams, (result) => {
       utils.logger(result, '订单列表')
-      console.log(result, '订单列表')
-      console.log(this.data.getOrderListParams, '订单列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -158,12 +156,12 @@ Page({
         })
 
         let newOrderList = this.data.allOrderList
-        allOrderInterval = setInterval(() => {
-          this.setData({
-            allOrderList: this._handlePaymenLastTime(newOrderList)
-          })
+        // allOrderInterval = setInterval(() => {
+        //   this.setData({
+        //     allOrderList: this._handlePaymenLastTime(newOrderList)
+        //   })
 
-        }, 1000)
+        // }, 1000)
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -441,6 +439,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      allOrderList: [], //全部订单
+      isNextAll: true, //全部是否有下页
+      'getOrderListParams.page': 1,
+
+      daifu: [], //代付款
+      isNextDaifu: true,
+      'dafuParams.page': 1,
+
+      daifa: [], //代发货
+      isNextDaifa: true,
+      'dafaParams.page': 1,
+
+      daishou: [], //待收货
+      isNextdaishou: true, //待收货
+      'daishouParams.page': 1,
+
+      daiping: [], //待评价
+      isNextDaiping: true, //待评价
+      'pingjiaParams.page': 1,
+    })
+
     this.getOrderList() // 获取订单列表---
     this.getDaifaList() // 获取待发列表---
     this.getDaishouList() // 获取待收货列表---
@@ -489,7 +509,6 @@ Page({
     }
   },
 
-
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -498,18 +517,6 @@ Page({
     clearInterval(allOrderInterval)
     clearInterval(daifuInterval)
 
-    this.setData({
-      allOrderList: [], //全部订单
-      daifu: [], //代付款
-      daifa: [], //代发货
-      daishou: [], //待收货
-      daiping: [], //待评价
-      'getOrderListParams.page': 1,
-      'dafuParams.page': 1,
-      'dafaParams.page': 1,
-      'daishouParams.page': 1,
-      'pingjiaParams.page': 1,
-    })
   },
 
   /**

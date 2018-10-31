@@ -332,6 +332,7 @@ swiper-item, swiper-item>image, swiper {
 .goods-info {
   padding: 0 30rpx 100rpx 30rpx;
   font-size: 28rpx;
+  overflow: hidden;
 }
 
 .title-text {

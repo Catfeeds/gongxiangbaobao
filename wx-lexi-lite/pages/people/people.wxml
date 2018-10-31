@@ -4,7 +4,7 @@
     <!-- 头像 -->
     <view class='user-photo'>
       <view class='photo'>
-        <image src='{{ otherPeopleInfo.avatar }}'></image>
+        <image src='{{ otherPeopleInfo.avatar }}-p30x2'></image>
       </view>
 
       <view>
@@ -222,7 +222,7 @@
     <view class='shopInfo' wx:if="{{watchStoreList.stores.length!=0}}" wx:for="{{watchStoreList.stores}}" wx:key="{{index}}">
       <view class='shopInfoT'>
         <view class='userIcon' catchtap='handleGoIndex'>
-          <image src='{{ item.logo }}'></image>
+          <image src='{{ item.logo }}-p16'></image>
         </view>
         <view class='shopMiddle' catchtap='handleGoIndex'>
           <view class='hui-zi'>原创品牌馆</view>

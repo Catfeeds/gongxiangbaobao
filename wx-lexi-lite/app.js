@@ -532,6 +532,13 @@ App({
     })
   },
 
+  /**
+   * 发送消息
+  */
+  handleSendNews(e){
+    console.log(e,'发送消息')
+  },
+
   globalData: {
     isLogin: false,
     app_id: null,

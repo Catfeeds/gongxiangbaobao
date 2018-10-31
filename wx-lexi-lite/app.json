@@ -63,6 +63,7 @@
     "pages/addWindowLabel/addWindowLabel",
     "pages/addWindowProduct/addWindowProduct",
     "pages/fxWebView/fxWebView",
+    "pages/demo/demo",
     "pages/windowComment/windowComment",
     "components/FxLoginModal/FxLoginModal"
   ],

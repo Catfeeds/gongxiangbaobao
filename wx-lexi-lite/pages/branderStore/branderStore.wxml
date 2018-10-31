@@ -4,7 +4,7 @@
   <view class="store-info border-bottom">
     <!-- 图片 分类-->
     <view class="flex_row margin-bottom--22rpx top-photo__box">
-      <image src="{{storeInfo.logo}}"></image>
+      <image src="{{storeInfo.logo}}-p30x2"></image>
       <view wx:for="{{titleCategoryList}}" wx:key="{{index}}" catchtap="handleChangeCategory" data-id="{{item.id}}" class="fx-column--center category__item {{item.id==categoryId?'active':''}}">
         <view class="font-width--bold margin-bottom--6rpx">{{item.num}}</view>
         <view class="font-s ">{{item.name}}</view>

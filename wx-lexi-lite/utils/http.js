@@ -26,7 +26,7 @@ function appendSystemParams() {
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   const t = util.timestamp()
   const s = util.randomString(16)
-  
+
   return {
     app_key: extConfig.api.appKey,
     timestamp: t,
@@ -37,7 +37,7 @@ function appendSystemParams() {
 
 // 请求参数编码
 function obj2uri(obj) {
-  return Object.keys(obj).map(function (k) {
+  return Object.keys(obj).map(function(k) {
     return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]);
   }).join('&');
 }
@@ -65,7 +65,7 @@ function fxHeader(content_type) {
 }
 
 // api host
-function fxUrl(url) {  
+function fxUrl(url) {
   // 获取第三方平台自定义的数据字段  
   let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
   let urlAry = [extConfig.api.host, extConfig.api.version, url]
@@ -74,7 +74,9 @@ function fxUrl(url) {
 
 // Upload请求
 function fxUpload(url, tempFile, data = {}, cb) {
-  let formData = { ...data, ...appendSystemParams() }
+  let formData = { ...data,
+    ...appendSystemParams()
+  }
 
   const uploadTask = wx.uploadFile({
     url: fxUrl(url),
@@ -99,7 +101,8 @@ function fxGet(url, data = {}, cb) {
   wx.request({
     url: fxUrl(url),
     data: {
-      ...data, ...appendSystemParams()
+      ...data,
+      ...appendSystemParams()
     },
     method: 'GET',
     header: fxHeader(),
@@ -112,11 +115,11 @@ function fxGet(url, data = {}, cb) {
       return typeof cb == 'function' && cb(res.data)
     },
     fail(res) {
-      
+
       // wx.navigateTo({
       //   url: '../networkError/networkError'
       // })
-      
+
       return typeof cb == 'function' && cb(false)
     }
   })
@@ -128,12 +131,13 @@ function fxPost(url, data = {}, cb) {
   wx.request({
     url: fxUrl(url),
     data: {
-      ...data, ...appendSystemParams()
+      ...data,
+      ...appendSystemParams()
     },
     header: fxHeader('application/json'),
     method: 'POST',
     success(res) {
-      // console.log(res)
+
       return typeof cb == 'function' && cb(res.data)
     },
     fail() {
@@ -148,7 +152,8 @@ function fxPut(url, data = {}, cb) {
   wx.request({
     url: fxUrl(url),
     data: {
-      ...data, ...appendSystemParams()
+      ...data,
+      ...appendSystemParams()
     },
     header: fxHeader('application/json'),
     method: 'PUT',
@@ -168,11 +173,12 @@ function fxDelete(url, data = {}, cb) {
   wx.request({
     url: fxUrl(url),
     data: {
-      ...data, ...appendSystemParams()
+      ...data,
+      ...appendSystemParams()
     },
     header: fxHeader('application/json'),
     method: 'DELETE',
-    success(res) {     
+    success(res) {
       console.log(res)
       return typeof cb == 'function' && cb(res.data)
     },

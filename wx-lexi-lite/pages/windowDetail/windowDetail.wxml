@@ -91,7 +91,7 @@
 
       <!-- 每一个评论 -->
       <view class="comment-item" wx:key="{{ index }}" wx:for-item="items" wx:for="{{ comments }}" wx:if="{{ index < 3 }}">
-        <image src="{{ items.user_avatar }}" class="user-avatar"></image>
+        <image src="{{ items.user_avatar }}-p16" class="user-avatar"></image>
         <view class="comment-item__body flex-direction--column">
           <!-- 顶部名字 -->
           <view class="time-top">
@@ -228,10 +228,10 @@
   <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}">
     <view class="fx-poster">
       <view class="poster-box">
-        <image src="{{ posterUrl }}" class="poster-image" wx:if="{{ posterUrl }}"></image>
+        <image src="{{ posterUrl }}" class="poster-image {{windowDetail.product_count == 5?'five':''}} {{windowDetail.product_count == 3?'three':''}}" wx:if="{{ posterUrl }}"></image>
         <image src="../../images/jiazai.gif" class="loading" wx:else></image>
       </view>
-      <view class="btn-area">
+      <view class="btn-area window-share__btn--placard">
         <button class="fx-button primary" bindtap="handleSavePoster">
           {{ posterBtnText }}
         </button>

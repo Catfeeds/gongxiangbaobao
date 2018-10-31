@@ -171,7 +171,7 @@
           <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
 
             <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
-              <image src='{{ distributeProduct.cover + "-p16" }}' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}"></image>
+              <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}"></image>
 
               <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
               <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>
@@ -534,12 +534,12 @@
       <scroll-view scroll-x class='best-stores c-importantGoodsBox margin-top--34rpx recommend-product-box '>
         <view class='characteristic-box {{index==0?"margin-left--40rpx":""}} {{index==characteristicStoreList.stores.length-1?"margin-right--40rpx":""}}' wx:for="{{characteristicStoreList.stores}}" wx:for-item="items" catchtap="handleTobrandStore" data-rid="{{items.rid}}"
           wx:key="{{ index }}">
-          <image src='{{items.bgcover}}-p50' wx:if="{{items.bgcover}}"></image>
+          <image src='{{items.bgcover}}-ava50' wx:if="{{items.bgcover}}"></image>
           <image wx:else></image>
           <view class='characteristic-info border-radius--8'>
             <view class='flex_row characteristic-box__title border-radius--8'>
               <view class='characteristic-log'>
-                <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{items.logo}}'></image>
+                <image class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{items.logo}}-p16'></image>
               </view>
               <view class='characteristic-title__text'>
                 <text class='font--white font-xl text--hidden'>{{items.name}}</text>
@@ -714,7 +714,7 @@
                 </view>
               </view>
               <view class="share">
-                <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+                <view class="done" data-photo-num="{{item.product_covers.length}}" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
                   <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
                 </view>
               </view>
@@ -780,7 +780,7 @@
                 </view>
               </view>
               <view class="share">
-                <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
+                <view class="done" data-window-rid="{{ item.rid }}" data-photo-num="{{item.product_covers.length}}" catchtap="handleWindowShareModal">
                   <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
                 </view>
               </view>
@@ -943,10 +943,10 @@
   <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}" bind:closeEvent="handleClearPosterUrl">
     <view class="fx-poster">
       <view class="poster-box">
-        <image src="{{ windowPosterUrl }}" class="poster-image" wx:if="{{ windowPosterUrl }}"></image>
+        <image src="{{ windowPosterUrl }}" class="poster-image {{windowPhotoNum==3?'three':''}} {{windowPhotoNum==5?'five':''}}" wx:if="{{ windowPosterUrl }}"></image>
         <image src="../../images/jiazai.gif" class="loading" wx:else></image>
       </view>
-      <view class="btn-area">
+      <view class="btn-area window-share__btn--placard">
         <button class="fx-button primary" bindtap="handleSaveWindowPoster">
           {{ posterBtnText }}
         </button>

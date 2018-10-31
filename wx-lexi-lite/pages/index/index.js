@@ -14,7 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    animationNum: 3, // 首页选品中心的动画
+    animationNum: 0, // 首页选品中心的动画
 
     page: 1,
     perPage: 10,
@@ -365,6 +365,7 @@ Page({
       }
     ],
 
+    windowPhotoNum: 7, // 海报里面图片的数量
     showPosterModal: false, // 分享海报
     windowPosterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
@@ -1317,7 +1318,8 @@ Page({
     this.getWindowWxaPoster(rid)
 
     this.setData({
-      showPosterModal: true
+      showPosterModal: true,
+      windowPhotoNum: e.currentTarget.dataset.photoNum
     })
   },
 
@@ -1584,7 +1586,7 @@ Page({
 
   // 集合
   getGather() {
-    http.fxGet(api.column_collections, {}, (result) => {
+    http.fxGet(api.column_collections_basic, {}, (result) => {
       utils.logger(result, '集合')
       if (result.success) {
         result.data.collections.forEach((v, i) => {
@@ -2342,8 +2344,8 @@ Page({
         page: 1
       })
 
-        // 加载选品中心的动画
-        this.getDistributeNewest()
+      // 加载选品中心的动画
+      this.getDistributeNewest()
 
       // 刷新生活馆
       if (this.data.pageActiveTab == 'lifeStore') {
@@ -2394,7 +2396,7 @@ Page({
     clearInterval(animationInterval) // 清除动画
     this.setData({
       latestDistributeProducts: [],
-      animationNum: 3
+      animationNum: 0
     })
   },
 
@@ -2516,7 +2518,15 @@ Page({
 
     } else {
       // 精选和探索里面分享
-      return app.shareLeXi()
+      // return app.shareLeXi()
+      return {
+        title: '让有趣变得流行',
+        path: 'pages/index/index',
+        imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
+        success: (res) => {
+          utils.logger(res, '分享成功!')
+        }
+      }
     }
   },
 

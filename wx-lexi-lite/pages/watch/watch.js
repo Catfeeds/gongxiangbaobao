@@ -12,7 +12,7 @@ Page({
    */
   data: {
     isLoading: true,
-    myIndex: '', // 我的index
+    myUid: '', // 我的uid
     peopleList: [], // 关注的数量
     isNext: false,
     params: {
@@ -25,15 +25,12 @@ Page({
   // 获取我的关注
   getFollower() {
     http.fxGet(api.users_followed_users, this.data.params, (result) => {
+      console.log(result.data, '我的关注')
       if (result.success) {
         let data = this.data.peopleList
-        result.data.followed_users.forEach((v) => {
-          data.push(v)
-        })
-
         this.setData({
           isNext: result.data.next,
-          peopleList: data
+          peopleList: data.concat(result.data.followed_users)
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -52,18 +49,11 @@ Page({
         })
 
         if (app.globalData.isLogin) {
-          let myData = wx.getStorageSync('jwt')
+          let myData = wx.getStorageSync('jwt') || ''
           let myUid = myData.uid
-          let myIndex
-
-          result.data.followed_users.forEach((v, i) => {
-            if (v.uid == myUid) {
-              myIndex = i
-            }
-          })
 
           this.setData({
-            myIndex: myIndex
+            myUid: myUid
           })
         }
 
@@ -212,5 +202,5 @@ Page({
       url: '../people/people?uid=' + e.currentTarget.dataset.uid
     })
   }
-  
+
 })
