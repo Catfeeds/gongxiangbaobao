@@ -310,8 +310,8 @@ Page({
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
     app.globalData.orderParams.store_items = store_items
 
-    http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
-      utils.logger(result, '新增订单')
+    http.fxPost(api.order_create, {...app.globalData.orderParams,openid:app.globalData.jwt.openid}, (result) => {
+      utils.logger(result,app.globalData.jwt.openid, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data
