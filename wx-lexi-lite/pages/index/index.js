@@ -1153,21 +1153,6 @@ Page({
     })
   },
 
-  // 去拼接橱窗
-  handleGoAddWindow() {
-    // 是否登陆
-    if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
-      this.setData({
-        is_mobile: true
-      })
-      return
-    }
-    wx.navigateTo({
-      url: '../addWindow/addWindow',
-    })
-  },
-
   // 取消关注人
   handleDeleteFollow(e) {
     let uid = e.currentTarget.dataset.uid

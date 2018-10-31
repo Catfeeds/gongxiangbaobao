@@ -89,6 +89,7 @@ module.exports = {
   life_records_grass_note: 'life_records/grass_note', // 种草笔记频道列表
   life_records_life_remember: 'life_records/life_remember', // 生活记事频道列表
   official_store_master_info: 'official_store/master_info', // 店铺主人信息
+  users_save_form_ids:'users/save_form_ids',  // 发送消息
   // 分销
 
   // GET 分销池

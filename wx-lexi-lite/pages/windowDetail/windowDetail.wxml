@@ -226,17 +226,17 @@
 
   <!-- 生成海报图 -->
   <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}">
-    <scroll-view scroll-y class="fx-poster">
-      <view class="poster-box">
+    <view scroll-y class="fx-poster">
+      <scroll-view scroll-y class="poster-box">
         <image src="{{ posterUrl }}" class="poster-image {{windowDetail.product_count == 5?'five':''}} {{windowDetail.product_count == 3?'three':''}}" wx:if="{{ posterUrl }}"></image>
         <image src="../../images/jiazai.gif" class="loading" wx:else></image>
-      </view>
+      </scroll-view>
       <view class="btn-area window-share__btn--placard">
         <button class="fx-button primary" bindtap="handleSavePoster">
           {{ posterBtnText }}
         </button>
       </view>
-    </scroll-view>
+    </view>
   </fx-image-modal>
 
 </view>

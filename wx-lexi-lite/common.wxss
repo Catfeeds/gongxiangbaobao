@@ -982,13 +982,9 @@ button::after {
 
 /* 单个海报下载 */
 
-.fx-poster {
-  max-height: 832rpx;
-  border: 8rpx;
-}
-
 .fx-poster .poster-box {
   width: 460rpx;
+  max-height: 736rpx;
   min-height: 736rpx;
   margin: 0 auto;
   background-image: url('https://static.moebeast.com/static/img/lexi-logo-bg2.jpg');

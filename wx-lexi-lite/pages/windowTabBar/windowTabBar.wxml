@@ -174,16 +174,16 @@
 
   <!-- 橱窗海报图 -->
   <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}" bind:closeEvent="handleClearPosterUrl">
-    <scroll-view scroll-y class="fx-poster">
-      <view class="poster-box">
+    <view class="fx-poster">
+      <scroll-view scroll-y class="poster-box">
         <image src="{{ windowPosterUrl }}" class="poster-image {{windowPhotoNum==3?'three':''}} {{windowPhotoNum==5?'five':''}}" wx:if="{{ windowPosterUrl }}"></image>
         <image src="../../images/jiazai.gif" class="loading" wx:else></image>
-      </view>
+      </scroll-view>
       <view class="btn-area window-share__btn--placard">
         <button class="fx-button primary" bindtap="handleSaveWindowPoster">
           {{ posterBtnText }}
         </button>
       </view>
-    </scroll-view>
+    </view>
   </fx-image-modal>
 </view>

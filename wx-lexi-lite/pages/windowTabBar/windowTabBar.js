@@ -20,6 +20,7 @@ Page({
     showPosterModal: false, // 分享海报
 
     is_mobile: false, // 验证是否登陆
+    runEnv: 1,
 
     // 橱窗
     categoryActive: 'recommend',
@@ -197,6 +198,20 @@ Page({
     })
   },
 
+  /**
+   * 获取运行环境
+   */
+  getRunEnv() {
+    http.fxGet(api.run_env, {}, (res) => {
+      if (res.success) {
+        utils.logger(res, '环境变量')
+        this.setData({
+          runEnv: res.data.status
+        })
+      }
+    })
+  },
+
 
   /**
    * 生成橱窗推广海报图
@@ -318,6 +333,21 @@ Page({
     wx.showTabBar()
   },
 
+  // 去拼接橱窗
+  handleGoAddWindow() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    wx.navigateTo({
+      url: '../addWindow/addWindow',
+    })
+  },
+
   // 获取推荐橱窗列表
   getRecommendWindow() {
     http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
@@ -364,6 +394,7 @@ Page({
   onLoad: function(options) {
     this.getRecommendWindow() // 橱窗
     this.getFollowWindow()
+    this.getRunEnv() // 获取当前环境
   },
 
   /**
