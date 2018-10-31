@@ -46,7 +46,7 @@
         <view class='shopName'>
           <text class='black-font'>{{item.store.store_name}}</text>
           <view class='photo-round btn-bg-color'>
-            <image src='{{item.store.store_logo}}'></image>
+            <image src='{{item.store.store_logo}}-p16'></image>
           </view>
         </view>
 

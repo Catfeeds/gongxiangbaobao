@@ -171,7 +171,7 @@
           <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
 
             <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
-              <image src='{{ distributeProduct.cover + "-p16" }}' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}"></image>
+              <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}"></image>
 
               <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
               <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>

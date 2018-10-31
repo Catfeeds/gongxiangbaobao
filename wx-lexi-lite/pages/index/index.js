@@ -2518,7 +2518,15 @@ Page({
 
     } else {
       // 精选和探索里面分享
-      return app.shareLeXi()
+      // return app.shareLeXi()
+      return {
+        title: '让有趣变得流行',
+        path: 'pages/index/index',
+        imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
+        success: (res) => {
+          utils.logger(res, '分享成功!')
+        }
+      }
     }
   },
 
