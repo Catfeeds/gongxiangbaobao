@@ -154,9 +154,39 @@
   <!-- 继续确认订单按钮 -->
 
   <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true" wx:if="{{paymentBtn}}">
-    <view class='conservation'>
-      <button bindtap="paymentSuccess" form-type="submit">提交订单</button>
-    </view>
+    <button form-type="submit">
+      <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+        <button form-type="submit">
+          <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+            <button form-type="submit">
+              <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+                <button form-type="submit">
+                  <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+                    <button form-type="submit">
+                      <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+                        <button form-type="submit">
+                          <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+                            <button form-type="submit">
+                              <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+                                <button form-type="submit">
+                                  <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true">
+                                    <button bindtap="paymentSuccess" form-type="submit" class="last-submit__btn">提交订单</button>
+                                  </form>
+                                </button>
+                              </form>
+                            </button>
+                          </form>
+                        </button>
+                      </form>
+                    </button>
+                  </form>
+                </button>
+              </form>
+            </button>
+          </form>
+        </button>
+      </form>
+    </button>
   </form>
   <!-- 继续确认订单按钮 -->
   <view class='conservation' wx:else>

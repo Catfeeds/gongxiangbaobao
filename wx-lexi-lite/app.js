@@ -73,7 +73,7 @@ App({
             // 登录成功，得到jwt后存储到storage
             wx.setStorageSync('jwt', res.data)
             this.globalData.jwt = res.data
-            console.log(res.data,'jwt信息')
+            console.log(res.data, 'jwt信息')
             if (isBind) {
               // 回调函数
               this.hookLoginCallBack(res.data)
@@ -151,7 +151,7 @@ App({
         if (lastVisitLifeStore) {
           this.updateLifeStoreLastVisit(lastVisitLifeStore)
         }
-        
+
         // 回调函数
         this.hookLoginCallBack(res.data)
 
@@ -534,9 +534,14 @@ App({
 
   /**
    * 发送消息
-  */
-  handleSendNews(e){
-    console.log(e,'发送消息')
+   */
+  handleSendNews(e) {
+    http.fxPost(api.users_save_form_ids, {
+      form_ids: [e],
+      openid: this.globalData.jwt.openid
+    }, result => {
+      console.log(result, '模板消息')
+    })
   },
 
   globalData: {

@@ -468,3 +468,10 @@
   z-index: 1;
 }
 
+.conservation button {
+  padding-left: 0rpx;
+}
+
+.last-submit__btn {
+  margin-left: 30rpx;
+}
