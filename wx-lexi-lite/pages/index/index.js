@@ -1910,7 +1910,7 @@ Page({
     // 预加载精选、探索数据 ， 发现页面
     this._loadingFeaturedPage()
     this._loadingExplorePage()
- 
+
     //新人红包
     this.getNewCoupon()
   },
@@ -2024,7 +2024,7 @@ Page({
     }
 
     // 选品中心的动画
-    if (this.data.canAdmin && this.data.pageActiveTab == 'lifeStore') {
+    if (this.data.canAdmin) {
       // 加载选品中心的动画
       this.getDistributeNewest()
     }
