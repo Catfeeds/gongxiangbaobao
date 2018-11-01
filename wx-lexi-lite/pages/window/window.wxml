@@ -157,7 +157,7 @@
 
   <!-- 橱窗海报图 -->
   <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}" bind:closeEvent="handleClearPosterUrl">
-    <view class="fx-poster">
+    <scroll-view scroll-y class="fx-poster">
       <view class="poster-box">
         <image src="{{ windowPosterUrl }}" class="poster-image" wx:if="{{ windowPosterUrl }}"></image>
         <image src="../../images/jiazai.gif" class="loading" wx:else></image>
@@ -167,7 +167,7 @@
           {{ posterBtnText }}
         </button>
       </view>
-    </view>
+    </scroll-view>
   </fx-image-modal>
 
   <!-- 登陆注册模态框 -->

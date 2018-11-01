@@ -64,6 +64,7 @@
     "pages/addWindowProduct/addWindowProduct",
     "pages/fxWebView/fxWebView",
     "pages/demo/demo",
+    "pages/windowTabBar/windowTabBar",
     "pages/windowComment/windowComment",
     "components/FxLoginModal/FxLoginModal"
   ],
@@ -124,10 +125,10 @@
         "selectedIconPath": "./images/icon-home-active@3x.png"
       },
       {
-        "pagePath": "pages/find/find",
-        "text": "发现",
-        "iconPath": "images/icon-find@3x.png",
-        "selectedIconPath": "images/icon-find-active@3x.png"
+        "pagePath": "pages/windowTabBar/windowTabBar",
+        "text": "橱窗",
+        "iconPath": "images/window-tabbar-false.png",
+        "selectedIconPath": "images/window-tabbar-true@3.png"
       },
       {
         "pagePath": "pages/cart/cart",

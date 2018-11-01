@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 21,
 			"list": [
 				{
 					"id": 0,
@@ -160,6 +160,11 @@
 					"name": "品牌馆列表",
 					"pathName": "pages/branderStoreList/branderStoreList",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "橱窗",
+					"pathName": "pages/window/window"
 				}
 			]
 		}

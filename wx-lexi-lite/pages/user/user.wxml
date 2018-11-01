@@ -16,7 +16,7 @@
     <!-- 头像 -->
     <view class='user-photo' catchtap="handleGoEditInfo">
       <view class='photo'>
-        <image src='{{ userInfo.profile.avatar }}' wx:if='{{ userInfo.profile.avatar != null }}'></image>
+        <image src='{{ userInfo.avatar }}' wx:if='{{ userInfo.avatar }}'></image>
         <open-data wx:else type="userAvatarUrl"></open-data>
       </view>
 
@@ -35,7 +35,7 @@
     <!-- 手机号码 -->
     <view>
       <view class='user-name-text'>
-        <text wx:if='{{ userInfo.profile.username != null }}'>{{ userInfo.profile.username }}</text>
+        <text wx:if='{{ userInfo.username }}'>{{ userInfo.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
       <view class='is-login font-ss' wx:if='{{ !is_login }}'>
@@ -113,7 +113,7 @@
         <text>喜欢的橱窗</text>
 
         <view class=' hui-zi font-normal' wx:if="{{userWindow.count>2}}" catchtap="handleGoWindow">
-          <text>查看全部</text>
+          <!-- <text>查看全部</text> -->
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
 

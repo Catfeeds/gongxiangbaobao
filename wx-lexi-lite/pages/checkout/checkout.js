@@ -25,6 +25,7 @@ Page({
     authorityCouponShow: false, // 官方优惠券模态框
     authorityCouponList: [], // 官方优惠券列表
     coupon: false,
+
     couponList: [], // 所有的优惠券列表
     pickCoupon: [], // 选择后每一项里面的优惠券列表
     pickCouponProductId: '', // 店铺的id
@@ -310,7 +311,7 @@ Page({
     app.globalData.orderParams.authAppid = app.globalData.configInfo.authAppid
     app.globalData.orderParams.store_items = store_items
 
-    http.fxPost(api.order_create, {...app.globalData.orderParams,openid:app.globalData.jwt.openid}, (result) => {
+    http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
       utils.logger(result,app.globalData.jwt.openid, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面

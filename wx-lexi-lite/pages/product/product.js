@@ -476,10 +476,19 @@ Page({
 
     if (action == 'add') {
       utils.logger(app.globalData.jwt.avatar, app.globalData.jwt.uid)
-      likePhoto.push({
-        avatar: app.globalData.jwt.avatar,
-        uid: app.globalData.jwt.uid,
-      })
+
+      if (likePhoto.length >= 10) {
+        likePhoto[9] = {
+          avatar: app.globalData.jwt.avatar,
+          uid: app.globalData.jwt.uid,
+        }
+      } else {
+        likePhoto[likePhoto.length] = {
+          avatar: app.globalData.jwt.avatar,
+          uid: app.globalData.jwt.uid,
+        }
+      }
+
     } else {
       if (myPhoto != -1) {
         likePhoto.splice(myPhoto, 1)

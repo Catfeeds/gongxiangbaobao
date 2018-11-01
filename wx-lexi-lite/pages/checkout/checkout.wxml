@@ -153,15 +153,15 @@
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
 
-  <form bindsubmit="handleSubmitInfo" report-submit="true" wx:if="{{paymentBtn}}">
-    <cover-view class='conservation'>
+  <form bindsubmit="handleSubmitInfo" class="conservation" report-submit="true" wx:if="{{paymentBtn}}">
+    <view class='conservation'>
       <button bindtap="paymentSuccess" form-type="submit">提交订单</button>
-    </cover-view>
+    </view>
   </form>
   <!-- 继续确认订单按钮 -->
-  <cover-view class='conservation' wx:else>
+  <view class='conservation' wx:else>
     <button>加载中···</button>
-  </cover-view>
+  </view>
 
   <!-- 优惠券弹框 -->
   <view class='coupon-box' wx:if="{{coupon}}" catchtap='couponTap'>

@@ -426,6 +426,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     const lifeStore = wx.getStorageSync('lifeStore')
     // 小B商家获取自己生活馆
     if (lifeStore.isSmallB) {
@@ -436,10 +437,11 @@ Page({
 
     // 本地存储
     const userInfo = wx.getStorageSync('userInfo')
+
     if (userInfo) {
       this.setData({
-        'userInfo.profile.avatar': userInfo.avatar,
-        'userInfo.profile.username': userInfo.username,
+        'userInfo.avatar': userInfo.avatar,
+        'userInfo.username': userInfo.username,
         'userInfo.profile.mobile': userInfo.mobile
       })
     }
