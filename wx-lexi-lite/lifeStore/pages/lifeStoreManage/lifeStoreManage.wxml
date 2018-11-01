@@ -129,11 +129,12 @@
         <i class="fx-icon-nothing-right"></i>
       </label>
     </view>
-    <view class="fx-block__item" catchtap="handleJoinStoreGather">
+    <view class="fx-block__item open-contact" catchtap="handleJoinStoreGather">
       <text>加入馆主群，获取赚钱攻略</text>
       <label class="icon-arrow">
         <i class="fx-icon-nothing-right"></i>
       </label>
+      <button open-type="contact" class="open-contact__btn" ></button>
     </view>
   </view>
 

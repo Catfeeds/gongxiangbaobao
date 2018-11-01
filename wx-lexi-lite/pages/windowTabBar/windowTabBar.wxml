@@ -82,8 +82,8 @@
           </view>
 
           <view class="fx-window__body">
-            <view class="title line-height--30rpx margin-bottom--24rpx"> {{item.title}} </view>
-            <view class="summary "> {{item.description}} </view>
+            <view class="title line-height--30rpx margin-bottom--24rpx "> {{item.title}} </view>
+            <view class="summary three-line-text"> {{item.description}} </view>
             <view class="keywords line-height--24rpx">
               <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
             </view>
@@ -106,8 +106,8 @@
               <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
             </view>
             <block wx:if="{{ !item.is_official }}">
-              <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow}}">关注</button>
-              <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:else>已关注</button>
+              <button class="btn-follow fx-button--text primary black-font" data-uid="{{item.uid}}" data-index="{{index}}" catchtap="handleAddFollow" wx:if="{{!item.is_follow&& myUid!=item.uid}}">关注</button>
+              <button catchtap="handleDeleteFollow" data-uid="{{item.uid}}" data-index="{{index}}" class="btn-follow fx-button--text primary black-font qian-hui " wx:if="{{item.is_follow&& myUid!=item.uid}}">已关注</button>
             </block>
           </view>
 
@@ -149,8 +149,7 @@
 
           <view class="fx-window__body">
             <view class="title line-height--30rpx margin-bottom--24rpx"> {{item.title}} </view>
-
-            <view class="summary"> {{item.description}} </view>
+            <view class="summary three-line-text"> {{item.description}} </view>
 
             <view class="keywords line-height--24rpx">
               <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>

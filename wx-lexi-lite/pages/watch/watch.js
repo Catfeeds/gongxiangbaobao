@@ -18,7 +18,7 @@ Page({
     params: {
       uid: false, //uid
       page: 1, // umber	可选	1	当前页码
-      per_page: 10 // Number	可选	10	每页数量
+      per_page: 20 // Number	可选	10	每页数量
     }
   },
 

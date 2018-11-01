@@ -133,8 +133,8 @@ Page({
   },
 
   // 发通知信息
-  handleSubmitInfo(e){
-    app.handleSendNews(e.detail.formId,1)
+  handleSubmitInfo(e) {
+    app.handleSendNews(e.detail.formId, 1)
   },
 
   // 返回到小程序的首页
@@ -193,7 +193,7 @@ Page({
   },
 
   // 滚动加载偷我红包的人
-  handleLoadStealPeople () {
+  handleLoadStealPeople() {
     if (this.data.stealNext) {
       let page = this.data.stealPage + 1
       this.setData({
@@ -347,7 +347,7 @@ Page({
   },
 
   // 查看优惠券
-  handleLookCoupon () {
+  handleLookCoupon() {
     if (this.data.myAccount.bonus_quantity > 0) {
       this.setData({
         showAllCouponModal: true
@@ -356,7 +356,7 @@ Page({
   },
 
   // 跳转到优惠券
-  handleGoCoupons () {
+  handleGoCoupons() {
     wx.navigateTo({
       url: '/pages/coupon/coupon',
     })
@@ -526,6 +526,14 @@ Page({
         guessFriendPage: 1
       })
       this.getGuessFriendList()
+    }
+  },
+
+  // 获取formid
+  formSubmit(e) {
+    console.log(e.detail.formId, 'formid')
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId, 3)
     }
   },
 
@@ -1057,7 +1065,7 @@ Page({
   getInitData() {
     this.getPeopleStats()
     this.getInvitePeople()
-    
+
     this.getTopWorld()
     this.getFriendList()
   },
