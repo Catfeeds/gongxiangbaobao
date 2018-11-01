@@ -132,6 +132,11 @@ Page({
     lackList: [] // 不足数量
   },
 
+  // 发通知信息
+  handleSubmitInfo(e){
+    app.handleSendNews(e.detail.formId,1)
+  },
+
   // 返回到小程序的首页
   handleGoHome() {
     wx.switchTab({
