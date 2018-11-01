@@ -1,7 +1,7 @@
 {
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "支付成功",
-  "navigationBarBackgroundColor": "black",
+  "navigationBarBackgroundColor": "white",
   "usingComponents": {
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",

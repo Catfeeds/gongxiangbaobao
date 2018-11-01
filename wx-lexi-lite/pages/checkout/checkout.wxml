@@ -1,5 +1,5 @@
 <!--pages/checkout/checkout.wxml 订单结算 -->
-<view class='container theme-bg-color {{authorityCouponShow || coupon?"prevent__penetrate":""}}'>
+<view class='container theme-bg-color {{authorityCouponShow || coupon?"":""}}'>
   <!-- 上面的进度条 -->
   <view>
     <view class='paymentList'>
@@ -96,7 +96,7 @@
       </view>
 
       <!-- 给商家的注意事项 -->
-      <view class='merchant voice textarea--position'>
+      <view class='merchant voice textarea--position {{authorityCouponShow||coupon?"hidden":""}}'>
 
         <image class='receiveFnBottomBox' src='../../images/shop-icon@2.png'></image>
 
@@ -104,10 +104,10 @@
       </view>
 
       <!-- 礼物寄语  placeholder='送给他/她,记得添加礼物赠言哦'-->
-      <view class='merchant voice'>
+      <view class='merchant voice  {{authorityCouponShow||coupon?"hidden":""}}'>
         <image class='receiveFnBottomBox' src='../../images/see-icon@2.png'></image>
 
-        <textarea value='' data-rid="{{items[0].store_rid}}" bindinput='handleUtterance' placeholder-class='goods-blessing' auto-height='{{true}}' class="textarea--position user-input__text" wx:if="{{!authorityCouponShow&&!coupon}}" placeholder='我的语录'></textarea>
+        <textarea value='' data-rid="{{items[0].store_rid}}" bindinput='handleUtterance' placeholder-class='goods-blessing' auto-height='{{true}}' class="textarea--position user-input__text"  placeholder='我的语录'></textarea>
       </view>
       <!-- 运费 -->
       <view class='component  time-top logistics-moble' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='couponTap'>
