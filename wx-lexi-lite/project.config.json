@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 21,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -81,7 +81,7 @@
 					"id": 7,
 					"name": "橱窗详情",
 					"pathName": "pages/windowDetail/windowDetail",
-					"query": "windowRid=13"
+					"query": "scene=13"
 				},
 				{
 					"id": -1,
@@ -164,7 +164,8 @@
 				{
 					"id": -1,
 					"name": "橱窗",
-					"pathName": "pages/window/window"
+					"pathName": "pages/window/window",
+					"query": ""
 				}
 			]
 		}

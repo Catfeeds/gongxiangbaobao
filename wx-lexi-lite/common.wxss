@@ -181,6 +181,7 @@ button::after {
   background-color: #fff;
   border-bottom: 1rpx solid #e9e9e9;
   margin-bottom: 20rpx;
+  position: relative;
 }
 
 .fx-window .fx-window__author {
