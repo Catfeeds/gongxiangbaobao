@@ -148,13 +148,13 @@
   left: 30rpx;
   top: 130rpx;
   z-index: 99;
-  width: 64rpx;
-  height: 64rpx;
+  width: 80rpx;
+  height: 80rpx;
 }
 
 .fx-window .back-home-container .icon-back-home {
-  width: 64rpx;
-  height: 64rpx;
+  width: 80rpx;
+  height: 80rpx;
 }
 
 .bottom-comment {

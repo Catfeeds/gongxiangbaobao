@@ -37,7 +37,7 @@
       <image class='bgxuhua' src='{{ storeInfo.bgcover }}'></image>
       <view class="mask"></view>
       <view class='addressInfoBox'>
-        <image class='addressInfoBoxL' src='{{ storeInfo.logo }}-p30x2'></image>
+        <image class='addressInfoBoxL' src='{{ storeInfo.logo }}-p30x2' wx:if="{{ storeInfo.logo }}"></image>
         <view class='addressInfoBoxR'>
           <view class='addressInfoBoxO'>{{ storeInfo.name }}原创品牌馆</view>
           <view class='addressInfoBoxT'>开馆时间：{{ storeInfo.created_at }}</view>

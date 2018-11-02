@@ -53,20 +53,33 @@ Page({
 
   // 获取店铺休息，和店铺主人的信息
   getAllInfo () {
-    utils.logger(app.globalData.storeInfo)
-    this.setData({
-      storeInfo: app.globalData.storeInfo,
-      isAuthentication: app.globalData.isAuthenticationStore,
-      dkcontent: app.globalData.storeInfo.detail.content
+    http.fxGet(api.shop_info, { rid: app.globalData.storeRid }, (result) => {
+      utils.logger(result, '店铺的信息')
+      if (result.success) {
+        result.data.created_at = utils.timestamp2string(result.data.created_at, 'date')
+        this.setData({
+          storeInfo: result.data,
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
-    this.getStoreCreatedTime()
   },
 
-  // 开馆时间
-  getStoreCreatedTime () {
-    let createdTime = utils.timestamp2string(this.data.storeInfo.created_at, 'date')
-    this.setData({
-      createdTime: createdTime
+  // 品牌故事 
+  getBrandDetail() {
+    http.fxGet(api.brand_info, { rid: app.globalData.storeRid }, (result) => {
+      utils.logger(result, '品牌故事')
+      if (result.success) {
+        this.setData({
+          dkcontent: result.data.content,
+        })
+
+        //处理数据
+        wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
@@ -76,6 +89,7 @@ Page({
   onLoad: function (options) {
     this.getShopOwner() // 店铺主人
     this.getAllInfo() // 获取店铺信息
+    this.getBrandDetail() // 品牌故事
   },
 
   /**
