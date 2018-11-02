@@ -40,7 +40,7 @@
         <image class='addressInfoBoxL' src='{{ storeInfo.logo }}'></image>
         <view class='addressInfoBoxR'>
           <view class='addressInfoBoxO'>{{ storeInfo.name }}原创品牌馆</view>
-          <view class='addressInfoBoxT'>开馆时间：{{ createdTime }}</view>
+          <view class='addressInfoBoxT'>开馆时间：{{ storeInfo.created_at }}</view>
           <view class='addressInfoBoxS'>{{ storeInfo.country }}.{{ storeInfo.province }}</view>
         </view>
       </view>

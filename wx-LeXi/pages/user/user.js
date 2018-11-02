@@ -169,7 +169,6 @@ Page({
    * 分类列表
    */
   getCategories() {
-    utils.logger(app.globalData)
     utils.logger(app.globalData.storeInfo.rid)
     http.fxGet(api.store_categories, {
       sid: app.globalData.storeInfo.rid

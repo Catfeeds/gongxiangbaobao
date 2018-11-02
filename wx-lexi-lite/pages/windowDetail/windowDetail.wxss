@@ -143,6 +143,20 @@
   padding-top: 40rpx;
 }
 
+.fx-window .back-home-container {
+  position: absolute;
+  left: 30rpx;
+  top: 130rpx;
+  z-index: 99;
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.fx-window .back-home-container .icon-back-home {
+  width: 80rpx;
+  height: 80rpx;
+}
+
 .bottom-comment {
   position: fixed;
   bottom: 0rpx;

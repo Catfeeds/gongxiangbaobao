@@ -14,6 +14,10 @@
         <view class="fx-mini-btn round follow primary c-middle add-follow__btn  follow-over__btn" catchtap="handleDeleteFollow" wx:if="{{windowDetail.is_follow}}">已关注</view>
       </view>
 
+      <view class="back-home-container" catchtap="handleBackHome" wx:if="{{ showHomeBtn }}">
+        <image src="../../images/icon-home-back@2x.png" class="icon-back-home"></image>
+      </view>
+
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
         <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
         <view class="flex-direction--column">
@@ -57,7 +61,7 @@
         </view>
       </view>
 
-      <view class="fx-window__actions" wx:if="{{}}">
+      <view class="fx-window__actions">
         <view class="like-comment">
           <view class="done">
             <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" wx:if="{{windowDetail.is_like}}" class="icon-like"></image>

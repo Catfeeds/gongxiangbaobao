@@ -11,7 +11,7 @@
     <view class="bg-white border-bottom" data-rid="{{store.rid}}" catchtap="handleTobrandStore" wx:key="{{index}}" wx:for-item="store" wx:for="{{storeList}}">
 
       <view class="flex_row brand-store__info">
-        <image src="{{store.logo}}" class="log {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
+        <image src="{{store.logo}}-ava" class="log {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
         <view class='store-info'>
           <view class="name">{{store.name}}</view>
           <view class="flex_row">
@@ -60,7 +60,7 @@
     <view class="high-bottom">
       <scroll-view scroll-x class=" high-bottom__scroll jingxuan-scroll">
         <view class="fx-column--center high-bottom__item {{index==0?'margin-left--40rpx':''}} {{HighStoreList.handpick_store.length-1==index?'margin-right--40rpx':''}}" wx:key="{{index}}" data-rid="{{item.rid}}" catchtap="handleTobrandStore" wx:for="{{HighStoreList.handpick_store}}">
-          <image src="{{item.logo}}"></image>
+          <image src="{{item.logo}}-ava"></image>
           <view class="font-s one-line-text">{{item.name}}</view>
           <view class="one-line-text font-ss qian-hui quantity-box__style">{{item.store_products_counts==0?"":item.store_products_counts+" 件商品"}}</view>
         </view>

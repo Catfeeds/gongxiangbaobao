@@ -793,7 +793,7 @@ Page({
         this.setData({
           myAccount: account
         })
-        wx.setStorageSync('userGameAccount', res.data)
+        wx.setStorageSync('userGameAccount', account)
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -1084,7 +1084,7 @@ Page({
     this.setData({
       inviteTimer: setInterval(() => {
         that.getInviteNotice()
-      }, 30000)
+      }, 15000)
     })
 
     // 获取弹幕, 10s

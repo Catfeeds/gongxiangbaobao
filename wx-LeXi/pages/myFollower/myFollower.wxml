@@ -3,7 +3,7 @@
 <view class='container'>
   <view class='time-top font-m relation-item'  wx:for="{{peopleList.user_fans}}" wx:key="{{index}}">
     <view class='flex_row relation-avater'>  
-      <image src='{{item.avatar}}'></image>
+      <image src='{{item.avatar}}-ava' wx:if="{{item.avatar}}"></image>
       <text>{{item.username}}</text>
     </view>
 
@@ -13,7 +13,6 @@
         catchtap='hanleDeleteWatch' 
         data-uid="{{item.uid}}" 
         data-index="{{index}}">互相关注</view>
-      <!-- <view>已关注</view> -->
       <view 
         class='relation-icon__add' 
         data-uid="{{item.uid}}" 

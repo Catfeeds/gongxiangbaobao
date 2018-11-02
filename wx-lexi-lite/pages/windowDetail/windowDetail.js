@@ -16,6 +16,7 @@ Page({
   data: {
     isLoading: true,
     myUid: '', // 我的uid
+    showHomeBtn: false, // 显示回到首页按钮
     isShowComment: false, // 是否显示评论
     submitTarget: '', // 提交方向
 
@@ -57,6 +58,13 @@ Page({
   hanleOffLoginBox(e) {
     this.setData({
       is_mobile: false
+    })
+  },
+
+  // 回首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
     })
   },
 
@@ -439,6 +447,9 @@ Page({
     let scene = decodeURIComponent(options.scene)
     if (scene && scene != undefined && scene != 'undefined') {
       rid = utils.trim(scene)
+      this.setData({
+        showHomeBtn: true
+      })
     } else {
       rid = options.windowRid
     }

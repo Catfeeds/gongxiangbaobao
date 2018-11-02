@@ -12,11 +12,11 @@
   </view>
 
   <view class="store-owner__wrapper">
-    <view class="blur" style="background-image:url('{{ lifeStore.logo }}');"></view>
+    <view class="blur" style="background-image:url('{{ lifeStore.logo }}-ava');"></view>
     <view class="mask"></view>
     <view class="store-owner-container">
       <view class="store-owner">
-        <image src="{{ lifeStore.logo }}" class="avatar"></image>
+        <image src="{{ lifeStore.logo }}-ava100" class="avatar"></image>
         <view class="store-content">
           <view class="title">
             <image src="../../../images/shixicon@2.png" class="icon-store"></image>

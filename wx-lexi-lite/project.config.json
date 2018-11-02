@@ -81,7 +81,7 @@
 					"id": 7,
 					"name": "橱窗详情",
 					"pathName": "pages/windowDetail/windowDetail",
-					"query": "windowRid=13"
+					"query": "scene=13"
 				},
 				{
 					"id": -1,
