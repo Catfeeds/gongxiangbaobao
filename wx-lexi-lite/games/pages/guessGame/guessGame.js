@@ -780,7 +780,7 @@ Page({
         this.setData({
           myAccount: account
         })
-        wx.setStorageSync('userGameAccount', res.data)
+        wx.setStorageSync('userGameAccount', account)
       } else {
         utils.fxShowToast(res.status.message)
       }
