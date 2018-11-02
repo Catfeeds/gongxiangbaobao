@@ -194,7 +194,7 @@
                 <image class="master-photo" src="{{item.user_avatar}}-ava"></image>
                 <text class="font-s font-width--medium">{{item.user_name}}</text>
               </view>
-              <view class="black-font  font-width--medium title">{{item.title}}</view>
+              <view class="black-font  font-width--medium title two-line-text">{{item.title}}</view>
               <view class="font-s two-line-text describe">{{item.description}}</view>
             </view>
           </view>
@@ -212,7 +212,7 @@
       <text class="count" catchtap="handleDeleteLike" data-rid="{{windowDetail.rid}}" wx:if="{{windowDetail.is_like}}">{{windowDetail.like_count==0?' ':windowDetail.like_count}}</text>
 
       <image catchtap="handleAddLike" src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like__icon"></image>
-      <text class="count" wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike">{{windowDetail.like_count==0?'':windowDetail.like_count}}</text>
+      <text class="count" wx:if="{{!windowDetail.is_like }}" catchtap="handleAddLike">{{windowDetail.like_count==0?'  ':windowDetail.like_count}}</text>
 
       <image src="../../images/icons/icon-comment@3x.png" class="icon icon-comment" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment"></image>
       <text class="comment-count" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">{{windowDetail.comment_count>0?windowDetail.comment_count:''}}</text>

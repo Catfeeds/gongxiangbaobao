@@ -187,11 +187,11 @@ Page({
         })
 
         let newOrderList = this.data.daifu
-        daifuInterval = setInterval(() => {
-          this.setData({
-            daifu: this._handlePaymenLastTime(newOrderList)
-          })
-        }, 1000)
+        // daifuInterval = setInterval(() => {
+        //   this.setData({
+        //     daifu: this._handlePaymenLastTime(newOrderList)
+        //   })
+        // }, 1000)
 
       } else {
         utils.fxShowToast(result.status.message)

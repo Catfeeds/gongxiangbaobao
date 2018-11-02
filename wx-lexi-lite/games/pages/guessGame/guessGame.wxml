@@ -93,9 +93,28 @@
       </view>
 
       <!-- 开始游戏-->
+
       <view class="start-game">
-        <button class="btn-start" bindtap="handleStartPlay"></button>
+        
+          <form bindsubmit="formSubmit" report-submit="{{true}}">
+            <button formType="submit" class="start-game__getid">
+              <view class="start-game__getid--form">
+                <form bindsubmit="formSubmit" report-submit="{{true}}" class="start-game__getid--form">
+                  <button formType="submit" class="start-game__getid">
+                    <view class="start-game__getid--form">
+                      <form bindsubmit="formSubmit" report-submit="{{true}}" class="start-game__getid--form">
+                        <button class="btn-start" formType="submit" bindtap="handleStartPlay"></button>
+                      </form>
+                    </view>
+                  </button>
+                </form>
+              </view>
+            </button>
+          </form>
+      
       </view>
+
+
 
     </view>
 
@@ -235,7 +254,9 @@
           <image src="{{ people.user_logo }}-ava" class="avatar"></image>
           <span>{{ people.user_name }}</span>
           <view class="action">
-            <button class="btn-steal" data-uid="{{ people.user_sn }}" bindtap="handleStealBonus"></button>
+            <form bindsubmit="handleSubmitInfo" class="form-id__form" report-submit="true">
+              <button class="btn-steal" data-uid="{{ people.user_sn }}" bindtap="handleStealBonus" form-type="submit"></button>
+            </form>
           </view>
         </view>
       </scroll-view>
@@ -272,7 +293,10 @@
           <image src="{{ friend.user_logo }}-ava" class="avatar" wx:if="{{ friend.user_logo }}"></image>
           <span>{{ friend.user_name }}</span>
           <view class="action">
-            <button class="btn-steal" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
+            <form bindsubmit="handleSubmitInfo" class="form-id__form" report-submit="true">
+              <button class="btn-steal" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus" form-type="submit">
+              </button>
+            </form>
           </view>
         </view>
       </scroll-view>
@@ -294,7 +318,9 @@
           <image src="{{ friend.user_logo }}-ava" class="avatar" wx:if="{{ friend.user_logo }}"></image>
           <span>{{ friend.user_name }}</span>
           <view class="action">
-            <button class="btn-steal" data-idx="{{ index }}" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus"></button>
+            <form bindsubmit="handleSubmitInfo" class="form-id__form" report-submit="true">
+              <button class="btn-steal" data-idx="{{ index }}" data-uid="{{ friend.user_sn }}" bindtap="handleStealBonus" form-type="submit"></button>
+            </form>
           </view>
         </view>
       </scroll-view>
@@ -526,23 +552,18 @@
       <view class="help-title">
         <image src="../../../images/icon-light@2x.png" class="icon-light"></image>
         <view class="help-text">
-          继续猜图无现金奖池，仅获乐喜购物优惠券奖池，<text class="yellow">邀请3个好友参与猜图助力，才可获得现金奖池</text>
+          继续猜图无现金奖池，仅获乐喜购物优惠券奖池，
+          <text class="yellow">邀请3个好友参与猜图助力，才可获得现金奖池</text>
         </view>
       </view>
       <view class="help-friends">
         <view class="invite-avatars">
-          <image
-            wx:for="{{ newInviteFriends }}"
-            wx:for-item="friend"
-            wx:key="{{ friend.user_sn }}"
-            src="{{ friend.user_logo }}-ava" class="avatar"></image>
-          <image 
-            wx:for="{{ lackList }}"
-            wx:key="l{{ item }}"
-            src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
+          <image wx:for="{{ newInviteFriends }}" wx:for-item="friend" wx:key="{{ friend.user_sn }}" src="{{ friend.user_logo }}-ava" class="avatar"></image>
+          <image wx:for="{{ lackList }}" wx:key="l{{ item }}" src="https://static.moebeast.com/static/img/game/touxaing3x.png" class="avatar"></image>
         </view>
         <view class="invite-notice">
-          还需<text class="invite-count">{{ lackList.length }}</text>位好友助力
+          还需
+          <text class="invite-count">{{ lackList.length }}</text>位好友助力
         </view>
         <view class="invite-notice small">
           才获得猜图赢现金奖池

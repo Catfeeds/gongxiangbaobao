@@ -1063,3 +1063,24 @@ button::after {
 .similar-windows .scroll-windows {
   height: 660rpx;
 }
+
+/* form id 的样式 */
+
+.form-id__form {
+  position: relative;
+  width: 62rpx;
+  height: 78rpx;
+  background: url("https://static.moebeast.com/static/img/game/touhb.png") no-repeat;
+  background-size: 62rpx 78rpx;
+}
+
+.form-id__btn {
+  position: absolute;
+  left: 0;
+  height: 1rpx;
+  width: 1rpx;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  opacity: 0;
+}

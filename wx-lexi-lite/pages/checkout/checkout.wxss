@@ -475,3 +475,7 @@
 .last-submit__btn {
   margin-left: 30rpx;
 }
+
+.hidden {
+  display: none;
+}

@@ -5,6 +5,8 @@ const utils = require('./utils/util.js')
 
 const common = require('./utils/common.js')
 
+let formIds = []
+
 App({
   onLaunch: function() {
     // 获取自定义第三方扩展信息
@@ -535,13 +537,20 @@ App({
   /**
    * 发送消息
    */
-  handleSendNews(e) {
-    http.fxPost(api.users_save_form_ids, {
-      form_ids: [e],
-      openid: this.globalData.jwt.openid
-    }, result => {
-      console.log(result, '模板消息')
-    })
+  handleSendNews(e,need = 7) {
+    formIds.push(e)
+    console.log(e, 'formid')
+
+    if (formIds.length == need) {
+      http.fxPost(api.users_save_form_ids, {
+        form_ids: formIds,
+        openid: this.globalData.jwt.openid
+      }, result => {
+        console.log(result, '模板消息')
+        formIds = []
+      })
+    }
+
   },
 
   globalData: {

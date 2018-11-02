@@ -1678,8 +1678,8 @@ swiper-photo .slide-item__box image {
 
 .new-user__coupon .new-user__box {
   position: relative;
-  height: 806rpx;
-  width: 640rpx;
+  height: 786rpx;
+  width: 620rpx;
   background: url('https://static.moebeast.com/image/static/new_user_bonus4.png') no-repeat;
   background-size: 100% 100%;
 }
@@ -1688,23 +1688,23 @@ swiper-photo .slide-item__box image {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 640rpx;
-  height: 258rpx;
+  width: 620rpx;
+  height: 238rpx;
   background: url('https://static.moebeast.com/image/static/new_user_bonus2.png') no-repeat;
   background-size: 100% 100%;
 }
 
 .new-user__coupon .new-user__box .new-user__coupon--scroll {
-  width: 530rpx;
-  height: 500rpx;
+  width: 510rpx;
+  height: 480rpx;
   margin: 0 auto;
   margin-top: 196rpx;
 }
 
 .new-user__coupon .new-user__box .coupon-item {
   position: relative;
-  height: 150rpx;
-  width: 530rpx;
+  height: 130rpx;
+  width: 510rpx;
   background: url('https://static.moebeast.com/image/static/new_user_bonus5.png') no-repeat;
   background-size: 100% 100%;
   margin-bottom: 20rpx;
@@ -1774,11 +1774,11 @@ swiper-photo .slide-item__box image {
 }
 
 .new-user__bottom--receive .receive-btn {
-  width: 470rpx;
-  height: 120rpx;
+  width: 450rpx;
+  height: 100rpx;
   position: absolute;
   bottom: 40rpx;
-  right: 86rpx;
+  right: 76rpx;
 }
 
 .new-user__coupon .off-new__coupon--btn {

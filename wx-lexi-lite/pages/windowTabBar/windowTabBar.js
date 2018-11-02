@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    myUid: '', // uid
 
     windowPosterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
@@ -392,9 +393,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getRecommendWindow() // 橱窗
-    this.getFollowWindow()
-    this.getRunEnv() // 获取当前环境
+    this.setData({
+      myUid: app.globalData.jwt.uid
+    })
+
   },
 
   /**
@@ -409,6 +411,19 @@ Page({
    */
   onShow: function() {
 
+    this.setData({
+      'followWindowParams.page': 1,
+      'followWindow.count': 0,
+      'followWindow.shop_windows': [],
+
+      'recommendWindowParams.page': 1,
+      'recommendWindow.count': 0,
+      'recommendWindow.shop_windows': []
+    })
+
+    this.getRecommendWindow() // 橱窗
+    this.getFollowWindow()
+    this.getRunEnv() // 获取当前环境
   },
 
   /**

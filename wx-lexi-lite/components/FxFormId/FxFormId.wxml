@@ -1,0 +1,30 @@
+<!--components/FxFormId/FxformId.wxml-->
+<form bindsubmit="formSubmit" report-submit="true">
+  <button formType="submit">
+    <form bindsubmit="formSubmit" report-submit="true">
+      <button formType="submit">
+        <form bindsubmit="formSubmit" report-submit="true">
+          <button formType="submit">
+            <form bindsubmit="formSubmit" report-submit="true">
+              <button formType="submit">
+                <form bindsubmit="formSubmit" report-submit="true">
+                  <button formType="submit">
+                    <form bindsubmit="formSubmit" report-submit="true">
+                      <button formType="submit">
+                        <form bindsubmit="formSubmit" report-submit="true">
+                          <button formType="submit">
+                            <slot name="send">{{name}}</slot>
+                          </button>
+                        </form>
+                      </button>
+                    </form>
+                  </button>
+                </form>
+              </button>
+            </form>
+          </button>
+        </form>
+      </button>
+    </form>
+  </button>
+</form>

@@ -413,6 +413,7 @@ page {
   text-align: center;
   background: url(https://static.moebeast.com/static/img/game/two.png) no-repeat 375rpx 20rpx;
   background-size: 124rpx 171rpx;
+  top: 100rpx;
 }
 
 .start-game .btn-start {
@@ -420,7 +421,6 @@ page {
   background-size: 100% 100%;
   border-radius: 59rpx;
   border: 0;
-  margin-top: 159rpx;
   display: inline-block;
   width: 448rpx;
   height: 134rpx;
@@ -816,6 +816,7 @@ page {
 .fx-modal--steal .steal-list {
   margin-top: 40rpx;
 }
+
 .fx-modal--steal .scroll-steal {
   height: 880rpx;
 }
@@ -985,8 +986,7 @@ page {
   align-items: center;
 }
 
-.all-coupons .panel-subtotal .total, 
-.all-coupons .panel-subtotal .amount,
+.all-coupons .panel-subtotal .total, .all-coupons .panel-subtotal .amount,
 .all-coupons .panel-subtotal .discount {
   font-size: 28rpx;
   font-weight: 400;
@@ -995,6 +995,7 @@ page {
   text-align: left;
   padding-left: 70rpx;
 }
+
 .all-coupons .panel-subtotal .amount {
   padding-left: 0rpx;
 }
@@ -1292,4 +1293,21 @@ page {
   .screen {
     margin: 43rpx auto 0;
   }
+}
+
+.start-game__getid--form {
+  position: fixed;
+  width: 448rpx;
+  height: 134rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.start-game__getid {
+  position: absolute;
+  top: 0;
+  width: 1rpx;
+  height: 1rpx;
+  margin: 0;
+  padding: 0;
 }
