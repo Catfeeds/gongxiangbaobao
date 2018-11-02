@@ -71,6 +71,7 @@
     <view class='coupon-box' wx:for='{{authorityNormalCouponList}}' wx:key="{{index}}">
       <!-- left -->
       <view class='info-box-left'>
+        <image class="out-time__coupon" wx:if="{{item.source==5}}" src="https://static.moebeast.com/image/static/tag_11_11.png"></image>
         <!-- 信息 -->
         <view class='price-info-box lx-coupon--style'>
           <view class='price-icon'>
@@ -168,6 +169,7 @@
       <view class='coupon-box' wx:if="{{item.type==2}}">
         <!-- left -->
         <view class='info-box-left exceed_coupon--middle'>
+          <image class="out-time__coupon" wx:if="{{item.source==5}}" src="https://static.moebeast.com/image/static/tag_11_11_not.png"></image>
           <!-- 信息 -->
           <view class='price-info-box lx-coupon--style exceed_coupon--right'>
             <view class='price-icon'>

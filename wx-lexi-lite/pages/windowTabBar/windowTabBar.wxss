@@ -1,1 +1,17 @@
 /* pages/windowTabBar/windowTabBar.wxss */
+
+/* 双11 */
+
+.fx-window__images {
+  position: relative;
+}
+
+.fx-window__images .eleven-icon {
+  position: absolute;
+  top: 40rpx;
+  left: 40rpx;
+  height: 10rpx;
+  width: 10rpx;
+  background-color: red;
+  z-index: 6;
+}

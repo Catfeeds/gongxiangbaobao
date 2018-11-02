@@ -25,6 +25,21 @@
 
   <!-- 推荐盒子 -->
   <view wx:if="{{categoryCode=='recommend'}}">
+
+    <!-- 双11 -->
+    <view class="eleven-coupon__box" wx:if="{{elevenCoupon.coupons.length!=0}}">
+      <view class="time-top eleven-coupon__three">
+        <image wx:for="{{elevenCoupon.coupons}}" wx:key="{{index}}" src="{{item.is_grant?item.image_able:item.image_not_able}}" class="eleven-coupon__item" catchtap="{{item.is_grant?'handleReciveElevenCoupon':''}}" data-index="{{index}}" data-rid="{{item.id}}"></image>
+      </view>
+      <image class="eleven-box__remind" src="https://static.moebeast.com/image/static/prompt1.png"></image>
+    </view>
+
+    <!-- 11.12返场 -->
+    <view class="eleven-coupon__return" wx:if="{{twelveCoupon.coupons.length!=0}}">
+      <image wx:for="{{twelveCoupon.coupons}}" wx:key="{{index}}" src="{{item.is_grant?item.image_able:item.image_not_able}}" class="eleven-coupon__return--four" catchtap="{{item.is_grant?'handleReciveTwelveCoupon':''}}" data-index="{{index}}" data-rid="{{item.id}}"></image>
+      <image class="eleven-box__remind" src="https://static.moebeast.com/image/static/prompt2.png"></image>
+    </view>
+
     <!-- 乐喜官方 优惠券-->
     <view class="padding-top--60rpx bg-red" wx:if="{{authorityCouponList.length!=0}}">
       <view class="flex_row--middle coupon-title">
@@ -81,21 +96,13 @@
 
     <!-- 广告轮播图 wx:if="{{couponAdv.length!=0}}"-->
     <view class="flex_row--middle adv-box" wx:if="{{}}">
-      <swiper 
-          class="adv-coupon-swiper"          
-          current="{{index}}"
-          bindchange="handleChangRound">
-        <swiper-item 
-          wx:for="{{couponAdv}}" 
-          catchtap="handleGoProduct"
-          data-rid="{{item.link}}"
-          data-type="{{item.type}}"
-          wx:key="{{index}}">
+      <swiper class="adv-coupon-swiper" current="{{index}}" bindchange="handleChangRound">
+        <swiper-item wx:for="{{couponAdv}}" catchtap="handleGoProduct" data-rid="{{item.link}}" data-type="{{item.type}}" wx:key="{{index}}">
           <image src="{{item.image}}" />
         </swiper-item>
       </swiper>
 
-                    <view class="flex_row find-swiper__round bottom--86rpx">
+      <view class="flex_row find-swiper__round bottom--86rpx">
         <view wx:for="{{couponAdv}}" class="{{swiperMark==index?'swiperActive':''}}" wx:key="{{index}}"></view>
       </view>
     </view>

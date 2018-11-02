@@ -213,6 +213,7 @@
 .exceed_coupon--middle {
   background-color: #e9e9e9;
   color: #b2b2b2;
+  position: relative;
 }
 
 .null-coupon__box {
@@ -258,4 +259,14 @@
   height: 4rpx;
   width: 100%;
   background-color: #5fe4b1;
+}
+
+/* 双11 */
+
+.out-time__coupon {
+  position: absolute;
+  top: -4rpx;
+  left: 28rpx;
+  width: 116rpx;
+  height: 30rpx;
 }

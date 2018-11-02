@@ -80,6 +80,11 @@
       </view>
     </view>
 
+    <!-- 双11活动 -->
+    <image class="shuang-shiyi" src="{{elevenCoupon.tag}}" catchtap="handleOpenEleven" wx:if="{{elevenCoupon.coupons.length!=0}}"></image>
+    <!-- 双11 12返厂 -->
+    <image class="shuang-shiyi__fanchang" src="{{twelveCoupon.tag}}" catchtap="handleOpenTwelve" wx:if="{{twelveCoupon.coupons.length!=0}}"></image>
+
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
@@ -457,4 +462,35 @@
       </view>
     </view>
   </fx-modal>
+
+  <!-- 11.11活动 -->
+  <fx-modal showHead="{{ false }}" visible="{{isElevenCoupon}}">
+    <view slot="main">
+      <view class="eleven-coupon__title">11.11乐喜券</view>
+
+      <view class="flex-direction-column__item">
+        <image class="eleven-coupon__item" wx:for="{{elevenCoupon.coupons}}" wx:key="{{index}}" src="{{item.is_grant?item.image_able:item.image_not_able}}" catchtap="{{item.is_grant?'handleReciveElevenCoupon':''}}" data-index="{{index}}" data-rid="{{item.id}}"></image>
+      </view>
+      <view catchtap="handelOffEleven" class="off-eleven__box--btn flex_row--middle">
+        <view class="ovet-btn">完成</view>
+      </view>
+    </view>
+  </fx-modal>
+
+  <!-- 11.12活动 -->
+  <fx-modal showHead="{{ false }}" visible="{{isTwelveCoupon}}">
+    <view slot="main">
+      <view class="eleven-coupon__title">11.11返场券</view>
+
+      <view class="flex-direction-column__item">
+        <image class="eleven-coupon__item" wx:for="{{twelveCoupon.coupons}}" wx:key="{{index}}" src="{{item.is_grant?item.image_able:item.image_not_able}}" catchtap="{{item.is_grant?'handleReciveTwelveCoupon':''}}" data-index="{{index}}" data-rid="{{item.id}}"></image>
+      </view>
+
+      <view catchtap="handelOffTwelve" class="off-eleven__box--btn flex_row--middle">
+        <view class="ovet-btn">完成</view>
+      </view>
+
+    </view>
+  </fx-modal>
+
 </view>

@@ -297,13 +297,48 @@ Page({
   },
 
   //领取11.11红包
-  handleReciveEleven() {
+
+  // 领取11.11优惠券
+  handleReciveElevenCoupon(e) {
+    let id = e.currentTarget.dataset.rid
+    let index = e.currentTarget.dataset.index
+    console.log(index, id)
+    http.fxPost(api.market_coupons_activity_grant, {
+      id: id
+    }, result => {
+      if (result.success) {
+        utils.fxShowToast('领取成功', 'success')
+        this.setData({
+          ['elevenCoupon.coupons[' + index + '].is_grant']: result.data.coupons.is_grant
+        })
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
 
   },
 
-  // 领取11.12红包
-  handleReciveTwelve() {
+  // 领取11.12 返场券
+  handleReciveTwelveCoupon(e) {
+    let id = e.currentTarget.dataset.rid
+    let index = e.currentTarget.dataset.index
+    console.log(index, id)
+    http.fxPost(api.market_coupons_activity_grant, {
+      id: id
+    }, result => {
+      console.log(result, '领取结果')
+      if (result.success) {
+        utils.fxShowToast('领取成功', 'success')
+        this.setData({
+          isTwelveCoupon: false,
+          ['twelveCoupon.coupons[' + index + '].is_grant']: result.data.coupons.is_grant
+        })
 
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 获取分类列表的同享券优惠券

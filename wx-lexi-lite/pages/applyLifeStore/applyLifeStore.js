@@ -118,6 +118,18 @@ Page({
   },
 
   /**
+ * 登录完成回调
+ */
+  handleCloseLogin() {
+    this.setData({
+      is_mobile: false
+    })
+
+    wx.showTabBar()
+  },
+
+
+  /**
    * 输入手机号
    */
   handleChangeMobile(e) {

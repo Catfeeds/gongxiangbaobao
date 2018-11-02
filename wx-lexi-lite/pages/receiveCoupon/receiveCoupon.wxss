@@ -324,7 +324,7 @@
 
 .brand-coupon__big .coupon-big__bottom .coupon-join__product {
   position: relative;
-  margin-right: 20rpx; 
+  margin-right: 20rpx;
 }
 
 .brand-coupon__big .coupon-big__bottom .coupon-join__product image:nth-child(1) {
@@ -605,25 +605,24 @@
 }
 
 .high-pick__product--coupon .hander {
-  background:rgba(255,240,234,1.0);
+  background: rgba(255, 240, 234, 1.0);
   border-top-left-radius: 8rpx;
   border-top-right-radius: 8rpx;
 }
 
 .text-color--qianhong {
-  color: #FF6B34;
+  color: #ff6b34;
 }
 
 .find-swiper__round {
   position: absolute;
 }
 
-
 .find-swiper__round view {
   height: 14rpx;
   width: 14rpx;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, .2);
+  background-color: rgba(255, 255, 255, 0.2);
   margin-right: 18rpx;
 }
 
@@ -635,3 +634,58 @@
   right: 45rpx;
   bottom: 126rpx;
 }
+
+/* 双11 s */
+
+.eleven-coupon__box {
+  position: relative;
+  height: 500rpx;
+  background: url("https://static.moebeast.com/image/static/background1.png");
+  background-size: 100% 100%;
+  margin-bottom: 68rpx;
+}
+
+.eleven-coupon__return .eleven-box__remind,
+.eleven-coupon__box .eleven-box__remind {
+  position: absolute;
+  left: 50%;
+  top: 448rpx;
+  transform: translateX(-50%);
+  height: 120rpx;
+  width: 690rpx;
+}
+
+.eleven-coupon__box  .eleven-coupon__three {
+  position: absolute;
+  top: 158rpx;
+  padding: 0 30rpx;
+  width: 690rpx;
+}
+
+.eleven-coupon__item {
+  height: 259rpx;
+  width: 216rpx;
+}
+
+.eleven-coupon__return {
+  position: relative;
+  height: 430rpx;
+  margin-bottom: 18rpx;
+  background: url("https://static.moebeast.com/image/static/background2.png");
+  background-size: 100% 100%;
+}
+
+.eleven-coupon__return .eleven-box__remind {
+  top: 326rpx;
+}
+
+.eleven-coupon__return--four {
+  position: absolute;
+  top: 160rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 138rpx;
+  width: 690rpx;
+}
+
+/* 双11 e*/

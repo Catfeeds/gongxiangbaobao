@@ -84,6 +84,9 @@ Page({
     twelveCoupon: { // 11.12活动
       coupons: []
     },
+
+    isElevenCoupon: false, // 双11的模态框
+    isTwelveCoupon: false, // 11.12返场
   },
 
   /**
@@ -797,6 +800,50 @@ Page({
     return false
   },
 
+  // 领取11.11优惠券
+  handleReciveElevenCoupon(e) {
+    let id = e.currentTarget.dataset.rid
+    let index = e.currentTarget.dataset.index
+    console.log(index, id)
+    http.fxPost(api.market_coupons_activity_grant, {
+      id: id
+    }, result => {
+      if (result.success) {
+        utils.fxShowToast('领取成功', 'success')
+        this.setData({
+          isElevenCoupon: false,
+          ['elevenCoupon.coupons[' + index + '].is_grant']: result.data.coupons.is_grant
+        })
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
+  // 领取11.12 返场券
+  handleReciveTwelveCoupon(e){
+    let id = e.currentTarget.dataset.rid
+    let index = e.currentTarget.dataset.index
+    console.log(index, id)
+    http.fxPost(api.market_coupons_activity_grant, {
+      id: id
+    }, result => {
+      console.log(result, '领取结果')
+      if (result.success) {
+        utils.fxShowToast('领取成功', 'success')
+        this.setData({
+          isTwelveCoupon: false,
+          ['twelveCoupon.coupons[' + index + '].is_grant']: result.data.coupons.is_grant
+        })
+
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 查看全部的盒子信息的盒子关闭
   animationOffFn() {
     this.setData({
@@ -898,11 +945,10 @@ Page({
     })
   },
 
-
   // 双11优惠券
   getElevenCoupon() {
     console.log(app.globalData.jwt.openid)
-    http.fxGet(api.market_coupons_activity_double, {
+    http.fxGet(api.market_master_activity_double, {
       open_id: app.globalData.jwt.openid
     }, result => {
       console.log(result, '双11')
@@ -914,7 +960,7 @@ Page({
 
   //11.12返厂优惠券 
   getTwelveCoupon() {
-    http.fxGet(api.market_coupons_activity_return, {
+    http.fxGet(api.market_master_activity_return, {
       open_id: app.globalData.jwt.openid
     }, result => {
       console.log(result, '12日')
@@ -1404,6 +1450,34 @@ Page({
   handelToLikeThisProductTap(e) {
     wx.navigateTo({
       url: '../likeThisProduct/likeThisProduct?rid=' + e.currentTarget.dataset.rid
+    })
+  },
+
+  // 打开11.11模态框
+  handleOpenEleven() {
+    this.setData({
+      isElevenCoupon: true
+    })
+  },
+
+  //关闭11.11模态框
+  handelOffEleven() {
+    this.setData({
+      isElevenCoupon: false
+    })
+  },
+
+  // 打开11.12返厂
+  handleOpenTwelve() {
+    this.setData({
+      isTwelveCoupon: true
+    })
+  },
+
+  // 关闭11.12返厂
+  handelOffTwelve() {
+    this.setData({
+      isTwelveCoupon: false
     })
   }
 

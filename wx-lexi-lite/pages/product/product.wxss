@@ -874,3 +874,43 @@ swiper-item, swiper-item>image, swiper {
   width: 27rpx;
   background-color: #5fe4b1;
 }
+
+/* 双11s */
+
+.shuang-shiyi, .shuang-shiyi__fanchang {
+  height: 80rpx;
+  width: 690rpx;
+}
+
+.eleven-coupon__title {
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 40rpx;
+}
+
+.eleven-coupon__item {
+  height: 137rpx;
+  width: 670rpx;
+  margin-bottom: 20rpx;
+}
+
+.off-eleven__box--btn {
+  width: 750rpx;
+  height: 100rpx;
+  border-top: 1rpx solid #e9e9e9;
+  margin-top: 30rpx;
+}
+
+.off-eleven__box--btn .ovet-btn {
+  width: 690rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: rgba(95, 228, 177, 1);
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: white;
+}
+
+/* 双11 e*/

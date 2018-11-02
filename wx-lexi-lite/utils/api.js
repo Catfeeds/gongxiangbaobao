@@ -371,7 +371,11 @@ module.exports = {
 
   // 11.11  11.12活动
   market_master_activity_double:'market/master_activity/double',  // 获取店铺
+  market_master_activity_return:'market/master_activity/return',  // 获取店铺返厂
+
   market_coupons_activity_double:'market/coupons_activity/double', // 领券中心11
-  market_coupons_activity_return:'market/coupons_activity/return' // 领券中心12
+  market_coupons_activity_return:'market/coupons_activity/return', // 领券中心12
+
+  market_coupons_activity_grant:'market/coupons_activity/grant' // 领取11.11优惠券
 
 }
