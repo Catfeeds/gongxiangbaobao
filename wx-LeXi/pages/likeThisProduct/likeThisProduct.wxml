@@ -6,7 +6,7 @@
     wx:for="{{peopleList.product_like_users}}"
     wx:key="{{index}}">
     <view class='flex_row relation-avater'>   
-      <image src='{{item.avatar}}'></image>
+      <image src='{{item.avatar}}-ava' wx:if="{{item.avatar}}"></image>
       <text>{{item.username}}</text>
     </view>
 
