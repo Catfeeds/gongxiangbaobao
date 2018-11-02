@@ -1084,7 +1084,7 @@ Page({
     this.setData({
       inviteTimer: setInterval(() => {
         that.getInviteNotice()
-      }, 30000)
+      }, 15000)
     })
 
     // 获取弹幕, 10s

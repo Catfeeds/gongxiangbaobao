@@ -55,7 +55,7 @@
       <!-- 弹幕 -->
       <view class="doomm-view">
         <view wx:if="{{ doomm.display }}" wx:for="{{ doommData }}" wx:for-item="doomm" wx:key="id" class="doomm {{ doomm.color }}" style="animation: domo {{ doomm.time }}s linear forwards;top:{{ doomm.top }}%;">
-          <image class="avatar" src="{{ doomm.avatar }}-ava"></image>
+          <image class="avatar" src="{{ doomm.avatar }}-ava" wx:if="{{ doomm.avatar }}"></image>
           <view class="adv" wx:if="{{ !doomm.type || doomm.type == 1 }}">
             {{ doomm.name }}获得
             <text class="amount">¥{{ doomm.amount }}</text>现金
@@ -70,7 +70,9 @@
       <view class="question-container">
         <view class="headline-box">
           <view class="guess">
-            <text class="sort-number">{{ currentIndex + 1 }}/10</text>
+            <view class="sort-number">
+              <text class="current-index">{{ currentIndex + 1 }}</text>/10
+            </view>
             <view class="qa">{{ currentQuestion.question }}</view>
           </view>
           <view class="tv">
@@ -111,7 +113,7 @@
               <text class="animated-increase">{{ myAccount.bonus_quantity }}</text> 张
             </view>
           </view>
-          <image src="{{ userInfo.avatar }}-ava" class="avatar"></image>
+          <image src="{{ userInfo.avatar }}-ava" class="avatar" wx:if="{{ userInfo.avatar }}"></image>
         </view>
       </view>
     </view>

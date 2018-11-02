@@ -20,7 +20,7 @@
 
       <view class="result-main">
         <view class="main-top">
-          <image src="{{ userInfo.avatar }}-ava" class="img-photo"></image>
+          <image src="{{ userInfo.avatar }}-ava" class="img-photo" wx:if="{{ userInfo.avatar }}"></image>
           <view class="username">{{ userInfo.username }}</view>
         </view>
 
@@ -31,6 +31,8 @@
               ￥
               <text>{{ settlement.amount }}</text>
             </view>
+            <view class="withdraw" wx:if="{{ settlement.amount > 0}}">(回首页立即提现)</view>
+            <view class="withdraw" wx:else>(快去试试偷好友红包)</view>
           </view>
           <view class="shufenge"></view>
           <view class="get-coupon">
@@ -46,7 +48,7 @@
         <view class="view-answer">
           <view class="look-result">
             <view>查看猜图答案</view>
-            <view class="desc">喜欢的还可以直接点击购买</view>
+            <view class="desc">使用优惠券立即购买超优惠</view>
           </view>
 
           <view class="goods-container">
@@ -99,8 +101,11 @@
         <view class="btn-back-home" bindtap="handleGoHome">
           <image src="https://static.moebeast.com/static/img/game/icon-game-home@2x.png" class="icon-home"></image>
         </view>
-        <button class="btn-once-more" bindtap="handlePlayAgain">再来一次</button>
-        <button class="btn-ishow" bindtap="handleShowGame">炫耀成绩</button>
+        <button class="btn-once-more" bindtap="handlePlayAgain">再玩一次</button>
+        <button class="btn-ishow" bindtap="handleShowGame">
+          <text class="label">邀请好友</text>
+          <text class="desc">一起瓜分</text>
+        </button>
       </div>
 
     </view>
@@ -108,9 +113,9 @@
     <!-- 邀请好友一起玩 -->
     <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showInviteModal }}" marginTop="300">
       <view class="invite-play">
-        <view class="notice-title">邀请好友一起玩，助力赢取更多现金猜图机会</view>
+        <view class="notice-title">邀请好友一起瓜分现金，助力赢取更多现金猜图机会</view>
       </view>
-      <button class="btn-ok btn-invite-share" data-name="share" open-type="share">立即分享</button>
+      <button class="btn-ok btn-invite-share" data-name="share" open-type="share">分享好友</button>
     </fx-game-modal-v>
 
     <!-- 休息一下 -->

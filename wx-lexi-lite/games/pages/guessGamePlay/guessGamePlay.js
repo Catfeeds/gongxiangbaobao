@@ -70,6 +70,11 @@ Page({
       this.setData({
         currentAnswerIdx: e.currentTarget.dataset.idx,
         currentAnswer: this.data.currentQuestion.answers[e.currentTarget.dataset.idx]
+      }, () => {
+        clearInterval(this.data.timer)
+        
+        // 开始验证结果
+        this.validateSubmitAnswer()
       })
     }
   },

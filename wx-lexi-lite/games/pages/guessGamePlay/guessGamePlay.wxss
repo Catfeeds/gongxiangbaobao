@@ -388,7 +388,7 @@ page {
 
 .guess .sort-number {
   flex: 0 0 auto;
-  width: 75rpx;
+  width: 85rpx;
   height: 42rpx;
   margin-left: 18rpx;
   margin-right: 10rpx;
@@ -398,7 +398,11 @@ page {
   text-align: center;
   color: rgba(226, 199, 255, 1);
   font-weight: 600;
-  font-size: 22rpx;
+  font-size: 24rpx;
+}
+.guess .sort-number .current-index {
+  font-size: 32rpx;
+  margin-right: 3rpx;
 }
 
 .guess .qa {
