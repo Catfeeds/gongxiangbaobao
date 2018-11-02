@@ -183,7 +183,7 @@
         </view>
         <!-- right 信息 -->
         <view class='info-box-R exceed_coupon--middle'>
-          <view class='quadrate paymentFnTextB'>
+          <view class='quadrate flex_row'>
             <view class='quadrate-view none-bg'></view>
             <text>{{item.start_time}}至{{item.end_time}}</text>
           </view>
