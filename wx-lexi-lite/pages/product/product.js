@@ -75,7 +75,15 @@ Page({
       products: [{}, {}, {}, {}, {}, {}]
     },
     similarList: [], // 相似产品的列表
-    runEnv: 1
+    runEnv: 1,
+
+    // 11.11 11.12 活动
+    elevenCoupon: { // 11.11活动
+      coupons: []
+    },
+    twelveCoupon: { // 11.12活动
+      coupons: []
+    },
   },
 
   /**
@@ -890,6 +898,32 @@ Page({
     })
   },
 
+
+  // 双11优惠券
+  getElevenCoupon() {
+    console.log(app.globalData.jwt.openid)
+    http.fxGet(api.market_coupons_activity_double, {
+      open_id: app.globalData.jwt.openid
+    }, result => {
+      console.log(result, '双11')
+      this.setData({
+        elevenCoupon: result.data
+      })
+    })
+  },
+
+  //11.12返厂优惠券 
+  getTwelveCoupon() {
+    http.fxGet(api.market_coupons_activity_return, {
+      open_id: app.globalData.jwt.openid
+    }, result => {
+      console.log(result, '12日')
+      this.setData({
+        twelveCoupon: result.data
+      })
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -930,6 +964,9 @@ Page({
 
     this.getProductInfomation() // 获取商品详情---
     this.getSkus()
+
+    this.getElevenCoupon() // 11.11
+    this.getTwelveCoupon() // 11.12
   },
 
   // 初始化sku

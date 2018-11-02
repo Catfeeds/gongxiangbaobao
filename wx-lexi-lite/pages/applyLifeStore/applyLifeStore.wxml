@@ -81,4 +81,7 @@
     </view>
   </view>
 
+    <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="handleCloseLogin"></fx-login>
+
 </view>

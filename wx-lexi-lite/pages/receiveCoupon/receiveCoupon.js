@@ -49,7 +49,16 @@ Page({
     couponCtaegory: "common", // 分类优惠券的切换
     categoryCode: "recommend",
     category: [], // 分类的导航
-    is_mobile: false
+    is_mobile: false,
+
+    // 11.11 11.12 活动
+    elevenCoupon: { // 11.11活动
+      coupons: []
+    },
+    twelveCoupon: { // 11.12活动
+      coupons: []
+    },
+
   },
 
   //广告位置
@@ -287,6 +296,16 @@ Page({
     }
   },
 
+  //领取11.11红包
+  handleReciveEleven() {
+
+  },
+
+  // 领取11.12红包
+  handleReciveTwelve() {
+
+  },
+
   // 获取分类列表的同享券优惠券
   getCategoryCommonCouupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.commonCouponParams, result => {
@@ -439,11 +458,38 @@ Page({
     })
   },
 
+  // 双11优惠券
+  getElevenCoupon() {
+    console.log(app.globalData.jwt.openid)
+    http.fxGet(api.market_coupons_activity_double, {
+      open_id: app.globalData.jwt.openid
+    }, result => {
+      console.log(result, '双11')
+      this.setData({
+        elevenCoupon: result.data
+      })
+    })
+  },
+
+  //11.12返厂优惠券 
+  getTwelveCoupon() {
+    http.fxGet(api.market_coupons_activity_return, {
+      open_id: app.globalData.jwt.openid
+    }, result => {
+      console.log(result, '12日')
+      this.setData({
+        twelveCoupon: result.data
+      })
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.getCouponDynamic()
+    this.getElevenCoupon() // 11.11
+    this.getTwelveCoupon() // 11.12
   },
 
   /**

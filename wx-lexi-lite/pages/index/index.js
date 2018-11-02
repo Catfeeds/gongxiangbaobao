@@ -2212,6 +2212,14 @@ Page({
     })
   },
 
+  // 橱窗详情
+  handleGoWindowDetail(e) {
+    let windowRid = e.currentTarget.dataset.windowRid
+    wx.navigateTo({
+      url: '../windowDetail/windowDetail?windowRid=' + windowRid,
+    })
+  },
+
   // 跳转到品牌馆列表
   handelTobrandList(e) {
     wx.navigateTo({

@@ -115,9 +115,7 @@
                 <image class="icon-zan" src="../../images/icons/icon-zan@3x.png"></image>
                 <view class="zan-count">{{ items.praise_count > 0 ? items.praise_count : '赞' }}</view>
               </view>
-
             </view>
-
           </view>
 
           <!-- 评论内容 -->

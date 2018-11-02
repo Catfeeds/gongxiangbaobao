@@ -30,6 +30,8 @@ Page({
     },
     mobileFocus: false, // 是否正在输入手机号
     verifyCode: '', // 后端发送后，返回的验证码，用于前端验证
+
+    is_mobile:false,
   },
 
   // 打开选择国家的呼出框
@@ -76,6 +78,14 @@ Page({
    * 提交申请
    */
   handleSubmitApply(e) {
+    // 未登录，需先登录
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
     wx.showLoading({
       title: '正在提交...',
     })

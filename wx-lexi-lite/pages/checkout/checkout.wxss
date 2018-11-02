@@ -464,18 +464,31 @@
 }
 
 .conservation {
-  background-color: white;
-  z-index: 1;
 }
 
-.conservation button {
-  padding-left: 0rpx;
-}
-
-.last-submit__btn {
-  margin-left: 30rpx;
+.conservation .form-id__btn {
+  padding: 0;
+  margin: 0;
+  width: 1rpx;
+  height: 1rpx;
+  opacity: 1;
 }
 
 .hidden {
   display: none;
+}
+
+.submit-order_btn {
+  position: fixed;
+  bottom: 10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 80rpx;
+  color: white;
+  width: 690rpx;
+  border-radius: 8rpx;
+  background: rgba(95, 228, 177, 1);
+  z-index: 9;
+  text-align: center;
+  line-height: 80rpx;
 }

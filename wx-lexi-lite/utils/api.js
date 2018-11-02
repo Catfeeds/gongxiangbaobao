@@ -366,8 +366,12 @@ module.exports = {
   // GET 是否需要邀请
   question_need_invite: 'guess_image/invite_friend_record',
 
-
   // GET 当前环境
-  run_env: 'run_env/wxa'
+  run_env: 'run_env/wxa',
+
+  // 11.11  11.12活动
+  market_master_activity_double:'market/master_activity/double',  // 获取店铺
+  market_coupons_activity_double:'market/coupons_activity/double', // 领券中心11
+  market_coupons_activity_return:'market/coupons_activity/return' // 领券中心12
 
 }
