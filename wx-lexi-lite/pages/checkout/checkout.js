@@ -50,6 +50,7 @@ Page({
   // 提交表单
   handleSubmitInfo(e) {
     app.handleSendNews(e.detail.formId)
+    this.paymentSuccess()
   },
 
   // 祝福语录
@@ -312,7 +313,7 @@ Page({
     app.globalData.orderParams.store_items = store_items
 
     http.fxPost(api.order_create, app.globalData.orderParams, (result) => {
-      utils.logger(result,app.globalData.jwt.openid, '新增订单')
+      utils.logger(result, app.globalData.jwt.openid, '新增订单')
       if (result.success) {
         // 记录订单用在支付成功的页面
         app.globalData.paymentSuccessOrder = result.data

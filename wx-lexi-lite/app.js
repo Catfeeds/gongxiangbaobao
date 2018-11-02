@@ -2,10 +2,7 @@
 const http = require('./utils/http.js')
 const api = require('./utils/api.js')
 const utils = require('./utils/util.js')
-
 const common = require('./utils/common.js')
-
-let formIds = []
 
 App({
   onLaunch: function() {
@@ -537,20 +534,15 @@ App({
   /**
    * 发送消息
    */
-  handleSendNews(e,need = 7) {
-    formIds.push(e)
+  handleSendNews(e) {
     console.log(e, 'formid')
 
-    if (formIds.length == need) {
       http.fxPost(api.users_save_form_ids, {
-        form_ids: formIds,
+        form_ids: [e],
         openid: this.globalData.jwt.openid
       }, result => {
         console.log(result, '模板消息')
-        formIds = []
       })
-    }
-
   },
 
   globalData: {

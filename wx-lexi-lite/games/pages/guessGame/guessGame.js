@@ -134,7 +134,7 @@ Page({
 
   // 发通知信息
   handleSubmitInfo(e) {
-    app.handleSendNews(e.detail.formId, 1)
+    app.handleSendNews(e.detail.formId)
   },
 
   // 返回到小程序的首页
@@ -531,9 +531,8 @@ Page({
 
   // 获取formid
   formSubmit(e) {
-    console.log(e.detail.formId, 'formid')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId, 3)
+      app.handleSendNews(e.detail.formId)
     }
   },
 

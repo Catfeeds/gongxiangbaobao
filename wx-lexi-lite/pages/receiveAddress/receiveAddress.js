@@ -20,6 +20,11 @@ Page({
     userCustom: {} // 海关-用户身份证信息
   },
 
+  // 发通知信息
+  handleSubmitInfo(e) {
+    app.handleSendNews(e.detail.formId)
+  },
+
   // 选择的地址
   radioChange (e) {
     let addressRid = e.detail.value

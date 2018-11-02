@@ -1,10 +1,7 @@
 <!--pages/paymentAddress/paymentAddress.wxml-->
 <view class='container theme-bg-color'>
-    <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <!-- 添加页面加载 -->
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 上面的进度条 -->
   <view wx-if='{{ path }}'>
@@ -24,8 +21,8 @@
   <!-- 收获地址列表 -->
   <view>
     <radio-group class="radio-group" bindchange="radioChange">
-      <label class="radio" wx:for="{{ addressList }}" wx:for-index="index"  wx:key="{{ item.rid }}">
-        <radio value="{{ item.rid }}" color='#6ED7AF' checked='{{ item.is_default }}'/>
+      <label class="radio" wx:for="{{ addressList }}" wx:for-index="index" wx:key="{{ item.rid }}">
+        <radio value="{{ item.rid }}" color='#6ED7AF' checked='{{ item.is_default }}' />
         <view>
           <text class='userName'>{{ item.first_name }}</text>
           <text class='userLocation margin--20rpx'>{{ item.full_address }}</text>
@@ -47,9 +44,10 @@
   <view class='shm'></view>
 
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' wx-if='{{ path }}'>
-    <button catchtap='submitOrderTap'>继续以确认订单</button>
+  <view class='conservation flex_row--middle' wx-if='{{ path }}'>
+    <form bindsubmit="handleSubmitInfo" report-submit="true">
+      <button form-type="submit" catchtap='submitOrderTap'>继续以确认订单</button>
+    </form>
   </view>
-  
 </view>
 <fx-loading loading="{{ isLoading }}"></fx-loading>
