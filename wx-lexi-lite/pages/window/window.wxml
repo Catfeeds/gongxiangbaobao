@@ -1,86 +1,37 @@
 <view class="container window-page">
-  <!-- 头图 -->
-  <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
-    <image></image>
-    <view class="mask">
-      <view class="content">
-        <view class="big-title">
-          发现生活美学
-        </view>
-        <view class="description">
-          发掘好物，品味生活，
-        </view>
-        <view class="description02">
-          寻找搭配灵感，塑造自己的独特风格
-        </view>
-      </view>
-    </view>
-  </view>
 
   <!-- 橱窗列表 -->
   <view class="page-section fx-windows">
 
     <!-- 推荐 -->
-      <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">
-        <view class="fx-window__author">
-          <view class="author-info">
-            <image src="{{item.user_avatar}}" class="avatar border-round"></image>
-            <label class="name font-width--medium">{{item.user_name}}</label>
-            <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
-            <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ item.is_official }}"></image>
-          </view>
-          <button class="btn-follow fx-button--text primary black-font" wx:if="{{!item.is_follow && myUid!=item.uid}}" data-index="{{index}}" data-uid="{{item.uid}}" catchtap="handleAddFollow">关注</button>
-          <button class="btn-follow fx-button--text primary qian-hui black-font" data-index="{{index}}" data-uid="{{item.uid}}" wx:if="{{item.is_follow && myUid!=item.uid}}" catchtap="handleDeleteFollow">已关注</button>
+    <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">
+
+      <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
+
+        <view class="window-title__name">
+          <view class="two-line-text window-title__text">{{item.title}}</view>
         </view>
 
-        <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
-          <view class="image-container">
-            <view class="image-item">
-              <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
-            </view>
-          </view>
-          <view class="image-container half">
-            <view class="image-item">
-              <image src="{{item.product_covers[1]}}-p30x2" class="photo"></image>
-            </view>
-            <view class="image-item">
-              <image src="{{item.product_covers[2]}}-p30x2" class="photo"></image>
-              <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
-            </view>
+        <view class="image-container">
+          <view class="image-item">
+            <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
           </view>
         </view>
-
-        <view class="fx-window__actions">
-          <view class="like-comment">
-            <view class="done ">
-              <image wx:if="{{item.is_like}}" catchtap="handleDeleteLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
-              <image wx:else catchtap="handleAddLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-              <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
-            </view>
-            <view class="remark">
-              <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
-              <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
-            </view>
+        <view class="image-container half">
+          <view class="image-item">
+            <image src="{{item.product_covers[1]}}-p30x2" class="photo"></image>
           </view>
-          <view class="share">
-            <view class="done" data-window-rid="{{ item.rid }}" catchtap="handleWindowShareModal">
-              <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
-            </view>
+          <view class="image-item">
+            <image src="{{item.product_covers[2]}}-p30x2" class="photo"></image>
+            <label class="surplus-count" wx:if="{{item.product_covers.length>3}}">+{{item.product_covers.length-3}}</label>
           </view>
-        </view>
-
-        <view class="fx-window__body">
-          <view class="title line-height--30rpx margin-bottom--24rpx"> {{item.title}} </view>
-          <view class="summary "> {{item.description}} </view>
-          <view class="keywords line-height--24rpx">
-            <label wx:for="{{item.keywords}}" catchtap="handleGowindowAlike" data-text="{{single}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
-          </view>
-
         </view>
       </view>
 
-      <!-- 推荐的缺省图 -->
-      <view wx:if="{{recommendWindow.count==0}}"></view>
+    </view>
+
+    <!-- 推荐的缺省图 -->
+    <view wx:if="{{recommendWindow.count==0}}"></view>
 
     <view class="window-publish" style="display:none;">
       <button class="fx-button--text btn-plus" catchtap="handleGoAddWindow">

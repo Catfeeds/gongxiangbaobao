@@ -129,8 +129,8 @@
       {
         "pagePath": "pages/windowTabBar/windowTabBar",
         "text": "橱窗",
-        "iconPath": "./images/window-tabbar-false.png",
-        "selectedIconPath": "./images/window-tabbar-true@3.png"
+        "iconPath": "images/window-tabbar-false.png",
+        "selectedIconPath": "images/window-tabbar-true@3.png"
       },
       {
         "pagePath": "pages/cart/cart",
