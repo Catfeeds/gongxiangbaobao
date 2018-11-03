@@ -488,5 +488,6 @@ button-hover {
 }
 
 .browse-lifeStore__item--num::after {
-  content: "0"
+  content: "0";
+  visibility: hidden;
 }
