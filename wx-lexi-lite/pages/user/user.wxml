@@ -102,7 +102,7 @@
       <scroll-view scroll-x class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-delete-mark="likeProduct" data-rid='{{item.rid}}' data-store-id="{{item.store_rid}}" class='c-importantGoodsPhoto GoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==likeProduct.products.length-1?"margin-right--40rpx":""}}'
           wx:for="{{likeProduct.products}}" wx:key="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p16'></image>
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p30x2'></image>
         </view>
       </scroll-view>
     </view>
@@ -163,7 +163,7 @@
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid='{{item.rid}}' class='c-importantGoodsPhoto GoodsPhoto' wx:for="{{userBrowsesProduct.products}}" data-store-id="{{item.store_rid}}" wx:key="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p16'></image>
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p30x2'></image>
         </view>
       </view>
     </view>
@@ -178,7 +178,7 @@
       </view>
       <view class='c-importantGoodsBox'>
         <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}" data-delete-mark="xinyuan" class='c-importantGoodsPhoto GoodsPhoto' data-store-id="{{item.store_rid}}" wx:for="{{desireOrderProduct.products}}" wx:key="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p16'></image>
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p30x2'></image>
         </view>
       </view>
       <view class='shm'></view>
@@ -218,7 +218,7 @@
       </view>
       <view class='shop-other-goods product-null__photo'>
         <view wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-rid='{{ value.rid }}' catchtap='handleToProductInfoTap'>
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ value.cover }}-p16'></image>
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ value.cover }}-p30x2'></image>
         </view>
       </view>
     </view>

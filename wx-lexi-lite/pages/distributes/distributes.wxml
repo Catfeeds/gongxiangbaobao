@@ -156,7 +156,7 @@
 
       <view class="distribute-card" wx:for="{{ allProducts }}" wx:for-item="product" wx:for-index="idx" wx:key="{{ product.rid }}">
         <view class="distribute-card__cover" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
-          <image src="{{ product.cover }}-p50" class="image"></image>
+          <image src="{{ product.cover }}-p30x2" class="image"></image>
           <image src="https://static.moebeast.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
         </view>
         <view class="distribute-card__body" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
