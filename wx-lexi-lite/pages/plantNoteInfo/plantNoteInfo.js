@@ -31,7 +31,7 @@ Page({
   },
 
   // 点击相关推荐
-  handlesAgainLoading (e) {
+  handlesAgainLoading(e) {
     wx.pageScrollTo({
       scrollTop: 0,
     })
@@ -55,7 +55,7 @@ Page({
       is_mobile: false
     })
   },
-  
+
   // 添加关注 -- 关注人 uid
   handleAddFollow(e) {
     if (!app.globalData.isLogin) {
@@ -118,7 +118,7 @@ Page({
   },
 
   // 点击去推荐品牌馆
-  handleGoBrandStore(e){
+  handleGoBrandStore(e) {
     utils.logger(e)
     wx.navigateTo({
       url: '../branderStore/branderStore?rid=' + e.currentTarget.dataset.rid,
@@ -161,6 +161,33 @@ Page({
     })
   },
 
+  // 去生活记事
+  handleGoLiveNoteList() {
+    wx.navigateTo({
+      url: '../liveNoteList/liveNoteList'
+    })
+  },
+
+  // 创作人故事
+  handleGoDesignerAffair() {
+    wx.navigateTo({
+      url: '../designerAffair/designerAffair',
+    })
+  },
+
+  //手作教学
+  handleGoTeachList() {
+    wx.navigateTo({
+      url: '../teachList/teachList',
+    })
+  },
+
+  // 种草笔记
+  handleGoPlantNoteList() {
+    wx.navigateTo({
+      url: '../plantNoteList/plantNoteList',
+    })
+  },
 
   // 推荐的产品
   getRecommendProduct() {
@@ -195,16 +222,18 @@ Page({
 
   // 获取生活志详情
   getLiveInfo() {
-    http.fxGet(api.life_records_detail, { rid: this.data.rid }, (result) => {
+    http.fxGet(api.life_records_detail, {
+      rid: this.data.rid
+    }, (result) => {
       utils.logger(result, '种草笔记详情')
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
         let newData = this._rebuildArticleContent(result.data.deal_content)
-        
+
         // 处理html数据---
         wxparse.wxParse('dkcontent', 'html', newData, this, 5)
-        
+
         this.setData({
           liveInfo: result.data
         })
@@ -244,7 +273,7 @@ Page({
         if (item.big_picture) {
           productHtml = '<div class="product-max__box">' +
             '<div class="product-max__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
-            '<div class="product-max__title ">' + isLogisticsPrice + item.content.name  + '</div>' +
+            '<div class="product-max__title ">' + isLogisticsPrice + item.content.name + '</div>' +
             '<div class="product-max__price">' +
             '<span class="now-price">￥' + show_price + '</span>' +
             '<a class="product-max__btn" href="/pages/product/product?rid=' + item.rid + '">查看详情</a>' +
@@ -254,14 +283,14 @@ Page({
           utils.logger(item, "每一个商品is_free_postage")
           productHtml = '<div class="product-min__box">' +
             '<div class="product-min__photo" style="background-image:url(' + item.content.cover + ')"></div>' +
-            '<div class="product-min__content">' + 
-            '<div class="product-min__title">' + isLogisticsPrice+ item.content.name + '</div>' +
+            '<div class="product-min__content">' +
+            '<div class="product-min__title">' + isLogisticsPrice + item.content.name + '</div>' +
             '<div class="product-min__price"><span class="now-price">￥' + show_price + '</span></div>' +
             '<a class="product-min__btn" href="/pages/product/product?rid=' + item.rid + '&&storeRid=' + item.content.store_rid + '">查看详情</a>' +
             '</div>' +
             '</div>'
         }
-        
+
         htmlAry.push(productHtml)
       }
     })
@@ -272,7 +301,7 @@ Page({
   /**
    * 查看商品详情
    */
-  wxParseTagATap (e) {
+  wxParseTagATap(e) {
     utils.logger(e)
     wx.navigateTo({
       url: e.currentTarget.dataset.src,
@@ -301,7 +330,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let category = options.category || ''
     this.setData({
       rid: options.rid,
@@ -317,7 +346,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -330,43 +359,43 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })
