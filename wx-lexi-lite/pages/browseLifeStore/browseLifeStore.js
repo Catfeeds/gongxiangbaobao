@@ -12,13 +12,22 @@ Page({
    */
   data: {
     isLoading: true,
-    browseLifeStore: {}, // 我浏览过的生活馆
+
+    browseLifeStore: { // 我浏览过的生活馆
+      count: 0,
+      life_stores: [],
+      next: false
+    },
+    browseLifeStoreParans: {
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10 // Number	可选	10	每页数量
+    }
+
   },
 
   // 浏览过的生活馆
   handleGoLiftStore(e) {
     let rid = e.currentTarget.dataset.rid
-
 
   },
 
@@ -29,14 +38,19 @@ Page({
       return
     }
 
-    http.fxGet(api.users_get_visitor_life_stores, {}, res => {
+    http.fxGet(api.users_get_visitor_life_stores, this.data.browseLifeStoreParans, res => {
       utils.logger(res, "访问过的生活馆")
+      console.log(res, "访问过的生活馆")
       if (res.success) {
         res.data.life_stores.forEach(v => {
-          v.name = v.name.length > 6 ? v.name.substr(0, 6) + '...' : v.name
+          v.name = v.name.length > 15 ? v.name.substr(0, 15) + '...' : v.name
         })
+
+        let arrayData = this.data.browseLifeStore.life_stores
         this.setData({
-          browseLifeStore: res.data
+          'browseLifeStore.life_stores': arrayData.concat(res.data.life_stores),
+          'browseLifeStore.count': res.data.count,
+          'browseLifeStore.next': res.data.next,
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -49,7 +63,6 @@ Page({
    */
   onLoad: function(options) {
     this.getBrowseLifeStore() // 浏览过的生活馆
-
   },
 
   /**
@@ -97,6 +110,16 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (!this.data.browseLifeStore.next) {
+      utils.fxShowToast('没有更多了')
+      return
+    }
+
+    this.setData({
+      'browseLifeStoreParans.page': this.data.browseLifeStoreParans.page + 1
+    })
+
+    this.getBrowseLifeStore()
 
   },
 

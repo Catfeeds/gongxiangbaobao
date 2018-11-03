@@ -186,7 +186,7 @@
     <view class=' p-null window-box' wx:if="{{browseLifeStore.count!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text class="margin-left--40rpx">访问过的生活馆</text>
-        <view class=' hui-zi margin--15rpx' wx:if="{{browseLifeStore.count<10}}" data-from='xinYuanOrder' catchtap='handleGoBrowseLifeStoreList'>
+        <view class=' hui-zi margin--15rpx' wx:if="{{browseLifeStore.count>10}}" data-from='xinYuanOrder' catchtap='handleGoBrowseLifeStoreList'>
           <text>查看全部</text>
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>

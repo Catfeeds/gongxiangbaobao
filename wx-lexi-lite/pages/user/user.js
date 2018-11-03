@@ -474,7 +474,7 @@ Page({
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
     this.getLikeWindow() // 喜欢的橱窗
-    // this.getBrowseLifeStore() // 浏览过的生活馆
+    this.getBrowseLifeStore() // 浏览过的生活馆
 
     this.getUserInfo() // 获取用户的信息
   },
