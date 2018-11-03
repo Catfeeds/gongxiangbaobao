@@ -192,8 +192,8 @@
         </view>
       </view>
       <scroll-view class=' c-importantGoodsBox'  scroll-x>
-        <view catchtap="handleGoLiftStore" data-rid="{{item.rid}}"  class=" browse-lifeStore__item--box {{index==0?'margin-left--40rpx':''}} {{index==browseLifeStore.life_stores.length-1?'margin-right--40rpx':''}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
-          <image class="browse-lifeStore__item--img" src="{{item.logo}}-p16"></image>
+        <view catchtap="handleGoLifeStore" data-rid="{{item.rid}}"  class=" browse-lifeStore__item--box {{index==0?'margin-left--40rpx':''}} {{index==browseLifeStore.life_stores.length-1?'margin-right--40rpx':''}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
+          <image class="browse-lifeStore__item--img" src="{{item.logo}}-p16" wx:if="{{item.logo}}"></image>
           <view class="browse-lifeStore__item--name">{{item.name}}</view>
           <view class="browse-lifeStore__item--num">{{item.browse_number==0?'':item.browse_number}}次访问</view>
         </view>

@@ -1,4 +1,4 @@
-<!-- 种草详情 -->
+       <!-- 种草详情 -->
 <import src="../../wxParse/wxParse.wxml" />
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">

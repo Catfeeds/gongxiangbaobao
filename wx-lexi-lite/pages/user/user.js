@@ -654,9 +654,15 @@ Page({
   },
 
   // 浏览过的生活馆
-  handleGoLiftStore(e) {
+  handleGoLifeStore(e) {
     let rid = e.currentTarget.dataset.rid
+    if (rid) {
+      wx.setStorageSync('showingLifeStoreRid', rid)
 
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }
   },
 
   // 浏览过的生活馆
