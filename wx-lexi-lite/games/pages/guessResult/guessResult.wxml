@@ -31,7 +31,7 @@
               ￥
               <text>{{ settlement.amount }}</text>
             </view>
-            <view class="withdraw" wx:if="{{ settlement.amount > 0}}">(回首页立即提现)</view>
+            <view class="withdraw" wx:if="{{ settlement.amount > 0}}">(回首页尝试提现)</view>
             <view class="withdraw" wx:else>(快去试试偷好友红包)</view>
           </view>
           <view class="shufenge"></view>
@@ -103,8 +103,8 @@
         </view>
         <button class="btn-once-more" bindtap="handlePlayAgain">再玩一次</button>
         <button class="btn-ishow" bindtap="handleShowGame">
-          <text class="label">邀请好友</text>
-          <text class="desc">瓜分金额</text>
+          <text class="label">分享好友</text>
+          <text class="desc">瓜分更多金额</text>
         </button>
       </div>
 
@@ -113,7 +113,7 @@
     <!-- 邀请好友一起玩 -->
     <fx-game-modal-v class="fx-modal--notice" className="fx-modal--notice" visible="{{ showInviteModal }}" marginTop="300">
       <view class="invite-play">
-        <view class="notice-title">邀请好友一起瓜分现金，助力赢取更多现金猜图机会</view>
+        <view class="notice-title">分享好友助力，赢取更多现金猜图机会</view>
       </view>
       <button class="btn-ok btn-invite-share" data-name="share" open-type="share">分享好友</button>
     </fx-game-modal-v>

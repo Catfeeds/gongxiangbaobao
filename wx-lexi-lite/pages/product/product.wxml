@@ -183,7 +183,7 @@
   <view class='shopInfo margin-bottom--30rpx padding-left--0rpx'>
     <view class='shopInfoT margin-left--30rpx' catchtap='handleTobrandStore' data-rid="{{productInfomation.store_rid}}">
       <view class='userIcon'>
-        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ productInfomation.store_logo }}-p16'></image>
+        <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{ productInfomation.store_logo }}-p16' wx:if="{{ productInfomation.store_logo }}"></image>
       </view>
       <view class='shopMiddle'>
         <view class='hui-zi'>原创品牌馆</view>

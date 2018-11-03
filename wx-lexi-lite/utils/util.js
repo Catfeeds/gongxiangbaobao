@@ -311,20 +311,17 @@ const commentTime = (option) => {
   let optionTime = option * 1000
   let currentTime = (new Date()).getTime()
   let difference = currentTime - optionTime // 时间差
-  let hh = new Date(difference).getHours() // 时分秒
-  let mm = new Date(difference).getMinutes() // 时分秒
-  let ss = new Date(difference).getSeconds() // 时分秒
-
+  
   if (difference <= 600000) {
     return '刚刚'
   }
 
   if (difference > 600000 && difference <= 3600000) {
-    return mm + '分钟前'
+    return Math.ceil(difference / (60 * 1000)) + '分钟前'
   }
 
   if (difference > 3600000 && difference <= 86400000) {
-    return hh + '小时前'
+    return Math.ceil(difference / (60 * 60 * 1000)) + '小时前'
   }
 
   if (difference > 86400000 && difference <= 172800000) {

@@ -1829,7 +1829,6 @@ Page({
    * 做动画
    */
   _lifeAnimation() {
-
     animationInterval = setInterval(() => {
       let arrayData = this.data.latestDistributeProducts
       this.setData({

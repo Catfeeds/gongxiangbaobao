@@ -31,7 +31,7 @@ Page({
     mobileFocus: false, // 是否正在输入手机号
     verifyCode: '', // 后端发送后，返回的验证码，用于前端验证
 
-    is_mobile:false,
+    is_mobile: false,
   },
 
   // 打开选择国家的呼出框

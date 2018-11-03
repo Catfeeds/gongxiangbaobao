@@ -12,11 +12,11 @@
   </view>
 
   <view class="store-owner__wrapper">
-    <view class="blur" style="background-image:url('{{ lifeStore.logo }}-ava');"></view>
+    <view class="blur" style="background-image:url('{{ lifeStore.logo }}-ava');" wx:if="{{ lifeStore.logo }}"></view>
     <view class="mask"></view>
     <view class="store-owner-container">
       <view class="store-owner">
-        <image src="{{ lifeStore.logo }}-ava100" class="avatar"></image>
+        <image src="{{ lifeStore.logo }}-ava100" class="avatar" wx:if="{{ lifeStore.logo }}"></image>
         <view class="store-content">
           <view class="title">
             <image src="../../../images/shixicon@2.png" class="icon-store"></image>
@@ -175,7 +175,7 @@
         <view class="wxa-poster" bindtap="handleSaveShare">
           <view class="cover">
             <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
+            <image src="../../../images/jiazai.gif" class="loading" wx:else></image>
           </view>
           <text class="margin-top--14rpx">保存分享图</text>
         </view>
