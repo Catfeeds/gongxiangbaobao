@@ -186,14 +186,14 @@
     <view class=' p-null window-box' wx:if="{{browseLifeStore.count!=0}}">
       <view class='c-importantGoodsTitle paymentFnTextB see-all'>
         <text class="margin-left--40rpx">访问过的生活馆</text>
-        <view class=' hui-zi margin--15rpx' wx:if="{{desireOrderProduct.products.length>4}}" data-from='xinYuanOrder' catchtap='handleAllProduct'>
+        <view class=' hui-zi margin--15rpx' wx:if="{{browseLifeStore.count<10}}" data-from='xinYuanOrder' catchtap='handleGoBrowseLifeStoreList'>
           <text>查看全部</text>
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
       </view>
       <scroll-view class=' c-importantGoodsBox'  scroll-x>
-        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}"  class=" browse-lifeStore__item--box" data-store-id="{{item.store_rid}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
-          <image class="browse-lifeStore__item--img"></image>
+        <view catchtap="handleGoLiftStore" data-rid="{{item.rid}}"  class=" browse-lifeStore__item--box {{index==0?'margin-left--40rpx':''}} {{index==browseLifeStore.life_stores.length-1?'margin-right--40rpx':''}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
+          <image class="browse-lifeStore__item--img" src="{{item.logo}}-p16"></image>
           <view class="browse-lifeStore__item--name">{{item.name}}</view>
           <view class="browse-lifeStore__item--num">{{item.browse_number==0?'':item.browse_number}}次访问</view>
         </view>

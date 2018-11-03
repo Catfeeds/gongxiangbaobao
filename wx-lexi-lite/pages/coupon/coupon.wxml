@@ -187,7 +187,7 @@
             <view class='quadrate-view none-bg'></view>
             <text>{{item.start_time}}至{{item.end_time}}</text>
           </view>
-          <view class='paymentFnTextB lx-coupon--text '>
+          <view class='flex_row lx-coupon--text '>
             <view class='font-xss none-bg'>
               乐喜券
             </view>

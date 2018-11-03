@@ -377,7 +377,6 @@ Page({
     }
   },
 
-
   /**
    * 喜欢的橱窗
    * **/
@@ -651,6 +650,20 @@ Page({
     utils.logger(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct
+    })
+  },
+
+  // 浏览过的生活馆
+  handleGoLiftStore(e) {
+    let rid = e.currentTarget.dataset.rid
+    console.log(rid)
+
+  },
+
+  // 浏览过的生活馆
+  handleGoBrowseLifeStoreList() {
+    wx.navigateTo({
+      url: '../browseLifeStore/browseLifeStore',
     })
   },
 

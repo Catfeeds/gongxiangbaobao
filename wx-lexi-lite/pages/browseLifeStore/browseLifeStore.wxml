@@ -1,0 +1,15 @@
+<!--pages/browseLifeStore/browseLifeStore.wxml-->
+<view class='container'>
+  <view class='time-top font-m relation-item' wx:for="{{browseLifeStore.life_stores}}" data-rid="{{item.rid}}" catchtap="handleGoLiftStore" wx:key="{{index}}">
+    <view class='flex_row relation-avater'>
+      <image src="{{item.logo}}-ava"></image>
+      <view>
+        <view class="browse-item__name">{{item.name}}</view>
+        <view class="browse-item__num" wx:if="{{item.browse_number>0}}">{{item.browse_number}}次访问</view>
+      </view>
+    </view>
+
+    <image class="jian-tou" src="../../images/hui-jian-tou@3x.png"></image>
+  </view>
+</view>
+<fx-loading loading="{{ isLoading }}"></fx-loading>
