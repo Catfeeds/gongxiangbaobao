@@ -74,7 +74,7 @@
           </view>
         </view>
         <view class="share">
-          <view class="done">
+          <view class="done" catchtap="handleShowShareModal">
             <image src="../../images/icons/icon-share@3x.png" class="icon-share"></image>
           </view>
         </view>
