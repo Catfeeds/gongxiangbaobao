@@ -10,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isSubmiting: false, // 是否提交中
+
     isLoading: true,
     isFirstOrder: false, // 是否属于首单
     storeOrAuthoritativeCouponPick: true, // true为选择了商家的优惠券，false为选择了官方优惠，2选1
@@ -50,7 +52,6 @@ Page({
   // 提交表单
   handleSubmitInfo(e) {
     app.handleSendNews(e.detail.formId)
-    this.paymentSuccess()
   },
 
   // 祝福语录
@@ -273,6 +274,12 @@ Page({
 
   // 支付,并跳转到支付成功页面---
   paymentSuccess() {
+
+    // 改变按钮状态 预防对此点击
+    this.setData({
+      isSubmiting: true
+    })
+
     let orderParams = this.data.orderInfomation
     let store_items = []
 
@@ -324,6 +331,11 @@ Page({
         let currentOrder = result.data.orders[0]
 
         app.wxpayOrder(result.data.order_rid, result.data.pay_params)
+
+        // 改变按钮状态 预防对此点击
+        this.setData({
+          isSubmiting: false
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }

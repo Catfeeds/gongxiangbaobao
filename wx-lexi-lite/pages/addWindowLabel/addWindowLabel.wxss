@@ -8,14 +8,15 @@
 .padding-left__right--40rpx {
   padding: 0 40rpx;
 }
+
 .color-hui {
   color: #999;
 }
 
-.huodong-icon{
-padding: 4rpx 10rpx;
+.huodong-icon {
+  padding: 6rpx 10rpx;
   border-radius: 4rpx;
-  background-color: #5FE4B1;
+  background-color: #5fe4b1;
   color: white;
   font-size: 18rpx;
   line-height: 18rpx;
@@ -24,18 +25,20 @@ padding: 4rpx 10rpx;
 
 .add-oneself__label {
   height: 128rpx;
-  padding: 0 40rpx; 
+  padding: 0 40rpx;
   background-color: white;
   border-bottom: 1rpx solid #e9e9e9;
 }
-.oneself-label__text{
-  color: #5FE4B1;
+
+.oneself-label__text {
+  color: #5fe4b1;
 }
 
 .border-top {
   border-top: 1rpx solid #e9e9e9;
 }
-.search-input input{
+
+.search-input input {
   height: 58rpx;
   padding-left: 26rpx;
   width: 564rpx;
@@ -43,4 +46,9 @@ padding: 4rpx 10rpx;
 
 .border-none {
   border: none;
+}
+
+.black-font .flex_row .text-red {
+  background-color: #f66;
+  margin-left: 10rpx;
 }
