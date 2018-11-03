@@ -13,6 +13,7 @@ Page({
    */
   data: {
     myUid: '', // uid
+    navbarFixed: false, // navbar 是否吸附
 
     windowPosterUrl: '', // 海报图片地址
     posterSaving: false, // 是否正在保存
@@ -404,6 +405,28 @@ Page({
     this.setData({
       myUid: app.globalData.jwt.uid
     })
+
+  },
+
+  /**
+   * 监听页面滚动
+   */
+  onPageScroll: function(e) {
+    if (e.scrollTop >= 260) {
+      if (!this.data.navbarFixed) {
+        this.setData({
+          navbarFixed: true
+        })
+      }
+    }
+
+    if (e.scrollTop < 260) {
+      if (this.data.navbarFixed) {
+        this.setData({
+          navbarFixed: false
+        })
+      }
+    }
 
   },
 
