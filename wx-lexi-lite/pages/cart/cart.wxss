@@ -287,7 +287,8 @@ page {
   font-size: 32rpx;
 }
 
-.clearDndthinkBox>view:nth-child(1), .clearDndthinkBox>view:nth-child(2) {
+.checkout-btn, .clearDndthinkBox>view:nth-child(1),
+.clearDndthinkBox>view:nth-child(2) {
   height: 82rpx;
   width: 330rpx;
   border: 1rpx solid #5fe4b1;

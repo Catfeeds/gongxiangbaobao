@@ -64,6 +64,11 @@ Page({
     }
   },
 
+  // 发通知信息
+  handleSubmitInfo(e) {
+    app.handleSendNews(e.detail.formId)
+  },
+
   // 是否获取物品与用户之间的关系
   handleIsGetProductAtRelation() {
     if (!app.globalData.isBind) {

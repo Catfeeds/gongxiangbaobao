@@ -300,6 +300,14 @@ Page({
 
   // 领取11.11优惠券
   handleReciveElevenCoupon(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
     console.log(index, id)
@@ -321,6 +329,14 @@ Page({
 
   // 领取11.12 返场券
   handleReciveTwelveCoupon(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+    
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
     console.log(index, id)

@@ -318,6 +318,7 @@
   border-top-right-radius: 28rpx 85rpx;
   border-bottom-right-radius: 28rpx 85rpx;
   background-color: #dab867;
+  position: relative;
 }
 
 .coupon-r {
@@ -463,26 +464,11 @@
   font-weight: 500;
 }
 
-.conservation {
-}
-
-.conservation .form-id__btn {
-  padding: 0;
-  margin: 0;
-  width: 1rpx;
-  height: 1rpx;
-  opacity: 1;
-}
-
 .hidden {
   display: none;
 }
 
 .submit-order_btn {
-  position: fixed;
-  bottom: 10rpx;
-  left: 50%;
-  transform: translateX(-50%);
   height: 80rpx;
   color: white;
   width: 690rpx;
@@ -491,4 +477,13 @@
   z-index: 9;
   text-align: center;
   line-height: 80rpx;
+}
+
+/* 11.11 */
+.out-time__coupon {
+  position: absolute;
+  top: -4rpx;
+  left: 28rpx;
+  width: 116rpx;
+  height: 30rpx;
 }

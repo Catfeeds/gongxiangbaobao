@@ -103,24 +103,6 @@
 
     <!-- 选品中心 -->
     <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
-      <!-- 
-      <view class='float'>
-        <view style='z-index={{aIamge-2}}' animation="{{e}}">
-          <image src='{{photo[aIamge-1].img}}'></image>
-        </view>
-        <view style='z-index={{aIamge-2}}' animation="{{d}}">
-          <image src='{{photo[bIamge-1].img}}'></image>
-        </view>
-        <view style='z-index={{aIamge-2}}' animation="{{c}}">
-          <image src='{{photo[cIamge-1].img}}'></image>
-        </view>
-        <view style='z-index={{aIamge-2}}' animation="{{b}}">
-          <image src='{{photo[dIamge-1].img}}'></image>
-        </view>
-        <view style='z-index={{aIamge-2}}' animation="{{a}}">
-          <image src='{{photo[eIamge-1].img}}'></image>
-        </view>
-      </view> -->
       <view class="swiper-false">
         <image wx:for="{{latestDistributeProducts}}" wx:key="{{index}}" class="{{index==animationNum?'one-animation__index':''}} {{index+1==animationNum?'two-animation__index':''}} {{index+2==animationNum?'three-animation__index':''}}  {{index+3==animationNum?'four-animation__index':''}} "
           src="{{item.cover}}-p16"></image>
@@ -223,7 +205,6 @@
         查看更多好物
         <text class='fx-icon-nothing-lower'></text>
       </view>
-
     </view>
 
     <view>

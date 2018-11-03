@@ -70,6 +70,7 @@
   display: inline-block;
   width: 0rpx;
 }
+
 .productPrice {
   line-height: 24rpx;
 }
@@ -120,4 +121,15 @@
   height: 260rpx !important;
   width: 325rpx !important;
   border-radius: 8rpx;
+}
+
+/* 11 */
+
+.eleven-coupon {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  height: 71rpx;
+  width: 103rpx;
+  z-index: 6;
 }
