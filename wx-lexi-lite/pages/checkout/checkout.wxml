@@ -152,15 +152,21 @@
   </view>
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
-
-  <form bindsubmit="handleSubmitInfo" class="conservation flex_row--middle" report-submit="true" wx:if="{{paymentBtn}}">
-    <button form-type="submit" class=" submit-order_btn">
+  <form bindsubmit="handleSubmitInfo" class="conservation flex_row--middle" report-submit="true" wx:if="{{paymentBtn && !isSubmiting}}">
+    <button form-type="submit" class=" submit-order_btn" catchtap="paymentSuccess">
       提交订单
     </button>
   </form>
 
   <!-- 继续确认订单按钮 -->
-  <view class='conservation' wx:else>
+  <form bindsubmit="handleSubmitInfo" class="conservation flex_row--middle" report-submit="true" wx:if="{{isSubmiting}}">
+    <button form-type="submit" class=" submit-order_btn">
+      提交订单中
+    </button>
+  </form>
+
+  <!-- 继续确认订单按钮 -->
+  <view class='conservation' wx:if="{{!paymentBtn && !isSubmiting}}">
     <button>加载中···</button>
   </view>
 

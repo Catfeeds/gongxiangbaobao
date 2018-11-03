@@ -3,7 +3,7 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <!-- 详细的盒子 -->
-  <view class="bg-white border-bottom margin-bottom--30rpx">
+  <view class="bg-white border-bottom">
     <!-- 头部图片 -->
     <view class='top-photo'>
       <image src='{{liveInfo.cover}}-avabg' mode="widthFix" class="article-headpic" wx:if="{{liveInfo.cover}}"></image>
@@ -11,10 +11,13 @@
 
     <!-- 店铺的信息 -->
     <view class='margin-left--40rpx margin-right--40rpx'>
-      <view class="font-s font-width--medium margin-bottom--10rpx color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}">{{liveInfo.channel_name}}</view>
-      <view class="font-s font-width--medium margin-bottom--10rpx color--huilan" wx:if="{{liveInfo.channel_name=='创作人故事'}}">{{liveInfo.channel_name}}</view>
-      <view class="font-s font-width--medium margin-bottom--10rpx color--huihong" wx:if="{{liveInfo.channel_name=='手作教学'}}">{{liveInfo.channel_name}}</view>
-      <view class="font-s font-width--medium margin-bottom--10rpx color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}">{{liveInfo.channel_name}}</view>
+      <view class="font-s font-width--medium pading-top__bottom--set  color--kafei" wx:if="{{liveInfo.channel_name=='生活记事'}}" catchtap="handleGoLiveNoteList">{{liveInfo.channel_name}}</view>
+
+      <view class="font-s font-width--medium pading-top__bottom--set  color--huilan" wx:if="{{liveInfo.channel_name=='创作人故事'}}" catchtap="handleGoDesignerAffair">{{liveInfo.channel_name}}</view>
+
+      <view class="font-s font-width--medium pading-top__bottom--set  color--huihong" wx:if="{{liveInfo.channel_name=='手作教学'}}" catchtap="handleGoTeachList">{{liveInfo.channel_name}}</view>
+
+      <view class="font-s font-width--medium pading-top__bottom--set color--huilv" wx:if="{{liveInfo.channel_name=='种草笔记'}}" catchtap="handleGoPlantNoteList">{{liveInfo.channel_name}}</view>
 
       <view class="font-width--semibold font-xxxl info-title">
         <text>{{liveInfo.title}}</text>

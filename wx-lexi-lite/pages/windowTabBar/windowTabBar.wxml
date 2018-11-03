@@ -45,7 +45,7 @@
           </view>
 
           <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
-            <image class="eleven-icon" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
+            <image class="eleven-icon__window" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
             <view class="image-container">
               <view class="image-item">
                 <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
@@ -86,7 +86,7 @@
             <view class="title line-height--30rpx margin-bottom--24rpx "> {{item.title}} </view>
             <view class="summary three-line-text"> {{item.description}} </view>
             <view class="keywords line-height--24rpx">
-              <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
+              <label catchtap="handleGowindowAlike" data-text="{{single}}"  wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
             </view>
 
           </view>
@@ -113,7 +113,7 @@
           </view>
 
           <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
-            <image class="eleven-icon" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
+            <image class="eleven-icon__window" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
             <view class="image-container">
               <view class="image-item">
                 <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
@@ -154,7 +154,7 @@
             <view class="summary three-line-text"> {{item.description}} </view>
 
             <view class="keywords line-height--24rpx">
-              <label wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
+              <label catchtap="handleGowindowAlike" data-text="{{single}}" wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
             </view>
 
           </view>

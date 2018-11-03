@@ -1194,7 +1194,6 @@ Page({
     }
 
     http.fxPost(api.market_grant_new_user_bonus, {}, result => {
-      console.log(result, '新人领取')
       if (result.success) {
         this.setData({
           newUserCouponSuccess: true,

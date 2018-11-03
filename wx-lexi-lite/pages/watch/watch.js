@@ -25,7 +25,6 @@ Page({
   // 获取我的关注
   getFollower() {
     http.fxGet(api.users_followed_users, this.data.params, (result) => {
-      console.log(result.data, '我的关注')
       if (result.success) {
         let data = this.data.peopleList
         this.setData({

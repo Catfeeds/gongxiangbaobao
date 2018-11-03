@@ -170,6 +170,36 @@ Page({
     })
   },
 
+
+  // 去生活记事
+  handleGoLiveNoteList() {
+    wx.navigateTo({
+      url: '../liveNoteList/liveNoteList'
+    })
+  },
+
+  // 创作人故事
+  handleGoDesignerAffair() {
+    wx.navigateTo({
+      url: '../designerAffair/designerAffair',
+    })
+  },
+
+  //手作教学
+  handleGoTeachList() {
+    wx.navigateTo({
+      url: '../teachList/teachList',
+    })
+  },
+
+  // 种草笔记
+  handleGoPlantNoteList() {
+    wx.navigateTo({
+      url: '../plantNoteList/plantNoteList',
+    })
+  },
+
+
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {

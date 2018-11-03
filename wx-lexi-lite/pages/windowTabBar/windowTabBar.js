@@ -349,6 +349,14 @@ Page({
     })
   },
 
+  // 相似的橱窗
+  handleGowindowAlike(e) {
+    let text = e.currentTarget.dataset.text
+    wx.navigateTo({
+      url: '../windowAlikeLabel/windowAlikeLabel?text=' + text,
+    })
+  },
+
   // 获取推荐橱窗列表
   getRecommendWindow() {
     http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {

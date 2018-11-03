@@ -352,6 +352,14 @@ Page({
     }
   },
 
+  // 相似的橱窗
+  handleGowindowAlike(e) {
+    let text = e.currentTarget.dataset.text
+    wx.navigateTo({
+      url: '../windowAlikeLabel/windowAlikeLabel?text=' + text,
+    })
+  },
+
   /**
    * 获取评论
    */

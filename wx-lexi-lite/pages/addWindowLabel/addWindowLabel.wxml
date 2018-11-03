@@ -33,6 +33,7 @@
         <view catchtap="handleAddHotLabel" data-index="{{index}}" data-name="{{item.name}}" class="black-font padding-left__right--40rpx time-top one-line-text hot-search {{index==hotLabel.length-1?'border-none':''}}" wx:for="{{hotLabel}}" wx:key="{{index}}">
           <view class="flex_row"># {{item.name}}
             <view class="c-middle huodong-icon" wx:if="{{item.type==1}}">活动</view>
+            <view class="c-middle huodong-icon text-red" wx:if="{{item.type==1}}">双11福利</view>
           </view>
           <view class="font-s color-hui">{{item.numbers}} 人参与</view>
         </view>

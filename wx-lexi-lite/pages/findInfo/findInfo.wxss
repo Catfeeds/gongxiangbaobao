@@ -9,7 +9,6 @@
 .top-photo {
   height: 420rpx;
   overflow: hidden;
-  margin-bottom: 30rpx;
 }
 
 .top-photo .article-headpic {
@@ -304,14 +303,15 @@ image {
   line-height: 44rpx !important;
   white-space: pre-wrap;
 }
+
 .wxParse-p text {
   height: 20rpx;
 }
 
-.wxParse-p .ql-size-small.wxParse-span,
-.wxParse-p .ql-size-large.wxParse-span {
+.wxParse-p .ql-size-small.wxParse-span, .wxParse-p .ql-size-large.wxParse-span {
   margin-bottom: 0rpx !important;
 }
+
 .wxParse-p .ql-size-large.wxParse-span view {
   font-size: 34rpx !important;
   font-weight: bold;
@@ -363,4 +363,8 @@ image {
 .fx-part .recommend-list {
   height: 380rpx;
   margin-bottom: 40rpx;
+}
+
+.pading-top__bottom--set {
+  padding: 30rpx 0 10rpx;
 }

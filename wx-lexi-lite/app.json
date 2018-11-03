@@ -65,7 +65,9 @@
     "pages/fxWebView/fxWebView",
     "pages/demo/demo",
     "pages/windowTabBar/windowTabBar",
+    "pages/windowAlikeLabel/windowAlikeLabel",
     "pages/windowComment/windowComment",
+    "pages/browseLifeStore/browseLifeStore",
     "components/FxLoginModal/FxLoginModal"
   ],
   "subPackages": [
