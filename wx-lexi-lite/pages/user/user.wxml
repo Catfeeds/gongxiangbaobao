@@ -38,9 +38,9 @@
         <text wx:if='{{ userInfo.username }}'>{{ userInfo.username }}</text>
         <open-data wx:else type="userNickName"></open-data>
       </view>
-      <view class='is-login font-ss' wx:if='{{ !is_login }}'>
+      <!-- <view class='is-login font-ss' wx:if='{{ !is_login }}'>
         <button open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">你还未绑定手机号,仅能浏览</button>
-      </view>
+      </view> -->
     </view>
     <!-- 粉丝 -->
     <view class='flex_row follow'>
@@ -181,6 +181,23 @@
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src='{{item.cover}}-p30x2'></image>
         </view>
       </view>
+    </view>
+    <!-- 访问过的生活馆 -->
+    <view class=' p-null window-box' wx:if="{{browseLifeStore.count!=0}}">
+      <view class='c-importantGoodsTitle paymentFnTextB see-all'>
+        <text class="margin-left--40rpx">访问过的生活馆</text>
+        <view class=' hui-zi margin--15rpx' wx:if="{{desireOrderProduct.products.length>4}}" data-from='xinYuanOrder' catchtap='handleAllProduct'>
+          <text>查看全部</text>
+          <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
+        </view>
+      </view>
+      <scroll-view class=' c-importantGoodsBox'  scroll-x>
+        <view catchtap='handleToProductInfoTap' data-rid="{{item.rid}}"  class=" browse-lifeStore__item--box" data-store-id="{{item.store_rid}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
+          <image class="browse-lifeStore__item--img"></image>
+          <view class="browse-lifeStore__item--name">{{item.name}}</view>
+          <view class="browse-lifeStore__item--num">{{item.browse_number==0?'':item.browse_number}}次访问</view>
+        </view>
+      </scroll-view>
       <view class='shm'></view>
     </view>
 

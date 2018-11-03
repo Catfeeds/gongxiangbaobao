@@ -35,6 +35,9 @@ Page({
     likeProduct: [], // 喜欢的的商品---
     recentlyLookProduct: [], // 最近查看的商品---
     desireOrderProduct: [], //心愿单商品---
+    browseLifeStore: { // 访问过的生活馆
+      count: 0
+    },
     product: [{}],
     userWindow: { // 喜欢的橱窗
       count: 0
@@ -396,6 +399,28 @@ Page({
     })
   },
 
+  //访问过的生活馆
+  getBrowseLifeStore() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
+    }
+
+    http.fxGet(api.users_get_visitor_life_stores, {}, res => {
+      utils.logger(res, "访问过的生活馆")
+      if (res.success) {
+        res.data.life_stores.forEach(v => {
+          v.name = v.name.length > 6 ? v.name.substr(0, 6) + '...' : v.name
+        })
+        this.setData({
+          browseLifeStore: res.data
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -450,6 +475,7 @@ Page({
     this.getProduct() // 获取商品---
     this.getCategoryQuantity() // 获取用户的喜欢收藏---
     this.getLikeWindow() // 喜欢的橱窗
+    // this.getBrowseLifeStore() // 浏览过的生活馆
 
     this.getUserInfo() // 获取用户的信息
   },

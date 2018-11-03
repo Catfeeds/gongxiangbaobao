@@ -21,6 +21,7 @@ Page({
     recommendWindowParams: {
       page: 1, //Number	可选	1	当前页码
       per_page: 10, //Number	可选	10	每页数量
+      keyword: '' // 关键字
     },
 
     showPosterModal: false, // 分享海报
@@ -282,14 +283,14 @@ Page({
   // 相似的橱窗
   handleGowindowAlike(e) {
     let text = e.currentTarget.dataset.text
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../windowAlikeLabel/windowAlikeLabel?text=' + text,
     })
   },
 
-  //  喜欢
+  //  相似的橱窗
   getRecommendWindow() {
-    http.fxGet(api.shop_windows_user_likes, this.data.recommendWindowParams, result => {
+    http.fxGet(api.shop_windows_keyword, this.data.recommendWindowParams, result => {
       utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
@@ -309,11 +310,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getRecommendWindow() // 推荐的橱窗
+    console.log(options.text)
 
     this.setData({
+      'recommendWindowParams.keyword': options.text,
       myUid: app.globalData.jwt.uid
     })
+
+    this.getRecommendWindow() // 推荐的橱窗
+
   },
 
   /**

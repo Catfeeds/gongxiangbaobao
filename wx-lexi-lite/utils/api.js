@@ -26,6 +26,7 @@ module.exports = {
   orders_order_coupon_count: 'orders/order_coupon_count', // 订单的数量和未使用优惠券的额数量
   market_is_new_user_bonus:'market/is_new_user_bonus',// 新人是否领取100元红包
   market_grant_new_user_bonus: 'market/grant_new_user_bonus', // 新人领取100元红包
+  users_get_visitor_life_stores:'users/get_visitor_life_stores', // 访问过的生活馆
 
   // Asset
   asset_upload: 'assets/upload', // POST 上传附件
@@ -304,11 +305,12 @@ module.exports = {
   shop_windows_detail:'shop_windows/detail', // 橱窗详情
   shop_windows_similar:'shop_windows/similar', // 相似的橱窗
   shop_windows_follow:'shop_windows/follow', // 关注人的橱窗
-  shop_windows_keywords:'shop_windows/keywords', // 增加橱窗标签
+  shop_windows_keywords: 'shop_windows/keywords', // 增加橱窗标签
   shop_windows_user_likes: 'shop_windows/user_likes', // 获取user橱窗
   shop_windows_recommend: 'shop_windows/recommend', // 获取推荐的橱窗
   shop_windows_hot_keywords:'shop_windows/hot_keywords',// 获取热门推荐标签
   shop_windows_search_keywords:'shop_windows/search/keywords', // 搜索标签
+  shop_windows_keyword:'shop_windows/keyword', // 根据标签搜索橱窗
 
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',
