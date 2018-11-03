@@ -1,4 +1,4 @@
-<!-- 种草详情 -->
+       <!-- 种草详情 -->
 <import src="../../wxParse/wxParse.wxml" />
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
@@ -6,7 +6,7 @@
   <view class="bg-white border-bottom">
     <!-- 头部图片 -->
     <view class='top-photo'>
-      <image src='{{liveInfo.cover}}-avabg' mode="widthFix" class="article-headpic"></image>
+      <image src='{{liveInfo.cover}}-avabg' mode="widthFix" class="article-headpic" wx:if="{{liveInfo.cover}}"></image>
     </view>
 
     <!-- 店铺的信息 -->
@@ -33,7 +33,7 @@
 
       <view class="time-top margin-bottom--50rpx">
         <view class="flex_row">
-          <image src="{{liveInfo.user_avator}}-ava" class="store-logo"></image>
+          <image src="{{liveInfo.user_avator}}-ava" class="store-logo" wx:if="{{liveInfo.user_avator}}"></image>
           <text class="font-s font-width--medium">{{liveInfo.user_name}}</text>
         </view>
 
