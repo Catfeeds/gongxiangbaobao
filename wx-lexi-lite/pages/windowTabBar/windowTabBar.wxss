@@ -6,3 +6,17 @@
   position: relative;
 }
 
+.navbar-fixed__shim {
+  height: 80rpx;
+}
+
+.fixed-hande {
+  position: fixed;
+  top: 0;
+  width: 750rpx;
+  z-index: 6;
+}
+
+.fx-tabs.height--80rpx {
+  background-color: white;
+}

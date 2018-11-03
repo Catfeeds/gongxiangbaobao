@@ -1,9 +1,9 @@
 <!--pages/editInfo/editInfo.wxml-->
 <view class='container'>
-  <view class='userPhoto'>
+  <view class='userPhoto' bindtap='handleUploadAvatar'>
     <image src='{{ userInfo.profile.avatar }}-avabg'></image>
     <view class='register-time'>注册时间：{{ joinTime }}</view>
-    <image class='camera' bindtap='handleUploadAvatar' src='../../images/xiangji@2.png'></image>
+    <image class='camera' src='../../images/xiangji@2.png'></image>
     <!-- 进度条 -->
     <view class="upload-status__box" wx:if="{{ isUploading }}">
       <view class="progress" style="width:{{ uploadStatus }}%"></view>

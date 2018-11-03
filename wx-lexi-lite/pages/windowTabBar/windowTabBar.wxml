@@ -22,11 +22,13 @@
     </view>
 
     <!-- tabs -->
-    <view class="fx-tabs height--80rpx">
+    <view class="fx-tabs height--80rpx {{navbarFixed?'fixed-hande':''}}">
       <view class="tab-item {{categoryActive==item.code?'active':''}}" wx:for="{{category}}" catchtap='handleToggleCategory' data-code="{{item.code}}" wx:key="{{index}}">
         <text>{{item.name}}</text>
       </view>
     </view>
+
+    <view class="navbar-fixed__shim" wx:if="{{navbarFixed}}"></view>
 
     <!-- 橱窗列表 -->
     <view class="fx-windows">
