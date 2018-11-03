@@ -45,7 +45,7 @@
           </view>
 
           <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
-            <image class="eleven-icon" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
+            <image class="eleven-icon__window" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
             <view class="image-container">
               <view class="image-item">
                 <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
@@ -113,7 +113,7 @@
           </view>
 
           <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
-            <image class="eleven-icon" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
+            <image class="eleven-icon__window" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
             <view class="image-container">
               <view class="image-item">
                 <image src="{{item.product_covers[0]}}-p50" class="photo"></image>

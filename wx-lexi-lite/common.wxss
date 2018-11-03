@@ -1085,3 +1085,14 @@ button::after {
   border: 0;
   opacity: 0;
 }
+
+/* 11.11 */
+/* 橱窗的双11 标识 */
+.eleven-icon__window {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  height: 71rpx;
+  width: 103rpx;
+  z-index: 6;
+}

@@ -349,3 +349,9 @@
   height: 67rpx;
   border-radius: 34rpx;
 }
+
+/* 双11 */
+
+.eleven-icon__window {
+  top: 110rpx;
+}
