@@ -310,7 +310,6 @@ Page({
 
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
-    console.log(index, id)
     http.fxPost(api.market_coupons_activity_grant, {
       id: id
     }, result => {
@@ -339,11 +338,9 @@ Page({
     
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
-    console.log(index, id)
     http.fxPost(api.market_coupons_activity_grant, {
       id: id
     }, result => {
-      console.log(result, '领取结果')
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
         this.setData({
@@ -425,7 +422,6 @@ Page({
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
       utils.logger(result, '精选品牌馆优惠券')
-      console.log(result, '精选品牌馆优惠券')
       if (result.success) {
         result.data.coupons.forEach((item, idx) => {
           if (item.store_name.length > 12) {
@@ -511,11 +507,9 @@ Page({
 
   // 双11优惠券
   getElevenCoupon() {
-    console.log(app.globalData.jwt.openid)
     http.fxGet(api.market_coupons_activity_double, {
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '双11')
       this.setData({
         elevenCoupon: result.data
       })
@@ -527,7 +521,6 @@ Page({
     http.fxGet(api.market_coupons_activity_return, {
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '12日')
       this.setData({
         twelveCoupon: result.data
       })

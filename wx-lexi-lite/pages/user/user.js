@@ -656,7 +656,6 @@ Page({
   // 浏览过的生活馆
   handleGoLiftStore(e) {
     let rid = e.currentTarget.dataset.rid
-    console.log(rid)
 
   },
 

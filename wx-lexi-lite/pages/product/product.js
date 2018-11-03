@@ -595,7 +595,6 @@ Page({
     let page = getCurrentPages()
     let parentPage = page[page.length - 2]
     let rid = this.data.productInfomation.rid
-    console.log(parentPage, '页面来源')
     if (parentPage.route == 'pages/user/user') {
       let deleteMark = parentPage.data.deletePageProductAtProduct
 
@@ -812,14 +811,12 @@ Page({
 
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
-    console.log(index, id)
     http.fxPost(api.market_coupons_activity_grant, {
       id: id
     }, result => {
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
         this.setData({
-          isElevenCoupon: false,
           ['elevenCoupon.coupons[' + index + '].is_grant']: result.data.coupons.is_grant
         })
 
@@ -842,15 +839,12 @@ Page({
 
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
-    console.log(index, id)
     http.fxPost(api.market_coupons_activity_grant, {
       id: id
     }, result => {
-      console.log(result, '领取结果')
       if (result.success) {
         utils.fxShowToast('领取成功', 'success')
         this.setData({
-          isTwelveCoupon: false,
           ['twelveCoupon.coupons[' + index + '].is_grant']: result.data.coupons.is_grant
         })
 
@@ -963,11 +957,9 @@ Page({
 
   // 双11优惠券
   getElevenCoupon() {
-    console.log(app.globalData.jwt.openid)
     http.fxGet(api.market_master_activity_double, {
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '双11')
       this.setData({
         elevenCoupon: result.data
       })
@@ -979,7 +971,6 @@ Page({
     http.fxGet(api.market_master_activity_return, {
       open_id: app.globalData.jwt.openid
     }, result => {
-      console.log(result, '12日')
       this.setData({
         twelveCoupon: result.data
       })
