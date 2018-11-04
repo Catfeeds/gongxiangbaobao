@@ -21,9 +21,9 @@
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
         <!-- 锦鲤标签 -->
         <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
-          <view class="eleven-time__text">{{item.activity_name}}</view>
-          <view class="eleven-name__text">{{item.activity_desc}}</view>
-          <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
+          <view class="eleven-time__text">{{windowDetail.activity_name}}</view>
+          <view class="eleven-name__text">{{windowDetail.activity_desc}}</view>
+          <view class="eleven-hot__num">热度值： {{windowDetail.hot_value}}</view>
         </view>
 
         <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
@@ -38,9 +38,9 @@
 
         <!-- 锦鲤标签 -->
         <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
-          <view class="eleven-time__text">{{item.activity_name}}</view>
-          <view class="eleven-name__text">{{item.activity_desc}}</view>
-          <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
+          <view class="eleven-time__text">{{windowDetail.activity_name}}</view>
+          <view class="eleven-name__text">{{windowDetail.activity_desc}}</view>
+          <view class="eleven-hot__num">热度值： {{windowDetail.hot_value}}</view>
         </view>
 
         <view class="image-container">
@@ -63,9 +63,9 @@
 
         <!-- 锦鲤标签 -->
         <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
-          <view class="eleven-time__text">{{item.activity_name}}</view>
-          <view class="eleven-name__text">{{item.activity_desc}}</view>
-          <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
+          <view class="eleven-time__text">{{windowDetail.activity_name}}</view>
+          <view class="eleven-name__text">{{windowDetail.activity_desc}}</view>
+          <view class="eleven-hot__num">热度值： {{windowDetail.hot_value}}</view>
         </view>
 
         <view class="image-container three">
