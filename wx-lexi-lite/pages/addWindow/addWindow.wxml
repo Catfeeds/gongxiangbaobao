@@ -23,16 +23,16 @@
     <!-- 5张 -->
     <view class="window-photo__box" wx:if="{{toggleCode==5}}">
       <view class="time-top window-photo__box">
-        <image src="{{windowParams.product_items[0].link}}" class="window-five__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[0].link}}-p500" class="window-five__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
         <view class="line-D window-five__box--min">
-          <image src="{{windowParams.product_items[1].link}}" class="window-five__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
-          <image src="{{windowParams.product_items[2].link}}" class="window-five__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
+          <image src="{{windowParams.product_items[1].link}}-p28x04" class="window-five__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+          <image src="{{windowParams.product_items[2].link}}-p28x04" class="window-five__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
         </view>
       </view>
 
       <view class="time-top margin-top--4rpx">
-        <image src="{{windowParams.product_items[3].link}}" class="window-five__photo--four" data-idx="3" catchtap="handlePickProduct"></image>
-        <image src="{{windowParams.product_items[4].link}}" class="window-five__photo--five" data-idx="4" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[3].link}}-p38x28" class="window-five__photo--four" data-idx="3" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[4].link}}-p28" class="window-five__photo--five" data-idx="4" catchtap="handlePickProduct"></image>
       </view>
     </view>
 
@@ -41,18 +41,18 @@
       <view class="time-top">
         <view class="flex-direction-column__item">
           <view class="flex_row">
-            <image src="{{windowParams.product_items[0].link}}" class="window-seven__min--photo" data-idx="0" catchtap="handlePickProduct"></image>
-            <image src="{{windowParams.product_items[1].link}}" class="window-seven__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+            <image src="{{windowParams.product_items[0].link}}-p16" class="window-seven__min--photo" data-idx="0" catchtap="handlePickProduct"></image>
+            <image src="{{windowParams.product_items[1].link}}-p16" class="window-seven__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
           </view>
-          <image src="{{windowParams.product_items[2].link}}" class="margin-top--4rpx margin-right--4rpx window-seven__middle--photo" data-idx="2" catchtap="handlePickProduct"></image>
+          <image src="{{windowParams.product_items[2].link}}-p28x4" class="margin-top--4rpx margin-right--4rpx window-seven__middle--photo" data-idx="2" catchtap="handlePickProduct"></image>
         </view>
-        <image src="{{windowParams.product_items[3].link}}" class="window-seven__big--photo" data-idx="3" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[3].link}}-p500" class="window-seven__big--photo" data-idx="3" catchtap="handlePickProduct"></image>
       </view>
 
       <view class="margin-top--4rpx time-top">
-        <image src="{{windowParams.product_items[4].link}}" class="window-seven__photo--bottom" data-idx="4" catchtap="handlePickProduct"></image>
-        <image src="{{windowParams.product_items[5].link}}" class="window-seven__photo--bottom" data-idx="5" catchtap="handlePickProduct"></image>
-        <image src="{{windowParams.product_items[6].link}}" class="window-seven__photo--bottom" data-idx="6" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[4].link}}-p30x2" class="window-seven__photo--bottom" data-idx="4" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[5].link}}-p30x2" class="window-seven__photo--bottom" data-idx="5" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[6].link}}-p30x2" class="window-seven__photo--bottom" data-idx="6" catchtap="handlePickProduct"></image>
       </view>
 
 
@@ -77,10 +77,10 @@
     </view>
   </view>
 
-  <cover-view  class="c-middle shm sell-btn__box" wx:if="{{!isPublish}}">
+  <cover-view class="c-middle shm sell-btn__box" wx:if="{{!isPublish}}">
     <cover-view class="c-middle sell-btn">发布</cover-view>
   </cover-view>
-  
+
   <cover-view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box active" wx:else>
     <cover-view class="c-middle sell-btn">发布</cover-view>
   </cover-view>
