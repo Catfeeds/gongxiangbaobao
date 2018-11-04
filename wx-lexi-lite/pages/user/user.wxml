@@ -119,7 +119,11 @@
 
       </view>
       <scroll-view scroll-x class=' c-importantGoodsBox'>
-        <view catchtap='handleGoWindowDetail' data-rid='{{item.rid}}' class='inline-block {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{userWindow.shop_windows}}" wx:key="{{index}}">
+        <view catchtap='handleGoWindowDetail' data-rid='{{item.rid}}' class='inline-block like-window__scroll {{index==0?"margin-left--40rpx":""}} {{index==otherLikeList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{userWindow.shop_windows}}" wx:key="{{index}}">
+          <view class=" winidow-bottom__shadow">
+            <view class="winidow-bottom__shadow--text">{{item.title}}</view>
+
+          </view>
           <!-- 橱窗 -->
           <view class='time-top showcase-box'>
             <view class='showcase-box__left'>
@@ -191,8 +195,8 @@
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
       </view>
-      <scroll-view class=' c-importantGoodsBox'  scroll-x>
-        <view catchtap="handleGoLifeStore" data-rid="{{item.rid}}"  class=" browse-lifeStore__item--box {{index==0?'margin-left--40rpx':''}} {{index==browseLifeStore.life_stores.length-1?'margin-right--40rpx':''}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
+      <scroll-view class=' c-importantGoodsBox' scroll-x>
+        <view catchtap="handleGoLifeStore" data-rid="{{item.rid}}" class=" browse-lifeStore__item--box {{index==0?'margin-left--40rpx':''}} {{index==browseLifeStore.life_stores.length-1?'margin-right--40rpx':''}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
           <image class="browse-lifeStore__item--img" src="{{item.logo}}-p16" wx:if="{{item.logo}}"></image>
           <view class="browse-lifeStore__item--name">{{item.name}}</view>
           <view class="browse-lifeStore__item--num">{{item.browse_number==0?'':item.browse_number}}次访问</view>

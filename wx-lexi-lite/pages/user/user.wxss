@@ -455,6 +455,30 @@ button-hover {
   margin-top: 22rpx;
 }
 
+.winidow-bottom__shadow {
+  position: absolute;
+  bottom: 0;
+  width: 488rpx;
+  height: 180rpx;
+  background: url("https://static.moebeast.com/static/img/maskx488.png");
+  background-size: 100% 100%;
+}
+
+.winidow-bottom__shadow .winidow-bottom__shadow--text {
+  position: absolute;
+  bottom: 0;
+  width: 420rpx;
+  padding: 0 30rpx 30rpx 30rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  white-space: pre-wrap;
+}
+
+.like-window__scroll {
+  position: relative;
+}
+
 /* 访问过的生活馆 */
 
 .browse-lifeStore__item--box {
