@@ -79,6 +79,7 @@
 .fx-window .fx-window__images.seven {
   display: flex;
   flex-flow: row wrap;
+  position: relative;
 }
 
 .fx-window .fx-window__images.seven .image-container {
