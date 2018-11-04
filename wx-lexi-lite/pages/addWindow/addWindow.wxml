@@ -15,8 +15,8 @@
     <view class="time-top window-photo__box" wx:if="{{toggleCode==3}}">
       <image src="{{windowParams.product_items[0].link}}-p50" class="window-three__big--photo" data-idx="0" catchtap="handlePickProduct"></image>
       <view class="line-D window-three__box--min">
-        <image src="{{windowParams.product_items[1].link}}-p30" class="window-three__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
-        <image src="{{windowParams.product_items[2].link}}-p30" class="window-three__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[1].link}}-p30x2" class="window-three__min--photo" data-idx="1" catchtap="handlePickProduct"></image>
+        <image src="{{windowParams.product_items[2].link}}-p30x2" class="window-three__min--photo" data-idx="2" catchtap="handlePickProduct"></image>
       </view>
     </view>
 

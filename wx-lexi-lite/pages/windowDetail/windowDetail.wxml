@@ -49,13 +49,13 @@
           <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
         </view>
         <view class="image-container half">
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-plc);" data-rid="{{windowDetail.products[1].rid}}" class="image-item"></view>
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-plc);" data-rid="{{windowDetail.products[2].rid}}" class="image-item"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p28x04);" data-rid="{{windowDetail.products[1].rid}}" class="image-item"></view>
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-p28x04);" data-rid="{{windowDetail.products[2].rid}}" class="image-item"></view>
         </view>
         <view class="image-container half-h">
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }});" data-rid="{{windowDetail.products[3].rid}}" class="image-item">
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }}-p38x28);" data-rid="{{windowDetail.products[3].rid}}" class="image-item">
           </view>
-          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[4].cover }});" data-rid="{{windowDetail.products[4].rid}}" class="image-item">
+          <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[4].cover }}-p28);" data-rid="{{windowDetail.products[4].rid}}" class="image-item">
           </view>
         </view>
       </view>
