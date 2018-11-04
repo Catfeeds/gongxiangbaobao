@@ -49,7 +49,7 @@
           <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
 
             <!-- 锦鲤标签 -->
-            <view class="flex_row eleven-jinli__icon" wx:if="{{item.is_official}}">
+            <view class="flex_row eleven-jinli__icon" wx:if="{{item.official_shop_window}}">
               <view class="eleven-time__text">{{item.activity_name}}</view>
               <view class="eleven-name__text">{{item.activity_desc}}</view>
               <view class="eleven-hot__num">热度值：{{item.hot_value}}</view>
