@@ -973,6 +973,9 @@ Page({
         if (result.data.tag_line.length > 10) {
           result.data.tag_line = result.data.tag_line.substr(0, 10) + ' ...'
         }
+        if (result.data.name.length > 10) {
+          result.data.name = result.data.name.substr(0, 10) + ' ...'
+        }
         this.setData({
           shopInfo: result.data,
         })
