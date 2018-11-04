@@ -20,7 +20,7 @@
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
         <!-- 锦鲤标签 -->
-        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.is_official}}">
+        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
           <view class="eleven-time__text">{{item.activity_name}}</view>
           <view class="eleven-name__text">{{item.activity_desc}}</view>
           <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
@@ -37,7 +37,7 @@
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 5 }}">
 
         <!-- 锦鲤标签 -->
-        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.is_official}}">
+        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
           <view class="eleven-time__text">{{item.activity_name}}</view>
           <view class="eleven-name__text">{{item.activity_desc}}</view>
           <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
@@ -62,7 +62,7 @@
       <view class="fx-window__images seven" wx:if="{{ windowDetail.product_count == 7 }}">
 
         <!-- 锦鲤标签 -->
-        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.is_official}}">
+        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
           <view class="eleven-time__text">{{item.activity_name}}</view>
           <view class="eleven-name__text">{{item.activity_desc}}</view>
           <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
