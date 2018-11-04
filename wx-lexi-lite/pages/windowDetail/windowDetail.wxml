@@ -19,8 +19,15 @@
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 3 }}">
+        <!-- 锦鲤标签 -->
+        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.is_official}}">
+          <view class="eleven-time__text">{{item.activity_name}}</view>
+          <view class="eleven-name__text">{{item.activity_desc}}</view>
+          <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
+        </view>
+
         <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
-        <image class="eleven-icon__window"  src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
+        <image class="eleven-icon__window" src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
         <view class="flex-direction--column">
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30x2);" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-p30x2);" data-rid="{{windowDetail.products[2].rid}}" class="image-item three-photo__min margin-top--4rpx"></view>
@@ -28,6 +35,14 @@
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 5 }}">
+
+        <!-- 锦鲤标签 -->
+        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.is_official}}">
+          <view class="eleven-time__text">{{item.activity_name}}</view>
+          <view class="eleven-name__text">{{item.activity_desc}}</view>
+          <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
+        </view>
+
         <view class="image-container">
           <image class="eleven-icon__window" src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
           <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
@@ -45,8 +60,16 @@
       </view>
 
       <view class="fx-window__images seven" wx:if="{{ windowDetail.product_count == 7 }}">
+
+        <!-- 锦鲤标签 -->
+        <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.is_official}}">
+          <view class="eleven-time__text">{{item.activity_name}}</view>
+          <view class="eleven-name__text">{{item.activity_desc}}</view>
+          <view class="eleven-hot__num">热度值： {{item.hot_value}}</view>
+        </view>
+
         <view class="image-container three">
-          <image class="eleven-icon__window"  src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
+          <image class="eleven-icon__window" src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
           <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p30x2);" data-rid="{{windowDetail.products[0].rid}}"></view>
           <view class="image-item of2-1" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30x2);" data-rid="{{windowDetail.products[1].rid}}"></view>
           <view class="image-item " catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }});" data-rid="{{windowDetail.products[2].rid}}"></view>

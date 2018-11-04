@@ -10,6 +10,7 @@
 .fx-window .fx-window__images.five {
   display: flex;
   flex-flow: row wrap;
+  position: relative;
 }
 
 .fx-window .fx-window__images.five .image-container {
@@ -144,7 +145,7 @@
 }
 
 .fx-window .back-home-container {
-  position: absolute;
+  position: fixed;
   left: 30rpx;
   top: 130rpx;
   z-index: 99;

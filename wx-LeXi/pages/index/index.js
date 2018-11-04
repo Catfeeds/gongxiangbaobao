@@ -54,7 +54,7 @@ Page({
     is_mobile: false, // 优惠券模板是否弹出
     isAuthentication: '', // 是否经过官方认证的店铺
     couponList: {
-      coupons:[]
+      coupons: []
     }, // 优惠券列表---couponList
     fullSubtractionList: { // 满减---
       coupons: []
@@ -970,8 +970,11 @@ Page({
       utils.logger(result, '店铺信息')
       if (result.success) {
         app.globalData.storeInfo = result.data
+        if (result.data.tag_line.length > 10) {
+          result.data.tag_line = result.data.tag_line.substr(0, 10) + ' ...'
+        }
         this.setData({
-          shopInfo: app.globalData.storeInfo
+          shopInfo: result.data,
         })
       } else {
         util.fxShowToast(result.status.message)
