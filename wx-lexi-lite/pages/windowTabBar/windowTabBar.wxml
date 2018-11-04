@@ -1,6 +1,6 @@
 <!--pages/windowTabBar/windowTabBar.wxml-->
 
-<view class="bg-white page-explore {{ pageActiveTab == 'window' ? 'active' : '' }} window-page">
+<view class="bg-white page-explore window-page">
   <view>
 
     <!-- 头图 -->

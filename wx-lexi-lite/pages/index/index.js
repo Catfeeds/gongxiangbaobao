@@ -341,6 +341,7 @@ Page({
       isShowShareLifeBrand: true
     })
 
+    this.getLifePhotoUrl()
     this.getLifeBrandPoster()
   },
 
@@ -573,7 +574,8 @@ Page({
 
     this._swtichActivePageTab('lifeStore')
 
-    this.getLifePhotoUrl()
+    // 加载选品中心的动画
+    this.getDistributeNewest()
   },
 
   /**
@@ -1100,7 +1102,7 @@ Page({
     http.fxPost(api.add_watch, {
       rid: rid
     }, (result) => {
-      utils.logger(result)
+      utils.logger(result, '关注品牌馆')
       if (result.success) {
         this.setData({
           ['characteristicStoreList.stores[' + index + '].is_followed']: true
@@ -1119,7 +1121,7 @@ Page({
     http.fxPost(api.delete_watch, {
       rid: rid
     }, (result) => {
-      utils.logger(result)
+      utils.logger(result, '取消关注品牌馆')
       if (result.success) {
         this.setData({
           ['characteristicStoreList.stores[' + index + '].is_followed']: false
@@ -1618,7 +1620,7 @@ Page({
     http.fxPost(api.market_share_life_store, {
       rid: this.data.sid
     }, (result) => {
-      utils.logger(result, this.data.sid, "分享生活馆图片的地址")
+      utils.logger(result, this.data.sid + '-分享生活馆图片的地址')
       if (result.success) {
         this.setData({
           lifePhotoUrl: result.data.image_url
@@ -1909,7 +1911,7 @@ Page({
     this._loadingFeaturedPage()
     this._loadingExplorePage()
 
-    //新人红包
+    // 新人红包
     this.getNewCoupon()
   },
 
@@ -2027,8 +2029,6 @@ Page({
       this.getDistributeNewest()
     }
 
-    this.getLifePhotoUrl()
-
     // 获取当前环境
     this.getRunEnv()
   },
@@ -2122,7 +2122,6 @@ Page({
 
       // 分享产品 shareProduct
       if (e.target.dataset.from == 2) {
-        utils.logger(2)
         let title = this.data.shareProduct.name
         return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
       }

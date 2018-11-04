@@ -5,7 +5,7 @@
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
-          <image src="{{ windowDetail.user_avatar }}" class="avatar"></image>
+          <image src="{{ windowDetail.user_avatar }}-ava" class="avatar" wx:if="{{ windowDetail.user_avatar }}"></image>
           <label class="name">{{ windowDetail.user_name }}</label>
           <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ windowDetail.is_expert }}"></image>
           <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ windowDetail.is_official }}"></image>
@@ -230,7 +230,7 @@
   <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
   <!-- 生成海报图 -->
-  <fx-image-modal visible="{{ showPosterModal }}" marginTop="50" width="520" close="{{ false }}">
+  <fx-image-modal visible="{{ showPosterModal }}" marginTop="100" width="520" close="{{ false }}">
     <view scroll-y class="fx-poster">
       <scroll-view scroll-y class="poster-box">
         <image src="{{ posterUrl }}" class="poster-image {{windowDetail.product_count == 5?'five':''}} {{windowDetail.product_count == 3?'three':''}}" wx:if="{{ posterUrl }}"></image>
