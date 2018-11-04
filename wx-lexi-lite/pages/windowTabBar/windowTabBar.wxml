@@ -48,6 +48,8 @@
 
           <view class="fx-window__images" data-window-rid="{{item.rid}}" catchtap="handleGoWindowDetail">
 
+                <view class="window-back__shadow" wx:if="{{item.official_shop_window}}"></view>
+
             <!-- 锦鲤标签 -->
             <view class="flex_row eleven-jinli__icon" wx:if="{{item.official_shop_window}}">
               <view class="eleven-time__text">{{item.activity_name}}</view>
