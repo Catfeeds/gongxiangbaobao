@@ -364,10 +364,17 @@ Page({
       utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
+        if (this.data.recommendWindowParams.page == 1) {
+          windowList = result.data.shop_windows
+        }
+        if (this.data.recommendWindowParams.page > 1) {
+          windowList.concat(result.data.shop_windows)
+        }
+
         this.setData({
           'recommendWindow.count': result.data.count,
           'recommendWindow.next': result.data.next,
-          'recommendWindow.shop_windows': windowList.concat(result.data.shop_windows)
+          'recommendWindow.shop_windows': windowList
         })
 
       } else {
@@ -386,10 +393,17 @@ Page({
       utils.logger(result, "关注人发布的橱窗")
       if (result.success) {
         let windowList = this.data.followWindow.shop_windows
+        if (this.data.followWindowParams.page == 1) {
+          windowList = result.data.shop_windows
+        }
+        if (this.data.followWindowParams.page > 1) {
+          windowList.concat(result.data.shop_windows)
+        }
+
         this.setData({
           'followWindow.count': result.data.count,
           'followWindow.next': result.data.next,
-          'followWindow.shop_windows': windowList.concat(result.data.shop_windows)
+          'followWindow.shop_windows': windowList
         })
 
       } else {
@@ -441,15 +455,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+
     this.setData({
       'followWindowParams.page': 1,
       'followWindow.count': 0,
-      'followWindow.shop_windows': [],
-
+      
       'recommendWindowParams.page': 1,
       'recommendWindow.count': 0,
-      'recommendWindow.shop_windows': []
     })
 
     this.getRecommendWindow() // 橱窗

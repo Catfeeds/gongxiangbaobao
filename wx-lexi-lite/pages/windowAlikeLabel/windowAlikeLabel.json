@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "相似的橱窗",
+  "navigationBarTitleText": "相关的橱窗",
   "usingComponents": {
     "fx-login": "/components/FxLogin/FxLogin",
     "fx-loading": "/components/FxLoading/FxLoading",
