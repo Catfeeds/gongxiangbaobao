@@ -1301,6 +1301,7 @@ page {
   height: 134rpx;
   left: 50%;
   transform: translateX(-50%);
+  bottom: 300rpx;
 }
 
 .start-game__getid {

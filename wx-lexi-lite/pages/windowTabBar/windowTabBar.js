@@ -474,7 +474,7 @@ Page({
       this.setData({
         isLoading: false
       })
-    }, 550)
+    }, 600)
   },
 
   /**
