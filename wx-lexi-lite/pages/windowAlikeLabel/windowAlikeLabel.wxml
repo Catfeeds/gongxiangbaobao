@@ -1,4 +1,5 @@
 <view class="container window-page">
+
   <!-- 头图 -->
   <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
     <image></image>
