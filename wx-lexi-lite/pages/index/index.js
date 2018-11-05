@@ -1489,6 +1489,12 @@ Page({
     http.fxGet(api.life_store_products, params, (res) => {
       utils.logger(res, '全部分销商品')
       if (res.success) {
+        res.data.products.forEach(v => {
+          if (typeof(v.stick_text) == 'object') {
+            v.stick_text = false
+          }
+        })
+
         let _products = this.data.storeProducts
         if (this.data.page > 1) {
           // 合并数组

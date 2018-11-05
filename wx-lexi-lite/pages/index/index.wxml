@@ -143,7 +143,7 @@
         </view>
 
         <!-- 推荐理由介绍 -->
-        <view class='shopRecommend theme-bg-color '>
+        <view class='shopRecommend theme-bg-color ' wx:if="{{distributeProduct.stick_text}}">
           <view class='triangle theme-bg-color'></view>
           <text> {{ distributeProduct.stick_text }} </text>
         </view>
