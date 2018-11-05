@@ -54,8 +54,6 @@
         <image src="{{windowParams.product_items[5].link}}-p30x2" class="window-seven__photo--bottom" data-idx="5" catchtap="handlePickProduct"></image>
         <image src="{{windowParams.product_items[6].link}}-p30x2" class="window-seven__photo--bottom" data-idx="6" catchtap="handlePickProduct"></image>
       </view>
-
-
     </view>
 
     <!-- <view class="font-s add-window__warn margin-top--20rpx">一个橱窗最多可放置2个同一个原创品牌设计馆商品</view> -->
