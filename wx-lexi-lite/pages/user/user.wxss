@@ -2,7 +2,11 @@
 
 page {
   height: 100%;
-  background-color: #f7f9fb;
+  background-color: white;
+}
+
+.container {
+  background-color: white;
 }
 
 .top-box {
@@ -218,7 +222,6 @@ button-hover {
 /*  */
 
 .shopInfo {
-  padding-left: 40rpx;
   padding-bottom: 20rpx;
   background-color: white;
   margin-bottom: 20rpx;
@@ -514,4 +517,8 @@ button-hover {
 .browse-lifeStore__item--num::after {
   content: "0";
   visibility: hidden;
+}
+
+.padding-top--32rpx {
+  padding-top: 32rpx;
 }
