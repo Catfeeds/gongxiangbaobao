@@ -111,7 +111,9 @@
 
       <view class="fx-window__body">
         <view class="title">{{windowDetail.title}}</view>
-        <view class="summary">{{windowDetail.description}}</view>
+        <view class="summary">
+          <text>{{windowDetail.description}}</text>
+        </view>
         <view class="keywords">
           <label catchtap="handleGowindowAlike" data-text="{{item}}" wx:for="{{windowDetail.keywords}}" wx:if="{{index<3}}" wx:key="{{index}}">#{{item}}</label>
         </view>

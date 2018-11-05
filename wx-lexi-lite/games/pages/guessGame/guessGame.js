@@ -531,6 +531,7 @@ Page({
 
   // 获取formid
   formSubmit(e) {
+    utils.logger(e.detail.formId, '游戏模板')
     if (e.detail.formId != 'the formId is a mock one') {
       app.handleSendNews(e.detail.formId)
     }
