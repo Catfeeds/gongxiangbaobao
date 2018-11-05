@@ -474,14 +474,16 @@ Page({
       this.setData({
         isLoading: false
       })
-    }, 500)
+    }, 550)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    this.setData({
+      isLoading: true,
+    })
   },
 
   /**
