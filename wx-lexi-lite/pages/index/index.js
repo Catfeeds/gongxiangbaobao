@@ -1985,7 +1985,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(e) {
-
     // 标识自己是否为小B
     const lifeStore = wx.getStorageSync('lifeStore')
     if (lifeStore.isSmallB) {

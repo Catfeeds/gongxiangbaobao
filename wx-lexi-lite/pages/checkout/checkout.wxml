@@ -144,7 +144,7 @@
     <view class='component black-font time-top coupon--padding ' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='handleAuthorityCoupon'>
       <view>乐喜券</view>
       <view class='font-s qian-hui'>
-        <text class='' wx:if="{{storeOrAuthoritativeCouponPick}}">不可使用</text>
+        <text class='' wx:if="{{storeOrAuthoritativeCouponPick}}">{{authorityCouponList.coupons.length==0?'不可使用':''}}</text>
         <text class='coupon--color' wx:else>已抵¥{{authoritativeCouponPrice}}</text>
         <text class='fx-icon-nothing-right'></text>
       </view>

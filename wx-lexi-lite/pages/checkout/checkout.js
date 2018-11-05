@@ -240,6 +240,11 @@ Page({
         v.end_time = utils.timestamp2string(v.end_at, 'date')
       })
       utils.logger(e.currentTarget.dataset.order_rid, '店铺的orderRid')
+      if (coupon.length == 0) {
+        utils.fxShowToast('暂无优惠券可用')
+        return
+      }
+
       this.setData({
         pickCoupon: coupon, // 选择的优惠券列表
         pickCouponProductId: e.currentTarget.dataset.order_rid // 优惠券店铺的id
@@ -261,6 +266,11 @@ Page({
   // 官方的优惠券
   handleAuthorityCoupon() {
     let option = this.data.authorityCouponShow
+    if (this.data.authorityCouponList.coupons.length == 0) {
+      utils.fxShowToast('暂无优惠券可用')
+      return
+    }
+
     if (option) {
       option = false
     } else {
@@ -361,13 +371,9 @@ Page({
               result.data.coupons.forEach((v, i) => {
                 v.start_time = utils.timestamp2string(v.start_at, 'date')
                 v.end_time = utils.timestamp2string(v.expired_at, 'date')
-
-                // 设置data
-                if (result.data.coupons.length - 1 == i) {
-                  this.setData({
-                    authorityCouponList: result.data
-                  })
-                }
+              })
+              this.setData({
+                authorityCouponList: result.data
               })
             } else {
               utils.fxShowToast(result.status.message)
