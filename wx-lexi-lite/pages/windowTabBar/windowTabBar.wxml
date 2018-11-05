@@ -1,5 +1,5 @@
 <!--pages/windowTabBar/windowTabBar.wxml-->
-
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="bg-white page-explore window-page">
   <view>
 

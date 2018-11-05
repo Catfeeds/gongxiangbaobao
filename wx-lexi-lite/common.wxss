@@ -926,7 +926,7 @@ button::after {
 }
 
 .window-page .line-height--30rpx {
-  line-height: 30rpx;
+  /* line-height: 30rpx; */
 }
 
 .window-page .line-height--24rpx {

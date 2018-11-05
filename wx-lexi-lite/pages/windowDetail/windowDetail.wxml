@@ -1,7 +1,7 @@
 <view class="container window-page fixed-bottom">
 
   <!-- 橱窗列表 -->
-  <view class="fx-windows">
+  <view class="fx-windows padding-bottom--10rpx">
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
@@ -36,6 +36,7 @@
       </view>
 
       <view class="fx-window__images five" wx:if="{{ windowDetail.product_count == 5 }}">
+              <view class="window-back__shadow" wx:if="{{windowDetail.official_shop_window}}"></view>
 
         <!-- 锦鲤标签 -->
         <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">
@@ -61,6 +62,7 @@
       </view>
 
       <view class="fx-window__images seven" wx:if="{{ windowDetail.product_count == 7 }}">
+              <view class="window-back__shadow" wx:if="{{windowDetail.official_shop_window}}"></view>
 
         <!-- 锦鲤标签 -->
         <view class="flex_row eleven-jinli__icon" wx:if="{{windowDetail.official_shop_window}}">

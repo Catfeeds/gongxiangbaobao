@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
+
     myUid: '', // uid
     navbarFixed: false, // navbar 是否吸附
 
@@ -459,7 +461,7 @@ Page({
     this.setData({
       'followWindowParams.page': 1,
       'followWindow.count': 0,
-      
+
       'recommendWindowParams.page': 1,
       'recommendWindow.count': 0,
     })
@@ -467,6 +469,12 @@ Page({
     this.getRecommendWindow() // 橱窗
     this.getFollowWindow()
     this.getRunEnv() // 获取当前环境
+
+    setTimeout(() => {
+      this.setData({
+        isLoading: false
+      })
+    }, 500)
   },
 
   /**

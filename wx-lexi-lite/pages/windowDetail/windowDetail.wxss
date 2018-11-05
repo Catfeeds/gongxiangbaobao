@@ -352,6 +352,10 @@
   border-radius: 34rpx;
 }
 
+.fixed-bottom .fx-windows.padding-bottom--10rpx {
+  padding-bottom: 60rpx;
+}
+
 /* 双11 */
 
 .eleven-icon__window {

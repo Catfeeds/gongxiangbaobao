@@ -208,7 +208,7 @@
       </view>
       <view class="distribute-style">
         <button class="share-friend wxa-card" open-type="share">
-          <image src="{{ shareProduct.cover }}" class="cover"></image>
+          <image src="{{ shareProduct.cover }}-w29xh25" class="cover"></image>
           <text>点击直接分享</text>
         </button>
 
@@ -300,5 +300,5 @@
       <text>（{{ filter.conditionCount > 0 ? filter.totalCount : totalCount }}件）</text>
     </button>
   </fx-modal>
-<fx-loading loading="{{ isLoading }}"></fx-loading>
+  <fx-loading loading="{{ isLoading }}"></fx-loading>
 </view>
