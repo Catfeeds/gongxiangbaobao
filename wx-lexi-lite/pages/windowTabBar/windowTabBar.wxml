@@ -4,7 +4,7 @@
   <view>
 
     <!-- 头图 -->
-    <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
+    <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg');background-size:100% 100%; ">
       <image></image>
       <view class="mask">
         <view class="content">
