@@ -95,7 +95,7 @@
           <view class="done">
             <image src="../../images/icons/icon-like-active@3x.png" catchtap="handleDeleteLike" wx:if="{{windowDetail.is_like}}" class="icon-like"></image>
             <image catchtap="handleAddLike" src="../../images/icons/icon-like@3x.png" wx:if="{{!windowDetail.is_like}}" class="icon-like"></image>
-            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+            <image src="../../images/icons/icon-comment@3x.png" class="icon-comment" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment"></image>
           </view>
           <view class="remark">
             <text wx:if="{{windowDetail.like_count!=0}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}喜欢</text>

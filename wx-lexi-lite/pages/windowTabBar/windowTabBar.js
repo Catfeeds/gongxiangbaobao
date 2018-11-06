@@ -36,22 +36,26 @@ Page({
       code: 'recommend'
     }],
 
+    recommendLoadingMany: true,
     recommendWindow: { // 推荐橱窗的列表
       count: 0,
+      next: true,
       shop_windows: []
     },
     recommendWindowParams: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 5, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 5 // Number	可选	10	每页数量
     },
 
+    followLoadMany: true,
     followWindow: { // 关注橱窗的列表
       count: 0,
+      next: true,
       shop_windows: []
     },
     followWindowParams: {
-      page: 1, //Number	可选	1	当前页码
-      per_page: 5, //Number	可选	10	每页数量
+      page: 1, // Number	可选	1	当前页码
+      per_page: 5 // Number	可选	10	每页数量
     },
 
   },
@@ -67,10 +71,15 @@ Page({
       return
     }
 
-    utils.logger(e)
     this.setData({
       categoryActive: e.currentTarget.dataset.code
     })
+
+    if (e.currentTarget.dataset.code == 'recommend') {
+      this.getRecommendWindow() // 橱窗
+    } else {
+      this.getFollowWindow()
+    }
   },
 
   // 取消关注人
@@ -182,6 +191,25 @@ Page({
   },
 
   /**
+   * 发布评论
+   */
+  handlePublishComment(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../windowComment/windowComment?from=window&rid=' + rid + '&submitTarget=comment&isInput=1&pid=0'
+    })
+  },
+
+  /**
    * 显示海报弹出框
    */
   handleWindowShareModal(e) {
@@ -215,7 +243,6 @@ Page({
       }
     })
   },
-
 
   /**
    * 生成橱窗推广海报图
@@ -274,7 +301,6 @@ Page({
       'followWindow.shop_windows': followData,
       'recommendWindow.shop_windows': recommendData
     })
-
   },
 
   // 处理添加或者删除喜欢橱窗
@@ -366,14 +392,14 @@ Page({
       utils.logger(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
-        if (this.data.recommendWindowParams.page == 1) {
-          windowList = result.data.shop_windows
-        }
         if (this.data.recommendWindowParams.page > 1) {
-          windowList.concat(result.data.shop_windows)
+          windowList = windowList.concat(result.data.shop_windows)
+        } else {
+          windowList = result.data.shop_windows
         }
 
         this.setData({
+          recommendLoadingMany: false,
           'recommendWindow.count': result.data.count,
           'recommendWindow.next': result.data.next,
           'recommendWindow.shop_windows': windowList
@@ -392,17 +418,17 @@ Page({
     }
 
     http.fxGet(api.shop_windows_follow, this.data.followWindowParams, result => {
-      utils.logger(result, "关注人发布的橱窗")
+      utils.logger(result, '关注人发布的橱窗')
       if (result.success) {
         let windowList = this.data.followWindow.shop_windows
-        if (this.data.followWindowParams.page == 1) {
-          windowList = result.data.shop_windows
-        }
         if (this.data.followWindowParams.page > 1) {
-          windowList.concat(result.data.shop_windows)
+          windowList = windowList.concat(result.data.shop_windows)
+        } else {
+          windowList = result.data.shop_windows
         }
 
         this.setData({
+          followLoadMany: false,
           'followWindow.count': result.data.count,
           'followWindow.next': result.data.next,
           'followWindow.shop_windows': windowList
@@ -421,7 +447,6 @@ Page({
     this.setData({
       myUid: app.globalData.jwt.uid
     })
-
   },
 
   /**
@@ -443,47 +468,40 @@ Page({
         })
       }
     }
-
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-    this.setData({
-      'followWindowParams.page': 1,
-      'followWindow.count': 0,
-
-      'recommendWindowParams.page': 1,
-      'recommendWindow.count': 0,
-    })
-
-    this.getRecommendWindow() // 橱窗
-    this.getFollowWindow()
-    this.getRunEnv() // 获取当前环境
-
+    let that = this
     setTimeout(() => {
-      this.setData({
+      that.setData({
         isLoading: false
       })
     }, 600)
   },
 
   /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    if (this.data.categoryActive == 'recommend' && this.data.recommendWindowParams.page == 1) {
+      this.getRecommendWindow()
+    }
+
+    if (this.data.categoryActive == 'follow' && this.data.followWindowParams.page == 1) {
+      this.getFollowWindow()
+    }
+
+    this.getRunEnv() // 获取当前环境
+  },
+
+  /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-    this.setData({
-      isLoading: true,
-    })
+
   },
 
   /**
@@ -499,7 +517,6 @@ Page({
   onPullDownRefresh: function() {
     if (this.data.categoryActive == 'recommend') {
       this.setData({
-        'recommendWindow.shop_windows': [],
         'recommendWindowParams.page': 1
       })
 
@@ -508,7 +525,6 @@ Page({
 
     if (this.data.categoryActive == 'follow') {
       this.setData({
-        'followWindow.shop_windows': [],
         'followWindowParams.page': 1
       })
 
@@ -522,15 +538,15 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
-    //加载橱窗
+    // 加载橱窗
     if (this.data.categoryActive == 'recommend') {
       if (!this.data.recommendWindow.next) {
-        utils.fxShowToast("没有更多了")
+        utils.fxShowToast('没有更多了')
         return
       }
       this.setData({
-        'recommendWindowParams.page': this.data.recommendWindowParams.page + 1
+        'recommendWindowParams.page': this.data.recommendWindowParams.page + 1,
+        recommendLoadingMany: true
       })
       this.getRecommendWindow()
     }
@@ -538,10 +554,11 @@ Page({
     // 加载关注
     if (this.data.categoryActive == 'follow') {
       if (!this.data.followWindow.next) {
-        utils.fxShowToast("没有更多了")
+        utils.fxShowToast('没有更多了')
         return
       }
       this.setData({
+        followLoadMany: true,
         'followWindowParams.page': this.data.followWindowParams.page + 1
       })
 
@@ -554,6 +571,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    app.shareLeXi()
   }
+
 })

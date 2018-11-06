@@ -1,7 +1,7 @@
 const CryptoJS = require('cryptojs/cryptojs.js').Crypto;
 
 // 当前调试环境
-const Debug = false
+const Debug = true
 
 const formatTime = date => {
   const year = date.getFullYear()
