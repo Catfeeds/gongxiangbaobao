@@ -84,7 +84,7 @@
                 <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
               </view>
               <view class="remark">
-                <text class="{{item.like_count==0?'like-hide':''}}">{{item.like_count}}喜欢 </text>
+                <text class="{{item.like_count==0?'like-hide':''}}">{{item.like_count==0?'':item.like_count}}喜欢 </text>
                 <i wx:if="{{item.like_count!=0&&item.comment_count!=0}}"> · </i>
                 <text wx:if="{{item.comment_count!=0}}"> {{item.comment_count}}条评论</text>
               </view>
@@ -152,7 +152,7 @@
                 <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
               </view>
               <view class="remark">
-                <text wx:if="{{item.like_count!=0}}">{{item.like_count}}喜欢 </text>
+                <text wx:if="{{item.like_count!=0}}">{{item.like_count==0?'':item.like_count}}喜欢 </text>
                 <text wx:if="{{item.comment_count!=0}}">· {{item.comment_count}}条评论</text>
               </view>
             </view>

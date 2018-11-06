@@ -98,7 +98,7 @@
             <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
           </view>
           <view class="remark">
-            <text wx:if="{{windowDetail.like_count!=0}}">{{windowDetail.like_count}}喜欢</text>
+            <text wx:if="{{windowDetail.like_count!=0}}">{{windowDetail.like_count==0?'':windowDetail.like_count}}喜欢</text>
             <text wx:if="{{windowDetail.comment_count!=0}}">· {{windowDetail.comment_count}}条评论</text>
           </view>
         </view>
