@@ -320,8 +320,8 @@
 .all-quantity__btn {
   height: 80rpx;
   color: #666;
-  border-top: 1rpx solid #e9e9e9;
-  border-bottom: 1rpx solid #e9e9e9;
+  border-top: 0rpx solid #e9e9e9;
+  border-bottom: 0rpx solid #e9e9e9;
   font-size: 24rpx;
   font-weight: 400;
 }

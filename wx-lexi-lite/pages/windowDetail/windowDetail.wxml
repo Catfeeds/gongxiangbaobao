@@ -121,7 +121,7 @@
     </view>
 
     <!-- 评论列表 -->
-    <view class="fx-comments fx-comments--top bg-white" wx:if="{{ comments.length != 0 }}">
+    <view class="fx-comments fx-comments--top margin-bottom--20rpx bg-white" wx:if="{{ comments.length != 0 }}">
       <view class="block-title">评论</view>
 
       <!-- 每一个评论 -->
@@ -189,11 +189,10 @@
 
       </view>
 
-    </view>
-
-    <!-- 查看全部 -->
-    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{ commentsCount > 3 }}" catchtap="handleGoComment" data-submit-target="comment" data-is-input="0" data-pid="0" data-index="-1">
-      查看全部{{ commentsCount }}条评论
+      <!-- 查看全部 -->
+      <view class="flex_row--middle font-s bg-white all-quantity__btn" wx:if="{{ commentsCount > 3 }}" catchtap="handleGoComment" data-submit-target="comment" data-is-input="0" data-pid="0" data-index="-1">
+        查看全部{{ commentsCount }}条评论
+      </view>
     </view>
 
     <!-- 猜你喜欢 -->
