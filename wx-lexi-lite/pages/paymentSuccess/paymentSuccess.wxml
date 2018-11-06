@@ -58,7 +58,8 @@
       <view class='goodsInfoBox'>
         <view class='goodsInfoBoxL'>
           <fx-product-min product="{{item}}" color="true"></fx-product-min>
-          <text class="logistics-info__text"> 交货.{{item.min_days}}-{{item.max_days}}天送达 </text>
+          <text class="logistics-info__text" wx:if="{{item.max_days!=0}}"> 交货.{{item.min_days}}-{{item.max_days}}天送达 </text>
+          <text class="logistics-info__text" wx:else>{{item.py_intro}}</text>
         </view>
         <view class='hui-zi number'>x {{item.quantity}}</view>
         <view class='price_old_new'>

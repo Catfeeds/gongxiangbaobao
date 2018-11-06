@@ -57,7 +57,7 @@
 
 .history-record__text {
   flex-wrap: wrap;
-  max-height: 150rpx;
+  max-height: 160rpx;
   overflow: hidden;
 }
 
