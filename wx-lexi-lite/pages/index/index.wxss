@@ -272,6 +272,7 @@
 .probation-success-text {
   margin-top: 20rpx;
   line-height: 40rpx;
+  white-space: pre-wrap;
 }
 
 .off-icon--style {

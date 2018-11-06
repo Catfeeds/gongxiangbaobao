@@ -335,7 +335,7 @@ Page({
       })
       return
     }
-    
+
     let id = e.currentTarget.dataset.rid
     let index = e.currentTarget.dataset.index
     http.fxPost(api.market_coupons_activity_grant, {
@@ -422,6 +422,7 @@ Page({
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
       utils.logger(result, '精选品牌馆优惠券')
+      console.log(result, '精选品牌馆优惠券')
       if (result.success) {
         result.data.coupons.forEach((item, idx) => {
           if (item.store_name.length > 12) {
@@ -526,7 +527,7 @@ Page({
       })
     })
   },
-  
+
   /**
    * 生命周期函数--监听页面加载
    */

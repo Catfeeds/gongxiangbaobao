@@ -410,6 +410,7 @@ page {
 
 .start-game {
   position: relative;
+  width: 100%;
   text-align: center;
   background: url(https://static.moebeast.com/static/img/game/two.png) no-repeat 375rpx 20rpx;
   background-size: 124rpx 171rpx;

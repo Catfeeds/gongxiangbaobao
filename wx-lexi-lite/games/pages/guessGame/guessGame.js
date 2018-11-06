@@ -535,6 +535,8 @@ Page({
     if (e.detail.formId != 'the formId is a mock one') {
       app.handleSendNews(e.detail.formId)
     }
+
+    this.handleStartPlay()
   },
 
   // 获取世界榜

@@ -96,7 +96,7 @@
 
       <view class="start-game">
         <form bindsubmit="formSubmit" report-submit="{{true}}" class="start-game__getid--form">
-          <button class="btn-start" formType="submit" bindtap="handleStartPlay"></button>
+          <button class="btn-start" formType="submit"></button>
         </form>
       </view>
 

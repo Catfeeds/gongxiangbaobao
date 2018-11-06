@@ -214,7 +214,7 @@ App({
     }
 
     this.globalData.lifeStore = lifeStore
-
+    
     wx.setStorageSync('lifeStore', lifeStore)
   },
 

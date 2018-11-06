@@ -926,7 +926,7 @@ Page({
    */
   getSkus() {
     let params = {
-      rid: this.data.rid
+      rid: this.data.rid,
     }
     http.fxGet(api.product_skus, params, (result) => {
       if (result.success) {

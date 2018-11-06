@@ -105,6 +105,7 @@ Page({
 
         app.globalData.jwt.is_small_b = res.data.is_small_b
         app.globalData.jwt.store_rid = res.data.store_rid
+
         // 更新小B身份
         app.updateLifeStoreInfo(res.data)
 
@@ -118,8 +119,8 @@ Page({
   },
 
   /**
- * 登录完成回调
- */
+   * 登录完成回调
+   */
   handleCloseLogin() {
     this.setData({
       is_mobile: false
