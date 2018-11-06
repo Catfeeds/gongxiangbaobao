@@ -546,6 +546,7 @@ Page({
 
       skusList.push(skus.data[key])
     })
+    console.log(skusList,'所有的订单')
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数

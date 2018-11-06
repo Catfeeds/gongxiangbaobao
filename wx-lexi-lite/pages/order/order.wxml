@@ -51,6 +51,7 @@
                   <image class="order-product__photo" src='{{item.cover}}-p16'></image>
                   <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{item.product_name}}</view>
+                    <view class="sku-mode">{{item.mode}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
                   </view>
                 </view>
@@ -111,6 +112,7 @@
                   <image class="order-product__photo" src='{{item.cover}}-p16'></image>
                   <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{item.product_name}}</view>
+                    <view class="sku-mode">{{item.mode}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
                   </view>
                 </view>
@@ -163,6 +165,7 @@
                   <image class="order-product__photo" src='{{itm.cover}}-p16'></image>
                   <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
+                    <view class="sku-mode">{{itm.mode}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
 
                   </view>
@@ -208,6 +211,7 @@
                   <image class="order-product__photo" src='{{itm.cover}}-p16'></image>
                   <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{itm.product_name}}</view>
+                    <view class="sku-mode">{{itm.mode}}</view>
                     <view class='order-product__shuliang'>x{{itm.quantity}}</view>
                   </view>
                 </view>
@@ -265,8 +269,8 @@
                   <image class="order-product__photo" src='{{item.cover}}-p16'></image>
                   <view class='margin-left--20 product-description'>
                     <view class='order-product__name'>{{item.product_name}}</view>
+                    <view class="sku-mode">{{item.mode}}</view>
                     <view class='order-product__shuliang'>x{{item.quantity}}</view>
-
                   </view>
                 </view>
               </view>

@@ -213,3 +213,9 @@
 .product-description {
   flex: 1;
 }
+
+.sku-mode {
+  font-size: 24rpx;
+  color: #b2b2b2;
+  font-weight: normal;
+}

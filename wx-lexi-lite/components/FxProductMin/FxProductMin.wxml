@@ -10,13 +10,21 @@
         <view class='line-ine'>{{product.product_name}}</view>
       </view>
       <!-- 颜色 -->
-      <block wx:if="{{color}}">
+      <!-- <block wx:if="{{color}}">
         <view class='goodsColor' wx:if="{{product.s_colorcolor||product.s_model }}">
           <text>{{product.s_color}}</text>
           <text wx:if="{{product.color&&product.size}}">/</text>
           <text>{{product.s_model}}</text>
         </view>
+      </block> -->
+
+      <!-- 规格 -->
+      <block wx:if="{{color}}">
+        <view class='goodsColor'>
+          <text>{{product.mode}}</text>
+        </view>
       </block>
+
     </view>
 
     <!-- 店铺名称 -->
