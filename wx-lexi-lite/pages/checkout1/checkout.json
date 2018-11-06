@@ -1,11 +1,11 @@
 {
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "支付成功",
+  "navigationBarTitleText": "确认订单",
   "navigationBarBackgroundColor": "white",
   "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
     "fx-product": "/components/FxProductComponent/FxProductComponent",
     "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
-    "fx-product-min": "/components/FxProductMin/FxProductMin",
-    "fx-loading": "/components/FxLoading/FxLoading"
+    "fx-logistics": "/components/Fxlogstics/Fxlogstics"
   }
 }

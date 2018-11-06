@@ -1,10 +1,7 @@
 <!--pages/paymentSuccess/paymentSuccess.wxml-->
 <view class='container theme-bg-color'>
   <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <!-- 支付成功的提示 -->
   <view class='successBG'>
@@ -58,9 +55,10 @@
     <view class='componentTwo'>{{items.store.store_name}}</view>
 
     <view class='fx-column-b' wx:for="{{items.items}}" wx:key='index' wx:for-item="item">
-      <view  class='goodsInfoBox'>
+      <view class='goodsInfoBox'>
         <view class='goodsInfoBoxL'>
-          <fx-product-middle product="{{item}}" color="true"></fx-product-middle>
+          <fx-product-min product="{{item}}" color="true"></fx-product-min>
+          <text class="logistics-info__text"> 交货.{{item.min_days}}-{{item.max_days}}天送达 </text>
         </view>
         <view class='hui-zi number'>x {{item.quantity}}</view>
         <view class='price_old_new'>
