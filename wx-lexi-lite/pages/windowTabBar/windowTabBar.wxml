@@ -108,6 +108,15 @@
 
         <!-- 推荐的缺省图 -->
         <view wx:if="{{recommendWindow.count==0}}"></view>
+
+        <block>
+          <!-- 底部加载 -->
+          <view class="load-many__box" wx:if="{{recommendLoadingMany}}">
+            <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+          </view>
+          <!-- 没有商品加载的底部 -->
+          <view class="c-middle not-have__load--bottom" wx:if="{{!recommendWindow.next}}"> END </view>
+        </block>
       </block>
 
       <!-- 关注 -->
@@ -173,6 +182,15 @@
 
           </view>
         </view>
+
+        <block>
+          <!-- 底部加载 -->
+          <view class="load-many__box" wx:if="{{followLoadMany}}">
+            <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+          </view>
+          <!-- 没有商品加载的底部 -->
+          <view class="c-middle not-have__load--bottom" wx:if="{{!followWindow.next}}"> END </view>
+        </block>
       </block>
 
       <view class="window-publish" wx:if="{{ runEnv == 2 }}">

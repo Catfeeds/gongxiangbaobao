@@ -36,6 +36,7 @@ Page({
       code: 'recommend'
     }],
 
+    recommendLoadingMany: true,
     recommendWindow: { // 推荐橱窗的列表
       count: 0,
       shop_windows: []
@@ -45,6 +46,7 @@ Page({
       per_page: 5, //Number	可选	10	每页数量
     },
 
+    followLoadMany: true,
     followWindow: { // 关注橱窗的列表
       count: 0,
       shop_windows: []
@@ -364,16 +366,18 @@ Page({
   getRecommendWindow() {
     http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
       utils.logger(result, "获取橱窗列表")
+      console.log(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
         if (this.data.recommendWindowParams.page == 1) {
           windowList = result.data.shop_windows
         }
         if (this.data.recommendWindowParams.page > 1) {
-          windowList.concat(result.data.shop_windows)
+          windowList = windowList.concat(result.data.shop_windows)
         }
 
         this.setData({
+          recommendLoadingMany: false,
           'recommendWindow.count': result.data.count,
           'recommendWindow.next': result.data.next,
           'recommendWindow.shop_windows': windowList
@@ -399,10 +403,11 @@ Page({
           windowList = result.data.shop_windows
         }
         if (this.data.followWindowParams.page > 1) {
-          windowList.concat(result.data.shop_windows)
+          windowList = windowList.concat(result.data.shop_windows)
         }
 
         this.setData({
+          followLoadMany: false,
           'followWindow.count': result.data.count,
           'followWindow.next': result.data.next,
           'followWindow.shop_windows': windowList
@@ -526,11 +531,11 @@ Page({
     //加载橱窗
     if (this.data.categoryActive == 'recommend') {
       if (!this.data.recommendWindow.next) {
-        utils.fxShowToast("没有更多了")
         return
       }
       this.setData({
-        'recommendWindowParams.page': this.data.recommendWindowParams.page + 1
+        'recommendWindowParams.page': this.data.recommendWindowParams.page + 1,
+        recommendLoadingMany: true
       })
       this.getRecommendWindow()
     }
@@ -538,10 +543,10 @@ Page({
     // 加载关注
     if (this.data.categoryActive == 'follow') {
       if (!this.data.followWindow.next) {
-        utils.fxShowToast("没有更多了")
         return
       }
       this.setData({
+        followLoadMany: true,
         'followWindowParams.page': this.data.followWindowParams.page + 1
       })
 

@@ -835,7 +835,6 @@ button::after {
   bottom: 0;
   width: 100%;
   z-index: 9;
-  background: linear-gradient(rgba(187, 153, 104, 1), rgba(255, 255, 255, 0));
 }
 
 .window-page .mask .content {
