@@ -88,7 +88,7 @@ Page({
     }
 
     wx.redirectTo({
-      url: '../checkout1/checkout'
+      url: '../checkout/checkout'
     })
   },
 

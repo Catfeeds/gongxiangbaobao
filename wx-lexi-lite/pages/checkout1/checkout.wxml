@@ -130,9 +130,13 @@
       <view class='component black-font time-top coupon--padding' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='couponTap'>
         <view> 优惠券</view>
         <view class='font-s'>
-          <text class='coupon--color' wx:if="{{storeOrAuthoritativeCouponPick}}">已抵¥{{orderInfomation[items[0].store_rid].coupon_price}}</text>
+          <text class='coupon--color' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 && orderInfomation[items[0].store_rid].coupon_price }}">已抵¥{{orderInfomation[items[0].store_rid].coupon_price}}</text>
 
-          <text class=''>不可使用</text>
+          <text class='coupon--color' wx:if="{{couponList[items[0].store_rid].length==0 }}">无可用优惠券</text>
+
+          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 }}">{{couponList[items[0].store_rid].length}}张优惠券可用</text>
+
+
           <!-- <text class='' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length}}">不可使用</text> -->
 
           <text class='fx-icon-nothing-right '></text>
@@ -147,8 +151,11 @@
     <view class='component black-font time-top coupon--padding ' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='handleAuthorityCoupon'>
       <view>乐喜券</view>
       <view class='font-s qian-hui'>
-        <text class='' wx:if="{{storeOrAuthoritativeCouponPick}}">{{authorityCouponList.coupons.length==0?'不可使用':''}}</text>
-        <text class='coupon--color' wx:else>已抵¥{{authoritativeCouponPrice}}</text>
+        <text class='' wx:if="{{storeOrAuthoritativeCouponPick&&authoritativeCouponPrice==0}}">不可使用</text>
+        <text class='coupon--color' wx:if="{{storeOrAuthoritativeCouponPick&&authoritativeCouponPrice!=0}}">已抵¥{{authoritativeCouponPrice}}</text>
+
+        <text class='' wx:if="{{authorityCouponList.coupons.length==0}}">无优惠券可用</text>
+
         <text class='fx-icon-nothing-right'></text>
       </view>
     </view>
@@ -198,7 +205,7 @@
             </view>
           </view>
           <view class='coupon-btn bg-white c-middle'>
-            <radio color="#5FE4B1" value='{"code":"{{item.coupon.code}}","store_rid":"{{pickCouponProductId}}","price":"{{item.coupon.amount}}"}' />
+            <radio checked="{{item.isActive}}" color="#5FE4B1" value='{"code":"{{item.coupon.code}}","store_rid":"{{pickCouponProductId}}","price":"{{item.coupon.amount}}"}' />
           </view>
         </label>
       </radio-group>
@@ -237,7 +244,7 @@
             </view>
           </view>
           <view class='coupon-btn bg-white c-middle'>
-            <radio color="#5FE4B1" value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}"}' />
+            <radio checked="{{item.isActive}}" color="#5FE4B1" value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}"}' />
           </view>
         </label>
       </radio-group>

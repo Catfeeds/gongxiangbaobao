@@ -2062,12 +2062,6 @@ Page({
       animationNum: 0
     })
 
-    // 当有生活馆离开后设置为生活馆位置
-    if (!this.data.pageTabs[0].disabled) {
-      this.setData({
-        pageActiveTab: 'lifeStore'
-      })
-    }
   },
 
   /**
