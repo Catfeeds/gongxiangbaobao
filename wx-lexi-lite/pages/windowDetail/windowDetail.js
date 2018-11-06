@@ -381,8 +381,9 @@ Page({
           comments: result.data.comments, // 橱窗评论
           commentsNext: result.data.next, // 橱窗是否有下一页
           commentsCount: result.data.count, // 橱窗的评论数量
+          'windowDetail.comment_count': result.data.count
         })
-
+      
       } else {
         utils.fxShowToast(result.status.message)
       }

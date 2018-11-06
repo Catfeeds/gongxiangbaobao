@@ -4,7 +4,7 @@
   <view>
 
     <!-- 头图 -->
-    <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg ');background-size:100% 100%; ">
+    <view class="page-section headline" style="background:url('https://static.moebeast.com/image/static/shop_window_head.jpg');background-size:100% 100%; ">
       <image></image>
       <view class="mask">
         <view class="content">
@@ -81,7 +81,7 @@
               <view class="done ">
                 <image wx:if="{{item.is_like}}" catchtap="handleDeleteLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
                 <image wx:else catchtap="handleAddLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-                <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+                <image src="../../images/icons/icon-comment@3x.png" class="icon-comment" catchtap="handlePublishComment" data-rid="{{item.rid}}"></image>
               </view>
               <view class="remark">
                 <text class="{{item.like_count==0?'like-hide':''}}">{{item.like_count==0?'':item.like_count}}喜欢 </text>
@@ -158,7 +158,7 @@
               <view class="done">
                 <image catchtap="handleDeleteLike" data-rid="{{item.rid}}" wx:if="{{item.is_like}}" src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
                 <image wx:else catchtap="handleAddLike" data-rid="{{item.rid}}" src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
-                <image src="../../images/icons/icon-comment@3x.png" class="icon-comment"></image>
+                <image src="../../images/icons/icon-comment@3x.png" class="icon-comment" catchtap="handlePublishComment" data-rid="{{item.rid}}"></image>
               </view>
               <view class="remark">
                 <text wx:if="{{item.like_count!=0}}">{{item.like_count==0?'':item.like_count}}喜欢 </text>

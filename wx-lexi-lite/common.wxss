@@ -316,14 +316,14 @@ button::after {
   font-size: 28rpx;
   color: #333;
   font-weight: 400;
-  margin-bottom: 20rpx;
-  line-height: 36rpx;
+  margin-bottom: 34rpx;
+  line-height: 38rpx;
 }
 
 .fx-window .fx-window__body .keywords {
   font-size: 24rpx;
   color: #5fe4b1;
-  margin-bottom: 60rpx;
+  margin-bottom: 50rpx;
 }
 
 .fx-window .fx-window__body .keywords label {
@@ -835,6 +835,7 @@ button::after {
   bottom: 0;
   width: 100%;
   z-index: 9;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0));
 }
 
 .window-page .mask .content {
@@ -860,7 +861,6 @@ button::after {
 
 .window-page .fx-windows {
   position: relative;
-  padding-bottom: 100rpx;
   background: rgba(247, 249, 251, 1);
 }
 
