@@ -658,6 +658,7 @@ Page({
     let rid = e.currentTarget.dataset.rid
     if (rid) {
       wx.setStorageSync('showingLifeStoreRid', rid)
+      wx.setStorageSync('fromMenu', 'visitLifeStore')
 
       wx.switchTab({
         url: '../index/index',

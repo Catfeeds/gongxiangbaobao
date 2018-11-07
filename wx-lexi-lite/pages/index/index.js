@@ -2012,7 +2012,15 @@ Page({
       if (this.data.pageActiveTab == 'lifeStore') {
         this._swtichActivePageTab('lifeStore')
       } else {
-        this._loadingLifeStorePage()
+        const fromMenu = wx.getStorageSync('fromMenu')
+        if (fromMenu == 'visitLifeStore') {
+          this.setData({
+            pageActiveTab: 'lifeStore'
+          })
+          this._swtichActivePageTab('lifeStore')
+        } else {
+          this._loadingLifeStorePage()
+        }
       }
     }
 
@@ -2024,7 +2032,21 @@ Page({
           sid: lifeStore.lifeStoreRid,
           canAdmin: true
         })
+      }
+      // 当没有生活馆时
+      if (showingLifeStoreRid) {
+        this.setData({
+          'pageTabs[0].disabled': false,
+          sid: showingLifeStoreRid
+        })
 
+        const fromMenu = wx.getStorageSync('fromMenu')
+        if (fromMenu == 'visitLifeStore') {
+          this.setData({
+            pageActiveTab: 'lifeStore'
+          })
+          this._swtichActivePageTab('lifeStore')
+        }
       }
     }
 
@@ -2061,7 +2083,13 @@ Page({
       latestDistributeProducts: [],
       animationNum: 0
     })
+<<<<<<< HEAD
+    
+    // 来源查看生活馆记录
+    wx.removeStorageSync('fromMenu')
+=======
 
+>>>>>>> origin/zhaogaoshang
   },
 
   /**

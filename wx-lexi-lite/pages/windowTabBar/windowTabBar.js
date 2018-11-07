@@ -58,6 +58,8 @@ Page({
       per_page: 5 // Number	可选	10	每页数量
     },
 
+    // 最后离开的橱窗rid
+    lastClickRid: ''
   },
 
   // 切换橱窗
@@ -76,8 +78,14 @@ Page({
     })
 
     if (e.currentTarget.dataset.code == 'recommend') {
+      this.setData({
+        'recommendWindowParams.page': 1
+      })
       this.getRecommendWindow() // 橱窗
     } else {
+      this.setData({
+        'followWindowParams.page': 1
+      })
       this.getFollowWindow()
     }
   },
@@ -225,6 +233,10 @@ Page({
   // 橱窗详情
   handleGoWindowDetail(e) {
     let windowRid = e.currentTarget.dataset.windowRid
+    // 记录最后点击的橱窗rid
+    this.setData({
+      lastClickRid: windowRid
+    })
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + windowRid,
     })
@@ -386,6 +398,49 @@ Page({
     })
   },
 
+  // 更新最后点击的橱窗数据
+  _refreshLastWindow () {
+    if (this.data.lastClickRid) {
+      http.fxGet(api.shop_windows_detail, {
+        rid: this.data.lastClickRid
+      }, result => {
+        utils.logger(result, '橱窗详情')
+        if (result.success) {
+          let likeCount = result.data.like_count
+          let commentCount = result.data.comment_count
+          result.data.like_count = likeCount >= 1000 ? (likeCount / 1000).toFixed(2) + 'k' : likeCount
+          result.data.comment_count = commentCount >= 1000 ? (commentCount / 1000).toFixed(2) + 'k' : commentCount
+          // 更新列表数据
+          let _recommendWindows = this.data.recommendWindow.shop_windows
+          for (let i = 0; i < _recommendWindows.length; i++) {
+            if (_recommendWindows[i].rid == this.data.lastClickRid) {
+              _recommendWindows[i].is_like = result.data.is_like
+              _recommendWindows[i].like_count = result.data.like_count
+              _recommendWindows[i].comment_count = result.data.comment_count
+            }
+          }
+
+          let _followWindows = this.data.followWindow.shop_windows
+          for (let i = 0; i < _followWindows.length; i++) {
+            if (_followWindows[i].rid == this.data.lastClickRid) {
+              _followWindows[i].is_like = result.data.is_like
+              _followWindows[i].like_count = result.data.like_count
+              _followWindows[i].comment_count = result.data.comment_count
+            }
+          }
+
+          this.setData({
+            lastClickRid: '', // 加载一次后，清空
+            'recommendWindow.shop_windows': _recommendWindows,
+            'followWindow.shop_windows': _followWindows
+          })
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+  },
+
   // 获取推荐橱窗列表
   getRecommendWindow() {
     http.fxGet(api.shop_windows_recommend, this.data.recommendWindowParams, result => {
@@ -492,6 +547,11 @@ Page({
 
     if (this.data.categoryActive == 'follow' && this.data.followWindowParams.page == 1) {
       this.getFollowWindow()
+    }
+
+    // 刷新最后离开的橱窗数据
+    if (this.data.lastClickRid) {
+      this._refreshLastWindow()
     }
 
     this.getRunEnv() // 获取当前环境
