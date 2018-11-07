@@ -26,14 +26,14 @@ Page({
   },
 
   // 选择的地址
-  radioChange (e) {
+  radioChange(e) {
     let addressRid = e.detail.value
     app.globalData.orderParams.address_rid = addressRid
-    
+
     this.setData({
       address_rid: e.detail.value
     })
-  
+
     this.validateUserCustom()
   },
 
@@ -55,7 +55,7 @@ Page({
   },
 
   // 验证海关用户信息
-  validateUserCustom () {
+  validateUserCustom() {
     let currentAddress = {}
     this.data.addressList.map(item => {
       if (item.rid == this.data.address_rid) {
@@ -74,14 +74,14 @@ Page({
   },
 
   // 选择地址
-  addAddressTap () {
+  addAddressTap() {
     wx.navigateTo({
       url: '../address/address?from_ref=checkout'
     })
   },
 
   // 继续提交订单
-  submitOrderTap () {
+  submitOrderTap() {
     if (!this.data.validateCustom) {
       utils.fxShowToast('请先选定地址')
       return
@@ -93,9 +93,12 @@ Page({
   },
 
   // 获取海关所需身份证信息
-  getUserIdCard (currentAddress) {
+  getUserIdCard(currentAddress) {
     utils.logger(currentAddress.full_name + ',' + currentAddress.mobile)
-    http.fxGet(api.address_user_custom, { user_name: currentAddress.full_name, mobile: currentAddress.mobile }, (result) => {
+    http.fxGet(api.address_user_custom, {
+      user_name: currentAddress.full_name,
+      mobile: currentAddress.mobile
+    }, (result) => {
       utils.logger(result, '海关身份证')
       if (result.success) {
         if (Object.keys(result.data).length == 0) {
@@ -105,7 +108,7 @@ Page({
             content: '此订单为跨境订单，需上传清关所需身份证信息',
             cancelColor: '#333333',
             confirmColor: '#5FE4B1',
-            success: function (res) {
+            success: function(res) {
               if (res.confirm) {
                 // 跳转补全信息
                 wx.navigateTo({
@@ -141,7 +144,7 @@ Page({
       }
     })
   },
-  
+
   // 删除地址
   deleteAddress() {
     http.fxDelete(api.address_delete.replace(/:rid/g, this.data.address_rid), {}, (result) => {
@@ -156,7 +159,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     utils.logger(options)
     let from_ref = options.from_ref // 来源
 
@@ -170,7 +173,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -183,42 +186,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.getAddressList() // 获取地址列表
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   }
 

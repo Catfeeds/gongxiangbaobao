@@ -36,7 +36,7 @@
             <text class='expenses' wx:if="{{item.freight==0}}">免费</text>
             <text class='expenses' wx:else>￥{{item.freight}}</text>
             </text>
-            <text class='redtext'>￥{{item.pay_amount}}</text>
+            <text class='redtext'>￥{{item.user_pay_amount}}</text>
           </view>
         </view>
 

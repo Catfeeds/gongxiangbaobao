@@ -5,6 +5,8 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
+let isStartCompare = 0 // 当为2的时候开始比较
+
 Page({
   /**
    * 页面的初始数据
@@ -106,6 +108,7 @@ Page({
   handleAuthoritativeCoupon(e) {
     utils.logger(this.data.orderInfomation, '订单参数')
     utils.logger(e.detail)
+    console.log(e)
 
     let item = this.data.orderInfomation
     Object.keys(item).forEach((key) => {
@@ -126,7 +129,7 @@ Page({
       storeOrAuthoritativeCouponPick: false,
       ['pageOrderInfo.couponPrice']: (couponAmount - 0).toFixed(2),
     })
-    this.handleAuthorityCoupon()
+    // this.handleAuthorityCoupon()
     this.orderLastPrice() // 计算最后金额
   },
 
@@ -209,26 +212,36 @@ Page({
     app.globalData.orderParams.bonus_code = ''
     let params = JSON.parse(e.detail.value)
     utils.logger(this.data.orderInfomation[params.store_rid].coupon_price)
+    console.log(params, '选择的参数')
 
-    this.setData({
-      storeOrAuthoritativeCouponPick: true,
-      ['orderInfomation.' + params.store_rid + '.coupon_price']: params.price,
-      ['orderInfomation.' + params.store_rid + '.coupon_codes']: params.code
-    }, () => {
-      let couponPriceSum = 0
-      Object.keys(this.data.orderInfomation).forEach((key) => {
-        couponPriceSum = this.data.orderInfomation[key].coupon_price - 0 + couponPriceSum
-      })
+    let allStoreCouponList = this.data.couponList
+    Object.keys(allStoreCouponList).forEach((key, index) => {
 
-      this.setData({
-        ['pageOrderInfo.couponPrice']: couponPriceSum - 0
-      }, () => {
-        this.orderLastPrice() // 计算最后金额
-        utils.logger(app.globalData.orderParams.bonus_code)
-      })
+      if (key == params.store_rid) {
+        allStoreCouponList[key].forEach((v, i) => {
+          if (v.coupon.code == params.code) {
+            v.isActive = true
+          } else {
+            v.isActive = false
+          }
+        })
+      }
+
+      if (Object.keys(allStoreCouponList).length - 1 == index) {
+        this.setData({
+          couponList: allStoreCouponList
+        })
+
+        this.handleActiveStoreCoupon()
+
+        this.setData({
+          storeOrAuthoritativeCouponPick: true,
+        }, () => {
+          this._handleCountPrice()
+        })
+      }
     })
 
-    utils.logger(this.data.orderInfomation, '选择后的优惠卷')
   },
 
   // 优惠券弹框里面的内容couponList
@@ -282,6 +295,128 @@ Page({
     })
   },
 
+  // 优惠券对比
+  _handleCouponCompare() {
+
+    isStartCompare += 1
+
+    if (isStartCompare == 2) {
+      let storeCoupon = this.data.couponList
+      let officialCoupon = this.data.authorityCouponList
+      console.log(storeCoupon, '店铺')
+      console.log(officialCoupon, "官方")
+
+      let storeCouponPrice = 0
+      let officialCouponPrice = 0
+
+      // 店铺优惠券合计金额
+      Object.keys(storeCoupon).forEach((key) => {
+        console.log(key, storeCoupon[key]);
+        if (storeCoupon[key].length > 0) {
+          storeCouponPrice += storeCoupon[key][0].coupon.amount
+        }
+      });
+
+      // 最大的官方优惠券金额
+      if (officialCoupon.coupons.length != 0) {
+        officialCouponPrice = officialCoupon.coupons[0].amount
+      }
+
+      console.log(storeCouponPrice, officialCouponPrice)
+
+      // 选择要用的优惠券
+      this.setData({
+        storeOrAuthoritativeCouponPick: storeCouponPrice >= officialCouponPrice
+      })
+
+      //如果选中的是店铺优惠券处理页面显示和字典
+      if (this.data.storeOrAuthoritativeCouponPick) {
+        // 给每个优惠券加是否选中
+        let storeCoupon = this.data.couponList
+        Object.keys(storeCoupon).forEach(key => {
+          if (storeCoupon[key].length > 0) {
+            storeCoupon[key][0].isActive = true
+          }
+        })
+
+        // 处理默认选中后的订单拼接
+        this.handleActiveStoreCoupon()
+      }
+
+      //如果选中的是官方优惠券处理字典
+      if (!this.data.storeOrAuthoritativeCouponPick) {
+        officialCoupon.coupons[0].isActive = true
+
+        this.setData({
+          authorityCouponList: officialCoupon
+        })
+
+        let event = {
+          detail: {
+            value: JSON.stringify({
+              "code": officialCoupon.coupons[0].code,
+              "amount": officialCoupon.coupons[0].amount,
+              "min_amount": officialCoupon.coupons[0].min_amount
+            })
+          }
+        }
+        console.log(event)
+        this.handleAuthoritativeCoupon(event)
+      }
+    }
+  },
+
+  // 处理店铺优惠券选中
+  handleActiveStoreCoupon() {
+    console.log(this.data.orderInfomation)
+    console.log(this.data.couponList)
+    let orderParams = this.data.orderInfomation
+    let coupon = this.data.couponList
+
+    Object.keys(orderParams).forEach((key, index) => {
+      console.log(orderParams[key], key, index, '订单参数每一项')
+      Object.keys(coupon).forEach((item, one) => {
+        console.log(coupon[item], item, one, "优惠券每一项")
+        if (key == item) {
+          if (coupon[item].length != 0) {
+            coupon[item].forEach(v => {
+              if (v.isActive) {
+                orderParams[key].coupon_price = v.coupon.amount
+                orderParams[key].coupon_codes = v.coupon.code
+              }
+            })
+          }
+        }
+
+        console.log(Object.keys(coupon).length)
+        if (Object.keys(coupon).length - 1 == index) {
+          this.setData({
+            orderInfomation: orderParams,
+            authoritativeCouponPrice: 0, // 把官方的制为0
+            storeOrAuthoritativeCouponPick: true
+          })
+
+          this._handleCountPrice()
+        }
+      })
+    })
+  },
+
+  // 选择官方优惠券后从新计算 页面顶部信息
+  _handleCountPrice() {
+    let couponPriceSum = 0
+    Object.keys(this.data.orderInfomation).forEach((key) => {
+      couponPriceSum = this.data.orderInfomation[key].coupon_price - 0 + couponPriceSum
+    })
+
+    this.setData({
+      ['pageOrderInfo.couponPrice']: couponPriceSum - 0
+    }, () => {
+      this.orderLastPrice() // 计算最后金额
+      utils.logger(app.globalData.orderParams.bonus_code)
+    })
+  },
+
   // 支付,并跳转到支付成功页面---
   paymentSuccess() {
 
@@ -316,6 +451,8 @@ Page({
 
       store_items.push(store_item)
     })
+
+    console.log(store_items, '提交的订单')
 
     // 补充参数
     const jwt = wx.getStorageSync('jwt')
@@ -367,7 +504,12 @@ Page({
             sku: Array.from(new Set(skus))
           }, (result) => {
             utils.logger(result, '官方优惠券')
+            // 默认补选中
             if (result.success) {
+              result.data.coupons.forEach(v => {
+                v.isActive = false
+              })
+
               result.data.coupons.forEach((v, i) => {
                 v.start_time = utils.timestamp2string(v.start_at, 'date')
                 v.end_time = utils.timestamp2string(v.expired_at, 'date')
@@ -375,6 +517,8 @@ Page({
               this.setData({
                 authorityCouponList: result.data
               })
+
+              this._handleCouponCompare()
             } else {
               utils.fxShowToast(result.status.message)
             }
@@ -448,10 +592,22 @@ Page({
     http.fxPost(api.order_info_page_coupon, {
       items: product
     }, (result) => {
+      console.log(result.data, '店铺优惠券')
       if (result.success) {
+        // 给每个优惠券加是否选中
+        Object.keys(result.data).forEach(key => {
+          if (result.data[key].length > 0) {
+            result.data[key].forEach(v => {
+              v.isActive = false
+            })
+          }
+        })
+        console.log(result.data, '店铺优惠券')
         this.setData({
           couponList: result.data
         })
+
+        this._handleCouponCompare()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -546,12 +702,14 @@ Page({
 
       skusList.push(skus.data[key])
     })
-    console.log(skusList,'所有的订单')
+    console.log(skusList, '所有的订单')
+    console.log(store_items, '所有的订单参数')
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
       'pageOrderInfo.firstPrice': generalPrice.toFixed(2)
     }, () => {
+      console.log(store_items, '订单参数')
       this.getFullReduction() // 获取满减
       this.getCouponList() // 获取优惠券
       this.getLogisticsCompanyList() // 获取物流公司的列表
