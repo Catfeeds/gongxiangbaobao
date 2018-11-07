@@ -119,14 +119,24 @@ Page({
     let option = e.detail.value
     let coupon = JSON.parse(option)
     let couponAmount = coupon.amount - 0
-
     app.globalData.orderParams.bonus_code = coupon.code
+
+    // 重置选中
+    let authorityCoupon = this.data.authorityCouponList
+    authorityCoupon.coupons.forEach((v, index) => {
+      if (index == coupon.index) {
+        v.isActive = true
+      } else {
+        v.isActive = false
+      }
+    })
 
     this.setData({
       orderInfomation: item,
       authoritativeCouponPrice: couponAmount.toFixed(2),
       storeOrAuthoritativeCouponPick: false,
       ['pageOrderInfo.couponPrice']: (couponAmount - 0).toFixed(2),
+      authorityCouponList: authorityCoupon
     })
     // this.handleAuthorityCoupon()
     this.orderLastPrice() // 计算最后金额
@@ -540,16 +550,27 @@ Page({
             sku: Array.from(new Set(skus))
           }, (result) => {
             utils.logger(result, '官方优惠券')
-            // 默认补选中
+            console.log(result, '官方优惠券')
+            // 默认不选中
             if (result.success) {
-              result.data.coupons.forEach(v => {
-                v.isActive = false
-              })
 
-              result.data.coupons.forEach((v, i) => {
-                v.start_time = utils.timestamp2string(v.start_at, 'date')
-                v.end_time = utils.timestamp2string(v.expired_at, 'date')
-              })
+              if (result.data.coupons.length != 0) {
+                // 最后一个为补选中
+                result.data.coupons[result.data.coupons.length] = {
+                  amount: 0,
+                  code: ''
+                }
+                // 设置为不可选中
+                result.data.coupons.forEach(v => {
+                  v.isActive = false
+                })
+                // 修改日期
+                result.data.coupons.forEach((v, i) => {
+                  v.start_time = utils.timestamp2string(v.start_at, 'date')
+                  v.end_time = utils.timestamp2string(v.expired_at, 'date')
+                })
+              }
+
               this.setData({
                 authorityCouponList: result.data
               })

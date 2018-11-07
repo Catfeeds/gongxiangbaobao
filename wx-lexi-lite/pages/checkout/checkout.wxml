@@ -134,7 +134,7 @@
 
           <text class='coupon--color' wx:if="{{couponList[items[0].store_rid].length==0 }}">无可用优惠券</text>
 
-          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 }}">{{couponList[items[0].store_rid].length-1}}张优惠券可用</text>
+          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 || couponList[items[0].store_rid][couponList[items[0].store_rid].length-1].isActive }}">{{couponList[items[0].store_rid].length-1}}张优惠券可用</text>
 
           <!-- <text class='' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length}}">不可使用</text> -->
 
@@ -150,7 +150,7 @@
     <view class='component black-font time-top coupon--padding ' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='handleAuthorityCoupon'>
       <view>乐喜券</view>
       <view class='font-s qian-hui'>
-        <text class='' wx:if="{{storeOrAuthoritativeCouponPick&&authorityCouponList.coupons.length!=0}}">不可使用</text>
+        <text class='' wx:if="{{storeOrAuthoritativeCouponPick&&authorityCouponList.coupons.length!=0 || authorityCouponList.coupons[authorityCouponList.coupons.length-1].isActive }}">不可使用</text>
         <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick&&authoritativeCouponPrice!=0}}">已抵¥{{authoritativeCouponPrice}}</text>
 
         <text class='' wx:if="{{authorityCouponList.coupons.length==0}}">无优惠券可用</text>
@@ -234,16 +234,16 @@
     <view class='coupon-box_top padding-left--0rpx' catchtap='{{handleTapNull}}'>
       <view class='black-font coupon-box_top--mar margin-left--40rpx'>选择优惠券红包</view>
 
-      <radio-group bindchange="handleNoUseAuthorityCoupon">
+      <radio-group bindchange="handleAuthoritativeCoupon">
         <view class=" no-use__coupon time-top">
           <text>不使用优惠券</text>
-          <radio color="#5FE4B1">
+          <radio checked="{{authorityCouponList.coupons[authorityCouponList.coupons.length-1].isActive}}" color="#5FE4B1" value='{"code":"{{authorityCouponList.coupons[authorityCouponList.coupons.length-1].code}}","amount":"{{authorityCouponList.coupons[authorityCouponList.coupons.length-1].amount}}","min_amount":"{{authorityCouponList.coupons[authorityCouponList.coupons.length-1].min_amount}}" ,"index":"{{authorityCouponList.coupons.length-1}}"} '>
           </radio>
         </view>
       </radio-group>
 
       <radio-group bindchange="handleAuthoritativeCoupon">
-        <label wx:for="{{authorityCouponList.coupons}}" wx:key='{{index}}' wx:if="{{!item.is_expired && !item.is_used}}" class="coupon_radio coupon-box_top--mar time-top">
+        <label wx:for="{{authorityCouponList.coupons}}" wx:key='{{index}}' wx:if="{{!item.is_expired && !item.is_used && index!=authorityCouponList.coupons.length-1}}" class="coupon_radio coupon-box_top--mar time-top">
 
           <view class='coupon-l c-middle authority-oupon'>
             <image wx:if="{{item.source==5}}" src="https://static.moebeast.com/image/static/tag_11_11.png" class="out-time__coupon"></image>
@@ -261,7 +261,7 @@
             </view>
           </view>
           <view class='coupon-btn bg-white c-middle'>
-            <radio checked="{{item.isActive}}" color="#5FE4B1" value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}"}' />
+            <radio checked="{{item.isActive}}" color="#5FE4B1" value='{"code":"{{item.code}}","amount":"{{item.amount}}","min_amount":"{{item.min_amount}}","index":"{{index}}"}' />
           </view>
         </label>
       </radio-group>
