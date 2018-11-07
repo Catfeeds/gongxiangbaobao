@@ -2010,12 +2010,21 @@ Page({
 
       // 刷新生活馆
       if (this.data.pageActiveTab == 'lifeStore') {
+        wx.pageScrollTo({
+          scrollTop: 0,
+          duration: 0
+        })
         this._swtichActivePageTab('lifeStore')
       } else {
         const fromMenu = wx.getStorageSync('fromMenu')
         if (fromMenu == 'visitLifeStore') {
           this.setData({
-            pageActiveTab: 'lifeStore'
+            pageActiveTab: 'lifeStore',
+            'pageTabs[0].pageScroll': 0
+          })
+          wx.pageScrollTo({
+            scrollTop: 0,
+            duration: 0
           })
           this._swtichActivePageTab('lifeStore')
         } else {
@@ -2043,7 +2052,12 @@ Page({
         const fromMenu = wx.getStorageSync('fromMenu')
         if (fromMenu == 'visitLifeStore') {
           this.setData({
-            pageActiveTab: 'lifeStore'
+            pageActiveTab: 'lifeStore',
+            'pageTabs[0].pageScroll': 0
+          })
+          wx.pageScrollTo({
+            scrollTop: 0,
+            duration: 0
           })
           this._swtichActivePageTab('lifeStore')
         }
