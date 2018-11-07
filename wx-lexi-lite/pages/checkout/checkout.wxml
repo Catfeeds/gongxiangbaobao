@@ -134,7 +134,7 @@
 
           <text class='coupon--color' wx:if="{{couponList[items[0].store_rid].length==0 }}">无可用优惠券</text>
 
-          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 }}">{{couponList[items[0].store_rid].length}}张优惠券可用</text>
+          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 || couponList[items[0].store_rid][couponList[items[0].store_rid].length].coupon_price == 0 }}">{{couponList[items[0].store_rid].length}}张优惠券可用</text>
 
 
           <!-- <text class='' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length}}">不可使用</text> -->
