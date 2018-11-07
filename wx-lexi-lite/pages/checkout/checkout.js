@@ -293,6 +293,11 @@ Page({
     })
   },
 
+  // 不适用官方优惠券
+  handleNoUseAuthorityCoupon(){
+    app.globalData.orderParams.bonus_code = ''
+  },
+
   // 优惠券对比
   _handleCouponCompare() {
 

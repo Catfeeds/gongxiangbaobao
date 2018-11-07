@@ -2083,13 +2083,9 @@ Page({
       latestDistributeProducts: [],
       animationNum: 0
     })
-<<<<<<< HEAD
-    
+
     // 来源查看生活馆记录
     wx.removeStorageSync('fromMenu')
-=======
-
->>>>>>> origin/zhaogaoshang
   },
 
   /**
