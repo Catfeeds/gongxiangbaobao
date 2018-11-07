@@ -136,7 +136,6 @@
 
           <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 }}">{{couponList[items[0].store_rid].length}}张优惠券可用</text>
 
-
           <!-- <text class='' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length}}">不可使用</text> -->
 
           <text class='fx-icon-nothing-right '></text>
@@ -151,7 +150,7 @@
     <view class='component black-font time-top coupon--padding ' data-is_coupon="1" data-order_rid='{{items[0].store_rid}}' catchtap='handleAuthorityCoupon'>
       <view>乐喜券</view>
       <view class='font-s qian-hui'>
-        <text class='' wx:if="{{!storeOrAuthoritativeCouponPick&&authoritativeCouponPrice==0}}">不可使用</text>
+        <text class='' wx:if="{{storeOrAuthoritativeCouponPick&&authorityCouponList.coupons.length!=0}}">不可使用</text>
         <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick&&authoritativeCouponPrice!=0}}">已抵¥{{authoritativeCouponPrice}}</text>
 
         <text class='' wx:if="{{authorityCouponList.coupons.length==0}}">无优惠券可用</text>
@@ -182,8 +181,17 @@
 
   <!-- 优惠券弹框 -->
   <view class='coupon-box' wx:if="{{coupon}}" catchtap='couponTap'>
-    <view class='coupon-box_top' catchtap='{{false}}'>
-      <view class='black-font coupon-box_top--mar'>选择优惠券红包</view>
+    <view class='coupon-box_top padding-left--0rpx' catchtap='{{false}}'>
+      <view class='black-font coupon-box_top--mar margin-left--40rpx'>选择优惠券红包</view>
+
+      <radio-group bindchange="handleNoUseAuthorityCoupon">
+        <view class=" no-use__coupon time-top">
+          <text>不使用优惠券</text>
+          <radio color="#5FE4B1">
+          </radio>
+        </view>
+      </radio-group>
+
       <radio-group bindchange="radioChange">
         <label wx:for="{{pickCoupon}}" wx:key='{{index}}' class="coupon_radio coupon-box_top--mar time-top">
           <view class='column-round column-round_l'></view>
@@ -223,8 +231,17 @@
 
   <!--官方乐喜券弹框-->
   <view class='coupon-box' wx:if="{{authorityCouponShow}}" catchtap='handleAuthorityCoupon'>
-    <view class='coupon-box_top' catchtap='{{false}}'>
-      <view class='black-font coupon-box_top--mar'>选择优惠券红包</view>
+    <view class='coupon-box_top padding-left--0rpx' catchtap='{{false}}'>
+      <view class='black-font coupon-box_top--mar margin-left--40rpx'>选择优惠券红包</view>
+
+      <radio-group bindchange="handleNoUseAuthorityCoupon">
+        <view class=" no-use__coupon time-top">
+          <text>不使用优惠券</text>
+          <radio color="#5FE4B1">
+          </radio>
+        </view>
+      </radio-group>
+
       <radio-group bindchange="handleAuthoritativeCoupon">
         <label wx:for="{{authorityCouponList.coupons}}" wx:key='{{index}}' wx:if="{{!item.is_expired && !item.is_used}}" class="coupon_radio coupon-box_top--mar time-top">
 
