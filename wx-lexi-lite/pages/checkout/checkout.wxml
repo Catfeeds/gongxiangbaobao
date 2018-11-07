@@ -184,7 +184,7 @@
     <view class='coupon-box_top padding-left--0rpx' catchtap='{{false}}'>
       <view class='black-font coupon-box_top--mar margin-left--40rpx'>选择优惠券红包</view>
 
-      <radio-group bindchange="handleNoUseAuthorityCoupon">
+      <radio-group bindchange="handleNoUseStoreCoupon">
         <view class=" no-use__coupon time-top">
           <text>不使用优惠券</text>
           <radio color="#5FE4B1">

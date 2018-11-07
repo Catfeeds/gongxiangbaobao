@@ -294,8 +294,48 @@ Page({
   },
 
   // 不适用官方优惠券
-  handleNoUseAuthorityCoupon(){
+  handleNoUseAuthorityCoupon() {
+    let arrayData = this.data.authorityCouponList
+    arrayData.coupons.forEach(v => {
+      v.isActive = false
+    })
+
     app.globalData.orderParams.bonus_code = ''
+    this.setData({
+      authoritativeCouponPrice: 0,
+      storeOrAuthoritativeCouponPick: false,
+      authorityCouponList: arrayData,
+      'pageOrderInfo.couponPrice': 0
+    })
+
+    this.orderLastPrice() // 计算最后金额
+  },
+
+  // 不使用店铺
+  handleNoUseStoreCoupon() {
+
+    // 给每个优惠券加是否选中
+    let objDada = this.data.couponList
+    Object.keys(objDada).forEach(key => {
+      if (objDada[key].length > 0) {
+        objDada[key].forEach(v => {
+          v.isActive = false
+        })
+      }
+    })
+
+    let item = this.data.orderInfomation
+    Object.keys(item).forEach((key) => {
+      item[key].coupon_codes = ''
+    })
+
+    this.setData({
+      couponList: objDada,
+      orderInfomation: item,
+      'pageOrderInfo.couponPrice': 0
+    })
+
+    this.orderLastPrice() // 计算最后金额
   },
 
   // 优惠券对比
