@@ -327,12 +327,14 @@ Page({
     let item = this.data.orderInfomation
     Object.keys(item).forEach((key) => {
       item[key].coupon_codes = ''
+      item[key].coupon_price = 0
     })
 
     this.setData({
       couponList: objDada,
       orderInfomation: item,
-      'pageOrderInfo.couponPrice': 0
+      'pageOrderInfo.couponPrice': 0,
+      coupon: false,
     })
 
     this.orderLastPrice() // 计算最后金额
@@ -634,7 +636,23 @@ Page({
               v.isActive = false
             })
           }
+
+          if (result.data[key].length != 0) {
+            result.data[key][result.data[key].length] = {
+              coupon: {
+                amount: 0,
+                code: ''
+              },
+              isActive: false
+            }
+          }
+
+
+
         })
+
+        console.log(result.data, '店铺优惠券')
+
         this.setData({
           couponList: result.data
         })
@@ -869,6 +887,11 @@ Page({
     wx.navigateTo({
       url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&&sku_rid=" + e.currentTarget.dataset.sku_rid
     })
+  },
+
+  // 点击空
+  handleTapNull() {
+
   }
 
 })
