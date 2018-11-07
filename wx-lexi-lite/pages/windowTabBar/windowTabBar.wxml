@@ -97,8 +97,8 @@
           </view>
 
           <view class="fx-window__body">
-            <view class="title line-height--30rpx margin-bottom--24rpx "> {{item.title}} </view>
-            <view class="summary three-line-text">{{item.description}}</view>
+            <view class="title line-height--30rpx margin-bottom--24rpx" data-window-rid="{{ item.rid }}" catchtap="handleGoWindowDetail"> {{item.title}} </view>
+            <view class="summary three-line-text" data-window-rid="{{ item.rid }}" catchtap="handleGoWindowDetail">{{item.description}}</view>
             <view class="keywords line-height--24rpx">
               <label catchtap="handleGowindowAlike" data-text="{{single}}" wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>
             </view>
@@ -173,8 +173,8 @@
           </view>
 
           <view class="fx-window__body">
-            <view class="title line-height--30rpx margin-bottom--24rpx"> {{item.title}} </view>
-            <view class="summary three-line-text"> {{item.description}} </view>
+            <view class="title line-height--30rpx margin-bottom--24rpx" data-window-rid="{{ item.rid }}" catchtap="handleGoWindowDetail"> {{item.title}} </view>
+            <view class="summary three-line-text" data-window-rid="{{ item.rid }}" catchtap="handleGoWindowDetail"> {{item.description}} </view>
 
             <view class="keywords line-height--24rpx">
               <label catchtap="handleGowindowAlike" data-text="{{single}}" wx:for="{{item.keywords}}" wx:for-item="single" wx:key="{{index}}">#{{single}}</label>

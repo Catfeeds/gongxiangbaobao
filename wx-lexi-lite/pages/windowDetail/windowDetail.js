@@ -270,8 +270,14 @@ Page({
    * 生成推广海报图
    */
   getWxaPoster() {
-    // scene格式：rid
+    // scene格式：rid + '-' + sid
     let scene = this.data.windowRid
+    
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    if (lastVisitLifeStoreRid) {
+      scene += '-' + lastVisitLifeStoreRid
+    }
+
     let params = {
       scene: scene,
       rid: this.data.windowRid,
@@ -450,15 +456,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let rid = ''
-
-    // scene格式：rid
+    // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
+    let rid = ''
     if (scene && scene != undefined && scene != 'undefined') {
-      rid = utils.trim(scene)
-      this.setData({
-        showHomeBtn: true
-      })
+      let sceneAry = scene.split('-')
+      rid = utils.trim(sceneAry[0])
+      // 生活馆ID
+      if (sceneAry.length == 2) {
+        let lifeStoreRid = utils.trim(sceneAry[1])
+
+        app.updateLifeStoreLastVisit(lifeStoreRid)
+
+        wx.setStorageSync('showingLifeStoreRid', lifeStoreRid)
+
+        this.setData({
+          showHomeBtn: true
+        })
+      }
     } else {
       rid = options.windowRid
     }
