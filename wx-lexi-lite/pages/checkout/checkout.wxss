@@ -269,6 +269,7 @@
   /* background-color: red; */
   border-radius: 10rpx;
   background-color: #fffcfb;
+  margin-left: 40rpx;
 }
 
 .column-round {
@@ -480,10 +481,28 @@
 }
 
 /* 11.11 */
+
 .out-time__coupon {
   position: absolute;
   top: -4rpx;
   left: 28rpx;
   width: 116rpx;
   height: 30rpx;
+}
+
+.no-use__coupon {
+  background-color: white;
+  margin: 30rpx 0;
+  font-size: 28rpx;
+  padding: 30rpx 40rpx;
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.padding-left--0rpx {
+  padding-left: 0rpx;
+}
+
+.margin-left--40rpx {
+  margin-left: 40rpx;
 }

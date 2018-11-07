@@ -108,7 +108,6 @@ Page({
   handleAuthoritativeCoupon(e) {
     utils.logger(this.data.orderInfomation, '订单参数')
     utils.logger(e.detail)
-    console.log(e)
 
     let item = this.data.orderInfomation
     Object.keys(item).forEach((key) => {
@@ -212,7 +211,6 @@ Page({
     app.globalData.orderParams.bonus_code = ''
     let params = JSON.parse(e.detail.value)
     utils.logger(this.data.orderInfomation[params.store_rid].coupon_price)
-    console.log(params, '选择的参数')
 
     let allStoreCouponList = this.data.couponList
     Object.keys(allStoreCouponList).forEach((key, index) => {
@@ -295,6 +293,11 @@ Page({
     })
   },
 
+  // 不适用官方优惠券
+  handleNoUseAuthorityCoupon(){
+    app.globalData.orderParams.bonus_code = ''
+  },
+
   // 优惠券对比
   _handleCouponCompare() {
 
@@ -311,7 +314,6 @@ Page({
 
       // 店铺优惠券合计金额
       Object.keys(storeCoupon).forEach((key) => {
-        console.log(key, storeCoupon[key]);
         if (storeCoupon[key].length > 0) {
           storeCouponPrice += storeCoupon[key][0].coupon.amount
         }
@@ -321,8 +323,6 @@ Page({
       if (officialCoupon.coupons.length != 0) {
         officialCouponPrice = officialCoupon.coupons[0].amount
       }
-
-      console.log(storeCouponPrice, officialCouponPrice)
 
       // 选择要用的优惠券
       this.setData({
@@ -360,7 +360,6 @@ Page({
             })
           }
         }
-        console.log(event)
         this.handleAuthoritativeCoupon(event)
       }
     }
@@ -368,15 +367,11 @@ Page({
 
   // 处理店铺优惠券选中
   handleActiveStoreCoupon() {
-    console.log(this.data.orderInfomation)
-    console.log(this.data.couponList)
     let orderParams = this.data.orderInfomation
     let coupon = this.data.couponList
 
     Object.keys(orderParams).forEach((key, index) => {
-      console.log(orderParams[key], key, index, '订单参数每一项')
       Object.keys(coupon).forEach((item, one) => {
-        console.log(coupon[item], item, one, "优惠券每一项")
         if (key == item) {
           if (coupon[item].length != 0) {
             coupon[item].forEach(v => {
@@ -388,7 +383,6 @@ Page({
           }
         }
 
-        console.log(Object.keys(coupon).length)
         if (Object.keys(coupon).length - 1 == index) {
           this.setData({
             orderInfomation: orderParams,
@@ -592,7 +586,6 @@ Page({
     http.fxPost(api.order_info_page_coupon, {
       items: product
     }, (result) => {
-      console.log(result.data, '店铺优惠券')
       if (result.success) {
         // 给每个优惠券加是否选中
         Object.keys(result.data).forEach(key => {
@@ -602,7 +595,6 @@ Page({
             })
           }
         })
-        console.log(result.data, '店铺优惠券')
         this.setData({
           couponList: result.data
         })
@@ -702,14 +694,11 @@ Page({
 
       skusList.push(skus.data[key])
     })
-    console.log(skusList, '所有的订单')
-    console.log(store_items, '所有的订单参数')
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
       'pageOrderInfo.firstPrice': generalPrice.toFixed(2)
     }, () => {
-      console.log(store_items, '订单参数')
       this.getFullReduction() // 获取满减
       this.getCouponList() // 获取优惠券
       this.getLogisticsCompanyList() // 获取物流公司的列表

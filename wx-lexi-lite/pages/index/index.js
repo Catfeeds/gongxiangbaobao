@@ -2083,6 +2083,7 @@ Page({
       latestDistributeProducts: [],
       animationNum: 0
     })
+    
     // 来源查看生活馆记录
     wx.removeStorageSync('fromMenu')
   },
