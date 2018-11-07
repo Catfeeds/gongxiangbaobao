@@ -572,6 +572,11 @@ Page({
       sid: lifeStore.lifeStoreRid,
     })
 
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 0
+    })
+
     this._swtichActivePageTab('lifeStore')
 
     // 加载选品中心的动画
