@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isSubmit: false,
     isLoading: true,
     isPublish: false,
 
@@ -127,6 +128,16 @@ Page({
       return
     }
 
+    //值为发布状态
+    if (this.data.isSubmit) {
+      utils.fxShowToast("不能重复发布!")
+      return
+    }
+    this.setData({
+      isSubmit: true
+    })
+
+
     // 去除多余的图片
     let publishParams = this.data.windowParams.product_items
     if (this.data.toggleCode < publishParams.length) {
@@ -141,13 +152,16 @@ Page({
         if (result.success) {
           utils.logger(this.data.windowParams.product_items)
           utils.fxShowToast('添加成功', 'success')
+ 
           wx.navigateBack({
             delta: 1
           })
 
-          // wx.redirectTo({
-          //   url: '../windowDetail/windowDetail?windowRid=' + result.data.rid,
-          // })
+          //值为发布状态
+          this.setData({
+            isSubmit: false
+          })
+
         } else {
           utils.fxShowToast(result.status.message)
         }

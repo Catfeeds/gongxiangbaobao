@@ -132,7 +132,7 @@
         <view class='font-s'>
           <text class='coupon--color' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 && orderInfomation[items[0].store_rid].coupon_price }}">已抵¥{{orderInfomation[items[0].store_rid].coupon_price}}</text>
 
-          <text class='coupon--color' wx:if="{{couponList[items[0].store_rid].length==0 }}">无可用优惠券</text>
+          <text class='font-s qian-hui' wx:if="{{couponList[items[0].store_rid].length==0 }}">无可用优惠券</text>
 
           <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 || couponList[items[0].store_rid][couponList[items[0].store_rid].length-1].isActive }}">{{couponList[items[0].store_rid].length-1}}张优惠券可用</text>
 
@@ -162,13 +162,13 @@
   <view class='shm'></view>
   <!-- 继续确认订单按钮 -->
   <form bindsubmit="handleSubmitInfo" class="conservation flex_row--middle" report-submit="true" wx:if="{{paymentBtn && !isSubmiting}}">
-    <button form-type="submit" class=" submit-order_btn" catchtap="paymentSuccess">
+    <button form-type="submit" class=" submit-order_btn">
       提交订单
     </button>
   </form>
 
   <!-- 继续确认订单按钮 -->
-  <form bindsubmit="handleSubmitInfo" class="conservation flex_row--middle" report-submit="true" wx:if="{{isSubmiting}}">
+  <form class="conservation flex_row--middle" report-submit="true" wx:if="{{isSubmiting}}">
     <button form-type="submit" class=" submit-order_btn">
       提交订单中
     </button>

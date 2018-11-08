@@ -75,12 +75,16 @@
     </view>
   </view>
 
-  <cover-view class="c-middle shm sell-btn__box" wx:if="{{!isPublish}}">
+  <cover-view class="c-middle shm sell-btn__box" wx:if="{{!isPublish && !isSubmit}}">
     <cover-view class="c-middle sell-btn">发布</cover-view>
   </cover-view>
 
-  <cover-view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box active" wx:else>
+  <cover-view catchtap="handlePublishBtn" class="c-middle shm sell-btn__box active" wx:if="{{isPublish && !isSubmit}}">
     <cover-view class="c-middle sell-btn">发布</cover-view>
+  </cover-view>
+
+  <cover-view class="c-middle shm sell-btn__box active" wx:if="{{isSubmit}}">
+    <cover-view class="c-middle sell-btn">发布中···</cover-view>
   </cover-view>
 
 </view>
