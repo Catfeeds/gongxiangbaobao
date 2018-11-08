@@ -67,9 +67,9 @@
             </view>
 
             <!-- 购买的产品 -->
-            <view class='productBox' wx:for="{{item.items}}" wx:key="{{index}}" wx:for-item='sku'>
+            <view class='productBox' wx:for="{{item.items}}" wx:key="{{index}}" wx:for-item='sku' data-rid="{{sku.product_rid}}" catchtap="handleGoProduct">
               <view class='productComBoxL'>
-                <fx-product-middleM photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middleM>
+                <fx-product-middleM bind:triggerEvent_product="handleToProduct" photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middleM>
               </view>
               <text class='sku__price'>{{sku.mode}}</text>
               <view class='needNumber hui-zi-m'>X{{sku.quantity}}</view>

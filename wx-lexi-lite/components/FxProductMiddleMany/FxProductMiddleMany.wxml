@@ -1,11 +1,7 @@
 <!--components/FxProductMiddleMany/FxProductMiddleMany.wxml 产品组建 多行文本-->
 
 <!--components/FxProductMiddle/FxProductMiddle.wxml-->
-<view 
-  class='productMiddleBox' 
-  data-rid='{{productItem.rid}}' 
-  data-store-rid="{{productItem.store_rid}}"
-catchtap='handleProductInfo'>
+<view class='productMiddleBox' data-rid='{{productItem.rid}}' data-product-rid='{{productItem.product_rid}}' data-store-rid="{{productItem.store_rid}}" catchtap='handleProductInfo'>
   <view class='productMiddleBoxPhoto' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx'>
     <image src='{{ productItem.cover }}-p16' style='height:{{photoHeight}}rpx;width:{{photoWidth}}rpx' class="shopRecommendGoods-photo {{!productItem?'position-image':'active'}}" wx:if="{{ productItem.cover }}"></image>
 
