@@ -24,10 +24,14 @@ Page({
     }
   },
 
-  // 获取列表
+  // 获取列表 
   getProducts() {
     http.fxGet(api.column_collections_detail, this.data.params, (result) => {
+      wx.stopPullDownRefresh()
+
       utils.logger(result, '集合详情')
+      console.log(result, '集合详情')
+
       if (result.success) {
 
         wx.setNavigationBarTitle({
@@ -35,17 +39,19 @@ Page({
         })
 
         let data = this.data.productList
-        result.data.products.forEach((v) => {
-          data.push(v)
-        })
-        
+        if (this.data.params == 1) {
+          data = result.data.products
+        } else if (this.data.params > 1) {
+          data.concat(result.data.products)
+        }
+
         result.data.cover = result.data.cover + '-bg75x40'
 
         this.setData({
-          // isNext: result.data.next,
+          isNext: result.data.next,
           productList: data,
           product: result.data,
-          isLoadProductShow:false
+          isLoadProductShow: false
         })
 
       } else {
@@ -70,16 +76,16 @@ Page({
    */
   onReachBottom: function() {
     if (!this.data.isNext) {
-      // utils.fxShowToast('没有更多了')
+      utils.fxShowToast('没有更多了')
       return
     }
 
     this.setData({
       ['params.page']: this.data.params.page + 1,
-      // isLoadProductShow:true
+      isLoadProductShow: true
     })
 
-    // this.getProducts()
+    this.getProducts()
   },
 
   // 跳转到商品详情---
@@ -87,13 +93,6 @@ Page({
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   },
 
   /**
@@ -133,7 +132,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.setData({
+      'params.page': 1
+    })
+
+    this.getProducts()
+  },
+
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
     return app.shareLeXi()
-  }
-  
+  },
+
 })

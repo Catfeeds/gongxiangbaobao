@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "集合",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading"
   }
