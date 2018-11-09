@@ -10,7 +10,7 @@
     <!--申请开通-->
     <view class="apply-form-wrapper">
 
-      <form class="apply-form" bindsubmit="handleSubmitApply" bindreset="formReset">
+      <form class="apply-form" bindsubmit="handleSubmitApply" report-submit="{{true}}" bindreset="formReset">
         <view class="fx-input">
           <input type="text" name="name" placeholder-class="phClass" placeholder="你的真实姓名" />
         </view>

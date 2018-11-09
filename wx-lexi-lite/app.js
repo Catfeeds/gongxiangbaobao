@@ -214,7 +214,7 @@ App({
     }
 
     this.globalData.lifeStore = lifeStore
-    
+
     wx.setStorageSync('lifeStore', lifeStore)
   },
 
@@ -536,13 +536,16 @@ App({
    */
   handleSendNews(e) {
     console.log(e, 'formid')
+    if (e == 'the formId is a mock one formid') {
+      return
+    }
 
-      http.fxPost(api.users_save_form_ids, {
-        form_ids: [e],
-        openid: this.globalData.jwt.openid
-      }, result => {
-        console.log(result, '模板消息')
-      })
+    http.fxPost(api.users_save_form_ids, {
+      form_ids: [e],
+      openid: this.globalData.jwt.openid
+    }, result => {
+      console.log(result, '模板消息')
+    })
   },
 
   globalData: {

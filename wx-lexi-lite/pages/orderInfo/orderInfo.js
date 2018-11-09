@@ -12,7 +12,7 @@ Page({
   data: {
     isLoading: true,
     rid: '',
-    orderInfo: {}, // 订单信息
+    item: {}, // 订单信息
     // 购物车
     shoppingCart: [{
       id: 4,
@@ -48,15 +48,14 @@ Page({
 
   // 获取订单详情 core_orders_rid 
   getOrderDetail() {
-    http.fxGet(api.orders_after_payment_rid.replace(/:rid/, this.data.rid), {}, (result) => {
+    http.fxGet(api.core_orders_rid.replace(/:rid/, this.data.rid), {}, (result) => {
       utils.logger(result, '订单详情')
+      console.log(result, '订单详情')
       if (result.success) {
-        result.data.orders.forEach((v, i) => {
-          v.created_item = utils.timestamp2string(v.created_at, "cn")
-        })
+        result.data.created_item = utils.timestamp2string(result.data.created_at, "cn")
 
         this.setData({
-          orderInfo: result.data
+          item: result.data
         })
       } else {
         utils.fxShowToast(result.status.message)

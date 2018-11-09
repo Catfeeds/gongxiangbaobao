@@ -164,19 +164,19 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.posterUrl,
-        success: function(res) {
+        success: function (res) {
           if (res.statusCode == 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
-              success: function(data) {
+              success: function (data) {
                 that.setData({
                   posterSaving: false,
                   posterBtnText: '保存分享'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
-              fail: function(err) {
+              fail: function (err) {
                 utils.logger('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
@@ -340,7 +340,7 @@ Page({
   /**
    * 滑块变化
    */
-  handleSwiperChange: function(e) {
+  handleSwiperChange: function (e) {
     this.setData({
       swiperIndex: e.detail.current - 0 + 1
     })
@@ -350,6 +350,8 @@ Page({
    * 加入购物车
    */
   handleAddCart(e) {
+    app.handleSendNews(e.detail.formId)
+
     if (this.validateChooseSku()) {
       const jwt = wx.getStorageSync('jwt')
 
@@ -380,6 +382,8 @@ Page({
    * 直接购买
    */
   handleQuickBuy(e) {
+    app.handleSendNews(e.detail.formId)
+
     if (this.validateChooseSku()) {
       this.setOrderParamsProductId(this.data.choosed.rid) // 设置订单的商品id,sku---
 
@@ -759,6 +763,7 @@ Page({
 
   // 加入购物车盒子显示
   handleAddCartShow() {
+    
     // 是否绑定
     if (!app.globalData.isLogin) {
       this.setData({
@@ -980,7 +985,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options, product) {
+  onLoad: function (options, product) {
     utils.logger(options, product, '上一页传递参数')
 
     // scene格式：rid + '-' + sid
@@ -1321,7 +1326,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
     this.animation = wx.createAnimation({
       transformOrigin: 'bottom bottom',
       duration: 500,
@@ -1343,7 +1348,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount,
     })
@@ -1384,35 +1389,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     let title = this.data.productInfomation.name
     return app.shareWxaProduct(this.data.rid, title, this.data.shareProduct.cover)
   },

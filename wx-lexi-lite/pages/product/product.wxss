@@ -365,7 +365,7 @@ swiper-item, swiper-item>image, swiper {
   margin-right: 5rpx;
 }
 
-.small-bottom__style>view, .bottom-btn>view {
+.small-bottom__style .view, .bottom-btn .view {
   height: 80rpx;
   width: 270rpx;
   border-radius: 10rpx;
