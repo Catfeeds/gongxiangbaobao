@@ -45,6 +45,13 @@
             </text>
           </view>
 
+          <view class='prceInfo padding-bottom--4rpx' wx:if="{{item.reach_minus>0}}">
+            <text> 
+              <text class='hui-zi'>满减：</text>
+            <text class='black-font'>￥{{item.reach_minus}}</text>
+            </text>
+          </view>
+
           <view class='prceInfo padding-bottom--4rpx' wx:if="{{item.coupon_amount>0}}">
             <text> 
               <text class='hui-zi'>店铺优惠券：</text>

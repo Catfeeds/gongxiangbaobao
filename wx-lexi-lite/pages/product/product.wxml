@@ -159,7 +159,7 @@
     <!-- 交货时间 -->
     <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=0||productInfomation.py_intro!=null}}">
       <view class='titleText'>交货时间</view>
-      <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
+      <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.max_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
       </view>
     </view>
 
@@ -392,7 +392,7 @@
       <!-- 交货时间 -->
       <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=0||productInfomation.py_intro!=null}}">
         <view class='titleText'>交货时间</view>
-        <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
+        <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.max_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
         </view>
 
       </view>

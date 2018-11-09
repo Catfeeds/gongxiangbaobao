@@ -50,7 +50,6 @@ Page({
   getOrderDetail() {
     http.fxGet(api.core_orders_rid.replace(/:rid/, this.data.rid), {}, (result) => {
       utils.logger(result, '订单详情')
-      console.log(result, '订单详情')
       if (result.success) {
         result.data.created_item = utils.timestamp2string(result.data.created_at, "cn")
 
