@@ -39,10 +39,10 @@ Page({
         })
 
         let data = this.data.productList
-        if (this.data.params == 1) {
+        if (this.data.params.page == 1) {
           data = result.data.products
-        } else if (this.data.params > 1) {
-          data.concat(result.data.products)
+        } else if (this.data.params.page > 1) {
+          data = data.concat(result.data.products)
         }
 
         result.data.cover = result.data.cover + '-bg75x40'
@@ -81,7 +81,7 @@ Page({
     }
 
     this.setData({
-      ['params.page']: this.data.params.page + 1,
+      'params.page': this.data.params.page + 1,
       isLoadProductShow: true
     })
 
