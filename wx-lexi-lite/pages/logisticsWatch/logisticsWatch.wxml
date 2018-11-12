@@ -1,10 +1,7 @@
 <!--pages/logisticsWatch/logisticsWatch.wxml  物流跟踪页面-->
 <view class='container theme-bg-color'>
   <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <view class='orderNumber font-s'>
     <view class='time-top'>
@@ -48,7 +45,7 @@
       <view>暂未查询到礼物包裹进展 </view>
     </view>
 
-  
+
     <view class='font-s' wx:if="{{parmas.logistic_code!=null}}">
       <view>运单编号 </view>
       <view>{{parmas.logistic_code}}</view>
@@ -80,15 +77,15 @@
     <view class='newLocation' wx:if="{{location.State==3}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
-        <view class='left-round'></view>
-        <view class='left-line'></view>
+        <view class='left-round left-round__green'></view>
+        <view class='left-line left-line__green'></view>
       </view>
       <view class='locationInfoR'>
         <view class='black-font'>
           <text class='textR'>已经签收 </text> 感谢您的光临</view>
-        <view class='hui-zi'>
+        <!-- <view class='hui-zi'>
           <text>1017-1-1</text>
-          <text>01:00:01</text> </view>
+          <text>01:00:01</text> </view> -->
       </view>
     </view>
 
@@ -112,8 +109,8 @@
     <view class='newLocation' wx:for="{{location.Traces}}" wx:key="{{index}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
-        <view class='left-round'></view>
-        <view class='left-line'></view>
+        <view class='left-round {{0==index && location.State!=3?"left-round__green":""}}'></view>
+        <view class='left-line {{0==index && location.State!=3?"left-line__green":""}}'></view>
       </view>
       <view class='locationInfoR'>
         <view class='black-font theme-hui-color'> {{item.AcceptStation}}</view>

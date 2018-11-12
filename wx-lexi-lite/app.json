@@ -6,6 +6,7 @@
     "pages/categoryLife/categoryLife",
     "pages/categoryList/categoryList",
     "pages/find/find",
+    "pages/findComment/findComment",
     "pages/cart/cart",
     "pages/receiveCoupon/receiveCoupon",
     "pages/findInfo/findInfo",

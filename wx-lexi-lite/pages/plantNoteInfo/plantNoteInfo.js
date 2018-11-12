@@ -189,6 +189,26 @@ Page({
     })
   },
 
+  /**
+   * 打开评论
+   */
+  handleGoComment(e) {
+    utils.logger(e)
+    console.log(e, '种草笔记详情')
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    wx.navigateTo({
+      url: '../findComment/findComment?from=window&rid=' + this.data.rid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.liveInfo.is_like + '&likeCount=' + this.data.liveInfo.like_count + '&userName=' + e.currentTarget.dataset.userName
+    })
+  },
+
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
@@ -207,6 +227,7 @@ Page({
   getComment() {
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
       utils.logger(result, '生活志的评论')
+      console.log(result, '生活志的评论')
       if (result.success) {
         // result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
 
@@ -226,6 +247,7 @@ Page({
       rid: this.data.rid
     }, (result) => {
       utils.logger(result, '种草笔记详情')
+      console.log(result, '种草笔记详情')
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
