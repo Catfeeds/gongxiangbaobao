@@ -27,16 +27,11 @@
             <text wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
           </view>
         </picker>
-                    <image src="../../images/icons/browse-all@3.png"></image>
+        <image src="../../images/icons/browse-all@3.png"></image>
       </view>
 
       <view class='addressText'>
-        <textarea value='{{ form.street_address }}' 
-        maxlength="150"
-        placeholder-class="phcolor address-detail__default" 
-        placeholder='详细地址' 
-        class="address-detail"
-        bindblur="handleStreetInfo"></textarea>
+        <textarea value='{{ form.street_address }}' maxlength="150" placeholder-class="phcolor address-detail__default" placeholder='详细地址' class="address-detail" bindblur="handleStreetInfo"></textarea>
       </view>
       <view>
         <input bindblur="handleZipCode" placeholder-class="phcolor" placeholder='邮政编码' value='{{ form.zipcode }}' type='number'></input>
@@ -60,6 +55,7 @@
           </view>
           <view class='userPhotoNull userPhotoHave' wx:if="{{ id_card_front_image }}">
             <image src='{{ id_card_front_image }}'></image>
+            <image class="shui-yin" src="https://static.moebeast.com/image/static/Watermark.png"></image>
           </view>
           <view>清晰正面照片</view>
         </view>
@@ -73,6 +69,7 @@
           </view>
           <view class='userPhotoNull userPhotoHave' wx:else>
             <image src='{{ id_card_back_image }}'></image>
+            <image class="shui-yin" src="https://static.moebeast.com/image/static/Watermark.png"></image>
           </view>
           <view>
             清晰反面照片</view>

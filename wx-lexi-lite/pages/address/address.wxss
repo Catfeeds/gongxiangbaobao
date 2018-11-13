@@ -143,6 +143,7 @@ switch {
 }
 
 .userPhotoNull {
+  position: relative;
   width: 318rpx;
   height: 210rpx;
   border-radius: 10rpx;
@@ -288,4 +289,13 @@ switch {
   height: 106rpx;
   padding-top: 28rpx;
   line-height: 28rpx;
+}
+
+.shui-yin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 6;
 }
