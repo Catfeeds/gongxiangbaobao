@@ -82,7 +82,7 @@
       <view>设置为默认地址</view>
       <switch size="10" color="#6ED7AF" checked='{{ form.is_default }}' bindchange="handleDefaultChange" />
     </view>
-    <view class='dwletebtn' catchtap="handleDeleteAddress">删除</view>
+    <view class='dwletebtn' wx:if="{{isEditing}}" catchtap="handleDeleteAddress">删除</view>
     <view class='conservation' catchtap="handleSubmitAddress">
       <button>保存</button>
     </view>

@@ -89,6 +89,7 @@ picker-view-column view {
   padding: none;
   background-color: white;
   font-size: 28rpx;
+  margin-bottom: 30rpx;
 }
 
 switch {
@@ -170,7 +171,7 @@ switch {
   text-align: center;
   line-height: 90rpx;
   background-color: white;
-  margin: 30rpx 0;
+  margin-bottom: 30rpx;
 }
 
 .conservation {
