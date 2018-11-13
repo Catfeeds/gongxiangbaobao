@@ -179,7 +179,6 @@ function fxDelete(url, data = {}, cb) {
     header: fxHeader('application/json'),
     method: 'DELETE',
     success(res) {
-      console.log(res)
       return typeof cb == 'function' && cb(res.data)
     },
     fail() {

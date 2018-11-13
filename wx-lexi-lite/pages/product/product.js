@@ -27,6 +27,8 @@ Page({
     originalStoreRid: '', // 原店铺的rid
     storeRid: '', // 店铺的id
     rid: '', // 商品的rid---
+    likePeople: {}, // 喜欢该商品的人
+    productTop: {}, // 获取第一屏幕的信息
     productInfomation: { // 商品详情---
       is_distributed: true
     },
@@ -119,15 +121,17 @@ Page({
       return false
     }
 
+    this.setData({
+      isWatch: true
+    })
+
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '添加关注店铺')
 
       if (result.success) {
-        this.setData({
-          isWatch: true
-        })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -136,14 +140,15 @@ Page({
 
   // 取消关注---
   handleDeleteWatch() {
+    this.setData({
+      isWatch: false
+    })
     http.fxPost(api.delete_watch, {
       rid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '取消关注店铺')
       if (result.success) {
-        this.setData({
-          isWatch: false
-        })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -164,19 +169,19 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.posterUrl,
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode == 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
-              success: function (data) {
+              success: function(data) {
                 that.setData({
                   posterSaving: false,
                   posterBtnText: '保存分享'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
-              fail: function (err) {
+              fail: function(err) {
                 utils.logger('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
@@ -340,7 +345,7 @@ Page({
   /**
    * 滑块变化
    */
-  handleSwiperChange: function (e) {
+  handleSwiperChange: function(e) {
     this.setData({
       swiperIndex: e.detail.current - 0 + 1
     })
@@ -439,13 +444,13 @@ Page({
       })
       return
     }
-    let isLike = this.data.productInfomation.is_like
-    let rid = this.data.productInfomation.rid
+    let isLike = this.data.productTop.is_like
+    let rid = this.data.productTop.rid
 
     if (isLike) {
       this.setData({
-        ['productInfomation.is_like']: false,
-        ['productInfomation.like_count']: this.data.productInfomation.like_count - 1
+        ['productTop.is_like']: false,
+        ['productTop.like_count']: this.data.productTop.like_count - 1
       })
 
       this._handleUserLikePhoto(app.globalData.jwt.uid, 'delete')
@@ -460,8 +465,8 @@ Page({
       })
     } else {
       this.setData({
-        ['productInfomation.is_like']: true,
-        ['productInfomation.like_count']: this.data.productInfomation.like_count - 0 + 1,
+        ['productTop.is_like']: true,
+        ['productTop.like_count']: this.data.productTop.like_count - 0 + 1,
       })
 
       this._handleUserLikePhoto(app.globalData.jwt.uid, 'add')
@@ -480,7 +485,7 @@ Page({
   //操作喜欢的头像
   _handleUserLikePhoto(e, action = 'add') {
     utils.logger(e)
-    let likePhoto = this.data.productInfomation.product_like_users
+    let likePhoto = this.data.likePeople.product_like_users
     let myPhoto = -1
 
     likePhoto.forEach((v, i) => {
@@ -510,7 +515,7 @@ Page({
       }
     }
     this.setData({
-      'productInfomation.product_like_users': likePhoto
+      'likePeople.product_like_users': likePhoto
     })
   },
 
@@ -530,31 +535,33 @@ Page({
       })
       return false
     }
-    if (!this.data.productInfomation.is_wish) {
+    if (!this.data.productTop.is_wish) {
+      utils.fxShowToast('添加成功', 'success')
+      this.setData({
+        ['productTop.is_wish']: true
+      })
+
       http.fxPost(api.wishlist, {
         rids: [this.data.rid]
       }, (result) => {
         utils.logger(result)
         if (result.success) {
-          utils.fxShowToast('添加成功', 'success')
-          this.setData({
-            ['productInfomation.is_wish']: true
-          })
+
         } else {
           utils.fxShowToast(result.status.message)
         }
       })
     } else {
+      utils.fxShowToast('移除心愿单', 'success')
+      this.setData({
+        ['productTop.is_wish']: false
+      })
+
       http.fxDelete(api.wishlist, {
         rids: [this.data.rid]
       }, (result) => {
         utils.logger(result)
-        if (result.success) {
-          utils.fxShowToast('移除心愿单', 'success')
-          this.setData({
-            ['productInfomation.is_wish']: false
-          })
-        } else {
+        if (result.success) {} else {
           utils.fxShowToast(result.status.message)
         }
       })
@@ -681,23 +688,64 @@ Page({
     })
   },
 
-  // 获取商品详情
+  // 获取产品信息的第一屏
+  getProductTop() {
+    let jwt = wx.getStorageSync('jwt')
+    let openid = jwt.openid
+    http.fxGet(api.products_basic, {
+      rid: this.data.rid,
+      sid: jwt.store_rid || ''
+    }, result => {
+      console.log(result, '一屏幕信息')
+      if (result.success) {
+        this.setData({
+          productTop: result.data,
+          isDistributed: result.data.is_distributed,
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 喜欢此商品的人数
+  getLikePeople() {
+    let params = {
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
+      rid: this.data.rid // 必须	 	商品编号
+    }
+
+    http.fxGet(api.product_userlike, params, result => {
+      console.log(result, '喜欢该商品的额人')
+      if (result.success) {
+        result.data.product_like_users = result.data.product_like_users.reverse()
+        this.setData({
+          likePeople: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 获取商品详情 
   getProductInfomation() {
     let jwt = wx.getStorageSync('jwt')
     let openid = jwt.openid
 
-    http.fxGet(api.product_detail.replace(/:rid/g, this.data.rid), {
+    http.fxGet(api.products_detail.replace(/:rid/g, this.data.rid), {
       user_record: "1",
+      rid: this.data.rid,
       openid: openid,
-      sid: jwt.store_rid || ''
     }, (result) => {
       if (result.success) {
-        result.data.product_like_users = result.data.product_like_users.reverse()
+        console.log(result, '产品详情的二屏幕')
+
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid
           dkcontent: result.data.content,
-          isDistributed: result.data.is_distributed,
           storeRid: result.data.store_rid
         })
 
@@ -720,7 +768,7 @@ Page({
         }
 
         //获取分享的图片
-        this.handleShareProductPhoto(this.data.productInfomation.rid)
+        this.handleShareProductPhoto(this.data.rid)
 
         // 获取本店铺的产品
         this.getNewProduct(result.data.store_rid)
@@ -755,7 +803,7 @@ Page({
    */
   handleGoSale(e) {
 
-    let rid = this.data.productInfomation.rid
+    let rid = this.data.rid
     wx.navigateTo({
       url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid
     })
@@ -763,7 +811,7 @@ Page({
 
   // 加入购物车盒子显示
   handleAddCartShow() {
-    
+
     // 是否绑定
     if (!app.globalData.isLogin) {
       this.setData({
@@ -985,7 +1033,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options, product) {
+  onLoad: function(options, product) {
     utils.logger(options, product, '上一页传递参数')
 
     // scene格式：rid + '-' + sid
@@ -1020,6 +1068,8 @@ Page({
       })
     }
 
+    this.getProductTop() // 获取第一屏的信息
+    this.getLikePeople() // 喜欢该商品的人
     this.getProductInfomation() // 获取商品详情---
     this.getSkus()
 
@@ -1326,7 +1376,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     this.animation = wx.createAnimation({
       transformOrigin: 'bottom bottom',
       duration: 500,
@@ -1348,7 +1398,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount,
     })
@@ -1389,35 +1439,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
+  onHide: function() {
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
+  onUnload: function() {
+    
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     let title = this.data.productInfomation.name
     return app.shareWxaProduct(this.data.rid, title, this.data.shareProduct.cover)
   },
@@ -1461,7 +1511,7 @@ Page({
    */
   handelToLikeThisProductTap(e) {
     wx.navigateTo({
-      url: '../likeThisProduct/likeThisProduct?rid=' + e.currentTarget.dataset.rid
+      url: '../likeThisProduct/likeThisProduct?rid=' + this.data.rid
     })
   },
 

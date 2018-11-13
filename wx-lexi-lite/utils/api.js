@@ -136,6 +136,8 @@ module.exports = {
   logistics_core_freight_template: 'logistics/core_freight_template/:rid', // 商品对应的物流模板
   products_custom_made: 'products/custom_made', // 接单定制
   products_free_postage: 'products/free_postage', // 包邮专区
+  products_basic:'products/basic', // 产品详情的第一屏信息
+  products_detail:'products/detail', // 产品详情
 
   // 核心 product
   banners_rid: 'banners/:rid', // 特色品牌馆广告列表

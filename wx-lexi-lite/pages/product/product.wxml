@@ -10,67 +10,62 @@
   <!-- 轮播图 -->
   <view class='swiperBox'>
     <swiper bindchange='handleSwiperChange'>
-      <block wx:for="{{productInfomation.assets}}" wx:key="{{index}}">
+      <block wx:for="{{productTop.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}-p50" />
         </swiper-item>
       </block>
     </swiper>
-    <text class='subscript black-font' wx:if="{{productInfomation.assets.length!=0}}">{{swiperIndex}}/{{productInfomation.assets.length}}</text>
+    <text class='subscript black-font' wx:if="{{productTop.assets.length!=0}}">{{swiperIndex}}/{{productTop.assets.length}}</text>
   </view>
 
   <!--轮播图 产品底部信息 -->
   <view class='goodsInfoBox'>
     <view class='baoyou-icon  font-with--600'>
-      <image class='logistics baoyou-icon__bg' wx:if="{{ productInfomation.is_free_postage }}"></image>
-      <text class='product-info__title'>{{productInfomation.name}}</text>
+      <image class='logistics baoyou-icon__bg' wx:if="{{ productTop.is_free_postage }}"></image>
+      <text class='product-info__title'>{{productTop.name}}</text>
     </view>
     <view class='branderInfo margin-bottom--22rpx'>
-      <!-- <text class='cureentPrice' wx:if='{{productInfomation.max_price!=productInfomation.min_price}}'>
-      <text>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text>
-      <text>-</text>
-      <text>{{productInfomation.max_sale_price==0?productInfomation.max_price:productInfomation.max_sale_price}}</text>
-      </text>
-      <text class='cureentPrice' wx:else>￥{{productInfomation.min_sale_price==0?productInfomation.min_price:productInfomation.min_sale_price}}</text> -->
-      <text class='cureentPrice'> <text>￥{{productInfomation.min_sale_price!=productInfomation.min_price && productInfomation.min_sale_price!=0?productInfomation.min_sale_price:productInfomation.min_price}}</text> </text>
-      <text class='origPrice' wx:if="{{productInfomation.min_sale_price!=0}}">￥{{productInfomation.min_price}}</text>
+
+      <text class='cureentPrice'> <text>￥{{productTop.min_sale_price!=productTop.min_price && productTop.min_sale_price!=0?productTop.min_sale_price:productTop.min_price}}</text> </text>
+      <text class='origPrice' wx:if="{{productTop.min_sale_price!=0}}">￥{{productTop.min_price}}</text>
     </view>
     <!-- wx:for='{{productInfomation.labels}}' -->
-    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productInfomation.labels.length > 0 }}">
+    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productTop.labels.length > 0 }}">
       <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
-      <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
+      <text wx:for="{{productTop.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
           <text wx:if="{{index!=0}}"> · </text>
       <text>{{item.name}}</text>
       </text>
-      <text class='theme-green' wx:if='{{productInfomation.labels.length>5}}'> +3 ></text>
+      <text class='theme-green' wx:if='{{productTop.labels.length>5}}'> +3 ></text>
     </view>
     <!-- 喜欢心愿单 -->
     <view class='branderInfo like-quantity margin-bottom--30rpx'>
 
-      <view class='like-quantity-l' catchtap='handleBindLike' wx:if="{{!productInfomation.is_like}}">
+      <view class='like-quantity-l' catchtap='handleBindLike' wx:if="{{!productTop.is_like}}">
         <image src='../../images/dLike@2.png' class='like-icon'></image>
-        <text class='hui-zi like-icon-add' wx:if="{{productInfomation.like_count!=0}}"> +{{productInfomation.like_count}}</text>
+        <text class='hui-zi like-icon-add' wx:if="{{productTop.like_count!=0}}"> +{{productTop.like_count}}</text>
         <text class='hui-zi like-icon-add line-height--24rpx' wx:else>喜欢</text>
       </view>
 
       <view class='like-quantity-l bg-hui c-theme-bg borN' wx:else catchtap='handleBindLike'>
         <image src='../../images/already-like@3.png' class='like-icon'></image>
-        <text class='like-icon-add font-s font-color--white'> +{{productInfomation.like_count}}</text>
+        <text class='like-icon-add font-s font-color--white'> +{{productTop.like_count}}</text>
       </view>
 
       <view class='transmission'>
         <view class='like-quantity-l  margin-right--30rpx' catchtap='handleaddDesireTap'>
-          <text class='fx-icon-nothing-plus' wx:if="{{productInfomation.is_wish!=true}}"></text>
-          <text class='hui-zi line-height--28rpx' wx:if="{{productInfomation.is_wish!=true}}">心愿单</text>
+          <text class='fx-icon-nothing-plus' wx:if="{{productTop.is_wish!=true}}"></text>
+          <text class='hui-zi line-height--28rpx' wx:if="{{productTop.is_wish!=true}}">心愿单</text>
           <text class='hui-zi' wx:else>已添加</text>
         </view>
 
-        <view wx:if="{{isSmallB && productInfomation.is_distributed && !productInfomation.have_distributed}}" catchtap="handleGoSale" class='like-quantity-l border-null font-m color-hui'>
+        <view wx:if="{{isSmallB && productTop.is_distributed && !productTop.have_distributed}}" catchtap="handleGoSale" class='like-quantity-l border-null font-m color-hui'>
           <image class='fen' src='../../images/sell-icon@2.png'></image>
           <text class='like-icon-add font-s'> 上架 </text>
         </view>
 
-        <view wx:elif="{{isSmallB && productInfomation.is_distributed && productInfomation.have_distributed}}" class='like-quantity-l border-null font-m color-hui'>
+        <view wx:elif="{{isSmallB && productTop.is_distributed && productTop.have_distributed}}" class='like-quantity-l border-null font-m color-hui'>
           <text class='like-icon-add font-s'> 已上架 </text>
         </view>
 
@@ -117,9 +112,9 @@
   </view>
 
   <!-- 有多少人喜欢 -->
-  <view class='likeBox' catchtap='handelToLikeThisProductTap' data-rid='{{productInfomation.rid}}' wx:if="{{ productInfomation.product_like_users.length != 0 }}">
+  <view class='likeBox' catchtap='handelToLikeThisProductTap' wx:if="{{ likePeople.product_like_users.length != 0 }}">
     <view class='roundL'>
-      <image wx:for="{{productInfomation.product_like_users}}" wx:key="{{index}}" data-uid="{{item.uid}}" src='{{item.avatar}}-ava' catchtap="handleToPeople" wx:if="{{index<10}}" class='photo-round'></image>
+      <image wx:for="{{likePeople.product_like_users}}" wx:key="{{index}}" data-uid="{{item.uid}}" src='{{item.avatar}}-ava' catchtap="handleToPeople" wx:if="{{index<10}}" class='photo-round'></image>
     </view>
     <view class='roundR'>
       <image src='../../images/sandian.png'></image>
@@ -300,15 +295,15 @@
       </view>
     </view>
 
-    <view wx:if="{{!productInfomation.is_sold_out && productInfomation.status!=2}}" class='small-bottom__style flex_row bg-white'>
+    <view wx:if="{{!productTop.is_sold_out && productTop.status!=2}}" class='small-bottom__style flex_row bg-white'>
       <view class='view flex_row--middle c-theme-bg border-right__radius--null' catchtap='handlePickShow'>购买</view>
       <view catchtap="handleShareTap" class='view flex_row--middle crated_btn--style bg--red border-left__radius--null '>
         <text>卖 </text>
-        <text class="font-ss"> 赚 ￥{{productInfomation.commission_price}}</text>
+        <text class="font-ss"> 赚 ￥{{productTop.commission_price}}</text>
       </view>
     </view>
 
-    <view wx:if="{{productInfomation.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
+    <view wx:if="{{productTop.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
   </view>
 
   <!-- 不是小b -->
@@ -321,35 +316,15 @@
       </view>
     </view>
 
-    <view class='small-bottom__style flex_row bg-white' wx:if="{{!productInfomation.is_sold_out && productInfomation.status!=2}}">
+    <view class='small-bottom__style flex_row bg-white' wx:if="{{!productTop.is_sold_out && productTop.status!=2}}">
       <view class='view flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
       <view catchtap="handlePickShow" class='view flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
         <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
       </view>
     </view>
 
-    <view wx:if="{{productInfomation.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
+    <view wx:if="{{productTop.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
   </view>
-
-  <!-- 不是小B 接单定制按钮 -->
-  <!-- <view class='bottom-btn bg-white c-crosswise-a' wx:else>
-    <view class='btn-bg-color shop-cart'>
-      <view class='add_cart--number' wx:if='{{ cartTotalCount != 0 }}'>{{ cartTotalCount > 9 ? '9+' : cartTotalCount }}</view>
-      <view class='c-line-D cart_text--color' catchtap='handleToCartTap'>
-        <image src='../../images/carticon@2x.png'></image>
-        <text>购物车</text>
-      </view>
-    </view>
-    
-    <block>
-    <view 
-      class='flex_row--middle add_cart' 
-      catchtap='handleAddCartShow'>加入购物车</view>
-    <view 
-      class='flex_row--middle crated_btn--style btn-bg-color' 
-      catchtap='handlePickShow'>接单订制</view>
-    </block>
-  </view> -->
 
   <!-- 垫片 -->
   <view class='shm'></view>
@@ -431,7 +406,7 @@
       <view class="distribute-commission">
         <block wx:if="{{isSmallB && isDistributed}}">
           <text>赚</text>
-          <text class="amount">￥{{productInfomation.commission_price}}</text>
+          <text class="amount">￥{{productTop.commission_price}}</text>
         </block>
       </view>
 
