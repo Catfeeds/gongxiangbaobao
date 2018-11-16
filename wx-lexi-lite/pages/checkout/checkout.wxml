@@ -134,7 +134,7 @@
 
           <text class='font-s qian-hui' wx:if="{{couponList[items[0].store_rid].length==0 }}">无可用优惠券</text>
 
-          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 || couponList[items[0].store_rid][couponList[items[0].store_rid].length-1].isActive }}">{{couponList[items[0].store_rid].length-1}}张优惠券可用</text>
+          <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length!=0 || couponList[items[0].store_rid][couponList[items[0].store_rid].length-1].isActive }}">{{couponList[items[0].store_rid].length-1}}个优惠券可用</text>
 
           <!-- <text class='' wx:if="{{storeOrAuthoritativeCouponPick && couponList[items[0].store_rid].length}}">不可使用</text> -->
 
@@ -153,7 +153,7 @@
         <text class='' wx:if="{{storeOrAuthoritativeCouponPick&&authorityCouponList.coupons.length!=0 || authorityCouponList.coupons[authorityCouponList.coupons.length-1].isActive }}">不可使用</text>
         <text class='coupon--color' wx:if="{{!storeOrAuthoritativeCouponPick&&authoritativeCouponPrice!=0}}">已抵¥{{authoritativeCouponPrice}}</text>
 
-        <text class='' wx:if="{{authorityCouponList.coupons.length==0}}">无优惠券可用</text>
+        <text class='' wx:if="{{authorityCouponList.coupons.length==0}}">无可用优惠券</text>
 
         <text class='fx-icon-nothing-right'></text>
       </view>

@@ -31,9 +31,7 @@
               <image class="icon-zan" src="../../images/icons/icon-zan@3x.png"></image>
               <view class="zan-count">{{ items.praise_count > 0 ? items.praise_count : '赞' }}</view>
             </view>
-
           </view>
-
         </view>
 
         <!-- 评论内容 -->
@@ -104,17 +102,17 @@
     <input type="text" class="input-text" disabled="{{ true }}" data-submit-target="comment" catchtap="handleFocusInput" placeholder="写评论" />
 
     <view class="comment-action">
-      <!-- 喜欢 -->
-      <view class="action-like" catchtap="handleDeleteLike" wx:if="{{ isLike }}">
-        <image src="../../images/icons/icon-like-active@3x.png" class="icon-like"></image>
+      <!-- 删除点赞 -->
+      <view class="action-like" catchtap="handleDeleteLifePraise" wx:if="{{ isPraise }}">
+        <image src="../../images/icons/icon-zan-active@3x.png" class="icon-like"></image>
         <view class="like-count">
-          {{ likeCount > 0 ? likeCount : '' }}
+          {{ praiseCount > 0 ? praiseCount : '' }}
         </view>
       </view>
-      <view class="action-like action-like--add" catchtap="handleAddLike" wx:else>
-        <image src="../../images/icons/icon-like@3x.png" class="icon-like"></image>
+      <view class="action-like action-like--add" catchtap="handleAddPraise" wx:else>
+        <image src="../../images/icons/zan-hui@3.png" class="icon-like"></image>
         <view class="like-count">
-          {{ likeCount > 0 ? likeCount : '' }}
+          {{ praiseCount > 0 ? praiseCount : '' }}
         </view>
       </view>
     </view>

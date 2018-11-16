@@ -24,8 +24,8 @@ Page({
     emojiMsg: [], // 表情
     placeholderText: '写评论',
 
-    isLike: false,
-    likeCount: 0,
+    isPraise: false,
+    praiseCount: 0,
 
     windowRid: '', // 评论的对象rid
     submitTarget: '', // 提交目标 reply comment
@@ -177,7 +177,7 @@ Page({
         this.setData({
           'form.pid': 0
         })
-        http.fxPost(api.shop_windows_comments, this.data.form, result => {
+        http.fxPost(api.life_records_comments, this.data.form, result => {
           utils.logger(result, '提交评论')
           if (result.success) {
 
@@ -211,7 +211,7 @@ Page({
           }
         })
       } else { // 回复评论
-        http.fxPost(api.shop_windows_comments, this.data.form, result => {
+        http.fxPost(api.life_records_comments, this.data.form, result => {
           utils.logger(result, '提交回复评论')
           if (result.success) {
 
@@ -246,31 +246,66 @@ Page({
     }, 350)
   },
 
-  // 删除喜欢
-  handleDeleteLike() {
-    http.fxDelete(api.shop_windows_user_likes, {
+  /**
+   * 操作上一页的点赞
+   */
+  _handleParentPraise(e) {
+    let router = getCurrentPages()
+    console.log(router)
+    let ParentPage = router[router.length - 2]
+    console.log(ParentPage, '现在的页面')
+    if (ParentPage.route == 'pages/plantNoteInfo/plantNoteInfo') {
+      if (e == 'add') {
+        ParentPage.setData({
+          'liveInfo.is_praise': true,
+          'liveInfo.praise_count': ParentPage.data.liveInfo.praise_count + 1,
+        })
+      }
+
+      if (e == 'delete') {
+        ParentPage.setData({
+          'liveInfo.is_praise': false,
+          'liveInfo.praise_count': ParentPage.data.liveInfo.praise_count - 1,
+        })
+      }
+    }
+  },
+
+  /**
+   * 添加生活志点赞
+   */
+  handleAddPraise() {
+    this.setData({
+      isPraise: true,
+      praiseCount: this.data.praiseCount - 0 + 1,
+    })
+    this._handleParentPraise('add')
+
+    http.fxPost(api.life_records_praises, {
       rid: this.data.windowRid
     }, result => {
       if (result.success) {
-        this.setData({
-          isLike: false,
-          likeCount: this.data.likeCount - 1
-        })
-      } else utils.logger(result, '取消喜欢橱窗')
+
+      } else utils.fxShowToast(result.status.message)
     })
   },
 
-  // 添加喜欢
-  handleAddLike() {
-    http.fxPost(api.shop_windows_user_likes, {
+  /**
+   * 删除生活志点赞
+   */
+  handleDeleteLifePraise() {
+    this.setData({
+      isPraise: false,
+      praiseCount: this.data.praiseCount - 1,
+    })
+    this._handleParentPraise('delete')
+
+    http.fxDelete(api.life_records_praises, {
       rid: this.data.windowRid
     }, result => {
       if (result.success) {
-        this.setData({
-          isLike: true,
-          likeCount: this.data.likeCount - 0 + 1
-        })
-      } else utils.logger(result, '添加喜欢橱窗')
+
+      } else utils.fxShowToast(result.status.message)
     })
   },
 
@@ -283,7 +318,7 @@ Page({
 
     utils.logger(index + ',' + childIndex + ',' + id + ',' + t, '删除点赞')
 
-    http.fxDelete(api.shop_windows_comments_praises, {
+    http.fxDelete(api.life_records_comments_praises, {
       comment_id: id
     }, result => {
       if (result.success) {
@@ -316,7 +351,7 @@ Page({
 
     utils.logger(index + ',' + childIndex + ',' + id + ',' + t, '添加点赞')
 
-    http.fxPost(api.shop_windows_comments_praises, {
+    http.fxPost(api.life_records_comments_praises, {
       comment_id: id
     }, result => {
       if (result.success) {
@@ -346,9 +381,7 @@ Page({
     let pid = e.currentTarget.dataset.commentId
 
     let commentList = this.data.comments[index].sub_comments
-
     let page = commentList[commentList.length - 1].current_page
-
     utils.logger(page, '当前页面')
 
     this.setData({
@@ -356,7 +389,7 @@ Page({
       'childrenParams.page': page + 1
     })
 
-    http.fxGet(api.shop_windows_child_comments, this.data.childrenParams, result => {
+    http.fxGet(api.life_records_child_comments, this.data.childrenParams, result => {
       utils.logger(result)
       if (page == 0) {
         commentList = []
@@ -386,8 +419,9 @@ Page({
    * 获取评论
    */
   getComments() {
-    http.fxGet(api.shop_windows_comments, this.data.params, result => {
+    http.fxGet(api.life_records_comments, this.data.params, result => {
       utils.logger(result, '获取评论')
+      console.log(result, '获取评论')
       if (result.success) {
         result.data.comments.forEach((v, i) => {
           v.content_list = emojiFn.emojiAnalysis([v.content])
@@ -430,6 +464,7 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options, '写评论')
+    console.log(options, '写评论')
     // 设置评论表情
     let list = [
       '[\u5fae\u7b11][\u6487\u5634][\u8272][\u53d1\u5446][\u5f97\u610f][\u6d41\u6cea][\u5bb3\u7f9e][\u95ed\u5634][\u7761][\u5927\u54ed][\u5c34\u5c2c][\u53d1\u6012][\u8c03\u76ae][\u5472\u7259][\u60ca\u8bb6][\u96be\u8fc7][\u9177][\u51b7\u6c57][\u6293\u72c2][\u5410][\u5077\u7b11][\u6109\u5feb][\u767d\u773c][\u50b2\u6162][\u9965\u997f][\u56f0][\u60ca\u6050][\u6d41\u6c57][\u61a8\u7b11][\u60a0\u95f2][\u594b\u6597][\u5492\u9a82]',
@@ -456,8 +491,8 @@ Page({
       submitTarget: options.submitTarget || 'comment',
       currentCommentIndex: options.index || -1,
       isFocusing: _isFocusing,
-      isLike: options.isLike == 'true' ? true : false,
-      likeCount: options.likeCount || 0,
+      isPraise: options.isPraise == 'true' ? true : false,
+      praiseCount: options.praiseCount || 0,
       placeholderText: _placeholderText,
       emojiMsg: emojiFn.emojiAnalysis(list)
     })

@@ -64,6 +64,10 @@ module.exports = {
   life_records_detail: 'life_records/detail', // get 生活志详情
   life_records_similar: 'life_records/similar', // 相关故事推荐
   life_records_comments: 'life_records/comments', //get 获取生活志评论
+  life_records_child_comments:'life_records/child_comments', // 获取子评论
+  life_records_comments_praises:'life_records/comments/praises', // 生活志评论的点赞
+  life_records_praises:'life_records/praises', // 对生活志点赞
+  life_records_user_likes:'life_records/user_likes', // 操作生活志
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
   life_store_last_visit: 'users/last_store', // GET 用户最后访问的生活馆
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID

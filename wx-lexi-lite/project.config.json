@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 23,
 			"list": [
 				{
 					"id": 0,
@@ -172,6 +172,12 @@
 					"name": "访问过的生活馆",
 					"pathName": "pages/browseLifeStore/browseLifeStore",
 					"query": ""
+				},
+				{
+					"id": 23,
+					"name": "种草笔记",
+					"pathName": "pages/plantNoteInfo/plantNoteInfo",
+					"query": "rid=45"
 				}
 			]
 		}

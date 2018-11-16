@@ -6,7 +6,7 @@ const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
 let wxparse = require("../../wxParse/wxParse.js")
-
+const emojiFn = require('./../../template/emoj.js')
 Page({
 
   /**
@@ -205,7 +205,81 @@ Page({
     }
 
     wx.navigateTo({
-      url: '../findComment/findComment?from=window&rid=' + this.data.rid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isLike=' + this.data.liveInfo.is_like + '&likeCount=' + this.data.liveInfo.like_count + '&userName=' + e.currentTarget.dataset.userName
+      url: '../findComment/findComment?from=window&rid=' + this.data.rid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isPraise=' + this.data.liveInfo.is_praise + '&praiseCount=' + this.data.liveInfo.praise_count + '&userName=' + e.currentTarget.dataset.userName
+    })
+  },
+
+  /**
+   * 添加生活志点赞
+   */
+  handleAddPraise() {
+    this.setData({
+      'liveInfo.is_praise': true,
+      'liveInfo.praise_count': this.data.liveInfo.praise_count + 1,
+    })
+
+    http.fxPost(api.life_records_praises, {
+      rid: this.data.rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.fxShowToast(result.status.message)
+    })
+  },
+
+  /**
+   * 删除生活志点赞
+   */
+  handleDeletePraise() {
+    this.setData({
+      'liveInfo.is_praise': false,
+      'liveInfo.praise_count': this.data.liveInfo.praise_count - 1,
+    })
+
+    http.fxDelete(api.life_records_praises, {
+      rid: this.data.rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.fxShowToast(result.status.message)
+    })
+  },
+
+  /**
+   * 对评论点赞 
+   */
+  handleAddCommentPraise(e) {
+    let index = e.currentTarget.dataset.index
+    let rid = this.data.commentList.comments[index].comment_id
+    this.setData({
+      ['commentList.comments[' + index + '].is_praise']: true,
+      ['commentList.comments[' + index + '].praise_count']: this.data.commentList.comments[index].praise_count + 1,
+    })
+    http.fxPost(api.life_records_comments_praises, {
+      comment_id: rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.logger(result, '添加喜欢橱窗')
+    })
+  },
+
+  /**
+   * 删除评论点赞
+   */
+  handleDeleteCommentPraise(e) {
+    let index = e.currentTarget.dataset.index
+    let rid = this.data.commentList.comments[index].comment_id
+    this.setData({
+      ['commentList.comments[' + index + '].is_praise']: false,
+      ['commentList.comments[' + index + '].praise_count']: this.data.commentList.comments[index].praise_count - 1,
+    })
+    http.fxDelete(api.life_records_comments_praises, {
+      comment_id: rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.logger(result, '添加喜欢橱窗')
     })
   },
 
@@ -229,7 +303,15 @@ Page({
       utils.logger(result, '生活志的评论')
       console.log(result, '生活志的评论')
       if (result.success) {
-        // result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
+        result.data.comments.forEach((v, i) => {
+          v.content_list = emojiFn.emojiAnalysis([v.content])
+          v.created_at_cn = utils.commentTime(v.created_at)
+          v.sub_comments.forEach((item, idx) => {
+            item.content_list = emojiFn.emojiAnalysis([item.content])
+            item.current_page = 0
+            item.created_at_cn = utils.commentTime(item.created_at)
+          })
+        })
 
         this.setData({
           commentList: result.data
@@ -259,8 +341,6 @@ Page({
         this.setData({
           liveInfo: result.data
         })
-
-        this.getComment() // 获取生活志评论
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -382,7 +462,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getComment() // 获取生活志评论
   },
 
   /**
