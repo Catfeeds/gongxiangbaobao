@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 是否显示回到顶部按钮
+
     isLoading: true,
     showHomeBtn: false, // 显示回到首页按钮
     showBack: false, // 是否显示回到自己生活馆
@@ -1396,6 +1398,28 @@ Page({
   },
 
   /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
@@ -1440,14 +1464,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    
+
   },
 
   /**
@@ -1541,6 +1565,16 @@ Page({
     this.setData({
       isTwelveCoupon: false
     })
-  }
+  },
+
+  /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
 
 })

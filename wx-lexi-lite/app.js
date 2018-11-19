@@ -44,6 +44,9 @@ App({
 
     // 获取地理位置
     this.getUserLocation()
+
+    // 设备信息
+    this.getSystemInfo()
   },
 
   /**
@@ -548,11 +551,32 @@ App({
     })
   },
 
+  /**
+   * 设备信息
+   */
+  getSystemInfo() {
+    wx.getSystemInfo({
+      success: (res) => {
+        console.log(res, '设备信息')
+        this.globalData.systemInfo = res
+      },
+      fail: (res) => {
+        this.globalData.systemInfo.windowHeight = 555
+      }
+    })
+  },
+
+  /**
+   * 全局变量
+  */
+
   globalData: {
     isLogin: false,
     app_id: null,
     token: null,
     uid: 0,
+    // 设备信息
+    systemInfo: {},
     // 检测用户加载是否完成，异步问题
     userLoaded: false,
     // 支付成功后的订单

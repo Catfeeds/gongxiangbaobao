@@ -12,7 +12,7 @@
     <swiper bindchange='handleSwiperChange'>
       <block wx:for="{{productTop.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}-p50" />
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}" mode="aspectFill" />
         </swiper-item>
       </block>
     </swiper>
@@ -474,5 +474,8 @@
 
     </view>
   </fx-modal>
+
+    <!-- 回到顶部按钮是否显示 -->
+  <image wx:if="{{backBtnIsShow}}" src="../../images/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
 
 </view>

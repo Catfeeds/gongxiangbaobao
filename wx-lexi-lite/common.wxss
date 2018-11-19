@@ -1138,3 +1138,12 @@ button::after {
   background: url(https://static.moebeast.com/static/img/mask-bg.png);
   background-size: 100% 100%;
 }
+
+/* // 回到顶部按钮 */
+.back-top__btn {
+  position: fixed;
+  bottom: 180rpx;
+  right: 20rpx;
+  height: 116rpx;
+  width: 116rpx;
+}

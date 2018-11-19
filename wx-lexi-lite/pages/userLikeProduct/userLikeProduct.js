@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow:false, // 回到顶部图标是否显示
     isLoading: true,
     
     isDisabled: false, // 是否禁用
@@ -256,6 +257,17 @@ Page({
     this.getUserLikeProduct()
   },
 
+
+  /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
+
   // 获取商品列表
   getUserLikeProduct() {
     http.fxGet(api.userlike, this.data.getProductParams, (result) => {
@@ -316,6 +328,30 @@ Page({
         isLoading: false
       })
     }, 350)
+  },
+
+  /**
+ * 监听页面滚动
+ */
+  onPageScroll(e) {
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
+
   },
 
   /**
