@@ -264,7 +264,7 @@ swiper-item, swiper-item>image, swiper {
 .with {
   height: 58rpx;
   width: 126rpx;
-  background-color: #6ed7af;
+  background-color: #5fe4b1;
   border-radius: 10rpx;
   font-size: 24rpx;
   color: white;
@@ -779,7 +779,8 @@ swiper-item, swiper-item>image, swiper {
 }
 
 .bg--hui {
-  background-color: #949ea6;
+  background-color: #f5f7f9;
+  color: #333;
 }
 
 .coupon-template {
