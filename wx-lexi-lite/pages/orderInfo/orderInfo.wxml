@@ -4,7 +4,7 @@
 
   <block>
 
-    <block wx:for="{{orderInfo.orders}}" wx:key="{{index}}">
+    <block>
       <!-- 上部 -->
       <view class='topInfo bg-white'>
         <view class='orderNumber padding-top--24rpx padding-bottom--22rpx'>
@@ -23,24 +23,57 @@
         </view>
 
         <view class='orderNumber padding-top--22rpx'>
+
           <view class='prceInfo padding-bottom--4rpx'>
             <text> 
-        <text class='hui-zi'>小计：</text>
+              <text class='hui-zi'>小计：</text>
             <text class='black-font'>￥{{item.total_amount}}</text>
             </text>
-            <text class='hui-zi'>总计</text>
           </view>
           <view class='prceInfo'>
             <text>  
-        <text class='hui-zi'>配送：</text>
+              <text class='hui-zi'>配送：</text>
             <text class='expenses' wx:if="{{item.freight==0}}">免费</text>
             <text class='expenses' wx:else>￥{{item.freight}}</text>
             </text>
-            <text class='redtext'>￥{{item.user_pay_amount}}</text>
+          </view>
+
+          <view class='prceInfo padding-bottom--4rpx' wx:if="{{item.first_discount>0}}">
+            <text> 
+              <text class='hui-zi'>首单优惠：</text>
+            <text class='black-font'>￥{{item.first_discount}}</text>
+            </text>
+          </view>
+
+          <view class='prceInfo padding-bottom--4rpx' wx:if="{{item.reach_minus>0}}">
+            <text> 
+              <text class='hui-zi'>满减：</text>
+            <text class='black-font'>￥{{item.reach_minus}}</text>
+            </text>
+          </view>
+
+          <view class='prceInfo padding-bottom--4rpx' wx:if="{{item.coupon_amount>0}}">
+            <text> 
+              <text class='hui-zi'>店铺优惠券：</text>
+            <text class='black-font'>￥{{item.coupon_amount}}</text>
+            </text>
+          </view>
+
+          <view class='prceInfo padding-bottom--4rpx' wx:if="{{item.official_bonus_amount>0}}">
+            <text> 
+              <text class='hui-zi'>官方优惠券：</text>
+            <text class='black-font'>￥{{item.official_bonus_amount}}</text>
+            </text>
+          </view>
+
+          <view class="last-payment__price">
+            <view class='hui-zi'> 总计</view>
+            <view class='redtext'>￥{{item.user_pay_amount}}</view>
           </view>
         </view>
 
       </view>
+
       <!-- 下部 -->
       <view class='BotBox bg-white margin-bottom--50rpx'>
         <view class='shopName'>
@@ -67,9 +100,9 @@
             </view>
 
             <!-- 购买的产品 -->
-            <view class='productBox' wx:for="{{item.items}}" wx:key="{{index}}" wx:for-item='sku'>
+            <view class='productBox' wx:for="{{item.items}}" wx:key="{{index}}" wx:for-item='sku' data-rid="{{sku.product_rid}}" catchtap="handleGoProduct">
               <view class='productComBoxL'>
-                <fx-product-middleM photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middleM>
+                <fx-product-middleM bind:triggerEvent_product="handleToProduct" photoWidth="{{130}}" photoHeight="{{130}}" product="{{sku}}"></fx-product-middleM>
               </view>
               <text class='sku__price'>{{sku.mode}}</text>
               <view class='needNumber hui-zi-m'>X{{sku.quantity}}</view>
@@ -81,7 +114,8 @@
           </view>
 
           <!-- 物流跟踪 -->
-          <view catchtap='logisticsTap' wx:if="{{item.user_order_status==2 || item.user_order_status==3|| item.user_order_status==5}}" data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
+          <view catchtap='logisticsTap' wx:if="{{item.user_order_status==2 || item.user_order_status==3|| item.user_order_status==5}}" data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}"
+            class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
             <view class='colimn-B'>
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>
@@ -96,7 +130,7 @@
             </view>
           </view>
 
-          <view  wx:else data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
+          <view wx:else data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='logisticsInfo paymentFn time-top font-s PTRT padding-top--24rpx'>
             <view class='colimn-B'>
               <view class='hui-zi padding-bottom--4rpx'>配送方式</view>
               <view class='time-top'>

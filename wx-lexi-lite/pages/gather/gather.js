@@ -12,8 +12,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLoading: true,
+    isLoading: true, // 加载页面
     gatherList: [], // 集合列表
+    loadingData: true, // 加载数据
     touchBottomLoading: true, // 触底加载
     getGatherParams: {
       page: 1, // Number	可选	1	当前页码
@@ -24,15 +25,16 @@ Page({
   // 获取集合
   getGather() {
     http.fxGet(api.column_collections, this.data.getGatherParams, (result) => {
+      wx.stopPullDownRefresh()
       utils.logger(result, '集合')
       if (result.success) {
-        
+
         let _collections = result.data.collections
-        for (let i=0; i<_collections.length; i++) {
+        for (let i = 0; i < _collections.length; i++) {
           _collections[i].cover += '-bg75x40'
-            for (let k=0; k<_collections[i].products.length; k++) {
-              _collections[i].products[k].cover += '-p30x2' 
-            }
+          for (let k = 0; k < _collections[i].products.length; k++) {
+            _collections[i].products[k].cover += '-p30x2'
+          }
         }
 
         let data = this.data.gatherList
@@ -43,6 +45,7 @@ Page({
         }
 
         this.setData({
+          loadingData: false,
           touchBottomLoading: result.data.next,
           gatherList: data
         })
@@ -56,14 +59,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getGather()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -75,51 +78,57 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
+    this.setData({
+      ['getGatherParams.page']: 1
+    })
+
+    this.getGather()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    if (!this.data.touchBottomLoading){
+  onReachBottom: function() {
+    if (!this.data.touchBottomLoading) {
       utils.fxShowToast('没有更多了')
       return
     }
 
     this.setData({
-      ['getGatherParams.page']: this.data.getGatherParams.page + 1
+      ['getGatherParams.page']: this.data.getGatherParams.page + 1,
+      loadingData: true,
     })
 
-    // this.getGather()
+    this.getGather()
   },
 
   // 跳转到集合详情
   handleToGatherInfo(e) {
     wx.navigateTo({
-      url: '../gatherInfo/gatherInfo?rid='+e.currentTarget.dataset.rid
+      url: '../gatherInfo/gatherInfo?rid=' + e.currentTarget.dataset.rid
     })
   },
 
@@ -133,7 +142,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   }
 

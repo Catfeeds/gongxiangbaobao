@@ -129,6 +129,14 @@ Page({
     })
   },
 
+  // 修改地址
+  handleGoChangeAddress(e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../address/address?rid=' + rid + '&need_custom=1&from_ref=checkout'
+    })
+  },
+
   // 获取地址列表
   getAddressList() {
     http.fxGet(api.addresses, {}, (result) => {

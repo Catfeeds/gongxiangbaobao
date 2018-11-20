@@ -247,11 +247,17 @@ button::after {
 .fx-window .fx-window__images .image-container .image-item .photo {
   width: 498rpx;
   height: 498rpx;
+  background-image: url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .fx-window .fx-window__images .image-container.half .image-item .photo {
   width: 248rpx;
   height: 248rpx;
+  background-image: url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .fx-window .fx-window__images .image-container.half .image-item .surplus-count {
@@ -510,7 +516,6 @@ button::after {
 
 .comment-item .reply-text__box .reply-item--simple {
   display: flex;
-  align-items: center;
   font-weight: 400;
   color: rgba(85, 85, 85, 1);
 }
@@ -519,7 +524,6 @@ button::after {
   flex: 0 0 auto;
   margin-right: 10rpx;
   font-size: 24rpx;
-  line-height: 58rpx;
 }
 
 .comment-item .reply-text__box .reply-content {
@@ -1133,4 +1137,13 @@ button::after {
   z-index: 2;
   background: url(https://static.moebeast.com/static/img/mask-bg.png);
   background-size: 100% 100%;
+}
+
+/* // 回到顶部按钮 */
+.back-top__btn {
+  position: fixed;
+  bottom: 180rpx;
+  right: 20rpx;
+  height: 116rpx;
+  width: 116rpx;
 }

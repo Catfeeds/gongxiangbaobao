@@ -64,6 +64,10 @@ module.exports = {
   life_records_detail: 'life_records/detail', // get 生活志详情
   life_records_similar: 'life_records/similar', // 相关故事推荐
   life_records_comments: 'life_records/comments', //get 获取生活志评论
+  life_records_child_comments:'life_records/child_comments', // 获取子评论
+  life_records_comments_praises:'life_records/comments/praises', // 生活志评论的点赞
+  life_records_praises:'life_records/praises', // 对生活志点赞
+  life_records_user_likes:'life_records/user_likes', // 操作生活志
   life_store_delete_product: 'core_platforms/fx_distribute/remove', // DELETE 从生活馆删除某商品
   life_store_last_visit: 'users/last_store', // GET 用户最后访问的生活馆
   life_store_update_rid: 'users/update_last_store_rid', // POST 更新最后访问的生活馆ID
@@ -136,6 +140,8 @@ module.exports = {
   logistics_core_freight_template: 'logistics/core_freight_template/:rid', // 商品对应的物流模板
   products_custom_made: 'products/custom_made', // 接单定制
   products_free_postage: 'products/free_postage', // 包邮专区
+  products_basic:'products/basic', // 产品详情的第一屏信息
+  products_detail:'products/detail', // 产品详情
 
   // 核心 product
   banners_rid: 'banners/:rid', // 特色品牌馆广告列表

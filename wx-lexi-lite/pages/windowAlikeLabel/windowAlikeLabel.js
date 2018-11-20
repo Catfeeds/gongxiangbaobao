@@ -243,12 +243,12 @@ Page({
       }
     })
 
-    follow.forEach(v => {
-      if (v.rid == rid) {
-        v.is_like = value
-        v.like_count = value ? v.like_count + 1 : v.like_count - 1
-      }
-    })
+    // follow.forEach(v => {
+    //   if (v.rid == rid) {
+    //     v.is_like = value
+    //     v.like_count = value ? v.like_count + 1 : v.like_count - 1
+    //   }
+    // })
 
     this.setData({
       'recommendWindow.shop_windows': recommend,
@@ -256,6 +256,24 @@ Page({
 
   },
 
+  /**
+ * 发布评论
+ */
+  handlePublishComment(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../windowComment/windowComment?from=window&rid=' + rid + '&submitTarget=comment&isInput=1&pid=0'
+    })
+  },
 
   // 去橱窗详情
   handleGoWindowDetail(e) {

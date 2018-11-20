@@ -78,6 +78,9 @@ Page({
    * 提交申请
    */
   handleSubmitApply(e) {
+    // 获取formid 
+    app.handleSendNews(e.detail.formId)
+
     // 未登录，需先登录
     if (!app.globalData.isLogin) {
       this.setData({

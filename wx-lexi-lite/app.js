@@ -44,6 +44,9 @@ App({
 
     // 获取地理位置
     this.getUserLocation()
+
+    // 设备信息
+    this.getSystemInfo()
   },
 
   /**
@@ -214,7 +217,7 @@ App({
     }
 
     this.globalData.lifeStore = lifeStore
-    
+
     wx.setStorageSync('lifeStore', lifeStore)
   },
 
@@ -536,20 +539,43 @@ App({
    */
   handleSendNews(e) {
     console.log(e, 'formid')
+    if (e == 'the formId is a mock one formid') {
+      return
+    }
 
-      http.fxPost(api.users_save_form_ids, {
-        form_ids: [e],
-        openid: this.globalData.jwt.openid
-      }, result => {
-        console.log(result, '模板消息')
-      })
+    http.fxPost(api.users_save_form_ids, {
+      form_ids: [e],
+      openid: this.globalData.jwt.openid
+    }, result => {
+      console.log(result, '模板消息')
+    })
   },
+
+  /**
+   * 设备信息
+   */
+  getSystemInfo() {
+    wx.getSystemInfo({
+      success: (res) => {
+        this.globalData.systemInfo = res
+      },
+      fail: (res) => {
+        this.globalData.systemInfo.windowHeight = 555
+      }
+    })
+  },
+
+  /**
+   * 全局变量
+  */
 
   globalData: {
     isLogin: false,
     app_id: null,
     token: null,
     uid: 0,
+    // 设备信息
+    systemInfo: {},
     // 检测用户加载是否完成，异步问题
     userLoaded: false,
     // 支付成功后的订单

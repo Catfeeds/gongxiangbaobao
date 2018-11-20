@@ -35,15 +35,36 @@
       <view>
         <view>
           <text class='hui-zi'>小计 : </text>
-          <text>￥{{((order.actual_payment)*1000 - (order.orders[0].freight)*1000)/1000}}</text>
+          <text>￥{{order.total_amount}}</text>
         </view>
+
+        <view wx:if="{{order.reach_minus!=0}}">
+          <text class='hui-zi'>满减 : </text>
+          <text>￥{{order.reach_minus}}</text>
+        </view>
+
+        <view wx:if="{{order.first_discount!=0}}">
+          <text class='hui-zi'>首单优惠 : </text>
+          <text>￥{{order.first_discount}}</text>
+        </view>
+
+        <view wx:if="{{order.coupon_amount!=0}}">
+          <text class='hui-zi'>店铺优惠券 : </text>
+          <text>￥{{order.coupon_amount}}</text>
+        </view>
+
+        <view wx:if="{{order.bonus_amount!=0}}">
+          <text class='hui-zi'>乐喜优惠券 : </text>
+          <text>￥{{order.bonus_amount}}</text>
+        </view>
+
         <view>
           <text class='hui-zi'>配送 : </text>
-          <text class='price_logistics--color'>{{logisticsPriceSum==0?"包邮":"￥"+logisticsPriceSum}}</text>
+          <text class='price_logistics--color'>{{order.freight==0?"包邮":"￥"+order.freight}}</text>
         </view>
         <view>
           <text class='black-font'>订单总计 </text>
-          <text class='price_logistics--colorR'>￥{{order.actual_payment}}</text>
+          <text class='price_logistics--colorR'>￥{{order.user_pay_amount}}</text>
         </view>
       </view>
 
@@ -70,7 +91,7 @@
 
       <view class='goodsFn'>
         <view>配送</view>
-        <view>￥{{item.freight}}</view>
+        <view>{{item.freight==0?'包邮':'￥' + item.freight}}</view>
       </view>
     </view>
 

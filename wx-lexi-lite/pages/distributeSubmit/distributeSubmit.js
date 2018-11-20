@@ -58,7 +58,7 @@ Page({
         if (parentPath.route == 'pages/product/product') {
           // 设置详情页面的已上架按钮
           parentPath.setData({
-            'productInfomation.have_distributed': true
+            'productTop.have_distributed': true
           })
         } else {
           this._handleUpdateMyDistributed()

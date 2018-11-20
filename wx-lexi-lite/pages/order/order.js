@@ -331,39 +331,53 @@ Page({
 
   //确认收货
   handleReceive(e) {
-    let rid = e.currentTarget.dataset.rid
-    let idx = e.currentTarget.dataset.index
-    utils.logger(idx, rid)
+    wx.showModal({
+      title: '确认收货？',
+      content: '确认收货后将无法还原',
+      confirmColor: "#6ed7af",
+      cancelColor: "#6ed7af",
+      success: (res) => {
+        if (res.confirm) {
 
-    http.fxPost(api.order_signed, {
-      rid: rid
-    }, (result) => {
-      utils.logger(result, '确认收货')
+          let rid = e.currentTarget.dataset.rid
+          let idx = e.currentTarget.dataset.index
+          utils.logger(idx, rid)
 
-      if (result.success) {
-        let allshouhuoData = this.data.allOrderList
-        allshouhuoData.forEach((v, i) => {
-          if (v.rid == rid) {
-            allshouhuoData.splice(i, 1)
-            this.setData({
-              allOrderList: allshouhuoData
-            })
-          }
-        })
+          http.fxPost(api.order_signed, {
+            rid: rid
+          }, (result) => {
+            utils.logger(result, '确认收货')
 
-        let daishouData = this.data.daishou
-        daishouData.forEach((v, i) => {
-          if (v.rid == rid) {
-            daishouData.splice(i, 1)
-            this.setData({
-              daishou: daishouData
-            })
-          }
-        })
+            if (result.success) {
+              let allshouhuoData = this.data.allOrderList
+              allshouhuoData.forEach((v, i) => {
+                if (v.rid == rid) {
+                  allshouhuoData.splice(i, 1)
+                  this.setData({
+                    allOrderList: allshouhuoData
+                  })
+                }
+              })
 
-        this.getPingjiaList() // 评价
-      } else {
-        utils.fxShowToast(result.status.message)
+              let daishouData = this.data.daishou
+              daishouData.forEach((v, i) => {
+                if (v.rid == rid) {
+                  daishouData.splice(i, 1)
+                  this.setData({
+                    daishou: daishouData
+                  })
+                }
+              })
+
+              this.getPingjiaList() // 评价
+            } else {
+              utils.fxShowToast(result.status.message)
+            }
+          })
+
+        } else if (res.cancel) {
+          utils.logger('用户点击取消')
+        }
       }
     })
 
@@ -382,8 +396,8 @@ Page({
     wx.showModal({
       title: '确认删除订单？',
       content: '订单删除后将无法还原',
-      confirmColor: "#007AFF",
-      cancelColor: "#007AFF",
+      confirmColor: "#6ed7af",
+      cancelColor: "#6ed7af",
       success: (res) => {
         if (res.confirm) {
           http.fxDelete(api.orders_delete, {

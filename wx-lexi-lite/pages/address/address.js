@@ -77,7 +77,8 @@ Page({
   // 保存新增地址
   handleSubmitAddress() {
     if (!this.data.isEditing) {
-      http.fxPost(api.address_addto, { ...this.data.form }, (result) => {
+      http.fxPost(api.address_addto, { ...this.data.form
+      }, (result) => {
         utils.logger(result, '新增地址')
         if (result.success) {
           if (this.data.from_ref == 'checkout') {
@@ -98,7 +99,8 @@ Page({
         'form.rid': this.data.rid
       })
       utils.logger(this.data.form)
-      http.fxPut(api.address_addto, { ...this.data.form }, (result) => {
+      http.fxPut(api.address_addto, { ...this.data.form
+      }, (result) => {
         utils.logger(result, '更新地址')
         if (result.success) {
           if (this.data.from_ref == 'checkout') {
@@ -115,7 +117,7 @@ Page({
         }
       })
     }
-    
+
   },
 
   // 删除地址
@@ -138,28 +140,28 @@ Page({
   },
 
   // 姓名
-  handleUserName (e) {
+  handleUserName(e) {
     this.setData({
       'form.first_name': e.detail.value
     })
   },
 
   // 填写手机号码
-  handleMobile (e) {
+  handleMobile(e) {
     this.setData({
       'form.mobile': e.detail.value
     })
   },
 
   // 邮政编号
-  handleZipCode (e) {
+  handleZipCode(e) {
     this.setData({
       'form.zipcode': e.detail.value
     })
   },
 
   // 详细的地址
-  handleStreetInfo (e) {
+  handleStreetInfo(e) {
     utils.logger(e.detail.value)
     this.setData({
       'form.street_address': e.detail.value
@@ -167,31 +169,31 @@ Page({
   },
 
   // 设置为默认的收货地址
-  handleDefaultChange (e) {
+  handleDefaultChange(e) {
     this.setData({
       'form.is_default': e.detail.value
     })
   },
 
   // 设置身份证号
-  handleIdCardChange (e) {
+  handleIdCardChange(e) {
     this.setData({
       'form.id_card': e.detail.value
     })
   },
 
   // 国家选择器发生变化
-  handleChangeCountry (e) {
+  handleChangeCountry(e) {
     let countryIndex = e.detail.value
     let country_id = this.data.countryList[countryIndex].id
     if (this.data.isEditing) { // 编辑状态，改变国家，需恢复省市区默认值
-       if (country_id != this.data.form.country_id) {
-         this.setData({
-           'form.province_id': '',
-           'form.city_id': '',
-           'form.town_id': ''
-         })
-       }
+      if (country_id != this.data.form.country_id) {
+        this.setData({
+          'form.province_id': '',
+          'form.city_id': '',
+          'form.town_id': ''
+        })
+      }
     }
     this.setData({
       countryIndex: countryIndex,
@@ -205,7 +207,7 @@ Page({
   },
 
   // 验证是否为跨境订单
-  _validateCrossBorder (country_id) {
+  _validateCrossBorder(country_id) {
     // 验证是否为跨境地址
     utils.logger(app.globalData.deliveryCountries, '发货国家')
     let deliveryCountries = app.globalData.deliveryCountries
@@ -225,7 +227,7 @@ Page({
   },
 
   // 省市区选择器
-  handleRegionsChange (e) {
+  handleRegionsChange(e) {
     utils.logger(e, '省市区选择器')
 
     let town_id = 0
@@ -241,7 +243,7 @@ Page({
   },
 
   // 省市区列选择器
-  handleRegionColumnChange (e) {
+  handleRegionColumnChange(e) {
     utils.logger(e, '省市区列选择器')
     let column = e.detail.column
     let idx = e.detail.value
@@ -297,7 +299,7 @@ Page({
       uploadType: type
     })
     wx.chooseImage({
-      count:1,
+      count: 1,
       success: (res) => {
         let tempFilePaths = res.tempFilePaths
         const uploadTask = http.fxUpload(api.asset_upload, tempFilePaths[0], {}, (result) => {
@@ -315,7 +317,7 @@ Page({
                 isUploadingBack: false,
                 uploadBackStatus: 100
               })
-              
+
               this.getAssetBackInfo(result.data[0])
             }
           }
@@ -323,16 +325,16 @@ Page({
 
         uploadTask.onProgressUpdate((res) => {
           utils.logger('上传进度', res.progress)
-          
+
           let percent = res.progress
-          if (type == 'front'){
+          if (type == 'front') {
             this.setData({
               isUploadingFront: percent == 100 ? false : true,
               uploadFrontStatus: percent
             })
           }
-          
-          if (type == 'back'){
+
+          if (type == 'back') {
             this.setData({
               isUploadingBack: percent == 100 ? false : true,
               uploadBackStatus: percent
@@ -389,7 +391,9 @@ Page({
 
   // 获取所有的国家
   getCountry() {
-    http.fxGet(api.get_country, { status: 1 }, (result) => {
+    http.fxGet(api.get_country, {
+      status: 1
+    }, (result) => {
       utils.logger(result, '国家列表')
       if (result.success) {
         let countries = result.data.area_codes
@@ -404,7 +408,7 @@ Page({
             countryIndex: 0,
             'form.country_id': defaultCountryId
           })
-          
+
         } else {
           let countryIndex = 0
           defaultCountryId = this.data.form.country_id
@@ -514,7 +518,7 @@ Page({
   },
 
   // 获取当前索引
-  _getCurrentIndex (list, v) {
+  _getCurrentIndex(list, v) {
     let currentIndex = 0
     list.map((item, index) => {
       if (item.oid == v) {
@@ -525,7 +529,7 @@ Page({
   },
 
   // 获取当前地址信息
-  getAddressInfo () {
+  getAddressInfo() {
     http.fxGet(api.address_info.replace(/:rid/, this.data.rid), {}, (result) => {
       if (result.success) {
         utils.logger(result, '地址详情')
@@ -554,6 +558,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
     let rid = options.rid || '' // 编辑地址
     // 验证是否需要设置海关信息
     let needUserCustom = options.need_custom || 0
@@ -634,7 +639,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-   return app.shareLeXi()
+    return app.shareLeXi()
   },
 
   // 模板的显示与隐藏

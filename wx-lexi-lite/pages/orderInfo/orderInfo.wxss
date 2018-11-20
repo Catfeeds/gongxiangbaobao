@@ -6,6 +6,7 @@
 }
 
 .orderNumber {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -45,39 +46,47 @@
   justify-content: space-between;
 }
 
-.dialogbox{
+.dialogbox {
   color: white;
   font-size: 32rpx;
 }
-.startAddress{
-  flex: 1;  
+
+.startAddress {
+  flex: 1;
 }
-.item-product{
+
+.item-product {
   display: flex;
   flex-direction: column;
 }
-.productBox{
+
+.productBox {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 30rpx;
   position: relative;
 }
-.productComBoxL{
+
+.productComBoxL {
   flex: 9;
 }
-.productComBoxR{
-  flex: 1
+
+.productComBoxR {
+  flex: 1;
 }
-.needNumber{
+
+.needNumber {
   flex: 1;
   font-weight: normal;
   text-align: center;
 }
-.logisticsInfo{
+
+.logisticsInfo {
   height: 80rpx;
 }
-.logistics-icon{
+
+.logistics-icon {
   height: 36rpx;
   width: 36rpx;
   border-radius: 50%;
@@ -85,65 +94,85 @@
   margin-right: 20rpx;
   overflow: hidden;
 }
-.logistics-icon image{
+
+.logistics-icon image {
   height: 100%;
   width: 100%;
 }
-.colimn-B{
+
+.colimn-B {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 80rpx;
 }
+
 /* .userLocation view{
   line-height: 50rpx;
   
 } */
-[class='black-font theme-color']{
+
+[class='black-font theme-color'] {
   font-weight: 600;
 }
-.photo-round image{
+
+.photo-round image {
   height: 100%;
   width: 100%;
   border-radius: 50%;
 }
 
-.sku__price{
+.sku__price {
   position: absolute;
   top: 76rpx;
   left: 150rpx;
   font-size: 24rpx;
-  color: #999999;
+  color: #999;
 }
 
-.padding-top--24rpx{
+.padding-top--24rpx {
   padding-top: 24rpx;
 }
 
-.padding-bottom--10rpx{
+.padding-bottom--10rpx {
   padding-bottom: 10rpx;
 }
-.padding-top--10rpx{
+
+.padding-top--10rpx {
   padding-top: 10rpx;
 }
-.padding-bottom--22rpx{
+
+.padding-bottom--22rpx {
   padding-bottom: 22rpx;
 }
-.padding-bottom--24rpx{
+
+.padding-bottom--24rpx {
   padding-bottom: 24rpx;
 }
-.padding-top--22rpx{
+
+.padding-top--22rpx {
   padding-top: 22rpx;
 }
 
-.padding-bottom--16rpx{
+.padding-bottom--16rpx {
   padding-bottom: 16rpx;
 }
-.padding-bottom--4rpx{
+
+.padding-bottom--4rpx {
   padding-bottom: 4rpx;
 }
 
 .margin-bottom--50rpx {
-  margin-bottom: 50rpx
+  margin-bottom: 50rpx;
+}
 
+.last-payment__price {
+  position: absolute;
+  bottom: 30rpx;
+  right: 30rpx;
+  text-align: right;
+}
+
+.last-payment__price .hui-zi {
+  margin-bottom: 10rpx;
 }

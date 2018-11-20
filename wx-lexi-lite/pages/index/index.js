@@ -2112,6 +2112,7 @@ Page({
    */
   onUnload: function() {
     clearInterval(animationInterval) // 清除动画
+    console.log('页面卸载')
   },
 
   /**

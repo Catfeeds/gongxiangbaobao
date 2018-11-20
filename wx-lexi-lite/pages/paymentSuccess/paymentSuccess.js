@@ -11,7 +11,6 @@ Page({
   data: {
     isLoading: true,
     order: [], // 订单
-    logisticsPriceSum: 0,
     orderRid: ''
   },
 
@@ -27,20 +26,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    utils.logger(options, '支付页面，上一页的参数')
-    utils.logger(app.globalData.paymentSuccessOrder)
+    console.log(options, '支付页面，上一页的参数')
 
-    let order = app.globalData.paymentSuccessOrder
-    this.setData({
-      order: order,
-      orderRid: options.rid
+    http.fxGet(api.orders_after_payment_rid.replace(/:rid/, options.rid), {}, (result) => {
+      utils.logger(result, '订单详情')
+      if (result.success) {
+
+        result.data.orders.forEach((v, i) => {
+          v.created_item = utils.timestamp2string(v.created_at, "cn")
+        })
+
+        this.setData({
+          order: result.data,
+          orderRid: options.rid
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
 
-    order.orders.forEach((v, i) => {
-      this.setData({
-        logisticsPriceSum: this.data.logisticsPriceSum + v.freight
-      })
-    })
   },
 
   /**

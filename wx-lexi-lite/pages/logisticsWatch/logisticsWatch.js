@@ -28,6 +28,7 @@ Page({
   getDetail() {
     http.fxPost(api.logistics_information, this.data.parmas, (result) => {
       utils.logger(result, '物流的信息')
+      console.log(result, '物流的信息')
       if (result.success) {
         result.data.Traces = result.data.Traces.reverse()
         this.setData({
@@ -108,5 +109,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })

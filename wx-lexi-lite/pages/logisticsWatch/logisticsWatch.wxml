@@ -1,15 +1,12 @@
 <!--pages/logisticsWatch/logisticsWatch.wxml  物流跟踪页面-->
 <view class='container theme-bg-color'>
   <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+  <image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 
   <view class='orderNumber font-s'>
     <view class='time-top'>
       <text wx:if="{{location.LogisticCode!=null}}">运单编号：{{location.LogisticCode}}</text>
-      <text wx:if="{{location.State==2}}">物流状态:运输途中</text>
+      <text wx:if="{{location.State==2}}">物流状态:配送中</text>
       <text wx:if="{{location.State==3}}">物流状态:已签收</text>
       <text wx:if="{{location.State==4}}">物流状态:问题包裹</text>
     </view>
@@ -17,18 +14,23 @@
     <!-- 物流提示 -->
     <view class='logisticsPhoto'>
       <view class='logisticsIcon'>
-        <image src='../../images/tijao@3x.png' class='{{location.State>=2?"opacity":""}}'></image>
-        <image src='../../images/logistice-car@3x.png' class='{{location.State>=2?"opacity":""}}'></image>
-        <image src='../../images/yes.png' class='{{location.State==3?"opacity":""}}'></image>
+        <image src='../../images/tijao@3x.png' wx:if="{{location.State>=2}}" ></image>
+        <image src='../../images/tijao-hui@3x.png' wx:else></image>
+
+        <image src='../../images/logistice-car@3x.png' wx:if="{{location.State>=2}}"></image>
+        <image src='../../images/logistice-car-hui@3x.png' wx:else></image>
+
+        <image src='../../images/yes.png' wx:if="{{location.State==3}}"></image>
+        <image src='../../images/yes-hui.png' wx:else></image>
       </view>
       <view class='middle-line'>
-        <view class='line lineTwo'></view>
-        <view class='round'></view>
-        <view class='line lineone'></view>
-        <view class='round'></view>
-        <view class='line lineone'></view>
-        <view class='round'></view>
-        <view class='line lineTwo'></view>
+        <view class='line lineTwo {{location.State>=2?"opacity-1":""}}'></view>
+        <view class='round {{location.State>=2?"opacity-1":""}}'></view>
+        <view class='line lineone {{location.State>=2?"opacity-1":""}}'></view>
+        <view class='round {{location.State>=2?"opacity-1":""}}'></view>
+        <view class='line lineone {{location.State==3?"opacity-1":""}}'></view>
+        <view class='round {{location.State==3?"opacity-1":""}}'></view>
+        <view class='line lineTwo {{location.State==3?"opacity-1":""}}'></view>
       </view>
       <view class='logisticsIcon'>
         <view>提交订单</view>
@@ -48,7 +50,7 @@
       <view>暂未查询到礼物包裹进展 </view>
     </view>
 
-  
+
     <view class='font-s' wx:if="{{parmas.logistic_code!=null}}">
       <view>运单编号 </view>
       <view>{{parmas.logistic_code}}</view>
@@ -80,15 +82,15 @@
     <view class='newLocation' wx:if="{{location.State==3}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
-        <view class='left-round'></view>
-        <view class='left-line'></view>
+        <view class='left-round left-round__green'></view>
+        <view class='left-line left-line__green'></view>
       </view>
       <view class='locationInfoR'>
         <view class='black-font'>
           <text class='textR'>已经签收 </text> 感谢您的光临</view>
-        <view class='hui-zi'>
+        <!-- <view class='hui-zi'>
           <text>1017-1-1</text>
-          <text>01:00:01</text> </view>
+          <text>01:00:01</text> </view> -->
       </view>
     </view>
 
@@ -112,8 +114,8 @@
     <view class='newLocation' wx:for="{{location.Traces}}" wx:key="{{index}}">
       <!-- 左边的线 -->
       <view class='left-line-box'>
-        <view class='left-round'></view>
-        <view class='left-line'></view>
+        <view class='left-round {{0==index && location.State!=3?"left-round__green":""}}'></view>
+        <view class='left-line {{0==index && location.State!=3?"left-line__green":""}}'></view>
       </view>
       <view class='locationInfoR'>
         <view class='black-font theme-hui-color'> {{item.AcceptStation}}</view>

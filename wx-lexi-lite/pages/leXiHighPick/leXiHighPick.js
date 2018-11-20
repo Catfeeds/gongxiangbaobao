@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 获取到顶部按钮时是否显示
+
     isLoading: true,
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
@@ -314,6 +316,16 @@ Page({
   },
 
   /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
+
+  /**
    * onReachBottom 触底加载
    */
   onReachBottom() {
@@ -340,6 +352,29 @@ Page({
         isLoading: false
       })
     }, 350)
+  },
+
+  /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
   },
 
   /**

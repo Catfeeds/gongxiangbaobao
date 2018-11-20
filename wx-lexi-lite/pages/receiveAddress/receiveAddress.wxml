@@ -21,15 +21,16 @@
   <!-- 收获地址列表 -->
   <view>
     <radio-group class="radio-group" bindchange="radioChange">
-      <label class="radio" wx:for="{{ addressList }}" wx:for-index="index" wx:key="{{ item.rid }}">
+      <view class="radio" wx:for="{{ addressList }}" wx:for-index="index" wx:key="{{ item.rid }}">
         <radio value="{{ item.rid }}" color='#6ED7AF' checked='{{ item.is_default }}' />
-        <view>
+
+        <view class="address-text__box" catchtap="handleGoChangeAddress" data-rid="{{item.rid}}">
           <text class='userName'>{{ item.first_name }}</text>
           <text class='userLocation margin--20rpx'>{{ item.full_address }}</text>
           <text class='userLocation margin--18rpx'>{{ item.province }}, {{item.city}} {{item.zipcode}}</text>
           <text class='userLocation margin--20rpx'>{{ item.mobile }}</text>
         </view>
-      </label>
+      </view>
     </radio-group>
   </view>
 

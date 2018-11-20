@@ -7,7 +7,7 @@
     <view class="gather-info">
       <view class="gather-hander__text--big">{{product.name}}</view>
       <view class="gather-hander__text--desc">{{product.sub_name}}</view>
-      <view wx:if="{{product.length!=0}}" class="font-s gather-hander__text--min">{{product.products.length==0?"":product.products.length+"件商品"}}</view>
+      <view wx:if="{{product.length!=0}}" class="font-s gather-hander__text--min">{{product.count==0?"":product.count+"件商品"}}</view>
     </view>
   </view>
 
@@ -27,5 +27,7 @@
 
   </block>
 
+  <!-- 回到顶部按钮是否显示 -->
+  <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
 
 </view>

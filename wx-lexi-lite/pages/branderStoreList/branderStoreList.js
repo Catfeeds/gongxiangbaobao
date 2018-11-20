@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 回到顶部是否展现
+
     isLoading: true,
     readyOver: false, // 加载是否完成
 
@@ -159,6 +161,32 @@ Page({
   },
 
   /**
+* 监听页面滚动
+*/
+  onPageScroll(e) {
+    if (this.data.categoryId == 1){
+      // 设置回到顶部按钮是否显示
+      let windowHeight = app.globalData.systemInfo.windowHeight
+      if (e.scrollTop >= windowHeight) {
+        if (!this.data.backBtnIsShow) {
+          this.setData({
+            backBtnIsShow: true
+          })
+        }
+      }
+      if (e.scrollTop < windowHeight) {
+        if (this.data.backBtnIsShow) {
+          this.setData({
+            backBtnIsShow: false
+          })
+        }
+      }
+    }
+
+
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
@@ -205,6 +233,16 @@ Page({
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
     })
-  }
+  },
+
+  /**
+ * 回到顶部
+ */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
 
 })

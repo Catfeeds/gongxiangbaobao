@@ -89,6 +89,7 @@ picker-view-column view {
   padding: none;
   background-color: white;
   font-size: 28rpx;
+  margin-bottom: 30rpx;
 }
 
 switch {
@@ -143,6 +144,7 @@ switch {
 }
 
 .userPhotoNull {
+  position: relative;
   width: 318rpx;
   height: 210rpx;
   border-radius: 10rpx;
@@ -169,7 +171,7 @@ switch {
   text-align: center;
   line-height: 90rpx;
   background-color: white;
-  margin: 30rpx 0;
+  margin-bottom: 30rpx;
 }
 
 .conservation {
@@ -288,4 +290,13 @@ switch {
   height: 106rpx;
   padding-top: 28rpx;
   line-height: 28rpx;
+}
+
+.shui-yin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 6;
 }

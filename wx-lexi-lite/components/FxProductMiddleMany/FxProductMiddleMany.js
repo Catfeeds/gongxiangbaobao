@@ -9,7 +9,7 @@ Component({
       value: false
     },
     //购买的数量
-    shopingNumber:{
+    shopingNumber: {
       type: Boolean,
       value: false
     },
@@ -47,13 +47,13 @@ Component({
       type: Boolean,
       value: false
     },
-    photoHeight:{
-      type:Number,
-      value:180
+    photoHeight: {
+      type: Number,
+      value: 180
     },
-    photoWidth:{
-      type:Number,
-      value:180
+    photoWidth: {
+      type: Number,
+      value: 180
     }
   },
 
@@ -61,13 +61,12 @@ Component({
    * 组件的初始数据
    */
   data: {
-    productItem:''
+    productItem: ''
   },
 
-
   /**
- *初始化 
-*/
+   *初始化 
+   */
   ready(e) {
     let NewData = this.properties.product
     this.setData({
@@ -82,7 +81,8 @@ Component({
     handleProductInfo(e) {
       this.triggerEvent("triggerEvent_product", {
         rid: e.currentTarget.dataset.rid,
-        storeRid: e.currentTarget.dataset.storeRid
+        storeRid: e.currentTarget.dataset.storeRid,
+        productRid: e.currentTarget.dataset.productRid,
       })
     }
   }

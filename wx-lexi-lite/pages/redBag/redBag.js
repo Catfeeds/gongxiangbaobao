@@ -187,7 +187,7 @@ Page({
    */
   onShareAppMessage: function(e) {
     return {
-      title: '分享领取红包',
+      title: '',
       path: '/pages/index/index',
       imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
       success: (res) => {

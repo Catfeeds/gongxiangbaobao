@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 回到顶部是否展现
+
     isLoading: true,
     isLoadProductShow: true, // 加载动画
     product: [], //详情
@@ -24,10 +26,14 @@ Page({
     }
   },
 
-  // 获取列表
+  // 获取列表 
   getProducts() {
     http.fxGet(api.column_collections_detail, this.data.params, (result) => {
+      wx.stopPullDownRefresh()
+
       utils.logger(result, '集合详情')
+      console.log(result, '集合详情')
+
       if (result.success) {
 
         wx.setNavigationBarTitle({
@@ -35,17 +41,19 @@ Page({
         })
 
         let data = this.data.productList
-        result.data.products.forEach((v) => {
-          data.push(v)
-        })
-        
+        if (this.data.params.page == 1) {
+          data = result.data.products
+        } else if (this.data.params.page > 1) {
+          data = data.concat(result.data.products)
+        }
+
         result.data.cover = result.data.cover + '-bg75x40'
 
         this.setData({
-          // isNext: result.data.next,
+          isNext: result.data.next,
           productList: data,
           product: result.data,
-          isLoadProductShow:false
+          isLoadProductShow: false
         })
 
       } else {
@@ -70,16 +78,16 @@ Page({
    */
   onReachBottom: function() {
     if (!this.data.isNext) {
-      // utils.fxShowToast('没有更多了')
+      utils.fxShowToast('没有更多了')
       return
     }
 
     this.setData({
-      ['params.page']: this.data.params.page + 1,
-      // isLoadProductShow:true
+      'params.page': this.data.params.page + 1,
+      isLoadProductShow: true
     })
 
-    // this.getProducts()
+    this.getProducts()
   },
 
   // 跳转到商品详情---
@@ -90,10 +98,13 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * 回到顶部
    */
-  onShareAppMessage: function() {
-
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
   },
 
   /**
@@ -106,6 +117,30 @@ Page({
         isLoading: false
       })
     }, 1000)
+  },
+
+  /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
+
   },
 
   /**
@@ -133,7 +168,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.setData({
+      'params.page': 1
+    })
+
+    this.getProducts()
+  },
+
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
     return app.shareLeXi()
-  }
-  
+  },
+
 })

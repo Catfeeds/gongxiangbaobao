@@ -147,6 +147,7 @@ radio {
 .margin--20rpx {
   margin-top: 10rpx;
 }
+
 .margin--18rpx {
   margin-top: 8rpx;
 }
@@ -159,3 +160,7 @@ radio {
   bottom: 0;
   z-index: 4;
 } */
+
+.address-text__box {
+  flex: 1;
+}
