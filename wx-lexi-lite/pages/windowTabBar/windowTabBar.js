@@ -265,8 +265,14 @@ Page({
    * 生成橱窗推广海报图
    */
   getWindowWxaPoster(rid) {
-    // scene格式：rid
+    // scene格式：rid + '-' + sid
     let scene = rid
+
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    if (lastVisitLifeStoreRid) {
+      scene += '-' + lastVisitLifeStoreRid
+    }
+    
     let params = {
       scene: scene,
       rid: rid,
