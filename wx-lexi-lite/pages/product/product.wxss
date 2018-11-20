@@ -915,3 +915,77 @@ swiper-item, swiper-item>image, swiper {
 }
 
 /* 双11 e*/
+
+/* 放大的轮播图s */
+
+.big-swiper__box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background-color: black;
+  z-index: 90;
+  display: none;
+}
+
+.big-swiper__box.big-swiper__box--show {
+  display: block;
+}
+
+.big-swiper__text--top {
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.big-swiper__box .sweiper-photo__currrent {
+  font-size: 34rpx;
+}
+
+.big-swiper__box .sweiper-photo__sum {
+  font-size: 26rpx;
+}
+
+.big-swiper__text--bottom {
+  position: absolute;
+  bottom: 40rpx;
+  width: 690rpx;
+  padding: 0 30rpx;
+  font-size: 26rpx;
+}
+
+.big-swiper__text--bottom .flex_row>view {
+  padding: 16rpx 26rpx;
+  border-radius: 30rpx;
+  line-height: 26rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 30rpx;
+}
+
+.big-swiper__text--bottom .flex_row .shop{
+  padding: 16rpx 40rpx;
+}
+
+.big-swiper__text--bottom .share-icon {
+  height: 58rpx;
+  width: 58rpx;
+}
+
+.big-swiper__box  .swiper-photo__item {
+  height: 750rpx;
+  width: 750rpx;
+}
+
+.big-swiper__box .big-swiper__text--bottom .like-text {
+  background: rgba(95, 228, 177, 1);
+  padding: 16rpx 20rpx;
+}
+
+.big-swiper__box  .like-text .like-icon {
+  width: 28rpx;
+  height: 24rpx;
+}
+
+/* 放大的轮播图e */

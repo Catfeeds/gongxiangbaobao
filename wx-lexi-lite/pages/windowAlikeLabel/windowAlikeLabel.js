@@ -292,6 +292,7 @@ Page({
   getRecommendWindow() {
     http.fxGet(api.shop_windows_keyword, this.data.recommendWindowParams, result => {
       utils.logger(result, "获取橱窗列表")
+      console.log(result, "获取橱窗列表")
       let windowList = this.data.recommendWindow.shop_windows
       if (result.success) {
         this.setData({

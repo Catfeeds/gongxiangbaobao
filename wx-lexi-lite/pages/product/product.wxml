@@ -12,7 +12,7 @@
     <swiper bindchange='handleSwiperChange'>
       <block wx:for="{{productTop.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}" mode="aspectFill" />
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}" catchtap="handleLookBigPhoto" mode="aspectFill" />
         </swiper-item>
       </block>
     </swiper>
@@ -471,11 +471,38 @@
       <view catchtap="handelOffTwelve" class="off-eleven__box--btn flex_row--middle">
         <view class="ovet-btn">完成</view>
       </view>
-
     </view>
   </fx-modal>
 
-    <!-- 回到顶部按钮是否显示 -->
+  <!-- 图片放大 -->
+  <view class="big-swiper__box {{bigPhotoShow?'big-swiper__box--show':''}}" catchtap="handleOffBigSwiperBox">
+    <view class="big-swiper__text--top">
+      <text class="sweiper-photo__currrent">{{bigPhotoCurrent}}</text>
+      <text class="sweiper-photo__sum">/{{productTop.assets.length}}</text>
+    </view>
+    <view class="swiper-photo__item">
+      <swiper duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
+        <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
+          <image src="{{item.view_url}}" mode="aspectFill" />
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="big-swiper__text--bottom time-top">
+      <view class="flex_row">
+        <view class="like-text__over" wx:if="{{productTop.is_like}}" catchtap='handleBindLike'>已喜欢</view>
+        <view class='like-text' wx:else catchtap='handleBindLike'>
+          <image src='../../images/already-like@3.png' class='like-icon'></image>
+          <text class='font-color--white'> 喜欢</text>
+        </view>
+        <view class="shop" catchtap='handlePickShow'>购买</view>
+      </view>
+
+      <image class="share-icon" catchtap="handleShareTap" src="https://static.moebeast.com/image/static/share_tag.png">
+      </image>
+    </view>
+  </view>
+
+  <!-- 回到顶部按钮是否显示 -->
   <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
 
 </view>

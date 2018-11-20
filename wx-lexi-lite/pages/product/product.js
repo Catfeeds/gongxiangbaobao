@@ -11,11 +11,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    backBtnIsShow: false, // 是否显示回到顶部按钮
+    bigPhotoShow: false, // 是否显示大图
+    bigPhotoCurrent: 0, // 大图应该展现的位置
 
+    backBtnIsShow: false, // 是否显示回到顶部按钮
     isLoading: true,
     showHomeBtn: false, // 显示回到首页按钮
     showBack: false, // 是否显示回到自己生活馆
+
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
@@ -1570,6 +1573,30 @@ Page({
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 888
+    })
+  },
+
+  // 查看大图
+  handleLookBigPhoto() {
+    this.setData({
+      bigPhotoCurrent: this.data.swiperIndex,
+    }, () => {
+      this.setData({
+        bigPhotoShow: true
+      })
+    })
+  },
+
+  // 关闭滑动的盒子
+  handleOffBigSwiperBox() {
+    this.setData({
+      bigPhotoShow: false
+    })
+  },
+
+  handleBigSwiperChange(e) {
+    this.setData({
+      bigPhotoCurrent: e.detail.current + 1
     })
   },
 
