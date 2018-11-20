@@ -147,3 +147,11 @@
 .share-tap {
   background-color: white;
 }
+
+.margin-bottom--20rpx {
+  margin-bottom: 20rpx;
+}
+
+.all-quantity__btn {
+  border-top: 0;
+}

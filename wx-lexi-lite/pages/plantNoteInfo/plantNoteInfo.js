@@ -13,6 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showHomeBtn: false, // 回到首页的按钮是否显示
+
     isLoading: true,
     rid: '', // rid
     category: '', // 频道的名字
@@ -283,6 +285,23 @@ Page({
     })
   },
 
+  // 回首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
+
+  // 回到首页是否显示
+  _getGoHomeBtnIsShow() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
+    }
+  },
+
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {
@@ -301,6 +320,7 @@ Page({
   getComment() {
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
       utils.logger(result, '生活志的评论')
+      console.log(result, '生活志的评论')
       if (result.success) {
         result.data.comments.forEach((v, i) => {
           v.content_list = emojiFn.emojiAnalysis([v.content])
@@ -420,7 +440,6 @@ Page({
         this.setData({
           recommend: result.data
         })
-        this.getComment() // 获取生活志评论
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -441,6 +460,7 @@ Page({
     this.getLiveInfo() // 生活志详情
     this.getRecommend() // 相关故事推荐
     this.getRecommendProduct() // 推荐商品
+    this._getGoHomeBtnIsShow() // 回到首页按钮是否显示
   },
 
   /**
@@ -498,7 +518,7 @@ Page({
     return {
       title: this.data.liveInfo.title,
       path: '/pages/plantNoteInfo/plantNoteInfo?rid=' + this.data.rid,
-      imageUrl: this.data.liveInfo.cover,
+      imageUrl: this.data.liveInfo.cover + '-pwxa',
     }
   }
 

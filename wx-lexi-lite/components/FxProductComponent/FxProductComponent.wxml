@@ -9,7 +9,7 @@
       <image src="../../images/goodsOver@2.png"></image>
     </view>
     <!-- <image class='photoBox product-photo {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}} {{photo==5?"photo--oblong":""}}' mode="widthFix" src='{{ productItem.cover_image }}' lazy-load="true"></image> -->
-    <image class='photoBox product-photo {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==4?"photo--big":""}}' mode="{{photo==5?'aspectFill':''}}" src='{{ productItem.cover_image }}' lazy-load="true"></image>
+    <image class='photoBox product-photo {{photo==1?"photo-min--sm":""}} {{photo==2?"photo--sm":""}} {{photo==3?"photo--middle":""}} {{photo==5?"photo--oblong":""}} {{photo==4?"photo--big":""}}'  mode="{{photo==4?'aspectFill':''}}" src='{{ productItem.cover_image }}' lazy-load="true"></image>
 
   </view>
 

@@ -1140,10 +1140,27 @@ button::after {
 }
 
 /* // 回到顶部按钮 */
+
 .back-top__btn {
   position: fixed;
   bottom: 180rpx;
   right: 20rpx;
   height: 116rpx;
   width: 116rpx;
+}
+
+/* 回到首页 */
+
+.back-home-container {
+  position: fixed;
+  left: 30rpx;
+  top: 30rpx;
+  z-index: 6;
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.back-home-container .icon-back-home {
+  width: 64rpx;
+  height: 64rpx;
 }

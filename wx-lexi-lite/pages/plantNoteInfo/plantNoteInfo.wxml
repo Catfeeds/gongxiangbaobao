@@ -2,8 +2,13 @@
 <import src="../../wxParse/wxParse.wxml" />
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
+  <!-- 回到首页 -->
+  <view class="back-home-container" catchtap="handleBackHome" wx:if="{{ showHomeBtn }}">
+    <image src="../../images/icon-home-back@2x.png" class="icon-back-home"></image>
+  </view>
+
   <!-- 详细的盒子 -->
-  <view class="bg-white border-bottom">
+  <view class="bg-white border-bottom margin-bottom--20rpx">
     <!-- 头部图片 -->
     <view class='top-photo'>
       <image src='{{liveInfo.cover}}-avabg' mode="widthFix" class="article-headpic" wx:if="{{liveInfo.cover}}"></image>
@@ -126,24 +131,10 @@
       <view catchtap="handleDeleteWatch" data-rid="{{liveInfo.recommend_store.store_rid}}" class=" black-font flex_row follow-btn bg--hui" wx:else>
         <text>已关注</text>
       </view>
-
     </view>
   </view>
 
-  <!-- 猜你喜欢 -->
-  <view class='fx-part border-bottom bg-white margin-bottom--30rpx'>
-    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx'>
-      <text class="label">推荐商品</text>
-    </view>
-    <scroll-view scroll-x class='recommend-list c-importantGoodsBox'>
-      <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
-        <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
-      </view>
-    </scroll-view>
-  </view>
-
-  <block>
-
+  <view class=" margin-bottom--30rpx">
     <!-- 评论 -->
     <view class="comment-item bg-white border-bottom" wx:if="{{commentList.count>0}}">
       <view class="black-font font-width--medium">评论</view>
@@ -206,13 +197,25 @@
     </view>
 
     <!-- 查看全部 -->
-    <view class="flex_row--middle font-s bg-white margin-bottom--30rpx all-quantity__btn" wx:if="{{liveInfo.comment_count!=0}}">
-      查看全部{{liveInfo.comment_count}}条评论
+    <view class="flex_row--middle font-s bg-white all-quantity__btn" wx:if="{{commentList.total_count > 3}}">
+      查看全部{{commentList.total_count}}条评论
     </view>
-  </block>
+  </view>
+
+  <!-- 猜你喜欢 -->
+  <view class='fx-part border-bottom bg-white margin-bottom--30rpx'>
+    <view class='c-importantGoodsTitle time-top black-font category__title margin-top--32rpx'>
+      <text class="label">推荐商品</text>
+    </view>
+    <scroll-view scroll-x class='recommend-list c-importantGoodsBox'>
+      <view class='c-importantGoodsPhoto {{index==0?"margin-left--40rpx":""}} {{index==recommendProduct.products.length-1?"margin-right--40rpx":""}}' wx:for="{{recommendProduct.products}}" wx:key="{{index}}">
+        <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+      </view>
+    </scroll-view>
+  </view>
 
   <!-- 相关故事推荐 -->
-  <view class="bg-white margin-bottom--50rpx border-bottom">
+  <view class="bg-white margin-bottom--30rpx border-bottom">
     <view class='c-importantGoodsTitle time-top font-xl category__title margin-left--0rpx'>
       <text class='font-xxl font-width--semibold margin-top--40rpx'>相关故事推荐</text>
       <!-- <text wx:if="{{9}}" class='hui-zi-m'>查看全部  <text class='fx-icon-nothing-right'></text> </text> -->
@@ -256,7 +259,7 @@
     <!-- 评论 -->
     <view class='flex_row--middle flex-2' disabled="{{true}}" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">
       <image src='../../images/icons/icon-comment@3x.png'></image>
-      <text class='font-ss' wx:if="{{liveInfo.comment_count>0}}">{{liveInfo.comment_count}}</text>
+      <text class='font-ss' wx:if="{{commentList.total_count>0}}">{{commentList.total_count}}</text>
     </view>
 
     <!-- 分享 -->
