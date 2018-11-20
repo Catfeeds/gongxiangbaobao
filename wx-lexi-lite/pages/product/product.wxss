@@ -3,20 +3,6 @@
 @import "../distributes/distributes.wxss";
 @import "../../wxParse/wxParse.wxss";
 
-.back-home-container {
-  position: absolute;
-  left: 30rpx;
-  top: 30rpx;
-  z-index: 99;
-  width: 64rpx;
-  height: 64rpx;
-}
-
-.back-home-container .icon-back-home {
-  width: 64rpx;
-  height: 64rpx;
-}
-
 .swiperBox {
   height: 750rpx;
   position: relative;

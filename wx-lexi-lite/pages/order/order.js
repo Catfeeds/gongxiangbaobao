@@ -149,19 +149,16 @@ Page({
         })
 
         let allOrderList = this.data.allOrderList
+        if (this.data.getOrderListParams.page == 1) {
+          allOrderList = result.data.orders
+        } else {
+          allOrderList = allOrderList.concat(result.data.orders)
+        }
 
         this.setData({
-          allOrderList: allOrderList.concat(result.data.orders),
+          allOrderList: allOrderList,
           isNextAll: result.data.next
         })
-
-        let newOrderList = this.data.allOrderList
-        // allOrderInterval = setInterval(() => {
-        //   this.setData({
-        //     allOrderList: this._handlePaymenLastTime(newOrderList)
-        //   })
-
-        // }, 1000)
 
       } else {
         utils.fxShowToast(result.status.message)
@@ -180,9 +177,14 @@ Page({
         })
 
         let daifuList = this.data.daifu
+        if (this.data.dafuParams.page == 1) {
+          daifuList = result.data.orders
+        } else {
+          daifuList = daifuList.concat(result.data.orders)
+        }
 
         this.setData({
-          daifu: daifuList.concat(result.data.orders),
+          daifu: daifuList,
           isNextDaifu: result.data.next
         })
 
@@ -210,8 +212,14 @@ Page({
         })
 
         let daifaList = this.data.daifa
+        if (this.data.dafaParams.page == 1) {
+          daifaList = result.data.orders
+        } else {
+          daifaList = daifaList.concat(result.data.orders)
+        }
+
         this.setData({
-          daifa: daifaList.concat(result.data.orders),
+          daifa: daifaList,
           isNextDaifa: result.data.next
         })
 
@@ -232,8 +240,13 @@ Page({
         })
 
         let daishouList = this.data.daishou
+        if (this.data.daishouParams.page == 1) {
+          daishouList = result.data.orders
+        } else {
+          daishouList = daishouList.concat(result.data.orders)
+        }
         this.setData({
-          daishou: daishouList.concat(result.data.orders),
+          daishou: daishouList,
           isNextdaishou: result.data.next
         })
 
@@ -254,8 +267,13 @@ Page({
         })
 
         let daipingList = this.data.daiping
+        if (this.data.pingjiaParams.page == 1) {
+          daipingList = result.data.orders
+        } else {
+          daipingList = daipingList.concat(result.data.orders)
+        }
         this.setData({
-          daiping: daipingList.concat(result.data.orders),
+          daiping: daipingList,
           isNextDaiping: result.data.next
         })
       } else {
@@ -454,25 +472,11 @@ Page({
    */
   onShow: function() {
     this.setData({
-      allOrderList: [], //全部订单
-      isNextAll: true, //全部是否有下页
       'getOrderListParams.page': 1,
-
-      daifu: [], //代付款
-      isNextDaifu: true,
       'dafuParams.page': 1,
-
-      daifa: [], //代发货
-      isNextDaifa: true,
       'dafaParams.page': 1,
-
-      daishou: [], //待收货
-      isNextdaishou: true, //待收货
       'daishouParams.page': 1,
-
-      daiping: [], //待评价
-      isNextDaiping: true, //待评价
-      'pingjiaParams.page': 1,
+      'pingjiaParams.page': 1
     })
 
     this.getOrderList() // 获取订单列表---
@@ -530,7 +534,6 @@ Page({
     clearInterval(paymentWindowInterval)
     clearInterval(allOrderInterval)
     clearInterval(daifuInterval)
-
   },
 
   /**

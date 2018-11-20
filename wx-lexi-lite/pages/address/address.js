@@ -363,8 +363,8 @@ Page({
             id_card_front_image: result.data.id_card_front.view_url, // 身份证正面
             id_card_back_image: result.data.id_card_back.view_url, // 身份证背面
             'form.id_card': result.data.id_card, // 海关-身份证号码
-            'form.id_card_front': result.data.id_card_front.id, // 海关-身份证正面-ID
-            'form.id_card_back': result.data.id_card_back.id // 海关-身份证背面-ID
+            'form.id_card_front': result.data.id_card_front.id || '', // 海关-身份证正面-ID
+            'form.id_card_back': result.data.id_card_back.id || '' // 海关-身份证背面-ID
           })
         }
       } else {
@@ -377,7 +377,7 @@ Page({
   getAssetFrontInfo(asset) {
     this.setData({
       id_card_front_image: asset.view_url,
-      'form.id_card_front': asset.id
+      'form.id_card_front': asset.id || ''
     })
   },
 
@@ -385,7 +385,7 @@ Page({
   getAssetBackInfo(asset) {
     this.setData({
       id_card_back_image: asset.view_url,
-      'form.id_card_back': asset.id
+      'form.id_card_back': asset.id || ''
     })
   },
 
@@ -558,7 +558,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     let rid = options.rid || '' // 编辑地址
     // 验证是否需要设置海关信息
     let needUserCustom = options.need_custom || 0

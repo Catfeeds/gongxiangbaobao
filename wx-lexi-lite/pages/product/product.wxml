@@ -277,7 +277,7 @@
 
       </view>
 
-      <view wx:if="{{productInfomation.is_sold_out && productInfomation.status!=2 }}" class="c-middle frame-sellout__btn"> 售 罄 </view>
+      <view wx:if="{{productTop.is_sold_out && productTop.status!=2 }}" class="c-middle frame-sellout__btn"> 售 罄 </view>
 
       <!-- 垫片 -->
       <view class='shim'></view>
@@ -304,6 +304,7 @@
     </view>
 
     <view wx:if="{{productTop.is_sold_out}}" class="c-middle sell-out__btn">售 罄</view>
+    <view wx:if="{{productTop.status==2}}" class="c-middle sell-out__btn">已 下 架</view>
   </view>
 
   <!-- 不是小b -->

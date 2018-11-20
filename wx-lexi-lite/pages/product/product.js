@@ -706,6 +706,25 @@ Page({
           productTop: result.data,
           isDistributed: result.data.is_distributed,
         })
+
+        // 如果已经下架就删除
+        if (result.data.status == 2) {
+          // 删除来源页面的商品
+          // this._deleteParentProduct()
+
+          wx.showModal({
+            title: '很抱歉',
+            content: '该商品已下架',
+            confirmColor: '#5fe4b1',
+            showCancel: false,
+            success: () => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          })
+        }
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -726,6 +745,7 @@ Page({
         this.setData({
           likePeople: result.data
         })
+        
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -749,24 +769,6 @@ Page({
           dkcontent: result.data.content,
           storeRid: result.data.store_rid
         })
-
-        // 如果已经下架就删除
-        if (result.data.status == 2) {
-          // 删除来源页面的商品
-          // this._deleteParentProduct()
-
-          wx.showModal({
-            title: '很抱歉',
-            content: '该商品已下架',
-            confirmColor: '#5fe4b1',
-            showCancel: false,
-            success: () => {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
-          })
-        }
 
         //获取分享的图片
         this.handleShareProductPhoto(this.data.rid)

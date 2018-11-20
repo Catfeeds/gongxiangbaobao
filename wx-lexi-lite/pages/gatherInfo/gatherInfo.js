@@ -32,10 +32,7 @@ Page({
       wx.stopPullDownRefresh()
 
       utils.logger(result, '集合详情')
-      console.log(result, '集合详情')
-
       if (result.success) {
-
         wx.setNavigationBarTitle({
           title: result.data.name,
         })
