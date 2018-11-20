@@ -225,7 +225,6 @@ Page({
   getDaishouList() {
     http.fxGet(api.orders, this.data.daishouParams, (result) => {
       utils.logger(result, '代收列表')
-      console.log(result, '代收列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
@@ -248,7 +247,6 @@ Page({
   getPingjiaList() {
     http.fxGet(api.orders, this.data.pingjiaParams, (result) => {
       utils.logger(result, '评价列表')
-      console.log(result, '评价列表')
       if (result.success) {
         result.data.orders.forEach((v, i) => {
           //时间格式化
