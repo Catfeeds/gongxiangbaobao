@@ -260,9 +260,9 @@
     </view>
 
     <!-- 分享 -->
-    <view class='flex-1 time-top share-tap'>
+    <button class='flex-1 time-top share-tap' open-type="share">
       <image src='../../images/icons/icon-share@3x.png'></image>
-    </view>
+    </button>
   </view>
 
   <!-- 登陆注册模态框 -->

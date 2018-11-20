@@ -497,7 +497,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    return app.shareLeXi()
+    return {
+      title: this.data.liveInfo.title,
+      path: '/pages/plantNoteInfo/plantNoteInfo?rid=' + this.data.rid,
+      imageUrl: this.data.liveInfo.cover,
+    }
   }
 
 })

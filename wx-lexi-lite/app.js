@@ -557,7 +557,6 @@ App({
   getSystemInfo() {
     wx.getSystemInfo({
       success: (res) => {
-        console.log(res, '设备信息')
         this.globalData.systemInfo = res
       },
       fail: (res) => {

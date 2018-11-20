@@ -698,7 +698,6 @@ Page({
       rid: this.data.rid,
       sid: jwt.store_rid || ''
     }, result => {
-      console.log(result, '一屏幕信息')
       if (result.success) {
         this.setData({
           productTop: result.data,
@@ -719,7 +718,6 @@ Page({
     }
 
     http.fxGet(api.product_userlike, params, result => {
-      console.log(result, '喜欢该商品的额人')
       if (result.success) {
         result.data.product_like_users = result.data.product_like_users.reverse()
         this.setData({
@@ -742,8 +740,6 @@ Page({
       openid: openid,
     }, (result) => {
       if (result.success) {
-        console.log(result, '产品详情的二屏幕')
-
         this.setData({
           productInfomation: result.data,
           originalStoreRid: result.data.store_rid, // 原店铺的rid
