@@ -47,6 +47,11 @@ Page({
         return
       }
       utils.fxShowToast('已提现成功')
+      this.setData({
+        showModal: false
+      })
+
+      this.getStoreCashCollect()
     })
   },
 
