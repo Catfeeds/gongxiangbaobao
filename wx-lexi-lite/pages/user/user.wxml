@@ -217,7 +217,7 @@
   </view>
 
   <!-- 设计管里面 -->
-  <view wx:if="{{classInfo==3}}" class='shou bottom__info'>
+  <view wx:if="{{classInfo==3}}" class='shou bottom__info hui-se__bg'>
     <!-- 店铺其他产品信息 -->
     <view class="shopInfo" wx:if="{{watchStoreList.stores.length!=0}}" wx:for="{{watchStoreList.stores}}" catchtap='handleTobrandStore' data-rid="{{item.rid}}" wx:key="{{index}}">
       <view class='margin-left--40rpx shopInfoT'>
@@ -253,6 +253,8 @@
         <text>你当前还未关注任何原创品牌设计馆</text>
       </view>
     </view>
+    
+    <view class="shim--80rpx"></view>
   </view>
 
   <!-- 登陆注册模态框 -->
