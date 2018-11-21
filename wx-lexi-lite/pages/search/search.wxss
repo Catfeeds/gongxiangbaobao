@@ -1,7 +1,8 @@
 /* pages/search/search.wxss */
 
 .search-input {
-  position: relative;
+  position: fixed;
+  top: 0;
   height: 80rpx;
   width: 100%;
 }
@@ -29,6 +30,10 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.search-input__shim {
+  height: 80rpx;
 }
 
 .infput-search__btn {
@@ -157,34 +162,33 @@
   border-radius: 8rpx;
 }
 
-.material-quality{
+.material-quality {
   width: 200rpx;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-display:flex;
-flex-direction:row;
-align-items:center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .logistics {
-  height:24rpx;
-width:40rpx;
-border-radius:5rpx;
-background:url("https://static.moebeast.com/image/static/icon-free.png") no-repeat;
-background-size:100% 100%;
-vertical-align:middle;
-margin-right:10rpx;
-
+  height: 24rpx;
+  width: 40rpx;
+  border-radius: 5rpx;
+  background: url("https://static.moebeast.com/image/static/icon-free.png") no-repeat;
+  background-size: 100% 100%;
+  vertical-align: middle;
+  margin-right: 10rpx;
 }
 
-.nowPrice{
+.nowPrice {
   font-size: 24rpx;
   margin-right: 10rpx;
   line-height: 24rpx;
 }
 
-.material-quality-text{
+.material-quality-text {
   flex: 1;
   font-size: 24rpx;
   vertical-align: middle;

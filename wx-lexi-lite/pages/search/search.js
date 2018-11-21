@@ -161,7 +161,7 @@ Page({
           utils.fxShowToast(result.status.message)
         }
       })
-    }, 3000)
+    }, 1800)
   },
 
   // 关闭输入框
