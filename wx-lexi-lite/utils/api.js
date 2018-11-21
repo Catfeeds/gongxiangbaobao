@@ -14,7 +14,8 @@ module.exports = {
   auth_refresh_session: 'accounts/refresh_wxa_session', // session 过期则刷新
   countries: 'countries', // 获取国家列表
   bind_friend: 'guess_image/add_friend', // 绑定好友关系
-  
+  shop_animation: 'store/store_headline',
+
   // User
   user: 'users', // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
