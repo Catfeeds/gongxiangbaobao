@@ -1,3 +1,149 @@
-<view class="container">
-  <web-view src="https://h5.lexivip.com/shop/guide?v1.0.0"></web-view>
+<view class="main-wrapper guide-wrap">
+  <view class="life-store-container">
+
+    <!--弹幕 一直向上移动-->
+    <view class="barrage__animation">
+      <view class="shadow"></view>
+      <view class="barrage-blocks--container">
+        <view wx:if="{{index<30}}" wx:for="{{barrageAnimation}}" wx:key="{{barrage.rid}}" class="barrage-blocks" wx:for-item="barrage">
+          <image class="barrage-blocks--img" src="{{barrage.avatar}}"/>
+            <text class="barrage-blocks--p">
+              <text class="barrage-blocks--span">{{barrage.username}}</text>
+            <text>{{barrage.detail}} </text>
+            </text>
+        </view>
+      </view>
+    </view>
+
+    <view class="jumbotron">
+      <view class="slogan">
+        <view class="logo">
+          <image src="../../../images/lexi-logo.png"></image>
+        </view>
+        <text class="lexi-text">乐喜生活馆</text>
+        <text class="">做自己热爱的事，顺便赚取收入</text>
+      </view>
+
+      <view class="section shop-apply">
+        <view>申请乐喜生活馆馆主</view>
+        <view class="big apply-box__title">零成本经营，无需任何资金，一键开馆，</view>
+        <view class="big apply-box__text">展示优质生活，甄选全球原创设计品牌商品</view>
+
+        <view class="small">品味设计，美感生活</view>
+        <view class="apply-middle__text">开馆挣钱，为自己购买省钱</view>
+
+        <view catchtap="handleGoApply" class="fx-button--gradual" type="primary">
+          申请成为生活馆主
+        </view>
+      </view>
+    </view>
+
+    <view class="shop-summary">
+      <view class="shop-summary__title">什么是乐喜生活馆？</view>
+      <view class="shop-summary__description">
+        是乐喜面向于用户提供的一个全民零售服务，你可以通过乐喜快速搭建自己的微信原创小店。
+      </view>
+      <view class="shop-summary__description">
+        无需任何资金，也不需要花钱进货，即可开设自己的乐喜生活馆，选择商品一键上架。
+      </view>
+      <view class="shop-summary__description">
+        只要你热衷于分享，通过微信好友、群、朋友圈推荐展示你挑选的好物，促使交易，即可赚取收入并与世界分享你的热情与品位。
+      </view>
+
+      <view class="store-items">
+        <view class="item ten">
+          <view>
+            注册乐喜
+          </view>
+          <view>
+            十秒开馆
+          </view>
+        </view>
+        <view class="item zero">
+          <view>
+            零成本上架
+          </view>
+          <view>
+            百万原创商品
+          </view>
+        </view>
+        <view class="item share">
+          <view>
+            乐于分享
+          </view>
+          <view>
+            快速交易
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--如何成为乐喜生活馆主-->
+    <view class="section store-how">
+      <view class='huise-title'>如何成为乐喜生活馆主？</view>
+      <view class="huise-description">你只需要注册成为乐喜用户，即可申请</view>
+      <image class="store-owner__photo" mode="aspectFill" src="https://kg.erp.taihuoniao.com/image/static/life-store-how@2.png" />
+    </view>
+
+    <view class="section store-quality">
+      <view class='huise-title'>品质保证</view>
+      <view class="huise-description">所有的商品均有乐喜签约创作人直接提供，乐喜提供购物品质保障，保证商品的原创性和独特性。</view>
+    </view>
+
+    <view class="section store-sale">
+      <view class="sell-guide__tetle">开馆后如何售卖商品？</view>
+      <view class="item sell-guide__box">
+        <text class="icon-ball">1</text>
+        <view class="sell-guide__description">你可以到选品中心挑选品味好物，直接上架到生活馆，将生活馆分享到群、和微信好友促使交易。</view>
+      </view>
+      <view class="item sell-guide__box">
+        <text class="icon-ball">2</text>
+        <view class="sell-guide__description">你也可以直接点击“卖”功能，将商品分享到朋友圈和好友。</view>
+      </view>
+      <view class="item sell-guide__box">
+        <text class="icon-ball">3</text>
+        <view class="sell-guide__description">生活馆申请成功后，可关注微信公众号：乐喜生活馆，获取赚取攻略，接收订单通知。</view>
+      </view>
+    </view>
+
+    <view class="section store-income">
+      <view class="heise-title">成为生活馆主，轻松赚取收入</view>
+      <view class="huise-description">你分享、推荐的原创商品售卖后，即可获得相应商品的收益。</view>
+      <image class="store-owner__photo"  src="https://kg.erp.taihuoniao.com/image/static/life-store-income@2.png" />
+    </view>
+
+    <view class="section store-service">
+      <view class="heise-title">无后顾之忧</view>
+      <view class="huise-description">当你卖出商品后，售后服务、物流服务，及订单处理均有乐喜服务，安心经营。</view>
+    </view>
+
+    <view class="section store-example">
+      <view class="heise-title">他们都在乐喜开设了生活馆</view>
+      <view class="example-list">
+        <view class="carousel-example">
+          <view wx:for="{{listData}}" wx:key="{{item.rid}}" class="example">
+            <image src="{{item.img}}" class="avatar" />
+            <view>{{ item.name}}</view>
+            <view class="job">职业：{{ item.professional }} </view>
+            <view class="incomes">
+              <view class="day-income">
+                <label>单日最高赚：</label> ￥{{item.dayHighest}}
+              </view>
+              <view class="month-income">
+                <label>平均月赚：</label> ￥{{ item.monthlyIncome }}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section store-secret">
+      <view class="heise-title text-left">收益安全保障</view>
+      <view class="huise-description text-left">当你的生活馆销售商品后，即可获得相应的销售返利，你也可以直接查看到每件商品售出后可赚的金额，可以随时查询每笔交易订单的物流进展，订单签收后，未发生退换货，收益即可入账，每月底自动结算，可直接提现</view>
+      <view catchtap="handleGoApply" class="fx-button--gradual">
+        申请成为生活馆主
+      </view>
+    </view>
+  </view>
 </view>

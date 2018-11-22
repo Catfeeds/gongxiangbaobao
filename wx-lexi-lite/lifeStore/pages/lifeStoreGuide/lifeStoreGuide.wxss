@@ -1,1 +1,386 @@
-/* pages/lifeStoreGuide/lifeStoreGuide.wxss */
+.barrage__animation {
+  width: 450rpx;
+  height: 170rpx;
+  position: absolute;
+  top: 50rpx;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.barrage__animation .shadow {
+  width: 100%;
+  height: 20rpx;
+  position: absolute;
+  z-index: 999;
+  background: radial-gradient(at 10rpx 20rpx, transparent 10%, rgba(154, 145, 148, 0.4), rgba(154, 145, 148, 0.2) 100%);
+}
+
+.barrage__animation .barrage-blocks--container {
+  position: relative;
+  z-index: 998;
+  margin-top: 250rpx;
+  animation: mobile__new 25s linear infinite;
+  white-space: wrap;
+}
+
+.barrage-blocks {
+  height: 50rpx;
+  padding: 2rpx 20rpx 3rpx 4rpx;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 45rpx;
+  margin-bottom: 14rpx;
+  display: inline-block;
+}
+
+.barrage-blocks--img {
+  vertical-align: middle;
+  display: inline-block;
+  width: 46rpx;
+  height: 46rpx;
+  border-radius: 50%;
+}
+
+.barrage-blocks--p {
+  vertical-align: middle;
+  font-size: 20rpx;
+  color: white;
+  position: relative;
+}
+
+.barrage-blocks--span {
+  display: inline-block;
+  width: 50rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 6rpx;
+  transform: translateY(3rpx);
+}
+
+.jumbotron {
+  width: 750rpx;
+  height: 822rpx;
+  background: url("https://static.moebeast.com/static/img/guide-0020.jpeg") no-repeat top center;
+  background-size: 100%;
+  border-top: 1rpx solid white;
+}
+
+.slogan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  margin-bottom: 130rpx;
+  margin-top: 140rpx;
+}
+
+.slogan .lexi-text {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin: 25rpx 0 17rpx;
+  line-height: 34rpx;
+}
+
+.slogan .lexi-text + text {
+  font-size: 28rpx;
+  line-height: 28rpx;
+}
+
+.logo {
+  width: 94rpx;
+  height: 94rpx;
+  border-radius: 8rpx;
+  background-color: #fff;
+  line-height: 94rpx;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo image {
+  height: 80%;
+  width: 80%;
+}
+
+.shop-apply {
+  width: 667rpx;
+  background-color: #fff;
+  margin: 0 auto;
+  border-radius: 8rpx;
+  padding: 50rpx 0;
+  text-align: center;
+  transition: 0.2s;
+  box-shadow: 0 3px 6px 0 rgba(232, 237, 250, 0.5);
+}
+
+.big {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 28rpx;
+}
+
+.apply-box__title {
+  margin-top: 30rpx;
+  margin-bottom: 15rpx;
+}
+
+.apply-box__text {
+}
+
+.small {
+  margin-top: 70rpx;
+  margin-bottom: 20rpx;
+}
+
+.small, .apply-middle__text {
+  color: #666;
+  font-size: 28rpx;
+  line-height: 28rpx;
+}
+
+.fx-button--gradual {
+  width: 460rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 8rpx;
+  line-height: 80rpx;
+  background: linear-gradient(90deg, rgba(95, 228, 177, 1) 0%, rgba(118, 247, 161, 1) 100%);
+  margin: 5rpx auto;
+  display: inline-block;
+  margin-top: 20rpx;
+}
+
+.shop-summary {
+  width: 650rpx;
+  /* margin-top: 202rpx; */
+  padding: 0 40rpx;
+  padding-top: 270rpx;
+  text-align: center;
+  color: #333;
+}
+
+.shop-summary .shop-summary__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 32rpx;
+}
+
+.shop-summary .shop-summary__description {
+  font-size: 28rpx;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 30rpx;
+}
+
+.store-items {
+  display: flex;
+  padding-bottom: 60rpx;
+  margin-top: 40rpx;
+}
+
+.store-items .item {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: 600;
+  width: 208rpx;
+  height: 240rpx;
+  vertical-align: bottom;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.store-items .item.ten {
+  background: url("https://kg.erp.taihuoniao.com/image/static/life-store-10s@2.png") no-repeat top center;
+  background-size: 100%;
+  margin-right: 20rpx;
+}
+
+.store-items .item.zero {
+  background: url("https://kg.erp.taihuoniao.com/image/static/life-store-zero@2.png") no-repeat top center;
+  background-size: 100%;
+  margin-right: 20rpx;
+}
+
+.store-items .item.share {
+  background: url("https://kg.erp.taihuoniao.com/image/static/life-store-share@2.png") no-repeat top center;
+  background-size: 100%;
+}
+
+.ten view:nth-child(2), .zero view:nth-child(2), .share view:nth-child(2) {
+  margin-bottom: 30rpx;
+}
+
+.ten view, .zero view, .share view {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.store-how {
+  background-color: white;
+  padding: 0rpx 40rpx;
+}
+
+.store-quality {
+  background: white;
+  padding: 0 40rpx 0rpx;
+}
+
+.store-sale {
+  background-color: #313c47 !important;
+  padding: 60rpx 40rpx;
+  color: #fff;
+}
+
+.icon-ball {
+  flex: 0 0 auto;
+  /* background: url("../../assets/images/icon-ball@2.png") no-repeat top center; */
+  background-size: 100% 100%;
+  width: 34rpx;
+  height: 36rpx;
+  display: inline-block;
+  text-align: center;
+  margin-right: 10rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  font-weight: 600;
+  margin-top: 5rpx;
+}
+
+.store-income {
+  background: white;
+  padding: 60rpx 40rpx;
+  padding-bottom: 0rpx;
+}
+
+.store-service {
+  background: white;
+  padding: 0rpx 40rpx;
+}
+
+.store-example {
+  width: 100%;
+  background-color: #f7f9fb !important;
+  padding: 60rpx 0;
+  text-align: center;
+}
+
+.example-list {
+  width: 100%;
+  padding: 0 0 20rpx 30rpx;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+.carousel-example {
+  width: max-content;
+  display: -webkit-box;
+  flex-flow: row nowrap;
+}
+
+.example {
+  width: 325rpx;
+  height: 363rpx;
+  flex: 0 0 265rpx;
+  padding-top: 20rpx;
+  text-align: center;
+  margin-right: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8rpx;
+  box-shadow: 0 8rpx 15rpx 0 rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.example   .avatar {
+  width: 104rpx;
+  height: 104rpx;
+  margin-bottom: 16rpx;
+  border-radius: 50%;
+}
+
+.job {
+  font-size: 22rpx;
+  color: #5fe4b1;
+  font-weight: 500;
+  margin-bottom: 36rpx;
+}
+
+.incomes {
+  text-align: left;
+}
+
+.day-income, .month-income {
+  font-size: 24rpx;
+  margin-bottom: 18rpx;
+}
+
+.day-income, .month-income {
+  color: #f66;
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-bottom: 16rpx;
+}
+
+.store-secret {
+  background: white;
+  padding: 60rpx 40rpx;
+  text-align: center;
+}
+
+.huise-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(85, 85, 85, 1);
+  margin-bottom: 30rpx;
+}
+
+.huise-description {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  margin-bottom: 40rpx;
+}
+
+.store-owner__photo {
+  width: 668rpx;
+  height: 328rpx;
+  margin-bottom: 70rpx;
+}
+
+.sell-guide__tetle {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 38rpx;
+}
+
+.sell-guide__description {
+  font-size: 28rpx;
+  font-weight: 400;
+}
+
+.sell-guide__description:nth-child(1), .sell-guide__description:nth-child(2) {
+  margin-bottom: 30rpx;
+}
+
+.sell-guide__box {
+  display: flex;
+  flex-direction: row;
+}
+
+.heise-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  margin-bottom: 28rpx;
+  line-height: 32rpx;
+}
+
+.text-left {
+  text-align: left;
+}

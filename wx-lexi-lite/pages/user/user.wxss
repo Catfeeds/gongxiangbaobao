@@ -160,6 +160,10 @@ button-hover {
   height: 120rpx;
 }
 
+.shim--80rpx {
+  height: 80rpx;
+}
+
 .setings {
   height: 32rpx;
   width: 32rpx;
@@ -382,6 +386,10 @@ button-hover {
 .bg--hui {
   background-color: #eff3f2;
   color: #949ea6;
+}
+
+.hui-se__bg {
+  background:rgba(247, 249, 251, 1);
 }
 
 .follow-icon__home {

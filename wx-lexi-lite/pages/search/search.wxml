@@ -1,27 +1,16 @@
 <!--pages/search/search.wxml-->
 <import src="../../wxParse/wxParse.wxml" />
-  <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+<!-- 添加页面加载 -->
+<image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 <view class='container search-page'>
 
   <!-- 搜索框 -->
   <view class="bg-white search-input ">
-    <input 
-      value="{{inputText}}" 
-      placeholder="关键字/商品/品牌馆/人" 
-      bindinput="handleInput" 
-      bindconfirm="handleRecordLast"
-      placeholder-class="input-font" auto-focus/>
-      <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
-      <image 
-        class='input-off__btn' 
-        catchtap='handleDeleteInput' 
-        wx:if="{{inputText}}"
-        src="../../images/bg-hui-off@icon.png"></image>
+    <input value="{{inputText}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" bindconfirm="handleRecordLast" placeholder-class="input-font" auto-focus/>
+    <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
+    <image class='input-off__btn' catchtap='handleDeleteInput' wx:if="{{inputText}}" src="../../images/bg-hui-off@icon.png"></image>
   </view>
+  <view class="search-input__shim"></view>
 
   <!-- 没有输入的时候 -->
   <block wx:if="{{!inputText}}">
@@ -29,18 +18,10 @@
     <view class="bg-white" wx:if="{{searchHistory.length!=0}}">
       <view class='time-top black-font font-width--semibold history-record padding-bottom--24rpx '>
         <text>历史搜索</text>
-        <image 
-          class="margin-left--40rpx margin-right--40rpx" 
-          catchtap="handleClearHistory"
-          src='../../images/delete-icon@2.png'></image>
+        <image class="margin-left--40rpx margin-right--40rpx" catchtap="handleClearHistory" src='../../images/delete-icon@2.png'></image>
       </view>
       <view class="flex_row black-font padding-left--40rpx padding-right--40rpx history-record__text">
-        <view 
-          class="one-line-text" 
-          wx:for="{{searchHistory}}" 
-          data-text="{{item}}" 
-          catchtap="handleSearchWord"
-          wx:key="{{index}}">{{item}}</view>
+        <view class="one-line-text" wx:for="{{searchHistory}}" data-text="{{item}}" catchtap="handleSearchWord" wx:key="{{index}}">{{item}}</view>
       </view>
     </view>
 
@@ -50,10 +31,10 @@
       <scroll-view scroll-x>
 
         <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
-        
+
           <fx-product product="{{item}}" like_number="{{false}}" photo="{{1}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
-        
+
       </scroll-view>
     </view>
 
@@ -65,15 +46,11 @@
           <image src="https://static.moebeast.com/static/img/jiedan.png"></image>
           <view>接单订制</view>
         </view>
-        <view 
-          class="fx-column--center font-s" 
-          data-target-type="{{item.target_type}}"
-          data-rid="{{item.rid}}"
-          catchtap="handleToSkip"
-          wx:for="{{recommendList.hot_recommends}}" 
-          wx:key="{{index}}">
+        <view class="fx-column--center font-s" data-target-type="{{item.target_type}}" data-rid="{{item.rid}}" catchtap="handleToSkip" wx:for="{{recommendList.hot_recommends}}" wx:key="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.cover}}"></image>
-          <view class="two-line-text"><text> {{item.recommend_title}} </text></view>
+          <view class="two-line-text">
+            <text> {{item.recommend_title}} </text>
+          </view>
         </view>
       </view>
     </view>
@@ -102,12 +79,7 @@
 
   <!-- 输入的时候 wx:for="{{recommendText.search_items}}"-->
   <block wx:if="{{inputText}}">
-    <view 
-      catchtap="handleSearchText"
-      data-index="{{index}}"
-      class="black-font padding-left--40rpx flex_row one-line-text hot-search" 
-      wx:for="{{replyTemArray}}" 
-      wx:key="{{index}}">
+    <view catchtap="handleSearchText" data-index="{{index}}" class="black-font padding-left--40rpx flex_row one-line-text hot-search" wx:for="{{replyTemArray}}" wx:key="{{index}}">
       <!-- <view>{{item.name}}</view>
       
       <view>台湾手工轻珠宝</view> -->
