@@ -77,6 +77,11 @@ Page({
       categoryActive: e.currentTarget.dataset.code
     })
 
+    wx.pageScrollTo({
+      scrollTop: 260,
+      duration: 0
+    })
+
     if (e.currentTarget.dataset.code == 'recommend') {
       this.setData({
         'recommendWindowParams.page': 1
