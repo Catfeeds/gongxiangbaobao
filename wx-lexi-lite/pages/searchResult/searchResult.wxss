@@ -72,6 +72,18 @@
   background-color: #fff;
 }
 
-.border-bottom--0{
+.border-bottom--0 {
   border-bottom: 0rpx;
+}
+
+.quesheng-tupian__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quesheng-tupian__box image {
+  margin: 188rpx 0 30rpx;
+  width: 100rpx;
+  height: 100rpx;
 }

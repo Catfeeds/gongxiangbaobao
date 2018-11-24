@@ -25,12 +25,17 @@ Page({
     isLoadProductShow: true, // 加载更多产品的loading图片
     prductIsNext: true, // 商品是否有下一页
     productList: [], // 商品列表
+    productCount:1, // 商品的数量
 
     storeIsNext: true, // 品牌馆是否有下一页
     storeList: [], // 品牌馆列表
+    isLoadStoreShow: true, // 加载动画
+    storeCount: 1, // 品牌馆数量
 
     userList: [], // 用户的的列表
     userIsNext: true,
+    userCount: 1,
+    isLoadingUserIcon: true,
 
     navbarCategoryId: 1,
     navbarCategory: [{
@@ -317,25 +322,7 @@ Page({
 
     this.setData({
       navbarCategoryId: e.currentTarget.dataset.id,
-      isLoadProductShow: true,
-      prductIsNext: true, // 商品是否有下一页
-      storeIsNext: true, // 品牌馆是否有下一页
-      userIsNext: true,
     })
-
-    if (this.data.navbarCategoryId == 1) {
-      this.getSearch()
-    }
-
-    if (this.data.navbarCategoryId == 2) {
-      if (this.data.storeList.length == 0) {
-        this.getBrandStore() // 获取品牌馆
-      }
-    }
-
-    if (this.data.navbarCategoryId == 3) {
-      this.getUser()
-    }
   },
 
   // 取消关注人
@@ -460,16 +447,20 @@ Page({
 
       utils.logger(result, '商品搜索结果')
       let data = this.data.productList
-      result.data.products.forEach((v) => {
-        data.push(v)
-      })
+
+      if (this.data.productParams.data == 1) {
+        data = result.data.products
+      } else {
+        data = data.concat(result.data.products)
+      }
 
       if (result.success) {
         this.setData({
           productList: data,
           prductIsNext: result.data.next,
           totalCount: result.data.count,
-          isLoadProductShow: false
+          isLoadProductShow: false,
+          productCount: result.data.count
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -480,18 +471,20 @@ Page({
   // 搜索品牌商店 
   getBrandStore() {
     http.fxGet(api.core_platforms_search_stores, this.data.brandStoreParams, (result) => {
-
       utils.logger(result, '品牌店结果')
       let data = this.data.storeList
-      result.data.stores.forEach((v) => {
-        data.push(v)
-      })
+      if (this.data.brandStoreParams.page == 1) {
+        data = result.data.stores
+      } else {
+        data = data.concat(result.data.stores)
+      }
 
       if (result.success) {
         this.setData({
           storeList: data,
           storeIsNext: result.data.next,
-          isLoadProductShow: false
+          isLoadStoreShow: false,
+          storeCount: result.data.count,
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -506,14 +499,20 @@ Page({
       let data = this.data.userList
       result.data.users.forEach((v) => {
         v.username = common.sliceString(v.username, 14)
-        data.push(v)
       })
+
+      if (this.data.userParams.page == 1) {
+        data = result.data.users
+      } else {
+        data.concat(result.data.users)
+      }
 
       if (result.success) {
         this.setData({
           userList: data,
           userIsNext: result.data.next,
-          isLoadProductShow: false
+          userCount: result.data.count,
+          isLoadingUserIcon: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -532,6 +531,8 @@ Page({
     })
 
     this.getSearch()
+    this.getBrandStore()
+    this.getUser()
   },
 
   /**
@@ -552,7 +553,7 @@ Page({
       this.getSearch()
     }
 
-    // 商品的触底加载
+    // 品牌馆的触底加载
     if (this.data.navbarCategoryId == 2) {
       if (!this.data.storeIsNext) {
         return
@@ -560,7 +561,7 @@ Page({
 
       this.setData({
         ['brandStoreParams.page']: this.data.brandStoreParams.page + 1,
-        isLoadProductShow: true // 加载更多产品的loading图片
+        isLoadStoreShow: true // 品牌馆
       })
 
       this.getBrandStore()
@@ -574,7 +575,7 @@ Page({
 
       this.setData({
         ['userParams.page']: this.data.userParams.page + 1,
-        isLoadProductShow: true // 加载更多产品的loading图片
+        isLoadingUserIcon:true
       })
 
       this.getUser()
@@ -629,5 +630,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })
