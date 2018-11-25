@@ -9,7 +9,7 @@
   </view>
   <!-- 轮播图 -->
   <view class='swiperBox'>
-    <swiper bindchange='handleSwiperChange'>
+    <swiper bindchange='handleSwiperChange' class="top-swiper">
       <block wx:for="{{productTop.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}" catchtap="handleLookBigPhoto" mode="aspectFill" />
@@ -477,30 +477,34 @@
 
   <!-- 图片放大 -->
   <view class="big-swiper__box {{bigPhotoShow?'big-swiper__box--show':''}}" catchtap="handleOffBigSwiperBox">
-    <view class="big-swiper__text--top">
-      <text class="sweiper-photo__currrent">{{bigPhotoCurrent}}</text>
-      <text class="sweiper-photo__sum">/{{productTop.assets.length}}</text>
-    </view>
-    <view class="swiper-photo__item">
-      <swiper duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
-        <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
-          <image src="{{item.view_url}}" mode="aspectFill" />
-        </swiper-item>
-      </swiper>
-    </view>
+    <swiper class="swiper-photo__item" style="height:{{bigSwiperHeight}}rpx" duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
+      <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
+        <image src="{{item.view_url}}" />
+      </swiper-item>
+    </swiper>
+    <!-- 下部分 -->
     <view class="big-swiper__text--bottom time-top">
       <view class="flex_row">
-        <view class="like-text__over" wx:if="{{productTop.is_like}}" catchtap='handleBindLike'>已喜欢</view>
-        <view class='like-text' wx:else catchtap='handleBindLike'>
+
+        <view class='like-text flex_row' wx:if="{{productTop.is_like}}" catchtap='handleBindLike'>
           <image src='../../images/already-like@3.png' class='like-icon'></image>
           <text class='font-color--white'> 喜欢</text>
+        </view>
+
+        <view class="like-text__over flex_row" wx:else catchtap='handleBindLike'>
+          <image src='../../images/already-like@3.png' class='like-icon'></image>
+          <text>{{productTop.like_count>0? '+' + productTop.like_count:'喜欢'}}</text>
         </view>
         <view class="shop" catchtap='handlePickShow'>购买</view>
       </view>
 
+      <text class="big-swiper__text--top">{{bigPhotoCurrent}}/{{productTop.assets.length}}</text>
+
       <image class="share-icon" catchtap="handleShareTap" src="https://static.moebeast.com/image/static/share_tag.png">
       </image>
     </view>
+
+    <image src="https://static.moebeast.com/image/static/bottom_gray.png" class="big-photo__bottom--shadow"></image>
   </view>
 
   <!-- 回到顶部按钮是否显示 -->

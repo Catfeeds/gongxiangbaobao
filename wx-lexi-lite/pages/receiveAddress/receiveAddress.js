@@ -141,6 +141,7 @@ Page({
   getAddressList() {
     http.fxGet(api.addresses, {}, (result) => {
       utils.logger(result, '地址列表')
+      console.log(result, '地址列表')
       if (result.success) {
         this.setData({
           addressList: result.data

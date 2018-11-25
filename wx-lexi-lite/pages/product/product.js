@@ -13,6 +13,7 @@ Page({
   data: {
     bigPhotoShow: false, // 是否显示大图
     bigPhotoCurrent: 0, // 大图应该展现的位置
+    bigSwiperHeight: 0, // 大图的高度
 
     backBtnIsShow: false, // 是否显示回到顶部按钮
     isLoading: true,
@@ -352,7 +353,8 @@ Page({
    */
   handleSwiperChange: function(e) {
     this.setData({
-      swiperIndex: e.detail.current - 0 + 1
+      swiperIndex: e.detail.current - 0 + 1,
+      bigSwiperHeight: this.data.productTop.assets[e.detail.current].h
     })
   },
 
@@ -702,9 +704,14 @@ Page({
       sid: jwt.store_rid || ''
     }, result => {
       if (result.success) {
+        result.data.assets.forEach(v => {
+          v.h = 750 * v.height / v.width
+        })
+        // console.log(result,'第一屏幕')
         this.setData({
           productTop: result.data,
           isDistributed: result.data.is_distributed,
+          bigSwiperHeight: result.data.assets[0].h
         })
 
         // 如果已经下架就删除
@@ -745,7 +752,7 @@ Page({
         this.setData({
           likePeople: result.data
         })
-        
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -1598,7 +1605,8 @@ Page({
 
   handleBigSwiperChange(e) {
     this.setData({
-      bigPhotoCurrent: e.detail.current + 1
+      bigPhotoCurrent: e.detail.current + 1,
+      bigSwiperHeight: this.data.productTop.assets[e.detail.current].h
     })
   },
 
