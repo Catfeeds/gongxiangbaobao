@@ -1,0 +1,32 @@
+.fx-image-modal-container {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+.fx-mask {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.fx-image-modal {
+  position: relative;
+  border-radius: 8rpx;
+  margin: 0 auto 60rpx;
+  margin-top: 150rpx;
+  z-index: 101;
+}
+.fx-image-modal .icon-close {
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
+  width: 30rpx;
+  height: 30rpx;
+}

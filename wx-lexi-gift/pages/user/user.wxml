@@ -1,0 +1,86 @@
+<!--pages/user/user.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <!-- 未登录状态 -->
+  <view class="user-login--wrapper user-login--no">
+    <image src="../../images/icon-avatar@2x.png" class="user-avatar"></image>
+    <view class="user-info">
+      <view class="user-name">登录/注册</view>
+      <view class="user-desc">点击登录乐喜</view>
+    </view>
+    <view class="user-action">
+      <button class="btn-login">登录</button>
+    </view>
+  </view>
+
+  <!-- 登录状态 -->
+  <view class="user-login--wrapper">
+    <image src="../../images/icon-avatar@2x.png" class="user-avatar"></image>
+    <view class="user-info">
+      <view class="user-name">主办新</view>
+      <view class="user-desc">乐喜生活馆主</view>
+    </view>
+    <view class="user-action">
+      <button class="btn-login btn-address">地址管理</button>
+    </view>
+  </view>
+
+  <!-- 我参与的 -->
+  <view class="fx-menus">
+    <view class="fx-menu__item">
+      <view class="count">0</view>
+      <view class="label">我参与的抽奖</view>
+    </view>
+    <view class="fx-menu__item">
+      <view class="count">0</view>
+      <view class="label">我送出的礼物</view>
+    </view>
+    <view class="fx-menu__item">
+      <view class="count">0</view>
+      <view class="label">我收到的礼物</view>
+    </view>
+  </view>
+
+  <!-- 生活馆主 -->
+  <view class="link-lexi">
+    <view class="follow-notice">
+      <view class="follow-text">
+        关注乐喜生活馆公众号，实时接收订单消息
+      </view>
+      <button class="btn-follow">立即关注</button>
+    </view>
+
+    <image src="../../images/join-group@2x.png" class="go-lexi"></image>
+  </view>
+
+  <!-- 跳转核心小程序 -->
+  <view class="link-lexi">
+    <image src="../../images/link-lexi@2x.png" class="go-lexi"></image>
+  </view>
+
+  <!-- 菜单项 -->
+  <view class="link-menus">
+    <view class="link-menu__item">
+      <view class="menu-box">
+        <view class="name">乐喜生活馆</view>
+        <view class="desc">零成本开店赚取收益</view>
+      </view>
+      <view class="image">
+        <image src="../../images/icon-life-store@2x.png" class="icon"></image>
+      </view>
+    </view>
+
+    <view class="link-menu__item">
+      <view class="menu-box">
+        <view class="name">猜图赢现金</view>
+        <view class="desc">200000人正在参与</view>
+      </view>
+      <view class="image">
+        <image src="../../images/icon-guess@2x.png" class="icon"></image>
+      </view>
+    </view>
+
+  </view>
+
+
+</view>

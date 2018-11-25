@@ -1,0 +1,25 @@
+{
+  "extEnable": true,
+  "extAppid": "wxdb87730456842ea2",
+  "directCommit": false,
+  "ext": {
+    "name": "乐喜小礼物",
+    "authAppid": "wxdb87730456842ea2",
+    "storeRid": "95196782",
+    "attr": {
+      "users": [
+        "purpen"
+      ]
+    },
+    "api": {
+      "host": "https://wxapi.lexivip.com",
+      "version": "v1.0",
+      "appKey": "WfiJ6IVBvaKA3tXwT1Rs",
+      "appSecret": "afad37122e9ed6ab3ab780215b5a63e7fd641648"
+    }
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "downloadFile": 10000
+  }
+}

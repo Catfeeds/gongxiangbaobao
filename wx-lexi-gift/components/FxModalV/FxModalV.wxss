@@ -1,0 +1,40 @@
+.fx-modal-v-container {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+.fx-mask {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.fx-modal-v {
+  position: relative;
+  background-color: #f7f9fb;
+  border-radius: 8rpx;
+  padding: 40rpx;
+  margin: 0 auto 50px;
+  width: 520rpx;
+  z-index: 101;
+}
+.fx-modal-v .fx-modal__title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 40rpx;
+}
+.fx-modal-v .icon-close {
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
+  width: 30rpx;
+  height: 30rpx;
+}

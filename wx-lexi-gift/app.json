@@ -1,12 +1,39 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/give/give",
+    "pages/lottery/lottery",
+    "pages/user/user",
+    "pages/userLottery/userLottery",
+    "pages/addressList/addressList",
+    "pages/pickGift/pickGift",
+    "pages/addressEdit/addressEdit",
+    "pages/addressChoose/addressChoose"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#5fe4b1",
+    "borderStyle": "#dadada",
+    "list": [
+      {
+        "pagePath": "pages/give/give",
+        "text": "送礼",
+        "iconPath": "./images/icon-tabbar-gift.png",
+        "selectedIconPath": "./images/icon-tabbar-gift-h.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我参与的",
+        "iconPath": "images/icon-tabbar-user.png",
+        "selectedIconPath": "images/icon-tabbar-user-h.png"
+      }
+    ]
   }
 }

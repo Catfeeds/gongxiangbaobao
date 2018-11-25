@@ -1,0 +1,146 @@
+<!--pages/lottery/lottery.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <view class="gift-banner">
+    <view class="title">赠送好友礼物</view>
+    <view class="desc">邀请好友访问你的生活馆</view>
+  </view>
+
+  <!-- 发起人 -->
+  <view class="gift-originator-wrapper">
+    <view class="gift-originator">
+      <image src="../../images/product@2x.jpg" class="icon-avatar"></image>
+      <view class="user-info">
+        <view class="name">牛半仙</view>
+        <view class="tag">乐喜生活馆主</view>
+      </view>
+      <view class="user-action">
+        <button class="btn-go-store">进入生活馆</button>
+      </view>
+    </view>
+    <view class="blessing">
+      <image src="../../images/icon-pao@2x.png" class="icon-pao"></image>
+      <text class="words">大吉大利，送你大礼</text>
+    </view>
+  </view>
+
+  <!-- 参与状态 -->
+  <view class="gift-partake">
+
+     <!-- 未登录 -->
+    <view class="partake-login">
+      <button class="btn-login">登录后可参与抽奖</button>
+    </view>
+
+    <!-- 中奖 -->
+    <view class="partake-prize">
+      <image src="../../images/icon-lucky@2x.png" class="icon-lucky"></image>
+      <view class="discription">恭喜你获得本场礼物</view>
+      <button class="btn-got goted">领取礼物</button>
+    </view>
+
+    <!-- 未中奖 -->
+    <view class="partake-prize">
+      <image src="../../images/icon-not-luck@2x.png" class="icon-not-lucky"></image>
+      <view class="discription">很遗憾，你未中奖</view>
+      <view class="prize-result">
+        <text>礼物已被</text>
+
+        <text>拿走了</text>
+      </view>
+    </view>
+
+    <!-- 参与成功 -->
+    <view class="partake-success-wrapper">
+      <view class="big-title">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+        <view class="title">参与成功，人数满即开奖</view>
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+      <view class="tips">
+        满30人自动开奖，快去召唤好友拿礼物
+      </view>
+    </view>
+
+    <!-- 活动失效 -->
+    <view class="partake-success-wrapper">
+      <view class="big-title">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+        <view class="title">活动已失效</view>
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+      <view class="fail-tips">
+        活动时间内人数未达标，已自动失效
+      </view>
+    </view>
+
+    <!-- 活动已结束 -->
+    <view class="partake-success-wrapper">
+      <view class="big-title">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+        <view class="title">来晚了，本场活动已结束</view>
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+      <view class="fail-tips">
+        没抢到礼物，自己也发起个送礼吧
+      </view>
+    </view>
+
+
+  </view>
+
+  <!-- 当前礼物 -->
+  <view class="gift-product">
+    <view class="product-images">
+      <image src="../../images/product@2x.jpg" class="asset"></image>
+      <image src="../../images/product@2x.jpg" class="asset"></image>
+      <image src="../../images/product@2x.jpg" class="asset"></image>
+    </view>
+    <view class="product-info">
+      面防水环保餐具袋&笔袋-西瓜咬一口水环保餐具袋&笔
+    </view>
+
+    <view class="people-progress">
+      <view class="progress-bg">
+        <view class="progress-show"></view>
+      </view>
+      <view class="progress-desc">
+        <view class="need-count">总需 <text class="count">30</text> 人</view>
+        <view class="surplus-count">还差 <text class="count">30</text> 人开奖</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 参与用户 -->
+  <view class="gift-peoples">
+    <image src="../../images/icon-gift-fail@2x.png" class="icon-gift-fail"></image>
+    <image src="../../images/icon-gift-success@2x.png" class="icon-gift-success"></image>
+    <view class="count-down">
+      <view class="line"></view>
+      <view class="timer">
+        <text class="label">还剩</text>
+        <text class="count">22</text>
+        <text class="label">时</text>
+        <text class="count">59</text>
+        <text class="label">分</text>
+        <text class="count">20</text>
+        <text class="label">秒</text>
+      </view>
+      <view class="line"></view>
+    </view>
+    <view class="partake-users">
+      <image src="../../images/product@2x.jpg" class="icon-avatar"></image>
+      <image src="../../images/product@2x.jpg" class="icon-avatar"></image>
+      <image src="../../images/product@2x.jpg" class="icon-avatar"></image>
+      <image src="../../images/icon-avatar-help@2x.png" class="icon-avatar icon-avatar-help"></image>
+    </view>
+  </view>
+
+  <!-- 分享礼物给好友 -->
+  <view class="gift-share-wrapper">
+    <button class="btn-more">更多抽奖</button>
+    <button class="btn-give">我也要送礼</button>
+    <button class="btn-share">分享礼物给好友</button>
+  </view>
+
+</view>
