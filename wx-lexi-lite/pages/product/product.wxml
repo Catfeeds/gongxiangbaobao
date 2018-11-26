@@ -230,7 +230,7 @@
   <view class='specifications' wx:if="{{pick}}" catchtap='hideSkuModal'>
     <view class='bg-white specificationsInfo black-font' catchtap='handleSkuModal'>
       <view class=''>
-        <view class=" sku__name ">{{ productInfomation.name }}</view>
+        <view class=" sku__name ">{{ productTop.name }}</view>
         <view class='flex_row padding-bottom-34rpx category-box__title' wx:if="{{ choosed.stock_count > 0 }}">
           <text class='cureentPrice' wx:if="{{ choosed.sale_price > 0 }}">
             <text>￥{{ choosed.sale_price }}</text>
