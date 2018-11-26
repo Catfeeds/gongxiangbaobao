@@ -1,1 +1,114 @@
 /* pages/pickGift/pickGift.wxss */
+
+.receiver-wrapper {
+  width: 750rpx;
+  display: flex;
+  align-items: center;
+  background: url('https://static.moebeast.com/static/img/icon-address-border@2x.png') no-repeat left bottom #fff;
+  background-size: 750rpx 4rpx;
+  margin-bottom: 20rpx;
+}
+
+.receiver-wrapper .receiver-empty {
+  padding: 0rpx 30rpx;
+  flex: 1;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 142rpx;
+  height: 142rpx;
+}
+
+.receiver-wrapper .receiver {
+  padding: 0rpx 30rpx;
+  height: 142rpx;
+  flex: 1;
+}
+
+.receiver-wrapper .receiver .user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+  margin-top: 30rpx;
+}
+
+.receiver-wrapper .receiver .user .name {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 26rpx;
+}
+
+.receiver-wrapper .receiver .user .phone {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 26rpx;
+}
+
+.receiver-wrapper .receiver .address {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+}
+
+.receiver-wrapper .arrow {
+  flex: 0 0 auto;
+  width: 80rpx;
+  text-align: center;
+}
+
+.receiver-wrapper .arrow .icon {
+  width: 16rpx;
+  height: 26rpx;
+}
+
+.gift-wrapper {
+  width: 750rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.gift-wrapper .gift-image {
+  flex: 0 0 auto;
+  width: 130rpx;
+  margin-right: 20rpx;
+  margin-left: 30rpx;
+}
+
+.gift-wrapper .gift-image .cover {
+  width: 130rpx;
+  height: 130rpx;
+}
+
+.gift-wrapper .gift-product {
+  flex: 1;
+}
+
+.gift-wrapper .gift-product .name {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 28rpx;
+  margin-bottom: 16rpx;
+}
+
+.gift-wrapper .gift-product .mode {
+  font-size: 24rpx;
+  font-weight: 300;
+  color: rgba(178, 178, 178, 1);
+  line-height: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.gift-wrapper .gift-product .quantity {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 24rpx;
+}

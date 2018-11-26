@@ -1,9 +1,4 @@
 /* pages/user/user.wxss */
-
-.container {
-  background-color: #f8f8f8;
-}
-
 .user-login--wrapper {
   display: flex;
   align-items: center;

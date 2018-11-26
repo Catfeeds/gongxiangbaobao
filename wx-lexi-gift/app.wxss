@@ -5,6 +5,10 @@ button {
   outline: none;
 }
 
+page {
+  background-color: #f8f8f8;
+}
+
 .container {
   height: 100%;
   display: flex;
@@ -266,4 +270,40 @@ button {
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
   line-height: 58rpx;
+}
+
+.gift-share-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  width: 690rpx;
+  height: 100rpx;
+  padding: 0 30rpx;
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+}
+
+.gift-share-wrapper .btn-share {
+  flex: 1;
+  height: 80rpx;
+  background: rgba(95, 228, 177, 1);
+  margin: 10rpx 0;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 80rpx;
+}
+
+.gift-share-wrapper .btn-more, .gift-share-wrapper .btn-give {
+  flex: 1;
+  height: 80rpx;
+  background: rgba(245, 245, 245, 1);
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 80rpx;
+  margin-right: 20rpx;
 }

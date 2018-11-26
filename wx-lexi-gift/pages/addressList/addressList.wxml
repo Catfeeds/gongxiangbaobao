@@ -1,2 +1,26 @@
-<!--pages/addressList/addressList.wxml-->
-<text>pages/addressList/addressList.wxml</text>
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <!-- 收获地址列表 -->
+  <view class="addressList">
+    <view class="address-item">
+      <view class="address-item__icon">
+        <image src="../../images/icon-selected@2x.png" class="icon-selected"></image>
+      </view>
+      <view class="address-item__body">
+        <view class="name">盒子</view>
+        <view class="street">贵州省遵义市红花岗区天通银丽水元2单元501</view>
+        <view class="phone">133</view>
+      </view>
+      <view class="address-item__action">
+        编辑
+      </view>
+    </view>
+  </view>
+
+  <!-- 新增收获地址 -->
+  <view class="gift-share-wrapper">
+    <button class="btn-share">新增收货地址</button>
+  </view>
+
+
+</view>

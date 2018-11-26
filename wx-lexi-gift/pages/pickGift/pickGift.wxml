@@ -1,2 +1,39 @@
 <!--pages/pickGift/pickGift.wxml-->
-<text>pages/pickGift/pickGift.wxml</text>
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <!-- 收货人 -->
+  <view class="receiver-wrapper">
+    <view class="receiver" wx:if="{{ currentAddress }}">
+      <view class="user">
+        <view class="name">收货人：xx</view>
+        <view class="phone">1338139070</view>
+      </view>
+      <view class="address">
+        贵州省遵义市汇川区天通苑丽水园4号
+      </view>
+    </view>
+    <view class="receiver-empty" wx:else>
+      选填写收货地址
+    </view>
+    <view class="arrow">
+      <image src="../../images/icon-arrow@2x.png" class="icon"></image>
+    </view>
+  </view>
+
+  <!-- 礼物 -->
+  <view class="gift-wrapper">
+    <view class="gift-image">
+      <image src="../../images/product@2x.jpg" class="cover"></image>
+    </view>
+    <view class="gift-product">
+      <view class="name">水彩杯垫</view>
+      <view class="mode">黑色/M</view>
+      <view class="quantity">x1</view>
+    </view>
+  </view>
+
+  <view class="gift-share-wrapper">
+    <button class="btn-share">领取礼物</button>
+  </view>
+
+</view>

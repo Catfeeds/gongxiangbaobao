@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -66,6 +66,24 @@
 					"id": -1,
 					"name": "收到的",
 					"pathName": "pages/userReceive/userReceive",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "领取",
+					"pathName": "pages/pickGift/pickGift",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "地址管理",
+					"pathName": "pages/addressList/addressList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新增地址",
+					"pathName": "pages/addressEdit/addressEdit",
 					"query": ""
 				}
 			]

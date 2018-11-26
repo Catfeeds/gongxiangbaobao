@@ -16,7 +16,7 @@
           <view class="date">2018.11.12 23:59</view>
           <view class="status ended">未中奖</view>
           <view class="status hit">
-            <image src="../../images/icon-gift-box@2x.png" class="icon-gift"></image>中奖了
+            <image src="../../images/icon-gift02@2x.png" class="icon-gift"></image>中奖了
           </view>
         </view>
         <view class="lottery-item__body">

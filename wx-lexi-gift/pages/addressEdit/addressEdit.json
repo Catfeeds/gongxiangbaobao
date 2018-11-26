@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTitleText": "创建收货地址",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
+}
