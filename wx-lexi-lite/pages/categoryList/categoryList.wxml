@@ -10,7 +10,7 @@
   </view>
 
   <!-- 排序 筛选 -->
-  <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+  <view class='time-top sotr black-font {{sotrF?"sotrF":""}} {{pickIsFixed?"position-fixed__top":""}}'>
     <view catchtap='handelOffPick' class='flex_row'>
       综合排序
       <image src='../../images/arrowhead.png'></image>
@@ -20,6 +20,8 @@
       <image src='../../images/arrowhead.png'></image>
     </view>
   </view>
+
+  <view class="shim" wx:if="{{pickIsFixed}}"></view>
 
   <!-- 商品列表 -->
   <view class="goodsList border-bottom--0">

@@ -11,6 +11,7 @@ Page({
    */
   data: {
     backBtnIsShow: false, // 回到顶部按钮
+    pickIsFixed: false, // 筛选是否吸附 
 
     isLoading: true,
     isLoadProductShow: true, // 加载更多商品
@@ -416,6 +417,25 @@ Page({
         })
       }
     }
+
+    // 综合排序是否吸附
+    if (e.scrollTop >= 38) {
+      if (!this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed:true
+        })
+      }
+    }
+
+    if (e.scrollTop < 38) {
+      if (this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: false
+        })
+      }
+    }
+
+
   },
 
   /**

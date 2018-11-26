@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pickIsFixed: false, // 盒子是否吸附在顶部
+
     isLoading: true,
     indicatorDots: true,
     vertical: false,
@@ -895,6 +897,32 @@ Page({
       this.getAllProducts()
       this.getCategories()
     }
+  },
+
+  /**
+   * 监听页面滚动84
+   */
+  onPageScroll(e) {
+
+    // 筛选盒子是否吸附
+    if (this.data.pageActiveTab == 'all') {
+      if (e.scrollTop >= 82) {
+        if (!this.data.pickIsFixed){
+          this.setData({
+            pickIsFixed: true
+          })
+        }
+      }
+
+      if (e.scrollTop < 82) {
+        if (this.data.pickIsFixed) {
+          this.setData({
+            pickIsFixed: false
+          })
+        }
+      }
+    }
+
   },
 
   /**

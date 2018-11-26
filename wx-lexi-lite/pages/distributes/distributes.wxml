@@ -18,7 +18,7 @@
   </view>
 
   <!-- tabs -->
-  <view class="page-section fx-tabs">
+  <view class="page-section fx-tabs {{pickIsFixed?'box-fixed':''}}">
     <view class="tab-item {{ pageActiveTab == 'stick' ? 'active' : '' }}" bindtap="handleChangePage" data-name="stick">
       <text>推荐</text>
     </view>
@@ -26,6 +26,8 @@
       <text>全部商品</text>
     </view>
   </view>
+
+  <view wx:if="{{pickIsFixed}}"></view>
 
   <!-- 推荐列表 -->
   <view class="stick-container" wx:if="{{ pageActiveTab == 'stick' }}">

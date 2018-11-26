@@ -4,6 +4,7 @@
 .container {
   height: auto;
 }
+
 .search-input {
   position: relative;
   height: 80rpx;
@@ -55,7 +56,18 @@
 }
 
 .price-range {
-position:relative;
-padding:20rpx 40rpx 0;
-background-color:#fff;
+  position: relative;
+  padding: 20rpx 40rpx 0;
+  background-color: #fff;
+}
+
+.shim {
+  height: 80rpx;
+}
+
+.position-fixed__top {
+  position: fixed;
+  top: 0;
+  width: 750rpx;
+  z-index: 9;
 }

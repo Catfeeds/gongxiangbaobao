@@ -389,7 +389,7 @@ button-hover {
 }
 
 .hui-se__bg {
-  background:rgba(247, 249, 251, 1);
+  background: rgba(247, 249, 251, 1);
 }
 
 .follow-icon__home {
@@ -529,4 +529,14 @@ button-hover {
 
 .padding-top--32rpx {
   padding-top: 32rpx;
+}
+
+.user-top__shim {
+  height: 92rpx;
+}
+
+.top-fixed__box {
+  position: fixed;
+  top: 0;
+  width: 750rpx;
 }
