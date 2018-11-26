@@ -1500,7 +1500,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    let title = this.data.productInfomation.name
+    let title = this.data.productTop.name
     return app.shareWxaProduct(this.data.rid, title, this.data.shareProduct.cover)
   },
 

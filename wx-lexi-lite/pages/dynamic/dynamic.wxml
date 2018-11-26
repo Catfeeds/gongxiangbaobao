@@ -64,7 +64,7 @@
   </view>
 
   <view wx:if="{{dynamicList.count==0}}" class="fx-column--center null-photo">
-    <image src='../../images/dynamic-null@2.png'></image>
+    <image src='https://static.moebeast.com/image/static/dynamic-null@2.png'></image>
     <view class='black-font'>还没有任何动态信息</view>
   </view>
 
