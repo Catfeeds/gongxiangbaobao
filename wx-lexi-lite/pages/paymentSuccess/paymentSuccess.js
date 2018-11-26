@@ -30,8 +30,8 @@ Page({
 
     http.fxGet(api.orders_after_payment_rid.replace(/:rid/, options.rid), {}, (result) => {
       utils.logger(result, '订单详情')
+      console.log(result, '订单详情')
       if (result.success) {
-
         result.data.orders.forEach((v, i) => {
           v.created_item = utils.timestamp2string(v.created_at, "cn")
         })
