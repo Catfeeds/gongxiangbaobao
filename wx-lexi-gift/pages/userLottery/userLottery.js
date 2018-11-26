@@ -6,6 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
+    activeTab: 's0',
+    tabs: [
+      { rid: 's0', name: '全部', status: 0 },
+      { rid: 's1', name: '已中奖', status: 1 },
+      { rid: 's2', name: '未中奖', status: 2 },
+      { rid: 's3', name: '已失效', status: 3 }
+    ],
+    lotteryList: [],
+    haveNext: true
 
   },
 
@@ -20,7 +30,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 350)
   },
 
   /**

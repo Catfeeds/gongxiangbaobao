@@ -27,15 +27,15 @@
 
   <!-- 我参与的 -->
   <view class="fx-menus">
-    <view class="fx-menu__item">
+    <view class="fx-menu__item" bindtap="handleGoLottery">
       <view class="count">0</view>
       <view class="label">我参与的抽奖</view>
     </view>
-    <view class="fx-menu__item">
+    <view class="fx-menu__item" bindtap="handleGoSended">
       <view class="count">0</view>
       <view class="label">我送出的礼物</view>
     </view>
-    <view class="fx-menu__item">
+    <view class="fx-menu__item" bindtap="handleGoReceive">
       <view class="count">0</view>
       <view class="label">我收到的礼物</view>
     </view>

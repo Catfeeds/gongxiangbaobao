@@ -13,11 +13,9 @@
     <view class="lottery-list">
       <view class="lottery-item">
         <view class="lottery-item__head">
-          <view class="date">2018.11.12 23:59</view>
-          <view class="status ended">未中奖</view>
-          <view class="status hit">
-            <image src="../../images/icon-gift-box@2x.png" class="icon-gift"></image>中奖了
-          </view>
+          <view class="date">订单编号：201811122359</view>
+          <view class="status">未发货</view>
+          <view class="status reded">已发货</view>
         </view>
         <view class="lottery-item__body">
           <image src="../../images/product@2x.jpg" class="cover"></image>
@@ -30,8 +28,7 @@
               <text class="quantity">1件</text>
             </view>
             <view class="progress">
-              <view class="reach-count">满30人开奖</view>
-              <view class="now-count">已参与18人</view>
+              <view class="reach-result">2018年11月12日 8:00开奖</view>
             </view>
           </view>
         </view>
@@ -41,7 +38,6 @@
             <view class="user-name">方言</view>
             <view class="txt">送出</view>
           </view>
-          <button class="btn-got">立即领取</button>
         </view>
       </view>
     </view>
@@ -49,7 +45,7 @@
     <!-- 空列表 -->
     <view class="lottery-list--empty">
       <image src="../../images/icon-no-draw@2x.png" class="icon-empty"></image>
-      <view class="description">还没有参与的抽奖</view>
+      <view class="description">还没有送出礼物</view>
     </view>
 
   </view>

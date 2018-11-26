@@ -1,38 +1,20 @@
-// pages/user/user.js
+// pages/userReceive/userReceive.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isLoading: true
-  },
-
-  /**
-   * 我参与的
-   */
-  handleGoLottery () {
-    wx.navigateTo({
-      url: '../userLottery/userLottery',
-    })
-  },
-
-  /**
-   * 我送出的
-   */
-  handleGoSended () {
-    wx.navigateTo({
-      url: '../userSend/userSend',
-    })
-  },
-
-  /**
-   * 我接收的
-   */
-  handleGoReceive () {
-    wx.navigateTo({
-      url: '../userReceive/userReceive',
-    })
+    isLoading: true,
+    activeTab: 's0',
+    tabs: [
+      { rid: 's0', name: '全部', status: 0 },
+      { rid: 's1', name: '未领取', status: 1 },
+      { rid: 's2', name: '已领取', status: 2 },
+      { rid: 's3', name: '退款', status: 3 }
+    ],
+    lotteryList: [],
+    haveNext: true
   },
 
   /**

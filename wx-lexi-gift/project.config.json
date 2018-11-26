@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -45,15 +45,28 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "参与",
-					"pathName": "pages/lottery/lottery",
+					"pathName": "pages/userLottery/userLottery",
 					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "我的",
-					"pathName": "pages/user/user"
+					"pathName": "pages/user/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "送出的",
+					"pathName": "pages/userSend/userSend",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "收到的",
+					"pathName": "pages/userReceive/userReceive",
+					"query": ""
 				}
 			]
 		}

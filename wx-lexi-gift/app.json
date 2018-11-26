@@ -9,7 +9,10 @@
     "pages/addressList/addressList",
     "pages/pickGift/pickGift",
     "pages/addressEdit/addressEdit",
-    "pages/addressChoose/addressChoose"
+    "pages/addressChoose/addressChoose",
+    "pages/userReceive/userReceive",
+    "pages/userSend/userSend",
+    "pages/lotteryList/lotteryList"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,7 +26,7 @@
     "borderStyle": "#dadada",
     "list": [
       {
-        "pagePath": "pages/give/give",
+        "pagePath": "pages/index/index",
         "text": "送礼",
         "iconPath": "./images/icon-tabbar-gift.png",
         "selectedIconPath": "./images/icon-tabbar-gift-h.png"
