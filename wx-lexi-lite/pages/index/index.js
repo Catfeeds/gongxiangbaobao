@@ -1831,7 +1831,7 @@ Page({
       case 'explore': // 探索
         this.handleSetNavigationTitle('探索')
         break;
-      case 'find': // 探索
+      case 'find': // 发现
         this.handleSetNavigationTitle('发现')
         break;
     }

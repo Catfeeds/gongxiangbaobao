@@ -196,7 +196,6 @@ Page({
    */
   handleGoComment(e) {
     utils.logger(e)
-    console.log(e, '种草笔记详情')
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -320,7 +319,6 @@ Page({
   getComment() {
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
       utils.logger(result, '生活志的评论')
-      console.log(result, '生活志的评论')
       if (result.success) {
         result.data.comments.forEach((v, i) => {
           v.content_list = emojiFn.emojiAnalysis([v.content])
@@ -348,6 +346,7 @@ Page({
       rid: this.data.rid
     }, (result) => {
       utils.logger(result, '种草笔记详情')
+      console.log(result, '种草笔记详情')
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 
@@ -370,13 +369,13 @@ Page({
    * 重建文章内容
    */
   _rebuildArticleContent(deal_content) {
-    let htmlAry = []
+    let htmlAry = ''
 
     deal_content.map(item => {
       if (item.type == 'text') {
-        htmlAry.push('<p>' + item.content + '</p>')
+        htmlAry += '<p>' + item.content + '</p>'
       } else if (item.type == 'image') {
-        htmlAry.push('<p><img src="' + item.content + '" /></p>')
+        htmlAry += '<p><img src="' + item.content + '" /></p>'
       } else if (item.type == 'product') {
 
         let show_price = item.content.min_price
@@ -410,12 +409,10 @@ Page({
             '</div>' +
             '</div>'
         }
-
-        htmlAry.push(productHtml)
+        htmlAry += productHtml
       }
     })
-
-    return htmlAry.join('')
+    return htmlAry
   },
 
   /**

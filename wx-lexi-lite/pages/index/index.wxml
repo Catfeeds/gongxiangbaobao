@@ -242,7 +242,7 @@
     </view>
 
     <!-- 开店指引 -->
-    <view class="setUpShop-guide border-radius--8" wx:if="{{ !isSmallB }}">
+    <view class="setUpShop-guide border-radius--8 {{isSmallB?'play-life__store--hidden':''}}">
       <view class='time-top setUpShop-guide__top border-bottom'>
         <view class='' wx:if="{{ runEnv == 2 }}">
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>

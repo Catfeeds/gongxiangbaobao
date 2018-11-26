@@ -1825,3 +1825,7 @@ swiper-photo .slide-item__box image {
   color: rgba(95, 228, 177, 1);
   border-left: 1rpx solid #e9e9e9;
 }
+
+.play-life__store--hidden {
+  display: none;
+}

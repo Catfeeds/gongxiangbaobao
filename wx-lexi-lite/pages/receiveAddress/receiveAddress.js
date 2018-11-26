@@ -34,7 +34,7 @@ Page({
       address_rid: e.detail.value
     })
 
-    this.validateUserCustom()
+    // this.validateUserCustom()
   },
 
   // 在没有选择的时候去设置订单参数
@@ -48,8 +48,7 @@ Page({
         this.setData({
           address_rid: v.rid
         })
-
-        this.validateUserCustom()
+        // this.validateUserCustom()
       }
     })
   },
@@ -70,6 +69,8 @@ Page({
       this.setData({
         validateCustom: true
       })
+
+      this.handleGoCheckout()
     }
   },
 
@@ -82,11 +83,21 @@ Page({
 
   // 继续提交订单
   submitOrderTap() {
-    if (!this.data.validateCustom) {
+    // if (!this.data.validateCustom) { // 修改之前的，如果修改之后没有问题就删掉
+    //   utils.fxShowToast('请先选定地址')
+    //   return
+    // }
+
+    if (!this.data.address_rid) {
       utils.fxShowToast('请先选定地址')
       return
     }
 
+    this.validateUserCustom()
+  },
+
+  // 继续支付
+  handleGoCheckout() {
     wx.redirectTo({
       url: '../checkout/checkout'
     })
@@ -123,6 +134,9 @@ Page({
         this.setData({
           validateCustom: true
         })
+
+        // 跳转到下一页
+        this.handleGoCheckout()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -133,7 +147,7 @@ Page({
   handleGoChangeAddress(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '../address/address?rid=' + rid + '&need_custom=1&from_ref=checkout'
+      url: '../address/address?rid=' + rid + '&from_ref=checkout'
     })
   },
 

@@ -296,7 +296,7 @@ image {
   width: 750rpx !important;
 }
 
-.wxParse-p view {
+.find .wxParse-p view {
   display: flex;
   flex-direction: row;
   margin: 0 40rpx 20rpx !important;

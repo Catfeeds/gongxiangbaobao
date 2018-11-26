@@ -395,7 +395,6 @@ Page({
       status: 1
     }, (result) => {
       utils.logger(result, '国家列表')
-      console.log(result, '国家列表')
       if (result.success) {
         let countries = result.data.area_codes
         this.setData({
@@ -449,7 +448,6 @@ Page({
 
     app.getAddressPlaces(this.data.form.country_id, (allPlaces) => {
       wx.hideLoading()
-      console.log(allPlaces)
       if (allPlaces) {
         let regions = this.data.regions
         let provinceIndex = 0
@@ -535,7 +533,6 @@ Page({
     http.fxGet(api.address_info.replace(/:rid/, this.data.rid), {}, (result) => {
       if (result.success) {
         utils.logger(result, '地址详情')
-        console.log(result, '地址详情')
         let _address = result.data
         this.setData({
           currentAddress: _address,
@@ -561,6 +558,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
     let rid = options.rid || '' // 编辑地址
     // 验证是否需要设置海关信息
     let needUserCustom = options.need_custom || 0
