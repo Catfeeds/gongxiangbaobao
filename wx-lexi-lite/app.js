@@ -418,7 +418,8 @@ App({
   /**
    * 支付订单
    */
-  wxpayOrder: function(rid, payParams, cb) {
+  wxpayOrder: function(rid, payParams,formId,cb) {
+    console.log(rid, payParams, formId)
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -431,6 +432,14 @@ App({
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
             title: '支付成功',
+          })
+
+          http.fxPost(api.users_save_form_ids, {
+            prepay_id: formId,
+            openid: this.globalData.jwt.openid,
+            order_rid:rid
+          }, result => {
+            console.log(result, '模板消息')
           })
 
           // 跳转至详情
@@ -538,7 +547,6 @@ App({
    * 发送消息
    */
   handleSendNews(e) {
-    console.log(e, 'formid')
     if (e == 'the formId is a mock one formid') {
       return
     }

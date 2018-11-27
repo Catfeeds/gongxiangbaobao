@@ -69,7 +69,7 @@
           <view wx:if="{{ order.user_order_status == 3 || order.user_order_status == 5 }}" catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
             删除订单
           </view>
-          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" wx:if="{{ order.user_order_status == 2 }}" class='delleteOrder hui-zi' catchtap='logTop'>
+          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" wx:if="{{ order.user_order_status == 2 }}" class='delleteOrder hui-zi' data-order-rid="{{order.rid}}" catchtap='logTop'>
             物流跟踪
           </view>
           <view data-rid="{{order.rid}}" catchtap="handleReceive" data-index="{{index}}" wx:if="{{ order.user_order_status == 2 }}" class='critiqueBtn'>
@@ -224,7 +224,7 @@
         <!-- 付款和其他按钮 -->
         <view class='fnBtn'>
 
-          <view data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
+          <view data-code="{{item.items[0].express_code}}" data-express-name="{{item.items[0].express_name}}" data-logistics-number="{{item.items[0].express_no}}" data-order-rid="{{item.rid}}" class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
           </view>
           <view data-index="{{index}}" data-rid="{{item.rid}}" catchtap="handleReceive" class='critiqueBtn'>
@@ -283,7 +283,7 @@
           <view catchtap='deleteOrderTap' class='delleteOrder hui-zi' data-rid="{{ order.rid }}">
             删除订单
           </view>
-          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" class='delleteOrder hui-zi' catchtap='logTop'>
+          <view data-code="{{order.items[0].express_code}}" data-express-name="{{order.items[0].express_name}}" data-logistics-number="{{order.items[0].express_no}}" data-order-rid="{{order.rid}}" class='delleteOrder hui-zi' catchtap='logTop'>
             物流跟踪
           </view>
           <view data-product='{{ order }}' class='critiqueBtn' catchtap='critiqueTap'>

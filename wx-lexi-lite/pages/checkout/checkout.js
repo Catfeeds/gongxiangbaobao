@@ -53,8 +53,7 @@ Page({
 
   // 提交表单
   handleSubmitInfo(e) {
-    app.handleSendNews(e.detail.formId)
-    this.paymentSuccess()
+    this.paymentSuccess(e.detail.formId)
   },
 
   // 祝福语录
@@ -468,7 +467,7 @@ Page({
   },
 
   // 支付,并跳转到支付成功页面---
-  paymentSuccess() {
+  paymentSuccess(formId) {
 
     // 改变按钮状态 预防对此点击
     this.setData({
@@ -525,7 +524,7 @@ Page({
 
         let currentOrder = result.data.orders[0]
 
-        app.wxpayOrder(result.data.order_rid, result.data.pay_params)
+        app.wxpayOrder(result.data.order_rid, result.data.pay_params,formId)
 
         // 改变按钮状态 预防对此点击
         this.setData({

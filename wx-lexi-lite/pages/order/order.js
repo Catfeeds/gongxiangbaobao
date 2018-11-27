@@ -647,9 +647,10 @@ Page({
     let code = e.currentTarget.dataset.code
     let logisticsNumber = e.currentTarget.dataset.logisticsNumber
     let expressName = e.currentTarget.dataset.expressName
+    let rid = e.currentTarget.dataset.orderRid
 
     wx.navigateTo({
-      url: '../logisticsWatch/logisticsWatch?code=' + code + '&logisticsNumber=' + logisticsNumber + '&expressName=' + expressName
+      url: '../logisticsWatch/logisticsWatch?code=' + code + '&logisticsNumber=' + logisticsNumber + '&expressName=' + expressName + '&rid=' + rid
     })
   }
 
