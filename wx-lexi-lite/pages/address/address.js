@@ -125,8 +125,8 @@ Page({
     if (this.data.isEditing) { // 编辑地址时
       http.fxDelete(api.address_delete.replace(/:rid/g, this.data.rid), {}, (result) => {
         if (result.success) {
-          wx.redirectTo({
-            url: '../receiveAddress/receiveAddress',
+          wx.navigateBack({
+            delta:1
           })
         } else {
           utils.fxShowToast(result.status.message)
