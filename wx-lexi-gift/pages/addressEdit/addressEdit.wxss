@@ -37,6 +37,8 @@
 .address-form .form-item .form-input {
   line-height: 96rpx;
   height: 96rpx;
+  font-size: 28rpx;
+  font-weight: 500;
 }
 
 .address-form .form-item .form-textarea {
@@ -44,21 +46,30 @@
   height: 140rpx;
   width: 690rpx;
   margin-right: 30rpx;
+  font-size: 28rpx;
+  font-weight: 500;
 }
 
 .picker {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .picker .country {
+  flex: 0 0 auto;
+  font-size: 28rpx;
+  line-height: 96rpx;
+  height: 96rpx;
+  color: rgba(51, 51, 51, 1);
+}
+.picker .street {
   flex: 1;
   font-size: 28rpx;
   line-height: 96rpx;
   height: 96rpx;
-  color: rgba(153, 153, 153, 1);
+  color: rgba(51, 51, 51, 1);
 }
-
 .picker .icon-arrow {
   flex: 0 0 auto;
   width: 16rpx;

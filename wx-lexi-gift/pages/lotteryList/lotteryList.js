@@ -1,4 +1,10 @@
 // pages/lotteryList/lotteryList.js
+const app = getApp()
+
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -6,13 +12,40 @@ Page({
    */
   data: {
     isLoading: true,
+    activityList: []
+  },
+
+  /**
+   * 去参与抽奖
+   */
+  handleGoLottery (e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../lottery/lottery?rid=' + rid,
+    })
+  },
+  
+  /**
+   * 获取热门活动列表
+   */
+  getActivityList() {
+    http.fxGet(api.gift_activity_more, {}, (res) => {
+      utils.logger(res.data, '热门活动列表')
+      if (res.success) {
+        this.setData({
+          activityList: res.data.activity_list
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getActivityList()
   },
 
   /**

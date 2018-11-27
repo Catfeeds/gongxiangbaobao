@@ -2,23 +2,24 @@
 <view class="container">
   <!-- 收获地址列表 -->
   <view class="addressList">
-    <view class="address-item">
-      <view class="address-item__icon">
-        <image src="../../images/icon-selected@2x.png" class="icon-selected"></image>
+    <view class="address-item" wx:for="{{ addressList }}" wx:for-item="address" wx:key="{{ address.rid }}">
+      <view class="address-item__icon" data-rid="{{ address.rid }}"  bindtap="handleSelectAddress">
+        <image src="../../images/icon-selected@2x.png" class="icon-selected" wx:if="{{ address.selected }}"></image>
+        <image src="../../images/icon-selected-default@2x.png" class="icon-selected" wx:else></image>
       </view>
       <view class="address-item__body">
-        <view class="name">盒子</view>
-        <view class="street">贵州省遵义市红花岗区天通银丽水元2单元501</view>
-        <view class="phone">133</view>
+        <view class="name">{{ address.full_name }}</view>
+        <view class="street">{{ address.country_name }}{{ address.province }}{{ address.city }}{{ address.town }}{{ address.street_address }} {{ address.zipcode }}</view>
+        <view class="phone">{{ address.mobile }}</view>
       </view>
-      <view class="address-item__action">
+      <view class="address-item__action" data-rid="{{ address.rid }}" bindtap="handleEditAddress">
         编辑
       </view>
     </view>
   </view>
 
   <!-- 新增收获地址 -->
-  <view class="gift-share-wrapper">
+  <view class="gift-share-wrapper" bindtap="handleAddAddress">
     <button class="btn-share">新增收货地址</button>
   </view>
 

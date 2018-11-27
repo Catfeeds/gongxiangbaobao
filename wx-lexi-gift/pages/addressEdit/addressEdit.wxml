@@ -3,17 +3,13 @@
 <view class="container">
   <!-- 地址表单 -->
   <view class="address-form">
+
     <view class="form-item">
       <input placeholder-class="phcolor" class="form-input" placeholder='收件人真实姓名' bindblur="handleUserName" value="{{ form.first_name }}"></input>
     </view>
 
     <view class="form-item">
-      <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}" range-key='name'>
-        <view class="picker">
-          <view class="country">手机号: {{ countryList[countryIndex].name }}</view>
-          <image src="../../images/icon-arrow@2x.png" class="icon-arrow"></image>
-        </view>
-      </picker>
+      <input placeholder-class="phcolor" class="form-input" placeholder='手机号' bindblur="handleMobile" value="{{ form.mobile }}"></input>
     </view>
 
     <view class="form-item">
@@ -31,6 +27,8 @@
         <view class="picker">
           <view class="country">省/市/区：</view>
           <text class="street" wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
+
+          <image src="../../images/icon-arrow@2x.png" class="icon-arrow"></image>
         </view>
       </picker>
     </view>
@@ -44,7 +42,7 @@
     </view>
 
     <!-- 海关照片信息 -->
-    <view class="custom-wrapper" wx:if="{{ needUserCustom != 1 }}">
+    <view class="custom-wrapper" wx:if="{{ needUserCustom == 1 }}">
       <view class="title">海关政策要求，请填写身份证。加密保存，仅用于海关清关</view>
       <view class="form-item">
         <input bindinput="handleIdCardChange" class="form-input" placeholder-class="phcolor" placeholder="填写收件人身份证" value='{{ form.id_card }}' type='number'></input>
@@ -88,7 +86,7 @@
   </view>
 
   <!-- 保存地址 -->
-  <view class="gift-share-wrapper">
+  <view class="gift-share-wrapper" catchtap="handleSubmitAddress">
     <button class="btn-share">保存</button>
   </view>
 

@@ -223,24 +223,7 @@ App({
             title: '支付成功',
           })
 
-          // 跳转至详情
-          wx.redirectTo({
-            url: './../paymentSuccess/paymentSuccess?rid=' + rid,
-          })
-
-          // 支付成功，更新订单状态
-          // http.fxPost(api.order_paid_status, {
-          //   rid: rid
-          // }, function (result) {
-          //   utils.logger(result,"修改订单状态=============")
-          //   if (result.success) {
-
-          //     // 跳转至详情
-          //     wx.redirectTo({
-          //       url: './../paymentSuccess/paymentSuccess?rid=' + rid,
-          //     })
-          //   }
-          // })
+          return typeof cb == 'function' && cb(true)
         }
       },
       fail: function (res) {
@@ -259,7 +242,8 @@ App({
             url: './../order/order',
           })
         }
-        return typeof cb == 'function' && cb()
+
+        return typeof cb == 'function' && cb(false)
       }
     })
   },
@@ -299,6 +283,13 @@ App({
   },
 
   /**
+   * 分享小程序
+   */
+  shareWxaGift () {
+
+  },
+
+  /**
    * 设备信息
    */
   getSystemInfo() {
@@ -325,6 +316,7 @@ App({
     configInfo: '',
     // 地址位置
     location: {},
-    userInfo: null
+    userInfo: null,
+    deliveryCountries: []
   }
 })

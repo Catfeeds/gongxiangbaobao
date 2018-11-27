@@ -17,28 +17,28 @@
 
   <!-- 登录状态 -->
   <view class="user-login--wrapper" wx:else>
-    <image src="../../images/icon-avatar@2x.png" class="user-avatar"></image>
+    <image src="{{ userInfo.avatar }}-ava50" class="user-avatar" wx:if="{{ userInfo.avatar }}"></image>
     <view class="user-info">
-      <view class="user-name">主办新</view>
+      <view class="user-name">{{ userInfo.username }}</view>
       <view class="user-desc">乐喜生活馆主</view>
     </view>
     <view class="user-action">
-      <button class="btn-login btn-address">地址管理</button>
+      <button class="btn-login btn-address" bindtap="handleGoAddress">地址管理</button>
     </view>
   </view>
 
   <!-- 我参与的 -->
   <view class="fx-menus">
     <view class="fx-menu__item" bindtap="handleGoLottery">
-      <view class="count">0</view>
+      <view class="count">{{ collectCount.join_activity }}</view>
       <view class="label">我参与的抽奖</view>
     </view>
     <view class="fx-menu__item" bindtap="handleGoSended">
-      <view class="count">0</view>
+      <view class="count">{{ collectCount.my_activity }}</view>
       <view class="label">我送出的礼物</view>
     </view>
     <view class="fx-menu__item" bindtap="handleGoReceive">
-      <view class="count">0</view>
+      <view class="count">{{ collectCount.receive_activity }}</view>
       <view class="label">我收到的礼物</view>
     </view>
   </view>
@@ -62,7 +62,7 @@
 
   <!-- 菜单项 -->
   <view class="link-menus">
-    <view class="link-menu__item">
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
       <view class="menu-box">
         <view class="name">乐喜生活馆</view>
         <view class="desc">零成本开店赚取收益</view>
@@ -70,9 +70,9 @@
       <view class="image">
         <image src="../../images/icon-life-store@2x.png" class="icon"></image>
       </view>
-    </view>
+    </navigator>
 
-    <view class="link-menu__item">
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/games/pages/guessGame/guessGame" extra-data="" version="release">
       <view class="menu-box">
         <view class="name">猜图赢现金</view>
         <view class="desc">200000人正在参与</view>
@@ -80,8 +80,7 @@
       <view class="image">
         <image src="../../images/icon-guess@2x.png" class="icon"></image>
       </view>
-    </view>
-
+    </navigator>
   </view>
 
   <!-- 登陆注册模态框 -->

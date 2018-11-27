@@ -9,19 +9,23 @@
   <!-- 当前礼物 -->
   <view class="gift-product">
     <view class="product-box">
-      <image src="../../images/product@2x.jpg" class="cover"></image>
+      <image src="{{ currentActivity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.assets.length > 0 }}"></image>
       <view class="product-info">
-        <view class="name">面防水环保餐具袋&笔袋-西瓜咬一口水环保餐具袋&笔</view>
+        <view class="name">{{ currentActivity.product_name }}</view>
         <view class="price">
           <text class="sale-price">￥1</text>
-          <text class="old-price">￥198</text>
+          <text class="old-price" wx:if="{{ currentActivity.sale_price > 0 }}">￥{{ currentActivity.sale_price }}</text>
+          <text class="old-price" wx:else>￥{{ currentActivity.price }}</text>
         </view>
       </view>
     </view>
     <view class="product-images">
-      <image src="../../images/product@2x.jpg" class="asset"></image>
-      <image src="../../images/product@2x.jpg" class="asset"></image>
-      <image src="../../images/product@2x.jpg" class="asset"></image>
+      <image 
+        wx:for="{{ currentActivity.assets }}"
+        wx:key="{{ item.id }}"
+        src="{{ item.view_url }}-p30x2" 
+        wx:if="{{ index < 4 && index > 0 }}"
+        class="asset"></image>
     </view>
   </view>
 
@@ -37,34 +41,37 @@
 
     <view class="form-people">
       <image src="../../images/icon-people@2x.png" class="icon-people"></image>
-      <input placeholder="设定参与人数（不低于20人）" class="form-input" name="people-count" />
+      <input type="number" placeholder="设定参与人数（不低于20人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
     </view>
 
     <view class="form-blessing">
       <image src="../../images/icon-edit@2x.png" class="icon-edit"></image>
-      <input placeholder="填写心愿祝福语（限12个字）" class="form-input" />
+      <input placeholder="填写心愿祝福语（限12个字）" bindfocus="handleValidateLogin" bindblur="handleBlessing" maxlength="12" value="{{ form.blessing }}" class="form-input" />
     </view>
 
   </view>
 
   <!-- 领取结果 -->
-  <view class="gift-result">
+  <view class="gift-result" wx:if="{{ partakePeopleCount }}">
     <view class="got-result">
-      <view class="title">32位领取成功</view>
+      <view class="title">{{ partakePeopleCount }}位领取成功</view>
 
       <view class="got-people">
-        <view class="people-item">
-          <image src="../../images/product@2x.jpg" class="icon-avatar"></image>
-          <view class="name">Edward</view>
-          <view class="date">2018.10.12 21:23:10</view>
+        <view class="people-item" wx:for="{{ partakePeople }}" wx:for-item="people" wx:key="{{ people.user_sn }}">
+          <image src="{{ people.user_logo }}-ava50" class="icon-avatar" wx:if="{{ people.user_logo }}"></image>
+          <view class="name">{{ people.user_name }}</view>
+          <view class="date">{{ people.receive_at }}</view>
         </view>
       </view>
     </view>
   </view>
 
   <!-- 支付按钮 -->
-  <view class="give-button">
+  <view class="give-button" bindtap="handleSubmitActivity">
     花一元送好友
   </view>
+
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ showLoginModal }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
 </view>

@@ -15,6 +15,21 @@ Page({
     isLogin: false,
     isStoreOwner: false,
     showLoginModal: false, // 注册的呼出框
+    userInfo: {},
+    collectCount: {
+      join_activity: 0,
+      my_activity: 0,
+      receive_activity: 0
+    }
+  },
+
+  /**
+   * 地址管理
+   */
+  handleGoAddress (e) {
+    wx.navigateTo({
+      url: '../addressList/addressList',
+    })
   },
 
   /**
@@ -67,6 +82,22 @@ Page({
   },
 
   /**
+   * 获取用户汇总数
+   */
+  getActivityCollect() {
+    http.fxGet(api.gift_activity_count, {}, (res) => {
+      utils.logger(res.data, '获取用户汇总')
+      if (res.success) {
+        this.setData({
+          collectCount: res.data
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
    * 验证登录状态
    */
   _validateLoginStatus () {
@@ -105,8 +136,11 @@ Page({
    */
   onShow: function () {
     this.setData({
-      isLogin: app.globalData.isLogin
+      isLogin: app.globalData.isLogin,
+      userInfo: app.globalData.userInfo
     })
+
+    this.getActivityCollect()
   },
 
   /**
