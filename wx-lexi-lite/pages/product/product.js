@@ -642,25 +642,25 @@ Page({
   },
 
   // 交货时间
-  getLogisticsTime(e, rid) {
-    http.fxGet(api.logistics_core_freight_template.replace(/:rid/g, e), {
-      product_rid: this.data.rid,
-      store_rid: this.data.storeRid
-    }, (result) => {
-      utils.logger(result, '交货时间数据')
-      if (result.success && result.data.items.length != 0) {
+  // getLogisticsTime(e, rid) {
+  //   http.fxGet(api.logistics_core_freight_template.replace(/:rid/g, e), {
+  //     product_rid: this.data.rid,
+  //     store_rid: this.data.storeRid
+  //   }, (result) => {
+  //     utils.logger(result, '交货时间数据')
+  //     if (result.success && result.data.items.length != 0) {
 
-        result.data.items.forEach((v, i) => {
-          if (v.is_default) {
-            //循环完毕
-            this.setData({
-              logisticsTime: v
-            })
-          }
-        })
-      }
-    })
-  },
+  //       result.data.items.forEach((v, i) => {
+  //         if (v.is_default) {
+  //           //循环完毕
+  //           this.setData({
+  //             logisticsTime: v
+  //           })
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
 
   /**
    * 分享产品的图片
@@ -787,7 +787,7 @@ Page({
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
 
         // 获取交货时间
-        this.getLogisticsTime(result.data.fid, result.data.rid)
+        // this.getLogisticsTime(result.data.fid, result.data.rid)
 
         this.getStoreInfo() // 店铺信息---
 

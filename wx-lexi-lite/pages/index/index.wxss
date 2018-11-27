@@ -219,6 +219,7 @@
   border: 6rpx solid white;
   margin-right: -20rpx;
   overflow: hidden;
+  background-color: white;
 }
 
 .joinNumberR {

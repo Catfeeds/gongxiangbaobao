@@ -577,13 +577,11 @@ App({
    */
   ckeckNetwork() {
     wx.onNetworkStatusChange((res) => {
-      console.log(res)
       if (res.networkType == "none") {
         wx.navigateTo({
           url: './../networkError/networkError',
         })
       } else {}
-
     })
   },
 

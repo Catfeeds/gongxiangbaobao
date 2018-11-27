@@ -50,7 +50,8 @@
       <view catchtap="handelToBrandInfo" data-rid="{{storeInfo.rid}}" class="border-radius--30rpx c-middle about ">
         <text>关于品牌馆</text>
       </view>
-
+      <!-- 分享按钮 -->
+      <image src="https://static.moebeast.com/image/static/share2.png" class="share-brand__btn" catchtap="handleShowShare"></image>
     </view>
   </view>
 
@@ -254,6 +255,18 @@
   <!-- 登陆注册模态框 -->
   <view catchtap='hanleOffLogin'>
     <fx-login visible="{{ is_mobile }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+  </view>
+
+  <!-- 分享品牌馆 -->
+  <view class="share-brand__box" wx:if="{{isShareBrandShow}}" catchtap="handleShowShare">
+    <view class="share-brand__photo" catchtap="handlePreventCilick">
+      <image class="share-brand__photo--item" src="{{shareBrandPhotoUrl}}"></image>
+      <image class="loading-bg" src="../../images/jiazai.gif" wx:if="{{!shareBrandPhotoUrl}}"></image>
+      <form bindsubmit="getFormId" report-submit="{{true}}">
+        <button form-type="submit">{{severPhouoText}}</button>
+      </form>
+    </view>
+
   </view>
 
 </view>
