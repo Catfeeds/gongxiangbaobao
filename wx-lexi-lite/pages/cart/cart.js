@@ -105,6 +105,8 @@ Page({
         }, () => {
           this.paymentPrice() // 计算金额
         })
+
+        // app.getCartTotalCount()
       } else {
         utils.fxShowToast(result.status.message)
       }

@@ -383,6 +383,7 @@ Page({
 
           // 更新数量
           this.updateCartTotalCount(result.data.item_count)
+          
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -1366,7 +1367,7 @@ Page({
    * 更新购物车数量
    */
   updateCartTotalCount(item_count) {
-    app.updateCartTotalCount(item_count)
+    app.updateCartTotalCount(item_count,1)
     this.setData({
       cartTotalCount: item_count
     })

@@ -492,8 +492,9 @@ App({
       open_id: jwt.openid
     }, (res) => {
       utils.logger(res, '购物车数量')
+      console.log(res, '购物车数量')
       if (res.success) {
-        this.updateCartTotalCount(res.data.item_count)
+        this.updateCartTotalCount(res.data.item_count, res.data.is_new)
       }
     })
   },
@@ -501,9 +502,10 @@ App({
   /**
    * 更新购物车数量
    */
-  updateCartTotalCount(cnt) {
+  updateCartTotalCount(cnt,isNew) {
     this.globalData.cartTotalCount = cnt
-    if (this.globalData.cartTotalCount > 0) {
+    console.log(cnt,'购物车数量')
+    if (isNew > 0) {
       wx.showTabBarRedDot({
         index: 2
       })
