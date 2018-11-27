@@ -1,0 +1,4 @@
+<!--pages/welcome/welcome.wxml-->
+<view class="container">
+  <image src="https://static.moebeast.com/image/static/WechatIMG106.png"></image>
+</view>

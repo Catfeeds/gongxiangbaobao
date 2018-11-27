@@ -242,6 +242,7 @@ module.exports = {
   market_core_user_coupons:'market/core_user_coupons', // 核心小程序的获取优惠券
   market_coupon_lines:'market/coupon_lines', // 领券中心的头部领券信息
   market_user_expired:'market/user_expired', // 过期的优惠券
+  market_read_time:'market/read_time', // 处理优惠券小红点是否显示
 
   // Search  
   search: 'search/products', // POST 搜索商品

@@ -4,6 +4,7 @@
     <view class="fx-column--center text-info">
       <view class="{{couponActive==item.rid?'active':''}}">{{item.name}}</view>
       <view class="{{couponActive==item.rid?'active__line':''}}"></view>
+      <view class="red-round" wx:if="{{item.redRound>0}}"></view>
     </view>
   </view>
 </view>

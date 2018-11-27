@@ -1924,8 +1924,6 @@ Page({
     this._loadingFeaturedPage()
     this._loadingExplorePage()
 
-    // 新人红包
-    this.getNewCoupon()
   },
 
   /**
@@ -1992,6 +1990,9 @@ Page({
         isLoading: false
       })
     }, 500)
+
+    // 新人红包
+    this.getNewCoupon()
   },
 
   /**

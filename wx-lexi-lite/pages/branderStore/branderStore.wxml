@@ -266,7 +266,6 @@
         <button form-type="submit">{{severPhouoText}}</button>
       </form>
     </view>
-
   </view>
 
 </view>

@@ -270,3 +270,13 @@
   width: 116rpx;
   height: 30rpx;
 }
+
+.red-round {
+  position: absolute;
+  top: 20rpx;
+  right: -4rpx;
+  height: 10rpx;
+  width: 10rpx;
+  background-color: #f66;
+  border-radius: 50%;
+}
