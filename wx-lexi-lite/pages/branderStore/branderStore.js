@@ -461,7 +461,6 @@ Page({
       // 如果没有海报的就获取
       if (!this.data.shareBrandPhotoUrl) {
         http.fxPost(api.wxa_poster, params, result => {
-          console.log(result, '图片的地址')
           if (result.success) {
             this.setData({
               shareBrandPhotoUrl: result.data.image_url
@@ -483,7 +482,6 @@ Page({
    * 获取form id
    */
   getFormId(e) {
-    console.log(e.detail.formId)
     app.handleSendNews(e.detail.formId)
     this.handleSaveShare()
   },
