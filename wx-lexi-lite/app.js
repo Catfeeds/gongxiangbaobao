@@ -418,8 +418,7 @@ App({
   /**
    * 支付订单
    */
-  wxpayOrder: function(rid, payParams,formId,cb) {
-    console.log(rid, payParams, formId)
+  wxpayOrder: function(rid, payParams, formId, cb) {
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -437,7 +436,7 @@ App({
           http.fxPost(api.users_save_form_ids, {
             prepay_id: formId,
             openid: this.globalData.jwt.openid,
-            order_rid:rid
+            order_rid: rid
           }, result => {
             console.log(result, '模板消息')
           })
@@ -574,8 +573,23 @@ App({
   },
 
   /**
+   * 检测网络
+   */
+  ckeckNetwork() {
+    wx.onNetworkStatusChange((res) => {
+      console.log(res)
+      if (res.networkType == "none") {
+        wx.navigateTo({
+          url: './../networkError/networkError',
+        })
+      } else {}
+
+    })
+  },
+
+  /**
    * 全局变量
-  */
+   */
 
   globalData: {
     isLogin: false,

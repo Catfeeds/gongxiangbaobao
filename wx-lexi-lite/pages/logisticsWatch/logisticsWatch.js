@@ -45,6 +45,8 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options.logisticsNumber, options.code)
+    // 检测网络
+    app.ckeckNetwork()
 
     this.setData({
       'parmas.logistic_code': options.logisticsNumber,

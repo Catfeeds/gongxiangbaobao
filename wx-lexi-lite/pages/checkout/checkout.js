@@ -827,6 +827,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     const lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
     if (lastVisitLifeStoreRid) { // 如存在，直接放入
       app.globalData.orderParams.last_store_rid = lastVisitLifeStoreRid

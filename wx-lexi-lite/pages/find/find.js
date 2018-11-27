@@ -191,6 +191,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+    
     this.getAdvertisement() // 头部广告
     this.getYouLike() // 猜你喜欢
     this.getWonderfulStories() // 精彩故事

@@ -99,6 +99,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+    
     // 没有uid是获取自己的
     if (!options.uid) {
       wx.setNavigationBarTitle({ title: '我的粉丝' })

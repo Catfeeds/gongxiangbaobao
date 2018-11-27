@@ -284,6 +284,9 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options)
+    // 检测网络
+    app.ckeckNetwork()
+    
     this.setData({
       rid: options.rid,
       'params.rid': options.rid,

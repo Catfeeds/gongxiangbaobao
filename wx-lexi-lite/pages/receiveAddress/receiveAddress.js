@@ -183,6 +183,9 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options)
+    // 检测网络
+    app.ckeckNetwork()
+
     let from_ref = options.from_ref // 来源
 
     if (from_ref != 'cart') { // 不是来自购物车

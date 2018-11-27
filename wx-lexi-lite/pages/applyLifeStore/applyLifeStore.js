@@ -215,6 +215,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     // 从本地缓存中获取数据
     const lifeStore = wx.getStorageSync('lifeStore')
 

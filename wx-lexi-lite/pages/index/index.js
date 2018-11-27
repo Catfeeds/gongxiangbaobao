@@ -1854,6 +1854,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
@@ -2102,7 +2104,7 @@ Page({
       latestDistributeProducts: [],
       animationNum: 0
     })
-    
+
     // 来源查看生活馆记录
     wx.removeStorageSync('fromMenu')
   },

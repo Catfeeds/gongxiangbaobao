@@ -1045,6 +1045,8 @@ Page({
    */
   onLoad: function(options, product) {
     utils.logger(options, product, '上一页传递参数')
+    // 检测网络
+    app.ckeckNetwork()
 
     // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
