@@ -3,6 +3,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading",
-    "fx-login": "/components/FxLogin/FxLogin"
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-modal-v": "/components/FxModalV/FxModalV"
   }
 }

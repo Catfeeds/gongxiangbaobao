@@ -277,7 +277,7 @@ App({
     http.fxPost(api.users_save_form_ids, {
       form_ids: [e],
       openid: this.globalData.jwt.openid
-    }, result => {
+    }, (result) => {
       console.log(result, '模板消息')
     })
   },

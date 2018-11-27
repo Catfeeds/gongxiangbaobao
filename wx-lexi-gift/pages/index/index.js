@@ -13,6 +13,7 @@ Page({
   data: {
     isLoading: true,
     showLoginModal: false, // 注册的呼出框
+    showRuleModal: false, // 显示规则弹框
 
     // 当前登录用户信息
     userInfo: {},
@@ -31,6 +32,19 @@ Page({
     partakePeopleCount: 0
     
   },
+
+  // 获取formid
+  handleFormNotice(e) {
+    utils.logger(e.detail.formId, '通知模板')
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId)
+    }
+
+    this.setData({
+      showRuleModal: true
+    })
+  },
+
 
   // 关闭登录框
   hanleOffLoginBox(e) {

@@ -210,3 +210,70 @@
   line-height: 88rpx;
   z-index: 999;
 }
+
+.fx-modal--rule .rule-title {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  line-height: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.fx-modal--rule .rule-title .title {
+  flex: 0 0 auto;
+}
+
+.fx-modal--rule .rule-title .quote-left {
+  flex: 1;
+  text-align: right;
+}
+
+.fx-modal--rule .rule-title .quote-right {
+  flex: 1;
+}
+
+.fx-modal--rule .rule-title .icon-quote-left {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 20rpx;
+}
+
+.fx-modal--rule .rule-title .icon-quote-right {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+}
+
+.fx-modal--rule .rule-content {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+  height: 680rpx;
+  overflow-y: auto;
+}
+
+.fx-modal--rule .rule-content .item {
+  display: flex;
+}
+
+.fx-modal--rule .rule-content .item .number {
+  flex: 0 0 auto;
+  width: 32rpx;
+  height: 32rpx;
+  background: rgba(153, 153, 153, 1);
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 32rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+  text-align: center;
+  margin-top: 5rpx;
+}
+
+.fx-modal--rule .rule-content .item .txt {
+  flex: 1;
+}

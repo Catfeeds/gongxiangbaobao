@@ -3,6 +3,8 @@
 button {
   border: none;
   outline: none;
+  margin: 0;
+  padding: 0;
 }
 
 button::after {
@@ -81,6 +83,21 @@ page {
   color: rgba(116, 176, 153, 1);
   line-height: 24rpx;
   margin-left: 30rpx;
+}
+
+.gift-banner .btn-rule {
+  position: absolute;
+  top: 30rpx;
+  right: 0;
+  z-index: 9;
+  width: 121rpx;
+  height: 50rpx;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 100rpx 0rpx 0rpx 100rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 50rpx;
 }
 
 .fx-tabs {

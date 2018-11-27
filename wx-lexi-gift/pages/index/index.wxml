@@ -4,6 +4,9 @@
   <view class="gift-banner">
     <view class="title">赠送好友礼物</view>
     <view class="desc">邀请好友访问你的生活馆</view>
+    <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
+      <button class="btn-rule" formType="submit">活动规则</button>
+    </form>
   </view>
 
   <!-- 当前礼物 -->
@@ -20,12 +23,7 @@
       </view>
     </view>
     <view class="product-images">
-      <image 
-        wx:for="{{ currentActivity.assets }}"
-        wx:key="{{ item.id }}"
-        src="{{ item.view_url }}-p30x2" 
-        wx:if="{{ index < 4 && index > 0 }}"
-        class="asset"></image>
+      <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index < 4 && index > 0 }}" class="asset"></image>
     </view>
   </view>
 
@@ -73,5 +71,36 @@
 
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ showLoginModal }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+
+  <!-- 规则 -->
+  <fx-modal-v class="fx-modal--rule" className="fx-modal--rule" visible="{{ showRuleModal }}" marginTop="100">
+    <view class="rule-title">
+      <view class="quote-left">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+      </view>
+      <view class="title">详细规则</view>
+      <view class="quote-right">
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+    </view>
+    <view class="rule-content">
+      <view class="item">
+        <view class="number">1</view>
+        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+      </view>
+      <view class="item">
+        <view class="number">1</view>
+        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+      </view>
+      <view class="item">
+        <view class="number">1</view>
+        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+      </view>
+      <view class="item">
+        <view class="number">1</view>
+        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+      </view>
+    </view>
+  </fx-modal-v>
 
 </view>
