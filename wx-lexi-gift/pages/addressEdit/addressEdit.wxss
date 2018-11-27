@@ -2,7 +2,8 @@
 
 .address-form {
   width: 750rpx;
-  padding-bottom: 140rpx;
+  padding-bottom: 120rpx;
+  padding-top: 20rpx;
 }
 
 .address-form .form-item {
@@ -79,6 +80,7 @@
   color: rgba(255, 102, 102, 1);
   line-height: 24rpx;
   padding: 30rpx;
+  background-color: #f8f8f8;
 }
 
 .custom-wrapper .form-photo {

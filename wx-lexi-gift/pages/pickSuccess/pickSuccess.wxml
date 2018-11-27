@@ -1,0 +1,53 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+
+  <!-- 领取成功 -->
+  <view class="got-result-wrapper">
+    <view class="got-success">
+      <image src="../../images/got-success@2x.png" class="icon-got-success"></image>
+      <view class="label">领取成功</view>
+      <view class="desc">我们会尽快安排发货，请你留意消息通知</view>
+    </view>
+    <view class="actions">
+      <button class="fx-button fx-button--primary btn-share" bindtap="handShowShare">炫耀一下</button>
+      <button class="fx-button fx-button--default" bindtap="handleSendGift">我要送礼</button>
+    </view>
+  </view>
+
+  <!-- 分享卡片 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main share-wrapper" slot="main">
+
+      <view class="distribute-style">
+        <view class="share-friend wxa-card">
+          <button class="share-btn" open-type="share"></button>
+          <image src="{{ shareProduct.cover }}" class="cover"></image>
+          <text class="label">点击直接分享</text>
+        </view>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="../../images/loading.gif" class="loading" wx:else></image>
+          </view>
+          <text class="label">保存分享图</text>
+        </view>
+      </view>
+
+      <view class="distribute-action">
+        <button class="share-friend share-btn" open-type="share">
+          <image src="../../images/wx-icon@2x.png" class="icon-wechat"></image>
+          <text class="label">微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/icon-save@2x.png" class="icon-save"></image>
+          <text class="label">{{ posterBtnText }}</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
+
+</view>

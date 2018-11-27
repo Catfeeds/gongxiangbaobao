@@ -1,0 +1,19 @@
+<!-- 筛选弹出层 -->
+<view class="fx-modal-container" hidden="{{ !visible }}">
+  <view class="fx-mask {{ visible ? 'fx-mask--active' : ''}}" bindtap="hideModal" catchtouchmove="preventTouchMove"></view>
+  <!-- 排序 -->
+  <view class="fx-modal fixed-bottom {{ visible ? 'fx-modal--active' : ''}}">
+    <view class="fx-modal__head" wx:if="{{ showHead }}">
+      <image src="../../images/icon-close@2x.png" class="close" wx:if="{{ close }}" bindtap="hideModal"></image>
+      <text class="title" wx:if="{{ title }}">{{ title }}</text>
+      <text class="reset" wx:if="{{ showReset }}" bindtap="resetModal">{{ reset }}</text>
+    </view>
+
+    <view class="fx-modal__body {{ showFoot ? 'p-b-100' : '' }}">
+      <slot name="main"></slot>
+    </view>
+    <view class="fx-modal__foot" wx:if="{{ showFoot }}">
+      <slot name="foot"></slot>
+    </view>
+  </view>
+</view>

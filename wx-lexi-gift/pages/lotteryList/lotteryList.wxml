@@ -1,2 +1,26 @@
-<!--pages/lotteryList/lotteryList.wxml-->
-<text>pages/lotteryList/lotteryList.wxml</text>
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <view class="gift-list">
+    <view class="gift-item">
+      <view class="gift-item__body">
+        <image src="../../images/product@2x.jpg" class="cover"></image>
+        <view class="gift-product">
+          <view class="title">护理套装男士亚麻透气平底…</view>
+          <view class="user">
+            <image src="../../images/icon-avatar@2x.png" class="avatar"></image>
+            <view class="name">设计师</view>
+            <view class="desc">发起</view>
+          </view>
+          <view class="progress">
+            <view class="reach-count">满30人开奖</view>
+            <view class="now-count">已参与18人</view>
+          </view>
+        </view>
+      </view>
+      <view class="gift-item__foot">
+        <button class="fx-btn fx-btn--primary btn-lottery">立即参与</button>
+      </view>
+    </view>
+  </view>
+
+</view>

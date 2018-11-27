@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "领取礼物",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-modal": "/components/FxModal/FxModal"
+  }
+}
