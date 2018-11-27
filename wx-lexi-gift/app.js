@@ -57,7 +57,7 @@ App({
 
         // 发送请求获取 jwt
         http.fxPost(api.user_authorize, {
-          auth_app_id: this.globalData.app_id,
+          auth_app_id: this.globalData.appId,
           code: code
         }, (res) => {
           utils.logger(res, '自动登录')
@@ -93,7 +93,7 @@ App({
       }
     })
   },
-
+  
   /**
    * 刷新用户session key
    */

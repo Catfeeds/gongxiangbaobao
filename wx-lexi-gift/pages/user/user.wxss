@@ -12,6 +12,8 @@
   height: 124rpx;
   margin-left: 30rpx;
   margin-right: 20rpx;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .user-login--wrapper .user-info {

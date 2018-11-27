@@ -1,7 +1,7 @@
 
 .gift-product {
-  margin-top: 30rpx;
-  padding: 0 30rpx;
+  padding: 30rpx 30rpx 0;
+  background-color: #fff;
 }
 
 .gift-product .product-box {
@@ -63,8 +63,8 @@
 }
 
 .gift-setting {
-  margin-top: 40rpx;
-  padding: 0rpx 30rpx;
+  padding: 40rpx 30rpx 0;
+  background-color: #fff;
 }
 
 .gift-setting .lottery {
@@ -136,7 +136,7 @@
   width: 750rpx;
   border-top: 1rpx solid #e9e9e9;
   background-color: #f8f8f8;
-  padding-bottom: 60rpx;
+  padding-bottom: 134rpx;
 }
 
 .got-result {
@@ -195,10 +195,11 @@
   box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(95, 228, 177, 0.51);
   border-radius: 44rpx;
   position: fixed;
-  bottom: 42rpx;
+  bottom: 22rpx;
   text-align: center;
   font-size: 32rpx;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   line-height: 88rpx;
+  z-index: 999;
 }

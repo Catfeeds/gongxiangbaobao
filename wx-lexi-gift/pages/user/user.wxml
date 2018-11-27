@@ -2,19 +2,21 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <!-- 未登录状态 -->
-  <view class="user-login--wrapper user-login--no">
-    <image src="../../images/icon-avatar@2x.png" class="user-avatar"></image>
+  <view class="user-login--wrapper user-login--no" wx:if="{{ !isLogin }}">
+    <view class="user-avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
     <view class="user-info">
       <view class="user-name">登录/注册</view>
       <view class="user-desc">点击登录乐喜</view>
     </view>
     <view class="user-action">
-      <button class="btn-login">登录</button>
+      <button class="btn-login" bindtap="handleGoLogin">登录</button>
     </view>
   </view>
 
   <!-- 登录状态 -->
-  <view class="user-login--wrapper">
+  <view class="user-login--wrapper" wx:else>
     <image src="../../images/icon-avatar@2x.png" class="user-avatar"></image>
     <view class="user-info">
       <view class="user-name">主办新</view>
@@ -42,7 +44,7 @@
   </view>
 
   <!-- 生活馆主 -->
-  <view class="link-lexi">
+  <view class="link-lexi" wx:if="{{ isStoreOwner }}">
     <view class="follow-notice">
       <view class="follow-text">
         关注乐喜生活馆公众号，实时接收订单消息
@@ -54,9 +56,9 @@
   </view>
 
   <!-- 跳转核心小程序 -->
-  <view class="link-lexi">
+  <navigator wx:if="{{ !isStoreOwner }}" class="link-lexi" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
     <image src="../../images/link-lexi@2x.png" class="go-lexi"></image>
-  </view>
+  </navigator>
 
   <!-- 菜单项 -->
   <view class="link-menus">
@@ -82,5 +84,7 @@
 
   </view>
 
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ showLoginModal }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
 
 </view>

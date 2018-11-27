@@ -39,5 +39,8 @@
         "selectedIconPath": "images/icon-tabbar-user-h.png"
       }
     ]
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx60ed17bfd850985d"
+  ]
 }

@@ -20,9 +20,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    is_mobile: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    showBindForm: false
+    showLoginModal: false,
+    showBindForm: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   /**
@@ -87,7 +87,7 @@ Component({
       const jwt = wx.getStorageSync('jwt')
       let params = {
         encrypted_data: userAuth.encryptedData,
-        auth_app_id: app.globalData.app_id,
+        auth_app_id: app.globalData.appId,
         openid: jwt.openid,
         iv: userAuth.iv
       }
@@ -117,7 +117,7 @@ Component({
             app.handleGotPhoneNumber(e, (success) => {
               if (success) {
                 this.setData({
-                  is_mobile: true,
+                  showLoginModal: true,
                   visible: false
                 })
                 wx.showTabBar()
@@ -135,7 +135,7 @@ Component({
               app.handleGotPhoneNumber(gotParams, (success) => {
                 if (success) {
                   this.setData({
-                    is_mobile: true,
+                    showLoginModal: true,
                     visible: false
                   })
                 } else {

@@ -1,11 +1,20 @@
 // pages/user/user.js
+const app = getApp()
+
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isLoading: true
+    isLoading: true,
+    isLogin: false,
+    isStoreOwner: false,
+    showLoginModal: false, // 注册的呼出框
   },
 
   /**
@@ -36,6 +45,43 @@ Page({
   },
 
   /**
+   * 显示登录框
+   */
+  handleGoLogin (e) {
+    this._validateLoginStatus()
+  },
+
+  // 关闭登录框
+  hanleOffLoginBox(e) {
+    this.setData({
+      showLoginModal: false
+    })
+
+    if (app.globalData.isLogin) {
+      this.setData({
+        isLogin: app.globalData.isLogin
+      })
+    }
+
+    wx.showTabBar()
+  },
+
+  /**
+   * 验证登录状态
+   */
+  _validateLoginStatus () {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        showLoginModal: true
+      })
+
+      return
+    }
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
@@ -58,7 +104,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isLogin: app.globalData.isLogin
+    })
   },
 
   /**
