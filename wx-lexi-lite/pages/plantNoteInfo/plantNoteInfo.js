@@ -346,7 +346,6 @@ Page({
       rid: this.data.rid
     }, (result) => {
       utils.logger(result, '种草笔记详情')
-      console.log(result, '种草笔记详情')
       if (result.success) {
         result.data.published_at = utils.timestamp2string(result.data.published_at, 'date')
 

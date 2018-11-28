@@ -212,6 +212,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      address_rid: '', // 选择的rid
+      validateCustom: false, // 未验证海关信息前，不能确认
+    })
+    app.globalData.orderParams.address_rid = ''
+
     this.getAddressList() // 获取地址列表
   },
 

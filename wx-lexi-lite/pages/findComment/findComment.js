@@ -88,7 +88,6 @@ Page({
       value,
       cursor
     } = e.detail
-    console.log(value, cursor)
     // 记录最后一次输入的光标位置
     lastCursorIndex = cursor
 
@@ -104,12 +103,8 @@ Page({
     let moji = '[' + e.currentTarget.dataset.ele + ']'
     let offsetIndex = moji.length
 
-    console.log(moji)
-
     let _content = this.data.form.content.slice(0, lastCursorIndex) + moji + this.data.form.content.slice(lastCursorIndex)
     lastCursorIndex += offsetIndex
-
-    console.log(_content)
 
     this.setData({
       'form.content': _content
@@ -251,10 +246,8 @@ Page({
    */
   _handleParentPraise(e) {
     let router = getCurrentPages()
-    console.log(router)
     let ParentPage = router[router.length - 2]
-    console.log(ParentPage, '现在的页面')
-    if (ParentPage.route == 'pages/plantNoteInfo/plantNoteInfo') {
+    if (ParentPage.route == 'pages/plantNoteInfo/plantNoteInfo' || ParentPage.route == 'pages/findInfo/findInfo') {
       if (e == 'add') {
         ParentPage.setData({
           'liveInfo.is_praise': true,
@@ -421,7 +414,6 @@ Page({
   getComments() {
     http.fxGet(api.life_records_comments, this.data.params, result => {
       utils.logger(result, '获取评论')
-      console.log(result, '获取评论')
       if (result.success) {
         result.data.comments.forEach((v, i) => {
           v.content_list = emojiFn.emojiAnalysis([v.content])

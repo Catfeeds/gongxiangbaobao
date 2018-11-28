@@ -184,11 +184,8 @@
                 <text class='theme-green'>共{{ items.sub_comment_count }}条回复</text>
               </view>
             </view>
-
           </view>
-
         </view>
-
       </view>
 
       <!-- 查看全部 -->

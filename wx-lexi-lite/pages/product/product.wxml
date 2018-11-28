@@ -158,7 +158,7 @@
       </view>
     </view>
 
-    <view class='otherInfo-describe location' wx:if="{{!productInfomation.min_days&&productInfomation.py_intro!=null}}">
+    <view class='otherInfo-describe location' wx:if="{{!productInfomation.min_days&&productInfomation.py_intro!=null&&productInfomation.py_intro}}">
       <view class='titleText'>交货时间</view>
       <view class='goodstext margin-bottom--30rpx'>{{productInfomation.py_intro}}
       </view>
@@ -378,7 +378,7 @@
         </view>
       </view>
 
-      <view class='otherInfo-describe location' wx:if="{{!productInfomation.min_days&&productInfomation.py_intro!=null}}">
+      <view class='otherInfo-describe location' wx:if="{{!productInfomation.min_days&&productInfomation.py_intro!=null&&productInfomation.py_intro}}">
         <view class='titleText'>交货时间</view>
         <view class='goodstext margin-bottom--30rpx'>{{productInfomation.py_intro}}
         </view>

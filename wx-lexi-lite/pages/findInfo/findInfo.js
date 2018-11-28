@@ -6,6 +6,7 @@ const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 
 let wxparse = require('../../wxParse/wxParse.js')
+const emojiFn = require('./../../template/emoj.js')
 
 Page({
 
@@ -13,6 +14,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 回到顶部按钮
+
     isLoading: true,
     rid: '', // rid
     category: '', // 频道的名字
@@ -21,8 +24,8 @@ Page({
     recommendProduct: '', // 相关故事推荐
     dkcontent: '', // 故事详情
     commentList: '', //评论的列表
-    is_mobile:false, // 登录模态框
-    
+    is_mobile: false, // 登录模态框
+
     // 获取评论的参数
     params: {
       page: 1, //Number	可选	1	当前页码
@@ -155,7 +158,7 @@ Page({
   },
 
   // 跳转到商品详情---
-  handleInfomation (e) {
+  handleInfomation(e) {
     utils.logger(e)
     wx.navigateTo({
       url: '../product/product?rid=' + e.detail.rid + '&product=' + this.data.myProduct + "&storeRid=" + e.detail.storeRid
@@ -199,6 +202,109 @@ Page({
     })
   },
 
+  /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
+
+  /**
+   * 打开评论
+   */
+  handleGoComment(e) {
+    utils.logger(e)
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      utils.handleHideTabBar()
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    wx.navigateTo({
+      url: '../findComment/findComment?from=window&rid=' + this.data.rid + '&submitTarget=' + e.currentTarget.dataset.submitTarget + '&isInput=' + e.currentTarget.dataset.isInput + '&pid=' + e.currentTarget.dataset.pid + '&index=' + e.currentTarget.dataset.index + '&isPraise=' + this.data.liveInfo.is_praise + '&praiseCount=' + this.data.liveInfo.praise_count + '&userName=' + e.currentTarget.dataset.userName
+    })
+  },
+
+  /**
+   * 删除生活志点赞
+   */
+  handleDeletePraise() {
+    this.setData({
+      'liveInfo.is_praise': false,
+      'liveInfo.praise_count': this.data.liveInfo.praise_count - 1,
+    })
+
+    http.fxDelete(api.life_records_praises, {
+      rid: this.data.rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.fxShowToast(result.status.message)
+    })
+  },
+
+
+  /**
+   * 添加生活志点赞
+   */
+  handleAddPraise() {
+    this.setData({
+      'liveInfo.is_praise': true,
+      'liveInfo.praise_count': this.data.liveInfo.praise_count + 1,
+    })
+
+    http.fxPost(api.life_records_praises, {
+      rid: this.data.rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.fxShowToast(result.status.message)
+    })
+  },
+
+  /**
+   * 对评论点赞 
+   */
+  handleAddCommentPraise(e) {
+    let index = e.currentTarget.dataset.index
+    let rid = this.data.commentList.comments[index].comment_id
+    this.setData({
+      ['commentList.comments[' + index + '].is_praise']: true,
+      ['commentList.comments[' + index + '].praise_count']: this.data.commentList.comments[index].praise_count + 1,
+    })
+    http.fxPost(api.life_records_comments_praises, {
+      comment_id: rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.logger(result, '添加喜欢橱窗')
+    })
+  },
+
+  /**
+ * 删除评论点赞
+ */
+  handleDeleteCommentPraise(e) {
+    let index = e.currentTarget.dataset.index
+    let rid = this.data.commentList.comments[index].comment_id
+    this.setData({
+      ['commentList.comments[' + index + '].is_praise']: false,
+      ['commentList.comments[' + index + '].praise_count']: this.data.commentList.comments[index].praise_count - 1,
+    })
+    http.fxDelete(api.life_records_comments_praises, {
+      comment_id: rid
+    }, result => {
+      if (result.success) {
+
+      } else utils.logger(result, '添加喜欢橱窗')
+    })
+  },
 
   // 推荐的产品
   getRecommendProduct() {
@@ -220,7 +326,15 @@ Page({
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
       utils.logger(result, "生活志的评论")
       if (result.success) {
-        // result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
+        result.data.comments.forEach((v, i) => {
+          v.content_list = emojiFn.emojiAnalysis([v.content])
+          v.created_at_cn = utils.commentTime(v.created_at)
+          v.sub_comments.forEach((item, idx) => {
+            item.content_list = emojiFn.emojiAnalysis([item.content])
+            item.current_page = 0
+            item.created_at_cn = utils.commentTime(item.created_at)
+          })
+        })
 
         this.setData({
           commentList: result.data
@@ -234,7 +348,7 @@ Page({
   },
 
   // 获取生活志详情
-  getLiveInfo () {
+  getLiveInfo() {
     http.fxGet(api.life_records_detail, {
       rid: this.data.rid
     }, (result) => {
@@ -243,8 +357,8 @@ Page({
         result.data.published_at = utils.timestamp2string(result.data.published_at, "date")
 
         let recommendStore = result.data.recommend_store
-        if (recommendStore&&recommendStore.store_name.length>8){
-          result.data.recommend_store.store_name = recommendStore.store_name.slice(0,8)+'...'
+        if (recommendStore && recommendStore.store_name.length > 8) {
+          result.data.recommend_store.store_name = recommendStore.store_name.slice(0, 8) + '...'
         }
 
         // 处理html数据---
@@ -254,8 +368,6 @@ Page({
           liveInfo: result.data
         })
 
-        this.getComment() // 获取生活志评论
-
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -263,7 +375,7 @@ Page({
   },
 
   // 相关故事推荐
-  getRecommend () {
+  getRecommend() {
 
     http.fxGet(api.life_records_similar, this.data.params, (result) => {
       utils.logger(result, "相关故事推荐")
@@ -272,7 +384,6 @@ Page({
         this.setData({
           recommend: result.data
         })
-        this.getComment() // 获取生活志评论
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -286,13 +397,13 @@ Page({
     utils.logger(options)
     // 检测网络
     app.ckeckNetwork()
-    
+
     this.setData({
       rid: options.rid,
       'params.rid': options.rid,
       category: options.category || '',
     })
-    
+
     this.getLiveInfo() // 生活志详情
     this.getRecommend() // 相关故事推荐
     this.getRecommendProduct() // 推荐商品
@@ -311,10 +422,33 @@ Page({
   },
 
   /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getComment() // 获取生活志评论
   },
 
   /**
@@ -349,6 +483,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    return app.shareLeXi()
+    return {
+      title: this.data.liveInfo.title,
+      path: '/pages/findInfo/findInfo?rid=' + this.data.rid,
+      imageUrl: this.data.liveInfo.cover + '-pwxa',
+    }
   }
 })
