@@ -426,25 +426,24 @@ App({
       package: 'prepay_id=' + payParams.prepay_id,
       signType: 'MD5',
       paySign: payParams.pay_sign,
-      success: function(res) {
+      success: (res) => {
         utils.logger(res, '支付成功返回参数')
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
             title: '支付成功',
           })
 
-          http.fxPost(api.users_save_form_ids, {
-            prepay_id: formId,
-            openid: this.globalData.jwt.openid,
-            order_rid: rid
-          }, result => {
-            console.log(result, '模板消息')
-          })
-
           // 跳转至详情
           wx.redirectTo({
             url: './../paymentSuccess/paymentSuccess?rid=' + rid,
           })
+          // 发送form id
+          http.fxPost(api.users_save_form_ids, {
+            prepay_id: formId,
+            openid: this.globalData.jwt.openid,
+            order_rid: rid,
+            app_id: this.globalData.app_id
+          }, result => {})
 
           // 支付成功，更新订单状态
           // http.fxPost(api.order_paid_status, {
@@ -502,9 +501,9 @@ App({
   /**
    * 更新购物车数量
    */
-  updateCartTotalCount(cnt,isNew) {
+  updateCartTotalCount(cnt, isNew) {
     this.globalData.cartTotalCount = cnt
-    console.log(cnt,'购物车数量')
+    console.log(cnt, '购物车数量')
     if (isNew > 0) {
       wx.showTabBarRedDot({
         index: 2

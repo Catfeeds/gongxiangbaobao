@@ -268,5 +268,8 @@
     </view>
   </view>
 
+    <!-- 回到顶部按钮是否显示 -->
+  <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
+
 </view>
 <fx-loading loading="{{ isLoading }}"></fx-loading>

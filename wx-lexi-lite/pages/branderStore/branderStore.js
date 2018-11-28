@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 回到顶部按钮
+
     isLoading: true,
     isLoadProductShow: true, // 加载商品
 
@@ -822,6 +824,29 @@ Page({
   },
 
   /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
+  },
+
+  /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
@@ -939,6 +964,16 @@ Page({
   // 防止穿透
   handlePreventCilick() {
     return
+  },
+
+  /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
   },
 
 })

@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/welcome/welcome",
     "pages/categoryJewelry/categoryJewelry",
     "pages/categoryBags/categoryBags",
     "pages/categoryLife/categoryLife",
