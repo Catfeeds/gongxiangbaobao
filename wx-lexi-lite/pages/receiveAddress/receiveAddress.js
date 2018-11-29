@@ -31,7 +31,7 @@ Page({
     app.globalData.orderParams.address_rid = addressRid
 
     this.setData({
-      address_rid: e.detail.value
+      address_rid: e.detail.value,
     })
 
     // this.validateUserCustom()
@@ -156,6 +156,38 @@ Page({
     http.fxGet(api.addresses, {}, (result) => {
       utils.logger(result, '地址列表')
       if (result.success) {
+
+        // 已经选择过地址把默认的置为选择的地址
+        if (this.data.address_rid) {
+          let isDeletePick = true // 是否删除了选择的地址（针对从下一页的删除）
+          result.data.forEach(v => {
+            if (v.rid == this.data.address_rid) {
+              v.is_default = true
+              isDeletePick = false
+            } else {
+              v.is_default = false
+            }
+          })
+
+          //从下页删除了选择的地址
+          if (isDeletePick) {
+            result.data[0].is_default = true
+          }
+        }
+
+        //判断是否有默认的地址 没有选择的地址，并且没有默认的地址把第一个置为默认地址
+        if (!this.data.address_rid) {
+          let isHaveAddress = false
+          result.data.forEach(v => {
+            if (v.is_default) {
+              isHaveAddress = true
+            }
+          })
+          if (!isHaveAddress) {
+            result.data[0].is_default = true
+          }
+        }
+
         this.setData({
           addressList: result.data
         })
@@ -213,7 +245,6 @@ Page({
    */
   onShow: function() {
     this.setData({
-      address_rid: '', // 选择的rid
       validateCustom: false, // 未验证海关信息前，不能确认
     })
     app.globalData.orderParams.address_rid = ''

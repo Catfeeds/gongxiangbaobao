@@ -1366,7 +1366,8 @@ Page({
    * 更新购物车数量
    */
   updateCartTotalCount(item_count) {
-    app.updateCartTotalCount(item_count,1)
+    // app.updateCartTotalCount(item_count,1)
+    app.getCartTotalCount()
     this.setData({
       cartTotalCount: item_count
     })

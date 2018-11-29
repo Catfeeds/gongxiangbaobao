@@ -576,7 +576,7 @@
 
           <image wx:else class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           <view class='bg-black__half'>
-            <image src='../../images/bg-hei.png'></image>
+            <image src="https://static.moebeast.com/image/static/bg-hei.png"></image>
           </view>
           <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
           <view class='all-product_geishei font--white black-font'>{{item.name}}</view>

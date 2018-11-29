@@ -500,7 +500,7 @@ App({
   /**
    * 更新购物车数量
    */
-  updateCartTotalCount(cnt, isNew) {
+  updateCartTotalCount(cnt, isNew = 0) {
     this.globalData.cartTotalCount = cnt
     if (isNew > 0) {
       wx.showTabBarRedDot({
@@ -552,9 +552,7 @@ App({
     http.fxPost(api.users_save_form_ids, {
       form_ids: [e],
       openid: this.globalData.jwt.openid
-    }, result => {
-      console.log(result, '模板消息')
-    })
+    }, result => {})
   },
 
   /**

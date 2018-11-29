@@ -126,7 +126,7 @@ Page({
       http.fxDelete(api.address_delete.replace(/:rid/g, this.data.rid), {}, (result) => {
         if (result.success) {
           wx.navigateBack({
-            delta:1
+            delta: 1
           })
         } else {
           utils.fxShowToast(result.status.message)
@@ -560,7 +560,7 @@ Page({
   onLoad: function(options) {
     // 检测网络
     app.ckeckNetwork()
-    
+
     let rid = options.rid || '' // 编辑地址
     // 验证是否需要设置海关信息
     let needUserCustom = options.need_custom || 0
@@ -572,6 +572,10 @@ Page({
     let isEditing = false
     if (rid) {
       isEditing = true
+    } else {
+      this.setData({
+        'form.is_default': true
+      })
     }
 
     this.setData({

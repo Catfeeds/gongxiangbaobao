@@ -51,7 +51,7 @@ Page({
       {
         rid: 2,
         num: 0,
-        name: '收藏'
+        name: '列表'
       },
       {
         rid: 3,
