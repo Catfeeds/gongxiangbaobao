@@ -36,11 +36,11 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
-					"id": 1,
-					"name": "参与",
+					"id": 0,
+					"name": "参与的",
 					"pathName": "pages/userLottery/userLottery",
 					"query": ""
 				},
@@ -63,10 +63,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "领取",
 					"pathName": "pages/pickGift/pickGift",
-					"query": ""
+					"query": "rid=Y18112859378"
 				},
 				{
 					"id": -1,
@@ -81,16 +81,22 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "领取成功",
 					"pathName": "pages/pickSuccess/pickSuccess",
-					"query": ""
+					"query": "rid=Y18112859378"
 				},
 				{
 					"id": -1,
 					"name": "更多送礼",
 					"pathName": "pages/lotteryList/lotteryList",
 					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "参与",
+					"pathName": "pages/lottery/lottery",
+					"query": "rid=Y18112859378"
 				}
 			]
 		}

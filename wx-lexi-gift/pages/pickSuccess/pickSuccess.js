@@ -1,4 +1,10 @@
 // pages/pickSuccess/pickSuccess.js
+const app = getApp()
+
+const http = require('./../../utils/http.js')
+const api = require('./../../utils/api.js')
+const utils = require('./../../utils/util.js')
+
 Page({
 
   /**
@@ -7,6 +13,7 @@ Page({
   data: {
     isLoading: true,
 
+    rid: '',
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
@@ -15,9 +22,15 @@ Page({
   },
 
   /**
-   * 我要送礼
+   * 获取formid, 继续送礼
    */
-  handleSendGift () {
+  handleFormNotice(e) {
+    utils.logger(e.detail.formId, '通知模板')
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId)
+    }
+
+    // 我要送礼
     wx.switchTab({
       url: '../index/index',
     })
@@ -48,20 +61,16 @@ Page({
    */
   getWxaPoster() {
     let rid = this.data.rid
-    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
 
     // scene格式：rid + '-' + sid
     let scene = rid
-    if (lastVisitLifeStoreRid) {
-      scene += '-' + lastVisitLifeStoreRid
-    }
 
     let params = {
       rid: rid,
       type: 4,
-      path: 'pages/product/product',
+      path: 'pages/index/index',
       scene: scene,
-      auth_app_id: app.globalData.app_id
+      auth_app_id: app.globalData.appId
     }
     http.fxPost(api.wxa_poster, params, (result) => {
       utils.logger(result, '生成海报图')
@@ -134,7 +143,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      rid: options.rid || ''
+    })
   },
 
   /**
@@ -188,6 +199,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    
   }
 })

@@ -168,7 +168,7 @@ App({
       avatar: jwt.avatar,
       username: jwt.username,
       mobile: jwt.mobile,
-      username: jwt.username
+      uid: jwt.uid
     }
 
     this.globalData.userLoaded = true
@@ -236,13 +236,8 @@ App({
           wx.showToast({
             title: '已取消支付',
           })
-
-          // 跳转到订单
-          wx.redirectTo({
-            url: './../order/order',
-          })
         }
-
+        
         return typeof cb == 'function' && cb(false)
       }
     })
@@ -317,6 +312,8 @@ App({
     // 地址位置
     location: {},
     userInfo: null,
+    addressRid: '', // 当前选中的地址
+    addressRef: '', // 编辑地址来源
     deliveryCountries: []
   }
 })

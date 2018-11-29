@@ -42,6 +42,25 @@
       <input type="number" placeholder="设定参与人数（不低于20人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
     </view>
 
+    <view class="form-days">
+      <image src="../../images/icon-days@2x.png" class="icon-days"></image>
+      <picker class="form-picker" bindchange="handlePickerChange" value="{{ days[idx] }}" range="{{ days }}">
+        <view class="picker pholder" wx:if="{{ idx == '' }}">
+          <view class="days-number">设置活动天数</view>
+          <view class="days-arraw">
+            <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
+          </view>
+        </view>
+        <view class="picker" wx:else>
+          <view class="days-number">{{ days[idx] }}天</view>
+          <view class="days-arraw">
+            <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
+          </view>
+        </view>
+      </picker>
+    </view>
+
+
     <view class="form-blessing">
       <image src="../../images/icon-edit@2x.png" class="icon-edit"></image>
       <input placeholder="填写心愿祝福语（限12个字）" bindfocus="handleValidateLogin" bindblur="handleBlessing" maxlength="12" value="{{ form.blessing }}" class="form-input" />

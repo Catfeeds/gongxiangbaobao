@@ -11,23 +11,25 @@
   <!-- 抽奖列表 -->
   <view class="lottery-result">
     <view class="lottery-list" wx:if="{{ lotteryList.length > 0 }}">
-      <view class="lottery-item" wx:for="{{ lotteryList }}" wx:for="activity" wx:key="{{ activity.activity_rid }}">
+      <view class="lottery-item" wx:for="{{ lotteryList }}" wx:for-item="activity" wx:key="{{ activity.activity_rid }}">
         <view class="lottery-item__head">
           <view class="date">{{ activity.created_at }}</view>
+          <view class="status" wx:if="{{ activity.status == 4 }}">未开奖</view>
           <view class="status ended" wx:if="{{ activity.status == 2 }}">未中奖</view>
           <view class="status hit" wx:if="{{ activity.status == 1 }}">
             <image src="../../images/icon-gift02@2x.png" class="icon-gift"></image>中奖了
           </view>
+          <view class="status ended" wx:if="{{ activity.status == 3 }}">已失效</view>
         </view>
-        <view class="lottery-item__body">
+        <view class="lottery-item__body" data-rid="{{ activity.activity_rid }}" bindtap="handleGoActivity">
           <image src="{{ activity.view_url }}-p30x2" class="cover" wx:if="{{ activity.view_url }}"></image>
           <view class="product-info">
             <view class="name">
-              {{ activity.created_at }}
+              {{ activity.product_name }}
             </view>
             <view class="options">
               <text class="mode">{{ activity.s_color }}{{ activity.s_model }}</text>
-              <text class="quantity">{{ activity.created_at }}件</text>
+              <text class="quantity">1件</text>
             </view>
             <view class="progress">
               <view class="reach-count">满{{ activity.full_count }}人开奖</view>
@@ -38,7 +40,7 @@
         <view class="lottery-item__foot">
           <view class="lottery-user">
             <image src="{{ activity.user_info.user_logo }}-ava50" class="icon-avatar" wx:if="{{ activity.user_info.user_logo }}"></image>
-            <view class="user-name">{{ activity.full_count }}</view>
+            <view class="user-name">{{ activity.user_info.user_name }}</view>
             <view class="txt">送出</view>
           </view>
           <button class="btn-got" bindtap="handleGoGot" data-rid="{{ activity.activity_rid }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 }}">立即领取</button>

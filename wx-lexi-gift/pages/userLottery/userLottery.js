@@ -40,6 +40,16 @@ Page({
   },
 
   /**
+   * 查看活动
+   */
+  handleGoActivity (e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../lottery/lottery?rid=' + rid,
+    })
+  },
+
+  /**
    * 获取参与的活动列表
    */
   getActivityList() {
@@ -62,7 +72,7 @@ Page({
         } else {
           _list = res.data.activity_list
         }
-
+        console.log(_list)
         this.setData({
           lotteryList: _list,
           hasNext: res.data.next

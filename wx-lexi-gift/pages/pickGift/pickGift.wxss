@@ -88,6 +88,9 @@
 
 .gift-wrapper .gift-product {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .gift-wrapper .gift-product .name {

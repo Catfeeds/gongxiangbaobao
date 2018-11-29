@@ -3,13 +3,13 @@
 }
 
 .gift-product {
-  padding: 30rpx 30rpx 0;
+  width: 750rpx;
   background-color: #fff;
 }
 
 .gift-product .product-box {
   display: flex;
-  padding-bottom: 30rpx;
+  padding: 30rpx 30rpx 30rpx;
   border-bottom: 2rpx dashed #f2f2f2;
 }
 
@@ -56,8 +56,9 @@
 
 .gift-product .product-images {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 30rpx;
+  padding: 0 30rpx;
 }
 
 .gift-product .product-images .asset {
@@ -108,7 +109,9 @@
   line-height: 20rpx;
 }
 
-.gift-setting .form-people, .gift-setting .form-blessing {
+.gift-setting .form-people,
+.gift-setting .form-days,
+.gift-setting .form-blessing {
   width: 690rpx;
   height: 120rpx;
   background: rgba(247, 247, 247, 1);
@@ -118,7 +121,9 @@
   align-items: center;
 }
 
-.gift-setting .form-people .icon-people, .gift-setting .form-blessing .icon-edit {
+.gift-setting .form-people .icon-people, 
+.gift-setting .form-days .icon-days,
+.gift-setting .form-blessing .icon-edit {
   flex: 0 0 auto;
   width: 36rpx;
   height: 36rpx;
@@ -128,7 +133,9 @@
   border-right: 1rpx solid #f2f2f2;
 }
 
-.gift-setting .form-people .form-input, .gift-setting .form-blessing .form-input {
+.gift-setting .form-people .form-input,
+.gift-setting .form-blessing .form-input,
+.gift-setting .form-days .form-picker {
   flex: 1;
   font-size: 30rpx;
   font-weight: 400;
@@ -136,9 +143,32 @@
   line-height: 30rpx;
 }
 
-.gift-setting .input-placeholder {
+.gift-setting .form-days .picker.pholder {
+  height: 120rpx;
+  line-height: 120rpx;
+}
+
+.gift-setting .input-placeholder,
+.gift-setting .form-days .picker.pholder {
   color: rgba(178, 178, 178, 1);
 }
+
+.gift-setting .form-days .picker {
+  display: flex;
+  align-items: center;
+}
+.gift-setting .form-days .picker .days-number {
+  flex: 1;
+}
+.gift-setting .form-days .picker .days-arraw {
+  flex: 0 0 auto;
+  padding-right: 30rpx;
+}
+.gift-setting .form-days .picker .days-arraw .icon-arraw {
+  width: 26rpx;
+  height: 26rpx;
+}
+
 
 .gift-result {
   width: 750rpx;
@@ -209,71 +239,4 @@
   color: rgba(255, 255, 255, 1);
   line-height: 88rpx;
   z-index: 999;
-}
-
-.fx-modal--rule .rule-title {
-  display: flex;
-  align-items: center;
-  font-size: 32rpx;
-  font-weight: 600;
-  color: rgba(51, 51, 51, 1);
-  line-height: 32rpx;
-  margin-bottom: 20rpx;
-}
-
-.fx-modal--rule .rule-title .title {
-  flex: 0 0 auto;
-}
-
-.fx-modal--rule .rule-title .quote-left {
-  flex: 1;
-  text-align: right;
-}
-
-.fx-modal--rule .rule-title .quote-right {
-  flex: 1;
-}
-
-.fx-modal--rule .rule-title .icon-quote-left {
-  width: 32rpx;
-  height: 32rpx;
-  margin-right: 20rpx;
-}
-
-.fx-modal--rule .rule-title .icon-quote-right {
-  width: 32rpx;
-  height: 32rpx;
-  margin-left: 20rpx;
-}
-
-.fx-modal--rule .rule-content {
-  font-size: 26rpx;
-  font-weight: 400;
-  color: rgba(51, 51, 51, 1);
-  line-height: 42rpx;
-  height: 680rpx;
-  overflow-y: auto;
-}
-
-.fx-modal--rule .rule-content .item {
-  display: flex;
-}
-
-.fx-modal--rule .rule-content .item .number {
-  flex: 0 0 auto;
-  width: 32rpx;
-  height: 32rpx;
-  background: rgba(153, 153, 153, 1);
-  font-size: 24rpx;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1);
-  line-height: 32rpx;
-  margin-right: 20rpx;
-  border-radius: 50%;
-  text-align: center;
-  margin-top: 5rpx;
-}
-
-.fx-modal--rule .rule-content .item .txt {
-  flex: 1;
 }

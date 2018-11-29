@@ -1,6 +1,8 @@
 {
-  "navigationBarTitleText": "乐喜1元送礼",
+  "navigationBarTitleText": "乐喜小礼物",
   "usingComponents": {
-    "fx-loading": "/components/FxLoading/FxLoading"
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-modal-v": "/components/FxModalV/FxModalV"
   }
 }

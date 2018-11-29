@@ -3,39 +3,40 @@
 <view class="container">
 
   <view class="fx-tabs">
-    <view class="tab {{ activeTab == tab.rid ? 'active' : '' }}" wx:for="{{ tabs }}" wx:for-item="tab" wx:key="{{ tab.rid }}">
+    <view class="tab {{ activeStatus == tab.status ? 'active' : '' }}" wx:for="{{ tabs }}" wx:for-item="tab" wx:key="{{ tab.rid }}" data-status="{{ tab.status }}"  bindtap="handleChangeStatus">
       {{ tab.name }}
     </view>
   </view>
 
   <!-- 抽奖列表 -->
   <view class="lottery-result">
-    <view class="lottery-list">
-      <view class="lottery-item">
+    <view class="lottery-list" wx:if="{{ lotteryList.length > 0 }}">
+      <view class="lottery-item" wx:for="{{ lotteryList }}" wx:for-item="activity" wx:key="{{ activity.activity_rid }}">
         <view class="lottery-item__head">
-          <view class="date">2018.11.12 23:59</view>
-          <view class="status ended">未领取</view>
-          <view class="status hit">已领取</view>
+          <view class="date">{{ activity.created_at }}</view>
+          <view class="status ended" wx:if="{{ activity.status == 1 }}">未领取</view>
+          <view class="status hit" wx:if="{{ activity.status == 2 }}">已领取</view>
+          <view class="status hit" wx:if="{{ activity.status == 3 }}">已退款</view>
         </view>
         <view class="lottery-item__body">
-          <image src="../../images/product@2x.jpg" class="cover"></image>
+          <image src="{{ activity.view_url }}-p30x2" class="cover" wx:if="{{ activity.view_url }}"></image>
           <view class="product-info">
             <view class="name">
-              面访水杯
+              {{ activity.product_name }}
             </view>
             <view class="options">
-              <text class="mode">黑色/中号</text>
+              <text class="mode">{{ activity.s_color }}{{ activity.s_model }}</text>
               <text class="quantity">1件</text>
             </view>
             <view class="progress">
-              <view class="reach-result">2018年11月12日 8:00开奖</view>
+              <view class="reach-result">{{ activity.winning_at }} 开奖</view>
             </view>
           </view>
         </view>
         <view class="lottery-item__foot">
           <view class="lottery-user">
-            <image src="../../images/icon-avatar@2x.png" class="icon-avatar"></image>
-            <view class="user-name">方言</view>
+            <image src="{{ activity.user_info.user_logo }}-ava50" class="icon-avatar" wx:if="{{ activity.user_info.user_logo }}"></image>
+            <view class="user-name">{{ activity.user_info.user_name }}</view>
             <view class="txt">送出</view>
           </view>
         </view>
@@ -43,7 +44,7 @@
     </view>
 
     <!-- 空列表 -->
-    <view class="lottery-list--empty">
+    <view class="lottery-list--empty" wx:else>
       <image src="../../images/icon-no-draw@2x.png" class="icon-empty"></image>
       <view class="description">还没有送出礼物</view>
     </view>

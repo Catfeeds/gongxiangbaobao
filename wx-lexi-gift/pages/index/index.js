@@ -20,12 +20,15 @@ Page({
     // 当前活动
     currentActivity: {},
     // 输入表单
+    idx: '',
+    days: [1, 2, 3],
     form: {
       people_num: null,
+      days: '',
       blessing: ''
     },
     // 曾参与活动的人数
-    hasNext: true,
+    hasNext: false,
     page: 1,
     perPage: 10,
     partakePeople: [],
@@ -45,6 +48,14 @@ Page({
     })
   },
 
+  // 选择天数
+  handlePickerChange (e) {
+    console.log(e.detail.value)
+    this.setData({
+      idx: e.detail.value,
+      'form.days': this.data.days[e.detail.value]
+    })
+  },
 
   // 关闭登录框
   hanleOffLoginBox(e) {
@@ -103,8 +114,14 @@ Page({
     console.log(this.data.form)
 
     // 验证人数
-    if (this.data.form.people_num > 20) {
+    if (this.data.form.people_num < 20) {
       utils.fxShowToast('参与人数不能低于20人')
+      return
+    }
+
+    // 验证天数
+    if (this.data.form.days == '' || this.data.form.days > 3) {
+      utils.fxShowToast('活动天数设置不准确')
       return
     }
     
@@ -118,16 +135,20 @@ Page({
       openid: app.globalData.jwt.openid,
       people_num: this.data.form.people_num,
       product_rid: this.data.currentActivity.product_rid,
-      blessing: this.data.form.blessing
+      days: this.data.form.days,
+      blessing: this.data.form.blessing,
+      sync_pay: 1,
+      auth_app_id: app.globalData.appId
     }, (res) => {
       utils.logger(res, '发起活动')
       if (res.success) {
         // 开始支付
-        app.wxpayOrder(res.data.activity_rid, res.data.pay_params, (result) => {
+        let _rid = res.data.activity_rid
+        app.wxpayOrder(_rid, res.data.pay_params, (result) => {
           if (result) {
             // 跳转至详情
             wx.navigateTo({
-              url: '../lottery/lottery?rid=' + rid,
+              url: '../lottery/lottery?rid=' + _rid,
             })
           }
         })
@@ -212,13 +233,17 @@ Page({
   onLoad: function (options) {
     this.getCurrentActivity()
     
-    // 给app.js 定义一个方法。
-    app.userInfoReadyCallback = res => {
-      utils.logger('用户信息请求完毕')
-      if (res) {
-        this.getMyActivityPeople()
-      } else {
-        utils.fxShowToast('授权失败，请稍后重试')
+    if (app.globalData.isLogin) {
+      this.getMyActivityPeople()
+    } else {
+      // 给app.js 定义一个方法。
+      app.userInfoReadyCallback = res => {
+        utils.logger('用户信息请求完毕')
+        if (res) {
+          this.getMyActivityPeople()
+        } else {
+          utils.fxShowToast('授权失败，请稍后重试')
+        }
       }
     }
   },

@@ -14,6 +14,8 @@ Page({
     isLoading: true,
     addressList: [],
     addressSelected: {},
+    activityRid: '',
+    addressRid: '',
     page: 1,
     perPage: 10
   },
@@ -27,8 +29,12 @@ Page({
       if (item.rid == rid) {
         item.selected = true
         this.setData({
+          addressRid: rid,
           addressSelected: item
         })
+
+        // 更新全局变量
+        app.globalData.addressRid = rid
       } else {
         item.selected = false
       }
@@ -38,15 +44,28 @@ Page({
     this.setData({
       addressList: _list
     })
+
+    // 返回上一步
+    if (app.globalData.addressRef == 'checkout') {
+      wx.navigateBack({
+        delta: 1
+      })
+    }
   },
 
   /**
    * 新增地址
    */
   handleAddAddress () {
-    wx.navigateTo({
-      url: '../addressEdit/addressEdit',
-    })
+    if (app.globalData.addressRef == 'checkout') {
+      wx.redirectTo({
+        url: '../addressEdit/addressEdit',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../addressEdit/addressEdit',
+      })
+    }
   },
 
   /**
@@ -54,9 +73,15 @@ Page({
    */
   handleEditAddress (e) {
     let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../addressEdit/addressEdit?rid=' + rid,
-    })
+    if (app.globalData.addressRef == 'checkout') {
+      wx.redirectTo({
+        url: '../addressEdit/addressEdit?rid=' + rid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../addressEdit/addressEdit?rid=' + rid,
+      })
+    }
   },
 
   /**
@@ -70,7 +95,11 @@ Page({
       utils.logger(res.data, '地址列表')
       if (res.success) {
         let _list = res.data.map(item => {
-          item.selected = item.is_default ? true : false
+          if (this.data.addressRid) {
+            item.selected = item.rid == this.data.addressRid ? true : false
+          } else {
+            item.selected = item.is_default ? true : false
+          }
           return item
         })
         this.setData({
@@ -86,7 +115,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      addressRid: options.rid || '',
+      activityRid: options.activity_rid || ''
+    })
   },
 
   /**
@@ -106,6 +138,12 @@ Page({
    */
   onShow: function () {
     this.getAddresslist()
+
+    if (app.globalData.addressRid) {
+      this.setData({
+        addressRid: app.globalData.addressRid
+      })
+    }
   },
 
   /**

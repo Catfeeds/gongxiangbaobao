@@ -52,6 +52,14 @@ module.exports = {
   gift_activity_count: 'yiyuan/collect_activity', // GET 我参与的活动汇总
   gift_activity_more: 'yiyuan/activity/more', // GET 查看十个最热门的活动
   gift_activity_partake: 'yiyuan/activity/join', // GET 我参与的抽奖
+  gift_activity_users: 'yiyuan/activity/users/:rid', // GET 活动参与的人
+  gift_activity_join: 'yiyuan/activity/join', // POST 参与抽奖
+  gift_activity_user_status: 'yiyuan/activity/status/:rid', // GET 活动状态
+  gift_activity_grant: 'yiyuan/activity/grant', // POST 领取奖励
+  gift_activity_having: 'yiyuan/activity/having', // GET 用户当前是否有活动
+  gift_sended: 'yiyuan/activity/send', // GET 我送出的礼物
+  gift_receive: 'yiyuan/activity/receive', // GET 我收到的礼物
+  gift_store_products: 'yiyuan/product/store', // GET 品牌馆更多商品
 
 
   // City

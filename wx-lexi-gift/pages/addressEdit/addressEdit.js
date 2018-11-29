@@ -15,7 +15,6 @@ Page({
     rid: '',
     isEditing: false, // 是否为编辑状态
     currentAddress: {}, // 地址详情信息
-    from_ref: '', // 来源
     countryList: [], // 所有的国家的--
     countryIndex: 0, // 所有的国家的index--
 
@@ -80,15 +79,14 @@ Page({
       }, (result) => {
         utils.logger(result, '新增地址')
         if (result.success) {
-          if (this.data.from_ref == 'checkout') {
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            wx.redirectTo({
-              url: '../addressList/addressList',
-            })
+          if (app.globalData.addressRef == 'checkout') {
+            // 更新全局变量
+            app.globalData.addressRid = result.data.rid
           }
+
+          wx.navigateBack({
+            delta: 1
+          })
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -103,15 +101,14 @@ Page({
       }, (result) => {
         utils.logger(result, '更新地址')
         if (result.success) {
-          if (this.data.from_ref == 'checkout') {
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            wx.redirectTo({
-              url: '../addressList/addressList',
-            })
+          if (app.globalData.addressRef == 'checkout') {
+            // 更新全局变量
+            app.globalData.addressRid = this.data.rid
           }
+          
+          wx.navigateBack({
+            delta: 1
+          })
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -575,8 +572,7 @@ Page({
       rid: rid,
       isEditing: isEditing,
       needUserCustom: needUserCustom,
-      'form.is_overseas': is_overseas,
-      from_ref: options.from_ref || '' // 来源
+      'form.is_overseas': is_overseas
     })
 
     if (isEditing) {

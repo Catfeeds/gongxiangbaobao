@@ -263,12 +263,13 @@ page {
 }
 
 .lottery-list .lottery-item .lottery-item__body .product-info .progress .reach-count {
-  width: 141rpx;
+  width: 136rpx;
   height: 36rpx;
   background: rgba(255, 239, 239, 1);
   border-radius: 2rpx;
   font-size: 24rpx;
   font-weight: 500;
+  padding-left: 5rpx;
   color: rgba(255, 102, 102, 1);
   line-height: 36rpx;
   margin-right: 20rpx;
@@ -301,6 +302,7 @@ page {
   width: 32rpx;
   height: 32rpx;
   margin-right: 10rpx;
+  border-radius: 50%;
 }
 
 .lottery-list .lottery-item .lottery-item__foot .user-name {
@@ -342,7 +344,9 @@ page {
   display: flex;
   align-items: center;
 }
-
+.gift-share-wrapper .form-getid {
+  flex: 1;
+}
 .gift-share-wrapper .btn-share {
   flex: 1;
   height: 80rpx;
@@ -355,7 +359,6 @@ page {
 }
 
 .gift-share-wrapper .btn-more, .gift-share-wrapper .btn-give {
-  flex: 1;
   height: 80rpx;
   background: rgba(245, 245, 245, 1);
   border-radius: 8rpx;
@@ -364,6 +367,10 @@ page {
   color: rgba(51, 51, 51, 1);
   line-height: 80rpx;
   margin-right: 20rpx;
+}
+.gift-share-wrapper .btn-give.opened {
+  background: rgba(95, 228, 177, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 /* 分享弹窗 */
@@ -466,4 +473,73 @@ page {
   color: rgba(102, 102, 102, 1);
   line-height: 80rpx;
   text-align: center;
+}
+
+/* 规则 */
+
+.fx-modal--rule .rule-title {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  line-height: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.fx-modal--rule .rule-title .title {
+  flex: 0 0 auto;
+}
+
+.fx-modal--rule .rule-title .quote-left {
+  flex: 1;
+  text-align: right;
+}
+
+.fx-modal--rule .rule-title .quote-right {
+  flex: 1;
+}
+
+.fx-modal--rule .rule-title .icon-quote-left {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 20rpx;
+}
+
+.fx-modal--rule .rule-title .icon-quote-right {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+}
+
+.fx-modal--rule .rule-content {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+  height: 680rpx;
+  overflow-y: auto;
+}
+
+.fx-modal--rule .rule-content .item {
+  display: flex;
+}
+
+.fx-modal--rule .rule-content .item .number {
+  flex: 0 0 auto;
+  width: 32rpx;
+  height: 32rpx;
+  background: rgba(153, 153, 153, 1);
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 32rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+  text-align: center;
+  margin-top: 5rpx;
+}
+
+.fx-modal--rule .rule-content .item .txt {
+  flex: 1;
 }
