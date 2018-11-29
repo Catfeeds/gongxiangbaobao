@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 25,
 			"list": [
 				{
 					"id": 0,
@@ -183,6 +183,12 @@
 					"id": 24,
 					"name": "文章",
 					"pathName": "pages/findInfo/findInfo",
+					"query": "rid=32"
+				},
+				{
+					"id": 25,
+					"name": "people",
+					"pathName": "pages/gatherInfo/gatherInfo",
 					"query": "rid=32"
 				}
 			]

@@ -13,6 +13,7 @@ Page({
    */
   data: {
     backBtnIsShow: false, // 回到顶部按钮
+    showHomeBtn: false, // 是否回到首页的按钮
 
     isLoading: true,
     isLoadProductShow: true, // 加载商品
@@ -104,6 +105,18 @@ Page({
       per_page: 10,
       status: 1, // 优惠券状态 -1: 禁用；1：正常；2：已结束
       'type': '' // 是否满减活动 3、满减
+    }
+  },
+
+  /**
+ * 是否显示回到首页
+ */
+  getIsBackHome() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
     }
   },
 
@@ -821,6 +834,7 @@ Page({
     this.getStoreInfo() // 店铺详情
     this.getAnnouncement() // 店铺的公告
     this.products() // 获取店铺的商品列表
+    this.getIsBackHome() // 是否显示回到首页
   },
 
   /**
@@ -973,6 +987,13 @@ Page({
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 888
+    })
+  },
+
+  // 回到首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
     })
   },
 

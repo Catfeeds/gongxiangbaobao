@@ -1,6 +1,11 @@
 <!--pages/branderStore/branderStore.wxml-->
 <import src="../couponTemplate/couponTemplate.wxml" />
 <view class="container">
+  <!-- 回到首页 -->
+  <view class="back-home-container" catchtap="handleBackHome" wx:if="{{ showHomeBtn }}">
+    <image src="../../images/icon-home-back@2x.png" class="icon-back-home"></image>
+  </view>
+
   <view class="store-info border-bottom">
     <!-- 图片 分类-->
     <view class="flex_row margin-bottom--22rpx top-photo__box">
@@ -268,7 +273,7 @@
     </view>
   </view>
 
-    <!-- 回到顶部按钮是否显示 -->
+  <!-- 回到顶部按钮是否显示 -->
   <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
 
 </view>

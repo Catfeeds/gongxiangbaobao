@@ -1,5 +1,10 @@
 <!--pages/people/people.wxml 我看别人主页-->
 <view class='container {{is_mobile?"prevent__penetrate":""}}'>
+<!-- 回到首页 -->
+  <view class="back-home-container" catchtap="handleBackHome" wx:if="{{ showHomeBtn }}">
+    <image src="../../images/icon-home-back@2x.png" class="icon-back-home"></image>
+  </view>
+
   <view class='top-box border-bottom'>
     <!-- 头像 -->
     <view class='user-photo'>

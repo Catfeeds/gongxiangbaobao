@@ -103,7 +103,6 @@ Page({
     const lifeStore = wx.getStorageSync('lifeStore')
 
     wx.setStorageSync('showingLifeStoreRid', lifeStore.lifeStoreRid)
-
     wx.switchTab({
       url: '../index/index',
     })

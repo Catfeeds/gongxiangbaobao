@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showHomeBtn: false, // 是否回到首页的按钮
+
     isLoading: true,
     otherPeopleUid: [], // 其他人的uid
     otherPeopleInfo: [], // 其他人地个人中心
@@ -44,6 +46,18 @@ Page({
     nextPageParmas: {
       page: 1, // Number	可选	1	当前页码
       per_page: 10 // Number	可选	10	每页数量
+    }
+  },
+
+  /**
+   * 是否显示回到首页
+   */
+  getIsBackHome() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
     }
   },
 
@@ -322,6 +336,7 @@ Page({
 
     this.getOtherPeopleInfo(options.uid) // 获取其他人个人中心
     this.getOtherLikeQuantity(options.uid) // 获取其他人的喜欢
+    this.getIsBackHome()
   },
 
   /**
@@ -455,6 +470,13 @@ Page({
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeRid
     })
-  }
+  },
+
+  // 回到首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
 
 })

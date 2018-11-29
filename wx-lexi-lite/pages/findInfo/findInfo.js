@@ -15,6 +15,7 @@ Page({
    */
   data: {
     backBtnIsShow: false, // 回到顶部按钮
+    showHomeBtn:false, // 回到首页的按钮
 
     isLoading: true,
     rid: '', // rid
@@ -288,8 +289,8 @@ Page({
   },
 
   /**
- * 删除评论点赞
- */
+   * 删除评论点赞
+   */
   handleDeleteCommentPraise(e) {
     let index = e.currentTarget.dataset.index
     let rid = this.data.commentList.comments[index].comment_id
@@ -303,6 +304,13 @@ Page({
       if (result.success) {
 
       } else utils.logger(result, '添加喜欢橱窗')
+    })
+  },
+
+  // 回到首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
     })
   },
 
@@ -391,6 +399,18 @@ Page({
   },
 
   /**
+   * 是否显示回到首页
+   */
+  getIsBackHome() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
+    }
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
@@ -407,6 +427,7 @@ Page({
     this.getLiveInfo() // 生活志详情
     this.getRecommend() // 相关故事推荐
     this.getRecommendProduct() // 推荐商品
+    this.getIsBackHome() // 是否有回到首页的按钮
   },
 
   /**
