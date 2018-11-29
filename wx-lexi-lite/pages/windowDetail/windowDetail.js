@@ -418,7 +418,8 @@ Page({
         result.data.comment_count = commentCount >= 1000 ? (commentCount / 1000).toFixed(2) + 'k' : commentCount
 
         this.setData({
-          windowDetail: result.data
+          windowDetail: result.data,
+          myUid:app.globalData.jwt.uid
         })
       } else {
         utils.fxShowToast(result.status.message)

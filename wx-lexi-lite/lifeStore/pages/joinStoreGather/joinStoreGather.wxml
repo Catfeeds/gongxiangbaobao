@@ -1,4 +1,4 @@
 <!--pages/joinStoreGather/joinStoreGather.wxml 加入馆主群页-->
 <view class="container">
-  <web-view src="https://www.baidu.com/index.php?tn=06074089_32_pg&ch=7"></web-view>
+  <web-view src="https://mp.weixin.qq.com/s?__biz=MzU1MjkyMjE4Mw==&mid=2247483853&idx=1&sn=a7150e57dfee5343c96f75059c424707&scene=19&ascene=7&devicetype=android-24&version=260703ab&nettype=WIFI&abtest_cookie=BAABAAoACwASABQABAAjlx4AVpkeAJmZHgCimR4AAAA%3D&lang=zh_CN&pass_ticket=fTL2oa4GaNBGnuJSHvFKk7vv5zdxbmm%2FmfWaaUcewGV9TLw5vB0e7EI2wKMkq0sh&wx_header=1"></web-view>
 </view>

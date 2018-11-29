@@ -10,7 +10,7 @@
           <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ windowDetail.is_expert }}"></image>
           <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ windowDetail.is_official }}"></image>
         </view>
-        <block wx:if="{{ !windowDetail.is_official }}">
+        <block wx:if="{{ !windowDetail.is_official && myUid!=windowDetail.uid}}">
           <view class="fx-mini-btn round follow primary c-middle add-follow__btn" catchtap="handleAddFollow" wx:if="{{!windowDetail.is_follow&& myUid!=windowDetail.uid}}">关注</view>
           <view class="fx-mini-btn round follow primary c-middle add-follow__btn  follow-over__btn" catchtap="handleDeleteFollow" wx:if="{{windowDetail.is_follow}}">已关注</view>
         </block>
