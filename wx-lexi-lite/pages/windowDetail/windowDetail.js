@@ -366,6 +366,14 @@ Page({
     })
   },
 
+  // 去个人主页
+  handleGoPeople(e) {
+    let uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../people/people?uid=' + uid
+    })
+  },
+
   /**
    * 获取评论
    */

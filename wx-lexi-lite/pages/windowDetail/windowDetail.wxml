@@ -5,8 +5,8 @@
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
-          <image src="{{ windowDetail.user_avatar }}-ava" class="avatar" wx:if="{{ windowDetail.user_avatar }}"></image>
-          <label class="name">{{ windowDetail.user_name }}</label>
+          <image src="{{ windowDetail.user_avatar }}-ava" class="avatar" wx:if="{{ windowDetail.user_avatar }}" data-uid="{{windowDetail.uid}}" catchtap="handleGoPeople"></image>
+          <label data-uid="{{windowDetail.uid}}" catchtap="handleGoPeople" class="name">{{ windowDetail.user_name }}</label>
           <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ windowDetail.is_expert }}"></image>
           <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ windowDetail.is_official }}"></image>
         </view>

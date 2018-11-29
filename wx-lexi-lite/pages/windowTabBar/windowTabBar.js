@@ -403,6 +403,14 @@ Page({
     })
   },
 
+  // 去个人主页
+  handleGoPeople(e) {
+    let uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../people/people?uid=' + uid
+    })
+  },
+
   // 更新最后点击的橱窗数据
   _refreshLastWindow () {
     if (this.data.lastClickRid) {
