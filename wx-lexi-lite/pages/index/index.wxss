@@ -738,10 +738,12 @@ textarea {
 
 .all-product_geishei {
   bottom: 50rpx;
+  font-weight: 600;
 }
 
 .all-product_miaoshu {
   bottom: 15rpx;
+  font-weight: 600;
 }
 
 .setUpShop-guide {

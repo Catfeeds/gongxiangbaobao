@@ -13,6 +13,7 @@ Page({
    */
   data: {
     pickIsFixed: false, // 盒子是否吸附在顶部
+    backBtnIsShow: false, // 一键职置顶
 
     isLoading: true,
     indicatorDots: true,
@@ -568,6 +569,16 @@ Page({
   },
 
   /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
+
+  /**
    * 生成推广海报图
    */
   getWxaPoster(rid) {
@@ -903,23 +914,38 @@ Page({
    * 监听页面滚动84
    */
   onPageScroll(e) {
-
     // 筛选盒子是否吸附
-    if (this.data.pageActiveTab == 'all') {
-      if (e.scrollTop >= 82) {
-        if (!this.data.pickIsFixed){
-          this.setData({
-            pickIsFixed: true
-          })
-        }
+    if (e.scrollTop >= 30) {
+      if (!this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: true
+        })
       }
+    }
 
-      if (e.scrollTop < 82) {
-        if (this.data.pickIsFixed) {
-          this.setData({
-            pickIsFixed: false
-          })
-        }
+    if (e.scrollTop < 30) {
+      if (this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: false
+        })
+      }
+    }
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
       }
     }
 

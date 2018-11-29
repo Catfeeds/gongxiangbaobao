@@ -312,6 +312,11 @@
 
 .box-fixed {
   position: fixed;
+  top: 0;
   width: 670rpx;
   z-index: 9;
+}
+
+.top-shim {
+  height: 100rpx;
 }

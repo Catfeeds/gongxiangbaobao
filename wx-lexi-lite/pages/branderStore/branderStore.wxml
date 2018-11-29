@@ -51,7 +51,7 @@
         <text>关于品牌馆</text>
       </view>
       <!-- 分享按钮 -->
-      <image src="https://static.moebeast.com/image/static/share2.png" class="share-brand__btn" catchtap="handleShowShare"></image>
+      <image src="https://static.moebeast.com/image/static/share3.png" class="share-brand__btn" catchtap="handleShowShare"></image>
     </view>
   </view>
 
