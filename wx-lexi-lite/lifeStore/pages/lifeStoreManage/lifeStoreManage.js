@@ -58,7 +58,9 @@ Page({
 
   // 加入关注群
   handleJoinStoreGather(){
-
+    wx.navigateTo({
+      url: '../joinStoreGather/joinStoreGather'
+    })
   },
 
   /**

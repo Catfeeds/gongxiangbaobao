@@ -1,30 +1,17 @@
 <!--pages/myFollower/myFollower.wxml-->
 <view class='container'>
-  <view class='time-top font-m relation-item'  wx:for="{{peopleList}}" wx:key="{{index}}">
-    <view class='flex_row relation-avater'>  
+  <view class='time-top font-m relation-item' wx:for="{{peopleList}}" wx:key="{{index}}" data-uid="{{item.uid}}" catchtap="handleToPeopleTap">
+    <view class='flex_row relation-avater'>
       <image src='{{item.avatar}}-ava'></image>
       <text>{{item.username}}</text>
     </view>
 
     <view class='relation-icon'>
-      <view 
-        wx:if="{{item.followed_status==2}}"
-        catchtap='hanleDeleteWatch' 
-        data-uid="{{item.uid}}" 
-        data-index="{{index}}">互相关注</view>
+      <view wx:if="{{item.followed_status==2}}" catchtap='hanleDeleteWatch' data-uid="{{item.uid}}" data-index="{{index}}">互相关注</view>
 
-      <view 
-        catchtap='hanleDeleteWatch' 
-        data-uid="{{item.uid}}" 
-        data-index="{{index}}"
-        wx:if="{{item.followed_status==1}}">已关注</view>
+      <view catchtap='hanleDeleteWatch' data-uid="{{item.uid}}" data-index="{{index}}" wx:if="{{item.followed_status==1}}">已关注</view>
 
-      <view 
-        class='relation-icon__add' 
-        data-uid="{{item.uid}}" 
-        data-index="{{index}}"
-        catchtap='hanleAddWatch' 
-        wx:if="{{item.followed_status==0}}">+ 关注</view>
+      <view class='relation-icon__add' data-uid="{{item.uid}}" data-index="{{index}}" catchtap='hanleAddWatch' wx:if="{{item.followed_status==0}}">+ 关注</view>
     </view>
   </view>
 </view>

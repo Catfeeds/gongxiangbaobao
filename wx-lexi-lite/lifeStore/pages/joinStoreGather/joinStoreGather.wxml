@@ -1,0 +1,4 @@
+<!--pages/joinStoreGather/joinStoreGather.wxml 加入馆主群页-->
+<view class="container">
+  <web-view src="https://www.baidu.com/index.php?tn=06074089_32_pg&ch=7"></web-view>
+</view>

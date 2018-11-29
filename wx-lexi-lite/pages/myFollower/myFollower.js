@@ -21,6 +21,13 @@ Page({
     }
   },
 
+  // 跳转到其他人的主页
+  handleToPeopleTap(e) {
+    wx.navigateTo({
+      url: '../people/people?uid=' + e.currentTarget.dataset.uid
+    })
+  },
+
   // 获取自己的粉丝
   getFollower() {
     http.fxGet(api.users_fans_counts, this.data.params, (result) => {

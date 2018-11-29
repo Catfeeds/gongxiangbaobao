@@ -77,6 +77,10 @@ Page({
           }
         })
 
+        if (typeof(result.data.about_me) == 'object') {
+          result.data.about_me = ''
+        }
+
         this.setData({
           classList: params,
           otherPeopleInfo: result.data
