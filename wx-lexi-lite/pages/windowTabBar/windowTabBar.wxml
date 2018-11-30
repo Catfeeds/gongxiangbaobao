@@ -63,7 +63,7 @@
 
             <view class="image-container">
               <view class="image-item">
-                <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                <image mode="aspectFill" src="{{item.product_covers[0]}}-p50" class="photo"></image>
               </view>
             </view>
             <view class="image-container half">
@@ -140,7 +140,7 @@
             <image class="eleven-icon__window" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
             <view class="image-container">
               <view class="image-item">
-                <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                <image mode="aspectFill" src="{{item.product_covers[0]}}-p50" class="photo"></image>
               </view>
             </view>
             <view class="image-container half">
