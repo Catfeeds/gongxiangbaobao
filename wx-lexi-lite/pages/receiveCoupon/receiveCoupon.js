@@ -112,10 +112,8 @@ Page({
       return
     }
 
-    utils.logger(e)
     let code = e.currentTarget.dataset.code
     let idx = e.currentTarget.dataset.idx
-    utils.logger(this.data.authorityCouponList[idx])
 
     // 已经领取
     if (this.data.authorityCouponList[idx].is_grant) {
@@ -422,7 +420,6 @@ Page({
   getHighBrandCoupon() {
     http.fxGet(api.market_coupon_center_shared, this.data.highBrandCouponParams, result => {
       utils.logger(result, '精选品牌馆优惠券')
-      console.log(result, '精选品牌馆优惠券')
       if (result.success) {
         result.data.coupons.forEach((item, idx) => {
           if (item.store_name.length > 12) {

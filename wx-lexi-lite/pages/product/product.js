@@ -14,6 +14,7 @@ Page({
     bigPhotoCurrent: 0, // 大图应该展现的位置
     bigSwiperHeight: 0, // 大图的高度
 
+    isShowOfficial: false, // 官方优惠券
     backBtnIsShow: false, // 是否显示回到顶部按钮
     isLoading: true,
     showHomeBtn: false, // 显示回到首页按钮
@@ -61,7 +62,8 @@ Page({
     swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
     couponList: { // 优惠券列表---couponList
-      coupons: []
+      coupons: [],
+      official_coupon: []
     },
     fullSubtractionList: [], // 满减---
     isWatch: false, // 是否关注过店铺
@@ -263,8 +265,11 @@ Page({
       store_rid: this.data.originalStoreRid
     }, (result) => {
       utils.logger(result, '登陆的优惠券')
-
       result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
+        v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
+      })
+      result.data.official_coupon.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
         v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
       })
@@ -285,7 +290,6 @@ Page({
       store_rid: this.data.originalStoreRid
     }, (result) => {
       utils.logger(result, '没有登陆获取优惠券')
-
       result.data.coupons.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
         v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
@@ -381,7 +385,7 @@ Page({
 
           // 更新数量
           this.updateCartTotalCount(result.data.item_count)
-          
+
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -933,6 +937,36 @@ Page({
   // 设置订单参数的 商品的sku-rid store_items.itemsrid = 
   setOrderParamsProductId(e) {
     app.globalData.orderParams.store_items[0].items[0].rid = e
+  },
+
+  // 领取官方优惠券
+  handleReciiveOfficial(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    let code = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+    console.log(code, idx)
+    this.setData({
+      ['couponList.official_coupon[' + idx + '].is_grant']: 1
+    })
+
+    http.fxPost(api.market_official_coupons_grant, {
+      rid: code
+    }, result => {
+
+      utils.logger(result, "领取官方优惠券")
+      if (result.success) {
+        utils.fxShowToast("成功领取", "success")
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
   },
 
   // 获取本店铺的相关商品
@@ -1609,6 +1643,20 @@ Page({
     this.setData({
       bigPhotoCurrent: e.detail.current + 1,
       bigSwiperHeight: this.data.productTop.assets[e.detail.current].h
+    })
+  },
+
+  // 打开领取官方优惠券
+  handleOpenOfficialBox() {
+    let agent = this.data.isShowOfficial
+    if (agent) {
+      agent = true
+    } else {
+      agent = false
+    }
+
+    this.setData({
+      isShowOfficial: agent
     })
   },
 

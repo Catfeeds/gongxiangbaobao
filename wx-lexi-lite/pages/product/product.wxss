@@ -988,3 +988,26 @@
 }
 
 /* 放大的轮播图e */
+
+/* 官方优惠券 */
+
+.get-official__btn {
+  background-color: #dab867;
+  color: white;
+  border: 0;
+}
+
+.official-coupon__box {
+  background-color: #f9f3ec;
+}
+
+.lexi-icon {
+  text-align: center;
+  width: 70rpx;
+  height: 30rpx;
+  background-color: #dab867;
+  color: white;
+  border-radius: 6rpx;
+  margin-right: 20rpx;
+  font-size: 20rpx;
+}

@@ -77,7 +77,21 @@
     <image class="shuang-shiyi" src="{{elevenCoupon.tag}}" catchtap="handleOpenEleven" wx:if="{{elevenCoupon.coupons.length!=0}}"></image>
     <!-- 双11 12返厂 -->
     <image class="shuang-shiyi__fanchang" src="{{twelveCoupon.tag}}" catchtap="handleOpenTwelve" wx:if="{{twelveCoupon.coupons.length!=0}}"></image>
+    <!-- 官方优惠券 -->
+    <view class='coupon-box official-coupon__box' wx:if="{{couponList.official_coupon.length!=0}}" catchtap="{{couponList.all_grant?'':'handleOpenOfficialBox'}}">
+      <view class='coupon-message'>
+        <!-- 优惠券 -->
+        <view class='time-top coupon-icon'>
+          <view class="flex_row">
+            <view class="lexi-icon">乐喜券</view>
+            <text>领取乐喜官方优惠券</text>
+          </view>
+          <view class='get-btn get-official__btn' wx:if="{{couponList.all_grant}}">已领取</view>
+          <view class='get-btn get-official__btn' wx:else>领取</view>
 
+        </view>
+      </view>
+    </view>
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
@@ -408,6 +422,53 @@
     <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
     <text>回到自己生活馆</text>
   </view>
+
+  <!-- 官方优惠券 -->
+  <fx-modal showHead="{{ false }}" visible="{{ isShowOfficial }}">
+    <view class="coupon-template__style" slot="main">
+      <scroll-view scroll-y class='ct-subtract'>
+        <view class='coupon-shim'></view>
+        <!-- 优惠券图案 -->
+        <view class='ct-bottom'>
+          <view class='black-font'>乐喜官方优惠券</view>
+          <!-- 优惠券 -->
+          <view class='ct-coupon time-top' wx:key='{{index}}' data-idx="{{index}}" data-rid='{{item.code}}' catchtap='handleReciiveOfficial' wx:for='{{couponList.official_coupon}}'>
+            <view class='ct-line ct-line-l'></view>
+            <view class='ct-line ct-line-r'></view>
+            <view class='ct-round ct-round-top'></view>
+            <view class='ct-round ct-round-bom'></view>
+            <view class='ct-item-l time-top'>
+              <view class='ct-price '>
+                <view class='ct-price-icon ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>￥</view>
+                <view class='ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>{{item.amount}}</view>
+              </view>
+              <view class='ce-price-r'>
+                <view class='ct-price-icon ce-green {{item.status==1?"lose-efficacy_price--color":""}}'>满{{item.min_amount}}使用</view>
+                <view class="flex_row">
+                  <view class="lexi-icon margin-left--30rpx">乐喜券</view>
+                  <text class="font-s">{{item.category_name}}</text>
+                </view>
+                <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期: {{item.user_coupon_start}} 至 {{item.user_coupon_end}}</view>
+              </view>
+            </view>
+            <view class='ct-item-r item.is_grant==1?"lose-efficacy_bg--color' wx:if="{{item.is_grant==1}}">
+              <view>已领取</view>
+            </view>
+            <view class='ct-item-r' wx:else>
+              <view>
+                <view>领取</view>
+              </view>
+            </view>
+          </view>
+          <view class='shm'></view>
+        </view>
+      </scroll-view>
+      <!-- 完成按钮 -->
+      <view class='wx-btn-box'>
+        <button catchtap='handleOpenOfficialBox'>完成</button>
+      </view>
+    </view>
+  </fx-modal>
 
   <!-- 卖 -->
   <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
