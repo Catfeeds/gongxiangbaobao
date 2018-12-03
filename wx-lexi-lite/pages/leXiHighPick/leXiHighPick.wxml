@@ -22,7 +22,7 @@
 
   <view class="goodsList border-bottom--0">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product like_number="{{true}}" product="{{item}}" photo='{{ (index+1)%5 == 0 ? "4" : "3" }}' photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
+      <fx-product like_number="{{true}}" product="{{item}}" photo='{{ (index+1)%5 == 0 ? "4" : "3" }}' photoSize="{{(index+1)%5==0?'50':'30'}}" oldPrice="{{true}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
   </view>
 
