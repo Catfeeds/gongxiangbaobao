@@ -34,19 +34,9 @@ Page({
 
   // 点击相关推荐
   handlesAgainLoading(e) {
-    wx.pageScrollTo({
-      scrollTop: 0,
+    wx.redirectTo({
+      url: './../plantNoteInfo/plantNoteInfo?rid=' + e.currentTarget.dataset.rid,
     })
-
-    this.setData({
-      rid: e.currentTarget.dataset.rid,
-      ['params.page']: 1,
-      ['params.per_page']: 10,
-      ['params.rid']: e.currentTarget.dataset.rid
-    })
-
-    this.getLiveInfo() // 生活志详情
-    this.getRecommend() // 相关故事推荐
   },
 
 
