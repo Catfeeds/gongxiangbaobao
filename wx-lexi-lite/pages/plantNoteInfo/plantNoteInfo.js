@@ -39,7 +39,6 @@ Page({
     })
   },
 
-
   // 关闭
   hanleOffLoginBox(e) {
     utils.logger(e)

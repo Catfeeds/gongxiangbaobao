@@ -118,7 +118,7 @@
         <view class='left-line {{0==index && location.State!=3?"left-line__green":""}}'></view>
       </view>
       <view class='locationInfoR'>
-        <view class='black-font theme-hui-color'> {{item.AcceptStation}}</view>
+        <view class='black-font theme-hui-color {{0==index && location.State!=3?"text-color__black":""}}'> {{item.AcceptStation}}</view>
         <view class='hui-zi'>
           <text>{{item.AcceptTime}}</text> </view>
       </view>

@@ -159,3 +159,7 @@
 .left-line__green, .left-round__green {
   background-color: #6ed7af !important;
 }
+
+.text-color__black {
+  color: black;
+}
