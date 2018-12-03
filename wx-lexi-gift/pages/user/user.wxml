@@ -62,7 +62,7 @@
 
   <!-- 菜单项 -->
   <view class="link-menus">
-    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index?sid=" extra-data="lexi-gift" version="release">
       <view class="menu-box">
         <view class="name">乐喜生活馆</view>
         <view class="desc">零成本开店赚取收益</view>
@@ -72,7 +72,7 @@
       </view>
     </navigator>
 
-    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/games/pages/guessGame/guessGame" extra-data="" version="release">
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/games/pages/guessGame/guessGame" extra-data="lexi-gift" version="release">
       <view class="menu-box">
         <view class="name">猜图赢现金</view>
         <view class="desc">200000人正在参与</view>

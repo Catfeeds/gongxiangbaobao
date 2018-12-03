@@ -32,7 +32,14 @@ Page({
     users: [],
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
-    products: [] // 热门商品
+    products: [], // 热门商品
+
+    showShareModal: false, // 分享模态框
+    shareProduct: '', // 分享某个商品
+    cardUrl: '', // 卡片图rul
+    posterUrl: '', // 海报图url
+    posterSaving: false, // 是否正在保存
+    posterBtnText: '保存分享'
   },
 
   /**
@@ -119,6 +126,85 @@ Page({
   },
 
   /**
+   * 显示分享弹窗
+   */
+  handleShowShare () {
+    this.setData({
+      showShareModal: true
+    })
+    
+    this.getWxaCard()
+    this.getWxaPoster()
+  },
+
+  /**
+   * 取消分享-销售
+   */
+  handleCancelShare(e) {
+    this.setData({
+      showShareModal: false,
+      cardUrl: '',
+      posterUrl: '',
+      shareProduct: {}
+    })
+  },
+
+  /**
+   * 保存当前海报到相册
+   */
+  handleSaveShare() {
+    let that = this
+    if (this.data.posterUrl && !this.data.posterSaving) {
+      this.setData({
+        posterSaving: true,
+        posterBtnText: '正在保存...'
+      })
+
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.posterUrl,
+        success: function (res) {
+          if (res.statusCode == 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function (data) {
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享'
+                })
+                utils.fxShowToast('保存成功', 'success')
+              },
+              fail: function (err) {
+                utils.logger('下载海报失败：' + err.errMsg)
+                that.setData({
+                  posterSaving: false,
+                  posterBtnText: '保存分享'
+                })
+
+                if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
+                  wx.openSetting({
+                    success(settingdata) {
+                      utils.logger(settingdata)
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        utils.fxShowToast('保存成功')
+                      } else {
+                        utils.fxShowToast('保存失败')
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast('保存失败')
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+  },
+
+  /**
    * 参与抽奖
    */
   partakeLottery () {
@@ -157,10 +243,15 @@ Page({
       })
       return
     }
-    let days = parseInt(leftTime / 60 / 60 / 24, 10) // 计算剩余的天数 
-    let hours = parseInt(leftTime / 60 / 60 % 24, 10) // 计算剩余的小时 
-    let minutes = parseInt(leftTime / 60 % 60, 10) // 计算剩余的分钟 
-    let seconds = parseInt(leftTime % 60, 10) // 计算剩余的秒数 
+
+    // 计算剩余的天数 
+    let days = parseInt(leftTime / 60 / 60 / 24, 10)
+    // 计算剩余的小时 
+    let hours = parseInt(leftTime / 60 / 60 % 24, 10)
+    // 计算剩余的分钟 
+    let minutes = parseInt(leftTime / 60 % 60, 10)
+    // 计算剩余的秒数 
+    let seconds = parseInt(leftTime % 60, 10)
 
     this.setData({
       hasDays: days > 0 ? true : false,
@@ -169,6 +260,61 @@ Page({
         hours: utils.checkTimeNumber(hours),
         minutes: utils.checkTimeNumber(minutes),
         seconds: utils.checkTimeNumber(seconds),
+      }
+    })
+  },
+
+  /**
+   * 生成推广卡片
+   */
+  getWxaCard () {
+    let rid = this.data.rid
+
+    let scene = rid
+
+    let params = {
+      rid: rid,
+      type: 1,
+      path: 'pages/index/index',
+      scene: scene,
+      auth_app_id: app.globalData.appId
+    }
+    http.fxPost(api.market_gift_share_card, params, (result) => {
+      utils.logger(result, '生成卡片')
+      if (result.success) {
+        this.setData({
+          cardUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  /**
+   * 生成推广海报图
+   */
+  getWxaPoster() {
+    let rid = this.data.rid
+
+    // scene格式：rid + '-' + sid
+    let scene = rid
+
+    let params = {
+      rid: rid,
+      type: 4,
+      path: 'pages/index/index',
+      scene: scene,
+      auth_app_id: app.globalData.appId
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      utils.logger(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },

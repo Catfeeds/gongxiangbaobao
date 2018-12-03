@@ -240,7 +240,7 @@
         我也要送礼
       </button>
     </form>
-    <button class="btn-share" open-type="share" wx:if="{{ currentActivity.status == 2 }}">
+    <button class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 }}">
       分享礼物给好友
     </button>
   </view>
@@ -262,21 +262,68 @@
     <view class="rule-content">
       <view class="item">
         <view class="number">1</view>
-        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+        <view class="txt">每人同时仅能发起一个活动，所发起活动结束后才可再次发起。</view>
       </view>
       <view class="item">
-        <view class="number">1</view>
-        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+        <view class="number">2</view>
+        <view class="txt">每个用户最多可同时参与三个活动抽奖。</view>
       </view>
       <view class="item">
-        <view class="number">1</view>
-        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+        <view class="number">3</view>
+        <view class="txt">中奖者需在3日内领取礼物，填写收货地址，提交后即可发货，过期将做失效处理。</view>
       </view>
       <view class="item">
-        <view class="number">1</view>
-        <view class="txt">语雀是一款优雅高效的在线文档编辑与协同工具， 让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。</view>
+        <view class="number">4</view>
+        <view class="txt">每次参与的抽奖组队人满根据设定的开奖时间自动开奖，每一种礼物奖品有限，送完截止。系统自动更换新的礼物奖品。</view>
+      </view>
+      <view class="item">
+        <view class="number">5</view>
+        <view class="txt">开奖后，可能由于系统数据更新延迟问题，可能存在被奖品已被领完问题。系统会送出中奖者同等价值的奖品。</view>
+      </view>
+      <view class="item">
+        <view class="number">6</view>
+        <view class="txt">中奖者所收到的礼物，不支持退换货。</view>
+      </view>
+      <view class="item">
+        <view class="number">7</view>
+        <view class="txt">对存在异常恶意操作的帐号，官方有权进行处理，乐喜对活动拥有最终解释权。</view>
       </view>
     </view>
   </fx-modal-v>
+
+  <!-- 分享卡片 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main share-wrapper" slot="main">
+
+      <view class="distribute-style">
+        <button class="share-btn" open-type="share">
+          <image src="{{ cardUrl }}" class="cover"></image>
+          <text class="label">点击直接分享</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="../../images/loading.gif" class="loading" wx:else></image>
+          </view>
+          <text class="label">保存分享图</text>
+        </view>
+      </view>
+
+      <view class="distribute-action">
+        <button class="share-friend share-btn" bindtap="handleSaveShare">
+          <image src="../../images/wx-icon@2x.png" class="icon-wechat"></image>
+          <text class="label">微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/icon-save@2x.png" class="icon-save"></image>
+          <text class="label">{{ posterBtnText }}</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
 
 </view>

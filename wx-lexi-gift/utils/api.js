@@ -35,6 +35,7 @@ module.exports = {
   market_share_invite_carde: 'market/share/invite_card', // 邀请好友开馆的卡片
   market_share_window_poster: 'market/share/shop_window_poster', // 分享橱窗海报
   market_share_product_card:'market/share/product_card', // 分享商品的图片生成
+  market_gift_share_card: 'yiyuan/product_card', // 分享活动卡片
 
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息

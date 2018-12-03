@@ -281,7 +281,19 @@ App({
    * 分享小程序
    */
   shareWxaGift () {
+    let jwt = wx.getStorageSync('jwt')
 
+    // scene格式：sid + '-' + uid
+    let scene = jwt.uid
+    
+    return {
+      title: '让有趣变得流行',
+      path: 'pages/index/index?scene=' + scene,
+      imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
+      success: (res) => {
+        utils.logger(res, '分享成功!')
+      }
+    }
   },
 
   /**
