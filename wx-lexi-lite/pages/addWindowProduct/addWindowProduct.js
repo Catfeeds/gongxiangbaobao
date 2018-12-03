@@ -134,7 +134,6 @@ Page({
       openid: openid
     }, result => {
       utils.logger(result, "产品详情")
-      console.log(result, "产品详情")
       if (result.success) {
         this.setData({
           productPhoto: result.data.images,

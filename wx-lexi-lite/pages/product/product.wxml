@@ -131,7 +131,7 @@
         <text class='titlemini'>亮点：</text>
         <text>{{ productInfomation.features }}</text>
       </view>
-      <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
+      <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_name!=null && productInfomation.material_name}}">
         <text class='titlemini'>材质：</text>
         <text>{{ productInfomation.material_name }}</text>
       </view>
@@ -351,9 +351,9 @@
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
-        <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
+        <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_name!=null && productInfomation.material_name}}">
           <text class='titlemini'>材质：</text>
-          <text>{{productInfomation.material_id}}</text>
+          <text>{{productInfomation.material_name}}</text>
         </view>
         <view class='goodstext margin-bottom--12rpx' wx:if='{{productInfomation.is_custom_service}}'>
           <text class='titlemini'>特点： </text>
