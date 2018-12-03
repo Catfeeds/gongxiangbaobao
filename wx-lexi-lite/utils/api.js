@@ -28,6 +28,7 @@ module.exports = {
   market_is_new_user_bonus:'market/is_new_user_bonus',// 新人是否领取100元红包
   market_grant_new_user_bonus: 'market/grant_new_user_bonus', // 新人领取100元红包
   users_get_visitor_life_stores:'users/get_visitor_life_stores', // 访问过的生活馆
+  market_share_store_poster:'market/share/store_poster', // 分享生活馆
 
   // Asset
   asset_upload: 'assets/upload', // POST 上传附件

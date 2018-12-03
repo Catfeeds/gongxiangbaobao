@@ -26,14 +26,12 @@
       <text class='product-info__title'>{{productTop.name}}</text>
     </view>
     <view class='branderInfo margin-bottom--22rpx'>
-
       <text class='cureentPrice'> <text>￥{{productTop.min_sale_price!=productTop.min_price && productTop.min_sale_price!=0?productTop.min_sale_price:productTop.min_price}}</text> </text>
       <text class='origPrice' wx:if="{{productTop.min_sale_price!=0}}">￥{{productTop.min_price}}</text>
     </view>
-    <!-- wx:for='{{productInfomation.labels}}' -->
-    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productTop.labels.length > 0 }}">
-      <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
-      <text wx:for="{{productTop.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
+
+    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productInfomation.labels.length > 0 }}">
+      <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
           <text wx:if="{{index!=0}}"> · </text>
       <text>{{item.name}}</text>
       </text>
@@ -107,7 +105,7 @@
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
 
-    <view class='ordertext' wx:if="{{productInfomation.made_cycle>0}}">“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
+    <view class='ordertext' wx:if="{{productInfomation.is_custom_made}}">“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
 
   </view>
 
@@ -326,7 +324,7 @@
     <view class='small-bottom__style flex_row bg-white' wx:if="{{!productTop.is_sold_out && productTop.status!=2}}">
       <view class='view flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
       <view catchtap="handlePickShow" class='view flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
-        <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
+        <text>{{productInfomation.is_custom_made?'接单订制':'购买'}}</text>
       </view>
     </view>
 

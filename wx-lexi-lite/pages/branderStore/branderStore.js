@@ -475,7 +475,7 @@ Page({
 
       // 如果没有海报的就获取
       if (!this.data.shareBrandPhotoUrl) {
-        http.fxPost(api.wxa_poster, params, result => {
+        http.fxPost(api.market_share_store_poster, params, result => {
           if (result.success) {
             this.setData({
               shareBrandPhotoUrl: result.data.image_url
