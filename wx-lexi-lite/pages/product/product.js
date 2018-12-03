@@ -1650,9 +1650,9 @@ Page({
   handleOpenOfficialBox() {
     let agent = this.data.isShowOfficial
     if (agent) {
-      agent = true
-    } else {
       agent = false
+    } else {
+      agent = true
     }
 
     this.setData({
