@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.2",
+	"libVersion": "2.4.0",
 	"appid": "wxdb87730456842ea2",
 	"projectname": "wx-lexi-gift",
 	"debugOptions": {
@@ -27,13 +27,78 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "参与的",
+					"pathName": "pages/userLottery/userLottery",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/user/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "送出的",
+					"pathName": "pages/userSend/userSend",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "收到的",
+					"pathName": "pages/userReceive/userReceive",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "领取",
+					"pathName": "pages/pickGift/pickGift",
+					"query": "rid=Y18112859378"
+				},
+				{
+					"id": -1,
+					"name": "地址管理",
+					"pathName": "pages/addressList/addressList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新增地址",
+					"pathName": "pages/addressEdit/addressEdit",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "领取成功",
+					"pathName": "pages/pickSuccess/pickSuccess",
+					"query": "rid=Y18112859378"
+				},
+				{
+					"id": -1,
+					"name": "更多送礼",
+					"pathName": "pages/lotteryList/lotteryList",
+					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "参与",
+					"pathName": "pages/lottery/lottery",
+					"query": "rid=Y18112859378"
+				}
+			]
 		}
 	}
 }

@@ -1,13 +1,137 @@
-<!--index.wxml-->
+<!--pages/give/give.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <view class="gift-banner">
+    <view class="title">赠送好友礼物</view>
+    <view class="desc">邀请好友访问你的生活馆</view>
+    <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
+      <button class="btn-rule" formType="submit">活动规则</button>
+    </form>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+
+  <!-- 当前礼物 -->
+  <view class="gift-product">
+    <view class="product-box">
+      <image src="{{ currentActivity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.assets.length > 0 }}"></image>
+      <view class="product-info">
+        <view class="name">{{ currentActivity.product_name }}</view>
+        <view class="price">
+          <text class="sale-price">￥1</text>
+          <text class="old-price" wx:if="{{ currentActivity.sale_price > 0 }}">￥{{ currentActivity.sale_price }}</text>
+          <text class="old-price" wx:else>￥{{ currentActivity.price }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="product-images">
+      <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index < 4 && index > 0 }}" class="asset"></image>
+    </view>
   </view>
+
+  <!-- 设置选项 -->
+  <view class="gift-setting">
+    <view class="lottery">
+      <image src="../../images/icon-gift-box@2x.png" class="icon-gift-box"></image>
+      <view class="lottery-summary">
+        <view class="title">达到设定参与人数自动开奖</view>
+        <view class="sub-title">随机抽取一人获得礼物</view>
+      </view>
+    </view>
+
+    <view class="form-people">
+      <image src="../../images/icon-people@2x.png" class="icon-people"></image>
+      <input type="number" placeholder="设定参与人数（不低于20人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
+    </view>
+
+    <view class="form-days">
+      <image src="../../images/icon-days@2x.png" class="icon-days"></image>
+      <picker class="form-picker" bindchange="handlePickerChange" value="{{ days[idx] }}" range="{{ days }}">
+        <view class="picker pholder" wx:if="{{ idx == '' }}">
+          <view class="days-number">设置活动天数</view>
+          <view class="days-arraw">
+            <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
+          </view>
+        </view>
+        <view class="picker" wx:else>
+          <view class="days-number">{{ days[idx] }}天</view>
+          <view class="days-arraw">
+            <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
+          </view>
+        </view>
+      </picker>
+    </view>
+
+
+    <view class="form-blessing">
+      <image src="../../images/icon-edit@2x.png" class="icon-edit"></image>
+      <input placeholder="填写心愿祝福语（限12个字）" bindfocus="handleValidateLogin" bindblur="handleBlessing" maxlength="12" value="{{ form.blessing }}" class="form-input" />
+    </view>
+
+  </view>
+
+  <!-- 领取结果 -->
+  <view class="gift-result" wx:if="{{ partakePeopleCount }}">
+    <view class="got-result">
+      <view class="title">{{ partakePeopleCount }}位领取成功</view>
+
+      <view class="got-people">
+        <view class="people-item" wx:for="{{ partakePeople }}" wx:for-item="people" wx:key="{{ people.user_sn }}">
+          <image src="{{ people.user_logo }}-ava50" class="icon-avatar" wx:if="{{ people.user_logo }}"></image>
+          <view class="name">{{ people.user_name }}</view>
+          <view class="date">{{ people.receive_at }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 支付按钮 -->
+  <view class="give-button" bindtap="handleSubmitActivity">
+    花一元送好友
+  </view>
+
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ showLoginModal }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+
+  <!-- 规则 -->
+  <fx-modal-v class="fx-modal--rule" className="fx-modal--rule" visible="{{ showRuleModal }}" marginTop="100">
+    <view class="rule-title">
+      <view class="quote-left">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+      </view>
+      <view class="title">详细规则</view>
+      <view class="quote-right">
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+    </view>
+    <view class="rule-content">
+      <view class="item">
+        <view class="number">1</view>
+        <view class="txt">每人同时仅能发起一个活动，所发起活动结束后才可再次发起。</view>
+      </view>
+      <view class="item">
+        <view class="number">2</view>
+        <view class="txt">每个用户最多可同时参与三个活动抽奖。</view>
+      </view>
+      <view class="item">
+        <view class="number">3</view>
+        <view class="txt">中奖者需在3日内领取礼物，填写收货地址，提交后即可发货，过期将做失效处理。</view>
+      </view>
+      <view class="item">
+        <view class="number">4</view>
+        <view class="txt">每次参与的抽奖组队人满根据设定的开奖时间自动开奖，每一种礼物奖品有限，送完截止。系统自动更换新的礼物奖品。</view>
+      </view>
+      <view class="item">
+        <view class="number">5</view>
+        <view class="txt">开奖后，可能由于系统数据更新延迟问题，可能存在被奖品已被领完问题。系统会送出中奖者同等价值的奖品。</view>
+      </view>
+      <view class="item">
+        <view class="number">6</view>
+        <view class="txt">中奖者所收到的礼物，不支持退换货。</view>
+      </view>
+      <view class="item">
+        <view class="number">7</view>
+        <view class="txt">对存在异常恶意操作的帐号，官方有权进行处理，乐喜对活动拥有最终解释权。</view>
+      </view>
+    </view>
+  </fx-modal-v>
+
 </view>

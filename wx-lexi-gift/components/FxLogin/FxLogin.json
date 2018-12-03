@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-login-modal": "/components/FxLoginModal/FxLoginModal"
+  }
+}

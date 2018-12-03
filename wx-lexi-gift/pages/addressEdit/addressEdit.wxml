@@ -1,0 +1,102 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+
+<view class="container">
+  <!-- 地址表单 -->
+  <view class="address-form">
+
+    <view class="form-item">
+      <input placeholder-class="phcolor" class="form-input" placeholder='收件人真实姓名' bindblur="handleUserName" value="{{ form.first_name }}"></input>
+    </view>
+
+    <view class="form-item">
+      <input placeholder-class="phcolor" class="form-input" placeholder='手机号' bindblur="handleMobile" value="{{ form.mobile }}"></input>
+    </view>
+
+    <view class="form-item">
+      <picker bindchange="handleChangeCountry" range="{{ countryList }}" value="{{ countryIndex }}" range-key='name'>
+        <view class="picker">
+          <view class="country">选择国家：{{ countryList[countryIndex].name }}</view>
+          <image src="../../images/icon-arrow@2x.png" class="icon-arrow"></image>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <!-- 省/市/区 -->
+      <picker mode="multiSelector" bindchange="handleRegionsChange" bindcolumnchange="handleRegionColumnChange" value="{{ multiIndex }}" range="{{ regions }}" range-key="name">
+        <view class="picker">
+          <view class="country">省/市/区：</view>
+          <text class="street" wx:if="{{ loaded }}">{{ regions[0][multiIndex[0]].name }}，{{ regions[1][multiIndex[1]].name }}<text wx:if="{{ regions.length == 3 }}">，{{ regions[2][multiIndex[2]].name }}</text></text>
+
+          <image src="../../images/icon-arrow@2x.png" class="icon-arrow"></image>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <textarea value='{{ form.street_address }}' maxlength="150" placeholder-class="phcolor" placeholder='详细地址' class="form-textarea" bindblur="handleStreetInfo"></textarea>
+    </view>
+
+    <view class="form-item">
+      <input bindblur="handleZipCode" class="form-input" placeholder-class="phcolor" placeholder='邮政编码' value='{{ form.zipcode }}' type='number'></input>
+    </view>
+
+    <!-- 海关照片信息 -->
+    <view class="custom-wrapper" wx:if="{{ needUserCustom == 1 }}">
+      <view class="title">海关政策要求，请填写身份证。加密保存，仅用于海关清关</view>
+      <view class="form-item">
+        <input bindinput="handleIdCardChange" class="form-input" placeholder-class="phcolor" placeholder="填写收件人身份证" value='{{ form.id_card }}' type='number'></input>
+      </view>
+      <view class="form-photo">
+        <view class="photo-upload" data-type="front" bindtap="handleUploadIdCard">
+          <view class="upload-box" wx:if="{{ !id_card_front_image }}">
+            <!-- 进度条 -->
+            <view class="upload-status__box" wx:if="{{ isUploadingFront }}">
+              <view class="progress" style="width:{{ uploadFrontStatus }}%"></view>
+            </view>
+            <view class="plus" wx:if="{{ !isUploadingFront }}">+</view>
+          </view>
+          <view class="photo-have" wx:if="{{ id_card_front_image }}">
+            <image src="{{ id_card_front_image }}"></image>
+            <image class="shui-yin" src="https://static.moebeast.com/image/static/Watermark.png"></image>
+          </view>
+          <view class="label">清晰正面照片</view>
+        </view>
+
+        <view class="photo-upload" data-type='back' bindtap='handleUploadIdCard'>
+          <view class="upload-box" wx:if="{{ !id_card_back_image }}">
+            <view class="upload-status__box" wx:if="{{ isUploadingBack }}">
+              <view class="progress" style='width:{{ uploadBackStatus }}%'> </view>
+            </view>
+            <view class="plus" wx:if="{{ !isUploadingBack }}">+</view>
+          </view>
+          <view class="photo-have" wx:else>
+            <image src='{{ id_card_back_image }}'></image>
+            <image class="shui-yin" src="https://static.moebeast.com/image/static/Watermark.png"></image>
+          </view>
+          <view class="label">清晰反面照片</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item set-default">
+      <view class="label">设置为默认地址</view>
+      <switch class="switch" size="10" color="#6ED7AF" checked='{{ form.is_default }}' bindchange="handleDefaultChange" />
+    </view>
+  </view>
+
+  <!-- 保存地址 -->
+  <view class="gift-share-wrapper" catchtap="handleSubmitAddress">
+    <button class="btn-share">保存</button>
+  </view>
+
+  <!-- 身份证拍摄呼出 -->
+  <view class='cameraOrPhoto' wx:if="{{ is_cameraOrPhoto }}">
+    <view class='cameraOrPhoto-top'>
+      <view class='camera'>拍摄身份证</view>
+      <view>从相册选择身份证</view>
+    </view>
+    <view class='cameraOrPhoto-bottom' catchtap='pickCameraOrPhoto'>取消</view>
+  </view>
+
+</view>

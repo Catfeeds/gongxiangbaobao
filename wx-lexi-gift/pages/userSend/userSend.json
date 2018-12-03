@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我送出的礼物",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
+}

@@ -1,0 +1,191 @@
+/* pages/user/user.wxss */
+.user-login--wrapper {
+  display: flex;
+  align-items: center;
+  width: 750rpx;
+  background-color: #fff;
+}
+
+.user-login--wrapper .user-avatar {
+  flex: 0 0 auto;
+  width: 124rpx;
+  height: 124rpx;
+  margin-left: 30rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-login--wrapper .user-info {
+  flex: 1;
+}
+
+.user-login--wrapper .user-info .user-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+  line-height: 36rpx;
+  margin-bottom: 15rpx;
+}
+
+.user-login--wrapper .user-info .user-desc {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 26rpx;
+}
+
+.user-login--wrapper .user-action {
+  flex: 0 0 auto;
+  margin-right: 30rpx;
+}
+
+.user-login--wrapper .user-action .btn-login {
+  width: 113rpx;
+  height: 60rpx;
+  background: rgba(95, 228, 177, 1);
+  box-shadow: 0rpx 3rpx 13rpx 0rpx rgba(95, 228, 177, 0.42);
+  border-radius: 6rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 60rpx;
+}
+
+.user-login--wrapper .user-action .btn-address {
+  width: 172rpx;
+}
+
+.fx-menus {
+  width: 750rpx;
+  padding: 60rpx 0 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #fff;
+}
+
+.fx-menus .fx-menu__item {
+  text-align: center;
+  flex: 33.3333%;
+  border-right: 1rpx solid #e9e9e9;
+  position: relative;
+}
+
+.fx-menus .fx-menu__item:last-child {
+  border-right-width: 0;
+}
+
+.fx-menus .fx-menu__item .count {
+  font-size: 40rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.fx-menus .fx-menu__item .label {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 24rpx;
+}
+
+.link-lexi {
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+  background-color: #fff;
+  width: 750rpx;
+}
+
+.link-lexi .go-lexi {
+  width: 690rpx;
+  height: 160rpx;
+  margin-left: 30rpx;
+}
+
+.link-lexi .follow-notice {
+  width: 690rpx;
+  height: 60rpx;
+  background: rgba(255, 243, 234, 1);
+  border-radius: 8rpx;
+  display: flex;
+  margin-left: 30rpx;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.link-lexi .follow-notice .follow-text {
+  flex: 1;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 28rpx;
+  margin-left: 20rpx;
+}
+
+.link-lexi .follow-notice .btn-follow {
+  flex: 0 0 auto;
+  margin-right: 20rpx;
+  width: 150rpx;
+  height: 40rpx;
+  background: rgba(255, 243, 234, 1);
+  border-radius: 20rpx;
+  border: 1rpx solid #f66;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(255, 102, 102, 1);
+  line-height: 38rpx;
+}
+
+.link-menus {
+  display: flex;
+  background-color: #fff;
+  width: 750rpx;
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.link-menus .link-menu__item {
+  flex: 50%;
+  display: flex;
+  align-items: center;
+  padding: 35rpx 0;
+  border-right: 1rpx solid #e9e9e9;
+}
+
+.link-menus .link-menu__item:last-child {
+  border-width: 0;
+}
+
+.link-menu__item .menu-box {
+  flex: 1;
+  margin-left: 30rpx;
+}
+
+.link-menu__item .menu-box .name {
+  font-size: 31rpx;
+  font-weight: 600;
+  color: rgba(126, 174, 156, 1);
+  line-height: 28rpx;
+  margin-bottom: 14rpx;
+}
+
+.link-menu__item .menu-box .desc {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 22rpx;
+}
+
+.link-menu__item .image {
+  flex: 0 0 auto;
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 20rpx;
+}
+
+.link-menu__item .image .icon {
+  width: 100rpx;
+  height: 100rpx;
+}

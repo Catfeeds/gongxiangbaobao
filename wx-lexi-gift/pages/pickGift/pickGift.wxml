@@ -1,0 +1,39 @@
+<!--pages/pickGift/pickGift.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <!-- 收货人 -->
+  <view class="receiver-wrapper" bindtap="handleChooseAddress">
+    <view class="receiver" wx:if="{{ hasAddress }}">
+      <view class="user">
+        <view class="name">收货人：{{ currentAddress.full_name }}</view>
+        <view class="phone">{{ currentAddress.mobile }}</view>
+      </view>
+      <view class="address">
+        {{ currentAddress.country_name }}{{ currentAddress.province }}{{ currentAddress.city }}{{ currentAddress.town }}{{ currentAddress.street_address }}
+      </view>
+    </view>
+    <view class="receiver-empty" wx:else>
+      选填写收货地址
+    </view>
+    <view class="arrow">
+      <image src="../../images/icon-arrow@2x.png" class="icon"></image>
+    </view>
+  </view>
+
+  <!-- 礼物 -->
+  <view class="gift-wrapper">
+    <view class="gift-image">
+      <image src="{{ currentActivity.product.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.product.assets.length }}"></image>
+    </view>
+    <view class="gift-product">
+      <view class="name">{{ currentActivity.product.product_name }}</view>
+      <view class="mode"></view>
+      <view class="quantity">x1</view>
+    </view>
+  </view>
+
+  <view class="gift-share-wrapper">
+    <button class="btn-share" bindtap="handleSubmitGot">{{ btnText }}</button>
+  </view>
+
+</view>

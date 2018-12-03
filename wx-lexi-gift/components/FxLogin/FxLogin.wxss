@@ -1,0 +1,20 @@
+.login-method {
+  background-color: #fff;
+  padding: 40rpx;
+}
+.login-method .fx-button {
+  margin-bottom: 40rpx;
+}
+.login-method .fx-button.primary {
+  background-color: #5FE4B1;
+  color: #fff;
+}
+.fx-button {
+  border-radius: 8rpx;
+  padding: 25rpx 0rpx;
+  font-size: 28rpx;
+  line-height: 1;
+}
+.fx-button.default {
+  border: 1rpx solid rgba(233, 233, 233, 1)
+}

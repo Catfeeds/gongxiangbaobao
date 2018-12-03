@@ -1,0 +1,89 @@
+<!--pages/user/user.wxml-->
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <!-- 未登录状态 -->
+  <view class="user-login--wrapper user-login--no" wx:if="{{ !isLogin }}">
+    <view class="user-avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="user-info">
+      <view class="user-name">登录/注册</view>
+      <view class="user-desc">点击登录乐喜</view>
+    </view>
+    <view class="user-action">
+      <button class="btn-login" bindtap="handleGoLogin">登录</button>
+    </view>
+  </view>
+
+  <!-- 登录状态 -->
+  <view class="user-login--wrapper" wx:else>
+    <image src="{{ userInfo.avatar }}-ava50" class="user-avatar" wx:if="{{ userInfo.avatar }}"></image>
+    <view class="user-info">
+      <view class="user-name">{{ userInfo.username }}</view>
+      <view class="user-desc">乐喜生活馆主</view>
+    </view>
+    <view class="user-action">
+      <button class="btn-login btn-address" bindtap="handleGoAddress">地址管理</button>
+    </view>
+  </view>
+
+  <!-- 我参与的 -->
+  <view class="fx-menus">
+    <view class="fx-menu__item" bindtap="handleGoLottery">
+      <view class="count">{{ collectCount.join_activity }}</view>
+      <view class="label">我参与的抽奖</view>
+    </view>
+    <view class="fx-menu__item" bindtap="handleGoSended">
+      <view class="count">{{ collectCount.my_activity }}</view>
+      <view class="label">我送出的礼物</view>
+    </view>
+    <view class="fx-menu__item" bindtap="handleGoReceive">
+      <view class="count">{{ collectCount.receive_activity }}</view>
+      <view class="label">我收到的礼物</view>
+    </view>
+  </view>
+
+  <!-- 生活馆主 -->
+  <view class="link-lexi" wx:if="{{ isStoreOwner }}">
+    <view class="follow-notice">
+      <view class="follow-text">
+        关注乐喜生活馆公众号，实时接收订单消息
+      </view>
+      <button class="btn-follow">立即关注</button>
+    </view>
+
+    <image src="../../images/join-group@2x.png" class="go-lexi"></image>
+  </view>
+
+  <!-- 跳转核心小程序 -->
+  <navigator wx:if="{{ !isStoreOwner }}" class="link-lexi" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+    <image src="../../images/link-lexi@2x.png" class="go-lexi"></image>
+  </navigator>
+
+  <!-- 菜单项 -->
+  <view class="link-menus">
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index?sid=" extra-data="lexi-gift" version="release">
+      <view class="menu-box">
+        <view class="name">乐喜生活馆</view>
+        <view class="desc">零成本开店赚取收益</view>
+      </view>
+      <view class="image">
+        <image src="../../images/icon-life-store@2x.png" class="icon"></image>
+      </view>
+    </navigator>
+
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/games/pages/guessGame/guessGame" extra-data="lexi-gift" version="release">
+      <view class="menu-box">
+        <view class="name">猜图赢现金</view>
+        <view class="desc">200000人正在参与</view>
+      </view>
+      <view class="image">
+        <image src="../../images/icon-guess@2x.png" class="icon"></image>
+      </view>
+    </navigator>
+  </view>
+
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ showLoginModal }}" bind:closeEvent="hanleOffLoginBox"></fx-login>
+
+</view>

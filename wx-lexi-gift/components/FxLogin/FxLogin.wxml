@@ -1,0 +1,15 @@
+<fx-modal title="授权登录" visible="{{ visible }}">
+  <view class="fx-modal__main" slot="main">
+    <view class="login-method">
+      <button wx:if="{{ canIUse }}" class="fx-button primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用验证码绑定手机号</button>
+      <button class="fx-button default" open-type="getPhoneNumber" bindgetphonenumber="handleGotPhoneNumber">使用微信授权一键绑定手机号</button>
+      
+    </view>
+  </view>
+</fx-modal>
+
+<!-- 登陆注册模态框 -->
+<fx-login-modal 
+  visible="{{ showBindForm }}"
+  bind:closeEvent="handleCloseLogin">
+</fx-login-modal>

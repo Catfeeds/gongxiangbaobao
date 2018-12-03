@@ -1,0 +1,28 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <view class="gift-list">
+
+    <view class="gift-item" wx:for="{{ activityList }}" wx:for-item="activity" wx:key="{{ activity.activity_rid }}">
+      <view class="gift-item__body">
+        <image src="{{ activity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ activity.assets.length > 0 }}"></image>
+        <view class="gift-product">
+          <view class="title">{{ activity.product_name }}</view>
+          <view class="user">
+            <image src="{{ activity.user_logo }}-ava50" class="avatar" wx:if="{{ activity.user_logo }}"></image>
+            <view class="name">{{ activity.user_name }}</view>
+            <view class="desc">发起</view>
+          </view>
+          <view class="progress">
+            <view class="reach-count">满{{ activity.full_count }}人开奖</view>
+            <view class="now-count">已参与{{ activity.join_count }}人</view>
+          </view>
+        </view>
+      </view>
+      <view class="gift-item__foot">
+        <button class="fx-btn fx-btn--primary btn-lottery" data-rid="{{ activity.activity_rid }}" bindtap="handleGoLottery">立即参与</button>
+      </view>
+    </view>
+
+  </view>
+
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "热门送礼",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
+}

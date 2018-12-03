@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我参与的抽奖",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
+}
