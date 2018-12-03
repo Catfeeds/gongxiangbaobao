@@ -12,9 +12,9 @@ Page({
    */
   data: {
     isLoading: true,
-    isLoadProductShow: true,// 加载页面的图标
+    isLoadProductShow: true, // 加载页面的图标
     isNext: true, // 是否有下一页
-    dataList: [], // 创作人故事列表
+    dataList: [], // 列表
     params: {
       page: 1, // Number	可选	1	当前页码
       per_page: 10 // Number	可选	10	每页数量
@@ -36,14 +36,23 @@ Page({
     }
   },
 
+  // 获取列表详情
   getData() {
     http.fxGet(api.life_records_grass_note, this.data.params, (result) => {
       utils.logger(result, '种草清单')
+      console.log(result, '种草清单')
       if (result.success) {
+        let arrayData = this.data.dataList
+        if (this.data.params.page==1){
+          arrayData = result.data.life_records
+        }else{
+          arrayData = arrayData.concat(result.data.life_records)
+        }
+
         this.setData({
-          dataList: result.data.life_records,
+          dataList: arrayData,
           isNext: result.data.next,
-          isLoadProductShow:false
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -68,7 +77,7 @@ Page({
 
     this.setData({
       ['params.page']: this.data.params.page + 1,
-      isLoadProductShow:true
+      isLoadProductShow: true
     })
 
     this.getData()
@@ -84,7 +93,7 @@ Page({
         readyOver: true,
         isLoading: false
       })
-    }, 350)
+    }, 1000)
   },
 
   /**
@@ -121,5 +130,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })

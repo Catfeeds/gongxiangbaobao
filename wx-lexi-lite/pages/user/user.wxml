@@ -1,7 +1,7 @@
 <!--pages/user/user.wxml-->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class='container  user-container'>
-  <view class="fx-submenu" wx:if="{{ haveSmallB }}">
+  <view class="fx-submenu top-fixed__box" wx:if="{{ haveSmallB }}">
     <view class="submenu {{ activeSubMenu == 'user' ? 'active' : ''}}">
       <text>个人主页</text>
       <view class="arrow"></view>
@@ -11,6 +11,8 @@
       <view class="arrow"></view>
     </view>
   </view>
+  <!-- 顶部垫片 -->
+  <view class="user-top__shim" wx:if="{{haveSmallB}}"></view>
 
   <view class='top-box'>
     <!-- 头像 -->

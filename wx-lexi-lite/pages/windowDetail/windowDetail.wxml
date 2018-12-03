@@ -5,17 +5,17 @@
     <view class="fx-window">
       <view class="fx-window__author">
         <view class="author-info">
-          <image src="{{ windowDetail.user_avatar }}-ava" class="avatar" wx:if="{{ windowDetail.user_avatar }}"></image>
-          <label class="name">{{ windowDetail.user_name }}</label>
+          <image src="{{ windowDetail.user_avatar }}-ava" class="avatar" wx:if="{{ windowDetail.user_avatar }}" data-uid="{{windowDetail.uid}}" catchtap="handleGoPeople"></image>
+          <label data-uid="{{windowDetail.uid}}" catchtap="handleGoPeople" class="name">{{ windowDetail.user_name }}</label>
           <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ windowDetail.is_expert }}"></image>
           <image src="../../images/icons/icon-offical@3x.png" class="icon-offical" wx:if="{{ windowDetail.is_official }}"></image>
         </view>
-        <block wx:if="{{ !windowDetail.is_official }}">
+        <block wx:if="{{ !windowDetail.is_official && myUid!=windowDetail.uid}}">
           <view class="fx-mini-btn round follow primary c-middle add-follow__btn" catchtap="handleAddFollow" wx:if="{{!windowDetail.is_follow&& myUid!=windowDetail.uid}}">关注</view>
           <view class="fx-mini-btn round follow primary c-middle add-follow__btn  follow-over__btn" catchtap="handleDeleteFollow" wx:if="{{windowDetail.is_follow}}">已关注</view>
         </block>
       </view>
-
+      <!-- 回到首页 -->
       <view class="back-home-container" catchtap="handleBackHome" wx:if="{{ showHomeBtn }}">
         <image src="../../images/icon-home-back@2x.png" class="icon-back-home"></image>
       </view>
@@ -184,11 +184,8 @@
                 <text class='theme-green'>共{{ items.sub_comment_count }}条回复</text>
               </view>
             </view>
-
           </view>
-
         </view>
-
       </view>
 
       <!-- 查看全部 -->

@@ -11,6 +11,7 @@ Page({
    */
   data: {
     backBtnIsShow: false, // 回到顶部按钮
+    pickIsFixed: false, // 筛选是否吸附 
 
     isLoading: true,
     isLoadProductShow: true, // 加载更多商品
@@ -49,7 +50,8 @@ Page({
       sort_type: 1, // Number	可选	0	排序: 0= 不限, 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
       is_free_postage: '', // Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential: '', // Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
-      is_custom_made: '' // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+      is_custom_made: '', // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+      sort_newest: 0, //是否按最新排序: 0 = 否, 1= 是
     },
 
     // 推荐
@@ -201,7 +203,6 @@ Page({
 
     this.setData({
       categoryList: _categories,
-      productList: [],
       'params.cids': _checkedCids.join(','),
       'params.page': 1
     })
@@ -255,10 +256,15 @@ Page({
     http.fxGet(api.category_products, this.data.params, (result) => {
       if (result.success) {
         let data = this.data.productList
-        result.data.products.forEach((v, i) => {
-          data.push(v)
-        })
-
+        if (this.data.params.page == 1) {
+          data = result.data.products
+          this.setData({
+            productList:[]
+          })
+        } else {
+          data = data.concat(result.data.products)
+        }
+        
         this.setData({
           isNext: result.data.next,
           productList: data,
@@ -276,6 +282,9 @@ Page({
    * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     utils.logger(options)
     wx.setNavigationBarTitle({
       title: options.titleName,
@@ -308,7 +317,6 @@ Page({
   // 获取排序的产品
   handleSort(e) {
     this.setData({
-      productList: [],
       ['params.page']: 1,
       ['params.sort_type']: e.currentTarget.dataset.rid
     })
@@ -364,6 +372,26 @@ Page({
     })
   },
 
+  // 处理是否选择xinpin
+  handleIsPickNew() {
+    let agent = this.data.params.sort_newest
+    if (agent == 0) {
+      agent = 1
+      this.setData({
+        'params.sort_type': 1,
+      })
+    } else {
+      agent = 0
+    }
+
+    this.setData({
+      'params.sort_newest': agent,
+      'params.page': 1
+    })
+
+    this.getcategoryList()
+  },
+
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -416,6 +444,25 @@ Page({
         })
       }
     }
+
+    // 综合排序是否吸附
+    if (e.scrollTop >= 38) {
+      if (!this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: true
+        })
+      }
+    }
+
+    if (e.scrollTop < 38) {
+      if (this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: false
+        })
+      }
+    }
+
+
   },
 
   /**

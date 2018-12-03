@@ -1,6 +1,11 @@
 <!--pages/gatherInfo/gatherInfo.wxml-->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
+  <!-- 回到首页 -->
+  <view class="back-home-container" catchtap="handleBackHome" wx:if="{{ showHomeBtn }}">
+    <image src="../../images/icon-home-back@2x.png" class="icon-back-home"></image>
+  </view>
+
   <view class="gather-hander__photo">
     <image mode="widthFix" src="{{product.cover}}"></image>
     <view class='bg-black__half'></view>

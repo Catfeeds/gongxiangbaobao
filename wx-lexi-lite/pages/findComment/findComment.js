@@ -88,7 +88,6 @@ Page({
       value,
       cursor
     } = e.detail
-    console.log(value, cursor)
     // 记录最后一次输入的光标位置
     lastCursorIndex = cursor
 
@@ -104,12 +103,8 @@ Page({
     let moji = '[' + e.currentTarget.dataset.ele + ']'
     let offsetIndex = moji.length
 
-    console.log(moji)
-
     let _content = this.data.form.content.slice(0, lastCursorIndex) + moji + this.data.form.content.slice(lastCursorIndex)
     lastCursorIndex += offsetIndex
-
-    console.log(_content)
 
     this.setData({
       'form.content': _content
@@ -251,10 +246,8 @@ Page({
    */
   _handleParentPraise(e) {
     let router = getCurrentPages()
-    console.log(router)
     let ParentPage = router[router.length - 2]
-    console.log(ParentPage, '现在的页面')
-    if (ParentPage.route == 'pages/plantNoteInfo/plantNoteInfo') {
+    if (ParentPage.route == 'pages/plantNoteInfo/plantNoteInfo' || ParentPage.route == 'pages/findInfo/findInfo') {
       if (e == 'add') {
         ParentPage.setData({
           'liveInfo.is_praise': true,
@@ -421,7 +414,6 @@ Page({
   getComments() {
     http.fxGet(api.life_records_comments, this.data.params, result => {
       utils.logger(result, '获取评论')
-      console.log(result, '获取评论')
       if (result.success) {
         result.data.comments.forEach((v, i) => {
           v.content_list = emojiFn.emojiAnalysis([v.content])
@@ -464,7 +456,9 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options, '写评论')
-    console.log(options, '写评论')
+    // 检测网络
+    app.ckeckNetwork()
+    
     // 设置评论表情
     let list = [
       '[\u5fae\u7b11][\u6487\u5634][\u8272][\u53d1\u5446][\u5f97\u610f][\u6d41\u6cea][\u5bb3\u7f9e][\u95ed\u5634][\u7761][\u5927\u54ed][\u5c34\u5c2c][\u53d1\u6012][\u8c03\u76ae][\u5472\u7259][\u60ca\u8bb6][\u96be\u8fc7][\u9177][\u51b7\u6c57][\u6293\u72c2][\u5410][\u5077\u7b11][\u6109\u5feb][\u767d\u773c][\u50b2\u6162][\u9965\u997f][\u56f0][\u60ca\u6050][\u6d41\u6c57][\u61a8\u7b11][\u60a0\u95f2][\u594b\u6597][\u5492\u9a82]',

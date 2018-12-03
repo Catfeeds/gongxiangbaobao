@@ -549,6 +549,8 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options)
+    // 检测网络
+    app.ckeckNetwork()
 
     //编辑推荐 首页的探索
     if (options.from == 'editRecommend') {

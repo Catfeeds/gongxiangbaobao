@@ -213,7 +213,7 @@
       </view>
       <view class='production new-goods_box'>
         <view class='productionGoods {{ (index+1)%5 == 0 ? "productionGoodsFive" : "" }}' wx:for="{{ popularProducts }}" wx:key='{{ item.rid }}'>
-          <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3'}}" photoSize="{{(index+1)%5==0?'50':'30'}}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
+          <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3'}}" oldPrice="{{true}}" photoSize="{{(index+1)%5==0?'50':'30'}}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
         </view>
       </view>
     </view>
@@ -242,7 +242,7 @@
     </view>
 
     <!-- 开店指引 -->
-    <view class="setUpShop-guide border-radius--8" wx:if="{{ !isSmallB }}">
+    <view class="setUpShop-guide border-radius--8 {{isSmallB?'play-life__store--hidden':''}}">
       <view class='time-top setUpShop-guide__top border-bottom'>
         <view class='' wx:if="{{ runEnv == 2 }}">
           <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
@@ -420,7 +420,7 @@
       </view>
       <view class='production new-goods_box'>
         <view wx:if="{{index<4}}" class='productionGoods' wx:for="{{lexiPick.products}}" wx:key='{{index}}'>
-          <fx-product product="{{item}}" photo="{{3}}" like_number="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
+          <fx-product product="{{item}}" photo="{{3}}" like_number="{{true}}" oldPrice="{{true}}" bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>
     </view>
@@ -576,7 +576,7 @@
 
           <image wx:else class="border-radius--8 {{readyOver?'load-over__null--photo':'loading-bg'}}"></image>
           <view class='bg-black__half'>
-            <image src='../../images/bg-hei.png'></image>
+            <image src="https://static.moebeast.com/image/static/bg-hei.png"></image>
           </view>
           <view class='competitive-pick-icon font-xss shen-hui c-middle'>精选</view>
           <view class='all-product_geishei font--white black-font'>{{item.name}}</view>

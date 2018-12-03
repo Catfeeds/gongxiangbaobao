@@ -151,7 +151,7 @@
               <view class='padding-bottom--10rpx'>寄送地址</view>
               <view class='black-font theme-color padding-bottom--10rpx'>{{item.buyer_name}}</view>
               <view class='padding-bottom--10rpx'>{{item.buyer_city}}{{item.buyer_address}}</view>
-              <view class=''>{{item.buyer_country}},{{item.buyer_province}},{{item.buyer_city}} {{item.buyer_zipcode}}</view>
+              <view class=''>{{item.buyer_country}},{{item.buyer_province}},{{item.buyer_city}} {{item.buyer_town}} {{item.buyer_zipcode}}</view>
             </view>
             <view class='black-font'>{{item.buyer_phone}}</view>
           </view>

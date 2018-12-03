@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showHomeBtn: false, // 是否回到首页的按钮
+
     isLoading: true,
     otherPeopleUid: [], // 其他人的uid
     otherPeopleInfo: [], // 其他人地个人中心
@@ -47,6 +49,18 @@ Page({
     }
   },
 
+  /**
+   * 是否显示回到首页
+   */
+  getIsBackHome() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
+    }
+  },
+
   // 获取其他人个人中心 get_other_user_center
   getOtherPeopleInfo(e) {
     http.fxGet(api.users_other_user_center, {
@@ -76,6 +90,10 @@ Page({
             })
           }
         })
+
+        if (typeof(result.data.about_me) == 'object') {
+          result.data.about_me = ''
+        }
 
         this.setData({
           classList: params,
@@ -309,12 +327,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     this.setData({
       otherPeopleUid: options.uid
     })
 
     this.getOtherPeopleInfo(options.uid) // 获取其他人个人中心
     this.getOtherLikeQuantity(options.uid) // 获取其他人的喜欢
+    this.getIsBackHome()
   },
 
   /**
@@ -448,6 +470,13 @@ Page({
     wx.navigateTo({
       url: '../product/product?rid=' + e.currentTarget.dataset.rid + "&storeRid=" + e.currentTarget.dataset.storeRid
     })
-  }
+  },
+
+  // 回到首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
 
 })

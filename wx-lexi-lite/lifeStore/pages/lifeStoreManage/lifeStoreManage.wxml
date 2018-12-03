@@ -134,7 +134,6 @@
       <label class="icon-arrow">
         <i class="fx-icon-nothing-right"></i>
       </label>
-      <button open-type="contact" class="open-contact__btn" ></button>
     </view>
   </view>
 

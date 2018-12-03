@@ -105,3 +105,14 @@
 .border-bottom--0 {
   border-bottom: 0rpx !important;
 }
+
+.top-shim {
+  height: 80rpx;
+}
+
+.pick-fixed {
+  position: fixed;
+  top: 0;
+  width: 750rpx;
+  z-index: 9;
+}

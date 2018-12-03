@@ -18,7 +18,7 @@
   </view>
 
   <!-- tabs -->
-  <view class="page-section fx-tabs">
+  <view class="page-section fx-tabs {{pickIsFixed?'box-fixed':''}}">
     <view class="tab-item {{ pageActiveTab == 'stick' ? 'active' : '' }}" bindtap="handleChangePage" data-name="stick">
       <text>推荐</text>
     </view>
@@ -26,6 +26,8 @@
       <text>全部商品</text>
     </view>
   </view>
+
+  <view class="top-shim" wx:if="{{pickIsFixed}}"></view>
 
   <!-- 推荐列表 -->
   <view class="stick-container" wx:if="{{ pageActiveTab == 'stick' }}">
@@ -301,4 +303,7 @@
     </button>
   </fx-modal>
   <fx-loading loading="{{ isLoading }}"></fx-loading>
+
+        <!-- 回到顶部按钮是否显示 -->
+  <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
 </view>

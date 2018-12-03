@@ -5,7 +5,6 @@ const http = require('./../../utils/http.js')
 const api = require('./../../utils/api.js')
 const utils = require('./../../utils/util.js')
 let wxparse = require("../../wxParse/wxParse.js")
-
 Page({
   /**
    * 页面的初始数据
@@ -13,7 +12,9 @@ Page({
   data: {
     bigPhotoShow: false, // 是否显示大图
     bigPhotoCurrent: 0, // 大图应该展现的位置
+    bigSwiperHeight: 0, // 大图的高度
 
+    isShowOfficial: false, // 官方优惠券
     backBtnIsShow: false, // 是否显示回到顶部按钮
     isLoading: true,
     showHomeBtn: false, // 显示回到首页按钮
@@ -61,7 +62,8 @@ Page({
     swiperIndex: 1,
     is_mobile: false, //  绑定手机模板
     couponList: { // 优惠券列表---couponList
-      coupons: []
+      coupons: [],
+      official_coupon: []
     },
     fullSubtractionList: [], // 满减---
     isWatch: false, // 是否关注过店铺
@@ -103,7 +105,6 @@ Page({
     const lifeStore = wx.getStorageSync('lifeStore')
 
     wx.setStorageSync('showingLifeStoreRid', lifeStore.lifeStoreRid)
-
     wx.switchTab({
       url: '../index/index',
     })
@@ -264,8 +265,11 @@ Page({
       store_rid: this.data.originalStoreRid
     }, (result) => {
       utils.logger(result, '登陆的优惠券')
-
       result.data.coupons.forEach((v, i) => {
+        v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
+        v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
+      })
+      result.data.official_coupon.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
         v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
       })
@@ -286,7 +290,6 @@ Page({
       store_rid: this.data.originalStoreRid
     }, (result) => {
       utils.logger(result, '没有登陆获取优惠券')
-
       result.data.coupons.forEach((v, i) => {
         v.user_coupon_start = utils.timestamp2string(v.start_date, 'date')
         v.user_coupon_end = utils.timestamp2string(v.end_date, 'date')
@@ -352,7 +355,8 @@ Page({
    */
   handleSwiperChange: function(e) {
     this.setData({
-      swiperIndex: e.detail.current - 0 + 1
+      swiperIndex: e.detail.current - 0 + 1,
+      bigSwiperHeight: this.data.productTop.assets[e.detail.current].h
     })
   },
 
@@ -381,6 +385,7 @@ Page({
 
           // 更新数量
           this.updateCartTotalCount(result.data.item_count)
+
         } else {
           utils.fxShowToast(result.status.message)
         }
@@ -640,25 +645,25 @@ Page({
   },
 
   // 交货时间
-  getLogisticsTime(e, rid) {
-    http.fxGet(api.logistics_core_freight_template.replace(/:rid/g, e), {
-      product_rid: this.data.rid,
-      store_rid: this.data.storeRid
-    }, (result) => {
-      utils.logger(result, '交货时间数据')
-      if (result.success && result.data.items.length != 0) {
+  // getLogisticsTime(e, rid) {
+  //   http.fxGet(api.logistics_core_freight_template.replace(/:rid/g, e), {
+  //     product_rid: this.data.rid,
+  //     store_rid: this.data.storeRid
+  //   }, (result) => {
+  //     utils.logger(result, '交货时间数据')
+  //     if (result.success && result.data.items.length != 0) {
 
-        result.data.items.forEach((v, i) => {
-          if (v.is_default) {
-            //循环完毕
-            this.setData({
-              logisticsTime: v
-            })
-          }
-        })
-      }
-    })
-  },
+  //       result.data.items.forEach((v, i) => {
+  //         if (v.is_default) {
+  //           //循环完毕
+  //           this.setData({
+  //             logisticsTime: v
+  //           })
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
 
   /**
    * 分享产品的图片
@@ -702,9 +707,14 @@ Page({
       sid: jwt.store_rid || ''
     }, result => {
       if (result.success) {
+        result.data.assets.forEach(v => {
+          v.h = 750 * v.height / v.width
+        })
+        // console.log(result,'第一屏幕')
         this.setData({
           productTop: result.data,
           isDistributed: result.data.is_distributed,
+          bigSwiperHeight: result.data.assets[0].h
         })
 
         // 如果已经下架就删除
@@ -745,7 +755,7 @@ Page({
         this.setData({
           likePeople: result.data
         })
-        
+
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -780,7 +790,7 @@ Page({
         wxparse.wxParse('dkcontent', 'html', this.data.dkcontent, this, 5)
 
         // 获取交货时间
-        this.getLogisticsTime(result.data.fid, result.data.rid)
+        // this.getLogisticsTime(result.data.fid, result.data.rid)
 
         this.getStoreInfo() // 店铺信息---
 
@@ -929,6 +939,36 @@ Page({
     app.globalData.orderParams.store_items[0].items[0].rid = e
   },
 
+  // 领取官方优惠券
+  handleReciiveOfficial(e) {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
+    let code = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+    console.log(code, idx)
+    this.setData({
+      ['couponList.official_coupon[' + idx + '].is_grant']: 1
+    })
+
+    http.fxPost(api.market_official_coupons_grant, {
+      rid: code
+    }, result => {
+
+      utils.logger(result, "领取官方优惠券")
+      if (result.success) {
+        utils.fxShowToast("成功领取", "success")
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   // 获取本店铺的相关商品
   getNewProduct(e) {
     http.fxGet(api.life_store_products, {
@@ -1038,6 +1078,8 @@ Page({
    */
   onLoad: function(options, product) {
     utils.logger(options, product, '上一页传递参数')
+    // 检测网络
+    app.ckeckNetwork()
 
     // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
@@ -1357,7 +1399,8 @@ Page({
    * 更新购物车数量
    */
   updateCartTotalCount(item_count) {
-    app.updateCartTotalCount(item_count)
+    // app.updateCartTotalCount(item_count,1)
+    app.getCartTotalCount()
     this.setData({
       cartTotalCount: item_count
     })
@@ -1493,7 +1536,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
-    let title = this.data.productInfomation.name
+    let title = this.data.productTop.name
     return app.shareWxaProduct(this.data.rid, title, this.data.shareProduct.cover)
   },
 
@@ -1598,7 +1641,22 @@ Page({
 
   handleBigSwiperChange(e) {
     this.setData({
-      bigPhotoCurrent: e.detail.current + 1
+      bigPhotoCurrent: e.detail.current + 1,
+      bigSwiperHeight: this.data.productTop.assets[e.detail.current].h
+    })
+  },
+
+  // 打开领取官方优惠券
+  handleOpenOfficialBox() {
+    let agent = this.data.isShowOfficial
+    if (agent) {
+      agent = true
+    } else {
+      agent = false
+    }
+
+    this.setData({
+      isShowOfficial: agent
     })
   },
 

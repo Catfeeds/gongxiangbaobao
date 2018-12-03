@@ -152,7 +152,8 @@ Page({
         if (result.success) {
           utils.logger(this.data.windowParams.product_items)
           utils.fxShowToast('添加成功', 'success')
- 
+          this._upParentData(result.data)
+
           wx.navigateBack({
             delta: 1
           })
@@ -169,11 +170,23 @@ Page({
     })
   },
 
+  // 刷新tabbar 的数据
+  _upParentData(e) {
+    let route = getCurrentPages()
+    let parentPage = route[route.length - 2]
+    if (parentPage.route == 'pages/windowTabBar/windowTabBar') {
+      parentPage.setData({
+        'followLoadMany.shop_windows': [e].concat(parentPage.data.followLoadMany.shop_windows)
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    // 检测网络
+    app.ckeckNetwork()
   },
 
   /**

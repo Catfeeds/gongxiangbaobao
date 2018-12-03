@@ -256,6 +256,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+    
     this.getHighQuality() // 优质新品
     this.getSearchHistory() // 搜索历史
     this.getHotRecommend() // 热门推荐 其他三个

@@ -93,7 +93,8 @@
         "pages/lifeStoreBill/lifeStoreBill",
         "pages/lifeStore/lifeStore",
         "pages/lifeStoreOrders/lifeStoreOrders",
-        "pages/lifeStoreGuide/lifeStoreGuide"
+        "pages/lifeStoreGuide/lifeStoreGuide",
+        "pages/joinStoreGather/joinStoreGather"
       ]
     }
   ],

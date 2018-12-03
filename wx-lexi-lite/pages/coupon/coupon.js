@@ -44,15 +44,18 @@ Page({
     couponActive: 2,
     couponCategory: [{
         name: '品牌券',
-        rid: 1
+        rid: 1,
+        redRound: 0
       },
       {
         name: '乐喜券',
-        rid: 2
+        rid: 2,
+        redRound: 0
       },
       {
         name: '已失效',
-        rid: 3
+        rid: 3,
+        redRound: 0
       }
     ]
   },
@@ -126,6 +129,7 @@ Page({
     this.setData({
       couponActive: e.currentTarget.dataset.rid
     })
+    this._handleRedRound()
   },
 
   // 使用官方的优惠券
@@ -152,11 +156,66 @@ Page({
     })
   },
 
+  // 处理小红点
+  _handleRedRound() {
+    if (this.data.couponActive == 1 && this.data.couponCategory[0].redRound > 0) {
+      this.setData({
+        'couponCategory[0].redRound': 0
+      })
+      this._handleDeleteRedRound(1)
+    }
+
+    if (this.data.couponActive == 2 && this.data.couponCategory[1].redRound > 0) {
+      this.setData({
+        'couponCategory[1].redRound': 0
+      })
+      this._handleDeleteRedRound(2)
+    }
+
+    if (this.data.couponActive == 3 && this.data.couponCategory[2].redRound > 0) {
+      this.setData({
+        'couponCategory[2].redRound': 0
+      })
+      this._handleDeleteRedRound(3)
+    }
+  },
+
+  // 取消小红点
+  _handleDeleteRedRound(e) {
+    http.fxPost(api.market_read_time, {
+      status: e
+    }, res => {})
+  },
+
+  // 获取没有查看的优惠券
+  getCouponAddOrder() {
+    // 是否登陆
+    if (!app.globalData.isLogin) {
+      return
+    }
+    http.fxGet(api.orders_order_coupon_count, {}, (result) => {
+      if (result.success) {
+        utils.logger(result, '订单，优惠券的数量')
+        this.setData({
+          'couponCategory[0].redRound': result.data.master_count,
+          'couponCategory[1].redRound': result.data.official_count,
+          'couponCategory[2].redRound': result.data.expired_count
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
 
+    this._handleRedRound()
+    this.getCouponAddOrder()
   },
 
   /**

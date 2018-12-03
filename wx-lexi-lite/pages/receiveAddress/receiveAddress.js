@@ -31,10 +31,10 @@ Page({
     app.globalData.orderParams.address_rid = addressRid
 
     this.setData({
-      address_rid: e.detail.value
+      address_rid: e.detail.value,
     })
 
-    this.validateUserCustom()
+    // this.validateUserCustom()
   },
 
   // 在没有选择的时候去设置订单参数
@@ -48,8 +48,7 @@ Page({
         this.setData({
           address_rid: v.rid
         })
-
-        this.validateUserCustom()
+        // this.validateUserCustom()
       }
     })
   },
@@ -70,6 +69,8 @@ Page({
       this.setData({
         validateCustom: true
       })
+
+      this.handleGoCheckout()
     }
   },
 
@@ -82,11 +83,21 @@ Page({
 
   // 继续提交订单
   submitOrderTap() {
-    if (!this.data.validateCustom) {
+    // if (!this.data.validateCustom) { // 修改之前的，如果修改之后没有问题就删掉
+    //   utils.fxShowToast('请先选定地址')
+    //   return
+    // }
+
+    if (!this.data.address_rid) {
       utils.fxShowToast('请先选定地址')
       return
     }
 
+    this.validateUserCustom()
+  },
+
+  // 继续支付
+  handleGoCheckout() {
     wx.redirectTo({
       url: '../checkout/checkout'
     })
@@ -123,6 +134,9 @@ Page({
         this.setData({
           validateCustom: true
         })
+
+        // 跳转到下一页
+        this.handleGoCheckout()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -133,7 +147,7 @@ Page({
   handleGoChangeAddress(e) {
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '../address/address?rid=' + rid + '&need_custom=1&from_ref=checkout'
+      url: '../address/address?rid=' + rid + '&from_ref=checkout'
     })
   },
 
@@ -142,6 +156,38 @@ Page({
     http.fxGet(api.addresses, {}, (result) => {
       utils.logger(result, '地址列表')
       if (result.success) {
+
+        // 已经选择过地址把默认的置为选择的地址
+        if (this.data.address_rid) {
+          let isDeletePick = true // 是否删除了选择的地址（针对从下一页的删除）
+          result.data.forEach(v => {
+            if (v.rid == this.data.address_rid) {
+              v.is_default = true
+              isDeletePick = false
+            } else {
+              v.is_default = false
+            }
+          })
+
+          //从下页删除了选择的地址
+          if (isDeletePick) {
+            result.data[0].is_default = true
+          }
+        }
+
+        //判断是否有默认的地址 没有选择的地址，并且没有默认的地址把第一个置为默认地址
+        if (!this.data.address_rid) {
+          let isHaveAddress = false
+          result.data.forEach(v => {
+            if (v.is_default) {
+              isHaveAddress = true
+            }
+          })
+          if (!isHaveAddress) {
+            result.data[0].is_default = true
+          }
+        }
+
         this.setData({
           addressList: result.data
         })
@@ -169,6 +215,9 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options)
+    // 检测网络
+    app.ckeckNetwork()
+
     let from_ref = options.from_ref // 来源
 
     if (from_ref != 'cart') { // 不是来自购物车
@@ -195,6 +244,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      validateCustom: false, // 未验证海关信息前，不能确认
+    })
+    app.globalData.orderParams.address_rid = ''
+
     this.getAddressList() // 获取地址列表
   },
 

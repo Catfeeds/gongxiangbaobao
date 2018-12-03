@@ -18,17 +18,36 @@ Page({
     showModal: false,
     activeStatus: 0,
     setIncomeStar: false,
-    statusPanels: [
-      { rid: 's0', name: '全部', status: 0, count: 0 },
-      { rid: 's1', name: '待结算', status: 1, count: 0 },
-      { rid: 's2', name: '成功', status: 2, count: 0 },
-      { rid: 's3', name: '退款', status: 3, count: 0 }
+    statusPanels: [{
+        rid: 's0',
+        name: '全部',
+        status: 0,
+        count: 0
+      },
+      {
+        rid: 's1',
+        name: '待结算',
+        status: 1,
+        count: 0
+      },
+      {
+        rid: 's2',
+        name: '成功',
+        status: 2,
+        count: 0
+      },
+      {
+        rid: 's3',
+        name: '退款',
+        status: 3,
+        count: 0
+      }
     ],
     params: {
       store_rid: '', // 当前生活馆
       date_range: 'week', // 日期区间
       status: 0,
-      page: 1, 
+      page: 1,
       per_page: 10
     },
     collect: {
@@ -43,7 +62,7 @@ Page({
   /**
    * 显示弹出框
    */
-  handleShowModal () {
+  handleShowModal() {
     this.setData({
       showModal: true
     })
@@ -52,20 +71,20 @@ Page({
   /**
    * 改变日期
    */
-  handleChangeDate (e) {
+  handleChangeDate(e) {
     let d = e.currentTarget.dataset.date
     this.setData({
       'params.date_range': d,
       'params.page': 1
-    }) 
+    })
 
     this.getStoreOrders()
   },
-  
+
   /**
    * 改变状态
    */
-  handleChangeStatus (e) {
+  handleChangeStatus(e) {
     let status = e.currentTarget.dataset.status
     this.setData({
       'activeStatus': parseInt(status),
@@ -89,13 +108,14 @@ Page({
   /**
    * 获取交易订单列表
    */
-  getStoreOrders () {
+  getStoreOrders() {
     utils.logger(this.data.params)
     http.fxGet(api.life_store_transactions, this.data.params, (res) => {
       utils.logger(res, '交易订单')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
       }
+      wx.stopPullDownRefresh()
       let transactions = this._rebuildTradeData(res.data.transactions)
       this.setData({
         'totalCount': res.data.count,
@@ -107,9 +127,9 @@ Page({
   /**
    * 修正数据
    */
-  _rebuildTradeData (transactions) {
+  _rebuildTradeData(transactions) {
     let _transactions = transactions.map((trade) => {
-      trade.payed_at = utils.timestamp2string(trade.payed_at) 
+      trade.payed_at = utils.timestamp2string(trade.payed_at)
       return trade
     })
 
@@ -120,7 +140,9 @@ Page({
    * 获取生活馆收益汇总
    */
   getStoreIncomeCollect() {
-    http.fxGet(api.life_store_income_collect, { store_rid: this.data.sid }, (res) => {
+    http.fxGet(api.life_store_income_collect, {
+      store_rid: this.data.sid
+    }, (res) => {
       utils.logger(res, '收益汇总')
       if (!res.success) {
         utils.fxShowToast(res.status.message)
@@ -136,7 +158,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     const lifeStore = wx.getStorageSync('lifeStore')
     // 小B商家获取自己生活馆
     if (lifeStore.isSmallB) {
@@ -159,7 +181,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -171,42 +193,45 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+    this.setData({
+      'params.page': 1
+    })
+    this.getStoreOrders()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return app.shareLeXi()
   }
 })

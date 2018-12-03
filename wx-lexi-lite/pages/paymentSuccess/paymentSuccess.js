@@ -26,12 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options, '支付页面，上一页的参数')
 
     http.fxGet(api.orders_after_payment_rid.replace(/:rid/, options.rid), {}, (result) => {
       utils.logger(result, '订单详情')
       if (result.success) {
-
         result.data.orders.forEach((v, i) => {
           v.created_item = utils.timestamp2string(v.created_at, "cn")
         })

@@ -48,7 +48,7 @@
     </view>
 
     <view wx:if="{{userBrowsesProduct.length==0}}" class="flex-direction-column__item null-photo">
-      <image src="../../images/dynamic-null@2.png"></image>
+      <image src="https://static.moebeast.com/image/static/dynamic-null@2.png"></image>
       <view>你当前还没有浏览商品</view>
     </view>
   </scroll-view>

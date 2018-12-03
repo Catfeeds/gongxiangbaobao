@@ -43,7 +43,7 @@ Page({
     // 页面的订单明细
     pageOrderInfo: {
       firstPrice: 0, //小计
-      logisticsPrice: 0, //配送
+      logisticsPrice: '', //配送
       firstOrderPrice: 0, //首单优惠
       fullSubtraction: 0, //满减
       couponPrice: 0, //优惠券
@@ -53,8 +53,7 @@ Page({
 
   // 提交表单
   handleSubmitInfo(e) {
-    app.handleSendNews(e.detail.formId)
-    this.paymentSuccess()
+    this.paymentSuccess(e.detail.formId)
   },
 
   // 祝福语录
@@ -468,7 +467,7 @@ Page({
   },
 
   // 支付,并跳转到支付成功页面---
-  paymentSuccess() {
+  paymentSuccess(formId) {
 
     // 改变按钮状态 预防对此点击
     this.setData({
@@ -525,7 +524,7 @@ Page({
 
         let currentOrder = result.data.orders[0]
 
-        app.wxpayOrder(result.data.order_rid, result.data.pay_params)
+        app.wxpayOrder(result.data.order_rid, result.data.pay_params, formId)
 
         // 改变按钮状态 预防对此点击
         this.setData({
@@ -614,16 +613,78 @@ Page({
       items: params
     }, (result) => {
       utils.logger(result, '获取运费模板')
+
       if (result.success) {
+
         this.setData({
           logisticsCompany: result.data
         }, () => {
           this.handleLogisticsSetingOrder()
+          this.logisticsIsShow()
         })
+
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  logisticsIsShow() {
+    let resultData = this.data.logisticsCompany
+    let NewData = {}
+
+    Object.keys(resultData).forEach((key, i) => {
+
+      NewData[key] = this._handleExpress(resultData[key])
+      if (Object.keys(resultData).length - 1 == i) {
+        setTimeout(() => {
+          this.setData({
+            logisticsCompany: NewData
+          })
+        }, 1000)
+      }
+    })
+  },
+
+  // 处理物流模板
+  _handleExpress(e) {
+    let event = e
+    let arrayData = []
+    let newObj = {}
+
+    let promise = new Promise((ok, eror) => {
+      Object.keys(event).forEach((key, index) => {
+        event[key].sku_id = key
+        arrayData.push(event[key])
+
+        // 排序
+        if (Object.keys(event).length - 1 == index) {
+          arrayData = arrayData.sort((a, b) => {
+            return b.fid > a.fid
+          })
+          ok()
+        }
+      })
+    })
+
+    promise.then(() => {
+      arrayData.forEach((v, i) => {
+
+        if (i + 1 != arrayData.length) {
+
+          if (v.fid == arrayData[i + 1].fid) {
+            v.isShow = false
+          } else {
+            v.isShow = true
+          }
+          arrayData[i + 1].isShow = true
+        }
+
+        newObj[v.sku_id] = v
+      })
+
+    })
+    return newObj
   },
 
   // 获取优惠券
@@ -828,6 +889,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     const lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
     if (lastVisitLifeStoreRid) { // 如存在，直接放入
       app.globalData.orderParams.last_store_rid = lastVisitLifeStoreRid

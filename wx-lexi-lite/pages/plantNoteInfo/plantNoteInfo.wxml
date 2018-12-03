@@ -197,7 +197,7 @@
     </view>
 
     <!-- 查看全部 -->
-    <view class="flex_row--middle font-s bg-white all-quantity__btn" wx:if="{{commentList.total_count > 3}}">
+    <view class="flex_row--middle font-s bg-white all-quantity__btn" wx:if="{{commentList.total_count > 3}}" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">
       查看全部{{commentList.total_count}}条评论
     </view>
   </view>

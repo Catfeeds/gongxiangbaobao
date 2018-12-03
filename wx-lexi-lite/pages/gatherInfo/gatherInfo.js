@@ -13,6 +13,7 @@ Page({
    */
   data: {
     backBtnIsShow: false, // 回到顶部是否展现
+    showHomeBtn: false, // 回到首页按钮
 
     isLoading: true,
     isLoadProductShow: true, // 加载动画
@@ -63,11 +64,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     this.setData({
       ['params.id']: options.rid
     })
 
     this.getProducts()
+    this.getIsBackHome() // 回到首页按钮是否显示
   },
 
   /**
@@ -102,6 +107,18 @@ Page({
       scrollTop: 0,
       duration: 888
     })
+  },
+
+  /**
+   * 是否显示回到首页
+   */
+  getIsBackHome() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
+    }
   },
 
   /**
@@ -180,4 +197,10 @@ Page({
     return app.shareLeXi()
   },
 
+  // 回到首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
 })

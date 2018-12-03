@@ -12,8 +12,8 @@ Page({
     wx.navigateBack({
       delta: 1,
     })
-    let pageData = getCurrentPages()
-    pageData[pageData.length-2].onLoad()
+    // let pageData = getCurrentPages()
+    // pageData[pageData.length-2].onLoad()
   },
 
   /**

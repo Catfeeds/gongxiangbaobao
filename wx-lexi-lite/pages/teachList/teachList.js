@@ -42,8 +42,16 @@ Page({
     http.fxGet(api.life_records_hand_teach, this.data.params, (result) => {
       utils.logger(result, '手做教学')
       if (result.success) {
+
+        let arrayData = this.data.dataList
+        if (this.data.params.page == 1) {
+          arrayData = result.data.life_records
+        } else {
+          arrayData = arrayData.concat(result.data.life_records)
+        }
+
         this.setData({
-          dataList: result.data.life_records,
+          dataList: arrayData,
           isNext: result.data.next,
           isLoadProductShow: false
         })
@@ -57,6 +65,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+    
     this.getData()
   },
 

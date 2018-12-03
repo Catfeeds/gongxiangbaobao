@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "交易记录",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-modal-v": "/components/FxModalV/FxModalV",
     "fx-loading": "/components/FxLoading/FxLoading"

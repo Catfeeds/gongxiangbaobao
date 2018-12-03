@@ -87,6 +87,8 @@ Page({
    */
   onLoad: function (options) {
     utils.logger(options, "品牌馆")
+    // 检测网络
+    app.ckeckNetwork()
 
     this.setData({
       store_rid: options.rid

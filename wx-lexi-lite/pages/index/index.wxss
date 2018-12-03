@@ -219,6 +219,7 @@
   border: 6rpx solid white;
   margin-right: -20rpx;
   overflow: hidden;
+  background-color: white;
 }
 
 .joinNumberR {
@@ -737,10 +738,12 @@ textarea {
 
 .all-product_geishei {
   bottom: 50rpx;
+  font-weight: 600;
 }
 
 .all-product_miaoshu {
   bottom: 15rpx;
+  font-weight: 600;
 }
 
 .setUpShop-guide {
@@ -1824,4 +1827,8 @@ swiper-photo .slide-item__box image {
 .new-receive__success .new-receive__coupon--btn {
   color: rgba(95, 228, 177, 1);
   border-left: 1rpx solid #e9e9e9;
+}
+
+.play-life__store--hidden {
+  display: none;
 }

@@ -51,7 +51,7 @@ Page({
       {
         rid: 2,
         num: 0,
-        name: '收藏'
+        name: '列表'
       },
       {
         rid: 3,
@@ -424,6 +424,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
     // 是否登陆
     this.setData({
       is_login: app.globalData.isLogin

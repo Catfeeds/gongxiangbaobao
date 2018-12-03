@@ -34,21 +34,10 @@ Page({
 
   // 点击相关推荐
   handlesAgainLoading(e) {
-    wx.pageScrollTo({
-      scrollTop: 0,
+    wx.redirectTo({
+      url: './../plantNoteInfo/plantNoteInfo?rid=' + e.currentTarget.dataset.rid,
     })
-
-    this.setData({
-      rid: e.currentTarget.dataset.rid,
-      ['params.page']: 1,
-      ['params.per_page']: 10,
-      ['params.rid']: e.currentTarget.dataset.rid
-    })
-
-    this.getLiveInfo() // 生活志详情
-    this.getRecommend() // 相关故事推荐
   },
-
 
   // 关闭
   hanleOffLoginBox(e) {
@@ -196,7 +185,6 @@ Page({
    */
   handleGoComment(e) {
     utils.logger(e)
-    console.log(e, '种草笔记详情')
     // 是否登陆
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
@@ -320,7 +308,6 @@ Page({
   getComment() {
     http.fxGet(api.life_records_comments, this.data.params, (result) => {
       utils.logger(result, '生活志的评论')
-      console.log(result, '生活志的评论')
       if (result.success) {
         result.data.comments.forEach((v, i) => {
           v.content_list = emojiFn.emojiAnalysis([v.content])
@@ -370,13 +357,13 @@ Page({
    * 重建文章内容
    */
   _rebuildArticleContent(deal_content) {
-    let htmlAry = []
+    let htmlAry = ''
 
     deal_content.map(item => {
       if (item.type == 'text') {
-        htmlAry.push('<p>' + item.content + '</p>')
+        htmlAry += '<p>' + item.content + '</p>'
       } else if (item.type == 'image') {
-        htmlAry.push('<p><img src="' + item.content + '" /></p>')
+        htmlAry += '<p><img src="' + item.content + '" /></p>'
       } else if (item.type == 'product') {
 
         let show_price = item.content.min_price
@@ -410,12 +397,10 @@ Page({
             '</div>' +
             '</div>'
         }
-
-        htmlAry.push(productHtml)
+        htmlAry += productHtml
       }
     })
-
-    return htmlAry.join('')
+    return htmlAry
   },
 
   /**
@@ -450,6 +435,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     let category = options.category || ''
     this.setData({
       rid: options.rid,

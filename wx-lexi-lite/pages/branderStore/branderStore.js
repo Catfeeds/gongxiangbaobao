@@ -12,8 +12,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnIsShow: false, // 回到顶部按钮
+    showHomeBtn: false, // 是否回到首页的按钮
+
     isLoading: true,
     isLoadProductShow: true, // 加载商品
+
+    isShareBrandShow: false, // 分享品牌馆是否显示
+    shareBrandPhotoUrl: '', // 分享品牌馆的图片路径
+    severPhouoText: '保存分享海报',
 
     isDisabled: false, // 是否禁用
     leftTimer: null, // 延迟句柄
@@ -42,8 +49,7 @@ Page({
     openPickBox: false, // 筛选的模态框
     fullSubtractionList: [], // 满减
     // 推荐
-    recommendList: [
-      {
+    recommendList: [{
         name: '包邮',
         id: '1',
         isActive: false
@@ -59,8 +65,7 @@ Page({
         isActive: false
       },
     ],
-    titleCategoryList: [
-      {
+    titleCategoryList: [{
         name: '商品',
         num: 0,
         id: 1
@@ -100,6 +105,18 @@ Page({
       per_page: 10,
       status: 1, // 优惠券状态 -1: 禁用；1：正常；2：已结束
       'type': '' // 是否满减活动 3、满减
+    }
+  },
+
+  /**
+ * 是否显示回到首页
+ */
+  getIsBackHome() {
+    let route = getCurrentPages()
+    if (route.length == 1) {
+      this.setData({
+        showHomeBtn: true
+      })
     }
   },
 
@@ -439,6 +456,102 @@ Page({
     })
   },
 
+  // 分享品牌馆
+  handleShowShare() {
+
+    let params = {
+      auth_app_id: app.globalData.app_id, //String	必填	 	小程序id
+      path: 'pages/branderStore/branderStore', //	 访问路径
+      type: 1, //平台类型 1= 品牌馆, 2= 生活馆
+      rid: this.data.storeRid, //	分享编号
+      scene: this.data.storeRid, //店铺编号 94395210
+    }
+
+    let agent
+    if (this.data.isShareBrandShow) {
+      agent = false
+    } else {
+      agent = true
+
+      // 如果没有海报的就获取
+      if (!this.data.shareBrandPhotoUrl) {
+        http.fxPost(api.market_share_store_poster, params, result => {
+          if (result.success) {
+            this.setData({
+              shareBrandPhotoUrl: result.data.image_url
+            })
+
+          } else {
+            utils.fxShowToast(result.status.message)
+          }
+        })
+      }
+    }
+
+    this.setData({
+      isShareBrandShow: agent
+    })
+  },
+
+  /**
+   * 获取form id
+   */
+  getFormId(e) {
+    app.handleSendNews(e.detail.formId)
+    this.handleSaveShare()
+  },
+
+  /**
+   * 保存当前海报到相册
+   */
+  handleSaveShare() {
+    let that = this
+    if (this.data.shareBrandPhotoUrl) {
+      this.setData({
+        severPhouoText: '保存中....'
+      })
+      // 下载网络文件至本地
+      wx.downloadFile({
+        url: this.data.shareBrandPhotoUrl,
+        success: (res) => {
+          if (res.statusCode == 200) {
+            // 保存文件至相册
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: (data) => {
+                utils.fxShowToast('保存成功', 'success')
+                this.setData({
+                  severPhouoText: '保存分享海报'
+                })
+              },
+              fail: (err) => {
+                utils.logger('下载海报失败：' + err.errMsg)
+                this.setData({
+                  severPhouoText: '保存分享海报'
+                })
+
+                if (err.errMsg == 'saveImageToPhotosAlbum:fail:auth denied') {
+                  wx.openSetting({
+                    success(settingdata) {
+                      utils.logger(settingdata)
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        utils.fxShowToast('保存成功')
+                      } else {
+                        utils.fxShowToast('保存失败')
+                      }
+                    }
+                  })
+                } else {
+                  utils.fxShowToast('保存失败')
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+  },
+
   // 跳转到品牌故事
   handelToBrandInfo(e) {
     wx.navigateTo({
@@ -489,7 +602,7 @@ Page({
           isNext: result.data.next,
           productList: data,
           totalCount: result.data.count,
-          isLoadProductShow:false
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -692,6 +805,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     // scene格式：rid + '-' + sid (品牌馆rid + 生活馆rid)
     let scene = decodeURIComponent(options.scene)
     let rid = ''
@@ -718,6 +834,30 @@ Page({
     this.getStoreInfo() // 店铺详情
     this.getAnnouncement() // 店铺的公告
     this.products() // 获取店铺的商品列表
+    this.getIsBackHome() // 是否显示回到首页
+  },
+
+  /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
   },
 
   /**
@@ -731,7 +871,7 @@ Page({
 
       this.setData({
         ['params.page']: this.data.params.page + 1,
-        isLoadProductShow:true
+        isLoadProductShow: true
       })
 
       this.products()
@@ -829,10 +969,32 @@ Page({
       title: title,
       path: 'pages/branderStore/branderStore?scene=' + scene,
       imageUrl: imageUrl,
-      success:(res) => {
+      success: (res) => {
         utils.logger('分享成功')
       }
     }
-  }
+  },
+
+  // 防止穿透
+  handlePreventCilick() {
+    return
+  },
+
+  /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
+
+  // 回到首页
+  handleBackHome() {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
 
 })

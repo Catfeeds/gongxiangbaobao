@@ -6,11 +6,12 @@
 
 <view class='container search-page'>
   <!-- 搜索框 -->
-  <view class="bg-white search-input  border-top">
+  <view class="bg-white search-input border-top">
     <input value="{{inputText}}" placeholder="输入标签" bindinput="handleInput" bindconfirm="handleRecordLast" placeholder-class="input-font" auto-focus/>
 
     <image class='input-off__btn' catchtap='handleDeleteInput' wx:if="{{inputText}}" src="../../images/bg-hui-off@icon.png"></image>
   </view>
+  <view class="shim"></view>
 
   <!-- 没有输入的时候 -->
   <block wx:if="{{!inputText}}">

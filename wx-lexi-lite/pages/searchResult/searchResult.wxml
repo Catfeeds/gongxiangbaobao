@@ -20,7 +20,6 @@
   <!-- 商品 -->
   <block wx:if="{{navbarCategoryId==1}}">
     <view class='bottom__info'>
-
       <!-- 筛选和排序 -->
       <view class='time-top sotr black-font'>
         <view catchtap="handleSortShow" class='flex_row'>
@@ -33,46 +32,76 @@
         </view>
       </view>
       <!-- 下面的产品列表 -->
-      <view class='goodsList border-bottom--0'>
+      <view class='goodsList border-bottom--0' wx:if="{{productCount>0}}">
         <view wx:for="{{productList}}" wx:key="{{index}}" class='{{(index+1)%5==0?"goodsFive":"goods-item"}}'>
           <fx-product product="{{item}}" photo='{{ (index+1)%5 == 0 ? "4" : "3" }}' photoSize="{{(index+1)%5==0?50:30}}" bind:triggerEvent_product='handleInfomation'></fx-product>
         </view>
       </view>
+
+      <view class="quesheng-tupian__box" wx:if="{{productCount==0}}">
+        <image src="https://static.moebeast.com/image/static/search2.png"></image>
+        <view>暂无相关商品</view>
+      </view>
+
+      <block>
+        <!-- 底部加载 -->
+        <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+          <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+        </view>
+        <!-- 没有商品加载的底部 -->
+        <view class="c-middle not-have__load--bottom" wx:if="{{!prductIsNext}}"> END </view>
+      </block>
+
     </view>
   </block>
 
   <!-- 品牌管 -->
   <block wx:if="{{navbarCategoryId==2}}">
     <!-- 店铺其他产品信息 -->
-    <view class='shopInfo' wx:for="{{storeList}}" data-store-rid="{{item.rid}}" wx:key="{{index}}">
-      <view class='shopInfoT padding-left--40rpx' data-store-rid="{{item.rid}}" catchtap="handleTobrandStore">
-        <view class='userIcon'>
-          <image src='{{ item.logo }}'></image>
+    <block wx:if="{{storeCount>0}}">
+      <view class='shopInfo' wx:for="{{storeList}}" data-store-rid="{{item.rid}}" wx:key="{{index}}">
+        <view class='shopInfoT padding-left--40rpx' data-store-rid="{{item.rid}}" catchtap="handleTobrandStore">
+          <view class='userIcon'>
+            <image src='{{ item.logo }}'></image>
+          </view>
+          <view class='shopMiddle'>
+            <view class='hui-zi'>原创品牌馆</view>
+            <view class='shop-name'>{{ item.name }}</view>
+          </view>
+          <view class='with flex_row--middle' catchtap='handleAddWatch' wx:if="{{!item.is_follow_store}}" data-rid="{{item.rid}}" data-index="{{index}}">
+            <image class='margin-right--10rpx' src='../../images/shop1.png'></image>
+            <view>关注</view>
+          </view>
+          <view class='with flex_row--middle bg--hui' data-rid="{{item.rid}}" catchtap='handleDeleteWatch' wx:if="{{item.is_follow_store}}" data-index="{{index}}">
+            <!-- <image src='../../images/shop1.png'></image> -->
+            <view>已关注</view>
+          </view>
         </view>
-        <view class='shopMiddle'>
-          <view class='hui-zi'>原创品牌馆</view>
-          <view class='shop-name'>{{ item.name }}</view>
-        </view>
-        <view class='with flex_row--middle' catchtap='handleAddWatch' wx:if="{{!item.is_follow_store}}" data-rid="{{item.rid}}" data-index="{{index}}">
-          <image class='margin-right--10rpx' src='../../images/shop1.png'></image>
-          <view>关注</view>
-        </view>
-        <view class='with flex_row--middle bg--hui' data-rid="{{item.rid}}" catchtap='handleDeleteWatch' wx:if="{{item.is_follow_store}}" data-index="{{index}}">
-          <!-- <image src='../../images/shop1.png'></image> -->
-          <view>已关注</view>
-        </view>
+        <scroll-view scroll-x class='shop-other-goods'>
+          <image class="brander-store__product--item {{index==0?'margin-left--40rpx':''}} {{index==item.products.length-1?'margin-right--40rpx':''}}" src='{{ value.cover }}-p16' wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-rid='{{ value.rid }}'
+            data-store-rid="{{value.store_rid}}" catchtap='handleToProductInfoTap'></image>
+        </scroll-view>
       </view>
-      <scroll-view scroll-x class='shop-other-goods'>
-        <image class="brander-store__product--item {{index==0?'margin-left--40rpx':''}} {{index==item.products.length-1?'margin-right--40rpx':''}}" src='{{ value.cover }}-p16' wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-rid='{{ value.rid }}'
-          data-store-rid="{{value.store_rid}}" catchtap='handleToProductInfoTap'></image>
-      </scroll-view>
+    </block>
+
+    <view class="quesheng-tupian__box" wx:if="{{storeCount==0}}">
+      <image src="https://static.moebeast.com/image/static/search2.png"></image>
+      <view>暂无相关店铺</view>
     </view>
 
+    <block>
+      <!-- 底部加载 -->
+      <view class="load-many__box" wx:if="{{isLoadStoreShow}}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{!storeIsNext}}"> END </view>
+    </block>
   </block>
 
   <!-- 用户 -->
   <block wx:if="{{navbarCategoryId==3}}">
-    <view class='container'>
+    <view class='container' wx:if="{{userCount>0}}">
       <view class='time-top font-m relation-item' wx:for="{{userList}}" wx:key="{{index}}">
         <view class='flex_row relation-avater' data-uid="{{item.uid}}" catchtap="handleToPeopleTap">
           <image src="{{item.avatar}}"></image>
@@ -89,10 +118,22 @@
         </view>
       </view>
     </view>
+
+    <view class="quesheng-tupian__box" wx:if="{{userCount==0}}">
+      <image src="https://static.moebeast.com/image/static/search1.png"></image>
+      <view>暂无相关用户</view>
+    </view>
+
+    <block>
+      <!-- 底部加载 -->
+      <view class="load-many__box" wx:if="{{isLoadingUserIcon}}">
+        <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+      </view>
+      <!-- 没有商品加载的底部 -->
+      <view class="c-middle not-have__load--bottom" wx:if="{{!userIsNext}}"> END </view>
+    </block>
   </block>
 
-  <!-- 筛选 -->
-  <!-- 筛选 -->
   <!-- 筛选  catchtap="handelOffPickBox"-->
   <view class="pick-box">
     <fx-modal title="筛选" reset="重置" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
@@ -158,13 +199,7 @@
     </view>
   </fx-modal>
 
-  <block>
-    <!-- 底部加载 -->
-    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
-    </view>
-    <!-- 没有商品加载的底部 -->
-    <view class="c-middle not-have__load--bottom" wx:if="{{!prductIsNext || !storeIsNext||!userIsNext}}"> END </view>
-  </block>
+      <!-- 回到顶部按钮是否显示 -->
+  <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
 </view>
 <fx-loading loading="{{ isLoading }}"></fx-loading>

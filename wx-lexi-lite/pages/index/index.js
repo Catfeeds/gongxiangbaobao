@@ -1831,7 +1831,7 @@ Page({
       case 'explore': // 探索
         this.handleSetNavigationTitle('探索')
         break;
-      case 'find': // 探索
+      case 'find': // 发现
         this.handleSetNavigationTitle('发现')
         break;
     }
@@ -1854,6 +1854,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
@@ -1922,8 +1924,6 @@ Page({
     this._loadingFeaturedPage()
     this._loadingExplorePage()
 
-    // 新人红包
-    this.getNewCoupon()
   },
 
   /**
@@ -1990,6 +1990,9 @@ Page({
         isLoading: false
       })
     }, 500)
+
+    // 新人红包
+    this.getNewCoupon()
   },
 
   /**
@@ -2102,7 +2105,7 @@ Page({
       latestDistributeProducts: [],
       animationNum: 0
     })
-    
+
     // 来源查看生活馆记录
     wx.removeStorageSync('fromMenu')
   },

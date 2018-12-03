@@ -20,7 +20,8 @@ Page({
 
     parmas: {
       logistic_code: '', // String	必需	 	运单编号
-      kdn_company_code: '' // String	必需	 	快递鸟物流公司编码
+      kdn_company_code: '', // String	必需	 	快递鸟物流公司编码
+      order_rid:'', // 订单id
     }
   },
 
@@ -44,10 +45,13 @@ Page({
    */
   onLoad: function(options) {
     utils.logger(options.logisticsNumber, options.code)
+    // 检测网络
+    app.ckeckNetwork()
 
     this.setData({
       'parmas.logistic_code': options.logisticsNumber,
       'parmas.kdn_company_code': options.code,
+      'parmas.order_rid':options.rid,
       expressName: options.expressName
     })
 

@@ -259,9 +259,9 @@
 }
 
 .price-range {
-position:relative;
-padding:20rpx 40rpx 0;
-background-color:#fff;
+  position: relative;
+  padding: 20rpx 40rpx 0;
+  background-color: #fff;
 }
 
 .shim {
@@ -327,4 +327,50 @@ background-color:#fff;
 .font-size--28rpx {
   font-size: 28rpx;
   color: #555;
+}
+
+.share-brand__btn {
+  height: 60rpx;
+  width: 60rpx;
+  margin-left: 200rpx;
+}
+
+.share-brand__box {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+}
+
+.share-brand__box .share-brand__photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.share-brand__photo .share-brand__photo--item {
+  width: 520rpx;
+  height: 925rpx;
+  margin-bottom: 20rpx;
+  background: url("https://static.moebeast.com/image/static/null-product.png");
+}
+
+.share-brand__photo .loading-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.share-brand__photo button {
+  width: 520rpx;
+  height: 80rpx;
+  background: rgba(95, 228, 177, 1);
+  border-radius: 8rpx;
+  color: white;
+  font-size: 28rpx;
 }

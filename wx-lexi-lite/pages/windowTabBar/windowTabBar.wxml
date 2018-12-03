@@ -37,8 +37,9 @@
         <view class="fx-window" wx:for="{{recommendWindow.shop_windows}}" wx:if="{{recommendWindow.count!=0}}" wx:key="{{index}}">
           <view class="fx-window__author">
             <view class="author-info">
-              <image src="{{item.user_avatar}}-ava" class="avatar border-round" wx:if="{{item.user_avatar}}"></image>
-              <label class="name font-width--medium">{{item.user_name}}</label>
+                <image data-uid="{{item.uid}}" src="{{item.user_avatar}}-ava" catchtap="handleGoPeople" class="avatar border-round" wx:if="{{item.user_avatar}}"></image>
+                <label data-uid="{{item.uid}}" catchtap="handleGoPeople" class="name font-width--medium">{{item.user_name}}</label>
+              
               <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
               <image wx:if="{{ item.is_official }}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
             </view>
@@ -62,7 +63,7 @@
 
             <view class="image-container">
               <view class="image-item">
-                <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                <image mode="aspectFill" src="{{item.product_covers[0]}}-p50" class="photo"></image>
               </view>
             </view>
             <view class="image-container half">
@@ -124,8 +125,8 @@
         <view class="fx-window" wx:for="{{followWindow.shop_windows}}" wx:key="{{index}}">
           <view class="fx-window__author">
             <view class="author-info">
-              <image src="{{item.user_avatar}}-ava" class="avatar border-round" wx:if="{{item.user_avatar}}"></image>
-              <label class="name">{{item.user_name}}</label>
+              <image src="{{item.user_avatar}}-ava" catchtap="handleGoPeople" class="avatar border-round" data-uid="{{item.uid}}" wx:if="{{item.user_avatar}}"></image>
+              <label catchtap="handleGoPeople" data-uid="{{item.uid}}" class="name">{{item.user_name}}</label>
               <image src="../../images/icons/icon-star@3x.png" class="icon-star" wx:if="{{ item.is_expert }}"></image>
               <image wx:if="{{item.is_official}}" src="../../images/icons/icon-offical@3x.png" class="icon-offical"></image>
             </view>
@@ -139,7 +140,7 @@
             <image class="eleven-icon__window" wx:if="{{item.activity_tag}}" src="{{item.activity_tag}}"></image>
             <view class="image-container">
               <view class="image-item">
-                <image src="{{item.product_covers[0]}}-p50" class="photo"></image>
+                <image mode="aspectFill" src="{{item.product_covers[0]}}-p50" class="photo"></image>
               </view>
             </view>
             <view class="image-container half">

@@ -105,6 +105,8 @@ Page({
         }, () => {
           this.paymentPrice() // 计算金额
         })
+
+        // app.getCartTotalCount()
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -784,6 +786,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     this.setData({
       cartTotalCount: app.globalData.cartTotalCount
     })

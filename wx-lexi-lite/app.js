@@ -418,7 +418,7 @@ App({
   /**
    * 支付订单
    */
-  wxpayOrder: function(rid, payParams, cb) {
+  wxpayOrder: function(rid, payParams, formId, cb) {
     // 提交成功，发起支付
     wx.requestPayment({
       timeStamp: payParams.timeStamp.toString(),
@@ -426,7 +426,7 @@ App({
       package: 'prepay_id=' + payParams.prepay_id,
       signType: 'MD5',
       paySign: payParams.pay_sign,
-      success: function(res) {
+      success: (res) => {
         utils.logger(res, '支付成功返回参数')
         if (res.errMsg == 'requestPayment:ok') {
           wx.showToast({
@@ -437,6 +437,13 @@ App({
           wx.redirectTo({
             url: './../paymentSuccess/paymentSuccess?rid=' + rid,
           })
+          // 发送form id
+          http.fxPost(api.users_save_form_ids, {
+            prepay_id: formId,
+            openid: this.globalData.jwt.openid,
+            order_rid: rid,
+            app_id: this.globalData.app_id
+          }, result => {})
 
           // 支付成功，更新订单状态
           // http.fxPost(api.order_paid_status, {
@@ -485,7 +492,7 @@ App({
     }, (res) => {
       utils.logger(res, '购物车数量')
       if (res.success) {
-        this.updateCartTotalCount(res.data.item_count)
+        this.updateCartTotalCount(res.data.item_count, res.data.is_new)
       }
     })
   },
@@ -493,9 +500,9 @@ App({
   /**
    * 更新购物车数量
    */
-  updateCartTotalCount(cnt) {
+  updateCartTotalCount(cnt, isNew = 0) {
     this.globalData.cartTotalCount = cnt
-    if (this.globalData.cartTotalCount > 0) {
+    if (isNew > 0) {
       wx.showTabBarRedDot({
         index: 2
       })
@@ -538,7 +545,6 @@ App({
    * 发送消息
    */
   handleSendNews(e) {
-    console.log(e, 'formid')
     if (e == 'the formId is a mock one formid') {
       return
     }
@@ -546,9 +552,7 @@ App({
     http.fxPost(api.users_save_form_ids, {
       form_ids: [e],
       openid: this.globalData.jwt.openid
-    }, result => {
-      console.log(result, '模板消息')
-    })
+    }, result => {})
   },
 
   /**
@@ -566,8 +570,21 @@ App({
   },
 
   /**
+   * 检测网络
+   */
+  ckeckNetwork() {
+    wx.onNetworkStatusChange((res) => {
+      if (res.networkType == "none") {
+        wx.navigateTo({
+          url: './../networkError/networkError',
+        })
+      } else {}
+    })
+  },
+
+  /**
    * 全局变量
-  */
+   */
 
   globalData: {
     isLogin: false,

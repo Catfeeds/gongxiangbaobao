@@ -9,7 +9,7 @@
   </view>
   <!-- 轮播图 -->
   <view class='swiperBox'>
-    <swiper bindchange='handleSwiperChange'>
+    <swiper bindchange='handleSwiperChange' class="top-swiper">
       <block wx:for="{{productTop.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
           <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}" catchtap="handleLookBigPhoto" mode="aspectFill" />
@@ -26,14 +26,12 @@
       <text class='product-info__title'>{{productTop.name}}</text>
     </view>
     <view class='branderInfo margin-bottom--22rpx'>
-
       <text class='cureentPrice'> <text>￥{{productTop.min_sale_price!=productTop.min_price && productTop.min_sale_price!=0?productTop.min_sale_price:productTop.min_price}}</text> </text>
       <text class='origPrice' wx:if="{{productTop.min_sale_price!=0}}">￥{{productTop.min_price}}</text>
     </view>
-    <!-- wx:for='{{productInfomation.labels}}' -->
-    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productTop.labels.length > 0 }}">
-      <!-- <text class='{{characteristicT}} ' wx:key='{{index}}'>{{productInfomation.labels[0].name}} </text> -->
-      <text wx:for="{{productTop.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
+
+    <view class='characteristic branderInfo margin-bottom--40rpx' wx:if="{{ productInfomation.labels.length > 0 }}">
+      <text wx:for="{{productInfomation.labels}}" wx:if="{{index<5}}" wx:key='{{index}}' class='{{index==0?"characteristicT":""}}'>
           <text wx:if="{{index!=0}}"> · </text>
       <text>{{item.name}}</text>
       </text>
@@ -79,7 +77,21 @@
     <image class="shuang-shiyi" src="{{elevenCoupon.tag}}" catchtap="handleOpenEleven" wx:if="{{elevenCoupon.coupons.length!=0}}"></image>
     <!-- 双11 12返厂 -->
     <image class="shuang-shiyi__fanchang" src="{{twelveCoupon.tag}}" catchtap="handleOpenTwelve" wx:if="{{twelveCoupon.coupons.length!=0}}"></image>
+    <!-- 官方优惠券 -->
+    <view class='coupon-box official-coupon__box' wx:if="{{couponList.official_coupon.length!=0}}" catchtap="{{couponList.all_grant?'':'handleOpenOfficialBox'}}">
+      <view class='coupon-message'>
+        <!-- 优惠券 -->
+        <view class='time-top coupon-icon'>
+          <view class="flex_row">
+            <view class="lexi-icon">乐喜券</view>
+            <text>领取乐喜官方优惠券</text>
+          </view>
+          <view class='get-btn get-official__btn' wx:if="{{couponList.all_grant}}">已领取</view>
+          <view class='get-btn get-official__btn' wx:else>领取</view>
 
+        </view>
+      </view>
+    </view>
     <!-- 领取优惠券 -->
     <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
@@ -107,7 +119,7 @@
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
 
-    <view class='ordertext' wx:if="{{productInfomation.made_cycle>0}}">“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
+    <view class='ordertext' wx:if="{{productInfomation.is_custom_made}}">“接单订制”在付款后开始制作，需{{productInfomation.made_cycle}}个制作天（{{productInfomation.is_made_holiday?'':'不'}}包含节假日）</view>
 
   </view>
 
@@ -131,7 +143,7 @@
         <text class='titlemini'>亮点：</text>
         <text>{{ productInfomation.features }}</text>
       </view>
-      <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
+      <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_name!=null && productInfomation.material_name}}">
         <text class='titlemini'>材质：</text>
         <text>{{ productInfomation.material_name }}</text>
       </view>
@@ -148,13 +160,19 @@
     <!-- 发货地点 -->
     <view class='otherInfo-describe location' wx:if="{{storeInfo.country}}">
       <view class='titleText'>发货地</view>
-      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.country }}·{{ storeInfo.province }}</view>
+      <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}</view>
     </view>
 
     <!-- 交货时间 -->
-    <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=0||productInfomation.py_intro!=null}}">
+    <view class='otherInfo-describe location' wx:if="{{productInfomation.min_days}}">
       <view class='titleText'>交货时间</view>
-      <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.max_days?"预计"+logisticsTime.min_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
+      <view class='goodstext margin-bottom--30rpx'>{{"预计" + productInfomation.min_days + "-" + productInfomation.max_days}}
+      </view>
+    </view>
+
+    <view class='otherInfo-describe location' wx:if="{{!productInfomation.min_days&&productInfomation.py_intro!=null&&productInfomation.py_intro}}">
+      <view class='titleText'>交货时间</view>
+      <view class='goodstext margin-bottom--30rpx'>{{productInfomation.py_intro}}
       </view>
     </view>
 
@@ -230,7 +248,7 @@
   <view class='specifications' wx:if="{{pick}}" catchtap='hideSkuModal'>
     <view class='bg-white specificationsInfo black-font' catchtap='handleSkuModal'>
       <view class=''>
-        <view class=" sku__name ">{{ productInfomation.name }}</view>
+        <view class=" sku__name ">{{ productTop.name }}</view>
         <view class='flex_row padding-bottom-34rpx category-box__title' wx:if="{{ choosed.stock_count > 0 }}">
           <text class='cureentPrice' wx:if="{{ choosed.sale_price > 0 }}">
             <text>￥{{ choosed.sale_price }}</text>
@@ -320,7 +338,7 @@
     <view class='small-bottom__style flex_row bg-white' wx:if="{{!productTop.is_sold_out && productTop.status!=2}}">
       <view class='view flex_row--middle border-right__radius--null add_cart' catchtap='handlePickShow'>加入购物车</view>
       <view catchtap="handlePickShow" class='view flex_row--middle crated_btn--style border-left__radius--null c-theme-bg '>
-        <text>{{productInfomation.is_custom_service?'接单订制':'购买'}}</text>
+        <text>{{productInfomation.is_custom_made?'接单订制':'购买'}}</text>
       </view>
     </view>
 
@@ -345,9 +363,9 @@
           <text class='titlemini'>亮点：</text>
           <text>{{productInfomation.features}}</text>
         </view>
-        <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_id!=null && productInfomation.material_id}}">
+        <view class='goodstext margin-bottom--12rpx' wx:if="{{productInfomation.material_name!=null && productInfomation.material_name}}">
           <text class='titlemini'>材质：</text>
-          <text>{{productInfomation.material_id}}</text>
+          <text>{{productInfomation.material_name}}</text>
         </view>
         <view class='goodstext margin-bottom--12rpx' wx:if='{{productInfomation.is_custom_service}}'>
           <text class='titlemini'>特点： </text>
@@ -362,15 +380,20 @@
       <!-- 发货地点 -->
       <view class='otherInfo-describe location' wx:if="{{storeInfo.country}}">
         <view class='titleText'>发货地</view>
-        <view class='goodstext margin-bottom--30rpx'>{{storeInfo.country}}·{{storeInfo.province}}</view>
+        <view class='goodstext margin-bottom--30rpx'>{{ storeInfo.delivery_country }}·{{ storeInfo.delivery_province }}</view>
       </view>
 
       <!-- 交货时间 -->
-      <view class='otherInfo-describe location' wx:if="{{logisticsTime.min_days!=0||productInfomation.py_intro!=null}}">
+      <view class='otherInfo-describe location' wx:if="{{productInfomation.min_days}}">
         <view class='titleText'>交货时间</view>
-        <view class='goodstext margin-bottom--30rpx'>{{logisticsTime.min_days?"预计"+logisticsTime.max_days+"-"+logisticsTime.max_days+"天到达":productInfomation.py_intro}}
+        <view class='goodstext margin-bottom--30rpx'>{{"预计" + productInfomation.min_days + "-" + productInfomation.max_days}}
         </view>
+      </view>
 
+      <view class='otherInfo-describe location' wx:if="{{!productInfomation.min_days&&productInfomation.py_intro!=null&&productInfomation.py_intro}}">
+        <view class='titleText'>交货时间</view>
+        <view class='goodstext margin-bottom--30rpx'>{{productInfomation.py_intro}}
+        </view>
       </view>
 
       <!-- 退货政策 -->
@@ -399,6 +422,53 @@
     <image src="../../images/icon-back-home@2x.png" class="icon-back-home"></image>
     <text>回到自己生活馆</text>
   </view>
+
+  <!-- 官方优惠券 -->
+  <fx-modal showHead="{{ false }}" visible="{{ isShowOfficial }}">
+    <view class="coupon-template__style" slot="main">
+      <scroll-view scroll-y class='ct-subtract'>
+        <view class='coupon-shim'></view>
+        <!-- 优惠券图案 -->
+        <view class='ct-bottom'>
+          <view class='black-font'>乐喜官方优惠券</view>
+          <!-- 优惠券 -->
+          <view class='ct-coupon time-top' wx:key='{{index}}' data-idx="{{index}}" data-rid='{{item.code}}' catchtap='handleReciiveOfficial' wx:for='{{couponList.official_coupon}}'>
+            <view class='ct-line ct-line-l'></view>
+            <view class='ct-line ct-line-r'></view>
+            <view class='ct-round ct-round-top'></view>
+            <view class='ct-round ct-round-bom'></view>
+            <view class='ct-item-l time-top'>
+              <view class='ct-price '>
+                <view class='ct-price-icon ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>￥</view>
+                <view class='ct-price--red {{item.status==1?"lose-efficacy_price--color":""}}'>{{item.amount}}</view>
+              </view>
+              <view class='ce-price-r'>
+                <view class='ct-price-icon ce-green {{item.status==1?"lose-efficacy_price--color":""}}'>满{{item.min_amount}}使用</view>
+                <view class="flex_row">
+                  <view class="lexi-icon margin-left--30rpx">乐喜券</view>
+                  <text class="font-s">{{item.category_name}}</text>
+                </view>
+                <view class='ct-time {{item.status==1?"lose-efficacy_time--color":""}}'>有效期: {{item.user_coupon_start}} 至 {{item.user_coupon_end}}</view>
+              </view>
+            </view>
+            <view class='ct-item-r item.is_grant==1?"lose-efficacy_bg--color' wx:if="{{item.is_grant==1}}">
+              <view>已领取</view>
+            </view>
+            <view class='ct-item-r' wx:else>
+              <view>
+                <view>领取</view>
+              </view>
+            </view>
+          </view>
+          <view class='shm'></view>
+        </view>
+      </scroll-view>
+      <!-- 完成按钮 -->
+      <view class='wx-btn-box'>
+        <button catchtap='handleOpenOfficialBox'>完成</button>
+      </view>
+    </view>
+  </fx-modal>
 
   <!-- 卖 -->
   <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
@@ -477,30 +547,34 @@
 
   <!-- 图片放大 -->
   <view class="big-swiper__box {{bigPhotoShow?'big-swiper__box--show':''}}" catchtap="handleOffBigSwiperBox">
-    <view class="big-swiper__text--top">
-      <text class="sweiper-photo__currrent">{{bigPhotoCurrent}}</text>
-      <text class="sweiper-photo__sum">/{{productTop.assets.length}}</text>
-    </view>
-    <view class="swiper-photo__item">
-      <swiper duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
-        <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
-          <image src="{{item.view_url}}" mode="aspectFill" />
-        </swiper-item>
-      </swiper>
-    </view>
+    <swiper class="swiper-photo__item" style="height:{{bigSwiperHeight}}rpx" duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
+      <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
+        <image src="{{item.view_url}}" />
+      </swiper-item>
+    </swiper>
+    <!-- 下部分 -->
     <view class="big-swiper__text--bottom time-top">
       <view class="flex_row">
-        <view class="like-text__over" wx:if="{{productTop.is_like}}" catchtap='handleBindLike'>已喜欢</view>
-        <view class='like-text' wx:else catchtap='handleBindLike'>
+
+        <view class='like-text flex_row' wx:if="{{productTop.is_like}}" catchtap='handleBindLike'>
           <image src='../../images/already-like@3.png' class='like-icon'></image>
           <text class='font-color--white'> 喜欢</text>
+        </view>
+
+        <view class="like-text__over flex_row" wx:else catchtap='handleBindLike'>
+          <image src='../../images/already-like@3.png' class='like-icon'></image>
+          <text>{{productTop.like_count>0? '+' + productTop.like_count:'喜欢'}}</text>
         </view>
         <view class="shop" catchtap='handlePickShow'>购买</view>
       </view>
 
+      <text class="big-swiper__text--top">{{bigPhotoCurrent}}/{{productTop.assets.length}}</text>
+
       <image class="share-icon" catchtap="handleShareTap" src="https://static.moebeast.com/image/static/share_tag.png">
       </image>
     </view>
+
+    <image src="https://static.moebeast.com/image/static/bottom_gray.png" class="big-photo__bottom--shadow"></image>
   </view>
 
   <!-- 回到顶部按钮是否显示 -->

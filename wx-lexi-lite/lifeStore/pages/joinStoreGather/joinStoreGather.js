@@ -1,33 +1,18 @@
-const app = getApp()
-
+// pages/joinStoreGather/joinStoreGather.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    linkUrl: ''
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 检测网络
-    app.ckeckNetwork()
 
-    utils.logger(options)
-    if (!options.linkUrl) {
-      wx.switchTab({
-        url: '../index/index',
-      })
-    }
-    wx.setNavigationBarTitle({
-      title: options.title
-    })
-    this.setData({
-      linkUrl: options.linkUrl
-    })
   },
 
   /**
@@ -76,6 +61,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return app.shareLeXi()
+
   }
 })

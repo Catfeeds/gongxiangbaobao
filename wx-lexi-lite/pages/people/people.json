@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "",
     "usingComponents": {
       "fx-product": "/components/FxProductComponent/FxProductComponent",
       "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",

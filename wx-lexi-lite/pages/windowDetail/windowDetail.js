@@ -366,6 +366,14 @@ Page({
     })
   },
 
+  // 去个人主页
+  handleGoPeople(e) {
+    let uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../people/people?uid=' + uid
+    })
+  },
+
   /**
    * 获取评论
    */
@@ -410,7 +418,8 @@ Page({
         result.data.comment_count = commentCount >= 1000 ? (commentCount / 1000).toFixed(2) + 'k' : commentCount
 
         this.setData({
-          windowDetail: result.data
+          windowDetail: result.data,
+          myUid:app.globalData.jwt.uid
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -456,6 +465,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 检测网络
+    app.ckeckNetwork()
+
     // scene格式：rid + '-' + sid
     let scene = decodeURIComponent(options.scene)
     let rid = ''

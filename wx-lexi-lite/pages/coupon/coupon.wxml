@@ -4,6 +4,7 @@
     <view class="fx-column--center text-info">
       <view class="{{couponActive==item.rid?'active':''}}">{{item.name}}</view>
       <view class="{{couponActive==item.rid?'active__line':''}}"></view>
+      <view class="red-round" wx:if="{{item.redRound>0}}"></view>
     </view>
   </view>
 </view>
@@ -52,7 +53,7 @@
 
     <!-- 缺省 -->
     <view class='line-D noll-coupon' wx:if="{{storeCount == 0}}">
-      <image src='../../images/coupon@2.png'></image>
+      <image src='https://static.moebeast.com/image/static/coupon@2.png'></image>
       <view class='black-font '>您还没有优惠券哦~</view>
     </view>
 
@@ -109,7 +110,7 @@
 
     <!-- 缺省 -->
     <view class='line-D noll-coupon' wx:if="{{authorityCount == 0}}">
-      <image src='../../images/coupon@2.png'></image>
+      <image src='https://static.moebeast.com/image/static/coupon@2.png'></image>
       <view class='black-font '>您还没有优惠券哦~</view>
     </view>
 
@@ -204,7 +205,7 @@
 
     <!-- 缺省 -->
     <view class='line-D noll-coupon' wx:if="{{exceedCount == 0}}">
-      <image src='../../images/coupon@2.png'></image>
+      <image src='https://static.moebeast.com/image/static/coupon@2.png'></image>
       <view class='black-font '>您还没有优惠券哦~</view>
     </view>
 

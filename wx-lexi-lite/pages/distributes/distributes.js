@@ -12,6 +12,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pickIsFixed: false, // 盒子是否吸附在顶部
+    backBtnIsShow: false, // 一键职置顶
+
     isLoading: true,
     indicatorDots: true,
     vertical: false,
@@ -41,12 +44,12 @@ Page({
         title: '新品首发'
       }
     ],
-    stickedProducts: {}, // 推荐分销-官方--------
+    stickedProducts: {}, // 推荐分销-官方--
     advertises: [], // 推荐广告图
     storeHeadlines: [], // 生活馆头条
 
     totalCount: 0, // 商品总数
-    allProducts: {}, // 全部分销商品------
+    allProducts: {}, // 全部分销商品--
 
     showSortModal: false, // 排序
     showIncomeModal: false, // 利润
@@ -566,6 +569,16 @@ Page({
   },
 
   /**
+   * 回到顶部
+   */
+  handleBackTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 888
+    })
+  },
+
+  /**
    * 生成推广海报图
    */
   getWxaPoster(rid) {
@@ -895,6 +908,47 @@ Page({
       this.getAllProducts()
       this.getCategories()
     }
+  },
+
+  /**
+   * 监听页面滚动
+   */
+  onPageScroll(e) {
+    // 筛选盒子是否吸附
+    if (e.scrollTop >= 30) {
+      if (!this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: true
+        })
+      }
+    }
+
+    if (e.scrollTop < 30) {
+      if (this.data.pickIsFixed) {
+        this.setData({
+          pickIsFixed: false
+        })
+      }
+    }
+
+    // 设置回到顶部按钮是否显示
+    let windowHeight = app.globalData.systemInfo.windowHeight
+    if (e.scrollTop >= windowHeight) {
+      if (!this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: true
+        })
+      }
+    }
+
+    if (e.scrollTop < windowHeight) {
+      if (this.data.backBtnIsShow) {
+        this.setData({
+          backBtnIsShow: false
+        })
+      }
+    }
+
   },
 
   /**

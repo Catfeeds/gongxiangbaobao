@@ -73,7 +73,7 @@
           <text class='otherInfo'>x{{ item.quantity }}</text>
         </view>
 
-        <view class='receiveFn' wx:for='{{ logisticsCompany[items[0].store_rid][item.rid].express }}' wx:key="{{ index }}" wx:for-item='logisticsItem' wx:if='{{ logisticsItem.is_default }}'>
+        <view class='receiveFn' wx:for='{{ logisticsCompany[items[0].store_rid][item.rid].express }}' wx:key="{{ index }}" wx:for-item='logisticsItem' wx:if='{{ logisticsItem.is_default && logisticsCompany[items[0].store_rid][item.rid].isShow }}'>
           <view class='receiveFnTop'>
             <view>配送方式 </view>
             <view data-product='{{ items }}' data-item='{{ logisticsCompany[items[0].store_rid][item.rid] }}' data-store_rid='{{ items[0].store_rid }}' data-sku_rid='{{ item.rid }}' class='theme-green flex_row' data-index="{{ index }}" catchtap='otherLogisticsTap'>选择其他

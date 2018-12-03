@@ -6,7 +6,6 @@
 
 .wxParse-p .wxParse-img {
   width: 670rpx !important;
-  margin-left: 40rpx;
 }
 
 .product-max__box {
@@ -154,4 +153,17 @@
 
 .all-quantity__btn {
   border-top: 0;
+}
+
+.text-strong {
+  font-weight: 500;
+}
+
+.wxParse-p {
+  margin: 0 40rpx;
+  width: 670rpx;
+}
+
+.wxParse-p .wxParse-inline {
+  line-height: 40rpx;
 }

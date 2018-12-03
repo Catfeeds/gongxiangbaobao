@@ -55,14 +55,22 @@ Page({
 
         let pagePath = getCurrentPages()
         let parentPath = pagePath[pagePath.length - 2]
+        let grandsire = pagePath[pagePath.length - 3]
+
         if (parentPath.route == 'pages/product/product') {
           // 设置详情页面的已上架按钮
           parentPath.setData({
             'productTop.have_distributed': true
           })
-        } else {
+        }
+
+        if (parentPath.route == 'pages/distributes/distributes') {
           this._handleUpdateMyDistributed()
           this._handleParentBtn()
+        }
+
+        if (grandsire.route == 'pages/distributes/distributes') {
+          this._handleGrandsire()
         }
 
       } else {
@@ -71,6 +79,37 @@ Page({
     })
   },
 
+  /**
+   * 处理祖父级别页面按钮
+   */
+  _handleGrandsire() {
+    let pagePath = getCurrentPages()
+    let grandsire = pagePath[pagePath.length - 3]
+
+    let recommendProduct = grandsire.data.stickedProducts
+    let allProduct = grandsire.data.allProducts
+
+    if (recommendProduct.constructor == Array) {
+      recommendProduct.forEach((v, i) => {
+        if (this.data.rid == v.rid) {
+          grandsire.setData({
+            ['stickedProducts[' + i + '].have_distributed']: true
+          })
+        }
+      })
+    }
+
+    if (allProduct.constructor == Array) {
+      allProduct.forEach((v, i) => {
+        if (this.data.rid == v.rid) {
+          grandsire.setData({
+            ['allProducts[' + i + '].have_distributed']: true
+          })
+        }
+      })
+    }
+
+  },
   /**
    * 处理上一页的按钮样式
    */

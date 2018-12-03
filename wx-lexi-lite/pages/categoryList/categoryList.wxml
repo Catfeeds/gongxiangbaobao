@@ -10,10 +10,13 @@
   </view>
 
   <!-- 排序 筛选 -->
-  <view class='time-top sotr black-font {{sotrF?"sotrF":""}}'>
+  <view class='time-top sotr black-font {{sotrF?"sotrF":""}} {{pickIsFixed?"position-fixed__top":""}}'>
     <view catchtap='handelOffPick' class='flex_row'>
       综合排序
       <image src='../../images/arrowhead.png'></image>
+    </view>
+    <view catchtap="handleIsPickNew" class="{{params.sort_newest>0?'new-active':''}}">
+      新品
     </view>
     <view catchtap="handleSortShow" class='flex_row'>
       筛选
@@ -21,21 +24,19 @@
     </view>
   </view>
 
+  <view class="shim" wx:if="{{pickIsFixed}}"></view>
+
   <!-- 商品列表 -->
   <view class="goodsList border-bottom--0">
     <view wx:for="{{productList}}" wx:key="{{index}}" class='goods-item {{(index+1)%5==0?"goodsFive":"goods-item"}}'>
-      <fx-product product="{{item}}" 
-      photo='{{ (index+1)%5 == 0 ? "4" : "3" }}'
-      photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
+      <fx-product oldPrice="{{true}}" product="{{item}}" photo='{{ (index+1)%5 == 0 ? "4" : "3" }}' photoSize="{{(index+1)%5==0?'50':'30'}}" bind:triggerEvent_product="handleInfomation"></fx-product>
     </view>
   </view>
 
   <block>
     <!-- 底部加载 -->
     <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
     </view>
     <!-- 没有商品加载的底部 -->
     <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
@@ -50,39 +51,32 @@
           <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
         </view>
 
-          <!-- 分类 -->
+        <!-- 分类 -->
         <view>
-        <view class="block-title">分类
-          <small>可多选</small>
-        </view>
-        <view class="scroll-view__container">
-          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
-            <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
-              {{ category.name }}
-            </view>
-          </scroll-view>
-        </view>
+          <view class="block-title">分类
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
         </view>
 
         <!-- 推荐 -->
         <view>
-        <view class="block-title">推荐
-          <small>可多选</small>
-        </view>
-        <view class="scroll-view__container">
-          <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
-            <view 
-              class="category {{ category.isActive ? 'active' : '' }}" 
-              wx:for="{{ recommendList }}" 
-              wx:for-item="category" 
-              wx:key="{{ category.id }}" 
-              data-cid="{{ category.id }}" 
-              data-index="{{index}}"
-              bindtap="handleToggleRecommendList">
-              {{ category.name }}
-            </view>
-          </scroll-view>
-        </view>
+          <view class="block-title">推荐
+            <small>可多选</small>
+          </view>
+          <view class="scroll-view__container">
+            <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+              <view class="category {{ category.isActive ? 'active' : '' }}" wx:for="{{ recommendList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" data-index="{{index}}" bindtap="handleToggleRecommendList">
+                {{ category.name }}
+              </view>
+            </scroll-view>
+          </view>
         </view>
       </view>
       <button class="fx-button primary" bindtap="handleCloseFilterModal" slot="foot">

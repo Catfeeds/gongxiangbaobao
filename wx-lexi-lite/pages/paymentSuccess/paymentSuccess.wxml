@@ -88,13 +88,12 @@
           <view class='hui-zi middle-line' wx:if="{{item.sale_price!=0}}">￥{{item.price}}</view>
         </view>
       </view>
-
-      <view class='goodsFn'>
-        <view>配送</view>
-        <view>{{item.freight==0?'包邮':'￥' + item.freight}}</view>
-      </view>
     </view>
 
+    <view class='goodsFn'>
+      <view>配送</view>
+      <view>{{items.freight==0?'包邮':'￥' + items.freight}}</view>
+    </view>
   </view>
 
   <!-- 垫片 -->
