@@ -4,7 +4,7 @@
   <!-- 购物车缺省页 -->
   <view class='shopCartNon' wx:if="{{shoppingCart.items.length==0}}">
     <view class=' theme-green cartIcon'>
-      <image src='../../images/car-null.png'></image>
+      <image src='https://static.moebeast.com/image/static/car-null.png'></image>
     </view>
     <view class='shopCartNonText'>您的购物车空空如也</view>
     <view class='goToShop btn-bg-color' catchtap='indexTap'>现在去逛逛</view>

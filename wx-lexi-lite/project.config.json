@@ -188,7 +188,13 @@
 				{
 					"id": 25,
 					"name": "people",
-					"pathName": "pages/gatherInfo/gatherInfo",
+					"pathName": "pages/people/people",
+					"query": "rid=32"
+				},
+				{
+					"id": -1,
+					"name": "pinpaiguan",
+					"pathName": "pages/branderStore/branderStore",
 					"query": "rid=32"
 				}
 			]

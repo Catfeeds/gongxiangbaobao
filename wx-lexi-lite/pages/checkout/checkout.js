@@ -613,7 +613,7 @@ Page({
       items: params
     }, (result) => {
       utils.logger(result, '获取运费模板')
-
+      console.log(result, '获取运费模板')
       if (result.success) {
 
         this.setData({
@@ -632,7 +632,7 @@ Page({
   logisticsIsShow() {
     let resultData = this.data.logisticsCompany
     let NewData = {}
-
+    console.log(resultData,'resultData')
     Object.keys(resultData).forEach((key, i) => {
 
       NewData[key] = this._handleExpress(resultData[key])
@@ -641,7 +641,7 @@ Page({
           this.setData({
             logisticsCompany: NewData
           })
-        }, 1000)
+        }, 2000)
       }
     })
   },

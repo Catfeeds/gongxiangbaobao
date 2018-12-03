@@ -1930,7 +1930,7 @@ Page({
    * 监听页面滚动
    * **/
   onPageScroll(e) {
-    if (e.scrollTop >= 60) {
+    if (e.scrollTop > 50) {
       if (!this.data.isNavbarAdsorb) {
         this.setData({
           isNavbarAdsorb: true
@@ -1938,7 +1938,7 @@ Page({
       }
     }
 
-    if (e.scrollTop < 61) {
+    if (e.scrollTop <= 50) {
       if (this.data.isNavbarAdsorb) {
         this.setData({
           isNavbarAdsorb: false

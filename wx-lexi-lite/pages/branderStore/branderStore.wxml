@@ -20,7 +20,7 @@
     <view class="flex_row name-box margin-bottom--18rpx">
       <view class="font-xxl font-width--medium store-name">
         <text>{{storeInfo.name}}</text> </view>
-      <image class="store-icon" src="../../images/user-store.png"></image>
+      <image class="store-icon" src="https://static.moebeast.com/image/static/user-store.png"></image>
       <image class="agree-icon" src="../../images/@2.png"></image>
 
     </view>

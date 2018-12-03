@@ -18,7 +18,7 @@
     </view>
 
     <view wx:if="{{likeProduct.length==0}}" class="flex-direction-column__item null-photo">
-      <image src="../../images/user-xin.png"></image>
+      <image src="https://static.moebeast.com/image/static/user-xin.png"></image>
       <view>你当前还没有喜欢商品</view>
     </view>
   </scroll-view>
@@ -33,7 +33,7 @@
     </view>
 
     <view wx:if="{{desireOrderProduct.length==0}}" class="flex-direction-column__item null-photo">
-      <image src="../../images/user-star.png"></image>
+      <image src="https://static.moebeast.com/image/static/user-star.png"></image>
       <view>你当前还没有心愿单商品</view>
     </view>
   </scroll-view>

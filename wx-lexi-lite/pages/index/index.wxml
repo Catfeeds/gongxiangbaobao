@@ -785,7 +785,7 @@
       </view>
     </view>
 
-    <image class="off-new__coupon--btn" catchlongtap="handleOffNewCoupon" src="../../images/receive-10003x.png"></image>
+    <image class="off-new__coupon--btn" catchlongtap="handleOffNewCoupon" src="https://static.moebeast.com/image/static/receive-10003x.png"></image>
   </view>
 
   <!-- 新人领取红包成功  -->
