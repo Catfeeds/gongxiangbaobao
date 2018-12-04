@@ -190,14 +190,14 @@
   <view class="gift-share-wrapper">
 
     <!-- 进行中/发起中 -->
-    <button class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && isSelf }}">
+    <view class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && isSelf }}">
       分享好友助力
-    </button>
+    </view>
 
     <!-- 进行中/普通用户 -->
-    <button class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
+    <view class="btn-share btn-more--green" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
       分享好友助力
-    </button>
+    </view>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
       <button class="btn-give opened" formType="submit">
         我也要拿礼物
@@ -205,13 +205,13 @@
     </form>
 
     <!-- 开奖成功或失效 -->
-    <form bindsubmit="handleFormMore" report-submit="{{ true }}" class="form-getid">
-      <button class="btn-more btn-more--green" formType="submit" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
+    <form bindsubmit="handleFormMore" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
+      <button class="btn-more btn-more--green" formType="submit">
         更多抽奖
       </button>
     </form>
-    <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid">
-      <button class="btn-give opened" formType="submit" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
+    <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
+      <button class="btn-give opened" formType="submit">
         我也要拿礼物
       </button>
     </form>

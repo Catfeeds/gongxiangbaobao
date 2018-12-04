@@ -281,7 +281,7 @@
 }
 
 .partake-success-wrapper .tips {
-  width: 457rpx;
+  width: 400rpx;
   height: 35rpx;
   background: rgba(255, 239, 239, 1);
   border-radius: 18rpx;
@@ -289,6 +289,7 @@
   font-weight: 500;
   color: rgba(255, 102, 102, 1);
   padding: 5rpx 20rpx;
+  text-align: center;
 }
 
 .fail-tips {

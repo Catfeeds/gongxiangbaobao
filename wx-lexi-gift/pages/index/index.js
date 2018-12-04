@@ -19,6 +19,7 @@ Page({
     isSmallB: false, // 是否为生活馆主
     userInfo: {},
     // 当前活动
+    isExist: false,
     currentActivity: {},
     // 输入表单
     idx: '',
@@ -174,7 +175,9 @@ Page({
     http.fxGet(api.gift_current, {}, (res) => {
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
+        let _ca = Object.keys(res.data)
         this.setData({
+          isExist: _ca.length > 0 ? true : false,
           currentActivity: res.data
         })
       } else {

@@ -10,7 +10,7 @@
   </view>
 
   <!-- 当前礼物 -->
-  <view class="gift-product">
+  <view class="gift-product" wx:if="{{ isExist }}">
     <view class="product-box">
       <image src="{{ currentActivity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.assets.length > 0 }}"></image>
       <view class="product-info">
