@@ -1,12 +1,6 @@
 /* pages/liveNoteList/liveNoteList.wxss */
 @import "../index/index.wxss";
 
-.column-direction {
-  padding: 0rpx 40rpx 0;
-  column-count: 2;
-  column-gap: 0;
-}
-
-.column-direction>view{
-  break-inside: avoid;
+.column-direction-box {
+  padding: 0 40rpx;
 }

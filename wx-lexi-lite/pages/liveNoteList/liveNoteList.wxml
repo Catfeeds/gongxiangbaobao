@@ -1,34 +1,42 @@
 <!--pages/liveNoteList/liveNoteList.wxml-->
 <view class="container">
-  <view class='column-direction new-goods_box'>
-    <view 
-      class='flex-direction--column productionGoods article-item' 
-      catchtap="handleToInfo"
-      data-rid="{{item.rid}}"
-      data-type="{{item.type}}"
-      wx:for="{{dataList}}" wx:key='{{index}}'>
+  <view class="time-top column-direction-box">
+    <view class=' new-goods_box'>
+      <view class='flex-direction--column productionGoods article-item' catchtap="handleToInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" wx:for="{{dataList}}" wx:if="{{(index+1)%2!=0}}" wx:key='{{index}}'>
 
-      <image src="{{item.cover}}-p326x216" class="img--style"></image>
-      <text class="big-title font-s font-width--semibold text-two_line">{{item.title}}</text>
-      <text class='summary font-s shen-hui text-two_line'>{{item.description}}</text>
-      <view class='plant-owner__box flex_row'>
-        <image src="{{item.user_avator}}-ava" class='plant-owner__photo'></image>
-        <text class="font-s shen-hui">{{item.user_name}}</text>
+        <image src="{{item.cover}}-p326x216" class="img--style"></image>
+        <text class="big-title font-s font-width--semibold text-two_line">{{item.title}}</text>
+        <text class='summary font-s shen-hui text-two_line'>{{item.description}}</text>
+        <view class='plant-owner__box flex_row'>
+          <image src="{{item.user_avator}}-ava" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{item.user_name}}</text>
+        </view>
       </view>
     </view>
+
+    <!-- 2 -->
+    <view class=' new-goods_box'>
+      <view class='flex-direction--column productionGoods article-item' catchtap="handleToInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" wx:for="{{dataList}}" wx:if="{{(index+1)%2==0}}" wx:key='{{index}}'>
+
+        <image src="{{item.cover}}-p326x216" class="img--style"></image>
+        <text class="big-title font-s font-width--semibold text-two_line">{{item.title}}</text>
+        <text class='summary font-s shen-hui text-two_line'>{{item.description}}</text>
+        <view class='plant-owner__box flex_row'>
+          <image src="{{item.user_avator}}-ava" class='plant-owner__photo'></image>
+          <text class="font-s shen-hui">{{item.user_name}}</text>
+        </view>
+      </view>
+    </view>
+
   </view>
-
-
-      <block>
+  <block>
     <!-- 底部加载 -->
     <view class="load-many__box" wx:if="{{isLoadProductShow}}">
-      <image 
-      src='../../images/jiazai.gif' 
-      class="load-many__photo"></image>
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
     </view>
     <!-- 没有商品加载的底部 -->
     <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
-  
+
   </block>
 </view>
 <fx-loading loading="{{ isLoading }}"></fx-loading>
