@@ -18,6 +18,7 @@ Page({
     btnText: '领取礼物',
 
     currentActivity: {},
+    isSmallB: false, // 是否为生活馆主
 
     hasAddress: false,
     currentAddress: {},
@@ -70,10 +71,22 @@ Page({
         btnText: '领取礼物'
       })
       if (res.success) {
-        // 领取成功，跳转成功页面
-        wx.redirectTo({
-          url: '../pickSuccess/pickSuccess?rid=' + this.data.rid,
-        })
+        if (this.data.isSmallB) {
+          let _rid = this.data.rid
+          app.wxpayOrder(_rid, res.data.pay_params, (result) => {
+            if (result) {
+              // 领取成功，跳转成功页面
+              wx.redirectTo({
+                url: '../pickSuccess/pickSuccess?rid=' + _rid,
+              })
+            }
+          })
+        } else {
+          // 领取成功，跳转成功页面
+          wx.redirectTo({
+            url: '../pickSuccess/pickSuccess?rid=' + _rid,
+          })
+        }
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -128,7 +141,8 @@ Page({
     this.setData({
       rid: rid,
       'form.rid': rid,
-      'form.openid': app.globalData.jwt.openid
+      'form.openid': app.globalData.jwt.openid,
+      isSmallB: app.globalData.jwt.is_small_b ? true : false
     })
     
     this.getActivity()

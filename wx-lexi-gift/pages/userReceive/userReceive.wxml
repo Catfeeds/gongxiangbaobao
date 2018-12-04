@@ -17,7 +17,7 @@
           <view class="status" wx:if="{{ activity.status == 1 }}">未发货</view>
           <view class="status reded" wx:if="{{ activity.status == 2 }}">已发货</view>
         </view>
-        <view class="lottery-item__body">
+        <view class="lottery-item__body" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoActivity">
           <image src="{{ activity.view_url }}-p30x2" class="cover" wx:if="{{ activity.view_url }}"></image>
           <view class="product-info">
             <view class="name">

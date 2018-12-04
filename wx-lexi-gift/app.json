@@ -11,7 +11,8 @@
     "pages/userReceive/userReceive",
     "pages/userSend/userSend",
     "pages/lotteryList/lotteryList",
-    "pages/pickSuccess/pickSuccess"
+    "pages/pickSuccess/pickSuccess",
+    "pages/myLottery/myLottery"
   ],
   "window": {
     "backgroundTextStyle": "light",

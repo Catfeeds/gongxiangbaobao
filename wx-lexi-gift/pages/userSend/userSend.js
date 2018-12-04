@@ -39,6 +39,23 @@ Page({
   },
 
   /**
+   * 查看活动
+   */
+  handleGoActivity(e) {
+    let rid = e.currentTarget.dataset.rid
+    let kind = e.currentTarget.dataset.kind
+    if (kind == 3) {
+      wx.navigateTo({
+        url: '../myLottery/myLottery?rid=' + rid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../lottery/lottery?rid=' + rid,
+      })
+    }
+  },
+
+  /**
    * 获取参与的活动列表
    */
   getActivityList() {

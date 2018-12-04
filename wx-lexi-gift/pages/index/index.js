@@ -16,12 +16,14 @@ Page({
     showRuleModal: false, // 显示规则弹框
 
     // 当前登录用户信息
+    isSmallB: false, // 是否为生活馆主
     userInfo: {},
     // 当前活动
     currentActivity: {},
     // 输入表单
     idx: '',
     days: [1, 2, 3],
+    defaultPeopleCount: 20,
     form: {
       people_num: null,
       days: '',
@@ -32,8 +34,8 @@ Page({
     page: 1,
     perPage: 10,
     partakePeople: [],
-    partakePeopleCount: 0
-    
+    partakePeopleCount: 0,
+    btnGiftText: '花一元送好友'
   },
 
   // 获取formid
@@ -114,8 +116,8 @@ Page({
     console.log(this.data.form)
 
     // 验证人数
-    if (this.data.form.people_num < 20) {
-      utils.fxShowToast('参与人数不能低于20人')
+    if (this.data.form.people_num < this.data.defaultPeopleCount) {
+      utils.fxShowToast('参与人数不能低于' + this.data.defaultPeopleCount + '人')
       return
     }
 
@@ -144,16 +146,23 @@ Page({
       if (res.success) {
         // 开始支付
         let _rid = res.data.activity_rid
-        app.wxpayOrder(_rid, res.data.pay_params, (result) => {
-          if (result) {
-            // 跳转至详情
-            wx.navigateTo({
-              url: '../lottery/lottery?rid=' + _rid,
-            })
-          }
-        })
+        if (this.data.isSmallB) {
+          app.wxpayOrder(_rid, res.data.pay_params, (result) => {
+            if (result) {
+              // 跳转至详情
+              wx.navigateTo({
+                url: '../lottery/lottery?rid=' + _rid,
+              })
+            }
+          })
+        } else {
+          // 跳转至详情
+          wx.navigateTo({
+            url: '../myLottery/myLottery?rid=' + _rid,
+          })
+        }
       } else {
-        utils.fxShowToast('发起失败,请重试！')
+        utils.fxShowToast(res.status.message)
       }
     })
   },
@@ -228,19 +237,50 @@ Page({
   },
 
   /**
+   * 刷新用户登录信息
+   */
+  _refreshUserLogin() {
+    const jwt = app.globalData.jwt
+    let isSmallB = false
+    let days = [1, 2, 3]
+    let idx = ''
+    let formDays = ''
+    let _txt = this.data.btnGiftText
+
+    if (jwt.is_small_b) {
+      isSmallB = true
+    } else { // 普通用户天数不可选
+      days = [1]
+      idx = 0
+      formDays = this.data.days[idx]
+      _txt = '我要拿礼物'
+    }
+    this.setData({
+      isLogin: app.globalData.isLogin,
+      isSmallB: isSmallB,
+      days: days,
+      idx: idx,
+      'form.days': formDays,
+      btnGiftText: _txt
+    })
+
+    this.getMyActivityPeople()
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getCurrentActivity()
     
     if (app.globalData.isLogin) {
-      this.getMyActivityPeople()
+      this._refreshUserLogin()
     } else {
       // 给app.js 定义一个方法。
       app.userInfoReadyCallback = res => {
         utils.logger('用户信息请求完毕')
         if (res) {
-          this.getMyActivityPeople()
+          this._refreshUserLogin()
         } else {
           utils.fxShowToast('授权失败，请稍后重试')
         }

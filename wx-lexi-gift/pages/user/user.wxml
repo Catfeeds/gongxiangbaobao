@@ -20,7 +20,7 @@
     <image src="{{ userInfo.avatar }}-ava50" class="user-avatar" wx:if="{{ userInfo.avatar }}"></image>
     <view class="user-info">
       <view class="user-name">{{ userInfo.username }}</view>
-      <view class="user-desc">乐喜生活馆主</view>
+      <view class="user-desc" wx:if="{{ isSmallB }}">乐喜生活馆主</view>
     </view>
     <view class="user-action">
       <button class="btn-login btn-address" bindtap="handleGoAddress">地址管理</button>

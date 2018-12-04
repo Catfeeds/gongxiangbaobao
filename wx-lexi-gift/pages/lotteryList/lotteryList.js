@@ -20,9 +20,16 @@ Page({
    */
   handleGoLottery (e) {
     let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../lottery/lottery?rid=' + rid,
-    })
+    let kind = e.currentTarget.dataset.kind
+    if (kind == 3) {
+      wx.navigateTo({
+        url: '../myLottery/myLottery?rid=' + rid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../lottery/lottery?rid=' + rid,
+      })
+    }
   },
   
   /**

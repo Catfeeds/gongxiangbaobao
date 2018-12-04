@@ -21,7 +21,7 @@
           </view>
           <view class="status ended" wx:if="{{ activity.status == 3 }}">已失效</view>
         </view>
-        <view class="lottery-item__body" data-rid="{{ activity.activity_rid }}" bindtap="handleGoActivity">
+        <view class="lottery-item__body" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoActivity">
           <image src="{{ activity.view_url }}-p30x2" class="cover" wx:if="{{ activity.view_url }}"></image>
           <view class="product-info">
             <view class="name">

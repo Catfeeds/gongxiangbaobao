@@ -2,7 +2,7 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <view class="gift-banner">
-    <view class="title">赠送好友礼物</view>
+    <view class="title">寻找新朋友送出一份礼物</view>
     <view class="desc">邀请好友访问你的生活馆</view>
     <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
       <button class="btn-rule" formType="submit">活动规则</button>
@@ -22,8 +22,11 @@
         </view>
       </view>
     </view>
+
     <view class="product-images">
-      <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index < 4 && index > 0 }}" class="asset"></image>
+      <scroll-view scroll-x style="height: 220rpx;width: auto;overflow:hidden;">
+        <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index > 0 }}" class="asset"></image>
+      </scroll-view>      
     </view>
   </view>
 
@@ -39,13 +42,13 @@
 
     <view class="form-people">
       <image src="../../images/icon-people@2x.png" class="icon-people"></image>
-      <input type="number" placeholder="设定参与人数（不低于20人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
+      <input type="number" placeholder="设定参与人数（不低于{{ defaultPeopleCount }}人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
     </view>
 
     <view class="form-days">
       <image src="../../images/icon-days@2x.png" class="icon-days"></image>
       <picker class="form-picker" bindchange="handlePickerChange" value="{{ days[idx] }}" range="{{ days }}">
-        <view class="picker pholder" wx:if="{{ idx == '' }}">
+        <view class="picker pholder" wx:if="{{ idx == '' && idx != 0 }}">
           <view class="days-number">设置活动天数</view>
           <view class="days-arraw">
             <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
@@ -85,7 +88,7 @@
 
   <!-- 支付按钮 -->
   <view class="give-button" bindtap="handleSubmitActivity">
-    花一元送好友
+    {{ btnGiftText }}
   </view>
 
   <!-- 登陆注册模态框 -->

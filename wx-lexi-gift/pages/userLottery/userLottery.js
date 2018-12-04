@@ -44,9 +44,16 @@ Page({
    */
   handleGoActivity (e) {
     let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../lottery/lottery?rid=' + rid,
-    })
+    let kind = e.currentTarget.dataset.kind
+    if (kind == 3) {
+      wx.navigateTo({
+        url: '../myLottery/myLottery?rid=' + rid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../lottery/lottery?rid=' + rid,
+      })
+    }
   },
 
   /**
@@ -72,7 +79,7 @@ Page({
         } else {
           _list = res.data.activity_list
         }
-        console.log(_list)
+        
         this.setData({
           lotteryList: _list,
           hasNext: res.data.next

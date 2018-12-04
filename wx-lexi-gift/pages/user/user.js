@@ -16,6 +16,7 @@ Page({
     isStoreOwner: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
+    isSmallB: false, // 是否为生活馆主
     collectCount: {
       join_activity: 0,
       my_activity: 0,
@@ -73,9 +74,7 @@ Page({
     })
 
     if (app.globalData.isLogin) {
-      this.setData({
-        isLogin: app.globalData.isLogin
-      })
+      this._refreshUserLogin()
     }
 
     wx.showTabBar()
@@ -113,6 +112,22 @@ Page({
   },
 
   /**
+   * 刷新用户登录信息
+   */
+  _refreshUserLogin () {
+    const jwt = app.globalData.jwt
+    let isSmallB = false
+    if (jwt.is_small_b) {
+      isSmallB = true
+    }
+    this.setData({
+      isLogin: app.globalData.isLogin,
+      isSmallB: isSmallB
+    })
+    this.getActivityCollect()
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
@@ -140,7 +155,10 @@ Page({
       userInfo: app.globalData.userInfo
     })
 
-    this.getActivityCollect()
+    // 用户登录信息
+    if (app.globalData.isLogin) {
+      this._refreshUserLogin()
+    }
   },
 
   /**
@@ -177,4 +195,5 @@ Page({
   onShareAppMessage: function () {
 
   }
+  
 })
