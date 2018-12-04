@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我参与的",
   "usingComponents": {
+    "fx-image-modal": "/components/FxImageModal/FxImageModal",
     "fx-loading": "/components/FxLoading/FxLoading",
     "fx-login": "/components/FxLogin/FxLogin"
   }

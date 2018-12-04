@@ -189,3 +189,9 @@
   width: 100rpx;
   height: 100rpx;
 }
+
+.lifestore-qrcode {
+  width: 460rpx;
+  height: 568rpx;
+  margin-bottom: 60rpx;
+}

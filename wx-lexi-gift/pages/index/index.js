@@ -22,7 +22,7 @@ Page({
     isExist: false,
     currentActivity: {},
     // 输入表单
-    idx: '',
+    idx: -1,
     days: [1, 2, 3],
     defaultPeopleCount: 20,
     form: {
@@ -54,9 +54,10 @@ Page({
   // 选择天数
   handlePickerChange (e) {
     console.log(e.detail.value)
+    let idx = parseInt(e.detail.value)
     this.setData({
-      idx: e.detail.value,
-      'form.days': this.data.days[e.detail.value]
+      idx: idx,
+      'form.days': this.data.days[idx]
     })
   },
 
@@ -243,10 +244,16 @@ Page({
    * 刷新用户登录信息
    */
   _refreshUserLogin() {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        showLoginModal: true
+      })
+    }
+
     const jwt = app.globalData.jwt
     let isSmallB = false
     let days = [1, 2, 3]
-    let idx = ''
+    let idx = -1
     let formDays = ''
     let _txt = this.data.btnGiftText
 

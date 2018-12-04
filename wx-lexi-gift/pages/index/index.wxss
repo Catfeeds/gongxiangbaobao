@@ -5,6 +5,7 @@
 .gift-product {
   width: 750rpx;
   background-color: #fff;
+  overflow: hidden;
 }
 
 .gift-product .product-box {
@@ -64,6 +65,7 @@
 .gift-product .product-images .asset {
   width: 220rpx;
   height: 220rpx;
+  margin-right: 20rpx;
   border-radius: 8rpx;
 }
 
@@ -225,18 +227,25 @@
   line-height: 24rpx;
 }
 
-.give-button {
+.fixed-bottom {
+  position: fixed;
+  bottom: 22rpx;
+  z-index: 999;
+  left: 0rpx;
+  width: 750rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.fixed-bottom .give-button {
   width: 450rpx;
   height: 88rpx;
   background: rgba(95, 228, 177, 1);
   box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(95, 228, 177, 0.51);
   border-radius: 44rpx;
-  position: fixed;
-  bottom: 22rpx;
   text-align: center;
   font-size: 32rpx;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   line-height: 88rpx;
-  z-index: 999;
 }

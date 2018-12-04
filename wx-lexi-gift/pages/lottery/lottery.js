@@ -334,7 +334,7 @@ Page({
         })
 
         // 如未参与，则回调参与
-        if (!res.data.is_join) {
+        if (res.data.status == 2 && !res.data.is_join) {
           this.partakeLottery()
         }
       } else {

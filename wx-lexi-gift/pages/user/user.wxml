@@ -44,25 +44,35 @@
   </view>
 
   <!-- 生活馆主 -->
-  <view class="link-lexi" wx:if="{{ isStoreOwner }}">
-    <view class="follow-notice">
+  <view class="link-lexi" wx:if="{{ isSmallB }}">
+    <view class="follow-notice" bindtap="handleShowQrcodeModal">
       <view class="follow-text">
         关注乐喜生活馆公众号，实时接收订单消息
       </view>
       <button class="btn-follow">立即关注</button>
     </view>
 
-    <image src="../../images/join-group@2x.png" class="go-lexi"></image>
+    <image src="../../images/join-group@2x.png" class="go-lexi" catchtap="handleJoinStoreGather"></image>
   </view>
 
   <!-- 跳转核心小程序 -->
-  <navigator wx:if="{{ !isStoreOwner }}" class="link-lexi" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+  <navigator wx:if="{{ !isSmallB }}" class="link-lexi" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
     <image src="../../images/link-lexi@2x.png" class="go-lexi"></image>
   </navigator>
 
   <!-- 菜单项 -->
   <view class="link-menus">
-    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index?sid=" extra-data="lexi-gift" version="release">
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="{{ storePath }}" extra-data="lexi-gift" version="release" wx:if="{{ isSmallB }}">
+      <view class="menu-box">
+        <view class="name">{{ lifeStore.name }}</view>
+        <view class="desc">{{ lifeStore.visit_times }}人访问</view>
+      </view>
+      <view class="image">
+        <image src="../../images/icon-life-store@2x.png" class="icon"></image>
+      </view>
+    </navigator>
+
+    <navigator class="link-menu__item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="{{ storePath }}" extra-data="lexi-gift" version="release" wx:else>
       <view class="menu-box">
         <view class="name">乐喜生活馆</view>
         <view class="desc">零成本开店赚取收益</view>
@@ -82,6 +92,14 @@
       </view>
     </navigator>
   </view>
+
+  <!-- 乐喜生活馆公众号 -->
+  <fx-image-modal visible="{{ showQrcodeModal }}" close="{{ false }}">
+    <image src="https://s3.lexivip.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
+    <view class="btn-area">
+      <button class="fx-button fx-button--primary" data-url="https://s3.lexivip.com/static/img/lexi-lifestore@3x.png" bindtap="handleSaveQrcode">保存图片</button>
+    </view>
+  </fx-image-modal>
 
   <!-- 登陆注册模态框 -->
   <fx-login visible="{{ showLoginModal }}" bind:closeEvent="hanleOffLoginBox"></fx-login>

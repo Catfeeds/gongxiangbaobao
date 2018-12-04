@@ -59,7 +59,7 @@ Page({
    * 获取参与的活动列表
    */
   getActivityList() {
-    http.fxGet(api.gift_receive, {
+    http.fxGet(api.gift_sended, {
       page: this.data.page,
       per_page: this.data.perPage,
       s: this.data.activeStatus

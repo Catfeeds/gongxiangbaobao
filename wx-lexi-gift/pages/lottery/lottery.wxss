@@ -9,9 +9,9 @@
 .gift-originator {
   display: flex;
   align-items: center;
-  padding: 0rpx 30rpx;
+  padding-left: 30rpx;
   margin-top: 35rpx;
-  width: 690rpx;
+  width: 660rpx;
 }
 
 .gift-originator .icon-avatar {
@@ -107,7 +107,7 @@
 
 .store-wrapper .gift-originator .user-action {
   flex: 0 0 auto;
-  margin-right: 60rpx;
+  margin-right: 30rpx;
 }
 
 .store-wrapper .blessing {
@@ -292,15 +292,16 @@
 
 
 .gift-product {
-  padding: 0 30rpx;
+  padding: 0rpx;
   background-color: #fff;
+  overflow: hidden;
 }
 
 .gift-product .product-images {
   width: 690rpx;
   height: 220rpx;
   overflow: hidden;
-  padding: 0 30rpx;
+  padding-left: 30rpx;
   white-space: nowrap;
 }
 
@@ -455,7 +456,7 @@
 .gift-peoples .count-down .bigtitle {
   flex: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -468,6 +469,10 @@
 
 .gift-peoples .count-down.opened .line {
   width: 280rpx;
+}
+
+.gift-peoples .count-down.failed .line {
+  width: 145rpx;
 }
 
 .gift-peoples .partake-users {

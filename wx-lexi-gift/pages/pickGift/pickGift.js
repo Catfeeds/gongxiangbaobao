@@ -16,6 +16,7 @@ Page({
     
     isSending: false,
     btnText: '领取礼物',
+    userBtnText: '支付1元领取礼物',
 
     currentActivity: {},
     isSmallB: false, // 是否为生活馆主
@@ -62,17 +63,28 @@ Page({
 
     this.setData({
       isSending: true,
-      btnText: '正在提交...'
+      btnText: '正在提交...',
+      userBtnText: '正在提交...'
     })
     http.fxPost(api.gift_activity_grant, this.data.form, (res) => {
       utils.logger(res, '领取礼物')
       this.setData({
         isSending: false,
-        btnText: '领取礼物'
+        btnText: '领取礼物',
+        userBtnText: '支付1元领取礼物'
       })
+      
+      utils.logger(res.data, '领取')
+
       if (res.success) {
+        let _rid = this.data.rid
+
         if (this.data.isSmallB) {
-          let _rid = this.data.rid
+          // 领取成功，跳转成功页面
+          wx.redirectTo({
+            url: '../pickSuccess/pickSuccess?rid=' + _rid,
+          })
+        } else {
           app.wxpayOrder(_rid, res.data.pay_params, (result) => {
             if (result) {
               // 领取成功，跳转成功页面
@@ -80,11 +92,6 @@ Page({
                 url: '../pickSuccess/pickSuccess?rid=' + _rid,
               })
             }
-          })
-        } else {
-          // 领取成功，跳转成功页面
-          wx.redirectTo({
-            url: '../pickSuccess/pickSuccess?rid=' + _rid,
           })
         }
       } else {
@@ -171,7 +178,7 @@ Page({
       })
       // 清空来源
       app.globalData.addressRef = ''
-
+      
       // 更新地址
       this.getCurrentAddress()
     }

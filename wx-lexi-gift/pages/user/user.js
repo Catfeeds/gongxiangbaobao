@@ -13,10 +13,13 @@ Page({
   data: {
     isLoading: true,
     isLogin: false,
-    isStoreOwner: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
     isSmallB: false, // 是否为生活馆主
+    storeRid: '', // 生活馆rid
+    lifeStore: {}, // 生活馆信息
+    storePath: '/pages/index/index',
+    showQrcodeModal: false,
     collectCount: {
       join_activity: 0,
       my_activity: 0,
@@ -61,6 +64,70 @@ Page({
   },
 
   /**
+   * 显示公众号二维码图片
+   */
+  handleShowQrcodeModal() {
+    this.setData({
+      showQrcodeModal: true
+    })
+  },
+
+  /**
+   * 保存二维码图片
+   */
+  handleSaveQrcode(e) {
+    let that = this
+    let qrcodeUrl = e.currentTarget.dataset.url
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: qrcodeUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              wx.showToast({
+                title: '图片保存成功',
+              })
+              that.setData({
+                showQrcodeModal: false
+              })
+            },
+            fail(res) {
+              if (res.errMsg === "saveImageToPhotosAlbum:fail:auth denied") {
+                wx.openSetting({
+                  success(settingdata) {
+                    utils.logger(settingdata)
+                    if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                      utils.logger("获取权限成功，再次点击图片保存到相册")
+                      utils.fxShowToast("保存成功")
+                      that.setData({
+                        showQrcodeModal: false
+                      })
+                    } else {
+                      utils.fxShowToast("保存失败")
+                    }
+                  }
+                })
+              } else {
+                utils.fxShowToast("保存失败")
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+
+  // 加入关注群
+  handleJoinStoreGather() {
+    wx.navigateTo({
+      url: '../joinStoreGather/joinStoreGather'
+    })
+  },
+
+  /**
    * 显示登录框
    */
   handleGoLogin (e) {
@@ -97,6 +164,27 @@ Page({
   },
 
   /**
+   *  获取生活馆信息
+   */
+  getLifeStore(storeRid) {
+    http.fxGet(api.life_store, { rid: storeRid }, (res) => {
+      utils.logger(res.data, '获取生活馆')
+      if (res.success) {
+        let store = res.data
+        store.name += '的生活馆'
+        if (store.name.length > 5) {
+          store.name = utils.truncate(store.name, 5)
+        }
+        this.setData({
+          lifeStore: store
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
    * 验证登录状态
    */
   _validateLoginStatus () {
@@ -117,12 +205,21 @@ Page({
   _refreshUserLogin () {
     const jwt = app.globalData.jwt
     let isSmallB = false
+    let storeRid = ''
+    let storePath = this.data.storePath
     if (jwt.is_small_b) {
       isSmallB = true
+      storeRid = jwt.store_rid
+      storePath += '?sid=' + jwt.store_rid 
+
+      this.getLifeStore(storeRid)
     }
+
     this.setData({
       isLogin: app.globalData.isLogin,
-      isSmallB: isSmallB
+      isSmallB: isSmallB,
+      storeRid: storeRid,
+      storePath: storePath
     })
     this.getActivityCollect()
   },

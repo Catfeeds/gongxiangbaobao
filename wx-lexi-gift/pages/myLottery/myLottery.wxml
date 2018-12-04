@@ -110,7 +110,7 @@
           <text class="count">{{ currentActivity.total_people_count }}</text> 人可领取
         </view>
         <view class="surplus-count">已助力
-          <text class="count">{{ currentActivity.surplus_count }}</text> 人
+          <text class="count">{{ currentActivity.people_count }}</text> 人
         </view>
       </view>
       <view class="progress-desc" wx:if="{{ currentActivity.status == 4 }}">
@@ -190,7 +190,7 @@
   <view class="gift-share-wrapper">
 
     <!-- 进行中/发起中 -->
-    <view class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && isSelf }}">
+    <view class="btn-share btn-full" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && isSelf }}">
       分享好友助力
     </view>
 

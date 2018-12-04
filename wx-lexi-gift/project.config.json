@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -84,7 +84,7 @@
 					"id": 7,
 					"name": "领取成功",
 					"pathName": "pages/pickSuccess/pickSuccess",
-					"query": "rid=Y18112859378"
+					"query": "rid=Y18120441932"
 				},
 				{
 					"id": -1,
@@ -95,8 +95,8 @@
 				{
 					"id": 9,
 					"name": "参与",
-					"pathName": "pages/myLottery/myLottery",
-					"query": "rid=Y18112859378"
+					"pathName": "pages/lottery/lottery",
+					"query": "rid=Y18120134709"
 				}
 			]
 		}

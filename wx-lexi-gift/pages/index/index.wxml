@@ -48,14 +48,14 @@
     <view class="form-days">
       <image src="../../images/icon-days@2x.png" class="icon-days"></image>
       <picker class="form-picker" bindchange="handlePickerChange" value="{{ days[idx] }}" range="{{ days }}">
-        <view class="picker pholder" wx:if="{{ idx == '' && idx != 0 }}">
-          <view class="days-number">设置活动天数</view>
+        <view class="picker" wx:if="{{ idx > -1 }}">
+          <view class="days-number">{{ days[idx] }}天</view>
           <view class="days-arraw">
             <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
           </view>
         </view>
-        <view class="picker" wx:else>
-          <view class="days-number">{{ days[idx] }}天</view>
+        <view class="picker pholder" wx:else>
+          <view class="days-number">设置活动天数</view>
           <view class="days-arraw">
             <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
           </view>
@@ -87,8 +87,10 @@
   </view>
 
   <!-- 支付按钮 -->
-  <view class="give-button" bindtap="handleSubmitActivity">
-    {{ btnGiftText }}
+  <view class="fixed-bottom">
+    <view class="give-button" bindtap="handleSubmitActivity">
+      {{ btnGiftText }}
+    </view>
   </view>
 
   <!-- 登陆注册模态框 -->

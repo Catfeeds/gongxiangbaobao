@@ -32,8 +32,15 @@
     </view>
   </view>
 
+  <!-- 订单总计 -->
+  <view class="gift-order" wx:if="{{ isSmallB }}">
+    <view class="label">订单总计</view>
+    <view class="amount">￥1</view>
+  </view>
+
   <view class="gift-share-wrapper">
-    <button class="btn-share" bindtap="handleSubmitGot">{{ btnText }}</button>
+    <button class="btn-share btn-full" bindtap="handleSubmitGot" wx:if="{{ isSmallB }}">{{ btnText }}</button>
+    <button class="btn-share btn-full" bindtap="handleSubmitGot" wx:if="{{ !isSmallB }}">{{ userBtnText }}</button>
   </view>
 
 </view>

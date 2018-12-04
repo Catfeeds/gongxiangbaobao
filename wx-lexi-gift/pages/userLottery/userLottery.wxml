@@ -43,7 +43,7 @@
             <view class="user-name">{{ activity.user_info.user_name }}</view>
             <view class="txt">送出</view>
           </view>
-          <button class="btn-got" bindtap="handleGoGot" data-rid="{{ activity.activity_rid }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 }}">立即领取</button>
+          <button class="btn-got" bindtap="handleGoActivity" data-rid="{{ activity.activity_rid }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 }}">立即领取</button>
         </view>
       </view>
     </view>

@@ -87,7 +87,7 @@
 
   <!-- 保存地址 -->
   <view class="gift-share-wrapper" catchtap="handleSubmitAddress">
-    <button class="btn-share">保存</button>
+    <button class="btn-share btn-full">保存</button>
   </view>
 
   <!-- 身份证拍摄呼出 -->
