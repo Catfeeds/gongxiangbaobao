@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 26,
 			"list": [
 				{
 					"id": 0,
@@ -192,9 +192,9 @@
 					"query": "rid=32"
 				},
 				{
-					"id": -1,
-					"name": "pinpaiguan",
-					"pathName": "pages/branderStore/branderStore",
+					"id": 26,
+					"name": "开馆指引",
+					"pathName": "pages/applyLifeStore/applyLifeStore",
 					"query": "rid=32"
 				}
 			]
