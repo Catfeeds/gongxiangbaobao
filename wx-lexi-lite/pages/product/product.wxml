@@ -78,7 +78,7 @@
     <!-- 双11 12返厂 -->
     <image class="shuang-shiyi__fanchang" src="{{twelveCoupon.tag}}" catchtap="handleOpenTwelve" wx:if="{{twelveCoupon.coupons.length!=0}}"></image>
     <!-- 官方优惠券 -->
-    <view class='coupon-box official-coupon__box' wx:if="{{couponList.official_coupon.length!=0}}" catchtap="{{couponList.all_grant?'':'handleOpenOfficialBox'}}">
+    <view class='coupon-box official-coupon__box margin-bottom--0rpx' wx:if="{{couponList.official_coupon.length!=0}}" catchtap="{{couponList.all_grant?'':'handleOpenOfficialBox'}}">
       <view class='coupon-message'>
         <!-- 优惠券 -->
         <view class='time-top coupon-icon'>
