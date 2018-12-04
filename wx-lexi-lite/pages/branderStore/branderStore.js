@@ -109,8 +109,8 @@ Page({
   },
 
   /**
- * 是否显示回到首页
- */
+   * 是否显示回到首页
+   */
   getIsBackHome() {
     let route = getCurrentPages()
     if (route.length == 1) {
@@ -407,13 +407,17 @@ Page({
       return false
     }
 
+    this.setData({
+      ['storeInfo.is_followed']: true,
+      'storeInfo.fans_count': this.data.storeInfo.fans_count + 1
+    })
+
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
     }, (result) => {
       if (result.success) {
-        this.setData({
-          ['storeInfo.is_followed']: true
-        })
+        // 设置app全局
+        app.globalData.agent.productFollowChange = 1
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -429,13 +433,17 @@ Page({
       return false
     }
 
+    this.setData({
+      ['storeInfo.is_followed']: false,
+      'storeInfo.fans_count': this.data.storeInfo.fans_count - 1
+    })
+
     http.fxPost(api.delete_watch, {
       rid: this.data.storeRid
     }, (result) => {
       if (result.success) {
-        this.setData({
-          ['storeInfo.is_followed']: false
-        })
+        // 设置app全局
+        app.globalData.agent.productFollowChange = 2
       } else {
         utils.fxShowToast(result.status.message)
       }

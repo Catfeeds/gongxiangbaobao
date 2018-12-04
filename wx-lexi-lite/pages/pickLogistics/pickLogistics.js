@@ -26,10 +26,9 @@ Page({
     })
   },
 
-
   // 页面的费用计算
   currentPagePriceSum(event) {
-    utils.logger(event)
+    console.log(event)
 
     let params = {
       address_rid: app.globalData.orderParams.address_rid,
@@ -37,6 +36,7 @@ Page({
     }
 
     let allProduct = app.globalData.pickLogistics
+    console.log(allProduct,'全部的产品信息')
     allProduct.forEach((key) => {
       utils.logger(key)
       let productsList = {
@@ -55,9 +55,10 @@ Page({
 
       params.items[0] = productsList
     })
+    console.log(params)
 
     http.fxPost(api.calculate_logisitcs, params, (result) => {
-      utils.logger(result, '物流运费')
+      console.log(result, '物流运费')
       if (result.success) {
         let sum = 0
         Object.keys(result.data).forEach((key) => {
@@ -72,7 +73,7 @@ Page({
     })
   },
 
-  // 运费模板的express_id
+  // 选择运费模板的express_id
   radioChange(e) {
     let logisticsMould = this.data.logisticsMould
     logisticsMould.forEach((v,i)=>{
@@ -94,7 +95,7 @@ Page({
     let store_rid = this.data.store_rid
     let sku_rid = this.data.sku_rid
     prevPage.setData({
-      ['logisticsCompany.' + store_rid + '.' + sku_rid +'.express']:logisticsMould // 当前选择的好友名字赋值给编辑款项中的姓名临时变量
+      ['logisticsCompany.' + store_rid + '.' + sku_rid +'.express']:logisticsMould // 当前选择的好的名字赋值给编辑款项中的姓名临时变量
     },() => {
       prevPage.handleLogisticsSetingOrder()
       this.currentPagePriceSum(this.data.logisticsMould[e.detail.value].express_id)
@@ -106,7 +107,8 @@ Page({
     this.setData({
       logisticsMould: app.globalData.logisticsMould, // 运费模板
     })
-    utils.logger(this.data.logisticsMould)
+    
+    console.log(this.data.logisticsMould)
     app.globalData.logisticsMould.forEach((v,i)=>{
       if (v.is_default){
         this.currentPagePriceSum(v.express_id)

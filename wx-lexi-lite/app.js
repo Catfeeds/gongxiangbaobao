@@ -591,6 +591,11 @@ App({
     app_id: null,
     token: null,
     uid: 0,
+    // 用于当下一页面改变的时候告诉父级别页面 
+    agent:{
+      productFollowChange:0, //产品详情的关注变动 0没有动过 1为关注 2为取消关注
+
+    },
     // 设备信息
     systemInfo: {},
     // 检测用户加载是否完成，异步问题

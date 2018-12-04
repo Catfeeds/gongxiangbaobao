@@ -58,7 +58,7 @@
   <view class='orderInfoBox textarea--position' wx:for="{{ order }}" wx:key="{{ index }}" wx:for-item="items">
     <view class='shopName'>
       <text>{{ items[0].store_name }}</text>
-      <text class='shopNameR'>从{{ storeInfo.delivery_country }}{{ storeInfo.delivery_province }}发货</text>
+      <text class='shopNameR'>从{{ items[0].delivery_country }}{{ items[0].delivery_province }}发货</text>
     </view>
     <view class='OtherInfomation'>
       <!-- 购买信息 -->
@@ -73,7 +73,7 @@
           <text class='otherInfo'>x{{ item.quantity }}</text>
         </view>
 
-        <view class='receiveFn' wx:for='{{ logisticsCompany[items[0].store_rid][item.rid].express }}' wx:key="{{ index }}" wx:for-item='logisticsItem' wx:if='{{ logisticsItem.is_default && logisticsCompany[items[0].store_rid][item.rid].isShow }}'>
+        <view class='receiveFn' wx:for='{{ logisticsCompany[items[0].store_rid][item.rid].express }}' wx:key="{{ index }}" wx:for-item='logisticsItem' wx:if='{{ logisticsItem.is_default && item.is_wuliu_show }}'>
           <view class='receiveFnTop'>
             <view>配送方式 </view>
             <view data-product='{{ items }}' data-item='{{ logisticsCompany[items[0].store_rid][item.rid] }}' data-store_rid='{{ items[0].store_rid }}' data-sku_rid='{{ item.rid }}' class='theme-green flex_row' data-index="{{ index }}" catchtap='otherLogisticsTap'>选择其他
@@ -94,6 +94,28 @@
           </view>
         </view>
       </view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <!-- 给商家的注意事项 -->
       <view class='merchant voice textarea--position {{authorityCouponShow||coupon?"hidden":""}}'>
