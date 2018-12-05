@@ -16,6 +16,13 @@ page {
   overflow-x: hidden;
 }
 
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
 /* 按钮 */
 
 .fx-button {
@@ -69,6 +76,7 @@ page {
   background: url('https://static.moebeast.com/static/img/banner@2x.png') no-repeat;
   background-size: 750rpx 180rpx;
 }
+
 .gift-banner .head-banner {
   width: 750rpx;
   height: 180rpx;
@@ -350,9 +358,11 @@ page {
   align-items: center;
   justify-content: space-between;
 }
+
 .gift-share-wrapper .form-getid {
   flex: 0 0 335rpx;
 }
+
 .gift-share-wrapper .btn-share {
   flex: 0 0 335rpx;
   height: 80rpx;
@@ -364,6 +374,7 @@ page {
   line-height: 80rpx;
   text-align: center;
 }
+
 .gift-share-wrapper .btn-full {
   flex: 0 0 690rpx;
 }
@@ -377,16 +388,19 @@ page {
   color: rgba(51, 51, 51, 1);
   line-height: 80rpx;
 }
+
 .gift-share-wrapper .btn-give.opened {
   background: rgba(95, 228, 177, 1);
   color: rgba(255, 255, 255, 1);
 }
+
 .gift-share-wrapper .btn-more--green {
   background-color: #fff;
   border: 1rpx solid #5fe4b1;
   color: #5fe4b1;
   height: 78rpx;
 }
+
 /* 分享弹窗 */
 
 .share-wrapper {
@@ -590,4 +604,26 @@ page {
 
 .gift-notice .content {
   flex: 1;
+}
+
+/* 加载更多 */
+
+.load-more__box {
+  margin-top: 50rpx;
+  line-height: 88rpx;
+  text-align: center;
+}
+
+.load-more__box .load-more__icon {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.load-more--end {
+  margin-top: 50rpx;
+  line-height: 88rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
 }

@@ -281,7 +281,7 @@
 }
 
 .partake-success-wrapper .tips {
-  width: 400rpx;
+  width: 380rpx;
   height: 35rpx;
   background: rgba(255, 239, 239, 1);
   border-radius: 18rpx;

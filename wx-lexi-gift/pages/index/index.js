@@ -24,7 +24,7 @@ Page({
     // 输入表单
     idx: -1,
     days: [1, 2, 3],
-    defaultPeopleCount: 20,
+    defaultPeopleCount: 50,
     form: {
       people_num: null,
       days: '',
@@ -314,7 +314,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 恢复默认值
+    this.setData({
+      idx: -1,
+      'form.people_num': null,
+      'form.days': '',
+      'form.blessing': ''
+    })
   },
 
   /**

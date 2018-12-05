@@ -19,7 +19,7 @@
   <!-- 发起人 -->
   <view class="gift-originator-wrapper">
     <view class="gift-originator">
-      <image src="{{ currentActivity.owner_user.user_logo }}-ava50" class="icon-avatar" wx:if="{{ currentActivity.owner_user.user_logo }}"></image>
+      <image src="{{ currentActivity.owner_user.user_logo }}-ava" class="icon-avatar" wx:if="{{ currentActivity.owner_user.user_logo }}"></image>
       <view class="user-info">
         <view class="name">{{ currentActivity.owner_user.user_name }}</view>
       </view>
@@ -113,12 +113,9 @@
           <text class="count">{{ currentActivity.people_count }}</text> 人
         </view>
       </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 4 }}">
-        <view class="need-count">活动已失效</view>
-      </view>
     </view>
 
-    <view class="join-tips">活动倒计时结束即开奖</view>
+    <view class="join-tips" wx:if="{{ currentActivity.status == 2 }}">活动倒计时结束即开奖</view>
   </view>
 
   <!-- 参与用户 -->

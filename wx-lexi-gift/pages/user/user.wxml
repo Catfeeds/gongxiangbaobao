@@ -17,7 +17,7 @@
 
   <!-- 登录状态 -->
   <view class="user-login--wrapper" wx:else>
-    <image src="{{ userInfo.avatar }}-ava50" class="user-avatar" wx:if="{{ userInfo.avatar }}"></image>
+    <image src="{{ userInfo.avatar }}-ava" class="user-avatar" wx:if="{{ userInfo.avatar }}"></image>
     <view class="user-info">
       <view class="user-name">{{ userInfo.username }}</view>
       <view class="user-desc" wx:if="{{ isSmallB }}">乐喜生活馆主</view>

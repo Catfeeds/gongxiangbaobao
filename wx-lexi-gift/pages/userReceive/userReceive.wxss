@@ -1,1 +1,6 @@
 /* pages/userReceive/userReceive.wxss */
+.container {
+  background-color: #f8f8f8;
+  height: 100vh;
+  padding-top: 80rpx;
+}

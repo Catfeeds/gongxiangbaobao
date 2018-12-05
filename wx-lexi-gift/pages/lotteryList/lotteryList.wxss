@@ -123,3 +123,20 @@
   width: 184rpx;
   text-align: center;
 }
+
+.gift-list--empty {
+  padding-top: 50rpx;
+  text-align: center;
+}
+
+.gift-list--empty .icon-empty {
+  width: 260rpx;
+  height: 260rpx;
+}
+
+.gift-list--empty .description {
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(169, 177, 184, 1);
+  line-height: 32rpx;
+}

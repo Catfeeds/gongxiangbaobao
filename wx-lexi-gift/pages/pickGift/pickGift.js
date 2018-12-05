@@ -66,7 +66,16 @@ Page({
       btnText: '正在提交...',
       userBtnText: '正在提交...'
     })
-    http.fxPost(api.gift_activity_grant, this.data.form, (res) => {
+
+    let params = this.data.form
+
+    // 普通用户领取，生成支付参数
+    if (!this.data.isSmallB) {
+      params.sync_pay = 1
+      params.auth_app_id = app.globalData.appId
+    }
+    
+    http.fxPost(api.gift_activity_grant, params, (res) => {
       utils.logger(res, '领取礼物')
       this.setData({
         isSending: false,
@@ -117,8 +126,6 @@ Page({
           'form.address_rid': res.data.rid,
           currentAddress: res.data
         })
-      } else {
-        utils.fxShowToast(res.status.message)
       }
     })
     

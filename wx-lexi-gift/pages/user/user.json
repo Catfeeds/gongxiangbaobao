@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "我参与的",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-image-modal": "/components/FxImageModal/FxImageModal",
     "fx-loading": "/components/FxLoading/FxLoading",

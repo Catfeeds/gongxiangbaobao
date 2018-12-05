@@ -2,7 +2,7 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
 
-  <view class="fx-tabs">
+  <view class="fx-tabs fixed-top">
     <view class="tab {{ activeStatus == tab.status ? 'active' : '' }}" wx:for="{{ tabs }}" wx:for-item="tab" wx:key="{{ tab.rid }}" data-status="{{ tab.status }}" bindtap="handleChangeStatus">
       {{ tab.name }}
     </view>
@@ -43,7 +43,7 @@
             <view class="user-name">{{ activity.user_info.user_name }}</view>
             <view class="txt">送出</view>
           </view>
-          <button class="btn-got" bindtap="handleGoActivity" data-rid="{{ activity.activity_rid }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 }}">立即领取</button>
+          <button class="btn-got" bindtap="handleGoActivity" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 }}">立即领取</button>
         </view>
       </view>
     </view>
@@ -53,6 +53,14 @@
       <image src="../../images/icon-no-draw@2x.png" class="icon-empty"></image>
       <view class="description">还没有参与的抽奖</view>
     </view>
+
+    <!-- 底部加载 -->
+    <view class="load-more__box" wx:if="{{ moreLoading }}">
+      <image src='../../images/loading.gif' class="load-more__icon"></image>
+    </view>
+
+    <!-- 没有商品加载的底部 -->
+    <view class="load-more--end" wx:if="{{ lotteryList.length != 0 && !hasNext }}"> END </view>
 
   </view>
 

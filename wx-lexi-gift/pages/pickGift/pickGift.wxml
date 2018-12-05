@@ -33,7 +33,7 @@
   </view>
 
   <!-- 订单总计 -->
-  <view class="gift-order" wx:if="{{ isSmallB }}">
+  <view class="gift-order" wx:if="{{ !isSmallB }}">
     <view class="label">订单总计</view>
     <view class="amount">￥1</view>
   </view>

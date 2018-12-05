@@ -24,7 +24,7 @@
         <view class="name">{{ currentActivity.owner_user.user_name }}</view>
         <view class="tag" wx:if="{{ currentActivity.user_kind == 2 }}">乐喜生活馆主</view>
       </view>
-      <navigator wx:if="{{ currentActivity.user_kind == 2 }}" class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+      <navigator wx:if="{{ currentActivity.user_kind == 2 }}" class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index?sid={{ storeRid }}" extra-data="lexi-gift" version="release">
         <button class="btn-go-store">进入生活馆</button>
       </navigator>
     </view>
@@ -85,8 +85,8 @@
       <view class="prize-result">
         <text>礼物已被</text>
         <view class="user">
-          <image src="../../images/icon-not-luck@2x.png" class="avatar"></image>
-          <view class="name">xxx</view>
+          <image src="{{ userWin.user_logo }}-ava50" class="avatar" wx:if="{{ userWin.user_logo }}"></image>
+          <view class="name">{{ userWin.user_name }}</view>
         </view>
         <text>拿走了</text>
       </view>
@@ -94,7 +94,7 @@
 
     <!-- 参与成功 -->
     <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && joinStatus }}">
-      <image src="{{ userInfo.avatar }}-ava50" class="icon-avatar" wx:if="{{ !isSelf && userInfo.avatar }}"></image>
+      <image src="{{ userInfo.avatar }}-ava" class="icon-avatar" wx:if="{{ !isSelf && userInfo.avatar }}"></image>
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">参与成功，人数满即开奖</view>
@@ -167,7 +167,7 @@
       </view>
     </view>
 
-    <view class="join-tips">开奖倒计时结束前，满人也可继续参与</view>
+    <view class="join-tips" wx:if="{{ currentActivity.status == 2 }}">开奖倒计时结束前，满人也可继续参与</view>
   </view>
 
   <!-- 参与用户 -->
@@ -220,7 +220,7 @@
         <view class="quote-left">
           <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         </view>
-        <view class="title">更多好物</view>
+        <view class="title">馆主推荐</view>
         <view class="quote-right">
           <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
         </view>

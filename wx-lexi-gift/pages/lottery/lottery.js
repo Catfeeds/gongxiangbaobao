@@ -17,6 +17,8 @@ Page({
     showRuleModal: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
+    isSmallB: false, // 是否为生活馆主
+    storeRid: '', // 生活馆rid
     isSelf: false, // 验证用户是否为发起人
     percent: 0.01, // 完成百分比 
     timer: null,
@@ -30,6 +32,7 @@ Page({
     hasDays: false, // 是否剩余天数
     currentActivity: {}, // 当前活动
     users: [],
+    userWin: {}, // 中奖的用户
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
     products: [], // 热门商品
@@ -350,6 +353,13 @@ Page({
     http.fxGet(api.gift_activity_users.replace(/:rid/, this.data.rid), {}, (res) => {
       utils.logger(res.data, '获取参与的用户')
       if (res.success) {
+        res.data.user_list.map(item => {
+          if (item.is_win) {
+            this.setData({
+              userWin: item
+            })
+          }
+        })
         this.setData({
           users: res.data.user_list
         })
@@ -446,9 +456,20 @@ Page({
    * 更新当前用户信息
    */
   _updateUserInfo () {
+    let isSmallB = false
+    let storeRid = ''
+
+    const jwt = app.globalData.jwt
+    if (jwt.is_small_b) {
+      isSmallB = true
+      storeRid = jwt.store_rid
+    }
+    
     this.setData({
       isLogin: app.globalData.isLogin,
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      isSmallB: isSmallB,
+      storeRid: storeRid
     })
 
     this._validateUserType()

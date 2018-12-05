@@ -56,17 +56,19 @@
 }
 
 .gift-product .product-images {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 30rpx;
-  padding: 0 30rpx;
+  width: 690rpx;
+  height: 220rpx;
+  overflow: hidden;
+  padding-left: 30rpx;
+  white-space: nowrap;
 }
 
 .gift-product .product-images .asset {
   width: 220rpx;
   height: 220rpx;
-  margin-right: 20rpx;
   border-radius: 8rpx;
+  margin-right: 20rpx;
+  display: inline-block;
 }
 
 .gift-setting {
@@ -230,7 +232,7 @@
 .fixed-bottom {
   position: fixed;
   bottom: 22rpx;
-  z-index: 999;
+  z-index: 90;
   left: 0rpx;
   width: 750rpx;
   display: flex;
