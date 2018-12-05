@@ -263,15 +263,16 @@ App({
   /**
    * 发送消息
    */
-  handleSendNews(e) {
-    console.log(e, 'formid')
+  handleSendNews(e, activity_id) {
     if (e == 'the formId is a mock one formid') {
       return
     }
 
     http.fxPost(api.users_save_form_ids, {
       form_ids: [e],
-      openid: this.globalData.jwt.openid
+      openid: this.globalData.jwt.openid,
+      app_id: this.globalData.appId,
+      activity_id: activity_id || ''
     }, (result) => {
       console.log(result, '模板消息')
     })

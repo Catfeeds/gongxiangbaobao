@@ -16,6 +16,8 @@ module.exports = {
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',
 
+  users_save_form_ids: 'users/save_form_ids',  // 发送消息
+
   // User
   user: 'users', // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）

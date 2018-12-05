@@ -52,7 +52,7 @@ Page({
 
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId)
+      app.handleSendNews(e.detail.formId, this.data.rid)
     }
   },
 
@@ -66,7 +66,7 @@ Page({
 
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId)
+      app.handleSendNews(e.detail.formId, this.data.rid)
     }
   },
 

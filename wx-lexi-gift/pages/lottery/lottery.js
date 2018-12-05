@@ -69,7 +69,7 @@ Page({
 
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId)
+      app.handleSendNews(e.detail.formId, this.data.rid)
     }
   },
 
@@ -79,7 +79,7 @@ Page({
   handleFormMore(e) {
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId)
+      app.handleSendNews(e.detail.formId, this.data.rid)
     }
 
     wx.navigateTo({
@@ -93,7 +93,7 @@ Page({
   handleFormLottery(e) {
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId)
+      app.handleSendNews(e.detail.formId, this.data.rid)
     }
 
     wx.switchTab({
