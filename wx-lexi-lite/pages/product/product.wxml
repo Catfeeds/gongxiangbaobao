@@ -548,8 +548,8 @@
   <!-- 图片放大 -->
   <view class="big-swiper__box {{bigPhotoShow?'big-swiper__box--show':''}}" catchtap="handleOffBigSwiperBox">
     <swiper class="swiper-photo__item" style="height:{{bigSwiperHeight}}rpx" duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
-      <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
-        <image src="{{item.view_url}}" />
+      <swiper-item catchtap="{{handleCilickPrevent}}" wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
+        <image src="{{item.view_url}}" catchlongpress="handleDowloadShow"/>
       </swiper-item>
     </swiper>
     <!-- 下部分 -->
@@ -579,5 +579,13 @@
 
   <!-- 回到顶部按钮是否显示 -->
   <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
+
+  <!-- 下载询问 -->
+  <view wx:if="{{isShowDowLoad}}" class="dowload-box" catchtap="handleDowloadShow">
+    <view class="{{isShowDowLoad?'dowload-pick__box':''}}">
+      <view class="dowload-pick__box--item" catchtap="handowLoadPhoto">下载</view>
+      <view class="dowload-pick__box--item" catchtap="handleDowloadShow">取消</view>
+    </view>
+  </view>
 
 </view>

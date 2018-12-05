@@ -904,6 +904,14 @@
 
 /* 放大的轮播图s */
 
+.dowload-box, .big-swiper__box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .big-swiper__box {
   position: fixed;
   top: 0;
@@ -1014,4 +1022,33 @@
 
 .margin-bottom--0rpx {
   margin-bottom: 0rpx;
+}
+
+/* 下载图片询问 */
+
+.dowload-box {
+  z-index: 99;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.dowload-box .dowload-pick__box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1rpx solid #e9e9e9;
+  border-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  animation: dowload 5s;
+}
+
+.dowload-pick__box .dowload-pick__box--item {
+  height: 60rpx;
+  width: 200rpx;
+  font-size: 26rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+  text-align: center;
+  background-color: white;
+  line-height: 60rpx;
 }

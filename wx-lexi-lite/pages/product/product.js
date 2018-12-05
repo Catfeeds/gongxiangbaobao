@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowDowLoad: false, // 下载询问框
     bigPhotoShow: false, // 是否显示大图
     bigPhotoCurrent: 0, // 大图应该展现的位置
     bigSwiperHeight: 0, // 大图的高度
@@ -159,6 +160,18 @@ Page({
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  /**
+   * 下载图片
+   */
+  handowLoadPhoto() {
+    let index = this.data.bigPhotoCurrent - 1
+    this.setData({
+      posterUrl: this.data.productTop.assets[index].view_url,
+    })
+    this.handleSaveShare()
+    this.handleDowloadShow()
   },
 
   /**
@@ -1674,5 +1687,25 @@ Page({
       isShowOfficial: agent
     })
   },
+
+  // 询问是否下载的弹框
+  handleDowloadShow() {
+    let agent = this.data.isShowDowLoad
+    if (agent) {
+      agent = false
+    } else {
+      agent = true
+    }
+
+    this.setData({
+      isShowDowLoad: agent
+    })
+  },
+
+  // 防止点击穿透
+  handleCilickPrevent() {
+    return
+  }
+
 
 })
