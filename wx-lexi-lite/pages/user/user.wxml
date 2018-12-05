@@ -148,7 +148,7 @@
     <!-- 缺省图片 -->
     <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.length==0||likeProduct.products.length==0}}">
       <view class='padding-top--150rpx'>
-        <image src='../../images/user-xin.png'></image>
+        <image src='https://static.moebeast.com/image/static/user-xin.png'></image>
       </view>
       <view class='black-font no-like__title'>
         <text>你当前还没有喜欢的商品</text>
@@ -210,7 +210,7 @@
     <!-- 缺省图片 -->
     <view class=' fx-column--center user-null__product' wx:if="{{desireOrderProduct.length==0||desireOrderProduct.products.length==0 && userBrowsesProduct.length==0||userBrowsesProduct.products.length==0 &&browseLifeStore.count==0}}">
       <view class='padding-top--150rpx'>
-        <image src='../../images/user-star.png'></image>
+        <image src='https://static.moebeast.com/image/static/user-star.png'></image>
       </view>
       <view class='black-font no-like__title'>
         <text>你当前还没有浏览和添加心愿单商品</text>
@@ -249,7 +249,7 @@
     <!-- 缺省图片 -->
     <view class=' fx-column--center user-null__product' wx:if="{{classList[2].num==0}}">
       <view class='padding-top--150rpx'>
-        <image src='../../images/user-store.png'></image>
+        <image src='https://static.moebeast.com/image/static/user-store.png'></image>
       </view>
       <view class='black-font no-like__title'>
         <text>你当前还未关注任何原创品牌设计馆</text>

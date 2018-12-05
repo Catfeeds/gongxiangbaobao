@@ -956,7 +956,16 @@ button::after {
   margin-top: 14rpx;
 }
 
-/* 发现页面的样式 end*/
+/* 发现页面的样式 */
+
+/* 瀑布流 */
+
+.column-direction-box {
+  padding: 0 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 /* 回到自己的生活馆 */
 
@@ -1166,12 +1175,12 @@ button::after {
 }
 
 /* 优惠券模板 */
+
 /* .coupon-template__style */
 
 .coupon-template__style .ct-subtract {
   position: absolute;
   bottom: 0;
-  
 }
 
 .coupon-template__style .ct-top {
@@ -1323,7 +1332,7 @@ button::after {
   background-color: white;
   display: flex;
   flex-direction: row;
-  z-index: 1
+  z-index: 1;
 }
 
 .coupon-template__style .ct-jian {

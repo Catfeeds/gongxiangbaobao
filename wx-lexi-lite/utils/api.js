@@ -216,6 +216,7 @@ module.exports = {
   orders_delete: 'orders/delete', // 删除订单---
   core_orders_rid: 'core_orders/:rid', // 订单详情h
   logistics_information: 'logistics/information', // 查询物流
+  logistics_same_template_express: 'logistics/same_template_express', // 查询物流
   orders_after_payment_rid: 'orders/after_payment/:rid', // 订单详情
   // Market
   is_first_order: "market/coupons/new_user_discount", // 查看是否属于首单

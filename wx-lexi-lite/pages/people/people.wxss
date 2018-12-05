@@ -64,3 +64,18 @@ pages, .container, .bottom__info {
 .margin-right--10rpx {
   margin-right: 10rpx;
 }
+
+.margin-left--40rpx {
+  margin-left: 40rpx;
+}
+
+.margin-right--40rpx {
+  margin-right: 40rpx
+}
+
+.shop-other-goods view {
+  display: inline-block;
+  height: 200rpx;
+  width: 200rpx;
+  margin-right: 20rpx;
+}

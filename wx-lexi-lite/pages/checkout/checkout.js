@@ -170,8 +170,6 @@ Page({
 
     setTimeout(() => {
       http.fxPost(api.calculate_logisitcs, params, (result) => {
-        utils.logger(result)
-
         if (result.success) {
           let sum = 0
           Object.keys(result.data).forEach((key) => {
@@ -192,7 +190,7 @@ Page({
     }, 800)
   },
 
-  // 选择的物流信息设置到订单参数里
+  // 选择的物流信息设置到订单参数里 logisticsCompany
   handleLogisticsSetingOrder() {
     let order = this.data.orderInfomation
     let params = this.data.logisticsCompany
@@ -580,12 +578,9 @@ Page({
               utils.fxShowToast(result.status.message)
             }
           })
-
         }
-
       })
     })
-
   },
 
   // 获取每件商品的物流公司列表logistics_product_express
@@ -607,20 +602,16 @@ Page({
       params.push(items)
     })
 
-    utils.logger(params)
-
     http.fxPost(api.logistics_product_express, {
       items: params
     }, (result) => {
       utils.logger(result, '获取运费模板')
-
       if (result.success) {
-
         this.setData({
           logisticsCompany: result.data
         }, () => {
           this.handleLogisticsSetingOrder()
-          this.logisticsIsShow()
+          // this.logisticsIsShow()
         })
 
       } else {
@@ -629,63 +620,70 @@ Page({
     })
   },
 
-  logisticsIsShow() {
-    let resultData = this.data.logisticsCompany
-    let NewData = {}
+  // // 添加地址是否显示字段
+  // logisticsIsShow() {
+  //   let resultData = this.data.logisticsCompany
+  //   let NewData = {}
+  //   Object.keys(resultData).forEach((key, i) => {
 
-    Object.keys(resultData).forEach((key, i) => {
+  //     NewData[key] = this._handleExpress(resultData[key])
+  //     if (Object.keys(resultData).length - 1 == i) {
+  //       setTimeout(() => {
+  //         this.setData({
+  //           logisticsCompany: NewData
+  //         })
+  //       }, 1000)
+  //     }
+  //   })
+  // },
 
-      NewData[key] = this._handleExpress(resultData[key])
-      if (Object.keys(resultData).length - 1 == i) {
-        setTimeout(() => {
-          this.setData({
-            logisticsCompany: NewData
-          })
-        }, 1000)
-      }
-    })
-  },
+  // // 处理物流模板
+  // _handleExpress(e) {
+  //   let event = e
+  //   let arrayData = []
+  //   let newObj = {}
 
-  // 处理物流模板
-  _handleExpress(e) {
-    let event = e
-    let arrayData = []
-    let newObj = {}
+  //   let promise = new Promise((ok, eror) => {
+  //     Object.keys(event).forEach((key, index) => {
+  //       event[key].sku_id = key
+  //       arrayData.push(event[key])
+  //       console.log(event[key])
+  //       event[key].sort = event[key].fid.replace('Ft', '')
+  //       event[key].sort = event[key].sort - 0
 
-    let promise = new Promise((ok, eror) => {
-      Object.keys(event).forEach((key, index) => {
-        event[key].sku_id = key
-        arrayData.push(event[key])
+  //       // 排序
+  //       if (Object.keys(event).length - 1 == index) {
+  //         arrayData = arrayData.sort((a, b) => {
+  //           return b.sort > a.sort
+  //         })
+  //         console.log(arrayData, '回调')
+  //         ok()
 
-        // 排序
-        if (Object.keys(event).length - 1 == index) {
-          arrayData = arrayData.sort((a, b) => {
-            return b.fid > a.fid
-          })
-          ok()
-        }
-      })
-    })
+  //       }
+  //     })
+  //   })
 
-    promise.then(() => {
-      arrayData.forEach((v, i) => {
+  //   promise.then(() => {
 
-        if (i + 1 != arrayData.length) {
+  //     arrayData.forEach((v, i) => {
+  //       if (i + 1 != arrayData.length) {
+  //         if (v.fid == arrayData[i + 1].fid) {
+  //           v.isShow = false
+  //         } else {
+  //           v.isShow = true
+  //         }
+  //         arrayData[i + 1].isShow = true
 
-          if (v.fid == arrayData[i + 1].fid) {
-            v.isShow = false
-          } else {
-            v.isShow = true
-          }
-          arrayData[i + 1].isShow = true
-        }
+  //       } else if (arrayData.length == 1) {
+  //         v.isShow = true
+  //       }
+  //       newObj[v.sku_id] = v
+  //     })
 
-        newObj[v.sku_id] = v
-      })
+  //   })
 
-    })
-    return newObj
-  },
+  //   return newObj
+  // },
 
   // 获取优惠券
   getCouponList(e) {
@@ -816,6 +814,7 @@ Page({
       }
 
       skus.data[key].forEach((v, i) => {
+
         store_items[key].items[v.rid] = {
           rid: v.rid, //String	必需	 	sku
           quantity: v.quantity, //Number	必需	1	购买数量
@@ -827,9 +826,33 @@ Page({
         let price = v.sale_price == 0 ? v.price : v.sale_price
         generalPrice = price * v.quantity + generalPrice
       })
+      // 排序商品
+      skus.data[key] = skus.data[key].sort((a, b) => {
+        return a.fid > b.fid
+      })
+
+      // 物流模板是否显示
+      skus.data[key].forEach((v, i) => {
+        // 如果商品数量大于1就去循环比较模板的fid是否一直
+        if (skus.data[key].length > 1) {
+          if (i + 1 != skus.data[key].length) {
+            if (skus.data[key][i].fid == skus.data[key][i + 1].fid) {
+              skus.data[key][i].is_wuliu_show = false
+            } else {
+              skus.data[key][i].is_wuliu_show = true
+            }
+            skus.data[key][i + 1].is_wuliu_show = true
+          }
+          // 如果商品数量是一个就直接赋值物流模板显示
+        } else {
+          skus.data[key][i].is_wuliu_show = true
+        }
+
+      })
 
       skusList.push(skus.data[key])
     })
+
     this.setData({
       order: skusList, // 订单页面渲染
       orderInfomation: store_items, // 订单参数
@@ -961,9 +984,17 @@ Page({
 
   // 选择其他物流
   otherLogisticsTap(e) {
+    let fid = e.currentTarget.dataset.item.fid
+    let arrayData = []
     app.globalData.logisticsMould = e.currentTarget.dataset.item.express
-    app.globalData.pickLogistics = e.currentTarget.dataset.product
 
+    e.currentTarget.dataset.product.forEach(v => {
+      if (v.fid == fid) {
+        arrayData.push(v)
+      }
+    })
+
+    app.globalData.pickLogistics = arrayData
 
     wx.navigateTo({
       url: '../pickLogistics/pickLogistics?store_rid=' + e.currentTarget.dataset.store_rid + "&&sku_rid=" + e.currentTarget.dataset.sku_rid

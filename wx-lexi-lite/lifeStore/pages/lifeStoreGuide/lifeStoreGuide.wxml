@@ -120,8 +120,8 @@
     <view class="section store-example">
       <view class="heise-title">他们都在乐喜开设了生活馆</view>
       <view class="example-list">
-        <view class="carousel-example">
-          <view wx:for="{{listData}}" wx:key="{{item.rid}}" class="example">
+        <scroll-view scroll-x class="carousel-example">
+          <view wx:for="{{listData}}" wx:key="{{item.rid}}" class="example {{index==0?'margin-left--30rpx':''}}">
             <image src="{{item.img}}" class="avatar" />
             <view>{{ item.name}}</view>
             <view class="job">职业：{{ item.professional }} </view>
@@ -134,7 +134,7 @@
               </view>
             </view>
           </view>
-        </view>
+        </scroll-view>
       </view>
     </view>
 

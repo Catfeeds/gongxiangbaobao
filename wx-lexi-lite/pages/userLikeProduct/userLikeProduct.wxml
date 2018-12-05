@@ -38,7 +38,7 @@
   <!-- 缺省图片 -->
   <view class=' fx-column--center user-null__product' wx:if="{{likeProduct.products.length==0}}">
     <view>
-      <image src='../../images/user-xin.png'></image>
+      <image src='https://static.moebeast.com/image/static/user-xin.png'></image>
     </view>
     <view class='black-font no-like__title'>
       <text>你还未喜欢过任何东西</text>

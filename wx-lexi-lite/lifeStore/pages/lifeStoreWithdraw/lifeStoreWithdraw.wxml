@@ -36,7 +36,7 @@
   <!-- 提现弹出窗 -->
   <fx-modal-v visible="{{ showModal }}">
     <view class="withdraw-modal">
-      <image src="../../../images/icon-money@2x.png" class="icon-money"></image>
+      <image src="https://static.moebeast.com/image/static/icon-money@2x.png" class="icon-money"></image>
       <view class="amount">
         {{ collect.cash_price }}
       </view>

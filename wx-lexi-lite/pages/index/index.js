@@ -1235,6 +1235,15 @@ Page({
     })
   },
 
+  // 复制信息
+  handleCopyWXCode() {
+    wx.setClipboardData({
+      data: 'lexixiaoduo',
+      success(res) {
+      }
+    })
+  },
+
   // 获取浏览记录
   getBrowsePeople() {
     if (!this.data.sid) {
@@ -1871,7 +1880,7 @@ Page({
     // 传参数里有生活馆
     if (options.sid) {
       this.setData({
-        sid: sid
+        sid: options.sid
       })
     }
 
@@ -1930,7 +1939,7 @@ Page({
    * 监听页面滚动
    * **/
   onPageScroll(e) {
-    if (e.scrollTop >= 60) {
+    if (e.scrollTop > 50) {
       if (!this.data.isNavbarAdsorb) {
         this.setData({
           isNavbarAdsorb: true
@@ -1938,7 +1947,7 @@ Page({
       }
     }
 
-    if (e.scrollTop < 61) {
+    if (e.scrollTop <= 50) {
       if (this.data.isNavbarAdsorb) {
         this.setData({
           isNavbarAdsorb: false

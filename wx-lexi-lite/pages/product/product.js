@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowDowLoad: false, // 下载询问框
     bigPhotoShow: false, // 是否显示大图
     bigPhotoCurrent: 0, // 大图应该展现的位置
     bigSwiperHeight: 0, // 大图的高度
@@ -127,17 +128,15 @@ Page({
       return false
     }
 
-    this.setData({
-      isWatch: true
-    })
-
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '添加关注店铺')
 
       if (result.success) {
-
+        this.setData({
+          'storeInfo.is_followed': true,
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -146,19 +145,31 @@ Page({
 
   // 取消关注---
   handleDeleteWatch() {
-    this.setData({
-      isWatch: false
-    })
+
     http.fxPost(api.delete_watch, {
       rid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '取消关注店铺')
       if (result.success) {
-
+        this.setData({
+          'storeInfo.is_followed': false,
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+  /**
+   * 下载图片
+   */
+  handowLoadPhoto() {
+    let index = this.data.bigPhotoCurrent - 1
+    this.setData({
+      posterUrl: this.data.productTop.assets[index].view_url,
+    })
+    this.handleSaveShare()
+    this.handleDowloadShow()
   },
 
   /**
@@ -972,7 +983,7 @@ Page({
   // 获取本店铺的相关商品
   getNewProduct(e) {
     http.fxGet(api.life_store_products, {
-      sid: e
+      sid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '获取店铺的相关产品')
       if (result.success) {
@@ -1104,7 +1115,7 @@ Page({
     this.setData({
       rid: rid,
       cartTotalCount: app.globalData.cartTotalCount,
-      isWatch: app.globalData.isWatchstore,
+      // isWatch: app.globalData.isWatchstore,
     })
 
     if (app.globalData.isLogin) {
@@ -1486,6 +1497,21 @@ Page({
       }
     }
 
+    // 判断app里agent 里面的关注有没有发生过变动
+    if (app.globalData.agent.productFollowChange!=0) {
+      if (app.globalData.agent.productFollowChange == 1) {
+        this.setData({
+          'storeInfo.is_followed': true,
+        })
+      } else {
+        this.setData({
+          'storeInfo.is_followed': false,
+        })
+      }
+
+      app.globalData.agent.productFollowChange = 0
+    }
+
     // 获取当前环境
     this.getRunEnv()
   },
@@ -1659,5 +1685,25 @@ Page({
       isShowOfficial: agent
     })
   },
+
+  // 询问是否下载的弹框
+  handleDowloadShow() {
+    let agent = this.data.isShowDowLoad
+    if (agent) {
+      agent = false
+    } else {
+      agent = true
+    }
+
+    this.setData({
+      isShowDowLoad: agent
+    })
+  },
+
+  // 防止点击穿透
+  handleCilickPrevent() {
+    return
+  }
+
 
 })

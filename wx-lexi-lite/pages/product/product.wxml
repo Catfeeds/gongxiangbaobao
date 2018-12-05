@@ -78,7 +78,7 @@
     <!-- 双11 12返厂 -->
     <image class="shuang-shiyi__fanchang" src="{{twelveCoupon.tag}}" catchtap="handleOpenTwelve" wx:if="{{twelveCoupon.coupons.length!=0}}"></image>
     <!-- 官方优惠券 -->
-    <view class='coupon-box official-coupon__box' wx:if="{{couponList.official_coupon.length!=0}}" catchtap="{{couponList.all_grant?'':'handleOpenOfficialBox'}}">
+    <view class='coupon-box official-coupon__box margin-bottom--0rpx' wx:if="{{couponList.official_coupon.length!=0}}" catchtap="{{couponList.all_grant?'':'handleOpenOfficialBox'}}">
       <view class='coupon-message'>
         <!-- 优惠券 -->
         <view class='time-top coupon-icon'>
@@ -93,7 +93,7 @@
       </view>
     </view>
     <!-- 领取优惠券 -->
-    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
+    <view class='coupon-box margin-bottom--0rpx' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
         <!-- 优惠券 -->
         <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
@@ -114,7 +114,7 @@
       </view>
     </view>
 
-    <view class='branderInfo goods-size margin-bottom--18rpx' catchtap='handlePickShow'>
+    <view class='branderInfo goods-size margin-bottom--18rpx margin-top--30rpx' catchtap='handlePickShow'>
       <text class='textInfo'>请选择规格和尺码</text>
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
@@ -203,7 +203,7 @@
         <view class='shou'>{{ productInfomation.store_name }}</view>
       </view>
 
-      <view class='with flex-row-middel bg--hui' wx:if="{{isWatch}}" catchtap='handleDeleteWatch'>
+      <view class='with flex-row-middel bg--hui' wx:if="{{storeInfo.is_followed}}" catchtap='handleDeleteWatch'>
         <view class=''>已关注</view>
       </view>
 
@@ -548,8 +548,8 @@
   <!-- 图片放大 -->
   <view class="big-swiper__box {{bigPhotoShow?'big-swiper__box--show':''}}" catchtap="handleOffBigSwiperBox">
     <swiper class="swiper-photo__item" style="height:{{bigSwiperHeight}}rpx" duration="300" current="{{swiperIndex-1}}" bindchange="handleBigSwiperChange">
-      <swiper-item wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
-        <image src="{{item.view_url}}" />
+      <swiper-item catchtap="{{handleCilickPrevent}}" wx:for="{{productTop.assets}}" item-id="{{index}}" wx:key="{{index}}">
+        <image src="{{item.view_url}}" catchlongpress="handleDowloadShow"/>
       </swiper-item>
     </swiper>
     <!-- 下部分 -->
@@ -579,5 +579,13 @@
 
   <!-- 回到顶部按钮是否显示 -->
   <image wx:if="{{backBtnIsShow}}" src="https://static.moebeast.com/image/static/back-top-btn.png" class="back-top__btn" catchtap="handleBackTop"></image>
+
+  <!-- 下载询问 -->
+  <view wx:if="{{isShowDowLoad}}" class="dowload-box" catchtap="handleDowloadShow">
+    <view class="{{isShowDowLoad?'dowload-pick__box':''}}">
+      <view class="dowload-pick__box--item" catchtap="handowLoadPhoto">下载</view>
+      <view class="dowload-pick__box--item" catchtap="handleDowloadShow">取消</view>
+    </view>
+  </view>
 
 </view>

@@ -187,8 +187,14 @@
 				},
 				{
 					"id": 25,
-					"name": "people",
-					"pathName": "pages/gatherInfo/gatherInfo",
+					"name": "手作教学",
+					"pathName": "pages/teachList/teachList",
+					"query": ""
+				},
+				{
+					"id": 26,
+					"name": "开馆指引",
+					"pathName": "pages/applyLifeStore/applyLifeStore",
 					"query": "rid=32"
 				}
 			]

@@ -1,8 +1,5 @@
-  <!-- 添加页面加载 -->
-    <image 
-    src='../../images/jiazai.gif' 
-    class="load-page__icon" 
-    wx:if="{{isLoadPageShow}}"></image>
+<!-- 添加页面加载 -->
+<image src='../../images/jiazai.gif' class="load-page__icon" wx:if="{{isLoadPageShow}}"></image>
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <!--pages/pickLogistics/pickLogistics.wxml 选择配送方式-->
 <view class='container theme-bg-color'>
@@ -19,11 +16,7 @@
     </view>
     <view>
       <radio-group class="radio-group" bindchange="radioChange">
-        <label 
-          class="radio logisticsName" 
-          wx:for='{{logisticsMould}}'
-          wx:key='{{index}}'
-          data-express_id='{{item.express.express_id}}'>
+        <label class="radio logisticsName" wx:for='{{logisticsMould}}' wx:key='{{index}}' data-express_id='{{item.express.express_id}}'>
           <view class='receiveFnBottom'>
             <view class='receiveFnBottomBox'>
               <image src='../../images/logistics-icon@2.png'></image>
@@ -34,7 +27,7 @@
               <text></text>
             </view>
           </view>
-          <radio color='#6ED7AF' value='{{index}}' checked="{{item.is_default}}"/>
+          <radio color='#6ED7AF' value='{{index}}' checked="{{item.is_default}}" />
         </label>
       </radio-group>
     </view>

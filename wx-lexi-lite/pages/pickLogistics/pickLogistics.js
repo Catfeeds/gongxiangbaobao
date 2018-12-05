@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    activeModel: '', // 默认的物流模板公司id
     isLoading: true,
     logisticsSum: 0, // 金额
     storeInfo: [], // 获取店详情
@@ -21,67 +22,74 @@ Page({
 
   // 获取店铺的详情
   getStoreInfo() {
+    
     this.setData({
       storeInfo: app.globalData.storeInfo
     })
   },
 
-
-  // 页面的费用计算
+  // 页面的费用计算 物流信息
   currentPagePriceSum(event) {
-    utils.logger(event)
 
     let params = {
       address_rid: app.globalData.orderParams.address_rid,
+      fid: app.globalData.pickLogistics[0].fid,
       items: []
     }
 
     let allProduct = app.globalData.pickLogistics
-    allProduct.forEach((key) => {
-      utils.logger(key)
-      let productsList = {
-        rid: key.store_rid,
-        sku_items: []
+
+    allProduct.forEach((e) => {
+      let skus = {
+        sku: e.rid,
+        quantity: e.quantity,
       }
-
-      allProduct.forEach((e) => {
-        let skus = {
-          sku: e.rid,
-          quantity: e.quantity,
-          express_id: event
-        }
-        productsList.sku_items.push(skus)
-      })
-
-      params.items[0] = productsList
+      params.items.push(skus)
     })
 
-    http.fxPost(api.calculate_logisitcs, params, (result) => {
-      utils.logger(result, '物流运费')
+    http.fxPost(api.logistics_same_template_express, params, (result) => {
       if (result.success) {
-        let sum = 0
-        Object.keys(result.data).forEach((key) => {
-          sum = result.data[key] - 0 + sum
+        result.data.forEach(v => {
+          if (v.express_id == this.data.activeModel) {
+            v.is_default = true
+          } else {
+            v.is_default = false
+          }
         })
+
         this.setData({
-          logisticsSum: sum
+          logisticsMould: result.data
         })
+
+        // 计算运费
+        this._logisticsSum()
+
       } else {
         utils.fxShowToast(result.status.message)
       }
     })
   },
 
-  // 运费模板的express_id
+  // 计算运费
+  _logisticsSum() {
+    let agent = this.data.logisticsMould
+    agent.forEach(v => {
+      if (v.is_default) {
+        this.setData({
+          logisticsSum: v.freight
+        })
+      }
+    })
+  },
+
+  // 选择运费模板的express_id
   radioChange(e) {
     let logisticsMould = this.data.logisticsMould
-    logisticsMould.forEach((v,i)=>{
+    logisticsMould.forEach((v, i) => {
       v.is_default = false
     })
 
     logisticsMould[e.detail.value].is_default = true
-
-    utils.logger(logisticsMould[e.detail.value], '运费模板')
 
     this.setData({
       freight: logisticsMould[e.detail.value]
@@ -90,26 +98,39 @@ Page({
     let pages = getCurrentPages()
     let prevPage = pages[pages.length - 2]
 
-    utils.logger(logisticsMould)
     let store_rid = this.data.store_rid
     let sku_rid = this.data.sku_rid
-    prevPage.setData({
-      ['logisticsCompany.' + store_rid + '.' + sku_rid +'.express']:logisticsMould // 当前选择的好友名字赋值给编辑款项中的姓名临时变量
-    },() => {
-      prevPage.handleLogisticsSetingOrder()
-      this.currentPagePriceSum(this.data.logisticsMould[e.detail.value].express_id)
+
+    let fid = app.globalData.pickLogistics[0].fid // 共同的模板id
+    let skus = prevPage.data.logisticsCompany[store_rid]
+
+    Object.keys(skus).forEach((v, i) => {
+      if (skus[v].fid == fid) {
+        prevPage.setData({
+          ['logisticsCompany.' + store_rid + '.' + v + '.express']: logisticsMould // 当前选择的好的名字赋值给编辑款项中的姓名临时变量
+        })
+      }
     })
+    prevPage.handleLogisticsSetingOrder()
+    this._logisticsSum()
+
   },
 
   // 获取物流信息以及sku信息
   getSkuAndLogistcs() {
-    this.setData({
-      logisticsMould: app.globalData.logisticsMould, // 运费模板
+
+    // 设置已经选择的物流
+    app.globalData.logisticsMould.forEach(v => {
+      if (v.is_default) {
+        this.setData({
+          activeModel: v.express_id, // 默认的物流模板id
+        })
+      }
     })
-    utils.logger(this.data.logisticsMould)
-    app.globalData.logisticsMould.forEach((v,i)=>{
-      if (v.is_default){
-        this.currentPagePriceSum(v.express_id)
+
+    app.globalData.logisticsMould.forEach((v, i) => {
+      if (v.is_default) {
+        this.currentPagePriceSum()
       }
     })
   },
@@ -125,7 +146,7 @@ Page({
     this.setData({
       store_rid: e.store_rid,
       sku_rid: e.sku_rid,
-    },() => {
+    }, () => {
       this.getSkuAndLogistcs() // 获取信息渲染模板
     })
   },
@@ -184,5 +205,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
-  
+
 })
