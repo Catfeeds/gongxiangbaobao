@@ -97,7 +97,7 @@
         <view class='probation-success-text font-s'>如何快速成交订单获取攻略，请搜索关注乐喜官网公众号， 添加乐喜辅导员微信，加入生活馆店主群。
         </view>
 
-        <view class="copy-wx__number">复制微信号</view>
+        <view class="copy-wx__number" catchtap="handleCopyWXCode">复制微信号</view>
       </view>
     </block>
 

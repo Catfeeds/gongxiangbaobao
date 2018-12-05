@@ -1235,6 +1235,15 @@ Page({
     })
   },
 
+  // 复制信息
+  handleCopyWXCode() {
+    wx.setClipboardData({
+      data: 'lexixiaoduo',
+      success(res) {
+      }
+    })
+  },
+
   // 获取浏览记录
   getBrowsePeople() {
     if (!this.data.sid) {

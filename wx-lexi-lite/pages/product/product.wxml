@@ -93,7 +93,7 @@
       </view>
     </view>
     <!-- 领取优惠券 -->
-    <view class='coupon-box' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
+    <view class='coupon-box margin-bottom--0rpx' catchtap='coupon_show' wx:if='{{ couponList.coupons.length != 0||fullSubtractionList.length != 0 }}'>
       <view class='coupon-message'>
         <!-- 优惠券 -->
         <view class='time-top coupon-icon' wx:if='{{ couponList.coupons.length != 0 }}'>
@@ -114,7 +114,7 @@
       </view>
     </view>
 
-    <view class='branderInfo goods-size margin-bottom--18rpx' catchtap='handlePickShow'>
+    <view class='branderInfo goods-size margin-bottom--18rpx margin-top--30rpx' catchtap='handlePickShow'>
       <text class='textInfo'>请选择规格和尺码</text>
       <text class='fx-icon-nothing-lower icon'></text>
     </view>
@@ -203,7 +203,7 @@
         <view class='shou'>{{ productInfomation.store_name }}</view>
       </view>
 
-      <view class='with flex-row-middel bg--hui' wx:if="{{isWatch}}" catchtap='handleDeleteWatch'>
+      <view class='with flex-row-middel bg--hui' wx:if="{{storeInfo.is_followed}}" catchtap='handleDeleteWatch'>
         <view class=''>已关注</view>
       </view>
 

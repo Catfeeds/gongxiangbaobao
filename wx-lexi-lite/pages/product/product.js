@@ -128,17 +128,15 @@ Page({
       return false
     }
 
-    this.setData({
-      isWatch: true
-    })
-
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '添加关注店铺')
 
       if (result.success) {
-
+        this.setData({
+          'storeInfo.is_followed': true,
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -147,15 +145,15 @@ Page({
 
   // 取消关注---
   handleDeleteWatch() {
-    this.setData({
-      isWatch: false
-    })
+
     http.fxPost(api.delete_watch, {
       rid: this.data.storeRid
     }, (result) => {
       utils.logger(result, '取消关注店铺')
       if (result.success) {
-
+        this.setData({
+          'storeInfo.is_followed': false,
+        })
       } else {
         utils.fxShowToast(result.status.message)
       }
@@ -1117,7 +1115,7 @@ Page({
     this.setData({
       rid: rid,
       cartTotalCount: app.globalData.cartTotalCount,
-      isWatch: app.globalData.isWatchstore,
+      // isWatch: app.globalData.isWatchstore,
     })
 
     if (app.globalData.isLogin) {
@@ -1500,14 +1498,14 @@ Page({
     }
 
     // 判断app里agent 里面的关注有没有发生过变动
-    if (app.globalData.agent.productFollowChange) {
+    if (app.globalData.agent.productFollowChange!=0) {
       if (app.globalData.agent.productFollowChange == 1) {
         this.setData({
-          isWatch: true
+          'storeInfo.is_followed': true,
         })
       } else {
         this.setData({
-          isWatch: false
+          'storeInfo.is_followed': false,
         })
       }
 

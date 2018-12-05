@@ -407,15 +407,15 @@ Page({
       return false
     }
 
-    this.setData({
-      ['storeInfo.is_followed']: true,
-      'storeInfo.fans_count': this.data.storeInfo.fans_count + 1
-    })
-
     http.fxPost(api.add_watch, {
       rid: this.data.storeRid
     }, (result) => {
       if (result.success) {
+
+        this.setData({
+          ['storeInfo.is_followed']: true,
+          'storeInfo.fans_count': this.data.storeInfo.fans_count + 1
+        })
         // 设置app全局
         app.globalData.agent.productFollowChange = 1
       } else {
@@ -433,15 +433,14 @@ Page({
       return false
     }
 
-    this.setData({
-      ['storeInfo.is_followed']: false,
-      'storeInfo.fans_count': this.data.storeInfo.fans_count - 1
-    })
-
     http.fxPost(api.delete_watch, {
       rid: this.data.storeRid
     }, (result) => {
       if (result.success) {
+        this.setData({
+          ['storeInfo.is_followed']: false,
+          'storeInfo.fans_count': this.data.storeInfo.fans_count - 1
+        })
         // 设置app全局
         app.globalData.agent.productFollowChange = 2
       } else {
@@ -726,7 +725,6 @@ Page({
       }
     })
   },
-
 
   // 获取店铺的信息 official_store/info categoryList
   getStoreInfo() {
