@@ -1871,7 +1871,7 @@ Page({
     // 传参数里有生活馆
     if (options.sid) {
       this.setData({
-        sid: sid
+        sid: options.sid
       })
     }
 

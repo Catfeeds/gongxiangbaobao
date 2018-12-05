@@ -178,7 +178,7 @@
   <view wx:if="{{classInfo==3}}" class='shou bottom__info'>
     <!-- 店铺其他产品信息 -->
     <view class='shopInfo' wx:if="{{watchStoreList.stores.length!=0}}" wx:for="{{watchStoreList.stores}}" wx:key="{{index}}">
-      <view class='shopInfoT'>
+      <view class='shopInfoT margin-left--40rpx'>
         <view class='userIcon' catchtap='handleGoIndex'>
           <image src='{{ item.logo }}-p16'></image>
         </view>
@@ -195,11 +195,11 @@
           <view>已关注</view>
         </view>
       </view>
-      <view class='shop-other-goods'>
-        <view wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-store-rid="{{value.store_rid}}" data-rid='{{ value.rid }}' catchtap='handleToProductInfoTap'>
+      <scroll-view scroll-x class='shop-other-goods'>
+        <view wx:for='{{ item.products }}' wx:key="{{ index }}" wx:for-item="value" data-store-rid="{{value.store_rid}}" data-rid='{{ value.rid }}' catchtap='handleToProductInfoTap' class="{{index==item.products.length-1?'margin-right--40rpx':''}} {{index==0?'margin-left--40rpx':''}}">
           <image src='{{ value.cover }}-p16'></image>
         </view>
-      </view>
+      </scroll-view>
     </view>
 
     <!-- 缺省图片 -->

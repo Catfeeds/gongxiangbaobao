@@ -263,7 +263,7 @@
 }
 
 .store-example {
-  width: 630rpx;
+  width: 750rpx;
   background-color: #f7f9fb !important;
   padding: 60rpx 0;
   text-align: center;

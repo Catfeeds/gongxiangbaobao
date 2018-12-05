@@ -332,7 +332,7 @@
 .share-brand__btn {
   height: 60rpx;
   width: 60rpx;
-  margin-left: 200rpx;
+  margin-left: 216rpx;
 }
 
 .share-brand__box {
