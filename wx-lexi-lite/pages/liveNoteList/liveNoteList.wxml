@@ -1,6 +1,6 @@
 <!--pages/liveNoteList/liveNoteList.wxml-->
 <view class="container">
-  <view class="time-top column-direction-box">
+  <view class="column-direction-box">
     <view class=' new-goods_box'>
       <view class='flex-direction--column productionGoods article-item' catchtap="handleToInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" wx:for="{{dataList}}" wx:if="{{(index+1)%2!=0}}" wx:key='{{index}}'>
 

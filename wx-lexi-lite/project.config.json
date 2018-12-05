@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 26,
+			"current": 25,
 			"list": [
 				{
 					"id": 0,
@@ -187,9 +187,9 @@
 				},
 				{
 					"id": 25,
-					"name": "people",
-					"pathName": "pages/people/people",
-					"query": "rid=32"
+					"name": "手作教学",
+					"pathName": "pages/teachList/teachList",
+					"query": ""
 				},
 				{
 					"id": 26,

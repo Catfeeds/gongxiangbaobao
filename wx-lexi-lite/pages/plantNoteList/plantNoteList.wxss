@@ -1,6 +1,2 @@
 /* pages/plantNoteList/plantNoteList.wxss */
 @import "../index/index.wxss";
-
-.column-direction-box {
-  padding: 0 40rpx;
-}

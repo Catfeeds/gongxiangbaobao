@@ -1,6 +1,6 @@
 <!--pages/plantNoteList/plantNoteList.wxml-->
 <view class="container">
-  <view class="time-top column-direction-box">
+  <view class="column-direction-box">
     <view class=' new-goods_box article-item'>
       <view catchtap="handleToInfo" data-rid="{{item.rid}}" data-type="{{item.type}}" class='flex-direction--column productionGoods' wx:for="{{dataList}}" wx:if="{{(index+1)%2!=0}}" wx:key='{{index}}'>
 
