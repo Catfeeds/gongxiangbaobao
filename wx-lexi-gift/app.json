@@ -13,7 +13,8 @@
     "pages/lotteryList/lotteryList",
     "pages/pickSuccess/pickSuccess",
     "pages/myLottery/myLottery",
-    "pages/joinStoreGather/joinStoreGather"
+    "pages/joinStoreGather/joinStoreGather",
+    "pages/giftList/giftList"
   ],
   "window": {
     "backgroundTextStyle": "light",

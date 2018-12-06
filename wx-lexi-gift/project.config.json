@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -97,6 +97,11 @@
 					"name": "参与",
 					"pathName": "pages/lottery/lottery",
 					"query": "rid=Y18120520316"
+				},
+				{
+					"id": -1,
+					"name": "更多礼物",
+					"pathName": "pages/giftList/giftList"
 				}
 			]
 		}

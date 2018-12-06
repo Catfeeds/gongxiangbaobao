@@ -27,7 +27,9 @@ Page({
       rid: '',
       openid: '',
       address_rid: '',
-    }
+    },
+
+    showChangeModal: true
   },
 
   /**
