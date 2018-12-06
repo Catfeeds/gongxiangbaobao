@@ -211,6 +211,9 @@ Page({
     if (parentPage.route == "pages/window/window") {
       parentPage._handleLikeWindow(this.data.windowDetail.rid, option)
     }
+    if (parentPage.route == "pages/peopleDynamic/peopleDynamic") {
+      parentPage._handleLikeWindow(this.data.windowDetail.rid, option)
+    }
   },
 
   // 跳转商品详情

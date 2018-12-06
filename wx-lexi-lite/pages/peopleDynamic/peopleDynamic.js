@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoadingUserIcon:true,
+
     isLoading: true,
     dynamicList: {
       count: 0,
@@ -31,6 +33,60 @@ Page({
     let rid = e.currentTarget.dataset.windowRid
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + rid,
+    })
+  },
+
+  // 处理关注
+  _handleFollow(value) {
+    this.setData({
+      'dynamicList.followed_status': value
+    })
+  },
+
+  // 添加关注
+  handleAddFollow() {
+    let uid = this.data.dynamicParams.uid
+    http.fxPost(api.follow_user, {
+      uid: uid
+    }, result => {
+      // console.log(result, "添加关注")
+      if (!result.status.message) {
+        utils.fxShowToast(result.status.message)
+        return
+      }
+
+      this._handleFollow(result.data.followed_status)
+    })
+  },
+
+  // 取消关注
+  handleDeleteFollow() {
+    let uid = this.data.dynamicParams.uid
+    http.fxPost(api.unfollow_user, {
+      uid: uid
+    }, result => {
+      // console.log(result, "取消关注")
+      if (!result.status.message) {
+        utils.fxShowToast(result.status.message)
+        return
+      }
+
+      this._handleFollow(result.data.followed_status)
+    })
+  },
+
+  // 处理喜欢
+  _handleLikeWindow(rid, value) {
+    let list = this.data.dynamicList.lines
+    list.forEach(v => {
+      if (v.rid == rid) {
+        v.is_like = value
+        v.like_count = value ? v.like_count + 1 : v.like_count - 1
+      }
+    })
+
+    this.setData({
+      'dynamicList.lines': list
     })
   },
 
@@ -74,22 +130,26 @@ Page({
   getOtherDynamic(e) {
     http.fxGet(api.users_other_user_dynamic, this.data.dynamicParams, (result) => {
       if (result.success) {
-        utils.logger(result, "获取其他人的动态")
-
         result.data.lines.forEach((v, i) => {
           v.created_time = utils.timestamp2string(v.updated_at, "cn")
         })
 
         let data = this.data.dynamicList.lines
+        if (this.data.dynamicParams.page == 1) {
+          data = result.data.lines
+        } else {
+          data = data.concat(result.data.lines)
+        }
+
         this.setData({
-          dynamicList: data,
+          'dynamicList.lines': data,
           'dynamicList.bg_cover': result.data.bg_cover,
           'dynamicList.count': result.data.count,
           'dynamicList.followed_status': result.data.followed_status,
-          'dynamicList.lines': data.concat(result.data.lines),
           'dynamicList.next': result.data.next,
           'dynamicList.username': result.data.username,
           'dynamicList.user_avatar': result.data.user_avatar,
+          isLoadingUserIcon:false,
         })
 
       } else {
@@ -107,8 +167,7 @@ Page({
     app.ckeckNetwork()
 
     this.setData({
-      ['dynamicParams.uid']: options.uid,
-
+      'dynamicParams.uid': options.uid,
     })
     this.getOtherDynamic() // 获取其他人的动态
 
@@ -124,7 +183,7 @@ Page({
         readyOver: true,
         isLoading: false
       })
-    }, 350)
+    }, 500)
   },
 
   /**
@@ -165,7 +224,8 @@ Page({
     }
 
     this.setData({
-      'dynamicParams.page': this.data.dynamicParams.page + 1
+      'dynamicParams.page': this.data.dynamicParams.page + 1,
+      isLoadingUserIcon:true
     })
 
     this.getOtherDynamic()
