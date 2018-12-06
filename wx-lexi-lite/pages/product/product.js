@@ -983,7 +983,8 @@ Page({
   // 获取本店铺的相关商品
   getNewProduct(e) {
     http.fxGet(api.life_store_products, {
-      sid: this.data.storeRid
+      sid: this.data.storeRid,
+      is_distributed: 1
     }, (result) => {
       utils.logger(result, '获取店铺的相关产品')
       if (result.success) {
@@ -1498,7 +1499,7 @@ Page({
     }
 
     // 判断app里agent 里面的关注有没有发生过变动
-    if (app.globalData.agent.productFollowChange!=0) {
+    if (app.globalData.agent.productFollowChange != 0) {
       if (app.globalData.agent.productFollowChange == 1) {
         this.setData({
           'storeInfo.is_followed': true,

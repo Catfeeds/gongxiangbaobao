@@ -1,2 +1,107 @@
 <!--pages/distributesSearchRes/distributesSearchRes.wxml 分销搜索落地页-->
-<text>pages/distributesSearchRes/distributesSearchRes.wxml</text>
+<view class="container">
+  <template name="sale-price">
+    <label class="sale-price">￥{{ real_sale_price }}</label>
+    <label class="price">￥{{ real_price }}</label>
+  </template>
+  <template name="price">
+    <label class="sale-price">￥{{ real_price }}</label>
+  </template>
+
+  <!-- 搜索框 -->
+  <view class="bg-white search-input" catchtap="handleToSearch">
+    <input value="{{inputText}}" disabled="{{true}}" placeholder="关键字/商品/品牌馆/人" bindinput="handleInput" placeholder-class="input-font" auto-focus/>
+
+    <image class='infput-search__btn' src='../../images/sear-icon@2.png'></image>
+  </view>
+
+  <!-- 筛选器 -->
+  <view class="page-section fx-filter">
+    <view class="filter-item" bindtap="handleShowSortModal">
+      <text>{{ filter.sortTitle }}</text>
+      <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showSortModal }}"></image>
+      <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
+    </view>
+    <view class="filter-item" bindtap="handleShowIncomeModal">
+      <text>{{ filter.incomeTitle }}</text>
+      <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showIncomeModal }}"></image>
+      <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
+    </view>
+    <view class="filter-item" bindtap="handleShowFilterModal">
+      <text>{{ filter.conditionTitle }}</text>
+      <image src="../../images/icon-arrow-down@2x.png" class="icon-arrow-down" wx:if="{{ !showFilterModal }}"></image>
+      <image src="../../images/icon-arrow-up@2x.png" class="icon-arrow-down" wx:else></image>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="page-section fx-distribute-cards">
+
+    <view class="distribute-card" wx:for="{{ allProducts }}" wx:for-item="product" wx:for-index="idx" wx:key="{{ product.rid }}">
+      <view class="distribute-card__cover" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
+        <image src="{{ product.cover }}-p30x2" class="image"></image>
+        <image src="https://static.moebeast.com/image/static/icon-sold-out.png" class="icon-sold-out" wx:if="{{ product.total_stock == 0 }}"></image>
+      </view>
+      <view class="distribute-card__body" data-rid="{{ product.rid }}" bindtap="handleGoProduct">
+        <view class="title {{ product.is_free_postage ? 'icon-free' : '' }}">
+          {{ product.name }}
+        </view>
+        <view class="price-box">
+          <template is="sale-price" data="{{ ...product }}" wx:if="{{ product.real_sale_price > 0 }}" />
+          <template is="price" data="{{ ...product }}" wx:else />
+          <label class="love" wx:if="{{ product.like_count > 0 }}">喜欢 +{{ product.like_count }}</label>
+        </view>
+        <view class="income">
+          赚
+          <text>￥{{ product.commission_price }}</text>
+        </view>
+      </view>
+      <view class="distribute-card__actions">
+        <!-- <button class="fx-mini-btn round black" bindtap=""></button> -->
+        <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30" wx:if="{{!product.have_distributed}}">上架</fx-mini-btn>
+        <view class="c-middle distribute-over__btn" wx:else>已上架</view>
+        <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleShareDistribute">卖</fx-mini-btn>
+      </view>
+    </view>
+  </view>
+
+    <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-commission">
+        <text>赚</text>
+        <text class="amount">￥{{shareProduct.commission_price}}</text>
+      </view>
+      <view class="distribute-message">
+        朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
+      </view>
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" open-type="share">
+          <image src="{{ shareProduct.cover }}-w29xh25" class="cover"></image>
+          <text>点击直接分享</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
+          </view>
+          <text class="margin-top--14rpx">保存分享图</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" open-type="share">
+          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <view class="share-save" bindtap="handleSaveShare">
+          <image src="../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </view>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
+
+</view>
