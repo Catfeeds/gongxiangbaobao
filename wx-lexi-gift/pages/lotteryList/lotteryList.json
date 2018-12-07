@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "热门送礼",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading"
   }
