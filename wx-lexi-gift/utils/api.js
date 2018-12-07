@@ -42,6 +42,7 @@ module.exports = {
 
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
+  life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
 
   // Product
   products: 'products/by_store', // GET 产品列表---

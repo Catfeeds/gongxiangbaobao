@@ -562,13 +562,18 @@
   margin-top: 40rpx;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 30rpx;
 }
 
 .gift-product-wrapper .store-products .product-item {
-  width: 326rpx;
+  width: 330rpx;
   margin-bottom: 40rpx;
+}
+
+.gift-product-wrapper .store-products .product-item--five {
+  width: 670rpx;
 }
 
 .gift-product-wrapper .store-products .product-item--empty {

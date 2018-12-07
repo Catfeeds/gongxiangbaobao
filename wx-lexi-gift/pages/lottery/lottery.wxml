@@ -7,7 +7,7 @@
     <view class="name">{{ winner.user_name }}</view>
     <view class="summary">成功领取礼物</view>
   </view>
-  
+
   <view class="gift-notice" wx:if="{{ !isLogin }}">
     <image src="../../images/icon-ball@2x.png" class="icon-ball"></image>
     <view class="content">拆礼物成功，人数达标自动抽奖，抽奖结果会通过微信消息通知</view>
@@ -177,7 +177,7 @@
   </view>
 
   <!-- 参与用户 -->
-  <view class="gift-peoples {{ currentActivity.user_kind == 1 ? 'is-store' : '' }}">
+  <view class="gift-peoples is-store">
     <image src="../../images/icon-gift-fail@2x.png" class="icon-gift-fail" wx:if="{{ currentActivity.status == 4 }}"></image>
     <image src="../../images/icon-gift-success@2x.png" class="icon-gift-success" wx:if="{{ currentActivity.status == 3 }}"></image>
     <view class="count-down {{ hasDays ? 'has-days' : '' }}" wx:if="{{ currentActivity.status == 2 }}">
@@ -220,7 +220,7 @@
     </view>
   </view>
 
-  <view class="gift-store-products" wx:if="{{ currentActivity.user_kind == 1 }}">
+  <view class="gift-store-products">
     <view class="gift-product-wrapper">
       <view class="rule-title">
         <view class="quote-left">
@@ -232,16 +232,22 @@
         </view>
       </view>
       <image src="../../images/icon-nine@2x.png" class="icon-nine"></image>
-      <view class="store-products">
-        <navigator wx:for="{{ products }}" wx:key="{{ item.product_rid }}" class="product-item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/product/product?rid={{ item.product_rid }}" extra-data="{{ item.product_rid }}" version="release">
-          <image src="{{ item.cover }}-p30x2" class="cover" wx:if="{{ item.cover }}"></image>
-          <view class="name">{{ item.product_name }}</view>
-          <view class="price">
-            <text class="sale-price">￥{{ item.sale_price > 0 ? item.sale_price : item.price }}</text>
-            <text class="like-count" wx:if="{{ item.like_count }}">喜欢 +{{ item.like_count }}</text>
-          </view>
+
+      <!-- 品牌馆商品 -->
+      <view class="store-products" wx:if="{{ currentActivity.user_kind == 1 }}">
+        <navigator class="product-item {{ (index+1) % 5 == 0 ? 'product-item--five' : '' }}" wx:for="{{ storeProducts }}" wx:key="{{ item.rid }}" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/product/product?rid={{ item.rid }}"
+          extra-data="{{ item.rid }}" version="release">
+          <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3' }}" oldPrice="{{true}}" photoSize="{{ (index+1)%5==0 ? '50' : '30' }}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
         </navigator>
-        
+        <view class="product-item--empty"></view>
+      </view>
+
+      <!-- 生活馆分销商品 -->
+      <view class="store-products" wx:if="{{ currentActivity.user_kind == 2 }}">
+        <navigator class="product-item {{ (index+1) % 5 == 0 ? 'product-item--five' : '' }}" wx:for="{{ storeProducts }}" wx:key="{{ item.rid }}" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/product/product?rid={{ item.rid }}&sid={{ storeRid }}"
+          extra-data="{{ item.rid }}" version="release">
+          <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3' }}" oldPrice="{{true}}" photoSize="{{ (index+1)%5==0 ? '50' : '30' }}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
+        </navigator>
         <view class="product-item--empty"></view>
       </view>
 
