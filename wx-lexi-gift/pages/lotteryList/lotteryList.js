@@ -12,7 +12,11 @@ Page({
    */
   data: {
     isLoading: true,
-    activityList: []
+    activityList: [],
+    page: 1,
+    perPage: 10,
+    haveNext: true,
+    moreLoading: false
   },
 
   /**
@@ -20,16 +24,25 @@ Page({
    */
   handleGoLottery (e) {
     let rid = e.currentTarget.dataset.rid
-    wx.navigateTo({
-      url: '../lottery/lottery?rid=' + rid,
-    })
+    let kind = e.currentTarget.dataset.kind
+    if (kind == 3) {
+      wx.navigateTo({
+        url: '../myLottery/myLottery?rid=' + rid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../lottery/lottery?rid=' + rid,
+      })
+    }
   },
   
   /**
    * 获取热门活动列表
    */
   getActivityList() {
-    http.fxGet(api.gift_activity_more, {}, (res) => {
+    this._startLoading()
+    http.fxGet(api.gift_activity_more, { page: this.data.page, per_page: this.data.perPage }, (res) => {
+      this._endLoading()
       utils.logger(res.data, '热门活动列表')
       if (res.success) {
         this.setData({
@@ -38,6 +51,24 @@ Page({
       } else {
         utils.fxShowToast(res.status.message)
       }
+    })
+  },
+
+  /**
+   * 开启loading
+   */
+  _startLoading() {
+    this.setData({
+      moreLoading: true
+    })
+  },
+
+  /**
+   * 结束loading
+   */
+  _endLoading() {
+    this.setData({
+      moreLoading: false
     })
   },
 
@@ -99,6 +130,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    app.shareWxaGift()
   }
+  
 })

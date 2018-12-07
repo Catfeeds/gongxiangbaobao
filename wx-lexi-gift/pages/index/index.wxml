@@ -1,9 +1,14 @@
 <!--pages/give/give.wxml-->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-  <view class="gift-banner">
-    <view class="title">赠送好友礼物</view>
-    <view class="desc">邀请好友访问你的生活馆</view>
+  <!-- 中奖者消息 -->
+  <view class="gift-winner {{ showWinner ? 'gift-winner--show' : '' }}" wx:if="{{ showWinner }}">
+    <image src="{{ winner.user_logo }}" class="avatar"></image>
+    <view class="name">{{ winner.user_name }}</view>
+    <view class="summary">成功领取礼物</view>
+  </view>
+
+  <view class="gift-banner {{ !isSmallB ? 'gift-banner--user' : '' }}">
     <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
       <button class="btn-rule" formType="submit">活动规则</button>
     </form>
@@ -11,6 +16,7 @@
 
   <!-- 当前礼物 -->
   <view class="gift-product">
+    <image src="../../images/icon-out@2x.png" class="icon-out" wx:if="{{ !isExist }}"></image>
     <view class="product-box">
       <image src="{{ currentActivity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.assets.length > 0 }}"></image>
       <view class="product-info">
@@ -21,9 +27,22 @@
           <text class="old-price" wx:else>￥{{ currentActivity.price }}</text>
         </view>
       </view>
+
+      <view class="gift-action">
+        <form bindsubmit="handleFormMore" report-submit="{{ true }}" class="form-getid" wx:if="{{ isExist }}">
+          <button class="btn-more" formType="submit">更多礼物</button>
+        </form>
+        <form bindsubmit="handleFormAppoint" report-submit="{{ true }}" class="form-getid" wx:else>
+          <button class="btn-more" formType="submit">预约提醒</button>
+        </form>
+      </view>
+
     </view>
+
     <view class="product-images">
-      <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index < 4 && index > 0 }}" class="asset"></image>
+      <scroll-view scroll-x style="height: 220rpx;width: auto;overflow:hidden;">
+        <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index > 0 }}" class="asset" id="G{{ item.id }}"></image>
+      </scroll-view>      
     </view>
   </view>
 
@@ -31,28 +50,32 @@
   <view class="gift-setting">
     <view class="lottery">
       <image src="../../images/icon-gift-box@2x.png" class="icon-gift-box"></image>
-      <view class="lottery-summary">
-        <view class="title">达到设定参与人数自动开奖</view>
-        <view class="sub-title">随机抽取一人获得礼物</view>
+      <view class="lottery-summary" wx:if="{{ isSmallB }}">
+        <view class="title">设定更多的参与人数为你的生活馆引流</view>
+        <view class="sub-title">随机抽取一人获得礼物，馆主也能自动参与抽奖</view>
+      </view>
+      <view class="lottery-summary" wx:else>
+        <view class="title">邀请好友解除封印，1元拿走礼物</view>
+        <view class="sub-title">免费发起拿礼物，好友助力成功即可领取</view>
       </view>
     </view>
 
     <view class="form-people">
       <image src="../../images/icon-people@2x.png" class="icon-people"></image>
-      <input type="number" placeholder="设定参与人数（不低于20人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
+      <input type="number" placeholder="设定参与人数（不低于{{ defaultPeopleCount }}人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
     </view>
 
     <view class="form-days">
       <image src="../../images/icon-days@2x.png" class="icon-days"></image>
       <picker class="form-picker" bindchange="handlePickerChange" value="{{ days[idx] }}" range="{{ days }}">
-        <view class="picker pholder" wx:if="{{ idx == '' }}">
-          <view class="days-number">设置活动天数</view>
+        <view class="picker" wx:if="{{ idx > -1 }}">
+          <view class="days-number">{{ days[idx] }}天</view>
           <view class="days-arraw">
             <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
           </view>
         </view>
-        <view class="picker" wx:else>
-          <view class="days-number">{{ days[idx] }}天</view>
+        <view class="picker pholder" wx:else>
+          <view class="days-number">设置活动天数</view>
           <view class="days-arraw">
             <image src="../../images/icon-arrow-bottom@2x.png" class="icon-arraw"></image>
           </view>
@@ -84,8 +107,10 @@
   </view>
 
   <!-- 支付按钮 -->
-  <view class="give-button" bindtap="handleSubmitActivity">
-    花一元送好友
+  <view class="fixed-bottom">
+    <view class="give-button" bindtap="handleSubmitActivity">
+      {{ btnGiftText }}
+    </view>
   </view>
 
   <!-- 登陆注册模态框 -->
@@ -132,6 +157,12 @@
         <view class="txt">对存在异常恶意操作的帐号，官方有权进行处理，乐喜对活动拥有最终解释权。</view>
       </view>
     </view>
+  </fx-modal-v>
+
+  <!-- 预约提醒 -->
+  <fx-modal-v class="fx-modal--appointment" className="fx-modal--appointment" visible="{{ showAppointModal }}" marginTop="200">
+    <view class="appointment">预约成功，我们会在礼物上新的第一时间通知您</view>
+    <button class="btn-ok" bindtap="handleCloseAppoint">知道了</button>
   </fx-modal-v>
 
 </view>

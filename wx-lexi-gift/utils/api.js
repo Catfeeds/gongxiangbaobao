@@ -16,6 +16,8 @@ module.exports = {
   // POST 获取验证码
   auth_sms_code: 'users/wx_bind_mobile_verify_code',
 
+  users_save_form_ids: 'users/save_form_ids',  // 发送消息
+
   // User
   user: 'users', // GET 获取用户（当前登录用户）
   user_profile: 'users/:id/profile', // GET 获取用户资料（当前登录用户）
@@ -36,6 +38,7 @@ module.exports = {
   market_share_window_poster: 'market/share/shop_window_poster', // 分享橱窗海报
   market_share_product_card:'market/share/product_card', // 分享商品的图片生成
   market_gift_share_card: 'yiyuan/product_card', // 分享活动卡片
+  market_gift_share_poster: 'yiyuan/product_poster', // 分享海报
 
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
@@ -61,7 +64,10 @@ module.exports = {
   gift_sended: 'yiyuan/activity/send', // GET 我送出的礼物
   gift_receive: 'yiyuan/activity/receive', // GET 我收到的礼物
   gift_store_products: 'yiyuan/product/store', // GET 品牌馆更多商品
-
+  gift_winners: 'yiyuan/activity/win', // GET 中奖用户
+  gift_more: 'yiyuan/product/more', // GET 更多好物
+  gift_quit: 'yiyuan/activity/quit', // POST 放弃领取
+  
 
   // City
   countries: 'countries', // 获取国家列表

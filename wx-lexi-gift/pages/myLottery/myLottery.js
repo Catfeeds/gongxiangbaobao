@@ -17,8 +17,6 @@ Page({
     showRuleModal: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
-    isSmallB: false, // 是否为生活馆主
-    storeRid: '', // 生活馆rid
     isSelf: false, // 验证用户是否为发起人
     percent: 0.01, // 完成百分比 
     timer: null,
@@ -32,7 +30,6 @@ Page({
     hasDays: false, // 是否剩余天数
     currentActivity: {}, // 当前活动
     users: [],
-    userWin: {}, // 中奖的用户
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
     products: [], // 热门商品
@@ -54,14 +51,14 @@ Page({
   /**
    * 获取formid, 查看规则
    */
-  handleFormLogin (e) {
+  handleFormLogin(e) {
     this.setData({
       showLoginModal: true
     })
 
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId)
+      app.handleSendNews(e.detail.formId, this.data.rid)
     }
   },
 
@@ -85,7 +82,7 @@ Page({
   handleFormMore(e) {
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId, this.data.rid)
+      app.handleSendNews(e.detail.formId)
     }
 
     wx.navigateTo({
@@ -99,7 +96,7 @@ Page({
   handleFormLottery(e) {
     utils.logger(e.detail.formId, '通知模板')
     if (e.detail.formId != 'the formId is a mock one') {
-      app.handleSendNews(e.detail.formId, this.data.rid)
+      app.handleSendNews(e.detail.formId)
     }
 
     wx.switchTab({
@@ -128,7 +125,7 @@ Page({
   /**
    * 领取礼物
    */
-  handleGoGot () {
+  handleGoGot() {
     wx.navigateTo({
       url: '../pickGift/pickGift?rid=' + this.data.rid,
     })
@@ -137,11 +134,11 @@ Page({
   /**
    * 显示分享弹窗
    */
-  handleShowShare () {
+  handleShowShare() {
     this.setData({
       showShareModal: true
     })
-    
+
     this.getWxaCard()
     this.getWxaPoster()
   },
@@ -216,7 +213,7 @@ Page({
   /**
    * 参与抽奖
    */
-  partakeLottery () {
+  partakeLottery() {
     http.fxPost(api.gift_activity_join, { rid: this.data.rid }, (res) => {
       utils.logger(res, '参与抽奖')
       if (res.success) {
@@ -240,7 +237,7 @@ Page({
     if (this.data.currentActivity.status != 2) {
       return
     }
-    
+
     let d = this.data.currentActivity.days || 1
     let endTs = this.data.currentActivity.end_at
     let leftTime = endTs - utils.timestamp() // 计算剩余的毫秒数 
@@ -279,7 +276,7 @@ Page({
   /**
    * 生成推广卡片
    */
-  getWxaCard () {
+  getWxaCard() {
     let rid = this.data.currentActivity.product.product_rid
 
     let params = {
@@ -312,8 +309,8 @@ Page({
     let params = {
       rid: rid,
       activity_rid: activity_rid,
-      type: 1,
-      path: 'pages/lottery/lottery',
+      type: 3,
+      path: 'pages/myLottery/myLottery',
       scene: scene,
       auth_app_id: app.globalData.appId
     }
@@ -333,7 +330,7 @@ Page({
   /**
    * 获取用户活动的状态
    */
-  getUserActivityStatus () {
+  getUserActivityStatus() {
     http.fxGet(api.gift_activity_user_status.replace(/:rid/, this.data.rid), {}, (res) => {
       utils.logger(res.data, '获取用户活动的状态')
       if (res.success) {
@@ -343,7 +340,7 @@ Page({
         })
 
         // 如未参与，则回调参与
-        if (res.data.status == 2 && !res.data.is_join) {
+        if (!res.data.is_join) {
           this.partakeLottery()
         }
       } else {
@@ -359,17 +356,10 @@ Page({
     http.fxGet(api.gift_activity_users.replace(/:rid/, this.data.rid), {}, (res) => {
       utils.logger(res.data, '获取参与的用户')
       if (res.success) {
-        res.data.user_list.map(item => {
-          if (item.is_win) {
-            this.setData({
-              userWin: item
-            })
-          }
-        })
         this.setData({
           users: res.data.user_list
         })
-        
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -379,7 +369,7 @@ Page({
   /**
    * 获取当前活动
    */
-  getActivity () {
+  getActivity() {
     http.fxGet(api.gift_activity_detail.replace(/:rid/, this.data.rid), {}, (res) => {
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
@@ -392,29 +382,6 @@ Page({
 
           // 验证用户身份
           this._validateUserType()
-        })
-
-        // 品牌馆，获取更多商品
-        if (res.data.user_kind == 1) {
-          this.getStoreProducts()
-        }
-      } else {
-        utils.fxShowToast(res.status.message)
-      }
-    })
-  },
-
-  /**
-   * 获取店铺热门商品
-   */
-  getStoreProducts () {
-    http.fxGet(api.gift_store_products, {
-      store_rid: this.data.currentActivity.owner_store.store_rid
-    }, (res) => {
-      utils.logger(res.data, '获取热门商品')
-      if (res.success) {
-        this.setData({
-          products: res.data.product_list
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -467,10 +434,10 @@ Page({
   /**
    * 活动完成百分比
    */
-  _remathPercent () {
+  _remathPercent() {
     let _precent = 1
     let people_count = this.data.currentActivity.people_count
-    
+
     if (people_count < this.data.currentActivity.total_people_count) {
       _precent = people_count / this.data.currentActivity.total_people_count
     }
@@ -478,14 +445,14 @@ Page({
     utils.logger(people_count + ',' + _precent, '完成度')
 
     this.setData({
-      percent: (_precent*100).toFixed(2)
+      percent: (_precent * 100).toFixed(2)
     })
   },
 
   /**
    * 验证用户身份
    */
-  _validateUserType () {
+  _validateUserType() {
     if (!utils.isEmptyObject(this.data.currentActivity) && this.data.isLogin) {
       let _isSelf = false
 
@@ -503,21 +470,10 @@ Page({
   /**
    * 更新当前用户信息
    */
-  _updateUserInfo () {
-    let isSmallB = false
-    let storeRid = ''
-
-    const jwt = app.globalData.jwt
-    if (jwt.is_small_b) {
-      isSmallB = true
-      storeRid = jwt.store_rid
-    }
-    
+  _updateUserInfo() {
     this.setData({
       isLogin: app.globalData.isLogin,
-      userInfo: app.globalData.userInfo,
-      isSmallB: isSmallB,
-      storeRid: storeRid
+      userInfo: app.globalData.userInfo
     })
 
     this._validateUserType()
@@ -645,7 +601,7 @@ Page({
 
     return {
       title: this.data.currentActivity.blessing,
-      path: 'pages/lottery/lottery?scene=' + scene,
+      path: 'pages/myLottery/myLottery?scene=' + scene,
       imageUrl: this.data.cardUrl,
       success: (res) => {
         utils.logger(res, '分享成功!')

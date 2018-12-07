@@ -2,7 +2,7 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
 
-  <view class="fx-tabs">
+  <view class="fx-tabs fixed-top">
     <view class="tab {{ activeStatus == tab.status ? 'active' : '' }}" wx:for="{{ tabs }}" wx:for-item="tab" wx:key="{{ tab.rid }}" data-status="{{ tab.status }}"  bindtap="handleChangeStatus">
       {{ tab.name }}
     </view>
@@ -14,11 +14,11 @@
       <view class="lottery-item" wx:for="{{ lotteryList }}" wx:for-item="activity" wx:key="{{ activity.activity_rid }}">
         <view class="lottery-item__head">
           <view class="date">{{ activity.created_at }}</view>
-          <view class="status ended" wx:if="{{ activity.status == 1 }}">未领取</view>
+          <view class="status" wx:if="{{ activity.status == 1 }}">未领取</view>
           <view class="status hit" wx:if="{{ activity.status == 2 }}">已领取</view>
-          <view class="status hit" wx:if="{{ activity.status == 3 }}">已退款</view>
+          <view class="status ended" wx:if="{{ activity.status == 3 }}">已退款</view>
         </view>
-        <view class="lottery-item__body">
+        <view class="lottery-item__body" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoActivity">
           <image src="{{ activity.view_url }}-p30x2" class="cover" wx:if="{{ activity.view_url }}"></image>
           <view class="product-info">
             <view class="name">
@@ -48,6 +48,14 @@
       <image src="../../images/icon-no-draw@2x.png" class="icon-empty"></image>
       <view class="description">还没有送出礼物</view>
     </view>
+
+    <!-- 底部加载 -->
+    <view class="load-more__box" wx:if="{{ moreLoading }}">
+      <image src='../../images/loading.gif' class="load-more__icon"></image>
+    </view>
+
+    <!-- 没有商品加载的底部 -->
+    <view class="load-more--end" wx:if="{{ lotteryList.length != 0 && !hasNext }}"> END </view>
 
   </view>
 

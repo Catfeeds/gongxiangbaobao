@@ -1,4 +1,4 @@
-<!-- 品牌馆或生活馆发起 -->
+<!-- 普通用户发起 -->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
   <!-- 中奖者消息 -->
@@ -13,9 +13,9 @@
     <view class="content">拆礼物成功，人数达标自动抽奖，抽奖结果会通过微信消息通知</view>
   </view>
 
-  <view class="gift-banner" wx:if="{{ currentActivity.user_kind == 2 }}">
+  <view class="gift-banner">
     <navigator target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
-      <image src="https://s3.lexivip.com/static/img/life-store-head@2x.jpg" class="head-banner"></image>
+      <image src="https://s3.lexivip.com/static/img/user-head@2x.jpg" class="head-banner"></image>
     </navigator>
     <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
       <button class="btn-rule" formType="submit">活动规则</button>
@@ -23,48 +23,19 @@
   </view>
 
   <!-- 发起人 -->
-  <view class="gift-originator-wrapper" wx:if="{{ currentActivity.user_kind == 2 }}">
+  <view class="gift-originator-wrapper">
     <view class="gift-originator">
-      <image src="{{ currentActivity.owner_user.user_logo }}-ava50" class="icon-avatar" wx:if="{{ currentActivity.owner_user.user_logo }}"></image>
+      <image src="{{ currentActivity.owner_user.user_logo }}-ava" class="icon-avatar" wx:if="{{ currentActivity.owner_user.user_logo }}"></image>
       <view class="user-info">
         <view class="name">{{ currentActivity.owner_user.user_name }}</view>
-        <view class="tag" wx:if="{{ currentActivity.user_kind == 2 }}">乐喜生活馆主</view>
       </view>
-      <navigator wx:if="{{ currentActivity.user_kind == 2 }}" class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index?sid={{ storeRid }}" extra-data="lexi-gift" version="release">
-        <button class="btn-go-store">进入生活馆</button>
+      <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+        <button class="btn-go-store">开通生活馆</button>
       </navigator>
     </view>
     <view class="blessing">
       <image src="../../images/icon-pao@2x.png" class="icon-pao"></image>
       <text class="words">{{ currentActivity.blessing }}</text>
-    </view>
-  </view>
-
-  <view class="gift-banner" style="background: url('{{ currentActivity.owner_store.store_bgcover }}') no-repeat;" wx:if="{{ currentActivity.user_kind == 1 }}">
-    <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
-      <button class="btn-rule" formType="submit">活动规则</button>
-    </form>
-  </view>
-
-  <!-- 发起品牌馆 -->
-  <view class="gift-originator-wrapper store" wx:if="{{ currentActivity.user_kind == 1 }}">
-    <view class="store-wrapper">
-      <view class="gift-originator">
-        <image src="{{ currentActivity.owner_store.store_logo }}-ava50" class="icon-logo" wx:if="{{ currentActivity.owner_store.store_logo }}"></image>
-        <view class="user-info">
-          <view class="name">
-            <view class="store-name">{{ currentActivity.owner_store.store_name }}</view>
-            <image src="../../images/icon-store@2x.png" class="icon-store"></image>
-          </view>
-          <view class="tag">乐喜原创品牌设计馆</view>
-        </view>
-        <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
-          <button class="btn-go-store">挑选好物</button>
-        </navigator>
-      </view>
-      <view class="blessing">
-        <text class="words">{{ currentActivity.blessing }}</text>
-      </view>
     </view>
   </view>
 
@@ -76,39 +47,39 @@
       <button class="btn-login" formType="submit">登录后可参与抽奖</button>
     </form>
 
-    <!-- 中奖 -->
-    <view class="partake-prize" wx:if="{{ currentActivity.status == 3 && userStatus.is_winner }}">
-      <image src="../../images/icon-lucky@2x.png" class="icon-lucky"></image>
-      <view class="discription">恭喜你获得本场礼物</view>
-      <button class="btn-got" bindtap="handleGoGot" wx:if="{{ !userStatus.is_receive }}">领取礼物</button>
-      <button class="btn-got goted" wx:if="{{ userStatus.is_receive }}">已领取</button>
-    </view>
-
-    <!-- 未中奖 -->
-    <view class="partake-prize" wx:if="{{ currentActivity.status == 3 && joinStatus && !userStatus.is_winner }}">
-      <image src="../../images/icon-not-luck@2x.png" class="icon-not-lucky"></image>
-      <view class="discription">很遗憾，你未中奖</view>
-      <view class="prize-result">
-        <text>礼物已被</text>
-        <view class="user">
-          <image src="{{ userWin.user_logo }}-ava50" class="avatar" wx:if="{{ userWin.user_logo }}"></image>
-          <view class="name">{{ userWin.user_name }}</view>
-        </view>
-        <text>拿走了</text>
+    <!-- 发起者参与成功 -->
+    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && isSelf }}">
+      <view class="big-title">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+        <view class="title">等待好友助力</view>
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+      <view class="tips">
+        邀请老铁来帮忙拆礼物吧
       </view>
     </view>
 
     <!-- 参与成功 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && joinStatus }}">
-      <image src="{{ userInfo.avatar }}-ava" class="icon-avatar" wx:if="{{ !isSelf && userInfo.avatar }}"></image>
+    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && !isSelf && joinStatus }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
-        <view class="title">参与成功，人数满即开奖</view>
+        <view class="title">助力成功</view>
         <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
       </view>
       <view class="tips">
-        召唤好友拿礼物 增加两倍中奖几率
+        邀请老铁来帮忙拆礼物吧
       </view>
+    </view>
+
+    <!-- 中奖 -->
+    <view class="partake-prize" wx:if="{{ currentActivity.status == 3 }}">
+      <image src="../../images/icon-chai@2x.png" class="icon-lucky"></image>
+      <view class="discription" wx:if="{{ !isSelf }}">恭喜{{ currentActivity.owner_user.user_name }}邀请
+        <text class="red">{{ currentActivity.people_count }}位</text> 好友助力成功</view>
+      <view class="discription" wx:if="{{ isSelf }}">恭喜你获得本场礼物</view>
+      <button class="btn-got" bindtap="handleGoGot" wx:if="{{ isSelf && !userStatus.is_receive && !userStatus.is_quit }}">领取礼物</button>
+      <button class="btn-got goted" wx:if="{{ isSelf && userStatus.is_receive }}">已领取</button>
+      <button class="btn-got goted" wx:if="{{ isSelf && userStatus.is_quit }}">已放弃</button>
     </view>
 
     <!-- 活动失效 -->
@@ -123,18 +94,6 @@
       </view>
     </view>
 
-    <!-- 活动已结束 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 3 && !joinStatus }}">
-      <view class="big-title">
-        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
-        <view class="title">来晚了，本场活动已结束</view>
-        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
-      </view>
-      <view class="fail-tips">
-        没抢到礼物，自己也发起个送礼吧
-      </view>
-    </view>
-
   </view>
 
   <!-- 当前礼物 -->
@@ -144,6 +103,7 @@
         <image wx:for="{{ currentActivity.product.assets }}" wx:for-item="asset" wx:key="{{ asset.id }}" src="{{ asset.view_url }}-p30x2" class="asset"></image>
       </scroll-view>
     </view>
+
     <view class="product-info">
       {{ currentActivity.product.product_name }}
     </view>
@@ -152,34 +112,22 @@
       <view class="progress-bg">
         <view class="progress-show" style="width: {{ percent }}%;"></view>
       </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 2 }}">
-        <view class="need-count">总需
-          <text class="count">{{ currentActivity.total_people_count }}</text> 人
+      <view class="progress-desc">
+        <view class="need-count">至少满
+          <text class="count">{{ currentActivity.total_people_count }}</text> 人可领取
         </view>
-        <view class="surplus-count">还差
-          <text class="count">{{ currentActivity.surplus_count }}</text> 人开奖
+        <view class="surplus-count">已助力
+          <text class="count">{{ currentActivity.people_count }}</text> 人
         </view>
-      </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 3 }}">
-        <view class="need-count">总需
-          <text class="count">{{ currentActivity.total_people_count }}</text> 人
-        </view>
-        <view class="surplus-count">
-          <text class="count">人满已开奖</text>
-        </view>
-      </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 4 }}">
-        <view class="need-count">活动已失效</view>
       </view>
     </view>
 
-    <view class="join-tips" wx:if="{{ currentActivity.status == 2 }}">开奖倒计时结束前，满人也可继续参与</view>
+    <view class="join-tips" wx:if="{{ currentActivity.status == 2 }}">活动倒计时结束即开奖</view>
   </view>
 
   <!-- 参与用户 -->
   <view class="gift-peoples {{ currentActivity.user_kind == 1 ? 'is-store' : '' }}">
-    <image src="../../images/icon-gift-fail@2x.png" class="icon-gift-fail" wx:if="{{ currentActivity.status == 4 }}"></image>
-    <image src="../../images/icon-gift-success@2x.png" class="icon-gift-success" wx:if="{{ currentActivity.status == 3 }}"></image>
+    <image src="../../images/icon-got-success@2x.png" class="icon-gift-success" wx:if="{{ currentActivity.status == 3 && userStatus.is_receive }}"></image>
     <view class="count-down {{ hasDays ? 'has-days' : '' }}" wx:if="{{ currentActivity.status == 2 }}">
       <view class="line left"></view>
       <view class="timer">
@@ -202,13 +150,6 @@
       </view>
       <view class="line right"></view>
     </view>
-    <view class="count-down failed" wx:if="{{ currentActivity.status == 4 }}">
-      <view class="line left"></view>
-      <view class="bigtitle">
-        <view class="label">不给力呀，活动已失效</view>
-      </view>
-      <view class="line right"></view>
-    </view>
     <view class="partake-users">
       <view class="user" wx:for="{{ users }}" wx:for-item="user" wx:key="u{{ user.user_sn }}">
         <image src="{{ user.user_logo }}-ava50" wx:if="{{ user.user_logo }}" class="icon-avatar"></image>
@@ -226,14 +167,14 @@
         <view class="quote-left">
           <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         </view>
-        <view class="title">馆主推荐</view>
+        <view class="title">更多好物</view>
         <view class="quote-right">
           <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
         </view>
       </view>
       <image src="../../images/icon-nine@2x.png" class="icon-nine"></image>
       <view class="store-products">
-        <navigator wx:for="{{ products }}" wx:key="{{ item.product_rid }}" class="product-item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/product/product?rid={{ item.product_rid }}" extra-data="{{ item.product_rid }}" version="release">
+        <navigator wx:for="{{ products }}" wx:key="{{ item.product_rid }}" class="product-item" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="{{ item.product_rid }}" version="release">
           <image src="{{ item.cover }}-p30x2" class="cover" wx:if="{{ item.cover }}"></image>
           <view class="name">{{ item.product_name }}</view>
           <view class="price">
@@ -241,7 +182,7 @@
             <text class="like-count" wx:if="{{ item.like_count }}">喜欢 +{{ item.like_count }}</text>
           </view>
         </navigator>
-        
+
         <view class="product-item--empty"></view>
       </view>
 
@@ -250,28 +191,34 @@
 
   <!-- 分享礼物给好友 -->
   <view class="gift-share-wrapper">
-    <form bindsubmit="handleFormMore" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4 }}">
-      <button class="btn-more" formType="submit">
+
+    <!-- 进行中/发起中 -->
+    <view class="btn-share btn-full" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && isSelf }}">
+      分享好友助力
+    </view>
+
+    <!-- 进行中/普通用户 -->
+    <view class="btn-share btn-more--green" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
+      分享好友助力
+    </view>
+    <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
+      <button class="btn-give opened" formType="submit">
+        我也要拿礼物
+      </button>
+    </form>
+
+    <!-- 开奖成功或失效 -->
+    <form bindsubmit="handleFormMore" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
+      <button class="btn-more btn-more--green" formType="submit">
         更多抽奖
       </button>
     </form>
-    <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4 }}">
+    <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
       <button class="btn-give opened" formType="submit">
-        我也要送礼
+        我也要拿礼物
       </button>
     </form>
-    <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
-      <button class="btn-give" formType="submit">
-        我也要送礼
-      </button>
-    </form>
-    <button class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
-      分享礼物给好友
-    </button>
 
-    <button class="btn-share btn-full" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && isSelf }}">
-      分享礼物给好友
-    </button>
   </view>
 
   <!-- 登陆注册模态框 -->

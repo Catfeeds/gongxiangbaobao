@@ -15,13 +15,18 @@ Page({
     showLoginModal: false, // 注册的呼出框
     showRuleModal: false, // 显示规则弹框
 
+    toView: 'G55930',
+    
     // 当前登录用户信息
+    isSmallB: false, // 是否为生活馆主
     userInfo: {},
     // 当前活动
+    isExist: false,
     currentActivity: {},
     // 输入表单
-    idx: '',
+    idx: -1,
     days: [1, 2, 3],
+    defaultPeopleCount: 50,
     form: {
       people_num: null,
       days: '',
@@ -32,8 +37,17 @@ Page({
     page: 1,
     perPage: 10,
     partakePeople: [],
-    partakePeopleCount: 0
-    
+    partakePeopleCount: 0,
+    btnGiftText: '花一元送好友',
+
+    // 预约提醒
+    showAppointModal: false,
+
+    // 最近获奖者
+    timer: null,
+    winner: {}, // 中奖者信息
+    winnerPage: 1,
+    showWinner: false // 是否显示中奖者消息
   },
 
   // 获取formid
@@ -48,12 +62,42 @@ Page({
     })
   },
 
+  // 获取formid, 查看更多
+  handleFormMore (e) {
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId)
+    }
+
+    wx.navigateTo({
+      url: '../giftList/giftList',
+    })
+  },
+
+  // 获取formid, 预约提醒
+  handleFormAppoint (e) {
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId)
+    }
+
+    this.setData({
+      showAppointModal: true
+    })
+  },
+
+  // 关闭预约提醒弹窗
+  handleCloseAppoint () {
+    this.setData({
+      showAppointModal: false
+    })
+  },
+
   // 选择天数
   handlePickerChange (e) {
     console.log(e.detail.value)
+    let idx = parseInt(e.detail.value)
     this.setData({
-      idx: e.detail.value,
-      'form.days': this.data.days[e.detail.value]
+      idx: idx,
+      'form.days': this.data.days[idx]
     })
   },
 
@@ -114,8 +158,8 @@ Page({
     console.log(this.data.form)
 
     // 验证人数
-    if (this.data.form.people_num < 20) {
-      utils.fxShowToast('参与人数不能低于20人')
+    if (this.data.form.people_num < this.data.defaultPeopleCount) {
+      utils.fxShowToast('参与人数不能低于' + this.data.defaultPeopleCount + '人')
       return
     }
 
@@ -144,16 +188,65 @@ Page({
       if (res.success) {
         // 开始支付
         let _rid = res.data.activity_rid
-        app.wxpayOrder(_rid, res.data.pay_params, (result) => {
-          if (result) {
-            // 跳转至详情
-            wx.navigateTo({
-              url: '../lottery/lottery?rid=' + _rid,
-            })
-          }
-        })
+        if (this.data.isSmallB) {
+          app.wxpayOrder(_rid, res.data.pay_params, (result) => {
+            if (result) {
+              // 跳转至详情
+              wx.navigateTo({
+                url: '../lottery/lottery?rid=' + _rid,
+              })
+            }
+          })
+        } else {
+          // 跳转至详情
+          wx.navigateTo({
+            url: '../myLottery/myLottery?rid=' + _rid,
+          })
+        }
       } else {
-        utils.fxShowToast('发起失败,请重试！')
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 获取最新的赢者
+   */
+  getLastWinners () {
+    let _page = this.data.winnerPage
+    if (_page > 10) { // 大于10后恢复重新循环
+      _page = 1
+    } else {
+      _page += 1
+    }
+    this.setData({
+      winnerPage: _page
+    })
+    let that = this
+    http.fxGet(api.gift_winners, { page: _page, per_page: 1 }, (res) => {
+      utils.logger(res.data, '获取最新获奖者')
+      if (res.success) {
+        if (res.data.user_list.length > 0) {
+          let winner = res.data.user_list[0]
+          winner.user_name = utils.truncate(winner.user_name, 10)
+          this.setData({
+            winner: winner,
+            showWinner: true
+          })
+
+          setTimeout(() => {
+            that.setData({
+              showWinner: false
+            })
+          }, 3000)
+        } else {
+          this.setData({
+            winner: [],
+            showWinner: false
+          })
+        }
+      } else {
+        utils.logger(res.status.message, '最新获奖者消息')
       }
     })
   },
@@ -165,7 +258,13 @@ Page({
     http.fxGet(api.gift_current, {}, (res) => {
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
+        let _ca = Object.keys(res.data)
+        let _isExist = false
+        if (_ca.length > 0 && res.data.surplus_count > 0) {
+          _isExist = true
+        }
         this.setData({
+          isExist: _isExist,
           currentActivity: res.data
         })
       } else {
@@ -228,19 +327,56 @@ Page({
   },
 
   /**
+   * 刷新用户登录信息
+   */
+  _refreshUserLogin() {
+    if (!app.globalData.isLogin) {
+      this.setData({
+        showLoginModal: true
+      })
+    }
+
+    const jwt = app.globalData.jwt
+    let isSmallB = false
+    let days = [1, 2, 3]
+    let idx = -1
+    let formDays = ''
+    let _txt = this.data.btnGiftText
+
+    if (jwt.is_small_b) {
+      isSmallB = true
+    } else { // 普通用户天数不可选
+      days = [1]
+      idx = 0
+      formDays = this.data.days[idx]
+      _txt = '我要拿礼物'
+    }
+    this.setData({
+      isLogin: app.globalData.isLogin,
+      isSmallB: isSmallB,
+      days: days,
+      idx: idx,
+      'form.days': formDays,
+      btnGiftText: _txt
+    })
+
+    this.getMyActivityPeople()
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getCurrentActivity()
     
     if (app.globalData.isLogin) {
-      this.getMyActivityPeople()
+      this._refreshUserLogin()
     } else {
       // 给app.js 定义一个方法。
       app.userInfoReadyCallback = res => {
         utils.logger('用户信息请求完毕')
         if (res) {
-          this.getMyActivityPeople()
+          this._refreshUserLogin()
         } else {
           utils.fxShowToast('授权失败，请稍后重试')
         }
@@ -264,21 +400,42 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 恢复默认值
+    this.setData({
+      idx: -1,
+      'form.people_num': null,
+      'form.days': '',
+      'form.blessing': ''
+    })
 
+    let that = this
+
+    // 每5秒刷新数据
+    this.setData({
+      timer: setInterval(() => {
+        that.getLastWinners()
+      }, 5000)
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    clearInterval(this.data.timer)
+    this.setData({
+      timer: null
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.timer)
+    this.setData({
+      timer: null
+    })
   },
 
   /**
@@ -308,6 +465,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    app.shareWxaGift()
   }
+
 })

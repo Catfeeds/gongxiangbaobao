@@ -12,10 +12,12 @@ Page({
    */
   data: {
     isLoading: true,
+    currentActivity: {}, // 当前活动
 
     rid: '',
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
+    cardUrl: '', // 卡片图rul
     posterUrl: '', // 海报图url
     posterSaving: false, // 是否正在保存
     posterBtnText: '保存分享'
@@ -43,6 +45,9 @@ Page({
     this.setData({
       showShareModal: true
     })
+
+    this.getWxaCard()
+    this.getWxaPoster()
   },
 
   /**
@@ -51,8 +56,31 @@ Page({
   handleCancelShare(e) {
     this.setData({
       showShareModal: false,
+      cardUrl: '',
       posterUrl: '',
       shareProduct: {}
+    })
+  },
+
+  /**
+   * 生成推广卡片
+   */
+  getWxaCard() {
+    let rid = this.data.currentActivity.product.product_rid
+
+    let params = {
+      rid: rid,
+      type: 2
+    }
+    http.fxPost(api.market_gift_share_card, params, (result) => {
+      utils.logger(result, '生成卡片')
+      if (result.success) {
+        this.setData({
+          cardUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
     })
   },
 
@@ -60,19 +88,23 @@ Page({
    * 生成推广海报图
    */
   getWxaPoster() {
-    let rid = this.data.rid
+    let rid = this.data.currentActivity.product.product_rid
 
-    // scene格式：rid + '-' + sid
-    let scene = rid
+    let activity_rid = this.data.rid
+
+    // scene格式：rid
+    let scene = activity_rid
 
     let params = {
       rid: rid,
-      type: 4,
-      path: 'pages/index/index',
+      activity_rid: activity_rid,
+      type: 2,
+      path: 'pages/lottery/lottery',
       scene: scene,
       auth_app_id: app.globalData.appId
     }
-    http.fxPost(api.wxa_poster, params, (result) => {
+
+    http.fxPost(api.market_gift_share_poster, params, (result) => {
       utils.logger(result, '生成海报图')
       if (result.success) {
         this.setData({
@@ -140,12 +172,30 @@ Page({
   },
 
   /**
+   * 获取当前活动
+   */
+  getActivity() {
+    http.fxGet(api.gift_activity_detail.replace(/:rid/, this.data.rid), {}, (res) => {
+      utils.logger(res.data, '获取当前活动')
+      if (res.success) {
+        this.setData({
+          currentActivity: res.data
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setData({
       rid: options.rid || ''
     })
+
+    this.getActivity()
   },
 
   /**
@@ -199,6 +249,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    // scene格式：rid
+    let scene = this.data.rid
     
+    return {
+      title: this.data.currentActivity.blessing,
+      path: 'pages/lottery/lottery?scene=' + scene,
+      imageUrl: this.data.cardUrl,
+      success: (res) => {
+        utils.logger(res, '分享成功!')
+      }
+    }
   }
+
 })

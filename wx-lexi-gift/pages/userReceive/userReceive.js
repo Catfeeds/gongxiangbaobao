@@ -21,7 +21,9 @@ Page({
     page: 1,
     perPage: 10,
     lotteryList: [],
-    haveNext: true
+    haveNext: true,
+    moreLoading: false // 更多加载
+
   },
 
   /**
@@ -38,14 +40,33 @@ Page({
   },
 
   /**
+   * 查看活动
+   */
+  handleGoActivity(e) {
+    let rid = e.currentTarget.dataset.rid
+    let kind = e.currentTarget.dataset.kind
+    if (kind == 3) {
+      wx.navigateTo({
+        url: '../myLottery/myLottery?rid=' + rid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../lottery/lottery?rid=' + rid,
+      })
+    }
+  },
+
+  /**
    * 获取参与的活动列表
    */
   getActivityList() {
+    this._startLoading()
     http.fxGet(api.gift_receive, {
       page: this.data.page,
       per_page: this.data.perPage,
       s: this.data.activeStatus
     }, (res) => {
+      this._endLoading()
       utils.logger(res.data, '收到的列表')
       if (res.success) {
         let _list = this.data.lotteryList
@@ -69,6 +90,24 @@ Page({
       } else {
         utils.fxShowToast(res.status.message)
       }
+    })
+  },
+
+  /**
+   * 开启loading
+   */
+  _startLoading() {
+    this.setData({
+      moreLoading: true
+    })
+  },
+
+  /**
+   * 结束loading
+   */
+  _endLoading() {
+    this.setData({
+      moreLoading: false
     })
   },
 

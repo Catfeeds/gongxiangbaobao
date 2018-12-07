@@ -16,16 +16,21 @@ Page({
     
     isSending: false,
     btnText: '领取礼物',
+    userBtnText: '支付1元领取礼物',
 
     currentActivity: {},
+    isSmallB: false, // 是否为生活馆主
 
     hasAddress: false,
     currentAddress: {},
+    pay_params: {},
     form: {
       rid: '',
       openid: '',
       address_rid: '',
-    }
+    },
+
+    showChangeModal: false
   },
 
   /**
@@ -47,6 +52,37 @@ Page({
   },
 
   /**
+   * 放弃领奖
+   */
+  handleGiveUpGot () {
+    let params = {
+      rid: this.data.rid
+    }
+    http.fxPost(api.gift_quit, params, (res) => {
+      utils.logger(res.data, '放弃领取')
+
+      if (res.success) {
+        wx.redirectTo({
+          url: '../userLottery/userLottery',
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 继续支付
+   */
+  handleFormPay (e) {
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId, this.data.rid)
+    }
+
+    this._continuePay(this.data.rid, this.data.pay_params)
+  },
+
+  /**
    * 领取礼物
    */
   handleSubmitGot () {
@@ -61,21 +97,63 @@ Page({
 
     this.setData({
       isSending: true,
-      btnText: '正在提交...'
+      btnText: '正在提交...',
+      userBtnText: '正在提交...'
     })
-    http.fxPost(api.gift_activity_grant, this.data.form, (res) => {
+
+    let params = this.data.form
+
+    // 普通用户领取，生成支付参数
+    if (!this.data.isSmallB) {
+      params.sync_pay = 1
+      params.auth_app_id = app.globalData.appId
+    }
+    
+    http.fxPost(api.gift_activity_grant, params, (res) => {
       utils.logger(res, '领取礼物')
       this.setData({
         isSending: false,
-        btnText: '领取礼物'
+        btnText: '领取礼物',
+        userBtnText: '支付1元领取礼物'
       })
+      
+      utils.logger(res.data, '领取')
+
       if (res.success) {
-        // 领取成功，跳转成功页面
-        wx.redirectTo({
-          url: '../pickSuccess/pickSuccess?rid=' + this.data.rid,
-        })
+        let _rid = this.data.rid
+
+        if (this.data.isSmallB) {
+          // 领取成功，跳转成功页面
+          wx.redirectTo({
+            url: '../pickSuccess/pickSuccess?rid=' + _rid,
+          })
+        } else {
+          // 没库存
+          if (res.data.no_stock) {
+            this.setData({
+              showChangeModal: true,
+              pay_params: res.data.pay_params
+            })
+          } else {
+            this._continuePay(_rid, res.data.pay_params)
+          }
+        }
       } else {
         utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 支付订单
+   */
+  _continuePay (rid, pay_params) {
+    app.wxpayOrder(rid, pay_params, (result) => {
+      if (result) {
+        // 领取成功，跳转成功页面
+        wx.redirectTo({
+          url: '../pickSuccess/pickSuccess?rid=' + rid,
+        })
       }
     })
   },
@@ -97,8 +175,6 @@ Page({
           'form.address_rid': res.data.rid,
           currentAddress: res.data
         })
-      } else {
-        utils.fxShowToast(res.status.message)
       }
     })
     
@@ -128,7 +204,8 @@ Page({
     this.setData({
       rid: rid,
       'form.rid': rid,
-      'form.openid': app.globalData.jwt.openid
+      'form.openid': app.globalData.jwt.openid,
+      isSmallB: app.globalData.jwt.is_small_b ? true : false
     })
     
     this.getActivity()
@@ -157,7 +234,7 @@ Page({
       })
       // 清空来源
       app.globalData.addressRef = ''
-
+      
       // 更新地址
       this.getCurrentAddress()
     }

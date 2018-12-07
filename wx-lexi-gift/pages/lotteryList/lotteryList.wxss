@@ -22,12 +22,35 @@
   padding: 20rpx 30rpx;
 }
 
-.gift-item .gift-item__body .cover {
+.gift-item .gift-item__body .gift-image {
   flex: 0 0 auto;
+  position: relative;
+  height: 200rpx;
+  overflow: hidden;
+}
+
+.gift-item .gift-item__body .gift-image .cover {
   width: 200rpx;
   height: 200rpx;
   border-radius: 8rpx;
   margin-right: 30rpx;
+}
+
+.gift-item .gift-item__body .gift-image .progress-result {
+  position: absolute;
+  left: 0;
+  bottom: 0rpx;
+  z-index: 9;
+  width: 199rpx;
+  height: 44rpx;
+  background: rgba(0, 0, 0, 0.4583);
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 44rpx;
+  text-align: center;
+  border-bottom-left-radius: 8rpx;
+  border-bottom-right-radius: 8rpx;
 }
 
 .gift-item .gift-item__body .gift-product {
@@ -95,8 +118,25 @@
 }
 
 .gift-item .gift-item__foot .btn-lottery {
-  display: inline-flex;
   margin: 0;
   flex: 0 0 auto;
-  width:184rpx;
+  width: 184rpx;
+  text-align: center;
+}
+
+.gift-list--empty {
+  padding-top: 50rpx;
+  text-align: center;
+}
+
+.gift-list--empty .icon-empty {
+  width: 260rpx;
+  height: 260rpx;
+}
+
+.gift-list--empty .description {
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(169, 177, 184, 1);
+  line-height: 32rpx;
 }

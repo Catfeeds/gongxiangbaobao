@@ -1,10 +1,13 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-  <view class="gift-list">
+  <view class="gift-list" wx:if="{{ activityList.length > 0 }}">
 
     <view class="gift-item" wx:for="{{ activityList }}" wx:for-item="activity" wx:key="{{ activity.activity_rid }}">
-      <view class="gift-item__body">
-        <image src="{{ activity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ activity.assets.length > 0 }}"></image>
+      <view class="gift-item__body" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoLottery">
+        <view class="gift-image">
+          <image src="{{ activity.cover }}-p30x2" class="cover" wx:if="{{ activity.cover }}"></image>
+          <view class="progress-result" wx:if="{{ activity.is_join }}">已参与</view>
+        </view>
         <view class="gift-product">
           <view class="title">{{ activity.product_name }}</view>
           <view class="user">
@@ -19,10 +22,25 @@
         </view>
       </view>
       <view class="gift-item__foot">
-        <button class="fx-btn fx-btn--primary btn-lottery" data-rid="{{ activity.activity_rid }}" bindtap="handleGoLottery">立即参与</button>
+        <button class="fx-btn fx-btn--primary btn-lottery" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoLottery" wx:if="{{ !activity.is_join }}">立即参与</button>
+        <button class="fx-btn fx-btn--primary btn-lottery" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoLottery" wx:if="{{ activity.is_join }}">查看</button>
       </view>
     </view>
 
   </view>
+
+  <!-- 空列表 -->
+  <view class="gift-list--empty" wx:else>
+    <image src="../../images/icon-empty@2x.png" class="icon-empty"></image>
+    <view class="description">没有更多了</view>
+  </view>
+
+  <!-- 底部加载 -->
+  <view class="load-more__box" wx:if="{{ moreLoading }}">
+    <image src='../../images/loading.gif' class="load-more__icon"></image>
+  </view>
+
+  <!-- 没有商品加载的底部 -->
+  <view class="load-more--end" wx:if="{{ activityList.length != 0 && !hasNext }}"> END </view>
 
 </view>

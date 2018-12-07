@@ -1,0 +1,65 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  <view class="gift-opening-list">
+    <view class="gift-item" bindtap="handleGoIndex">
+      <image src="{{ currentActivity.cover }}-p30x2" class="cover" wx:if="{{ currentActivity.cover }}"></image>
+      <view class="gift-item__body">
+        <view class="title">{{ currentActivity.product_name }}</view>
+        <view class="opening">礼物状态：正在送出</view>
+        <view class="price-wrapper">
+          <view class="sale-price">
+            <text class="currency">￥</text>1
+          </view> 
+          <view class="price">
+            <text class="currency">￥</text>{{ currentActivity.price }}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 以下礼物等待送出 -->
+  <view class="gift-opening-list gift-waiting-list" wx:if="{{ giftList.length > 0 }}">
+    <view class="rule-title">
+      <view class="quote-left">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+      </view>
+      <view class="title">以下礼物等待送出</view>
+      <view class="quote-right">
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+    </view>
+
+    <view class="gift-item" wx:for="{{ giftList }}" wx:for-item="gift" wx:key="{{ gift.product_rid }}">
+      <image src="{{ gift.cover }}-p30x2" class="cover" wx:if="{{ gift.cover }}"></image>
+      <view class="gift-item__body">
+        <view class="title">{{ gift.product_name }}</view>
+        <view class="opening waiting">礼物状态：等待送出</view>
+        <view class="price-wrapper">
+          <view class="sale-price">
+            <text class="currency">￥</text>1
+          </view> 
+          <view class="price">
+            <text class="currency">￥</text>{{ gift.price }}
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 空列表 -->
+  <view class="gift-list--empty" wx:else>
+    <image src="../../images/icon-empty@2x.png" class="icon-empty"></image>
+    <view class="description">没有更多了</view>
+  </view>
+
+  <!-- 底部加载 -->
+  <view class="load-more__box" wx:if="{{ moreLoading }}">
+    <image src='../../images/loading.gif' class="load-more__icon"></image>
+  </view>
+
+  <!-- 没有商品加载的底部 -->
+  <view class="load-more--end" wx:if="{{ giftList.length != 0 && !hasNext }}"> END </view>
+
+</view>

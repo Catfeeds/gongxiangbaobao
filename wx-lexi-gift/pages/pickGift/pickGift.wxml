@@ -32,8 +32,39 @@
     </view>
   </view>
 
-  <view class="gift-share-wrapper">
-    <button class="btn-share" bindtap="handleSubmitGot">{{ btnText }}</button>
+  <!-- 订单总计 -->
+  <view class="gift-order" wx:if="{{ !isSmallB }}">
+    <view class="label">订单总计</view>
+    <view class="amount">￥1</view>
   </view>
+
+  <view class="gift-share-wrapper">
+    <button class="btn-share btn-full" bindtap="handleSubmitGot" wx:if="{{ isSmallB }}">{{ btnText }}</button>
+    <button class="btn-share btn-full" bindtap="handleSubmitGot" wx:if="{{ !isSmallB }}">{{ userBtnText }}</button>
+  </view>
+
+  <!-- 更换礼物 -->
+  <fx-modal-v class="fx-modal--change" className="fx-modal--change" visible="{{ showChangeModal }}" marginTop="150">
+    <view class="current-gift">
+      <image src="{{ currentActivity.product.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.product.assets.length }}"></image>
+      <view class="gift-product">
+        <view class="name">{{ currentActivity.product.product_name }}</view>
+        <view class="sold-out">领完了</view>
+      </view>
+    </view>
+    <view class="confirm-change">
+      <view class="title">呀！你来晚了</view>
+      <view class="desc">该礼物已经被领取完了，但平台依然会选择与该礼物同等价值的礼物送出</view>
+
+      <form bindsubmit="handleFormPay" report-submit="{{ true }}" class="form-getid">
+        <button class="btn-pay" formType="submit">支付1元领取</button>
+      </form>
+
+      <button class="btn-giveup" bindtap="handleGiveUpGot">放弃领取</button>
+    </view>
+    <view class="gift-mark">
+      注：放弃领取，中奖将做失效处理。
+    </view>
+  </fx-modal-v>
 
 </view>

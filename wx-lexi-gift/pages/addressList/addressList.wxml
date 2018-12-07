@@ -20,7 +20,7 @@
 
   <!-- 新增收获地址 -->
   <view class="gift-share-wrapper" bindtap="handleAddAddress">
-    <button class="btn-share">新增收货地址</button>
+    <button class="btn-share btn-full">新增收货地址</button>
   </view>
 
 

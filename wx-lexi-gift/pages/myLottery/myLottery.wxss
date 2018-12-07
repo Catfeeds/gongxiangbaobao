@@ -1,5 +1,14 @@
 /* pages/lottery/lottery.wxss */
 
+.gift-banner {
+  background: transparent;
+}
+
+.gift-banner .head-banner {
+  width: 750rpx;
+  height: 180rpx;
+}
+
 .gift-originator-wrapper {
   border-bottom: 1rpx solid #e9e9e9;
   padding-bottom: 40rpx;
@@ -9,9 +18,9 @@
 .gift-originator {
   display: flex;
   align-items: center;
-  padding-left: 30rpx;
+  padding: 0rpx 30rpx;
   margin-top: 35rpx;
-  width: 660rpx;
+  width: 690rpx;
 }
 
 .gift-originator .icon-avatar {
@@ -107,7 +116,7 @@
 
 .store-wrapper .gift-originator .user-action {
   flex: 0 0 auto;
-  margin-right: 30rpx;
+  margin-right: 60rpx;
 }
 
 .store-wrapper .blessing {
@@ -272,7 +281,7 @@
 }
 
 .partake-success-wrapper .tips {
-  width: 380rpx;
+  width: 360rpx;
   height: 35rpx;
   background: rgba(255, 239, 239, 1);
   border-radius: 18rpx;
@@ -289,28 +298,24 @@
   color: rgba(153, 153, 153, 1);
 }
 
-
-
 .gift-product {
-  padding: 0rpx;
   background-color: #fff;
-  overflow: hidden;
 }
 
 .gift-product .product-images {
   width: 690rpx;
   height: 220rpx;
   overflow: hidden;
-  padding-left: 30rpx;
+  padding: 0 30rpx;
   white-space: nowrap;
 }
 
 .gift-product .product-images .asset {
+  display: inline-block;
   width: 220rpx;
   height: 220rpx;
   border-radius: 8rpx;
   margin-right: 20rpx;
-  display: inline-block;
 }
 
 .gift-product .product-info {
@@ -318,8 +323,8 @@
   font-weight: 400;
   color: rgba(25, 25, 25, 1);
   line-height: 30rpx;
-  padding: 0 30rpx;
   margin: 30rpx 0 40rpx;
+  padding: 0 30rpx;
 }
 
 .people-progress {
@@ -375,8 +380,8 @@
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
   line-height: 24rpx;
-  padding: 0 30rpx;
   margin-bottom: 20rpx;
+  padding: 0 30rpx;
 }
 
 .gift-peoples {
@@ -456,7 +461,7 @@
 .gift-peoples .count-down .bigtitle {
   flex: 1;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -469,10 +474,6 @@
 
 .gift-peoples .count-down.opened .line {
   width: 280rpx;
-}
-
-.gift-peoples .count-down.failed .line {
-  width: 145rpx;
 }
 
 .gift-peoples .partake-users {
