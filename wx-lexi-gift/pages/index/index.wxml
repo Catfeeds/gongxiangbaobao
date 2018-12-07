@@ -18,6 +18,7 @@
   <view class="gift-product">
     <image src="../../images/icon-out@2x.png" class="icon-out" wx:if="{{ !isExist }}"></image>
     <view class="product-box">
+      <view class="gift-count" wx:if="{{ currentActivity.surplus_count > 0 }}">还剩{{ currentActivity.surplus_count }}份</view>
       <image src="{{ currentActivity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.assets.length > 0 }}"></image>
       <view class="product-info">
         <view class="name">{{ currentActivity.product_name }}</view>
@@ -62,7 +63,7 @@
 
     <view class="form-people">
       <image src="../../images/icon-people@2x.png" class="icon-people"></image>
-      <input type="number" placeholder="设定参与人数（不低于{{ defaultPeopleCount }}人）" class="form-input" name="people-count" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
+      <input type="number" placeholder="设定参与人数（不低于{{ defaultPeopleCount }}人）" class="form-input" name="people-count" focus="{{ peopleFocus }}" bindfocus="handleValidateLogin" bindblur="handlePeopleNum" value="{{ form.people_num }}" />
     </view>
 
     <view class="form-days">
@@ -86,7 +87,7 @@
 
     <view class="form-blessing">
       <image src="../../images/icon-edit@2x.png" class="icon-edit"></image>
-      <input placeholder="填写心愿祝福语（限12个字）" bindfocus="handleValidateLogin" bindblur="handleBlessing" maxlength="12" value="{{ form.blessing }}" class="form-input" />
+      <input placeholder="填写心愿祝福语（限12个字）" bindfocus="handleValidateLogin" bindblur="handleBlessing" focus="{{ blessingFocus }}" maxlength="12" value="{{ form.blessing }}" class="form-input" />
     </view>
 
   </view>

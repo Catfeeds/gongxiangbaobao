@@ -118,8 +118,6 @@ Page({
       // 登录后更新数据
       this._updateUserInfo()
     }
-
-    wx.showTabBar()
   },
 
   /**

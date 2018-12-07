@@ -30,6 +30,8 @@ Page({
     idx: -1,
     days: [1, 2, 3],
     defaultPeopleCount: 50,
+    peopleFocus: false,
+    blessingFocus: false,
     form: {
       people_num: null,
       days: '',
@@ -115,14 +117,13 @@ Page({
         isLogin: app.globalData.isLogin
       })
     }
-
-    wx.showTabBar()
   },
 
   /**
    * 验证登录
    */
   handleValidateLogin(e) {
+    console.log(e)
     this._validateLoginStatus(e)
   },
 
@@ -150,7 +151,6 @@ Page({
    */
   handleSubmitActivity(e) {
     if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
       this.setData({
         showLoginModal: true
       })
@@ -349,9 +349,10 @@ Page({
   _validateLoginStatus() {
     // 是否登陆
     if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
       this.setData({
-        showLoginModal: true
+        showLoginModal: true,
+        peopleFocus: false,
+        blessingFocus: false
       })
 
       return
@@ -446,7 +447,7 @@ Page({
     this.setData({
       timer: setInterval(() => {
         that.getLastWinners()
-      }, 5000)
+      }, 3500)
     })
   },
 
