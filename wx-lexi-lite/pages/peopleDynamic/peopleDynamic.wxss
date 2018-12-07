@@ -1,2 +1,7 @@
 /* pages/peopleDynamic/peopleDynamic.wxss */
-@import "../dynamic/dynamic.wxss"
+@import "../dynamic/dynamic.wxss";
+
+.huise-btn {
+  background-color: #eff3f2;
+  color: #949ea6;
+}

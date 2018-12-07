@@ -13,23 +13,22 @@
     <view class='black-font designer-name'>{{dynamicList.username}}</view>
 
     <!-- 关注 -->
-    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==0}}">
+    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==0}}" catchtap="handleAddFollow">
       <text class='fx-icon-nothing-plus'></text>
       <text>关注</text>
     </view>
     <!-- 取消关注-->
-    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==1}}">
-      <text class='fx-icon-nothing-plus'></text>
+    <view class='c-theme-bg add-showcase__btn font-s watch-btn huise-btn' wx:if="{{dynamicList.followed_status==1}}" catchtap='handleDeleteFollow'>
       <text>已关注</text>
     </view>
     <!-- 取消关注-->
-    <view class='c-theme-bg add-showcase__btn font-s watch-btn' wx:if="{{dynamicList.followed_status==2}}">
+    <view class='c-theme-bg add-showcase__btn font-s watch-btn huise-btn' wx:if="{{dynamicList.followed_status==2}}" catchtap='handleDeleteFollow'>
       <text>相互关注</text>
     </view>
   </view>
 
   <!-- 每一项 -->
-    <view wx:if="{{dynamicList.count!=0}}" wx:for="{{dynamicList.lines}}" wx:key="{{index}}" catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" class='margin-bottom--30rpx bg-white'>
+  <view wx:if="{{dynamicList.count!=0}}" wx:for="{{dynamicList.lines}}" wx:key="{{index}}" catchtap="handleGoWindowDetail" data-window-rid="{{item.rid}}" class='margin-bottom--30rpx bg-white'>
 
     <view class='flex-direction--column dynamic-item'>
       <view class='time-top dynamic-item__top margin-bottom--30rpx'>
@@ -40,15 +39,11 @@
             <view class='font-ss qian-hui'>{{item.created_time}}</view>
           </view>
         </view>
-        <view class="flex_row round ">
-          <view></view>
-          <view></view>
-          <view></view>
-        </view>
+
       </view>
 
       <view class="time-top time-middine margin-bottom--24rpx">
-        <image  wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}-p30x2"></image>
+        <image wx:if="{{index<3}}" wx:key="{{index}}" wx:for="{{item.products}}" wx:for-item="items" src="{{items.cover}}-p30x2"></image>
         <view class="window-photo__count" wx:if="{{item.products>3}}">{{item.products>3?item.products.length:""}}图</view>
       </view>
 
@@ -57,19 +52,9 @@
     </view>
 
     <view class="like-iocn__box flex_row">
-      <view >
-        <image 
-          wx:if="{{!item.is_like}}"
-          data-rid="{{item.rid}}"
-          src='../../images/icons/icon-like@3x.png' 
-          data-index="{{index}}"
-          catchtap="handleAddLike"></image>
-        <image 
-          catchtap="handleDeleteLike"
-          data-index="{{index}}"
-          data-rid="{{item.rid}}"
-          wx:if="{{item.is_like}}"
-          src="../../images/icons/icon-like-active@3x.png"></image>
+      <view>
+        <image wx:if="{{!item.is_like}}" data-rid="{{item.rid}}" src='../../images/icons/icon-like@3x.png' data-index="{{index}}" catchtap="handleAddLike"></image>
+        <image catchtap="handleDeleteLike" data-index="{{index}}" data-rid="{{item.rid}}" wx:if="{{item.is_like}}" src="../../images/icons/icon-like-active@3x.png"></image>
 
         <text class='font-ss'>{{ item.like_count>0?item.like_count:""}}</text>
       </view>
@@ -87,6 +72,14 @@
     <view class='black-font'>还没有任何动态信息</view>
   </view>
 
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadingUserIcon}}">
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!dynamicList.next}}"> END </view>
+  </block>
   <view class='shm'></view>
 </view>
 <fx-loading loading="{{ isLoading }}"></fx-loading>

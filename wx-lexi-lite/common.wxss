@@ -1463,3 +1463,201 @@ button::after {
 .coupon-template__style .lose-efficacy_bg--color {
   background-color: #e1dedc;
 }
+
+/* 搜索s */
+
+.search-page .search-input {
+  position: fixed;
+  top: 0;
+  height: 80rpx;
+  width: 100%;
+}
+
+.search-page .search-input input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 68rpx;
+  width: 510rpx;
+  background-color: #eaedf0;
+  border-radius: 34rpx;
+  padding: 0 80rpx;
+  font-size: 28rpx;
+}
+
+.search-page .search-input image {
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.search-page .search-input image {
+  padding: 0 10rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-page .search-input__shim {
+  height: 80rpx;
+}
+
+.search-page .infput-search__btn {
+  left: 60rpx;
+}
+
+.search-page .input-off__btn {
+  right: 60rpx;
+  height: 36rpx !important;
+  width: 36rpx !important;
+}
+
+.search-page .history-record {
+  padding: 40rpx 0 40rpx 40rpx;
+}
+
+.search-page .history-record view {
+  width: 10rpx;
+  text-align: right;
+}
+
+.search-page .history-record image {
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.search-page .history-record__text {
+  flex-wrap: wrap;
+  max-height: 134rpx;
+  overflow: hidden;
+}
+
+.search-page .history-record__text view {
+  padding: 6rpx 20rpx 8rpx;
+  border-radius: 30rpx;
+  color: #666;
+  background-color: #f5f7f9;
+  flex-wrap: wrap;
+  margin-right: 20rpx;
+  margin-bottom: 30rpx;
+  max-width: 414rpx;
+}
+
+.search-page .input-font {
+  font-size: 24rpx;
+  color: #555;
+}
+
+.search-page .last-record {
+  padding: 20rpx 0rpx;
+  /* color: #949ea6; */
+}
+
+.search-page .last-record scroll-view {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.search-page .last-record__item {
+  width: 200rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+}
+
+.search-page .hot-recommend__bottom image {
+  /* background-color: red; */
+  height: 90rpx;
+  width: 90rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+}
+
+.search-page .hot-search {
+  height: 100rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.search-page .hot-search image {
+  height: 24rpx;
+  width: 40rpx;
+  margin-right: 20rpx;
+}
+
+.search-page .hot-search__list {
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 20rpx;
+  color: white;
+}
+
+.search-page .bgc--red {
+  background-color: #f66;
+}
+
+.search-page .bgc--yellow {
+  background-color: #ff7f00;
+}
+
+.search-page .bgc--blue {
+  background-color: #139bd8;
+}
+
+.search-page .padding-left--40rpx {
+  padding-left: 40rpx;
+}
+
+.search-page .padding-right--40rpx {
+  padding-right: 40rpx;
+}
+
+.search-page .padding-bottom--24rpx {
+  padding-bottom: 24rpx;
+}
+
+.search-page .margin-left--40rpx {
+  margin-left: 40rpx;
+}
+
+.search-page .margin-right--40rpx {
+  margin-right: 40rpx;
+}
+
+.search-page .last-browse__photo {
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 8rpx;
+}
+
+.search-page .material-quality {
+  width: 200rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.search-page .logistics {
+  height: 24rpx;
+  width: 40rpx;
+  border-radius: 5rpx;
+  background: url("https://static.moebeast.com/image/static/icon-free.png") no-repeat;
+  background-size: 100% 100%;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+
+.search-page .nowPrice {
+  font-size: 24rpx;
+  margin-right: 10rpx;
+  line-height: 24rpx;
+}
+
+.search-page .material-quality-text {
+  flex: 1;
+  font-size: 24rpx;
+  vertical-align: middle;
+}
+
+/* 搜索e */

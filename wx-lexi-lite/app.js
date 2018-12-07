@@ -591,11 +591,6 @@ App({
     app_id: null,
     token: null,
     uid: 0,
-    // 用于当下一页面改变的时候告诉父级别页面 
-    agent:{
-      productFollowChange:0, //产品详情的关注变动 0没有动过 1为关注 2为取消关注
-
-    },
     // 设备信息
     systemInfo: {},
     // 检测用户加载是否完成，异步问题
@@ -641,6 +636,24 @@ App({
     fullSubtractionList: {},
     // 店铺是否经过认证
     isAuthenticationStore: '',
+    // 用于当下一页面改变的时候告诉父级别页面 
+    agent: {
+      // 产品详情的关注变动 0没有动过 1为关注 2为取消关注
+      productFollowChange: 0,
+      // 选品中心是否有变动
+      distributeChange: false,
+      distributeValue: {
+        rid: '',
+        value: ''
+      },
+      // 选品搜索结果是否有变动
+      distributeSearchChange:false,
+      distributeSearchValue:{
+        rid: '',
+        value: ''
+      }
+
+    },
     // 订单里面的sku
     orderSkus: '',
     // 评论订单的时候的商品

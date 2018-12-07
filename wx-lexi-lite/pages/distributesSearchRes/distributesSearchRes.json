@@ -1,1 +1,9 @@
-{}
+{
+  "navigationBarTitleText": "选品搜索结果",
+  "usingComponents": {
+    "fx-mini-btn": "/components/FxMiniBtn/FxMiniBtn",
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-slider": "/components/FxSlider/FxSlider",
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
+}

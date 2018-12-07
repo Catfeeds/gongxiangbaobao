@@ -67,6 +67,11 @@ Page({
         if (parentPath.route == 'pages/distributes/distributes') {
           this._handleUpdateMyDistributed()
           this._handleParentBtn()
+          
+          // 通知选品中心页面变动
+          app.globalData.agent.distributeChange = true
+          app.globalData.agent.distributeValue.rid = rid
+          app.globalData.agent.distributeValue.value = true
         }
 
         if (grandsire.route == 'pages/distributes/distributes') {

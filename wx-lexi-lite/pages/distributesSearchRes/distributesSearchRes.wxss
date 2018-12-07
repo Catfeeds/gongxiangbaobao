@@ -1,1 +1,171 @@
 /* pages/distributesSearchRes/distributesSearchRes.wxss */
+
+/* 搜索框 */
+
+.search-input {
+  position: relative;
+  height: 80rpx;
+  width: 100%;
+}
+
+.search-input input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 68rpx;
+  width: 510rpx;
+  background-color: #eaedf0;
+  border-radius: 34rpx;
+  padding: 0 80rpx;
+  font-size: 28rpx;
+}
+
+.search-input image {
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.search-input image {
+  padding: 0 10rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-font {
+  font-size: 24rpx;
+  color: #555;
+}
+
+.infput-search__btn {
+  left: 60rpx;
+}
+
+/* 筛选器 */
+
+.fx-filter {
+  display: flex;
+  justify-content: space-between;
+  padding: 0rpx 40rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.fx-filter .filter-item {
+  flex: 0 0 auto;
+  padding: 26rpx 20rpx 28rpx 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.fx-filter .filter-item:last-child {
+  padding-right: 37rpx;
+}
+
+.fx-filter .filter-item text {
+  font-size: 28rpx;
+  color: #555;
+  margin-right: 10rpx;
+}
+
+.fx-filter .filter-item .icon-arrow-down {
+  width: 12rpx;
+  height: 10rpx;
+}
+
+/* 商品列表 */
+
+.fx-distribute-cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 0rpx 40rpx;
+}
+
+.distribute-card {
+  display: flex;
+  flex-direction: column;
+  padding-top: 22rpx;
+}
+
+.distribute-card .distribute-card__cover {
+  position: relative;
+}
+
+.distribute-card .distribute-card__cover .image {
+  width: 326rpx;
+  height: 326rpx;
+  border-radius: 8rpx;
+}
+
+.distribute-card .distribute-card__cover .icon-sold-out {
+  position: absolute;
+  left: 11rpx;
+  top: 11rpx;
+  width: 62rpx;
+  height: 36rpx;
+}
+
+.distribute-card .distribute-card__body .title {
+  font-size: 24rpx;
+  color: #333;
+  margin-bottom: 9rpx;
+}
+
+.distribute-card .distribute-card__body .title.icon-free {
+  background-image: url("https://static.moebeast.com/image/static/icon-free.png");
+  background-repeat: no-repeat;
+  background-size: 40rpx 24rpx;
+  background-position: left 6rpx;
+  text-indent: 48rpx;
+}
+
+.distribute-card .distribute-card__body .price-box {
+  margin-bottom: 17rpx;
+}
+
+.distribute-card .distribute-card__body .price-box .sale-price {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.distribute-card .distribute-card__body .price-box .price {
+  color: #999;
+  font-size: 22rpx;
+  margin-left: 17rpx;
+  text-decoration: line-through;
+}
+
+.distribute-card .distribute-card__body .price-box .love {
+  font-size: 22rpx;
+  margin-left: 24rpx;
+  color: #999;
+}
+
+.distribute-card .distribute-card__body .income {
+  font-size: 24rpx;
+  color: #f66;
+}
+
+.distribute-card .distribute-card__body .income text {
+  font-weight: bold;
+  font-size: 26rpx;
+}
+
+.distribute-card .distribute-card__actions {
+  padding-top: 18rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.distribute-over__btn {
+  width: 160rpx;
+  height: 50rpx;
+  font-size: 28rpx;
+  border-radius: 25rpx;
+  color: white;
+  background-color: #2d343a;
+  opacity: 0.5;
+  line-height: 28rpx;
+  margin-right: 20rpx;
+}

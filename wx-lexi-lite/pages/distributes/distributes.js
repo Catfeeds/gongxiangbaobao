@@ -579,6 +579,15 @@ Page({
   },
 
   /**
+   * 搜索页面 
+  */
+  handleGoDistributeSearch () {
+    wx.navigateTo({
+      url: '../distributesSearch/distributesSearch'
+    })
+  },
+
+  /**
    * 生成推广海报图
    */
   getWxaPoster(rid) {

@@ -12,7 +12,7 @@
     <swiper bindchange='handleSwiperChange' class="top-swiper">
       <block wx:for="{{productTop.assets}}" wx:key="{{index}}">
         <swiper-item display-multiple-items="{{index}}">
-          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}" catchtap="handleLookBigPhoto" mode="aspectFill" />
+          <image class="{{readyOver?'load-over__null--photo':'loading-bg'}}" src="{{item.view_url}}-p50" catchtap="handleLookBigPhoto" mode="aspectFill" />
         </swiper-item>
       </block>
     </swiper>

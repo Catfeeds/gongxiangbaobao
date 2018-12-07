@@ -29,7 +29,7 @@
           <view class="eleven-hot__num">热度值： {{windowDetail.hot_value}}</view>
         </view>
 
-        <view class="image-item three-photo__big" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
+        <image class="image-item three-photo__big" catchtap="handleGoProduct" src="{{windowDetail.products[0].cover }}-p50" mode="aspectFill" data-rid="{{windowDetail.products[0].rid}}"></image>
         <image class="eleven-icon__window" src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
         <view class="flex-direction--column">
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p30x2);" data-rid="{{windowDetail.products[1].rid}}" class="image-item three-photo__min"></view>
@@ -49,7 +49,7 @@
 
         <view class="image-container">
           <image class="eleven-icon__window" src="{{windowDetail.activity_tag}}" wx:if="{{windowDetail.activity_tag}}"></image>
-          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[0].cover }}-p50);" data-rid="{{windowDetail.products[0].rid}}"></view>
+          <image class="image-item" src="{{windowDetail.products[0].cover}}-p50" catchtap="handleGoProduct" mode="aspectFill" data-rid="{{windowDetail.products[0].rid}}"></image>
         </view>
         <view class="image-container half">
           <view catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[1].cover }}-p28x04);" data-rid="{{windowDetail.products[1].rid}}" class="image-item"></view>
@@ -80,7 +80,7 @@
           <view class="image-item " catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[2].cover }}-p28x4);" data-rid="{{windowDetail.products[2].rid}}"></view>
         </view>
         <view class="image-container one">
-          <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[3].cover }}-p50);" data-rid="{{windowDetail.products[3].rid}}"></view>
+          <image class="image-item" src="{{windowDetail.products[3].cover}}-p50" catchtap="handleGoProduct" mode="aspectFill" data-rid="{{windowDetail.products[3].rid}}"></image>
         </view>
         <view class="image-container three-h">
           <view class="image-item" catchtap="handleGoProduct" style="background-image:url({{windowDetail.products[4].cover }}-p30x2);" data-rid="{{windowDetail.products[4].rid}}">

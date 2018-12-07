@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 26,
 			"list": [
 				{
 					"id": 0,
@@ -193,9 +193,9 @@
 				},
 				{
 					"id": 26,
-					"name": "开馆指引",
-					"pathName": "pages/applyLifeStore/applyLifeStore",
-					"query": "rid=32"
+					"name": "选品中心",
+					"pathName": "pages/distributes/distributes",
+					"query": ""
 				}
 			]
 		}
