@@ -225,11 +225,15 @@ Page({
       utils.logger(res, '参与抽奖')
       if (res.success) {
         let _users = res.data.user_list
+
         this.setData({
+          joinStatus: res.data.is_join,
+          userStatus: res.data,
           'currentActivity.people_count': res.data.people_count,
           'currentActivity.surplus_count': res.data.surplus_count,
           users: _users,
         })
+        
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -431,7 +435,7 @@ Page({
         let _products = this.data.storeProducts
         if (this.data.storePage > 1) {
           // 合并数组
-          _products.push.apply(_products, res.data.products)
+          _products = _products.concat(res.data.products)
         } else {
           _products = res.data.products
         }
@@ -457,7 +461,7 @@ Page({
    */
   getStoreProducts() {
     let params = {
-      page: 1,
+      page: this.data.storePage,
       per_page: 10,
       sid: this.data.storeRid,
       status: 1,
@@ -469,7 +473,7 @@ Page({
         let _products = this.data.storeProducts
         if (this.data.storePage > 1) {
           // 合并数组
-          _products.push.apply(_products, res.data.products)
+          _products = _products.concat(res.data.products)
         } else {
           _products = res.data.products
         }

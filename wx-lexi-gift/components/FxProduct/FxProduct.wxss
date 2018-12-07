@@ -114,8 +114,8 @@
 }
 
 .photo--big {
-  height: 670rpx !important;
-  width: 670rpx !important;
+  height: 690rpx !important;
+  width: 690rpx !important;
 }
 
 .photo--oblong {

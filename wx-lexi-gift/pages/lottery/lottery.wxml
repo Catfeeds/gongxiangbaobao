@@ -163,7 +163,7 @@
           <text class="count">{{ currentActivity.total_people_count }}</text> 人可开奖
         </view>
         <view class="surplus-count">已参与
-          <text class="count">{{ currentActivity.surplus_count }}</text> 人
+          <text class="count">{{ currentActivity.people_count }}</text> 人
         </view>
       </view>
       <view class="progress-desc" wx:if="{{ currentActivity.status == 3 }}">

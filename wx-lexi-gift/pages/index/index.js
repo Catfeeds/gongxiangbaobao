@@ -284,6 +284,7 @@ Page({
         let _isExist = false
         if (_ca.length > 0 && res.data.surplus_count > 0) {
           _isExist = true
+          res.data.product_name = utils.truncate(res.data.product_name, 28)
         }
 
         res.data.assets[res.data.assets.length] = res.data.assets[1]
@@ -294,10 +295,10 @@ Page({
           isExist: _isExist,
           currentActivity: res.data
         })
+
         setTimeout(() => {
           this.handleTransitionend()
         }, 3000)
-
 
       } else {
         utils.logger(res.status.message, '获取当前活动出错')
