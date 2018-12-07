@@ -22,7 +22,7 @@
 
       <view class="distribute-style">
         <button class="share-btn" open-type="share">
-          <image src="{{ cardUrl }}" class="cover"></image>
+          <image src="{{ cardUrl }}" class="cover" wx:if="{{ cardUrl }}"></image>
           <text class="label">点击直接分享</text>
         </button>
 

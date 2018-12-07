@@ -406,6 +406,31 @@ page {
   height: 78rpx;
 }
 
+.gift-share-wrapper .btn-flex {
+  display: flex;
+  align-items: center;
+}
+
+.gift-share-wrapper .btn-half {
+  width: 335rpx;
+} 
+
+.gift-share-wrapper .btn-half .icon-more {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 60rpx;
+  margin-right: 15rpx;
+  flex: 0 0 auto;
+}
+
+.gift-share-wrapper .btn-half .icon-gift {
+  flex: 0 0 auto;
+  width: 28rpx;
+  height: 31rpx;
+  margin-left: 50rpx;
+  margin-right: 10rpx;
+}
+
 /* 分享弹窗 */
 
 .share-wrapper {

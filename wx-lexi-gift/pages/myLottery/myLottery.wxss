@@ -461,7 +461,7 @@
 .gift-peoples .count-down .bigtitle {
   flex: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -470,10 +470,15 @@
   font-size: 24rpx;
   font-weight: 400;
   color: rgba(51, 51, 51, 1);
+  text-align: center;
 }
 
 .gift-peoples .count-down.opened .line {
-  width: 280rpx;
+  width: 220rpx;
+}
+
+.gift-peoples .count-down.expired .line {
+  width: 180rpx;
 }
 
 .gift-peoples .partake-users {

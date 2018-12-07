@@ -103,7 +103,7 @@
       <image src="{{ userInfo.avatar }}-ava" class="icon-avatar" wx:if="{{ !isSelf && userInfo.avatar }}"></image>
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
-        <view class="title">参与成功，人数满即开奖</view>
+        <view class="title">参与成功</view>
         <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
       </view>
       <view class="tips">
@@ -152,21 +152,23 @@
       <view class="progress-bg">
         <view class="progress-show" style="width: {{ percent }}%;"></view>
       </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 2 }}">
-        <view class="need-count">总需
-          <text class="count">{{ currentActivity.total_people_count }}</text> 人
+      <view class="progress-desc" wx:if="{{ !isLogin }}">
+        <view class="need-count">已参与
+          <text class="count">{{ currentActivity.people_count }}</text> 人  
         </view>
-        <view class="surplus-count">还差
-          <text class="count">{{ currentActivity.surplus_count }}</text> 人开奖
+        <view class="surplus-count"></view>
+      </view>
+      <view class="progress-desc" wx:if="{{ currentActivity.status == 2 }}">
+        <view class="need-count">至少满
+          <text class="count">{{ currentActivity.total_people_count }}</text> 人可开奖
+        </view>
+        <view class="surplus-count">已参与
+          <text class="count">{{ currentActivity.surplus_count }}</text> 人
         </view>
       </view>
       <view class="progress-desc" wx:if="{{ currentActivity.status == 3 }}">
-        <view class="need-count">总需
-          <text class="count">{{ currentActivity.total_people_count }}</text> 人
-        </view>
-        <view class="surplus-count">
-          <text class="count">人满已开奖</text>
-        </view>
+        <view class="need-count">已开奖</view>
+        <view class="surplus-count"></view>
       </view>
       <view class="progress-desc" wx:if="{{ currentActivity.status == 4 }}">
         <view class="need-count">活动已失效</view>
@@ -257,13 +259,13 @@
   <!-- 分享礼物给好友 -->
   <view class="gift-share-wrapper">
     <form bindsubmit="handleFormMore" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4 }}">
-      <button class="btn-more" formType="submit">
-        更多抽奖
+      <button class="btn-more btn-more--green btn-half btn-flex" formType="submit">
+        <image src="../../images/icon-more-sm.png" class="icon-more"></image> 更多抽奖
       </button>
     </form>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4 }}">
-      <button class="btn-give opened" formType="submit">
-        我也要送礼
+      <button class="btn-give btn-half btn-flex opened" formType="submit">
+        <image src="../../images/icon-gift-white@2x.png" class="icon-gift"></image> 我也要送礼
       </button>
     </form>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
