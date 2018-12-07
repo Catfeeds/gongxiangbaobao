@@ -24,6 +24,7 @@ Page({
     hasAddress: false,
     currentAddress: {},
     pay_params: {},
+    order_rid: '',
     form: {
       rid: '',
       openid: '',
@@ -123,6 +124,10 @@ Page({
         let _rid = this.data.rid
 
         if (this.data.isUser) {
+          this.setData({
+            order_rid: res.data.order_rid
+          })
+
           // 没库存
           if (res.data.no_stock) {
             this.setData({
@@ -154,6 +159,9 @@ Page({
         wx.redirectTo({
           url: '../pickSuccess/pickSuccess?rid=' + rid,
         })
+      } else {
+        // 支付失败或取消支付，直接删除
+        app.deleteInvalidOrder(this.data.order_rid)
       }
     })
   },

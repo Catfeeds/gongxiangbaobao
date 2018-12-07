@@ -238,9 +238,6 @@ App({
           })
         }
         
-        // 支付失败或取消支付，直接删除
-        this.deleteInvalidOrder(rid)
-
         return typeof cb == 'function' && cb(false)
       }
     })
