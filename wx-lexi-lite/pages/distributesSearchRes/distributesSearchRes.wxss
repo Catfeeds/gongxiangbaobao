@@ -183,3 +183,11 @@
   line-height: 28rpx;
   margin-right: 20rpx;
 }
+
+/* 筛选的样式 */
+
+.price-range {
+  position: relative;
+  padding: 20rpx 40rpx 0;
+  background-color: #fff;
+}

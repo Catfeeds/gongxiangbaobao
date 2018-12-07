@@ -25,6 +25,13 @@ Page({
     shareProduct: '', // 分享某个商品
     posterUrl: '', // 海报图url
 
+    checkedCids: [], // 选择的分类
+    categoryList: [], // 分类列表
+
+    isDisabled: false, // 是否禁用
+    leftTimer: null, // 延迟句柄
+    rightTimer: null, // 延迟句柄
+
     // 筛选器
     filter: {
       showReset: false,
@@ -53,6 +60,28 @@ Page({
       is_custom_made: '' // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
     },
   },
+
+  /**
+   * 查看筛选器结果
+   */
+  handleViewFilterResult() {
+    if (this.data.filter.showReset && this.data.filter.totalCount == 0) {
+      return false
+    }
+    let conditionCount = this._getFilterConditionCount()
+    this.setData({
+      'params.cids': this.data.filter.cids,
+      'params.min_price': this.data.filter.min_price,
+      'params.max_price': this.data.filter.max_price,
+      'params.page': 1,
+      'filter.conditionCount': conditionCount,
+      'filter.conditionTitle': '筛选 ' + conditionCount,
+      showFilterModal: false
+    })
+
+    this.getSearch()
+  },
+
 
   // 搜索商品 
   getSearch() {
@@ -83,6 +112,61 @@ Page({
       } else {
         utils.fxShowToast(res.status.message)
       }
+    })
+  },
+
+  /**
+ * 滑块最高价格
+ */
+  handleChangeMaxPrice(e) {
+    utils.logger(e.detail.highValue)
+    let maxPrice = e.detail.highValue
+    if (maxPrice == '不限') {
+      maxPrice = -1
+    }
+    this.setData({
+      'filter.max_price': maxPrice,
+      'filter.showReset': true
+    })
+
+    if (this.data.rightTimer) {
+      clearTimeout(this.data.rightTimer)
+    }
+
+    let _t = setTimeout(() => {
+      this.getFilterProducts()
+    }, 2000)
+
+    this.setData({
+      rightTimer: _t
+    })
+  },
+
+  /**
+ * 滑块最低价格
+ */
+  handleChangeMinPrice(e) {
+    let minPrice = e.detail.lowValue
+    if (this.data.params.max_price == -1) {
+      if (minPrice == '不限') {
+        minPrice = 800
+      }
+    }
+    this.setData({
+      'filter.min_price': minPrice,
+      'filter.showReset': true
+    })
+
+    if (this.data.leftTimer) {
+      clearTimeout(this.data.leftTimer)
+    }
+
+    let _t = setTimeout(() => {
+      this.getFilterProducts()
+    }, 2000)
+
+    this.setData({
+      leftTimer: _t
     })
   },
 
@@ -388,6 +472,108 @@ Page({
       }
     })
   },
+
+
+  /**
+   * 改变分类
+   */
+  handleToggleCategory(e) {
+    let cid = e.currentTarget.dataset.cid
+
+    let _checkedCids = this.data.checkedCids
+    if (_checkedCids.indexOf(cid) == -1) { // 不存在，则增加
+      _checkedCids.push(cid)
+    } else { // 存在，则删除
+      let idx = _checkedCids.indexOf(cid)
+      _checkedCids.splice(idx, 1)
+    }
+
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      if (_checkedCids.indexOf(cate.id) != -1) {
+        cate.checked = true
+      } else {
+        cate.checked = false
+      }
+      return cate
+    })
+
+    this.setData({
+      categoryList: _categories,
+      checkedCids: _checkedCids,
+      'filter.showReset': true,
+      'filter.cids': _checkedCids.join(',')
+    })
+
+    this.getFilterProducts()
+  },
+
+  /**
+ * 获取某筛选条件下商品
+ */
+  getFilterProducts() {
+    let params = {
+      cids: this.data.filter.cids, // 分类Id, 多个用, 分割
+      min_price: this.data.filter.min_price, // 价格区间: 最小价格
+      max_price: this.data.filter.max_price // 价格区间: 最大价格
+    }
+
+    http.fxGet(api.distribute_product_count, params, (res) => {
+      utils.logger(res, '筛选商品')
+      if (res.success) {
+        this.setData({
+          'filter.conditionCount': this._getFilterConditionCount(),
+          'filter.totalCount': res.data.count
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+ * 获取条件数
+ */
+  _getFilterConditionCount() {
+    let count = this.data.checkedCids.length
+    if (this.data.filter.min_price > 0) {
+      count += 1
+    }
+    if (this.data.filter.max_price) {
+      count += 1
+    }
+    return count
+  },
+
+  /**
+   * 重置回调事件
+   */
+  handleResetFilterCondition(e) {
+    this.selectComponent('#fx-slider').reset()
+    let _categories = this.data.categoryList
+    _categories = _categories.map((cate) => {
+      cate.checked = false
+      return cate
+    })
+
+    this.setData({
+      'categoryList': _categories,
+      'filter.min_price': 0,
+      'filter.max_price': -1,
+      'filter.cids': '',
+      'filter.showReset': false,
+      'filter.conditionCount': 0,
+      'filter.conditionTitle': '筛选',
+      'filter.totalCount': 0,
+      'params.cids': '',
+      'params.page': 1,
+      'params.min_price': 0,
+      'params.max_price': -1
+    })
+
+    this.getSearch()
+  },
+
 
   /**
    * 生命周期函数--监听页面隐藏
