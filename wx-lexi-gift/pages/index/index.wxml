@@ -40,9 +40,9 @@
     </view>
 
     <view class="product-images">
-      <scroll-view scroll-x style="height: 220rpx;width: auto;overflow:hidden;">
+      <view catchtransitionend="handleTransitionend" class="track" style="height: 220rpx;width: auto; transform: translateX(-{{animationIndex*240}}rpx); transition: all {{animationIndexTime}}ms ease 500ms; ">
         <image wx:for="{{ currentActivity.assets }}" wx:key="{{ item.id }}" src="{{ item.view_url }}-p30x2" wx:if="{{ index > 0 }}" class="asset" id="G{{ item.id }}"></image>
-      </scroll-view>      
+      </view>
     </view>
   </view>
 

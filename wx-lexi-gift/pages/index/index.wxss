@@ -85,10 +85,12 @@
 }
 
 .gift-product .product-images {
+  position: relative;
   width: 690rpx;
   height: 220rpx;
   overflow: hidden;
-  padding-left: 30rpx;
+  /* padding-left: 30rpx; */
+  margin-left: 30rpx;
   white-space: nowrap;
 }
 
@@ -297,4 +299,10 @@
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   line-height: 80rpx;
+}
+
+/* 动画 */
+
+.track {
+  transition: all 2000ms linear 500ms;
 }
