@@ -10,8 +10,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    inputText: '',
+
+    showSortModal: false, // 排序
+    showIncomeModal: false, // 利润
+    showFilterModal: false, // 筛选
 
     allProducts: [], // 全部分销商品--
+    isNext: true, // 是否有下一页
+    isLoadProductShow: true, // 加载商品loading
+    totalCount: 1, // 搜索数量
 
     showShareModal: false, // 卖
     shareProduct: '', // 分享某个商品
@@ -32,15 +40,17 @@ Page({
 
     // 全部商品
     params: {
-      sort_type: 1, // 0=默认排序, 1=综合排序, 2=价格由低至高, 3=价格由高至低
-      profit_type: 0, // 利润排序 0=不限, 1=由低至高, 2=由高至低
-      cids: '', // 分类Id, 多个用, 分割
-      page: 1,
-      qk: '',
-      per_page: 10,
-      min_price: 0, // 价格区间: 最小价格
-      max_price: -1, // 价格区间: 最大价格
-      sid: app.globalData.jwt.store_rid // 店铺的id
+      page: 1, // Number	可选	1	当前页码
+      per_page: 10, // Number	可选	10	每页数量
+      cids: '', // Number	可选	 	分类Id
+      status: 1, // Number	可选	1	商品状态 -1: 所有 0: 仓库中; 1: 出售中; 2: 下架中; 3: 已售罄
+      qk: '', // String	可选	 	搜索关键字
+      min_price: '', // Number	可选	 	价格区间： 最小价格
+      max_price: '', // Number	可选	 	价格区间： 最大价格
+      sort_type: 1, // Number	可选	0	排序: 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
+      is_free_postage: '', // Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
+      is_preferential: '', // Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
+      is_custom_made: '' // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
     },
   },
 
@@ -66,7 +76,9 @@ Page({
 
         this.setData({
           totalCount: res.data.count,
-          allProducts: _products
+          allProducts: _products,
+          isNext: res.data.next,
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -199,37 +211,124 @@ Page({
     })
   },
 
-  /**
-   * 获取全部分销商品
-   */
-  getAllProducts() {
-    utils.logger(this.data.params)
-    http.fxGet(api.distribute_products, this.data.params, (res) => {
-      utils.logger(res, '全部分销商品')
-      if (res.success) {
-        // 没有下一页了
-        if (!res.data.next) {
-          this.setData({
-            loadingMoreAll: false
-          })
-        }
-        let pageProducts = this._rebuildProducts(res.data.products)
-        let _products = this.data.allProducts
-        if (this.data.params.page > 1) {
-          // 合并数组
-          _products.push.apply(_products, pageProducts)
-        } else {
-          _products = pageProducts
-        }
+  // 跳转到搜索页面
+  handleToSearch() {
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
 
+  /**
+   * 排序
+   */
+  handleShowSortModal(e) {
+    this.setData({
+      showSortModal: true
+    })
+  },
+
+  /**
+ * 利润
+ */
+  handleShowIncomeModal(e) {
+    this.setData({
+      showIncomeModal: true
+    })
+  },
+
+  /**
+   * 排序
+   */
+  handleShowFilterModal(e) {
+    this.setData({
+      showFilterModal: true
+    })
+  },
+
+  /**
+   * 改变排序
+   * 0=默认排序, 1=综合排序, 2=价格由低至高, 3=价格由高至低
+   */
+  handleChangeSorted(e) {
+    let sort = e.currentTarget.dataset.sort
+
+    this.setData({
+      'params.sort_type': sort,
+      'params.profit_type': 0,
+      'filter.sortTitle': this._getSortTitle(sort),
+      'filter.incomeTitle': this._getIncomeTitle(0),
+      showSortModal: false
+    })
+
+    this.getSearch()
+  },
+
+
+  /**
+   * 利润标题
+   */
+  _getIncomeTitle(profit) {
+    profit = parseInt(profit)
+    switch (profit) {
+      case 1:
+        return '由低至高'
+      case 2:
+        return '由高至低'
+      default:
+        return '不限'
+    }
+  },
+
+  /**
+   * 排序标题
+   */
+  _getSortTitle(sort) {
+    sort = parseInt(sort)
+    switch (sort) {
+      case 1:
+        return '综合排序'
+      case 2:
+        return '价格由低至高'
+      case 3:
+        return '价格由高至低'
+      default:
+        return '综合排序'
+    }
+  },
+
+  /**
+ * 分类列表
+ */
+  getCategories() {
+    http.fxGet(api.categories, {}, (result) => {
+      utils.logger(result, '分类列表')
+      if (result.success) {
         this.setData({
-          totalCount: res.data.count,
-          allProducts: _products
+          categoryList: result.data.categories
         })
       } else {
-        utils.fxShowToast(res.status.message)
+        utils.fxShowToast(result.status.message)
       }
     })
+  },
+
+
+  /**
+   * 改变利润
+   * 利润排序 0=不限, 1=由低至高, 2=由高至低
+   */
+  handleChangeProfit(e) {
+    let profit = e.currentTarget.dataset.profit
+    utils.logger('profit: ' + profit)
+    this.setData({
+      'params.sort_type': 1,
+      'params.profit_type': parseInt(profit),
+      'filter.sortTitle': this._getSortTitle(1),
+      'filter.incomeTitle': this._getIncomeTitle(profit),
+      showIncomeModal: false
+    })
+
+    this.getSearch()
   },
 
   /**
@@ -243,9 +342,11 @@ Page({
     })
 
     this.setData({
-      ['params.qk']: options.text
+      ['params.qk']: options.text,
+      inputText: options.text || ''
     })
     this.getSearch()
+    this.getCategories()
   },
 
   /**
@@ -259,7 +360,33 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.handleCheckChange()
+  },
 
+  /**
+   * 检测变动
+   */
+  handleCheckChange() {
+    if (app.globalData.agent.distributeSearchChange) {
+      let rid = app.globalData.agent.distributeSearchValue.rid
+      let value = app.globalData.agent.distributeSearchValue.value
+      this._handleReviseSell(rid, value)
+      app.globalData.agent.distributeSearchChange = false
+    }
+  },
+
+  /**
+   * 改变上架按钮状态
+   */
+  _handleReviseSell(rid, option) {
+    let allProduct = this.data.allProducts
+    allProduct.forEach((v, i) => {
+      if (v.rid == rid) {
+        this.setData({
+          ['allProducts[' + i + '].have_distributed']: option
+        })
+      }
+    })
   },
 
   /**
@@ -287,7 +414,15 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (!this.data.isNext) {
+      return
+    }
+    this.setData({
+      'params.page': this.data.params.page + 1,
+      isLoadProductShow: true
+    })
 
+    this.getSearch()
   },
 
   /**

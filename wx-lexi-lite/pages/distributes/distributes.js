@@ -603,10 +603,8 @@ Page({
    * 改变上架按钮状态
   */
   _handleReviseSell(rid, option) {
-    console.log(rid, option)
     let allProduct = this.data.allProducts
     let commend = this.data.stickedProducts
-    console.log(allProduct)
 
     allProduct.forEach((v, i) => {
       if (v.rid == rid) {

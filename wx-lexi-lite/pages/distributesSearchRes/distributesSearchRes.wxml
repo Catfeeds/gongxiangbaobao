@@ -65,7 +65,23 @@
     </view>
   </view>
 
-    <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+  <!-- 商品的缺省图 -->
+  <view class="quesheng-tupian__box" wx:if="{{totalCount==0}}">
+    <image src="https://static.moebeast.com/image/static/search2.png"></image>
+    <view>暂无相关商品</view>
+  </view>
+
+  <!-- 加载 -->
+  <block>
+    <!-- 底部加载 -->
+    <view class="load-many__box" wx:if="{{isLoadProductShow}}">
+      <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+    </view>
+    <!-- 没有商品加载的底部 -->
+    <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
+  </block>
+
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
     <view class="fx-modal__main distribute-share" slot="main">
       <view class="distribute-commission">
         <text>赚</text>
@@ -102,6 +118,70 @@
         取消
       </view>
     </view>
+  </fx-modal>
+
+  <!-- 排序 -->
+  <fx-modal title="排序" bind:closeEvent="handleCloseSortModal" visible="{{ showSortModal }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="filter-item {{ params.sort_type == 1 ? 'active' : '' }}" data-sort="1" bindtap="handleChangeSorted">
+        <text class="text">综合排序</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item-line">
+        价格
+      </view>
+      <view class="filter-item {{ params.sort_type == 2 ? 'active' : '' }}" data-sort="2" bindtap="handleChangeSorted">
+        <text class="text">由低至高</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ params.sort_type == 3 ? 'active' : '' }}" data-sort="3" bindtap="handleChangeSorted">
+        <text class="text">由高至低</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+    </view>
+  </fx-modal>
+
+    <!-- 利润 -->
+  <fx-modal title="利润" bind:closeEvent="handleCloseIncomeModal" visible="{{ showIncomeModal }}">
+    <view class="fx-modal__main" slot="main">
+      <view class="filter-item {{ params.profit_type == 0 ? 'active' : '' }}" data-profit="0" bindtap="handleChangeProfit">
+        <text class="text">不限</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ params.profit_type == 1 ? 'active' : '' }}" data-profit="1" bindtap="handleChangeProfit">
+        <text class="text">由低至高</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+      <view class="filter-item {{ params.profit_type == 2 ? 'active' : '' }}" data-profit="2" bindtap="handleChangeProfit">
+        <text class="text">由高至低</text>
+        <image src="../../images/icon-checked@2x.png" class="icon-checked"></image>
+      </view>
+    </view>
+  </fx-modal>
+
+    <!-- 筛选 -->
+  <fx-modal title="筛选" reset="重置" showReset="{{ filter.showReset }}" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
+    <view class="fx-modal__main" slot="main">
+      <view class="block-title">价格区间</view>
+      <view class="price-range">
+        <fx-slider id="fx-slider" minValue="0" maxValue="100" min="0" max="100" bind:lowValueChange="handleChangeMinPrice" bind:highValueChange="handleChangeMaxPrice" />
+      </view>
+
+      <view class="block-title">分类
+        <small>可多选</small>
+      </view>
+      <view class="scroll-view__container">
+        <scroll-view scroll-x="true" scroll-left="100rpx" class="categories" style="width: auto; overflow:hidden;">
+          <view class="category {{ category.checked ? 'active' : '' }}" wx:for="{{ categoryList }}" wx:for-item="category" wx:key="{{ category.id }}" data-cid="{{ category.id }}" bindtap="handleToggleCategory">
+            {{ category.name }}
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <button class="fx-button primary {{ filter.showReset && filter.totalCount == 0 ? 'disabled' : '' }}" bindtap="handleViewFilterResult" slot="foot">
+      查看商品
+      <text>（{{ filter.conditionCount > 0 ? filter.totalCount : totalCount }}件）</text>
+    </button>
   </fx-modal>
 
 </view>

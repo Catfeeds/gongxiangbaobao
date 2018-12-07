@@ -42,6 +42,20 @@
   left: 60rpx;
 }
 
+/* 搜索为空 */
+
+.quesheng-tupian__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quesheng-tupian__box image {
+  margin: 188rpx 0 30rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+
 /* 筛选器 */
 
 .fx-filter {
