@@ -238,7 +238,22 @@ App({
           })
         }
         
+        // 支付失败或取消支付，直接删除
+        this.deleteInvalidOrder(rid)
+
         return typeof cb == 'function' && cb(false)
+      }
+    })
+  },
+
+  /**
+   * 删除失效订单
+   */
+  deleteInvalidOrder(rid) {
+    http.fxPost(api.gift_order_delete, { order_rid: rid }, (res) => {
+      utils.logger(res, '删除失效订单')
+      if (!res.success) {
+        utils.logger(res.status.message, '删除失效订单')
       }
     })
   },

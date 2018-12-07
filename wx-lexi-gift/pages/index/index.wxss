@@ -190,6 +190,7 @@
   font-weight: 400;
   color: #333;
   line-height: 30rpx;
+  height: 120rpx;
 }
 
 .gift-setting .form-days .picker.pholder {
@@ -204,6 +205,7 @@
 .gift-setting .form-days .picker {
   display: flex;
   align-items: center;
+  height: 120rpx;
 }
 
 .gift-setting .form-days .picker .days-number {
