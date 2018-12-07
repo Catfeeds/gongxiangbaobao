@@ -15,6 +15,8 @@ Page({
     showLoginModal: false, // 注册的呼出框
     showRuleModal: false, // 显示规则弹框
 
+    toView: 'G55930',
+    
     // 当前登录用户信息
     isSmallB: false, // 是否为生活馆主
     userInfo: {},
@@ -36,7 +38,16 @@ Page({
     perPage: 10,
     partakePeople: [],
     partakePeopleCount: 0,
-    btnGiftText: '花一元送好友'
+    btnGiftText: '花一元送好友',
+
+    // 预约提醒
+    showAppointModal: false,
+
+    // 最近获奖者
+    timer: null,
+    winner: {}, // 中奖者信息
+    winnerPage: 1,
+    showWinner: false // 是否显示中奖者消息
   },
 
   // 获取formid
@@ -48,6 +59,35 @@ Page({
 
     this.setData({
       showRuleModal: true
+    })
+  },
+
+  // 获取formid, 查看更多
+  handleFormMore (e) {
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId)
+    }
+
+    wx.navigateTo({
+      url: '../giftList/giftList',
+    })
+  },
+
+  // 获取formid, 预约提醒
+  handleFormAppoint (e) {
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId)
+    }
+
+    this.setData({
+      showAppointModal: true
+    })
+  },
+
+  // 关闭预约提醒弹窗
+  handleCloseAppoint () {
+    this.setData({
+      showAppointModal: false
     })
   },
 
@@ -170,6 +210,48 @@ Page({
   },
 
   /**
+   * 获取最新的赢者
+   */
+  getLastWinners () {
+    let _page = this.data.winnerPage
+    if (_page > 10) { // 大于10后恢复重新循环
+      _page = 1
+    } else {
+      _page += 1
+    }
+    this.setData({
+      winnerPage: _page
+    })
+    let that = this
+    http.fxGet(api.gift_winners, { page: _page, per_page: 1 }, (res) => {
+      utils.logger(res.data, '获取最新获奖者')
+      if (res.success) {
+        if (res.data.user_list.length > 0) {
+          let winner = res.data.user_list[0]
+          winner.user_name = utils.truncate(winner.user_name, 10)
+          this.setData({
+            winner: winner,
+            showWinner: true
+          })
+
+          setTimeout(() => {
+            that.setData({
+              showWinner: false
+            })
+          }, 3000)
+        } else {
+          this.setData({
+            winner: [],
+            showWinner: false
+          })
+        }
+      } else {
+        utils.logger(res.status.message, '最新获奖者消息')
+      }
+    })
+  },
+
+  /**
    * 获取当前活动
    */
   getCurrentActivity () {
@@ -177,8 +259,12 @@ Page({
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
         let _ca = Object.keys(res.data)
+        let _isExist = false
+        if (_ca.length > 0 && res.data.surplus_count > 0) {
+          _isExist = true
+        }
         this.setData({
-          isExist: _ca.length > 0 ? true : false,
+          isExist: _isExist,
           currentActivity: res.data
         })
       } else {
@@ -321,20 +407,35 @@ Page({
       'form.days': '',
       'form.blessing': ''
     })
+
+    let that = this
+
+    // 每5秒刷新数据
+    this.setData({
+      timer: setInterval(() => {
+        that.getLastWinners()
+      }, 5000)
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    clearInterval(this.data.timer)
+    this.setData({
+      timer: null
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.timer)
+    this.setData({
+      timer: null
+    })
   },
 
   /**
@@ -364,6 +465,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    app.shareWxaGift()
   }
+
 })

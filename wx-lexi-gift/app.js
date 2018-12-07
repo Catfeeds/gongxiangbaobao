@@ -290,7 +290,7 @@ App({
     return {
       title: '让有趣变得流行',
       path: 'pages/index/index?scene=' + scene,
-      imageUrl: "https://static.moebeast.com/vimage/share-lexi.png",
+      imageUrl: "https://static.moebeast.com/static/img/gift-card@2x.jpg",
       success: (res) => {
         utils.logger(res, '分享成功!')
       }

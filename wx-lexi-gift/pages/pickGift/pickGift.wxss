@@ -145,10 +145,11 @@
 }
 
 .fx-modal--change .current-gift {
-
+  display: flex;
 }
 
 .fx-modal--change .current-gift .cover {
+  flex: 0 0 auto;
   width: 130rpx;
   height: 130rpx;
   border-radius: 8rpx;
@@ -156,7 +157,10 @@
 }
 
 .fx-modal--change .current-gift .gift-product {
-  
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .fx-modal--change .current-gift .gift-product .name {

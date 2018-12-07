@@ -1,8 +1,8 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-  <view class="gift-opening-list" wx:if="{{ !isExist }}">
-    <view class="gift-item">
-      <image src="{{ currentActivity.assets[0].view_url }}-p30x2" class="cover" wx:if="{{ currentActivity.assets.length > 0 }}"></image>
+  <view class="gift-opening-list">
+    <view class="gift-item" bindtap="handleGoIndex">
+      <image src="{{ currentActivity.cover }}-p30x2" class="cover" wx:if="{{ currentActivity.cover }}"></image>
       <view class="gift-item__body">
         <view class="title">{{ currentActivity.product_name }}</view>
         <view class="opening">礼物状态：正在送出</view>
@@ -30,17 +30,17 @@
       </view>
     </view>
 
-    <view class="gift-item">
-      <image src="../../images/product@2x.jpg" class="cover"></image>
+    <view class="gift-item" wx:for="{{ giftList }}" wx:for-item="gift" wx:key="{{ gift.product_rid }}">
+      <image src="{{ gift.cover }}-p30x2" class="cover" wx:if="{{ gift.cover }}"></image>
       <view class="gift-item__body">
-        <view class="title">面防水环保餐具袋&笔袋-西…</view>
-        <view class="opening waiting">礼物状态：正在送出</view>
+        <view class="title">{{ gift.product_name }}</view>
+        <view class="opening waiting">礼物状态：等待送出</view>
         <view class="price-wrapper">
           <view class="sale-price">
             <text class="currency">￥</text>1
           </view> 
           <view class="price">
-            <text class="currency">￥</text>1
+            <text class="currency">￥</text>{{ gift.price }}
           </view>
         </view>
       </view>

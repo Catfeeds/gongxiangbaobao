@@ -39,7 +39,13 @@ Page({
     cardUrl: '', // 卡片图rul
     posterUrl: '', // 海报图url
     posterSaving: false, // 是否正在保存
-    posterBtnText: '保存分享'
+    posterBtnText: '保存分享',
+
+    // 最近获奖者
+    winnerTimer: null,
+    winner: {}, // 中奖者信息
+    winnerPage: 1,
+    showWinner: false // 是否显示中奖者消息
   },
 
   /**
@@ -377,11 +383,6 @@ Page({
           // 验证用户身份
           this._validateUserType()
         })
-
-        // 品牌馆，获取更多商品
-        if (res.data.user_kind == 1) {
-          this.getStoreProducts()
-        }
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -389,19 +390,43 @@ Page({
   },
 
   /**
-   * 获取店铺热门商品
+   * 获取最新的赢者
    */
-  getStoreProducts() {
-    http.fxGet(api.gift_store_products, {
-      store_rid: this.currentActivity.owner_store.store_rid
-    }, (res) => {
-      utils.logger(res.data, '获取热门商品')
+  getLastWinners() {
+    let _page = this.data.winnerPage
+    if (_page > 10) { // 大于10后恢复重新循环
+      _page = 1
+    } else {
+      _page += 1
+    }
+    this.setData({
+      winnerPage: _page
+    })
+    let that = this
+    http.fxGet(api.gift_winners, { page: _page, per_page: 1 }, (res) => {
+      utils.logger(res.data, '获取最新获奖者')
       if (res.success) {
-        this.setData({
-          products: res.data.product_list
-        })
+        if (res.data.user_list.length > 0) {
+          let winner = res.data.user_list[0]
+          winner.user_name = utils.truncate(winner.user_name, 10)
+          this.setData({
+            winner: winner,
+            showWinner: true
+          })
+
+          setTimeout(() => {
+            that.setData({
+              showWinner: false
+            })
+          }, 3000)
+        } else {
+          this.setData({
+            winner: [],
+            showWinner: false
+          })
+        }
       } else {
-        utils.fxShowToast(res.status.message)
+        utils.logger(res.status.message, '最新获奖者消息')
       }
     })
   },
@@ -520,6 +545,13 @@ Page({
     this.setData({
       timer: timer
     })
+
+    // 每5秒刷新数据
+    this.setData({
+      winnerTimer: setInterval(() => {
+        that.getLastWinners()
+      }, 5000)
+    })
   },
 
   /**
@@ -527,8 +559,10 @@ Page({
    */
   onHide: function () {
     clearInterval(this.data.timer)
+    clearInterval(this.data.winnerTimer)
     this.setData({
-      timer: null
+      timer: null,
+      winnerTimer: null
     })
   },
 
@@ -537,8 +571,10 @@ Page({
    */
   onUnload: function () {
     clearInterval(this.data.timer)
+    clearInterval(this.data.winnerTimer)
     this.setData({
-      timer: null
+      timer: null,
+      winnerTimer: null
     })
   },
 

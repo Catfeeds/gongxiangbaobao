@@ -1,7 +1,13 @@
 <!-- 品牌馆或生活馆发起 -->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
-
+  <!-- 中奖者消息 -->
+  <view class="gift-winner {{ showWinner ? 'gift-winner--show' : '' }}" wx:if="{{ showWinner }}">
+    <image src="{{ winner.user_logo }}" class="avatar"></image>
+    <view class="name">{{ winner.user_name }}</view>
+    <view class="summary">成功领取礼物</view>
+  </view>
+  
   <view class="gift-notice" wx:if="{{ !isLogin }}">
     <image src="../../images/icon-ball@2x.png" class="icon-ball"></image>
     <view class="content">拆礼物成功，人数达标自动抽奖，抽奖结果会通过微信消息通知</view>

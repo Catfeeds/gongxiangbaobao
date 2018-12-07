@@ -64,7 +64,10 @@ module.exports = {
   gift_sended: 'yiyuan/activity/send', // GET 我送出的礼物
   gift_receive: 'yiyuan/activity/receive', // GET 我收到的礼物
   gift_store_products: 'yiyuan/product/store', // GET 品牌馆更多商品
-
+  gift_winners: 'yiyuan/activity/win', // GET 中奖用户
+  gift_more: 'yiyuan/product/more', // GET 更多好物
+  gift_quit: 'yiyuan/activity/quit', // POST 放弃领取
+  
 
   // City
   countries: 'countries', // 获取国家列表

@@ -1,6 +1,12 @@
 <!-- 普通用户发起 -->
 <fx-loading loading="{{ isLoading }}"></fx-loading>
 <view class="container">
+  <!-- 中奖者消息 -->
+  <view class="gift-winner {{ showWinner ? 'gift-winner--show' : '' }}" wx:if="{{ showWinner }}">
+    <image src="{{ winner.user_logo }}" class="avatar"></image>
+    <view class="name">{{ winner.user_name }}</view>
+    <view class="summary">成功领取礼物</view>
+  </view>
   
   <view class="gift-notice" wx:if="{{ !isLogin }}">
     <image src="../../images/icon-ball@2x.png" class="icon-ball"></image>
@@ -71,8 +77,9 @@
       <view class="discription" wx:if="{{ !isSelf }}">恭喜{{ currentActivity.owner_user.user_name }}邀请
         <text class="red">{{ currentActivity.people_count }}位</text> 好友助力成功</view>
       <view class="discription" wx:if="{{ isSelf }}">恭喜你获得本场礼物</view>
-      <button class="btn-got" bindtap="handleGoGot" wx:if="{{ isSelf && !userStatus.is_receive }}">领取礼物</button>
+      <button class="btn-got" bindtap="handleGoGot" wx:if="{{ isSelf && !userStatus.is_receive && !userStatus.is_quit }}">领取礼物</button>
       <button class="btn-got goted" wx:if="{{ isSelf && userStatus.is_receive }}">已领取</button>
+      <button class="btn-got goted" wx:if="{{ isSelf && userStatus.is_quit }}">已放弃</button>
     </view>
 
     <!-- 活动失效 -->
@@ -120,8 +127,7 @@
 
   <!-- 参与用户 -->
   <view class="gift-peoples {{ currentActivity.user_kind == 1 ? 'is-store' : '' }}">
-    <image src="../../images/icon-got-fail@2x.png" class="icon-gift-fail" wx:if="{{ currentActivity.status == 4 }}"></image>
-    <image src="../../images/icon-got-success@2x.png" class="icon-gift-success" wx:if="{{ currentActivity.status == 3 }}"></image>
+    <image src="../../images/icon-got-success@2x.png" class="icon-gift-success" wx:if="{{ currentActivity.status == 3 && userStatus.is_receive }}"></image>
     <view class="count-down {{ hasDays ? 'has-days' : '' }}" wx:if="{{ currentActivity.status == 2 }}">
       <view class="line left"></view>
       <view class="timer">

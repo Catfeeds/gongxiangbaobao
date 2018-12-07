@@ -23,13 +23,14 @@ Page({
 
     hasAddress: false,
     currentAddress: {},
+    pay_params: {},
     form: {
       rid: '',
       openid: '',
       address_rid: '',
     },
 
-    showChangeModal: true
+    showChangeModal: false
   },
 
   /**
@@ -48,6 +49,37 @@ Page({
     wx.navigateTo({
       url: _url
     })
+  },
+
+  /**
+   * 放弃领奖
+   */
+  handleGiveUpGot () {
+    let params = {
+      rid: this.data.rid
+    }
+    http.fxPost(api.gift_quit, params, (res) => {
+      utils.logger(res.data, '放弃领取')
+
+      if (res.success) {
+        wx.redirectTo({
+          url: '../userLottery/userLottery',
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 继续支付
+   */
+  handleFormPay (e) {
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId, this.data.rid)
+    }
+
+    this._continuePay(this.data.rid, this.data.pay_params)
   },
 
   /**
@@ -96,17 +128,32 @@ Page({
             url: '../pickSuccess/pickSuccess?rid=' + _rid,
           })
         } else {
-          app.wxpayOrder(_rid, res.data.pay_params, (result) => {
-            if (result) {
-              // 领取成功，跳转成功页面
-              wx.redirectTo({
-                url: '../pickSuccess/pickSuccess?rid=' + _rid,
-              })
-            }
-          })
+          // 没库存
+          if (res.data.no_stock) {
+            this.setData({
+              showChangeModal: true,
+              pay_params: res.data.pay_params
+            })
+          } else {
+            this._continuePay(_rid, res.data.pay_params)
+          }
         }
       } else {
         utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 支付订单
+   */
+  _continuePay (rid, pay_params) {
+    app.wxpayOrder(rid, pay_params, (result) => {
+      if (result) {
+        // 领取成功，跳转成功页面
+        wx.redirectTo({
+          url: '../pickSuccess/pickSuccess?rid=' + rid,
+        })
       }
     })
   },
