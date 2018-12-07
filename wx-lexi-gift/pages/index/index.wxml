@@ -15,7 +15,7 @@
   </view>
 
   <!-- 当前礼物 -->
-  <view class="gift-product">
+  <view class="gift-product" wx:if="{{ loaded }}">
     <image src="../../images/icon-out@2x.png" class="icon-out" wx:if="{{ !isExist }}"></image>
     <view class="product-box">
       <view class="gift-count" wx:if="{{ currentActivity.surplus_count > 0 }}">还剩{{ currentActivity.surplus_count }}份</view>

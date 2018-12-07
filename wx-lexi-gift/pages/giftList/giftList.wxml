@@ -49,7 +49,7 @@
   </view>
 
   <!-- 空列表 -->
-  <view class="gift-list--empty" wx:else>
+  <view class="gift-list--empty" wx:if="{{ giftList.length == 0 && !moreLoading }}">
     <image src="../../images/icon-empty@2x.png" class="icon-empty"></image>
     <view class="description">没有更多了</view>
   </view>

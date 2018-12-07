@@ -17,8 +17,7 @@ Page({
     isLoading: true,
     showLoginModal: false, // 注册的呼出框
     showRuleModal: false, // 显示规则弹框
-
-    toView: 'G55930',
+    loaded: false, // 数据是否加载完毕
 
     // 当前登录用户信息
     isSmallB: false, // 是否为生活馆主
@@ -222,8 +221,8 @@ Page({
     })
     if (this.data.animationIndex == this.data.currentActivity.assets.length-3) {
       this.setData({
-        animationIndex: 0,
-        animationIndexTime: 0
+        animationIndexTime: 0,
+        animationIndex: 0
       })
     }
   },
@@ -293,6 +292,7 @@ Page({
 
         this.setData({
           isExist: _isExist,
+          loaded: true,
           currentActivity: res.data
         })
 

@@ -57,6 +57,16 @@ Page({
   },
 
   /**
+   * 领取礼物
+   */
+  handleGoGot(e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../pickGift/pickGift?rid=' + rid,
+    })
+  },
+
+  /**
    * 获取参与的活动列表
    */
   getActivityList() {
