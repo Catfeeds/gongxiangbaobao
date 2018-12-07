@@ -216,7 +216,6 @@ Page({
    * 监听动画结束
    */
   handleTransitionend(e) {
-    console.log(e, 12)
     this.setData({
       animationIndex: this.data.animationIndex + 1,
       animationIndexTime: 2000
@@ -227,7 +226,6 @@ Page({
         animationIndexTime: 0
       })
     }
-
   },
 
   /**

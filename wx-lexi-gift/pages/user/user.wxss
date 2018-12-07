@@ -1,4 +1,5 @@
 /* pages/user/user.wxss */
+
 .user-login--wrapper {
   display: flex;
   align-items: center;
@@ -194,4 +195,51 @@
   width: 460rpx;
   height: 568rpx;
   margin-bottom: 60rpx;
+}
+
+.fx-links {
+  margin-top: 20rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.fx-links .fx-link {
+  width: 690rpx;
+  padding: 0 30rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+}
+
+.fx-links .fx-link .icon-gift {
+  flex: 0 0 auto;
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.fx-links .fx-link .label {
+  flex: 1;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 32rpx;
+}
+
+.fx-links .fx-link .done {
+  flex: 0 0 auto;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 32rpx;
+  display: flex;
+  align-items: center;
+}
+
+.fx-links .fx-link .done .go {
+  margin-right: 10rpx;
+}
+
+.fx-links .fx-link .done .icon-arrow {
+  width: 16rpx;
+  height: 26rpx;
 }

@@ -64,6 +64,15 @@ Page({
   },
 
   /**
+   * 更多抽奖
+   */
+  handleGoActivityList () {
+    wx.navigateTo({
+      url: '../lotteryList/lotteryList',
+    })
+  },
+
+  /**
    * 显示公众号二维码图片
    */
   handleShowQrcodeModal() {
@@ -292,7 +301,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    app.shareWxaGift()
   }
   
 })
