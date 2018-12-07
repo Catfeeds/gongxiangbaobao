@@ -35,6 +35,7 @@ Page({
     userWin: {}, // 中奖的用户
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
+    canJoin: false, // 是否能参与
 
     storePage: 1,
     storeProducts: [], // 生活馆商品列表
@@ -227,13 +228,14 @@ Page({
         let _users = res.data.user_list
 
         this.setData({
+          canJoin: res.data.can_join,
           joinStatus: res.data.is_join,
           userStatus: res.data,
           'currentActivity.people_count': res.data.people_count,
           'currentActivity.surplus_count': res.data.surplus_count,
           users: _users,
         })
-        
+
       } else {
         utils.fxShowToast(res.status.message)
       }

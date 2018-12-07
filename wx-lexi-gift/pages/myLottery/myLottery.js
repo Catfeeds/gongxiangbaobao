@@ -32,6 +32,8 @@ Page({
     users: [],
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
+    canJoin: false, // 是否能参与
+    
     products: [], // 热门商品
 
     showShareModal: false, // 分享模态框
@@ -217,6 +219,9 @@ Page({
       if (res.success) {
         let _users = res.data.user_list
         this.setData({
+          canJoin: res.data.can_join,
+          joinStatus: res.data.is_join,
+          userStatus: res.data,
           'currentActivity.people_count': res.data.people_count,
           'currentActivity.surplus_count': res.data.surplus_count,
           users: _users,

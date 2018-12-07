@@ -283,6 +283,10 @@
   text-align: center;
 }
 
+.partake-success-wrapper .tips.lg {
+  width: 460rpx;
+}
+
 .fail-tips {
   font-size: 24rpx;
   font-weight: 500;

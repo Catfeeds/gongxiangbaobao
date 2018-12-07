@@ -47,6 +47,18 @@
       <button class="btn-login" formType="submit">登录后可参与抽奖</button>
     </form>
 
+    <!-- 不能参与 -->
+    <view class="partake-success-wrapper" wx:if="{{ !userStatus.is_join && !canJoin }}">
+      <view class="big-title">
+        <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
+        <view class="title">你已连续参与三个抽奖</view>
+        <image src="../../images/icon-quote-right@2x.png" class="icon-quote-right"></image>
+      </view>
+      <view class="tips lg">
+        当前抽奖无法参与，去分享好友来拿礼物吧
+      </view>
+    </view>
+
     <!-- 发起者参与成功 -->
     <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && isSelf }}">
       <view class="big-title">
@@ -131,6 +143,15 @@
         <view class="need-count"></view>
         <view class="surplus-count">已有
           <text class="count">{{ currentActivity.people_count }}</text> 人帮你助力
+        </view>
+      </view>
+      <view class="progress-desc" wx:if="{{ currentActivity.status == 4 }}">
+        <view class="need-count">
+          <text class="sale-price"><text class="currency">￥</text>1</text>
+          <text class="old-price">￥{{ currentActivity.product.price }}</text>
+        </view>
+        <view class="surplus-count">已助力
+          <text class="count">{{ currentActivity.people_count }}</text> 人
         </view>
       </view>
     </view>
