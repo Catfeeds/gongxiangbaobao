@@ -74,6 +74,7 @@
 }
 
 /* 商品列表 */
+
 .fx-distribute-cards {
   display: flex;
   flex-flow: row wrap;
@@ -155,4 +156,16 @@
   padding-top: 18rpx;
   display: flex;
   flex-direction: row;
+}
+
+.distribute-over__btn {
+  width: 160rpx;
+  height: 50rpx;
+  font-size: 28rpx;
+  border-radius: 25rpx;
+  color: white;
+  background-color: #2d343a;
+  opacity: 0.5;
+  line-height: 28rpx;
+  margin-right: 20rpx;
 }
