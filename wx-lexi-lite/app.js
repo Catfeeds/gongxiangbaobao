@@ -646,6 +646,7 @@ App({
         rid: '',
         value: ''
       },
+      
       // 选品搜索结果是否有变动
       distributeSearchChange:false,
       distributeSearchValue:{

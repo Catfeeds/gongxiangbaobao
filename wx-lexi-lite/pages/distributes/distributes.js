@@ -44,12 +44,12 @@ Page({
         title: '新品首发'
       }
     ],
-    stickedProducts: {}, // 推荐分销-官方--
+    stickedProducts: [], // 推荐分销-官方--
     advertises: [], // 推荐广告图
     storeHeadlines: [], // 生活馆头条
 
     totalCount: 0, // 商品总数
-    allProducts: {}, // 全部分销商品--
+    allProducts: [], // 全部分销商品--
 
     showSortModal: false, // 排序
     showIncomeModal: false, // 利润
@@ -588,6 +588,44 @@ Page({
   },
 
   /**
+   * 检测变动
+  */
+  handleCheckChange() {
+    if (app.globalData.agent.distributeChange) {
+      let rid = app.globalData.agent.distributeValue.rid
+      let value = app.globalData.agent.distributeValue.value
+      this._handleReviseSell(rid, value)
+      app.globalData.agent.distributeChange = false
+    }
+  },
+
+  /**
+   * 改变上架按钮状态
+  */
+  _handleReviseSell(rid, option) {
+    console.log(rid, option)
+    let allProduct = this.data.allProducts
+    let commend = this.data.stickedProducts
+    console.log(allProduct)
+
+    allProduct.forEach((v, i) => {
+      if (v.rid == rid) {
+        this.setData({
+          ['allProducts[' + i + '].have_distributed']: option
+        })
+      }
+    })
+
+    commend.forEach((v, i) => {
+      if (v.rid == rid) {
+        this.setData({
+          ['stickedProducts[' + i + '].have_distributed']: option
+        })
+      }
+    })
+  },
+
+  /**
    * 生成推广海报图
    */
   getWxaPoster(rid) {
@@ -977,7 +1015,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.handleCheckChange()
   },
 
   /**

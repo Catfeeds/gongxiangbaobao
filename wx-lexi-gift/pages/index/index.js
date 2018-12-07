@@ -11,12 +11,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    animationIndex: 0,
+    animationIndexTime: 1000,
+
     isLoading: true,
     showLoginModal: false, // 注册的呼出框
     showRuleModal: false, // 显示规则弹框
 
     toView: 'G55930',
-    
+
     // 当前登录用户信息
     isSmallB: false, // 是否为生活馆主
     userInfo: {},
@@ -63,7 +66,7 @@ Page({
   },
 
   // 获取formid, 查看更多
-  handleFormMore (e) {
+  handleFormMore(e) {
     if (e.detail.formId != 'the formId is a mock one') {
       app.handleSendNews(e.detail.formId)
     }
@@ -74,7 +77,7 @@ Page({
   },
 
   // 获取formid, 预约提醒
-  handleFormAppoint (e) {
+  handleFormAppoint(e) {
     if (e.detail.formId != 'the formId is a mock one') {
       app.handleSendNews(e.detail.formId)
     }
@@ -85,14 +88,14 @@ Page({
   },
 
   // 关闭预约提醒弹窗
-  handleCloseAppoint () {
+  handleCloseAppoint() {
     this.setData({
       showAppointModal: false
     })
   },
 
   // 选择天数
-  handlePickerChange (e) {
+  handlePickerChange(e) {
     console.log(e.detail.value)
     let idx = parseInt(e.detail.value)
     this.setData({
@@ -119,14 +122,14 @@ Page({
   /**
    * 验证登录
    */
-  handleValidateLogin (e) {
+  handleValidateLogin(e) {
     this._validateLoginStatus(e)
   },
 
   /**
    * 参与人数
    */
-  handlePeopleNum (e) {
+  handlePeopleNum(e) {
     let n = parseInt(e.detail.value)
     this.setData({
       'form.people_num': n
@@ -136,7 +139,7 @@ Page({
   /**
    * 祝福语
    */
-  handleBlessing (e) {
+  handleBlessing(e) {
     this.setData({
       'form.blessing': e.detail.value
     })
@@ -145,7 +148,7 @@ Page({
   /**
    * 发起活动
    */
-  handleSubmitActivity (e) {
+  handleSubmitActivity(e) {
     if (!app.globalData.isLogin) {
       utils.handleHideTabBar()
       this.setData({
@@ -168,7 +171,7 @@ Page({
       utils.fxShowToast('活动天数设置不准确')
       return
     }
-    
+
     // 祝福语
     if (this.data.form.blessing == '' || this.data.form.blessing.length > 12) {
       utils.fxShowToast('心愿祝福语限定12个字符')
@@ -210,9 +213,27 @@ Page({
   },
 
   /**
+   * 监听动画结束
+   */
+  handleTransitionend(e) {
+    console.log(e, 12)
+    this.setData({
+      animationIndex: this.data.animationIndex + 1,
+      animationIndexTime: 2000
+    })
+    if (this.data.animationIndex == this.data.currentActivity.assets.length-3) {
+      this.setData({
+        animationIndex: 0,
+        animationIndexTime: 0
+      })
+    }
+
+  },
+
+  /**
    * 获取最新的赢者
    */
-  getLastWinners () {
+  getLastWinners() {
     let _page = this.data.winnerPage
     if (_page > 10) { // 大于10后恢复重新循环
       _page = 1
@@ -223,7 +244,10 @@ Page({
       winnerPage: _page
     })
     let that = this
-    http.fxGet(api.gift_winners, { page: _page, per_page: 1 }, (res) => {
+    http.fxGet(api.gift_winners, {
+      page: _page,
+      per_page: 1
+    }, (res) => {
       utils.logger(res.data, '获取最新获奖者')
       if (res.success) {
         if (res.data.user_list.length > 0) {
@@ -254,7 +278,7 @@ Page({
   /**
    * 获取当前活动
    */
-  getCurrentActivity () {
+  getCurrentActivity() {
     http.fxGet(api.gift_current, {}, (res) => {
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
@@ -263,10 +287,20 @@ Page({
         if (_ca.length > 0 && res.data.surplus_count > 0) {
           _isExist = true
         }
+
+        res.data.assets[res.data.assets.length] = res.data.assets[1]
+        res.data.assets[res.data.assets.length] = res.data.assets[2]
+        res.data.assets[res.data.assets.length] = res.data.assets[3]
+
         this.setData({
           isExist: _isExist,
           currentActivity: res.data
         })
+        setTimeout(() => {
+          this.handleTransitionend()
+        }, 3000)
+
+
       } else {
         utils.logger(res.status.message, '获取当前活动出错')
       }
@@ -276,7 +310,7 @@ Page({
   /**
    * 获取曾经获奖的用户
    */
-  getMyActivityPeople () {
+  getMyActivityPeople() {
     // 未登录用户跳过
     if (!app.globalData.isLogin) {
       return
@@ -299,7 +333,7 @@ Page({
         } else {
           _peoples = res.data.friend_list
         }
-        
+
         this.setData({
           partakePeopleCount: res.data.count,
           partakePeople: _peoples,
@@ -366,9 +400,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getCurrentActivity()
-    
+
     if (app.globalData.isLogin) {
       this._refreshUserLogin()
     } else {
@@ -387,7 +421,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -399,7 +433,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     // 恢复默认值
     this.setData({
       idx: -1,
@@ -421,7 +455,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     clearInterval(this.data.timer)
     this.setData({
       timer: null
@@ -431,7 +465,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     clearInterval(this.data.timer)
     this.setData({
       timer: null
@@ -441,7 +475,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     this.getCurrentActivity()
     this.getMyActivityPeople()
 
@@ -451,7 +485,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     if (!this.data.hasNext) {
       return
     }
@@ -464,7 +498,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     app.shareWxaGift()
   }
 
