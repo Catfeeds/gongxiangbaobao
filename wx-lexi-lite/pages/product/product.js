@@ -1422,13 +1422,21 @@ Page({
    * 验证是否选择sku
    */
   validateChooseSku() {
-    if (!this.data.choosed) {
-      return false
+    if (this.data.skus.colors.length == 0 && this.data.skus.modes.length == 0 && this.data.skus.items.length==1) {
+      this.setData({
+        'choosed.rid': this.data.skus.items[0].rid
+      })
+      return true
+    }else{
+      if (!this.data.choosed) {
+        return false
+      }
+      if (!this.data.quantity) {
+        return false
+      }
+      return true
     }
-    if (!this.data.quantity) {
-      return false
-    }
-    return true
+
   },
 
   /**
