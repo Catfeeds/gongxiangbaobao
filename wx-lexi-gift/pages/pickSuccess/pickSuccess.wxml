@@ -11,7 +11,7 @@
     <view class="actions">
       <button class="fx-button fx-button--primary btn-share" bindtap="handShowShare">炫耀一下</button>
       <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
-        <button class="fx-button fx-button--default" formType="submit">我要送礼</button>
+        <button class="fx-button fx-button--default" formType="submit">{{ btnGiveText }}</button>
       </form>
     </view>
   </view>

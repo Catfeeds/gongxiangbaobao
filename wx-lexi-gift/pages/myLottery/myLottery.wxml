@@ -160,7 +160,7 @@
       <view class="progress-desc">
         <view class="need-count">
           <text class="sale-price">￥1</text>
-          <text class="old-price">￥{{ currentActivity.price }}</text>
+          <text class="old-price">￥{{ currentActivity.product.price }}</text>
         </view>
         <view class="surplus-count">已助力
           <text class="count">{{ currentActivity.people_count }}</text> 人
@@ -229,7 +229,7 @@
     </view>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
       <button class="btn-give opened" formType="submit">
-        我也要拿礼物
+        {{ btnGiveText }}
       </button>
     </form>
 
@@ -241,7 +241,7 @@
     </form>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4  }}">
       <button class="btn-give btn-half btn-flex opened" formType="submit">
-        <image src="../../images/icon-gift-white@2x.png" class="icon-gift"></image> 我也要拿礼物
+        <image src="../../images/icon-gift-white@2x.png" class="icon-gift"></image> {{ btnGiveText }}
       </button>
     </form>
 
