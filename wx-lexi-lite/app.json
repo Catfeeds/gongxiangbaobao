@@ -69,6 +69,7 @@
     "pages/windowAlikeLabel/windowAlikeLabel",
     "pages/windowComment/windowComment",
     "pages/browseLifeStore/browseLifeStore",
+    "pages/brandStoreQualification/brandStoreQualification",
     "components/FxLoginModal/FxLoginModal"
   ],
   "subPackages": [

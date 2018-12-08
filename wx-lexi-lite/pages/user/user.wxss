@@ -72,6 +72,7 @@ page {
 
 .follow {
   /* margin-top: 8rpx; */
+  position: relative;
 }
 
 .transmission {

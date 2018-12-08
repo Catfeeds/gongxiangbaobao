@@ -1,0 +1,2 @@
+<!--pages/brandStoreQualification/brandStoreQualification.wxml-->
+<web-view src="https://h5.lexivip.com/shop/qualification_validation?rid={{link}}"></web-view>
