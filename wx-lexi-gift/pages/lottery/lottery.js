@@ -740,7 +740,7 @@ Page({
     let title = '「有人@我」' + name + '送你一个礼物，需解除封印就能0元拿走'
 
     return {
-      title: this.data.currentActivity.blessing,
+      title: title,
       path: 'pages/lottery/lottery?scene=' + scene,
       imageUrl: this.data.cardUrl,
       success: (res) => {
