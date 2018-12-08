@@ -323,5 +323,5 @@
 /* 动画 */
 
 .track {
-  transition: all 2000ms linear 500ms;
+  
 }

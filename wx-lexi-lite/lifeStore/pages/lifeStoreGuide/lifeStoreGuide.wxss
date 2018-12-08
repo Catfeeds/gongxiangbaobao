@@ -154,7 +154,7 @@
 }
 
 .shop-summary {
-  width: 650rpx;
+  width: 670rpx;
   /* margin-top: 202rpx; */
   padding: 0 40rpx;
   padding-top: 270rpx;

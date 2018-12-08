@@ -1003,4 +1003,11 @@ Page({
     })
   },
 
+  // 取品牌馆资质
+  handleGoBrandStoreQualification() {
+    wx.navigateTo({
+      url: '../brandStoreQualification/brandStoreQualification?rid=' + this.data.storeRid,
+    })
+  }
+
 })

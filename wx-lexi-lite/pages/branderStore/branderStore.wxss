@@ -39,6 +39,7 @@
 }
 
 .store-info .address {
+  position: relative;
   color: #949ea6;
 }
 
@@ -330,9 +331,12 @@
 }
 
 .share-brand__btn {
+  position: absolute;
+  top: 50%;
+  right: 0rpx;
+  transform: translateY(-50%);
   height: 60rpx;
   width: 60rpx;
-  margin-left: 216rpx;
 }
 
 .share-brand__box {
@@ -373,4 +377,23 @@
   border-radius: 8rpx;
   color: white;
   font-size: 28rpx;
+}
+
+.brand-store__qualification {
+  position: absolute;
+  right: 0;
+}
+
+.store-info .brand-store__qualification text {
+  font-size: 26rpx;
+  margin-right: 10rpx;
+  color: #333;
+  vertical-align: middle;
+}
+
+.store-info .brand-store__qualification image {
+  width: 18rpx;
+  height: 15rpx;
+  transform: rotate(-90deg);
+  vertical-align: middle;
 }

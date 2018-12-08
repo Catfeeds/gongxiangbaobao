@@ -222,12 +222,11 @@ Page({
     const lifeStore = wx.getStorageSync('lifeStore')
 
     // 已经申请过则不能重复申请
-    /*
     if (lifeStore.isSmallB) {
       wx.switchTab({
         url: '../index/index'
       })
-    }*/
+    }
 
     this.getCountryCode()
   },

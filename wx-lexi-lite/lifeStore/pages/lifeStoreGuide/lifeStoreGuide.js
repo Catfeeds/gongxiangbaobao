@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_mobile:false,
     barrageAnimation: [], // 滑动的信息
     listData: [{
         rid: 's01',
@@ -63,8 +64,25 @@ Page({
 
   // 跳转到小程序申请生活馆
   handleGoApply() {
+    // 未登录，需先登录
+    if (!app.globalData.isLogin) {
+      this.setData({
+        is_mobile: true
+      })
+      return
+    }
+
     wx.navigateTo({
       url: '/pages/applyLifeStore/applyLifeStore',
+    })
+  },
+
+  /**
+ * 登录完成回调
+ */
+  handleCloseLogin() {
+    this.setData({
+      is_mobile: false
     })
   },
 

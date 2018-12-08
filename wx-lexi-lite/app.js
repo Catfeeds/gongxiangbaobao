@@ -442,7 +442,7 @@ App({
             prepay_id: formId,
             openid: this.globalData.jwt.openid,
             order_rid: rid,
-            app_id: this.globalData.app_id
+            app_id: this.globalData.app_id,
           }, result => {})
 
           // 支付成功，更新订单状态
@@ -551,6 +551,7 @@ App({
 
     http.fxPost(api.users_save_form_ids, {
       form_ids: [e],
+      app_id: this.globalData.app_id,
       openid: this.globalData.jwt.openid
     }, result => {})
   },

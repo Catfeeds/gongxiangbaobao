@@ -155,7 +155,6 @@ Page({
     this.setData({
       searchHistory: data
     })
-    console.log(data)
   },
 
   /**
