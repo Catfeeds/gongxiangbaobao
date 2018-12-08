@@ -294,11 +294,6 @@ App({
    * 分享小程序
    */
   shareWxaGift () {
-    let jwt = wx.getStorageSync('jwt')
-
-    // scene格式：sid + '-' + uid
-    let scene = jwt.uid
-
     let title = '邀你一起来拿一个神秘礼物，点击查看'
     if (this.globalData.isLogin) {
       title = this.globalData.userInfo.username + '让你一起来拿一个神秘礼物，点击查看'
@@ -306,8 +301,8 @@ App({
     
     return {
       title: title,
-      path: 'pages/index/index?scene=' + scene,
-      imageUrl: "https://static.moebeast.com/static/img/gift-card@2x.jpg",
+      path: 'pages/index/index',
+      imageUrl: 'https://static.moebeast.com/static/img/gift-card@2x.jpg',
       success: (res) => {
         utils.logger(res, '分享成功!')
       }
