@@ -17,7 +17,7 @@ Page({
     showRuleModal: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
-    isSmallB: false, // 是否为生活馆主
+    isSmallB: false, // 当前登录用户是否为生活馆主
     storeRid: '', // 生活馆rid
     isSelf: false, // 验证用户是否为发起人
     percent: 0.01, // 完成百分比 
@@ -48,6 +48,9 @@ Page({
     posterUrl: '', // 海报图url
     posterSaving: false, // 是否正在保存
     posterBtnText: '保存分享',
+
+    // 生活馆主、普通用户文案区别
+    btnGiveText: '我也要送礼',
 
     // 最近获奖者
     winnerTimer: null,
@@ -584,14 +587,18 @@ Page({
     let isSmallB = false
 
     const jwt = app.globalData.jwt
+    let _btnText = this.data.btnGiveText
     if (jwt.is_small_b) {
       isSmallB = true
+    } else {
+      _btnText = '我也要拿礼物'
     }
 
     this.setData({
       isLogin: app.globalData.isLogin,
       userInfo: app.globalData.userInfo,
-      isSmallB: isSmallB
+      isSmallB: isSmallB,
+      btnGiveText: _btnText
     })
 
     this._validateUserType()
@@ -728,6 +735,9 @@ Page({
   onShareAppMessage: function() {
     // scene格式：rid
     let scene = this.data.rid
+
+    let name = this.data.currentActivity.owner_user.user_name
+    let title = '「有人@我」' + name + '送你一个礼物，需解除封印就能0元拿走'
 
     return {
       title: this.data.currentActivity.blessing,

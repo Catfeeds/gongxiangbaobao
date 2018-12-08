@@ -277,12 +277,12 @@
     </form>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 3 || currentActivity.status == 4 }}">
       <button class="btn-give btn-half btn-flex opened" formType="submit">
-        <image src="../../images/icon-gift-white@2x.png" class="icon-gift"></image> 我也要送礼
+        <image src="../../images/icon-gift-white@2x.png" class="icon-gift"></image> {{ btnGiveText }}
       </button>
     </form>
     <form bindsubmit="handleFormLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
       <button class="btn-give" formType="submit">
-        我也要送礼
+        {{ btnGiveText }}
       </button>
     </form>
     <button class="btn-share" bindtap="handleShowShare" wx:if="{{ currentActivity.status == 2 && !isSelf }}">
