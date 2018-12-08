@@ -61,12 +61,12 @@
       </view>
 
       <!-- 新品速递 {{themeProduct.designs}} -->
-      <view class=' border-bottom min-height--400 margin-bottom--20rpx' wx:if="{{handpickNewExpress.count==0}}">
+      <view class=' border-bottom min-height--400 margin-bottom--20rpx' wx:if="{{handpickNewExpress.count!=0}}">
         <view class='c-importantGoodsTitle time-top font-xl category__title padding-top--40rpx' data-from="highQualityList">
           <text class="label">新品速递</text>
           <view class='hui-zi-m flex_row'>
-            <!-- <text>查看全部</text> -->
-            <!-- <text class='fx-icon-nothing-right'></text> -->
+            <text>查看全部</text>
+            <text class='fx-icon-nothing-right'></text>
           </view>
         </view>
         <scroll-view scroll-x class='best-products c-importantGoodsBox margin-top--34rpx recommend-product-box '>
