@@ -17,13 +17,13 @@ Page({
     showRuleModal: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
-    isSmallB: false, // 是否为生活馆主
+    isSmallB: false, // 当前登录用户是否为生活馆主
     storeRid: '', // 生活馆rid
     isSelf: false, // 验证用户是否为发起人
     percent: 0.01, // 完成百分比 
     timer: null,
     expired: false, // 是否已过期
-    leftTimer: {  // 倒计时
+    leftTimer: { // 倒计时
       days: 0,
       hours: 0,
       minutes: 0,
@@ -35,7 +35,12 @@ Page({
     userWin: {}, // 中奖的用户
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
-    products: [], // 热门商品
+    canJoin: false, // 是否能参与
+
+    storePage: 1,
+    storeProducts: [], // 生活馆商品列表
+    hasNext: false, // 推荐是否有下一页
+    isEmpty: false, // 是否为空
 
     showShareModal: false, // 分享模态框
     shareProduct: '', // 分享某个商品
@@ -43,6 +48,9 @@ Page({
     posterUrl: '', // 海报图url
     posterSaving: false, // 是否正在保存
     posterBtnText: '保存分享',
+
+    // 生活馆主、普通用户文案区别
+    btnGiveText: '我也要送礼',
 
     // 最近获奖者
     winnerTimer: null,
@@ -54,7 +62,7 @@ Page({
   /**
    * 获取formid, 查看规则
    */
-  handleFormLogin (e) {
+  handleFormLogin(e) {
     this.setData({
       showLoginModal: true
     })
@@ -121,14 +129,12 @@ Page({
       // 登录后更新数据
       this._updateUserInfo()
     }
-
-    wx.showTabBar()
   },
 
   /**
    * 领取礼物
    */
-  handleGoGot () {
+  handleGoGot() {
     wx.navigateTo({
       url: '../pickGift/pickGift?rid=' + this.data.rid,
     })
@@ -137,11 +143,11 @@ Page({
   /**
    * 显示分享弹窗
    */
-  handleShowShare () {
+  handleShowShare() {
     this.setData({
       showShareModal: true
     })
-    
+
     this.getWxaCard()
     this.getWxaPoster()
   },
@@ -172,19 +178,19 @@ Page({
       // 下载网络文件至本地
       wx.downloadFile({
         url: this.data.posterUrl,
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode == 200) {
             // 保存文件至相册
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
-              success: function (data) {
+              success: function(data) {
                 that.setData({
                   posterSaving: false,
                   posterBtnText: '保存分享'
                 })
                 utils.fxShowToast('保存成功', 'success')
               },
-              fail: function (err) {
+              fail: function(err) {
                 utils.logger('下载海报失败：' + err.errMsg)
                 that.setData({
                   posterSaving: false,
@@ -216,16 +222,23 @@ Page({
   /**
    * 参与抽奖
    */
-  partakeLottery () {
-    http.fxPost(api.gift_activity_join, { rid: this.data.rid }, (res) => {
+  partakeLottery() {
+    http.fxPost(api.gift_activity_join, {
+      rid: this.data.rid
+    }, (res) => {
       utils.logger(res, '参与抽奖')
       if (res.success) {
         let _users = res.data.user_list
+
         this.setData({
+          canJoin: res.data.can_join,
+          joinStatus: res.data.is_join,
+          userStatus: res.data,
           'currentActivity.people_count': res.data.people_count,
           'currentActivity.surplus_count': res.data.surplus_count,
           users: _users,
         })
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -240,7 +253,7 @@ Page({
     if (this.data.currentActivity.status != 2) {
       return
     }
-    
+
     let d = this.data.currentActivity.days || 1
     let endTs = this.data.currentActivity.end_at
     let leftTime = endTs - utils.timestamp() // 计算剩余的毫秒数 
@@ -279,7 +292,7 @@ Page({
   /**
    * 生成推广卡片
    */
-  getWxaCard () {
+  getWxaCard() {
     let rid = this.data.currentActivity.product.product_rid
 
     let params = {
@@ -333,7 +346,7 @@ Page({
   /**
    * 获取用户活动的状态
    */
-  getUserActivityStatus () {
+  getUserActivityStatus() {
     http.fxGet(api.gift_activity_user_status.replace(/:rid/, this.data.rid), {}, (res) => {
       utils.logger(res.data, '获取用户活动的状态')
       if (res.success) {
@@ -369,7 +382,7 @@ Page({
         this.setData({
           users: res.data.user_list
         })
-        
+
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -379,12 +392,13 @@ Page({
   /**
    * 获取当前活动
    */
-  getActivity () {
+  getActivity() {
     http.fxGet(api.gift_activity_detail.replace(/:rid/, this.data.rid), {}, (res) => {
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
         this.setData({
-          currentActivity: res.data
+          currentActivity: res.data,
+          storeRid: res.data.owner_store ? res.data.owner_store.store_rid : ''
         }, () => {
           this.practiceLeftTimer()
 
@@ -397,6 +411,10 @@ Page({
         // 品牌馆，获取更多商品
         if (res.data.user_kind == 1) {
           this.getStoreProducts()
+        } else if (res.data.user_kind == 2) { // 生活馆
+          this.getDistributeProducts()
+        } else {
+          // do nothing
         }
       } else {
         utils.fxShowToast(res.status.message)
@@ -405,19 +423,78 @@ Page({
   },
 
   /**
-   * 获取店铺热门商品
+   * 获取生活馆商品
    */
-  getStoreProducts () {
-    http.fxGet(api.gift_store_products, {
-      store_rid: this.data.currentActivity.owner_store.store_rid
-    }, (res) => {
-      utils.logger(res.data, '获取热门商品')
+  getDistributeProducts() {
+    let params = {
+      page: this.data.storePage,
+      per_page: 10,
+      sid: this.data.storeRid,
+      is_distributed: 2,
+      user_record: 1
+    }
+
+    http.fxGet(api.life_store_products, params, (res) => {
+      utils.logger(res, '全部分销商品')
       if (res.success) {
+        let _products = this.data.storeProducts
+        if (this.data.storePage > 1) {
+          // 合并数组
+          _products = _products.concat(res.data.products)
+        } else {
+          _products = res.data.products
+        }
+
+        let isEmpty = false
+        if (_products.length == 0) {
+          isEmpty = true
+        }
+
         this.setData({
-          products: res.data.product_list
+          storeProducts: _products,
+          isEmpty: isEmpty,
+          hasNext: res.data.next // 没有下一页了
         })
       } else {
         utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /**
+   * 获取店铺热门商品（品牌馆）
+   */
+  getStoreProducts() {
+    let params = {
+      page: this.data.storePage,
+      per_page: 10,
+      sid: this.data.storeRid,
+      status: 1,
+      is_distributed: 1
+    }
+    http.fxGet(api.life_store_products, params, (res) => {
+      utils.logger(res, '店铺商品列表')
+      if (res.success) {
+        let _products = this.data.storeProducts
+        if (this.data.storePage > 1) {
+          // 合并数组
+          _products = _products.concat(res.data.products)
+        } else {
+          _products = res.data.products
+        }
+
+        let isEmpty = false
+        if (_products.length == 0) {
+          isEmpty = true
+        }
+
+        this.setData({
+          hasNext: res.data.next,
+          isEmpty: isEmpty,
+          storeProducts: _products
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
       }
     })
   },
@@ -436,7 +513,10 @@ Page({
       winnerPage: _page
     })
     let that = this
-    http.fxGet(api.gift_winners, { page: _page, per_page: 1 }, (res) => {
+    http.fxGet(api.gift_winners, {
+      page: _page,
+      per_page: 1
+    }, (res) => {
       utils.logger(res.data, '获取最新获奖者')
       if (res.success) {
         if (res.data.user_list.length > 0) {
@@ -467,10 +547,10 @@ Page({
   /**
    * 活动完成百分比
    */
-  _remathPercent () {
+  _remathPercent() {
     let _precent = 1
     let people_count = this.data.currentActivity.people_count
-    
+
     if (people_count < this.data.currentActivity.total_people_count) {
       _precent = people_count / this.data.currentActivity.total_people_count
     }
@@ -478,14 +558,14 @@ Page({
     utils.logger(people_count + ',' + _precent, '完成度')
 
     this.setData({
-      percent: (_precent*100).toFixed(2)
+      percent: (_precent * 100).toFixed(2)
     })
   },
 
   /**
    * 验证用户身份
    */
-  _validateUserType () {
+  _validateUserType() {
     if (!utils.isEmptyObject(this.data.currentActivity) && this.data.isLogin) {
       let _isSelf = false
 
@@ -503,21 +583,22 @@ Page({
   /**
    * 更新当前用户信息
    */
-  _updateUserInfo () {
+  _updateUserInfo() {
     let isSmallB = false
-    let storeRid = ''
 
     const jwt = app.globalData.jwt
+    let _btnText = this.data.btnGiveText
     if (jwt.is_small_b) {
       isSmallB = true
-      storeRid = jwt.store_rid
+    } else {
+      _btnText = '我也要拿礼物'
     }
-    
+
     this.setData({
       isLogin: app.globalData.isLogin,
       userInfo: app.globalData.userInfo,
       isSmallB: isSmallB,
-      storeRid: storeRid
+      btnGiveText: _btnText
     })
 
     this._validateUserType()
@@ -529,7 +610,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let rid = ''
 
     let scene = decodeURIComponent(options.scene)
@@ -567,7 +648,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this
     setTimeout(() => {
       that.setData({
@@ -579,7 +660,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     let that = this
 
     let timer = setInterval(() => {
@@ -601,7 +682,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     clearInterval(this.data.timer)
     clearInterval(this.data.winnerTimer)
     this.setData({
@@ -613,7 +694,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     clearInterval(this.data.timer)
     clearInterval(this.data.winnerTimer)
     this.setData({
@@ -625,26 +706,41 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
+    if (!this.data.hasNext) {
+      return
+    }
 
+    this.setData({
+      storePage: this.data.storePage + 1
+    })
+
+    if (this.data.currentActivity.user_kind == 1) {
+      this.getStoreProducts()
+    } else {
+      this.getDistributeProducts()
+    }
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     // scene格式：rid
     let scene = this.data.rid
 
+    let name = this.data.currentActivity.owner_user.user_name
+    let title = '「有人@我」' + name + '送你一个礼物，需解除封印就能0元拿走'
+
     return {
-      title: this.data.currentActivity.blessing,
+      title: title,
       path: 'pages/lottery/lottery?scene=' + scene,
       imageUrl: this.data.cardUrl,
       success: (res) => {

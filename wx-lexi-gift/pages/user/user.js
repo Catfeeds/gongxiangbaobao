@@ -18,7 +18,7 @@ Page({
     isSmallB: false, // 是否为生活馆主
     storeRid: '', // 生活馆rid
     lifeStore: {}, // 生活馆信息
-    storePath: '/pages/index/index',
+    storePath: 'lifeStore/pages/lifeStoreGuide/lifeStoreGuide',
     showQrcodeModal: false,
     collectCount: {
       join_activity: 0,
@@ -31,36 +31,65 @@ Page({
    * 地址管理
    */
   handleGoAddress (e) {
-    wx.navigateTo({
-      url: '../addressList/addressList',
-    })
+    this._validateLoginStatus()
+
+    if (app.globalData.isLogin) {
+      wx.navigateTo({
+        url: '../addressList/addressList',
+      })
+    }
   },
 
   /**
    * 我参与的
    */
   handleGoLottery () {
-    wx.navigateTo({
-      url: '../userLottery/userLottery',
-    })
+    this._validateLoginStatus()
+
+    if (app.globalData.isLogin) {
+      wx.navigateTo({
+        url: '../userLottery/userLottery',
+      })
+    }
   },
 
   /**
    * 我送出的
    */
   handleGoSended () {
-    wx.navigateTo({
-      url: '../userSend/userSend',
-    })
+    this._validateLoginStatus()
+
+    if (app.globalData.isLogin) {
+      wx.navigateTo({
+        url: '../userSend/userSend',
+      })
+    }
   },
 
   /**
    * 我接收的
    */
   handleGoReceive () {
-    wx.navigateTo({
-      url: '../userReceive/userReceive',
-    })
+    this._validateLoginStatus()
+
+    if (app.globalData.isLogin) {
+      wx.navigateTo({
+        url: '../userReceive/userReceive',
+      })
+    }
+  },
+
+  /**
+   * 更多抽奖
+   */
+  handleGoActivityList () {
+    this._validateLoginStatus()
+
+    if (app.globalData.isLogin) {
+      wx.navigateTo({
+        url: '../lotteryList/lotteryList',
+      })
+    }
   },
 
   /**
@@ -143,8 +172,6 @@ Page({
     if (app.globalData.isLogin) {
       this._refreshUserLogin()
     }
-
-    wx.showTabBar()
   },
 
   /**
@@ -190,7 +217,6 @@ Page({
   _validateLoginStatus () {
     // 是否登陆
     if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
       this.setData({
         showLoginModal: true
       })
@@ -210,7 +236,7 @@ Page({
     if (jwt.is_small_b) {
       isSmallB = true
       storeRid = jwt.store_rid
-      storePath += '?sid=' + jwt.store_rid 
+      storePath = 'pages/index/index?sid=' + jwt.store_rid 
 
       this.getLifeStore(storeRid)
     }
@@ -292,7 +318,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    app.shareWxaGift()
   }
   
 })

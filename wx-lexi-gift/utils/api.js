@@ -42,6 +42,7 @@ module.exports = {
 
   // 生活馆
   life_store: 'store/life_store', // GET 生活馆信息
+  life_store_products: 'core_platforms/products/by_store', // POST 生活馆商品
 
   // Product
   products: 'products/by_store', // GET 产品列表---
@@ -67,6 +68,7 @@ module.exports = {
   gift_winners: 'yiyuan/activity/win', // GET 中奖用户
   gift_more: 'yiyuan/product/more', // GET 更多好物
   gift_quit: 'yiyuan/activity/quit', // POST 放弃领取
+  gift_order_delete: 'yiyuan/orders/delete', // POST 删除订单
   
 
   // City

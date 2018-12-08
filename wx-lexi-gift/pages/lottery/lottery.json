@@ -4,6 +4,7 @@
     "fx-loading": "/components/FxLoading/FxLoading",
     "fx-login": "/components/FxLogin/FxLogin",
     "fx-modal": "/components/FxModal/FxModal",
-    "fx-modal-v": "/components/FxModalV/FxModalV"
+    "fx-modal-v": "/components/FxModalV/FxModalV",
+    "fx-product": "/components/FxProduct/FxProduct"
   }
 }

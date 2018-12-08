@@ -44,7 +44,7 @@
     </view>
 
     <!-- 空列表 -->
-    <view class="lottery-list--empty" wx:else>
+    <view class="lottery-list--empty" wx:if="{{ lotteryList.length == 0 && !moreLoading }}">
       <image src="../../images/icon-no-draw@2x.png" class="icon-empty"></image>
       <view class="description">还没有送出礼物</view>
     </view>

@@ -57,6 +57,16 @@ Page({
   },
 
   /**
+   * 领取礼物
+   */
+  handleGoGot(e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '../pickGift/pickGift?rid=' + rid,
+    })
+  },
+
+  /**
    * 获取参与的活动列表
    */
   getActivityList() {
@@ -72,16 +82,17 @@ Page({
         let _list = this.data.lotteryList
 
         res.data.activity_list.map(item => {
+          item.product_name = utils.truncate(item.product_name, 15)
           item.created_at = utils.timestamp2string(item.created_at)
           return item
         })
 
         if (this.data.page > 1) {
-          _list = _list.push.apply(_list, res.data.activity_list)
+          _list = _list.concat(res.data.activity_list)
         } else {
           _list = res.data.activity_list
         }
-        
+
         this.setData({
           lotteryList: _list,
           hasNext: res.data.next

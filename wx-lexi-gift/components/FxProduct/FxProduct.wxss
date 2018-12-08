@@ -1,0 +1,125 @@
+/* components/FxProductComponent/FxProductComponent.wxss */
+
+.direction {
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-box {
+  position: relative;
+  border-radius: 8rpx;
+  overflow: hidden;
+  background-image: url("https://static.moebeast.com/image/static/null-product.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-bottom: 18rpx;
+}
+
+.sell-info {
+  position: absolute;
+  width: 62rpx;
+  height: 36rpx;
+  font-size: 20rpx;
+  border-radius: 5rpx;
+  color: white;
+  line-height: 36rpx;
+  text-align: center;
+  top: 15rpx;
+  left: 15rpx;
+  z-index: 1;
+}
+
+.sell-info image {
+  height: 100%;
+  width: 100%;
+}
+
+.material-quality {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.material-quality > view {
+  display: inline-block;
+}
+
+.material-quality .logistics {
+  height: 24rpx;
+  width: 40rpx;
+  border-radius: 5rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+  flex: 0 0 auto;
+}
+
+.material-quality-text {
+  flex: 1;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.material-quality-text::after {
+  content: " ";
+  line-height: 24rpx;
+  display: inline-block;
+  width: 0rpx;
+}
+
+.product-price {
+  line-height: 24rpx;
+}
+
+.old-price,
+.now-price {
+  font-size: 24rpx;
+  margin-right: 10rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #c2c2c2;
+}
+
+.like-number {
+  font-size: 22rpx;
+  font-weight: 300;
+  color: #999;
+}
+
+.product-photo {
+  border-radius: 8rpx;
+}
+
+.photo-min--sm {
+  height: 210rpx !important;
+  width: 210rpx !important;
+}
+
+.photo--sm {
+  height: 280rpx !important;
+  width: 280rpx !important;
+}
+
+.photo--middle {
+  height: 326rpx !important;
+  width: 326rpx !important;
+}
+
+.photo--big {
+  height: 690rpx !important;
+  width: 690rpx !important;
+}
+
+.photo--oblong {
+  height: 260rpx !important;
+  width: 325rpx !important;
+  border-radius: 8rpx;
+}

@@ -45,6 +45,11 @@ Page({
       this._endLoading()
       utils.logger(res.data, '热门活动列表')
       if (res.success) {
+        res.data.activity_list.map(item => {
+          item.product_name = utils.truncate(item.product_name, 24)
+          return item
+        })
+
         this.setData({
           activityList: res.data.activity_list
         })
@@ -116,7 +121,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      page: 1
+    })
+    this.getActivityList()
+    
+    wx.stopPullDownRefresh()
   },
 
   /**

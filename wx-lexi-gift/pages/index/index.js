@@ -17,8 +17,7 @@ Page({
     isLoading: true,
     showLoginModal: false, // 注册的呼出框
     showRuleModal: false, // 显示规则弹框
-
-    toView: 'G55930',
+    loaded: false, // 数据是否加载完毕
 
     // 当前登录用户信息
     isSmallB: false, // 是否为生活馆主
@@ -30,6 +29,8 @@ Page({
     idx: -1,
     days: [1, 2, 3],
     defaultPeopleCount: 50,
+    peopleFocus: false,
+    blessingFocus: false,
     form: {
       people_num: null,
       days: '',
@@ -115,14 +116,13 @@ Page({
         isLogin: app.globalData.isLogin
       })
     }
-
-    wx.showTabBar()
   },
 
   /**
    * 验证登录
    */
   handleValidateLogin(e) {
+    console.log(e)
     this._validateLoginStatus(e)
   },
 
@@ -150,7 +150,6 @@ Page({
    */
   handleSubmitActivity(e) {
     if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
       this.setData({
         showLoginModal: true
       })
@@ -216,18 +215,16 @@ Page({
    * 监听动画结束
    */
   handleTransitionend(e) {
-    console.log(e, 12)
     this.setData({
       animationIndex: this.data.animationIndex + 1,
       animationIndexTime: 2000
     })
     if (this.data.animationIndex == this.data.currentActivity.assets.length-3) {
       this.setData({
-        animationIndex: 0,
-        animationIndexTime: 0
+        animationIndexTime: 0,
+        animationIndex: 0
       })
     }
-
   },
 
   /**
@@ -286,6 +283,7 @@ Page({
         let _isExist = false
         if (_ca.length > 0 && res.data.surplus_count > 0) {
           _isExist = true
+          res.data.product_name = utils.truncate(res.data.product_name, 28)
         }
 
         res.data.assets[res.data.assets.length] = res.data.assets[1]
@@ -294,12 +292,13 @@ Page({
 
         this.setData({
           isExist: _isExist,
+          loaded: true,
           currentActivity: res.data
         })
+
         setTimeout(() => {
           this.handleTransitionend()
         }, 3000)
-
 
       } else {
         utils.logger(res.status.message, '获取当前活动出错')
@@ -351,9 +350,10 @@ Page({
   _validateLoginStatus() {
     // 是否登陆
     if (!app.globalData.isLogin) {
-      utils.handleHideTabBar()
       this.setData({
-        showLoginModal: true
+        showLoginModal: true,
+        peopleFocus: false,
+        blessingFocus: false
       })
 
       return
@@ -448,7 +448,7 @@ Page({
     this.setData({
       timer: setInterval(() => {
         that.getLastWinners()
-      }, 5000)
+      }, 3500)
     })
   },
 

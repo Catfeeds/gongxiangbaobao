@@ -12,12 +12,13 @@
   <view class="lottery-result">
     <view class="lottery-list" wx:if="{{ lotteryList.length > 0 }}">
       <view class="lottery-item" wx:for="{{ lotteryList }}" wx:for-item="activity" wx:key="{{ activity.activity_rid }}">
+        <image src="../../images/icon-got-prize@2x.png" class="icon-prize" wx:if="{{ activity.status == 1 }}"></image>
         <view class="lottery-item__head">
           <view class="date">{{ activity.created_at }}</view>
           <view class="status" wx:if="{{ activity.status == 4 }}">未开奖</view>
           <view class="status ended" wx:if="{{ activity.status == 2 }}">未中奖</view>
-          <view class="status hit" wx:if="{{ activity.status == 1 && activity.is_quit == 0 }}">
-            <image src="../../images/icon-gift02@2x.png" class="icon-gift"></image>中奖了
+          <view class="status hit {{ activity.is_receive ? 'received' : '' }}" wx:if="{{ activity.status == 1 && activity.is_quit == 0 }}">
+            <image src="../../images/icon-gift02@2x.png" class="icon-gift"></image>中奖了<text wx:if="{{ activity.is_receive }}">•已领取</text>
           </view>
           <view class="status hit" wx:if="{{ activity.status == 1 && activity.is_quit == 1 }}">
             <image src="../../images/icon-gift02@2x.png" class="icon-gift"></image>已放弃
@@ -46,13 +47,14 @@
             <view class="user-name">{{ activity.user_info.user_name }}</view>
             <view class="txt">送出</view>
           </view>
-          <button class="btn-got" bindtap="handleGoActivity" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 && activity.is_quit == 0 }}">立即领取</button>
+          <button class="btn-got" bindtap="handleGoActivity" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" wx:if="{{ activity.status == 4 }}">继续邀请</button>
+          <button class="btn-got" bindtap="handleGoGot" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" wx:if="{{ activity.status == 1 && activity.is_receive == 0 && activity.is_quit == 0 }}">立即领取</button>
         </view>
       </view>
     </view>
 
     <!-- 空列表 -->
-    <view class="lottery-list--empty" wx:if="{{ lotteryList.length == 0 }}">
+    <view class="lottery-list--empty" wx:if="{{ lotteryList.length == 0 && !moreLoading }}">
       <image src="../../images/icon-no-draw@2x.png" class="icon-empty"></image>
       <view class="description">还没有参与的抽奖</view>
     </view>

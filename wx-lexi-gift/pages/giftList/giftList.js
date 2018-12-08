@@ -62,8 +62,13 @@ Page({
       if (res.success) {
         let _list = this.data.giftList
 
+        res.data.user_list.map(item => {
+          item.product_name = utils.truncate(item.product_name, 15)
+          return item
+        })
+
         if (this.data.page > 1) {
-          _list = _list.push.apply(_list, res.data.user_list)
+          _list = _list.concat(res.data.user_list)
         } else {
           _list = res.data.user_list
           let _currentActivity = {}

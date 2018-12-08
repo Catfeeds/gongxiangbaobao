@@ -19,11 +19,12 @@ Page({
     userBtnText: '支付1元领取礼物',
 
     currentActivity: {},
-    isSmallB: false, // 是否为生活馆主
+    isUser: false, // 是否为普通用户
 
     hasAddress: false,
     currentAddress: {},
     pay_params: {},
+    order_rid: '',
     form: {
       rid: '',
       openid: '',
@@ -104,7 +105,7 @@ Page({
     let params = this.data.form
 
     // 普通用户领取，生成支付参数
-    if (!this.data.isSmallB) {
+    if (this.data.isUser) {
       params.sync_pay = 1
       params.auth_app_id = app.globalData.appId
     }
@@ -122,12 +123,11 @@ Page({
       if (res.success) {
         let _rid = this.data.rid
 
-        if (this.data.isSmallB) {
-          // 领取成功，跳转成功页面
-          wx.redirectTo({
-            url: '../pickSuccess/pickSuccess?rid=' + _rid,
+        if (this.data.isUser) {
+          this.setData({
+            order_rid: res.data.order_rid
           })
-        } else {
+
           // 没库存
           if (res.data.no_stock) {
             this.setData({
@@ -137,6 +137,11 @@ Page({
           } else {
             this._continuePay(_rid, res.data.pay_params)
           }
+        } else {
+          // 领取成功，跳转成功页面
+          wx.redirectTo({
+            url: '../pickSuccess/pickSuccess?rid=' + _rid,
+          })
         }
       } else {
         utils.fxShowToast(res.status.message)
@@ -154,6 +159,9 @@ Page({
         wx.redirectTo({
           url: '../pickSuccess/pickSuccess?rid=' + rid,
         })
+      } else {
+        // 支付失败或取消支付，直接删除
+        app.deleteInvalidOrder(this.data.order_rid)
       }
     })
   },
@@ -188,7 +196,8 @@ Page({
       utils.logger(res.data, '获取当前活动')
       if (res.success) {
         this.setData({
-          currentActivity: res.data
+          currentActivity: res.data,
+          isUser: res.data.user_kind == 3 ? true : false 
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -204,8 +213,7 @@ Page({
     this.setData({
       rid: rid,
       'form.rid': rid,
-      'form.openid': app.globalData.jwt.openid,
-      isSmallB: app.globalData.jwt.is_small_b ? true : false
+      'form.openid': app.globalData.jwt.openid
     })
     
     this.getActivity()
@@ -272,6 +280,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    app.shareWxaGift()
   }
+
 })

@@ -25,6 +25,23 @@
   position: relative;
 }
 
+.gift-product .product-box .gift-count {
+  position: absolute;
+  top: 30rpx;
+  left: 30rpx;
+  z-index: 9;
+  width: 120rpx;
+  height: 30rpx;
+  background: rgba(255, 102, 102, 1);
+  border-top-left-radius: 4rpx;
+  border-bottom-right-radius: 4rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  line-height: 30rpx;
+  padding-left: 8rpx;
+}
+
 .gift-product .product-box .cover {
   flex: 0 0 auto;
   width: 170rpx;
@@ -173,6 +190,7 @@
   font-weight: 400;
   color: #333;
   line-height: 30rpx;
+  height: 120rpx;
 }
 
 .gift-setting .form-days .picker.pholder {
@@ -187,6 +205,7 @@
 .gift-setting .form-days .picker {
   display: flex;
   align-items: center;
+  height: 120rpx;
 }
 
 .gift-setting .form-days .picker .days-number {

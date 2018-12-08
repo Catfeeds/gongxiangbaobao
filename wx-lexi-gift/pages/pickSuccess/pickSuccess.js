@@ -95,11 +95,17 @@ Page({
     // scene格式：rid
     let scene = activity_rid
 
+    let path = 'pages/lottery/lottery'
+    // 根据发起者类型，打开不同的路径
+    if (this.data.currentActivity.user_kind == 3) {
+      path = 'pages/myLottery/myLottery'
+    }
+
     let params = {
       rid: rid,
       activity_rid: activity_rid,
       type: 2,
-      path: 'pages/lottery/lottery',
+      path: path,
       scene: scene,
       auth_app_id: app.globalData.appId
     }
@@ -252,9 +258,17 @@ Page({
     // scene格式：rid
     let scene = this.data.rid
     
+    let title = '我刚刚在乐喜成功领取了一份礼物，你也来拿一个。'
+
+    let path = 'pages/lottery/lottery'
+    // 根据发起者类型，打开不同的路径
+    if (this.data.currentActivity.user_kind == 3) {
+      path = 'pages/myLottery/myLottery'
+    }
+
     return {
-      title: this.data.currentActivity.blessing,
-      path: 'pages/lottery/lottery?scene=' + scene,
+      title: title,
+      path: path + '?scene=' + scene,
       imageUrl: this.data.cardUrl,
       success: (res) => {
         utils.logger(res, '分享成功!')

@@ -17,6 +17,7 @@ Page({
     showRuleModal: false,
     showLoginModal: false, // 注册的呼出框
     userInfo: {},
+    isSmallB: false, // 当前登录用户是否为生活馆主
     isSelf: false, // 验证用户是否为发起人
     percent: 0.01, // 完成百分比 
     timer: null,
@@ -32,6 +33,8 @@ Page({
     users: [],
     joinStatus: false, // 是否参与活动
     userStatus: {}, // 用户的活动状态
+    canJoin: false, // 是否能参与
+    
     products: [], // 热门商品
 
     showShareModal: false, // 分享模态框
@@ -40,6 +43,9 @@ Page({
     posterUrl: '', // 海报图url
     posterSaving: false, // 是否正在保存
     posterBtnText: '保存分享',
+
+    // 生活馆主、普通用户文案区别
+    btnGiveText: '我也要送礼',
 
     // 最近获奖者
     winnerTimer: null,
@@ -118,8 +124,6 @@ Page({
       // 登录后更新数据
       this._updateUserInfo()
     }
-
-    wx.showTabBar()
   },
 
   /**
@@ -219,6 +223,9 @@ Page({
       if (res.success) {
         let _users = res.data.user_list
         this.setData({
+          canJoin: res.data.can_join,
+          joinStatus: res.data.is_join,
+          userStatus: res.data,
           'currentActivity.people_count': res.data.people_count,
           'currentActivity.surplus_count': res.data.surplus_count,
           users: _users,
@@ -471,9 +478,21 @@ Page({
    * 更新当前用户信息
    */
   _updateUserInfo() {
+    let isSmallB = false
+
+    const jwt = app.globalData.jwt
+    let _btnText = this.data.btnGiveText
+    if (jwt.is_small_b) {
+      isSmallB = true
+    } else {
+      _btnText = '我也要拿礼物'
+    }
+
     this.setData({
       isLogin: app.globalData.isLogin,
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      isSmallB: isSmallB,
+      btnGiveText: _btnText
     })
 
     this._validateUserType()
@@ -599,8 +618,11 @@ Page({
     // scene格式：rid
     let scene = this.data.rid
 
+    let name = this.data.currentActivity.owner_user.user_name
+    let title = '「有人@我」' + name + '只差你一个人帮助，就能1元拿礼物了'
+
     return {
-      title: this.data.currentActivity.blessing,
+      title: title,
       path: 'pages/myLottery/myLottery?scene=' + scene,
       imageUrl: this.data.cardUrl,
       success: (res) => {

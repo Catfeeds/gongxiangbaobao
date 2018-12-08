@@ -237,8 +237,20 @@ App({
             title: '已取消支付',
           })
         }
-        
+
         return typeof cb == 'function' && cb(false)
+      }
+    })
+  },
+
+  /**
+   * 删除失效订单
+   */
+  deleteInvalidOrder(rid) {
+    http.fxPost(api.gift_order_delete, { order_rid: rid }, (res) => {
+      utils.logger(res, '删除失效订单')
+      if (!res.success) {
+        utils.logger(res.status.message, '删除失效订单')
       }
     })
   },
@@ -286,9 +298,14 @@ App({
 
     // scene格式：sid + '-' + uid
     let scene = jwt.uid
+
+    let title = '邀你一起来拿一个神秘礼物，点击查看'
+    if (this.globalData.isLogin) {
+      title = this.globalData.userInfo.username + '让你一起来拿一个神秘礼物，点击查看'
+    }
     
     return {
-      title: '让有趣变得流行',
+      title: title,
       path: 'pages/index/index?scene=' + scene,
       imageUrl: "https://static.moebeast.com/static/img/gift-card@2x.jpg",
       success: (res) => {

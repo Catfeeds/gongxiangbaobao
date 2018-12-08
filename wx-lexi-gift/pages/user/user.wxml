@@ -93,6 +93,18 @@
     </navigator>
   </view>
 
+  <!-- 扩展选项 -->
+  <view class="fx-links">
+    <view class="fx-link" bindtap="handleGoActivityList">
+      <image src="../../images/icon-gift-box@2x.png" class="icon-gift"></image>
+      <view class="label">更多抽奖</view>
+      <view class="done">
+        <view class="go">去参与</view> 
+        <image src="../../images/icon-arrow@2x.png" class="icon-arrow"></image>
+      </view>
+    </view>
+  </view>
+
   <!-- 乐喜生活馆公众号 -->
   <fx-image-modal visible="{{ showQrcodeModal }}" close="{{ false }}">
     <image src="https://s3.lexivip.com/static/img/lexi-lifestore@3x.png" class="lifestore-qrcode"></image>
