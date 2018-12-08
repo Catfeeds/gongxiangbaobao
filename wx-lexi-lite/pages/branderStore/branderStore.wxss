@@ -377,6 +377,7 @@
   border-radius: 8rpx;
   color: white;
   font-size: 28rpx;
+  line-height: 80rpx;
 }
 
 .brand-store__qualification {
