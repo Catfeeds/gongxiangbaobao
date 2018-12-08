@@ -15,6 +15,7 @@ Page({
    */
   data: {
     animationNum: 0, // 首页选品中心的动画
+    aplayStoreAnimationIndex: 0, // 开馆指引的动画
 
     page: 1,
     perPage: 10,
@@ -104,6 +105,10 @@ Page({
     showConfirmModal: false, // 删除上架商品确认
     latestDistributeProducts: [], // 最新分销商品
     isDistributed: false, // 是否属于分销
+    handpickNewExpress: {
+      products: [],
+      count: 0
+    }, // 新品速递
     popularProducts: [ // 本周最受欢迎
       {
         cover: '',
@@ -1239,8 +1244,7 @@ Page({
   handleCopyWXCode() {
     wx.setClipboardData({
       data: 'lexixiaoduo',
-      success(res) {
-      }
+      success(res) {}
     })
   },
 
@@ -1395,6 +1399,25 @@ Page({
     wx.navigateTo({
       url: '/games/pages/guessGame/guessGame',
     })
+  },
+
+  // 监听动画结束
+  handleAnimationend() {
+
+
+    setInterval(() => {
+
+      this.setData({
+        aplayStoreAnimationIndex: this.data.aplayStoreAnimationIndex + 1
+      })
+
+      if (this.data.aplayStoreAnimationIndex == 47) {
+        this.setData({
+          aplayStoreAnimationIndex: 0
+        })
+      }
+
+    }, 3000)
   },
 
   // 精选的中间广告banners_handpick_content  handerAdvertisementList
@@ -1568,34 +1591,36 @@ Page({
       type: 2
     }, (res) => {
       utils.logger(res, '生活馆头条')
+      console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
-        let newData = []
 
         res.data.headlines.forEach((v, i) => {
-
-          if (v.time_info) {
-            v.time = v.time + v.time_info
-          } else {
-            v.time = v.time + '小时'
+          if (v.event == 1) {
+            v.text = v.username + v.time + v.time_info + '开通了生活馆'
+          }
+          if (v.event == 2) {
+            v.text = v.username + v.time + v.time_info + '售出' + v.quantity + '单，成为正式馆主'
+          }
+          if (v.event == 3) {
+            v.text = v.username + v.time + v.time_info + '售出' + v.quantity + '单'
+          }
+          if (v.event == 4) {
+            v.text = v.username + '售出' + v.quantity + '单'
+          }
+          // 随机颜色
+          let num = Math.ceil(Math.random() * 5)
+          if (i % num == 0) {
+            v.color = true
           }
 
-          if (v.username != null && v.username - 0 != NaN && v.username.length > 9) {
-            v.username = v.username.substr(0, 3) + '****' + v.username.substr(7, 4)
-          }
-
-          let newObj = []
-          if ((i + 1) % 2 == 0) {
-            newObj.push(v)
-            newObj.push(res.data.headlines[i - 1])
-            newData.push(newObj)
-          }
         })
 
         // 暂时展示2条
         this.setData({
-          storeHeadlines: newData
+          storeHeadlines: res.data.headlines
         })
+        this.handleAnimationend()
       } else {
         utils.fxShowToast(res.status.message)
       }
@@ -1731,6 +1756,22 @@ Page({
     }
   },
 
+  //新品速递
+  getHandpickNewExpress() {
+    http.fxGet(api.handpick_new_express, {}, result => {
+      console.log(result, 'xinpinsudi')
+      if (result.success) {
+
+        this.setData({
+          handpickNewExpress: result.data
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+
   // 加载探索页数据
   _loadingExplorePage() {
     this.getExploreAdvertisement() // 广告位
@@ -1761,6 +1802,7 @@ Page({
     this.getLifeStore() // 生活馆信息
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
+    this.getHandpickNewExpress() // 新品速递
   },
 
   // 验证是否存在生活馆

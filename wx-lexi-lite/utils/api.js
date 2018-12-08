@@ -144,6 +144,7 @@ module.exports = {
   products_free_postage: 'products/free_postage', // 包邮专区
   products_basic:'products/basic', // 产品详情的第一屏信息
   products_detail:'products/detail', // 产品详情
+  handpick_new_express:'column/handpick_new_express', // 新品速递
 
   // 核心 product
   banners_rid: 'banners/:rid', // 特色品牌馆广告列表
