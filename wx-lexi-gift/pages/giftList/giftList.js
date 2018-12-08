@@ -63,7 +63,7 @@ Page({
         let _list = this.data.giftList
 
         res.data.user_list.map(item => {
-          item.product_name = utils.truncate(item.product_name, 15)
+          item.product_name = utils.truncate(item.product_name, 25)
           return item
         })
 

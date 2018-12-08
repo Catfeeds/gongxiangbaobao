@@ -293,13 +293,14 @@ page {
 }
 
 .lottery-list .lottery-item .lottery-item__body .product-info .progress .reach-count {
-  width: 136rpx;
+  width: auto;
   height: 36rpx;
   background: rgba(255, 239, 239, 1);
   border-radius: 2rpx;
   font-size: 24rpx;
   font-weight: 500;
-  padding-left: 5rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
   color: rgba(255, 102, 102, 1);
   line-height: 36rpx;
   margin-right: 20rpx;

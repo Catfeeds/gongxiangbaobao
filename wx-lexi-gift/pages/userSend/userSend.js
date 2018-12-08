@@ -60,6 +60,10 @@ Page({
    * 获取参与的活动列表
    */
   getActivityList() {
+    if (!app.globalData.isLogin) {
+      return
+    }
+    
     this._startLoading()
     http.fxGet(api.gift_sended, {
       page: this.data.page,

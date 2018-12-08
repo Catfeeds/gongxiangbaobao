@@ -498,7 +498,9 @@ Page({
     this._validateUserType()
 
     // 获取当前用户活动状态
-    this.getUserActivityStatus()
+    if (app.globalData.isLogin) {
+      this.getUserActivityStatus()
+    }
   },
 
   /**

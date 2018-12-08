@@ -24,8 +24,7 @@
         <view class="name">{{ currentActivity.product_name }}</view>
         <view class="price">
           <text class="sale-price">￥1</text>
-          <text class="old-price" wx:if="{{ currentActivity.sale_price > 0 }}">￥{{ currentActivity.sale_price }}</text>
-          <text class="old-price" wx:else>￥{{ currentActivity.price }}</text>
+          <text class="old-price">￥{{ currentActivity.price }}</text>
         </view>
       </view>
 

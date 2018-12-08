@@ -48,7 +48,7 @@
     </form>
 
     <!-- 不能参与 -->
-    <view class="partake-success-wrapper" wx:if="{{ !userStatus.is_join && !canJoin }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && !userStatus.is_join && !canJoin }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">你已连续参与三个抽奖</view>
@@ -60,7 +60,7 @@
     </view>
 
     <!-- 发起者参与成功 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && isSelf }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && currentActivity.status == 2 && isSelf }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">等待好友助力</view>
@@ -72,7 +72,7 @@
     </view>
 
     <!-- 参与成功 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && !isSelf && joinStatus }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && currentActivity.status == 2 && !isSelf && joinStatus }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">助力成功</view>
@@ -84,7 +84,7 @@
     </view>
 
     <!-- 中奖 -->
-    <view class="partake-prize" wx:if="{{ currentActivity.status == 3 }}">
+    <view class="partake-prize" wx:if="{{ isLogin && currentActivity.status == 3 }}">
       <image src="../../images/icon-chai@2x.png" class="icon-lucky"></image>
       <view class="discription" wx:if="{{ !isSelf }}">恭喜{{ currentActivity.owner_user.user_name }}邀请
         <text class="red">{{ currentActivity.people_count }}位</text> 好友助力成功</view>
@@ -95,7 +95,7 @@
     </view>
 
     <!-- 活动失效 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 4 }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && currentActivity.status == 4 }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">活动已失效</view>
@@ -120,11 +120,10 @@
       {{ currentActivity.product.product_name }}
     </view>
 
-    <view class="progress-desc" wx:if="{{ !isLogin }}">
-      <view class="need-count">已参与
-        <text class="count">{{ currentActivity.people_count }}</text> 人
+    <view class="people-progress" wx:if="{{ !isLogin }}">
+      <view class="progress-bg">
+        <view class="progress-show" style="width: {{ percent }}%;"></view>
       </view>
-      <view class="surplus-count"></view>
     </view>
     
     <view class="people-progress" wx:if="{{ isSelf }}">
@@ -167,7 +166,6 @@
         </view>
       </view>
     </view>
-
 
     <view class="join-tips" wx:if="{{ currentActivity.status == 2 }}">活动倒计时结束即开奖</view>
   </view>

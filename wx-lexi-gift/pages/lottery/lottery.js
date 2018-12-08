@@ -398,7 +398,7 @@ Page({
       if (res.success) {
         this.setData({
           currentActivity: res.data,
-          storeRid: res.data.owner_store ? res.data.owner_store.store_rid : ''
+          storeRid: res.data.owner_store.store_rid ? res.data.owner_store.store_rid : ''
         }, () => {
           this.practiceLeftTimer()
 
@@ -426,6 +426,11 @@ Page({
    * 获取生活馆商品
    */
   getDistributeProducts() {
+    // 店铺不存在
+    if (!this.data.storeRid) {
+      return
+    }
+
     let params = {
       page: this.data.storePage,
       per_page: 10,
@@ -604,7 +609,9 @@ Page({
     this._validateUserType()
 
     // 获取当前用户活动状态
-    this.getUserActivityStatus()
+    if (app.globalData.isLogin) {
+      this.getUserActivityStatus()
+    }
   },
 
   /**
