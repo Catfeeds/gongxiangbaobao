@@ -50,6 +50,7 @@ Page({
     let title = this.data.windowParams.title // 标题
     let description = this.data.windowParams.description
     let labelLength = this.data.windowParams.keywords.length
+
     if (pickPhotoAddPickCategory && title && description) {
       this.setData({
         isPublish: true
@@ -133,10 +134,6 @@ Page({
       utils.fxShowToast("不能重复发布!")
       return
     }
-    this.setData({
-      isSubmit: true
-    })
-
 
     // 去除多余的图片
     let publishParams = this.data.windowParams.product_items
@@ -145,6 +142,18 @@ Page({
         'windowParams.product_items': publishParams.splice(0, this.data.toggleCode)
       })
     }
+
+    let publishParamsList = this.data.windowParams.product_items
+    for (let i = 0; i < publishParamsList.length; i++) {
+      if (publishParamsList[i] == undefined || !publishParamsList[i].rid) {
+        utils.fxShowToast('图片不完整')
+        return
+      }
+    }
+
+    this.setData({
+      isSubmit: true
+    })
 
     http.fxPost(api.shop_windows, this.data.windowParams, result => {
       {
