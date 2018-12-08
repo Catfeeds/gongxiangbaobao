@@ -6,11 +6,11 @@
       <view class="shadow"></view>
       <view class="barrage-blocks--container">
         <view wx:if="{{index<30}}" wx:for="{{barrageAnimation}}" wx:key="{{barrage.rid}}" class="barrage-blocks" wx:for-item="barrage">
-          <image class="barrage-blocks--img" src="{{barrage.avatar}}"/>
-            <text class="barrage-blocks--p">
+          <image class="barrage-blocks--img" src="{{barrage.avatar}}" />
+          <text class="barrage-blocks--p">
               <text class="barrage-blocks--span">{{barrage.username}}</text>
-            <text>{{barrage.detail}} </text>
-            </text>
+          <text>{{barrage.detail}} </text>
+          </text>
         </view>
       </view>
     </view>
@@ -109,7 +109,7 @@
     <view class="section store-income">
       <view class="heise-title">成为生活馆主，轻松赚取收入</view>
       <view class="huise-description">你分享、推荐的原创商品售卖后，即可获得相应商品的收益。</view>
-      <image class="store-owner__photo"  src="https://kg.erp.taihuoniao.com/image/static/life-store-income@2.png" />
+      <image class="store-owner__photo" src="https://kg.erp.taihuoniao.com/image/static/life-store-income@2.png" />
     </view>
 
     <view class="section store-service">
@@ -146,4 +146,7 @@
       </view>
     </view>
   </view>
+
+  <!-- 登陆注册模态框 -->
+  <fx-login visible="{{ is_mobile }}" bind:closeEvent="handleCloseLogin"></fx-login>
 </view>

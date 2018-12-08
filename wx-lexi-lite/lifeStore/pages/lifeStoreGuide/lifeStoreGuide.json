@@ -1,3 +1,8 @@
 {
-  "navigationBarTitleText": "开馆指引"
+  "navigationBarTitleText": "开馆指引",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-login": "/components/FxLogin/FxLogin"
+  }
 }
