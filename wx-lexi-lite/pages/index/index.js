@@ -310,7 +310,7 @@ Page({
         rid: 'p1',
         name: 'lifeStore',
         title: '生活馆',
-        disabled: true,
+        disabled: false,
         pageScroll: 0
       },
       {

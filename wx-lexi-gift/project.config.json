@@ -94,9 +94,9 @@
 				},
 				{
 					"id": 9,
-					"name": "参与",
-					"pathName": "pages/myLottery/myLottery",
-					"query": "rid=Y18120880973"
+					"name": "参与（普通用户）",
+					"pathName": "pages/lottery/lottery",
+					"query": "rid=Y18120801856"
 				},
 				{
 					"id": -1,

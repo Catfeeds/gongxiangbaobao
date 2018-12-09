@@ -413,7 +413,7 @@
 
 .gift-peoples .count-down .line {
   flex: 0 0 auto;
-  width: 125rpx;
+  width: 105rpx;
   height: 2rpx;
   background-color: #e9e9e9;
 }
@@ -427,7 +427,7 @@
 }
 
 .gift-peoples .count-down.has-days .line {
-  width: 70rpx;
+  width: 50rpx;
 }
 
 .gift-peoples .count-down .timer {

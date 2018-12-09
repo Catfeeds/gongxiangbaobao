@@ -328,7 +328,7 @@ Page({
         })
 
         if (this.data.page > 1) {
-          _peoples = _peoples.push.apply(_peoples, res.data.friend_list)
+          _peoples = _peoples.concat(res.data.friend_list)
         } else {
           _peoples = res.data.friend_list
         }

@@ -34,8 +34,10 @@ Page({
     users: [],
     userWin: {}, // 中奖的用户
     joinStatus: false, // 是否参与活动
-    userStatus: {}, // 用户的活动状态
-    canJoin: false, // 是否能参与
+    userStatus: { // 用户的活动状态
+      is_join: false,
+    },
+    canJoin: true, // 是否能参与
 
     storePage: 1,
     storeProducts: [], // 生活馆商品列表
@@ -228,8 +230,11 @@ Page({
     }, (res) => {
       utils.logger(res, '参与抽奖')
       if (res.success) {
-        let _users = res.data.user_list
 
+        // 显示提示信息
+        utils.fxShowToast('参与成功')
+
+        let _users = res.data.user_list
         this.setData({
           canJoin: res.data.can_join,
           joinStatus: res.data.is_join,
@@ -592,12 +597,14 @@ Page({
     let isSmallB = false
 
     const jwt = app.globalData.jwt
-    let _btnText = this.data.btnGiveText
+    let _btnText = '我也要送礼'
     if (jwt.is_small_b) {
       isSmallB = true
     } else {
       _btnText = '我也要拿礼物'
     }
+
+    utils.logger(jwt, '登录后回调')
 
     this.setData({
       isLogin: app.globalData.isLogin,

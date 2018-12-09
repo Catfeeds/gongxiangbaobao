@@ -14,8 +14,12 @@
   </view>
 
   <view class="gift-banner">
-    <navigator target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+    <navigator target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="lifeStore/pages/lifeStoreGuide/lifeStoreGuide" extra-data="lexi-gift" version="release" wx:if="{{ !isSmallB }}">
       <image src="https://s3.lexivip.com/static/img/user-head@2x.jpg" class="head-banner"></image>
+    </navigator>
+    <!-- 当前登录用户为生活馆 -->
+    <navigator target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="games/pages/guessGame/guessGame" extra-data="lexi-gift" version="release" wx:if="{{ isSmallB }}">
+      <image src="https://static.moebeast.com/static/img/gift-guess-head@2x.jpeg" class="head-banner"></image>
     </navigator>
     <form bindsubmit="handleFormNotice" report-submit="{{ true }}" class="form-getid">
       <button class="btn-rule" formType="submit">活动规则</button>
@@ -29,7 +33,7 @@
       <view class="user-info">
         <view class="name">{{ currentActivity.owner_user.user_name }}</view>
       </view>
-      <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+      <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="lifeStore/pages/lifeStoreGuide/lifeStoreGuide" extra-data="lexi-gift" version="release" wx:if="{{ !isSmallB }}">
         <button class="btn-go-store">开通生活馆</button>
       </navigator>
     </view>
@@ -184,7 +188,7 @@
         <text class="count">{{ leftTimer.minutes }}</text>
         <text class="label">分</text>
         <text class="count">{{ leftTimer.seconds }}</text>
-        <text class="label">秒</text>
+        <text class="label">秒开奖</text>
       </view>
       <view class="line right"></view>
     </view>

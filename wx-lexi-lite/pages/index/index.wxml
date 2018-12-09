@@ -12,7 +12,7 @@
   <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
   <view class='fx-tabs  navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
-    <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory" wx:if="{{ !pageTab.disabled }}">
+    <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory">
       <text>{{ pageTab.title }}</text>
     </view>
   </view>
