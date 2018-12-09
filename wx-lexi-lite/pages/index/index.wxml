@@ -18,197 +18,257 @@
   </view>
 
   <!-- 生活馆  -->
-  <view class="bg-white page-lifestore {{ pageActiveTab == 'lifeStore' ? 'active' : '' }}">
-    <!-- 用户的信息和店铺的信息 -->
-    <view class='owner-info_box'>
-      <view class=' flex_row'>
-        <!-- 店主信息 -->
-        <view class='owner-avatar_box'>
-          <image src="{{ lifeStore.logo + '-ava' }}" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:if="{{ lifeStore.logo }}" class="avatar"></image>
-          <image src="../../images/avatar.png" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:else class="avatar"></image>
-          <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" wx:if="{{ canAdmin }}"></image>
-          <!-- 进度条 -->
-          <view class="upload-status__box" wx:if="{{ isUploading }}">
-            <view class="progress" style="width:{{ uploadStatus }}%"></view>
+  <view class=" page-lifestore {{ pageActiveTab == 'lifeStore' ? 'active' : '' }}">
+    <view class="bg_hui--se">
+      <view class="aplay-store__box">
+        <image class="aplay-store__photo--top" src="https://static.moebeast.com/image/static/header_background_2x.png"></image>
+
+        <view class="aplay-store__guide--box" catchtap="handleApplyLifeStore">
+          <image class="aplay-store__icon" src="https://static.moebeast.com/image/static/open_store-headline.png"></image>
+          <view class="aplay-store__left">
+            <view class="aplay-store__text">做自己热爱的事 顺便赚取收入</view>
+            <view>
+              <button>我要开馆</button>
+            </view>
+          </view>
+
+          <view class="aplay-store__right">
+            <view class="aplay-store__right--item {{item.color?'blue-bg__box':''}} {{aplayStoreAnimationIndex==index?'animation-one':''}}{{aplayStoreAnimationIndex==index+1?'animation-two':''}} {{aplayStoreAnimationIndex==index+2?'animation-three':''}}" wx:for="{{storeHeadlines}}"
+              wx:key="{{inidex}}">
+              <image src="{{item.avatar}}"></image>
+              <text>{{item.text}}</text>
+            </view>
           </view>
         </view>
 
-        <view class="fx-column-start owner-info-text_info" bindtap="{{canAdmin?'handleEditStore':''}}">
-          <view class="store-title">
-            <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
-            <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
-            <image src='../../images/icon-edit@2x.png' class="icon-edit" bindtap="handleEditStore" wx:if="{{ canAdmin }}"></image>
+        <view class="aplay-store__photo--bottom">
+          <view class="aplay-store__bottom--item">
+            <image src="https://static.moebeast.com/image/static/wechat_send_gift.png"></image>
+            <view class="text-top">微信送礼</view>
+            <view class="text-bottom">花一元拿礼物</view>
           </view>
-          <view class='font-s qian-hui'>
-            <text wx:if="{{ lifeStore.description }}">{{ lifeStore.description }}</text>
-            <text wx:else>欢迎来到我的乐喜生活馆，我准备了一些独特好设计供你挑选</text>
+          <view class="aplay-store__bottom--item" catchtap="handleGuessGame" wx:if="{{ runEnv == 2 }}">
+            <image src="https://static.moebeast.com/image/static/guess_win_cash.png"></image>
+            <view class="text-top">猜图赢现金</view>
+            <view class="text-bottom">随时可提现</view>
+          </view>
+          <view class="aplay-store__bottom--item">
+            <image src="https://static.moebeast.com/image/static/invite_friend_open_store.png"></image>
+            <view class="text-top">邀请好友开馆</view>
+            <view class="text-bottom">组队领现金</view>
           </view>
         </view>
       </view>
 
-      <!-- 浏览过的人数 -->
-      <view class='joinNumber height--120rpx' wx:if="{{ shopInfo.count > 0 }}">
-        <view class='theme-hui-color'>
-          生活馆被浏览过
-          <text class='theme-color'>{{ shopInfo.browse_number }}</text> 次</view>
-        <view class='joinNumberBottom'>
-          <view class='joinNumberl'>
-            <view class='joinNumberlBox'>
-              <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
-                <image src='{{ item.avatar }}-ava' wx:if="{{ item.avatar }}"></image>
-              </view>
-
-            </view>
-          </view>
-          <view class='browse-number-box fx-broadwise-e'>
-            <view class='joinNumberR'>
-              {{ shopInfo.count > 999 ? '999+' : shopInfo.count }}
-            </view>
+      <!-- 新品速递 {{themeProduct.designs}} -->
+      <view class=' border-bottom min-height--400 margin-bottom--20rpx' wx:if="{{handpickNewExpress.count!=0}}">
+        <view class='c-importantGoodsTitle time-top font-xl category__title padding-top--40rpx' data-from="highQualityList">
+          <text class="label">新品速递</text>
+          <view class='hui-zi-m flex_row'>
+            <text>查看全部</text>
+            <text class='fx-icon-nothing-right'></text>
           </view>
         </view>
+        <scroll-view scroll-x class='best-products c-importantGoodsBox margin-top--34rpx recommend-product-box '>
+          <view class='c-importantGoodsPhoto {{index==0?"padding-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{handpickNewExpress.products}}" wx:key="{{index}}">
+            <fx-product product="{{item}}" photo="{{2}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
+          </view>
+        </scroll-view>
       </view>
     </view>
 
-    <!-- 实习馆长 -->
-    <block wx:if="{{isCadet}}">
-      <view class="probation-box font-ss probation-box__white" wx:if="{{ canAdmin }}">
-        <view class='time-top'>
-          <view class='time-top '>
-            <view class='probation-icon c-middle '>实习</view>
-            <view class='shen-hui'>当前为实习馆主</view>
-          </view>
-          <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
-        </view>
-        <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
-        </view>
-      </view>
-    </block>
-
-    <!-- 刚开通了生活馆 -->
     <block wx:if="{{}}">
-      <view class="probation-box probation-box__white" wx:if="{{ canAdmin }}">
-        <view class='time-top'>
-          <view class='time-top '>
-            <image src="../../images/zhuhe-icon.png" class="zhuhe-icon"></image>
-            <view class='gongxi-title__text font-m'>恭喜你拥有了生活馆</view>
+      <!-- 用户的信息和店铺的信息 -->
+      <view class='owner-info_box'>
+        <view class=' flex_row'>
+          <!-- 店主信息 -->
+          <view class='owner-avatar_box'>
+            <image src="{{ lifeStore.logo + '-ava' }}" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:if="{{ lifeStore.logo }}" class="avatar"></image>
+            <image src="../../images/avatar.png" bindtap="{{canAdmin?'handleChangeLogo':''}}" wx:else class="avatar"></image>
+            <image src='../../images/huanzhaopian@2.png' class='owner-info_icon--style owner-info_camera_icon' bindtap="handleChangeLogo" wx:if="{{ canAdmin }}"></image>
+            <!-- 进度条 -->
+            <view class="upload-status__box" wx:if="{{ isUploading }}">
+              <view class="progress" style="width:{{ uploadStatus }}%"></view>
+            </view>
           </view>
-          <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
-        </view>
-        <view class='probation-success-text font-s'>如何快速成交订单获取攻略，请搜索关注乐喜官网公众号， 添加乐喜辅导员微信，加入生活馆店主群。
+
+          <view class="fx-column-start owner-info-text_info" bindtap="{{canAdmin?'handleEditStore':''}}">
+            <view class="store-title">
+              <image src='../../images/shixicon@2.png' class='owner-info_icon--style'></image>
+              <text class='font-sxl'>{{ lifeStore.name }}的生活馆</text>
+              <image src='../../images/icon-edit@2x.png' class="icon-edit" bindtap="handleEditStore" wx:if="{{ canAdmin }}"></image>
+            </view>
+            <view class='font-s qian-hui'>
+              <text wx:if="{{ lifeStore.description }}">{{ lifeStore.description }}</text>
+              <text wx:else>欢迎来到我的乐喜生活馆，我准备了一些独特好设计供你挑选</text>
+            </view>
+          </view>
         </view>
 
-        <view class="copy-wx__number" catchtap="handleCopyWXCode">复制微信号</view>
+        <!-- 浏览过的人数 -->
+        <view class='joinNumber height--120rpx' wx:if="{{ shopInfo.count > 0 }}">
+          <view class='theme-hui-color'>
+            生活馆被浏览过
+            <text class='theme-color'>{{ shopInfo.browse_number }}</text> 次</view>
+          <view class='joinNumberBottom'>
+            <view class='joinNumberl'>
+              <view class='joinNumberlBox'>
+                <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
+                  <image src='{{ item.avatar }}-ava' wx:if="{{ item.avatar }}"></image>
+                </view>
+
+              </view>
+            </view>
+            <view class='browse-number-box fx-broadwise-e'>
+              <view class='joinNumberR'>
+                {{ shopInfo.count > 999 ? '999+' : shopInfo.count }}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 实习馆长 -->
+      <block wx:if="{{isCadet}}">
+        <view class="probation-box font-ss probation-box__white" wx:if="{{ canAdmin }}">
+          <view class='time-top'>
+            <view class='time-top '>
+              <view class='probation-icon c-middle '>实习</view>
+              <view class='shen-hui'>当前为实习馆主</view>
+            </view>
+            <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
+          </view>
+          <view class='probation-success-text'>成功在30天内销售3笔订单即可成为正式的达人馆主哦，如一个月内未达标准生活馆将被关闭，如重新申请需单独联系乐喜辅导员 申请。
+          </view>
+        </view>
+      </block>
+
+      <!-- 刚开通了生活馆 -->
+      <block wx:if="{{}}">
+        <view class="probation-box probation-box__white" wx:if="{{ canAdmin }}">
+          <view class='time-top'>
+            <view class='time-top '>
+              <image src="../../images/zhuhe-icon.png" class="zhuhe-icon"></image>
+              <view class='gongxi-title__text font-m'>恭喜你拥有了生活馆</view>
+            </view>
+            <image catchtap="handleOffCadet" src="../../images/icon-close-bold@3x.png" class='off-icon--style qian-hui font-s'></image>
+          </view>
+          <view class='probation-success-text font-s'>如何快速成交订单获取攻略，请搜索关注乐喜官网公众号， 添加乐喜辅导员微信，加入生活馆店主群。
+          </view>
+
+          <view class="copy-wx__number" catchtap="handleCopyWXCode">复制微信号</view>
+        </view>
+      </block>
+
+      <!-- 选品中心 -->
+      <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
+        <view class="swiper-false">
+          <image wx:for="{{latestDistributeProducts}}" wx:key="{{index}}" class="{{index==animationNum?'one-animation__index':''}} {{index+1==animationNum?'two-animation__index':''}} {{index+2==animationNum?'three-animation__index':''}}  {{index+3==animationNum?'four-animation__index':''}} "
+            src="{{item.cover}}-p16" wx:if="{{item.cover}}"></image>
+        </view>
+
+        <view class='font-s'>
+          <view>挑选乐喜优质商品上架</view>
+          <view>品位生活，由此开启</view>
+        </view>
+        <view class='font-m flex_row'>
+          <text>选品中心</text>
+          <image class="right-jian__bai" src="../../images/right-jian-bai.png"></image>
+        </view>
+      </view>
+
+      <!-- 商品展示区域 -->
+      <view class='theme-bg-color recommend-product-box'>
+
+        <!-- 缺省 -->
+        <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ isEmpty }}">
+          <view class='no-sell-product_icon_box'>
+            <image src='../../images/no-sell-product@2.png'></image>
+          </view>
+          <view>当前生活馆还没有上架商品</view>
+          <view>你可以通过精选和探索挑选喜欢的好物</view>
+        </view>
+
+        <view class='tuijian border-bottom padding-bottom--20rpx {{ idx == 0 ?"padding-top--40rpx" : "" }} {{ idx == storeProducts.length - 1 ? "margin-bottom--0rpx" : "" }}' wx:if="{{ !isEmpty }}" wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="distributeProduct"
+          wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
+          <!-- 店长头相 -->
+          <view class='shopMaster'>
+            <image src='{{ lifeStore.logo }}-ava' class='photo-round' wx:if="{{ lifeStore.logo }}"></image>
+            <text>馆长极力推荐</text>
+            <!-- 垃圾箱 -->
+            <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
+              <image src='../../images/delete-icon@2.png'></image>
+            </view>
+          </view>
+
+          <!-- 推荐理由介绍 -->
+          <view class='shopRecommend theme-bg-color ' wx:if="{{distributeProduct.stick_text}}">
+            <view class='triangle theme-bg-color'></view>
+            <text> {{ distributeProduct.stick_text }} </text>
+          </view>
+
+          <!-- 物品的详情 -->
+          <view class='margin-top--20rpx margin-bottom--44rpx'>
+            <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
+
+              <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
+                <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}" wx:if="{{ distributeProduct.cover }}"></image>
+
+                <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
+                <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>
+              </view>
+
+              <view class="shopRecommendGoodsR" style='height:180rpx;'>
+                <view>
+                  <view class='two-line'>
+                    <image class='logistics logistics' wx:if="{{ distributeProduct.is_free_postage }}"></image>
+                    <text class='{{ photoHeight == 140 ? "line-two" : ""}}'>{{ distributeProduct.name }}</text>
+                  </view>
+                </view>
+
+                <!-- 价格和喜欢的人数 -->
+                <view class='price-like-box'>
+                  <text wx:if="{{ distributeProduct.min_price == distributeProduct.min_sale_price }}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{ distributeProduct.min_price }}</text>
+
+                  <text class='current_price' wx:else>¥{{ distributeProduct.min_sale_price==0?distributeProduct.min_price:distributeProduct.min_sale_price }}</text>
+                  <text wx:if="{{ distributeProduct.like_count != 0 }}" class='shopRecommendGoodsR-old'>喜欢+{{ distributeProduct.like_count }}</text>
+                </view>
+
+              </view>
+            </view>
+          </view>
+
+          <!-- 底部的喜欢和分享 -->
+          <view class='recommendbottom'>
+            <view data-id='{{ distributeProduct.rid }}' data-rid='{{ distributeProduct.rid }}' class='recommendbottomText {{ distributeProduct.is_like ? "likeActive" : "" }}' data-index="{{ idx }}" data-islike="{{ distributeProduct.is_like }}" catchtap='handleBindLike'>
+              <view class='icon-like'>
+                <image src='{{ distributeProduct.is_like ? "../../images/like@2.png" : "../../images/dLike@2.png" }}'>
+                </image>
+              </view>
+              <view>喜欢</view>
+            </view>
+            <view class='recommendbottomText' catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">
+              <view class='icon-like'>
+                <image src='../../images/share@2.png'></image>
+              </view>
+              <view>分享</view>
+            </view>
+            <view class='recommendbottomRen'>
+              <image wx:for="{{distributeProduct.product_like_users}}" catchtap="handleToPeople" data-uid="{{item.uid}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
+            </view>
+          </view>
+        </view>
+
+        <!-- 查看更多 -->
+        <view class="c-middle border-bottom shen-hui font-s examine-more-box" catchtap="handleLoadingRecommend" wx:if="{{ isNextRecommend }}">
+          查看更多好物
+          <text class='fx-icon-nothing-lower'></text>
+        </view>
       </view>
     </block>
 
-    <!-- 选品中心 -->
-    <view class='pick-product-box c-crosswise-a font--white' bindtap="handleGoDistribute" wx:if="{{ canAdmin }}">
-      <view class="swiper-false">
-        <image wx:for="{{latestDistributeProducts}}" wx:key="{{index}}" class="{{index==animationNum?'one-animation__index':''}} {{index+1==animationNum?'two-animation__index':''}} {{index+2==animationNum?'three-animation__index':''}}  {{index+3==animationNum?'four-animation__index':''}} "
-          src="{{item.cover}}-p16" wx:if="{{item.cover}}"></image>
-      </view>
-
-      <view class='font-s'>
-        <view>挑选乐喜优质商品上架</view>
-        <view>品位生活，由此开启</view>
-      </view>
-      <view class='font-m flex_row'>
-        <text>选品中心</text>
-        <image class="right-jian__bai" src="../../images/right-jian-bai.png"></image>
-      </view>
-    </view>
-
-    <!-- 商品展示区域 -->
-    <view class='theme-bg-color recommend-product-box'>
-
-      <!-- 缺省 -->
-      <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ isEmpty }}">
-        <view class='no-sell-product_icon_box'>
-          <image src='../../images/no-sell-product@2.png'></image>
-        </view>
-        <view>当前生活馆还没有上架商品</view>
-        <view>你可以通过精选和探索挑选喜欢的好物</view>
-      </view>
-
-      <view class='tuijian border-bottom padding-bottom--20rpx {{ idx == 0 ?"padding-top--40rpx" : "" }} {{ idx == storeProducts.length - 1 ? "margin-bottom--0rpx" : "" }}' wx:if="{{ !isEmpty }}" wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="distributeProduct"
-        wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
-        <!-- 店长头相 -->
-        <view class='shopMaster'>
-          <image src='{{ lifeStore.logo }}-ava' class='photo-round' wx:if="{{ lifeStore.logo }}"></image>
-          <text>馆长极力推荐</text>
-          <!-- 垃圾箱 -->
-          <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
-            <image src='../../images/delete-icon@2.png'></image>
-          </view>
-        </view>
-
-        <!-- 推荐理由介绍 -->
-        <view class='shopRecommend theme-bg-color ' wx:if="{{distributeProduct.stick_text}}">
-          <view class='triangle theme-bg-color'></view>
-          <text> {{ distributeProduct.stick_text }} </text>
-        </view>
-
-        <!-- 物品的详情 -->
-        <view class='margin-top--20rpx margin-bottom--44rpx'>
-          <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
-
-            <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
-              <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}" wx:if="{{ distributeProduct.cover }}"></image>
-
-              <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
-              <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>
-            </view>
-
-            <view class="shopRecommendGoodsR" style='height:180rpx;'>
-              <view>
-                <view class='two-line'>
-                  <image class='logistics logistics' wx:if="{{ distributeProduct.is_free_postage }}"></image>
-                  <text class='{{ photoHeight == 140 ? "line-two" : ""}}'>{{ distributeProduct.name }}</text>
-                </view>
-              </view>
-
-              <!-- 价格和喜欢的人数 -->
-              <view class='price-like-box'>
-                <text wx:if="{{ distributeProduct.min_price == distributeProduct.min_sale_price }}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{ distributeProduct.min_price }}</text>
-
-                <text class='current_price' wx:else>¥{{ distributeProduct.min_sale_price==0?distributeProduct.min_price:distributeProduct.min_sale_price }}</text>
-                <text wx:if="{{ distributeProduct.like_count != 0 }}" class='shopRecommendGoodsR-old'>喜欢+{{ distributeProduct.like_count }}</text>
-              </view>
-
-            </view>
-          </view>
-        </view>
-
-        <!-- 底部的喜欢和分享 -->
-        <view class='recommendbottom'>
-          <view data-id='{{ distributeProduct.rid }}' data-rid='{{ distributeProduct.rid }}' class='recommendbottomText {{ distributeProduct.is_like ? "likeActive" : "" }}' data-index="{{ idx }}" data-islike="{{ distributeProduct.is_like }}" catchtap='handleBindLike'>
-            <view class='icon-like'>
-              <image src='{{ distributeProduct.is_like ? "../../images/like@2.png" : "../../images/dLike@2.png" }}'>
-              </image>
-            </view>
-            <view>喜欢</view>
-          </view>
-          <view class='recommendbottomText' catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">
-            <view class='icon-like'>
-              <image src='../../images/share@2.png'></image>
-            </view>
-            <view>分享</view>
-          </view>
-          <view class='recommendbottomRen'>
-            <image wx:for="{{distributeProduct.product_like_users}}" catchtap="handleToPeople" data-uid="{{item.uid}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
-          </view>
-        </view>
-      </view>
-
-      <!-- 查看更多 -->
-      <view class="c-middle border-bottom shen-hui font-s examine-more-box" catchtap="handleLoadingRecommend" wx:if="{{ isNextRecommend }}">
-        查看更多好物
-        <text class='fx-icon-nothing-lower'></text>
-      </view>
-    </view>
-
-    <view>
-      <view class='human new-goods margin-top--40rpx margin-bottom--0rpx'>
+    <view class="bg-white">
+      <view class='human margin-bottom--0rpx zui-shou__huanying'>
         本周最受欢迎
       </view>
       <view class='production new-goods_box'>

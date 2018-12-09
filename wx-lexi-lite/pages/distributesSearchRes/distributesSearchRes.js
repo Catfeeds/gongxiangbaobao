@@ -515,7 +515,8 @@ Page({
     let params = {
       cids: this.data.filter.cids, // 分类Id, 多个用, 分割
       min_price: this.data.filter.min_price, // 价格区间: 最小价格
-      max_price: this.data.filter.max_price // 价格区间: 最大价格
+      max_price: this.data.filter.max_price, // 价格区间: 最大价格
+      qk: this.data.inputText
     }
 
     http.fxGet(api.distribute_product_count, params, (res) => {
