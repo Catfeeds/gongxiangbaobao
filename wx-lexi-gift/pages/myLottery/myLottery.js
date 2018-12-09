@@ -47,7 +47,7 @@ Page({
     posterBtnText: '保存分享',
 
     // 生活馆主、普通用户文案区别
-    btnGiveText: '我也要送礼',
+    btnGiveText: '我也要拿礼物',
 
     // 最近获奖者
     winnerTimer: null,
@@ -116,16 +116,10 @@ Page({
   hanleOffLoginBox(e) {
     this.setData({
       showLoginModal: false
-    })
+    }) 
 
-    if (app.globalData.isLogin) {
-      this.setData({
-        isLogin: app.globalData.isLogin
-      })
-
-      // 登录后更新数据
-      this._updateUserInfo()
-    }
+    // 登录后更新数据
+    this._updateUserInfo()
   },
 
   /**
@@ -225,7 +219,9 @@ Page({
       if (res.success) {
 
         // 显示提示信息
-        utils.fxShowToast('助力成功')
+        if (res.data.is_join) {
+          utils.fxShowToast('助力成功')
+        }
 
         let _users = res.data.user_list
         this.setData({
@@ -353,7 +349,7 @@ Page({
         })
 
         // 如未参与，则回调参与
-        if (!res.data.is_join) {
+        if (res.data.status == 2 && !res.data.is_join) {
           this.partakeLottery()
         }
       } else {
@@ -487,11 +483,10 @@ Page({
     let isSmallB = false
 
     const jwt = app.globalData.jwt
-    let _btnText = '我也要送礼'
+    let _btnText = '我也要拿礼物'
     if (jwt.is_small_b) {
       isSmallB = true
-    } else {
-      _btnText = '我也要拿礼物'
+      _btnText = '我也要送礼'
     }
 
     utils.logger(jwt, '登录后回调')

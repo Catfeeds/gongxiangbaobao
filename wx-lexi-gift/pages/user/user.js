@@ -243,10 +243,12 @@ Page({
 
     this.setData({
       isLogin: app.globalData.isLogin,
+      userInfo: app.globalData.userInfo,
       isSmallB: isSmallB,
       storeRid: storeRid,
       storePath: storePath
     })
+
     this.getActivityCollect()
   },
 

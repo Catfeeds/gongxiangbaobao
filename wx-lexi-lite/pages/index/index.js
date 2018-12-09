@@ -387,6 +387,15 @@ Page({
   },
 
   /**
+   * 申请开馆
+   */
+  handleGoApply () {
+    wx.navigateTo({
+      url: '../applyLifeStore/applyLifeStore',
+    })
+  },
+
+  /**
    * 登录完成回调
    */
   handleCloseLogin() {
@@ -1591,22 +1600,21 @@ Page({
       type: 2
     }, (res) => {
       utils.logger(res, '生活馆头条')
-      console.log(res, '生活馆头条')
       if (res.success) {
         let l = res.data.headlines.length
 
         res.data.headlines.forEach((v, i) => {
           if (v.event == 1) {
-            v.text = v.username + v.time + v.time_info + '开通了生活馆'
+            v.text = v.time + v.time_info + '开了生活馆' // v.username + 
           }
           if (v.event == 2) {
-            v.text = v.username + v.time + v.time_info + '售出' + v.quantity + '单，成为正式馆主'
+            v.text = v.time + v.time_info + '售出' + v.quantity + '单' // v.username + 
           }
           if (v.event == 3) {
-            v.text = v.username + v.time + v.time_info + '售出' + v.quantity + '单'
+            v.text = v.time + v.time_info + '售出' + v.quantity + '单' // v.username + 
           }
           if (v.event == 4) {
-            v.text = v.username + '售出' + v.quantity + '单'
+            v.text = '售出' + v.quantity + '单' // v.username + 
           }
           // 随机颜色
           let num = Math.ceil(Math.random() * 5)
@@ -1620,6 +1628,7 @@ Page({
         this.setData({
           storeHeadlines: res.data.headlines
         })
+
         this.handleAnimationend()
       } else {
         utils.fxShowToast(res.status.message)

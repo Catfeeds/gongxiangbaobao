@@ -123,14 +123,8 @@ Page({
       showLoginModal: false
     })
 
-    if (app.globalData.isLogin) {
-      this.setData({
-        isLogin: app.globalData.isLogin
-      })
-
-      // 登录后更新数据
-      this._updateUserInfo()
-    }
+    // 登录后更新数据
+    this._updateUserInfo()
   },
 
   /**
@@ -232,8 +226,10 @@ Page({
       if (res.success) {
 
         // 显示提示信息
-        utils.fxShowToast('参与成功')
-
+        if (res.data.is_join) {
+          utils.fxShowToast('参与成功')
+        }
+        
         let _users = res.data.user_list
         this.setData({
           canJoin: res.data.can_join,

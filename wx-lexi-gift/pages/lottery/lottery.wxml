@@ -237,7 +237,7 @@
     </view>
   </view>
 
-  <view class="gift-store-products">
+  <view class="gift-store-products" wx:if="{{ storeProducts.length > 0 }}">
     <view class="gift-product-wrapper">
       <view class="rule-title">
         <view class="quote-left">

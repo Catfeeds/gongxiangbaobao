@@ -22,12 +22,11 @@
     <view class="bg_hui--se">
       <view class="aplay-store__box">
         <image class="aplay-store__photo--top" src="https://static.moebeast.com/image/static/header_background_2x.png"></image>
-
         <view class="aplay-store__guide--box" catchtap="handleApplyLifeStore">
           <image class="aplay-store__icon" src="https://static.moebeast.com/image/static/open_store-headline.png"></image>
           <view class="aplay-store__left">
             <view class="aplay-store__text">做自己热爱的事 顺便赚取收入</view>
-            <view>
+            <view bindtap="handleGoApply">
               <button>我要开馆</button>
             </view>
           </view>
@@ -42,11 +41,11 @@
         </view>
 
         <view class="aplay-store__photo--bottom">
-          <view class="aplay-store__bottom--item">
+          <navigator class="aplay-store__bottom--item" target="miniProgram" open-type="navigate" app-id="wxdb87730456842ea2" path="pages/index/index" extra-data="lexi" version="release">
             <image src="https://static.moebeast.com/image/static/wechat_send_gift.png"></image>
             <view class="text-top">微信送礼</view>
             <view class="text-bottom">花一元拿礼物</view>
-          </view>
+          </navigator>
           <view class="aplay-store__bottom--item" catchtap="handleGuessGame" wx:if="{{ runEnv == 2 }}">
             <image src="https://static.moebeast.com/image/static/guess_win_cash.png"></image>
             <view class="text-top">猜图赢现金</view>
@@ -61,7 +60,7 @@
       </view>
 
       <!-- 新品速递 {{themeProduct.designs}} -->
-      <view class=' border-bottom min-height--400 margin-bottom--20rpx' wx:if="{{handpickNewExpress.count!=0}}">
+      <view class='border-bottom min-height--400 margin-bottom--20rpx' wx:if="{{ handpickNewExpress.count != 0 }}">
         <view class='c-importantGoodsTitle time-top font-xl category__title padding-top--40rpx' data-from="highQualityList">
           <text class="label">新品速递</text>
           <view class='hui-zi-m flex_row'>

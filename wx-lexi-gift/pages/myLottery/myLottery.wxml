@@ -45,7 +45,7 @@
 
   <!-- 参与状态 -->
   <view class="gift-partake">
-
+    
     <!-- 未登录 -->
     <form bindsubmit="handleFormLogin" report-submit="{{ true }}" class="partake-login form-getid" wx:if="{{ !isLogin }}">
       <button class="btn-login" formType="submit">登录后可参与抽奖</button>
