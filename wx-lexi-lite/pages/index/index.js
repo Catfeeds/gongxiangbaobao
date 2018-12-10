@@ -2277,6 +2277,13 @@ Page({
     })
   },
 
+  // 乐喜优选
+  handleGoNewProductExpress() {
+    wx.navigateTo({
+      url: '../newProductExpress/newProductExpress',
+    })
+  },
+
   // 跳转到商品列表页面
   handleToProductList(e) {
     utils.logger(e.currentTarget.dataset.from)

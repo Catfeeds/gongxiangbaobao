@@ -2031,4 +2031,9 @@ swiper-photo .slide-item__box image {
   }
 }
 
+.new-product__express {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
 /* 生活馆 头部e */

@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "新品速递",
+  "usingComponents": {
+    "fx-product": "/components/FxProductComponent/FxProductComponent",
+    "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
+    "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-pick": "/components/FxPickProduct/FxPickProduct",
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-slider": "/components/FxSlider/FxSlider"
+  }
+}
