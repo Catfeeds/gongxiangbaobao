@@ -29,7 +29,7 @@ module.exports = {
   market_grant_new_user_bonus: 'market/grant_new_user_bonus', // 新人领取100元红包
   users_get_visitor_life_stores:'users/get_visitor_life_stores', // 访问过的生活馆
   market_share_store_poster:'market/share/store_poster', // 分享生活馆
-
+  store_close_phases_description:'store/close_phases_description', // 生活馆显示文案
   // Asset
   asset_upload: 'assets/upload', // POST 上传附件
   asset_detail: 'assets/show_asset', // GET 获取附件 

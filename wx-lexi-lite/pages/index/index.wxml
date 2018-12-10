@@ -42,17 +42,17 @@
 
         <view class="aplay-store__photo--bottom">
           <navigator class="aplay-store__bottom--item" target="miniProgram" open-type="navigate" app-id="wxdb87730456842ea2" path="pages/index/index" extra-data="lexi" version="release">
-            <image src="https://static.moebeast.com/image/static/wechat_send_gift.png"></image>
+            <image src="https://static.moebeast.com/image/static/20181210:wechat_send_gifts.png"></image>
             <view class="text-top">微信送礼</view>
             <view class="text-bottom">花一元拿礼物</view>
           </navigator>
           <view class="aplay-store__bottom--item" catchtap="handleGuessGame" wx:if="{{ runEnv == 2 }}">
-            <image src="https://static.moebeast.com/image/static/guess_win_cash.png"></image>
+            <image src="https://static.moebeast.com/image/static/20181210/guess_win_cash.png"></image>
             <view class="text-top">猜图赢现金</view>
             <view class="text-bottom">随时可提现</view>
           </view>
           <view class="aplay-store__bottom--item">
-            <image src="https://static.moebeast.com/image/static/invite_friend_open_store.png"></image>
+            <image src="https://static.moebeast.com/image/static/20181210/invite_friends_open_store.png"></image>
             <view class="text-top">邀请好友开馆</view>
             <view class="text-bottom">组队领现金</view>
           </view>
@@ -128,7 +128,7 @@
       </view>
 
       <!-- 实习馆长 -->
-      <block wx:if="{{isCadet}}">
+      <block wx:if="{{lifeStore.phases==2}}">
         <view class="probation-box font-ss probation-box__white" wx:if="{{ canAdmin }}">
           <view class='time-top'>
             <view class='time-top '>
@@ -143,7 +143,7 @@
       </block>
 
       <!-- 刚开通了生活馆 -->
-      <block wx:if="{{}}">
+      <block wx:if="{{lifeStore.phases==1}}">
         <view class="probation-box probation-box__white" wx:if="{{ canAdmin }}">
           <view class='time-top'>
             <view class='time-top '>

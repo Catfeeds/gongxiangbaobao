@@ -1598,6 +1598,26 @@ Page({
     })
   },
 
+  // 加载生活馆文案状态
+  getLifeStoreTxt() {
+    const showingLifeStoreRid = wx.getStorageSync('showingLifeStoreRid')
+    if (this.data.sid != showingLifeStoreRid) {
+      return
+    }
+
+    http.fxPost(api.store_close_phases_description, { rid: this.data.sid},result=>{
+      console.log(result,'000000000000000000000000000000000000000000000000')
+      if (result.success) {
+        this.setData({
+          latestDistributeProducts: result.data.products
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+
+  },
+
   /**
    * 获取生活馆头条
    */
@@ -1843,6 +1863,7 @@ Page({
     this.getHandpickNewExpress() // 新品速递
     this.getTopAdvPhoto() // 头部广告位
     this.getAplayStoreBGAdv() // 开馆指引广告位
+    this.getLifeStoreTxt() // 生活馆文案显示状态
   },
 
   // 验证是否存在生活馆
