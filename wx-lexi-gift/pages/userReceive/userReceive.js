@@ -60,6 +60,10 @@ Page({
    * 获取参与的活动列表
    */
   getActivityList() {
+    if (!app.globalData.isLogin) {
+      return
+    }
+    
     this._startLoading()
     http.fxGet(api.gift_receive, {
       page: this.data.page,
@@ -177,6 +181,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    app.shareWxaGift()
+    return app.shareWxaGift()
   }
 })

@@ -20,7 +20,9 @@ Page({
     cardUrl: '', // 卡片图rul
     posterUrl: '', // 海报图url
     posterSaving: false, // 是否正在保存
-    posterBtnText: '保存分享'
+    posterBtnText: '保存分享',
+
+    btnGiveText: '我要送礼'
   },
 
   /**
@@ -199,6 +201,23 @@ Page({
   onLoad: function (options) {
     this.setData({
       rid: options.rid || ''
+    })
+
+    // 验证是否登录
+    if (!app.globalData.isLogin) {
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }
+
+    const jwt = app.globalData.jwt
+    let _btnText = this.data.btnGiveText
+    if (!jwt.is_small_b) {
+      _btnText = '我要拿礼物'
+    }
+
+    this.setData({
+      btnGiveText: _btnText
     })
 
     this.getActivity()

@@ -203,6 +203,8 @@ Component({
           utils.fxShowToast('登录成功', 'success')
 
           wx.setStorageSync('jwt', res.data)
+          // 更新全局变量
+          app.globalData.jwt = res.data
 
           // 更新最后浏览
           if (lastVisitLifeStore) {

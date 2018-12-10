@@ -58,7 +58,7 @@
           </view>
           <view class="tag">乐喜原创品牌设计馆</view>
         </view>
-        <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/index/index" extra-data="" version="release">
+        <navigator class="user-action" target="miniProgram" open-type="navigate" app-id="wx60ed17bfd850985d" path="/pages/branderStore/branderStore?rid={{ currentActivity.owner_store.store_rid }}" extra-data="" version="release">
           <button class="btn-go-store">挑选好物</button>
         </navigator>
       </view>
@@ -77,7 +77,7 @@
     </form>
 
     <!-- 不能参与 -->
-    <view class="partake-success-wrapper" wx:if="{{ !userStatus.is_join && !canJoin }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && !userStatus.is_join && !canJoin }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">你已连续参与三个抽奖</view>
@@ -89,7 +89,7 @@
     </view>
 
     <!-- 中奖 -->
-    <view class="partake-prize" wx:if="{{ currentActivity.status == 3 && userStatus.is_winner }}">
+    <view class="partake-prize" wx:if="{{ isLogin && currentActivity.status == 3 && userStatus.is_winner }}">
       <image src="../../images/icon-lucky@2x.png" class="icon-lucky"></image>
       <view class="discription">恭喜你获得本场礼物</view>
       <button class="btn-got" bindtap="handleGoGot" wx:if="{{ !userStatus.is_receive }}">领取礼物</button>
@@ -97,7 +97,7 @@
     </view>
 
     <!-- 未中奖 -->
-    <view class="partake-prize" wx:if="{{ currentActivity.status == 3 && joinStatus && !userStatus.is_winner }}">
+    <view class="partake-prize" wx:if="{{ isLogin && currentActivity.status == 3 && joinStatus && !userStatus.is_winner }}">
       <image src="../../images/icon-not-luck@2x.png" class="icon-not-lucky"></image>
       <view class="discription">很遗憾，你未中奖</view>
       <view class="prize-result">
@@ -111,7 +111,7 @@
     </view>
 
     <!-- 参与成功 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 2 && joinStatus }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && currentActivity.status == 2 && joinStatus }}">
       <image src="{{ userInfo.avatar }}-ava" class="icon-avatar" wx:if="{{ !isSelf && userInfo.avatar }}"></image>
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
@@ -124,7 +124,7 @@
     </view>
 
     <!-- 活动失效 -->
-    <view class="partake-success-wrapper" wx:if="{{ currentActivity.status == 4 }}">
+    <view class="partake-success-wrapper" wx:if="{{ isLogin && currentActivity.status == 4 }}">
       <view class="big-title">
         <image src="../../images/icon-quote-left@2x.png" class="icon-quote-left"></image>
         <view class="title">活动已失效</view>
@@ -170,19 +170,22 @@
         </view>
         <view class="surplus-count"></view>
       </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 2 }}">
-        <view class="need-count">至少满
+      <view class="progress-desc" wx:if="{{ isLogin && currentActivity.status == 2 }}">
+        <view class="need-count" wx:if="{{ isSelf }}">至少满
           <text class="count">{{ currentActivity.total_people_count }}</text> 人可开奖
+        </view>
+        <view class="need-count" wx:else>
+          <text class="count"></text>
         </view>
         <view class="surplus-count">已参与
           <text class="count">{{ currentActivity.people_count }}</text> 人
         </view>
       </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 3 }}">
+      <view class="progress-desc" wx:if="{{ isLogin && currentActivity.status == 3 }}">
         <view class="need-count">已开奖</view>
         <view class="surplus-count"></view>
       </view>
-      <view class="progress-desc" wx:if="{{ currentActivity.status == 4 }}">
+      <view class="progress-desc" wx:if="{{ isLogin && currentActivity.status == 4 }}">
         <view class="need-count">活动已失效</view>
       </view>
     </view>
@@ -205,7 +208,7 @@
         <text class="count">{{ leftTimer.minutes }}</text>
         <text class="label">分</text>
         <text class="count">{{ leftTimer.seconds }}</text>
-        <text class="label">秒</text>
+        <text class="label">秒开奖</text>
       </view>
       <view class="line right"></view>
     </view>
@@ -234,7 +237,7 @@
     </view>
   </view>
 
-  <view class="gift-store-products">
+  <view class="gift-store-products" wx:if="{{ storeProducts.length > 0 }}">
     <view class="gift-product-wrapper">
       <view class="rule-title">
         <view class="quote-left">

@@ -21,6 +21,9 @@
 
 .gift-opening-list .gift-item .gift-item__body {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .gift-opening-list .gift-item .gift-item__body .title {
@@ -41,7 +44,7 @@
   color: rgba(95, 228, 177, 1);
   line-height: 35rpx;
   padding: 0 10rpx;
-  margin-bottom: 50rpx;
+  margin-bottom: 20rpx;
 }
 
 .gift-opening-list .gift-item .gift-item__body .price-wrapper {

@@ -149,5 +149,8 @@
         "selectedIconPath": "images/icon-account-active@3x.png"
       }
     ]
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wxdb87730456842ea2"
+  ]
 }

@@ -111,11 +111,7 @@ Page({
       showLoginModal: false
     })
 
-    if (app.globalData.isLogin) {
-      this.setData({
-        isLogin: app.globalData.isLogin
-      })
-    }
+    this._refreshUserLogin()
   },
 
   /**
@@ -328,7 +324,7 @@ Page({
         })
 
         if (this.data.page > 1) {
-          _peoples = _peoples.push.apply(_peoples, res.data.friend_list)
+          _peoples = _peoples.concat(res.data.friend_list)
         } else {
           _peoples = res.data.friend_list
         }
@@ -370,15 +366,16 @@ Page({
       })
     }
 
-    const jwt = app.globalData.jwt
-    let isSmallB = false
+    let _isSmallB = false
     let days = [1, 2, 3]
     let idx = -1
     let formDays = ''
-    let _txt = this.data.btnGiftText
+    let _txt = '花一元送好友'
 
-    if (jwt.is_small_b) {
-      isSmallB = true
+    utils.logger(app.globalData.jwt, '刷新用户')
+
+    if (app.globalData.jwt.is_small_b) {
+      _isSmallB = true
     } else { // 普通用户天数不可选
       days = [1]
       idx = 0
@@ -387,7 +384,8 @@ Page({
     }
     this.setData({
       isLogin: app.globalData.isLogin,
-      isSmallB: isSmallB,
+      userInfo: app.globalData.userInfo,
+      isSmallB: _isSmallB,
       days: days,
       idx: idx,
       'form.days': formDays,
@@ -499,7 +497,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    app.shareWxaGift()
+    return app.shareWxaGift()
   }
 
 })

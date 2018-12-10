@@ -216,6 +216,14 @@ Page({
       'form.openid': app.globalData.jwt.openid
     })
     
+    // 如未登录，则返回上一页
+    if (!app.globalData.isLogin) {
+      wx.navigateBack({
+        delta: 1
+      })
+      return
+    }
+    
     this.getActivity()
     this.getCurrentAddress()
   },
@@ -280,7 +288,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    app.shareWxaGift()
+    return app.shareWxaGift()
   }
 
 })

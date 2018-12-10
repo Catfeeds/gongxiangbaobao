@@ -243,10 +243,12 @@ Page({
 
     this.setData({
       isLogin: app.globalData.isLogin,
+      userInfo: app.globalData.userInfo,
       isSmallB: isSmallB,
       storeRid: storeRid,
       storePath: storePath
     })
+
     this.getActivityCollect()
   },
 
@@ -318,7 +320,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    app.shareWxaGift()
+    return app.shareWxaGift()
   }
   
 })

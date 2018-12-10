@@ -32,8 +32,10 @@ Page({
     currentActivity: {}, // 当前活动
     users: [],
     joinStatus: false, // 是否参与活动
-    userStatus: {}, // 用户的活动状态
-    canJoin: false, // 是否能参与
+    userStatus: { // 用户的活动状态
+      is_join: false,
+    },
+    canJoin: true, // 是否能参与
     
     products: [], // 热门商品
 
@@ -45,7 +47,7 @@ Page({
     posterBtnText: '保存分享',
 
     // 生活馆主、普通用户文案区别
-    btnGiveText: '我也要送礼',
+    btnGiveText: '我也要拿礼物',
 
     // 最近获奖者
     winnerTimer: null,
@@ -114,16 +116,10 @@ Page({
   hanleOffLoginBox(e) {
     this.setData({
       showLoginModal: false
-    })
+    }) 
 
-    if (app.globalData.isLogin) {
-      this.setData({
-        isLogin: app.globalData.isLogin
-      })
-
-      // 登录后更新数据
-      this._updateUserInfo()
-    }
+    // 登录后更新数据
+    this._updateUserInfo()
   },
 
   /**
@@ -221,6 +217,12 @@ Page({
     http.fxPost(api.gift_activity_join, { rid: this.data.rid }, (res) => {
       utils.logger(res, '参与抽奖')
       if (res.success) {
+
+        // 显示提示信息
+        if (res.data.is_join) {
+          utils.fxShowToast('助力成功')
+        }
+
         let _users = res.data.user_list
         this.setData({
           canJoin: res.data.can_join,
@@ -347,7 +349,7 @@ Page({
         })
 
         // 如未参与，则回调参与
-        if (!res.data.is_join) {
+        if (res.data.status == 2 && !res.data.is_join) {
           this.partakeLottery()
         }
       } else {
@@ -481,12 +483,13 @@ Page({
     let isSmallB = false
 
     const jwt = app.globalData.jwt
-    let _btnText = this.data.btnGiveText
+    let _btnText = '我也要拿礼物'
     if (jwt.is_small_b) {
       isSmallB = true
-    } else {
-      _btnText = '我也要拿礼物'
+      _btnText = '我也要送礼'
     }
+
+    utils.logger(jwt, '登录后回调')
 
     this.setData({
       isLogin: app.globalData.isLogin,
@@ -498,7 +501,9 @@ Page({
     this._validateUserType()
 
     // 获取当前用户活动状态
-    this.getUserActivityStatus()
+    if (app.globalData.isLogin) {
+      this.getUserActivityStatus()
+    }
   },
 
   /**

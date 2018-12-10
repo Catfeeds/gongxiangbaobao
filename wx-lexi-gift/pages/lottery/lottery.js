@@ -34,8 +34,10 @@ Page({
     users: [],
     userWin: {}, // 中奖的用户
     joinStatus: false, // 是否参与活动
-    userStatus: {}, // 用户的活动状态
-    canJoin: false, // 是否能参与
+    userStatus: { // 用户的活动状态
+      is_join: false,
+    },
+    canJoin: true, // 是否能参与
 
     storePage: 1,
     storeProducts: [], // 生活馆商品列表
@@ -121,14 +123,8 @@ Page({
       showLoginModal: false
     })
 
-    if (app.globalData.isLogin) {
-      this.setData({
-        isLogin: app.globalData.isLogin
-      })
-
-      // 登录后更新数据
-      this._updateUserInfo()
-    }
+    // 登录后更新数据
+    this._updateUserInfo()
   },
 
   /**
@@ -228,8 +224,13 @@ Page({
     }, (res) => {
       utils.logger(res, '参与抽奖')
       if (res.success) {
-        let _users = res.data.user_list
 
+        // 显示提示信息
+        if (res.data.is_join) {
+          utils.fxShowToast('参与成功')
+        }
+        
+        let _users = res.data.user_list
         this.setData({
           canJoin: res.data.can_join,
           joinStatus: res.data.is_join,
@@ -398,7 +399,7 @@ Page({
       if (res.success) {
         this.setData({
           currentActivity: res.data,
-          storeRid: res.data.owner_store ? res.data.owner_store.store_rid : ''
+          storeRid: res.data.owner_store.store_rid ? res.data.owner_store.store_rid : ''
         }, () => {
           this.practiceLeftTimer()
 
@@ -426,6 +427,11 @@ Page({
    * 获取生活馆商品
    */
   getDistributeProducts() {
+    // 店铺不存在
+    if (!this.data.storeRid) {
+      return
+    }
+
     let params = {
       page: this.data.storePage,
       per_page: 10,
@@ -587,12 +593,14 @@ Page({
     let isSmallB = false
 
     const jwt = app.globalData.jwt
-    let _btnText = this.data.btnGiveText
+    let _btnText = '我也要送礼'
     if (jwt.is_small_b) {
       isSmallB = true
     } else {
       _btnText = '我也要拿礼物'
     }
+
+    utils.logger(jwt, '登录后回调')
 
     this.setData({
       isLogin: app.globalData.isLogin,
@@ -604,7 +612,9 @@ Page({
     this._validateUserType()
 
     // 获取当前用户活动状态
-    this.getUserActivityStatus()
+    if (app.globalData.isLogin) {
+      this.getUserActivityStatus()
+    }
   },
 
   /**
