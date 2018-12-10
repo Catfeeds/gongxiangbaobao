@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "品牌馆",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-coupon": "/components/FxCoupon/coupon",
     "fx-product": "/components/FxProductComponent/FxProductComponent",

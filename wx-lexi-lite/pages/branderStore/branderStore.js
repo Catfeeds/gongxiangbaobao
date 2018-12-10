@@ -601,9 +601,11 @@ Page({
       utils.logger(result, '店铺商品列表')
       if (result.success) {
         let data = this.data.productList
-        result.data.products.forEach((v) => {
-          data.push(v)
-        })
+        if (this.data.params.page == 1) {
+          data = result.data.products
+        } else {
+          data = data.concat(result.data.products)
+        }
 
         this.setData({
           isNext: result.data.next,
@@ -950,7 +952,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.setData({
+      ['params.page']: 1,
+    })
+    this.getStoreInfo() // 店铺详情
+    this.getAnnouncement() // 店铺的公告
+    this.products() // 获取店铺的商品列表
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 800)
   },
 
   /**
