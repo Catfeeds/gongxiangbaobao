@@ -105,6 +105,12 @@ Page({
     showConfirmModal: false, // 删除上架商品确认
     latestDistributeProducts: [], // 最新分销商品
     isDistributed: false, // 是否属于分销
+    topAdvPhoto: {
+      image: ''
+    }, // 生活馆的头部广告位置
+    aplayStoreBGAdv: {
+      image: ''
+    }, //开馆指引的背景广告位
     handpickNewExpress: {
       products: [],
       count: 0
@@ -389,7 +395,7 @@ Page({
   /**
    * 申请开馆
    */
-  handleGoApply () {
+  handleGoApply() {
     wx.navigateTo({
       url: '../applyLifeStore/applyLifeStore',
     })
@@ -1768,9 +1774,7 @@ Page({
   //新品速递
   getHandpickNewExpress() {
     http.fxGet(api.handpick_new_express, {}, result => {
-      console.log(result, 'xinpinsudi')
       if (result.success) {
-
         this.setData({
           handpickNewExpress: result.data
         })
@@ -1780,6 +1784,31 @@ Page({
     })
   },
 
+  // 生活馆的头部广告为
+  getTopAdvPhoto() {
+    http.fxGet(api.banners_rid.replace(/:rid/, 'wxa_lifestore_head'), {}, result => {
+      if (result.success) {
+        this.setData({
+          topAdvPhoto: result.data.banner_images[0]
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 开馆指引的背景广告位置
+  getAplayStoreBGAdv() {
+    http.fxGet(api.banners_rid.replace(/:rid/, 'wxa_lifestore_bg'), {}, result => {
+      if (result.success) {
+        this.setData({
+          aplayStoreBGAdv: result.data.banner_images[0]
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
 
   // 加载探索页数据
   _loadingExplorePage() {
@@ -1812,6 +1841,8 @@ Page({
     this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
     this.getHandpickNewExpress() // 新品速递
+    this.getTopAdvPhoto() // 头部广告位
+    this.getAplayStoreBGAdv() // 开馆指引广告位
   },
 
   // 验证是否存在生活馆
@@ -2175,7 +2206,6 @@ Page({
    */
   onUnload: function() {
     clearInterval(animationInterval) // 清除动画
-    console.log('页面卸载')
   },
 
   /**
