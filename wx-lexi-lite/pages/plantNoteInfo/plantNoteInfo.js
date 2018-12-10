@@ -280,6 +280,11 @@ Page({
     })
   },
 
+  // 防止穿透
+  handlePreventClick() {
+    return
+  },
+
   // 回到首页是否显示
   _getGoHomeBtnIsShow() {
     let route = getCurrentPages()

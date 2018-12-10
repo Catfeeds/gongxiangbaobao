@@ -4,14 +4,9 @@
     <!--弹幕 一直向上移动-->
     <view class="barrage__animation">
       <view class="shadow"></view>
-      <view class="barrage-blocks--container">
-        <view wx:if="{{index<30}}" wx:for="{{barrageAnimation}}" wx:key="{{barrage.rid}}" class="barrage-blocks" wx:for-item="barrage">
-          <image class="barrage-blocks--img" src="{{barrage.avatar}}" />
-          <text class="barrage-blocks--p">
-              <text class="barrage-blocks--span">{{barrage.username}}</text>
-          <text>{{barrage.detail}} </text>
-          </text>
-        </view>
+      <view wx:for="{{barrageAnimation}}" wx:key="{{barrage.rid}}" wx:for-item="barrage" class="barrage-blocks {{index==animationIndex?'animationOne':''}} {{index+1==animationIndex?'animationTwo':''}} {{index+2==animationIndex?'animationThree':''}}">
+        <image class="barrage-blocks--img" src="{{barrage.avatar}}" />
+        <text class="barrage-blocks--span">{{barrage.text}}</text>
       </view>
     </view>
 
