@@ -1515,7 +1515,7 @@ Page({
    */
   getStoreProducts() {
     let params = {
-      page: this.data.page,
+      page: 1,
       per_page: this.data.perPage,
       sid: this.data.sid,
       is_distributed: 2,
@@ -1531,21 +1531,16 @@ Page({
           }
         })
 
-        let _products = this.data.storeProducts
-        if (this.data.page > 1) {
-          // 合并数组
-          _products.push.apply(_products, res.data.products)
-        } else {
-          _products = res.data.products
-        }
-
         let isEmpty = false
-        if (_products.length == 0) {
+        if (res.data.products.length == 0) {
           isEmpty = true
         }
+        this.setData({
+          storeProducts: [],
+        })
 
         this.setData({
-          storeProducts: _products,
+          storeProducts: res.data.products,
           isEmpty: isEmpty,
           isNextRecommend: res.data.next // 没有下一页了
         })
@@ -2190,6 +2185,7 @@ Page({
 
     // 馆主推荐是否有变化
     if (app.globalData.agent.storeOwnerCommendChange) {
+
       this.getStoreProducts()
       app.globalData.agent.storeOwnerCommendChange = false
     }

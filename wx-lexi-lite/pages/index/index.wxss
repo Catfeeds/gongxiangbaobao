@@ -284,6 +284,7 @@
 .aplay-store__box--text {
   background: rgba(245, 247, 249, 1);
   border-radius: 8px;
+  margin-top: 20rpx;
 }
 
 .commend-product__box {
@@ -372,7 +373,7 @@
 }
 
 .store-distribute-wrapper.not-empty {
-  padding-bottom:30rpx; 
+  padding-bottom: 30rpx;
 }
 
 .likeActive {
@@ -1969,9 +1970,11 @@ swiper-photo .slide-item__box image {
   justify-content: space-between;
   background-color: #fff;
 }
+
 .opened-store {
   padding-top: 40rpx;
 }
+
 .aplay-store__photo--bottom.is-bottomed {
   margin-bottom: 20rpx;
   border-bottom: 1rpx solid #e9e9e9;

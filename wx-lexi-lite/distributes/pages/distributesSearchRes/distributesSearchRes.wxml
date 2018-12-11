@@ -57,8 +57,9 @@
         </view>
       </view>
       <view class="distribute-card__actions">
-        <!-- <button class="fx-mini-btn round black" bindtap=""></button> -->
-        <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30" wx:if="{{!product.have_distributed}}">上架</fx-mini-btn>
+        <label wx:if="{{!product.have_distributed}}">
+          <fx-mini-btn size="xs" round="true" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleGoSale" class="m-r-30" >上架</fx-mini-btn>
+        </label>
         <view class="c-middle distribute-over__btn" wx:else>已上架</view>
         <fx-mini-btn size="xs" round="true" type="danger" data-rid="{{ product.rid }}" data-idx="{{ idx }}" bind:tapEvent="handleShareDistribute">卖</fx-mini-btn>
       </view>
@@ -141,7 +142,7 @@
     </view>
   </fx-modal>
 
-    <!-- 利润 -->
+  <!-- 利润 -->
   <fx-modal title="利润" bind:closeEvent="handleCloseIncomeModal" visible="{{ showIncomeModal }}">
     <view class="fx-modal__main" slot="main">
       <view class="filter-item {{ params.profit_type == 0 ? 'active' : '' }}" data-profit="0" bindtap="handleChangeProfit">
@@ -159,7 +160,7 @@
     </view>
   </fx-modal>
 
-    <!-- 筛选 -->
+  <!-- 筛选 -->
   <fx-modal title="筛选" reset="重置" showReset="{{ filter.showReset }}" showFoot="true" bind:closeEvent="handleCloseFilterModal" visible="{{ showFilterModal }}" bind:resetEvent="handleResetFilterCondition">
     <view class="fx-modal__main" slot="main">
       <view class="block-title">价格区间</view>

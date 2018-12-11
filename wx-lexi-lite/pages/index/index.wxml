@@ -163,7 +163,7 @@
           <image class="avatar" src="{{ lifeStore.logo }}-ava"></image>
           <text>馆主极力推荐</text>
         </view>
-        <view class="hand-right" wx:if="{{storeProducts.length>=9}}" catchtap="handleGoStoreOwnerCommend">
+        <view class="hand-right" catchtap="handleGoStoreOwnerCommend">
           <text>查看更多</text>
           <image class="youjian-tou" src="../../images/icons/browse-all@3.png"></image>
         </view>

@@ -58,7 +58,8 @@ Page({
       sort_type: 1, // Number	可选	0	排序: 1= 综合排序, 2= 价格由低至高, 3= 价格由高至低
       is_free_postage: '', // Number	可选	0	是否包邮: 0 = 全部, 1= 包邮
       is_preferential: '', // Number	可选	0	是否特惠: 0 = 全部, 1= 特惠
-      is_custom_made: '' // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+      is_custom_made: '', // Number	可选	0	是否可定制: 0 = 全部, 1= 可定制
+      sid: app.globalData.jwt.store_rid
     },
   },
 
@@ -117,8 +118,8 @@ Page({
   },
 
   /**
- * 滑块最高价格
- */
+   * 滑块最高价格
+   */
   handleChangeMaxPrice(e) {
     utils.logger(e.detail.highValue)
     let maxPrice = e.detail.highValue
@@ -144,8 +145,8 @@ Page({
   },
 
   /**
- * 滑块最低价格
- */
+   * 滑块最低价格
+   */
   handleChangeMinPrice(e) {
     let minPrice = e.detail.lowValue
     if (this.data.params.max_price == -1) {
@@ -200,7 +201,7 @@ Page({
     let index = e.currentTarget.dataset.idx
     let rid = e.currentTarget.dataset.rid
     wx.navigateTo({
-      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid + '&index=' + index
+      url: '../distributeSubmit/distributeSubmit?rid=' + rid + '&index=' + index
     })
   },
 
@@ -313,8 +314,8 @@ Page({
   },
 
   /**
- * 利润
- */
+   * 利润
+   */
   handleShowIncomeModal(e) {
     this.setData({
       showIncomeModal: true
@@ -382,8 +383,8 @@ Page({
   },
 
   /**
- * 分类列表
- */
+   * 分类列表
+   */
   getCategories() {
     http.fxGet(api.categories, {}, (result) => {
       utils.logger(result, '分类列表')
@@ -452,6 +453,7 @@ Page({
    * 检测变动
    */
   handleCheckChange() {
+    
     if (app.globalData.agent.distributeSearchChange) {
       let rid = app.globalData.agent.distributeSearchValue.rid
       let value = app.globalData.agent.distributeSearchValue.value
@@ -510,8 +512,8 @@ Page({
   },
 
   /**
- * 获取某筛选条件下商品
- */
+   * 获取某筛选条件下商品
+   */
   getFilterProducts() {
     let params = {
       cids: this.data.filter.cids, // 分类Id, 多个用, 分割
@@ -534,8 +536,8 @@ Page({
   },
 
   /**
- * 获取条件数
- */
+   * 获取条件数
+   */
   _getFilterConditionCount() {
     let count = this.data.checkedCids.length
     if (this.data.filter.min_price > 0) {
