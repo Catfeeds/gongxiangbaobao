@@ -164,6 +164,10 @@
   width: 670rpx;
 }
 
+.wxParse-p>image {
+  margin-top: 10rpx;
+}
+
 .wxParse-p .wxParse-inline {
   line-height: 40rpx;
 }

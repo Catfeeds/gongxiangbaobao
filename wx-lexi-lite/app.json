@@ -71,6 +71,7 @@
     "pages/browseLifeStore/browseLifeStore",
     "pages/brandStoreQualification/brandStoreQualification",
     "pages/newProductExpress/newProductExpress",
+    "pages/storeOwnerCommend/storeOwnerCommend",
     "components/FxLoginModal/FxLoginModal"
   ],
   "subPackages": [

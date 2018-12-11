@@ -1558,8 +1558,8 @@ button::after {
   overflow: hidden;
 }
 
-.search-page .last-record__item {
-  width: 200rpx;
+.index-page .last-record__item, .search-page .last-record__item {
+  width: 210rpx;
   display: inline-block;
   margin-right: 20rpx;
 }
