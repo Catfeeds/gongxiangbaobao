@@ -119,11 +119,20 @@ Page({
             storeProducts: _storeProducts,
             isEmpty: isEmpty
           })
+
           app.globalData.agent.storeOwnerCommendChange = true
           http.fxDelete(api.life_store_delete_product, data, (result) => {
             utils.logger(result, '删除商品')
             if (result.success) {
-              
+              if (this.data.storeProducts.length == 2) {
+                if (!this.data.isNext) {
+                  return
+                }
+                this.setData({
+                  'params.page': 1
+                })
+                this.getStoreProducts()
+              }
             } else {
               utils.fxShowToast(result.status.message)
             }
