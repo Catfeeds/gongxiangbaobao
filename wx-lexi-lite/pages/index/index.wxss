@@ -1888,7 +1888,7 @@ swiper-photo .slide-item__box image {
   width: 670rpx;
   height: 200rpx;
   border-radius: 8rpx;
-  background: no-repeat;
+  background-repeat: no-repeat;
   background-size: 670rpx 200rpx;
 }
 

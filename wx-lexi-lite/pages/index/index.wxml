@@ -24,7 +24,7 @@
     <view class="bg_hui--se" wx:if="{{ !isOpenedLifeStore }}">
       <view class="aplay-store__box">
         <image class="aplay-store__photo--top" src="{{ topAdvPhoto.image }}"></image>
-        <view class="aplay-store__guide--box" style="background: url({{ aplayStoreBGAdv.image }}) " catchtap="handleApplyLifeStore">
+        <view class="aplay-store__guide--box" style="background-image: url({{ aplayStoreBGAdv.image }})" catchtap="handleApplyLifeStore">
           <image class="aplay-store__icon" src="https://static.moebeast.com/image/static/open_store-headline.png"></image>
           <view class="aplay-store__left">
             <view class="aplay-store__text">做自己热爱的事 顺便赚取收入</view>
@@ -216,7 +216,7 @@
   </view>
 
   <!-- 精选 -->
-  <view class="bg-white page-featured {{ pageActiveTab == 'featured' ? 'active' : '' }}">
+  <view class="bg-white page-featured {{ pageActiveTab == 'featured' ? 'active' : '' }}" wx:if="{{ featuredLoaded }}">
     <!-- 手动旋转木马 -->
     <view class='swiper-photo list'>
       <swiper circular autoplay="{{true}}" previous-margin="{{'20rpx'}}" next-margin="{{'100rpx'}}" bindchange="swiperChange">
@@ -234,46 +234,6 @@
           </swiper-item>
         </block>
       </swiper>
-    </view>
-
-    <!-- 开店指引 -->
-    <view class="setUpShop-guide border-radius--8 {{isSmallB?'play-life__store--hidden':''}}">
-      <view class='time-top setUpShop-guide__top border-bottom'>
-        <view class='' wx:if="{{ runEnv == 2 }}">
-          <view class='black-font'>分享好物赚钱，为自己购买省钱</view>
-          <view class='qian-hui font-s'>没钱，没货，均可拥有设计馆了</view>
-        </view>
-        <view class='black-font font--white c-middle border-radius--8 c-theme-bg setUpshop-guide__btn' bindtap="handleApplyLifeStore">开馆指引</view>
-      </view>
-
-      <!-- 头条动态 -->
-      <view class="page-section padding-top--0rpx border-bottom-radius">
-        <view class="prevent-click__box"></view>
-        <view class="flex_row headline padding-top-bottom--0rpx margin-bottom--0rpx">
-          <view class="headline-side">
-            <image src='../../images/set-up-shop-suona@2.png' class="icon-voice"></image>
-            <text>开馆</text>
-            <text>头条</text>
-          </view>
-          <view class="headline-line">
-            <image src='../../images/set-up-shop-line.png' class="icon-line"></image>
-          </view>
-
-          <swiper circular autoplay vertical interval="{{5000}}" class="headline-body open-store__swiper">
-            <swiper-item class="flex-direction__column--center" wx:for="{{ storeHeadlines }}" wx:for-index="idx" wx:for-item="headline" wx:key="{{ idx }}">
-              <view wx:for="{{headline}}" wx:key="{{index}}" class="headline-group {{index==1?'margin-bottom--0rpx':''}}">
-                <view class="headline-item one-line-text" wx:if="{{ item.event == 1 }}">
-                  <label class="store-green">{{ item.username }}</label> {{ item.time }}开通了自己的设计馆
-                </view>
-                <view class="headline-item one-line-text" wx:if="{{ item.event == 4 }}">
-                  「{{ item.username }}」的生活馆 {{ item.time }}
-                  <label class="order-yellow">售出{{ item.quantity }}单</label>
-                </view>
-              </view>
-            </swiper-item>
-          </swiper>
-        </view>
-      </view>
     </view>
 
     <!-- 今日推荐 {{themeProduct.designs}} -->
@@ -447,7 +407,7 @@
   </view>
 
   <!-- 探索 -->
-  <view class="bg-white page-explore {{ pageActiveTab == 'explore' ? 'active' : '' }}">
+  <view class="bg-white page-explore {{ pageActiveTab == 'explore' ? 'active' : '' }}" wx:if="{{ exploreLoaded }}">
 
     <!-- 广告 -->
     <view class='probation-box advertisement-box'>
@@ -740,12 +700,11 @@
   </fx-modal>
 
   <!-- 分享的悬浮按钮 -->
-  <view class='time-top suspend-share bg-white font-s' wx:if="{{pageActiveTab=='lifeStore'}}" catchtap="handleShareLifeBrand">
+  <view class='time-top suspend-share bg-white font-s' wx:if="{{ pageActiveTab == 'lifeStore' && isOpenedLifeStore }}" catchtap="handleShareLifeBrand">
     <view class='suspend-share_box c-theme-bg c-middle'>
       <image src='../../images/fei@2.png'></image>
     </view>
     <text class='suspend-share__text'>分享</text>
-    <!-- <button open-type="share" data-shareStore='{{rid}}' data-from="1"></button> -->
   </view>
 
   <!-- 新人领取红包 -->

@@ -143,6 +143,7 @@ Page({
     },
 
     // 探索
+    
     characteristicStoreList: { // 特色品牌商店
       stores: [{
           logo: '',
@@ -318,6 +319,9 @@ Page({
     isNavbarAdsorb: false, // 头部导航是否吸附
     pageActiveTab: 'lifeStore',
     // 分类列表
+    lifeStoreLoaded: false, // 数据加载标识
+    featuredLoaded: false,
+    exploreLoaded: false,
     pageTabs: [{
         rid: 'p1',
         name: 'lifeStore',
@@ -330,6 +334,7 @@ Page({
         name: 'featured',
         title: '精选',
         disabled: false,
+        loaded: false,
         pageScroll: 0
       },
       {
@@ -337,6 +342,7 @@ Page({
         name: 'explore',
         title: '探索',
         disabled: false,
+        loaded: false,
         pageScroll: 0
       }
     ],
@@ -405,7 +411,7 @@ Page({
    */
   handleGoApply() {
     wx.navigateTo({
-      url: '../applyLifeStore/applyLifeStore',
+      url: '/lifeStore/pages/applyLifeStore/applyLifeStore',
     })
   },
 
@@ -429,15 +435,6 @@ Page({
     wx.navigateTo({
       url: '/lifeStore/pages/lifeStoreGuide/lifeStoreGuide',
     })
-  },
-
-  // 生活馆加载更多的推荐
-  handleLoadingRecommend() {
-    this.setData({
-      page: this.data.page + 1
-    })
-
-    this.getStoreProducts()
   },
 
   /**
@@ -605,7 +602,7 @@ Page({
    * 回到自己的生活馆
    */
   handleBackLifeStore() {
-    const lifeStore = wx.getStorageSync('lifeStore')
+    const lifeStore = app.globalData.lifeStore
 
     this.setData({
       sid: lifeStore.lifeStoreRid,
@@ -1845,18 +1842,25 @@ Page({
     this.getGather() // 集合产品
     this.getGoodDesign() // 特惠好设计
     this.getOneHundred() // 百元好物
+
+    this.setData({
+      exploreLoaded: true
+    })
   },
 
   // 加载精选页数据
   _loadingFeaturedPage() {
     this.getChoiceHanderAdvertisement() // 头部广告
-    this.getStoreHeadlines() // 开馆头条
     this.getTodayRecommend() // 今日推荐
     this.getGrateful() // 人气推荐
     this.getChoiceMiddleAdvertisement() // 中间广告
     this.getLitePick() // 乐喜优选
     this.getLifeWindow() // 发现生活美学
     this.getPlantOrder() // 种草清单
+
+    this.setData({
+      featuredLoaded: true
+    })
   },
 
   // 加载生活馆数据
@@ -1864,11 +1868,21 @@ Page({
     this.getTopAdvPhoto() // 头部广告位
     this.getAplayStoreBGAdv() // 开馆指引广告位
     this.getLifeStoreHeadTop() // 已经开通生活馆的头部图片
-    this.getLifeStore() // 生活馆信息
-    this.handleAddBrowse() // 添加浏览者
+    
+    if (this.data.sid) {
+      this.getLifeStore() // 生活馆信息
+      this.handleAddBrowse() // 添加浏览者
+      // 生活馆商品
+      this.getStoreProducts()
+    }
+
+    this.getStoreHeadlines() // 开馆头条
     this.getHandpickNewExpress() // 新品速递
-    this.getStoreProducts() // 生活馆商品
     this.getWeekPopular() // 本周最受欢迎商品
+
+    this.setData({
+      lifeStoreLoaded: true
+    })
   },
 
   /**
@@ -1937,16 +1951,21 @@ Page({
         }
         
         this._loadingLifeStorePage()
-
         break;
       case 'featured': // 精选
         this.handleSetNavigationTitle('精选')
         this.setData({
           swiperIndex: 0
         })
+        if (!this.data.featuredLoaded) {
+          this._loadingFeaturedPage()
+        }
         break;
       case 'explore': // 探索
         this.handleSetNavigationTitle('探索')
+        if (!this.data.exploreLoaded) {
+          this._loadingExplorePage()
+        }
         break;
     }
   },
@@ -2020,10 +2039,6 @@ Page({
         }
       }
     }
-
-    // 预加载精选、探索数据
-    this._loadingFeaturedPage()
-    this._loadingExplorePage()
   },
 
   /**
@@ -2122,8 +2137,7 @@ Page({
         })
         this._swtichActivePageTab('lifeStore')
       } else {
-        const fromMenu = wx.getStorageSync('fromMenu')
-        if (fromMenu == 'visitLifeStore') {
+        if (app.globalData.fromMenu == 'visitLifeStore') {
           this.setData({
             pageActiveTab: 'lifeStore',
             'pageTabs[0].pageScroll': 0
@@ -2137,6 +2151,10 @@ Page({
           this._loadingLifeStorePage()
         }
       }
+
+      // 请求后清空
+      app.globalData.showingLifeStoreRid = ''
+      app.globalData.fromMenu = ''
     }
 
     // 初次进入时无生活馆，后续申请开通后

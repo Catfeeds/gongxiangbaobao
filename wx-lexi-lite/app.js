@@ -75,7 +75,7 @@ App({
             // 登录成功，得到jwt后存储到storage
             wx.setStorageSync('jwt', res.data)
             this.globalData.jwt = res.data
-            console.log(res.data, 'jwt信息')
+            
             if (isBind) {
               // 回调函数
               this.hookLoginCallBack(res.data)

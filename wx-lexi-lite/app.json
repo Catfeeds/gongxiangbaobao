@@ -18,7 +18,6 @@
     "pages/dynamic/dynamic",
     "pages/people/people",
     "pages/peopleDynamic/peopleDynamic",
-    "pages/applyLifeStore/applyLifeStore",
     "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
@@ -88,6 +87,7 @@
       "root": "lifeStore",
       "name": "lifeStore",
       "pages": [
+        "pages/applyLifeStore/applyLifeStore",
         "pages/lifeStoreManage/lifeStoreManage",
         "pages/lifeStoreWithdraw/lifeStoreWithdraw",
         "pages/lifeStoreTransaction/lifeStoreTransaction",
