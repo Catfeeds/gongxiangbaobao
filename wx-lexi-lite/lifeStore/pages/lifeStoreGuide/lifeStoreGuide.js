@@ -76,7 +76,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '/pages/applyLifeStore/applyLifeStore',
+      url: '/lifeStore/pages/applyLifeStore/applyLifeStore',
     })
   },
 
@@ -189,4 +189,5 @@ Page({
   onShareAppMessage: function() {
     return app.shareLeXi()
   }
+
 })

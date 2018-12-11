@@ -130,7 +130,7 @@
         <view class="text-top">猜图赢现金</view>
         <view class="text-bottom">随时可提现</view>
       </view>
-      <view class="aplay-store__bottom--item">
+      <view class="aplay-store__bottom--item" catchtap="handleStoreInvite">
         <image src="https://static.moebeast.com/image/static/20181210/invite_friends_open_store.png"></image>
         <view class="text-top">邀请好友开馆</view>
         <view class="text-bottom">组队领现金</view>

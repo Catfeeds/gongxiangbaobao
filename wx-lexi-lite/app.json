@@ -67,8 +67,7 @@
     "pages/browseLifeStore/browseLifeStore",
     "pages/brandStoreQualification/brandStoreQualification",
     "pages/newProductExpress/newProductExpress",
-    "pages/storeOwnerCommend/storeOwnerCommend",
-    "components/FxLoginModal/FxLoginModal"
+    "pages/storeOwnerCommend/storeOwnerCommend"
   ],
   "subPackages": [
     {
@@ -104,7 +103,8 @@
         "pages/lifeStore/lifeStore",
         "pages/lifeStoreOrders/lifeStoreOrders",
         "pages/lifeStoreGuide/lifeStoreGuide",
-        "pages/joinStoreGather/joinStoreGather"
+        "pages/joinStoreGather/joinStoreGather",
+        "pages/lifeStoreInvite/lifeStoreInvite"
       ]
     }
   ],

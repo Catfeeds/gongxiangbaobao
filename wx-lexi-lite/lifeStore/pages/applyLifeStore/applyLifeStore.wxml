@@ -2,7 +2,7 @@
   <fx-loading loading="{{ isLoading }}"></fx-loading>
   <view class="apply-container" wx:if="{{ activePage == 'apply-form' }}">
     <view class="apply-jumbotron">
-      <image src="../../images/lexi-logo.png" class="logo"></image>
+      <image src="../../../images/lexi-logo.png" class="logo"></image>
       <view class="name">乐喜生活馆</view>
       <view class="sologn">做自己热爱的事，顺便赚取收入</view>
     </view>
@@ -77,7 +77,7 @@
     </view>
 
     <view class='off-pick__icon' catchtap='handleOffCountryPick'>
-      <image src='../../images/off@2.png'></image>
+      <image src='../../../images/off@2.png'></image>
     </view>
   </view>
 
