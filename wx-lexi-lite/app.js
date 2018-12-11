@@ -240,6 +240,7 @@ App({
    */
   updateLifeStoreLastVisit(sid) {
     wx.setStorageSync('lastVisitLifeStoreRid', sid)
+    this.globalData.lastVisitLifeStoreRid = sid
 
     // 登录用户，更新至服务端；
     // 未登录用户，临时保存至客户端
@@ -255,6 +256,14 @@ App({
         }
       })
     }
+  },
+
+  /**
+   * 移除最后访问的生活馆
+   */
+  removeLifeStoreLastVisit () {
+    wx.removeStorageSync('lastVisitLifeStoreRid')
+    this.globalData.lastVisitLifeStoreRid = ''
   },
 
   /**
@@ -613,6 +622,8 @@ App({
     lastVisitLifeStoreRid: '',
     // 当前应该显示的生活馆
     showingLifeStoreRid: '',
+    // 恢复未开通生活馆状态
+    resetUnOpenedStore: false,
     // 登录用户信息
     userInfo: null,
     // 地址位置

@@ -983,7 +983,7 @@ button::after {
 }
 
 .fx-back-home.has-tabbar {
-  bottom: 40rpx;
+  bottom: 30rpx;
 }
 
 .fx-back-home .icon-back-home {

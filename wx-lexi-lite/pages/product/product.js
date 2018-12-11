@@ -103,8 +103,17 @@ Page({
    * 回到自己的生活馆
    */
   handleBackLifeStore() {
-    app.globalData.showingLifeStoreRid = app.globalData.lifeStore.lifeStoreRid
-    app.globalData.fromMenu = 'visitLifeStore'
+    // 如已开通生活馆
+    if (app.globalData.lifeStore.isSmallB) {
+      app.globalData.showingLifeStoreRid = app.globalData.lifeStore.lifeStoreRid
+      app.globalData.fromMenu = 'visitLifeStore'
+    } else {
+      // 如未开通，则回到默认状态
+      // 恢复默认值
+      app.globalData.resetUnOpenedStore = true
+      app.globalData.showingLifeStoreRid = ''
+      app.removeLifeStoreLastVisit()
+    }
 
     wx.switchTab({
       url: '../index/index',

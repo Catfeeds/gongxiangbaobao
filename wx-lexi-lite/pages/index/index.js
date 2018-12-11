@@ -578,9 +578,26 @@ Page({
   handleBackLifeStore() {
     const lifeStore = app.globalData.lifeStore
 
-    this.setData({
-      sid: lifeStore.lifeStoreRid,
-    })
+    // 如已开通生活馆
+    if (app.globalData.lifeStore.isSmallB) {
+      this.setData({
+        sid: lifeStore.lifeStoreRid,
+        isOpenedLifeStore: true
+      })
+
+      // 加载选品中心的动画
+      this.getDistributeNewest()
+    } else {
+      // 如未开通，则回到默认状态
+      this.setData({
+        sid: '',
+        isOpenedLifeStore: false
+      })
+
+      // 恢复默认值
+      app.globalData.showingLifeStoreRid = ''
+      app.removeLifeStoreLastVisit()
+    }
 
     wx.pageScrollTo({
       scrollTop: 0,
@@ -588,9 +605,6 @@ Page({
     })
 
     this._swtichActivePageTab('lifeStore')
-
-    // 加载选品中心的动画
-    this.getDistributeNewest()
   },
 
   /**
@@ -1866,28 +1880,76 @@ Page({
   },
 
   /**
-   * 验证登录用户是否存在生活馆
+   * 验证是否存在生活馆
    */
   _validateLifeStore() {
-    let lifeStore = app.globalData.lifeStore
-
-    utils.logger(lifeStore, '我的生活馆')
-
-    // 判断登录用户是否有生活馆
-    if (lifeStore.isSmallB) {
-      // 现在自己的生活馆
+    if (this.data.sid) {
       this.setData({
-        sid: lifeStore.lifeStoreRid,
         isOpenedLifeStore: true
       })
     } else {
-      this.setData({
-        isOpenedLifeStore: false
-      })
+      utils.logger(lifeStore, '我的生活馆')
+
+      let lifeStore = app.globalData.lifeStore
+      // 判断登录用户是否有生活馆
+      if (lifeStore.isSmallB) {
+        // 现在自己的生活馆
+        this.setData({
+          sid: lifeStore.lifeStoreRid,
+          isOpenedLifeStore: true
+        })
+      } else {
+        this.setData({
+          isOpenedLifeStore: false
+        })
+      }
     }
 
     // 加载生活馆数据
     this._swtichActivePageTab('lifeStore')
+  },
+
+  /**
+   * 检测当前店铺与登录用户的权限
+   */
+  _checkShowStoreAcl () {
+    // 当前是否有生活馆显示
+    if (this.data.isOpenedLifeStore) {
+      // 验证生活馆是不是自己的
+      let lifeStore = app.globalData.lifeStore
+      // 判断登录用户是否有生活馆
+      if (lifeStore.isSmallB) {
+        if (this.data.sid == lifeStore.lifeStoreRid) {
+          this.setData({
+            storeOwner: app.globalData.userInfo,
+            isSmallB: true,
+            canAdmin: true,
+            showBack: false
+          })
+        } else {
+          this.setData({
+            isSmallB: false,
+            canAdmin: false,
+            showBack: true
+          })
+        }
+      } else {
+        // 当前显示其他人的生活馆，用户未开馆，返回开馆
+        this.setData({
+          showBack: true
+        })
+      }
+
+      // 更新当前用户的last_store_rid
+      app.updateLifeStoreLastVisit(this.data.sid)
+
+      // 同步更新全局变量
+      app.globalData.showingLifeStoreRid = this.data.sid
+    } else {
+      this.setData({
+        showBack: false
+      })
+    }
   },
 
   /**
@@ -1900,38 +1962,7 @@ Page({
           page: 1
         })
 
-        // 当前是否有生活馆显示
-        if (this.data.isOpenedLifeStore) {
-          // 验证生活馆是不是自己的
-          const lifeStore = app.globalData.lifeStore
-          // 判断登录用户是否有生活馆
-          if (lifeStore.isSmallB) {
-            if (this.data.sid == lifeStore.lifeStoreRid) {
-              this.setData({
-                storeOwner: app.globalData.userInfo,
-                isSmallB: true,
-                canAdmin: true,
-                showBack: false
-              })
-            } else {
-              this.setData({
-                isSmallB: false,
-                canAdmin: false,
-                showBack: true
-              })
-            }
-          } else {
-            this.setData({
-              showBack: true
-            })
-          }
-
-          // 更新当前用户的last_store_rid
-          app.updateLifeStoreLastVisit(this.data.sid)
-
-          // 同步更新全局变量
-          app.globalData.showingLifeStoreRid = this.data.sid
-        }
+        this._checkShowStoreAcl()
 
         this._loadingLifeStorePage()
         break;
@@ -1976,11 +2007,14 @@ Page({
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
-
-    // 全局参数里有生活馆
-    if (app.globalData.showingLifeStoreRid != '') {
+    
+    // 最近一次访问记录
+    let lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
+    if (lastStoreRid) {
+      // 装载至全局参数里
+      app.globalData.showingLifeStoreRid = lastStoreRid
       this.setData({
-        sid: app.globalData.showingLifeStoreRid
+        sid: lastStoreRid
       })
     }
 
@@ -2065,12 +2099,6 @@ Page({
         'pageTabs[2].pageScroll': scrollPosition
       })
     }
-    // 橱窗
-    if (currentPage == 'window') {
-      this.setData({
-        'pageTabs[3].pageScroll': scrollPosition
-      })
-    }
   },
 
   /**
@@ -2138,8 +2166,29 @@ Page({
         }
 
         // 请求后清空
-        app.globalData.showingLifeStoreRid = ''
         app.globalData.fromMenu = ''
+      }
+
+      // 显示自己的生活馆,开启动画
+      if (showingLifeStoreRid && this.data.sid == showingLifeStoreRid) {
+        this.getDistributeNewest()
+      }
+      
+      // 恢复默认值
+      if (app.globalData.resetUnOpenedStore) {
+        this.setData({
+          sid: '',
+          isOpenedLifeStore: false
+        })
+        // 重置
+        app.globalData.resetUnOpenedStore = false
+
+        wx.pageScrollTo({
+          scrollTop: 0,
+          duration: 0
+        })
+        
+        this._swtichActivePageTab('lifeStore')
       }
       
     } else {  // 初次进入时无生活馆，后续申请开通后
@@ -2172,7 +2221,6 @@ Page({
 
     // 馆主推荐是否有变化
     if (app.globalData.agent.storeOwnerCommendChange) {
-
       this.getStoreProducts()
       app.globalData.agent.storeOwnerCommendChange = false
     }

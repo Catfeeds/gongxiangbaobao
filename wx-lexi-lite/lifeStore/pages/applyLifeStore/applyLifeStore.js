@@ -115,6 +115,10 @@ Page({
         // 合并小B身份到登录用户
         app.mergeLifeStoreToJwt(res.data)
 
+        // 设置全局变量
+        app.globalData.showingLifeStoreRid = res.data.store_rid
+        app.globalData.fromMenu = 'visitLifeStore'
+        
       } else {
         utils.fxShowToast(res.status.message)
       }
