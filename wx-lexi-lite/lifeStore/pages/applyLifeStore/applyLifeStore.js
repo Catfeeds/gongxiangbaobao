@@ -1,9 +1,9 @@
 // pages/applyLifeStore/applyLifeStore.js
 const app = getApp()
 
-const http = require('./../../utils/http.js')
-const api = require('./../../utils/api.js')
-const utils = require('./../../utils/util.js')
+const http = require('./../../../utils/http.js')
+const api = require('./../../../utils/api.js')
+const utils = require('./../../../utils/util.js')
 
 let interval
 
@@ -70,7 +70,7 @@ Page({
    */
   handleGoLifeStore() {
     wx.switchTab({
-      url: '../index/index'
+      url: '/pages/index/index'
     })
   },
 
@@ -78,7 +78,7 @@ Page({
    * 提交申请
    */
   handleSubmitApply(e) {
-    // 获取formid 
+    // 获取formid
     app.handleSendNews(e.detail.formId)
 
     // 未登录，需先登录
@@ -92,7 +92,7 @@ Page({
     wx.showLoading({
       title: '正在提交...',
     })
-    console.log(app.globalData.jwt, 'jwt')
+    
     let lastVisitLifeStoreRid = wx.getStorageSync('lastVisitLifeStoreRid') || ''
 
     http.fxPost(api.life_store_apply, { ...e.detail.value,
@@ -224,7 +224,7 @@ Page({
     // 已经申请过则不能重复申请
     if (lifeStore.isSmallB) {
       wx.switchTab({
-        url: '../index/index'
+        url: '/pages/index/index'
       })
     }
 

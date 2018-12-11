@@ -1403,6 +1403,15 @@ Page({
     })
   },
 
+  /**
+   * 邀请好友开馆
+   */
+  handleStoreInvite () {
+    wx.navigateTo({
+      url: '/lifeStore/pages/lifeStoreInvite/lifeStoreInvite',
+    })
+  },
+
   // 监听动画结束
   handleAnimationend() {
 

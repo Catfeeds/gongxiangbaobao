@@ -27,15 +27,16 @@
   position: absolute;
   bottom: -70rpx;
   left: 0rpx;
-  padding: 8rpx;
+  height: 60rpx;
+  padding: 0 8rpx;
   background: rgba(0, 0, 0, 0.7);
-  border-radius: 45rpx;
-  display: inline-block;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
 }
 
 .barrage-blocks--img {
-  vertical-align: middle;
-  display: inline-block;
+  flex: 0 0 auto;
   width: 46rpx;
   height: 46rpx;
   border-radius: 50%;
@@ -43,15 +44,15 @@
 }
 
 .barrage-blocks--span {
-  vertical-align: middle;
+  flex: 1;
   font-size: 20rpx;
+  line-height: 60rpx;
   color: white;
-  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-left: 6rpx;
-  transform: translateY(3rpx);
+  margin-right: 8rpx;
 }
 
 .jumbotron {
@@ -277,6 +278,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  height: 385rpx;
 }
 
 .example {

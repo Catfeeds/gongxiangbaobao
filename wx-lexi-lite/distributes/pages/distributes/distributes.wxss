@@ -1,0 +1,318 @@
+.page-section {
+  padding-top: 20rpx;
+  background-color: #fff;
+}
+
+/* 搜索框 */
+
+.search-box {
+  padding: 0rpx 40rpx;
+  background-color: #fff;
+}
+
+.search-box__text {
+  font-size: 24rpx;
+  position: relative;
+}
+
+.search-box__text .icon {
+  width: 29rpx;
+  height: 29rpx;
+  position: absolute;
+  left: 33rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9;
+}
+
+.search-box__text .search-input {
+  height: 68rpx;
+  background-color: rgba(246, 245, 245, 1);
+  padding: 0rpx 20rpx 0rpx 83rpx;
+  border-radius: 50rpx;
+  color: #555;
+}
+
+.page-section.fx-tabs {
+  padding-top: 24rpx;
+}
+
+.distribute-swiper {
+  width: 100%;
+  height: 340rpx;
+  padding-bottom: 20rpx;
+}
+
+.distribute-swiper .swiper-item {
+  width: 580rpx;
+  height: 340rpx;
+  margin: 0 auto;
+}
+
+.distribute-swiper .swiper-item image {
+  height: 218rpx;
+  width: 452rpx;
+}
+
+.swiperActive {
+  transform: scale(1.3, 1.28);
+  transition: all 0.5s ease 0s;
+  border-radius: 12rpx;
+}
+
+.swiperActive image {
+  border-radius: 12rpx;
+}
+
+.transtion-right {
+  transform: translateX(62rpx);
+  transition: all 0.5s ease 0.1s;
+}
+
+.transtion-left {
+  transform: translateX(-64rpx);
+  transition: all 0.5s ease 0.1s;
+}
+
+/* 生活馆头条 */
+
+.headline-wrapper {
+  position: relative;
+  background-color: #fff;
+  padding-bottom: 20rpx;
+}
+
+.headline {
+  display: flex;
+  align-items: center;
+  margin: 0rpx 40rpx;
+  border: 1rpx solid #e9e9e9;
+  box-shadow: 8rpx 0rpx 15rpx rgba(0, 0, 0, 0.1);
+  border-radius: 8rpx;
+  /* padding: 21rpx 20rpx; */
+  padding: 0rpx 20rpx;
+}
+
+.headline-side {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.headline-side .icon-voice {
+  width: 31rpx;
+  height: 26rpx;
+}
+
+.headline-side text {
+  font-size: 24rpx;
+  color: #333;
+  display: block;
+}
+
+.headline-line {
+  flex: 0 0 8rpx;
+  width: 8rpx;
+  height: 67rpx;
+  margin-left: 16rpx;
+  margin-right: 22rpx;
+  background: linear-gradient(1deg, rgba(95, 228, 177, 1), rgba(95, 228, 177, 1));
+}
+
+.headline-body {
+  flex: 1;
+  height: 134rpx;
+}
+
+.headline-body swiper, .headline-body swiper-item {
+  height: 100%;
+}
+
+.headline-body .headline-item {
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 1);
+  margin-bottom: 0rpx;
+}
+
+.headline-body .headline-item .store-green {
+  color: #5fe4b1;
+}
+
+.headline-body .headline-item .order-yellow {
+  color: #f4b329;
+}
+
+.open-more {
+  font-size: 24rpx;
+  color: #666;
+  text-align: center;
+  padding: 28rpx 0rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+/* 筛选器 */
+
+.fx-filter {
+  display: flex;
+  justify-content: space-between;
+  padding: 0rpx 40rpx;
+  border-bottom: 1rpx solid #e9e9e9;
+}
+
+.fx-filter .filter-item {
+  flex: 0 0 auto;
+  padding: 26rpx 20rpx 28rpx 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.fx-filter .filter-item:last-child {
+  padding-right: 37rpx;
+}
+
+.fx-filter .filter-item text {
+  font-size: 28rpx;
+  color: #555;
+  margin-right: 10rpx;
+}
+
+.fx-filter .filter-item .icon-arrow-down {
+  width: 12rpx;
+  height: 10rpx;
+}
+
+.price-range {
+  position: relative;
+  padding: 20rpx 40rpx 0;
+  background-color: #fff;
+}
+
+.fx-distributes {
+  min-height: 500rpx;
+}
+
+.fx-distribute-cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 0rpx 40rpx;
+}
+
+.distribute-card {
+  display: flex;
+  flex-direction: column;
+  padding-top: 22rpx;
+}
+
+.distribute-card .distribute-card__cover {
+  position: relative;
+}
+
+.distribute-card .distribute-card__cover .image {
+  width: 326rpx;
+  height: 326rpx;
+  border-radius: 8rpx;
+}
+
+.distribute-card .distribute-card__cover .icon-sold-out {
+  position: absolute;
+  left: 11rpx;
+  top: 11rpx;
+  width: 62rpx;
+  height: 36rpx;
+}
+
+.distribute-card .distribute-card__body .title {
+  font-size: 24rpx;
+  color: #333;
+  margin-bottom: 9rpx;
+}
+
+.distribute-card .distribute-card__body .title.icon-free {
+  background-image: url("https://static.moebeast.com/image/static/icon-free.png");
+  background-repeat: no-repeat;
+  background-size: 40rpx 24rpx;
+  background-position: left 6rpx;
+  text-indent: 48rpx;
+}
+
+.distribute-card .distribute-card__body .price-box {
+  margin-bottom: 17rpx;
+}
+
+.distribute-card .distribute-card__body .price-box .sale-price {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.distribute-card .distribute-card__body .price-box .price {
+  color: #999;
+  font-size: 22rpx;
+  margin-left: 17rpx;
+  text-decoration: line-through;
+}
+
+.distribute-card .distribute-card__body .price-box .love {
+  font-size: 22rpx;
+  margin-left: 24rpx;
+  color: #999;
+}
+
+.distribute-card .distribute-card__body .income {
+  font-size: 24rpx;
+  color: #f66;
+}
+
+.distribute-card .distribute-card__body .income text {
+  font-weight: bold;
+  font-size: 26rpx;
+}
+
+.distribute-card .distribute-card__actions {
+  padding-top: 18rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.distribute-over__btn,
+.distribute-card .distribute-card__actions .distribute-over__btn,
+.distribute-card .distribute-card__actions .fx-mini-btn {
+  margin-right: 20rpx;
+}
+
+.ending {
+  font-size: 24rpx;
+  color: #b2b2b2;
+  padding: 39rpx 0rpx 52rpx;
+  text-align: center;
+  margin-top: 40rpx;
+}
+
+.distribute-over__btn {
+  width: 160rpx;
+  height: 50rpx;
+  font-size: 28rpx;
+  border-radius: 25rpx;
+  color: white;
+  background-color: #2d343a;
+  opacity: 0.5;
+  line-height: 28rpx;
+}
+
+.product-item__actions {
+  align-items: flex-start;
+}
+
+.padding-top--0rpx {
+  padding-top: 0rpx;
+}
+
+.box-fixed {
+  position: fixed;
+  top: 0;
+  width: 670rpx;
+  z-index: 9;
+}
+
+.top-shim {
+  height: 100rpx;
+}
