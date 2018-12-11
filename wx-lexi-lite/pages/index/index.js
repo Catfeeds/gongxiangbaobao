@@ -91,6 +91,7 @@ Page({
     shopInfo: '', // 生活馆信息
     lifePhotoUrl: '', // 分享生活馆的图片
     sid: '', // 生活馆sid
+    isExistLifeStore: false, // 是否存在生活馆
     openId: '', // openId
     shopInfo: '', // 生活馆信息
     lifeStore: {
@@ -1824,20 +1825,16 @@ Page({
 
       this.setData({
         sid: sid,
-        'pageTabs[0].disabled': false,
+        isExistLifeStore: true,
         pageActiveTab: 'lifeStore'
       })
 
       // 请求当前数据
       this._swtichActivePageTab('lifeStore')
     } else {
-      this.setData({ // 无生活馆显示
-        'pageTabs[0].disabled': true,
-        pageActiveTab: 'featured'
+      this.setData({
+        isExistLifeStore: false
       })
-
-      // 请求当前数据
-      this._swtichActivePageTab('featured')
     }
   },
 
@@ -1916,6 +1913,7 @@ Page({
   onLoad: function(options) {
     // 检测网络
     app.ckeckNetwork()
+
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''

@@ -11,17 +11,20 @@
   </view>
   <view class="navbar-shim" wx:if='{{isNavbarAdsorb}}'></view>
 
-  <view class='fx-tabs  navbar-txet  {{isNavbarAdsorb?"navbar-adsorb":""}}'>
+  <view class='fx-tabs navbar-txet {{isNavbarAdsorb?"navbar-adsorb":""}}'>
     <view class="tab-item {{ pageActiveTab == pageTab.name ? 'active' : '' }}" wx:for='{{ pageTabs }}' wx:for-item="pageTab" wx:key='{{ pageTab.rid }}' data-name='{{ pageTab.name }}' catchtap="handlePickCategory">
       <text>{{ pageTab.title }}</text>
     </view>
   </view>
 
-  <!-- 生活馆  -->
+  <!-- 生活馆 -->
   <view class=" page-lifestore {{ pageActiveTab == 'lifeStore' ? 'active' : '' }}">
-    <view class="bg_hui--se">
-      <view class="aplay-store__box">
+    <!-- 未开通 -->
+    <view class="lifestore-not-opened-wrapper">
+      <view class="aplay-store__box" wx:if="{{ !isExistLifeStore }}">
         <image class="aplay-store__photo--top" src="https://static.moebeast.com/image/static/header_background_2x.png"></image>
+
+        <!-- 开馆头条 -->
         <view class="aplay-store__guide--box" catchtap="handleApplyLifeStore">
           <image class="aplay-store__icon" src="https://static.moebeast.com/image/static/open_store-headline.png"></image>
           <view class="aplay-store__left">
@@ -39,23 +42,24 @@
             </view>
           </view>
         </view>
-
-        <view class="aplay-store__photo--bottom">
-          <navigator class="aplay-store__bottom--item" target="miniProgram" open-type="navigate" app-id="wxdb87730456842ea2" path="pages/index/index" extra-data="lexi" version="release">
-            <image src="https://static.moebeast.com/image/static/wechat_send_gift.png"></image>
-            <view class="text-top">微信送礼</view>
-            <view class="text-bottom">花一元拿礼物</view>
-          </navigator>
-          <view class="aplay-store__bottom--item" catchtap="handleGuessGame" wx:if="{{ runEnv == 2 }}">
-            <image src="https://static.moebeast.com/image/static/guess_win_cash.png"></image>
-            <view class="text-top">猜图赢现金</view>
-            <view class="text-bottom">随时可提现</view>
-          </view>
-          <view class="aplay-store__bottom--item">
-            <image src="https://static.moebeast.com/image/static/invite_friend_open_store.png"></image>
-            <view class="text-top">邀请好友开馆</view>
-            <view class="text-bottom">组队领现金</view>
-          </view>
+      </view>
+      
+      <!-- 快捷菜单 -->
+      <view class="aplay-store__photo--bottom">
+        <navigator class="aplay-store__bottom--item" target="miniProgram" open-type="navigate" app-id="wxdb87730456842ea2" path="pages/index/index" extra-data="lexi" version="release">
+          <image src="https://static.moebeast.com/image/static/wechat_send_gift.png"></image>
+          <view class="text-top">微信送礼</view>
+          <view class="text-bottom">花一元拿礼物</view>
+        </navigator>
+        <view class="aplay-store__bottom--item" catchtap="handleGuessGame" wx:if="{{ runEnv == 2 }}">
+          <image src="https://static.moebeast.com/image/static/guess_win_cash.png"></image>
+          <view class="text-top">猜图赢现金</view>
+          <view class="text-bottom">随时可提现</view>
+        </view>
+        <view class="aplay-store__bottom--item">
+          <image src="https://static.moebeast.com/image/static/invite_friend_open_store.png"></image>
+          <view class="text-top">邀请好友开馆</view>
+          <view class="text-bottom">组队领现金</view>
         </view>
       </view>
 
@@ -76,7 +80,8 @@
       </view>
     </view>
 
-    <block wx:if="{{}}">
+    <!-- 已开通 -->
+    <view class="lifestore-open-wrapper" wx:if="{{ isExistLifeStore }}">
       <!-- 用户的信息和店铺的信息 -->
       <view class='owner-info_box'>
         <view class=' flex_row'>
@@ -264,7 +269,7 @@
           <text class='fx-icon-nothing-lower'></text>
         </view>
       </view>
-    </block>
+    </view>
 
     <view class="bg-white">
       <view class='human margin-bottom--0rpx zui-shou__huanying'>
