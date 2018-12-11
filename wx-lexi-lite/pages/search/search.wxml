@@ -29,12 +29,9 @@
     <view class='bg-white last-record' wx:if="{{highQualityList.products.length!=0&&highQualityList.length!=0}}">
       <view class='black-font font-width--semibold padding-left--40rpx padding-bottom--24rpx'>最近查看</view>
       <scroll-view scroll-x>
-
         <view class='last-record__item {{index==0?"margin-left--40rpx":""}} {{index==highQualityList.products.length-1?"margin-right--40rpx":""}}' wx:for="{{highQualityList.products}}" wx:key="{{index}}">
-
           <fx-product product="{{item}}" like_number="{{false}}" photo="{{1}}" bind:triggerEvent_product="handleInfomation" oldPrice="{{true}}"></fx-product>
         </view>
-
       </scroll-view>
     </view>
 

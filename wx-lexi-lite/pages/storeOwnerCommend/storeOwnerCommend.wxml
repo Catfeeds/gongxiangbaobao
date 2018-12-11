@@ -1,0 +1,71 @@
+<!--pages/storeOwnerCommend/storeOwnerCommend.wxml-->
+<view class="container">
+  <view class='tuijian border-bottom padding-bottom--20rpx {{ idx == 0 ?"padding-top--40rpx" : "" }} {{ idx == storeProducts.length - 1 ? "margin-bottom--0rpx" : "" }}' wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="distributeProduct" wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
+    <!-- 店长头相 -->
+    <view class='shopMaster'>
+      <image src='{{ lifeStore.logo }}-ava' class='photo-round' wx:if="{{ lifeStore.logo }}"></image>
+      <text>馆长极力推荐</text>
+      <!-- 垃圾箱 -->
+      <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore">
+        <image src='../../images/delete-icon@2.png'></image>
+      </view>
+    </view>
+
+    <!-- 推荐理由介绍 -->
+    <view class='shopRecommend theme-bg-color ' wx:if="{{distributeProduct.stick_text}}">
+      <view class='triangle theme-bg-color'></view>
+      <text> {{ distributeProduct.stick_text }} </text>
+    </view>
+
+    <!-- 物品的详情 -->
+    <view class='margin-top--20rpx margin-bottom--44rpx'>
+      <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
+
+        <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
+          <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}" wx:if="{{ distributeProduct.cover }}"></image>
+
+          <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
+          <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>
+        </view>
+
+        <view class="shopRecommendGoodsR" style='height:180rpx;'>
+          <view>
+            <view class='two-line'>
+              <image class='logistics logistics' wx:if="{{ distributeProduct.is_free_postage }}"></image>
+              <text class='{{ photoHeight == 140 ? "line-two" : ""}}'>{{ distributeProduct.name }}</text>
+            </view>
+          </view>
+
+          <!-- 价格和喜欢的人数 -->
+          <view class='price-like-box'>
+            <text wx:if="{{ distributeProduct.min_price == distributeProduct.min_sale_price }}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{ distributeProduct.min_price }}</text>
+
+            <text class='current_price' wx:else>¥{{ distributeProduct.min_sale_price==0?distributeProduct.min_price:distributeProduct.min_sale_price }}</text>
+            <text wx:if="{{ distributeProduct.like_count != 0 }}" class='shopRecommendGoodsR-old'>喜欢+{{ distributeProduct.like_count }}</text>
+          </view>
+
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部的喜欢和分享 -->
+    <view class='recommendbottom'>
+      <view data-id='{{ distributeProduct.rid }}' data-rid='{{ distributeProduct.rid }}' class='recommendbottomText {{ distributeProduct.is_like ? "likeActive" : "" }}' data-index="{{ idx }}" data-islike="{{ distributeProduct.is_like }}" catchtap='handleBindLike'>
+        <view class='icon-like'>
+          <image src='{{ distributeProduct.is_like ? "../../images/like@2.png" : "../../images/dLike@2.png" }}'>
+          </image>
+        </view>
+        <view>喜欢</view>
+      </view>
+      <view class='recommendbottomText' catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">
+        <view class='icon-like'>
+          <image src='../../images/share@2.png'></image>
+        </view>
+        <view>分享</view>
+      </view>
+      <view class='recommendbottomRen'>
+        <image wx:for="{{distributeProduct.product_like_users}}" catchtap="handleToPeople" data-uid="{{item.uid}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
+      </view>
+    </view>
+  </view>
+</view>

@@ -105,6 +105,9 @@ Page({
     showConfirmModal: false, // 删除上架商品确认
     latestDistributeProducts: [], // 最新分销商品
     isDistributed: false, // 是否属于分销
+    lifeStoreHeadTop: { // 已经开通生活馆的头部图片
+      image: ''
+    },
     topAdvPhoto: {
       image: ''
     }, // 生活馆的头部广告位置
@@ -713,13 +716,6 @@ Page({
   handleSwiperChange(e) {
     this.setData({
       swiperMark: e.detail.current
-    })
-  },
-
-  // 关闭实习生
-  handleOffCadet() {
-    this.setData({
-      isCadet: false
     })
   },
 
@@ -1605,17 +1601,17 @@ Page({
       return
     }
 
-    http.fxPost(api.store_close_phases_description, { rid: this.data.sid},result=>{
-      console.log(result,'000000000000000000000000000000000000000000000000')
-      if (result.success) {
-        this.setData({
-          latestDistributeProducts: result.data.products
-        })
-      } else {
+    this.setData({
+      'lifeStore.close_status': this.data.lifeStore.close_status + 1
+    })
+
+    http.fxPost(api.store_close_phases_description, {
+      rid: this.data.sid
+    }, result => {
+      if (result.success) {} else {
         utils.fxShowToast(result.status.message)
       }
     })
-
   },
 
   /**
@@ -1643,8 +1639,7 @@ Page({
             v.text = '售出' + v.quantity + '单' // v.username + 
           }
           // 随机颜色
-          let num = Math.ceil(Math.random() * 5)
-          if (i % num == 0) {
+          if ((i + 1) % 3 == 0) {
             v.color = true
           }
 
@@ -1804,7 +1799,20 @@ Page({
     })
   },
 
-  // 生活馆的头部广告为
+  // 已经开通生活馆的头部图片
+  getLifeStoreHeadTop() {
+    http.fxGet(api.banners_rid.replace(/:rid/, 'wxa_lifestore_index_head'), {}, result => {
+      if (result.success) {
+        this.setData({
+          lifeStoreHeadTop: result.data.banner_images[0]
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 生活馆的头部广告为 
   getTopAdvPhoto() {
     http.fxGet(api.banners_rid.replace(/:rid/, 'wxa_lifestore_head'), {}, result => {
       if (result.success) {
@@ -1863,7 +1871,7 @@ Page({
     this.getHandpickNewExpress() // 新品速递
     this.getTopAdvPhoto() // 头部广告位
     this.getAplayStoreBGAdv() // 开馆指引广告位
-    this.getLifeStoreTxt() // 生活馆文案显示状态
+    this.getLifeStoreHeadTop() // 已经开通生活馆的头部图片
   },
 
   // 验证是否存在生活馆
@@ -2385,6 +2393,13 @@ Page({
     let windowRid = e.currentTarget.dataset.windowRid
     wx.navigateTo({
       url: '../windowDetail/windowDetail?windowRid=' + windowRid,
+    })
+  },
+
+  // 去馆主极力推荐
+  handleGoStoreOwnerCommend() {
+    wx.navigateTo({
+      url: '../storeOwnerCommend/storeOwnerCommend?sid=' + this.data.sid,
     })
   },
 

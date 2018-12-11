@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "馆主推荐",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading",
+    "fx-coupon": "/components/FxCoupon/coupon",
+    "fx-product": "/components/FxProductComponent/FxProductComponent",
+    "fx-product-middle": "/components/FxProductMiddle/FxProductMiddle",
+    "fx-product-middleM": "/components/FxProductMiddleMany/FxProductMiddleMany",
+    "fx-login": "/components/FxLogin/FxLogin",
+    "fx-modal-v": "/components/FxModalV/FxModalV",
+    "fx-user-defined": "/components/FxUserDefined/FxUserDefined",
+    "fx-modal": "/components/FxModal/FxModal",
+    "fx-image-modal": "/components/FxImageModal/FxImageModal"
+  }
+}
