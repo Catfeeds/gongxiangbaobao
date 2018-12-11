@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 27,
+			"current": 28,
 			"list": [
 				{
 					"id": 0,
@@ -202,6 +202,11 @@
 					"name": "开馆指引",
 					"pathName": "lifeStore/pages/lifeStoreGuide/lifeStoreGuide",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "邀请",
+					"pathName": "lifeStore/pages/lifeStoreInvite/lifeStoreInvite"
 				}
 			]
 		}

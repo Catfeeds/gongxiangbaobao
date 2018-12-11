@@ -1,1 +1,141 @@
 /* lifeStore/pages/lifeStoreInvite/lifeStoreInvite.wxss */
+
+.main-wrapper {
+  background: url("https://static.moebeast.com/team-bag.jpg") no-repeat;
+  background-size: 750rpx auto;
+  width: 750rpx;
+}
+
+.rules-container {
+  background-color: white;
+  margin: 402rpx 40rpx 0;
+  padding: 0 22rpx 35rpx 0;
+  border-radius: 25rpx;
+}
+
+.block--container {
+  padding-top: 25rpx;
+}
+
+.icon-award {
+  width: 108rpx;
+  height: 41rpx;
+}
+
+.block-content {
+  display: flex;
+  align-items: center;
+  margin: 25rpx 0 0 25rpx;
+}
+
+.block-content .award-img {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.rules-text {
+  margin-left: 20rpx;
+}
+
+.rules-text .activity-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: rgba(255, 102, 136, 1);
+  line-height: 32rpx;
+}
+
+.activity-detail {
+  width: 480rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 34rpx;
+  margin-top: 16rpx;
+}
+
+.activity-detail .money-number {
+  color: #f7597c;
+}
+
+.detailed-introduction {
+  margin: 40rpx 28rpx 0;
+  background: url("https://static.moebeast.com/static/img/border-bag.png");
+  background-size: 100% 100%;
+  padding: 40rpx 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.introduction-advantage {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 30rpx;
+}
+
+.introduction-selection {
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+  line-height: 24rpx;
+}
+
+.slogan--container {
+  margin-top: 30rpx;
+  width: 100%;
+  padding-bottom: 150rpx;
+}
+
+.slogan-title--container {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: rgba(247, 89, 124, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-diamond {
+  width: 17rpx;
+  height: 17rpx;
+}
+
+.slogan-title {
+  margin: 0 10rpx;
+}
+
+.slogan-text {
+  width: 100%;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(247, 89, 124, 1);
+  line-height: 24rpx;
+  letter-spacing: 14rpx;
+  margin-top: 15rpx;
+  text-align: center;
+}
+
+.share-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  width: 750rpx;
+  height: 100rpx;
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+}
+
+.share-wrapper .btn-primary {
+  width: 690rpx;
+  height: 80rpx;
+  background: rgba(95, 228, 177, 1);
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 80rpx;
+}

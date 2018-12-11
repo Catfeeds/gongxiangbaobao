@@ -1,4 +1,84 @@
 <fx-loading loading="{{ isLoading }}"></fx-loading>
-<view class="container">
-  
+<view class="container main-wrapper">
+  <view class="rules-container">
+    <view class="block--container">
+      <image class="icon-award" src="https://static.moebeast.com/static/img/icon-award-one.png"></image>
+      <view class="block-content">
+        <image class="award-img" src="https://static.moebeast.com/static/img/award-img-one.png"></image>
+        <view class="rules-text">
+          <view class="activity-title">1元奖励</view>
+          <view class="activity-detail">
+            好友开店成功你可获得
+            <text class="money-number">1元</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="block--container">
+      <image class="icon-award" src="https://static.moebeast.com/static/img/icon-award-two.png"></image>
+      <view class="block-content">
+        <image class="award-img" src="https://static.moebeast.com/static/img/award-img-two.png"></image>
+        <view class="rules-text">
+          <view class="activity-title">50%现金奖励</view>
+          <view class="activity-detail">
+            好友实习期间，好友售出前3单你可获得好友每单收益的
+            <text class="money-number">50%现金奖励</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="detailed-introduction">
+      <view class="introduction-advantage">零成本经营开店，无需任何资金,一键开馆</view>
+      <view class="introduction-selection">展示优质生活,甄选全球原创设计品牌商品</view>
+    </view>
+  </view>
+
+  <view class="slogan--container">
+    <view class="slogan-title--container">
+      <image class="icon-diamond" src="https://static.moebeast.com/static/img/icon-diamond.png"></image>
+      <text class="slogan-title">品位设计，美感生活</text>
+      <image class="icon-diamond" src="https://static.moebeast.com/static/img/icon-diamond.png"></image>
+    </view>
+    <view class="slogan-text">开馆挣钱，为自己购买省钱</view>
+  </view>
+
+  <view class="share-wrapper">
+    <button class="btn-primary" catchtap="handleShareShow">邀请好友开馆</button>
+  </view>
+
+  <!-- 邀请 -->
+  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
+    <view class="fx-modal__main distribute-share" slot="main">
+      <view class="distribute-style">
+        <button class="share-friend wxa-card" data-card="1" open-type="share">
+          <image src="{{ cardPhoto }}" class="cover"></image>
+          <text>点击直接分享</text>
+        </button>
+
+        <view class="wxa-poster" bindtap="handleSaveShare">
+          <view class="cover">
+            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
+            <image src="../../../images/jiazai.gif" class="loading" wx:else></image>
+          </view>
+          <text class="margin-top--14rpx">保存分享图</text>
+        </view>
+      </view>
+      <view class="distribute-action">
+        <button class="share-friend" data-card="1" open-type="share">
+          <image src="../../../images/wx-icon@2.png" class="icon-wechat"></image>
+          <text>微信好友</text>
+        </button>
+        <button class="share-save" bindtap="handleSaveShare">
+          <image src="../../../images/save@2.png" class="icon-save"></image>
+          <text>保存分享</text>
+        </button>
+      </view>
+      <view class="distribute-cancle" bindtap="handleCancelShare">
+        取消
+      </view>
+    </view>
+  </fx-modal>
+
 </view>
