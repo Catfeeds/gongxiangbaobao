@@ -881,7 +881,7 @@ image {
 .distribute-action {
   display: flex;
   align-items: center;
-  padding: 60rpx 0;
+  padding: 10rpx 0 40rpx;
 }
 
 .distribute-action .share-friend, .distribute-action .share-save {

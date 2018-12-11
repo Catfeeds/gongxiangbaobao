@@ -143,7 +143,7 @@ Page({
     },
 
     // 探索
-    
+
     characteristicStoreList: { // 特色品牌商店
       stores: [{
           logo: '',
@@ -160,21 +160,8 @@ Page({
     exploreAdvertisementList: [], // 广告位置
     categoryList: [], // 分类
     editRecommendList: [], // 编辑推荐
-    highQualityList: { // 优质新品
-      products: [{
-          cover: '',
-          name: ''
-        },
-        {
-          cover: '',
-          name: ''
-        },
-        {
-          cover: '',
-          name: ''
-        },
-      ]
-    },
+    // 优质新品
+    highQualityList: [],
     goodDesignList: { // 特惠好设计
       products: [{
           cover: '',
@@ -1260,11 +1247,7 @@ Page({
       utils.logger(result, '优质新品')
       if (result.success) {
         this.setData({
-          highQualityList: []
-        })
-
-        this.setData({
-          highQualityList: result.data
+          'highQualityList': result.data.products
         })
       } else {
         utils.fxShowToast(result.status.message)
@@ -1389,7 +1372,7 @@ Page({
   /**
    * 邀请好友开馆
    */
-  handleStoreInvite () {
+  handleStoreInvite() {
     if (!app.globalData.lifeStore.isSmallB) {
       utils.fxShowToast('邀请需先开通生活馆')
       return
@@ -1579,7 +1562,7 @@ Page({
 
   // 加载生活馆文案状态
   getLifeStoreTxt() {
-    const showingLifeStoreRid = wx.getStorageSync('showingLifeStoreRid')
+    const showingLifeStoreRid = app.globalData.showingLifeStoreRid
     if (this.data.sid != showingLifeStoreRid) {
       return
     }
@@ -1857,18 +1840,23 @@ Page({
 
   // 加载生活馆数据
   _loadingLifeStorePage() {
-    this.getTopAdvPhoto() // 头部广告位
-    this.getAplayStoreBGAdv() // 开馆指引广告位
-    this.getLifeStoreHeadTop() // 已经开通生活馆的头部图片
-    
     if (this.data.sid) {
       this.getLifeStore() // 生活馆信息
+      this.getLifeStoreHeadTop() // 已经开通生活馆的头部图片
       this.handleAddBrowse() // 添加浏览者
       // 生活馆商品
       this.getStoreProducts()
+    } else {
+      this.getTopAdvPhoto() // 头部广告位
+      this.getAplayStoreBGAdv() // 开馆指引广告位
+      this.getStoreHeadlines() // 开馆头条
     }
 
-    this.getStoreHeadlines() // 开馆头条
+    // 加载选品中心的动画
+    if (this.data.canAdmin) {
+      this.getDistributeNewest()
+    }
+
     this.getHandpickNewExpress() // 新品速递
     this.getWeekPopular() // 本周最受欢迎商品
 
@@ -1911,7 +1899,7 @@ Page({
         this.setData({
           page: 1
         })
-        
+
         // 当前是否有生活馆显示
         if (this.data.isOpenedLifeStore) {
           // 验证生活馆是不是自己的
@@ -1932,16 +1920,19 @@ Page({
                 showBack: true
               })
             }
+          } else {
+            this.setData({
+              showBack: true
+            })
           }
 
           // 更新当前用户的last_store_rid
           app.updateLifeStoreLastVisit(this.data.sid)
-          
+
           // 同步更新全局变量
           app.globalData.showingLifeStoreRid = this.data.sid
-          wx.setStorageSync('showingLifeStoreRid', this.data.sid)
         }
-        
+
         this._loadingLifeStorePage()
         break;
       case 'featured': // 精选
@@ -2114,20 +2105,57 @@ Page({
 
     // 当前显示生活馆与应该显示生活馆是否一致
     const showingLifeStoreRid = app.globalData.showingLifeStoreRid
-    if (this.data.sid != '' && showingLifeStoreRid && this.data.sid != showingLifeStoreRid) {
-      this.setData({
-        sid: showingLifeStoreRid,
-        page: 1
-      })
-
-      // 刷新生活馆
-      if (this.data.pageActiveTab == 'lifeStore') {
-        wx.pageScrollTo({
-          scrollTop: 0,
-          duration: 0
+    if (this.data.sid != '') {
+      // 重新加载
+      if (showingLifeStoreRid && this.data.sid != showingLifeStoreRid) {
+        this.setData({
+          sid: showingLifeStoreRid,
+          lifeStoreLoaded: false,
+          page: 1
         })
-        this._swtichActivePageTab('lifeStore')
-      } else {
+
+        // 刷新生活馆
+        if (this.data.pageActiveTab == 'lifeStore') {
+          wx.pageScrollTo({
+            scrollTop: 0,
+            duration: 0
+          })
+
+          this._swtichActivePageTab('lifeStore')
+        } else {
+          if (app.globalData.fromMenu == 'visitLifeStore') {
+            this.setData({
+              pageActiveTab: 'lifeStore',
+              'pageTabs[0].pageScroll': 0
+            })
+            wx.pageScrollTo({
+              scrollTop: 0,
+              duration: 0
+            })
+
+            this._swtichActivePageTab('lifeStore')
+          }
+        }
+
+        // 请求后清空
+        app.globalData.showingLifeStoreRid = ''
+        app.globalData.fromMenu = ''
+      }
+      
+    } else {  // 初次进入时无生活馆，后续申请开通后
+      if (app.globalData.lifeStore.isSmallB) {
+        this.setData({
+          sid: app.globalData.lifeStore.lifeStoreRid
+        })
+      }
+
+      // 当没有生活馆时
+      if (showingLifeStoreRid) {
+        this.setData({
+          sid: showingLifeStoreRid,
+          isOpenedLifeStore: true
+        })
+
         if (app.globalData.fromMenu == 'visitLifeStore') {
           this.setData({
             pageActiveTab: 'lifeStore',
@@ -2138,49 +2166,8 @@ Page({
             duration: 0
           })
           this._swtichActivePageTab('lifeStore')
-        } else {
-          this._loadingLifeStorePage()
         }
       }
-
-      // 请求后清空
-      app.globalData.showingLifeStoreRid = ''
-      app.globalData.fromMenu = ''
-    }
-
-    // 初次进入时无生活馆，后续申请开通后
-    if (this.data.sid == '') {
-      if (app.globalData.lifeStore.isSmallB) {
-        this.setData({
-          sid: app.globalData.lifeStore.lifeStoreRid,
-          canAdmin: true
-        })
-      }
-      // 当没有生活馆时
-      if (showingLifeStoreRid) {
-        this.setData({
-          sid: showingLifeStoreRid
-        })
-
-        const fromMenu = wx.getStorageSync('fromMenu')
-        if (fromMenu == 'visitLifeStore') {
-          this.setData({
-            pageActiveTab: 'lifeStore',
-            'pageTabs[0].pageScroll': 0
-          })
-          wx.pageScrollTo({
-            scrollTop: 0,
-            duration: 0
-          })
-          this._swtichActivePageTab('lifeStore')
-        }
-      }
-    }
-
-    // 选品中心的动画
-    if (this.data.canAdmin) {
-      // 加载选品中心的动画
-      this.getDistributeNewest()
     }
 
     // 馆主推荐是否有变化

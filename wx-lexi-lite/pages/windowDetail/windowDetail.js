@@ -483,7 +483,7 @@ Page({
 
         app.updateLifeStoreLastVisit(lifeStoreRid)
 
-        wx.setStorageSync('showingLifeStoreRid', lifeStoreRid)
+        app.globalData.showingLifeStoreRid = lifeStoreRid
 
         this.setData({
           showHomeBtn: true

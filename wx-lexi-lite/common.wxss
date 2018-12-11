@@ -982,6 +982,10 @@ button::after {
   align-items: center;
 }
 
+.fx-back-home.has-tabbar {
+  bottom: 40rpx;
+}
+
 .fx-back-home .icon-back-home {
   width: 29rpx;
   height: 30rpx;

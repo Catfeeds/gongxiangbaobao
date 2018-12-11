@@ -103,9 +103,9 @@ Page({
    * 回到自己的生活馆
    */
   handleBackLifeStore() {
-    const lifeStore = wx.getStorageSync('lifeStore')
+    app.globalData.showingLifeStoreRid = app.globalData.lifeStore.lifeStoreRid
+    app.globalData.fromMenu = 'visitLifeStore'
 
-    wx.setStorageSync('showingLifeStoreRid', lifeStore.lifeStoreRid)
     wx.switchTab({
       url: '../index/index',
     })
@@ -1102,8 +1102,8 @@ Page({
       if (sceneAry.length == 2) {
         let lifeStoreRid = utils.trim(sceneAry[1])
         app.updateLifeStoreLastVisit(lifeStoreRid)
-        wx.setStorageSync('showingLifeStoreRid', lifeStoreRid)
-
+        app.globalData.showingLifeStoreRid = lifeStoreRid
+       
         this.setData({
           showHomeBtn: true
         })
@@ -1492,13 +1492,16 @@ Page({
 
     // 判断是否是小B，并且在自己的生活馆
     const lifeStore = wx.getStorageSync('lifeStore')
-    const showingLifeStoreRid = wx.getStorageSync('showingLifeStoreRid')
     if (lifeStore.isSmallB) {
-      if (showingLifeStoreRid == '' || showingLifeStoreRid == lifeStore.lifeStoreRid) {
+      utils.logger('showingLifeStoreRid: ' + app.globalData.showingLifeStoreRid)
+      if (app.globalData.showingLifeStoreRid != '' && app.globalData.showingLifeStoreRid != lifeStore.lifeStoreRid) {
         this.setData({
-          isSmallB: true
+          isSmallB: true,
+          showBack: true
         })
-      } else {
+      }
+    } else {
+      if (app.globalData.showingLifeStoreRid != '') {
         this.setData({
           showBack: true
         })

@@ -112,7 +112,7 @@
     "pages/index/index": {
       "network": "all",
       "packages": [
-        "games"
+        "games", "lifeStore", "distributes"
       ]
     },
     "pages/user/user": {
