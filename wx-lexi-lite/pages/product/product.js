@@ -826,10 +826,9 @@ Page({
    * 跳转分销上架
    */
   handleGoSale(e) {
-
     let rid = this.data.rid
     wx.navigateTo({
-      url: '/pages/distributeSubmit/distributeSubmit?rid=' + rid
+      url: '/distributes/pages/distributeSubmit/distributeSubmit?rid=' + rid
     })
   },
 

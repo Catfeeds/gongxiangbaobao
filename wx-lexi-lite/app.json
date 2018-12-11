@@ -10,7 +10,6 @@
     "pages/cart/cart",
     "pages/receiveCoupon/receiveCoupon",
     "pages/findInfo/findInfo",
-    "pages/distributes/distributes",
     "pages/branderStoreList/branderStoreList",
     "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
@@ -18,7 +17,6 @@
     "pages/dynamic/dynamic",
     "pages/people/people",
     "pages/peopleDynamic/peopleDynamic",
-    "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
     "pages/theme/theme",
@@ -80,6 +78,16 @@
         "pages/guessGame/guessGame",
         "pages/guessGamePlay/guessGamePlay",
         "pages/guessResult/guessResult"
+      ]
+    },
+    {
+      "root": "distributes",
+      "name": "distributes",
+      "pages": [
+        "pages/distributes/distributes",
+        "pages/distributeSubmit/distributeSubmit",
+        "pages/distributesSearch/distributesSearch",
+        "pages/distributesSearchRes/distributesSearchRes"
       ]
     },
     {

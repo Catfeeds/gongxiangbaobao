@@ -948,7 +948,7 @@ Page({
    */
   handleGoDistribute() {
     wx.navigateTo({
-      url: '/pages/distributes/distributes'
+      url: '/distributes/pages/distributes/distributes'
     })
   },
 
