@@ -1,0 +1,13 @@
+/* pages/leXiHighPick/leXiHighPick.wxss */
+@import "../allProduct/allProduct.wxss";
+
+.suspend-shim {
+  height: 80rpx;
+}
+
+.hande-suspend {
+  position: fixed;
+  top: 0;
+  width: 750rpx;
+  z-index: 6;
+}

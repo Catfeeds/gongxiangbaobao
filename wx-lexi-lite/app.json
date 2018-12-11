@@ -70,6 +70,7 @@
     "pages/windowComment/windowComment",
     "pages/browseLifeStore/browseLifeStore",
     "pages/brandStoreQualification/brandStoreQualification",
+    "pages/newProductExpress/newProductExpress",
     "components/FxLoginModal/FxLoginModal"
   ],
   "subPackages": [

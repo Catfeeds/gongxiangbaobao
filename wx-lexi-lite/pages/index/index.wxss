@@ -1872,7 +1872,7 @@ swiper-photo .slide-item__box image {
   width: 670rpx;
   height: 200rpx;
   border-radius: 8rpx;
-  background: url("https://static.moebeast.com/image/static/headline_background_2x.png") no-repeat;
+  background: no-repeat;
   background-size: 670rpx 200rpx;
 }
 
@@ -2030,6 +2030,11 @@ swiper-photo .slide-item__box image {
     bottom: 170rpx;
     opacity: 0;
   }
+}
+
+.new-product__express {
+  font-size: 32rpx;
+  font-weight: 500;
 }
 
 /* 生活馆 头部e */

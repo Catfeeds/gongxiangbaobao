@@ -24,11 +24,12 @@
 }
 
 .barrage-blocks {
-  height: 50rpx;
-  padding: 2rpx 20rpx 3rpx 4rpx;
+  position: absolute;
+  bottom: -70rpx;
+  left: 0rpx;
+  padding: 8rpx;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 45rpx;
-  margin-bottom: 14rpx;
   display: inline-block;
 }
 
@@ -38,18 +39,14 @@
   width: 46rpx;
   height: 46rpx;
   border-radius: 50%;
-}
-
-.barrage-blocks--p {
-  vertical-align: middle;
-  font-size: 20rpx;
-  color: white;
-  position: relative;
+  margin-right: 5rpx;
 }
 
 .barrage-blocks--span {
+  vertical-align: middle;
+  font-size: 20rpx;
+  color: white;
   display: inline-block;
-  width: 50rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -389,4 +386,46 @@
 
 .margin-left--30rpx {
   margin-left: 30rpx;
+}
+
+.animationOne {
+  animation: animationOne 1s linear forwards;
+}
+
+@keyframes animationOne {
+  0% {
+    bottom: -70rpx;
+  }
+
+  100% {
+    bottom: 10rpx;
+  }
+}
+
+.animationTwo {
+  animation: animationTwo 1s linear forwards;
+}
+
+@keyframes animationTwo {
+  0% {
+    bottom: 10rpx;
+  }
+
+  100% {
+    bottom: 90rpx;
+  }
+}
+
+.animationThree {
+  animation: animationThree 1s linear forwards;
+}
+
+@keyframes animationThree {
+  0% {
+    bottom: 90rpx;
+  }
+
+  100% {
+    bottom: 170rpx;
+  }
 }

@@ -237,8 +237,7 @@
   <view class="shm"></view>
 
   <!-- 底部评论 -->
-  <view class='bg-white time-top bottom-comment__input'>
-
+  <view class='bg-white time-top bottom-comment__input' catchtap="handlePreventClick">
     <!-- input -->
     <view class='comment__input font-m' disabled="{{true}}" data-submit-target="comment" data-is-input="1" catchtap="handleGoComment">
       <input placeholder='添加评论' placeholder-class="input-placeholder"></input>

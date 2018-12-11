@@ -301,6 +301,11 @@ Page({
     })
   },
 
+  // 防止点击穿透
+  handlePreventClick() {
+    return
+  },
+
   // 推荐的产品
   getRecommendProduct() {
     http.fxGet(api.life_records_recommend_products, this.data.params, (result) => {

@@ -3,13 +3,16 @@ const http = require('./../../../utils/http.js')
 const api = require('./../../../utils/api.js')
 const utils = require('./../../../utils/util.js')
 
+let guideInteval
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    is_mobile:false,
+    animationIndex: 0, // 控制动画index
+    is_mobile: false,
     barrageAnimation: [], // 滑动的信息
     listData: [{
         rid: 's01',
@@ -78,8 +81,8 @@ Page({
   },
 
   /**
- * 登录完成回调
- */
+   * 登录完成回调
+   */
   handleCloseLogin() {
     this.setData({
       is_mobile: false
@@ -93,9 +96,41 @@ Page({
       if (!result.success) {
         return
       }
+
+      result.data.headlines.forEach((v, i) => {
+        if (v.event == 1) {
+          v.text = v.time + v.time_info + '开了生活馆' // v.username + 
+        }
+        if (v.event == 2) {
+          v.text = v.time + v.time_info + '售出' + v.quantity + '单' // v.username + 
+        }
+        if (v.event == 3) {
+          v.text = v.time + v.time_info + '售出' + v.quantity + '单' // v.username + 
+        }
+        if (v.event == 4) {
+          v.text = '售出' + v.quantity + '单' // v.username + 
+        }
+        // 随机颜色
+        let num = Math.ceil(Math.random() * 5)
+        if (i % num == 0) {
+          v.color = true
+        }
+
+      })
+
       this.setData({
         barrageAnimation: result.data.headlines
       })
+      guideInteval = setInterval(() => {
+        this.setData({
+          animationIndex: this.data.animationIndex + 1
+        })
+        if (this.data.animationIndex == 28) {
+          this.setData({
+            animationIndex: 0
+          })
+        }
+      }, 1000)
     })
   },
 
@@ -103,7 +138,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getGlideInfo()
+
   },
 
   /**
@@ -117,14 +152,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getGlideInfo()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(guideInteval)
   },
 
   /**

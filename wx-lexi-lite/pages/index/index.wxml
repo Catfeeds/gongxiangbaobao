@@ -19,13 +19,10 @@
 
   <!-- 生活馆 -->
   <view class=" page-lifestore {{ pageActiveTab == 'lifeStore' ? 'active' : '' }}">
-    <!-- 未开通 -->
-    <view class="lifestore-not-opened-wrapper">
-      <view class="aplay-store__box" wx:if="{{ !isExistLifeStore }}">
-        <image class="aplay-store__photo--top" src="https://static.moebeast.com/image/static/header_background_2x.png"></image>
-
-        <!-- 开馆头条 -->
-        <view class="aplay-store__guide--box" catchtap="handleApplyLifeStore">
+    <view class="bg_hui--se">
+      <view class="aplay-store__box">
+        <image class="aplay-store__photo--top" src="{{topAdvPhoto.image}}"></image>
+        <view class="aplay-store__guide--box" style=" background: url({{aplayStoreBGAdv.image}}) " catchtap="handleApplyLifeStore">
           <image class="aplay-store__icon" src="https://static.moebeast.com/image/static/open_store-headline.png"></image>
           <view class="aplay-store__left">
             <view class="aplay-store__text">做自己热爱的事 顺便赚取收入</view>
@@ -66,8 +63,8 @@
       <!-- 新品速递 {{themeProduct.designs}} -->
       <view class='border-bottom min-height--400 margin-bottom--20rpx' wx:if="{{ handpickNewExpress.count != 0 }}">
         <view class='c-importantGoodsTitle time-top font-xl category__title padding-top--40rpx' data-from="highQualityList">
-          <text class="label">新品速递</text>
-          <view class='hui-zi-m flex_row'>
+          <text class="label new-product__express">新品速递</text>
+          <view catchtap="handleGoNewProductExpress" class='hui-zi-m flex_row' wx:if="{{handpickNewExpress.count>10}}">
             <text>查看全部</text>
             <text class='fx-icon-nothing-right'></text>
           </view>
