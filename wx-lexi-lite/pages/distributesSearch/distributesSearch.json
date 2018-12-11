@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "选品搜索",
-  "usingComponents": {
-    "fx-loading": "/components/FxLoading/FxLoading"
-  }
-}

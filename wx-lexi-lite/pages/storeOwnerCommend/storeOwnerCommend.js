@@ -14,13 +14,12 @@ Page({
     isLoading: true,
     isLoadProductShow: true, // 加载的loading
     isEmpty: false,
-    lifeStore: {
-      logo: 'https://static.moebeast.com/image/static/null-product.png'
-    }, // 编辑生活馆信息
-
     canAdmin: false,
     sid: '',
     storeProducts: [],
+    lifeStore: { // 编辑生活馆信息
+      logo: 'https://static.moebeast.com/image/static/null-product.png'
+    },
     isNext: true, // 是否有下一页
     isDistributed: '',
 
@@ -135,6 +134,24 @@ Page({
   },
 
   /**
+   * 获取生活馆信息
+   */
+  getLifeStore() {
+    http.fxGet(api.life_store, {
+      rid: this.data.sid
+    }, (res) => {
+      utils.logger(res, '生活馆信息')
+      if (res.success) {
+        this.setData({
+          lifeStore: res.data
+        })
+      } else {
+        utils.fxShowToast(res.status.message)
+      }
+    })
+  },
+
+  /*
    * 推荐分享-销售
    */
   handleStickShareDistribute(e) {
@@ -253,7 +270,6 @@ Page({
    * 获取生活馆商品列表
    */
   getStoreProducts() {
-
     http.fxGet(api.life_store_products, this.data.params, (res) => {
       utils.logger(res, '全部分销商品')
       if (res.success) {
@@ -292,12 +308,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     this.setData({
       'params.sid': options.sid,
       'lifeStore.logo': options.avatar,
       sid: options.sid
     })
+
+    this.getLifeStore()
     this.getStoreProducts()
   },
 

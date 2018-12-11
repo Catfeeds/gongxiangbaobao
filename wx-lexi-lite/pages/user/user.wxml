@@ -194,7 +194,7 @@
           <image class="browse-all__icon" src="../../images/icons/browse-all@3.png"></image>
         </view>
       </view>
-      <scroll-view class=' c-importantGoodsBox' scroll-x>
+      <scroll-view class='c-importantGoodsBox' scroll-x>
         <view catchtap="handleGoLifeStore" data-rid="{{item.rid}}" class=" browse-lifeStore__item--box {{index==0?'margin-left--40rpx':''}} {{index==browseLifeStore.life_stores.length-1?'margin-right--40rpx':''}}" wx:for="{{browseLifeStore.life_stores}}" wx:key="{{index}}">
           <image class="browse-lifeStore__item--img" src="{{item.logo}}-p16" wx:if="{{item.logo}}"></image>
           <view class="browse-lifeStore__item--name">{{item.name}}</view>

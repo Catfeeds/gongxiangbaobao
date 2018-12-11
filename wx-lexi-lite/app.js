@@ -75,7 +75,7 @@ App({
             // 登录成功，得到jwt后存储到storage
             wx.setStorageSync('jwt', res.data)
             this.globalData.jwt = res.data
-            console.log(res.data, 'jwt信息')
+            
             if (isBind) {
               // 回调函数
               this.hookLoginCallBack(res.data)
@@ -192,9 +192,9 @@ App({
       avatar: jwt.avatar,
       username: jwt.username,
       mobile: jwt.mobile,
-      username: jwt.username
+      uid: jwt.uid
     }
-
+    
     this.globalData.userLoaded = true
 
     wx.setStorageSync('userInfo', this.globalData.userInfo)
@@ -611,6 +611,8 @@ App({
     lifeStore: {},
     // 当前用户最后访问的生活馆
     lastVisitLifeStoreRid: '',
+    // 当前应该显示的生活馆
+    showingLifeStoreRid: '',
     // 登录用户信息
     userInfo: null,
     // 地址位置

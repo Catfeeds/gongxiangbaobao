@@ -10,7 +10,6 @@
     "pages/cart/cart",
     "pages/receiveCoupon/receiveCoupon",
     "pages/findInfo/findInfo",
-    "pages/distributes/distributes",
     "pages/branderStoreList/branderStoreList",
     "pages/branderStore/branderStore",
     "pages/gatherInfo/gatherInfo",
@@ -18,8 +17,6 @@
     "pages/dynamic/dynamic",
     "pages/people/people",
     "pages/peopleDynamic/peopleDynamic",
-    "pages/applyLifeStore/applyLifeStore",
-    "pages/distributeSubmit/distributeSubmit",
     "pages/windowDetail/windowDetail",
     "pages/window/window",
     "pages/theme/theme",
@@ -84,9 +81,20 @@
       ]
     },
     {
+      "root": "distributes",
+      "name": "distributes",
+      "pages": [
+        "pages/distributes/distributes",
+        "pages/distributeSubmit/distributeSubmit",
+        "pages/distributesSearch/distributesSearch",
+        "pages/distributesSearchRes/distributesSearchRes"
+      ]
+    },
+    {
       "root": "lifeStore",
       "name": "lifeStore",
       "pages": [
+        "pages/applyLifeStore/applyLifeStore",
         "pages/lifeStoreManage/lifeStoreManage",
         "pages/lifeStoreWithdraw/lifeStoreWithdraw",
         "pages/lifeStoreTransaction/lifeStoreTransaction",
