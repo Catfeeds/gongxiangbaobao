@@ -1,0 +1,4 @@
+<fx-loading loading="{{ isLoading }}"></fx-loading>
+<view class="container">
+  
+</view>

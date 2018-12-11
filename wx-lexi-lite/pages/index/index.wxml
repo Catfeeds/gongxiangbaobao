@@ -23,8 +23,8 @@
     <!-- 未开通状态 -->
     <view class="bg_hui--se" wx:if="{{ !isOpenedLifeStore }}">
       <view class="aplay-store__box">
-        <image class="aplay-store__photo--top" src="{{ topAdvPhoto.image }}"></image>
-        <view class="aplay-store__guide--box" style="background-image: url({{ aplayStoreBGAdv.image }})" catchtap="handleApplyLifeStore">
+        <image class="aplay-store__photo--top" src="{{ topAdvPhoto.image }}" catchtap="handleApplyGuide"></image>
+        <view class="aplay-store__guide--box" style="background-image: url({{ aplayStoreBGAdv.image }})">
           <image class="aplay-store__icon" src="https://static.moebeast.com/image/static/open_store-headline.png"></image>
           <view class="aplay-store__left">
             <view class="aplay-store__text">做自己热爱的事 顺便赚取收入</view>
