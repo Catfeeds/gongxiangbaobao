@@ -11,11 +11,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLoading: true,
+    isLoadProductShow: true, // 加载的loading
+    isEmpty: false,
+    canAdmin: false,
     sid: '',
     storeProducts: [],
     lifeStore: { // 编辑生活馆信息
       logo: 'https://static.moebeast.com/image/static/null-product.png'
     },
+    isNext: true, // 是否有下一页
+    isDistributed: '',
+
+    // 分享产品
+    shareProduct: '', // 分享某个商品
+    posterUrl: '', // 海报图url
+
     params: {
       page: 1,
       per_page: 10,
@@ -108,12 +119,11 @@ Page({
             storeProducts: _storeProducts,
             isEmpty: isEmpty
           })
-
-
+          app.globalData.agent.storeOwnerCommendChange = true
           http.fxDelete(api.life_store_delete_product, data, (result) => {
             utils.logger(result, '删除商品')
             if (result.success) {
-
+              
             } else {
               utils.fxShowToast(result.status.message)
             }
@@ -138,6 +148,121 @@ Page({
       } else {
         utils.fxShowToast(res.status.message)
       }
+    })
+  },
+
+  /*
+   * 推荐分享-销售
+   */
+  handleStickShareDistribute(e) {
+    let isDistributed = e.currentTarget.dataset.isDistributed
+    let rid = e.currentTarget.dataset.rid
+    let idx = e.currentTarget.dataset.idx
+
+    this.setData({
+      isDistributed: isDistributed || '',
+      showShareModal: true,
+      shareProduct: this.data.storeProducts[idx]
+    })
+
+    this.getWxaPoster()
+  },
+
+  /**
+   * 保存当前产品海报到相册
+   */
+  handleSaveShare() {
+    // 下载网络文件至本地
+    wx.downloadFile({
+      url: this.data.posterUrl,
+      success: function(res) {
+        if (res.statusCode === 200) {
+          // 保存文件至相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              utils.fxShowToast('保存成功', 'success')
+            },
+            fail(res) {
+              if (res.errMsg === 'saveImageToPhotosAlbum:fail:auth denied') {
+                wx.openSetting({
+                  success(settingdata) {
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      utils.logger('获取权限成功，再次点击图片保存到相册')
+                      utils.fxShowToast('保存成功')
+                    } else {
+                      utils.fxShowToast('保存失败')
+                    }
+                  }
+                })
+              } else {
+                utils.fxShowToast('保存失败')
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+   * 查看商品详情
+   */
+  handleViewProduct(e) {
+    let rid = e.currentTarget.dataset.rid
+    wx.navigateTo({
+      url: '/pages/product/product?rid=' + rid + "&storeRid=" + e.currentTarget.dataset.storeRid
+    })
+  },
+
+  /**
+   * 取消分享-销售
+   */
+  handleCancelShare(e) {
+    this.setData({
+      showShareModal: false,
+      posterUrl: '',
+      shareProduct: {}
+    })
+  },
+
+  /**
+   * 生成产品推广海报图
+   */
+  getWxaPoster() {
+    let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+    let rid = this.data.shareProduct.rid
+
+    // scene格式：rid + '-' + sid
+    let scene = rid
+    if (lastVisitLifeStoreRid) {
+      scene += '-' + lastVisitLifeStoreRid
+    }
+
+    let params = {
+      rid: rid,
+      type: 4,
+      path: 'pages/product/product',
+      auth_app_id: app.globalData.app_id,
+      scene: scene
+    }
+    http.fxPost(api.wxa_poster, params, (result) => {
+      utils.logger(result, '生成海报图')
+      if (result.success) {
+        this.setData({
+          posterUrl: result.data.image_url
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
+  // 去别人的主页
+  handleToPeople(e) {
+    let uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../people/people?uid=' + uid
     })
   },
 
@@ -170,7 +295,8 @@ Page({
         this.setData({
           storeProducts: _products,
           isEmpty: isEmpty,
-          isNextRecommend: res.data.next // 没有下一页了
+          isNext: res.data.next, // 没有下一页了
+          isLoadProductShow: false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -184,6 +310,7 @@ Page({
   onLoad: function(options) {
     this.setData({
       'params.sid': options.sid,
+      'lifeStore.logo': options.avatar,
       sid: options.sid
     })
 
@@ -195,14 +322,29 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    let that = this
+    setTimeout(() => {
+      that.setData({
+        isLoading: false
+      })
+    }, 500)
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    // 验证生活馆是不是自己的
+    const lifeStore = wx.getStorageSync('lifeStore')
+    // 判断登录用户是否有生活馆
+    if (lifeStore.isSmallB) {
+      if (this.data.sid == lifeStore.lifeStoreRid) {
+        const userInfo = wx.getStorageSync('userInfo')
+        this.setData({
+          canAdmin: true
+        })
+      }
+    }
   },
 
   /**
@@ -230,13 +372,42 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (!this.data.isNext) {
+      return
+    }
 
+    this.setData({
+      ['params.page']: this.data.params.page + 1,
+      isLoadProductShow: true
+    })
+
+    this.getStoreProducts()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(e) {
+    // 分享平台或生活馆
+    if (e.from == 'menu') {
+      let lastVisitLifeStoreRid = app.getDistributeLifeStoreRid()
+      // scene格式：sid + '-' + uid
+      let scene = lastVisitLifeStoreRid
+      utils.logger(lastVisitLifeStoreRid, '分享的场景参数')
+      return {
+        title: this.data.lifeStore.name + '的生活馆',
+        path: 'pages/index/index?scene=' + scene,
+        imageUrl: this.data.lifePhotoUrl,
+        success: (res) => {
+          utils.logger(res, '分享成功!')
+        }
+      }
+    }
 
+    // 分享产品 shareProduct
+    if (e.target.dataset.from == 2) {
+      let title = this.data.shareProduct.name
+      return app.shareWxaProduct(this.data.shareProduct.rid, title, this.data.shareProduct.cover)
+    }
   }
 })

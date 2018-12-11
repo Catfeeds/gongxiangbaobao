@@ -2093,7 +2093,7 @@ swiper-photo .slide-item__box image {
   position: relative;
   border-bottom: 2rpx solid #f7f9fb;
   border-top: 2rpx solid #f7f9fb;
-  margin-bottom: 30rpx;
+  margin-bottom: 20rpx;
   padding: 20rpx 40rpx 40rpx 40rpx;
   background-color: white;
 }
