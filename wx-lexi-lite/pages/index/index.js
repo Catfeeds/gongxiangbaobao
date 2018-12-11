@@ -2109,10 +2109,9 @@ Page({
       that.setData({
         isLoading: false
       })
+      // 新人红包
+      this.getNewCoupon()
     }, 500)
-
-    // 新人红包
-    this.getNewCoupon()
   },
 
   /**
@@ -2196,6 +2195,12 @@ Page({
     if (this.data.canAdmin) {
       // 加载选品中心的动画
       this.getDistributeNewest()
+    }
+
+    // 馆主推荐是否有变化
+    if (app.globalData.agent.storeOwnerCommendChange) {
+      this.getStoreProducts()
+      app.globalData.agent.storeOwnerCommendChange = false
     }
 
     // 获取当前环境
@@ -2399,7 +2404,7 @@ Page({
   // 去馆主极力推荐
   handleGoStoreOwnerCommend() {
     wx.navigateTo({
-      url: '../storeOwnerCommend/storeOwnerCommend?sid=' + this.data.sid,
+      url: '../storeOwnerCommend/storeOwnerCommend?sid=' + this.data.sid + '&avatar=' + this.data.lifeStore.logo,
     })
   },
 

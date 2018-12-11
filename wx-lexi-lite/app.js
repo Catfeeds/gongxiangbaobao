@@ -653,8 +653,10 @@ App({
       distributeSearchValue:{
         rid: '',
         value: ''
-      }
+      },
 
+      // 首页的馆主推荐是否有变动
+      storeOwnerCommendChange:false,
     },
     // 订单里面的sku
     orderSkus: '',

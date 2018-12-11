@@ -189,13 +189,13 @@
       </view>
       <view class="hui-se__line"></view>
       <!-- 馆长推荐 -->
-      <view class="commend-product__box">
+      <view wx:if="{{ !isEmpty }}" class="commend-product__box">
         <view class="hand">
           <view class="hand-left">
             <image class="avatar" src="{{ lifeStore.logo }}-ava"></image>
             <text>馆主极力推荐</text>
           </view>
-          <view class="hand-right" wx:if="{{storeProducts.length>=9}}" catchtap="handleGoStoreOwnerCommend">
+          <view class="hand-right" catchtap="handleGoStoreOwnerCommend">
             <text>查看更多</text>
             <image class="youjian-tou" src="../../images/icons/browse-all@3.png"></image>
           </view>
@@ -210,92 +210,13 @@
         </scroll-view>
       </view>
 
-      <!-- 商品展示区域 -->
-      <view class='theme-bg-color recommend-product-box' wx:if="{{}}">
-        <!-- 缺省 -->
-        <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ isEmpty }}">
-          <view class='no-sell-product_icon_box'>
-            <image src='../../images/no-sell-product@2.png'></image>
-          </view>
-          <view>当前生活馆还没有上架商品</view>
-          <view>你可以通过精选和探索挑选喜欢的好物</view>
+      <!-- 缺省 -->
+      <view class='small-b-no_prodct fx-column--center qian-hui font-s' wx:if="{{ isEmpty }}">
+        <view class='no-sell-product_icon_box'>
+          <image src='../../images/no-sell-product@2.png'></image>
         </view>
-
-        <view class='tuijian border-bottom padding-bottom--20rpx {{ idx == 0 ?"padding-top--40rpx" : "" }} {{ idx == storeProducts.length - 1 ? "margin-bottom--0rpx" : "" }}' wx:if="{{ !isEmpty }}" wx:for="{{ storeProducts }}" wx:for-index="idx" wx:for-item="distributeProduct"
-          wx:key="{{ distributeProduct.rid }}-{{ distributeProduct.store_rid }}">
-          <!-- 店长头相 -->
-          <view class='shopMaster'>
-            <image src='{{ lifeStore.logo }}-ava' class='photo-round' wx:if="{{ lifeStore.logo }}"></image>
-            <text>馆长极力推荐</text>
-            <!-- 垃圾箱 -->
-            <view class="delete-icon" data-idx="{{ idx }}" data-rid="{{ distributeProduct.rid }}" bindtap="handleRemoveFromStore" wx:if="{{ canAdmin }}">
-              <image src='../../images/delete-icon@2.png'></image>
-            </view>
-          </view>
-
-          <!-- 推荐理由介绍 -->
-          <view class='shopRecommend theme-bg-color ' wx:if="{{distributeProduct.stick_text}}">
-            <view class='triangle theme-bg-color'></view>
-            <text> {{ distributeProduct.stick_text }} </text>
-          </view>
-
-          <!-- 物品的详情 -->
-          <view class='margin-top--20rpx margin-bottom--44rpx'>
-            <view class="productMiddleBox" data-rid="{{ distributeProduct.rid }}" data-store-rid="{{ distributeProduct.store_rid }}" catchtap="handleViewProduct">
-
-              <view class="productMiddleBoxPhoto" style='height:180rpx;width:180rpx'>
-                <image src='{{ distributeProduct.cover }}-p16' style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:if="{{ distributeProduct.cover }}" wx:if="{{ distributeProduct.cover }}"></image>
-
-                <image style='height:180rpx;width:180rpx' class="shopRecommendGoods-photo {{ !distributeProduct ? 'position-image' : 'active' }}" wx:else></image>
-                <view class='sell_up_text' wx:if="{{ distributeProduct.total_stock == 0 }}">售 罄</view>
-              </view>
-
-              <view class="shopRecommendGoodsR" style='height:180rpx;'>
-                <view>
-                  <view class='two-line'>
-                    <image class='logistics logistics' wx:if="{{ distributeProduct.is_free_postage }}"></image>
-                    <text class='{{ photoHeight == 140 ? "line-two" : ""}}'>{{ distributeProduct.name }}</text>
-                  </view>
-                </view>
-
-                <!-- 价格和喜欢的人数 -->
-                <view class='price-like-box'>
-                  <text wx:if="{{ distributeProduct.min_price == distributeProduct.min_sale_price }}" class='oldPrice oldPriceDecortion shopRecommendGoodsR-old'>¥{{ distributeProduct.min_price }}</text>
-
-                  <text class='current_price' wx:else>¥{{ distributeProduct.min_sale_price==0?distributeProduct.min_price:distributeProduct.min_sale_price }}</text>
-                  <text wx:if="{{ distributeProduct.like_count != 0 }}" class='shopRecommendGoodsR-old'>喜欢+{{ distributeProduct.like_count }}</text>
-                </view>
-
-              </view>
-            </view>
-          </view>
-
-          <!-- 底部的喜欢和分享 -->
-          <view class='recommendbottom'>
-            <view data-id='{{ distributeProduct.rid }}' data-rid='{{ distributeProduct.rid }}' class='recommendbottomText {{ distributeProduct.is_like ? "likeActive" : "" }}' data-index="{{ idx }}" data-islike="{{ distributeProduct.is_like }}" catchtap='handleBindLike'>
-              <view class='icon-like'>
-                <image src='{{ distributeProduct.is_like ? "../../images/like@2.png" : "../../images/dLike@2.png" }}'>
-                </image>
-              </view>
-              <view>喜欢</view>
-            </view>
-            <view class='recommendbottomText' catchtap='handleStickShareDistribute' data-shareStore='{{ distributeProduct }}' data-rid='{{ distributeProduct.rid }}' data-idx="{{ idx }}" data-is-distributed="{{ distributeProduct.is_distributed }}" data-from="2">
-              <view class='icon-like'>
-                <image src='../../images/share@2.png'></image>
-              </view>
-              <view>分享</view>
-            </view>
-            <view class='recommendbottomRen'>
-              <image wx:for="{{distributeProduct.product_like_users}}" catchtap="handleToPeople" data-uid="{{item.uid}}" wx:key="{{index}}" wx:if="{{index<3}}" src='{{ item.avatar }}-ava' class='photo-round'></image>
-            </view>
-          </view>
-        </view>
-
-        <!-- 查看更多 -->
-        <view class="c-middle border-bottom shen-hui font-s examine-more-box" catchtap="handleLoadingRecommend" wx:if="{{ isNextRecommend }}">
-          查看更多好物
-          <text class='fx-icon-nothing-lower'></text>
-        </view>
+        <view>当前生活馆还没有上架商品</view>
+        <view>你可以通过精选和探索挑选喜欢的好物</view>
       </view>
     </view>
 
@@ -749,50 +670,6 @@
       </view>
     </form>
   </fx-modal-v>
-
-  <!-- 卖 -->
-  <fx-modal showHead="{{ false }}" visible="{{ showShareModal }}" bind:closeEvent="handleCancelShare">
-    <view class="fx-modal__main distribute-share" slot="main">
-      <view class="distribute-commission">
-        <block wx:if="{{isDistributed&&isSmallB}}">
-          <text>赚</text>
-          <text class="amount">￥{{ shareProduct.commission_price }}</text>
-        </block>
-      </view>
-      <view class="distribute-message">
-        朋友通过你分享的此链接和图片购买商品，你即可赚取相应收益! 收益仅自己可见
-      </view>
-      <view class="distribute-style">
-        <button class="share-friend wxa-card" data-from="2" open-type="share">
-          <image src="{{ shareProduct.cover }}" class="cover"></image>
-          <text>点击直接分享</text>
-        </button>
-
-        <view class="wxa-poster" bindtap="handleSaveShare">
-          <view class="cover">
-            <image src="{{ posterUrl }}" class="image" wx:if="{{ posterUrl }}"></image>
-            <image src="../../images/jiazai.gif" class="loading" wx:else></image>
-          </view>
-          <text class="margin-top--14rpx">保存分享海报</text>
-        </view>
-      </view>
-      <view class="distribute-action">
-        <view class="share-friend">
-          <button open-type="share" data-from="2" class="share-btn">
-          </button>
-          <image src="../../images/wx-icon@2.png" class="icon-wechat"></image>
-          <text>微信好友</text>
-        </view>
-        <view class="share-save" bindtap="handleSaveShare">
-          <image src="../../images/save@2.png" class="icon-save"></image>
-          <text>保存分享</text>
-        </view>
-      </view>
-      <view class="distribute-cancle" bindtap="handleCancelShare">
-        取消
-      </view>
-    </view>
-  </fx-modal>
 
   <!-- 分享生活馆 -->
   <fx-modal showHead="{{ false }}" visible="{{ isShowShareLifeBrand }}" bind:closeEvent="handleOffLifeStore">
