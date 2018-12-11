@@ -159,20 +159,7 @@ Page({
     },
     exploreAdvertisementList: [], // 广告位置
     categoryList: [], // 分类
-    editRecommendList: [ // 编辑推荐
-      {
-        cover: '',
-        name: ''
-      },
-      {
-        cover: '',
-        name: ''
-      },
-      {
-        cover: '',
-        name: ''
-      }
-    ],
+    editRecommendList: [], // 编辑推荐
     highQualityList: { // 优质新品
       products: [{
           cover: '',
@@ -418,7 +405,7 @@ Page({
   /**
    * 开馆指引
    */
-  handleApplyLifeStore() {
+  handleApplyGuide() {
     // 未登录，需先登录
     if (!app.globalData.isLogin) {
       this.setData({
@@ -1070,10 +1057,6 @@ Page({
       utils.logger(result, '编辑推荐')
       if (result.success) {
         this.setData({
-          editRecommendList: [],
-        })
-
-        this.setData({
           editRecommendList: result.data.products
         })
       } else {
@@ -1407,6 +1390,11 @@ Page({
    * 邀请好友开馆
    */
   handleStoreInvite () {
+    if (!app.globalData.lifeStore.isSmallB) {
+      utils.fxShowToast('邀请需先开通生活馆')
+      return
+    }
+
     wx.navigateTo({
       url: '/lifeStore/pages/lifeStoreInvite/lifeStoreInvite',
     })

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "邀请好友开馆",
+  "usingComponents": {
+    "fx-loading": "/components/FxLoading/FxLoading"
+  }
+}
