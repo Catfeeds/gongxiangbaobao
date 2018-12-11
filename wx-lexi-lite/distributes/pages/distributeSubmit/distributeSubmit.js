@@ -56,6 +56,7 @@ Page({
         let pagePath = getCurrentPages()
         let parentPath = pagePath[pagePath.length - 2]
         let grandsire = pagePath[pagePath.length - 3]
+        let grandGrandsire = pagePath[pagePath.length - 5] // 首页
 
         if (parentPath.route == 'pages/product/product') {
           // 设置详情页面的已上架按钮
@@ -71,85 +72,20 @@ Page({
         
         
         // 搜索结果变化 
-        if (parentPath.route == 'pages/distributesSearchRes/distributesSearchRes') {
+        if (parentPath.route == 'distributes/pages/distributesSearchRes/distributesSearchRes') {
           app.globalData.agent.distributeSearchChange = true
           app.globalData.agent.distributeSearchValue.rid = this.data.rid
           app.globalData.agent.distributeSearchValue.value = true
         }
 
-        if (parentPath.route == 'pages/distributes/distributes') {
-          this._handleUpdateMyDistributed()
-          this._handleParentBtn()
-        }
-
-        if (grandsire.route == 'pages/distributes/distributes') {
-          this._handleGrandsire()
+        if (grandsire.route == 'pages/index/index' || grandGrandsire.route == 'pages/index/index') {
+          app.globalData.agent.storeOwnerCommendChange = true
         }
 
       } else {
         utils.fxShowToast(res.status.message)
       }
     })
-  },
-
-  /**
-   * 处理祖父级别页面按钮
-   */
-  _handleGrandsire() {
-    let pagePath = getCurrentPages()
-    let grandsire = pagePath[pagePath.length - 3]
-
-    let recommendProduct = grandsire.data.stickedProducts
-    let allProduct = grandsire.data.allProducts
-
-    if (recommendProduct.constructor == Array) {
-      recommendProduct.forEach((v, i) => {
-        if (this.data.rid == v.rid) {
-          grandsire.setData({
-            ['stickedProducts[' + i + '].have_distributed']: true
-          })
-        }
-      })
-    }
-
-    if (allProduct.constructor == Array) {
-      allProduct.forEach((v, i) => {
-        if (this.data.rid == v.rid) {
-          grandsire.setData({
-            ['allProducts[' + i + '].have_distributed']: true
-          })
-        }
-      })
-    }
-
-  },
-  /**
-   * 处理上一页的按钮样式
-   */
-  _handleParentBtn() {
-    let pagePath = getCurrentPages()
-    let parentPage = pagePath[pagePath.length - 2]
-    let index = this.data.index
-    if (parentPage.data.pageActiveTab == 'all') {
-      parentPage.setData({
-        ['allProducts[' + index + '].have_distributed']: true
-      })
-    }
-
-    if (parentPage.data.pageActiveTab == 'stick') {
-      parentPage.setData({
-        ['stickedProducts[' + index + '].have_distributed']: true
-      })
-    }
-  },
-
-  /**
-   * 处理首页的分销
-   */
-  _handleUpdateMyDistributed() {
-    let pagePath = getCurrentPages()
-    let indexPage = pagePath[pagePath.length - 3]
-    indexPage.getStoreProducts()
   },
 
   /**
