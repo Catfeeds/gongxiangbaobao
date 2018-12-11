@@ -20,7 +20,17 @@ Page({
     is_login: false, // 是否登陆
     activeSubMenu: 'user',
     haveSmallB: false,
-    watchStoreList: [], // 关注店铺的列表
+
+    watchStoreList: {
+      stores: [],
+      next: false,
+      count:0
+    }, // 关注店铺的列表
+    watchStoreListParams: {
+      page: 1,
+      per_page: 10
+    },
+
     followerAddWatch: [], // 关注和粉丝的数量
     is_mobile: false, // 注册的呼出框
     userBrowsesProduct: [], //用户浏览记录---
@@ -363,17 +373,7 @@ Page({
         })
         break;
       default:
-        // 设计管
-        http.fxGet(api.users_followed_stores, this.data.getProductParams, (result) => {
-          utils.logger(result, '设计馆')
-          if (result.success) {
-            this.setData({
-              watchStoreList: result.data
-            })
-          } else {
-            utils.fxShowToast(result.status.message)
-          }
-        })
+
     }
   },
 
@@ -420,6 +420,30 @@ Page({
     })
   },
 
+  // 设计馆
+  getDesignStore() {
+    // 设计管
+    http.fxGet(api.users_followed_stores, this.data.watchStoreListParams, (result) => {
+      utils.logger(result, '设计馆----==')
+      if (result.success) {
+        let arrayData = this.data.watchStoreList.stores
+        if (this.data.watchStoreListParams.page == 1) {
+          arrayData = result.data.stores
+        } else {
+          arrayData = arrayData.concat(result.data.stores)
+        }
+
+        this.setData({
+          'watchStoreList.stores': arrayData,
+          'watchStoreList.count': result.data.count,
+          'watchStoreList.next': result.data.next
+        })
+      } else {
+        utils.fxShowToast(result.status.message)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -431,6 +455,7 @@ Page({
       is_login: app.globalData.isLogin
     })
 
+    this.getDesignStore()
   },
 
   /**
@@ -488,19 +513,18 @@ Page({
       return
     }
 
-    if (this.data.classInfo == 1) {
+    if (this.data.classInfo == 3) {
       // 判断是否有下一页
-      if (!this.data.likeProduct.next) {
+      if (!this.data.watchStoreList.next) {
         utils.fxShowToast('没有更多了')
         return
       }
 
       this.setData({
-        ['sortParams.page']: this.data.sortParams.page - 0 + 1
+        'watchStoreListParams.page': this.data.watchStoreListParams.page - 0 + 1
       })
 
-      // 加载
-      this.getPick()
+      this.getDesignStore()
     }
   },
 
@@ -527,12 +551,6 @@ Page({
 
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
 
   /**
    * 用户点击右上角分享
