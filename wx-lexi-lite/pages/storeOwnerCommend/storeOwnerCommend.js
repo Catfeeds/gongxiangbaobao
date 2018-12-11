@@ -280,9 +280,9 @@ Page({
         })
 
         let _products = this.data.storeProducts
-        if (this.data.page > 1) {
+        if (this.data.params.page > 1) {
           // 合并数组
-          _products.push.apply(_products, res.data.products)
+          _products = _products.concat(res.data.products)
         } else {
           _products = res.data.products
         }
@@ -377,7 +377,7 @@ Page({
     }
 
     this.setData({
-      ['params.page']: this.data.params.page + 1,
+      'params.page': this.data.params.page + 1,
       isLoadProductShow: true
     })
 

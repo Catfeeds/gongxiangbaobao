@@ -2,7 +2,6 @@
   "navigationBarTitleText": "馆主推荐",
   "navigationBarTextStyle": "black",
   "navigationBarBackgroundColor": "white",
-  "enablePullDownRefresh": true,
   "usingComponents": {
     "fx-loading": "/components/FxLoading/FxLoading",
     "fx-coupon": "/components/FxCoupon/coupon",
