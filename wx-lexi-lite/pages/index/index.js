@@ -1483,7 +1483,6 @@ Page({
   getWeekPopular() {
     http.fxGet(api.distribution_week_popular, this.data.popularProductsParams, (res) => {
       utils.logger(res, '最受欢迎商品')
-      console.log(res, '最受欢迎商品')
       if (res.success) {
         let arrayData = this.data.popularProducts
         if (this.data.popularProductsParams.page == 1) {
@@ -1958,6 +1957,7 @@ Page({
       case 'lifeStore':
         this.handleSetNavigationTitle('生活馆')
         this.setData({
+          'popularProductsParams.page': 1,
           page: 1
         })
 
@@ -2283,6 +2283,7 @@ Page({
     }
     if (this.data.pageActiveTab == 'lifeStore') {
       this.setData({
+        'popularProductsParams.page': 1,
         page: 1
       })
       this._loadingLifeStorePage()
