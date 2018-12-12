@@ -1989,6 +1989,7 @@ Page({
    * 做动画
    */
   _lifeAnimation() {
+    utils.logger(this.data.animationNum, '开启动画')
     animationInterval = setInterval(() => {
       let arrayData = this.data.latestDistributeProducts
       this.setData({
@@ -2226,6 +2227,10 @@ Page({
       app.globalData.agent.storeOwnerCommendChange = false
     }
 
+    this.setData({
+      animationNum: 0
+    })
+    
     // 获取当前环境
     this.getRunEnv()
   },
@@ -2250,7 +2255,6 @@ Page({
   onHide: function() {
     clearInterval(animationInterval) // 清除动画
     this.setData({
-      latestDistributeProducts: [],
       animationNum: 0
     })
 
@@ -2263,6 +2267,9 @@ Page({
    */
   onUnload: function() {
     clearInterval(animationInterval) // 清除动画
+    this.setData({
+      animationNum: 0
+    })
   },
 
   /**

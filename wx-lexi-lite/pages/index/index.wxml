@@ -85,7 +85,6 @@
                 <view wx:key='{{ index }}' class='photo-round joinNumberlPhoto' wx:for='{{ shopInfo.user_parties }}'>
                   <image src='{{ item.avatar }}-ava' wx:if="{{ item.avatar }}"></image>
                 </view>
-
               </view>
             </view>
           </view>
