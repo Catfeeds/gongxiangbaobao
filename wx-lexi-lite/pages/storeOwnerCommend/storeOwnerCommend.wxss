@@ -4,3 +4,11 @@
 .container {
   background-color: #f7f9fb;
 }
+
+.price-like-box {
+  margin-top: 30rpx;
+}
+
+.shopRecommend text{
+  line-height: 40rpx;
+}

@@ -153,7 +153,7 @@
         </view>
       </view>
       <view class="hui-se__line"></view>
-    </view >
+    </view>
 
     <!-- 馆长推荐 -->
     <view class="commend-product__box" wx:if="{{ isOpenedLifeStore && !isEmpty }}">
@@ -211,6 +211,14 @@
           <fx-product product="{{ item }}" photo="{{ (index+1)%5 == 0 ? '4' : '3'}}" oldPrice="{{true}}" photoSize="{{(index+1)%5==0?'50':'30'}}" like_number="{{ true }}" bind:triggerEvent_product="handleGoProduct"></fx-product>
         </view>
       </view>
+      <block>
+        <!-- 底部加载 -->
+        <view class="load-many__box" wx:if="{{isPopularProductsLoading}}">
+          <image src='../../images/jiazai.gif' class="load-many__photo"></image>
+        </view>
+        <!-- 没有商品加载的底部 -->
+        <view class="c-middle not-have__load--bottom" wx:if="{{!popularProductsNext}}"> END </view>
+      </block>
     </view>
   </view>
 

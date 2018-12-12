@@ -36,7 +36,6 @@
     </view>
     <!-- 没有商品加载的底部 -->
     <view class="c-middle not-have__load--bottom" wx:if="{{!isNext}}"> END </view>
-
   </block>
 </view>
 <fx-loading loading="{{ isLoading }}"></fx-loading>

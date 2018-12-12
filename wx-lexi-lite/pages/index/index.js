@@ -116,24 +116,16 @@ Page({
       image: ''
     },
     handpickNewExpress: [], // 新品速递
-    popularProducts: [ // 本周最受欢迎
-      {
-        cover: '',
-        name: ''
-      },
-      {
-        cover: '',
-        name: ''
-      },
-      {
-        cover: '',
-        name: ''
-      },
-      {
-        cover: '',
-        name: ''
-      },
-    ],
+
+    isPopularProductsLoading: true, // 本周最受欢迎
+    popularProducts: [], // 本周最受欢迎
+    popularProductsNext: true,
+    popularProductsCount: 1,
+    popularProductsParams: {
+      page: 1,
+      per_page: 10
+    },
+
     storeForm: {
       rid: '',
       name: '',
@@ -1489,17 +1481,22 @@ Page({
    * 本周最受欢迎商品
    */
   getWeekPopular() {
-    http.fxGet(api.distribution_week_popular, {
-      page: 1,
-      per_page: 20
-    }, (res) => {
+    http.fxGet(api.distribution_week_popular, this.data.popularProductsParams, (res) => {
       utils.logger(res, '最受欢迎商品')
+      console.log(res, '最受欢迎商品')
       if (res.success) {
+        let arrayData = this.data.popularProducts
+        if (this.data.popularProductsParams.page == 1) {
+          arrayData = res.data.products
+        } else {
+          arrayData = arrayData.concat(res.data.products)
+        }
+
         this.setData({
-          popularProducts: []
-        })
-        this.setData({
-          popularProducts: res.data.products
+          popularProducts: arrayData,
+          popularProductsNext: res.data.next,
+          popularProductsCount: res.data.count,
+          isPopularProductsLoading: false
         })
       } else {
         utils.fxShowToast(res.status.message)
@@ -1650,7 +1647,7 @@ Page({
           animationNum: 0,
           latestDistributeProducts: res.data.products
         })
-        
+
         this._lifeAnimation()
       } else {
         utils.fxShowToast(res.status.message)
@@ -1913,7 +1910,7 @@ Page({
   /**
    * 检测当前店铺与登录用户的权限
    */
-  _checkShowStoreAcl () {
+  _checkShowStoreAcl() {
     // 当前是否有生活馆显示
     if (this.data.isOpenedLifeStore) {
       // 验证生活馆是不是自己的
@@ -2010,7 +2007,7 @@ Page({
     // scene格式：sid + '-' + uid
     let scene = decodeURIComponent(options.scene)
     let sid = ''
-    
+
     // 最近一次访问记录
     let lastStoreRid = wx.getStorageSync('lastVisitLifeStoreRid')
     if (lastStoreRid) {
@@ -2176,7 +2173,7 @@ Page({
       if (showingLifeStoreRid && this.data.sid == showingLifeStoreRid) {
         this.getDistributeNewest()
       }
-      
+
       // 恢复默认值
       if (app.globalData.resetUnOpenedStore) {
         this.setData({
@@ -2190,11 +2187,11 @@ Page({
           scrollTop: 0,
           duration: 0
         })
-        
+
         this._swtichActivePageTab('lifeStore')
       }
-      
-    } else {  // 初次进入时无生活馆，后续申请开通后
+
+    } else { // 初次进入时无生活馆，后续申请开通后
       if (app.globalData.lifeStore.isSmallB) {
         this.setData({
           sid: app.globalData.lifeStore.lifeStoreRid
@@ -2298,7 +2295,17 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (this.data.pageActiveTab == 'lifeStore') {
+      if (!this.data.popularProductsNext) {
+        return
+      }
+      this.setData({
+        isPopularProductsLoading: true,
+        'popularProductsParams.page': this.data.popularProductsParams.page + 1
+      })
 
+      this.getWeekPopular()
+    }
   },
 
   /**
