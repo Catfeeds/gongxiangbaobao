@@ -1502,10 +1502,12 @@ Page({
     // 判断是否是小B，并且在自己的生活馆
     const lifeStore = wx.getStorageSync('lifeStore')
     if (lifeStore.isSmallB) {
+      this.setData({
+        isSmallB: true
+      })
       utils.logger('showingLifeStoreRid: ' + app.globalData.showingLifeStoreRid)
       if (app.globalData.showingLifeStoreRid != '' && app.globalData.showingLifeStoreRid != lifeStore.lifeStoreRid) {
         this.setData({
-          isSmallB: true,
           showBack: true
         })
       }
