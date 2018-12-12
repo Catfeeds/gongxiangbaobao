@@ -1647,9 +1647,10 @@ Page({
       utils.logger(res, '选品中心')
       if (res.success) {
         this.setData({
+          animationNum: 0,
           latestDistributeProducts: res.data.products
         })
-
+        
         this._lifeAnimation()
       } else {
         utils.fxShowToast(res.status.message)
@@ -2230,7 +2231,7 @@ Page({
     this.setData({
       animationNum: 0
     })
-    
+
     // 获取当前环境
     this.getRunEnv()
   },

@@ -109,6 +109,7 @@
   /* padding-left: 30rpx; */
   margin-left: 30rpx;
   white-space: nowrap;
+  margin-top: 30rpx;
 }
 
 .gift-product .product-images .asset {
