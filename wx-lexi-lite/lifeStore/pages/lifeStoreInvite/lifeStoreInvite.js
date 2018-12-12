@@ -52,7 +52,7 @@ Page({
     let scene = this.data.sid
     let params = {
       scene: scene,
-      path: 'pages/index/index',
+      path: 'lifeStore/pages/lifeStoreGuide/lifeStoreGuide',
       auth_app_id: app.globalData.app_id
     }
 
@@ -186,11 +186,11 @@ Page({
     if (e.from == 'menu' || e.target.dataset.card == 1) {
       // scene格式：sid + '-' + uid
       let scene = this.data.sid
-      utils.logger('pages/index/index?scene=' + scene, '分享的参数')
+      utils.logger('lifeStore/pages/lifeStoreGuide/lifeStoreGuide?scene=' + scene, '分享的参数')
 
       return {
         title: app.globalData.userInfo.username + '邀请你一起来来乐喜开个',
-        path: 'pages/index/index?scene=' + scene,
+        path: 'lifeStore/pages/lifeStoreGuide/lifeStoreGuide?scene=' + scene,
         imageUrl: this.data.cardPhoto,
         success: (res) => {
           utils.logger(res, '分享成功!')

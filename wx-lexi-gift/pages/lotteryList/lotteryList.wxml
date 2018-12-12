@@ -22,7 +22,9 @@
         </view>
       </view>
       <view class="gift-item__foot">
-        <button class="fx-btn fx-btn--primary btn-lottery" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoLottery" wx:if="{{ !activity.is_join }}">立即参与</button>
+        <form bindsubmit="handleGoLottery" report-submit="{{ true }}" class="form-getid" wx:if="{{ !activity.is_join }}" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}">
+          <button class="fx-btn fx-btn--primary btn-lottery" formType="submit">立即参与</button>
+        </form>
         <button class="fx-btn fx-btn--primary btn-lottery" data-rid="{{ activity.activity_rid }}" data-kind="{{ activity.user_kind }}" bindtap="handleGoLottery" wx:if="{{ activity.is_join }}">查看</button>
       </view>
     </view>

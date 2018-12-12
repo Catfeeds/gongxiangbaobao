@@ -676,7 +676,7 @@ Page({
     let timer = setInterval(() => {
       that.practiceLeftTimer()
     }, 1000)
-
+    
     this.setData({
       timer: timer
     })

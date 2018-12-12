@@ -127,7 +127,7 @@ App({
    */
   handleGotPhoneNumber(e, cb) {
     http.fxPost(api.wxa_authorize_bind_mobile, {
-      auth_app_id: this.globalData.app_id,
+      auth_app_id: this.globalData.appId,
       encrypted_data: e.detail.encryptedData,
       iv: e.detail.iv,
       openid: this.globalData.jwt.openid

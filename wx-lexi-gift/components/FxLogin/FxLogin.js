@@ -122,6 +122,7 @@ Component({
                 })
                 wx.showTabBar()
               } else {
+                utils.logger('session有效', '检测session')
                 utils.fxShowToast('登录失败，稍后重试！')
                 wx.navigateTo({
                   url: '/pages/index/index',
@@ -138,6 +139,7 @@ Component({
                     visible: false
                   })
                 } else {
+                  utils.logger('session刷新', '检测session')
                   utils.fxShowToast('登录失败，稍后重试！')
                   wx.navigateTo({
                     url: '/pages/index/index',

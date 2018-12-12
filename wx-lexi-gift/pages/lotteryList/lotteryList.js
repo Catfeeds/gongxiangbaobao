@@ -20,11 +20,18 @@ Page({
   },
 
   /**
-   * 去参与抽奖
+   * 获取formid, 去参与抽奖
    */
   handleGoLottery (e) {
+    utils.logger(e.currentTarget, '通知参数')
     let rid = e.currentTarget.dataset.rid
     let kind = e.currentTarget.dataset.kind
+    
+    utils.logger(e.detail.formId, '通知模板')
+    if (e.detail.formId != 'the formId is a mock one') {
+      app.handleSendNews(e.detail.formId, rid)
+    }
+    
     if (kind == 3) {
       wx.navigateTo({
         url: '../myLottery/myLottery?rid=' + rid,
@@ -35,7 +42,7 @@ Page({
       })
     }
   },
-  
+
   /**
    * 获取热门活动列表
    */

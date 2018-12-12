@@ -1,4 +1,5 @@
 const app = getApp()
+
 const http = require('./../../../utils/http.js')
 const api = require('./../../../utils/api.js')
 const utils = require('./../../../utils/util.js')
@@ -11,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sid: '', // 来源生活馆
     animationIndex: 0, // 控制动画index
     is_mobile: false,
     barrageAnimation: [], // 滑动的信息
@@ -138,7 +140,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let sid = ''
+    // scene格式：sid
+    let scene = decodeURIComponent(options.scene)
+    utils.logger(scene, '场景参数')
+    if (scene && scene != 'undefined') {
+      sid = utils.trim(scene)
 
+      if (sid) { // 有生活馆
+        this.setData({
+          sid: sid
+        })
+
+        utils.logger(sid, '场景生活馆')
+
+        // 更新最近访问的生活馆
+        app.updateLifeStoreLastVisit(sid)
+        app.globalData.showingLifeStoreRid = sid
+      }
+    }
   },
 
   /**
