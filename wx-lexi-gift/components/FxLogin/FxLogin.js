@@ -130,7 +130,6 @@ Component({
             })
           },
           fail: (res) => {
- 
             app.refreshUserSessionKey((e) => {
               app.handleGotPhoneNumber(gotParams, (success) => {
                 if (success) {

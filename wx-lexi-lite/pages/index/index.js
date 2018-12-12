@@ -1958,6 +1958,7 @@ Page({
   _swtichActivePageTab(name) {
     switch (name) {
       case 'lifeStore':
+        this.handleSetNavigationTitle('生活馆')
         this.setData({
           page: 1
         })
