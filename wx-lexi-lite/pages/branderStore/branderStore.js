@@ -291,9 +291,6 @@ Page({
       categoryId: e.currentTarget.dataset.id
     })
 
-    if (e.currentTarget.dataset.id == 2) {
-      this.getArticle()
-    }
   },
 
   // 跳转到商品详情---
@@ -581,9 +578,12 @@ Page({
       utils.logger(result, '生活志文章列表')
       if (result.success) {
         let newData = this.data.wonderfulStories
-        result.data.life_records.forEach((v) => {
-          newData.push(v)
-        })
+
+        if (this.data.liveParams.page==1){
+          newData = result.data.life_records
+        }else{
+          newData = newData.concat(result.data.life_records)
+        }
 
         this.setData({
           liveIsNext: result.data.next,
@@ -843,6 +843,7 @@ Page({
     this.getAnnouncement() // 店铺的公告
     this.products() // 获取店铺的商品列表
     this.getIsBackHome() // 是否显示回到首页
+    this.getArticle() // 文章
   },
 
   /**

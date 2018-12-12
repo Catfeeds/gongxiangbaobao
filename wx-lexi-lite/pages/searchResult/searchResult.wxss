@@ -50,6 +50,7 @@
 
 .bg--hui {
   background-color: #949ea6;
+  color: white;
 }
 
 .shopInfo {
