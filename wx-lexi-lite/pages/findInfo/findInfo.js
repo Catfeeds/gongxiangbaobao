@@ -54,18 +54,38 @@ Page({
       return false
     }
 
-    http.fxPost(api.follow_user, {
-      uid: e.currentTarget.dataset.uid
-    }, (result) => {
-      utils.logger(result, "添加关注")
-      if (result.success) {
-        this.setData({
-          ['liveInfo.is_follow']: true
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
+    if (this.data.liveInfo.is_user) {
+      this.setData({
+        ['liveInfo.is_follow']: true
+      })
+      http.fxPost(api.follow_user, {
+        uid: e.currentTarget.dataset.uid
+      }, (result) => {
+        utils.logger(result, "添加关注")
+        if (result.success) {
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      // 关注店铺
+      this.setData({
+        ['liveInfo.is_follow']: true
+      })
+      http.fxPost(api.add_watch, {
+        rid: e.currentTarget.dataset.uid
+      }, (result) => {
+        if (result.success) {
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+
+    }
+
+
   },
 
   //取消关注关注 -- 关注人
@@ -78,18 +98,35 @@ Page({
       return false
     }
 
-    http.fxPost(api.unfollow_user, {
-      uid: e.currentTarget.dataset.uid
-    }, (result) => {
-      utils.logger(result, "取消关注")
-      if (result.success) {
-        this.setData({
-          ['liveInfo.is_follow']: false
-        })
-      } else {
-        utils.fxShowToast(result.status.message)
-      }
-    })
+    if (this.data.liveInfo.is_user) {
+      this.setData({
+        ['liveInfo.is_follow']: false
+      })
+      http.fxPost(api.unfollow_user, {
+        uid: e.currentTarget.dataset.uid
+      }, (result) => {
+        utils.logger(result, "取消关注")
+        if (result.success) {
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    } else {
+      this.setData({
+        ['liveInfo.is_follow']: false
+      })
+      http.fxPost(api.delete_watch, {
+        rid: e.currentTarget.dataset.uid
+      }, (result) => {
+        if (result.success) {
+
+        } else {
+          utils.fxShowToast(result.status.message)
+        }
+      })
+    }
+
   },
 
   // 关闭
